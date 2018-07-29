@@ -13,7 +13,7 @@ Learn more about Gnosis Safe
 * **Announcement of Gnosis Safe Beta: Personal Edition**: https://blog.gnosis.pm/announcing-the-gnosis-safe-beta-personal-edition-19a69a4453e8
 
 .. toctree::
-   :maxdepth: 0
+   :maxdepth: 2
    :caption: Content
    
    Introduction <self>
