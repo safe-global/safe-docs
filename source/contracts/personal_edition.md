@@ -67,10 +67,10 @@ To avoid that this method can be used inside a transaction two security measures
 1. The method can only be called from the safe itself
 1. The response is returned with a revert
 
-The value returned by `requiredTxGas` is encoded in a revert error message (see [solidity docs](http://solidity.readthedocs.io/en/v0.4.24/control-structures.html) at the very buttom). For retrieving the hex encoded uint value the first 68 bytes of the error message need to be removed.
+The value returned by `requiredTxGas` is encoded in a revert error message (see [solidity docs](http://solidity.readthedocs.io/en/v0.4.24/control-structures.html) at the very bottom). For retrieving the hex encoded uint value the first 68 bytes of the error message need to be removed.
 
 ## Safe Transaction Data Gas Estimation
-The `dataGas` parameter can be used to include additional gas costs in the refund. This could inlcude the base transaction fee of 21000 gas for a normal transaction, the gas for the data payload send to the Safe contract and the gas costs for the refund.
+The `dataGas` parameter can be used to include additional gas costs in the refund. This could inlcude the base transaction fee of 21000 gas for a normal transaction, the gas for the data payload send to the Safe contract and the gas costs for the refund itself.
 
 To correctly estimate the gas costs for the data payload without knowing the signatures, it is suggested to generate the transaction data of `execTransactionAndPaySubmitter` with random signatures and `dataGas` set to 0. The costs for this data are 4 gas for each zero-byte and 68 gas for each non-zero-byte.
 
