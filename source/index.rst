@@ -1,3 +1,6 @@
+Gnosis Safe
+-----------
+
 .. image:: ./_static/safe-banner.svg
     :width: 200px
     :align: center
