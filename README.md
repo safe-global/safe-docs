@@ -6,13 +6,12 @@ The Gnosis Safe is a multisignature wallet with support for confirmations using 
 Read the last documentation in:
 * [http://gnosis-safe.readthedocs.io/en/latest/](http://gnosis-safe.readthedocs.io/en/latest/)
 
-It's a work in progress, so comments, suggestions, and colaborations are really 
-welcomed.
+It's a work in progress, so comments, suggestions, and collaborations are appreciated.
 
 ## Collaboration
-The Gnosis Safe is made by and for the comunity, with the goal of having a secure and convinient way to manage ethereum assets.
+The Gnosis Safe is made by and for the community, with the goal of having a secure and convenient way to manage Ethereum assets.
 
-Meet the comunity in the gitter channel!
+Meet the community in the Gitter channel!
 * https://gitter.im/gnosis/Safe
 
 # Generate the doc

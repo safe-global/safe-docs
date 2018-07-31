@@ -22,8 +22,8 @@ from recommonmark.parser import CommonMarkParser
 # -- Project information -----------------------------------------------------
 
 project = 'Gnosis Safe'
-copyright = '2018, Gnosis'
-author = 'Gnosis'
+copyright = '2018, Gnosis Ltd.'
+author = 'Gnosis Ltd.'
 
 # The short X.Y version
 version = ''

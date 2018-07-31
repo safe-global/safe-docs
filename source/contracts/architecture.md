@@ -62,7 +62,7 @@ Before a Safe transaction can be executed, the transaction has to be confirmed b
 There are multiple implementations of the Gnosis Safe contract with different methods to check if a transaction has been confirmed by the required owners.
 
 #### GnosisSafePersonalEdition.sol
-This version is targeted at users that control all keys owning a safe. The transaction hash can be signed with the private keys that manage the safe. 
+This version is targeted at individual users, i.e. only single user would have access to all keys owning a Safe.
 
 Once the required number of confirmations is available `execTransactionAndPaySubmitter` can be called with the sending confirmation signatures. This method will pay the submitter of the transaction for the transaction fees after the Safe transaction has been executed.
 
@@ -80,7 +80,7 @@ Modules allow to execute transactions from the Safe without the requirement of m
 
 Modules are smart contracts which implements a concrete Safe's functionality separating its logic from the Safe's contract. Keep in mind that modules allow the execution of transactions without needing confirmations, while this allows the implementation of many advanced use cases it also introduces additional attack vectors.
 
-Modules can be included in the safe according to owners' necessities, making the process of creating safes more gas efficient (not all safes should include all modules). And also open the door to developers to include its own features without compromising safe's core functionalities, having all benefits of coding isolated smart contract. Modules that are used on a Safe should always be reviewd and audited in a similar manner as the core fuctionality of the Safe, to make sure that no exploits are introduced.
+Modules can be included in the Safe according to owners' necessities, making the process of creating safes more gas efficient (not all safes should include all modules). And also open the door to developers to include its own features without compromising Safe's core functionalities, having all benefits of coding isolated smart contract. Modules that are used on a Safe should always be reviewd and audited in a similar manner as the core fuctionality of the Safe, to make sure that no exploits are introduced.
 
 #### StateChannelModule.sol
 This module is meant to be used with state channels. It is a module similar to the personal edition, but without the payment option (therefore the method is named `execTransaction`). Furthermore this version doesn't store the nonce in the contract but for each transaction a nonce needs to be specified.

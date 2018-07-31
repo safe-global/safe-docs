@@ -1,6 +1,6 @@
 # Safe Personal Edition Smart Contract
 
-This version is targeted at users that control all keys owning a safe. The transaction hash can be signed with the private keys that manage the safe. 
+This version is targeted at individual users, i.e. only single user would have access to all keys owning a Safe.
 
 Once the required number of confirmations is available `execTransactionAndPaySubmitter` can be called with the sending confirmation signatures. This method will pay the submitter of the transaction for the transaction fees after the Safe transaction has been executed.
 
@@ -10,12 +10,12 @@ The Gnosis Safe Personal Edition smart contract was written with the usage of a 
 Using the ProxyFactory or deploying a proxy requires that the user has ether on an externally owned account. To make it possible to pay for the creation with any token or ether the following flow is used.
 
 1. Create deployment transaction. The PayingProxy enables the payment in any ERC20 token. Once the proxy is deployed it will refund a predefined address with the funds present at the address where it was deployed.
-1. To make the deployed address deterministig it is necessary to use a known account and calculate the target address. To make this trustless it is recommended to use a random account that has nonce 0. This can be done by creating a random signature for the deployment transaction. From that transaction it is possible to derive the sender and the target address.
+1. To make the deployed address deterministic it is necessary to use a known account and calculate the target address. To make this trustless it is recommended to use a random account that has nonce 0. This can be done by creating a random signature for the deployment transaction. From that transaction it is possible to derive the sender and the target address.
 1. The user needs to transfer at least the amount required for the payment to the target address.
 1. Once the payment is present at the target address the relay service will fund the sender with ether required for the creation transaction.
-1. As soon as the sender is funded the creation transaction can be submmited.
+1. As soon as the sender is funded the creation transaction can be submitted.
 
-For more details on the safe deployment process please checkout the [DappCon 2018 presentation](https://youtu.be/RGBKAfyvAHk?t=416)
+For more details on the Safe deployment process please checkout the [DappCon 2018 presentation](https://youtu.be/RGBKAfyvAHk?t=416)
 
 ## Safe Transaction Execution
 To execute a transaction with the Gnosis Safe Personal Editon the `execTransactionAndPaySubmitter` methods needs to be called with the following parameters:
@@ -29,13 +29,13 @@ To execute a transaction with the Gnosis Safe Personal Editon the `execTransacti
 
 There need to be enough signatures to reach the threshold configured on Safe setup. To generate a signature a Safe owner signs the keccak hash of the following information:
 `byte(0x19), byte(0), this, to, value, data, operation, safeTxGas, dataGas, gasPrice, gasToken, _nonce`
-where `this` is the Safe address and `_nonce` is the the global `nonce` stored in the safe contract.
+where `this` is the Safe address and `_nonce` is the the global `nonce` stored in the Safe contract.
 
 The `nonce` of the Safe contract is a public variable and increases after each execution of a Safe transaction (every time `execTransactionAndPaySubmitter` is executed).
 
 When a transaction was submitted the contract will store the gas left on method entry. Based on this the contract will calculate the gas used that the user needs to pay.
 
-Before executing the Safe transaction the contract will check the signatures of the safe, to ensure that the transaction was authorized by the Safe owners, and check that enough gas is left to fullfill the gas requested for the Safe transaction (`safeTxGas`). If these checks fail the transaction triggering `execTransactionAndPaySubmitter` will also fail. This means the submitter will not be refunded.
+Before executing the Safe transaction the contract will check the signatures of the Safe, to ensure that the transaction was authorized by the Safe owners, and check that enough gas is left to fullfill the gas requested for the Safe transaction (`safeTxGas`). If these checks fail the transaction triggering `execTransactionAndPaySubmitter` will also fail. This means the submitter will not be refunded.
 
 After the execution of the Safe transaction the contract calculates the gas that has been used based on the start gas. If the `gasPrice` is set to 0 no refund transaction will be triggered.
 
@@ -47,7 +47,7 @@ If the execution of a Safe transaction fails the contract will emit the `Executi
 ## Safe Transaction Gas Limit Estimation
 The user should set an appropriate `safeTxGas` to define the gas required by the Safe transaction, to make sure that enough gas is send by the submitter with the transaction triggering `execTransactionAndPaySubmitter`. For this it is necessary to estimate the gas costs of the Safe transaction. 
 
-To correctly estimate the call to `execTransactionAndPaySubmitter` it is required to generate valid signatures for a successfull execution of this method. This opens up potential exploids since the user might have to sign a very high `safeTxGas` just for estimation, but the signatures used for the estimation could be used to actually execute the transaction.
+To correctly estimate the call to `execTransactionAndPaySubmitter` it is required to generate valid signatures for a successful execution of this method. This opens up potential exploits since the user might have to sign a very high `safeTxGas` just for estimation, but the signatures used for the estimation could be used to actually execute the transaction.
 
 One way to estimate Safe transaction is to use `estimateGas` and with the following parameters:
 ```
@@ -64,7 +64,7 @@ While it is possible to estimate a normal transactions (where `operation` is `CA
 For a more accurate estimate it is recommended to use the `requiredTxGas` method of the Safe contract. The method takes `to`, `value`, `data` and `operation` as parameters to calculate the gas used in the same way as `execTransactionAndPaySubmitter`. Therefore it will not include any refunds.
 
 To avoid that this method can be used inside a transaction two security measures have been put in place:
-1. The method can only be called from the safe itself
+1. The method can only be called from the Safe itself
 1. The response is returned with a revert
 
 The value returned by `requiredTxGas` is encoded in a revert error message (see [solidity docs](http://solidity.readthedocs.io/en/v0.4.24/control-structures.html) at the very bottom). For retrieving the hex encoded uint value the first 68 bytes of the error message need to be removed.
@@ -90,4 +90,4 @@ The signatures bytes used for `execTransactionAndPaySubmitter` have to be build 
 ## Front Running Submitted Transactions
 As all the parameters required for execution are part of the submitted transaction it is possible that miners front-run the original submitter to receive the reward. In the long run that behaviour would be appreciated, since it would allow that anybody submits these transactions with `gasPrice` of the transaction triggering `execTransactionAndPaySubmitter` set to 0. Miners could pick up these transactions and claim the rewards.
 
-As it might be undesirable when there is a specific relayer (submitter) that the owner of the safe wants to interact with it is currently in discussion to allow the specification of the address that should be refunded and fallback to the original behaviour if that address is `0x0` [issue link](https://github.com/gnosis/safe-contracts/issues/38)
+As it might be undesirable when there is a specific relayer (submitter) that the owner of the Safe wants to interact with it is currently in discussion to allow the specification of the address that should be refunded and fallback to the original behaviour if that address is `0x0` [issue link](https://github.com/gnosis/safe-contracts/issues/38)
