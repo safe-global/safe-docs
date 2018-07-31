@@ -48,8 +48,12 @@ The executor implements logic to execute calls, delegatecalls and create operati
 #### ModuleManager.sol
 The module manager is an executor implementation which allows the management (add, remove) of modules. These modules can execute transactions via the module manager.
 
+A linked list is used to store the enabled modules in the smart contract. To modify the list with minimal gas usage it is required to specify the module that should be modified and the module that points to this module. This is important when disabling a module. If multiple transactions disabling modules are submitted at once it is important to note that the module that points to the module that should be disabled might have changed. The linked list requires a sentinel (start and end pointer). This sentinel is the `0x1` address. Therefore this address cannot be used as a module.
+
 #### OwnerManager.sol
 The owner manager allows the management (add, remove, replace) of owners. It also specifies a threshold that can be used for all actions that require the confirmation of a specific amount of owners.
+
+For managing the owners also a linked list (see ModuleManager.sol). Modifiying transactions that require to specify the owner pointing to the owner that should be modified include remove owner and swap owner. Also here the sentinel is the `0x1` and therefore it is not possible that this address becomes an owner.
 
 ### Gnosis Safe
 #### GnosisSafe.sol
