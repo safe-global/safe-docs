@@ -10,7 +10,7 @@ Gnosis Safe
 
 The Gnosis Safe aims to provide all users with a convenient, yet secure way to manage their funds and interact with decentralized applications on Ethereum. It comes in two editions: Personal Edition and Team Edition.
 The Gnosis Safe Personal Edition is targeting individual users using 2 or more factor authentication through native mobile apps for Android and iOS in combination with a browser extension.
-The Gnosis Safe Team Edition is geared towards teams managing shared crypto funds. It is an improvement of the existing [Gnosis MultiSig wallet](https://github.com/gnosis/MultiSigWallet/releases) with redesigned smart contracts, cheaper setup and transaction costs as well as an enhanced user experience.
+The Gnosis Safe Team Edition is geared towards teams managing shared crypto funds. It is an improvement of the existing `Gnosis MultiSig wallet <https://github.com/gnosis/MultiSigWallet/releases>`_ with redesigned smart contracts, cheaper setup and transaction costs as well as an enhanced user experience.
 
 Learn more about Gnosis Safe
 ----------------------------
