@@ -4,7 +4,7 @@ The Gnosis Safe is a multisignature wallet with support for confirmations using 
 
 ## Documentation
 Read the last documentation in:
-* [http://dutchx.readthedocs.io/en/latest/](http://dutchx.readthedocs.io/en/latest/)
+* [http://gnosis-safe.readthedocs.io/en/latest/](http://gnosis-safe.readthedocs.io/en/latest/)
 
 It's a work in progress, so comments, suggestions, and colaborations are really 
 welcomed.
