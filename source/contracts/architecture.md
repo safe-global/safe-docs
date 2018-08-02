@@ -16,13 +16,15 @@ As contract constructors can only be executed once at the time the master copy i
 
 It is **important** to know that it is possible to "hijack" a contract if the proxy creation and setup method are done in separate transactions. To avoid this it is possible to pass the initialisation data to the ProxyFactory or the DelegatingConstructorProxy.
 
+For more information about Proxy contracts read our blog post about [Solidity DelegateProxy Contracts](https://blog.gnosis.pm/solidity-delegateproxy-contracts-e09957d0f201).
+
 ## Contracts
 
 ### Base Contracts
 #### SelfAuthorized.sol
 The self authorized contract implements the `authorized()` so that only the contract itself is authorized to perform actions.
 
-Multiple contracts use the `authorized()` modifier. This modifier should be overwritten by contract to implemented the desired logic to check access to the protected methods.
+Multiple contracts use the `authorized()` modifier. This modifier should be overwritten by a contract to implement the desired logic to check access to the protected methods.
 
 #### Proxy.sol
 The proxy contract implements only two functions: The constructor setting the address of the master copy and the fallback function forwarding all transactions sent to the proxy via a `DELEGATECALL` to the master copy and returning all data returned by the `DELEGATECALL`.
@@ -57,7 +59,7 @@ For managing the owners also a linked list (see ModuleManager.sol). Modifiying t
 
 ### Gnosis Safe
 #### GnosisSafe.sol
-The Gnosis Safe contract implements all basic multisignature functionality. It allows to execute Safe transactions and Safe modules.
+The Gnosis Safe contract implements all basic multisignature functionality. It allows to execute Safe transactions and interact with Safe modules from internal methods. The contract provides no methods to interact with the Safe contract and also has no functionality to check if any interaction watch approved by the required amount of owners. This logic and the methods to interact with the Gnosis Safe need to be implemented by the sub-contracts.
 
 Safe transactions can be used to configure the wallet like managing owners, updating the master copy address or whitelisting of modules. All configuration functions can only be called via transactions sent from the Safe itself. This assures that configuration changes require owner confirmations.
 
@@ -72,12 +74,12 @@ Once the required number of confirmations is available `execTransactionAndPaySub
 
 `execTransactionAndPaySubmitter` expects all confirmations sorted by owner address. This is required to easily validate no confirmation duplicates exist.
 
-For more information the section on the Gnosis Safe Personal Edition.
+For more information the section on the [Gnosis Safe Personal Edition](./personal_edition.html).
 
 #### GnosisSafeTeamEdition.sol
 This version is targeted at teams where each owner is a different user. Each owner has to confirm a transaction by using `approveTransactionWithParameters`. Once the required number of owners has confirmed, the transaction can be executed via `execTransactionIfApproved`. If the sender of `execTransactionIfApproved` is an owner it is not necessary to confirm the transaction before. Furthermore this version doesn't store the nonce in the contract but for each transaction a nonce needs to be specified.
 
-For more information the section on the Gnosis Safe Team Edition.
+For more information the section on the [Gnosis Safe Team Edition](./team_edition.html).
 
 ### Modules
 Modules allow to execute transactions from the Safe without the requirement of multiple signatures. For this Modules that have been added to a Safe can use the `execTransactionFromModule` function. Modules define their own requirements for execution. Modules need to implement their own replay protection.
