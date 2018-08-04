@@ -74,12 +74,12 @@ Once the required number of confirmations is available `execTransactionAndPaySub
 
 `execTransactionAndPaySubmitter` expects all confirmations sorted by owner address. This is required to easily validate no confirmation duplicates exist.
 
-For more information the section on the [Gnosis Safe Personal Edition](./personal_edition.html).
+For more information check out the section about the [Gnosis Safe Personal Edition](./personal_edition.html).
 
 #### GnosisSafeTeamEdition.sol
 This version is targeted at teams where each owner is a different user. Each owner has to confirm a transaction by using `approveTransactionWithParameters`. Once the required number of owners has confirmed, the transaction can be executed via `execTransactionIfApproved`. If the sender of `execTransactionIfApproved` is an owner it is not necessary to confirm the transaction before. Furthermore this version doesn't store the nonce in the contract but for each transaction a nonce needs to be specified.
 
-For more information the section on the [Gnosis Safe Team Edition](./team_edition.html).
+For more information check out the section about the [Gnosis Safe Team Edition](./team_edition.html).
 
 ### Modules
 Modules allow to execute transactions from the Safe without the requirement of multiple signatures. For this Modules that have been added to a Safe can use the `execTransactionFromModule` function. Modules define their own requirements for execution. Modules need to implement their own replay protection.
