@@ -1,0 +1,49 @@
+{% extends "!layout.html" %}
+  {% block footer %} {{ super() }}
+
+  <style>
+    /* Sidebar header (and topbar for mobile) */
+    .wy-side-nav-search, .wy-nav-top {
+      /* background: #549ddc; */
+      background: #28B2FA;
+      padding: .8em .8em 1.2em .8em;
+    }
+    .wy-side-nav-search>a img.logo {
+      max-width: 175px;
+    }
+    .wy-side-nav-search>div.version {
+      text-transform: uppercase;
+      font-size: 0.8em;
+      letter-spacing: 1px;
+    }
+    .wy-side-nav-search input[type=text] {
+      border: 0;
+    }
+    
+    /* Sidebar */
+    .wy-nav-side {
+      background: #f3f3f4;      
+    }
+    .wy-nav-side a {
+      color: #5c666f;
+    }
+    .wy-menu-vertical a:hover {
+      background-color: white;
+    }
+    .wy-menu-vertical li.on a, .wy-menu-vertical li.current>a {
+      background-color: inherit;
+      color: black;
+    }
+    .wy-menu-vertical li.toctree-l1.current>a {
+      /*
+      border-bottom: solid 1px #c9c9c9;
+      border-top: solid 1px #c9c9c9;
+      */
+      border-bottom: none;
+      border-top: none;
+    }
+    .safe-banner {
+      padding: 10px 0 40px 0;
+    }
+  </style>
+{% endblock %}
