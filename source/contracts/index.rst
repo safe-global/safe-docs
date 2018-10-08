@@ -9,5 +9,7 @@ GitHub: https://github.com/gnosis/safe-contracts
    :caption: Content
    
    architecture
-   personal_edition
-   team_edition
+   deployment
+   transactions
+   signatures
+   meta_tx

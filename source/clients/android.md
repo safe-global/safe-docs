@@ -1,3 +1,3 @@
-# Android Client for the Safe Personal Edition
+# Android Client (Safe Personal Edition)
 
 [Show on GitHub](https://github.com/gnosis/safe-android)

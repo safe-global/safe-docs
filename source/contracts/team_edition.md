@@ -1,6 +1,0 @@
-# Safe Team Edition Smart Contract
-
-This version is targeted at teams where each owner is a different user. Each owner has to confirm a transaction by using `approveTransactionWithParameters`. Once the required number of owners has confirmed, the transaction can be executed via `execTransactionIfApproved`. If the sender of `execTransactionIfApproved` is an owner it is not necessary to confirm the transaction before. Furthermore this version doesn't store the nonce in the contract but for each transaction a nonce needs to be specified.
-
-## Failing Safe Transactions
-If the execution of a Safe transaction fails then the transaction triggering `execTransactionIfApproved` will also fail. The existing approvals will not be reset. Therefore it is possible that the transaction at a later point can be retried without the requirement that everybody approves the transaction again. This is important to consider when owners of a Safe change, since it might be possible that at a later point in time the Safe transaction doesn't fail anymore, thus allowing execution.
