@@ -1,5 +1,5 @@
 # Transaction Execution
-To execute a transaction with the Gnosis Safe Personal Editon the `execTransaction` methods needs to be called with the following parameters:
+To execute a transaction with the Gnosis Safe the `execTransaction` methods needs to be called with the following parameters:
 - to, value, data - Safe transaction information
 - operation - Operation that should be used for the Safe Transaction. Can be `CALL` (uint8 - `0`), `DELEGATECALL` (uint8 - `1`) or `CREATE` (uint8 - `2`)
 - safeTxGas - minimum gas provided for the Safe transaction. In case of `CALL` and `DELEGATECALL` this is also the maximum available gas (gas limit).
