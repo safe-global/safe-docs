@@ -1,15 +1,15 @@
 # Transaction Relay Service
-This service allows us to have owners of the safe contract that don’t need to hold any ETH on those owner addresses, why? Because the transaction relay service acts as a proxy, paying for the transaction fees and getting it back due to the transaction architecture we use.
+This service allows us to have owners of the Safe contract that don’t need to hold any ETH on those owner addresses, why? Because the transaction relay service acts as a proxy, paying for the transaction fees and getting it back due to the transaction architecture we use.
 
 Our target user has previous crypto in one centralized exchange (or in other Ethereum address) and want to move it to a secure account. We don’t want the user to trust us (us moving the funds, creating the funds for him) and we want to avoid users by spamming our services, don’t need to trust the user.
 
-That’s why we came up with this solution, the user (phone app) and us (service) both generates a random signature for a valid transaction and with this valid signed transaction, anyone can submit this to the blockchain and a safe would be created with:
+That’s why we came up with this solution, the user (phone app) and us (service) both generates a random signature for a valid transaction and with this valid signed transaction, anyone can submit this to the blockchain and a Safe would be created with:
 
 No one knows the private key, so no previous transaction can be sent before this tx (making it invalid).
 Safe address can be derived, because it’s derived from the address of the sender (the address can be derived from the signed tx) https://Ethereum.stackexchange.com/questions/760/how-is-the-address-of-an-Ethereum-contract-computed
-This transaction will create the safe contract and refund the service with the money from the safe contract, so the service has guaranteed that if executes the tx will have to pay tx fees but will get it back from the tx execution.
+This transaction will create the Safe contract and refund the service with the money from the Safe contract, so the service has guaranteed that if executes the tx will have to pay tx fees but will get it back from the tx execution.
 
-Proxy used: [PayingProxy](https://github.com/gnosis/safe-contracts/blob/v0.0.2/contracts/proxies/PayingProxy.sol)
+Proxy used: [PayingProxy](https://github.com/gnosis/Safe-contracts/blob/v0.0.2/contracts/proxies/PayingProxy.sol)
 
 ## Flows
 
@@ -60,7 +60,7 @@ More info about the signature values in appendix F of Ethereum Yellow Paper
         "gasPrice": "<string>", // stringified int, base 10 (wei)
         "nonce": 0
     },
-    "safe": "<string>" // hex string with checksum
+    "Safe": "<string>" // hex string with checksum
     "payment": "<string>", // stringified int, base 10, it’s what the service gets as refund
 }
 ```
@@ -71,16 +71,16 @@ More info about the signature values in appendix F of Ethereum Yellow Paper
 
 Clients should verify the server’s response by the following process:
 Reconstruct sender address from "signature"
-Reconstruct safe address from sender address and nonce = 0
-Verify that "safe" checksum and reconstructed safe addresses checksum are the same 
+Reconstruct Safe address from sender address and nonce = 0
+Verify that "Safe" checksum and reconstructed Safe addresses checksum are the same 
 Verify that "signature" is correct for hash of "tx"
 Verify that "tx" has valid bytecode [postponed until mainnet release]
-If all checks pass, then transaction and safe address are valid and user can transfer at least "payment" amount of ETH to the safe address.
+If all checks pass, then transaction and Safe address are valid and user can transfer at least "payment" amount of ETH to the Safe address.
 Otherwise, the response has error or it is compromised, and it should not be used any further.
 
 ---
 ### /safes/\<address\>/funded PUT
-Signal funds were transferred, start safe creation
+Signal funds were transferred, start Safe creation
 
 #### Returns:
 > HTTP 202
@@ -89,7 +89,7 @@ Signal funds were transferred, start safe creation
 
 ---
 ### /safes/\<address\>/funded GET
-Get info about safe funded status
+Get info about Safe funded status
 
 #### Returns:
 > HTTP 200
@@ -125,7 +125,7 @@ Estimates the gas and gasPrice for the requested multisig transaction. Safe cont
 #### Request:
 ```js
 {
-	"safe": "<address>",
+	"Safe": "<address>",
 	"to": "<address>",
 	"value": "<string>", // stringified int, in wei
 	"data": "<string>", // prefixed or unprefixed hex string
@@ -146,7 +146,7 @@ Estimates the gas and gasPrice for the requested multisig transaction. Safe cont
 
 ---
 ### /safes/\<address>\/transactions/ POST
-Allows to send and pay transactions via the Transaction Relay Service. The safe contract the tx is directed to must have enough ETH to pay tx fees and be created through the tx relay service. Safe contract needs to exist previously.
+Allows to send and pay transactions via the Transaction Relay Service. The Safe contract the tx is directed to must have enough ETH to pay tx fees and be created through the tx relay service. Safe contract needs to exist previously.
 
 #### Request:
 ```js
