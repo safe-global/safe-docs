@@ -23,7 +23,7 @@ For more information about Proxy contracts read our blog post about [Solidity De
 ---
 ### Base Contracts
 #### SelfAuthorized.sol
-The self authorized contract implements the `authorized()` so that only the contract itself is authorized to perform actions.
+The self authorized contract implements the `authorized()` modifier so that only the contract itself is authorized to perform actions.
 
 Multiple contracts use the `authorized()` modifier. This modifier should be overwritten by a contract to implement the desired logic to check access to the protected methods.
 

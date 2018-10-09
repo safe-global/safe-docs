@@ -21,12 +21,12 @@ The module assumes that Proxies are used for all modules. The library will use a
 For a complete example see the [CreateAndAddModules test](https://github.com/gnosis/safe-contracts/blob/v0.0.2-alpha/test/createAndAddModules.js)
 
 ## Trustless deployment with ERC20 Tokens
-Using the ProxyFactory or deploying a proxy requires that the user has ether on an externally owned account. To make it possible to pay for the creation with any token or ether the following flow is used.
+Using the ProxyFactory or deploying a proxy requires that the user has Ether on an externally owned account. To make it possible to pay for the creation with any token or Ether the following flow is used.
 
 1. Create deployment transaction. The PayingProxy enables the payment in any ERC20 token. Once the proxy is deployed it will refund a predefined address with the funds present at the address where it was deployed.
 1. To make the deployed address deterministic it is necessary to use a known account and calculate the target address. To make this trustless it is recommended to use a random account that has nonce 0. This can be done by creating a random signature for the deployment transaction. From that transaction it is possible to derive the sender and the target address.
 1. The user needs to transfer at least the amount required for the payment to the target address.
-1. Once the payment is present at the target address the relay service will fund the sender with ether required for the creation transaction.
+1. Once the payment is present at the target address the relay service will fund the sender with Ether required for the creation transaction.
 1. As soon as the sender is funded the creation transaction can be submitted.
 
 For more details on the Safe deployment process please checkout the [DappCon 2018 presentation](https://youtu.be/RGBKAfyvAHk?t=416)
@@ -34,13 +34,13 @@ For more details on the Safe deployment process please checkout the [DappCon 201
 ## Planned usage of Create2
 The described approach for trustless deployment requires 3 transactions:
 
-1. Fund predicted Safe address
+1. Fund calculated Safe address
 1. Fund address that will deploy the Proxy contract
 1. Deploy the Proxy contract
 
 Using the new `create2` opcode makes it possible to use a factory without having to worry about the nonce of the factory. By using a factory it is possible to eliminate one of the transactions required by described flow. The adjusted flow would be the following:
 
-1. Fund predicted Safe address (address is based on **factory address**, the **init code** of the contract that is deployed and a **salt**)
+1. Fund calculated Safe address (address is based on **factory address**, the **init code** of the contract that is deployed and a **salt**)
 1. Trigger the Proxy factory
 
 To make sure that the correct contract will be deployed the Safe configuration should be part of the **init code** and the **salt** should be generated in a way that all parties involved can verify that it was not manipulated.

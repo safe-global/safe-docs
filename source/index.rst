@@ -16,7 +16,7 @@ Learn more about Gnosis Safe
 ----------------------------
 * **Gnosis Safe Website**: https://safe.gnosis.io
 * **Gnosis Safe Gitter**: https://gitter.im/gnosis/Safe
-* **The State of Storing Funds on Ethereum: Why we need the Gnosis Safe**: https://blog.gnosis.pm/the-state-of-storing-funds-on-ethereum-fdb4c9a09388
+* **The State of Storing Funds on Ethereum: Why we need the Gnosis Safe**: https://blog.gnosis.pm/the-state-of-storing-funds-on-Ethereum-fdb4c9a09388
 * **Announcement of Gnosis Safe Beta: Personal Edition**: https://blog.gnosis.pm/announcing-the-gnosis-safe-beta-personal-edition-19a69a4453e8
 
 .. toctree::

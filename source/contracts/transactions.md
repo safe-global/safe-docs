@@ -23,7 +23,7 @@ Refunds are not included in the calculated gas costs, since the contract uses `g
 
 ## Transaction Hash
 
-The transaction hash is generated based on [EIP-712](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md) and the following EIP712 domain object is used:
+The transaction hash is generated based on [EIP-712](https://github.com/Ethereum/EIPs/blob/master/EIPS/eip-712.md) and the following EIP712 domain object is used:
 ```java
 {
     EIP712Domain: [
