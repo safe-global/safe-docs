@@ -54,12 +54,12 @@ The module manager is an executor implementation which allows the management (ad
 A linked list is used to store the enabled modules in the smart contract. To modify the list with minimal gas usage it is required to specify the module that should be modified and the module that points to this module. This is important when disabling a module. If multiple transactions disabling modules are submitted at once it is important to note that the module that points to the module that should be disabled might have changed. The linked list requires a sentinel (start and end pointer). This sentinel is the `0x1` address. Therefore this address cannot be used as a module.
 
 #### OwnerManager.sol
-The owner manager allows the management (add, remove, replace) of owners. It also specifies a threshold that can be used for all actions that require the confirmation of a specific amount of owners.
+The owner manager allows the management (addition, removal, replacement) of owners. It also specifies a threshold that can be used for all actions that require the confirmation of a specific amount of owners.
 
-For managing the owners also a linked list (see ModuleManager.sol). Modifying transactions that require to specify the owner pointing to the owner that should be modified include remove owner and swap owner. Also here the sentinel is the `0x1` and therefore it is not possible that this address becomes an owner.
+For managing the owners a linked list is used as well (see ModuleManager.sol). Modifying transactions that require to specify the owner pointing to the owner that should be modified include `removeOwner` and `swapOwner`. Also here the sentinel is the `0x1` and therefore it is not possible that this address becomes an owner.
 
 #### BaseSafe.sol
-The Gnosis Safe contract implements all basic multisignature functionality. It allows to execute Safe transactions and interact with Safe modules from internal methods. The contract provides no methods to interact with the Safe contract and also has no functionality to check if any interaction watch approved by the required amount of owners. This logic and the methods to interact with the Gnosis Safe need to be implemented by the sub-contracts.
+The Gnosis Safe contract implements all basic multisignature functionality. It allows to execute Safe transactions and interact with Safe modules from internal methods. The contract provides no methods to interact with the Safe contract and also has no functionality to check if any interaction was approved by the required amount of owners. This logic and the methods to interact with the Gnosis Safe need to be implemented by the sub-contracts.
 
 Safe transactions can be used to configure the wallet like managing owners, updating the master copy address or whitelisting of modules. All configuration functions can only be called via transactions sent from the Safe itself. This assures that configuration changes require owner confirmations.
 
@@ -86,9 +86,9 @@ For more information on signature types including how to generate and encode the
 ### Modules
 Modules allow to execute transactions from the Safe without the requirement of multiple signatures. For this Modules that have been added to a Safe can use the `execTransactionFromModule` function. Modules define their own requirements for execution. Modules need to implement their own replay protection.
 
-Modules are smart contracts which implements a concrete Safe's functionality separating its logic from the Safe's contract. Keep in mind that modules allow the execution of transactions without needing confirmations, while this allows the implementation of many advanced use cases it also introduces additional attack vectors.
+Modules are smart contracts which implement a concrete Safe's functionality separating its logic from the Safe's contract. Keep in mind that modules allow the execution of transactions without needing confirmations, while this allows the implementation of many advanced use cases it also introduces additional attack vectors.
 
-Modules can be included in the Safe according to owners' necessities, making the process of creating safes more gas efficient (not all safes should include all modules). And also open the door to developers to include its own features without compromising Safe's core functionalities, having all benefits of coding isolated smart contract. Modules that are used on a Safe should always be reviewd and audited in a similar manner as the core fuctionality of the Safe, to make sure that no exploits are introduced.
+Modules can be included in the Safe according to owners' requirements, making the process of creating Safes more gas efficient (not all Safes should include all modules). They also enable developers to include their own features without compromising a Safe's core functionality, having all benefits of developing an isolated smart contract. Modules that are used on a Safe should always be reviewd and audited in a similar manner as the core fuctionality of the Safe, to make sure that no exploits are introduced.
 
 #### StateChannelModule.sol
 This module is meant to be used with state channels. It is a module similar to the base contract, but without the payment option (it has the same method for execution named `execTransaction`, but with different parameters). Furthermore this version doesn't store the nonce in the contract but for each transaction a nonce needs to be specified.
