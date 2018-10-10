@@ -56,7 +56,7 @@ A linked list is used to store the enabled modules in the smart contract. To mod
 #### OwnerManager.sol
 The owner manager allows the management (add, remove, replace) of owners. It also specifies a threshold that can be used for all actions that require the confirmation of a specific amount of owners.
 
-For managing the owners also a linked list (see ModuleManager.sol). Modifiying transactions that require to specify the owner pointing to the owner that should be modified include remove owner and swap owner. Also here the sentinel is the `0x1` and therefore it is not possible that this address becomes an owner.
+For managing the owners also a linked list (see ModuleManager.sol). Modifying transactions that require to specify the owner pointing to the owner that should be modified include remove owner and swap owner. Also here the sentinel is the `0x1` and therefore it is not possible that this address becomes an owner.
 
 #### BaseSafe.sol
 The Gnosis Safe contract implements all basic multisignature functionality. It allows to execute Safe transactions and interact with Safe modules from internal methods. The contract provides no methods to interact with the Safe contract and also has no functionality to check if any interaction watch approved by the required amount of owners. This logic and the methods to interact with the Gnosis Safe need to be implemented by the sub-contracts.
