@@ -79,7 +79,7 @@ If all checks pass, then transaction and Safe address are valid and user can tra
 Otherwise, the response has error or it is compromised, and it should not be used any further.
 
 ---
-### /safes/\<address\>/funded PUT
+### /safes/\<address\>/funded/ PUT
 Signal funds were transferred, start Safe creation
 
 #### Returns:
@@ -88,7 +88,7 @@ Signal funds were transferred, start Safe creation
 **Note:** creation has 2 tx’s and a check, this is done asynchronously through a queue
 
 ---
-### /safes/\<address\>/funded GET
+### /safes/\<address\>/funded/ GET
 Get info about Safe funded status
 
 #### Returns:
@@ -125,7 +125,6 @@ Estimates the gas and gasPrice for the requested multisig transaction. Safe cont
 #### Request:
 ```js
 {
-	"Safe": "<address>",
 	"to": "<address>",
 	"value": "<string>", // stringified int, in wei
 	"data": "<string>", // prefixed or unprefixed hex string
