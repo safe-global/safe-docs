@@ -1,7 +1,7 @@
-# Smart Contract Architecture
+# Architecture
 
 ## Gnosis Safe Transactions
-A Safe transaction has the same following parameters: A destination address, an Ether value, a data payload as a bytes array, `operation` and `nonce`.
+A Safe transaction has the following parameters: A destination address, an Ether value, a data payload as a bytes array, `operation` and `nonce`.
 
 The operation type specifies if the transaction is executed as a `CALL`, `DELEGATECALL` or `CREATE` operation. While most wallet contracts only support `CALL` operations, adding `DELEGATECALL` operations allows to enhance the functionality of the wallet without updating the wallet code. As a `DELEGATECALL` is executed in the context of the wallet contract, it can potentially mutate the state of the wallet (like changing owners) and therefore should only be used with known, trusted contracts. The `CREATE` operation allows to create new contracts with bytecode sent from the wallet itself.
 
@@ -14,15 +14,16 @@ As the creation of new contracts is a very gas consuming operation, Safe contrac
 
 As contract constructors can only be executed once at the time the master copy is deployed, constructor logic has to be moved into an additional persistent setup function, which can be called to setup all copies of the master copy. This setup function has to be implemented in a way it can only be executed once. It is important to note that the master copy contract has to be persistent and there should be no possibility to execute a `selfdestruct` call on the master copy contract.
 
-It is **important** to know that it is possible to "hijack" a contract if the proxy creation and setup method are done in separate transactions. To avoid this it is possible to pass the initialisation data to the ProxyFactory or the DelegatingConstructorProxy.
+It is **important** to know that it is possible to "hijack" a contract if the proxy creation and setup method are done in separate transactions. To avoid this it is possible to pass the initialisation data to the [ProxyFactory](https://github.com/gnosis/safe-contracts/blob/v0.0.2-alpha/contracts/proxies/ProxyFactory.sol) or the [DelegatingConstructorProxy](https://github.com/gnosis/safe-contracts/blob/v0.0.2-alpha/contracts/proxies/DelegateConstructorProxy.sol).
 
 For more information about Proxy contracts read our blog post about [Solidity DelegateProxy Contracts](https://blog.gnosis.pm/solidity-delegateproxy-contracts-e09957d0f201).
 
 ## Contracts
 
+---
 ### Base Contracts
 #### SelfAuthorized.sol
-The self authorized contract implements the `authorized()` so that only the contract itself is authorized to perform actions.
+The self authorized contract implements the `authorized()` modifier so that only the contract itself is authorized to perform actions.
 
 Multiple contracts use the `authorized()` modifier. This modifier should be overwritten by a contract to implement the desired logic to check access to the protected methods.
 
@@ -42,7 +43,7 @@ The proxy factory allows to create new proxy contracts pointing to a master copy
 The master copy contract defines the master copy field and has simple logic to change it. The master copy class should always be defined first if inherited.
 
 #### EtherPaymentFallback.sol
-Base contract with a fallback function to receive ether payments.
+Base contract with a fallback function to receive Ether payments.
 
 #### Executor.sol
 The executor implements logic to execute calls, delegatecalls and create operations.
@@ -53,13 +54,12 @@ The module manager is an executor implementation which allows the management (ad
 A linked list is used to store the enabled modules in the smart contract. To modify the list with minimal gas usage it is required to specify the module that should be modified and the module that points to this module. This is important when disabling a module. If multiple transactions disabling modules are submitted at once it is important to note that the module that points to the module that should be disabled might have changed. The linked list requires a sentinel (start and end pointer). This sentinel is the `0x1` address. Therefore this address cannot be used as a module.
 
 #### OwnerManager.sol
-The owner manager allows the management (add, remove, replace) of owners. It also specifies a threshold that can be used for all actions that require the confirmation of a specific amount of owners.
+The owner manager allows the management (addition, removal, replacement) of owners. It also specifies a threshold that can be used for all actions that require the confirmation of a specific amount of owners.
 
-For managing the owners also a linked list (see ModuleManager.sol). Modifiying transactions that require to specify the owner pointing to the owner that should be modified include remove owner and swap owner. Also here the sentinel is the `0x1` and therefore it is not possible that this address becomes an owner.
+For managing the owners a linked list is used as well (see ModuleManager.sol). Modifying transactions that require to specify the owner pointing to the owner that should be modified include `removeOwner` and `swapOwner`. Also here the sentinel is the `0x1` and therefore it is not possible that this address becomes an owner.
 
-### Gnosis Safe
-#### GnosisSafe.sol
-The Gnosis Safe contract implements all basic multisignature functionality. It allows to execute Safe transactions and interact with Safe modules from internal methods. The contract provides no methods to interact with the Safe contract and also has no functionality to check if any interaction watch approved by the required amount of owners. This logic and the methods to interact with the Gnosis Safe need to be implemented by the sub-contracts.
+#### BaseSafe.sol
+The Gnosis Safe contract implements all basic multisignature functionality. It allows to execute Safe transactions and interact with Safe modules from internal methods. The contract provides no methods to interact with the Safe contract and also has no functionality to check if any interaction was approved by the required amount of owners. This logic and the methods to interact with the Gnosis Safe need to be implemented by the sub-contracts.
 
 Safe transactions can be used to configure the wallet like managing owners, updating the master copy address or whitelisting of modules. All configuration functions can only be called via transactions sent from the Safe itself. This assures that configuration changes require owner confirmations.
 
@@ -67,29 +67,31 @@ Before a Safe transaction can be executed, the transaction has to be confirmed b
 
 There are multiple implementations of the Gnosis Safe contract with different methods to check if a transaction has been confirmed by the required owners.
 
-#### GnosisSafePersonalEdition.sol
-This version is targeted at individual users, i.e. only single user would have access to all keys owning a Safe.
+---
+### Gnosis Safe
+#### GnosisSafe.sol
+This contract implements verification of approvals when execution transactions via the contract. 
 
-Once the required number of confirmations is available `execTransactionAndPaySubmitter` can be called with the sending confirmation signatures. This method will pay the submitter of the transaction for the transaction fees after the Safe transaction has been executed.
+To execute a transaction the method `execTransaction` can be used. To approve a transaction it is necessary to generate and encode the required signatures. 
 
-`execTransactionAndPaySubmitter` expects all confirmations sorted by owner address. This is required to easily validate no confirmation duplicates exist.
+There are different types of signatures:
 
-For more information check out the section about the [Gnosis Safe Personal Edition](./personal_edition.html).
+1. ECDSA signatures generated by Externally Owned Accounts
+1. EIP-1271 based contract signatures
+1. Pre-validated transaction hash signatures
 
-#### GnosisSafeTeamEdition.sol
-This version is targeted at teams where each owner is a different user. Each owner has to confirm a transaction by using `approveTransactionWithParameters`. Once the required number of owners has confirmed, the transaction can be executed via `execTransactionIfApproved`. If the sender of `execTransactionIfApproved` is an owner it is not necessary to confirm the transaction before. Furthermore this version doesn't store the nonce in the contract but for each transaction a nonce needs to be specified.
+For more information on signature types including how to generate and encode them, see [Signatures](./signatures.html).
 
-For more information check out the section about the [Gnosis Safe Team Edition](./team_edition.html).
-
+---
 ### Modules
 Modules allow to execute transactions from the Safe without the requirement of multiple signatures. For this Modules that have been added to a Safe can use the `execTransactionFromModule` function. Modules define their own requirements for execution. Modules need to implement their own replay protection.
 
-Modules are smart contracts which implements a concrete Safe's functionality separating its logic from the Safe's contract. Keep in mind that modules allow the execution of transactions without needing confirmations, while this allows the implementation of many advanced use cases it also introduces additional attack vectors.
+Modules are smart contracts which implement a concrete Safe's functionality separating its logic from the Safe's contract. Keep in mind that modules allow the execution of transactions without needing confirmations, while this allows the implementation of many advanced use cases it also introduces additional attack vectors.
 
-Modules can be included in the Safe according to owners' necessities, making the process of creating safes more gas efficient (not all safes should include all modules). And also open the door to developers to include its own features without compromising Safe's core functionalities, having all benefits of coding isolated smart contract. Modules that are used on a Safe should always be reviewd and audited in a similar manner as the core fuctionality of the Safe, to make sure that no exploits are introduced.
+Modules can be included in the Safe according to owners' requirements, making the process of creating Safes more gas efficient (not all Safes should include all modules). They also enable developers to include their own features without compromising a Safe's core functionality, having all benefits of developing an isolated smart contract. Modules that are used on a Safe should always be reviewd and audited in a similar manner as the core fuctionality of the Safe, to make sure that no exploits are introduced.
 
 #### StateChannelModule.sol
-This module is meant to be used with state channels. It is a module similar to the personal edition, but without the payment option (therefore the method is named `execTransaction`). Furthermore this version doesn't store the nonce in the contract but for each transaction a nonce needs to be specified.
+This module is meant to be used with state channels. It is a module similar to the base contract, but without the payment option (it has the same method for execution named `execTransaction`, but with different parameters). Furthermore this version doesn't store the nonce in the contract but for each transaction a nonce needs to be specified.
 
 #### DailyLimitModule.sol
 The Daily Limit Modules allows an owner to withdraw specified amounts of specified ERC20 tokens on a daily basis without confirmation by other owners. The daily limit is reset at midnight UTC. Ether is represented with the token address 0. Daily limits can be set via Safe transactions.
@@ -100,6 +102,7 @@ The Social Recovery Modules allows to recover a Safe in case access to owner acc
 #### WhitelistModule.sol
 The Whitelist Modules allows an owner to execute arbitrary transactions to specific addresses without confirmation by other owners. The whitelist can be maintained via Safe transactions.
 
+---
 ### Libraries
 Libraries can be called from the Safe via a `DELEGATECALL`. They should not implement their own storage as this storage won’t be accessible via a `DELEGATECALL`.
 
