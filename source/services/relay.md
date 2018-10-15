@@ -125,6 +125,7 @@ Estimates the gas and gasPrice for the requested Safe transaction. Safe contract
 	"value": "<string>", // stringified int, in wei
 	"data": "<string>", // prefixed or unprefixed hex string
 	"operation": "<integer>", // enumerated from here (0 - call, 1 - delegateCall, 2 - create)
+    "nonce": "<integer>" // nonce of the last tx sent for execution
 }
 ```
 
