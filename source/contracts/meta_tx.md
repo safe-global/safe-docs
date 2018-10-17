@@ -36,5 +36,5 @@ It is possible to specify the receiver of the refund to avoid that submitted tra
 ```bash
 mkdir safe-demo
 cd safe-demo
-truffle unbox rmeissner/safe-demo
+truffle unbox gnosis/safe-demo
 ```
