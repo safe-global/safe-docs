@@ -39,9 +39,10 @@ More info about the signature values in appendix F of the [Ethereum Yellow Paper
 #### Request:
 ```js
 {
-	"owners": ["<address>"],
-	"threshold": "int", // min 1
-	"s": "stringified-int", // (0 "< s "< secp256k1n / 2 + 1)
+    "owners": ["<address>"],
+    "threshold": "int", // min 1
+    "s": "stringified-int", // (0 "< s "< secp256k1n / 2 + 1)
+    "gasToken": "<address>", // optional, address of ERC20 token that should be used for gas payment
 }
 ```
 
