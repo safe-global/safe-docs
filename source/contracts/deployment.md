@@ -1,5 +1,5 @@
 # Deployment
-The Gnosis Safe smart contract was written with the usage of a proxy contract in mind. Because of that there is no constructor and it is required to call an initilize function on the contract before it can be used. For this it is recommended to use the ProxyFactory or the DelegatingConstructorProxy.
+The Gnosis Safe smart contract was written with the usage of a proxy contract in mind. Because of that there is no constructor and it is required to call an initialize function on the contract before it can be used. For this it is recommended to use the ProxyFactory or the DelegatingConstructorProxy.
 
 ## Initialization
 After the Safe proxy is deployed it needs to be initialized. As the general proxy has no constructor it is necessary to initialize the contract using a function call.
