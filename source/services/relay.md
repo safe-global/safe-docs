@@ -65,6 +65,7 @@ More info about the signature values in appendix F of the [Ethereum Yellow Paper
     },
     "safe": "<address>",
     "payment": "<stringified-int>", // it’s what the service gets as refund
+    "paymentToken": "<address>", // if no gasToken was specified in the request this will be address(0) for ETH
 }
 ```
 
