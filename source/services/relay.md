@@ -56,7 +56,8 @@ More info about the signature values in appendix F of the [Ethereum Yellow Paper
         "gasPrice": "<string>", // stringified int, base 10 (wei)
         "nonce": 0
     },
-    "Safe": "<string>" // hex string with checksum
+    "safe": "<string>", // hex string with checksum
+    "funder": "<string>", // hex string with checksum
     "payment": "<string>", // stringified int, base 10, it’s what the service gets as refund
 }
 ```
@@ -160,7 +161,7 @@ Allows to send and pay transactions via the Transaction Relay Service. The Safe 
     "dataGas": "<string>" // stringified int, base 10
     "gasPrice": "<string>" // stringified int, base 10
     "nonce": "<string>" // stringified int, base 10
-    "gasToken": "<string>" // address
+    "gasToken": "<string>" // hexadecimal address, checksummed, address(0) for now
 }
 ```
 
