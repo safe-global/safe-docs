@@ -156,7 +156,7 @@ Allows to send and pay transactions via the Transaction Relay Service. The Safe 
         "v": "<integer>",
         "r": "<string>",
         "s": "<string>"
-    }, ...], // Sorted lexicographically by owner address
+    }, ...], // Sorted lexicographically by owner address in lowercase
     "safeTxGas": "<string>" // stringified int, base 10
     "dataGas": "<string>" // stringified int, base 10
     "gasPrice": "<string>" // stringified int, base 10
