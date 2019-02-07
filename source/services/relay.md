@@ -57,6 +57,7 @@ More info about the signature values in appendix F of the [Ethereum Yellow Paper
         "nonce": 0
     },
     "safe": "<string>", // hex string with checksum
+    "deployer": "<string>", // hex string with checksum,
     "funder": "<string>", // hex string with checksum
     "payment": "<string>", // stringified int, base 10, it’s what the service gets as refund
     "paymentToken": "<string>", // hex string with checksum
@@ -70,10 +71,10 @@ More info about the signature values in appendix F of the [Ethereum Yellow Paper
 Clients should verify the server’s response with the following process:
 1. Verify that the `s` that you provided in the request matches the `s` returned in the response.
 1. Verify that `tx.data` matches the bytecode of the Gnosis Safe Proxy contract with the correct owners and threshold. The `value` and `nonce` of the transaction should be zero.
-1. Hash the transaction object (`tx`) and recover the account with the provided `signature`. The resulting address should match the `funder`.
-1. Compute the safe address with the `funder` address and `nonce=0`. The resulting address should match the provided `safe` address 
+1. Hash the transaction object (`tx`) and recover the account with the provided `signature`. The resulting address should match the `deployer`.
+1. Compute the Safe address with the `deployer` address and `nonce=0`. The resulting address should match the provided `safe` address.
 
-If all checks pass, then the transaction and Safe address are valid and the user can transfer at least the `payment` amount of ETH (if `paymentToken` is address `0x0`) or the corresponding amount of `paymentToken` tokens (if the `paymentToken` is a valid token address) to the Safe address.
+If all checks pass, then the transaction and Safe address are valid and the user can transfer at least the `payment` amount of ETH (if `paymentToken` is address `0x0`) or the corresponding amount of `paymentToken` tokens (if the `paymentToken` is a valid token address) to the Safe address. Please take a look at the [/tokens/](relay.html#tokens-get) endpoint to see which tokens are accepted for payment by our service.
 
 Otherwise, the response has error or it is compromised, and it should not be used any further.
 
