@@ -107,7 +107,7 @@ We create two entries for DevicePair, in both directions.
 ## /pairing/ DELETE
 Allows to delete an authorization for a device for sending push notifications.
 
-### Request
+### Request
 ```js
 {
     "device": "<address>",
