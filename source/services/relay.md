@@ -78,6 +78,25 @@ If all checks pass, then the transaction and Safe address are valid and the user
 
 Otherwise, the response has error or it is compromised, and it should not be used any further.
 
+----------
+
+For **Step 2**, in order to check if the `tx.data` is valid (ie.: proxy creation data with the correct parameters):
+
+1. Check that the initial portion of `tx.data` corresponds to the `PayingProxy` contract data ([smart contract source code](https://github.com/gnosis/safe-contracts/blob/development/contracts/proxies/PayingProxy.sol)).
+    1. See [Solidity Contracts Metadata](https://solidity.readthedocs.io/en/latest/metadata.html) for more details.
+1. Check that the payload immediately after the `PayingProxy` contract data matches the constructor parameters:
+    1. Master Copy (`address`) -- address of the master copy which contains the smart contract's logic
+    1. Initializer (`bytes`) -- data used to perform a delegate call (eg.: for initial setup of the proxy)
+    1. Funder (`address`) -- address that should be paid for covering the gas costs of the deployment
+    1. Payment Token (`address`) -- ERC20 token address used for paying for the deployment of the proxy. Address `0x0` if the payment will be made in ETH.
+    1. Payment (`uint256`) -- amount of ETH (if the payment token is `0x0`) or of the token at the payment token address that should be transfered to the proxy in order to deploy it.
+
+**Important:** The above validation steps describe how you can validate the `PayingProxy` which performs delegate calls to any smart contract specified in the Master Copy. 
+In the context of the Gnosis Safe and our relay services:
+- The Master Copy should be an address of a valid deployment of the `GnosisSafe`
+- The initializer is the ABI encoded call to `GnosisSafe.setup(...)` ([smart contract function](https://github.com/gnosis/safe-contracts/blob/development/contracts/GnosisSafe.sol#L44-L55)).
+- The funder is the Ethereum address of our relay service (or any other relay that will deploy the Gnosis Safe).
+
 ---
 ### /safes/\<address\>/funded/ PUT
 Signal funds were transferred, start Safe creation
