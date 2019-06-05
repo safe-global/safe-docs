@@ -1,13 +1,14 @@
 # Transaction Execution
 To execute a transaction with the Gnosis Safe the `execTransaction` methods needs to be called with the following parameters:
-- to, value, data - Safe transaction information
-- operation - Operation that should be used for the Safe Transaction. Can be `CALL` (uint8 - `0`), `DELEGATECALL` (uint8 - `1`) or `CREATE` (uint8 - `2`)
-- safeTxGas - minimum gas provided for the Safe transaction. In case of `CALL` and `DELEGATECALL` this is also the maximum available gas (gas limit).
-- dataGas - base gas for the execution the Safe transaction
-- gasPrice - price used to calculate the gas costs that are refunded to the relayer.
-- gasToken - Token used for gas cost payment. If `0x0` then Ether is used. Gas costs are calculated by `(dataGas + txGas) * gasPrice`
-- refundReceiver - Address of receiver of gas payment (or 0 if tx.origin should be used).
-- signatures - hex encoded signatures (`execTransaction` expects that the signatures are sorted by owner address. This is required to easily validate no confirmation duplicates exist)
+
+- _To, value, data_: Same like for a regular Ethereum transaction.
+- _Operation_: On Ethereum, there are different types of transactions. The Safe supports `CALL` (uint8 - `0`), `DELETECALL` (uint8 - `1`) and `CREATE` (uint8 - `2`).
+- _safeTxGas_: This is the minimum amount of gas that is provided for the Safe transaction. In case of `CALL` and `DELEGATECALL` this is also the maximum available gas (gas limit).
+- _baseGas_: This is the amount of gas that is independent of the specific Safe transactions, but used for general things such as signature checks and the base transaction fee. _SafeTxGas_ and _baseGas_ combined are comparable to the gas limit of a regular transaction. 
+- _gasPrice_: Same like for a regular Ethereum transaction. Setting the gas price to 0 means that no refund is paid out.
+- _gasToken_: For regular Ethereum transactions, gas is paid in ether, always. The Gnosis Safe enables users to pay in ERC20 tokens or ether. The desired token is specified here. If `0x0` then Ether is used. Gas costs are calculated by `(dataGas + txGas) * gasPrice`
+- _refundReceiver_: The refund does not necessarily have to go to the account submitting the transaction but can be paid out to any account specified here. If set to `0`, `tx.origin` will be used.
+- _signatures_: All parameters are hashed and signed by all owners of the Gnosis Safe up to the specified threshold. A list of hex encoded signatures is expected (`execTransaction` expects that the signatures are sorted by owner address. This is required to easily validate no confirmation duplicates exist)
 
 There need to be enough signatures to reach the threshold configured on Safe setup. To generate a signature a Safe owner generates a hash based on EIP-712 and generates signatures for it.
 
