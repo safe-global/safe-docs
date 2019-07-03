@@ -14,7 +14,7 @@ The Rinkeby version of the Gnosis Safe is only available via Test Flight.
 
 ## Comments
 
-- For nightly versions please contact us on [Gitter](https://gitter.im/gnosis/Safe).
+- For nightly builds please contact us on [Gitter](https://gitter.im/gnosis/Safe).
 
 ## Resources
 

@@ -18,7 +18,7 @@ The module assumes that Proxies are used for all modules. The library will use a
 1. proxyFactory - Address of the Proxy factory used to create the Proxy for each module
 1. data - Modules initialization payload. This is the data for each proxy factory call concatinated.
 
-For a complete example see the [CreateAndAddModules test](https://github.com/gnosis/safe-contracts/blob/v0.0.2-alpha/test/createAndAddModules.js)
+For a complete example see the [CreateAndAddModules test](https://github.com/gnosis/safe-contracts/blob/v1.0.0/test/createAndAddModules.js)
 
 ## Trustless deployment with ERC20 Tokens
 Using the ProxyFactory or deploying a proxy requires that the user has Ether on an externally owned account. To make it possible to pay for the creation with any token or Ether the following flow is used.

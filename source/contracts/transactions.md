@@ -51,7 +51,7 @@ The following object describes the typed data that is signed:
 }
 ```
 
-For an example take a look at the [eth_signTypedData test](https://github.com/gnosis/safe-contracts/blob/v0.0.2-alpha/test/gnosisSafePersonalEditionEthSignTypeData.js) in the Safe contracts repository.
+For an example take a look at the [eth_signTypedData test](https://github.com/gnosis/safe-contracts/blob/v1.0.0/test/gnosisSafePersonalEditionEthSignTypeData.js) in the Safe contracts repository.
 
 ## On chain approvals
 It is not always possible to generate a ECDSA signature for a transaction hash (e.g. a smart contract is the owner of a Safe). In this case it is possible that an owner approves the hash on-chain.
