@@ -28,7 +28,7 @@ The Rinkeby version of the Gnosis Safe is only available from the GitHub release
 ## Comments
 
 - The versions installed from GitHub, will not receive automatic updates.
-- For nightly versions please contact us on [Gitter](https://gitter.im/gnosis/Safe).
+- For nightly builds please contact us on [Gitter](https://gitter.im/gnosis/Safe).
 
 ## Resources
 
