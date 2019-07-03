@@ -17,7 +17,7 @@ The Rinkeby version of the Gnosis Safe is only available from the GitHub release
 
 ## Install Extension from GitHub
 
-1. Download the zip file for the corresponsing version from the [GitHub releases](https://github.com/gnosis/safe-browser-extension/releases)
+1. Download the zip file for the corresponding version from the [GitHub releases](https://github.com/gnosis/safe-browser-extension/releases)
 1. Unzip the file to your preferred location
 1. Open `chrome://extensions` in your Chrome web browser
 1. Enable **Developer mode** (switch on the top right)
