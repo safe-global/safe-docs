@@ -18,12 +18,12 @@ The module assumes that Proxies are used for all modules. The library will use a
 1. proxyFactory - Address of the Proxy factory used to create the Proxy for each module
 1. data - Modules initialization payload. This is the data for each proxy factory call concatinated.
 
-For a complete example see the [CreateAndAddModules test](https://github.com/gnosis/safe-contracts/blob/v0.0.2-alpha/test/createAndAddModules.js)
+For a complete example see the [CreateAndAddModules test](https://github.com/gnosis/safe-contracts/blob/v1.0.0/test/createAndAddModules.js)
 
 ## Trustless deployment with ERC20 Tokens
 Using the ProxyFactory or deploying a proxy requires that the user has Ether on an externally owned account. To make it possible to pay for the creation with any token or Ether the following flow is used.
 
-1. Create deployment transaction. The [PayingProxy](https://github.com/gnosis/safe-contracts/blob/v0.0.2-alpha/contracts/proxies/PayingProxy.sol) enables the payment in any ERC20 token. Once the proxy is deployed it will refund a predefined address with the funds present at the address where it was deployed.
+1. Create deployment transaction. The [PayingProxy](https://github.com/gnosis/safe-contracts/blob/v1.0.0/contracts/proxies/PayingProxy.sol) enables the payment in any ERC20 token. Once the proxy is deployed it will refund a predefined address with the funds present at the address where it was deployed.
 1. To make the deployed address deterministic it is necessary to use a known account and calculate the target address. To make this trustless it is recommended to use a random account that has nonce 0. This can be done by creating a random signature for the deployment transaction. From that transaction it is possible to derive the sender and the target address.
 1. The user needs to transfer at least the amount required for the payment to the target address.
 1. Once the payment is present at the target address the relay service will fund the sender with Ether required for the creation transaction.
@@ -31,7 +31,7 @@ Using the ProxyFactory or deploying a proxy requires that the user has Ether on 
 
 For more details on the Safe deployment process please checkout the [DappCon 2018 presentation](https://youtu.be/RGBKAfyvAHk?t=416)
 
-## Planned usage of Create2
+## Trustless deployment with Create2
 The described approach for trustless deployment requires 3 transactions:
 
 1. Fund calculated Safe address
@@ -41,6 +41,8 @@ The described approach for trustless deployment requires 3 transactions:
 Using the new `create2` opcode makes it possible to use a factory without having to worry about the nonce of the factory. By using a factory it is possible to eliminate one of the transactions required by described flow. The adjusted flow would be the following:
 
 1. Fund calculated Safe address (address is based on **factory address**, the **init code** of the contract that is deployed and a **salt**)
-1. Trigger the Proxy factory
+1. Trigger the [Proxy factory](https://github.com/gnosis/safe-contracts/blob/v1.0.0/contracts/proxies/ProxyFactory.sol)
 
 To make sure that the correct contract will be deployed the Safe configuration should be part of the **init code** and the **salt** should be generated in a way that all parties involved can verify that it was not manipulated.
+
+For more details on the Safe deployment process with create2 please checkout the [EthCC 2019 presentation](https://www.youtube.com/watch?v=EiOo9--s39s)

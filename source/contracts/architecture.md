@@ -14,7 +14,7 @@ As the creation of new contracts is a very gas consuming operation, Safe contrac
 
 As contract constructors can only be executed once at the time the master copy is deployed, constructor logic has to be moved into an additional persistent setup function, which can be called to setup all copies of the master copy. This setup function has to be implemented in a way it can only be executed once. It is important to note that the master copy contract has to be persistent and there should be no possibility to execute a `selfdestruct` call on the master copy contract.
 
-It is **important** to know that it is possible to "hijack" a contract if the proxy creation and setup method are done in separate transactions. To avoid this it is possible to pass the initialisation data to the [ProxyFactory](https://github.com/gnosis/safe-contracts/blob/v0.0.2-alpha/contracts/proxies/ProxyFactory.sol) or the [DelegatingConstructorProxy](https://github.com/gnosis/safe-contracts/blob/v0.0.2-alpha/contracts/proxies/DelegateConstructorProxy.sol).
+It is **important** to know that it is possible to "hijack" a contract if the proxy creation and setup method are done in separate transactions. To avoid this it is possible to pass the initialisation data to the [ProxyFactory](https://github.com/gnosis/safe-contracts/blob/v1.0.0/contracts/proxies/ProxyFactory.sol) or the [DelegatingConstructorProxy](https://github.com/gnosis/safe-contracts/blob/v1.0.0/contracts/proxies/DelegateConstructorProxy.sol).
 
 For more information about Proxy contracts read our blog post about [Solidity DelegateProxy Contracts](https://blog.gnosis.pm/solidity-delegateproxy-contracts-e09957d0f201).
 

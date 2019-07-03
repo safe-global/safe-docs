@@ -8,4 +8,4 @@ Services Overview
    
    notifications
    relay
-   history
+   transactions
