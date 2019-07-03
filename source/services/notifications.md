@@ -1,6 +1,9 @@
 # Notification Service
 Allows users to send signed transaction messages between devices taking part in the signing process.
 
+[Show on GitHub](https://github.com/gnosis/safe-notification-service)
+[Show on Swagger](https://safe-notification.gnosis.pm/)
+
 ## Database model
 ### Device:
 * pushToken (char, unique)
@@ -32,7 +35,7 @@ The mobile app can scan the QR code and use the message to add itself as authori
 
 
 # Endpoints
-## /auth/ POST
+## v2/auth/ POST
 ### Pre-requirements:
 * Generate local private key
 * Ask firebase for push token 
@@ -43,11 +46,15 @@ The mobile app can scan the QR code and use the message to add itself as authori
 ```js
 {
 	"pushToken": "<string>",
-	"signature": { // signs sha3("GNO" + <pushToken>)
+  "buildNumber": "<integer>",
+  "versionName": "<string>",
+  "client": "[android | ios | extension]",
+  "bundle": "<string>",
+	"signatures": [{ // signs sha3("GNO" + <pushToken> + <buildNumber> + <versionName> + <client> + <bundle>)
         "v": "<integer>",
         "r": "<string>", // stringified int
         "s": "<string>" // stringified int
-    },
+    }],
 }
 ```
 ### Response
@@ -64,7 +71,7 @@ Otherwise, update current Device entry.
 
 Use https://firebase.google.com/docs/cloud-messaging/ in the clients to get push token
 
-## /pairing/ POST
+## v1/pairing/ POST
 Allows to authorize pairing of two devices. The signature of the expiry date signed by the Chrome extension is sent together with the signature of the Chrome extension ethereum account address signed by the mobile app. Pairing is only successful if expiry date is not expired.
 
 ### Request
@@ -104,7 +111,7 @@ We create two entries for DevicePair, in both directions.
 
 <img src="./notification_service/pairing.png" style="background:white;">
 
-## /pairing/ DELETE
+## v1/pairing/ DELETE
 Allows to delete an authorization for a device for sending push notifications.
 
 ### Request
@@ -125,7 +132,7 @@ We remove the DevicePair where authorized
 ### Response
 > Returns HTTP 204 if OK
 
-## /notifications/ POST
+## v1/notifications/ POST
 Allows to send notifications to multiple devices. If one of the pairs is not allowed, the service sends notifications to the others anyways.
 
 Signature address cannot be contained in devices list.

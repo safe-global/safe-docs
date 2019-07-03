@@ -1,15 +1,10 @@
 # Transaction Relay Service
 This service allows us to have owners of the Safe contract that don’t need to hold any ETH on those owner addresses. How is this possible? The transaction relay service acts as a proxy, paying for the transaction fees and getting it back due to the transaction architecture we use.
 
-Our target user hold crypto in a centralized exchange (or on another Ethereum address) and wants to move it to a secure account. We don’t want the user to trust us, for moving the funds and deploying the smart contract on their behalf. We on the other side want to prevent users from spamming our services, there shouldn't be a need to trust the user either.
+Our target user hold crypto in a centralized exchange (or on another Ethereum address) and wants to move it to a secure account. We don’t want the user to trust us, for moving the funds and deploying the smart contract on their behalf. We on the other side want to prevent users from spamming our services, there shouldn't be a need to trust the user either. The process for this is descriped in the contracts deployment section.
 
-That’s why we came up with this solution. The user (phone app) and us (service) both generate a random signature for a valid transaction. With this valid signed transaction, anyone can submit this to the blockchain and a Safe would be created with the following specifics:
-
-- No one knows the private key, so no previous transaction can be sent before this tx. Any former transaction would invalidate the signature due to an invalid nonce.
-- The Safe address can be derived, because it is calculated from the address of the sender (the address can be derived in turn from the signed tx, cf. [How is the address of an Ethereum contract computed?](https://Ethereum.stackexchange.com/questions/760/how-is-the-address-of-an-Ethereum-contract-computed)).
-- This transaction will create the Safe contract and refund the service with funds from within the Safe contract. Thereby the service has the guarantee that once it executes the tx, which incurs tx fees, it will get them back as part of the tx execution.
-
-Proxy used: [PayingProxy](https://github.com/gnosis/Safe-contracts/blob/v0.0.2/contracts/proxies/PayingProxy.sol)
+[Show on GitHub](https://github.com/gnosis/safe-relay-service)
+[Show on Swagger](https://safe-relay.gnosis.pm/)
 
 ## Flows
 
