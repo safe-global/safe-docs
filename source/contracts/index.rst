@@ -8,6 +8,7 @@ GitHub: https://github.com/gnosis/safe-contracts
    :maxdepth: 2
    :caption: Content
    
+   basics
    architecture
    deployment
    transactions

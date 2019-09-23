@@ -80,11 +80,11 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
-html_logo = './_static/safe-logo.svg'
+html_logo = './_static/safe-logo.png'
 html_theme_options = {
     'canonical_url': '',
     'analytics_id': '',
-    'logo_only': True,
+    'logo_only': False,
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,

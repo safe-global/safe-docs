@@ -1,5 +1,7 @@
 # Architecture
 
+A graphical overview of the smart contracts can be seen via [Piet](https://piet.slock.it/?gitHubUser=gnosis&gitHubRepo=safe-contracts&subDir=contracts).
+
 ## Gnosis Safe Transactions
 A Safe transaction has the following parameters: A destination address, an Ether value, a data payload as a bytes array, `operation` and `nonce`.
 
