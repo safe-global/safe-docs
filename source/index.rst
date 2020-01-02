@@ -48,10 +48,10 @@ The Gnosis Safe mobile wallet does not support: Bitcoin (BTC), Bitcoin Cash (BCH
 
 ----
 
-Gnosis Safe for Teams
+Gnosis Safe Multisig
 ---------------------
 
-The Gnosis Safe *for Teams* is the most secure way to manage your crypto funds *collectively*. 
+The Gnosis Safe *Multisig* is the most secure way to manage your crypto funds *collectively*. 
 It is geared to wards teams managing shared crypto funds and the direct successor of the popular `Gnosis MultiSig`_. 
 It leverages the redesigned Gnosis Safe smart contracts, which have cheaper setup and transaction costs. 
 The contracts are upgradeable and easier extendable via modules.  
