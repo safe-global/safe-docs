@@ -1,18 +1,21 @@
 # Notification Service
 Allows users to send signed transaction messages between devices taking part in the signing process.
 
-[Show on GitHub](https://github.com/gnosis/safe-notification-service)
-
-[Show on Swagger](https://safe-notification.gnosis.pm/)
+[GitHub](https://github.com/gnosis/safe-notification-service)
+[Swagger](https://safe-notification.gnosis.io/)
 
 ## Database model
 ### Device:
 * pushToken (char, unique)
 * owner (char, primary key)
+* buildNumber (integer)
+* versionName (char)
+* client (enum)
+* bundle (char)
 
 ### DevicePair:
 * authorizingDevice
-* authorizedDevice 
+* authorizedDevice
 
 Primary key: both together
 
@@ -39,7 +42,7 @@ The mobile app can scan the QR code and use the message to add itself as authori
 ### v2/auth/ POST
 #### Pre-requirements:
 * Generate local private key
-* Ask firebase for push token 
+* Ask firebase for push token
 * Authorize notification service to send notifications to authorizing device.
 * Request contains a expiry date. Notification service will only accept request in case expiry date is not in the past.
 
@@ -126,7 +129,7 @@ Allows to delete an authorization for a device for sending push notifications.
     }
 }
 ```
-We remove the DevicePair where authorized  
+We remove the DevicePair where authorized
 * device = address and authorizing = signer address
 * authorizing = address and device = signer address
 

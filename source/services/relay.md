@@ -3,11 +3,10 @@ This service allows us to have owners of the Safe contract that don’t need to 
 
 Our target user hold crypto in a centralized exchange (or on another Ethereum address) and wants to move it to a secure account. We don’t want the user to trust us, for moving the funds and deploying the smart contract on their behalf. We on the other side want to prevent users from spamming our services, there shouldn't be a need to trust the user either. The process for this is descriped in the [contracts deployment section](../contracts/deployment.html).
 
-[Show on GitHub](https://github.com/gnosis/safe-relay-service)
-
-[Show on Swagger (Mainnet version)](https://safe-relay.gnosis.io/)
-
-[Show on Swagger (Rinkeby version)](https://safe-relay.rinkeby.gnosis.io/)
+[GitHub](https://github.com/gnosis/safe-relay-service)
+[Releases](https://github.com/gnosis/safe-relay-service/releases)
+[Swagger (Mainnet version)](https://safe-relay.gnosis.io/)
+[Swagger (Rinkeby version)](https://safe-relay.rinkeby.gnosis.io/)
 
 ## Flows
 
@@ -49,7 +48,7 @@ More info about the signature values in appendix F of the [Ethereum Yellow Paper
 }
 ```
 
-#### Returns 
+#### Returns
 > HTTP 201
 ```js
 {
@@ -103,14 +102,18 @@ Estimate the cost of a new Safe deployment. Could vary on time because of `gas p
 }
 ```
 
-#### Returns 
-> HTTP 201
+#### Returns
+> HTTP 200
+Estimated cost of Safe creation for every token supported by the Relay.
 ```js
-{
-    "gas": "<stringified-int>",
-    "gasPrice": "<stringified-int>",
-    "payment": "<stringified-int>"
-}
+[
+    {
+        "gas": "<stringified-int>",
+        "gasPrice": "<stringified-int>",
+        "payment": "<stringified-int>",
+        "paymentToken": "<address>" // Address(0) for Ethereum
+    },
+]
 ```
 
 ---
@@ -168,7 +171,7 @@ Similar to ETH Gas Station but with reliable availability and sufficient rate li
 ```
 
 ---
-### /api/v2/safes/\<address\>/transactions/estimate/ POST 
+### /api/v2/safes/\<address\>/transactions/estimate/ POST
 Estimates the gas and gasPrice for the requested Safe transaction. Safe contract needs to exist previously. To estimate transaction cost, use the following formula:
 
 > gasCosts = (safeTxGas + dataGas) * gasPrice
@@ -183,7 +186,7 @@ Estimates the gas and gasPrice for the requested Safe transaction. Safe contract
 }
 ```
 
-#### Returns: 
+#### Returns:
 > HTTP 200
 ```js
 {
@@ -208,7 +211,7 @@ Allows to send and pay transactions via the Transaction Relay Service. The Safe 
     "value": "<stringified-int>", // wei
     "data": "<string>", // prefixed or unprefixed hex string
     "operation": "<integer>", // enumerated (0 - call, 1 - delegateCall)
-    "signatures": [{ 
+    "signatures": [{
         "v": "<integer>",
         "r": "<string>",
         "s": "<string>"
