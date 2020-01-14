@@ -2,6 +2,7 @@
 Allows users to send signed transaction messages between devices taking part in the signing process.
 
 [GitHub](https://github.com/gnosis/safe-notification-service)
+[Releases](https://github.com/gnosis/safe-notification-service/releases)
 [Swagger](https://safe-notification.gnosis.io/)
 
 ## Database model

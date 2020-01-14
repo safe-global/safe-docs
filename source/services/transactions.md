@@ -8,6 +8,7 @@ previous versions of the *Transaction Service*
 [Releases](https://github.com/gnosis/safe-transaction-service/releases)
 [Swagger (Mainnet version)](https://safe-transaction.gnosis.io/)
 [Swagger (Rinkeby version)](https://safe-transaction.rinkeby.gnosis.io/)
+[Safe Contracts and addresses on networks](https://github.com/gnosis/safe-contracts/releases)
 
 ## API Endpoints
 

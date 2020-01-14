@@ -7,6 +7,7 @@ Our target user hold crypto in a centralized exchange (or on another Ethereum ad
 [Releases](https://github.com/gnosis/safe-relay-service/releases)
 [Swagger (Mainnet version)](https://safe-relay.gnosis.io/)
 [Swagger (Rinkeby version)](https://safe-relay.rinkeby.gnosis.io/)
+[Safe Contracts and addresses on networks](https://github.com/gnosis/safe-contracts/releases)
 
 ## Flows
 
