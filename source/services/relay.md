@@ -4,14 +4,18 @@ This service allows us to have owners of the Safe contract that don’t need to 
 Our target user hold crypto in a centralized exchange (or on another Ethereum address) and wants to move it to a secure account. We don’t want the user to trust us, for moving the funds and deploying the smart contract on their behalf. We on the other side want to prevent users from spamming our services, there shouldn't be a need to trust the user either. The process for this is descriped in the [contracts deployment section](../contracts/deployment.html).
 
 [GitHub](https://github.com/gnosis/safe-relay-service)
+
 [Releases](https://github.com/gnosis/safe-relay-service/releases)
+
 [Swagger (Mainnet version)](https://safe-relay.gnosis.io/)
+
 [Swagger (Rinkeby version)](https://safe-relay.rinkeby.gnosis.io/)
+
 [Safe Contracts and addresses on networks](https://github.com/gnosis/safe-contracts/releases)
 
 ## Flows
 
-### Safe creation flowchart
+### Safe creation old flowchart (without CREATE2, deprecated)
 
 <img src="../_static/relay_service/safe_creation.png" style="background: white">
 
