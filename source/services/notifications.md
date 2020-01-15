@@ -2,7 +2,9 @@
 Allows users to send signed transaction messages between devices taking part in the signing process.
 
 [GitHub](https://github.com/gnosis/safe-notification-service)
+
 [Releases](https://github.com/gnosis/safe-notification-service/releases)
+
 [Swagger](https://safe-notification.gnosis.io/)
 
 ## Database model
@@ -145,7 +147,7 @@ Signature address cannot be contained in devices list.
 ```js
 {
 	"devices": ["<checksumed_address>", ...],
-	"message": "<string>",
+	"message": "<stringified-json>", // max of 4Kb due to Firebase limitations
 	"signature": { // signs sha3("GNO" + <message>)
         "v": "<integer>",
         "r": "<string>", // stringified int
