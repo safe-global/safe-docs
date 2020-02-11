@@ -65,7 +65,7 @@ The mobile app can scan the QR code and use the message to add itself as authori
 }
 ```
 #### Response
-If no previous owner exists, we create a new entry with push token and owner param
+If no previous owner exists, we create a new entry with push token and owner parameter.
 Otherwise, update current Device entry.
 
 > Returns HTTP 201 if OK

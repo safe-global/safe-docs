@@ -1,7 +1,7 @@
 # Relay Service
 This service allows us to have owners of the Safe contract that don’t need to hold any ETH on those owner addresses. How is this possible? The transaction relay service acts as a proxy, paying for the transaction fees and getting it back due to the transaction architecture we use. It also enables the user to pay for ethereum transactions using **ERC20 tokens**.
 
-Our target user hold crypto in a centralized exchange (or on another Ethereum address) and wants to move it to a secure account. We don’t want the user to trust us, for moving the funds and deploying the smart contract on their behalf. We on the other side want to prevent users from spamming our services, there shouldn't be a need to trust the user either. The process for this is descriped in the [contracts deployment section](../contracts/deployment.html).
+Our target user hold crypto in a centralized exchange (or on another Ethereum address) and wants to move it to a secure account. We don’t want the user to trust us, for moving the funds and deploying the smart contract on their behalf. We on the other side want to prevent users from spamming our services, there shouldn't be a need to trust the user either. The process for this is described in the [contracts deployment section](../contracts/deployment.html).
 
 [GitHub](https://github.com/gnosis/safe-relay-service)
 
@@ -288,7 +288,7 @@ Returns a paginated list of tokens. Each token has the ERC20 information (addres
 ### Notes:
 * Currently token info is retrieved from [etherscan](https://etherscan.io/tokens)
 
-### Query params:
+### Query parameters:
 Besides pagination:
 * `search`: Search words in `name`, `symbol` and `description`.
 * `name`, `symbol` and `address`: Do an exact filtering based on that parameters.
