@@ -41,7 +41,7 @@ Note: The QR is a stringified object.
 The mobile app can scan the QR code and use the message to add itself as authorized device. It is then allowed to send push notifications to the chrome extension.
 
 
-## Endpoints
+## API Endpoints
 ### v2/auth/ POST
 #### Pre-requirements:
 * Generate local private key

@@ -280,8 +280,9 @@ Allows to send and pay transactions via the Transaction Relay Service. The Safe 
 ```
 
 **Note:** Atomic operation.
+
 ---
-## /api/v1/tokens/ GET
+### /api/v1/tokens/ GET
 Returns a paginated list of tokens. Each token has the ERC20 information (address, name, symbol, decimals) and if available additional meta information to the token (icon, website ...). Furthermore tokens can be marked to be shown to the user by `default`.
 
 ### Notes:
