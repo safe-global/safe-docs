@@ -1,7 +1,7 @@
 # Relay Service
-This service allows us to have owners of the Safe contract that don’t need to hold any ETH on those owner addresses. How is this possible? The transaction relay service acts as a proxy, paying for the transaction fees and getting it back due to the transaction architecture we use.
+This service allows us to have owners of the Safe contract that don’t need to hold any ETH on those owner addresses. How is this possible? The transaction relay service acts as a proxy, paying for the transaction fees and getting it back due to the transaction architecture we use. It also enables the user to pay for ethereum transactions using **ERC20 tokens**.
 
-Our target user hold crypto in a centralized exchange (or on another Ethereum address) and wants to move it to a secure account. We don’t want the user to trust us, for moving the funds and deploying the smart contract on their behalf. We on the other side want to prevent users from spamming our services, there shouldn't be a need to trust the user either. The process for this is descriped in the [contracts deployment section](../contracts/deployment.html).
+Our target user hold crypto in a centralized exchange (or on another Ethereum address) and wants to move it to a secure account. We don’t want the user to trust us, for moving the funds and deploying the smart contract on their behalf. We on the other side want to prevent users from spamming our services, there shouldn't be a need to trust the user either. The process for this is described in the [contracts deployment section](../contracts/deployment.html).
 
 [GitHub](https://github.com/gnosis/safe-relay-service)
 
@@ -12,6 +12,47 @@ Our target user hold crypto in a centralized exchange (or on another Ethereum ad
 [Swagger (Rinkeby version)](https://safe-relay.rinkeby.gnosis.io/)
 
 [Safe Contracts and addresses on networks](https://github.com/gnosis/safe-contracts/releases)
+
+## Setup
+### For development (using ganache)
+This is the recommended configuration for developing and testing the Relay service. `docker-compose` is required for running the project.
+
+Configure the parameters needed on `.env_ganache`. By default the private keys of the accounts are the ones from
+Ganache, and the contract addresses are calculated to be the ones deployed by the Relay when the application starts,
+so there's no need to configure anything.
+
+More parameters can be added to that file like:
+- `SAFE_FIXED_CREATION_COST`: For fixed price in wei for deploying a Safe. If you set `0` you allow Safes to be
+deployed for free.
+- `SAFE_CONTRACT_ADDRESS` to change the Safe's master copy address.
+- For more parameters check `base.py` file.
+
+Then:
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml build --force-rm
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+```
+
+### For production
+This is the recommended configuration for running a production Relay. `docker-compose` is required
+for running the project.
+
+Configure the parameters needed on `.env`. These parameters **need to be changed**:
+- `ETHEREUM_NODE_URL`: Http/s address of a ethereum node.
+- `SAFE_FUNDER_PRIVATE_KEY`: Use a private key for an account with ether on that network. It's used to deploy new Safes.
+- `SAFE_TX_SENDER_PRIVATE_KEY`: Same as the `SAFE_FUNDER_PRIVATE_KEY`, but it's used to relay all transactions.
+
+Another parameters can be configured like:
+- `SAFE_CONTRACT_ADDRESS`: If you are not using default Gnosis Safe Master Copy.
+- `SAFE_FIXED_CREATION_COST`: For fixed price in wei for deploying a Safe. If you set `0` you allow Safes to be
+deployed for free
+- For more parameters check `base.py` file.
+
+Then:
+```bash
+docker-compose build --force-rm
+docker-compose up
+```
 
 ## Flows
 
@@ -239,14 +280,15 @@ Allows to send and pay transactions via the Transaction Relay Service. The Safe 
 ```
 
 **Note:** Atomic operation.
+
 ---
-## /api/v1/tokens/ GET
+### /api/v1/tokens/ GET
 Returns a paginated list of tokens. Each token has the ERC20 information (address, name, symbol, decimals) and if available additional meta information to the token (icon, website ...). Furthermore tokens can be marked to be shown to the user by `default`.
 
 ### Notes:
 * Currently token info is retrieved from [etherscan](https://etherscan.io/tokens)
 
-### Query params:
+### Query parameters:
 Besides pagination:
 * `search`: Search words in `name`, `symbol` and `description`.
 * `name`, `symbol` and `address`: Do an exact filtering based on that parameters.
