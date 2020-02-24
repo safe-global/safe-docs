@@ -1,0 +1,447 @@
+/**
+ * Copyright (c) 2017-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+ 
+/* your custom css */
+
+@font-face {
+   font-family: "Averta";
+   font-style: normal;
+   font-display: swap;
+   src: local("Averta-Regular"), url('/fonts/averta-regular.ttf') format('truetype');
+ }
+
+ @font-face {
+   font-family: 'Averta-Bold';
+   font-style: normal;
+   font-display: swap;
+   src: local("Averta-Bold"), url('/fonts/averta-bold.ttf') format('truetype');
+ }
+
+ @font-face {
+   font-family: 'Averta-Extra-Bold';
+   font-style: normal;
+   font-display: swap;
+   src: local("Averta-Extrabold"), url('/fonts/averta-extra-bold.ttf') format('truetype');
+ }
+
+ body {
+   font-family: "Averta", sans-serif;
+   overflow-x: hidden;
+   background-color: #f3f2f2;
+ }
+
+ strong{
+    font-family: "Averta-Bold";
+ }
+
+ h1{
+    font-family: "Averta-Extra-Bold";
+    letter-spacing: 0.2rem;
+    font-weight: inherit;
+ }
+
+.fixedHeaderContainer{
+   position: initial;
+   background-color: transparent;
+   padding: 31px;
+}
+
+.fixedHeaderContainer header img {
+   max-width: none;
+}
+
+.navigationSlider .slidingNav{
+   position: relative;
+   right: auto;
+   left: auto;
+}
+
+.slidingNav li:hover a:hover{
+   color: #009cb4 !important;
+   background-color: transparent !important;
+}
+
+.siteNavItemActive a{
+   background-color: transparent !important;
+   color: #009cb4 !important;
+}
+.navigationSlider .slidingNav ul{
+   background: transparent;
+}
+
+.nav-footer .sitemap{
+   max-width: inherit;
+}
+.fixedHeaderContainer a{
+   height: 50px;
+   flex-grow: 4;
+}
+
+.navigationWrapper{
+   flex-grow: 5;
+}
+
+.headerTitleWithLogo{
+   color: #009cb4;
+   font-family: "Averta";
+   font-size: 1rem !important;
+   width: 14rem;
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}
+
+.homeContainer .homeWrapper .projectLogo img{
+	width: 25%;
+	height: 50%;
+}
+  
+.homeContainer .homeWrapper .projectLogo {
+   /*height: 100px;*/
+   /*margin-bottom: 0px;*/
+   display: block;
+   position: inherit;
+   padding: unset;
+}
+
+.navigationSlider .slidingNav ul li a , .fixedHeaderContainer , .projectTitle{
+	color: #001428;
+}
+
+a{
+   color: #001428;
+}
+
+.navigationSlider .slidingNav ul li a{
+   font-size: 1rem;
+   font-family: "Averta-Extra-Bold";
+   font-stretch: normal;
+   font-style: normal;
+   line-height: normal;
+   letter-spacing: 0.33px;
+}
+
+.nav-footer{
+   border-top: solid 2px #d8d8d8;
+   background-color: transparent;
+   color: #f3f2f2;
+}
+
+.nav-footer .sitemap{
+   display: grid;
+   margin-left: 10%;
+}
+
+.nav-footer .sitemap h5{
+   font-family: "Averta-Extra-Bold";
+   color: #001428;
+   font-stretch: normal;
+   font-style: normal;
+   line-height: normal;
+   letter-spacing: 0.05rem;
+   font-size: 0.8rem;
+}
+
+.nav-footer .sitemap a{
+   color: #001428;
+}
+
+.grid-blocks{
+   display: grid;
+   grid-column-gap: 2rem;
+   text-align: left;
+   grid-row-gap: 2rem;
+}
+
+
+@media only screen and (min-device-width: 0px) and (max-device-width: 1050px) {
+   .two-blocks-grid{
+      margin-left: 5%;
+      margin-right: 5%;
+      grid-template-columns: repeat(1, 1fr);
+   }
+
+   .three-blocks-grid{
+      margin-left: 5%;
+      margin-right: 5%;
+      grid-template-columns: repeat(3, 1fr);
+   }
+
+   .four-blocks-grid{
+      margin-left: 5%;
+      margin-right: 5%;
+      grid-template-columns: repeat(2, 1fr);
+   }
+
+   .six-blocks-grid{
+      margin-left: 5%;
+      margin-right: 5%;
+      grid-template-columns: repeat(3, 1fr);
+   }
+}
+
+
+@media only screen and (min-device-width: 1050px){
+
+   .two-blocks-grid{
+      grid-template-columns: repeat(2, 1fr);
+   }
+
+   .three-blocks-grid{
+      grid-template-columns: repeat(3, 1fr);
+   }
+
+   .four-blocks-grid{
+      grid-template-columns: repeat(4, 1fr);
+   }
+
+   .six-blocks-grid{
+      grid-template-columns: repeat(6, 1fr);
+   }
+}
+
+.white-box{
+   border-radius: 4px;
+   box-shadow: 3px 4px 14px 0 rgba(0, 0, 0, 0.22);
+   background-color: white;
+   padding: 1rem;
+}
+
+.white-box:hover{
+   background-color: #009cb4;
+   color: #001428;
+}
+
+.white-box h3{
+   margin-top: 0px;
+   font-size: 1rem;
+   font-family: "Averta-Extra-Bold";
+   font-weight: inherit;
+   letter-spacing: 0.05rem;
+}
+
+.index-info-block{
+   margin-bottom: 8rem;
+}
+.index-info-block-title{
+   font-family: "Averta-Bold";
+   font-size: 2rem;
+   letter-spacing: 0.15rem;
+   font-stretch: normal;
+   font-style: normal;
+   line-height: normal;
+   margin-right: 2rem;
+   flex-basis: 50%;
+}
+
+.index-info-block-text{
+   font-size: 1rem;
+   font-weight: normal;
+   font-stretch: normal;
+   font-style: normal;
+   line-height: normal;
+   flex-basis: 50%;
+}
+
+.index-section-boxes{
+   margin-bottom: 4rem;
+}
+
+.index-section-boxes h3{
+   margin-top: 0px;
+   font-family: "Averta-Bold";
+}
+
+.index-section-last-boxes{
+   margin-bottom: 8rem;
+}
+
+.index-section-last-boxes h3{
+   margin-top: 0px;
+   font-family: "Averta-Bold";
+}
+
+.index-what-are{
+   margin-bottom: 8rem;
+}
+
+.index-what-are h2{
+   font-family: "Averta-Bold";
+   font-size: 2rem;
+   margin-top: 0px;
+}
+
+.index-advantages{
+   margin-bottom: 8rem;
+}
+
+.index-advantages h2{
+   font-family: "Averta-Bold";
+   font-size: 2rem;
+}
+
+.index-advantages-boxes{
+   grid-row-gap: 2rem;
+}
+
+.index-advantages-boxes h3{
+   margin-top: 0px;
+   font-family: "Averta-Bold";
+}
+
+.index-projects-using{
+   margin-bottom: 8rem;
+}
+
+.index-projects-using h2{
+   margin-top: 0px;
+   font-size: 2rem;
+   font-family: "Averta-Bold";
+}
+
+.background-color-1{
+   background-color: #009cb4;
+}
+
+.background-color-2{
+   background-color: #8f8f8f;
+}
+
+.background-color-3{
+   background-color: #a7428e;
+}
+
+.background-color-4{
+   background-color: #b0b0b0;
+}
+
+.background-color-5{
+   background-color: #2e38d4;
+}
+
+.background-color-6{
+   background-color: #343434;
+}
+
+.index-support h2{
+   margin-top: 0px;
+   font-size: 2rem;
+   font-family: "Averta-Bold";
+}
+
+.index-support-boxes{
+   grid-template-columns: repeat(1, 1fr);
+   font-family: "Averta-Bold";
+   font-size: 1rem;
+}
+
+.index-support-boxes a{
+   padding: 0.8rem;
+   border-radius: 5px;
+   border: solid 2px #001428;
+}
+
+.index-support-boxes a:hover{
+   border: solid 2px #009cb4;
+   color: #009cb4;
+}
+
+.index-support-boxes i{
+   float: right;
+}
+
+.bordered-button{
+   padding: 0.8rem;
+   border-radius: 5px;
+   border: solid 2px #001428;
+   font-family: "Averta-Extra-Bold";
+}
+
+.bordered-button:hover{
+   border: solid 2px #009cb4;
+   color: #009cb4;
+}
+
+.github-star-button{
+   padding: 0.8rem;
+   border-radius: 5px;
+   border: solid 2px #001428;
+}
+
+.github-star-button:hover{
+   
+   border: solid 2px #009cb4;
+}
+
+.icon{
+   background-repeat: no-repeat;
+   display: inline-block;
+   height: 28px;
+   width: 28px;
+}
+
+.icon-small{
+   height: 14px;
+   width: 14px;
+}
+
+.icon-github{
+   background-image: url(/img/icon-github.svg);
+}
+
+.icon-pen{
+   background-image: url(/img/icon-pen-s.svg);
+}
+
+.icon-reddit{
+   background-image: url(/img/icon-reddit.svg);
+}
+
+.icon-star{
+   background-image: url(/img/icon-star-s.svg);
+}
+
+.icon-twitter{
+   background-image: url(/img/icon-twitter.svg);
+}
+
+.icon-time{
+   background-image: url(/img/icon-time-s.svg);
+}
+
+.icon-arrow{
+   background-image: url(/img/icon-arrow-s.svg);
+}
+
+.nav-footer .sitemap a:hover, .nav-footer .sitemap a:focus{
+   color: #009cb4;
+}
+
+.box-icons{
+   display: flex;
+   font-family: "Averta-Extra-Bold";
+}
+
+.tutorials-intro{
+   margin-bottom: 6rem;
+}
+
+.tutorials-boxes{
+   margin-bottom: 6rem;
+}
