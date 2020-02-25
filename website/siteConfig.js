@@ -40,8 +40,8 @@ const siteConfig = {
   headerLinks: [
     {doc: 'introduction1', label: 'Introduction'},
     {page: 'use-case', label: 'Use Case'},
+    {doc: 'docs1', label: 'Documentation'},
     {page: 'tutorials', label: 'Tutorials'},
-    {doc: 'devguide01', label: 'Documentation'},
     {href: "/#support", label: 'Support'},
   ],
 
@@ -49,12 +49,12 @@ const siteConfig = {
   users,
 
   /* path to images for header/footer */
-  headerIcon: 'img/conditional_tokens_logo_blue.svg',
+  headerIcon: 'img/gnosis_safe_logo_green.png',
   favicon: 'img/gnosis_logo_blue.png',
 
   /* Colors for website */
   colors: {
-    primaryColor: '#009cb4',
+    primaryColor: '#008c73',
     secondaryColor: '#001428'
     ,
   },

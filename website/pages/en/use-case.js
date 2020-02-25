@@ -39,38 +39,38 @@ function Help(props) {
       <Container className="mainContainer documentContainer postContainer">
         <div className="index-info-block grid-blocks two-blocks-grid">
           <div className="index-info-block-title">
-            Conditional Token Use Cases
+            Utilizing the Safe contracts
           </div>
           <div className="index-info-block-text">
             <p>
-            Learn about the different Use Cases of Conditional Tokens.
+            Learn about the different projects using the safe contracts. 
             </p>
           </div>
         </div>
 
         <div className="inner index-section-boxes grid-blocks three-blocks-grid">
-          <a href={docUrl("game1")} className="white-box">
+          <a href="https://medium.com/universal-ethereum/universal-login-beta-3-gnosis-safe-support-more-9b72be0e01f8" className="white-box">
             <h3>
-              Tokens, Gaming, and Forking Gardens
+              Universal Login
             </h3>
             <p>
-              How prediction market tools like conditional tokens can change gaming
+              Universal Login Beta 3: Gnosis Safe Support & More
             </p>
           </a>
-          <a href={docUrl("X")} className="white-box">
+          <a href="https://blog.gnosis.pm/network-effects-gnosis-safe-and-pepo-the-new-dapp-for-the-crypto-community-3b8160e62898" className="white-box">
             <h3>
-              Futarchy
+              PEPO
             </h3>
             <p>
-              Make decission based on prediction markets 
+              Network Effects: Gnosis Safe and Pepo, the new dapp for the crypto community
             </p>
           </a>
-          <a href={docUrl("doc5")} className="white-box">
+          <a href= "https://safe.gnosis.io/" className="white-box">
             <h3>
-              Games
+              Gnosis Safe
             </h3>
             <p>
-              How can Conditional Tokens be used for Games
+              The most secure way to manage your crypto funds
             </p>
           </a>
         

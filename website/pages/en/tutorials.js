@@ -27,39 +27,17 @@ function Tutorial(props) {
             Tutorials
           </h1>
           <p>
-            OK, enough about contracts and the many futures of <br></br>conditional tokens. Let’s start building it already!
+            OK, enough about the basics of the Gnosis Safe Contracts. Let’s start building a project with them!
           </p>
         </div>
 
         <div className="inner grid-blocks four-blocks-grid tutorials-boxes">
-          <a href={docUrl("pmtutorial1")} className="white-box">
+          <a href={docUrl("cpktutorial1")} className="white-box">
             <h3>
-             Set up a prediciton market in 30min
+             Integrating the Gnosis Safe Proxy Kit
             </h3>
             <p>
-              How to set up a binary prediction market with the conditional token framework in 30min. 
-            </p>
-            <p className="box-icons">
-              <i className="icon icon-small icon-time"></i>
-              &nbsp;
-              30min
-              &nbsp;
-              &nbsp;
-              <i className="icon icon-small icon-star"></i>
-              &nbsp;
-              easy
-              &nbsp;
-              &nbsp;
-              <i className="icon icon-small icon-pen"></i>
-              react
-            </p>
-          </a>
-          <a href={docUrl("doc5")} className="white-box">
-            <h3>
-              Game Tutorial
-            </h3>
-            <p>
-              Use Conditional Tokens to build a game
+             How to use the Gnosis Safe Contract Proxy Kit to perform batched transactions and interact with smart contracts.
             </p>
             <p className="box-icons">
               <i className="icon icon-small icon-time"></i>
@@ -69,35 +47,21 @@ function Tutorial(props) {
               &nbsp;
               <i className="icon icon-small icon-star"></i>
               &nbsp;
-              easy
+              medium
               &nbsp;
               &nbsp;
               <i className="icon icon-small icon-pen"></i>
-              solidity
+              JS
             </p>
           </a>
-          <a href={docUrl("doc4")} className="white-box">
+          <a className="white-box">
             <h3>
-              Get started
+              To be continued...
             </h3>
             <p>
-            Set up everything to build your Prediction Market
+              More tutorials will be added over time. Make sure to come back and learn more about the Gnosis Safe contracts.
             </p>
-            <p className="box-icons">
-              <i className="icon icon-small icon-time"></i>
-              &nbsp;
-              1h
-              &nbsp;
-              &nbsp;
-              <i className="icon icon-small icon-star"></i>
-              &nbsp;
-              easy
-              &nbsp;
-              &nbsp;
-              <i className="icon icon-small icon-pen"></i>
-              solidity
-            </p>
-          </a> 
+          </a>
         </div>
       </Container>
     </div>

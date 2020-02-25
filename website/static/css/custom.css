@@ -61,13 +61,13 @@
 }
 
 .slidingNav li:hover a:hover{
-   color: #009cb4 !important;
+   color: #008c73 !important;
    background-color: transparent !important;
 }
 
 .siteNavItemActive a{
    background-color: transparent !important;
-   color: #009cb4 !important;
+   color: #008c73 !important;
 }
 .navigationSlider .slidingNav ul{
    background: transparent;
@@ -86,7 +86,7 @@
 }
 
 .headerTitleWithLogo{
-   color: #009cb4;
+   color: #008c73;
    font-family: "Averta";
    font-size: 1rem !important;
    width: 14rem;
@@ -224,7 +224,7 @@ a{
 }
 
 .white-box:hover{
-   background-color: #009cb4;
+   background-color: #008c73;
    color: #001428;
 }
 
@@ -316,7 +316,7 @@ a{
 }
 
 .background-color-1{
-   background-color: #009cb4;
+   background-color: #008c73;
 }
 
 .background-color-2{
@@ -358,8 +358,8 @@ a{
 }
 
 .index-support-boxes a:hover{
-   border: solid 2px #009cb4;
-   color: #009cb4;
+   border: solid 2px #008c73;
+   color: ##008c73;
 }
 
 .index-support-boxes i{
@@ -374,7 +374,7 @@ a{
 }
 
 .bordered-button:hover{
-   border: solid 2px #009cb4;
+   border: solid 2px #008c73;
    color: #009cb4;
 }
 
@@ -386,7 +386,7 @@ a{
 
 .github-star-button:hover{
    
-   border: solid 2px #009cb4;
+   border: solid 2px #008c73;
 }
 
 .icon{
@@ -444,4 +444,9 @@ a{
 
 .tutorials-boxes{
    margin-bottom: 6rem;
+}
+
+.navigationSlider .slidingNav ul li.siteNavGroupActive > a {
+  background-color: unset;
+  color: $primaryColor;
 }

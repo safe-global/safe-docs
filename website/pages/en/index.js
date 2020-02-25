@@ -33,12 +33,12 @@ class HomeSplash extends React.Component {
         <div className="inner index-info-block grid-blocks two-blocks-grid">
           <div 
           className="index-info-block-title">
-            Create conditional tokens: a new asset class with rich informational capabilities, making the outcome of any future event tradable.
+            Build on the Gnosis Safe Smart contracts: take advantage of the most modular, flexible, and secure wallet and identity solution in Ethereum.
           </div>
           <div className="index-info-block-text">
             <p>
-            The conditional tokens developer portal aims to provide an overview of the open framework.</p> 
-            <p>It’s a place where you can explore different use cases for conditional tokens, as well as detailed tutorials on how to encode conditionality and liquidity into your own dapps and prediction markets.
+            The safe developer portal aims to provide an overview of the Gnosis Safe Smart contracts. </p> 
+            <p>It’s a place where you can explore different use cases, as well as detailed tutorials on how to make use of our stack, add more security to managing funds on Ethereum and interact with the decentralized web.
             </p>
           </div>
         </div>
@@ -49,7 +49,7 @@ class HomeSplash extends React.Component {
               Introduction
             </h3>
             <p>
-              A <strong>short primer</strong> on Conditional Tokens
+              An <strong>overview</strong> of the Gnosis Safe Smart contracts
             </p>
           </a>
           <a href="/use-case" className="white-box">
@@ -57,7 +57,7 @@ class HomeSplash extends React.Component {
               Use Cases
             </h3>
             <p>
-              Explore the <strong>versatility</strong> of Conditional Tokens
+              Explore the <strong>versatility</strong> of the Gnosis Safe Smart contracts
             </p>
           </a>
           <a href={docUrl("devguide01")} className="white-box">
@@ -65,7 +65,7 @@ class HomeSplash extends React.Component {
               Documentation
             </h3>
             <p>
-              <strong>Deep dive</strong> into the Conditional Tokens contracts
+              <strong>Deep dive</strong> into the Gnosis Safe contracts
             </p>
           </a>
           <a href="/tutorials" className="white-box">
@@ -73,7 +73,7 @@ class HomeSplash extends React.Component {
               Tutorials
             </h3>
             <p>
-              <strong>Get started</strong> and build your Conditional Token Dapp
+              <strong>Get started</strong> and use the Gnosis Safe contracts
             </p>
           </a>
         </div>
@@ -93,7 +93,7 @@ class HomeSplash extends React.Component {
               Projects
             </h3>
             <p>
-              <strong>Explore</strong> existing Conditional Token applications
+              <strong>Explore</strong> existing Gnosis Safe Contracts applications
             </p>
           </a>
         </div>
@@ -101,24 +101,11 @@ class HomeSplash extends React.Component {
         <div className="inner index-what-are grid-blocks two-blocks-grid">
           <div>
             <h2>
-              What are <br></br>Conditional Tokens?
+              What is the Gnosis Safe?
             </h2>
           </div>
           <div>
-          <p> Gnosis has developed the conditional tokens open framework. Conditional tokens are an application agnostic, new asset class designed to facilitate the creation of highly liquid prediction markets. Conditional tokens enable combinatorial outcomes for higher resolution information discovery through prediction markets.</p>
-<p>
-The conditional tokens framework allows you to:
-</p>
-<p>
-<ul>
-  <li> Make simple markets on the likelihood of a given event.</li>
-  <li> Make complex markets about how the likelihood of an event is affected by any other event.</li>
-  <li> Trade any asset under the condition that a specific event occurs.</li>
-</ul>
-</p>
-<p>
-Prediction markets are the main use case for conditional tokens, which the Sight prediction market platform and other Gnosis Ecosystem projects build on. Conditional tokens have a wide range of additional use cases, from awarding access rights in games to paying milestone-based and social impact bonds. </p>
-
+          The Gnosis Safe is the most secure way to manage your crypto funds. Our goal is to deliver the highest level of security combined with great user experience for anyone holding Ether and/or ERC20 tokens. Transparency and security are our core principles. This is why our smart contracts and services  are open source. As a contract wallet, the Gnosis Safe has a wide range of functionalities that are often not possible with traditional crypto and blockchain wallets.
           </div>
         </div>
 
@@ -131,39 +118,37 @@ Prediction markets are the main use case for conditional tokens, which the Sight
           <div className="index-advantages-boxes  grid-blocks two-blocks-grid">
             <a href="" className="white-box">
               <h3>
-                Deeper Combinatorial Markets
+                Formal Verification
               </h3>
               <p>
-              Enabling <strong>deeper information discovery</strong>  in respect to conditional probabilities of events.
-
+              While our code is always audited, we’ve gone one step further and <strong>formally verified</strong>  the Gnosis Safe smart contracts.
               </p>
             </a>
 
             <a href="" className="white-box">
               <h3>
-               Oracle Agnostic
+               Meta-transactions and backend services
               </h3>
               <p>
-                Work with the <strong>right oracle for the right question protocol</strong> is not tied to any specific oracle.
-             
+                Use our open-source backend services to submit <strong>meta-transactions</strong> or to conveniently pull details about the entire transaction history of your Safe.
               </p>
             </a>
 
             <a href="" className="white-box">
               <h3>
-                ERC 1155 tokens
+                Custom logic via modules
               </h3>
               <p>
-               Allow batch transfers and receiver callbacks and <strong> avoid costly outcome token deployments</strong> for new events. 
+               The base Gnosis Safe contracts only contain core logic regarding owner management and multi-signature transaction execution. <strong>Custom logic</strong> such as advanced access control logic can be <strong>added via modules</strong>.
               </p>
             </a>
 
             <a href="" className="white-box">
               <h3>
-                Audited contracts
+                Open Source
               </h3>
               <p>
-                Cut costs on development <strong>without sacrificing security</strong>. 
+                The Gnosis Safe source <strong>code is fully available</strong> under the GNU GPLv3 license. Dig into the code or add custom modules to your Safe.
               </p>
             </a>
           </div>
@@ -220,14 +205,9 @@ Prediction markets are the main use case for conditional tokens, which the Sight
             </p>
           </div>
           <div className="index-support-boxes grid-blocks">
-            <a href="">
-                Schedule a call with Gnosis
-                <i className="icon icon-arrow"></i>
             
-            </a>
-            
-            <a href="">
-                Chat with us on discord
+            <a href="https://t.me/GnosisSafe">
+                Reach out to us on Telegram
                 <i className="icon icon-arrow"></i>
               
             </a>

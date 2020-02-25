@@ -1,42 +1,31 @@
 ---
 id: introduction2
-title: Conditional Token use cases
-sidebar_label: Conditional Tokens use cases
+title: EOAs vs. Contract Accounts
+sidebar_label: EOAs vs. Contract Accounts
 ---
 
-## Prediction Markets
+So what is the difference between the two different types of accounts on Ethereum: externally owned accounts (EOAs) and contract accounts? 
 
+<img src="/img/eaosvssmartcontract.png">
 
-As mentioned before, the main application for conditional tokens is prediction markets. Let’s dive a bit deeper into the mechanisms behind it. 
+## EOAs
 
-Consider a simple future event. Suppose Yang and Trump are engaged in a political election. 
-How do we construct a market with economic incentives for correctly predicting the outcome?
+To date, most accounts created on the Ethereum network fall under the category of externally owned accounts. EOAs for short are Ethereum accounts that use traditional key pairs. That is, they consist of a single private key that can be used to make transactions and sign messages. If you gain access to that private key, you gain full control of the account. Most popular wallets such as Metamask or imToken are simple EOAs, and even hardware wallets such as Ledger Nano or Trezor are based on EOAs. This means that only your private key—a single point of failure—stands between you and your funds being lost.
 
+## Contract Accounts
 
-First, we lock some collateral (e.g. DAI) into a contract as collateral  to mint conditional tokens. To then create the market question <em>Who will win the election?</em>, we must define a collection of outcomes for the condition. In this case, there are two possible outcomes: 
+The other type of Ethereum accounts are smart contract accounts. Like EOAs, smart contract accounts each have a unique public Ethereum address, and it’s impossible to tell them apart from EOAs by looking at an Ethereum address. Smart contract accounts too can receive funds and make transactions like EOAs. Generally, the key difference is that no single private key is used to verify transactions. Instead, the logic behind how the account completes transactions is defined in the smart contract code. Smart contracts are programs that run on the Ethereum blockchain and execute when specific conditions are met. Their functionality within contract accounts means that such accounts, in contrast to EOAs, can, for example, implement access rights that specify by whom, how, and under which conditions transactions can be executed, as well as more complex logic.
 
-<p>
-a) Yang is elected 
-<br>
-b) Trump is elected.
-</p>
+## Multi-signature Wallets
 
-For each DAI committed to the market, market participants receive conditional tokens representing all potential outcomes. The market contract holds the DAI tokens received as collateral until the outcome of the election is known.
+Multi-signature wallets are contract accounts that require multiple parties to confirm a transaction before it can be executed. These parties, each represented by a unique Ethereum account address, are defined as multi-signature wallet owners in the smart contract. Only when a predefined number of these owners confirm a transaction, will the transaction be executed. Hence, the single point of failure associated with private key-controlled accounts is removed; losing or compromising a private key will no longer automatically result in a loss of all funds controlled by the account. 
 
-Each participant begins in a neutral position, with both a with a set of all outcome token for each DAI locked as collateral. That is, fungible “Yang is elected” and “Trump is elected” tokens are issued to each participant who puts collateral into the contract. All “Yang is elected” tokens are fungible with other “Yang is elected” tokens. The “Trump is elected” tokens are materially different from “Yang is elected” tokens. They are fungible with other “Trump is elected” tokens. After the outcome is known, the contract will redeem each “correct” conditional token for the DAI held as collateral. The “incorrect” tokens are irredeemable.
+<img src="/img/multisig_diagram.png">
 
-### Key Takeaway
+The Gnosis Safe smart contracts function as a multi-signature wallet. In the Gnosis Safe, one can predefine a list of owner accounts, which can be represented by either EOAs or other smart contract accounts, and a threshold number of accounts required to confirm a transaction. Once the threshold of predefined accounts have confirmed a transaction, the Safe transaction can be executed. 
 
-This brings us to the central point of this section: trading conditional tokens is the same as predicting which outcome is more likely. Suppose a participant believes Yang will be elected. They may sell their “Trump is elected” tokens at whatever price the market will bear, and later redeem their “Yang is elected” tokens at “par” value when (and if) Yang is elected. Trading conditional tokens helps discover the price of different opinions in a neutral way, as highly probable outcomes trade close to their redeemable par value, and highly improbable outcomes naturally find their market price near zero.
+Another core functionality of the Safe is token payment. Generally, Ethereum transactions require ETH for paying transaction fees (“gas”). With the Gnosis Safe, users can pay transaction fees in a number of supported ERC20 tokens. This is realized via a transaction relay service that accepts those tokens and submits the transactions to the blockchain, therefore paying the gas fee in ETH. 
 
-Readers will notice that, implicitly, there are two ways to enter a prediction market. One way is to buy a conditional token from another participant. Another way is to collateralize the issuance of new tokens (all outcomes) and divest of the unwanted outcomes. That is, sell the outcomes one thinks are overpriced.
+Additionally, the Gnosis Safe contracts can have different modules added that allow for extended functionalities, such as daily spending limits or recurring scheduled transactions.  
 
-The supply and demand—buyers and sellers —of “Yang is elected” and “Trump is elected” tokens establishes, through price discovery, the market’s estimation of the relative probability of the possible outcomes.
-
-
-## Other possible use cases
-
-Conditional tokens are built on the ERC-1155 token standard, which  affords numerous advantages for their multiple use cases. For instance, ERC-1155 batch sends substantially decrease gas costs for users, making them ideal within gaming environments that encompass different tokens and high-velocity economies. Section XXX highlights a few more of these use cases. 
-
-The USE CASE section explores how the conditional token standard can be used to improve existing decentralized applications (dapps). In the tutorials section, you’ll find the tools and know-how needed to set up, inspect, and apply the conditional tokens framework to your own projects—as well as some inspiration regarding other use cases for this new standard beyond prediction markets.
- 
+Let’s have a deeper look into the core functions of the Gnosis Safe smart contracts. 
