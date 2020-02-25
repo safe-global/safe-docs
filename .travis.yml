@@ -40,7 +40,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     skip_cleanup: true
-    local_dir: website/build/dfusion-docs
+    local_dir: website/build/safe-docs
     on:
       branch: develop
       node: '12'
@@ -49,7 +49,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     skip_cleanup: true
-    local_dir: website/build/dfusion-docs
+    local_dir: website/build/safe-docs
     upload-dir: current
     on:
       branch: master
