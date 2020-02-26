@@ -31,55 +31,15 @@ class Footer extends React.Component {
             <a href={this.docUrl('doc1.html', this.props.language)}>
               Imprint
             </a>
-            <a href={this.docUrl('game1.html', this.props.language)}>
-              Copyright
-            </a>
-            <a href={this.docUrl('doc3.html', this.props.language)}>
+            <a href="https://gnosis.io/">
+             Copyright <br></br>
              © 2020 Gnosis LTD
             </a>
           </div>
-          <div>
-            <h5>Docs</h5>
-            <a href={this.pageUrl('users.html', this.props.language)}>
-              Getting Started
-            </a>
-            <a href={this.pageUrl('users.html', this.props.language)}>
-              Guides
-            </a>
-            <a href={this.pageUrl('users.html', this.props.language)}>
-              Olympia
-            </a>
-            <a href="https://discordapp.com/">Project Chat</a>
-          </div>
-          <div>
-            <h5>More</h5>
-            <a href="https://blog.gnosis.pm">Blog</a>
-            <a href="https://github.com/">GitHub</a>
-            <a
-              className="github-button"
-              href="https://github.com/gnosis/gnosis-docs/"
-              data-icon="octicon-star"
-              data-count-href="/gnosis/gnosis-docs/stargazers"
-              data-show-count="true"
-              data-count-aria-label="# stargazers on GitHub"
-              aria-label="Star this project on GitHub">
-              Star
-              <span className="icon icon-star"></span>
-            </a>
-            {/* <a
-              className="bordered-button"
-              href="https://github.com/gnosis/gnosis-docs/">
-              Star
-              <span className="icon icon-star"></span>
-            </a> */}
-          </div>
+          <div></div>
+          <div> </div>
 
-          <div>
-            <h5>Community</h5>
-            <a href="https://blog.gnosis.pm">User Showcase</a>
-            <a href="https://github.com/">Stack Overflow</a>
-            <a href="https://github.com/">Project Chat</a>
-          </div>
+          <div> </div>
 
           <div></div>
 

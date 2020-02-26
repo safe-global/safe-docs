@@ -158,37 +158,25 @@ class HomeSplash extends React.Component {
           <div>
            <a name="projects">
             <h2>
-              Projects using<br></br>Conditional Tokens
+              Projects using<br></br> the Gnosis Safe contracts
             </h2>
             </a>
             <p>
-              Conditional Tokens are already used by those projects.
+              The Gnosis Safe Smart contracts are already used by those projects.
             </p>
 
           </div>
           <div className="index-projects-boxes grid-blocks three-blocks-grid">
-            <a href="" className="white-box background-color-1">
-              P1
+            <a href="https://pepo.com/" className="white-box">
+            <img src="/img/pepo.png"></img>
             </a>
             
-            <a href="" className="white-box background-color-2">
-              P2
+            <a href="https://unilogin.io/" className="white-box">
+              <img src="/img/universallogin.png"></img>
             </a>
           
-            <a href="" className="white-box background-color-3">
-              P3
-            </a>
-
-            <a href="" className="white-box background-color-4">
-              P4
-            </a>
-            
-            <a href="" className="white-box background-color-5">
-              P5
-            </a>
-          
-            <a href="" className="white-box background-color-6">
-              P6
+            <a href="https://safe.gnosis.io/" className="white-box">
+              <img src="/img/gnosis_safe_logo_green.png"></img>
             </a>
           </div>
         </div>
@@ -205,17 +193,12 @@ class HomeSplash extends React.Component {
             </p>
           </div>
           <div className="index-support-boxes grid-blocks">
-            
+            <div id="index-support-telegram">
             <a href="https://t.me/GnosisSafe">
                 Reach out to us on Telegram
-                <i className="icon icon-arrow"></i>
-              
             </a>
-          
-            <a href="">
-                Dev Focus Forum
-                <i className="icon icon-arrow"></i>
-            </a>
+          </div>
+            
           </div>
         </div>
 

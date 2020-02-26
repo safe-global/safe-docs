@@ -37,16 +37,15 @@ function Help(props) {
   return (
     <div className="docMainWrapper wrapper">
       <Container className="mainContainer documentContainer postContainer">
-        <div className="index-info-block grid-blocks two-blocks-grid">
-          <div className="index-info-block-title">
-            Utilizing the Safe contracts
-          </div>
-          <div className="index-info-block-text">
-            <p>
+        <div className="tutorials-intro">
+          <h1>
+               Utilizing the Safe contracts
+          </h1>
+          <p>
             Learn about the different projects using the safe contracts. 
-            </p>
-          </div>
+          </p>
         </div>
+
 
         <div className="inner index-section-boxes grid-blocks three-blocks-grid">
           <a href="https://medium.com/universal-ethereum/universal-login-beta-3-gnosis-safe-support-more-9b72be0e01f8" className="white-box">
