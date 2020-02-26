@@ -112,7 +112,7 @@ class HomeSplash extends React.Component {
         <div className="inner index-advantages grid-blocks two-blocks-grid">
           <div>
             <h2>
-              Advantages of <br></br>Conditional Tokens
+              Advantages of <br></br> Gnosis Safe contracts
             </h2>
           </div>
           <div className="index-advantages-boxes  grid-blocks two-blocks-grid">
