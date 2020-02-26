@@ -158,7 +158,7 @@ class HomeSplash extends React.Component {
           <div>
            <a name="projects">
             <h2>
-              Projects using<br></br> the Gnosis Safe contracts
+              Projects building on <br></br> the Gnosis Safe contracts
             </h2>
             </a>
             <p>
@@ -167,16 +167,24 @@ class HomeSplash extends React.Component {
 
           </div>
           <div className="index-projects-boxes grid-blocks three-blocks-grid">
-            <a href="https://pepo.com/" className="white-box">
-            <img src="/img/pepo.png"></img>
+            <a href="https://metamask.io//" className="white-box">
+              <img src="/img/metamask.jpg"></img>
+            </a>
+            <a href="https://burnerwallet.co/" className="white-box">
+              <img src="/img/burner.png"></img>
+            </a>
+           <a href="https://pepo.com/" className="white-box">
+            <img src="/img/peposq.png"></img>
             </a>
             
             <a href="https://unilogin.io/" className="white-box">
-              <img src="/img/universallogin.png"></img>
+              <img src="/img/universalloging.png"></img>
             </a>
-          
-            <a href="https://safe.gnosis.io/" className="white-box">
-              <img src="/img/gnosis_safe_logo_green.png"></img>
+          <a href="https://slock.it/" className="white-box">
+              <img src="/img/slockit.jpg"></img>
+            </a>
+            <a href="https://tasit.io/" className="white-box">
+              <img src="/img/tasit.png"></img>
             </a>
           </div>
         </div>
