@@ -7,7 +7,7 @@ sidebar_label: Basics
 This section provides an overview of some of the primitives required to understand smart contracts.
 If you are a smart contract developer you probably want to skip this and straight head to [architecture](./architecture.html)
 
-The following Is inspired by a [blogpost](https://medium.com/@austin_48503/ethereum-meta-transactions-90ccf0859e84) from [Austin Griffith](https://twitter.com/austingriffith)
+The following part is inspired by a [blogpost](https://medium.com/@austin_48503/ethereum-meta-transactions-90ccf0859e84) from [Austin Griffith](https://twitter.com/austingriffith)
 
 ## Hashes
 Hash functions take in information of varying size and map it to a predictable (deterministic) result of an arbitrary size. It is a great way to take a big chunk of information and get a small, digestible “fingerprint” of that data. The resulting “fingerprint” for a given input is always the same. If any little thing in your original data changes, the resulting hash will change drastically. Hashes are used in a lot of different places in Ethereum.

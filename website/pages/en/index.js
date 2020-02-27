@@ -206,7 +206,11 @@ class HomeSplash extends React.Component {
                 Reach out to us on Telegram
             </a>
           </div>
-            
+            <div id="index-support-telegram">
+            <a href="https://twitter.com/gnosisSafe">
+                Follow us on Twitter
+            </a>
+          </div>
           </div>
         </div>
       </SplashContainer>
