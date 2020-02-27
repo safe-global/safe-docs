@@ -89,7 +89,7 @@
    color: #008c73;
    font-family: "Averta";
    font-size: 1rem !important;
-   width: 14rem;
+   width: 12rem;
 }
 
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
@@ -447,6 +447,20 @@ a{
 }
 
 .navigationSlider .slidingNav ul li.siteNavGroupActive > a {
-  background-color: unset;
-  color: $primaryColor;
+   background-color: unset;
+   color: $primaryColor;
+}
+
+#imprint-gnosis-logo{
+   width: 10%;
+   margin: unset;
+}
+
+.index-projects-boxes .index-projects-img {
+    max-height: 120px;
+}
+
+.mainContainer .post a {
+   color: $primaryColor;
+   text-decoration: underline;
 }

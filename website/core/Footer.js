@@ -28,7 +28,7 @@ class Footer extends React.Component {
         <section className="sitemap grid-blocks six-blocks-grid">
           <div>
             <h5>Gnosis Ltd.</h5>
-            <a href={this.docUrl('doc1.html', this.props.language)}>
+            <a href={this.docUrl('imprint.html')}>
               Imprint
             </a>
             <a href="https://gnosis.io/">

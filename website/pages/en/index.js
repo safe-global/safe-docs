@@ -37,7 +37,7 @@ class HomeSplash extends React.Component {
           </div>
           <div className="index-info-block-text">
             <p>
-            The safe developer portal aims to provide an overview of the Gnosis Safe Smart contracts. </p> 
+            The Safe developer portal aims to provide an overview of the Gnosis Safe Smart contracts, interfaces and integrations. </p> 
             <p>It’s a place where you can explore different use cases, as well as detailed tutorials on how to make use of our stack, add more security to managing funds on Ethereum and interact with the decentralized web.
             </p>
           </div>
@@ -105,7 +105,7 @@ class HomeSplash extends React.Component {
             </h2>
           </div>
           <div>
-          The Gnosis Safe is the most secure way to manage your crypto funds. Our goal is to deliver the highest level of security combined with great user experience for anyone holding Ether and/or ERC20 tokens. Transparency and security are our core principles. This is why our smart contracts and services  are open source. As a contract wallet, the Gnosis Safe has a wide range of functionalities that are often not possible with traditional crypto and blockchain wallets.
+          The Gnosis Safe is the most secure way to manage your crypto funds. Our goal is to deliver the highest level of security combined with great user experience for anyone holding Ether, ERC20 tokens and other digital assets and Ethereum.. Transparency and security are our core principles. This is why our smart contracts and services  are open source. As a contract wallet, the Gnosis Safe has a wide range of functionalities that are often not possible with traditional crypto and blockchain wallets.
           </div>
         </div>
 
@@ -116,7 +116,7 @@ class HomeSplash extends React.Component {
             </h2>
           </div>
           <div className="index-advantages-boxes  grid-blocks two-blocks-grid">
-            <a href="" className="white-box">
+            <a className="white-box">
               <h3>
                 Formal Verification
               </h3>
@@ -125,7 +125,7 @@ class HomeSplash extends React.Component {
               </p>
             </a>
 
-            <a href="" className="white-box">
+            <a className="white-box">
               <h3>
                Meta-transactions and backend services
               </h3>
@@ -134,7 +134,7 @@ class HomeSplash extends React.Component {
               </p>
             </a>
 
-            <a href="" className="white-box">
+            <a  className="white-box">
               <h3>
                 Custom logic via modules
               </h3>
@@ -143,12 +143,12 @@ class HomeSplash extends React.Component {
               </p>
             </a>
 
-            <a href="" className="white-box">
+            <a className="white-box">
               <h3>
                 Open Source
               </h3>
               <p>
-                The Gnosis Safe source <strong>code is fully available</strong> under the GNU GPLv3 license. Dig into the code or add custom modules to your Safe.
+                The Gnosis Safe source <strong>code is fully available</strong> under the GNU LGPL3.0 license. Dig into the code or add custom modules to your Safe.
               </p>
             </a>
           </div>
@@ -168,23 +168,23 @@ class HomeSplash extends React.Component {
           </div>
           <div className="index-projects-boxes grid-blocks three-blocks-grid">
             <a href="https://metamask.io//" className="white-box">
-              <img src="/img/metamask.jpg"></img>
+              <img className="index-projects-img" src="/img/metamask.jpg"></img>
             </a>
             <a href="https://burnerwallet.co/" className="white-box">
-              <img src="/img/burner.png"></img>
+              <img className="index-projects-img" src="/img/burner.png"></img>
             </a>
            <a href="https://pepo.com/" className="white-box">
-            <img src="/img/peposq.png"></img>
+            <img className="index-projects-img" src="/img/peposq.png"></img>
             </a>
             
             <a href="https://unilogin.io/" className="white-box">
-              <img src="/img/universalloging.png"></img>
+              <img className="index-projects-img" src="/img/universalloging.png"></img>
             </a>
           <a href="https://slock.it/" className="white-box">
-              <img src="/img/slockit.jpg"></img>
+              <img className="index-projects-img" src="/img/slockit.jpg"></img>
             </a>
             <a href="https://tasit.io/" className="white-box">
-              <img src="/img/tasit.png"></img>
+              <img className="index-projects-img" src="/img/tasit.png"></img>
             </a>
           </div>
         </div>
@@ -209,8 +209,6 @@ class HomeSplash extends React.Component {
             
           </div>
         </div>
-
-
       </SplashContainer>
     );
   }

@@ -22,13 +22,16 @@ function Tutorial(props) {
   return (
     <div className="docMainWrapper wrapper">
       <Container className="mainContainer documentContainer postContainer">
-        <div className="tutorials-intro">
-          <h1>
+
+      <div className="index-info-block grid-blocks two-blocks-grid">
+          <div className="index-info-block-title">
             Tutorials
-          </h1>
-          <p>
+          </div>
+          <div className="index-info-block-text">
+            <p>
             OK, enough about the basics of the Gnosis Safe Contracts. Let’s start building a project with them!
-          </p>
+            </p>
+          </div>
         </div>
 
         <div className="inner grid-blocks four-blocks-grid tutorials-boxes">
