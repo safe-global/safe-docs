@@ -59,7 +59,7 @@ deploy:
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     access_key_id: $AWS_ACCESS_KEY_ID
     skip_cleanup: true
-    local_dir: website/build/gnosis-docs
+    local_dir: website/build/safe-docs
     upload-dir: releases/$TRAVIS_TAG
     on:
       tags: true
