@@ -41,6 +41,7 @@ deploy:
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     skip_cleanup: true
     local_dir: website/build/safe-docs
+    upload-dir: safe
     on:
       branch: develop
       node: '12'
@@ -50,7 +51,7 @@ deploy:
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     skip_cleanup: true
     local_dir: website/build/safe-docs
-    upload-dir: current
+    upload-dir: current/safe
     on:
       branch: master
       node: '12'
