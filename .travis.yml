@@ -68,4 +68,3 @@ deploy:
     script: ./travis/prepare_production_deployment.sh
     on:
       tags: true
-      node: '12'
