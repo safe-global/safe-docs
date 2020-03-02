@@ -19,6 +19,7 @@ class HomeSplash extends React.Component {
     const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
     const langPart = `${language ? `${language}/` : ''}`;
     const docUrl = doc => `${baseUrl}${docsPart}${langPart}${doc}`;
+    const pageUrl = page => `${baseUrl}${page}`
 
     const SplashContainer = props => (
       <div className="homeContainer">
@@ -52,7 +53,7 @@ class HomeSplash extends React.Component {
               An <strong>overview</strong> of the Gnosis Safe Smart contracts
             </p>
           </a>
-          <a href="/use-case" className="white-box">
+          <a href={pageUrl("use-case")} className="white-box">
             <h3>
               Use Cases
             </h3>
@@ -68,7 +69,7 @@ class HomeSplash extends React.Component {
               <strong>Deep dive</strong> into the Gnosis Safe contracts
             </p>
           </a>
-          <a href="/tutorials" className="white-box">
+          <a href={pageUrl("tutorials")} className="white-box">
             <h3>
               Tutorials
             </h3>
@@ -79,7 +80,7 @@ class HomeSplash extends React.Component {
         </div>
 
         <div className="inner index-section-last-boxes grid-blocks two-blocks-grid">
-          <a href="/#support" className="white-box">
+          <a href={pageUrl("#support")} className="white-box">
             <h3>
               Support
             </h3>
@@ -88,7 +89,7 @@ class HomeSplash extends React.Component {
             </p>
           </a>
 
-          <a href="/#projects" className="white-box">
+          <a href={pageUrl("#projects")} className="white-box">
             <h3>
               Projects
             </h3>
