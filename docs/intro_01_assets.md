@@ -1,7 +1,7 @@
 ---
-id: introduction1
-title: What makes the Gnosis Safe contracts special?
-sidebar_label: What makes the Gnosis Safe contracts special?
+id: intro_assets
+title: Assets on Ethereum
+sidebar_label: Assets on Ethereum
 ---
 
 At the core of everything we do on Ethereum, whether it’s sending ETH to a friend, taking out a loan on Maker or buying digital art on OpenSea is the concept of an account. An account on Ethereum holds everything we own, allows us to interact with the network and gives us an identity. This account is identified with a 42 character string of numbers and letters, prefixed with 0x.

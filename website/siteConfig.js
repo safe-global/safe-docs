@@ -38,10 +38,10 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {doc: 'introduction1', label: 'Introduction'},
-    {page: 'use-case', label: 'Use Case'},
-    {doc: 'docs1', label: 'Documentation'},
-    {page: 'tutorials', label: 'Tutorials'},
+    {doc: 'intro_assets', label: 'Introduction'},
+    {doc: 'contracts_intro', label: 'Contracts'},
+    {doc: 'services_relay', label: 'Services'},
+    {doc: 'sdks_overview', label: 'SDKs'},
     {href: "/safe/#support", label: 'Support'},
   ],
 
@@ -55,8 +55,7 @@ const siteConfig = {
   /* Colors for website */
   colors: {
     primaryColor: '#008c73',
-    secondaryColor: '#001428'
-    ,
+    secondaryColor: '#001428',
   },
 
   /* Custom fonts for website */

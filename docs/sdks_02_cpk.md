@@ -1,7 +1,7 @@
 ---
-id: introduction5
-title: Gnosis Safe Proxy Kit
-sidebar_label: Gnosis Safe Proxy Kit
+id: sdks_cpk
+title: Contract Proxy Kit
+sidebar_label: Contract Proxy Kit
 ---
 
 Contract accounts on Ethereum in many respects offer more powerful functionality than than do ordinary EOAs (externally owned accounts:
