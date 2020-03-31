@@ -1,5 +1,5 @@
 ---
-id: docs4
+id: contracts_tx_execution
 title: Transaction Execution
 sidebar_label: Transaction Execution
 ---

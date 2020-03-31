@@ -1,5 +1,5 @@
 ---
-id: docs6
+id: contracts_relayer
 title: Meta transactions relays and the Safe
 sidebar_label: Meta transactions relays and the Safe
 ---

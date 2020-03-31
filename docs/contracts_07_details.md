@@ -1,5 +1,5 @@
 ---
-id: docs2
+id: contracts_details
 title: Architecture
 sidebar_label: Architecture
 ---

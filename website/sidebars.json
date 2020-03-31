@@ -1,11 +1,39 @@
 {
-  "docs": {
-    "Introduction": ["introduction1","introduction2","introduction3","introduction4","introduction5","introduction6"]
+  "intro": {
+    "Introduction": [
+      "intro_assets",
+      "intro_accounts",
+      "intro_gnosis_safe",
+      "intro_interfaces"
+    ]
   },
-  "docs-other": {
+  "contracts": {
+  	"Smart Contracts": [
+      "contracts_intro", 
+      "contracts_architecture", 
+      "contracts_deployment", 
+      "contracts_tx_execution", 
+      "contracts_relayer", 
+      "contracts_signatures", 
+      "contracts_details"
+    ]
+  },
+  "services": {
+    "Services": [
+      "services_relay",
+      "services_transactions",
+      "services_tutorials"
+    ]
+  },
+  "sdks": {
+    "Using the Gnosis Safe": [
+      "sdks_overview",
+      "sdks_cpk",
+      "sdks_safe_apps",
+      "sdks_tutorials"
+    ]
+  },
+  "tutorial_cpk": {
     "Integrating Gnosis Safe Proxy Kit": ["cpktutorial1","cpktutorial2","cpktutorial3","cpktutorial4","cpktutorial5"]
-  },
-  "developer-guide": {
-  	"Developer Guide": ["docs1", "docs2", "docs3", "docs4", "docs5", "docs6", "docs7"]
   }
 }

@@ -1,5 +1,5 @@
 ---
-id: docs5
+id: contracts_signatures
 title: Signatures 
 sidebar_label: Signatures
 ---

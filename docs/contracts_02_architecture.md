@@ -1,5 +1,5 @@
 ---
-id: introduction4
+id: contracts_architecture
 title: Overview of Safe contracts
 sidebar_label: Overview of Safe contracts
 ---
