@@ -4,7 +4,7 @@ title: Gnosis Safe Interfaces
 sidebar_label: Gnosis Safe Interfaces
 ---
 
-The Gnosis Safe smart contracts are used in many different interfaces. Gnosis is developing multiple different of these:
+The Gnosis Safe smart contracts can be access via different interfaces:
 
 ## Gnosis Safe multi-signature react interface
 

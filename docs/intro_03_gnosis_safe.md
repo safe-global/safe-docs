@@ -8,7 +8,7 @@ The Gnosis Safe is a smart contracts wallet with the multi-signature functionali
 
 ### High Security
 
-With the **multi-signature** functionality in the Gnosis Safe, one can predefine a list of owner accounts, which can be represented by either EOAs or other smart contract accounts, and a threshold number of accounts required to confirm a transaction. Once the threshold of predefined accounts have confirmed a transaction, the Safe transaction can be executed. 
+Gnosis Safe's **multi-signature** functionality allows you to define a list of owner accounts and a threshold number of accounts required to confirm a transaction. Once the threshold of owner accounts have confirmed a transaction, the Safe transaction can be executed. Owners can either be EOAs or other smart contract accounts.
 
 ### Ether less accounts
 
@@ -16,7 +16,7 @@ Another core functionality of the Gnosis Safe is **token payment**. Generally, E
 
 ### Advanced execution logic
 
-It is possible to make use of different **Gnosis Safe Library contracts** to perform complex transactions. A very common example of this are **batched transactions** where multiple simple Ethereum transactions are combined and executed at once.
+It is possible to make use of different **Gnosis Safe Library contracts** to perform complex transactions. A very common example of this are **batched transactions** where multiple simple Ethereum transactions are combined and executed at once. That means instead of having to sign several transactions sequentially, a user just needs to sign one batched transaction.
 
 ### Advanced access management
 
