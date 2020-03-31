@@ -5,6 +5,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+require('dotenv').config()
+
+const docsPath = process.env.DOCS_PATH || "/safe/"
+
 // See https://docusaurus.io/docs/site-config for all the possible
 // site configuration options.
 
@@ -24,7 +28,7 @@ const siteConfig = {
   title: 'Gnosis Developer Portal Safe', // Title for your website.
   tagline: 'Safe',
   url: 'https://safe-docs.gnosis.io', // Your website URL
-  baseUrl: '/safe/', // Base URL for your project */
+  baseUrl: docsPath, // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
@@ -42,7 +46,7 @@ const siteConfig = {
     {doc: 'contracts_intro', label: 'Contracts'},
     {doc: 'services_relay', label: 'Services'},
     {doc: 'sdks_overview', label: 'SDKs'},
-    {href: "/safe/#support", label: 'Support'},
+    {href: docsPath + "#support", label: 'Support'},
   ],
 
   // If you have users set above, you add it here:
