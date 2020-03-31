@@ -4,7 +4,6 @@ title: Transactions Service
 sidebar_label: Transactions Service
 ---
 
-## Transaction Service
 Keeps track of transactions sent via Gnosis Safe contracts. It uses events and [tracing](https://wiki.parity.io/JSONRPC-trace-module).
 
 Transactions are detected in an automatic way, so there is no need of informing the service about the transactions as in
@@ -20,7 +19,7 @@ previous versions of the *Transaction Service*
 
 - [Safe Contracts and addresses on networks](https://github.com/gnosis/safe-contracts/releases)
 
-### Setup
+## Setup
 This is the recommended configuration for running a production Transaction service. <span style="color:#DB3A3D">`docker-compose`</span> is required
 for running the project.
 
@@ -66,7 +65,7 @@ docker-compose build --force-rm
 docker-compose up
 ```
 
-### API Endpoints
+## API Endpoints
 
 
 **Types**
