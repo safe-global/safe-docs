@@ -20,7 +20,7 @@ The contract proxy kit is only available as a js library via npm and can be adde
 
 `npm install contract-proxy-kit`
 
-pr
+or
 
 `yarn add contract-proxy-kit`
 
