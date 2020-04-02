@@ -27,7 +27,7 @@ or
 
 ## Inititalizing the library
 
-The contract proxy kit can be used with Ethers or with Web3js. To initialize the contract proxy kit you need to provide these providers to the library.
+The contract proxy kit can be used with [ethers.js](https://github.com/ethers-io/ethers.js/) or with [web3.js](https://github.com/ethereum/web3.js/). To initialize the contract proxy kit you need to provide these providers to the library.
 
 First we import the library
 ```js
@@ -37,14 +37,14 @@ const CPK = require('contract-proxy-kit')
 Then we create an instance of the contract proxy kit providing the provider
 
 <!--DOCUSAURUS_CODE_TABS-->
-<!--Ethers-->
+<!--ethers.js-->
 ```js
 const Web3 = require('web3');
 const web3 = new Web3(/*...*/);
 
 const cpk = await CPK.create({ web3 });
 ```
-<!--Web3-->
+<!--web3.js-->
 ```js
 const { ethers } = require('ethers');
 const provider = ethers.getDefaultProvider('homestead');
@@ -60,7 +60,7 @@ This will use the address of the provider to check for an existing proxy. If non
 
 Now that the instance is setup it is possible to check the address of the proxy.
 
-Note: This address is available even before the proxy is deployed
+Note: This address is available even before the proxy is deployed due to [counterfactual deployment](contracts_03_deployment.md).
 
 ```js
 cpk.address
