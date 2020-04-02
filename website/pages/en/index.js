@@ -61,7 +61,7 @@ class HomeSplash extends React.Component {
               <strong>Deep dive</strong> into the Gnosis Safe contracts
             </p>
           </a>
-          <a href={docUrl("services_overview")} className="white-box">
+          <a href={docUrl("services_relay")} className="white-box">
             <h3>
               Services
             </h3>

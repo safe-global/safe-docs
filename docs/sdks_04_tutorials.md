@@ -5,7 +5,7 @@ sidebar_label: Tutorials
 ---
 
 <div class="inner grid-blocks two-blocks-grid tutorials-boxes">
-    <div onclick="location.href='./cpktutorial1';" class="white-box" style="cursor:pointer">
+    <div onclick="location.href='../cpktutorial1';" class="white-box" style="cursor:pointer">
         <h3>
             Integrating the Gnosis Safe Proxy Kit
         </h3>
@@ -27,7 +27,7 @@ sidebar_label: Tutorials
             JS
         </p>
     </div>
-    <div onclick="location.href='../tutorials';" class="white-box" style="cursor:pointer">
+    <div onclick="location.href='../../tutorials';" class="white-box" style="cursor:pointer">
         <h3>
             More tutorials
         </h3>

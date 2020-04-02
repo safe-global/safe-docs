@@ -27,7 +27,7 @@ sidebar_label: Tutorials
             JS
         </p>
     </div>
-    <div onclick="location.href='../tutorials';" class="white-box" style="cursor:pointer">
+    <div onclick="location.href='../../tutorials';" class="white-box" style="cursor:pointer">
         <h3>
             More tutorials
         </h3>
