@@ -16,7 +16,7 @@ It is possible to make use of different **Gnosis Safe Library contracts** to per
 
 ### Advanced access management
 
-You can add **Gnosis Safe Modules** to your Gnosis Safe. Thereby it is possible to implement more fine-grained access management. For instance, it is possible to define a module that can only be use to **recover access** to a Gnosis Safe under specific circumstances. A popular version of this is the **Social Recovery Module**. A different example are **allowance modules** which allows owners of a Gnosis Safe to grant limited exeuction permission such as a daily limit to external accounts.
+You can add **Gnosis Safe Modules** to your Gnosis Safe. Thereby it is possible to implement more fine-grained access management. For instance, it is possible to define a module that can only be use to **recover access** to a Gnosis Safe under specific circumstances. A popular version of this is the **Social Recovery Module**. A different example are **allowance modules** which allow owners of a Gnosis Safe to grant limited exeuction permission such as a daily limit to external accounts.
 
 ### Token callback support
 
