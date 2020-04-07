@@ -244,9 +244,9 @@ class HomeSplash extends React.Component {
             </p>
           </div>
           <div className="index-support-boxes grid-blocks">
-            <div id="index-support-telegram">
-            <a href="https://t.me/GnosisSafe">
-                Reach out to us on Telegram
+            <div id="index-support-discord">
+            <a href="https://discord.gg/FPMRAwK">
+                Reach out to us on Discord
             </a>
           </div>
             <div id="index-support-telegram">
