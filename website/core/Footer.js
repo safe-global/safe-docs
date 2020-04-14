@@ -44,9 +44,9 @@ class Footer extends React.Component {
           <div></div>
 
           <div>
-            <a className="icon icon-twitter" href="https://twitter.com/gnosisPM"></a>
-            <a className="icon icon-reddit" href="https://reddit.com"></a>
-            <a className="icon icon-github" href="https://github.com/gnosis"></a>
+            <a className="icon icon-twitter" href="https://twitter.com/gnosisSafe"></a>
+            <a className="icon icon-reddit" href="https://www.reddit.com/user/GnosisPM"></a>
+            <a className="icon icon-github" href="https://github.com/gnosis?q=safe"></a>
             </div>
         </section>
         <section className="copyright">{this.props.config.copyright}</section>
