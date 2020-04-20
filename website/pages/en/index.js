@@ -32,13 +32,13 @@ class HomeSplash extends React.Component {
     return (
       <SplashContainer>
         <div className="inner index-info-block grid-blocks two-blocks-grid">
-          <div 
+          <div
           className="index-info-block-title">
-            Build on the Gnosis Safe Smart contracts: take advantage of the most modular, flexible, and secure wallet and identity solution in Ethereum.
+            Build on the Gnosis Safe smart contracts: take advantage of the most modular, flexible, and secure wallet and identity solution in Ethereum.
           </div>
           <div className="index-info-block-text">
             <p>
-            The Safe developer portal aims to provide an overview of the Gnosis Safe Smart contracts, interfaces and integrations. </p> 
+            The Safe developer portal aims to provide an overview of the Gnosis Safe smart contracts, interfaces and integrations. </p>
             <p>It’s a place where you can explore different use cases, as well as detailed tutorials on how to make use of our stack, add more security to managing funds on Ethereum and interact with the decentralized web.
             </p>
           </div>
@@ -55,7 +55,7 @@ class HomeSplash extends React.Component {
           </a>
           <a href={docUrl("contracts_intro")} className="white-box">
             <h3>
-              Smart Contract
+              Smart contract
             </h3>
             <p>
               <strong>Deep dive</strong> into the Gnosis Safe contracts
@@ -163,7 +163,7 @@ class HomeSplash extends React.Component {
             </h2>
             </a>
             <p>
-              The Gnosis Safe Smart contracts are already used by those projects.
+              The Gnosis Safe smart contracts are already used by those projects.
             </p>
           </div>
 
@@ -176,7 +176,7 @@ class HomeSplash extends React.Component {
             </a>
            <a href="https://pepo.com/" className="white-box">
             <img className="index-projects-img" src="/img/peposq.png"></img>
-            </a>  
+            </a>
             <a href="https://unilogin.io/" className="white-box">
               <img className="index-projects-img" src="/img/universalloging.png"></img>
             </a>

@@ -74,7 +74,7 @@ docker-compose up
 
 ## API Endpoints
 
-**Types** 
+**Types**
 
 <span style="color:#DB3A3D">`address`</span> - hexadecimal string which represents an address with checksum and 0x prefix
 <span style="color:#DB3A3D">`hex`</span> - hexadecimal string starting by 0x prefix
@@ -104,7 +104,7 @@ More info about the signature values in appendix F of the [Ethereum Yellow Paper
 }
 ```
 
-*Returns:* 
+*Returns:*
 
 HTTP 201
 
@@ -129,17 +129,17 @@ HTTP 201
 **Note:** Gnosis Safe contracts can be found on [releases](https://github.com/gnosis/safe-contracts/releases)
 
 Clients should verify the server’s response with the following process:
-1. Verify that <span style="color:#DB3A3D">`paymentReceiver` </span>is *NULL_ADDRESS*
-2. Verify that <span style="color:#DB3A3D">`proxyFactory`</span> and <span style="color:#DB3A3D">`masterCopy`</span> addresses are right
+1. Verify that <span style="color:#DB3A3D">`paymentReceiver` </span>is *NULL_ADDRESS*.
+2. Verify that <span style="color:#DB3A3D">`proxyFactory`</span> and <span style="color:#DB3A3D">`masterCopy`</span> addresses are right.
 3. Call [calculateCreateProxyWithNonceAddress](https://github.com/gnosis/safe-contracts/blob/master/contracts/proxies/ProxyFactory.sol#L94) in the
-[ProxyFactory](https://github.com/gnosis/safe-contracts/blob/master/contracts/proxies/ProxyFactory.sol) using the <span style="color:#DB3A3D">`saltNonce`</span> provided in the request, <span style="color:#DB3A3D">`masterCopy`</span> and <span style="color:#DB3A3D">`setupData`</span>
+[ProxyFactory](https://github.com/gnosis/safe-contracts/blob/master/contracts/proxies/ProxyFactory.sol) using the <span style="color:#DB3A3D">`saltNonce`</span> provided in the request, <span style="color:#DB3A3D">`masterCopy`</span> and <span style="color:#DB3A3D">`setupData`</span>.
 as initializer to check that the returned address should be equal to <span style="color:#DB3A3D">`safe`</span>.
 4. Decode <span style="color:#DB3A3D">`setupData`</span> using [GnosisSafe](https://github.com/gnosis/safe-contracts/blob/master/contracts/GnosisSafe.sol#L76) <span style="color:#DB3A3D">`setup`</span> method and check:
    - <span style="color:#DB3A3D">`fallbackHandler`</span> address is right.
    - <span style="color:#DB3A3D">`owners`</span> and <span style="color:#DB3A3D">`threshold`</span> match the ones provided.
-   - <span style="color:#DB3A3D">`payment`</span> is not abusive and <span style="color:#DB3A3D">`paymentReceiver`</span> is *NULL_ADDRESS*
-   -<span style="color:#DB3A3D"> `paymentToken`</span> should be the one provided or *NULL_ADDRESS* in case it was not
-   - <span style="color:#DB3A3D">`to`</span> and <span style="color:#DB3A3D">`data`</span> must be empty in the current implementation. <span style="color:#DB3A3D">`to`</span> and <span style="color:#DB3A3D">`data`</span> could be used, e.g., to give permission to a <span style="color:#DB3A3D">`Safe Module`</span> to access your funds.
+   - <span style="color:#DB3A3D">`payment`</span> is not abusive and <span style="color:#DB3A3D">`paymentReceiver`</span> is *NULL_ADDRESS*.
+   - <span style="color:#DB3A3D"> `paymentToken`</span> should be the one provided or *NULL_ADDRESS* in case it was not.
+   - <span style="color:#DB3A3D">`to`</span> and <span style="color:#DB3A3D">`data`</span> must be empty in the current implementation. <span style="color:#DB3A3D">`to`</span> and <span style="color:#DB3A3D">`data`</span> could be used, for instance to give permission to a <span style="color:#DB3A3D">`Safe Module`</span> to access your funds.
 
 If all checks pass, then Safe address is valid and the user can transfer at least the <span style="color:#DB3A3D">`payment`</span> amount of ETH (if <span style="color:#DB3A3D">`paymentToken`</span> is address <span style="color:#DB3A3D">`0x0`</span>) or the corresponding amount of <span style="color:#DB3A3D">`paymentToken`</span> tokens (if the <span style="color:#DB3A3D">`paymentToken`</span> is a valid token address) to the Safe address. Please take a look at the [api/v1/tokens/?gas=True](relay.html#tokens-get) endpoint to see which tokens are accepted for payment by our service.
 
@@ -163,7 +163,7 @@ Estimate the cost of a new Safe deployment. Could vary on time because of <span 
 }
 ```
 
-*Returns:* 
+*Returns:*
 
  HTTP 200
 
@@ -184,7 +184,7 @@ Estimated cost of Safe creation for every token supported by the Relay.
 
 Get info about a deployed Safe querying the blockchain.
 
-*Returns:* 
+*Returns:*
 
 HTTP 200
 
@@ -206,7 +206,7 @@ HTTP 200
 
 Signal funds were transferred, start Safe creation
 
-*Returns:* 
+*Returns:*
 
 HTTP 202
 
@@ -218,7 +218,7 @@ HTTP 202
 
 Get info about Safe's funding status
 
-*Returns:* 
+*Returns:*
 
 HTTP 200
 
@@ -234,7 +234,7 @@ HTTP 200
 
 Similar to ETH Gas Station but with reliable availability and sufficient rate limits
 
-*Returns:* 
+*Returns:*
 
 HTTP 200
 
@@ -267,7 +267,7 @@ Estimates the gas and gasPrice for the requested Safe transaction. Safe contract
 }
 ```
 
-*Returns:* 
+*Returns:*
 
 HTTP 200
 
@@ -309,7 +309,7 @@ Allows to send and pay transactions via the Transaction Relay Service. The Safe 
 }
 ```
 
-*Returns:* 
+*Returns:*
 
 HTTP 201
 
@@ -341,9 +341,9 @@ Besides pagination:
 
 *Response:*
 
-*Returns:* 
+*Returns:*
 
-HTTP 200 
+HTTP 200
 
 ```js
 {
