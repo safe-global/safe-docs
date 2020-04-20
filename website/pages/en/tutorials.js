@@ -57,6 +57,30 @@ function Tutorial(props) {
               JS
             </p>
           </a>
+
+          <a href="https://github.com/gnosis/safe-demo" className="white-box">
+            <h3>
+                Interact with the Relay service
+            </h3>
+            <p>
+                How to estimate and submit a transactions via the Relay service
+            </p>
+            <p className="box-icons">
+                <i className="icon icon-small icon-time"></i>
+                &nbsp;
+                30min
+                &nbsp;
+                &nbsp;
+                <i className="icon icon-small icon-star"></i>
+                &nbsp;
+                medium
+                &nbsp;
+                &nbsp;
+                <i className="icon icon-small icon-pen"></i>
+                JS
+            </p>
+          </a>
+          
           <a className="white-box">
             <h3>
               To be continued...

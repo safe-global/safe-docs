@@ -1,5 +1,5 @@
 ---
-id: docs3
+id: contracts_deployment
 title: Deployment
 sidebar_label: Deployment
 ---

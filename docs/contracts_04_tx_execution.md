@@ -1,12 +1,12 @@
 ---
-id: docs4
+id: contracts_tx_execution
 title: Transaction Execution
 sidebar_label: Transaction Execution
 ---
 To execute a transaction with the Gnosis Safe the <span style="color:#DB3A3D">`execTransaction`</span> methods needs to be called with the following parameters:
 
 - _To, value, data_: Same like for a regular Ethereum transaction.
-- _Operation_: On Ethereum, there are different types of transactions. The Safe supports <span style="color:#DB3A3D">`CALL`</span> (uint8 - <span style="color:#DB3A3D">`0`</span>), <span style="color:#DB3A3D">`DELETECALL`</span> (uint8 - <span style="color:#DB3A3D">`1`</span>) and <span style="color:#DB3A3D">`CREATE`</span> (uint8 - <span style="color:#DB3A3D">`2`</span>).
+- _Operation_: On Ethereum, there are different types of transactions. The Safe supports <span style="color:#DB3A3D">`CALL`</span> (uint8 - <span style="color:#DB3A3D">`0`</span>), <span style="color:#DB3A3D">`DELEGATECALL`</span> (uint8 - <span style="color:#DB3A3D">`1`</span>) and <span style="color:#DB3A3D">`CREATE`</span> (uint8 - <span style="color:#DB3A3D">`2`</span>).
 - _safeTxGas_: This is the minimum amount of gas that is provided for the Safe transaction. In case of <span style="color:#DB3A3D">`CALL`</span> and <span style="color:#DB3A3D">`DELEGATECALL`</span> this is also the maximum available gas (gas limit).
 - _baseGas_: This is the amount of gas that is independent of the specific Safe transactions, but used for general things such as signature checks and the base transaction fee. _SafeTxGas_ and _baseGas_ combined are comparable to the gas limit of a regular transaction. 
 - _gasPrice_: Same like for a regular Ethereum transaction. Setting the gas price to 0 means that no refund is paid out.

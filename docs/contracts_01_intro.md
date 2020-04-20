@@ -1,11 +1,11 @@
 ---
-id: docs1
+id: contracts_intro
 title: Basics
 sidebar_label: Basics
 ---
 
 This section provides an overview of some of the primitives required to understand smart contracts.
-If you are a smart contract developer you probably want to skip this and straight head to [architecture](./architecture.html)
+If you are a smart contract developer you probably want to skip this and head straight to [architecture](contracts_02_architecture.md)
 
 The following part is inspired by a [blogpost](https://medium.com/@austin_48503/ethereum-meta-transactions-90ccf0859e84) from [Austin Griffith](https://twitter.com/austingriffith)
 

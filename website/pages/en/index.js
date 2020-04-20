@@ -19,6 +19,7 @@ class HomeSplash extends React.Component {
     const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
     const langPart = `${language ? `${language}/` : ''}`;
     const docUrl = doc => `${baseUrl}${docsPart}${langPart}${doc}`;
+    const pageUrl = page => `${baseUrl}${page}`
 
     const SplashContainer = props => (
       <div className="homeContainer">
@@ -44,51 +45,51 @@ class HomeSplash extends React.Component {
         </div>
 
         <div className="inner index-section-boxes grid-blocks four-blocks-grid">
-          <a href={docUrl("introduction1")} className="white-box">
+          <a href={docUrl("intro_assets")} className="white-box">
             <h3>
               Introduction
             </h3>
             <p>
-              An <strong>overview</strong> of the Gnosis Safe Smart contracts
+              An overview of the Gnosis Safe <strong>advantages</strong>.
             </p>
           </a>
-          <a href="/use-case" className="white-box">
+          <a href={docUrl("contracts_intro")} className="white-box">
             <h3>
-              Use Cases
-            </h3>
-            <p>
-              Explore the <strong>versatility</strong> of the Gnosis Safe Smart contracts
-            </p>
-          </a>
-          <a href={docUrl("devguide01")} className="white-box">
-            <h3>
-              Documentation
+              Smart Contract
             </h3>
             <p>
               <strong>Deep dive</strong> into the Gnosis Safe contracts
             </p>
           </a>
-          <a href="/tutorials" className="white-box">
+          <a href={docUrl("services_relay")} className="white-box">
             <h3>
-              Tutorials
+              Services
             </h3>
             <p>
-              <strong>Get started</strong> and use the Gnosis Safe contracts
+              Explore the <strong>convenient</strong> services provided by Gnosis for the Gnosis Safe
+            </p>
+          </a>
+          <a href={docUrl("sdks_overview")} className="white-box">
+            <h3>
+              SDKs
+            </h3>
+            <p>
+              <strong>Integrate</strong> the Gnosis Safe smart contracts into your own project.
             </p>
           </a>
         </div>
 
         <div className="inner index-section-last-boxes grid-blocks two-blocks-grid">
-          <a href="/#support" className="white-box">
+          <a href={pageUrl("#support")} className="white-box">
             <h3>
               Support
             </h3>
             <p>
-              Need some <strong>help</strong>? Reach out to us!
+              Need some <strong>help</strong>? Looking for <strong>tutorials</strong>? Reach out to us!
             </p>
           </a>
 
-          <a href="/#projects" className="white-box">
+          <a href={pageUrl("#projects")} className="white-box">
             <h3>
               Projects
             </h3>
@@ -105,14 +106,14 @@ class HomeSplash extends React.Component {
             </h2>
           </div>
           <div>
-          The Gnosis Safe is the most secure way to manage your crypto funds. Our goal is to deliver the highest level of security combined with great user experience for anyone holding Ether, ERC20 tokens and other digital assets and Ethereum.. Transparency and security are our core principles. This is why our smart contracts and services  are open source. As a contract wallet, the Gnosis Safe has a wide range of functionalities that are often not possible with traditional crypto and blockchain wallets.
+          The Gnosis Safe is the most secure way to manage your crypto funds. Our goal is to deliver the highest level of security combined with great user experience for anyone holding Ether, ERC20 tokens and other digital assets and Ethereum. Transparency and security are our core principles. This is why our smart contracts and services are open source. As a contract wallet, the Gnosis Safe has a wide range of functionalities that are often not possible with traditional crypto and blockchain wallets.
           </div>
         </div>
 
         <div className="inner index-advantages grid-blocks two-blocks-grid">
           <div>
             <h2>
-              Advantages of <br></br> Gnosis Safe contracts
+              Advantages of <br></br>Gnosis Safe contracts
             </h2>
           </div>
           <div className="index-advantages-boxes  grid-blocks two-blocks-grid">
@@ -121,7 +122,7 @@ class HomeSplash extends React.Component {
                 Formal Verification
               </h3>
               <p>
-              While our code is always audited, we’ve gone one step further and <strong>formally verified</strong>  the Gnosis Safe smart contracts.
+              While our code is always audited, we’ve gone one step further and <strong>formally verified</strong> the Gnosis Safe smart contracts.
               </p>
             </a>
 
@@ -164,8 +165,8 @@ class HomeSplash extends React.Component {
             <p>
               The Gnosis Safe Smart contracts are already used by those projects.
             </p>
-
           </div>
+
           <div className="index-projects-boxes grid-blocks three-blocks-grid">
             <a href="https://metamask.io//" className="white-box">
               <img className="index-projects-img" src="/img/metamask.jpg"></img>
@@ -175,16 +176,58 @@ class HomeSplash extends React.Component {
             </a>
            <a href="https://pepo.com/" className="white-box">
             <img className="index-projects-img" src="/img/peposq.png"></img>
-            </a>
-            
+            </a>  
             <a href="https://unilogin.io/" className="white-box">
               <img className="index-projects-img" src="/img/universalloging.png"></img>
             </a>
-          <a href="https://slock.it/" className="white-box">
+            <a href="https://slock.it/" className="white-box">
               <img className="index-projects-img" src="/img/slockit.jpg"></img>
             </a>
             <a href="https://tasit.io/" className="white-box">
               <img className="index-projects-img" src="/img/tasit.png"></img>
+            </a>
+          </div>
+        </div>
+
+        <div className="inner index-advantages grid-blocks two-blocks-grid">
+          <div>
+            <a name="tutorials">
+              <h2>
+                Popular tutorials<br />
+                With the Gnosis Safe
+              </h2>
+            </a>
+          </div>
+          <div className="index-advantages-boxes  grid-blocks two-blocks-grid">
+            <a href={docUrl("cpktutorial1")} className="white-box">
+              <h3>
+              Integrating the Gnosis Safe Proxy Kit
+              </h3>
+              <p>
+              How to use the Gnosis Safe Contract Proxy Kit to perform batched transactions and interact with smart contracts.
+              </p>
+              <p className="box-icons">
+                <i className="icon icon-small icon-time"></i>
+                &nbsp;
+                1h
+                &nbsp;
+                &nbsp;
+                <i className="icon icon-small icon-star"></i>
+                &nbsp;
+                medium
+                &nbsp;
+                &nbsp;
+                <i className="icon icon-small icon-pen"></i>
+                JS
+              </p>
+            </a>
+            <a href="tutorials" className="white-box">
+                <h3>
+                    More tutorials
+                </h3>
+                <p>
+                    Check out our other tutorials for the Gnosis Safe.
+                </p>
             </a>
           </div>
         </div>
@@ -201,9 +244,9 @@ class HomeSplash extends React.Component {
             </p>
           </div>
           <div className="index-support-boxes grid-blocks">
-            <div id="index-support-telegram">
-            <a href="https://t.me/GnosisSafe">
-                Reach out to us on Telegram
+            <div id="index-support-discord">
+            <a href="https://discord.gg/FPMRAwK">
+                Reach out to us on Discord
             </a>
           </div>
             <div id="index-support-telegram">
