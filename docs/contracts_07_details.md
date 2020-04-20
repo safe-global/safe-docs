@@ -16,7 +16,7 @@ More information on delegate calls can be found in the [solidity docs](https://s
 The nonce prevents replay attacks. Each transaction should have a different nonce and once a transaction with a specific nonce has been executed it should not be possible to execute this transaction again. The concrete replay protection mechanism depends on the version of the Gnosis Safe and will be explained later.
 
 ## Contract Creations
-As the creation of new contracts is a very gas consuming operation, Safe contracts use a proxy pattern where only one master copy of a contract is deployed once and all its copies are deployed as minimal proxy contracts pointing to the master copy contract. This pattern also allows to update the contract functionality later on by updating the address of the master copy in the proxy contract. 
+As the creation of new contracts is a very gas consuming operation, Safe contracts use a proxy pattern where only one master copy of a contract is deployed once and all its copies are deployed as minimal proxy contracts pointing to the master copy contract. This pattern also allows to update the contract functionality later on by updating the address of the master copy in the proxy contract.
 
 As contract constructors can only be executed once at the time the master copy is deployed, constructor logic has to be moved into an additional persistent setup function, which can be called to setup all copies of the master copy. This setup function has to be implemented in a way it can only be executed once. It is important to note that the master copy contract has to be persistent and there should be no possibility to execute a <span style="color:#DB3A3D">`selfdestruct`</span> call on the master copy contract.
 
@@ -69,16 +69,16 @@ The Gnosis Safe contract implements all basic multisignature functionality. It a
 
 Safe transactions can be used to configure the wallet like managing owners, updating the master copy address or whitelisting of modules. All configuration functions can only be called via transactions sent from the Safe itself. This assures that configuration changes require owner confirmations.
 
-Before a Safe transaction can be executed, the transaction has to be confirmed by the required number of owners. 
+Before a Safe transaction can be executed, the transaction has to be confirmed by the required number of owners.
 
 There are multiple implementations of the Gnosis Safe contract with different methods to check if a transaction has been confirmed by the required owners.
 
 
 ### Gnosis Safe
 #### GnosisSafe.sol
-This contract implements verification of approvals when execution transactions via the contract. 
+This contract implements verification of approvals when execution transactions via the contract.
 
-To execute a transaction the method `execTransaction` can be used. To approve a transaction it is necessary to generate and encode the required signatures. 
+To execute a transaction the method `execTransaction` can be used. To approve a transaction it is necessary to generate and encode the required signatures.
 
 There are different types of signatures:
 
