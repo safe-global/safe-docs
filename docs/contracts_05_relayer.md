@@ -1,7 +1,7 @@
 ---
 id: contracts_relayer
-title: Meta transactions relays and the Safe
-sidebar_label: Meta transactions relays and the Safe
+title: Meta transaction relays and the Safe
+sidebar_label: Meta transaction relays and the Safe
 ---
 To improve the user experience of the clients Gnosis is offering a [relay service](../services/relay.html). There are multiple endpoints on this service for the purpose of deploying a Safe contract, estimating transactions and submitting transactions.
 

@@ -232,6 +232,34 @@ class HomeSplash extends React.Component {
           </div>
         </div>
 
+        <div className="inner index-advantages grid-blocks two-blocks-grid">
+          <div>
+            <a name="statistics_security">
+              <h2>
+                Statistics & security
+              </h2>
+            </a>
+          </div>
+          <div className="index-advantages-boxes  grid-blocks two-blocks-grid">
+            <a href={docUrl("intro_statistics")} className="white-box">
+              <h3>
+                Statistics & usage
+              </h3>
+              <p>
+                The Gnosis Safe smart contracts are heavily used and store a significant amount of ether and tokens.
+              </p>
+            </a>
+            <a href={docUrl("intro_audits")} className="white-box">
+              <h3>
+                Audits & bug bounty
+              </h3>
+              <p>
+                We take great care ensuring security of our smart contracts.
+              </p>
+            </a>
+          </div>
+        </div>
+
         <div className="inner index-support grid-blocks two-blocks-grid">
           <div>
             <a name="support">

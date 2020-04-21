@@ -1,7 +1,7 @@
 ---
 id: intro_interfaces
-title: Gnosis Safe Interfaces
-sidebar_label: Gnosis Safe Interfaces
+title: Gnosis Safe interfaces
+sidebar_label: Gnosis Safe interfaces
 ---
 
 The Gnosis Safe smart contracts can be accessed via different interfaces:
