@@ -13,14 +13,14 @@ The following part is inspired by a [blogpost](https://medium.com/@austin_48503/
 Hash functions take in information of varying size and map it to a predictable (deterministic) result of an arbitrary size. It is a great way to take a big chunk of information and get a small, digestible “fingerprint” of that data. The resulting “fingerprint” for a given input is always the same. If any little thing in your original data changes, the resulting hash will change drastically. Hashes are used in a lot of different places in Ethereum.
 
 ## Key Pairs
-Public/Private key pairs employ some advanced math but the concept is simple: A message can be signed with a private key and anyone can use the public key to prove it was signed correctly. To make it more precise, if someone gives you a message along with a signature and using only that persons public information you can mathematically prove that this person signed the specific message. A private key is very sensitive and should never be moved around a lot. A public key can be shared far and wide. Your Ethereum address is your public key and it acts as your identity. 
+Public/Private key pairs employ some advanced math but the concept is simple: A message can be signed with a private key and anyone can use the public key to prove it was signed correctly. To make it more precise, if someone gives you a message along with a signature and using only that persons public information you can mathematically prove that this person signed the specific message. A private key is very sensitive and should never be moved around a lot. A public key can be shared far and wide. Your Ethereum address is your public key and it acts as your identity.
 
 ## Signing hashed data
 By signing a hash of data you achieve three things:
 
-- *non-corruptibility*: you know the data has not been tampered with
-- *identity*: you know the transaction is definitely from the person who sent it
-- *non-repudiation*: the person who sent it can not rescind the transaction later
+- *Non-corruptibility*: you know the data has not been tampered with.
+- *Identity*: you know the transaction is definitely from the person who sent it.
+- *Non-repudiation*: the person who sent it can not rescind the transaction later.
 
 ## Externally owned accounts (EOAs)
 EOAs are Ethereum accounts that use traditional key pairs, i.e. there is a single private key that can be used to make transactions and signed data. Getting access to that private key gives you full control of the account. Most popular wallets such as Metamask or imToken employ simple EOAs. Also hardware wallets such as Ledger Nano or Trezor are based on EOAs. EOAs are currently still the norm on Ethereum we are trying to change that with the Gnosis Safe.
