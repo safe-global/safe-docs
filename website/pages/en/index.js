@@ -32,13 +32,13 @@ class HomeSplash extends React.Component {
     return (
       <SplashContainer>
         <div className="inner index-info-block grid-blocks two-blocks-grid">
-          <div 
+          <div
           className="index-info-block-title">
             Build on the Gnosis Safe Smart contracts: take advantage of the most modular, flexible, and secure wallet and identity solution in Ethereum.
           </div>
           <div className="index-info-block-text">
             <p>
-            The Safe developer portal aims to provide an overview of the Gnosis Safe Smart contracts, interfaces and integrations. </p> 
+            The Safe developer portal aims to provide an overview of the Gnosis Safe Smart contracts, interfaces and integrations. </p>
             <p>It’s a place where you can explore different use cases, as well as detailed tutorials on how to make use of our stack, add more security to managing funds on Ethereum and interact with the decentralized web.
             </p>
           </div>
@@ -176,7 +176,7 @@ class HomeSplash extends React.Component {
             </a>
            <a href="https://pepo.com/" className="white-box">
             <img className="index-projects-img" src="/img/peposq.png"></img>
-            </a>  
+            </a>
             <a href="https://unilogin.io/" className="white-box">
               <img className="index-projects-img" src="/img/universalloging.png"></img>
             </a>
@@ -228,6 +228,34 @@ class HomeSplash extends React.Component {
                 <p>
                     Check out our other tutorials for the Gnosis Safe.
                 </p>
+            </a>
+          </div>
+        </div>
+
+        <div className="inner index-advantages grid-blocks two-blocks-grid">
+          <div>
+            <a name="statistics_security">
+              <h2>
+                Statistics & security
+              </h2>
+            </a>
+          </div>
+          <div className="index-advantages-boxes  grid-blocks two-blocks-grid">
+            <a href={docUrl("intro_statistics")} className="white-box">
+              <h3>
+                Statistics & usage
+              </h3>
+              <p>
+                The Gnosis Safe smart contracts are heavily used and store a significant amount of ether and tokens.
+              </p>
+            </a>
+            <a href={docUrl("intro_audits")} className="white-box">
+              <h3>
+                Audits & bug bounty
+              </h3>
+              <p>
+                We take great care ensuring security of our smart contracts.
+              </p>
             </a>
           </div>
         </div>
