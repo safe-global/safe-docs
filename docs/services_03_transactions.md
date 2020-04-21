@@ -1,7 +1,7 @@
 ---
 id: services_transactions
-title: Transactions Service
-sidebar_label: Transactions Service
+title: Transactions service
+sidebar_label: Transactions service
 ---
 
 Keeps track of transactions sent via Gnosis Safe contracts. It uses events and [tracing](https://wiki.parity.io/JSONRPC-trace-module).
@@ -78,7 +78,7 @@ docker-compose up
 
 Get balances for ether and every token held by a Safe
 
-*Returns:* 
+*Returns:*
 
  HTTP 200
 ```js
@@ -100,7 +100,7 @@ Get balances for ether and every token held by a Safe
 
 Get balances for ether and every token held by a Safe in usd
 
- *Returns:* 
+ *Returns:*
 
 
  HTTP 200
@@ -125,7 +125,7 @@ Get balances for ether and every token held by a Safe in usd
 
 Get incoming transactions (ether and ERC20 transfers) for a Safe
 
-*Returns:* 
+*Returns:*
 
 HTTP 200
 
@@ -148,7 +148,7 @@ HTTP 200
 
 Get transactions for a Safe
 
-*Returns:* 
+*Returns:*
 
 HTTP 200
 
@@ -185,7 +185,7 @@ HTTP 200
 
 Get transaction by internal SafeTxHash
 
-*Returns:* 
+*Returns:*
 
 HTTP 200
 

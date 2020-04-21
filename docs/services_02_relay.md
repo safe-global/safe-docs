@@ -1,7 +1,7 @@
 ---
 id: services_relay
-title: Relay Service
-sidebar_label: Relay Service
+title: Relay service
+sidebar_label: Relay service
 ---
 
 This service allows us to have owners of the Safe contract that don’t need to hold any ETH on those owner addresses. How is this possible? The transaction relay service acts as a proxy, paying for the transaction fees and getting it back due to the transaction architecture we use. It also enables the user to pay for ethereum transactions using **ERC20 tokens**.
@@ -286,7 +286,7 @@ HTTP 200
 ---
 **/api/v1/safes/\<address>\/transactions/ POST**
 
-Allows to send and pay transactions via the Transaction Relay Service. The Safe contract the tx is directed to must have enough ETH to pay tx fees and be created through the tx relay service. Safe contract needs to exist previously.
+Allows to send and pay transactions via the Transaction Relay service. The Safe contract the tx is directed to must have enough ETH to pay tx fees and be created through the tx relay service. Safe contract needs to exist previously.
 
 *Request:*
 
