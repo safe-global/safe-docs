@@ -1,20 +1,13 @@
-# Gnosis Safe Documentation
+# Deprecated Gnosis Safe Documentation
 
-The Gnosis Safe is a multisignature wallet with support for confirmations using signed messages based on ERC191. It is the successor of the Gnosis Multisig Wallet and combines more functionality with reduced gas costs. The Gnosis Safe allows basic wallet configuration like adding and removing owners and more advanced features like modules, which allow to do transactions with different requirements.
+This documentation is deprecated. Old versions are still available at http://gnosis-safe.readthedocs.io/en/latest/.
 
-## Documentation
-Read the last documentation in:
-* [http://gnosis-safe.readthedocs.io/en/latest/](http://gnosis-safe.readthedocs.io/en/latest/)
+However, please refer to the new Gnosis developer portal instead available at https://docs.gnosis.io/safe.
 
-It's a work in progress, so comments, suggestions, and collaborations are appreciated.
+Get in touch via [Discord](https://discordapp.com/invite/FPMRAwK) with any questions you might have.
 
-## Collaboration
-The Gnosis Safe is made by and for the community, with the goal of having a secure and convenient way to manage Ethereum assets.
+# Generate the documentatio
 
-Meet the community in the Gitter channel!
-* https://gitter.im/gnosis/Safe
-
-# Generate the doc
 ```bash
 virtualenv -p python3 env
 . env/bin/activate
