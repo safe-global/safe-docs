@@ -6,7 +6,7 @@ sidebar_label: EOAs vs. contract accounts
 
 So what is the difference between the two different types of accounts on Ethereum: externally owned accounts (EOAs) and contract accounts?
 
-<img src="/img/eaosvssmartcontract.png">
+![](assets/eaosvssmartcontract.png)
 
 ## EOAs
 
@@ -20,4 +20,4 @@ The other type of Ethereum accounts are smart contract accounts. Like EOAs, smar
 
 Multi-signature wallets are contract accounts that require multiple parties to confirm a transaction before it can be executed. These parties, each represented by a unique Ethereum account address, are defined as multi-signature wallet owners in the smart contract. Only when a predefined number of these owners confirm a transaction, will the transaction be executed. Hence, the single point of failure associated with private key-controlled accounts is removed; losing or compromising a private key will no longer automatically result in a loss of all funds controlled by the account.
 
-<img src="/img/multisig_diagram.png">
+![](multisig_diagram.png)
