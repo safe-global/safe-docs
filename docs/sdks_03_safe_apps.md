@@ -25,7 +25,7 @@ Find more information about our grants program [here](https://github.com/gnosis/
 We provide Safe App developers with reusable react components to make it easy to build Safe Apps with a near-native look and feel while still allowing to enable developers to use their own branding in the Safe Apps.
 
 [Access Storybook](https://components.gnosis-safe.io/)
-[UI Guidelines](https://drive.google.com/open?id=18QxvqPzJ39Da3peSId0hJe9dL2mSB818
+[UI Guidelines](https://drive.google.com/open?id=18QxvqPzJ39Da3peSId0hJe9dL2mSB818)
 
 
 ## Release Process
