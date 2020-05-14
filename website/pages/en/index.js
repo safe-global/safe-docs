@@ -169,22 +169,22 @@ class HomeSplash extends React.Component {
 
           <div className="index-projects-boxes grid-blocks three-blocks-grid">
             <a href="https://metamask.io//" className="white-box">
-              <img className="index-projects-img" src="/img/metamask.jpg"></img>
+              <img className="index-projects-img" src={`${baseUrl}img/metamask.jpg`}></img>
             </a>
             <a href="https://burnerwallet.co/" className="white-box">
-              <img className="index-projects-img" src="/img/burner.png"></img>
+              <img className="index-projects-img" src={`${baseUrl}img/burner.png`}></img>
             </a>
            <a href="https://pepo.com/" className="white-box">
-            <img className="index-projects-img" src="/img/peposq.png"></img>
+            <img className="index-projects-img" src={`${baseUrl}img/peposq.png`}></img>
             </a>
             <a href="https://unilogin.io/" className="white-box">
-              <img className="index-projects-img" src="/img/universalloging.png"></img>
+              <img className="index-projects-img" src={`${baseUrl}img/universalloging.png`}></img>
             </a>
             <a href="https://slock.it/" className="white-box">
-              <img className="index-projects-img" src="/img/slockit.jpg"></img>
+              <img className="index-projects-img" src={`${baseUrl}img/slockit.jpg`}></img>
             </a>
             <a href="https://tasit.io/" className="white-box">
-              <img className="index-projects-img" src="/img/tasit.png"></img>
+              <img className="index-projects-img" src={`${baseUrl}img/tasit.png`}></img>
             </a>
           </div>
         </div>
