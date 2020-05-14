@@ -41,19 +41,19 @@ The Safe App manifest includes all the required information
 
 #### 1) Your Safe App must include a manifest.json file that contains the following data: (Example for [this app](https://ipfs.io/ipfs/QmTgnb1J9FDR9gimptzvaEiNa25s92iQy37GyqYfwZw8Aj/))
 
-- `"name”: 'Name of your Safe App'`
+- `"name": 'Name of your Safe App'`
 
 This is the official name of your Safe App, with a maximum of 20 characters.
 
-- `"iconPath”: 'sapp_logo.svg'`
+- `"iconPath": 'sapp_logo.svg'`
 
 A file path to the logo that will be used alongside your Safe App. The icon must be a square SVG image of at least 256 by 256 pixels.
 
-- `"description”: 'A Safe app to compose custom multisend transactions'`
+- `"description": 'A Safe app to compose custom multisend transactions'`
 
 Describe the functionality of your Safe App in 50-500 characters.
 
-- `"providedBy”: {"name”: 'Gnosis', "url”: 'https://gnosis.io'}`
+- `"providedBy": {"name": 'Gnosis', "url": 'https://gnosis.io'}`
 
 Your company or personal name and link to your company or personal domain.
 
