@@ -10,7 +10,7 @@ Please refer to this [EthCC3 talk](https://www.youtube.com/watch?v=1GirpNHZPJM) 
 
 ## Safe Apps SDK
 
-The Safe App SDK is a software development kit to integrate third-party applications (Safe Apps) with the [Safe Multisig interface](https://gnosis-safe.io/app/#/).
+The Safe App SDK is a software development kit to integrate third-party applications (Safe Apps) with the [Safe Multisig interface](https://gnosis-safe.io/app/).
 
 [Find documentation on the Safe App SDK here](https://github.com/gnosis/safe-apps-sdk)
 
@@ -41,19 +41,19 @@ The Safe App manifest includes all the required information
 
 #### 1) Your Safe App must include a manifest.json file that contains the following data: (Example for [this app](https://ipfs.io/ipfs/QmTgnb1J9FDR9gimptzvaEiNa25s92iQy37GyqYfwZw8Aj/))
 
-- ```“name”: 'Name of your Safe App'```
+- ```"name”: 'Name of your Safe App'```
 
 This is the official name of your Safe App, with a maximum of 20 characters.
 
-- ```“iconPath”: 'sapp_logo.svg'```
+- ```"iconPath”: 'sapp_logo.svg'```
 
 A file path to the logo that will be used alongside your Safe App. The icon must be a square SVG image of at least 256 by 256 pixels.
 
-- ```“description”: 'A Safe app to compose custom multisend transactions'```
+- ```"description”: 'A Safe app to compose custom multisend transactions'```
 
-Describe the functionality of your Safe App in 50-500 characters. 
+Describe the functionality of your Safe App in 50-500 characters.
 
-- ```“providedBy”: {“name”: 'Gnosis', “url”: 'https://gnosis.io'}```
+- ```"providedBy”: {"name”: 'Gnosis', "url”: 'https://gnosis.io'}```
 
 Your company or personal name and link to your company or personal domain.
 
@@ -64,7 +64,7 @@ While we allow interacting with Safe Apps hosted on a regular web server through
 Gnosis runs its own IPFS node and will make sure to pin your Safe App to guarantee availability.
 
 Optional: Rinkeby version
-You can also create a Safe App that can be displayed in the Rinkeby version of the Safe Multisig. This helps users test out the app first before using it with mainnet assets.
+You can also create a Safe App that can be displayed in the [Rinkeby version of the Safe Multisig](https://rinkeby.gnosis-safe.io/app/). This helps users test out the app first before using it with mainnet assets.
 
 #### 3) Gnosis has reviewed the Safe App source code
 
