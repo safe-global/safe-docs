@@ -20,13 +20,13 @@ We have an ongoing program to finance the development of Safe Apps through grant
 
 Find more information about our grants program [here](https://github.com/gnosis/GECO/blob/master/Safe%20Apps%20Grants/Safe%20Apps%20Grants.md).
 
-## UI Kit
+## UI Kit & Guidelines
 
 We provide Safe App developers with reusable react components to make it easy to build Safe Apps with a near-native look and feel while still allowing to enable developers to use their own branding in the Safe Apps.
 
 [Access Storybook](https://components.gnosis-safe.io/)
 
-<a href='assets/safe_apps_guides.png' target='_blank'>UI Guidelines</a>
+![](assets/safe_apps_guides.png)
 
 
 ## Release Process
