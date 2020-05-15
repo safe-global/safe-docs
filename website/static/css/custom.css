@@ -4,28 +4,28 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
- 
+
 /* your custom css */
 
 @font-face {
    font-family: "Averta";
    font-style: normal;
    font-display: swap;
-   src: local("Averta-Regular"), url('/fonts/averta-regular.ttf') format('truetype');
+   src: local("Averta-Regular"), url('/safe/fonts/averta-regular.ttf') format('truetype');
  }
 
  @font-face {
    font-family: 'Averta-Bold';
    font-style: normal;
    font-display: swap;
-   src: local("Averta-Bold"), url('/fonts/averta-bold.ttf') format('truetype');
+   src: local("Averta-Bold"), url('/safe/fonts/averta-bold.ttf') format('truetype');
  }
 
  @font-face {
    font-family: 'Averta-Extra-Bold';
    font-style: normal;
    font-display: swap;
-   src: local("Averta-Extrabold"), url('/fonts/averta-extra-bold.ttf') format('truetype');
+   src: local("Averta-Extrabold"), url('/safe/fonts/averta-extra-bold.ttf') format('truetype');
  }
 
  body {
@@ -111,7 +111,7 @@
 	width: 25%;
 	height: 50%;
 }
-  
+
 .homeContainer .homeWrapper .projectLogo {
    /*height: 100px;*/
    /*margin-bottom: 0px;*/
@@ -385,7 +385,7 @@ a{
 }
 
 .github-star-button:hover{
-   
+
    border: solid 2px #008c73;
 }
 
@@ -402,31 +402,31 @@ a{
 }
 
 .icon-github{
-   background-image: url(/img/icon-github.svg);
+   background-image: url(/safe/img/icon-github.svg);
 }
 
 .icon-pen{
-   background-image: url(/img/icon-pen-s.svg);
+   background-image: url(/safe/img/icon-pen-s.svg);
 }
 
 .icon-reddit{
-   background-image: url(/img/icon-reddit.svg);
+   background-image: url(/safe/img/icon-reddit.svg);
 }
 
 .icon-star{
-   background-image: url(/img/icon-star-s.svg);
+   background-image: url(/safe/img/icon-star-s.svg);
 }
 
 .icon-twitter{
-   background-image: url(/img/icon-twitter.svg);
+   background-image: url(/safe/img/icon-twitter.svg);
 }
 
 .icon-time{
-   background-image: url(/img/icon-time-s.svg);
+   background-image: url(/safe/img/icon-time-s.svg);
 }
 
 .icon-arrow{
-   background-image: url(/img/icon-arrow-s.svg);
+   background-image: url(/safe/img/icon-arrow-s.svg);
 }
 
 .nav-footer .sitemap a:hover, .nav-footer .sitemap a:focus{

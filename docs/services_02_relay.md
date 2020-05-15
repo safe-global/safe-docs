@@ -66,11 +66,11 @@ docker-compose up
 
 **Safe creation old flowchart (without CREATE2, deprecated)**
 
-<img src="/img/safe_creation.png" style="background: white">
+![](assets/safe_creation.png)
 
 **Transaction execution flowchart**
 
-<img src="/img/send_transaction_from_app.png" style="background: white">
+![](assets/send_transaction_from_app.png)
 
 ## API Endpoints
 
