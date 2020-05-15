@@ -26,7 +26,7 @@ We provide Safe App developers with reusable react components to make it easy to
 
 [Access Storybook](https://components.gnosis-safe.io/)
 
-<a href='assets/safe_apps_guides.png' target='_blank'>UI Guidelines</a>
+<a href='/safe/docs/assets/safe_apps_guides.png' target='_blank'>UI Guidelines</a>
 
 
 ## Release Process
