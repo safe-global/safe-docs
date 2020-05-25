@@ -3,7 +3,7 @@ id: contracts_relayer
 title: Meta transaction relays and the Safe
 sidebar_label: Meta transaction relays and the Safe
 ---
-To improve the user experience of the clients Gnosis is offering a [relay service](../services/relay.html). There are multiple endpoints on this service for the purpose of deploying a Safe contract, estimating transactions and submitting transactions.
+To improve the user experience of the clients Gnosis is offering a [relay service](services_02_relay.md). There are multiple endpoints on this service for the purpose of deploying a Safe contract, estimating transactions and submitting transactions.
 
 As all the parameters required for execution are part of the submitted transaction it is possible that miners front-run the original relayer to receive the reward. In the long run that behaviour would be appreciated, since it would allow that anybody submits these transactions with  <span style="color:#DB3A3D">`gasPrice`</span> of the transaction triggering  <span style="color:#DB3A3D">`execTransaction`</span> set to 0. Miners could pick up these transactions and claim the rewards. This is why it is possible to specify the account that should receive the refund.
 
