@@ -10,13 +10,13 @@ This repository contains the Gnosis Safe documentation available at https://docs
 > You have to be on Node >= 8.x and Yarn >= 1.5.
 
 ```sh
+cd website
 yarn install
 ````
 
 ## Run website
 
 ```sh
-cd website
 yarn start
 ```
 
