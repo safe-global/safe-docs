@@ -10,9 +10,9 @@ App can be found live here: http://green-summer.surge.sh/
 ## Introduction
 
 This tutorial will teach you how you can use Gnosis Safe Contract Proxy Kit to perform batched transactions and interact with smart contracts. 
-This tutorial is meant for those with a basic knowledge of Ethereum and Solidity. Furthermore, you should have some basic knowledge in JavaScript.
+This tutorial is meant for those with a basic knowledge of Ethereum and Solidity. Furthermore, you should have some basic knowledge of JavaScript.
  
-In this Tutorial we will cover: 
+In this tutorial we will cover: 
 
 - How to install and initialize CPK
 - How to interact with the CPK JavaScript library
@@ -26,7 +26,7 @@ Gnosis Safe Proxy Kit is a smart contract on the Ethereum blockchain. There are 
 
 ## Background information
 
-Our example project will be a [React](https://reactjs.org) application bootstrapped with [create-react-app](https://github.com/facebook/create-react-app) which uses [Evergreen UI Kit](https://evergreen.segment.com/components/). We are also going to use [TypeScript](https://typescriptlang.org) as our language. For more information on those projects, visit their websites. We assume you are familiar with those technologies as our tutorial will only cover things you need to integrate the Gnosis Safe Contract Proxy kit and not, for example, how to setup a React project.
+Our example project will be a [React](https://reactjs.org) application bootstrapped with [create-react-app](https://github.com/facebook/create-react-app) which uses [Evergreen UI Kit](https://evergreen.segment.com/components/). We are also going to use [TypeScript](https://typescriptlang.org) as our language. For more information on those projects, visit their websites. We assume you are familiar with those technologies as our tutorial will only cover things you need to integrate the Gnosis Safe Contract Proxy kit and not, for example, how to set up a React project.
 
 ## Useful links
 

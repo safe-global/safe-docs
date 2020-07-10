@@ -36,7 +36,7 @@ const ConnectButton: React.FC<Props> = ({ onConnect }) => (
 export default ConnectButton
 ```
 
-<span style="color:#DB3A3D">`INFURA_ID`</span> is a token which can be used to access Ethereum blockchain API. You can get one by visiting [Infura website](https://infura.io/)
+<span style="color:#DB3A3D">`INFURA_ID`</span> is a token that can be used to access Ethereum blockchain API. You can get one by visiting [Infura website](https://infura.io/)
 
 Then you can use this component in your <span style="color:#DB3A3D">`App.tsx`</span>
 

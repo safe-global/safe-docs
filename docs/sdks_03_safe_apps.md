@@ -22,7 +22,7 @@ Find more information about our grants program [here](https://github.com/gnosis/
 
 ## UI Kit
 
-We provide Safe App developers with reusable react components to make it easy to build Safe Apps with a near-native look and feel while still allowing to enable developers to use their own branding in the Safe Apps.
+We provide Safe App developers with reusable react components to make it easy to build Safe Apps with a near-native look and feel while still allowing to enable developers to use their branding in the Safe Apps.
 
 [Access Storybook](https://components.gnosis-safe.io/)
 
@@ -37,7 +37,7 @@ As soon as you are done developing and testing your Safe App, you can already le
 
 ### Get your Safe App listed in the Safe Multisig
 
-To organically reach Safe Multisig users, you want to have your Safe App directly listed, of course. In order for Gnosis to list your app, the Safe App needs to fulfill the following criteria:
+To organically reach Safe Multisig users, you want to have your Safe App directly listed, of course. For Gnosis to list your app, the Safe App needs to fulfill the following criteria:
 The Safe App manifest includes all the required information
 
 #### 1) Your Safe App must include a manifest.json file that contains the following data: (Example for [this app](https://ipfs.io/ipfs/QmTgnb1J9FDR9gimptzvaEiNa25s92iQy37GyqYfwZw8Aj/))
@@ -69,7 +69,7 @@ You can also create a Safe App that can be displayed in the [Rinkeby version of 
 
 #### 3) Gnosis has reviewed the Safe App source code
 
-While we won’t be able to do a proper audit for your Safe App, we still would like to take a look at the source code in order to raise issues or suggest improvements. Depending on whether your Safe App is open or closed source, please send us either a link to the public repo or an invitation to the private code repository, respectively.
+While we won’t be able to do a proper audit for your Safe App, we still would like to take a look at the source code to raise issues or suggest improvements. Depending on whether your Safe App is open or closed source, please send us either a link to the public repo or an invitation to the private code repository, respectively.
 
 ### Official launch and beyond
 
@@ -81,4 +81,4 @@ safe@gnosis.io or via our [Discord](https://discord.gg/FPMRAwK)
 
 ### Disclaimer
 
-It is at the sole discretion of Gnosis to list or delist apps from the Safe Multisig. Safe Apps are not owned, controlled, maintained or audited by Gnosis.
+It is at the sole discretion of Gnosis to list or delist apps from the Safe Multisig. Safe Apps are not owned, controlled, maintained, or audited by Gnosis.

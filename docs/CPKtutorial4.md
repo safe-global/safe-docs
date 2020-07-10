@@ -4,7 +4,7 @@ title: Fetching the necessary data from the blockchain
 sidebar_label: Fetching the necessary data from the blockchain
 ---
 
-First we need to initialize the DAI and Compound DAI token contracts instances, the ABI can be found [here](https://github.com/gnosis/cpk-compound-example/blob/master/src/abis/CErc20.json):
+First, we need to initialize the DAI and Compound DAI token contracts instances, the ABI can be found [here](https://github.com/gnosis/cpk-compound-example/blob/master/src/abis/CErc20.json):
 
 ```jsx
 import React, { useMemo } from "react"
@@ -69,5 +69,5 @@ const CompoundForm: React.FC<ICompoundForm> = ({ web3, address, cpk }) => {
 }
 ```
 
-Notice that in <span style="color:#DB3A3D">`daiLocked`</span> we use the address of a proxy, because in the result proxy will hold the locked funds. Proxy contract will be deployed when you first initiate the transaction with it, but the address is available by accessing <span style="color:#DB3A3D">`address`</span> property of the CPK instance even when it's not deployed yet.
+Notice that in <span style="color:#DB3A3D">`daiLocked`</span> we use the address of a proxy because in the result proxy will hold the locked funds. The proxy contract will be deployed when you first initiate the transaction with it, but the address is available by accessing the <span style="color:#DB3A3D">`address`</span> property of the CPK instance even when it's not deployed yet.
 
