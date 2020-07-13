@@ -67,7 +67,7 @@ We also would like to make a rough functional review of the app, so please provi
 
 #### 3) The Safe App is hosted on IPFS
 
-While we allow interacting with Safe Apps hosted on a regular web server through the Add custom app feature, we require listed apps to be hosted on IPFS. This ensures users can trust in the app being available at any time in the future without relying on the Safe App being hosted by the developer. Gnosis will take of uploading your app to IPFS, but will require a **compiled version of the app** to do so.
+While we allow interacting with Safe Apps hosted on a regular web server through the Add custom app feature, we require listed apps to be hosted on IPFS. This ensures users can trust in the app being available at any time in the future without relying on the Safe App being hosted by the developer. Gnosis will take care of uploading your app to IPFS, but will require a **compiled version of the app** to do so.
 
 Gnosis runs its own IPFS node and will make sure to pin your Safe App to guarantee availability.
 
