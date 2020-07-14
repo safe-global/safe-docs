@@ -58,18 +58,19 @@ Describe the functionality of your Safe App in 50-500 characters.
 
 Your company or personal name and link to your company or personal domain.
 
-#### 2) The Safe App is hosted on IPFS
 
-While we allow interacting with Safe Apps hosted on a regular web server through the Add custom app feature, we require listed apps to be hosted on IPFS. This ensures users can trust in the app being available at any time in the future without relying on the Safe App being hosted by the developer.
+#### 2) Gnosis has reviewed the Safe App
+
+While we won’t be able to do a proper audit for your Safe App, we still would like to take a look at the source code in order to raise issues or suggest improvements. Depending on whether your Safe App is open or closed source, please send us either a **link to the public repo or an invitation to the private code repository**.
+
+We also would like to make a rough functional review of the app, so please provide us with a **high-level test plan / feature list** that allows our QA team to make sure everything works as intended in production.
+
+#### 3) The Safe App is hosted on IPFS
+
+While we allow interacting with Safe Apps hosted on a regular web server through the Add custom app feature, we require listed apps to be hosted on IPFS. This ensures users can trust in the app being available at any time in the future without relying on the Safe App being hosted by the developer. Gnosis will take care of uploading your app to IPFS, but will require a **compiled version of the app** to do so.
 
 Gnosis runs its own IPFS node and will make sure to pin your Safe App to guarantee availability.
 
-Optional: Rinkeby version
-You can also create a Safe App that can be displayed in the [Rinkeby version of the Safe Multisig](https://rinkeby.gnosis-safe.io/app/). This helps users test out the app first before using it with mainnet assets.
-
-#### 3) Gnosis has reviewed the Safe App source code
-
-While we won’t be able to do a proper audit for your Safe App, we still would like to take a look at the source code in order to raise issues or suggest improvements. Depending on whether your Safe App is open or closed source, please send us either a link to the public repo or an invitation to the private code repository, respectively.
 
 ### Official launch and beyond
 
