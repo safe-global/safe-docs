@@ -251,7 +251,7 @@ class HomeSplash extends React.Component {
             </a>
             <a href={docUrl("intro_audits")} className="white-box">
               <h3>
-                Audits & bug bounty
+                Audits & bug bounty program
               </h3>
               <p>
                 We take great care ensuring security of our smart contracts.

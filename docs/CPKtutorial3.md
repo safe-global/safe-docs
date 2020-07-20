@@ -4,7 +4,7 @@ title: Initializing CPK instance
 sidebar_label: Initializing CPK instance
 ---
 
-As soon as we got the wallet integration provider, we're ready to initialize the CPK instance. In case of web3.js, we do this simply by calling CPK.create and passing provider instance as an option with <span style="color:#DB3A3D">`web3`</span> key, so our <span style="color:#DB3A3D">`App.tsx`</span> looks like this now:
+As soon as we got the wallet integration provider, we're ready to initialize the CPK instance. In the case of web3.js, we do this simply by calling CPK.create and passing provider instance as an option with <span style="color:#DB3A3D">`web3`</span> key, so our <span style="color:#DB3A3D">`App.tsx`</span> looks like this now:
 
 ```jsx
 import React, { useState, useEffect } from "react"
