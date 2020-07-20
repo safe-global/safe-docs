@@ -7,7 +7,7 @@ sidebar_label: Overview of Safe contracts
 ## 1. Transaction management (Core contract)
 [GnosisSafe.sol](https://github.com/gnosis/safe-contracts/blob/development/contracts/GnosisSafe.sol) 
 
-This contract contains all core functionality required to setup a Gnosis Safe and to execute transactions. It contains the logic to use the optional token payment feature. Events are emitted for every successful as well as every failed transaction.
+This contract contains all core functionality required to set up a Gnosis Safe and to execute transactions. It contains the logic to use the optional token payment feature. Events are emitted for every successful as well as every failed transaction.
 
 
 ## 2. Owner management
