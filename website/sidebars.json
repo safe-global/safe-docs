@@ -6,7 +6,8 @@
       "intro_gnosis_safe",
       "intro_interfaces",
       "intro_statistics",
-      "intro_audits"
+      "intro_audits",
+      "intro_bug_bounty"
     ]
   },
   "contracts": {
@@ -36,6 +37,12 @@
     ]
   },
   "tutorial_cpk": {
-    "Integrating Gnosis Safe Proxy Kit": ["cpktutorial1","cpktutorial2","cpktutorial3","cpktutorial4","cpktutorial5"]
+    "Integrating Gnosis Safe Proxy Kit": [
+      "cpktutorial1",
+      "cpktutorial2",
+      "cpktutorial3",
+      "cpktutorial4",
+      "cpktutorial5"
+    ]
   }
 }
