@@ -9,7 +9,7 @@ Please carefully read though the [submission process](#submission-process) secti
 
 ## Audits
 
-The contracts have been carefully audited by smart contract security experts. For details, please refer to the [security audits page](intro_audits).
+The contracts have been carefully audited by smart contract security experts. For details, please refer to the [security audits page](/safe/docs/intro_audits).
 
 ## Rules
 
@@ -47,7 +47,7 @@ The scope of our bug bounty program includes core contracts related to release *
 
 ## Intended behavior
 
-Please refer to the [readme file](https://github.com/gnosis/safe-contracts/blob/development/README.md) and the [release details](https://github.com/gnosis/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](contracts_intro) for an extensive overview of the intended behavior of the smart contracts.
+Please refer to the [readme file](https://github.com/gnosis/safe-contracts/blob/development/README.md) and the [release details](https://github.com/gnosis/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](/safe/docs/contracts_intro) for an extensive overview of the intended behavior of the smart contracts.
 
 ## Compensation
 
