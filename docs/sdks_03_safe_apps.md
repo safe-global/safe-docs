@@ -71,10 +71,11 @@ While we allow interacting with Safe Apps hosted on a regular web server through
 
 Gnosis runs its own IPFS node and will make sure to pin your Safe App to guarantee availability.
 
-
 #### 4) Help us decode your Safe App transactions
 
-We want to display interactions with Safe Apps as humand-readable as possible. To do this, we need the contract ABI of the contracts that your Safe App interacts with. Please provide us with the ABIs as JSON files, so we can implement transaction decoding for your Safe App interactions.
+We want to display interactions with Safe Apps as humand-readable as possible. To do this, we need the contract ABI of the contracts that your Safe App interacts with. The ideal way to do this would be to verify your contracts via [Sourcify](https://github.com/ethereum/sourcify), which we can leverage to decode transactions interacting with those contract.
+
+Alternatively, you can provide us with the ABIs as JSON files or the links to the verified contracts on Etherscan, so we can implement transaction decoding for your Safe App interactions.
 
 ### Official launch and beyond
 
