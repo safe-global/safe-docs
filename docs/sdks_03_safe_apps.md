@@ -71,6 +71,12 @@ While we allow interacting with Safe Apps hosted on a regular web server through
 
 Gnosis runs its own IPFS node and will make sure to pin your Safe App to guarantee availability.
 
+#### 4) Help us decode your Safe App transactions
+
+We want to display interactions with Safe Apps as humand-readable as possible. To do this, we need the contract ABI of the contracts that your Safe App interacts with. The ideal way to do this would be to verify your contracts via [Sourcify](https://github.com/ethereum/sourcify), which we can leverage to decode transactions interacting with those contract.
+
+Alternatively, you can provide us with the ABIs as JSON files or the links to the verified contracts on Etherscan, so we can implement transaction decoding for your Safe App interactions.
+
 ### Official launch and beyond
 
 After we have reviewed and integrated your Safe App, the app will first be available in the staging versions ([Rinkeby](http://safe-team-rinkeby.staging.gnosisdev.com/app/#/) / [Mainnet](http://safe-team-mainnet.staging.gnosisdev.com/app/#/)) of the Safe Multisig for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
@@ -78,6 +84,7 @@ After we have reviewed and integrated your Safe App, the app will first be avail
 At any point after the launch, if you or your users encounter issues with the Safe App, or you want to release an update to an existing Safe App, please get in touch with us.
 
 safe@gnosis.io or via our [Discord](https://discord.gg/FPMRAwK)
+
 
 ### Disclaimer
 
