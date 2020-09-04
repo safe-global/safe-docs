@@ -10,9 +10,9 @@ With over $1B worth of digital assets held in Gnosis Multisigs alone, it’s ess
 
 Please refer to this [EthCC3 talk](https://www.youtube.com/watch?v=1GirpNHZPJM) to learn more about Safe Apps.
 
-There are already Safe apps available for a number of popular protocols such as [Aave](https://aave.com/), [Synthetix](https://synthetix.io/), [1inch](https://1inch.exchange/) or [Balancer](https://balancer.finance/). These have been build by 3rd party developers or the projects themselves.
+There are already Safe Apps available for a number of popular protocols such as [Aave](https://aave.com/), [Synthetix](https://synthetix.io/), [1inch](https://1inch.exchange/) or [Balancer](https://balancer.finance/). These have been build by 3rd party developers or the projects themselves.
 
-If you are missing a Safe app, get in touch with the respective project or get building with the Safe apps SDK below. There is even a grants program available:
+If you are missing a Safe App, get in touch with the respective project or get building with the Safe Apps SDK below. There is even a grants program available:
 
 ### Safe Apps Grants
 
@@ -22,7 +22,7 @@ Find more information about our grants program [here](https://github.com/gnosis/
 
 ### On-chain stats
 
-There are Dune Analytics dashboards about Safe apps available:
+There are Dune Analytics dashboards about Safe Apps available:
 
 - [Number of transactions](https://explore.duneanalytics.com/dashboard/gnosis-safe---safe-apps-transactions)
 - [Transaction volume](https://explore.duneanalytics.com/dashboard/gnosis-safe---safe-apps-volume)
@@ -44,9 +44,9 @@ We provide Safe App developers with reusable react components to make it easy to
 [UI Guidelines](assets/safe_apps_guides.png)
 
 
-### Existing Safe apps
+### Existing Safe Apps
 
-This is a list of known public repositories containing Safe apps for reference:
+This is a list of known public repositories containing Safe Apps for reference:
 
 - [Open Zeppelin](https://github.com/OpenZeppelin/upgrades-safe-app)
 - [Balancer - Pooling](https://github.com/TomAFrench/pool-management/tree/safe-app)
@@ -81,7 +81,7 @@ This is the official name of your Safe App, with a maximum of 20 characters.
 
 A file path to the logo that will be used alongside your Safe App. The icon must be a square SVG image of at least 256 by 256 pixels.
 
-- `"description": 'A Safe app to compose custom multisend transactions'`
+- `"description": 'A Safe App to compose custom multisend transactions'`
 
 Describe the functionality of your Safe App in 50-500 characters.
 
