@@ -159,11 +159,11 @@ class HomeSplash extends React.Component {
           <div>
            <a name="projects">
             <h2>
-              Projects building on <br></br> the Gnosis Safe contracts
+              Projects building with <br></br>the Gnosis Safe
             </h2>
             </a>
             <p>
-              The Gnosis Safe smart contracts are already used by those projects.
+              The Gnosis Safe is used or integrated with those projects.
             </p>
           </div>
 
@@ -174,9 +174,6 @@ class HomeSplash extends React.Component {
             <a href="https://burnerwallet.co/" className="white-box">
               <img className="index-projects-img" src={`${baseUrl}img/burner.png`}></img>
             </a>
-           <a href="https://pepo.com/" className="white-box">
-            <img className="index-projects-img" src={`${baseUrl}img/peposq.png`}></img>
-            </a>
             <a href="https://unilogin.io/" className="white-box">
               <img className="index-projects-img" src={`${baseUrl}img/universalloging.png`}></img>
             </a>
@@ -186,6 +183,17 @@ class HomeSplash extends React.Component {
             <a href="https://tasit.io/" className="white-box">
               <img className="index-projects-img" src={`${baseUrl}img/tasit.png`}></img>
             </a>
+            
+            <a href={docUrl("intro_projects")} className="white-box">
+                <h3>
+                    More projects
+                </h3>
+                <p>
+                    List of projects building with the Gnosis Safe.
+                </p>
+            </a>
+
+
           </div>
         </div>
 
