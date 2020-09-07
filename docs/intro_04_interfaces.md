@@ -12,15 +12,19 @@ You can setup a Safe at https://gnosis-safe.io in [60 seconds](https://twitter.c
 
 ## Gnosis Safe Multisig Mobile
 
-While the web interface remains the focal point, there are beta apps available on mobile:
+While the web interface remains the focal point, there are also Gnosis Safe Multisig Mobile apps.
 
-Mainnet:
-- [iOS](https://testflight.apple.com/join/c6k0CIUk)
-- [Android](https://appdistribution.firebase.dev/i/401cf2ea8afd6ed8)
+#### App stores
 
-Rinkeby:
-- [iOS](https://testflight.apple.com/join/U8NviSFl)
-- [Android](https://appdistribution.firebase.dev/i/8ecc0367c2001086)
+- [iOS](https://apps.apple.com/app/id1515759131)
+- [Android](https://play.google.com/store/apps/details?id=io.gnosis.safe)
+
+#### Beta
+
+- [Mainnet iOS](https://testflight.apple.com/join/c6k0CIUk)
+- [Mainnet Android](https://appdistribution.firebase.dev/i/401cf2ea8afd6ed8)
+- [Rinkeby iOS](https://testflight.apple.com/join/U8NviSFl)
+- [Rinkeby Android](https://appdistribution.firebase.dev/i/8ecc0367c2001086)
 
 *Note: We previously had different Gnosis Safe mobile apps available. We made the decision to deprecate them and focus on the Gnosis Safe Multisig entirely. [Learn more about the differences](https://help.gnosis-safe.io/en/articles/4100541-gnosis-safe-multisig-vs-legacy-safe-mobile-app) or [how to re-download the old mobile app](https://help.gnosis-safe.io/en/articles/4290400-how-to-re-download-the-legacy-gnosis-safe-mobile-app) if you previously had it installed.*
 
