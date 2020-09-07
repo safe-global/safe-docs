@@ -12,7 +12,7 @@ You can setup a Safe at https://gnosis-safe.io in [60 seconds](https://twitter.c
 
 ## Gnosis Safe Multisig Mobile
 
-While the web interface remains the focal point, there are also Gnosis Safe Multisig Mobile apps.
+While the web interface remains the focal point, there are also Gnosis Safe Multisig Mobile apps. Gnosis Safe Multisig Mobile allows you to track your assets and transactions on your phone and to stay informed on-the-go via push notifications.
 
 #### App stores
 
