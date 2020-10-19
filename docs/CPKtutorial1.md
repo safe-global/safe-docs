@@ -31,8 +31,10 @@ Our example project will be a [React](https://reactjs.org) application bootstrap
 ## Useful links
 
 - [Contract Proxy Kit documentation](https://github.com/gnosis/contract-proxy-kit)
+- [Video introduction to Building with Safe Apps SDK & Contract Proxy Kit](https://www.youtube.com/watch?v=YGw8WfBw5OI)
+- [Source code for the example app: Compound integration app](https://github.com/gnosis/cpk-compound-example)
+- [Source code for the example app: CPK configuration app](https://github.com/gnosis/cpk-configuration-app)
 - [Web3.js docs](https://web3js.readthedocs.io/)
-- [Source code for the example app](https://github.com/gnosis/cpk-compound-example)
 
 ## Installing contract-proxy-kit
 
