@@ -42,7 +42,7 @@ The scope of the bug bounty also includes the [allowance module](https://github.
 - Being able to steal funds
 - Being able to freeze funds or render them inaccessible by their owners
 - Being able to perform replay attacks on the same chain
-- Being able to change Safe settings without owner consent
+- Being able to change Safe settings or module settings without owner consent
 
 #### Out of scope:
 
