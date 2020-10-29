@@ -27,7 +27,7 @@ The scope of the bug bounty program includes the core contracts related to the f
 - *v1.1.1* ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.1.1), [readme](https://github.com/gnosis/safe-contracts/blob/v1.1.1/README.md)) 
 - *v1.2.0* ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.2.0), [readme](https://github.com/gnosis/safe-contracts/blob/v1.2.0/README.md)) 
 
-The scope of the bug bounty also includes the [allowance module](https://github.com/gnosis/safe-modules/tree/master/allowances).
+The scope of the bug bounty also includes the [allowance module](https://github.com/gnosis/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
 
 #### In scope:
 
@@ -42,7 +42,7 @@ The scope of the bug bounty also includes the [allowance module](https://github.
 - Being able to steal funds
 - Being able to freeze funds or render them inaccessible by their owners
 - Being able to perform replay attacks on the same chain
-- Being able to change Safe settings or module settings without owner consent
+- Being able to change Safe settings or module settings without consent of owners
 
 #### Out of scope:
 

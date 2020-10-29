@@ -11,6 +11,6 @@ We take great care ensuring security of our smart contracts. Please find the aud
 - [Gnosis Safe v1.1.0 & v1.1.1](https://github.com/gnosis/safe-contracts/blob/v1.1.1/docs/audit_1_1_1.md).
 - [Gnosis Safe v1.2.0](https://github.com/gnosis/safe-contracts/blob/v1.2.0/docs/audit_1_2_0.md).
 
-- [Allowance Module v0.1.0](https://github.com/gnosis/safe-modules/blob/master/allowances/AllowanceModuleAuditOct2020.md).
+- [Allowance Module v0.1.0](https://github.com/gnosis/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/AllowanceModuleAuditOct2020.md).
 
 Did you find a bug? Please [get in touch](mailto:bounty@gnosis.io) with us via our [bug bounty program](/safe/docs/intro_bug_bounty).
