@@ -53,7 +53,7 @@ The scope of the bug bounty also includes the [allowance module](https://github.
 
 ## Intended behavior
 
-Please refer to the [readme file](https://github.com/gnosis/safe-contracts/blob/development/README.md) and the [release details](https://github.com/gnosis/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](/safe/docs/contracts_intro) for an extensive overview of the intended behavior of the smart contracts. 
+Please refer to the [readme file](https://github.com/gnosis/safe-contracts/blob/v1.2.0/README.md) and the [release details](https://github.com/gnosis/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](/safe/docs/contracts_intro) for an extensive overview of the intended behavior of the smart contracts. 
 
 For the allowance module, please refer to the corresponding [readme file](https://github.com/gnosis/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/README.md)
 
@@ -114,7 +114,7 @@ At Gnosis, we are gradually moving substantial amounts of our company funds into
 
 #### Potential suicide of MultiSend library
 
-We use a [MultiSend](https://github.com/gnosis/safe-contracts/blob/development/contracts/libraries/MultiSend.sol) library to batch multiple transactions together. A transaction could be created that would self-destruct the contract. While this would not have put any funds at risk, user experience would have been seriously impacted.
+We use a [MultiSend](https://github.com/gnosis/safe-contracts/blob/v1.2.0/contracts/libraries/MultiSend.sol) library to batch multiple transactions together. A transaction could be created that would self-destruct the contract. While this would not have put any funds at risk, user experience would have been seriously impacted.
 
 We have updated the library as well as our interfaces. Details about the fix can be found on [Github](https://github.com/gnosis/safe-contracts/pull/156).
 
