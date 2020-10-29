@@ -55,7 +55,7 @@ The scope of the bug bounty also includes the [allowance module](https://github.
 
 Please refer to the [readme file](https://github.com/gnosis/safe-contracts/blob/development/README.md) and the [release details](https://github.com/gnosis/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](/safe/docs/contracts_intro) for an extensive overview of the intended behavior of the smart contracts. 
 
-For the allowance module, please refer to the corresponding [readme file](https://github.com/gnosis/safe-modules/blob/master/allowances/README.md)
+For the allowance module, please refer to the corresponding [readme file](https://github.com/gnosis/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/README.md)
 
 ## Compensation
 
