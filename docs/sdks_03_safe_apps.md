@@ -35,6 +35,10 @@ The Safe App SDK is a software development kit to integrate third-party applicat
 
 [Find documentation on the Safe App SDK here](https://github.com/gnosis/safe-apps-sdk)
 
+[Create your Safe App starting from this React template](https://github.com/gnosis/safe-app-template)
+
+[Watch a video introduction to Building with Safe Apps SDK & Contract Proxy Kit](https://www.youtube.com/watch?v=YGw8WfBw5OI)
+
 ### UI Kit
 
 We provide Safe App developers with reusable react components to make it easy to build Safe Apps with a near-native look and feel while still allowing to enable developers to use their branding in the Safe Apps.

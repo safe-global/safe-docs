@@ -39,18 +39,26 @@ Then we create an instance of the contract proxy kit providing the provider
 <!--DOCUSAURUS_CODE_TABS-->
 <!--web3.js-->
 ```js
-const Web3 = require('web3');
+import CPK, { Web3Adapter } from 'contract-proxy-kit';
+import Web3 from 'web3';
+
 const web3 = new Web3(/*...*/);
 
-const cpk = await CPK.create({ web3 });
+const ethLibAdapter = new Web3Adapter({ web3 });
+
+const cpk = await CPK.create({ ethLibAdapter });
 ```
 <!--ethers.js-->
 ```js
-const { ethers } = require('ethers');
+import CPK, { EthersAdapter } from 'contract-proxy-kit';
+import { ethers } from 'ethers');
+
 const provider = ethers.getDefaultProvider('homestead');
 const wallet = ethers.Wallet.createRandom().connect(provider);
 
-const cpk = await CPK.create({ ethers, signer: wallet });
+const ethLibAdapter = new EthersAdapter({ ethers, signer: wallet });
+
+const cpk = await CPK.create({ ethLibAdapter });
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 

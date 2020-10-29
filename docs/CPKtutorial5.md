@@ -14,19 +14,19 @@ Second, we need to prepare an array of transactions to execute for the Contract 
 
 ```jsx
 const txs = [
-      {
-        operation: CPK.CALL,
-        to: DAI_ADDRESS,
-        value: 0,
-        data: dai.methods.approve(CDAI_ADDRESS, daiAmount).encodeABI()
-      },
-      {
-        operation: CPK.CALL,
-        to: CDAI_ADDRESS,
-        value: 0,
-        data: cDai.methods.mint(daiAmount).encodeABI()
-      }
-    ]
+  {
+    operation: CPK.CALL,
+    to: DAI_ADDRESS,
+    value: 0,
+    data: dai.methods.approve(CDAI_ADDRESS, daiAmount).encodeABI()
+  },
+  {
+    operation: CPK.CALL,
+    to: CDAI_ADDRESS,
+    value: 0,
+    data: cDai.methods.mint(daiAmount).encodeABI()
+  }
+]
 ```
 
 And then we simply execute it by calling `execTransactions` on the CPK instance:

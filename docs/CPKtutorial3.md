@@ -9,7 +9,7 @@ As soon as we got the wallet integration provider, we're ready to initialize the
 ```jsx
 import React, { useState, useEffect } from "react"
 import Web3 from "web3"
-import CPK from "contract-proxy-kit"
+import CPK, { Web3Adapter } from "contract-proxy-kit"
 import ConnectButton from "src/components/ConnectButton"
 
 const App: React.FC = () => {
@@ -24,7 +24,9 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const initializeCPK = async () => {
-      setProxyKit(await CPK.create({ web3 }))
+      const ethLibAdapter = new Web3Adapter({ web3 })
+      const cpk = await CPK.create({ ethLibAdapter })
+      setProxyKit(cpk)
     }
 
     initializeCPK()
