@@ -22,7 +22,12 @@ Many of the [Ethereum Foundation’s bug bounty program rules](https://bounty.et
 
 ## Scope
 
-The scope of our bug bounty program includes core contracts related to release *v1.1.1* ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.1.1), [readme](https://github.com/gnosis/safe-contracts/blob/v1.1.1/README.md)) and *v1.2.0* ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.2.0), [readme](https://github.com/gnosis/safe-contracts/blob/v1.2.0/README.md)) of the Gnosis Safe contracts.
+The scope of the bug bounty program includes the core contracts related to the following releases of the Gnosis Safe contracts:
+
+- *v1.1.1* ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.1.1), [readme](https://github.com/gnosis/safe-contracts/blob/v1.1.1/README.md)) 
+- *v1.2.0* ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.2.0), [readme](https://github.com/gnosis/safe-contracts/blob/v1.2.0/README.md)) 
+
+The scope of the bug bounty also includes the [allowance module](https://github.com/gnosis/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
 
 #### In scope:
 
@@ -30,13 +35,14 @@ The scope of our bug bounty program includes core contracts related to release *
 - ProxyFactory.sol
 - CreateAndAddModules.sol, MultiSend.sol, CreateCall.sol
 - DefaultCallbackHandler.sol
+- AllowanceModule.sol
 
 #### Examples of what’s in scope:
 
 - Being able to steal funds
 - Being able to freeze funds or render them inaccessible by their owners
 - Being able to perform replay attacks on the same chain
-- Being able to change Safe settings without owner consent
+- Being able to change Safe settings or module settings without consent of owners
 
 #### Out of scope:
 
@@ -47,7 +53,9 @@ The scope of our bug bounty program includes core contracts related to release *
 
 ## Intended behavior
 
-Please refer to the [readme file](https://github.com/gnosis/safe-contracts/blob/development/README.md) and the [release details](https://github.com/gnosis/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](/safe/docs/contracts_intro) for an extensive overview of the intended behavior of the smart contracts.
+Please refer to the [readme file](https://github.com/gnosis/safe-contracts/blob/v1.2.0/README.md) and the [release details](https://github.com/gnosis/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](/safe/docs/contracts_intro) for an extensive overview of the intended behavior of the smart contracts. 
+
+For the allowance module, please refer to the corresponding [readme file](https://github.com/gnosis/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/README.md)
 
 ## Compensation
 
@@ -106,7 +114,7 @@ At Gnosis, we are gradually moving substantial amounts of our company funds into
 
 #### Potential suicide of MultiSend library
 
-We use a [MultiSend](https://github.com/gnosis/safe-contracts/blob/development/contracts/libraries/MultiSend.sol) library to batch multiple transactions together. A transaction could be created that would self-destruct the contract. While this would not have put any funds at risk, user experience would have been seriously impacted.
+We use a [MultiSend](https://github.com/gnosis/safe-contracts/blob/v1.2.0/contracts/libraries/MultiSend.sol) library to batch multiple transactions together. A transaction could be created that would self-destruct the contract. While this would not have put any funds at risk, user experience would have been seriously impacted.
 
 We have updated the library as well as our interfaces. Details about the fix can be found on [Github](https://github.com/gnosis/safe-contracts/pull/156).
 
