@@ -15,13 +15,13 @@ Second, we need to prepare an array of transactions to execute for the Contract 
 ```jsx
 const txs = [
   {
-    operation: CPK.CALL,
+    operation: CPK.Call,
     to: DAI_ADDRESS,
     value: 0,
     data: dai.methods.approve(CDAI_ADDRESS, daiAmount).encodeABI()
   },
   {
-    operation: CPK.CALL,
+    operation: CPK.Call,
     to: CDAI_ADDRESS,
     value: 0,
     data: cDai.methods.mint(daiAmount).encodeABI()
