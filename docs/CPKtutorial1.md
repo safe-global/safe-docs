@@ -5,7 +5,7 @@ sidebar_label: Getting Started
 ---
 
 Integrating Gnosis Safe Proxy Kit with the frontend (Compound App Example)
-App can be found live here: http://green-summer.surge.sh/
+App can be found live here: https://gnosis.github.io/cpk-compound-tutorial/
 
 ## Introduction
 
@@ -26,7 +26,7 @@ Gnosis Safe Proxy Kit is a smart contract on the Ethereum blockchain. There are 
 
 ## Background information
 
-Our example project will be a [React](https://reactjs.org) application bootstrapped with [create-react-app](https://github.com/facebook/create-react-app) which uses [Evergreen UI Kit](https://evergreen.segment.com/components/). We are also going to use [TypeScript](https://typescriptlang.org) as our language. For more information on those projects, visit their websites. We assume you are familiar with those technologies as our tutorial will only cover things you need to integrate the Gnosis Safe Contract Proxy kit and not, for example, how to set up a React project.
+Our example project will be a [React](https://reactjs.org) application bootstrapped with [create-react-app](https://github.com/facebook/create-react-app). We are also going to use [TypeScript](https://typescriptlang.org) as our language. For more information on those projects, visit their websites. We assume you are familiar with those technologies as our tutorial will only cover things you need to integrate the Gnosis Safe Contract Proxy kit and not, for example, how to set up a React project.
 
 ## Useful links
 
