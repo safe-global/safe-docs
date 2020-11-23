@@ -128,7 +128,19 @@ If there's no available Relay for the ethereum network you are using, you can ca
 contract](https://github.com/gnosis/safe-contracts/blob/v1.1.1/contracts/GnosisSafe.sol),
 or just provide `0` so a regular estimation is done.
 
-## Get the contractTransactionHash and sign
+## Get the contractTransactionHash
+### Calling the contract
+Contract transaction hash is calculated using the structured data hashing defined on [EIP712](https://eips.ethereum.org/EIPS/eip-712).
+You can take a look on [how is calculated on the contract](https://github.com/gnosis/safe-contracts/blob/development/contracts/GnosisSafe.sol#L403).
+You can call `getTransactionHash` on your Safe contract to get the hash of the transaction. In the fields where an address is expected
+but you don't want to use one (like `refundReceiver`) use an address with all zeroes (`address(0)` in Solidity).
+
+Transaction hash would be `0x1ed9d878f89585977e98425d5cedf51027c041e414bb471d64519f8f510bb555`
+
+### Lazy way
+This way is not recommended, as it requires you to trust the server and you can easily sign a malicious transaction. For this way to work, just set
+a random `contractTransactionHash` and `signature`, so the server complains with the expected `contractTransactionHash`.
+
 The transaction would be:
 ```json
 {
@@ -149,8 +161,6 @@ The transaction would be:
 }
 ```
 
-Note that we used a random `contractTransactionHash` and `signature`.
-
 `POST` that json to https://safe-transaction.rinkeby.gnosis.io/api/v1/safes/0x03c6dda6C17353e821bCb59e419f961a30BC7F78/multisig-transactions/
 
 You will receive an error:
@@ -162,6 +172,9 @@ You will receive an error:
 }
 ```
 
+Transaction hash would be `0x1ed9d878f89585977e98425d5cedf51027c041e414bb471d64519f8f510bb555`
+
+## Sign
 We should then use `0x1ed9d878f89585977e98425d5cedf51027c041e414bb471d64519f8f510bb555` as the `contractTransactionHash` and sign it with our private key. You can use `Python3` for that:
 ```bash
 pip install eth_account
