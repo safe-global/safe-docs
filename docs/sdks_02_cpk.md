@@ -85,7 +85,7 @@ To perform transactions with the contract proxy kit we need to pass an array of 
 ```js
 await cpk.execTransactions([
   {
-    operation: CPK.CALL, // Not needed because this is the default value.
+    operation: CPK.Call, // Not needed because this is the default value.
     data: '0x', // Not needed because this is the default value.
     to: '0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1',
     value: `${1e18}`,
