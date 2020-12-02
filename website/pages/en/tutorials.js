@@ -27,11 +27,6 @@ function Tutorial(props) {
           <div className="index-info-block-title">
             Tutorials
           </div>
-          <div className="index-info-block-text">
-            <p>
-            OK, enough about the basics of the Gnosis Safe Contracts. Let’s start building a project with them!
-            </p>
-          </div>
         </div>
 
         <div className="inner grid-blocks four-blocks-grid tutorials-boxes">
@@ -64,6 +59,29 @@ function Tutorial(props) {
             </h3>
             <p>
                 How to estimate and submit a transactions via the Relay service
+            </p>
+            <p className="box-icons">
+                <i className="icon icon-small icon-time"></i>
+                &nbsp;
+                30min
+                &nbsp;
+                &nbsp;
+                <i className="icon icon-small icon-star"></i>
+                &nbsp;
+                medium
+                &nbsp;
+                &nbsp;
+                <i className="icon icon-small icon-pen"></i>
+                JS
+            </p>
+          </a>
+
+          <a href={docUrl("txservicetutorial1")} className="white-box">
+            <h3>
+                Interact with the transaction service
+            </h3>
+            <p>
+                Propose a transaction to the transaction service
             </p>
             <p className="box-icons">
                 <i className="icon icon-small icon-time"></i>
