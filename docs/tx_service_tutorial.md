@@ -1,11 +1,10 @@
 ---
 id: txservicetutorial1
-title: Proposing Transactions
+title: Interacting with the transaction service
 sidebar_label: Proposing Transactions
 ---
 
-**Gnosis Safe Transaction Service** keeps track of transactions sent via Gnosis Safe contracts. It uses events
-and transaction tracing to index the txs. It's used by Gnosis Safe UIs (web interface/ios/android clients) to show transactions.
+**Gnosis Safe transaction service** keeps track of transactions sent via Gnosis Safe contracts. It uses events and transaction tracing to index the txs. It's used by Gnosis Safe UIs (Web interface/iOS/Android clients) to show transactions.
 
 Transactions are detected in an automatic way, so there is no need of informing the service about the transactions as in previous versions of the Transaction Service.
 
@@ -23,13 +22,12 @@ Gnosis is currently running the backend for these Ethereum networks:
 
 ## Proposing transactions
 
-This tutorial will teach you how to propose transactions to the Transaction Service, there are 2 reasons you would want to do that:
+This tutorial will teach you how to propose transactions to the transaction service, there are 2 reasons you would want to do that:
 - The transactions appear on the UIs, so you can craft custom transactions that can be signed and send by any of the owners in any of the UIs.
 - As a way to collect offchain signatures (instead of calling `approveHash` method on the Safe contract with every owner) and save gas.
 
-This tutorial is meant for those with a basic knowledge of computer programming.
-
 ### Proposing transactions using Javascript
+
 If you can code in Javascript, you can edit this example to fit your needs:
 https://gist.github.com/rmeissner/0fa5719dc6b306ba84ee34bebddc860b
 
@@ -72,7 +70,9 @@ we don't need refund for the sender. Safe is `0x03c6dda6C17353e821bCb59e419f961a
 private key of `0x66e91912f68828c17ad3fee506b7580c4cd19c7946d450b4b0823ac73badc878`
 
 ## Get current Safe nonce
+
 Call https://safe-transaction.rinkeby.gnosis.io/api/v1/safes/0x03c6dda6C17353e821bCb59e419f961a30BC7F78/ to get information about the Safe:
+
 ```json
 {
     "address": "0x03c6dda6C17353e821bCb59e419f961a30BC7F78",
@@ -91,6 +91,7 @@ Call https://safe-transaction.rinkeby.gnosis.io/api/v1/safes/0x03c6dda6C17353e82
 Current nonce is `5`.
 
 # Getting gas estimation
+
 If it's available on the network, you can use the **Gnosis Safe Relay Service** to get the gas estimation for the transaction. Currently Safe Relay is depoyed on the following networks:
 - Mainnet: https://safe-relay.mainnet.gnosis.io/
 - Rinkeby: https://safe-relay.rinkeby.gnosis.io/
@@ -124,7 +125,7 @@ POST that json to https://safe-relay.rinkeby.gnosis.io/api/v2/safes/0x03c6dda6C1
 Ignore most of the fields as we will not use the Relay and we don't need the refund parameters it provides.
 Just get `safeTxGas`. You can also get `nonce` from here (adding `+ 1`) and skip the previous step.
 
-If there's no available Relay for the ethereum network you are using, you can call `requiredTxGas` [on the
+If there's no available Relay for the Ethereum network you are using, you can call `requiredTxGas` [on the
 contract](https://github.com/gnosis/safe-contracts/blob/v1.1.1/contracts/GnosisSafe.sol),
 or just provide `0` so a regular estimation is done.
 
