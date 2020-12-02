@@ -50,18 +50,18 @@ We provide Safe App developers with reusable react components to make it easy to
 
 ### Existing Safe Apps
 
-This is a list of known public repositories containing Safe Apps for reference:
+This is a list of several known public repositories containing Safe Apps for reference:
 
+- [Transaction builder](https://github.com/gnosis/safe-react-apps/tree/development/apps/tx-builder)
+- [WalletConnect](https://github.com/gnosis/safe-react-apps/tree/development/apps/wallet-connect)
 - [Open Zeppelin](https://github.com/OpenZeppelin/upgrades-safe-app)
 - [Balancer - Pooling](https://github.com/TomAFrench/pool-management/tree/safe-app)
-- [Balancer - Exchange](https://github.com/balancer-labs/balancer-exchange)
+- [Balancer - Exchange](https://github.com/TomAFrench/balancer-exchange-safe-app/tree/safe-app)
 - [1inch Exchange](https://github.com/CryptoManiacsZone/gnosis.1inch.exchange)
 - [Synthetix](https://github.com/protofire/safe-app-synthetix-mintr)
 - [Sablier](https://github.com/TomAFrench/sablier-safe-app)
-- [Compound](https://github.com/gnosis/safe-react-apps/tree/development/src/apps/Compound)
-- [Transaction builder](https://github.com/gnosis/safe-react-apps/tree/development/src/apps/TxBuilder)
-- [Aave](https://github.com/mrdavey/gnosis-safe-app)
 - [Idle](https://github.com/krzysu/safe-app-idle)
+- [Compound](https://github.com/gnosis/safe-react-apps/tree/development/apps/compound)
 
 
 ## Release Process
