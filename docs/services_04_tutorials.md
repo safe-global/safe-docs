@@ -8,9 +8,9 @@ sidebar_label: Tutorials
 
 - [How to estimate and submit a transactions via the Relay service](https://github.com/gnosis/safe-demo)
 
-## Interact with the Transcation service
+## Interact with the Transaction service
 
-- [Propose a transaction to the transaction service](txservicetutorial1)
+- [Propose a transaction to the Transaction service](txservicetutorial1)
     
 ## More tutorials
         
