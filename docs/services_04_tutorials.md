@@ -27,6 +27,28 @@ sidebar_label: Tutorials
             JS
         </p>
     </div>
+    <div onclick="location.href='../txservicetutorial1';" class="white-box" style="cursor:pointer">
+        <h3>
+            Interact with the Transaction service
+        </h3>
+        <p>
+            How to propose a transactions to the Transaction service
+        </p>
+        <p class="box-icons">
+            <i class="icon icon-small icon-time"></i>
+            &nbsp;
+            30min
+            &nbsp;
+            &nbsp;
+            <i class="icon icon-small icon-star"></i>
+            &nbsp;
+            medium
+            &nbsp;
+            &nbsp;
+            <i class="icon icon-small icon-pen"></i>
+            JS
+        </p>
+    </div>
     <div onclick="location.href='../../tutorials';" class="white-box" style="cursor:pointer">
         <h3>
             More tutorials
