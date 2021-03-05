@@ -1,10 +1,10 @@
 ---
-id: txservicetutorial1
-title: Interacting with the transaction service
-sidebar_label: Proposing Transactions
+id: tutorial_tx_service_initiate_sign
+title: Initiate and sign transactions with the Safe transaction service
+sidebar_label: Initiate Transactions
 ---
 
-**Gnosis Safe transaction service** keeps track of transactions sent via Gnosis Safe contracts. It uses events and transaction tracing to index the txs. It's used by Gnosis Safe UIs (Web interface/iOS/Android clients) to show transactions.
+The Gnosis Safe transaction service keeps track of transactions sent via Gnosis Safe contracts. It uses events and transaction tracing to index the txs. It is used by Gnosis Safe UIs (Web interface/iOS/Android clients) to retrieve transaction information and to exchange off-chain signatures.
 
 Transactions are detected in an automatic way, so there is no need of informing the service about the transactions as in previous versions of the Transaction Service.
 
