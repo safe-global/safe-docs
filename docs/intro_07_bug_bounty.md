@@ -123,3 +123,11 @@ This bug was submitted by [Micah Zoltu](https://twitter.com/micahzoltu). It was 
 #### Transaction failure when receiving funds via `transfer` or `send`
 
 Since the beginning of the bug bounty period, the contract update has been live on the Ethereum Mainnet. We performed extensive internal testing and also discovered an edge case where a Safe could not receive funds from another contract via `send` or `transfer`. This was due to additional gas costs caused by the [emission of additional events](https://github.com/gnosis/safe-contracts/pull/135) and [gas price changes](https://eips.ethereum.org/EIPS/eip-1884) in the latest hardfork. This issue has been fixed and more details can be found on [Github](https://github.com/gnosis/safe-contracts/issues/149).
+
+#### Duplicate owners during setup could render Safe unusable
+
+There is a bug in the `setupOwners` function on `OwnerManager.sol` which allows duplicate owners to be set when the duplicated address is next to itself in the `_owners` array. This could cause unexpected behavior. While it is not possible to steal funds of existing Safes it is indeed an unexpected behaviour and user funds might be locked. During Safe creation the threshold of a Safe could be set to something unreachable, thereby making it impossible to execute a transaction afterwards.
+
+The Gnosis Safe interfaces all prevent this from happening by checking for duplicates, but if users directly interact with the contracts this can still happen. The issue is tracked on [Github](https://github.com/gnosis/safe-contracts/issues/244).
+
+This bug was submitted by [David Nicholas](https://twitter.com/davidnich11). It was regarded as "Medium Threat and a bounty of 2,500 USD has been paid out.

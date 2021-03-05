@@ -10,7 +10,7 @@ To execute a transaction with the Gnosis Safe the <span style="color:#DB3A3D">`e
 - _safeTxGas_: This is the minimum amount of gas that is provided for the Safe transaction. In case of <span style="color:#DB3A3D">`CALL`</span> and <span style="color:#DB3A3D">`DELEGATECALL`</span> this is also the maximum available gas (gas limit).
 - _baseGas_: This is the amount of gas that is independent of the specific Safe transactions, but used for general things such as signature checks and the base transaction fee. _SafeTxGas_ and _baseGas_ combined are comparable to the gas limit of a regular transaction.
 - _gasPrice_: Same like for a regular Ethereum transaction. Setting the gas price to 0 means that no refund is paid out.
-- _gasToken_: For regular Ethereum transactions, gas is paid in ether, always. The Gnosis Safe enables users to pay in ERC20 tokens or ether. The desired token is specified here. If <span style="color:#DB3A3D">`0x0`</span> then Ether is used. Gas costs are calculated by <span style="color:#DB3A3D">`(dataGas + txGas) * gasPrice`
+- _gasToken_: For regular Ethereum transactions, gas is paid in ether, always. The Gnosis Safe enables users to pay in ERC20 tokens or ether. The desired token is specified here. If <span style="color:#DB3A3D">`0x0`</span> then Ether is used. Gas costs are calculated by <span style="color:#DB3A3D">`(baseGas + txGas) * gasPrice`</span>.
 - _refundReceiver_: The refund does not necessarily have to go to the account submitting the transaction but can be paid out to any account specified here. If set to <span style="color:#DB3A3D">`0`</span>, <span style="color:#DB3A3D">`tx.origin`</span> will be used.
 - _signatures_: All parameters are hashed and signed by all owners of the Gnosis Safe up to the specified threshold. A list of hex encoded signatures is expected (<span style="color:#DB3A3D">`execTransaction`</span> expects that the signatures are sorted by owner address. This is required to easily validate no confirmation duplicates exist)
 
@@ -46,7 +46,7 @@ The following object describes the typed data that is signed:
         { type: "bytes", name: "data" },
         { type: "uint8", name: "operation" },
         { type: "uint256", name: "safeTxGas" },
-        { type: "uint256", name: "dataGas" },
+        { type: "uint256", name: "baseGas" },
         { type: "uint256", name: "gasPrice" },
         { type: "address", name: "gasToken" },
         { type: "address", name: "refundReceiver" },
@@ -95,13 +95,13 @@ To avoid that this method can be used inside a transaction two security measures
 The value returned by <span style="color:#DB3A3D">`requiredTxGas`</span> is encoded in a revert error message (see [solidity docs](http://solidity.readthedocs.io/en/v0.4.24/control-structures.html) at the very bottom). For retrieving the hex encoded uint value the first 68 bytes of the error message need to be removed.
 
 ## Safe Transaction Data Gas Estimation
-The <span style="color:#DB3A3D">`dataGas`</span> parameter can be used to include additional gas costs in the refund. This could include the base transaction fee of 21000 gas for a normal transaction, the gas for the data payload send to the Safe contract and the gas costs for the refund itself.
+The <span style="color:#DB3A3D">`baseGas`</span> parameter can be used to include additional gas costs in the refund. This could include the base transaction fee of 21000 gas for a normal transaction, the gas for the data payload send to the Safe contract and the gas costs for the refund itself.
 
-To correctly estimate the gas costs for the data payload without knowing the signatures, it is suggested to generate the transaction data of <span style="color:#DB3A3D">`execTransaction`</span> with random signatures and <span style="color:#DB3A3D">`dataGas`</span> set to 0. The costs for this data are 4 gas for each zero-byte and 68 gas for each non-zero-byte.
+To correctly estimate the gas costs for the data payload without knowing the signatures, it is suggested to generate the transaction data of <span style="color:#DB3A3D">`execTransaction`</span> with random signatures and <span style="color:#DB3A3D">`baseGas`</span> set to 0. The costs for this data are 4 gas for each zero-byte and 68 gas for each non-zero-byte.
 
 ## Transactions without refund
 As it is not always required to refund the relayer of the transaction it is possible to simplify the parameters in that case.
 
-If the <span style="color:#DB3A3D">`gasPrice`</span> is set to <span style="color:#DB3A3D">`0`</span> there will be no transfer triggered to refund the relayer. This makes it unncessary to specify <span style="color:#DB3A3D">`dataGas`</span>, <span style="color:#DB3A3D">`gasToken`</span> or <span style="color:#DB3A3D">`refundReceiver`</span> (can be set to <span style="color:#DB3A3D">`0`</span>)
+If the <span style="color:#DB3A3D">`gasPrice`</span> is set to <span style="color:#DB3A3D">`0`</span> there will be no transfer triggered to refund the relayer. This makes it unncessary to specify <span style="color:#DB3A3D">`baseGas`</span>, <span style="color:#DB3A3D">`gasToken`</span> or <span style="color:#DB3A3D">`refundReceiver`</span> (can be set to <span style="color:#DB3A3D">`0`</span>)
 
 In addition if also the <span style="color:#DB3A3D">`safeTxGas`</span> is set to <span style="color:#DB3A3D">`0`</span> all available gas will be used for the execution of the Safe transaction. With this it is also unnecessary to estimate the gas for the Safe transaction.
