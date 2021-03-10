@@ -130,4 +130,16 @@ There is a bug in the `setupOwners` function on `OwnerManager.sol` which allows 
 
 The Gnosis Safe interfaces all prevent this from happening by checking for duplicates, but if users directly interact with the contracts this can still happen. The issue is tracked on [Github](https://github.com/gnosis/safe-contracts/issues/244).
 
-This bug was submitted by [David Nicholas](https://twitter.com/davidnich11). It was regarded as "Medium Threat and a bounty of 2,500 USD has been paid out.
+This bug was submitted by [David Nicholas](https://twitter.com/davidnich11). It was regarded as "Medium Threat" and a bounty of 2,500 USD has been paid out.
+
+#### Setting a Safe as an owner of itself essentially reduces threshold by 1
+
+The contracts allow to set a Safe as an owner of itself. This has the same effect as lowering the threshold by 1, as it is possible for anyone to generate a valid signature for the Safe itself when triggering `execTransaction`. This is especially an issue for Safes with a threshold of 1. If a Safe with threshold 1 adds itself as an owner, anyone can execute transactions.
+
+To our knowledge there is no real use case where it would make sense to set a Safe as an owner of itself. Hence only a few number of Safes used themselves as owners. Most of these Safes could be contacted and the Safe have been removed as an owner. The Safes still affected are Safes used for testing by us or Safes owned by a single owner with a threshold > 1 (so no immediate risk).
+
+To fix this, the next contract update will prevent the Safe as its owner via `require(owner != address(this), "Safe can't be an owner")`. This check can be performed when adding owners and/or when checking signatures.
+
+Details about this issue can be found on [Github](https://github.com/gnosis/safe-contracts/issues/229).
+
+The bug was submitted by [Kevin Foesenek](https://github.com/keviinfoes). It was regarded as "Medium Threat" and a bounty of 5,000 USD has been paid out.
