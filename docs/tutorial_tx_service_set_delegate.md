@@ -4,7 +4,7 @@ title: Set a delegate on the Safe transaction service
 sidebar_label: Set a delegate
 ---
 
-The Gnosis Safe transaction service keeps track of transactions sent via Gnosis Safe contracts. Another tutorial shows how to initiate and sign transactions using this service. Initiated transactions will only be show in the official Gnosis Safe clients (Mobile & web) if the transaction was initiated and signed by an owner of the Safe. This is to prevent random accounts spamming transaction lists of Safes.
+The Gnosis Safe transaction service keeps track of transactions sent via Gnosis Safe contracts. Another tutorial shows how to initiate and sign transactions using this service. Initiated transactions will only be show in the official Gnosis Safe clients (Mobile & web) if the transaction was initiated and signed by an owner of the Safe. This is to prevent random accounts spamming transaction lists of Safes. There is a [tutorial on how to submit transactions to the Safe transaction service](tutorial_tx_service_initiate_sign.md).
 
 There are several use cases where it would make sense to allow non-owners to initiate transactions. As an example, complex transactions could be initiated via a script, however exposing a Safe owner key in a script is not intended.
 
@@ -89,3 +89,7 @@ delete_response = requests.delete(f'{TX_SERVICE_BASE_URL}/api/v1/safes/{SAFE_ADD
 print(delete_response.text)
 print(delete_response.status_code)
 ```
+
+## Submit a transaction as a delegate
+
+Submitting a transaction with a delegate account is equivalent to submitting a transaction as an owner of a Safe. Please refer to the tutorial about [how to submit a transaction to the Safe transaction service](tutorial_tx_service_initiate_sign.md).
