@@ -76,12 +76,35 @@ function Tutorial(props) {
             </p>
           </a>
 
-          <a href={docUrl("txservicetutorial1")} className="white-box">
+          <a href={docUrl("tutorial_tx_service_initiate_sign")} className="white-box">
             <h3>
                 Interact with the transaction service
             </h3>
             <p>
-                Propose a transaction to the transaction service
+                Initiate and sign transactions with the Safe transaction service
+            </p>
+            <p className="box-icons">
+                <i className="icon icon-small icon-time"></i>
+                &nbsp;
+                30min
+                &nbsp;
+                &nbsp;
+                <i className="icon icon-small icon-star"></i>
+                &nbsp;
+                medium
+                &nbsp;
+                &nbsp;
+                <i className="icon icon-small icon-pen"></i>
+                JS
+            </p>
+          </a>
+
+          <a href={docUrl("tutorial_tx_service_set_delegate")} className="white-box">
+            <h3>
+                Set a delegate on the Safe transaction service
+            </h3>
+            <p>
+                Set a delegate to initiate transactions with a non-owner account with the Safe transactions service.
             </p>
             <p className="box-icons">
                 <i className="icon icon-small icon-time"></i>
