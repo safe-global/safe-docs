@@ -16,7 +16,7 @@ The contract addresses match on all these networks. The full list can be found i
 
 In case you are missing the canonical Gnosis Safe contracts on another EVM-based chain, instructions on how to set them up can be found [here](https://github.com/gnosis/safe-contract-deployment-replay).
 
-In order to run the [Gnosis Safe Web interface](gnosis-safe.io/app/) ([Code](https://github.com/gnosis/safe-react/)), you would need to also run the backend services, in particular the [Safe transaction service](https://github.com/gnosis/safe-transaction-service) including a tracing node.
+In order to run the [Gnosis Safe Web interface](gnosis-safe.io/app/) ([Code](https://github.com/gnosis/safe-react/)), you would need to also run the backend services, in particular the [Safe client gateway](https://github.com/gnosis/safe-client-gateway/) and the [Safe transaction service](https://github.com/gnosis/safe-transaction-service) including a tracing node.
 
 At Gnosis, we do not have the capacity to spin up and maintain full frontend and backend support for other EVM-based networks. All our code is open source. We encourage everyone to [deploy the canonical versions](https://github.com/gnosis/safe-contract-deployment-replay) of the Safe contracts to their respective networks and run the required backend and frontend parts themselves. 
 
