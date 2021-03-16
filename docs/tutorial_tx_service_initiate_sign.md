@@ -194,6 +194,9 @@ print(signature.signature.hex())
 Signature is
 `0xc0df6a1b659d56d3d23f66cbd1c483467ea68a428fea7bbbe0a527d43d8681f616af33344035f36c08218718480374dada0fe6cdb266d0182a4225d0e9c227181b`.
 
+More than one signature (for different owners) can be sent, they should be appended and result should be an hex string `0x` prefixed. So if one signature is `0x12`
+and the other one is `0x23` the service should receive `0x1234`. [More information on Gnosis Safe contract signatures](contracts_signatures).
+
 Our transaction is complete now:
 ```json
 {
