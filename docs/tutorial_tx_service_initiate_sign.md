@@ -23,7 +23,7 @@ Gnosis is currently running the backend for these Ethereum networks:
 ## Proposing transactions
 
 This tutorial will teach you how to propose transactions to the transaction service, there are 2 reasons you would want to do that:
-- The transactions appear on the UIs, so you can craft custom transactions that can be signed and send by any of the owners in any of the UIs. Please note: Transactions submitted as a non-owner will not show up on the official Safe interfaces unless you previously added a delegate. There is a separate [tutorial on how to add a delegate to your Safe](https://docs.gnosis.io/safe/docs/tutorial_tx_service_set_delegate).
+- The transactions appear on the UIs, so you can craft custom transactions that can be signed and send by any of the owners in any of the UIs. Please note: Transactions submitted as a non-owner will not show up on the official Safe interfaces unless you previously added a delegate. There is a separate [tutorial on how to add a delegate to your Safe](tutorial_tx_service_set_delegate.md).
 - As a way to collect offchain signatures (instead of calling `approveHash` method on the Safe contract with every owner) and save gas.
 
 ### Proposing transactions using Javascript
@@ -194,7 +194,7 @@ print(signature.signature.hex())
 Signature is
 `0xc0df6a1b659d56d3d23f66cbd1c483467ea68a428fea7bbbe0a527d43d8681f616af33344035f36c08218718480374dada0fe6cdb266d0182a4225d0e9c227181b`.
 
-More than one signature (for different owners) can be sent. They should be appended and the result should be a hex string `0x` prefixed. [More information on Gnosis Safe contract signatures](contracts_signatures).
+More than one signature (for different owners) can be sent. They should be appended and the result should be a hex string `0x` prefixed. [More information on Gnosis Safe contract signatures](contracts_signatures.md).
 
 Our transaction is complete now:
 ```json
