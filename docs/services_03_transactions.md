@@ -25,7 +25,7 @@ for running the project.
 
 Configure the parameters needed on <span style="color:#DB3A3D">`.env`</span>. These parameters **need to be changed**:
 - <span style="color:#DB3A3D">`ETHEREUM_NODE_URL`</span>: Http/s address of a ethereum node. It can be the same than <span style="color:#DB3A3D">`ETHEREUM_TRACING_NODE_URL`</span>.
-- <span style="color:#DB3A3D">`ETHEREUM_TRACING_NODE_URL`</span>: Http/s address of an Openethereum/Parity node with
+- <span style="color:#DB3A3D">`ETHEREUM_TRACING_NODE_URL`</span>: Http/s address of an OpenEthereum/Parity node with
 [tracing enabled](https://openethereum.github.io/JSONRPC-trace-module).
 
 If you need the Usd conversion for tokens don't forget to configure:
@@ -48,12 +48,12 @@ curl 'http://localhost:8000/api/v1/about/'
 
 For example, to set up a Göerli node:
 
-Run a Openethereum node in your local computer:
+Run a OpenEthereum node in your local computer:
 ```bash
 openethereum --chain goerli --tracing on --db-path=/media/ethereum/openethereum --unsafe-expose
 ```
 
-Edit <span style="color:#DB3A3D">`.env`</span> so docker points to he host Openethereum:
+Edit <span style="color:#DB3A3D">`.env`</span> so docker points to the host OpenEthereum:
 ```
 ETHEREUM_NODE_URL=http://172.17.0.1:8545
 ETHEREUM_TRACING_NODE_URL=http://172.17.0.1:8545
