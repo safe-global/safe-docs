@@ -25,7 +25,7 @@ or
 `yarn add contract-proxy-kit`
 
 
-## Inititalizing the library
+## Initializing the library
 
 The contract proxy kit can be used with [ethers.js](https://github.com/ethers-io/ethers.js/) or with [web3.js](https://github.com/ethereum/web3.js/). To initialize the contract proxy kit you need to provide these providers to the library.
 
