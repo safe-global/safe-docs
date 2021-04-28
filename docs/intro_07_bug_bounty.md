@@ -4,7 +4,7 @@ title: Bug bounty program
 sidebar_label: Bug bounty program
 ---
 
-This is the page of the Gnosis Safe bug bounty program. Find bugs and get rewarded. Earn up to $100,000 for every bug you report. 
+This is the page of the Gnosis Safe bug bounty program. Find bugs and get rewarded. Earn up to $500,000 for every bug you report. 
 Please carefully read though the [submission process](#submission-process) section and get in touch via [bounty@gnosis.io](mailto:bounty@gnosis.io).
 
 ## Audits
@@ -26,34 +26,43 @@ The scope of the bug bounty program includes the core contracts related to the f
 
 - *v1.1.1* ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.1.1), [readme](https://github.com/gnosis/safe-contracts/blob/v1.1.1/README.md)) 
 - *v1.2.0* ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.2.0), [readme](https://github.com/gnosis/safe-contracts/blob/v1.2.0/README.md)) 
+- *v1.3.0* ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.3.0), [readme](https://github.com/gnosis/safe-contracts/blob/v1.3.0/README.md)) 
 
 The scope of the bug bounty also includes the [allowance module](https://github.com/gnosis/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
 
-#### In scope:
+### In scope:
 
+#### Gnosis Safe core contracts
 - GnosisSafe.sol
-- ProxyFactory.sol
-- CreateAndAddModules.sol, MultiSend.sol, CreateCall.sol
-- DefaultCallbackHandler.sol
+- GnosisSafeL2.sol
+- GnosisSafeProxyFactory.sol (formerly ProxyFactory.sol)
+- GnosisSafeProxy.sol (formerly Proxy.sol)
+- CreateAndAddModules.sol, MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
+- DefaultCallbackHandler.sol, CompatibilityFallbackHandler.sol, HandlerContext.sol
+
+Addresses for deployed instances of these contracts can be found in the [Safe deployments](https://github.com/gnosis/safe-deployments) repository.
+
+#### Gnosis Safe modules contracts
 - AllowanceModule.sol
 
-#### Examples of what’s in scope:
+### Examples of what’s in scope:
 
 - Being able to steal funds
 - Being able to freeze funds or render them inaccessible by their owners
 - Being able to perform replay attacks on the same chain
 - Being able to change Safe settings or module settings without consent of owners
 
-#### Out of scope:
+### Out of scope:
 
 - Any files, modules or libraries other than the ones mentioned above
 - More efficient gas solutions
 - Any points listed as an already known weaknesses
 - Any points listed in the audit or formal verification results reports
+- Any points fixed in a newer version
 
 ## Intended behavior
 
-Please refer to the [readme file](https://github.com/gnosis/safe-contracts/blob/v1.2.0/README.md) and the [release details](https://github.com/gnosis/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](/safe/docs/contracts_intro) for an extensive overview of the intended behavior of the smart contracts. 
+Please refer to the [readme file](https://github.com/gnosis/safe-contracts/blob/v1.3.0/README.md) and the [release details](https://github.com/gnosis/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](/safe/docs/contracts_intro) for an extensive overview of the intended behavior of the smart contracts. 
 
 For the allowance module, please refer to the corresponding [readme file](https://github.com/gnosis/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/README.md)
 
@@ -61,15 +70,15 @@ For the allowance module, please refer to the corresponding [readme file](https:
 
 Any bugs — they do not need to necessarily lead to a redeploy — will be considered for a bounty, but the severity of the threat will change the reward. Below are the reward levels for each threat severity along with an example of such a threat.
 
-#### High threat: up to $100,000
+### High threat: up to $500,000
 
 An identified attack that could steal funds or tokens or lock user funds would be considered a high threat. Likewise, a reported bug that, on its own, leads to a redeploy of the code will always be considered a high threat.
 
-#### Medium threat: up to $10,000
+### Medium threat: up to $50,000
 
 An identified attack where it is possible to steal funds because of unexpected behavior on the part of the user. Unexpected behavior here means that it is not possible for the user to anticipate and comprehend that the funds will be lost.
 
-#### Low threat: up to $2,000
+### Low threat: up to $10,000
 
 A way to avoid transaction fees or an exploit that in some way compromises the experience of other Gnosis Safe users.
 
@@ -112,7 +121,7 @@ At Gnosis, we are gradually moving substantial amounts of our company funds into
 
 *This list includes valid submissions from past and current contract versions for which a bounty has been paid.*
 
-#### Potential suicide of MultiSend library
+### Potential suicide of MultiSend library
 
 We use a [MultiSend](https://github.com/gnosis/safe-contracts/blob/v1.2.0/contracts/libraries/MultiSend.sol) library to batch multiple transactions together. A transaction could be created that would self-destruct the contract. While this would not have put any funds at risk, user experience would have been seriously impacted.
 
@@ -120,11 +129,11 @@ We have updated the library as well as our interfaces. Details about the fix can
 
 This bug was submitted by [Micah Zoltu](https://twitter.com/micahzoltu). It was regarded as "Low Threat", and a bounty of 1,000 USD has been paid out.
 
-#### Transaction failure when receiving funds via `transfer` or `send`
+### Transaction failure when receiving funds via `transfer` or `send`
 
 Since the beginning of the bug bounty period, the contract update has been live on the Ethereum Mainnet. We performed extensive internal testing and also discovered an edge case where a Safe could not receive funds from another contract via `send` or `transfer`. This was due to additional gas costs caused by the [emission of additional events](https://github.com/gnosis/safe-contracts/pull/135) and [gas price changes](https://eips.ethereum.org/EIPS/eip-1884) in the latest hardfork. This issue has been fixed and more details can be found on [Github](https://github.com/gnosis/safe-contracts/issues/149).
 
-#### Duplicate owners during setup could render Safe unusable
+### Duplicate owners during setup could render Safe unusable
 
 There is a bug in the `setupOwners` function on `OwnerManager.sol` which allows duplicate owners to be set when the duplicated address is next to itself in the `_owners` array. This could cause unexpected behavior. While it is not possible to steal funds of existing Safes it is indeed an unexpected behaviour and user funds might be locked. During Safe creation the threshold of a Safe could be set to something unreachable, thereby making it impossible to execute a transaction afterwards.
 
@@ -132,7 +141,7 @@ The Gnosis Safe interfaces all prevent this from happening by checking for dupli
 
 This bug was submitted by [David Nicholas](https://twitter.com/davidnich11). It was regarded as "Medium Threat" and a bounty of 2,500 USD has been paid out.
 
-#### Setting a Safe as an owner of itself essentially reduces threshold by 1
+### Setting a Safe as an owner of itself essentially reduces threshold by 1
 
 The contracts allow to set a Safe as an owner of itself. This has the same effect as lowering the threshold by 1, as it is possible for anyone to generate a valid signature for the Safe itself when triggering `execTransaction`. This is especially an issue for Safes with a threshold of 1. If a Safe with threshold 1 adds itself as an owner, anyone can execute transactions.
 
