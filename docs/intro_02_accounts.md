@@ -4,7 +4,7 @@ title: EOAs vs. contract accounts
 sidebar_label: EOAs vs. contract accounts
 ---
 
-So what is the difference between the two different types of accounts on Ethereum: externally owned accounts (EOAs) and contract accounts?
+What is the difference between the two different types of accounts on Ethereum: externally owned accounts (EOAs) and contract accounts?
 
 ![](assets/eaosvssmartcontract.png)
 
