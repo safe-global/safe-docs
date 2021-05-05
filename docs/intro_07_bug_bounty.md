@@ -4,7 +4,7 @@ title: Bug bounty program
 sidebar_label: Bug bounty program
 ---
 
-This is the page of the Gnosis Safe bug bounty program. Find bugs and get rewarded. Earn up to $500,000 for every bug you report. 
+This is the page of the Gnosis Safe bug bounty program. Find bugs and get rewarded. Earn up to $1,000,000 for every bug you report. 
 Please carefully read though the [submission process](#submission-process) section and get in touch via [bounty@gnosis.io](mailto:bounty@gnosis.io).
 
 ## Audits
