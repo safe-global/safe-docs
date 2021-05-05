@@ -30,7 +30,7 @@ The scope of the bug bounty program includes the core contracts related to the f
 
 The scope of the bug bounty also includes the [allowance module](https://github.com/gnosis/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
 
-### In scope:
+### In scope
 
 #### Gnosis Safe core contracts
 - GnosisSafe.sol
@@ -45,14 +45,14 @@ Addresses for deployed instances of these contracts can be found in the [Safe de
 #### Gnosis Safe modules contracts
 - AllowanceModule.sol
 
-### Examples of what’s in scope:
+### Examples of what’s in scope
 
 - Being able to steal funds
 - Being able to freeze funds or render them inaccessible by their owners
 - Being able to perform replay attacks on the same chain
 - Being able to change Safe settings or module settings without consent of owners
 
-### Out of scope:
+### Out of scope
 
 - Any files, modules or libraries other than the ones mentioned above
 - More efficient gas solutions
@@ -70,7 +70,7 @@ For the allowance module, please refer to the corresponding [readme file](https:
 
 Any bugs — they do not need to necessarily lead to a redeploy — will be considered for a bounty, but the severity of the threat will change the reward. Below are the reward levels for each threat severity along with an example of such a threat.
 
-### High threat: up to $500,000
+### High threat: up to $1,000,000
 
 An identified attack that could steal funds or tokens or lock user funds would be considered a high threat. Likewise, a reported bug that, on its own, leads to a redeploy of the code will always be considered a high threat.
 
@@ -108,12 +108,6 @@ If you comply with the policies below when reporting a security issue to us, we 
 Public disclosure of the bug or the indication of an intention to exploit it on Mainnet will make the report ineligible for a bounty. If in doubt about other aspects of the bounty, most of the [Ethereum Foundation bug bounty program rules](https://bounty.ethereum.org/) will apply here.
 
 Any questions? Reach us via email ([bounty@gnosis.io](mailto:bounty@gnosis.io)) or [Discord](https://discordapp.com/invite/FPMRAwK). For more information on the Gnosis Safe, check out our [website](https://gnosis-safe.io) and our [Github](https://github.com/gnosis?q=safe).
-
-## Honey Pot
-
-We have previously transferred a significant amount of funds to a [Gnosis Safe](https://etherscan.io/address/0xafc2f2d803479a2af3a72022d54cc0901a0ec0d6) (15,000 ETH), which serves as a honey pot for bounty hunters. This honey pot will be updated to the latest version of the smart contracts in the upcoming weeks. The honey pot Gnosis Safe update will happen before we make the update available to our users.
-
-At Gnosis, we are gradually moving substantial amounts of our company funds into a Gnosis Safe.
 
 *Happy hunting!*
 
