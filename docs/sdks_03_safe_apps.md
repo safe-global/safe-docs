@@ -75,24 +75,26 @@ As soon as you are done developing and testing your Safe App, you can already le
 To organically reach Safe Multisig users, you want to have your Safe App directly listed, of course. For Gnosis to list your app, the Safe App needs to fulfill the following criteria:
 The Safe App manifest includes all the required information
 
-#### 1) Your Safe App must include a manifest.json file that contains the following data: (Example for [this app](https://ipfs.io/ipfs/QmTgnb1J9FDR9gimptzvaEiNa25s92iQy37GyqYfwZw8Aj/))
+#### 1) Your Safe App must include a manifest.json file that contains the following data:
 
-- `"name": 'Name of your Safe App'`
+- `"name": "Name of your Safe App"`
 
 This is the official name of your Safe App, with a maximum of 20 characters.
 
-- `"iconPath": 'sapp_logo.svg'`
+- `"iconPath": "your_logo.svg"`
 
 A file path to the logo that will be used alongside your Safe App. The icon must be a square SVG image of at least 256 by 256 pixels.
 
-- `"description": 'A Safe App to compose custom multisend transactions'`
+- `"description": "This is the Safe app description."`
 
 Describe the functionality of your Safe App in 50-500 characters.
 
-- `"providedBy": {"name": 'Gnosis', "url": 'https://gnosis.io'}`
+- `"providedBy": {"name": "Example organization", "url": "https://example_organization.com"}`
 
 Your company or personal name and link to your company or personal domain.
 
+An example manifest can be found on [Github](https://github.com/gnosis/safe-apps-sdk/blob/master/packages/cra-template-safe-app/template/public/manifest.json).
+An example Safe app on ipfs can be found [here](https://ipfs.io/ipfs/QmTgnb1J9FDR9gimptzvaEiNa25s92iQy37GyqYfwZw8Aj/).
 
 #### 2) Gnosis has reviewed the Safe App
 
