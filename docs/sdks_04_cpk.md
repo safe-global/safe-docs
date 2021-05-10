@@ -100,4 +100,4 @@ await cpk.execTransactions([
 
 ## Advanced features
 
-For extensive documentation check our [GitHub repository](https://github.com/gnosis/contract-proxy-kit) and the [CPK tutorials](sdks_04_tutorials.md)
+For extensive documentation check our [GitHub repository](https://github.com/gnosis/contract-proxy-kit) and the [CPK tutorials](sdks_05_tutorials.md)
