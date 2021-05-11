@@ -4,7 +4,7 @@ title: Projects building with the Gnosis Safe
 sidebar_label: External projects
 ---
 
-This is an incomplete and unordered list of projects build on or integrating with the Gnosis Safe. This includes projects leveraging the contracts, backend infrastructure as well as parts of the Gnosis Safe interfaces, including [Safe Apps](sdks_03_safe_apps.md).
+This is an incomplete and unordered list of projects build on or integrating with the Gnosis Safe. This includes projects leveraging the contracts, backend infrastructure as well as parts of the Gnosis Safe interfaces, including [Safe Apps](sdks_02_safe_apps.md).
 
 - [1inch](https://1inch.exchange/): Safe Apps
 - [Aave](https://aave.com/): Safe Apps
