@@ -40,11 +40,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: 'Deploy safe-apps-developer-ui to S3: Develop'
+      - name: 'Deploy safe-docs to S3: Develop'
         if: github.ref == 'refs/heads/develop'
         run: aws s3 sync website/build/safe-docs s3://${{ secrets.AWS_DEV_BUCKET_NAME }}/safe --delete
 
-      - name: 'Deploy safe-apps-developer-ui to S3: Staging'
+      - name: 'Deploy safe-docs to S3: Staging'
         if: github.ref == 'refs/heads/master'
         run: aws s3 sync website/build/safe-docs s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/safe --delete
 
