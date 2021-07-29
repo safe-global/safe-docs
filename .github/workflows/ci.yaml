@@ -31,9 +31,7 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - run: cd website
-      - run: yarn
-      - run: yarn build
+      - run: cd website && yarn && yarn build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
