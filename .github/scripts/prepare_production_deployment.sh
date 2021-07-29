@@ -6,11 +6,11 @@ set -e
 # - Security env variables are available.
 echo "🚀 Preparing version $VERSION_TAG for deployment"
 
-if [ -n "$VERSION_TAG" ] && [ -n "$PROD_DEPLOYMENT_HOOK_TOKEN" ] && [ -n "$PROD_DEPLOYMENT_HOOK_URL" ]
+if [ -n "$VERSION_TAG" ] && [ -n "$PROD_DEPLOYMENT_HOOK_TOKEN" ] && [ -n "$PROD_DEPLOYMENT_HOOK_URL" ] && [ -n "$REF_BRANCH" ]
 then
   curl --silent --output /dev/null --write-out "%{http_code}" -X POST \
      -F token="$PROD_DEPLOYMENT_HOOK_TOKEN" \
-     -F ref=main \
+     -F ref=$REF_BRANCH \
      -F "variables[TRIGGER_RELEASE_COMMIT_TAG]=$VERSION_TAG" \
       $PROD_DEPLOYMENT_HOOK_URL
 else
