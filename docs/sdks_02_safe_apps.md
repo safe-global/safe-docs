@@ -18,7 +18,7 @@ If you are missing a Safe App, get in touch with the respective project or get b
 
 We have an ongoing program to finance the development of Safe Apps through grants with up to $3000. These grants are meant as an incentive for the community to extend the functionality of the Safe Multisig and enable small projects or independent developers to build their first Safe App.
 
-Find more information about our grants program [here](https://github.com/gnosis/GECO/blob/master/Safe%20Apps%20Grants/Safe%20Apps%20Grants.md).
+Find more information about our grants program [here](https://github.com/gnosis/GECO/blob/master/Project%20Ideas/Safe%20Apps%20Grants.md).
 
 ### On-chain stats
 
