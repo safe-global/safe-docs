@@ -42,15 +42,14 @@
 
 ## 🛠️ Build with Gnosis Safe <a id="sdks"></a>
 
-* [Overview](sdks/untitled.md)
-* [Safe Apps](sdks/safe-apps/README.md)
-  * [What are Safe Apps?](sdks/safe-apps/introduction.md)
-  * [Build](sdks/safe-apps/build.md)
-  * [Test](sdks/safe-apps/test.md)
-  * [Launch](sdks/safe-apps/launch.md)
-  * [Safe Apps SDK](sdks/safe-apps/safe-apps-sdk.md)
-* [Core SDK](sdks/core-sdk.md)
-* [Proxy SDK](sdks/proxy-sdk.md)
+* [SDKs](sdks/untitled/README.md)
+  * [Safe Apps SDK](sdks/untitled/safe-apps/README.md)
+    * [What are Safe Apps?](sdks/untitled/safe-apps/introduction.md)
+    * [Build](sdks/untitled/safe-apps/build.md)
+    * [Test](sdks/untitled/safe-apps/test.md)
+    * [Launch](sdks/untitled/safe-apps/launch.md)
+  * [Proxy SDK](sdks/untitled/proxy-sdk.md)
+  * [Core SDK](sdks/untitled/core-sdk.md)
 * [Other Tools](sdks/other-tools/README.md)
   * [Scaffold-ETH](sdks/other-tools/scaffold-eth.md)
 * [Built on Gnosis Safe](sdks/projects-building-with-the-gnosis-safe.md)

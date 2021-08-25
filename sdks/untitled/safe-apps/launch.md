@@ -1,4 +1,4 @@
-# Safe Apps SDK
+# Launch
 
 ### Introduction
 

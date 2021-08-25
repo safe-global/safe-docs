@@ -1,4 +1,4 @@
-# Overview
+# SDKs
 
 Gnosis provides multiple software developments kits \(SDKs\) to interact with the Gnosis Safe smart contracts from different platform and for different use cases.
 
