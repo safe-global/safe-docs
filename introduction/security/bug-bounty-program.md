@@ -1,4 +1,4 @@
-# Bug bounty program
+# Bug Bounty
 
 This is the page of the Gnosis Safe bug bounty program. Find bugs and get rewarded. Earn up to $1,000,000 for every bug you report. Please carefully read though the [submission process](https://docs.gnosis.io/safe/docs/intro_bug_bounty/#submission-process) section and get in touch via [bounty@gnosis.io](mailto:bounty@gnosis.io).
 

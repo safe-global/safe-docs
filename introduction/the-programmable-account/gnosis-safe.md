@@ -1,4 +1,4 @@
-# Gnosis Safe
+# Gnosis Safe Benefits
 
 The Gnosis Safe is a smart contract wallet with multi-signature functionality at its core. It enables the following features:
 

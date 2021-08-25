@@ -1,4 +1,4 @@
-# Security audits
+# Audits
 
 We take great care ensuring security of our smart contracts. Please find the audit reports of the Gnosis Safe smart contracts and the allowance module \(spending limit\) below:
 

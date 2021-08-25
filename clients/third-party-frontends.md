@@ -1,4 +1,4 @@
-# Third-party frontends
+# Third-party Frontends
 
 [Universal Login](https://medium.com/universal-ethereum/universal-login-beta-3-gnosis-safe-support-more-9b72be0e01f8) enables full support for Gnosis Safe smart contracts. A newly deployed wallet is by default a Gnosis Safe. They leverage the Safe mainly due to its security: “Gnosis Safe is formally verified and audited code that is storing more and more value every month \(currently almost $9 million worth\)”
 
