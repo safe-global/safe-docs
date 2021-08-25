@@ -39,7 +39,7 @@
 * [Client Gateway](clients/client-gateway.md)
 * [Third-party frontends](clients/third-party-frontends.md)
 
-## 🛠️ SDKs
+## 🛠️ Build with Gnosis Safe <a id="sdks"></a>
 
 * [Overview](sdks/untitled.md)
 * [Safe Apps](sdks/safe-apps/README.md)
@@ -47,4 +47,5 @@
   * [Safe Apps SDK](sdks/safe-apps/safe-apps-sdk.md)
 * [Core SDK](sdks/core-sdk.md)
 * [Proxy SDK](sdks/proxy-sdk.md)
+* [Workshops](sdks/workshops.md)
 
