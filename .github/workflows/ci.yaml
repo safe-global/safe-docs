@@ -2,14 +2,12 @@ name: CI
 on:
   push:
     branches:
-      - master
-      - develop
+      - devportal
   release:
     types: [published]
   pull_request:
     branches:
-      - master
-      - develop
+      - devportal
 jobs:
   deploy:
     name: Deploy
@@ -40,12 +38,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: 'Deploy safe-docs to S3: Develop'
-        if: github.ref == 'refs/heads/develop'
-        run: aws s3 sync website/build/safe-docs s3://${{ secrets.AWS_DEV_BUCKET_NAME }}/safe --delete
-
       - name: 'Deploy safe-docs to S3: Staging'
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/devportal'
         run: aws s3 sync website/build/safe-docs s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/safe --delete
 
       - name: Get tag version
