@@ -4,7 +4,7 @@
 
 ## 💬 Introduction
 
-* [The Programmable Account](introduction/the-programmable-account/README.md)
+* [Programmable Accounts](introduction/the-programmable-account/README.md)
   * [Assets on Ethereum](introduction/the-programmable-account/assets-on-ethereum.md)
   * [EOAs vs. Contract Accounts](introduction/the-programmable-account/eoas-vs.-contract-accounts.md)
   * [Gnosis Safe Benefits](introduction/the-programmable-account/gnosis-safe.md)
@@ -44,7 +44,10 @@
 
 * [Overview](sdks/untitled.md)
 * [Safe Apps](sdks/safe-apps/README.md)
-  * [Introduction](sdks/safe-apps/introduction.md)
+  * [What are Safe Apps?](sdks/safe-apps/introduction.md)
+  * [Build](sdks/safe-apps/build.md)
+  * [Test](sdks/safe-apps/test.md)
+  * [Launch](sdks/safe-apps/launch.md)
   * [Safe Apps SDK](sdks/safe-apps/safe-apps-sdk.md)
 * [Core SDK](sdks/core-sdk.md)
 * [Proxy SDK](sdks/proxy-sdk.md)
