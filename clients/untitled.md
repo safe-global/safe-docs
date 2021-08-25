@@ -1,0 +1,4 @@
+# Web
+
+You can setup a Safe at [https://gnosis-safe.io](https://gnosis-safe.io/) in [60 seconds](https://twitter.com/econoar/status/1194731123340763136?s=20). You specify the number of owners and their owner account addresses. Compatible account addresses include hardware wallets, Metamask, Authereum, WalletConnect enabled wallets, and others. You can see the asset overview and can make transactions such as custom transactions for direct smart contract interaction. ENS names are supported. We are working on a better dapp integration via Safe Apps which third party developers can leverage. Please open an issue on [Github](https://github.com/gnosis/safe-react/issues/) for every feature request you have, and also for every bug you encounter. A testnet version is available at [https://rinkeby.gnosis-safe.io/](https://rinkeby.gnosis-safe.io/). A downloadable standalone desktop version is available [here](https://github.com/gnosis/safe-react/releases).
+
