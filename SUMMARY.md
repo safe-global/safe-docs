@@ -52,6 +52,8 @@
   * [Core SDK](sdks/untitled/core-sdk.md)
 * [Other Tools](sdks/other-tools/README.md)
   * [Scaffold-ETH](sdks/other-tools/scaffold-eth.md)
+  * [Ape Safe](sdks/other-tools/ape-safe.md)
+  * [SafeSnap](sdks/other-tools/safesnap.md)
 * [Built on Gnosis Safe](sdks/projects-building-with-the-gnosis-safe.md)
 * [Workshops](sdks/workshops.md)
 
