@@ -13,6 +13,23 @@
   * [Audits](introduction/security/security-audits.md)
   * [Bug Bounty](introduction/security/bug-bounty-program.md)
 
+## 🛠️ Build with Gnosis Safe <a id="sdks"></a>
+
+* [SDKs](sdks/untitled/README.md)
+  * [Safe Apps SDK](sdks/untitled/safe-apps/README.md)
+    * [What are Safe Apps?](sdks/untitled/safe-apps/introduction.md)
+    * [Build](sdks/untitled/safe-apps/build.md)
+    * [Test](sdks/untitled/safe-apps/test.md)
+    * [Launch](sdks/untitled/safe-apps/launch.md)
+  * [Proxy SDK](sdks/untitled/proxy-sdk.md)
+  * [Core SDK](sdks/untitled/core-sdk.md)
+* [Other Tools](sdks/other-tools/README.md)
+  * [Scaffold-ETH](sdks/other-tools/scaffold-eth.md)
+  * [Ape Safe](sdks/other-tools/ape-safe.md)
+  * [SafeSnap](sdks/other-tools/safesnap.md)
+* [Built on Gnosis Safe](sdks/projects-building-with-the-gnosis-safe.md)
+* [Workshops](sdks/workshops.md)
+
 ## 📜 Contracts
 
 * [Core Contracts](contracts/core-contracts/README.md)
@@ -39,21 +56,4 @@
 * [CLI](clients/cli.md)
 * [Client Gateway](clients/client-gateway.md)
 * [Third-party Frontends](clients/third-party-frontends.md)
-
-## 🛠️ Build with Gnosis Safe <a id="sdks"></a>
-
-* [SDKs](sdks/untitled/README.md)
-  * [Safe Apps SDK](sdks/untitled/safe-apps/README.md)
-    * [What are Safe Apps?](sdks/untitled/safe-apps/introduction.md)
-    * [Build](sdks/untitled/safe-apps/build.md)
-    * [Test](sdks/untitled/safe-apps/test.md)
-    * [Launch](sdks/untitled/safe-apps/launch.md)
-  * [Proxy SDK](sdks/untitled/proxy-sdk.md)
-  * [Core SDK](sdks/untitled/core-sdk.md)
-* [Other Tools](sdks/other-tools/README.md)
-  * [Scaffold-ETH](sdks/other-tools/scaffold-eth.md)
-  * [Ape Safe](sdks/other-tools/ape-safe.md)
-  * [SafeSnap](sdks/other-tools/safesnap.md)
-* [Built on Gnosis Safe](sdks/projects-building-with-the-gnosis-safe.md)
-* [Workshops](sdks/workshops.md)
 
