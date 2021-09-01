@@ -46,6 +46,7 @@
 
 ## 🗄️ Services
 
+* [Client Gateway](services/client-gateway.md)
 * [Relayer](services/untitled.md)
 * [Indexer](services/indexer.md)
 
@@ -54,6 +55,5 @@
 * [Web](clients/untitled.md)
 * [Mobile](clients/mobile.md)
 * [CLI](clients/cli.md)
-* [Client Gateway](clients/client-gateway.md)
 * [Third-party Frontends](clients/third-party-frontends.md)
 
