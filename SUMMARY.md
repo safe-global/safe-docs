@@ -30,26 +30,6 @@
 * [Built on Gnosis Safe](sdks/projects-building-with-the-gnosis-safe.md)
 * [Workshops](sdks/workshops.md)
 
-## 📜 Contracts
-
-* [Core Contracts](contracts/core-contracts/README.md)
-  * [Basics](contracts/core-contracts/untitled.md)
-  * [Overview](contracts/core-contracts/overview.md)
-  * [Architecture](contracts/core-contracts/architecture-1.md)
-  * [Deployment](contracts/core-contracts/deployment.md)
-  * [Transaction Execution](contracts/core-contracts/transaction-execution.md)
-  * [Signatures](contracts/core-contracts/signatuers.md)
-  * [Refund](contracts/core-contracts/refund.md)
-  * [Networks](contracts/core-contracts/networks.md)
-* [Modules](contracts/modules.md)
-* [Guards](contracts/guards.md)
-
-## 🗄️ Services
-
-* [Client Gateway](services/client-gateway.md)
-* [Relayer](services/untitled.md)
-* [Indexer](services/indexer.md)
-
 ## 🖥️ Frontends <a id="clients"></a>
 
 * [Web](clients/untitled.md)
