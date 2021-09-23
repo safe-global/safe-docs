@@ -37,7 +37,7 @@
 * [CLI](clients/cli.md)
 * [Third-party Frontends](clients/third-party-frontends.md)
 
-## 🤖Backend
+## 🤖 Backend
 
 * [Service Architecture](backend/service-architecture.md)
 
