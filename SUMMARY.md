@@ -23,11 +23,12 @@
     * [Launch](sdks/untitled/safe-apps/launch.md)
   * [Proxy SDK](sdks/untitled/proxy-sdk.md)
   * [Core SDK](sdks/untitled/core-sdk.md)
+* [Modules](sdks/modules/README.md)
+  * [Zodiac](sdks/modules/safesnap.md)
 * [Other Tools](sdks/other-tools/README.md)
   * [Scaffold-ETH](sdks/other-tools/scaffold-eth.md)
   * [Ape Safe](sdks/other-tools/ape-safe.md)
-  * [Zodiac](sdks/other-tools/safesnap.md)
-* [Built on Gnosis Safe](sdks/projects-building-with-the-gnosis-safe.md)
+* [Built on Safe](sdks/projects-building-with-the-gnosis-safe.md)
 * [Workshops](sdks/workshops.md)
 
 ## 🖥️ Frontends <a id="clients"></a>

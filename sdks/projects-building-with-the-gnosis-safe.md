@@ -1,4 +1,4 @@
-# Built on Gnosis Safe
+# Built on Safe
 
 This is an incomplete and unordered list of projects build on or integrating with the Gnosis Safe. This includes projects leveraging the contracts, backend infrastructure as well as parts of the Gnosis Safe interfaces, including [Safe Apps](https://docs.gnosis.io/safe/docs/sdks_safe_apps).
 
