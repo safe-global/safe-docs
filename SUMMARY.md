@@ -26,6 +26,7 @@
 * [Modules](sdks/modules/README.md)
   * [Zodiac](sdks/modules/safesnap.md)
 * [Other Tools](sdks/other-tools/README.md)
+  * [Weiroll](sdks/other-tools/weiroll.md)
   * [Scaffold-ETH](sdks/other-tools/scaffold-eth.md)
   * [Ape Safe](sdks/other-tools/ape-safe.md)
 * [Built on Safe](sdks/projects-building-with-the-gnosis-safe.md)
