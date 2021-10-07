@@ -13,24 +13,24 @@
   * [Audits](introduction/security/security-audits.md)
   * [Bug Bounty](introduction/security/bug-bounty-program.md)
 
-## 🛠️ Build with Gnosis Safe <a id="sdks"></a>
+## 🛠️ Build with Gnosis Safe <a id="build"></a>
 
-* [SDKs](sdks/untitled/README.md)
-  * [Safe Apps SDK](sdks/untitled/safe-apps/README.md)
-    * [What are Safe Apps?](sdks/untitled/safe-apps/introduction.md)
-    * [Build](sdks/untitled/safe-apps/build.md)
-    * [Test](sdks/untitled/safe-apps/test.md)
-    * [Launch](sdks/untitled/safe-apps/launch.md)
-  * [Proxy SDK](sdks/untitled/proxy-sdk.md)
-  * [Core SDK](sdks/untitled/core-sdk.md)
-* [Modules](sdks/modules/README.md)
-  * [Zodiac](sdks/modules/safesnap.md)
-* [Other Tools](sdks/other-tools/README.md)
-  * [Weiroll](sdks/other-tools/weiroll.md)
-  * [Scaffold-ETH](sdks/other-tools/scaffold-eth.md)
-  * [Ape Safe](sdks/other-tools/ape-safe.md)
-* [Built on Safe](sdks/projects-building-with-the-gnosis-safe.md)
-* [Workshops](sdks/workshops.md)
+* [SDKs](build/sdks/README.md)
+  * [Safe Apps SDK](build/sdks/safe-apps/README.md)
+    * [What are Safe Apps?](build/sdks/safe-apps/introduction.md)
+    * [Build](build/sdks/safe-apps/build.md)
+    * [Test](build/sdks/safe-apps/test.md)
+    * [Launch](build/sdks/safe-apps/launch.md)
+  * [Proxy SDK](build/sdks/proxy-sdk.md)
+  * [Core SDK](build/sdks/core-sdk.md)
+* [Modules](build/modules/README.md)
+  * [Zodiac](build/modules/safesnap.md)
+* [Other Tools](build/other-tools/README.md)
+  * [Weiroll](build/other-tools/weiroll.md)
+  * [Scaffold-ETH](build/other-tools/scaffold-eth.md)
+  * [Ape Safe](build/other-tools/ape-safe.md)
+* [Built on Safe](build/projects-building-with-the-gnosis-safe.md)
+* [Workshops](build/workshops.md)
 
 ## 👩‍💻 Tutorials
 
