@@ -1,140 +1,56 @@
 # Launch
 
-### Introduction
+### Release Process
 
-The Safe Core SDK facilitates the interaction with the [Gnosis Safe contracts](https://github.com/gnosis/safe-contracts).
+#### How to get your Safe Apps into the hands of users
 
-It only supports Safe contracts `v1.2.0` and `ethers.js` `v5` so far.
+As soon as you are done developing and testing your Safe App, you can already let some actual users test it by just simply sending them the link to the hosted Safe App and asking them to add it as a Custom App. [This guide](https://help.gnosis-safe.io/en/articles/4022030-add-a-custom-safe-app) explains how to add custom apps.
 
-### Adding the dependencies
+#### Get your Safe App listed in the Safe Multisig
 
-The Safe Core SDK is available as a TS library via npm and can be added to your project with
+To organically reach Safe Multisig users, you want to have your Safe App directly listed, of course. For Gnosis to list your app, the Safe App needs to fulfill the following criteria: The Safe App manifest includes all the required information
 
-```text
-npm install @gnosis.pm/safe-core-sdk
-```
+**1\) Your Safe App must include a manifest.json file that contains the following data:**
 
-or
+* `"name": "Name of your Safe App"`
 
-```text
-yarn add @gnosis.pm/safe-core-sdk
-```
+This is the official name of your Safe App, with a maximum of 20 characters.
 
-### Getting Started
+* `"iconPath": "your_logo.svg"`
 
-#### 1. Set up the SDK using `Ethers` or `Web3`
+A file path to the logo that will be used alongside your Safe App. The icon must be a square SVG image of at least 256 by 256 pixels.
 
-If the app integrating the SDK is using `Ethers` `v5`, create an instance of the `EthersAdapter`. `owner1` is the Ethereum account we are connecting and the one who will sign the transactions.
+* `"description": "This is the Safe app description."`
 
-```text
-import { ethers } from 'ethers'
-import { EthersAdapter } from '@gnosis.pm/safe-core-sdk'
+Describe the functionality of your Safe App in 50-500 characters.
 
-const web3Provider = // ...
-const provider = new ethers.providers.Web3Provider(web3Provider)
-const owner1 = provider.getSigner(0)
+* `"providedBy": {"name": "Example organization", "url": "https://example_organization.com"}`
 
-const ethAdapterOwner1 = new EthersAdapter({
-  ethers,
-  signer: owner1
-})
-```
+Your company or personal name and link to your company or personal domain.
 
-If the app integrating the SDK is using `Web3` `v1`, create an instance of the `Web3Adapter`.
+An example manifest can be found on [Github](https://github.com/gnosis/safe-apps-sdk/blob/master/packages/cra-template-safe-app/template/public/manifest.json). An example Safe app on ipfs can be found [here](https://ipfs.io/ipfs/QmTgnb1J9FDR9gimptzvaEiNa25s92iQy37GyqYfwZw8Aj/).
 
-```text
-import Web3 from 'web3'
-import { Web3Adapter } from '@gnosis.pm/safe-core-sdk'
+**2\) Gnosis has reviewed the Safe App**
 
-const ethAdapterOwner1 = new Web3Adapter({
-  web3,
-  signerAddress: await owner1.getAddress()
-})
-```
+While we won’t be able to do a proper audit for your Safe App, we still would like to take a look at the source code to raise issues or suggest improvements. Depending on whether your Safe App is open or closed source, please send us either a **link to the public repo or an invitation to the private code repository**.
 
-#### 2. Deploy a new Safe
+We also would like to make a rough functional review of the app, so please provide us with a **high-level test plan / feature list** that allows our QA team to make sure everything works as intended in production.
 
-To deploy a new Safe account instantiate the `SafeFactory` class and call the method `deploySafe` with the right params to configure the new Safe. This includes defining the list of owners and the threshold of the Safe. A Safe account with 3 owners and threshold equal 3 will be used as the starting point for this example but any Safe configuration is valid.
+**3\) The Safe App is hosted on IPFS**
 
-```text
-import { Safe, SafeFactory, SafeAccountConfig } from '@gnosis.pm/safe-code-sdk'
+While we allow interacting with Safe Apps hosted on a regular web server through the Add custom app feature, we require listed apps to be hosted on IPFS. This ensures users can trust in the app being available at any time in the future without relying on the Safe App being hosted by the developer. Gnosis will take care of uploading your app to IPFS, but will require a **compiled version of the app** to do so.
 
-const safeFactory = await SafeFactory.create({ ethAdapter })
+Gnosis runs its own IPFS node and will make sure to pin your Safe App to guarantee availability.
 
-const owners = ['0x<address>', '0x<address>', '0x<address>']
-const threshold = 3
-const safeAccountConfig: SafeAccountConfig = { owners, threshold }
+**4\) Help us decode your Safe App transactions**
 
-const safeSdk: Safe = await safeFactory.deploySafe(safeAccountConfig)
-```
+We want to display interactions with Safe Apps as humand-readable as possible. To do this, we need the contract ABI of the contracts that your Safe App interacts with. The ideal way to do this would be to verify your contracts via [Sourcify](https://github.com/ethereum/sourcify), which we can leverage to decode transactions interacting with those contract.
 
-The method `deploySafe` executes a transaction from `owner1` account, deploys a new Safe and returns an instance of the Safe Core SDK connected to the new Safe.
+Alternatively, you can provide us with the ABIs as JSON files or the links to the verified contracts on Etherscan, so we can implement transaction decoding for your Safe App interactions.
 
-Call the method `getAddress`, for example, to check the address of the newly deployed Safe.
+#### Official launch and beyond
 
-```text
-const newSafeAddress = safeSdk.getAddress()
-```
+After we have reviewed and integrated your Safe App, the app will first be available in the staging versions \([Rinkeby](http://safe-team-rinkeby.staging.gnosisdev.com/app/#/) / [Mainnet](http://safe-team-mainnet.staging.gnosisdev.com/app/#/)\) of the Safe Multisig for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
 
-To instantiate the Safe Core SDK from an existing Safe just pass to it an instance of the `EthAdapter` class and the Safe address.
-
-```text
-import Safe from '@gnosis.pm/safe-core-sdk'
-
-const safeSdk: Safe = await Safe.create({ ethAdapter: ethAdapterOwner1, safeAddress })
-```
-
-#### 3. Create a Safe transaction
-
-```text
-import { SafeTransactionDataPartial } from '@gnosis.pm/safe-core-sdk'
-
-const transactions: SafeTransactionDataPartial[] = [{
-  to: '0x<address>',
-  value: '<eth_value_in_wei>',
-  data: '0x<data>'
-}]
-const safeTransaction = await safeSdk.createTransaction(...transactions)
-```
-
-Before executing this transaction, it must be signed by the owners and this can be done off-chain or on-chain. In this example `owner1` will sign it off-chain, `owner2` will sign it on-chain and `owner3` will execute it \(the executor also signs the transaction transparently\).
-
-#### 3.a. Off-chain signatures
-
-The `owner1` account signs the transaction off-chain.
-
-```text
-const owner1Signature = await safeSdk.signTransaction(safeTransaction)
-```
-
-Because the signature is off-chain, there is no interaction with the contract and the signature becomes available at `safeTransaction.signatures`.
-
-#### 3.b. On-chain signatures
-
-To connect `owner2` to the Safe we need to create a new instance of the class `EthAdapter` passing to its constructor the owner we would like to connect. After `owner2` account is connected to the SDK as a signer the transaction hash will be approved on-chain.
-
-```text
-const ethAdapterOwner2 = new EthersAdapter({ ethers, signer: owner2 })
-const safeSdk2 = await safeSdk.connect({ ethAdapter: ethAdapterOwner2, safeAddress })
-const txHash = await safeSdk2.getTransactionHash(safeTransaction)
-const approveTxResponse = await safeSdk2.approveTransactionHash(txHash)
-await approveTxResponse.wait()
-```
-
-#### 4. Transaction execution
-
-Lastly, `owner3` account is connected to the SDK as a signer and executor of the Safe transaction to execute it.
-
-```text
-const ethAdapterOwner3 = new EthersAdapter({ ethers, signer: owner3 })
-const safeSdk3 = await safeSdk2.connect({ ethAdapter: ethAdapterOwner3, safeAddress })
-const executeTxResponse = await safeSdk3.executeTransaction(safeTransaction)
-await executeTxResponse.wait()
-```
-
-All the signatures used to execute the transaction are now available at `safeTransaction.signatures`.
-
-### Advanced features
-
-For extensive documentation and the API Reference check the [GitHub repository](https://github.com/gnosis/safe-core-sdk).
+At any point after the launch, if you or your users encounter issues with the Safe App, or you want to release an update to an existing Safe App, please get in touch with us.
 
