@@ -33,6 +33,7 @@
 * [Workshops](build/workshops.md)
 
 ## 👩‍💻 Tutorials
+* [Initiate Transactions](tutorials/tutorial_tx_service_initiate_sign.md)
 
 ## 🖥️ Frontends <a id="clients"></a>
 
