@@ -2,6 +2,8 @@
 
 While the web interface remains the focal point, there are also Gnosis Safe Multisig Mobile apps. Gnosis Safe Multisig Mobile allows you to track your assets and transactions on your phone and to stay informed on-the-go via push notifications.
 
+[Client Gateway](https://github.com/gnosis/safe-client-gateway)
+
 **App stores**
 
 * [iOS](https://apps.apple.com/app/id1515759131)

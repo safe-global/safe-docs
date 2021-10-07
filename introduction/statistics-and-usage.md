@@ -4,6 +4,5 @@ The Gnosis Safe smart contracts are heavily used and store a significant amount 
 
 * [General usage overview](https://explore.duneanalytics.com/dashboard/gnosis-safe_2)
 * [Split by types](https://explore.duneanalytics.com/dashboard/gnosis-safe---split-by-safe-types)
-* [Retention](https://explore.duneanalytics.com/dashboard/gnosis-safe---retention)
 * [Settings](https://explore.duneanalytics.com/dashboard/gnosis-safe---versions)
 

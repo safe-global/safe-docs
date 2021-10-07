@@ -13,24 +13,34 @@
   * [Audits](introduction/security/security-audits.md)
   * [Bug Bounty](introduction/security/bug-bounty-program.md)
 
+## Contracts
+
+* [Basics](contracts/untitled.md)
+* [Overview of Safe contracts](contracts/overview-of-safe-contracts.md)
+* [Deployment](contracts/deployment.md)
+* [Transaction execution](contracts/transaction-execution.md)
+* [Meta transaction relays and the Safe](contracts/meta-transaction-relays-and-the-safe.md)
+* [Signatures](contracts/signatures.md)
+* [Architecture](contracts/architecture.md)
+* [Gnosis Safe on other EVM-based networks](contracts/gnosis-safe-on-other-evm-based-networks.md)
+
 ## 🛠️ Build with Gnosis Safe <a id="build"></a>
 
 * [SDKs](build/sdks/README.md)
   * [Safe Apps SDK](build/sdks/safe-apps/README.md)
+    * [Guides](build/sdks/safe-apps/guides.md)
     * [What are Safe Apps?](build/sdks/safe-apps/introduction.md)
-    * [Build](build/sdks/safe-apps/build.md)
-    * [Test](build/sdks/safe-apps/test.md)
-    * [Launch](build/sdks/safe-apps/launch.md)
-  * [Proxy SDK](build/sdks/proxy-sdk.md)
+    * [SDK Packages](build/sdks/safe-apps/build.md)
+    * [Releasing your Safe App](build/sdks/safe-apps/releasing-your-safe-app.md)
   * [Core SDK](build/sdks/core-sdk.md)
 * [Modules](build/modules/README.md)
-  * [Zodiac](build/modules/safesnap.md)
-* [Other Tools](build/other-tools/README.md)
+  * [Guides](build/modules/guides.md)
+  * [Mono-Repo](build/modules/mono-repo.md)
+* [Modules](build/modules-1.md)
+* [Guards](build/guards.md)
+* [Tools, Frameworks, and Extensions](build/other-tools/README.md)
   * [Weiroll](build/other-tools/weiroll.md)
-  * [Scaffold-ETH](build/other-tools/scaffold-eth.md)
-  * [Ape Safe](build/other-tools/ape-safe.md)
-* [Built on Safe](build/projects-building-with-the-gnosis-safe.md)
-* [Workshops](build/workshops.md)
+  * [Built on Safe](build/other-tools/projects-building-with-the-gnosis-safe.md)
 
 ## 👩‍💻 Tutorials
 
@@ -40,7 +50,6 @@
 
 * [Web](clients/untitled.md)
 * [Mobile](clients/mobile.md)
-* [CLI](clients/cli.md)
 * [Third-party Frontends](clients/third-party-frontends.md)
 
 ## 🤖 Backend
