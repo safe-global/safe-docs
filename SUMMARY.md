@@ -32,6 +32,8 @@
 * [Built on Safe](sdks/projects-building-with-the-gnosis-safe.md)
 * [Workshops](sdks/workshops.md)
 
+## 👩‍💻 Tutorials
+
 ## 🖥️ Frontends <a id="clients"></a>
 
 * [Web](clients/untitled.md)
