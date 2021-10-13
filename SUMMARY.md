@@ -18,7 +18,7 @@
 * [Signatures](contracts/signatures.md)
 * [Modules](contracts/modules-1.md)
 * [Guards](contracts/guards.md)
-* [Gnosis Safe on other EVM-based networks](contracts/gnosis-safe-on-other-evm-based-networks.md)
+* [Supported networks](contracts/gnosis-safe-on-other-evm-based-networks.md)
 
 ## 🛠️ Build with Gnosis Safe <a href="build" id="build"></a>
 
