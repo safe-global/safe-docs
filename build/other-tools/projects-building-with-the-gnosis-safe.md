@@ -2,25 +2,26 @@
 
 This is an incomplete and unordered list of projects build on or integrating with the Gnosis Safe. This includes projects leveraging the contracts, backend infrastructure as well as parts of the Gnosis Safe interfaces, including [Safe Apps](https://docs.gnosis.io/safe/docs/sdks_safe_apps).
 
-* [1inch](https://1inch.exchange/): Safe Apps
-* [Aave](https://aave.com/): Safe Apps
-* [Balancer](https://balancer.finance/): Safe Apps, Gnosis Safe Multisig
-* [Burner wallet](https://xdai.io/): Smart contract accounts
-* [DIAdata](https://diadata.org/): Gnosis Safe Multisig
-* [ENS](https://ens.domains/): Gnosis Safe Multisig
-* [Ethhub](https://ethhub.io/): Gnosis Safe Multisig
-* [Gelato](https://gelato.finance/): Smart contract accounts
-* [Groundhog](https://groundhog.network/): Contract module
-* [Metamask](https://metamask.io/): Smart contract accounts
-* [Open Zeppelin](https://openzeppelin.com/): Safe Apps
+* [1inch](https://1inch.exchange): Safe Apps
+* [Aave](https://aave.com): Safe Apps
+* [Balancer](https://balancer.finance): Safe Apps, Safe Multisig
+* [Burner wallet](https://xdai.io): Smart contract accounts
+* [DIAdata](https://diadata.org): Safe Multisig
+* [ENS](https://ens.domains): Safe Multisig
+* [Ethhub](https://ethhub.io): Safe Multisig
+* [Gelato](https://gelato.finance): Smart contract accounts
+* [Groundhog](https://groundhog.network): Contract module
+* [Metamask](https://metamask.io): Smart contract accounts
+* [Open Zeppelin](https://openzeppelin.com): Safe Apps
 * [Omen](https://docs.gnosis.io/safe/docs/intro_projects/omen.eth.link/): Contract proxy kit
-* [Request network](https://request.network/): Safe Apps
-* [Sablier](https://sablier.finance/): Safe Apps
-* [Slock it](https://slock.it/): Smart contract accounts
-* [Synthetix](https://synthetix.io/): Safe Apps
-* [Tasit](https://tasit.io/): Smart contract accounts
-* [Unilogin](https://unilogin.io/): Smart contract accounts
-* [Yearn](https://yearn.finance/): Gnosis Safe Multisig
+* [Request network](https://request.network): Safe Apps
+* [Sablier](https://sablier.finance): Safe Apps
+* [Slock it](https://slock.it): Smart contract accounts
+* [Synthetix](https://synthetix.io): Safe Apps
+* [Tasit](https://tasit.io): Smart contract accounts
+* [Unilogin](https://unilogin.io): Smart contract accounts
+* [Yearn](https://yearn.finance): Safe Multisig
+* [Weiroll Module](https://github.com/weiroll/safe-module): [Weiroll](https://github.com/weiroll/weiroll) contract module
 
 Hackathon projects:
 
@@ -30,4 +31,3 @@ Hackathon projects:
 * [https://devpost.com/software/peerduck](https://devpost.com/software/peerduck)
 
 If you know of any projects missing on this list, [please let us know](https://discordapp.com/invite/FPMRAwK).
-

@@ -30,7 +30,6 @@
     * [Releasing your Safe App](build/sdks/safe-apps/releasing-your-safe-app.md)
   * [Core SDK](build/sdks/core-sdk.md)
 * [Tools, Frameworks, and Extensions](build/other-tools/README.md)
-  * [Weiroll](build/other-tools/weiroll.md)
   * [Built on Safe](build/other-tools/projects-building-with-the-gnosis-safe.md)
 
 ## 👩‍💻 Tutorials
