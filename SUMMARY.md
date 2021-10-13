@@ -20,7 +20,7 @@
 * [Guards](contracts/guards.md)
 * [Supported networks](contracts/gnosis-safe-on-other-evm-based-networks.md)
 
-## 🛠️ Build with Gnosis Safe <a href="build" id="build"></a>
+## 🛠️ Build with Safe <a href="build" id="build"></a>
 
 * [SDKs](build/sdks/README.md)
   * [Safe Apps SDK](build/sdks/safe-apps/README.md)
