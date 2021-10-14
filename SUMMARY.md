@@ -17,7 +17,6 @@
 
 * [SDKs](build/sdks/README.md)
   * [Safe Apps SDK](build/sdks/safe-apps/README.md)
-    * [Guides](build/sdks/safe-apps/guides.md)
     * [What are Safe Apps?](build/sdks/safe-apps/introduction.md)
     * [SDK Packages](build/sdks/safe-apps/build.md)
     * [Releasing your Safe App](build/sdks/safe-apps/releasing-your-safe-app.md)
