@@ -4,7 +4,7 @@ description: Initiate and sign transactions with the Safe transaction service
 
 # Initiate Transactions
 
-The Gnosis Safe transaction service keeps track of transactions sent via Gnosis Safe contracts. It uses events and transaction tracing to index the txs. It is used by Gnosis Safe UIs \(Web interface/iOS/Android clients\) to retrieve transaction information and to exchange off-chain signatures.
+The Safe transaction service keeps track of transactions sent via Gnosis Safe contracts. It uses events and transaction tracing to index the txs. It is used by Gnosis Safe UIs (Web interface/iOS/Android clients) to retrieve transaction information and to exchange off-chain signatures.
 
 Transactions are detected in an automatic way, so there is no need of informing the service about the transactions as in previous versions of the Transaction Service.
 
@@ -14,19 +14,19 @@ Source code can be found in [https://github.com/gnosis/safe-transaction-service]
 
 Gnosis is currently running the backend for these Ethereum networks:
 
-* Mainnet:[https://safe-transaction.mainnet.gnosis.io/](https://safe-transaction.mainnet.gnosis.io/)
-* Rinkeby: [https://safe-transaction.rinkeby.gnosis.io/](https://safe-transaction.rinkeby.gnosis.io/)
-* Goerli: [https://safe-transaction.goerli.gnosis.io/](https://safe-transaction.goerli.gnosis.io/)
-* xDai:[https://safe-transaction.xdai.gnosis.io/](https://safe-transaction.xdai.gnosis.io/)
-* EWC: [https://safe-transaction.ewc.gnosis.io/](https://safe-transaction.ewc.gnosis.io/)
-* Volta: [https://safe-transaction.volta.gnosis.io/](https://safe-transaction.volta.gnosis.io/)
+* Mainnet:[https://safe-transaction.mainnet.gnosis.io/](https://safe-transaction.mainnet.gnosis.io)
+* Rinkeby: [https://safe-transaction.rinkeby.gnosis.io/](https://safe-transaction.rinkeby.gnosis.io)
+* Goerli: [https://safe-transaction.goerli.gnosis.io/](https://safe-transaction.goerli.gnosis.io)
+* xDai:[https://safe-transaction.xdai.gnosis.io/](https://safe-transaction.xdai.gnosis.io)
+* EWC: [https://safe-transaction.ewc.gnosis.io/](https://safe-transaction.ewc.gnosis.io)
+* Volta: [https://safe-transaction.volta.gnosis.io/](https://safe-transaction.volta.gnosis.io)
 
 ### Proposing transactions
 
 This tutorial will teach you how to propose transactions to the transaction service, there are 2 reasons you would want to do that:
 
 * The transactions appear on the UIs, so you can craft custom transactions that can be signed and send by any of the owners in any of the UIs. Please note: Transactions submitted as a non-owner will not show up on the official Safe interfaces unless you previously added a delegate. There is a separate [tutorial on how to add a delegate to your Safe](https://github.com/gnosis/safe-docs/tree/98cffd3359a173173543997a027134572e00cf29/tutorials/tutorial_tx_service_set_delegate.md).
-* As a way to collect offchain signatures \(instead of calling `approveHash` method on the Safe contract with every owner\) and save gas.
+* As a way to collect offchain signatures (instead of calling `approveHash` method on the Safe contract with every owner) and save gas.
 
 #### Proposing transactions using Javascript
 
@@ -55,7 +55,7 @@ This is the JSON structure of a Safe Transaction. All the ethereum addresses [ne
 }
 ```
 
-Some fields are related to the refund payment \(sender of the transaction gets a refund of the estimated cost of the transaction by the Safe\). If this feature is not needed you can set these fields like this:
+Some fields are related to the refund payment (sender of the transaction gets a refund of the estimated cost of the transaction by the Safe). If this feature is not needed you can set these fields like this:
 
 ```javascript
 {
@@ -93,11 +93,11 @@ Current nonce is `5`.
 
 ## Getting gas estimation
 
-If it's available on the network, you can use the **Gnosis Safe Relay Service** to get the gas estimation for the transaction. Currently Safe Relay is depoyed on the following networks:
+If it's available on the network, you can use the** Safe Relay Service** to get the gas estimation for the transaction. Currently Safe Relay is depoyed on the following networks:
 
-* Mainnet: [https://safe-relay.mainnet.gnosis.io/](https://safe-relay.mainnet.gnosis.io/)
-* Rinkeby: [https://safe-relay.rinkeby.gnosis.io/](https://safe-relay.rinkeby.gnosis.io/)
-* Goerli: [https://safe-relay.goerli.gnosis.io/](https://safe-relay.goerli.gnosis.io/)
+* Mainnet: [https://safe-relay.mainnet.gnosis.io/](https://safe-relay.mainnet.gnosis.io)
+* Rinkeby: [https://safe-relay.rinkeby.gnosis.io/](https://safe-relay.rinkeby.gnosis.io)
+* Goerli: [https://safe-relay.goerli.gnosis.io/](https://safe-relay.goerli.gnosis.io)
 
 For estimating, relay requires a small subset of the Safe Transaction:
 
@@ -126,7 +126,7 @@ POST that json to [https://safe-relay.rinkeby.gnosis.io/api/v2/safes/0x03c6dda6C
 }
 ```
 
-Ignore most of the fields as we will not use the Relay and we don't need the refund parameters it provides. Just get `safeTxGas`. You can also get `nonce` from here \(adding `+ 1`\) and skip the previous step.
+Ignore most of the fields as we will not use the Relay and we don't need the refund parameters it provides. Just get `safeTxGas`. You can also get `nonce` from here (adding `+ 1`) and skip the previous step.
 
 If there's no available Relay for the Ethereum network you are using, you can call `requiredTxGas` [on the contract](https://github.com/gnosis/safe-contracts/blob/v1.1.1/contracts/GnosisSafe.sol), or just provide `0` so a regular estimation is done.
 
@@ -134,7 +134,7 @@ If there's no available Relay for the Ethereum network you are using, you can ca
 
 #### Calling the contract
 
-Contract transaction hash is calculated using the structured data hashing defined on [EIP712](https://eips.ethereum.org/EIPS/eip-712). You can take a look on [how is calculated on the contract](https://github.com/gnosis/safe-contracts/blob/development/contracts/GnosisSafe.sol#L403). You can call `getTransactionHash` on your Safe contract to get the hash of the transaction. In the fields where an address is expected but you don't want to use one \(like `refundReceiver`\) use an address with all zeroes \(`address(0)` in Solidity\).
+Contract transaction hash is calculated using the structured data hashing defined on [EIP712](https://eips.ethereum.org/EIPS/eip-712). You can take a look on [how is calculated on the contract](https://github.com/gnosis/safe-contracts/blob/development/contracts/GnosisSafe.sol#L403). You can call `getTransactionHash` on your Safe contract to get the hash of the transaction. In the fields where an address is expected but you don't want to use one (like `refundReceiver`) use an address with all zeroes (`address(0)` in Solidity).
 
 Transaction hash would be `0x1ed9d878f89585977e98425d5cedf51027c041e414bb471d64519f8f510bb555`
 
@@ -197,7 +197,7 @@ print(signature.signature.hex())
 
 Signature is `0xc0df6a1b659d56d3d23f66cbd1c483467ea68a428fea7bbbe0a527d43d8681f616af33344035f36c08218718480374dada0fe6cdb266d0182a4225d0e9c227181b`.
 
-More than one signature \(for different owners\) can be sent. They should be appended and the result should be a hex string `0x` prefixed. [More information on Gnosis Safe contract signatures](https://github.com/gnosis/safe-docs/tree/98cffd3359a173173543997a027134572e00cf29/tutorials/contracts_signatures.md).
+More than one signature (for different owners) can be sent. They should be appended and the result should be a hex string `0x` prefixed. [More information on Gnosis Safe contract signatures](https://github.com/gnosis/safe-docs/tree/98cffd3359a173173543997a027134572e00cf29/tutorials/contracts_signatures.md).
 
 Our transaction is complete now:
 
@@ -221,4 +221,3 @@ Our transaction is complete now:
 ```
 
 We can `POST` the json to [https://safe-transaction.rinkeby.gnosis.io/api/v1/safes/0x03c6dda6C17353e821bCb59e419f961a30BC7F78/multisig-transactions/](https://safe-transaction.rinkeby.gnosis.io/api/v1/safes/0x03c6dda6C17353e821bCb59e419f961a30BC7F78/multisig-transactions/)
-

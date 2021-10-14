@@ -7,7 +7,7 @@
 * [Programmable Accounts](introduction/the-programmable-account/README.md)
   * [Assets on Ethereum](introduction/the-programmable-account/assets-on-ethereum.md)
   * [EOAs vs. Contract Accounts](introduction/the-programmable-account/eoas-vs.-contract-accounts.md)
-  * [Gnosis Safe Benefits](introduction/the-programmable-account/gnosis-safe.md)
+  * [Safe Benefits](introduction/the-programmable-account/gnosis-safe.md)
 * [Statistics & Usage](introduction/statistics-and-usage.md)
 * [Security](introduction/security/README.md)
   * [Audits](introduction/security/security-audits.md)

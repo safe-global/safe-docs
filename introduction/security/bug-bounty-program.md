@@ -1,6 +1,6 @@
 # Bug Bounty
 
-This is the page of the Gnosis Safe bug bounty program. Find bugs and get rewarded. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](https://docs.gnosis.io/safe/docs/intro_bug_bounty/#submission-process) section and get in touch via [bounty@gnosis.io](mailto:bounty@gnosis.io).
+This is the page of the Safe bug bounty program. Find bugs and get rewarded. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](https://docs.gnosis.io/safe/docs/intro_bug_bounty/#submission-process) section and get in touch via [bounty@gnosis.io](mailto:bounty@gnosis.io).
 
 ### Audits
 
@@ -8,20 +8,20 @@ The contracts have been carefully audited by smart contract security experts. Fo
 
 ### Rules
 
-Many of the [Ethereum Foundation’s bug bounty program rules](https://bounty.ethereum.org/) are also applicable for the Gnosis Safe bug bounty program:
+Many of the [Ethereum Foundation’s bug bounty program rules](https://bounty.ethereum.org) are also applicable for the Safe bug bounty program:
 
 * Issues that have already been submitted by another user or are already known to the Gnosis team are not eligible for bounty rewards.
 * Public disclosure of a vulnerability makes it ineligible for a bounty.
-* The Gnosis core development team, employees, and all other people paid by Gnosis, directly or indirectly \(including the external auditors\), are not eligible for rewards.
-* The Gnosis Safe bounty program considers a number of variables in determining rewards. Determinations of eligibility, score, and all terms related to an award are at the sole and final discretion of the Gnosis Safe bug bounty panel.
+* The Gnosis core development team, employees, and all other people paid by Gnosis, directly or indirectly (including the external auditors), are not eligible for rewards.
+* The Safe bounty program considers a number of variables in determining rewards. Determinations of eligibility, score, and all terms related to an award are at the sole and final discretion of the Safe bug bounty panel.
 
 ### Scope
 
-The scope of the bug bounty program includes the core contracts related to the following releases of the Gnosis Safe contracts:
+The scope of the bug bounty program includes the core contracts related to the following releases of the Safe contracts:
 
-* _v1.1.1_ \([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.1.1), [readme](https://github.com/gnosis/safe-contracts/blob/v1.1.1/README.md)\)
-* _v1.2.0_ \([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.2.0), [readme](https://github.com/gnosis/safe-contracts/blob/v1.2.0/README.md)\)
-* _v1.3.0_ \([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.3.0), [readme](https://github.com/gnosis/safe-contracts/blob/v1.3.0/README.md)\)
+* _v1.1.1_ ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.1.1), [readme](https://github.com/gnosis/safe-contracts/blob/v1.1.1/README.md))
+* _v1.2.0_ ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.2.0), [readme](https://github.com/gnosis/safe-contracts/blob/v1.2.0/README.md))
+* _v1.3.0_ ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.3.0), [readme](https://github.com/gnosis/safe-contracts/blob/v1.3.0/README.md))
 
 The scope of the bug bounty also includes the [allowance module](https://github.com/gnosis/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
 
@@ -31,14 +31,14 @@ The scope of the bug bounty also includes the [allowance module](https://github.
 
 * GnosisSafe.sol
 * GnosisSafeL2.sol
-* GnosisSafeProxyFactory.sol \(formerly ProxyFactory.sol\)
-* GnosisSafeProxy.sol \(formerly Proxy.sol\)
+* GnosisSafeProxyFactory.sol (formerly ProxyFactory.sol)
+* GnosisSafeProxy.sol (formerly Proxy.sol)
 * CreateAndAddModules.sol, MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
 * DefaultCallbackHandler.sol, CompatibilityFallbackHandler.sol, HandlerContext.sol
 
 Addresses for deployed instances of these contracts can be found in the [Safe deployments](https://github.com/gnosis/safe-deployments) repository.
 
-**Gnosis Safe modules contracts**
+**Safe modules contracts**
 
 * AllowanceModule.sol
 
@@ -77,7 +77,7 @@ An identified attack where it is possible to steal funds because of unexpected b
 
 #### Low threat: up to $10,000
 
-A way to avoid transaction fees or an exploit that in some way compromises the experience of other Gnosis Safe users.
+A way to avoid transaction fees or an exploit that in some way compromises the experience of other Safe users.
 
 _All bounties will be paid in ETH._
 
@@ -98,13 +98,13 @@ If you comply with the policies below when reporting a security issue to us, we 
 _We ask that:_
 
 * You give us reasonable time to investigate and mitigate an issue you report before making public any information about the report or sharing such information with others.
-* You make a good faith effort to avoid privacy violations and disruptions to others, including \(but not limited to\) destruction of data and interruption or degradation of our services.
+* You make a good faith effort to avoid privacy violations and disruptions to others, including (but not limited to) destruction of data and interruption or degradation of our services.
 * You do not exploit a security issue you discover for any reason. This includes demonstrating additional risk, such as an attempted compromise of sensitive company data or probing for additional issues.
 * You do not violate any other applicable laws or regulations.
 
-Public disclosure of the bug or the indication of an intention to exploit it on Mainnet will make the report ineligible for a bounty. If in doubt about other aspects of the bounty, most of the [Ethereum Foundation bug bounty program rules](https://bounty.ethereum.org/) will apply here.
+Public disclosure of the bug or the indication of an intention to exploit it on Mainnet will make the report ineligible for a bounty. If in doubt about other aspects of the bounty, most of the [Ethereum Foundation bug bounty program rules](https://bounty.ethereum.org) will apply here.
 
-Any questions? Reach us via email \([bounty@gnosis.io](mailto:bounty@gnosis.io)\) or [Discord](https://discordapp.com/invite/FPMRAwK). For more information on the Gnosis Safe, check out our [website](https://gnosis-safe.io/) and our [Github](https://github.com/gnosis?q=safe).
+Any questions? Reach us via email ([bounty@gnosis.io](mailto:bounty@gnosis.io)) or [Discord](https://discordapp.com/invite/FPMRAwK). For more information on the Safe, check out our [website](https://gnosis-safe.io) and our [Github](https://github.com/gnosis?q=safe).
 
 _Happy hunting!_
 
@@ -128,7 +128,7 @@ Since the beginning of the bug bounty period, the contract update has been live 
 
 There is a bug in the `setupOwners` function on `OwnerManager.sol` which allows duplicate owners to be set when the duplicated address is next to itself in the `_owners` array. This could cause unexpected behavior. While it is not possible to steal funds of existing Safes it is indeed an unexpected behaviour and user funds might be locked. During Safe creation the threshold of a Safe could be set to something unreachable, thereby making it impossible to execute a transaction afterwards.
 
-The Gnosis Safe interfaces all prevent this from happening by checking for duplicates, but if users directly interact with the contracts this can still happen. The issue is tracked on [Github](https://github.com/gnosis/safe-contracts/issues/244).
+The Safe interfaces all prevent this from happening by checking for duplicates, but if users directly interact with the contracts this can still happen. The issue is tracked on [Github](https://github.com/gnosis/safe-contracts/issues/244).
 
 This bug was submitted by [David Nicholas](https://twitter.com/davidnich11). It was regarded as "Medium Threat" and a bounty of 2,500 USD has been paid out.
 
@@ -136,11 +136,10 @@ This bug was submitted by [David Nicholas](https://twitter.com/davidnich11). It 
 
 The contracts allow to set a Safe as an owner of itself. This has the same effect as lowering the threshold by 1, as it is possible for anyone to generate a valid signature for the Safe itself when triggering `execTransaction`. This is especially an issue for Safes with a threshold of 1. If a Safe with threshold 1 adds itself as an owner, anyone can execute transactions.
 
-To our knowledge there is no real use case where it would make sense to set a Safe as an owner of itself. Hence only a few number of Safes used themselves as owners. Most of these Safes could be contacted and the Safe have been removed as an owner. The Safes still affected are Safes used for testing by us or Safes owned by a single owner with a threshold &gt; 1 \(so no immediate risk\).
+To our knowledge there is no real use case where it would make sense to set a Safe as an owner of itself. Hence only a few number of Safes used themselves as owners. Most of these Safes could be contacted and the Safe have been removed as an owner. The Safes still affected are Safes used for testing by us or Safes owned by a single owner with a threshold > 1 (so no immediate risk).
 
 To fix this, the next contract update will prevent the Safe as its owner via `require(owner != address(this), "Safe can't be an owner")`. This check can be performed when adding owners and/or when checking signatures.
 
 Details about this issue can be found on [Github](https://github.com/gnosis/safe-contracts/issues/229).
 
 The bug was submitted by [Kevin Foesenek](https://github.com/keviinfoes). It was regarded as "Medium Threat" and a bounty of 5,000 USD has been paid out.
-
