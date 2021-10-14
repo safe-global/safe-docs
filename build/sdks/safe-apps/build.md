@@ -2,9 +2,9 @@
 
 [![Logo](https://raw.githubusercontent.com/gnosis/safe-apps-sdk/master/assets/logo.png)](https://gnosis.pm) [![Build Status](https://camo.githubusercontent.com/16e0d52abc7d0686cc97ffa341d0fbc5b1704440b6d5835e566a956ebd8835e2/68747470733a2f2f7472617669732d63692e6f72672f676e6f7369732f736166652d617070732d73646b2e7376673f6272616e63683d6d6173746572)](https://travis-ci.org/gnosis/pm-contracts)
 
-Components library
 
-Developer tools to integrate third-party applications (Safe Apps) with Safe Multisig ([https://gnosis-safe.io/app/](https://gnosis-safe.io/app/)).
+
+Developer tools to integrate third-party applications (Safe Apps) with Safe ([https://gnosis-safe.io/app/](https://gnosis-safe.io/app/)).
 
 [![safeapps_pathways_v4](https://user-images.githubusercontent.com/6764315/123075714-c5564100-d418-11eb-8da0-898aa163dee2.png)](https://user-images.githubusercontent.com/6764315/123075714-c5564100-d418-11eb-8da0-898aa163dee2.png)
 

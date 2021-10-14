@@ -6,9 +6,9 @@
 
 As soon as you are done developing and testing your Safe App, you can already let some actual users test it by just simply sending them the link to the hosted Safe App and asking them to add it as a Custom App. [This guide](https://help.gnosis-safe.io/en/articles/4022030-add-a-custom-safe-app) explains how to add custom apps.
 
-#### Get your Safe App listed in the Safe Multisig
+#### Get your Safe App listed in the Safe
 
-To organically reach Safe Multisig users, you want to have your Safe App directly listed, of course. For Gnosis to list your app, the Safe App needs to fulfill the following criteria: The Safe App manifest includes all the required information
+To organically reach Safe users, you want to have your Safe App directly listed, of course. For Gnosis to list your app, the Safe App needs to fulfill the following criteria: The Safe App manifest includes all the required information
 
 **1) Your Safe App must include a manifest.json file that contains the following data:**
 
@@ -44,6 +44,6 @@ Alternatively, you can provide us with the ABIs as JSON files or the links to th
 
 #### Official launch and beyond
 
-After we have reviewed and integrated your Safe App, the app will first be available in the staging versions ([Rinkeby](http://safe-team-rinkeby.staging.gnosisdev.com/app/#/) / [Mainnet](http://safe-team-mainnet.staging.gnosisdev.com/app/#/)) of the Safe Multisig for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
+After we have reviewed and integrated your Safe App, the app will first be available in the staging versions ([Rinkeby](http://safe-team-rinkeby.staging.gnosisdev.com/app/#/) / [Mainnet](http://safe-team-mainnet.staging.gnosisdev.com/app/#/)) of the Safe for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
 
 At any point after the launch, if you or your users encounter issues with the Safe App, or you want to release an update to an existing Safe App, please get in touch with us via [Discord](https://discord.gg/FPMRAwK).

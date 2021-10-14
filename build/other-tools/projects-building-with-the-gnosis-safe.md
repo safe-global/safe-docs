@@ -4,11 +4,11 @@ This is an incomplete and unordered list of projects build on or integrating wit
 
 * [1inch](https://1inch.exchange): Safe Apps
 * [Aave](https://aave.com): Safe Apps
-* [Balancer](https://balancer.finance): Safe Apps, Safe Multisig
+* [Balancer](https://balancer.finance): Safe Apps, Safe
 * [Burner wallet](https://xdai.io): Smart contract accounts
-* [DIAdata](https://diadata.org): Safe Multisig
-* [ENS](https://ens.domains): Safe Multisig
-* [Ethhub](https://ethhub.io): Safe Multisig
+* [DIAdata](https://diadata.org): Safe 
+* [ENS](https://ens.domains): Safe 
+* [Ethhub](https://ethhub.io): Safe 
 * [Gelato](https://gelato.finance): Smart contract accounts
 * [Groundhog](https://groundhog.network): Contract module
 * [Metamask](https://metamask.io): Smart contract accounts
@@ -20,7 +20,7 @@ This is an incomplete and unordered list of projects build on or integrating wit
 * [Synthetix](https://synthetix.io): Safe Apps
 * [Tasit](https://tasit.io): Smart contract accounts
 * [Unilogin](https://unilogin.io): Smart contract accounts
-* [Yearn](https://yearn.finance): Safe Multisig
+* [Yearn](https://yearn.finance): Safe
 * [Weiroll Module](https://github.com/weiroll/safe-module): [Weiroll](https://github.com/weiroll/weiroll) contract module
 
 Hackathon projects:
