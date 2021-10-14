@@ -13,14 +13,7 @@
   * [Audits](introduction/security/security-audits.md)
   * [Bug Bounty](introduction/security/bug-bounty-program.md)
 
-## Contracts
-
-* [Signatures](contracts/signatures.md)
-* [Modules](contracts/modules-1.md)
-* [Guards](contracts/guards.md)
-* [Supported networks](contracts/gnosis-safe-on-other-evm-based-networks.md)
-
-## 🛠️ Build with Safe <a href="build" id="build"></a>
+## 🛠  Build with Safe <a href="build" id="build"></a>
 
 * [SDKs](build/sdks/README.md)
   * [Safe Apps SDK](build/sdks/safe-apps/README.md)
@@ -32,16 +25,23 @@
 * [Tools, Frameworks, and Extensions](build/other-tools/README.md)
   * [Built on Safe](build/other-tools/projects-building-with-the-gnosis-safe.md)
 
-## 👩‍💻 Tutorials
+## 📜 Contracts
 
-* [Initiate Transactions](tutorials/tutorial_tx_service_initiate_sign.md)
+* [Signatures](contracts/signatures.md)
+* [Modules](contracts/modules-1.md)
+* [Guards](contracts/guards.md)
+* [Supported networks](contracts/gnosis-safe-on-other-evm-based-networks.md)
 
-## 🖥️ Frontends <a href="clients" id="clients"></a>
+## 🤖 Backend
+
+* [Service Architecture](backend/service-architecture.md)
+
+## 🖥 Frontends <a href="clients" id="clients"></a>
 
 * [Web](clients/untitled.md)
 * [Mobile](clients/mobile.md)
 * [Third-party Frontends](clients/third-party-frontends.md)
 
-## 🤖 Backend
+## 📚  Tutorials
 
-* [Service Architecture](backend/service-architecture.md)
+* [Initiate Transactions](tutorials/tutorial_tx_service_initiate_sign.md)
