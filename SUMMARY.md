@@ -17,12 +17,10 @@
 
 * [SDKs](build/sdks/README.md)
   * [Safe Apps SDK](build/sdks/safe-apps/README.md)
-    * [What are Safe Apps?](build/sdks/safe-apps/introduction.md)
     * [SDK Packages](build/sdks/safe-apps/build.md)
     * [Releasing your Safe App](build/sdks/safe-apps/releasing-your-safe-app.md)
   * [Core SDK](build/sdks/core-sdk.md)
-* [Tools, Frameworks, and Extensions](build/other-tools/README.md)
-  * [Built on Safe](build/other-tools/projects-building-with-the-gnosis-safe.md)
+* [Tools, Frameworks, and Extensions](build/other-tools.md)
 
 ## 📜 Contracts
 
