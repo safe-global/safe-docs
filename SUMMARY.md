@@ -22,6 +22,11 @@
   * [Core SDK](build/sdks/core-sdk.md)
 * [Tools, Frameworks, and Extensions](build/other-tools.md)
 
+## 📚  Tutorials
+
+* [Build a Safe App that allows transferring assets out of the Safe in 1 transaction](tutorials/build-a-safe-app-that-allows-transferring-assets-out-of-the-safe-in-1-transaction.md)
+* [Initiate Transactions](tutorials/tutorial\_tx\_service\_initiate\_sign.md)
+
 ## 📜 Contracts
 
 * [Signatures](contracts/signatures.md)
@@ -38,11 +43,3 @@
 * [Web](clients/untitled.md)
 * [Mobile](clients/mobile.md)
 * [Third-party Frontends](clients/third-party-frontends.md)
-
-## 📚  Tutorials
-
-* [Initiate Transactions](tutorials/tutorial\_tx\_service\_initiate\_sign.md)
-
-***
-
-* [Build a Safe App that allows transferring assets out of the Safe in 1 transaction](build-a-safe-app-that-allows-transferring-assets-out-of-the-safe-in-1-transaction.md)
