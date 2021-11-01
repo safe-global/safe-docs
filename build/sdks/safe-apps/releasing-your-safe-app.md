@@ -32,7 +32,7 @@ When a user opens the app, it should automatically select the Safe as a wallet. 
 
 **3) Gnosis has reviewed the Safe App**
 
-The requirement doesn't apply for battle-tested applications hosted on the same domain as the main dApp.
+The requirement doesn't apply for battle-tested applications hosted on the same domain like the main dApp.
 
 While we won't be able to do a proper audit for your Safe App, we still would like to look at the source code to raise issues or suggest improvements. So whether your Safe App is open or closed source, please send us either a **link to the public repo or an invitation to the private code repository**.
 
@@ -40,39 +40,14 @@ We also would like to make a rough functional review of the App, so please provi
 
 **4) Help us decode your Safe App transactions**
 
-We want to display interactions with Safe Apps as human-readable as possible. To do this, we need the contract ABI of the contracts that your Safe App interacts. The ideal way to do this would be to verify your contracts via [Sourcify](https://github.com/ethereum/sourcify), which we can leverage to decode transactions interacting with those contracts.
+We want to display interactions with Safe Apps as human-readable as possible. To do this, we need the contract ABI of the contracts that your Safe App interacts with. The ideal way to do this would be to verify your contracts via [Sourcify](https://github.com/ethereum/sourcify), which we can leverage to decode transactions interacting with those contracts.
 
 Alternatively, you can provide us with the ABIs as JSON files or the links to the verified contracts on Etherscan, so we can implement transaction decoding for your Safe App interactions.
 
-\
-
-
-\
-
-
-\
-
+**Create an issue in our repository once you've verified that your app meets these requirements: **[https://github.com/gnosis/safe-apps-list](https://github.com/gnosis/safe-apps-list)
 
 #### The Official launch and beyond
 
-\
-
-
-\
-
-
-\
-
-
 After we have reviewed and integrated your Safe App, the App will first be available in the staging versions ([Rinkeby](http://safe-team-rinkeby.staging.gnosisdev.com/app/#/) / [Mainnet](http://safe-team-mainnet.staging.gnosisdev.com/app/#/)) of the Safe for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
-
-\
-
-
-\
-
-
-\
-
 
 At any point after the launch, if you or your users encounter issues with the Safe App, or you want to release an update to an existing Safe App, please get in touch with us via [Discord](https://discord.gg/FPMRAwK).
