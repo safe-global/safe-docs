@@ -24,7 +24,7 @@
 
 ## 📚  Tutorials
 
-* [Build a Safe App that allows transferring assets out of the Safe in 1 transaction](tutorials/build-a-safe-app-that-allows-transferring-assets-out-of-the-safe-in-1-transaction.md)
+* [Batch transactions Safe App](tutorials/batch-transactions-safe-app.md)
 * [Initiate Transactions](tutorials/tutorial\_tx\_service\_initiate\_sign.md)
 
 ## 📜 Contracts
