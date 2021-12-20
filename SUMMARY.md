@@ -13,7 +13,7 @@
   * [Audits](introduction/security/security-audits.md)
   * [Bug Bounty](introduction/security/bug-bounty-program.md)
 
-## 🛠  Build with Safe <a href="build" id="build"></a>
+## 🛠  Build with Safe <a href="#build" id="build"></a>
 
 * [SDKs](build/sdks/README.md)
   * [Safe Apps SDK](build/sdks/safe-apps/README.md)
@@ -34,11 +34,12 @@
 * [Guards](contracts/guards.md)
 * [Supported networks](contracts/gnosis-safe-on-other-evm-based-networks.md)
 
-## 🤖 Backend
+## 🤖 Infrastructure <a href="#backend" id="backend"></a>
 
 * [Service Architecture](backend/service-architecture.md)
+* [Available Services](backend/available-services.md)
 
-## 🖥 Frontends <a href="clients" id="clients"></a>
+## 🖥 Frontends <a href="#clients" id="clients"></a>
 
 * [Web](clients/untitled.md)
 * [Mobile](clients/mobile.md)
