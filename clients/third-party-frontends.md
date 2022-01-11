@@ -10,5 +10,10 @@ There are multiple third-party frontends that leverage the Safe contracts and/or
 
 {% embed url="https://Linen.app" %}
 
-{% embed url="https://Staker.app" %}
+{% embed url="https://radicle.xyz" %}
 
+{% embed url="https://circles.garden" %}
+
+{% embed url="https://multis.co" %}
+
+{% embed url="https://staker.app" %}
