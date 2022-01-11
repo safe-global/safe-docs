@@ -8,11 +8,11 @@ Safe's **multi-signature** functionality allows you to define a list of owner ac
 
 #### Advanced execution logic
 
-It is possible to make use of different** Safe Library contracts** to perform complex transactions. A very common example of this is **batched transactions** where multiple simple Ethereum transactions are combined and executed at once. That means instead of having to sign several transactions sequentially, a user just needs to sign one batched transaction.
+It is possible to make use of different **Safe Library contracts** to perform complex transactions. A very common example of this is **batched transactions** where multiple simple Ethereum transactions are combined and executed at once. That means instead of having to sign several transactions sequentially, a user just needs to sign one batched transaction.
 
 #### Advanced access management
 
-You can add** Safe Modules** to your Safe. Thereby it is possible to implement more fine-grained access management. For instance, it is possible to define a module that can only be used to **recover access** to a Safe under specific circumstances. A popular version of this is the **Social Recovery Module**. A different example is **allowance modules** that allow owners of a Safe to grant limited execution permission, such as a daily limit to external accounts.
+You can add **Safe Modules** to your Safe. Thereby it is possible to implement more fine-grained access management. For instance, it is possible to define a module that can only be used to **recover access** to a Safe under specific circumstances. A popular version of this is the **Social Recovery Module**. A different example is **allowance modules** that allow owners of a Safe to grant limited execution permission, such as a daily limit to external accounts.
 
 #### Token callback support
 

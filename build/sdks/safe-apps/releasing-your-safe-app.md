@@ -12,7 +12,7 @@ You must have your Safe App directly listed in Gnosis to reach Safe users organi
 
 **1) Your Safe App must include a manifest.json file at the root containing the following data:**
 
-``  "name": "Name of your Safe App"` ``
+&#x20;`` "name": "Name of your Safe App"` ``
 
 Your Safe App's name, maximum 50 characters.
 
@@ -44,7 +44,7 @@ We want to display interactions with Safe Apps as human-readable as possible. To
 
 Alternatively, you can provide us with the ABIs as JSON files or the links to the verified contracts on Etherscan, so we can implement transaction decoding for your Safe App interactions.
 
-**Create an issue in our repository once you've verified that your app meets these requirements: **[https://github.com/gnosis/safe-apps-list](https://github.com/gnosis/safe-apps-list)
+**Create an issue in our repository once you've verified that your app meets these requirements:** [https://github.com/gnosis/safe-apps-list](https://github.com/gnosis/safe-apps-list)
 
 #### The Official launch and beyond
 
