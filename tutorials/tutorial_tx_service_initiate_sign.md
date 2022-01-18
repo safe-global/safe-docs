@@ -25,7 +25,7 @@ Gnosis is currently running the backend for these Ethereum networks:
 
 This tutorial will teach you how to propose transactions to the transaction service, there are 2 reasons you would want to do that:
 
-* The transactions appear on the UIs, so you can craft custom transactions that can be signed and send by any of the owners in any of the UIs. Please note: Transactions submitted as a non-owner will not show up on the official Safe interfaces unless you previously added a delegate. There is a separate [tutorial on how to add a delegate to your Safe](https://github.com/gnosis/safe-docs/tree/98cffd3359a173173543997a027134572e00cf29/tutorials/tutorial\_tx\_service\_set\_delegate.md).
+* The transactions appear on the UIs, so you can craft custom transactions that can be signed and send by any of the owners in any of the UIs. Please note: Transactions submitted as a non-owner will not show up on the official Safe interfaces unless you previously added a delegate. There is a separate [tutorial on how to add a delegate to your Safe](https://github.com/gnosis/safe-docs/blob/devportal/docs/tutorial\_tx\_service\_set\_delegate.md).
 * As a way to collect offchain signatures (instead of calling `approveHash` method on the Safe contract with every owner) and save gas.
 
 #### Proposing transactions using Javascript
