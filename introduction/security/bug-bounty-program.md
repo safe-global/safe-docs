@@ -1,10 +1,10 @@
 # Bug Bounty
 
-This is the page of the Safe bug bounty program. Find bugs and get rewarded. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](https://docs.gnosis.io/safe/docs/intro_bug_bounty/#submission-process) section and get in touch via [bounty@gnosis.io](mailto:bounty@gnosis.io).
+This is the page of the Safe bug bounty program. Find bugs and get rewarded. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](https://docs.gnosis.io/safe/docs/intro\_bug\_bounty/#submission-process) section and get in touch via [bounty@gnosis.io](mailto:bounty@gnosis.io).
 
 ### Audits
 
-The contracts have been carefully audited by smart contract security experts. For details, please refer to the [security audits page](https://docs.gnosis.io/safe/docs/intro_audits).
+The contracts have been carefully audited by smart contract security experts. For details, please refer to the [security audits page](https://docs.gnosis.io/safe/docs/intro\_audits).
 
 ### Rules
 
@@ -59,7 +59,7 @@ Addresses for deployed instances of these contracts can be found in the [Safe de
 
 ### Intended behavior
 
-Please refer to the [readme file](https://github.com/gnosis/safe-contracts/blob/v1.3.0/README.md) and the [release details](https://github.com/gnosis/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](https://docs.gnosis.io/safe/docs/contracts_intro) for an extensive overview of the intended behavior of the smart contracts.
+Please refer to the [readme file](https://github.com/gnosis/safe-contracts/blob/v1.3.0/README.md) and the [release details](https://github.com/gnosis/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](https://docs.gnosis.io/safe/docs/contracts\_intro) for an extensive overview of the intended behavior of the smart contracts.
 
 For the allowance module, please refer to the corresponding [readme file](https://github.com/gnosis/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/README.md)
 
@@ -104,7 +104,7 @@ _We ask that:_
 
 Public disclosure of the bug or the indication of an intention to exploit it on Mainnet will make the report ineligible for a bounty. If in doubt about other aspects of the bounty, most of the [Ethereum Foundation bug bounty program rules](https://bounty.ethereum.org) will apply here.
 
-Any questions? Reach us via email ([bounty@gnosis.io](mailto:bounty@gnosis.io)) or [Discord](https://discordapp.com/invite/FPMRAwK). For more information on the Safe, check out our [website](https://gnosis-safe.io) and our [Github](https://github.com/gnosis?q=safe).
+Any questions? Reach us via email ([bounty@gnosis.io](mailto:bounty@gnosis.io)) or [Discord](https://chat.gnosis-safe.io). For more information on the Safe, check out our [website](https://gnosis-safe.io) and our [Github](https://github.com/gnosis?q=safe).
 
 _Happy hunting!_
 
