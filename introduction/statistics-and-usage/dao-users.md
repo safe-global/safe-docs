@@ -35,7 +35,7 @@ description: >-
 * The Sphere
 * Gitcoin
 * Department of Decentralization
-* Kollektivo
+* Kolektivo
 * PrimeDAO&#x20;
 * Yam Reflexer&#x20;
 * PartyDAO
