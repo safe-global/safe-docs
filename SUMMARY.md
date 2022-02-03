@@ -18,7 +18,9 @@
 
 * [SDKs](build/sdks/README.md)
   * [Safe Apps SDK](build/sdks/safe-apps/README.md)
+    * [Get started](build/sdks/safe-apps/get-started.md)
     * [SDK Packages](build/sdks/safe-apps/build.md)
+    * [Testing your Safe App](build/sdks/safe-apps/testing-your-safe-app.md)
     * [Releasing your Safe App](build/sdks/safe-apps/releasing-your-safe-app.md)
   * [Core SDK](build/sdks/core-sdk.md)
 * [Tools, Frameworks, and Extensions](build/other-tools.md)

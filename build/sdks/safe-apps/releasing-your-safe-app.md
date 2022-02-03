@@ -28,7 +28,7 @@ You can find an example manifest file on [Github](https://github.com/gnosis/safe
 
 **2) The app auto-connects to the Safe**
 
-When a user opens the app, it should automatically select the Safe as a wallet. Ensure to check the case if the user previously opened the app outside of the Safe with another wallet.
+When an user opens the app, it should automatically select the Safe as a wallet. Ensure to check the case if the user previously opened the app outside of the Safe with another wallet.
 
 **3) Gnosis has reviewed the Safe App**
 
@@ -48,6 +48,6 @@ Alternatively, you can provide us with the ABIs as JSON files or the links to th
 
 #### The Official launch and beyond
 
-After we have reviewed and integrated your Safe App, the App will first be available in the staging versions ([Rinkeby](http://safe-team-rinkeby.staging.gnosisdev.com/app/#/) / [Mainnet](http://safe-team-mainnet.staging.gnosisdev.com/app/#/)) of the Safe for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
+After we have reviewed and integrated your Safe App, the App will first be available in the [staging environment](https://safe-team.staging.gnosisdev.com/app) of the Safe for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
 
-At any point after the launch, if you or your users encounter issues with the Safe App, or you want to release an update to an existing Safe App, please get in touch with us via [Discord](https://discord.gg/FPMRAwK).
+At any point after the launch, if you or your users encounter issues with the Safe App, or you want to release an update to an existing Safe App, please get in touch with us via [Discord](https://discord.gg/M9uSSkng6S).
