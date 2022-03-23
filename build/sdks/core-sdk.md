@@ -24,11 +24,11 @@ yarn add @gnosis.pm/safe-core-sdk
 
 #### 1. Set up the SDK using `Ethers` or `Web3`
 
-If the app integrating the SDK is using `Ethers` `v5`, create an instance of the `EthersAdapter`. `owner1` is the Ethereum account we are connecting and the one who will sign the transactions.
+If the app integrating the SDK is using `Ethers` `v5`, create an instance of the `EthersAdapter`. `owner1` is the Ethereum account we are connecting and the one who will sign the transactions. 
 
 ```
 import { ethers } from 'ethers'
-import { EthersAdapter } from '@gnosis.pm/safe-core-sdk'
+import EthersAdapter from '@gnosis.pm/safe-ethers-lib'
 
 const web3Provider = // ...
 const provider = new ethers.providers.Web3Provider(web3Provider)
