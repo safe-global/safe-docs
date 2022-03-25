@@ -57,7 +57,7 @@ const ethAdapterOwner1 = new Web3Adapter({
 To deploy a new Safe account instantiate the `SafeFactory` class and call the method `deploySafe` with the right params to configure the new Safe. This includes defining the list of owners and the threshold of the Safe. A Safe account with 3 owners and threshold equal 3 will be used as the starting point for this example but any Safe configuration is valid.
 
 ```
-import { Safe, SafeFactory, SafeAccountConfig } from '@gnosis.pm/safe-code-sdk'
+import { Safe, SafeFactory, SafeAccountConfig } from '@gnosis.pm/safe-core-sdk'
 
 const safeFactory = await SafeFactory.create({ ethAdapter })
 
