@@ -12,14 +12,7 @@ Transactions can also be sent to the service to allow offchain collecting of sig
 
 Source code can be found in [https://github.com/gnosis/safe-transaction-service](https://github.com/gnosis/safe-transaction-service)
 
-Gnosis is currently running the backend for these Ethereum networks:
-
-* Mainnet:[https://safe-transaction.mainnet.gnosis.io/](https://safe-transaction.mainnet.gnosis.io)
-* Rinkeby: [https://safe-transaction.rinkeby.gnosis.io/](https://safe-transaction.rinkeby.gnosis.io)
-* Goerli: [https://safe-transaction.goerli.gnosis.io/](https://safe-transaction.goerli.gnosis.io)
-* xDai:[https://safe-transaction.xdai.gnosis.io/](https://safe-transaction.xdai.gnosis.io)
-* EWC: [https://safe-transaction.ewc.gnosis.io/](https://safe-transaction.ewc.gnosis.io)
-* Volta: [https://safe-transaction.volta.gnosis.io/](https://safe-transaction.volta.gnosis.io)
+Here you can find the urls for Gnosis official services for multiple networks : [https://docs.gnosis-safe.io/backend/available-services](https://docs.gnosis-safe.io/backend/available-services)
 
 ### Proposing transactions
 
