@@ -1,8 +1,8 @@
 # Table of contents
 
-* [👋 Welcome](README.md)
+* [🥳 Welcome](README.md)
 
-## 💬 Introduction
+## 👋 Introduction
 
 * [Programmable Accounts](introduction/the-programmable-account/README.md)
   * [Assets on Ethereum](introduction/the-programmable-account/assets-on-ethereum.md)
@@ -14,7 +14,7 @@
   * [Audits](introduction/security/security-audits.md)
   * [Bug Bounty](introduction/security/bug-bounty-program.md)
 
-## 🛠  Build with Safe <a href="#build" id="build"></a>
+## 🛠 Build with Safe <a href="#build" id="build"></a>
 
 * [SDKs](build/sdks/README.md)
   * [Safe Apps SDK](build/sdks/safe-apps/README.md)
@@ -22,10 +22,10 @@
     * [SDK Packages](build/sdks/safe-apps/build.md)
     * [Testing your Safe App](build/sdks/safe-apps/testing-your-safe-app.md)
     * [Releasing your Safe App](build/sdks/safe-apps/releasing-your-safe-app.md)
-  * [Core SDK](build/sdks/core-sdk.md)
+  * [Safe Core SDK Monorepo](build/sdks/core-sdk.md)
 * [Tools, Frameworks, and Extensions](build/other-tools.md)
 
-## 📚  Tutorials
+## 📚 Tutorials
 
 * [Batch transactions Safe App](tutorials/batch-transactions-safe-app.md)
 * [Initiate Transactions](tutorials/tutorial\_tx\_service\_initiate\_sign.md)

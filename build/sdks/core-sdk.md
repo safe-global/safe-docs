@@ -1,10 +1,14 @@
-# Core SDK
+# Safe Core SDK Monorepo
 
 ### Introduction
+
+It is a set of software developer tools written in TypeScript that facilitate the interaction with the Gnosis Safe [contracts](https://github.com/safe-global/safe-contracts) and [services](https://github.com/safe-global/safe-transaction-service).
 
 The Safe Core SDK facilitates the interaction with the [Safe contracts](https://github.com/gnosis/safe-contracts).
 
 It only supports Safe contracts `v1.2.0` and `ethers.js` `v5` so far.
+
+### Guides <a href="#guides" id="guides"></a>
 
 ### Adding the dependencies
 
@@ -20,9 +24,27 @@ or
 yarn add @gnosis.pm/safe-core-sdk
 ```
 
+| Guide                                                                                                                                      | Content                                                                                                                                                                                                                                                                                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ​[Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/packages/guides/integrating-the-safe-core-sdk.md)​ | This guide shows how to use the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) together with the [Safe Service Client](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-service-client) to deploy new Safes, propose transactions, collect the required signatures off-chain and execute them. |
+
+### Packages <a href="#packages" id="packages"></a>
+
 ### Getting Started
 
 #### 1. Set up the SDK using `Ethers` or `Web3`
+
+| Package                                                                                                                                                         | Release                                                                                                                                                                                                                                                                                                      | Description                                                                                                                                                                                |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [safe-core-sdk](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk)                                                                  | ​​​[​![](https://camo.githubusercontent.com/19147c4a75d901dba6558ccfee53e26ba37f8a3a5cd712dc9af7850e31669428/68747470733a2f2f62616467652e667572792e696f2f6a732f253430676e6f7369732e706d253246736166652d636f72652d73646b2e737667)​](https://badge.fury.io/js/%40gnosis.pm%2Fsafe-core-sdk)​                   | TypeScript library that facilitates the interaction with the [Gnosis Safe contracts](https://github.com/safe-global/safe-contracts)​​                                                      |
+| [safe-core-sdk-types](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk-types)                                                      | ​​[​![](https://camo.githubusercontent.com/04b0bf621b96568b581a78cb15b14e7c41ebd0f63e8bd30923cd5002dc7643f7/68747470733a2f2f62616467652e667572792e696f2f6a732f253430676e6f7369732e706d253246736166652d636f72652d73646b2d74797065732e737667)​](https://badge.fury.io/js/%40gnosis.pm%2Fsafe-core-sdk-types)   | Common types extracted from the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages) packages​                                                                 |
+| ​[safe-core-sdk-utils](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk-utils)                                                     | ​​[​![](https://camo.githubusercontent.com/80f6ae8a9a238a7945715a801c7b175dc1935bd7c2ba107af195add19f9cccf5/68747470733a2f2f62616467652e667572792e696f2f6a732f253430676e6f7369732e706d253246736166652d636f72652d73646b2d7574696c732e737667)​](https://badge.fury.io/js/%40gnosis.pm%2Fsafe-core-sdk-utils)​  | Utilities for the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages) packages​                                                                               |
+| [safe-ethers-lib](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-ethers-lib)[​](https://badge.fury.io/js/%40gnosis.pm%2Fsafe-ethers-lib)​ | ​​[​![](https://camo.githubusercontent.com/d66876aabb982598d1b45cfb1f189152c6ce3b21c80a70294407a6643fff8388/68747470733a2f2f62616467652e667572792e696f2f6a732f253430676e6f7369732e706d253246736166652d6574686572732d6c69622e737667)](https://badge.fury.io/js/%40gnosis.pm%2Fsafe-ethers-lib)                | Ethers.js utilities and Safe contracts types (typechain ethers-v5) used to initialize the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk)​​ |
+| [safe-web3-lib](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-web3-lib)                                                                  | ​​[​![](https://camo.githubusercontent.com/384c10c1be148ea5f3064e34fcf65961a5995632b487027f70564fd0c4960b98/68747470733a2f2f62616467652e667572792e696f2f6a732f253430676e6f7369732e706d253246736166652d776562332d6c69622e737667)​](https://badge.fury.io/js/%40gnosis.pm%2Fsafe-web3-lib)​                    | Web3.js utilities and Safe contracts types (typechain web3-v1) used to initialize the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk)       |
+| ​​[safe-service-client](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-service-client)                                                    | ​​[​![](https://camo.githubusercontent.com/0029846ff55fff05d4984771dc5f22ad3af526fdee0c91409286d5c53d08aefa/68747470733a2f2f62616467652e667572792e696f2f6a732f253430676e6f7369732e706d253246736166652d736572766963652d636c69656e742e737667)​](https://badge.fury.io/js/%40gnosis.pm%2Fsafe-service-client)​​ | [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service) client library                                                                                     |
+| ​[safe-ethers-adapters](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-ethers-adapters)                                                   | ​​[​![](https://camo.githubusercontent.com/62da84e05b7e25aa7458a90df1f07d50689d95dbce8e012cad4f1aa4c60b7fa4/68747470733a2f2f62616467652e667572792e696f2f6a732f253430676e6f7369732e706d253246736166652d6574686572732d61646170746572732e737667)](https://badge.fury.io/js/%40gnosis.pm%2Fsafe-ethers-adapters) | [Ethers](https://docs.ethers.io/v5/single-page/) adapter that facilitates the interaction with the [Gnosis Safe Services](https://github.com/safe-global/safe-transaction-service)         |
+
+[​](https://badge.fury.io/js/%40gnosis.pm%2Fsafe-ethers-adapters)​​
 
 If the app integrating the SDK is using `Ethers` `v5`, create an instance of the `EthersAdapter`. `owner1` is the Ethereum account we are connecting and the one who will sign the transactions.
 
