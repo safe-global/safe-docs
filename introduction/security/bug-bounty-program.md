@@ -85,7 +85,7 @@ Please note that the submission’s quality will factor into the level of compen
 
 ### Submission Process
 
-Please email your submissions to: [bounty@gnosis.io](mailto:bounty@gnosis.io).
+Please email your submissions to:  [bounty@safe.global](mailto:bounty@safe.global).
 
 Don’t forget to include your ETH address, so that you may be rewarded. If more than one address is specified, only one will be used at the discretion of the bounty program administrators. Anonymous submissions are welcome, too.
 
@@ -104,7 +104,7 @@ _We ask that:_
 
 Public disclosure of the bug or the indication of an intention to exploit it on Mainnet will make the report ineligible for a bounty. If in doubt about other aspects of the bounty, most of the [Ethereum Foundation bug bounty program rules](https://bounty.ethereum.org) will apply here.
 
-Any questions? Reach us via email ([bounty@gnosis.io](mailto:bounty@gnosis.io)) or [Discord](https://chat.gnosis-safe.io). For more information on the Safe, check out our [website](https://gnosis-safe.io) and our [Github](https://github.com/gnosis?q=safe).
+Any questions? Reach us via email ([bounty@safe.global](mailto:bounty@safe.global)) or [Discord](https://chat.gnosis-safe.io). For more information on the Safe, check out our [website](https://gnosis-safe.io) and our [Github](https://github.com/gnosis?q=safe).
 
 _Happy hunting!_
 
