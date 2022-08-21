@@ -1,5 +1,5 @@
 ---
-description: Basic resoruces to start creating Safe Apps
+description: Basic resources to start creating Safe Apps
 ---
 
 # Get started
