@@ -25,16 +25,13 @@ This is a list of several known public repositories containing Safe Apps for ref
 
 * [Transaction builder](https://github.com/gnosis/safe-react-apps/tree/development/apps/tx-builder)
 * [WalletConnect](https://github.com/gnosis/safe-react-apps/tree/development/apps/wallet-connect)
+* [CSV Airdrop](https://github.com/bh2smith/safe-airdrop)
 * [Open Zeppelin](https://github.com/OpenZeppelin/upgrades-safe-app)
-* [Balancer - Pooling](https://github.com/TomAFrench/pool-management/tree/safe-app)
-* [Balancer - Exchange](https://github.com/TomAFrench/balancer-exchange-safe-app/tree/safe-app)
+* [Balancer](https://github.com/balancer-labs/frontend-v2)
 * [1inch Exchange](https://github.com/CryptoManiacsZone/gnosis.1inch.exchange)
 * [Synthetix](https://github.com/protofire/safe-app-synthetix-mintr)
 * [Sablier](https://github.com/TomAFrench/sablier-safe-app)
-* [Idle](https://github.com/krzysu/safe-app-idle)
-* [Compound](https://github.com/gnosis/safe-react-apps/tree/development/apps/compound)
-
-
+* [PancakeSwap](https://github.com/pancakeswap/pancake-frontend)
 
 #### Disclaimer
 

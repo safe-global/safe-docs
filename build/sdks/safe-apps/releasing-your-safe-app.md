@@ -8,11 +8,15 @@ As soon as you finish developing and testing your Safe App, you can already let 
 
 #### Get your Safe App listed in the Safe
 
-You must have your Safe App directly listed in Gnosis to reach Safe users organically. For your Safe App to appear in the Safe, it must meet the following criteria:
+If you would like your Safe App to appear in the Safe, it must meet the following criteria:
 
-**1) Your Safe App must include a manifest.json file at the root containing the following data:**
+**1) Smart contracts must be audited**
 
-&#x20;`` "name": "Name of your Safe App"` ``
+Security it's a top priority. If your Safe App includes smart contracts of your own you should provide an external audit result document. If smart contracts were created by a 3rd party you should be using smart contracts that are properly audited.
+
+**2) Your Safe App must include a manifest.json file at the root containing the following data:**
+
+`"name": "Name of your Safe App"`
 
 Your Safe App's name, maximum 50 characters.
 
@@ -24,13 +28,15 @@ A relative file path to your App's logo. The icon must be a square SVG image of 
 
 Few sentences describing your application, maximum 200 characters
 
-You can find an example manifest file on [Github](https://github.com/gnosis/safe-apps-sdk/blob/master/packages/cra-template-safe-app/template/public/manifest.json). In addition, you can find an example Safe App on IPFS [here](https://ipfs.io/ipfs/QmTgnb1J9FDR9gimptzvaEiNa25s92iQy37GyqYfwZw8Aj/).
+You can find an example manifest file on [Github](https://github.com/safe-global/safe-apps-sdk/blob/master/packages/cra-template-safe-app/template/public/manifest.json). In addition, you can find an example Safe App on IPFS [here](https://ipfs.io/ipfs/QmTgnb1J9FDR9gimptzvaEiNa25s92iQy37GyqYfwZw8Aj/).
 
-**2) The app auto-connects to the Safe**
+Remember that **CORS** should be configured correctly on the `manifest.json` so we can fetch the information as [mentioned here](get-started.md#cors).
+
+**3) The app auto-connects to the Safe**
 
 When an user opens the app, it should automatically select the Safe as a wallet. Ensure to check the case if the user previously opened the app outside of the Safe with another wallet.
 
-**3) Gnosis has reviewed the Safe App**
+**4) The Safe team has reviewed the Safe App**
 
 The requirement doesn't apply for battle-tested applications hosted on the same domain like the main dApp.
 
@@ -38,13 +44,13 @@ While we won't be able to do a proper audit for your Safe App, we still would li
 
 We also would like to make a rough functional review of the App, so please provide us with a **high-level test plan/feature list** that allows our QA team to make sure everything works as intended in production. Video walkthroughs are also welcome.
 
-**4) Help us decode your Safe App transactions**
+**5) Help us decode your Safe App transactions**
 
 We want to display interactions with Safe Apps as human-readable as possible. To do this, we need the contract ABI of the contracts that your Safe App interacts with. The ideal way to do this would be to verify your contracts via [Sourcify](https://github.com/ethereum/sourcify), which we can leverage to decode transactions interacting with those contracts.
 
 Alternatively, you can provide us with the ABIs as JSON files or the links to the verified contracts on Etherscan, so we can implement transaction decoding for your Safe App interactions.
 
-**Create an issue in our repository once you've verified that your app meets these requirements:** [https://github.com/gnosis/safe-apps-list](https://github.com/gnosis/safe-apps-list)
+**Create an issue in our repository once you've verified that your app meets these requirements:** [https://github.com/5afe/safe-apps-list](https://github.com/gnosis/safe-apps-list)
 
 #### The Official launch and beyond
 

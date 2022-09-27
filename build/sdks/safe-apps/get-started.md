@@ -4,7 +4,7 @@ description: Basic resoruces to start creating Safe Apps
 
 # Get started
 
-Welcome! We are glad on your interest about creating a Safe App. The team is working hard to provide the tools to make it easier for you to build apps that can interact with the Safe.&#x20;
+Welcome! We are glad on your interest about creating a Safe App. The team is working hard to provide the tools to make it easier for you to build apps that can interact with the Safe.
 
 Once you are here the main resources include:
 
@@ -45,7 +45,7 @@ It is mandatory that your app exposes a `manifest.json` file in the root dir wit
 
 #### CORS
 
-As the Safe App is loaded into the Safe application via an iframe it is required to enable **Cross Site Requests** by setting the **CORS** headers when serving the Safe app.
+At some moments we need to be able to reach the `manifest.json` from our app. To allow this it is required to enable **Cross Site Requests** by setting the **CORS** headers to the `manifest.json`.
 
 The required headers are:
 

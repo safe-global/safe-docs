@@ -4,7 +4,7 @@ description: >-
   flexible, and secure wallet and identity solution in Ethereum.
 ---
 
-# 👋 Welcome
+# 🥳 Welcome
 
 The Safe developer docs aim to provide an overview of the Safe smart contracts, interfaces and integrations.
 
