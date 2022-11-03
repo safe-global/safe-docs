@@ -28,7 +28,6 @@
 ## 📚 Tutorials
 
 * [Batch transactions Safe App](tutorials/batch-transactions-safe-app.md)
-* [Initiate Transactions](tutorials/tutorial\_tx\_service\_initiate\_sign.md)
 
 ## 📜 Contracts
 
