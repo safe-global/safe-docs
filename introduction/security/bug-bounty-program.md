@@ -143,3 +143,11 @@ To fix this, the next contract update will prevent the Safe as its owner via `re
 Details about this issue can be found on [Github](https://github.com/gnosis/safe-contracts/issues/229).
 
 The bug was submitted by [Kevin Foesenek](https://github.com/keviinfoes). It was regarded as "Medium Threat" and a bounty of 5,000 USD has been paid out.
+
+#### The function getModuledPaginated does not return all modules
+
+The method [getModuledPaginated](https://github.com/safe-global/safe-contracts/blob/v1.3.0/contracts/base/ModuleManager.sol#L114) is used to return enabled modules page by page. For this a `start` and a `pageSize` need to be specified and the method will return an array of module addresses and `next` . This next  can be used as the `start` to load the next page. When another page exists then `next` is a module address. This module address however will not be present in any of the returned arrays. While this does not put any user assets at risk directly, it could lead to a wrong perception of the enabled modules of a Safe and thereby its state.
+
+The workaround is to append the `next` to the returned array of module addresses if it is not the zero or sentinel address. Alternatively the last element of the returned array can be used as the `start` for the next page.
+
+This bug was submitted by [Renan Souza](https://github.com/RenanSouza2). It was regarded as "Low Threat", and a bounty of 2,000 USD has been paid out.
