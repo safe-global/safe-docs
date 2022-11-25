@@ -39,6 +39,7 @@
 ## 🤖 Infrastructure <a href="#backend" id="backend"></a>
 
 * [Service Architecture](backend/service-architecture.md)
+* [RPC Requirements](backend/rpc-requirements.md)
 * [Available Services](backend/available-services.md)
 
 ## 🖥 Frontends <a href="#clients" id="clients"></a>
