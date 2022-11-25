@@ -2,7 +2,14 @@
 
 ### What are the RPC requirements for the tx service? <a href="#what-are-the-rpc-requirements-for-the-tx-service" id="what-are-the-rpc-requirements-for-the-tx-service"></a>
 
-To run the tx service in **tracing mode** you will need a [Erigon ](https://github.com/ledgerwatch/erigon)node running. Also you can use a deprecated [OpenEthereum ](https://github.com/openethereum/openethereum)node with tracing enabled (`--tracing` flag) if it's still supported on your network. We are evaluating the use of [Nethermind](https://nethermind.io/), it needs to be run in _archive_ mode.From Safe **v1.3.0** there's an alternative and **recommended way** to avoid using tracing, using the **L2 Safe version** ([https://github.com/gnosis/safe-deployments/blob/main/src/assets/v1.3.0/gnosis\_safe\_l2.json](https://github.com/gnosis/safe-deployments/blob/main/src/assets/v1.3.0/gnosis\_safe\_l2.json)) that emits events, so no tracing node is required (any node supporting `eth_getLogs` will work). This is the approach used in networks like _Polygon_ or _Binance Smart Chain_ where fees are cheap and emitting events don't impact the user.A tx service configured with a **tracing** node can index L2 and non L2 versions of the Safe contracts. A tx service configured without a **tracing** node can only index L2 versions of the Safe contracts.Indexing mode should not be changed after initializing the service, as the database could become corrupted, so if a tracing node was not set up it shouldn't be added later. The opposite is also problematic.
+To run the tx service in **tracing mode** you will need a tracing compatible node:
+
+* [Erigon ](https://github.com/ledgerwatch/erigon)node (recommended).&#x20;
+* Deprecated [OpenEthereum ](https://github.com/openethereum/openethereum)node with tracing enabled (`--tracing` flag) if it's still supported on your network.
+* [Nethermind ](https://nethermind.io/)(**archive mode** so tracing is enabled).
+* **Any RPC** that supports **eth\_getLogs** if using the **Safe L2 Version.** From Safe **v1.3.0** there's an alternative and **recommended way** to avoid using tracing, the **L2 Safe version** ([https://github.com/gnosis/safe-deployments/blob/main/src/assets/v1.3.0/gnosis\_safe\_l2.json](https://github.com/gnosis/safe-deployments/blob/main/src/assets/v1.3.0/gnosis\_safe\_l2.json)) that emits events, so no tracing node is required. This is the approach used in networks like _Polygon_ or _Binance Smart Chain_ where fees are cheap and emitting events don't impact the user:
+  * A tx service configured **with a tracing** node can index L2 and non L2 versions of the Safe contracts.&#x20;
+  * A tx service configured **without a tracing** node can only index L2 versions of the Safe contracts. Indexing mode should not be changed after initializing the service, as the database could become corrupted, so if a tracing node was not set up it shouldn't be added later. The opposite is also problematic.
 
 ### What RPC methods are used? <a href="#what-rpc-methods-are-used" id="what-rpc-methods-are-used"></a>
 
