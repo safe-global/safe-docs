@@ -5,9 +5,9 @@
 ## 👋 Introduction
 
 * [Programmable Accounts](introduction/the-programmable-account/README.md)
-  * [Assets on Ethereum](introduction/the-programmable-account/assets-on-ethereum.md)
-  * [EOAs vs. Contract Accounts](introduction/the-programmable-account/eoas-vs.-contract-accounts.md)
-  * [Safe Benefits](introduction/the-programmable-account/gnosis-safe.md)
+  * [Storing Assets on Ethereum and other EVM networks](introduction/the-programmable-account/assets-on-ethereum.md)
+  * [EOAs vs. Smart Contract Accounts](introduction/the-programmable-account/eoas-vs.-contract-accounts.md)
+  * [Why build on Safe?](introduction/the-programmable-account/gnosis-safe.md)
 * [Statistics & Usage](introduction/statistics-and-usage.md)
   * [DAO Users](introduction/statistics-and-usage/dao-users.md)
 * [Security](introduction/security/README.md)

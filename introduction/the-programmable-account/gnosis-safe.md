@@ -1,6 +1,10 @@
-# Safe Benefits
+# Why build on Safe?
 
-The Safe is a smart contract wallet with multi-signature functionality at its core. It enables the following features:
+There are a few key reasons why you might want to consider building your application on top of Safe's smart contract account standard. Overall, building your application on top of Safe can provide a range of benefits, including enhanced security, improved user experience, and greater flexibility and integration.
+
+Multi-signature control is the tip of the iceberg and Safe accounts unlock a wide range of possibilities for new form of custody, ownership, and identity.
+
+<figure><img src="../../.gitbook/assets/Xnapper-2022-11-09-13.53.57.png" alt=""><figcaption><p>New forms of custody are possible with smart contract accounts</p></figcaption></figure>
 
 #### High Security
 
