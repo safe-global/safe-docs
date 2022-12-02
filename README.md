@@ -4,7 +4,7 @@ description: >-
   ownership and identity solution on Ethereum and multiple other EVM networks.
 ---
 
-# 🥳 Welcome
+# 👋 Introduction
 
 The Safe developer docs aim to provide an overview of the Safe smart contracts, interfaces and integrations.
 

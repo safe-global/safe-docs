@@ -1,18 +1,13 @@
 # Table of contents
 
-* [🥳 Welcome](README.md)
+* [👋 Introduction](README.md)
 
-## 👋 Introduction
+## 🔰 Basics
 
-* [Programmable Accounts](introduction/the-programmable-account/README.md)
-  * [Storing Assets on Ethereum and other EVM networks](introduction/the-programmable-account/assets-on-ethereum.md)
-  * [EOAs vs. Smart Contract Accounts](introduction/the-programmable-account/eoas-vs.-contract-accounts.md)
-  * [Why build on Safe?](introduction/the-programmable-account/gnosis-safe.md)
-* [Statistics & Usage](introduction/statistics-and-usage.md)
-  * [DAO Users](introduction/statistics-and-usage/dao-users.md)
-* [Security](introduction/security/README.md)
-  * [Audits](introduction/security/security-audits.md)
-  * [Bug Bounty](introduction/security/bug-bounty-program.md)
+* [Blockchain Accounts](basics/assets-on-ethereum.md)
+* [EOAs vs. Smart Contract Accounts](basics/eoas-vs.-contract-accounts.md)
+* [Why build on Safe?](basics/gnosis-safe.md)
+* [Adoption](basics/statistics-and-usage.md)
 
 ## 🛠 Build with Safe <a href="#build" id="build"></a>
 
@@ -35,6 +30,11 @@
 * [Modules](contracts/modules-1.md)
 * [Guards](contracts/guards.md)
 * [Supported networks](contracts/gnosis-safe-on-other-evm-based-networks.md)
+
+## 🔓 Security
+
+* [Audits](security/security-audits.md)
+* [Bug Bounty](security/bug-bounty-program.md)
 
 ## 🤖 Infrastructure <a href="#backend" id="backend"></a>
 
