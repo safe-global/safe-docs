@@ -42,3 +42,12 @@ That's not written in stone. Tx service has some environment variables that can 
 * All this happens in every request to the node used for indexing (safe transactions, erc20/721 events...).
 
 Be careful, some nodes like **Binance Smart Chain** public nodes have a hardcoded limit of blocks they can process (_5000_ in the case of BSC). Set`ETH_EVENTS_BLOCK_PROCESS_LIMIT_MAX`to prevent the algorithm trying to process more blocks and erroring all the time
+
+## **RPC Provider expectations**
+
+For RPC providers we expect communication on every update and configuration change as it could impact our indexers:
+
+* **Timeout** for the requests.
+* **Number of** **batch requests** allowed in the same HTTP request.
+* **Block range** that can be queried in queries like **eth\_getLogs** or **trace\_filter.**
+* **Results limit for endpoints** (e.g. some providers implement a limit to the number of results of queries like **eth\_getLogs**). Indexer is expecting a failure and not getting capped results.
