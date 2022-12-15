@@ -35,4 +35,4 @@ This is a list of several known public repositories containing Safe Apps for ref
 
 #### Disclaimer
 
-It is at the sole discretion of Gnosis to list or delist apps from the Safe. Safe Apps are not owned, controlled, maintained, or audited by Gnosis.
+It is at our sole discretion to list or delist apps from the Safe. Safe Apps are not owned, controlled, maintained, or audited by Gnosis.

@@ -9,7 +9,7 @@ Welcome! We are glad on your interest about creating a Safe App. The team is wor
 Once you are here the main resources include:
 
 * [UI Kit](get-started.md#ui-kit)
-* [SDK Packages](get-started.md#undefined)
+* [SDK Packages](get-started.md#sdk-packages)
 * [Basic Requirements](get-started.md#basic-requirements)
 
 ### UI Kit
@@ -59,7 +59,7 @@ The required headers are:
 
 It is possible to use the local React development server. For this you need to set the **CORS** headers and make sure to use the same protocol (http or https) as the Safe interface you are using for testing.
 
-**CORS**
+**CORS for development**
 
 For this we recommend to use [react-app-rewired](https://www.npmjs.com/package/react-app-rewired). To enable the library update the `scripts` section in the `package.json`:
 
