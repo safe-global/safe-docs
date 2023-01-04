@@ -18,7 +18,7 @@ The Safe ecosystem is growing with 30+ teams bringing smart contract accounts to
 
 <figure><img src=".gitbook/assets/Xnapper-2022-12-01-12.29.28.png" alt=""><figcaption></figcaption></figure>
 
-If you have any questions, just reach out on our [Discord](https://discord.gg/AjG7AQD9Qn), or look through our [hackathon guide](https://www.notion.so/Safe-Hackathon-Success-Guide-53d2fb3c29424b58b1c4407519a54930) for mode ideas on what we’d like to see built.
+If you have any questions, just reach out on our [Discord](https://chat.safe.global), or look through our [hackathon guide](https://www.notion.so/Safe-Hackathon-Success-Guide-53d2fb3c29424b58b1c4407519a54930) for mode ideas on what we’d like to see built.
 
 📚 **Learning Materials:**
 

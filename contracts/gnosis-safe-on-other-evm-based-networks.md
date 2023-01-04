@@ -24,4 +24,4 @@ The Safe team does not have the capacity to spin up and maintain full frontend a
 
 To add another supported network to the [safe-deployments repository](https://github.com/gnosis/safe-deployments) follow the steps outlined in the [safe-contracts repository](https://github.com/gnosis/safe-contracts/blob/v1.3.0/README.md#deployments).
 
-Please let us know about any questions at [safe@gnosis.io](mailto:safe@gnosis.io) or via our [Discord](https://discord.gg/FPMRAwK).
+Please let us know about any questions at [safe@gnosis.io](mailto:safe@gnosis.io) or via our [Discord](https://chat.safe.global).

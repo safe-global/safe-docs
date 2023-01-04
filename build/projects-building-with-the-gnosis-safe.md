@@ -29,5 +29,5 @@ Hackathon projects:
 * [https://devpost.com/software/multy](https://devpost.com/software/multy)
 * [https://devpost.com/software/peerduck](https://devpost.com/software/peerduck)
 
-If you know of any projects missing on this list, [please let us know](https://discordapp.com/invite/FPMRAwK).
+If you know of any projects missing on this list, [please let us know](https://chat.safe.global).
 

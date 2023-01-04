@@ -56,4 +56,4 @@ Alternatively, you can provide us with the ABIs as JSON files or the links to th
 
 After we have reviewed and integrated your Safe App, the App will first be available in the [staging environment](https://safe-web-core.staging.5afe.dev) of the Safe for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
 
-At any point after the launch, if you or your users encounter issues with the Safe App, or you want to release an update to an existing Safe App, please get in touch with us via [Discord](https://discord.gg/M9uSSkng6S).
+At any point after the launch, if you or your users encounter issues with the Safe App, or you want to release an update to an existing Safe App, please get in touch with us via [Discord](https://chat.safe.global).
