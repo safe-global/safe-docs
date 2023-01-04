@@ -104,7 +104,7 @@ _We ask that:_
 
 Public disclosure of the bug or the indication of an intention to exploit it on Mainnet will make the report ineligible for a bounty. If in doubt about other aspects of the bounty, most of the [Ethereum Foundation bug bounty program rules](https://bounty.ethereum.org) will apply here.
 
-Any questions? Reach us via email ([bounty@safe.global](mailto:bounty@safe.global)) or [Discord](https://chat.gnosis-safe.io). For more information on the Safe, check out our [website](https://gnosis-safe.io) and our [Github](https://github.com/gnosis?q=safe).
+Any questions? Reach us via email ([bounty@safe.global](mailto:bounty@safe.global)) or [Discord](https://chat.safe.global). For more information on the Safe, check out our [website](https://gnosis-safe.io) and our [Github](https://github.com/gnosis?q=safe).
 
 _Happy hunting!_
 
