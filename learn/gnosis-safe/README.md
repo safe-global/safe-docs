@@ -1,4 +1,4 @@
-# Why build on Safe?
+# ✅ Why build on Safe?
 
 There are a few key reasons why you might want to consider building your application on top of Safe's smart contract account standard. Overall, building your application on top of Safe can provide a range of benefits, including enhanced security, improved user experience, and greater flexibility and integration.
 
