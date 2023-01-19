@@ -1,6 +1,6 @@
 ---
 description: >-
-  Everything you need to know about Amart Accounts and how to start using and
+  Everything you need to know about Smart Accounts and how to start using and
   building things with smart accounts.
 ---
 
@@ -8,7 +8,9 @@ description: >-
 
 ## What is a Smart Account?
 
-A Smart Account (also known as a Smart Contract Account) is a bank account with fully customizable rules. If you think of your regular bank account or crypto account (Externally Owned Account, EOA), it’s a simple key and sign account. Anyone with the key (password) can sign anything (approve sending money out of your account).&#x20;
+A Smart Account (also known as a Smart Contract Account) is a fully customizable bank account. If you think of your regular bank account or crypto account (aka, Externally Owned Account, EOA), it’s a simple key and sign account. Anyone with the key (password, private key) can sign anything (approve sending money out of your account).&#x20;
+
+
 
 This means that if someone got access to your username and password, they can take all your money. It also means that if you forgot your password, then you have to go through a lengthy password reset process with a regular bank account and if it’s a crypto account, your money is gone forever.\
 
