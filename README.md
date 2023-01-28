@@ -8,7 +8,7 @@ description: >-
 
 ## What is a Smart Account?
 
-A Smart Account is a fully customizable bank account. If you think of your regular bank account or crypto account, it uses key to sign transactions.  This means that anyone with the key (password, private key) can sign anything and approve sending money out of your account.&#x20;
+A Smart Account is a fully customizable bank account. If you think of your regular bank account or crypto account, it uses a key to sign transactions.  This means that anyone with the key (password, private key) can sign anything and approve sending money out of your account.&#x20;
 
 Note:  A Smart Account is also known as a Smart Contract Account while the crypto account that uses a key to sign transactions is also known as an Externally Owned Account (EOA) or signing account.
 
