@@ -24,11 +24,8 @@ const safeSdk: Safe = await safeFactory.deploySafe({ safeAccountConfig: { thresh
 
 ```bash
 pip3 install -U safe-cli
-safe-cli <checksummed_safe_address> <ethereum_node_url>
-load_cli_owners <account_private_key>
 safe-creator <node_url> <private_key> --owners <checksummed_address_1> <checksummed_address_2>\
-  --threshold <uint> --salt-nonce <uint256>
-tx-service asign-tx <safe-tx-hash>
+ --threshold <uint> --salt-nonce <uint256>
 ```
 
 ### [Safe Tasks](https://github.com/5afe/safe-tasks): Node
@@ -41,7 +38,4 @@ cat "export NODE_URL=<YOUR_NODE_URL>" >> .env
 
 
 yarn safe create
-yarn safe propose <address> --to <target>
-yarn safe sign-proposal <safeTxHash>
-yarn safe submit-proposal <safeTxHash>
 ```
