@@ -2,7 +2,7 @@
 
 The canonical versions of the Safe smart contracts are deployed to the following networks:
 
-* Ethereum Mainnet (Etherscan provides a good overview [here](https://etherscan.io/accounts/label/gnosis-safe).)
+* Ethereum Mainnet (Etherscan provides a good overview [here](https://etherscan.io/accounts/label/safe-formerly-gnosis-safe).)
 * Ethereum Testnets: Rinkeby, Kovan, Ropsten, Görli
 * Gnosis Chain (formerly xDai)
 * Arbitrum
