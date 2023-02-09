@@ -1,12 +1,16 @@
 ---
-description: A list of all the repos available at https://github.com/safe-global
+description: A list of all the repos available at safe-global Github page.
 ---
 
 # List of all Safe Github Repos
 
 ### Safe Global
 
-Collection of production code that is used in the Safe Ecosystem.
+Collection of [production code that is used in the Safe Ecosystem](https://github.com/safe-global).
+
+
+
+Table was generated using [this script](https://gist.github.com/ademidun/0d3c57666bcf782e7160181493b12026).
 
 | name                         | url                                                                                                                        | description                                                                                                                                                     | stars |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |

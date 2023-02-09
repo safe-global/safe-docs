@@ -1,12 +1,13 @@
 # Table of contents
 
 * [👋 Introduction](README.md)
-  * [Quickstart](readme/quickstart/README.md)
-    * [Different Ways to Create a Safe](readme/quickstart/different-ways-to-create-a-safe.md)
-    * [Adding a Rule to a Safe](readme/quickstart/adding-a-rule-to-a-safe.md)
 
 ## 🔰 Learn
 
+* [Things you can do with Safe](learn/things-you-can-do-with-safe.md)
+* [Quickstart](learn/quickstart/README.md)
+  * [Different Ways to Create a Safe](learn/quickstart/different-ways-to-create-a-safe.md)
+  * [Adding a Rule to a Safe](learn/quickstart/adding-a-rule-to-a-safe.md)
 * [✅ Why build on Safe?](learn/gnosis-safe/README.md)
   * [Adoption](learn/gnosis-safe/statistics-and-usage.md)
   * [Supported networks](learn/gnosis-safe/gnosis-safe-on-other-evm-based-networks.md)
@@ -34,11 +35,11 @@
   * [Available Services](learn/infrastructure/available-services.md)
 * [Resources](learn/resources.md)
 
-## 🛠 Build
-
-* [Build a Batch transactions Safe App](build/batch-transactions-safe-app.md)
-
 ## 🔎 Discover
 
 * [Third-party Frontends](discover/third-party-frontends.md)
 * [List of all Safe Github Repos](discover/list-of-all-safe-github-repos.md)
+
+## 🛠 Build
+
+* [Build a Batch transactions Safe App](build/batch-transactions-safe-app.md)

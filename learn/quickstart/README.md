@@ -9,9 +9,9 @@ coverY: 0
 
 ## Create a Safe
 
-{% embed url="https://www.youtube.com/watch?v=7hbBlVXLHhg" %}
-
-
+{% embed url="https://www.youtube.com/watch?v=s9J0516Ta64" %}
+[Watch on Youtube](https://www.youtube.com/watch?v=s9J0516Ta64)
+{% endembed %}
 
 1. Create a crypto wallet (install Metamask)
 2. Get crypto from a [faucet](https://github.com/arddluma/awesome-list-testnet-faucets) ([alternative faucets](https://github.com/arddluma/awesome-list-testnet-faucets))

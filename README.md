@@ -8,16 +8,13 @@ description: >-
 
 ## What is a Smart Account?
 
-A Smart Account is a fully customizable bank account. If you think of your regular bank account or crypto account, it uses key to sign transactions.  This means that anyone with the key (password, private key) can sign anything and approve sending money out of your account.&#x20;
-
-Note:  A Smart Account is also known as a Smart Contract Account while the crypto account that uses a key to sign transactions is also known as an Externally Owned Account (EOA) or signing account.
+A Smart Account is a fully customizable bank account. If you think of your regular bank account or crypto account, it uses keys to sign transactions.  This means that anyone with the key (password, private key) can sign transactions and approve sending money out of your account.&#x20;
 
 
 
-This means that if someone got access to your username and password, they can take all your money. It also means that if you forgot your password, then you have to go through a lengthy password reset process with a regular bank account and if it’s a crypto account, your money is gone forever.\
+This means that if someone got access to your username and password, they can take all your money. It also means that if you forgot your password, then you have to go through a lengthy password reset process with a regular bank account and if it’s a crypto account, your money is gone forever.
 
-
-With a Smart Account, it’s fully customizable, so you can create any type of rule you want. The most common type of rule you can create is a multi-signer account. For example, instead of having just one password (or private key) control your account you can have it done by multiple people. You can add 3 other people (or companies!) that you trust to be signers of your account. Then if you want to send any transactions, at least 2 of them have to approve the transaction.\
+With a Smart Account, it’s fully customizable, so you can create any type of rule you want. The most common type of rule you can create is a multi-signer account (also known as a multisig). For example, instead of having just one password (or private key) control your account you can have it done by multiple people. You can add 3 other people (or companies!) that you trust to be signers of your account. Then if you want to send any transactions, at least 2 of them have to approve the transaction.\
 
 
 Another common rule is to set a spending limit. You can set a limit that allows you to withdraw amounts under $100, without needing approval from everyone else. However, for larger amounts you could require 2 other people to sign and approve the transaction.\
@@ -25,19 +22,32 @@ Another common rule is to set a spending limit. You can set a limit that allows 
 
 When you change the very idea of an account from something that is simply using a password or private key to approve transactions, to something that is fully customizable from the ground up, the possibilities are endless. This guide will show you some of the possibilities and give you the resources to make those possibilities a reality.
 
+
+
+#### Smart Accounts vs Signing Accounts
+
+A Smart Account is also known as a Smart Contract Account. The account that uses a key to sign transactions is also known as an Externally Owned Account (EOA) or signing account.&#x20;
+
+A common misconception is that all smart accounts are multisig accounts. This isn't true. A multisig account is a specific type of Smart Account that requires multiple signing accounts to approve transactions.  In fact, the [most common Smart account configuration is a 1/1](https://twitter.com/tomiwa1a/status/1619059531480444933). This means that only one signer is required for the account. Why would someone create a smart account that only has one signer? Martin Køppelman has a [great thread explaining](https://twitter.com/koeppelmann/status/1618998969992097793) this. In summary:
+
+1. Swap keys if your private key is compromised
+   1. This won't work if a hacker has your private keys since they can also swap the keys. However, if you leak your private keys, you can change the owner before other people find it, without having to move all your assets.
+2. Pay for transactions using any ERC20 tokens or even cash. With a relayer paying for gas on your behalf
+3. Add customizable rules such as spending limits
+
 ### How to Read this Guide
 
 
 
 There are three main sections in this guide: Learn, Build, Discover.
 
-1. Learn about how Smart Accounts work.
-2. Build cool things with Smart Accounts.
-3. Discover what other people are building and using with Smart Accounts
+1. [Learn](https://docs.gnosis-safe.io/learn) about how Smart Accounts work.
+2. [Discover](https://docs.gnosis-safe.io/discover/) how others are building and using Smart Accounts
+3. [Build](https://docs.gnosis-safe.io/build) cool things with Smart Accounts.
 
 
 
-We recommend starting with Learn and seeing some tutorials there to learn more about how Smart Accounts work. Then, head to the Discover section to get some ideas and inspiration for the types of things possible with smart accounts. Then, complete one of the Build tutorials and make an app that uses Smart Accounts.
+We recommend starting with Learn and seeing some tutorials there to learn more about how Smart Accounts work. Then, head to the Discover section to get some ideas and inspiration for the types of things you can build with smart accounts. Then, complete one of the Build tutorials to build something that uses Smart Accounts.
 
 
 
@@ -67,10 +77,12 @@ The Ecosystem Diagram covers a lot of tools. If you want a simpler introduction 
 
 ### Contact Us
 
-1. [Chat with us on Discord](https://chat.safe.global/)
-2. [Tweet us on Twitter @safe](https://twitter.com/safe)
-3. [Ask 'gnosis-safe' Questions on Ethereum Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/gnosis-safe)
-4. [Open an Issue on the Safe Github](https://github.com/safe-global)
+
+
+1. [Tweet us on Twitter @safe](https://twitter.com/safe)
+2. [Ask 'gnosis-safe' Questions on Ethereum Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/gnosis-safe)
+3. [Open an Issue on the Safe Github](https://github.com/safe-global)
+4. [Chat with us on Discord](https://chat.safe.global/)
 
 ### Further Reading
 
