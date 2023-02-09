@@ -34,6 +34,7 @@
   * [RPC Requirements](learn/infrastructure/rpc-requirements.md)
   * [Available Services](learn/infrastructure/available-services.md)
 * [Resources](learn/resources.md)
+* [Community Learning Resources](learn/community-learning-resources.md)
 
 ## 🔎 Discover
 
