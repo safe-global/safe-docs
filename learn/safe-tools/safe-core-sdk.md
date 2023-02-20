@@ -17,7 +17,7 @@ For a more detailed guide, including how to integrate with safe-core-service and
 
 ### Prerequisites
 
-1. Node and npm
+1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm)
 2. [3 Signing Accounts with testnet ETH in at least one account](https://docs.gnosis-safe.io/learn/quickstart)
 
 
