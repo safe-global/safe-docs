@@ -5,9 +5,21 @@ description: >-
 
 [safe-core-sdk](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) is a TypeScript library for interacting with the [Safe contracts](https://github.com/safe-global/safe-contracts)
 
-## Getting Started[](#getting-started)
+## About
 
-This is a short tutorial on creating a multisig wallet using the core-sdk. For a more detailed guide, including how to integrate with safe-core-service and web3js, see [Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md).
+The Safe Core SDK allows you to create safe accounts, propose and execute transactions. You can use it inside any javascript project to interact with Safe contracts programatically. 
+
+## Quickstart
+
+This quickstart guide will show you how to create a 2 of 3 multisig Safe and propose and execute a transaction to send some ETH out of this account.
+
+For a more detailed guide, including how to integrate with safe-core-service and web3js, see [Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md).
+
+### Prerequisites
+
+1. Node and npm
+2. [3 Signing Accounts with testnet ETH in at least one account](https://docs.gnosis-safe.io/learn/quickstart)
+
 
 ## Install Dependencies
 
@@ -50,5 +62,11 @@ const ethAdapter = new EthersAdapter({
 })
 ```
 
+## Initialize owners
 
+```typescript
+const owner_1 = process.env.ACCOUNT_1;
+const owner_2 = process.env.ACCOUNT_2;
+const onwer_3 = process.env.ACCOUNT_3;
+```
 
