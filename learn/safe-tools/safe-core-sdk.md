@@ -1,9 +1,6 @@
----
-description: >-
-  Safe Core SDK is a Typescript library for interacting with Safe Contracts
----
 
-[safe-core-sdk](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) is a TypeScript library for interacting with the [Safe contracts](https://github.com/safe-global/safe-contracts)
+
+[Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) is a TypeScript library for interacting with the [Safe contracts](https://github.com/safe-global/safe-contracts)
 
 ## About
 
