@@ -21,14 +21,14 @@ In this tutorial, we’ll use the ethers.js library because it's newer and has a
 
 The Safe Core SDK is compatible with ethers v4 and v5, not the latest v6 version so make sure you specify this when installing the SDK.
 
-```
+```bash
 yarn add ethers@5.7.2
 
 ```
 
 We'll store our environment variables such as Ethereum addresses in `.env` files so let's use `dotenv`:
 
-```
+```bash
 yarn add dotenv
 touch .env
 
@@ -36,7 +36,7 @@ touch .env
 
 Put your signing key private keys into the `.env` file you just created
 
-```
+```bash
 export OWNER_1_PRIVATE_KEY="<PRIVATE_KEY>"
 export OWNER_2_PRIVATE_KEY="<PRIVATE_KEY>"
 export OWNER_3_PRIVATE_KEY="<PRIVATE_KEY>"
@@ -45,7 +45,7 @@ export OWNER_3_PRIVATE_KEY="<PRIVATE_KEY>"
 
 Install the core SDKs. We will use ethers for this tutorial. To use `web3js`, see [Safe Core SDK: Detailed Guide](https://www.notion.so/learn/safe-tools/safe-protocol-kit-safe-core-sdk/safe-core-sdk-detailed-guide.md).
 
-```
+```bash
 yarn add @safe-global/safe-core-sdk-types @safe-global/safe-core-sdk @safe-global/safe-ethers-lib
 
 ```
@@ -56,7 +56,7 @@ The provider is the object that connects to the Ethereum blockchain. The signers
 
 To get the list of RPC URLs, chainlist was chosen but RPC URLs can be unreliable so you can also try a dedicated provider like Infura or Alchemy or pick another RPC URL from the list.
 
-```
+```tsx
 import { ethers } from 'ethers'
 import EthersAdapter from '@safe-global/safe-ethers-lib'
 
@@ -87,7 +87,7 @@ TODO: can we remove this from the quickstart?
 
 As stated in the introduction, the [Safe Service Client](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-service-client) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeServiceClient` class, imported from `@safe-global/safe-service-client` and pass the URL to the constructor of the Safe Transaction Service you want to use depending on the network.
 
-```
+```tsx
 import SafeServiceClient from '@safe-global/safe-service-client'
 
 // TODO: get Goerli transaction URL
@@ -96,6 +96,8 @@ const txServiceUrl = '<https://safe-transaction-mainnet.safe.global>'
 const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter })
 
 ```
+
+TODO: specify typescript in the code snippets
 
 ### **Initialize the Safe Core SDK**
 
