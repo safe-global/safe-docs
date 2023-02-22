@@ -6,7 +6,7 @@ The Safe Protocol Kit uses the [Safe Core S](https://github.com/safe-global/safe
 
 In this quickstart, you will create a 2 of 3 multi-sig Safe and propose and execute a transaction to send some ETH out of this Safe.
 
-For a more detailed guide, including how to integrate with safe-service-client and web3js, see [Safe Core SDK: Detailed Guide](https://www.notion.so/learn/safe-tools/safe-protocol-kit-safe-core-sdk/safe-core-sdk-detailed-guide.md).
+For a more detailed guide, including how to integrate with safe-service-client and web3js, see [Safe Core SDK: Detailed Guide](/learn/safe-tools/safe-protocol-kit-safe-core-sdk/safe-core-sdk-detailed-guide.md).
 
 ### Prerequisites
 
@@ -43,7 +43,7 @@ export OWNER_3_PRIVATE_KEY="<PRIVATE_KEY>"
 
 ```
 
-Install the core SDKs. We will use ethers for this tutorial. To use `web3js`, see [Safe Core SDK: Detailed Guide](https://www.notion.so/learn/safe-tools/safe-protocol-kit-safe-core-sdk/safe-core-sdk-detailed-guide.md).
+Install the core SDKs. We will use ethers for this tutorial. To use `web3js`, see [Safe Core SDK: Detailed Guide](/learn/safe-tools/safe-protocol-kit-safe-core-sdk/safe-core-sdk-detailed-guide.md).
 
 ```bash
 yarn add @safe-global/safe-core-sdk-types @safe-global/safe-core-sdk @safe-global/safe-ethers-lib
