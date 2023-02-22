@@ -1,12 +1,12 @@
 # Safe Protocol Kit (Safe Core SDK)
 
-The Safe Protocol Kit uses the [Safe Core Sdk](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) to interact with [Safe contracts](https://github.com/safe-global/safe-contracts) using a Typescript interface. This SDK can be used you to create Safe accounts, and propose and execute transactions.
+The Safe Protocol Kit uses the [Safe Core S](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk)DK to interact with [Safe contracts](https://github.com/safe-global/safe-contracts) using a Typescript interface. This SDK can be used to create Safe accounts, and propose and execute transactions.
 
 ## Quickstart
 
 In this quickstart, you will create a 2 of 3 multi-sig Safe and propose and execute a transaction to send some ETH out of this Safe.
 
-For a more detailed guide, including how to integrate with safe-service-client and web3js, see [Safe Core SDK: Detailed Guide](/learn/safe-tools/safe-protocol-kit-safe-core-sdk/safe-core-sdk-detailed-guide.md).
+For a more detailed guide, including how to integrate with safe-service-client and web3js, see [Safe Core SDK: Detailed Guide](https://www.notion.so/learn/safe-tools/safe-protocol-kit-safe-core-sdk/safe-core-sdk-detailed-guide.md).
 
 ### Prerequisites
 
@@ -21,31 +21,33 @@ In this tutorial, we’ll use the ethers.js library because it's newer and has a
 
 The Safe Core SDK is compatible with ethers v4 and v5, not the latest v6 version so make sure you specify this when installing the SDK.
 
-```bash
+```
 yarn add ethers@5.7.2
+
 ```
 
-We'll store our environment variables such as Ethereum adddresses in `.env` files so let's use `dotenv`:
+We'll store our environment variables such as Ethereum addresses in `.env` files so let's use `dotenv`:
 
-```bash
+```
 yarn add dotenv
 touch .env
+
 ```
 
 Put your signing key private keys into the `.env` file you just created
 
-```bash
+```
 export OWNER_1_PRIVATE_KEY="<PRIVATE_KEY>"
 export OWNER_2_PRIVATE_KEY="<PRIVATE_KEY>"
 export OWNER_3_PRIVATE_KEY="<PRIVATE_KEY>"
 
 ```
 
-Install the core SDKs. We will use ethers for this tutorial. To use `web3js`, see [Safe Core SDK: Detailed Guide](/learn/safe-tools/safe-protocol-kit-safe-core-sdk/safe-core-sdk-detailed-guide.md).
+Install the core SDKs. We will use ethers for this tutorial. To use `web3js`, see [Safe Core SDK: Detailed Guide](https://www.notion.so/learn/safe-tools/safe-protocol-kit-safe-core-sdk/safe-core-sdk-detailed-guide.md).
 
-
-```bash
+```
 yarn add @safe-global/safe-core-sdk-types @safe-global/safe-core-sdk @safe-global/safe-ethers-lib
+
 ```
 
 ### Initialize Signers, Providers, and EthAdapter
@@ -54,7 +56,7 @@ The provider is the object that connects to the Ethereum blockchain. The signers
 
 To get the list of RPC URLs, chainlist was chosen but RPC URLs can be unreliable so you can also try a dedicated provider like Infura or Alchemy or pick another RPC URL from the list.
 
-```tsx
+```
 import { ethers } from 'ethers'
 import EthersAdapter from '@safe-global/safe-ethers-lib'
 
@@ -76,6 +78,7 @@ const ethAdapter = new EthersAdapter({
   ethers,
   signerOrProvider: safeOwner
 })
+
 ```
 
 ### Initialize the Safe Service Client
@@ -84,7 +87,7 @@ TODO: can we remove this from the quickstart?
 
 As stated in the introduction, the [Safe Service Client](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-service-client) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeServiceClient` class, imported from `@safe-global/safe-service-client` and pass the URL to the constructor of the Safe Transaction Service you want to use depending on the network.
 
-```tsx
+```
 import SafeServiceClient from '@safe-global/safe-service-client'
 
 // TODO: get Goerli transaction URL
@@ -98,7 +101,7 @@ const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter })
 
 TODO: Do we need to specify the `contractnetworks` for Goerli?
 
-```tsx
+```
  const id = await ethAdapter.getChainId();
   const contractNetworks = {
     [id]: {
@@ -116,17 +119,18 @@ TODO: Where did `safeAddress` come from here?
 
 [https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#initialize-the-safe-core-sdk](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#initialize-the-safe-core-sdk)
 
-```tsx
+```
 import Safe, { SafeFactory } from '@safe-global/safe-core-sdk'
 
 const safeFactory = await SafeFactory.create({ ethAdapter })
 
 const safeSdk = await Safe.create({ ethAdapter, safeAddress })
+
 ```
 
 ### Deploy a Safe
 
-```tsx
+```
 import { SafeAccountConfig } from '@safe-global/safe-core-sdk'
 
 const safeAccountConfig: SafeAccountConfig = {
@@ -144,7 +148,7 @@ Calling the method `deploySafe`will deploy the desired Safe and return a Safe C
 
 We will need some ETH to deploy to this Safe. We can send 0.1 Goerli ETH to this Safe from our Faucet following the instructions in Quickstart.
 
-```tsx
+```
 const treasury = safeSdk.getAddress();
 
 const treasury_amount = ethers.utils.parseUnits("0.1", 'ether').toHexString();
@@ -157,6 +161,7 @@ const params = [{
 
 await provider.send("eth_sendTransaction", params);
 console.log("Fundraising.");
+
 ```
 
 ### Propose and Send a Transaction
@@ -165,8 +170,8 @@ Owner 2 will propose a transaction to send 0.1 Ether out of the account and then
 
 Create the transaction:
 
-```tsx
-	
+```
+
 withdraw_destination = '0x..'
 
 const withdraw_amount = ethers.utils.parseUnits("0.05", 'ether').toHexString();
@@ -179,11 +184,12 @@ const transaction = {
 
 const safeTransaction = await safeSdk.createTransaction(transaction);
 const hash = await safeSdk.getTransactionHash(safeTransaction);
+
 ```
 
 Owner 2 approves the transaction:
 
-```tsx
+```
 const ethAdapterOwner2 = new EthersAdapter({
   ethers,
   signerOrProvider: safeOwner
@@ -197,23 +203,25 @@ const safeTransactionOwner2 = await safeSdkOwner2.createTransaction(transaction)
 const hashOwner2 = await safeSdk.getTransactionHash(safeTransaction);
 const txResponseOwner2= await safeSdk_cto.approveTransactionHash(hashOwner2);
 await txResponseOwner2.transactionResponse?.wait();
+
 ```
 
 Owner 2 needs a different Safe object. But you don’t need to create it with the safe factory; you can create it with the `create` method of the Safe object. Because your safe smart contract is live already on the blockchain, you just passed the treasury address when you created the Safe object.
 
 Next, you pass the transaction to Owner 2 either by chatting or via email. What the transaction means in this context is the `transaction` object in the code. Remember, you’ve already created this object:
 
-```tsx
+```
 const transaction = {
     to: treasury,
     data: '0x',
     value: withdraw_amount
   };
+
 ```
 
 You need another signature. Owner 3 approves the signature and because you now have 2 signers and your threshold is 2, the transaction gets executed.
 
-```tsx
+```
 const safeSdkOwner3 = await Safe.create({ ethAdapter: ethAdapterOwner3,
                                               safeAddress: treasury,
                                               contractNetworks: contractNetworks });
@@ -230,16 +238,18 @@ const safeTransactionAdvisor = await safeSdkOwner3.createTransaction(transaction
 const txResponseOwner3 = await safeSdkOwner3.executeTransaction(safeTransactionAdvisor);
 await txResponseOwner3.transactionResponse?.wait();
 console.log("Withdrawal Amount.");
+
 ```
 
 Finally, let’s check our treasury balance:
 
-```tsx
+```
 const afterBalance = await safeSdk.getBalance();
 console.log(`The final balance of the treasury: ${ethers.utils.formatUnits(afterBalance, "ether")} ETH`);
+
 ```
 
-```bash
+```
 $ node index.js
 
 Fundraising.
@@ -247,6 +257,7 @@ Fundraising.
 Initial balance of the treasury: 0.1 ETH
 Buying a car.
 The final balance of the treasury: 0.05 ETH
+
 ```
 
 ### Conclusion
