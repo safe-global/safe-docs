@@ -1,12 +1,12 @@
 # Safe Protocol Kit (Safe Core SDK)
 
-The Safe Protocol Kit uses the [safe-core-sdk](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) to interact with [Safe contracts](https://github.com/safe-global/safe-contracts) using a Typescript interface. This SDK can be used you to create Safe accounts, and propose and execute transactions.
+The Safe Protocol Kit uses the [Safe Core Sdk](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) to interact with [Safe contracts](https://github.com/safe-global/safe-contracts) using a Typescript interface. This SDK can be used you to create Safe accounts, and propose and execute transactions.
 
 ## Quickstart
 
-In this quickstart, you will create a 2 of 3 multi-sig Safe and propose and execute a transaction to send some ETH out of this account.
+In this quickstart, you will create a 2 of 3 multi-sig Safe and propose and execute a transaction to send some ETH out of this Safe.
 
-For a more detailed guide, including how to integrate with safe-core-service and web3js, see [Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md).
+For a more detailed guide, including how to integrate with safe-service-client and web3js, see [Safe Core SDK: Detailed Guide](/learn/safe-tools/safe-protocol-kit-safe-core-sdk/safe-core-sdk-detailed-guide.md).
 
 ### Prerequisites
 
@@ -25,12 +25,6 @@ The Safe Core SDK is compatible with ethers v4 and v5, not the latest v6 version
 yarn add ethers@5.7.2
 ```
 
-Similar instructions for `web3.js`
-
-```bash
-yarn add web3
-```
-
 We'll store our environment variables such as Ethereum adddresses in `.env` files so let's use `dotenv`:
 
 ```bash
@@ -47,16 +41,11 @@ export OWNER_3_PRIVATE_KEY="<PRIVATE_KEY>"
 
 ```
 
-Install the core SDKs
+Install the core SDKs. We will use ethers for this tutorial. To use `web3js`, see [Safe Core SDK: Detailed Guide](/learn/safe-tools/safe-protocol-kit-safe-core-sdk/safe-core-sdk-detailed-guide.md).
+
 
 ```bash
-yarn add @safe-global/safe-core-sdk-types @safe-global/safe-core-sdk
-```
-
-We will use ethers for this tutorial. To use `web3js` see [Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md):
-
-```bash
-yarn add @safe-global/safe-ethers-lib
+yarn add @safe-global/safe-core-sdk-types @safe-global/safe-core-sdk @safe-global/safe-ethers-lib
 ```
 
 ### Initialize Signers, Providers, and EthAdapter
