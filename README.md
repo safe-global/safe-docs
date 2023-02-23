@@ -8,7 +8,9 @@ Safe makes it easy for anyone to make and use accounts on the blockchain. These 
 
 ### How to Read this Guide
 
-There are three main sections in this guide: Learn, Build, and Discover.
+There are three main sections in this guide: Learn, Discover, and Build.
+
+<figure><img src=".gitbook/assets/how-to-use.png" alt=""><figcaption></figcaption></figure>
 
 1. [Learn](https://docs.gnosis-safe.io/learn) about how Smart Contract Accounts (aka Smart Accounts) work.
 2. [Discover](https://docs.gnosis-safe.io/discover/) how others are building and using Smart Accounts
