@@ -4,5 +4,4 @@ Modules add additional functionalities to the Safe contracts. They are smart con
 
 Modules can include daily spending allowances, amounts that can be spent without the approval of other owners, recurring transactions modules, standing orders that are performed on a recurring set date, e.g. paying your rent, and social recovery modules, which may allow you to recover a Safe in case access to owner accounts were lost. This is just a short example list of possible modules, and one can think of many other modules that could be beneficial to your wallet. Modules enable developers to include their own features via a separate smart contract.
 
-For examples of modules please find the few examples [here](https://github.com/gnosis/safe-modules) and modules created by the Zodiac team [here](https://github.com/gnosis/zodiac#modules). 
-
+For examples of modules please find the few examples [here](https://github.com/gnosis/safe-modules) and modules created by the Zodiac team [here](https://github.com/gnosis/zodiac#modules).
