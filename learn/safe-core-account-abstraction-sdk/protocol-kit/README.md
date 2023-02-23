@@ -1,6 +1,6 @@
-# Safe Protocol Kit (Safe Core SDK)
+# Protocol Kit
 
-The Safe Protocol Kit uses the [safe-core-sdk](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk), which is a TypeScript library for interacting with the [Gnosis Safe contracts](https://github.com/safe-global/safe-contracts)
+The Protocol Kit uses the [safe-core-sdk](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) to allow users to create and configure[ Safe contracts](https://github.com/safe-global/safe-contracts) and execute single and multi send transactions.
 
 ## Getting Started
 
