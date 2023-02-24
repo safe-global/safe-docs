@@ -1,8 +1,8 @@
-# Safe Auth Kit
+# Auth Kit
 
-This library provides a way to authenticate users using mails, social accounts or traditional web3 wallets (Metamask ...). When using web2 methods as your social account, a derived ethereum address will be generated.
+This library provides a way to authenticate blockchain accounts using email addresses, social accounts or traditional web3 wallets (ex. Metamask). When using web2 methods as your email or social account, a derived Ethereum address will be generated.
 
-# Quickstart
+## Quickstart
 
 ### Prerequisites
 
@@ -12,17 +12,19 @@ This library provides a way to authenticate users using mails, social accounts o
 ### Install dependencies
 
 ```bash
-npm install @safe-global/safe-auth-kit
-yarn add @safe-global/safe-auth-kit
+npm install @safe-global/auth-kit
+yarn add @safe-global/auth-kit
 ```
 
 ### How to use
 
-Create an instance of the [SafeAuthKit](https://github.com/safe-global/account-abstraction-sdk/blob/b8aab58cce5e985e29cfb03924c8b973f2ee8a37/packages/auth-kit/src/SafeAuthKit.ts) class providing the `SafeAuthProviderType` and `SafeAuthConfig` as parameters.
+Create an instance of the [SafeAuthKit](https://github.com/safe-global/account-abstraction-sdk/blob/195588a4388b15f06b05d2027ffd43185781be34/packages/auth-kit/src/SafeAuthKit.ts) class providing the `SafeAuthProviderType` and `SafeAuthConfig` as parameters.
 
 Currently we only support the `Web3Auth` provider type but we plan to add more providers in the future.
 
 ```typescript
+import { SafeAuthKit, SafeAuthProviderType } from '@safe-global/auth-kit'
+
 const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
   chainId: '0x5',
   authProviderConfig: {
@@ -36,16 +38,16 @@ const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
 
 The `authProviderConfig` object is the specific configuration object for the Web3Auth modal:
 
-- `rpc`: The rpc url to connect to the ethereum network
+- `rpc`: The rpc url to connect to the Ethereum network
 - `clientId`: The client id of your Web3Auth account. You need to create an application in your [Web3Auth account](https://dashboard.web3auth.io) to get this value
 - `network`: The network name to use for the Web3Auth modal (mainnet | testnet | cyan)
 - `theme`: The theme to use for the Web3Auth modal (dark | light)
 
 Once the instance is created, you can call the `signIn()` method to start the authentication process showing the web3Auth modal.
-While you sign in with the same mail or social account, the same ethereum address will be returned.
+While you sign in with the same email or social account, the same Ethereum address will be returned.
 
 ```typescript
-// The signIn method will return the user's ethereum address
+// The signIn method will return the user's Ethereum address
 // The await will last until the user is authenticated so while the UI modal is showed
 await safeAuthKit.signIn();
 ```
@@ -56,7 +58,7 @@ The `signOut` method will remove the current session.
 await safeAuthKit.signOut();
 ```
 
-You can get the ethereum provider instance by calling the `getProvider` method.
+You can get the Ethereum provider instance by calling the `getProvider` method.
 
 ```typescript
 safeAuthKit.getProvider();
@@ -85,3 +87,7 @@ const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
 ```
 
 When `txServiceUrl` is provided, the list of associated Safe addresses will be returned as part of the `signIn()` method response.
+
+## Example
+
+[Check a functional demo](https://github.com/safe-global/account-abstraction-sdk/tree/195588a4388b15f06b05d2027ffd43185781be34/packages/auth-kit/example) using the `auth-kit` 
