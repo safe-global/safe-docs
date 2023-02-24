@@ -15,6 +15,10 @@ This kit provides a way for buy cryptoassets using a credit card or other paymen
 ### Prerequisites
 
 - [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm)
+- An Stripe account in order to get your own public and private keys. You can create one [here](https://dashboard.stripe.com/register)
+- A deployed server like the one provided as [an example](https://github.com/safe-global/account-abstraction-sdk/blob/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/example/server) in order to communicate with Stripe APIs
+
+> The docs for the latest step (server) are not published yet as Stripe onramp solution is still in pilot testing
 
 ### Install dependencies
 
@@ -67,7 +71,7 @@ const sessionData = await safeOnRamp.open({
 
 1. The library is under development and it's not ready for production use. We are working with Stripe and participating in the pilot testing for their new [on ramp solution](https://stripe.com/es/blog/crypto-onramp)
 
-    Given this, we are offering our public key and a deployed server only available for testing purposes. It can be used like this:
+   Given this, we are offering our public key and a deployed server only available for testing purposes. It can be used like this:
 
 ```typescript
 const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
@@ -85,9 +89,9 @@ const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
 
 4. If you want to deploy a POC with your solution, bear in mind that our integration with Stripe has whitelisted the following domains:
 
-    - localhost: For local development
-    - [netlify.app](https://www.netlify.com) and [vercel.app](https://vercel.com) for hosted deployments
+   - localhost: For local development
+   - [netlify.app](https://www.netlify.com) and [vercel.app](https://vercel.com) for hosted deployments
 
-    So you can deploy your solution in one of these hosting providers. Using a different domain won't work and the widget will throw an error as we didn't whitelist it using our configuration.
+   So you can deploy your solution in one of these hosting providers. Using a different domain won't work and the widget will throw an error as we didn't whitelist it using our configuration.
 
-5. Currently the Stripe widget can only be used if you are __based in the United States__. If you are hacking from another country you could use a VPN, for example [Proton VPN](https://protonvpn.com) as its free tier should be enough for testing purposes. You need to connect to the United States server.
+5. Currently the Stripe widget can only be used if you are **based in the United States**. If you are hacking from another country you could use a VPN, for example [Proton VPN](https://protonvpn.com) as its free tier should be enough for testing purposes. You need to connect to the United States server.

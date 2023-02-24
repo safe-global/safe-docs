@@ -28,7 +28,7 @@ import { SafeAuthKit, SafeAuthProviderType } from '@safe-global/auth-kit'
 const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
   chainId: '0x5',
   authProviderConfig: {
-    rpc: <Your rpc url>, // Add your RPC e.g. https://mainnet.infura.io/v3/<your project id>
+    rpc: <Your rpc url>, // Add your RPC e.g. https://goerli.infura.io/v3/<your project id>
     clientId: <Your client id>, // Add your client id. Get it from the Web3Auth dashboard
     network: 'testnet' | 'mainnet' | 'cyan', // The network to use for the Web3Auth modal
     theme: 'light' | 'dark' // The theme to use for the Web3Auth modal
@@ -90,4 +90,4 @@ When `txServiceUrl` is provided, the list of associated Safe addresses will be r
 
 ## Example
 
-[Check a functional demo](https://github.com/safe-global/account-abstraction-sdk/tree/195588a4388b15f06b05d2027ffd43185781be34/packages/auth-kit/example) using the `auth-kit` 
+[Check a functional demo](https://github.com/safe-global/account-abstraction-sdk/tree/195588a4388b15f06b05d2027ffd43185781be34/packages/auth-kit/example) using the `auth-kit`
