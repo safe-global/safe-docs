@@ -1,6 +1,6 @@
 # Protocol Kit
 
-The Protocol Kit uses the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) to interact with [Safe contracts](https://github.com/safe-global/safe-contracts) using a Typescript interface. This SDK can be used to create Safe accounts, and propose and execute transactions and update the configuration of an existing Safe.
+The Protocol Kit uses the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) to interact with [Safe contracts](https://github.com/safe-global/safe-contracts) using a Typescript interface. This SDK can be used to create new Safe accounts, update the configuration of existing Safes, and propose and execute transactions.
 
 ## Quickstart
 
