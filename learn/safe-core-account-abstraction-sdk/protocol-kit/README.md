@@ -66,7 +66,7 @@ import EthersAdapter from '@safe-global/safe-ethers-lib'
 const RPC_URL='<https://eth-goerli.public.blastapi.io>'
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
 
-// initialize signers
+// Initialize signers
 const owner1Signer = provider.getSigner(process.env.OWNER_1_PRIVATE_KEY)
 const owner2Signer = provider.getSigner(process.env.OWNER_2_PRIVATE_KEY)
 const owner3Signer = provider.getSigner(process.env.OWNER_3_PRIVATE_KEY)
@@ -117,8 +117,8 @@ const safeAccountConfig: SafeAccountConfig = {
   // ... (Optional params)
 }
 
-// this safe is tied to owner 1 because the factory was initialized with
-// an adapter that had owner 1 as the signer
+/* This Safe is tied to owner 1 because the factory was initialized with
+an adapter that had owner 1 as the signer. */
 const safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
 
 console.log('Your Safe has been deployed:')
@@ -191,7 +191,7 @@ const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionD
 // Deterministic hash based on transaction parameters
 const safeTxHash = await safeSdkOwner1.getTransactionHash(safeTransaction)
 
-// sign transaction to verify that the transaction is coming from owner 1
+// Sign transaction to verify that the transaction is coming from owner 1
 const senderSignature = await safeSdkOwner1.signTransactionHash(safeTxHash)
 
 await safeService.proposeTransaction({
