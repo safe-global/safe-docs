@@ -64,12 +64,12 @@ import EthersAdapter from '@safe-global/safe-ethers-lib'
 
 // <https://chainlist.org/?search=goerli&testnets=true>
 const RPC_URL='<https://eth-goerli.public.blastapi.io>'
-const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
 
 // initialize signers
-const owner1Signer = provider.getSigner(process.env.OWNER_1_PRIVATE_KEY);
-const owner2Signer = provider.getSigner(process.env.OWNER_2_PRIVATE_KEY);
-const owner3Signer = provider.getSigner(process.env.OWNER_3_PRIVATE_KEY);
+const owner1Signer = provider.getSigner(process.env.OWNER_1_PRIVATE_KEY)
+const owner2Signer = provider.getSigner(process.env.OWNER_2_PRIVATE_KEY)
+const owner3Signer = provider.getSigner(process.env.OWNER_3_PRIVATE_KEY)
 
 const ethAdapterOwner1 = new EthersAdapter({
   ethers,
@@ -119,7 +119,7 @@ const safeAccountConfig: SafeAccountConfig = {
 
 // this safe is tied to owner 1 because the factory was initialized with
 // an adapter that had owner 1 as the signer
-const safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig });
+const safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
 
 console.log("Your Safe has been deployed:")
 console.log(`https://goerli.etherscan.io/address/${safeSdk.getAddress()}`))
@@ -141,7 +141,7 @@ const params = [{
   value: treasuryAmount
 }]
 
-const tx = await owner1Signer.sendTransaction(transactionParameters);
+const tx = await owner1Signer.sendTransaction(transactionParameters)
 
 console.log("Fundraising.")
 console.log(`Deposit Transaction: https://goerli.etherscan.io/tx/${tx.hash}`))
@@ -189,10 +189,10 @@ const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionD
 
 ```tsx
 // Deterministic hash based on transaction parameters
-const safeTxHash = await safeSdkOwner1.getTransactionHash(safeTransaction);
+const safeTxHash = await safeSdkOwner1.getTransactionHash(safeTransaction)
 
 // sign transaction to verify that the transaction is coming from owner 1
-const senderSignature = await safeSdkOwner1.signTransactionHash(safeTxHash);
+const senderSignature = await safeSdkOwner1.signTransactionHash(safeTxHash)
 
 await safeService.proposeTransaction({
   safeAddress,
@@ -201,7 +201,7 @@ await safeService.proposeTransaction({
   senderAddress,
   senderSignature: senderSignature.data,
   origin
-});
+})
 ```
 
 ### Confirm the transaction: First Confirmation
@@ -216,7 +216,7 @@ await safeService.confirmTransaction(hash, signature.data)
 
 ### Get Pending Transactions
 
-Owner 2 needs a different Safe object. However, you don’t need to create it with the safe factory; you can create it with the `create` method of the Safe object. The Safe smart contract is already live on the blockchain so you can just pass the treasury address used when you created the Safe.
+Owner 2 needs a different Safe object. However, you don’t need to create it with the safe factory you can create it with the `create` method of the Safe object. The Safe smart contract is already live on the blockchain so you can just pass the treasury address used when you created the Safe.
 
 ```tsx
 const ethAdapterOwner2 = new EthersAdapter({
@@ -229,7 +229,7 @@ const safeSdkOwner2 = await Safe.create({
   safeAddress: treasury
 })
 
-const pendingTxs = await safeService.getPendingTransactions(safeAddress);
+const pendingTxs = await safeService.getPendingTransactions(safeAddress)
 
 ```
 
@@ -237,7 +237,7 @@ const pendingTxs = await safeService.getPendingTransactions(safeAddress);
 
 ```tsx
 // Assuming that the first pending transaction is the one proposed by owner 1
-const transaction = pendingTxs[0];
+const transaction = pendingTxs[0]
 const safeTxHash = transaction.safeTxHash
 const signature = await safeSdkOwner2.signTransactionHash(hash)
 const response = await safeService.confirmTransaction(hash, signature.data)
@@ -258,9 +258,9 @@ const receipt = executeTxResponse.transactionResponse && (await executeTxRespons
 We know that the transaction was executed if the balance in our Safe changed.
 
 ```tsx
-const afterBalance = await safeSdk.getBalance();
+const afterBalance = await safeSdk.getBalance()
 
-console.log(`The final balance of the treasury: ${ethers.utils.formatUnits(afterBalance, "ether")} ETH`);
+console.log(`The final balance of the treasury: ${ethers.utils.formatUnits(afterBalance, "ether")} ETH`)
 ```
 
 ```bash
