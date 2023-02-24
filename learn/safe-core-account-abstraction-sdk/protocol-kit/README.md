@@ -127,7 +127,7 @@ console.log(`https://goerli.etherscan.io/address/${safeSdk.getAddress()}`))
 
 Calling the method `deploySafe`will deploy the desired Safe and return a Safe Core SDK initialized instance ready to be used. Check the [API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#deploysafe) for more details on additional configuration parameters and callbacks.
 
-### Send ETH to The Safe
+### Send ETH to the Safe
 
 We will send some ETH to this Safe (treasury). Owner 1 will deposit 0.1 Goerli ETH to this Safe from our personal account following the [instructions in Quickstart](https://docs.gnosis-safe.io/learn/quickstart).
 
@@ -204,7 +204,7 @@ await safeService.proposeTransaction({
 })
 ```
 
-### Confirm the transaction: First Confirmation
+### Confirm the Transaction: First Confirmation
 
 ```tsx
 // transaction: SafeMultisigTransactionResponse
@@ -253,7 +253,7 @@ const executeTxResponse = await safeSdk.executeTransaction(safeTransaction)
 const receipt = executeTxResponse.transactionResponse && (await executeTxResponse.transactionResponse.wait())
 ```
 
-### Check that the Transaction was Executed
+### Confirm thatmthe Transaction was Executed
 
 We know that the transaction was executed if the balance in our Safe changed.
 
