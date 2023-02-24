@@ -6,7 +6,7 @@ The Protocol Kit uses the [Safe Core SDK](https://github.com/safe-global/safe-co
 
 In this quickstart, you will create a 2 of 3 multi-sig Safe and propose and execute a transaction to send some ETH out of this Safe.
 
-For a more detailed guide, including how to integrate with web3js and more Safe and transaction configuration options, see [Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and [Safe Core SDK API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#sdk-api).
+For a more detailed guide, including how to integrate with web3js and more Safe transaction configuration options, see [Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and [Safe Core SDK API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#sdk-api).
 
 ### Prerequisites
 
