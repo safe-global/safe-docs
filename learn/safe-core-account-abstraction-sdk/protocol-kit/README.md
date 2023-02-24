@@ -10,7 +10,7 @@ For a more detailed guide, including how to integrate with web3js and more Safe 
 
 ### Prerequisites
 
-1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm)
+1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 2. [3 Signing Accounts with testnet ETH in at least one account](https://docs.gnosis-safe.io/learn/quickstart)
 
 ### Install Dependencies
@@ -41,7 +41,7 @@ export OWNER_3_PRIVATE_KEY='<PRIVATE_KEY>'
 Install the core SDKs.
 
 ```bash
-yarn add @safe-global/safe-core-sdk-types @safe-global/safe-core-sdk @safe-global/safe-ethers-lib
+yarn add @safe-global/safe-core-sdk-types @safe-global/safe-core-sdk @safe-global/safe-service-client @safe-global/safe-ethers-lib
 ```
 
 Create an `index.js` file that you will use to run the following code snippets:
@@ -50,6 +50,12 @@ Create an `index.js` file that you will use to run the following code snippets:
 touch index.ts
 ```
 
+
+Tip: Use [ts-node](https://github.com/TypeStrong/ts-node) to run a Typescript file in Node.js
+
+```bash
+npx ts-node src/foo.ts
+```
 ### Initialize Signers, Providers, and EthAdapter
 
 The provider is the object that connects to the Ethereum blockchain. The signers are objects that trigger transactions to the Ethereum blockchain or off-chain transactions.
@@ -63,7 +69,7 @@ import { ethers } from 'ethers'
 import EthersAdapter from '@safe-global/safe-ethers-lib'
 
 // <https://chainlist.org/?search=goerli&testnets=true>
-const RPC_URL='<https://eth-goerli.public.blastapi.io>'
+const RPC_URL='https://eth-goerli.public.blastapi.io'
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
 
 // Initialize signers
@@ -87,19 +93,19 @@ We will be using Goerli for this tutorial, however, you can also get [service UR
 import SafeServiceClient from '@safe-global/safe-service-client'
 
 const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
-const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter })
+const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
 ```
 
 ### **Initialize the Safe Core SDK**
 
 Goerli is a supported network so we don’t need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
-Safe Factory is used to create a new Safe. While Safe class represents an instance of a  particular Safe account.
+Safe Factory is used to create a new Safe. While Safe class represents an instance of a particular Safe account.
 
 ```tsx
 import { SafeFactory } from '@safe-global/safe-core-sdk'
 
-const safeFactory = await SafeFactory.create({ ethAdapterOwner1 })
+const safeFactory = await SafeFactory.create({ ethAdapter: ethAdapterOwner1 })
 ```
 
 ### Deploy a Safe
@@ -122,7 +128,7 @@ an adapter that had owner 1 as the signer. */
 const safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
 
 console.log('Your Safe has been deployed:')
-console.log(`https://goerli.etherscan.io/address/${safeSdk.getAddress()}`))
+console.log(`https://goerli.etherscan.io/address/${safeSdkOwner1.getAddress()}`)
 ```
 
 Calling the method `deploySafe`will deploy the desired Safe and return a Safe Core SDK initialized instance ready to be used. Check the [API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#deploysafe) for more details on additional configuration parameters and callbacks.
