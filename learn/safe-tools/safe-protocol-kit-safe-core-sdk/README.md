@@ -107,14 +107,14 @@ const safeFactory = await SafeFactory.create({ ethAdapterOwner1 })
 ```tsx
 import { SafeAccountConfig } from '@safe-global/safe-core-sdk'
 
-const safeAccountConfig = {
+const safeAccountConfig: SafeAccountConfig = {
   owners: [
-	  owner1Signer.getAddress(),
-		owner2Signer.getAddress(),
- 		owner3Signer.getAddress()
-	],
+    await owner1Signer.getAddress(),
+    await owner2Signer.getAddress(),
+    await owner3Signer.getAddress()
+  ],
   threshold: 2,
-  // ... (optional params)
+  // ... (Optional params)
 }
 
 // this safe is tied to owner 1 because the factory was initialized with
