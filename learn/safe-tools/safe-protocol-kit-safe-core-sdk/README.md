@@ -157,38 +157,33 @@ At a high level, making a transaction from the Safe requires the following steps
 
 1. Owner 1 creates a transaction
     1. Define the amount, destination, and any additional data to include in the transaction
-    2. Deterministically generate a hash
 2. Owner 1 proposes a transaction
     1. Performs an off-chain signature of the transaction before proposing
     2. Submits it to the Safe Service
-    3. Adds the signature to get 1 of 2 threshold
 3. Owner 2  gets pending transactions from the Safe service
 4. Owner 2  confirms the transaction
-    1. Perform off-chain signature
+    1. Performs an off-chain signature
     2. Submits to service
-5. Anyone executes the transaction (Owner 1 in this example)
-    1. On-chain transaction
-    2. The only step that is submitted to the blockchain
-    3. Gas is paid
+5. Anyone can execute the transaction (Owner 1 in this example)
 
 ### Create a Transaction
 
 For more details on what to include in a transaction see, [Create a Transaction in the Safe Core SDK Guide](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#4-create-a-transaction).
 
 ```tsx
-const withdrawAmount = ethers.utils.parseUnits("0.05", 'ether').toHexString();
+import { SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
 
-// We can use any address, in this example, we will use vitalik.eth
-const withdrawDestination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+// Any address can be used. In this example we will use vitalik.eth
+const destination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+const amount = ethers.utils.parseUnits('0.05', 'ether').toString()
 
-const transaction = {
-  to: withdrawDestination,
+const safeTransactionData: SafeTransactionDataPartial = {
+  to: destination,
   data: '0x',
-  value: withdrawAmount
-};
-// Creates a Safe transaction with the provided parameters
-const safeTransaction = await safeSdkOwner1.createTransaction(transaction);
-```
+  value: amount
+}
+// Create a Safe transaction with the provided parameters
+const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionData })
 
 ### Propose a Transaction
 
@@ -229,8 +224,10 @@ const ethAdapterOwner2 = new EthersAdapter({
   signerOrProvider: owner2Signer
 })
 
-const safeSdkOwner2 = await Safe.create({ ethAdapter: ethAdapterOwner2,
-                                          safeAddress: treasury });
+const safeSdkOwner2 = await Safe.create({
+  ethAdapter: ethAdapterOwner2,
+  safeAddress: treasury
+})
 
 const pendingTxs = await safeService.getPendingTransactions(safeAddress);
 
@@ -242,7 +239,7 @@ const pendingTxs = await safeService.getPendingTransactions(safeAddress);
 // Assuming that the first pending transaction is the one proposed by owner 1
 const transaction = pendingTxs[0];
 const safeTxHash = transaction.safeTxHash
-let signature = await safeSdkOwner2.signTransactionHash(hash)
+const signature = await safeSdkOwner2.signTransactionHash(hash)
 const response = await safeService.confirmTransaction(hash, signature.data)
 ```
 
