@@ -33,9 +33,9 @@ touch .env
 Put your signing key private keys into the `.env` file you just created
 
 ```bash
-export OWNER_1_PRIVATE_KEY="<PRIVATE_KEY>"
-export OWNER_2_PRIVATE_KEY="<PRIVATE_KEY>"
-export OWNER_3_PRIVATE_KEY="<PRIVATE_KEY>"
+export OWNER_1_PRIVATE_KEY='<PRIVATE_KEY>'
+export OWNER_2_PRIVATE_KEY='<PRIVATE_KEY>'
+export OWNER_3_PRIVATE_KEY='<PRIVATE_KEY>'
 ```
 
 Install the core SDKs.
@@ -121,7 +121,7 @@ const safeAccountConfig: SafeAccountConfig = {
 // an adapter that had owner 1 as the signer
 const safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
 
-console.log("Your Safe has been deployed:")
+console.log('Your Safe has been deployed:')
 console.log(`https://goerli.etherscan.io/address/${safeSdk.getAddress()}`))
 ```
 
@@ -134,7 +134,7 @@ We will send some ETH to this Safe (treasury). Owner 1 will deposit 0.1 Goerli E
 ```tsx
 const treasury = safeSdk.getAddress()
 
-const treasuryAmount = ethers.utils.parseUnits("0.1", 'ether').toHexString()
+const treasuryAmount = ethers.utils.parseUnits('0.1', 'ether').toHexString()
 
 const params = [{
   to: treasury,
@@ -143,7 +143,7 @@ const params = [{
 
 const tx = await owner1Signer.sendTransaction(transactionParameters)
 
-console.log("Fundraising.")
+console.log('Fundraising.')
 console.log(`Deposit Transaction: https://goerli.etherscan.io/tx/${tx.hash}`))
 ```
 
@@ -260,7 +260,7 @@ We know that the transaction was executed if the balance in our Safe changed.
 ```tsx
 const afterBalance = await safeSdk.getBalance()
 
-console.log(`The final balance of the treasury: ${ethers.utils.formatUnits(afterBalance, "ether")} ETH`)
+console.log(`The final balance of the treasury: ${ethers.utils.formatUnits(afterBalance, 'ether')} ETH`)
 ```
 
 ```bash
