@@ -2,7 +2,7 @@
 
 This package is provided for testing purposes only. It's not ready for production use. We are working with Stripe and participating in the pilot testing for their new [on ramp solution](https://stripe.com/es/blog/crypto-onramp). Given this, we are offering our public key and a deployed server with our private one during the [Safe Account Abstraction hackaton](https://www.notion.so/Safe-Hackathon-Success-Guide-26ccbd7263ab44808d8f00106f35c2d7)
 
-Once the hackaton and Stripe pilot ends the server will be removed and you should use your own keys and server in case you opt-in for the [StripeAdapter](https://github.com/safe-global/account-abstraction-sdk/blob/d56b46e44ea50221e0c63e2e96a62485ef72d903/packages/onramp-kit/src/adapters/StripeAdapter.ts).
+Once the hackaton and Stripe pilot ends the server will be removed and you should use your own keys and server in case you opt-in for the [StripeAdapter](https://github.com/safe-global/account-abstraction-sdk/blob/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/src/adapters/StripeAdapter.ts).
 
 Currently this package is only prepared to work with Stripe. See [considerations and limitations](#considerations-and-limitations) for more details.
 
@@ -30,7 +30,7 @@ Create an instance of the [SafeOnRampKit](https://github.com/safe-global/account
 _With Stripe_
 
 ```typescript
-import { SafeOnRampKit } from '@safe-global/onramp-kit'
+import { SafeOnRampKit, SafeOnRampProviderType } from '@safe-global/onramp-kit'
 
 const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
   onRampProviderConfig: {
@@ -67,7 +67,7 @@ const sessionData = await safeOnRamp.open({
 
 1. The library is under development and it's not ready for production use. We are working with Stripe and participating in the pilot testing for their new [on ramp solution](https://stripe.com/es/blog/crypto-onramp)
 
-    Given this, we are offering our public key and a deployed server only available for testing purposes. It can be used like this:
+    Considering this, we provide a public key and a deployed server only available for testing purposes. It can be used like this:
 
 ```typescript
 const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
@@ -81,13 +81,17 @@ const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
 
 2. As we are working on Stripe _testmode_, the purchases are simulated. You can use the fake data in the [docs](https://stripe.com/docs/testing) and the [following test cards](https://stripe.com/docs/testing?testing-method=card-numbers#cards) to enter the required information in the embedded widget.
 
-3. When using with testnets as Mumbai in Polygon, the crypto assets will be transferred so PLEASE DO TRY TO USE LOWER AMOUNTS to preserve testnets liquidity, but SPECIALLY WITH USDC ON POLYGON.
+3. When using with testnets as Mumbai in Polygon, the crypto assets will be transferred so PLEASE DO TRY TO USE LOWER AMOUNTS to preserve testnets liquidity, but SPECIALLY WITH USDC ON POLYGON MUMBAI.
 
-4. If you want to deploy a POC with your solution, bear in mind that our integration with Stripe has whitelisted the following domains:
+4. If you want to deploy a POC with your solution, bear in mind that our integration with Stripe has the following domains whitelisted:
 
     - localhost: For local development
     - [netlify.app](https://www.netlify.com) and [vercel.app](https://vercel.com) for hosted deployments
 
-    So you can deploy your solution in one of these hosting providers. Using a different domain won't work and the widget will throw an error as we didn't whitelist it using our configuration.
+    So you can deploy your solution in one of these hosting providers. Using a different domain won't work and the widget will throw an error.
 
-5. Currently the Stripe widget can only be used if you are __based in the United States__. If you are hacking from another country you could use a VPN, for example [Proton VPN](https://protonvpn.com) as its free tier should be enough for testing purposes. You need to connect to the United States server.
+5. Currently the Stripe widget can only be used if you are __based in the United States__. If you are hacking from another country you could use a VPN connecting to an US server.
+
+## Example
+
+[Check a functional demo](https://github.com/safe-global/account-abstraction-sdk/tree/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/example) using the `onramp-kit` 

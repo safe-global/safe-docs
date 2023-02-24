@@ -30,7 +30,7 @@ const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
   authProviderConfig: {
     rpc: <Your rpc url>, // Add your RPC e.g. https://mainnet.infura.io/v3/<your project id>
     clientId: <Your client id>, // Add your client id. Get it from the Web3Auth dashboard
-    network: 'testnet' | 'mainnet' | 'cyan', // The network to use for the Web3Auth modal
+    network: 'testnet' | 'mainnet', // The network to use for the Web3Auth modal. Use 'testnet' while developing and 'mainnet' for production use
     theme: 'light' | 'dark' // The theme to use for the Web3Auth modal
   }
 })
@@ -40,7 +40,7 @@ The `authProviderConfig` object is the specific configuration object for the Web
 
 - `rpc`: The rpc url to connect to the Ethereum network
 - `clientId`: The client id of your Web3Auth account. You need to create an application in your [Web3Auth account](https://dashboard.web3auth.io) to get this value
-- `network`: The network name to use for the Web3Auth modal (mainnet | testnet | cyan)
+- `network`: The network name to use for the Web3Auth modal (mainnet | testnet)
 - `theme`: The theme to use for the Web3Auth modal (dark | light)
 
 Once the instance is created, you can call the `signIn()` method to start the authentication process showing the web3Auth modal.
