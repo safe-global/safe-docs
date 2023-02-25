@@ -195,7 +195,7 @@ const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionD
 
 To send the transaction to the Safe Transaction Service we need to call the method proposeTransaction from the Safe Service Client instance.
 
-For a full list and description of the properties that `proposeTransaction` accepts, see [Propose the transaction to the service section in Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#propose-transaction).
+For a full list and description of the properties that `proposeTransaction` accepts, see [Propose the transaction to the service](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#propose-transaction) in the Safe Core SDK guide.
 
 ```tsx
 // Deterministic hash based on transaction parameters
@@ -228,7 +228,7 @@ const safeSdkOwner2 = await Safe.create({
   safeAddress: treasury
 })
 
-const pendingTxs = await safeService.getPendingTransactions(safeAddress)
+const pendingTxs = await safeService.getPendingTransactions(treasury)
 ```
 
 ### Confirm the Transaction: Second Confirmation
