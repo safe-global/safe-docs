@@ -54,7 +54,7 @@ touch index.ts
 Tip: Use [ts-node](https://github.com/TypeStrong/ts-node) to run a Typescript file in Node.js
 
 ```bash
-npx ts-node src/foo.ts
+npx ts-node examples/protocol-kit/index.ts
 ```
 ### Initialize Signers, Providers, and EthAdapter
 
@@ -68,14 +68,14 @@ For this tutorial, we will be creating a Safe on the Goerli testnet.
 import { ethers } from 'ethers'
 import EthersAdapter from '@safe-global/safe-ethers-lib'
 
-// <https://chainlist.org/?search=goerli&testnets=true>
+// https://chainlist.org/?search=goerli&testnets=true
 const RPC_URL='https://eth-goerli.public.blastapi.io'
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
 
 // Initialize signers
-const owner1Signer = provider.getSigner(process.env.OWNER_1_PRIVATE_KEY)
-const owner2Signer = provider.getSigner(process.env.OWNER_2_PRIVATE_KEY)
-const owner3Signer = provider.getSigner(process.env.OWNER_3_PRIVATE_KEY)
+const owner1Signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
+const owner2Signer = new ethers.Wallet(process.env.OWNER_2_PRIVATE_KEY!, provider)
+const owner3Signer = new ethers.Wallet(process.env.OWNER_3_PRIVATE_KEY!, provider)
 
 const ethAdapterOwner1 = new EthersAdapter({
   ethers,
@@ -110,6 +110,8 @@ const safeFactory = await SafeFactory.create({ ethAdapter: ethAdapterOwner1 })
 
 ### Deploy a Safe
 
+Calling the `deploySafe` method will deploy the desired Safe and return a Safe Core SDK initialized instance ready to be used. Check the [API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#deploysafe) for more details on additional configuration parameters and callbacks.
+
 ```tsx
 import { SafeAccountConfig } from '@safe-global/safe-core-sdk'
 
@@ -131,8 +133,6 @@ console.log('Your Safe has been deployed:')
 console.log(`https://goerli.etherscan.io/address/${safeSdkOwner1.getAddress()}`)
 ```
 
-Calling the `deploySafe` method will deploy the desired Safe and return a Safe Core SDK initialized instance ready to be used. Check the [API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#deploysafe) for more details on additional configuration parameters and callbacks.
-
 ### Send ETH to the Safe
 
 We will send some ETH to this Safe (treasury). Owner 1 will deposit 0.1 Goerli ETH to this Safe from our personal account following the [instructions in Quickstart](https://docs.gnosis-safe.io/learn/quickstart).
@@ -142,15 +142,15 @@ const treasury = safeSdk.getAddress()
 
 const treasuryAmount = ethers.utils.parseUnits('0.1', 'ether').toHexString()
 
-const transactionParameters = [{
+const transactionParameters = {
   to: treasury,
   value: treasuryAmount
-}]
+}
 
 const tx = await owner1Signer.sendTransaction(transactionParameters)
 
 console.log('Fundraising.')
-console.log(`Deposit Transaction: https://goerli.etherscan.io/tx/${tx.hash}`))
+console.log(`Deposit Transaction: https://goerli.etherscan.io/tx/${tx.hash}`)
 ```
 
 ## Making a Transaction from a Safe
@@ -218,7 +218,7 @@ await safeService.proposeTransaction({
 Recall that we created the `safeService` in [Initialize the Safe Service Client](#initialize-the-safe-service-client).
 
 ```tsx
-const pendingTxs = await safeService.getPendingTransactions(treasury)
+const pendingTxs = await safeService.getPendingTransactions(treasury).results
 ```
 
 ### Confirm the Transaction: Second Confirmation
@@ -240,8 +240,8 @@ const safeSdkOwner2 = await Safe.create({
   safeAddress: treasury
 })
 
-const signature = await safeSdkOwner2.signTransactionHash(hash)
-const response = await safeService.confirmTransaction(hash, signature.data)
+const signature = await safeSdkOwner2.signTransactionHash(safeTxHash)
+const response = await safeService.confirmTransaction(safeTxHash, signature.data)
 ```
 
 ### Execute Transaction
@@ -251,7 +251,10 @@ Anyone can execute the Safe transaction once it has the required number of signa
 ```tsx
 const safeTransaction = await safeService.getTransaction(safeTxHash)
 const executeTxResponse = await safeSdk.executeTransaction(safeTransaction)
-const receipt = executeTxResponse.transactionResponse && (await executeTxResponse.transactionResponse.wait())
+const receipt = await executeTxResponse.transactionResponse?.wait()
+
+console.log('Transaction executed:')
+console.log(`https://goerli.etherscan.io/tx/${receipt.transactionHash}`)
 ```
 
 ### Confirm that the Transaction was Executed
