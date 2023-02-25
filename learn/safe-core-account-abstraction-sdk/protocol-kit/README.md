@@ -191,7 +191,6 @@ const safeTransactionData: SafeTransactionDataPartial = {
 // Create a Safe transaction with the provided parameters
 const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionData })
 ```
-
 ### Propose a Transaction
 
 To send the transaction to the Safe Transaction Service we need to call the method proposeTransaction from the Safe Service Client instance.
