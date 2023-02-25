@@ -193,7 +193,7 @@ const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionD
 ```
 ### Propose a Transaction
 
-To send the transaction to the Safe Transaction Service we need to call the method proposeTransaction from the Safe Service Client instance.
+To send the transaction to the Safe Transaction Service we need to call the method `proposeTransaction` from the Safe Service Client instance.
 
 For a full list and description of the properties that `proposeTransaction` accepts, see [Propose the transaction to the service](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#propose-transaction) in the Safe Core SDK guide.
 
