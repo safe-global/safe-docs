@@ -190,8 +190,13 @@ const safeTransactionData: SafeTransactionDataPartial = {
 }
 // Create a Safe transaction with the provided parameters
 const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionData })
+```
 
 ### Propose a Transaction
+
+To send the transaction to the Safe Transaction Service we need to call the method proposeTransaction from the Safe Service Client instance.
+
+For a full list and description of the properties that `proposeTransaction` accepts, see [Propose the transaction to the service section in Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#propose-transaction).
 
 ```tsx
 // Deterministic hash based on transaction parameters
