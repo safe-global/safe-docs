@@ -131,7 +131,7 @@ console.log('Your Safe has been deployed:')
 console.log(`https://goerli.etherscan.io/address/${safeSdkOwner1.getAddress()}`)
 ```
 
-Calling the method `deploySafe`will deploy the desired Safe and return a Safe Core SDK initialized instance ready to be used. Check the [API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#deploysafe) for more details on additional configuration parameters and callbacks.
+Calling the `deploySafe` method will deploy the desired Safe and return a Safe Core SDK initialized instance ready to be used. Check the [API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#deploysafe) for more details on additional configuration parameters and callbacks.
 
 ### Send ETH to the Safe
 
@@ -142,7 +142,7 @@ const treasury = safeSdk.getAddress()
 
 const treasuryAmount = ethers.utils.parseUnits('0.1', 'ether').toHexString()
 
-const params = [{
+const transactionParameters = [{
   to: treasury,
   value: treasuryAmount
 }]
@@ -162,14 +162,14 @@ At a high level, making a transaction from the Safe requires the following steps
 ### Overview
 
 1. Owner 1 creates a transaction
-    1. Define the amount, destination, and any additional data to include in the transaction
+    1. Defines the amount, destination, and any additional data to include in the transaction
 2. Owner 1 proposes a transaction
     1. Performs an off-chain signature of the transaction before proposing
-    2. Submits it to the Safe Service
+    2. Submits the transaction and signature to the Safe Transaction Service
 3. Owner 2  gets pending transactions from the Safe service
 4. Owner 2  confirms the transaction
     1. Performs an off-chain signature
-    2. Submits to service
+    2. Submits the signature to the service
 5. Anyone can execute the transaction (Owner 1 in this example)
 
 ### Create a Transaction
@@ -201,12 +201,11 @@ const safeTxHash = await safeSdkOwner1.getTransactionHash(safeTransaction)
 const senderSignature = await safeSdkOwner1.signTransactionHash(safeTxHash)
 
 await safeService.proposeTransaction({
-  safeAddress,
+  safeAddress: treasury,
   safeTransactionData: safeTransaction.data,
   safeTxHash,
-  senderAddress,
+  senderAddress: await owner1Signer.getAddress(),
   senderSignature: senderSignature.data,
-  origin
 })
 ```
 
@@ -226,7 +225,6 @@ const safeSdkOwner2 = await Safe.create({
 })
 
 const pendingTxs = await safeService.getPendingTransactions(safeAddress)
-
 ```
 
 ### Confirm the Transaction: Second Confirmation
@@ -241,7 +239,7 @@ const response = await safeService.confirmTransaction(hash, signature.data)
 
 ### Execute Transaction
 
-Anyone can execute the transaction once it has the approved number of signers. In this example, owner 1 will execute the transaction and pay the gas fees.
+Anyone can execute the Safe transaction once it has the required number of signatures. In this example, owner 1 will execute the transaction and pay for the gas fees.
 
 ```tsx
 const safeTransaction = await safeService.getTransaction(safeTxHash)
@@ -249,7 +247,7 @@ const executeTxResponse = await safeSdk.executeTransaction(safeTransaction)
 const receipt = executeTxResponse.transactionResponse && (await executeTxResponse.transactionResponse.wait())
 ```
 
-### Confirm thatmthe Transaction was Executed
+### Confirm that the Transaction was Executed
 
 We know that the transaction was executed if the balance in our Safe changed.
 
