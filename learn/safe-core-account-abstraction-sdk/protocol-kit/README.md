@@ -210,16 +210,6 @@ await safeService.proposeTransaction({
 })
 ```
 
-### Confirm the Transaction: First Confirmation
-
-```tsx
-// transaction: SafeMultisigTransactionResponse
-
-const hash = transaction.safeTxHash
-let signature = await safeSdkOwner1.signTransactionHash(hash)
-await safeService.confirmTransaction(hash, signature.data)
-```
-
 ### Get Pending Transactions
 
 Owner 2 needs a different Safe object. However, you don’t need to create it with the safe factory you can create it with the `create` method of the Safe object. The Safe smart contract is already live on the blockchain so you can just pass the treasury address used when you created the Safe.
