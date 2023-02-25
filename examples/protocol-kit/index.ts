@@ -31,6 +31,10 @@ const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter: ethAdapter
 let safeFactory: SafeFactory;
 let safeSdkOwner1: Safe;
 
+
+// If you have an existing Safe, you can use it instead of deploying a new one
+const EXISTING_SAFE_ADDRESS ='0xF188d41FD181f94960C5451D7ff6FdbcDf201a71';
+
 // Safe address
 let treasury: string;
 
@@ -49,12 +53,26 @@ async function deploySafe() {
   }
 
   /* This Safe is connected to owner 1 because the factory was initialized with an adapter that had owner 1 as the signer. */
-  const safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
+  safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
 
   treasury = safeSdkOwner1.getAddress()
 
   console.log('Your Safe has been deployed:')
   console.log(`https://goerli.etherscan.io/address/${treasury}`)
+}
+
+async function initalizeSafe(treasuryAddress=EXISTING_SAFE_ADDRESS) {
+  
+  treasury = treasuryAddress
+  const ethAdapterOwner1 = new EthersAdapter({
+    ethers,
+    signerOrProvider: owner1Signer
+  })
+
+  safeSdkOwner1 = await Safe.create({
+    ethAdapter: ethAdapterOwner1,
+    safeAddress: treasury
+  })
 }
 
 async function depositToSafe(depositSigner = owner1Signer, amount = '0.1') {
@@ -155,12 +173,23 @@ async function executeTransaction(safeTxHash: string, safeSdk: Safe = safeSdkOwn
 
 async function main() {
 
-  await deploySafe()
-  await depositToSafe()
+  if (EXISTING_SAFE_ADDRESS) {
+    await initalizeSafe()
+  } else {
+    await deploySafe()
+    await depositToSafe()
+  }
   const safeTransaction = await createTransaction()
   await proposeTransaction(safeTransaction)
   const { safeTxHash } = await confirmTransaction();
   await executeTransaction(safeTxHash)
+
+  // Run the following to re-execute transactions:
+  // const pendingTxs = await getPendingTransactions();
+  // const transaction = pendingTxs[0]
+  // const safeTxHash = transaction.safeTxHash
+  // console.log({safeTxHash})
+  // executeTransaction(safeTxHash, safeSdkOwner1)
 }
 
 main()
