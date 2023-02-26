@@ -32,8 +32,6 @@ let safeFactory: SafeFactory;
 let safeSdkOwner1: Safe;
 let safeAddress: string;
 
-// Any address can be used. In this example we will use vitalik.eth
-const destination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
 
 // If you have an existing Safe, you can use it instead of deploying a new one
 const EXISTING_SAFE_ADDRESS ='0xF188d41FD181f94960C5451D7ff6FdbcDf201a71';
@@ -78,7 +76,7 @@ async function initalizeSafe(existingAddress=EXISTING_SAFE_ADDRESS) {
   })
 }
 
-async function depositToSafe(depositSigner = owner1Signer, amount = '0.1') {
+async function depositToSafe(depositSigner = owner1Signer, amount = '0.01') {
 
   const safeAmount = ethers.utils.parseUnits(amount, 'ether').toHexString()
   
@@ -93,7 +91,9 @@ async function depositToSafe(depositSigner = owner1Signer, amount = '0.1') {
   console.log(`Deposit Transaction: https://goerli.etherscan.io/tx/${tx.hash}`)
 }
 
-async function proposeTransaction(withdrawAmount = '0.05') {
+// Any address can be used for destination. In this example, we use vitalik.eth
+async function proposeTransaction(withdrawAmount = '0.005',
+ destination='0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045') {
 
   // Create a transaction object
   withdrawAmount = ethers.utils.parseUnits(withdrawAmount, 'ether').toString()

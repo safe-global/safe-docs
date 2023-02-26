@@ -131,12 +131,12 @@ console.log(`https://goerli.etherscan.io/address/${safeSdkOwner1.getAddress()}`)
 
 ### Send ETH to the Safe
 
-We will send some ETH to this Safe. Owner 1 will deposit 0.1 Goerli ETH to this Safe from our personal account following the [instructions in Quickstart](https://docs.gnosis-safe.io/learn/quickstart).
+We will send some ETH to this Safe. Owner 1 will deposit 0.01 Goerli ETH to this Safe from our personal account following the [instructions in Quickstart](https://docs.gnosis-safe.io/learn/quickstart).
 
 ```tsx
 const safeAddress = safeSdk.getAddress()
 
-const safeAmount = ethers.utils.parseUnits('0.1', 'ether').toHexString()
+const safeAmount = ethers.utils.parseUnits('0.01', 'ether').toHexString()
 
 const transactionParameters = {
   to: safeAddress,
@@ -151,7 +151,7 @@ console.log(`Deposit Transaction: https://goerli.etherscan.io/tx/${tx.hash}`)
 
 ## Making a Transaction from a Safe
 
-Owner 1 will sign and propose a transaction to send 0.05 ETH out of the Safe. Then, owner 2 will add their own proposal and execute the transaction since it meets the 2 of 3 thresholds.
+Owner 1 will sign and propose a transaction to send 0.005 ETH out of the Safe. Then, owner 2 will add their own proposal and execute the transaction since it meets the 2 of 3 thresholds.
 
 At a high level, making a transaction from the Safe requires the following steps:
 
@@ -180,7 +180,7 @@ import { SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
 
 // Any address can be used. In this example we will use vitalik.eth
 const destination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-const amount = ethers.utils.parseUnits('0.05', 'ether').toString()
+const amount = ethers.utils.parseUnits('0.005', 'ether').toString()
 
 const safeTransactionData: SafeTransactionDataPartial = {
   to: destination,
@@ -271,9 +271,9 @@ $ node index.js
 
 Fundraising.
 
-Initial balance of Safe: 0.1 ETH
+Initial balance of Safe: 0.01 ETH
 Buying a car.
-The final balance of the Safe: 0.05 ETH
+The final balance of the Safe: 0.005 ETH
 ```
 
 ### Conclusion
