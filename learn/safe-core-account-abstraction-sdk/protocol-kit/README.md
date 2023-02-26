@@ -217,7 +217,7 @@ await safeService.proposeTransaction({
 Recall that we created the `safeService` in [Initialize the Safe Service Client](#initialize-the-safe-service-client).
 
 ```tsx
-const pendingTxs = await safeService.getPendingTransactions(safeAddress).results
+const pendingTransactions = await safeService.getPendingTransactions(safeAddress).results
 ```
 
 ### Confirm the Transaction: Second Confirmation
@@ -225,8 +225,8 @@ const pendingTxs = await safeService.getPendingTransactions(safeAddress).results
 Owner 2 needs a different Safe object. However, you don’t need to create it with the Safe factory. You can create it with the `create` method of the Safe object. The Safe smart contract is already live on the blockchain so you can just pass the Safe address used when you created the Safe.
 
 ```tsx
-// Assuming that the first pending transaction is the one proposed by owner 1
-const transaction = pendingTxs[0]
+// Assumes that the first pending transaction is the transaction we want to confirm
+const transaction = pendingTransactions[0]
 const safeTxHash = transaction.safeTxHash
 
 const ethAdapterOwner2 = new EthersAdapter({

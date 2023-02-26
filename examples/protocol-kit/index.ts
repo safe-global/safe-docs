@@ -121,16 +121,12 @@ async function proposeTransaction(withdrawAmount = '0.005',
   })
 }
 
-async function getPendingTransactions() {
-  const pendingTransactions = (await safeService.getPendingTransactions(safeAddress)).results
-  console.log('Pending Transactions: ', pendingTransactions)
-  return pendingTransactions
-}
-
 async function confirmTransaction() {
 
-  const pendingTxs = await getPendingTransactions();
-  const transaction = pendingTxs[0]
+  const pendingTransactions = (await safeService.getPendingTransactions(safeAddress)).results
+
+  // Assumes that the first pending transaction is the transaction we want to confirm
+  const transaction = pendingTransactions[0]
   const safeTxHash = transaction.safeTxHash
 
   const ethAdapterOwner2 = new EthersAdapter({
@@ -184,8 +180,8 @@ async function main() {
   await executeTransaction(safeTxHash)
 
   // Run the following to re-execute transactions:
-  // const pendingTxs = await getPendingTransactions();
-  // const transaction = pendingTxs[0]
+  // const pendingTransactions = await getPendingTransactions();
+  // const transaction = pendingTransactions[0]
   // const safeTxHash = transaction.safeTxHash
   // console.log({safeTxHash})
   // executeTransaction(safeTxHash, safeSdkOwner1)
