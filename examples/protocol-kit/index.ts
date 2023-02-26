@@ -30,13 +30,10 @@ const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
 const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
 let safeFactory: SafeFactory;
 let safeSdkOwner1: Safe;
-
+let safeAddress: string;
 
 // If you have an existing Safe, you can use it instead of deploying a new one
 const EXISTING_SAFE_ADDRESS ='0xF188d41FD181f94960C5451D7ff6FdbcDf201a71';
-
-// Safe address
-let treasury: string;
 
 async function deploySafe() {
   console.log('Deploying Safe...')
@@ -49,21 +46,23 @@ async function deploySafe() {
       await owner3Signer.getAddress()
     ],
     threshold: 2,
-    // ... (Optional params)
+    // ... (Optional params) 
+    // https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#deploysafe
   }
 
-  /* This Safe is connected to owner 1 because the factory was initialized with an adapter that had owner 1 as the signer. */
+  /* This Safe is connected to owner 1 because the factory was initialized 
+  with an adapter that had owner 1 as the signer. */
   safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
 
-  treasury = safeSdkOwner1.getAddress()
+  safeAddress = safeSdkOwner1.getAddress()
 
   console.log('Your Safe has been deployed:')
-  console.log(`https://goerli.etherscan.io/address/${treasury}`)
+  console.log(`https://goerli.etherscan.io/address/${safeAddress}`)
 }
 
-async function initalizeSafe(treasuryAddress=EXISTING_SAFE_ADDRESS) {
+async function initalizeSafe(existingAddress=EXISTING_SAFE_ADDRESS) {
   
-  treasury = treasuryAddress
+  safeAddress = existingAddress
   const ethAdapterOwner1 = new EthersAdapter({
     ethers,
     signerOrProvider: owner1Signer
@@ -71,17 +70,17 @@ async function initalizeSafe(treasuryAddress=EXISTING_SAFE_ADDRESS) {
 
   safeSdkOwner1 = await Safe.create({
     ethAdapter: ethAdapterOwner1,
-    safeAddress: treasury
+    safeAddress
   })
 }
 
 async function depositToSafe(depositSigner = owner1Signer, amount = '0.1') {
 
-  const treasuryAmount = ethers.utils.parseUnits(amount, 'ether').toHexString()
+  const safeAmount = ethers.utils.parseUnits(amount, 'ether').toHexString()
   
   const transactionParameters = {
-    to: treasury,
-    value: treasuryAmount
+    to: safeAddress,
+    value: safeAmount
   }
   
   const tx = await depositSigner.sendTransaction(transactionParameters)
@@ -114,7 +113,7 @@ async function proposeTransaction(safeTransaction: SafeTransaction) {
   const senderSignature = await safeSdkOwner1.signTransactionHash(safeTxHash)
 
   await safeService.proposeTransaction({
-    safeAddress: treasury,
+    safeAddress,
     safeTransactionData: safeTransaction.data,
     safeTxHash,
     senderAddress: await owner1Signer.getAddress(),
@@ -123,7 +122,7 @@ async function proposeTransaction(safeTransaction: SafeTransaction) {
 }
 
 async function getPendingTransactions() {
-  const pendingTransactions = (await safeService.getPendingTransactions(treasury)).results
+  const pendingTransactions = (await safeService.getPendingTransactions(safeAddress)).results
   console.log('Pending Transactions: ', pendingTransactions)
   return pendingTransactions
 }
@@ -141,7 +140,7 @@ async function confirmTransaction() {
 
   const safeSdkOwner2 = await Safe.create({
     ethAdapter: ethAdapterOwner2,
-    safeAddress: treasury
+    safeAddress
   })
 
   const signature = await safeSdkOwner2.signTransactionHash(safeTxHash)
@@ -153,9 +152,9 @@ async function confirmTransaction() {
 
 async function executeTransaction(safeTxHash: string, safeSdk: Safe = safeSdkOwner1) {
 
-  let treasuryBalance = await safeSdk.getBalance()
+  let safeBalance = await safeSdk.getBalance()
 
-  console.log(`[Before Transaction] Treasury Balance: ${ethers.utils.formatUnits(treasuryBalance, 'ether')} ETH`)
+  console.log(`[Before Transaction] Safe Balance: ${ethers.utils.formatUnits(safeBalance, 'ether')} ETH`)
 
   const safeTransaction = await safeService.getTransaction(safeTxHash)
   const executeTxResponse = await safeSdk.executeTransaction(safeTransaction)
@@ -165,10 +164,10 @@ async function executeTransaction(safeTxHash: string, safeSdk: Safe = safeSdkOwn
   console.log('Transaction executed:')
   console.log(`https://goerli.etherscan.io/tx/${receipt?.transactionHash}`)
 
-  treasuryBalance = await safeSdk.getBalance()
+  safeBalance = await safeSdk.getBalance()
 
   
-  console.log(`[After Transaction] Treasury Balance: ${ethers.utils.formatUnits(treasuryBalance, 'ether')} ETH`)
+  console.log(`[After Transaction] Safe Balance: ${ethers.utils.formatUnits(safeBalance, 'ether')} ETH`)
 }
 
 async function main() {

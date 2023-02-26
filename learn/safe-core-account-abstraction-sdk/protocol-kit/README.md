@@ -135,16 +135,16 @@ console.log(`https://goerli.etherscan.io/address/${safeSdkOwner1.getAddress()}`)
 
 ### Send ETH to the Safe
 
-We will send some ETH to this Safe (treasury). Owner 1 will deposit 0.1 Goerli ETH to this Safe from our personal account following the [instructions in Quickstart](https://docs.gnosis-safe.io/learn/quickstart).
+We will send some ETH to this Safe. Owner 1 will deposit 0.1 Goerli ETH to this Safe from our personal account following the [instructions in Quickstart](https://docs.gnosis-safe.io/learn/quickstart).
 
 ```tsx
-const treasury = safeSdk.getAddress()
+const safeAddress = safeSdk.getAddress()
 
-const treasuryAmount = ethers.utils.parseUnits('0.1', 'ether').toHexString()
+const safeAmount = ethers.utils.parseUnits('0.1', 'ether').toHexString()
 
 const transactionParameters = {
-  to: treasury,
-  value: treasuryAmount
+  to: safeAddress,
+  value: safeAmount
 }
 
 const tx = await owner1Signer.sendTransaction(transactionParameters)
@@ -205,7 +205,7 @@ const safeTxHash = await safeSdkOwner1.getTransactionHash(safeTransaction)
 const senderSignature = await safeSdkOwner1.signTransactionHash(safeTxHash)
 
 await safeService.proposeTransaction({
-  safeAddress: treasury,
+  safeAddress,
   safeTransactionData: safeTransaction.data,
   safeTxHash,
   senderAddress: await owner1Signer.getAddress(),
@@ -218,12 +218,12 @@ await safeService.proposeTransaction({
 Recall that we created the `safeService` in [Initialize the Safe Service Client](#initialize-the-safe-service-client).
 
 ```tsx
-const pendingTxs = await safeService.getPendingTransactions(treasury).results
+const pendingTxs = await safeService.getPendingTransactions(safeAddress).results
 ```
 
 ### Confirm the Transaction: Second Confirmation
 
-Owner 2 needs a different Safe object. However, you don’t need to create it with the Safe factory. You can create it with the `create` method of the Safe object. The Safe smart contract is already live on the blockchain so you can just pass the treasury address used when you created the Safe.
+Owner 2 needs a different Safe object. However, you don’t need to create it with the Safe factory. You can create it with the `create` method of the Safe object. The Safe smart contract is already live on the blockchain so you can just pass the Safe address used when you created the Safe.
 
 ```tsx
 // Assuming that the first pending transaction is the one proposed by owner 1
@@ -237,7 +237,7 @@ const ethAdapterOwner2 = new EthersAdapter({
 
 const safeSdkOwner2 = await Safe.create({
   ethAdapter: ethAdapterOwner2,
-  safeAddress: treasury
+  safeAddress
 })
 
 const signature = await safeSdkOwner2.signTransactionHash(safeTxHash)
@@ -264,7 +264,7 @@ We know that the transaction was executed if the balance in our Safe changed.
 ```tsx
 const afterBalance = await safeSdk.getBalance()
 
-console.log(`The final balance of the treasury: ${ethers.utils.formatUnits(afterBalance, 'ether')} ETH`)
+console.log(`The final balance of the Safe: ${ethers.utils.formatUnits(afterBalance, 'ether')} ETH`)
 ```
 
 ```bash
@@ -272,9 +272,9 @@ $ node index.js
 
 Fundraising.
 
-Initial balance of the treasury: 0.1 ETH
+Initial balance of Safe: 0.1 ETH
 Buying a car.
-The final balance of the treasury: 0.05 ETH
+The final balance of the Safe: 0.05 ETH
 ```
 
 ### Conclusion
