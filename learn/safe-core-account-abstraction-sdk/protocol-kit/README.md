@@ -15,22 +15,24 @@ For a more detailed guide, including how to integrate with web3js and more Safe 
 
 ### Install Dependencies
 
+First, we'll need to install some dependences from `safe-core-sdk` and the `ethers` library.
+
 To interact with Ethereum and other EVM blockchains in Node, we can either use: web3.js or ethers.js. In this tutorial, we’ll use the ethers.js library. To use `web3js`, see [Instantiate an ETHAdapter section in Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
 The Safe Core SDK is compatible with ethers v4 and v5, not the latest v6 version so make sure you specify this when installing the SDK.
 
+You can store your environment variables such as private keys in a `.env` file. To read easily from `.env` files, use the `dotenv` library.
+
 ```bash
-yarn add ethers@5.7.2
+yarn add ethers@5.7.2 @safe-global/safe-core-sdk-types @safe-global/safe-core-sdk @safe-global/safe-service-client @safe-global/safe-ethers-lib  dotenv
 ```
 
-We'll store our environment variables such as Ethereum addresses in `.env` files so let's use `dotenv`:
-
+Create the `.env` file:
 ```bash
-yarn add dotenv
 touch .env
 ```
 
-Put your signing key private keys into the `.env` file you just created
+Put your signing account private keys into the `.env` file you just created.
 
 ```bash
 export OWNER_1_PRIVATE_KEY='<PRIVATE_KEY>'
@@ -38,13 +40,7 @@ export OWNER_2_PRIVATE_KEY='<PRIVATE_KEY>'
 export OWNER_3_PRIVATE_KEY='<PRIVATE_KEY>'
 ```
 
-Install the core SDKs.
-
-```bash
-yarn add @safe-global/safe-core-sdk-types @safe-global/safe-core-sdk @safe-global/safe-service-client @safe-global/safe-ethers-lib
-```
-
-Create an `index.js` file that you will use to run the following code snippets:
+Create an `index.ts` file that you will use to run the following code snippets:
 
 ```bash
 touch index.ts
