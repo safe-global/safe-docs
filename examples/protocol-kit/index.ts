@@ -8,8 +8,6 @@ import { SafeTransaction, SafeTransactionDataPartial } from '@safe-global/safe-c
 // source examples/.env
 // npx ts-node examples/protocol-kit/index.ts
 
-// Initialize Objects needed for the SDK
-
 // https://chainlist.org/?search=goerli&testnets=true
 const RPC_URL='https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
@@ -31,7 +29,6 @@ const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter: ethAdapter
 let safeFactory: SafeFactory;
 let safeSdkOwner1: Safe;
 let safeAddress: string;
-
 
 // If you have an existing Safe, you can use it instead of deploying a new one
 const EXISTING_SAFE_ADDRESS ='0xF188d41FD181f94960C5451D7ff6FdbcDf201a71';
@@ -87,7 +84,6 @@ async function depositToSafe(depositSigner = owner1Signer, amount = '0.01') {
   
   const tx = await depositSigner.sendTransaction(transactionParameters)
   
-  console.log('Fundraising.')
   console.log(`Deposit Transaction: https://goerli.etherscan.io/tx/${tx.hash}`)
 }
 
@@ -104,7 +100,7 @@ async function proposeTransaction(withdrawAmount = '0.005',
     value: withdrawAmount
   }
   // Create a Safe transaction with the provided parameters
-  const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionData })
+  const safeTransaction: SafeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionData })
 
   // Deterministic hash based on transaction parameters
   const safeTxHash = await safeSdkOwner1.getTransactionHash(safeTransaction)
@@ -154,14 +150,12 @@ async function executeTransaction(safeTxHash: string, safeSdk: Safe = safeSdkOwn
 
   const safeTransaction = await safeService.getTransaction(safeTxHash)
   const executeTxResponse = await safeSdk.executeTransaction(safeTransaction)
-
   const receipt = await executeTxResponse.transactionResponse?.wait()
 
   console.log('Transaction executed:')
   console.log(`https://goerli.etherscan.io/tx/${receipt?.transactionHash}`)
 
   safeBalance = await safeSdk.getBalance()
-
   
   console.log(`[After Transaction] Safe Balance: ${ethers.utils.formatUnits(safeBalance, 'ether')} ETH`)
 }

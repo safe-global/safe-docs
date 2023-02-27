@@ -1,6 +1,6 @@
 # Protocol Kit
 
-The Protocol Kit uses the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) to interact with [Safe contracts](https://github.com/safe-global/safe-contracts) using a Typescript interface. This SDK can be used to create new Safe accounts, update the configuration of existing Safes, and propose and execute transactions.
+The Protocol Kit uses the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) to interact with [Safe contracts](https://github.com/safe-global/safe-contracts) using a Javascript interface. This SDK can be used to create new Safe accounts, update the configuration of existing Safes, and propose and execute transactions.
 
 ## Quickstart
 
@@ -40,7 +40,7 @@ export OWNER_2_PRIVATE_KEY='<PRIVATE_KEY>'
 export OWNER_3_PRIVATE_KEY='<PRIVATE_KEY>'
 ```
 
-Create an `index.ts` file that you will use to run the following code snippets:
+Create an `index.ts` file that you will use to run the following code snippets.
 
 ```bash
 touch index.ts
@@ -83,7 +83,7 @@ const ethAdapterOwner1 = new EthersAdapter({
 
 The [Safe Service Client](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-service-client) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeServiceClient` class, imported from `@safe-global/safe-service-client`, and pass the URL to the constructor of the Safe Transaction Service you want to use depending on the network.
 
-We will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](https://docs.gnosis-safe.io/learn/infrastructure/available-services).
+You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](https://docs.gnosis-safe.io/learn/infrastructure/available-services).
 
 ```tsx
 import SafeServiceClient from '@safe-global/safe-service-client'
@@ -94,7 +94,7 @@ const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter: ethAdapter
 
 ### **Initialize the Safe Core SDK**
 
-Goerli is a supported network so we don’t need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
+Goerli is a supported network so you don’t need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
 Safe Factory is used to create a new Safe. While Safe class represents an instance of a particular Safe account.
 
@@ -131,7 +131,7 @@ console.log(`https://goerli.etherscan.io/address/${safeSdkOwner1.getAddress()}`)
 
 ### Send ETH to the Safe
 
-We will send some ETH to this Safe. Owner 1 will deposit 0.01 Goerli ETH to this Safe from our personal account following the [instructions in Quickstart](https://docs.gnosis-safe.io/learn/quickstart).
+You will send some ETH to this Safe. Owner 1 will deposit 0.01 Goerli ETH to this Safe from our personal account following the [instructions in Quickstart](https://docs.gnosis-safe.io/learn/quickstart).
 
 ```tsx
 const safeAddress = safeSdk.getAddress()
@@ -178,7 +178,7 @@ For more details on what to include in a transaction see, [Create a Transaction 
 ```tsx
 import { SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
 
-// Any address can be used. In this example we will use vitalik.eth
+// Any address can be used. In this example you will use vitalik.eth
 const destination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
 const amount = ethers.utils.parseUnits('0.005', 'ether').toString()
 
@@ -192,7 +192,7 @@ const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionD
 ```
 ### Propose a Transaction
 
-To send the transaction to the Safe Transaction Service we need to call the method `proposeTransaction` from the Safe Service Client instance.
+To send the transaction to the Safe Transaction Service you need to call the method `proposeTransaction` from the Safe Service Client instance.
 
 For a full list and description of the properties that `proposeTransaction` accepts, see [Propose the transaction to the service](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#propose-transaction) in the Safe Core SDK guide.
 
@@ -214,7 +214,7 @@ await safeService.proposeTransaction({
 
 ### Get Pending Transactions
 
-Recall that we created the `safeService` in [Initialize the Safe Service Client](#initialize-the-safe-service-client).
+Recall that you created the `safeService` in [Initialize the Safe Service Client](#initialize-the-safe-service-client).
 
 ```tsx
 const pendingTransactions = await safeService.getPendingTransactions(safeAddress).results
@@ -225,7 +225,7 @@ const pendingTransactions = await safeService.getPendingTransactions(safeAddress
 Owner 2 needs a different Safe object. However, you don’t need to create it with the Safe factory. You can create it with the `create` method of the Safe object. The Safe smart contract is already live on the blockchain so you can just pass the Safe address used when you created the Safe.
 
 ```tsx
-// Assumes that the first pending transaction is the transaction we want to confirm
+// Assumes that the first pending transaction is the transaction you want to confirm
 const transaction = pendingTransactions[0]
 const safeTxHash = transaction.safeTxHash
 
@@ -258,7 +258,7 @@ console.log(`https://goerli.etherscan.io/tx/${receipt.transactionHash}`)
 
 ### Confirm that the Transaction was Executed
 
-We know that the transaction was executed if the balance in our Safe changed.
+You know that the transaction was executed if the balance in your Safe changes.
 
 ```tsx
 const afterBalance = await safeSdk.getBalance()
@@ -278,4 +278,4 @@ The final balance of the Safe: 0.005 ETH
 
 ### Conclusion
 
-In this quickstart, you learned how to create, configure and deploy a Safe and propose and execute a transaction for the safe.
+In this quickstart, you learned how to createand deploy a Safe and propose and execute a transaction for the Safe.
