@@ -94,7 +94,7 @@ const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
 
     So you can deploy your solution in one of these hosting providers. Using a different domain won't work and the widget will throw an error.
 
-5. Currently the Stripe widget can only be used if you are __based in the United States__. If you are hacking from another country you could use a VPN connecting to an US server.
+5. Currently the Stripe widget can only be used if you are __based in the United States__. If this is not the case you will receive a load error.
 
 ## Example
 
