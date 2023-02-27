@@ -57,13 +57,13 @@ The `signOut` method will remove the current session.
 await safeAuthKit.signOut();
 ```
 
-You can get the Ethereum provider instance by calling the `getProvider` method.
+Call `getProvider` to get the Ethereum provider instance.
 
 ```typescript
 safeAuthKit.getProvider();
 ```
 
-We expose two events in order to know when the user is authenticated or when the session is removed.
+We expose two events to know when the user is authenticated or when the session is removed.
 
 ```typescript
 safeAuthKit.subscribe(SafeAuthEvents.SIGN_IN, () => {
