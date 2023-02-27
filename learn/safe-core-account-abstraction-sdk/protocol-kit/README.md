@@ -24,7 +24,11 @@ The Safe Core SDK is compatible with ethers v4 and v5, not the latest v6 version
 You can store your environment variables such as private keys in a `.env` file. To read easily from `.env` files, use the `dotenv` library.
 
 ```bash
-yarn add ethers@5.7.2 @safe-global/safe-core-sdk-types @safe-global/safe-core-sdk @safe-global/safe-service-client @safe-global/safe-ethers-lib  dotenv
+yarn add ethers@5.7.2 @safe-global/safe-core-sdk \
+  @safe-global/safe-core-sdk-types \
+  @safe-global/safe-service-client \
+  @safe-global/safe-ethers-lib \
+  dotenv
 ```
 
 Create the `.env` file:
@@ -47,14 +51,15 @@ touch index.ts
 ```
 
 
-Tip: Use [ts-node](https://github.com/TypeStrong/ts-node) to run a Typescript file in Node.js
+Tip: Use [ts-node](https://github.com/TypeStrong/ts-node) to run a Typescript file in Node.js.
 
 ```bash
 npx ts-node examples/protocol-kit/index.ts
 ```
+
 ### Initialize Signers, Providers, and EthAdapter
 
-The provider is the object that connects to the Ethereum blockchain. The signers are objects that trigger transactions to the Ethereum blockchain or off-chain transactions.
+The signers trigger transactions to the Ethereum blockchain or off-chain transactions. The provider connects to the Ethereum blockchain. 
 
 You can get a public RPC URL from [Chainlist](https://chainlist.org), however, public RPC URLs can be unreliable so you can also try a dedicated provider like Infura or Alchemy.
 
@@ -81,7 +86,7 @@ const ethAdapterOwner1 = new EthersAdapter({
 
 ### Initialize the Safe Service Client
 
-The [Safe Service Client](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-service-client) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeServiceClient` class, imported from `@safe-global/safe-service-client`, and pass the URL to the constructor of the Safe Transaction Service you want to use depending on the network.
+The [Safe Service Client](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-service-client) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeServiceClient` class, imported from `@safe-global/safe-service-client`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeServiceClient`.
 
 You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](https://docs.gnosis-safe.io/learn/infrastructure/available-services).
 
@@ -94,9 +99,9 @@ const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter: ethAdapter
 
 ### **Initialize the Safe Core SDK**
 
-Goerli is a supported network so you don’t need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
+Goerli is a supported network so you don’t need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Instantiate an EThAdapter](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
-Safe Factory is used to create a new Safe. While Safe class represents an instance of a particular Safe account.
+Safe Factory is used to create Safes. While Safe class represents an instance of a specific Safe account.
 
 ```tsx
 import { SafeFactory } from '@safe-global/safe-core-sdk'
