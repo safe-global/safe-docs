@@ -26,9 +26,9 @@ Safe has a lot of features which means a lot of information. To make it easier t
    1. Make a Safe
    2. Learn about Account Abstraction
 2. ****[**Learn about the different Safe {Core} tools**](learn/safe-core-account-abstraction-sdk/)****
-   1. [Safe Protocol Kit](learn/safe-core-account-abstraction-sdk/protocol-kit/)
-   2. Safe API Kit
-   3. [Safe Connection Kit](learn/safe-apps/)
+   1. [Safe {Core} Account Abstraction SDK](learn/safe-core-account-abstraction-sdk/)
+   2. [Safe {Core} API](learn/safe-core-api.md)
+   3. [Safe {Core} Protocol](learn/safe-core-protocol/)
 3. [Discover](broken-reference) interesting projects that others have built using Smart Accounts
    1. [Safe Hackathon Guide and List of Hackathon Winners](https://gnosis-safe.notion.site/Safe-Hackathon-Success-Guide-53d2fb3c29424b58b1c4407519a54930)
 4. [Build](broken-reference) your own apps using smart accounts
