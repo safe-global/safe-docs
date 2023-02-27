@@ -18,7 +18,9 @@ yarn add @safe-global/relay-kit
 
 ### How to use
 
-Currently, the Relay Kit is compatible only with the [Gelato relay](https://docs.gelato.network/developer-services/relay). Gelato provides two ways in order to use their relay, [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee), and [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance).
+Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs.gelato.network/developer-services/relay). There are 2 ways to use the Gelato relay:
+1.  [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee)
+2. [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance)
 
 #### Gelato SyncFee
 
