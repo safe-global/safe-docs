@@ -12,7 +12,6 @@ The [Auth kit](https://github.com/safe-global/account-abstraction-sdk/tree/dev/p
 ### Install dependencies
 
 ```bash
-npm install @safe-global/auth-kit
 yarn add @safe-global/auth-kit
 ```
 
