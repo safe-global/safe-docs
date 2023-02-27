@@ -1,6 +1,6 @@
 # ⚠️ Warning ⚠️
 
-This package is provided for testing purposes only. It's not ready for production use. We are working with Stripe and participating in the pilot testing for their new [on ramp solution](https://stripe.com/es/blog/crypto-onramp). Given this, we are offering our public key and a deployed server with our private one during the [Safe Account Abstraction hackaton](https://www.notion.so/Safe-Hackathon-Success-Guide-26ccbd7263ab44808d8f00106f35c2d7)
+This package is provided for testing purposes only. It's not ready for production use. We are working with Stripe and participating in the pilot test for their new [crypto on-ramp](https://stripe.com/es/blog/crypto-onramp). Given this, we are offering our public key and a deployed server with our private one during the [Safe Account Abstraction hackaton](https://gnosis-safe.notion.site/Safe-d6c6ed61389041e28f5c7c925f653701)
 
 Once the hackaton and Stripe pilot ends the server will be removed and you should use your own keys and server in case you opt-in for the [StripeAdapter](https://github.com/safe-global/account-abstraction-sdk/blob/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/src/adapters/StripeAdapter.ts).
 
