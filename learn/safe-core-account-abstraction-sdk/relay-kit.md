@@ -24,7 +24,7 @@ Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs
 
 #### Gelato SyncFee
 
-[Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee) is one of the most straightforward ways to use relaying. Using this method you will be able to execute a transaction paying the gas fees directly with funding available in the Safe.
+[Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee) is one of the most straightforward ways to use relaying. Gelato SyncFee allows you to execute a transaction and pay the gas fees directly with money in your Safe, even if you don't have ETH or the native blockchain token.
 
 ```typescript
 import { GelatoRelayAdapter } from '@safe-global/relay-kit'
