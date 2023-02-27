@@ -1,8 +1,6 @@
 # Relay Kit
 
-The Relay Kit uses the [relay-provider](https://github.com/safe-global/account-abstraction-sdk/tree/dev/packages/relay-provider) to allow users to pay transaction fees (gas fees) using ERC-20 tokens.
-
-Relaying is important because it allows you to pay transaction fees directly from Safe using either the native token or ERC-20 tokens.
+The [Relay Kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/relay-kit) allows users to pay transaction fees (gas fees) using the native blockchain token or ERC-20 tokens. This allows you to pay gas fees using any ERC-20 token in your Safe, even if you don't have ETH.
 
 ## Quickstart
 
@@ -20,11 +18,13 @@ yarn add @safe-global/relay-kit
 
 ### How to use
 
-Currently, the Relay Kit is compatible only with the Gelato relay. Gelato provides two ways in order to use their relay, [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee), and [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance).
+Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs.gelato.network/developer-services/relay). There are 2 ways to use the Gelato relay:
+1.  [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee)
+2. [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance)
 
 #### Gelato SyncFee
 
-Gelato SyncFee is one of the most straightforward ways to use relaying. Using this method you will be able to execute a transaction paying the gas fees directly with funding in the Safe.
+[Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee) is one of the most straightforward ways to use relaying. Gelato SyncFee allows you to execute a transaction and pay the gas fees directly with funds in your Safe, even if you don't have ETH or the native blockchain token.
 
 ```typescript
 import { GelatoRelayAdapter } from '@safe-global/relay-kit'
