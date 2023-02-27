@@ -1,6 +1,6 @@
 # Auth Kit
 
-The [Auth kit](https://github.com/safe-global/account-abstraction-sdk/tree/dev/packages/auth-kit) creates an Ethereum address and authenticates a blockchain account using an email address, social media account, or traditional crypto wallets like Metamask.
+The [Auth kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/auth-kit) creates an Ethereum address and authenticates a blockchain account using an email address, social media account, or traditional crypto wallets like Metamask.
 
 ## Quickstart
 
@@ -17,7 +17,7 @@ yarn add @safe-global/auth-kit
 
 ### How to use
 
-Create an instance of the [SafeAuthKit](https://github.com/safe-global/account-abstraction-sdk/blob/dev/packages/auth-kit/src/SafeAuthKit.ts) class providing the `SafeAuthProviderType` and `SafeAuthConfig` as parameters.
+Create an instance of the [SafeAuthKit](https://github.com/safe-global/account-abstraction-sdk/blob/main/packages/auth-kit/src/SafeAuthKit.ts) class providing the `SafeAuthProviderType` and `SafeAuthConfig` as parameters.
 
 `Web3Auth` is the only provider type currently supported but we plan to add more providers in the future.
 
@@ -89,4 +89,4 @@ When `txServiceUrl` is provided, the list of associated Safe addresses will be r
 
 ## Example
 
-[Check a functional demo](https://github.com/safe-global/account-abstraction-sdk/tree/dev/packages/auth-kit/example) using the `auth-kit`
+[Check a functional demo](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/auth-kit/example) using the `auth-kit`
