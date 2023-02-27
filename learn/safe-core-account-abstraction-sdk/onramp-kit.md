@@ -85,7 +85,7 @@ const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
 
 2. As we are working on Stripe _testmode_, the purchases are simulated. You can use the fake data in the [docs](https://stripe.com/docs/testing) and the [following test cards](https://stripe.com/docs/testing?testing-method=card-numbers#cards) to enter the required information in the embedded widget.
 
-3. When using with testnets as Mumbai in Polygon, the crypto assets will be transferred so PLEASE DO TRY TO USE LOWER AMOUNTS to preserve testnets liquidity, but SPECIALLY WITH USDC ON POLYGON MUMBAI.
+3. When using testnets such as Polygon Mumbai, the cryptocurrencies will be transferred. PLEASE DO TRY TO USE LOWER AMOUNTS to preserve testnet's liquidity, ESPECIALLY THE USDC TOKEN ON POLYGON MUMBAI.
 
 4. If you want to deploy a POC with your solution, bear in mind that our integration with Stripe has the following domains whitelisted:
 
