@@ -6,7 +6,7 @@ This library provides a way to authenticate blockchain accounts using email addr
 
 ### Prerequisites
 
-- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm)
+- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 - For using Web3Auth as the authentication provider, you need to have a [Web3Auth account](https://web3auth.io) so sign up if you don't have one already.
 
 ### Install dependencies
