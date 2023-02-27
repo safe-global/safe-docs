@@ -44,7 +44,7 @@ const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
 })
 ```
 
-You can check [this server](https://github.com/safe-global/account-abstraction-sdk/blob/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/example/server) implementation as an example.
+You can check [this server implementation](https://github.com/safe-global/account-abstraction-sdk/blob/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/example/server) as an example.
 
 > Currently we are providing both the public key and the server for testing purposes. In the future you will need to use your own public key and server based on the final documentation Stripe will provide once their on ramps solution is ready for production. See the [considerations and limitations](#considerations-and-limitations) section for more details.
 
