@@ -165,19 +165,20 @@ At a high level, making a transaction from the Safe requires the following steps
 
 ### Overview
 
-The high-level overview of a multisig transaction is PCE: Propose. Confirm. Execute.
+The high-level overview of a multi-sig transaction is PCE: Propose. Confirm. Execute.
 
-1. Owner 1 proposes a transaction
-  1. Create transaction: define the amount, destination, and any additional data
-  2. Perform an off-chain signature of the transaction before proposing
-  3. Submit the transaction and signature to the Safe Transaction Service
-2. Owner 2 confirms the transaction
-  1. Get pending transactions from the Safe service
-  1. Perform an off-chain signature of the transaction
-  2. Submit the signature to the service
-3. Anyone executes the transaction (Owner 1 in this example)
-  1. Anyone can get the pending transaction from the Safe service
-  1. Account executing the transaction pays the gas fee
+1. **Owner 1 proposes a transaction**
+    1. Create transaction: define the amount, destination, and any additional data
+    2. Perform an off-chain signature of the transaction before proposing
+    3. Submit the transaction and signature to the Safe Transaction Service
+2. **Owner 2 confirms the transaction**
+    1. Get pending transactions from the Safe service
+    2. Perform an off-chain signature of the transaction
+    3. Submit the signature to the service
+3. **Anyone executes the transaction**
+    1. In this example, Owner 1 executes the transaction
+    2. Anyone can get the pending transaction from the Safe service
+    3. Account executing the transaction pays the gas fee
 
 ### Create a Transaction
 
