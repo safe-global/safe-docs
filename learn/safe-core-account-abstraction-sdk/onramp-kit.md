@@ -15,7 +15,7 @@ The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/dev
 ### Prerequisites
 
 - [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-- An Stripe account in order to get your own public and private keys. You can create one [here](https://dashboard.stripe.com/register)
+- [Stripe account to get your own public and private keys](https://dashboard.stripe.com/register)
 - A deployed server like the one provided as [an example](https://github.com/safe-global/account-abstraction-sdk/blob/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/example/server) in order to communicate with Stripe APIs
 
 > The docs for the latest step (server) are not published yet as Stripe onramp solution is still in pilot testing
