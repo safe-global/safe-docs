@@ -16,7 +16,7 @@ The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/dev
 
 - [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 - [Stripe account to get your own public and private keys](https://dashboard.stripe.com/register)
-- A deployed server([example](https://github.com/safe-global/account-abstraction-sdk/blob/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/example/server)) for communicating with Stripe APIs
+- A deployed server ([example](https://github.com/safe-global/account-abstraction-sdk/blob/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/example/server)) for communicating with Stripe APIs
 
 > The docs for the latest step (server) are not published yet as Stripe onramp solution is still in pilot testing
 
@@ -78,7 +78,7 @@ const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
   onRampProviderConfig: {
     stripePublicKey:
       'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO', // Safe public key
-    onRampBackendUrl: 'https://safe-onramp-backend.5afe.dev', // Safe deployed server
+    onRampBackendUrl: 'https://aa-stripe.safe.global', // Safe deployed server
   },
 });
 ```
