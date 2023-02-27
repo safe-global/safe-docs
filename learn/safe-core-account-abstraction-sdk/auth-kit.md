@@ -20,7 +20,7 @@ yarn add @safe-global/auth-kit
 
 Create an instance of the [SafeAuthKit](https://github.com/safe-global/account-abstraction-sdk/blob/dev/packages/auth-kit/src/SafeAuthKit.ts) class providing the `SafeAuthProviderType` and `SafeAuthConfig` as parameters.
 
-Currently we only support the `Web3Auth` provider type but we plan to add more providers in the future.
+`Web3Auth` is the only provider type currently supported but we plan to add more providers in the future.
 
 ```typescript
 import { SafeAuthKit, SafeAuthProviderType } from '@safe-global/auth-kit'
