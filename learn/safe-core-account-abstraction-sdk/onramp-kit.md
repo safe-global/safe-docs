@@ -8,7 +8,7 @@ Currently this package is only prepared to work with Stripe. See [considerations
 
 # OnRamp Kit
 
-This kit provides a way for buy cryptoassets using a credit card or other payment methods. The library give access to several on ramp providers through several adapters.
+The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/dev/packages/onramp-kit) allows users to buy cryptocurrencies using a credit card and other payment options.
 
 ## Quickstart
 
