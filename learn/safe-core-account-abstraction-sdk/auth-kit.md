@@ -81,7 +81,7 @@ It's also possible to get the associated Safe addresses to a external owned acco
 ```typescript
 const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
   ...
-  txServiceUrl: 'https://safe-transaction-goerli.safe.global' // Add the corresponding transaction service url depending on the network
+  txServiceUrl: 'https://safe-transaction-goerli.safe.global' // Add the corresponding transaction service url depending on the network. Other networks: https://docs.gnosis-safe.io/learn/infrastructure/available-services#safe-transaction-service
   authProviderConfig: { ... }
 })
 ```
