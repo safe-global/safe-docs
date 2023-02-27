@@ -1,6 +1,6 @@
 # Auth Kit
 
-This library provides a way to authenticate blockchain accounts using email addresses, social accounts or traditional web3 wallets (ex. Metamask). When using web2 methods as your email or social account, a derived Ethereum address will be generated.
+The [Auth kit](https://github.com/safe-global/account-abstraction-sdk/tree/dev/packages/auth-kit) creates an Ethereum address and authenticates a blockchain account using an email address, social media account, or traditional crypto wallets like Metamask.
 
 ## Quickstart
 
