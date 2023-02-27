@@ -90,4 +90,4 @@ When `txServiceUrl` is provided, the list of associated Safe addresses will be r
 
 ## Example
 
-[Check a functional demo](https://github.com/safe-global/account-abstraction-sdk/tree/195588a4388b15f06b05d2027ffd43185781be34/packages/auth-kit/example) using the `auth-kit`
+[Check a functional demo](https://github.com/safe-global/account-abstraction-sdk/tree/dev/packages/auth-kit/example) using the `auth-kit`
