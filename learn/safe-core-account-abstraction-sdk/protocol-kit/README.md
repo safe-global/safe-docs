@@ -231,7 +231,7 @@ const pendingTransactions = await safeService.getPendingTransactions(safeAddress
 
 ### Confirm the Transaction: Second Confirmation
 
-Owner 2 needs a different Safe object. However, you don’t need to create it with the Safe factory. You can create it with the `create` method of the Safe object. The Safe smart contract is already live on the blockchain so you can just pass the Safe address used when you created the Safe.
+When owner 2 is connected to the application, the Safe Core SDK should be initialized again with the existing Safe address the address of the owner 2 instead of the owner 1.
 
 ```tsx
 // Assumes that the first pending transaction is the transaction you want to confirm

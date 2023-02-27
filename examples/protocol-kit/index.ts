@@ -26,12 +26,12 @@ const ethAdapterOwner1 = new EthersAdapter({
 
 const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
 const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
-let safeFactory: SafeFactory;
-let safeSdkOwner1: Safe;
-let safeAddress: string;
+let safeFactory: SafeFactory
+let safeSdkOwner1: Safe
+let safeAddress: string
 
 // If you have an existing Safe, you can use it instead of deploying a new one
-const EXISTING_SAFE_ADDRESS ='0xF188d41FD181f94960C5451D7ff6FdbcDf201a71';
+const EXISTING_SAFE_ADDRESS ='0xF188d41FD181f94960C5451D7ff6FdbcDf201a71'
 
 async function deploySafe() {
   console.log('Deploying Safe...')
@@ -170,11 +170,11 @@ async function main() {
   }
 
   await proposeTransaction()
-  const { safeTxHash } = await confirmTransaction();
+  const { safeTxHash } = await confirmTransaction()
   await executeTransaction(safeTxHash)
 
   // Run the following to re-execute transactions:
-  // const pendingTransactions = await getPendingTransactions();
+  // const pendingTransactions = await getPendingTransactions()
   // const transaction = pendingTransactions[0]
   // const safeTxHash = transaction.safeTxHash
   // console.log({safeTxHash})
