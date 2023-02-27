@@ -56,7 +56,7 @@ async function deploySafe() {
 
   console.log('Your Safe has been deployed:')
   console.log(`https://goerli.etherscan.io/address/${safeAddress}`)
-  console.log(`https://app.safe.global/gor:/${safeAddress}`)
+  console.log(`https://app.safe.global/gor:${safeAddress}`)
 }
 
 async function initalizeSafe(existingAddress=EXISTING_SAFE_ADDRESS) {

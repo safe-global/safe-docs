@@ -125,8 +125,11 @@ const safeAccountConfig: SafeAccountConfig = {
 an adapter that had owner 1 as the signer. */
 const safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
 
+const safeAddress = safeSdkOwner1.getAddress()
+
 console.log('Your Safe has been deployed:')
-console.log(`https://goerli.etherscan.io/address/${safeSdkOwner1.getAddress()}`)
+console.log(`https://goerli.etherscan.io/address/${safeAddress}`)
+console.log(`https://app.safe.global/gor:${safeAddress}`)
 ```
 
 ### Send ETH to the Safe
