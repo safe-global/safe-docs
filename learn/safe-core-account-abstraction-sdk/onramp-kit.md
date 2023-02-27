@@ -23,7 +23,6 @@ The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/dev
 ### Install dependencies
 
 ```bash
-npm install @safe-global/onramp-kit
 yarn add @safe-global/onramp-kit
 ```
 
