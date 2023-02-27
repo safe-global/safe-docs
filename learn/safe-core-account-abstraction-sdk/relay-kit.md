@@ -1,6 +1,6 @@
 # Relay Kit
 
-The [Relay Kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/relay-kit) allows to abstract users from the transaction fees payment (gas fees) allowing the use of native token or ERC-20 tokens. This will enable you to pay transaction fees directly from funding available in a Safe.
+The [Relay Kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/relay-kit) allows users to pay transaction fees (gas fees) using the native blockchain token or ERC-20 tokens. This allows you to pay gas fees using any ERC-20 token in your Safe, even if you don't have ETH.
 
 ## Quickstart
 
