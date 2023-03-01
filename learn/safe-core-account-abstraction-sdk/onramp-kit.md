@@ -70,7 +70,7 @@ const sessionData = await safeOnRamp.open({
 
 1. The library is under development and it's not ready for production use. We are working with Stripe and participating in the pilot testing for their new [on ramp solution](https://stripe.com/es/blog/crypto-onramp)
 
-    Considering this, we provide a public key and a deployed server only available for testing purposes. It can be used like this:
+   Considering this, we provide a public key and a deployed server only available for testing purposes. It can be used like this:
 
 ```typescript
 const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
@@ -82,19 +82,34 @@ const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
 });
 ```
 
-2. As we are working on Stripe _testmode_, the purchases are simulated. You can use the fake data in the [docs](https://stripe.com/docs/testing) and the [following test cards](https://stripe.com/docs/testing?testing-method=card-numbers#cards) to enter the required information in the embedded widget.
+2. As we are working on Stripe _testmode_, the purchases are simulated. You must use fake data for KYC process and payments in the Stripe embedded widget. Please use the following dummy data:
+
+- Use any test or fake emails such as `8404.john.smith@example.com`. Emails previously used with the on-ramp (i.e. have a Link account) will trigger a returning user OTP immediately, skipping the sign up screen
+- Use `+18004444444` for phone number
+- Use `000000` for the OTP verification code
+- Use any first name such as `John` but specifically `Verified` for the last name and `01/01/1901` for the birthday for successful identity verification.
+- Select Social Security Number for identification type and then enter `000000000` for fill the field
+- Select `United States` for country
+- Use `address_full_match` for address line 1 for successful identity verification
+- Use `Seattle` for city
+- Select `Washington` for state
+- Use `12345` for zip code
+- To receive testnet assets, use a network compatible wallet that you control
+- Use test credit card `4242424242424242` with future expiration date `12/24`, any CVC `123`, and any zip code `12345`. You can find more details on testing payment methods [here](https://stripe.com/docs/testing?testing-method=card-numbers#cards).
 
 3. When using testnets such as Polygon Mumbai, the cryptocurrencies will be transferred. PLEASE DO TRY TO USE LOWER AMOUNTS to preserve testnet's liquidity, ESPECIALLY THE USDC TOKEN ON POLYGON MUMBAI.
+
+    In any case, for avoiding this, we limit the amount you can buy to **10 monetary currency units**, so if you try to buy more than that an error will be thrown.
 
 4. If you want to deploy a POC with your solution, bear in mind that our integration with Stripe has the following domains whitelisted:
 
    - localhost: For local development
    - [netlify.app](https://www.netlify.com) and [vercel.app](https://vercel.com) for hosted deployments
 
-    So you can deploy your solution in one of these hosting providers. Using a different domain won't work and the widget will throw an error.
+   So you can deploy your solution in one of these hosting providers. Using a different domain won't work and the widget will throw an error.
 
-5. Currently the Stripe widget can only be used if you are __based in the United States__. If this is not the case you will receive a load error.
+5. Currently the Stripe widget can only be used if you are **connecting from the United States**. If this is not the case you will receive a load error.
 
 ## Example
 
-[Check a functional demo](https://github.com/safe-global/account-abstraction-sdk/tree/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/example) using the `onramp-kit` 
+[Check a functional demo](https://github.com/safe-global/account-abstraction-sdk/tree/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/example) using the `onramp-kit`
