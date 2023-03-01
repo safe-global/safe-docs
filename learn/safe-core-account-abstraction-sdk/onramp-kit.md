@@ -99,7 +99,7 @@ const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
 
 3. When using testnets such as Polygon Mumbai, the cryptocurrencies will be transferred. PLEASE DO TRY TO USE LOWER AMOUNTS to preserve testnet's liquidity, ESPECIALLY THE USDC TOKEN ON POLYGON MUMBAI.
 
-In any case, for avoiding this, we limit the amount you can buy to **10 monetary currency units**, so if you try to buy more than that an error will be thrown.
+    In any case, for avoiding this, we limit the amount you can buy to **10 monetary currency units**, so if you try to buy more than that an error will be thrown.
 
 4. If you want to deploy a POC with your solution, bear in mind that our integration with Stripe has the following domains whitelisted:
 
