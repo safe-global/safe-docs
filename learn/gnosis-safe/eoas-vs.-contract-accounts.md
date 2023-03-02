@@ -2,7 +2,7 @@
 
 What is the difference between Externally Owned Accounts (EOAs) and Smart Contract Accounts?
 
-<figure><img src="../../.gitbook/assets/Xnapper-2022-12-01-12.29.18.png" alt=""><figcaption><p>EOAs are controlled by a single private key, while Safe Accounts are controlled by code.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Slide 16_9 - 5.png" alt=""><figcaption><p>EOAs are controlled by a single private key, while Safe Accounts are controlled by code.</p></figcaption></figure>
 
 ### EOAs
 
@@ -16,6 +16,6 @@ The other type of Ethereum accounts are smart contract accounts. Like EOAs, smar
 
 Multi-signature wallets are contract accounts that require multiple parties to confirm a transaction before it can be executed. These parties, each represented by a unique Ethereum account address, are defined as multi-signature wallet owners in the smart contract. Only when a predefined number of these owners confirm a transaction, will the transaction be executed. Hence, the single point of failure associated with private key-controlled accounts is removed; losing or compromising a private key will no longer automatically result in a loss of all funds controlled by the account.
 
-<figure><img src="../../.gitbook/assets/Xnapper-2022-12-01-12.33.36.png" alt=""><figcaption><p>Traditional wallet scheme where a single private key controls account access compared to Safe account where multiple keys are required to execute transactions</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Slide 16_9 - 4.png" alt=""><figcaption><p>Traditional wallet scheme where a single private key controls account access compared to Safe account where multiple keys are required to execute transactions</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/Xnapper-2022-12-01-13.52.26.png" alt=""><figcaption><p>A comparison of different storage solutions</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Slide 16_9 - 6.png" alt=""><figcaption><p>A comparison of different storage solutions</p></figcaption></figure>
