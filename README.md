@@ -12,7 +12,7 @@ There are three main sections in this guide: Learn, Discover, and Build.
 
 <figure><img src=".gitbook/assets/how-to-use.png" alt=""><figcaption></figcaption></figure>
 
-1. [Learn](https://docs.gnosis-safe.io/learn) about how Smart Contract Accounts (aka Smart Accounts) work.
+1. [Learn](https://docs.gnosis-safe.io/learn) about how Smart Accounts (aka Smart Contract Accounts) work.
 2. [Discover](https://docs.gnosis-safe.io/discover/) how others are building and using Smart Accounts
 3. [Build](https://docs.gnosis-safe.io/build) cool things with Smart Accounts.
 
@@ -25,9 +25,9 @@ Safe has a lot of features which means a lot of information. To make it easier t
 1. ****[**Learn about Smart Accounts**](learn/what-is-a-smart-contract-account.md)
    1. Make a Safe
    2. Learn about Account Abstraction
-2. ****[**Learn about the different Safe {Core} tools**](learn/safe-core-account-abstraction-sdk/)****
+2. [Learn about the different Safe {Core} tools](learn/safe-core.md)
    1. [Safe {Core} Account Abstraction SDK](learn/safe-core-account-abstraction-sdk/)
-   2. [Safe {Core} API](learn/safe-core-api.md)
+   2. [Safe {Core} API](learn/safe-core-api/)
    3. [Safe {Core} Protocol](learn/safe-core-protocol/)
 3. [Discover](broken-reference) interesting projects that others have built using Smart Accounts
    1. [Safe Hackathon Guide and List of Hackathon Winners](https://gnosis-safe.notion.site/Safe-Hackathon-Success-Guide-53d2fb3c29424b58b1c4407519a54930)
@@ -42,7 +42,7 @@ You can also follow the [Ecosystem Diagram](https://viewer.diagrams.net/index.ht
 1. [Tweet us on Twitter @safe](https://twitter.com/safe)
 2. [Ask 'gnosis-safe' Questions on the Ethereum Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/gnosis-safe)
 3. [Open an Issue on the Safe Github](https://github.com/safe-global)
-   1. You can also check out our [5afe Github](https://github.com/5afe/) page where we put more experimental, non-production ready code
+   1. Check out the [5afe Github](https://github.com/5afe/) page where we put more experimental, non-production-ready code
 4. [Chat with us on Discord](https://chat.safe.global/)
 5. [Participate in the Safe Forum](https://forum.gnosis-safe.io/)
 

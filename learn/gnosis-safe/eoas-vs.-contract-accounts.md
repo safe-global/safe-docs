@@ -2,7 +2,7 @@
 
 What is the difference between Externally Owned Accounts (EOAs) and Smart Contract Accounts?
 
-<figure><img src="../../.gitbook/assets/Slide 16_9 - 5.png" alt=""><figcaption><p>EOAs are controlled by a single private key, while Safe Accounts are controlled by code.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Slide 16_9 - 5 (1).png" alt=""><figcaption><p>EOAs are controlled by a single private key, while Safe Accounts are controlled by code.</p></figcaption></figure>
 
 ### EOAs
 

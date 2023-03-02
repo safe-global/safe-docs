@@ -1,7 +1,6 @@
 ---
 description: Quickly start using Safe accounts.
-cover: >-
-  https://images.unsplash.com/photo-1461896836934-ffe607ba8211?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwxOTcwMjR8MHwxfHNlYXJjaHwxfHxzdGFydHxlbnwwfHx8fDE2NzM2MDY2NzQ&ixlib=rb-4.0.3&q=80
+cover: ../../.gitbook/assets/Symbol_Glass_3D_03.png
 coverY: 0
 ---
 

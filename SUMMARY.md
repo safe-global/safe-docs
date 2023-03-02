@@ -4,17 +4,19 @@
 
 ## 🔰 Learn
 
-* [What is a Smart Contract Account?](learn/what-is-a-smart-contract-account.md)
+* [What is a Smart Account?](learn/what-is-a-smart-contract-account.md)
 * [Things you can do with Safe](learn/things-you-can-do-with-safe.md)
 * [Quickstart](learn/quickstart/README.md)
   * [Different Ways to Create a Safe](learn/quickstart/different-ways-to-create-a-safe.md)
+* [Safe {Core}](learn/safe-core.md)
 * [Safe {Core} Account Abstraction SDK](learn/safe-core-account-abstraction-sdk/README.md)
   * [Protocol Kit](learn/safe-core-account-abstraction-sdk/protocol-kit/README.md)
     * [Safe Core SDK Packages](learn/safe-core-account-abstraction-sdk/protocol-kit/core-sdk.md)
   * [Auth Kit](learn/safe-core-account-abstraction-sdk/auth-kit.md)
   * [Relay Kit](learn/safe-core-account-abstraction-sdk/relay-kit.md)
   * [Onramp Kit](learn/safe-core-account-abstraction-sdk/onramp-kit.md)
-* [Safe {Core} API](learn/safe-core-api.md)
+* [Safe {Core} API](learn/safe-core-api/README.md)
+  * [Available Services](learn/safe-core-api/available-services.md)
 * [Safe {Core} Protocol](learn/safe-core-protocol/README.md)
   * [Modules](learn/safe-core-protocol/modules-1.md)
   * [Guards](learn/safe-core-protocol/guards.md)
@@ -37,13 +39,12 @@
 * [🏗 Infrastructure](learn/infrastructure/README.md)
   * [Service Architecture](learn/infrastructure/service-architecture.md)
   * [RPC Requirements](learn/infrastructure/rpc-requirements.md)
-  * [Available Services](learn/infrastructure/available-services.md)
-* [Resources](learn/resources.md)
 
 ## 🔎 Discover
 
 * [Third-party Frontends](discover/third-party-frontends.md)
 * [List of all Safe Github Repos](discover/list-of-all-safe-github-repos.md)
+* [Resources](discover/resources.md)
 
 ## 🛠 Build
 

@@ -4,7 +4,7 @@ The Protocol Kit uses the [Safe Core SDK](https://github.com/safe-global/safe-co
 
 ## Quickstart
 
-In this quickstart, you will create a 2 of 3 multi-sig Safe and propose and execute a transaction to send some ETH out of this Safe.
+In this quickstart guide, you will create a 2 of 3 multi-sig Safe and propose and execute a transaction to send some ETH out of this Safe.
 
 For a more detailed guide, including how to integrate with web3js and more Safe transaction configuration options, see [Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and [Safe Core SDK API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#sdk-api).
 
@@ -32,6 +32,7 @@ yarn add ethers@5.7.2 @safe-global/safe-core-sdk \
 ```
 
 Create the `.env` file:
+
 ```bash
 touch .env
 ```
@@ -50,7 +51,6 @@ Create an `index.ts` file that you will use to run the following code snippets.
 touch index.ts
 ```
 
-
 Tip: Use [ts-node](https://github.com/TypeStrong/ts-node) to run a Typescript file in Node.js.
 
 ```bash
@@ -59,11 +59,11 @@ npx ts-node examples/protocol-kit/index.ts
 
 ### Initialize Signers, Providers, and EthAdapter
 
-The signers trigger transactions to the Ethereum blockchain or off-chain transactions. The provider connects to the Ethereum blockchain. 
+The signers trigger transactions to the Ethereum blockchain or off-chain transactions. The provider connects to the Ethereum blockchain.
 
 You can get a public RPC URL from [Chainlist](https://chainlist.org), however, public RPC URLs can be unreliable so you can also try a dedicated provider like Infura or Alchemy.
 
-For this tutorial, we will be creating a Safe on the Goerli testnet. 
+For this tutorial, we will be creating a Safe on the Goerli testnet.
 
 ```tsx
 import { ethers } from 'ethers'
@@ -86,7 +86,7 @@ const ethAdapterOwner1 = new EthersAdapter({
 
 ### Initialize the Safe Service Client
 
-The [Safe Service Client](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-service-client) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeServiceClient` class, imported from `@safe-global/safe-service-client`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeServiceClient`.
+The [Safe Service Client](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-service-client) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeServiceClient` class, imported from `@safe-global/safe-service-client`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeServiceClient`.
 
 You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](https://docs.gnosis-safe.io/learn/infrastructure/available-services).
 
@@ -111,7 +111,7 @@ const safeFactory = await SafeFactory.create({ ethAdapter: ethAdapterOwner1 })
 
 ### Deploy a Safe
 
-Calling the `deploySafe` method will deploy the desired Safe and return a Safe Core SDK initialized instance ready to be used. Check the [API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#deploysafe) for more details on additional configuration parameters and callbacks.
+Calling the `deploySafe` method will deploy the desired Safe and return a Safe Core SDK initialized instance ready to be used. Check the [API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#deploysafe) for more details on additional configuration parameters and callbacks.
 
 ```tsx
 import { SafeAccountConfig } from '@safe-global/safe-core-sdk'
@@ -168,17 +168,17 @@ At a high level, making a transaction from the Safe requires the following steps
 The high-level overview of a multi-sig transaction is PCE: Propose. Confirm. Execute.
 
 1. **Owner 1 proposes a transaction**
-    1. Create transaction: define the amount, destination, and any additional data
-    2. Perform an off-chain signature of the transaction before proposing
-    3. Submit the transaction and signature to the Safe Transaction Service
+   1. Create transaction: define the amount, destination, and any additional data
+   2. Perform an off-chain signature of the transaction before proposing
+   3. Submit the transaction and signature to the Safe Transaction Service
 2. **Owner 2 confirms the transaction**
-    1. Get pending transactions from the Safe service
-    2. Perform an off-chain signature of the transaction
-    3. Submit the signature to the service
+   1. Get pending transactions from the Safe service
+   2. Perform an off-chain signature of the transaction
+   3. Submit the signature to the service
 3. **Anyone executes the transaction**
-    1. In this example, Owner 1 executes the transaction
-    2. Anyone can get the pending transaction from the Safe service
-    3. Account executing the transaction pays the gas fee
+   1. In this example, Owner 1 executes the transaction
+   2. Anyone can get the pending transaction from the Safe service
+   3. Account executing the transaction pays the gas fee
 
 ### Create a Transaction
 
@@ -199,6 +199,7 @@ const safeTransactionData: SafeTransactionDataPartial = {
 // Create a Safe transaction with the provided parameters
 const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionData })
 ```
+
 ### Propose a Transaction
 
 To propose a transaction to the Safe Transaction Service we need to call the method `proposeTransaction` from the Safe Service Client instance.
@@ -223,7 +224,7 @@ await safeService.proposeTransaction({
 
 ### Get Pending Transactions
 
-Recall that you created the `safeService` in [Initialize the Safe Service Client](#initialize-the-safe-service-client).
+Recall that you created the `safeService` in [Initialize the Safe Service Client](./#initialize-the-safe-service-client).
 
 ```tsx
 const pendingTransactions = await safeService.getPendingTransactions(safeAddress).results

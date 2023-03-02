@@ -10,8 +10,8 @@ import { ethers } from 'ethers'
 import Safe, { SafeFactory } from '@safe-global/safe-core-sdk'
 import EthersAdapter from '@safe-global/safe-ethers-lib'
 
-const provider = new ethers.providers.JsonRpcProvider("..."); //1
-const signerWallet = new ethers.Wallet("<PRIVATE_KEY>", provider); //2
+const provider = new ethers.providers.JsonRpcProvider('...'); //1
+const signerWallet = new ethers.Wallet('<PRIVATE_KEY>', provider); //2
 const ethAdapter = new EthersAdapter({ethers, signerOrProvider: signerWallet}); //3
 
 const safeFactory = await SafeFactory.create({ ethAdapter }); //4
