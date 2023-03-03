@@ -1,6 +1,6 @@
 # ⚠️ Warning ⚠️
 
-This package is provided for testing purposes only. It's not ready for production use. We are working with Stripe and participating in the pilot test for their new [crypto on-ramp](https://stripe.com/es/blog/crypto-onramp). Considering this, we provide a public key and a testing server already configured during the [Safe Account Abstraction hackathon](https://gnosis-safe.notion.site/Safe-d6c6ed61389041e28f5c7c925f653701)
+This package is provided for testing purposes only. It's not ready for production use. We are working with Stripe and participating in the pilot test for their new [crypto on-ramp](https://stripe.com/blog/crypto-onramp). Considering this, we provide a public key and a testing server already configured during the [Safe Account Abstraction hackathon](https://gnosis-safe.notion.site/Safe-d6c6ed61389041e28f5c7c925f653701)
 
 Once the hackathon and Stripe pilot are over, the server will be removed and you should use your own keys and server in case you opt-in for the [StripeAdapter](https://github.com/safe-global/account-abstraction-sdk/blob/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/src/adapters/StripeAdapter.ts).
 
@@ -37,7 +37,7 @@ import { SafeOnRampKit, SafeOnRampProviderType } from '@safe-global/onramp-kit'
 
 const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
   onRampProviderConfig: {
-    stripePublicKey: <You public key>, // You should get your own public and private keys from Stripe
+    stripePublicKey: <Your public key>, // You should get your own public and private keys from Stripe
     onRampBackendUrl: <Your backend url> // You should deploy your own server
   }
 })
@@ -112,4 +112,4 @@ const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
 
 ## Example
 
-[Check a functional demo](https://github.com/safe-global/account-abstraction-sdk/tree/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/example) using the `onramp-kit`
+[Check out a functional demo](https://github.com/safe-global/account-abstraction-sdk/tree/195588a4388b15f06b05d2027ffd43185781be34/packages/onramp-kit/example) using the `onramp-kit`
