@@ -12,7 +12,7 @@ The [Auth kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/
 ### Install dependencies
 
 ```bash
-yarn add @safe-global/auth-kit
+yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal @web3auth/openlogin-adapter
 ```
 
 ### How to use
