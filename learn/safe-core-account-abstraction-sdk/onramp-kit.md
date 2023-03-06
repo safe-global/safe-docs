@@ -2,7 +2,7 @@
 
 This package is provided for testing purposes only. It's not ready for production use. We are working with Stripe and participating in the pilot test for their new [crypto on-ramp](https://stripe.com/docs/crypto). Considering this, we provide a public key and a testing server already configured during the [Safe Account Abstraction hackathon](https://gnosis-safe.notion.site/Safe-d6c6ed61389041e28f5c7c925f653701)
 
-Once the hackathon and Stripe pilot are over, the server will be removed and you should use your own keys and server in case you opt-in for the [StripeAdapter](https://github.com/safe-global/account-abstraction-sdk/blob/main/packages/onramp-kit/src/adapters/stripe/StripeAdapter.ts).
+Once the hackathon and Stripe pilot are over, the server will be removed and you should use your own keys and server in case you opt-in for the [StripeAdapter](https://github.com/safe-global/account-abstraction-sdk/blob/838d89e98aa9f9e32a6cd499a898fa7f6e69e7c6/packages/onramp-kit/src/adapters/stripe/StripeAdapter.ts).
 
 Currently this package is only prepared to work with Stripe. See [considerations and limitations](#considerations-and-limitations) for more details.
 
@@ -28,7 +28,7 @@ yarn add @safe-global/onramp-kit
 
 ### How to use
 
-Create an instance of the [SafeOnRampKit](https://github.com/safe-global/account-abstraction-sdk/blob/main/packages/onramp-kit/src/SafeOnRampKit.ts) using `SafeSafeOnRampProviderType` and `SafeOnRampConfig` as parameters.
+Create an instance of the [SafeOnRampKit](https://github.com/safe-global/account-abstraction-sdk/blob/838d89e98aa9f9e32a6cd499a898fa7f6e69e7c6/packages/onramp-kit/src/SafeOnRampKit.ts) using `SafeSafeOnRampProviderType` and `SafeOnRampConfig` as parameters.
 
 _With Stripe_
 
@@ -99,7 +99,7 @@ const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
 
 3. When using testnets such as Polygon Mumbai, the cryptocurrencies will be transferred. PLEASE DO TRY TO USE LOWER AMOUNTS to preserve testnet's liquidity, ESPECIALLY THE USDC TOKEN ON POLYGON MUMBAI.
 
-    In any case, for avoiding this, we limit the amount you can buy to **10 monetary currency units**, so if you try to buy more than that an error will be thrown.
+   In any case, for avoiding this, we limit the amount you can buy to **10 monetary currency units**, so if you try to buy more than that an error will be thrown.
 
 4. If you want to deploy a POC with your solution, bear in mind that our integration with Stripe has the following domains whitelisted:
 
