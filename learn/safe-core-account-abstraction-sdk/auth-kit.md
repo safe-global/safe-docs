@@ -45,7 +45,7 @@ The `authProviderConfig` object is the specific configuration object for the Web
 - `clientId`: The client id of your Web3Auth account. [Create an application in your Web3Auth account](https://dashboard.web3auth.io) to get this value.
 - `network`: The network name to use for the Web3Auth modal (mainnet | testnet)
 - `theme`: The theme to use for the Web3Auth modal (dark | light)
-- `modalConfig`: The modal config is used to customize the Web3Auth modal methods to show
+- `modalConfig`: The modal config is used to customize the Web3Auth modal methods shown
 
 Once the instance is created, you can call the `signIn()` method to start the authentication process showing the web3Auth modal.
 While you sign in with the same email or social account, the same Ethereum address will be returned.
