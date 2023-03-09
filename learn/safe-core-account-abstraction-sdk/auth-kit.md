@@ -2,6 +2,8 @@
 
 The [Auth kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/auth-kit) creates an Ethereum address and authenticates a blockchain account using an email address, social media account, or traditional crypto wallets like Metamask.
 
+The main advantage it brings is the possibility to get an ethereum account using your traditional web2 authentication methods without worrying about how to create an account using an web3 wallet.
+
 ## Quickstart
 
 ### Prerequisites
@@ -91,6 +93,27 @@ const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
 ```
 
 When `txServiceUrl` is provided, the list of associated Safe addresses will be returned as part of the `signIn()` method response.
+
+## Sending/signing transactions or signing messages using the auth-kit
+
+Once you are logged in using the auth-kit you can get the associated web3 provider using the `safeAuthKit.getProvider()` method. If you want to make any kind of operation afterwards you can use this method in conjunction with your favorite web3 library:
+
+```typescript
+// Using web3
+const web3 = new Web3(safeAuthKit.getProvider());
+
+await web3.eth.sendTransaction(tx);
+await web3.eth.signTransaction(tx);
+await web3.eth.personal.sign(message, address);
+
+// Using ethers
+const provider = new ethers.providers.Web3Provider(safeAuthKit.getProvider());
+const signer = provider.getSigner();
+
+await signer.sendTransaction(tx);
+await signer.signTransaction(tx);
+await signer.signMessage(message);
+```
 
 ## Example
 
