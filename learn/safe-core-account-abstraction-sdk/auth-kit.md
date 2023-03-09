@@ -2,7 +2,7 @@
 
 The [Auth kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/auth-kit) creates an Ethereum address and authenticates a blockchain account using an email address, social media account, or traditional crypto wallets like Metamask.
 
-The main advantage it brings is the possibility to get an ethereum account using your traditional web2 authentication methods without worrying about how to create an account using an web3 wallet.
+The main advantage auth-kit brings to the table is the capability to get an ethereum account using your traditional web2 authentication methods without worrying about how to create an account using a web3 wallet.
 
 ## Quickstart
 
