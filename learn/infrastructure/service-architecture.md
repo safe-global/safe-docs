@@ -14,7 +14,7 @@ As you can see from Fig. 1 , our full production setup is a mixture of several i
 
 ![Fig 1. Broad view of the backend services and their components.](<../../.gitbook/assets/Slide 16\_9 - 2.png>)
 
-The core services use event indexing to keep track of transactions related to our safe contracts. There is one instance of the core services per supported network (mainnet, rinkeby, xdai, polygon, among others).
+The core services use event indexing to keep track of transactions related to our safe contracts. There is one instance of the core services per supported network (mainnet, goerli, gnosis chain, polygon, among others).
 
 The config services keeps track of all the networks we support and therefore of all the instances of the core services that are available. In addition to this, the config service provides information regarding chain dependant variables such as RPC endpoints, gas price oracles, in which URL a given core service instance for a chain can be reached, among other things.
 
