@@ -94,7 +94,7 @@ const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
 
 When `txServiceUrl` is provided, the list of associated Safe addresses will be returned as part of the `signIn()` method response.
 
-## Sending/signing transactions or signing messages using the auth-kit
+## Sending/signing transactions or messages using the auth-kit
 
 Once you are logged in using the auth-kit you can get the associated web3 provider using the `safeAuthKit.getProvider()` method. If you want to make any kind of operation afterwards you can use this method in conjunction with your favorite web3 library:
 
