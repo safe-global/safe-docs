@@ -10,7 +10,7 @@ The Safe infrastructure consists of 3 services:
 * [Safe Config Service](https://github.com/gnosis/safe-config-service): Keeps track of all supported networks and chain-specific variables (Python)
 * [Safe Client Gateway](https://github.com/gnosis/safe-client-gateway/): Uses the config service to determine how to reach the transaction service instance required for a given request (Rust)
 
-[Safe Infrastructure](https://github.com/safe-global/safe-infrastructure/) and the [running our services locally guide](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_locally.md) shows how to run all our infrastructure together; including how to run the Safe UI, Safe {Wallet} and the backend, Safe {Core}. Note that this document is an only an example of how these services are run and you should adapt the configuration to your specific needs.
+[Safe Infrastructure](https://github.com/safe-global/safe-infrastructure/) and the [running our services locally guide](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_locally.md) shows how to run all our infrastructure together; including how to run the Safe UI, Safe {Wallet} and the backend, Safe {Core}. Note that this document is only an example of how these services are run and you should adapt the configuration to your specific needs.
 
 As you can see from Fig. 1 , our full production setup is a mixture of several instances of the Safe Transaction Service orchestrated by the Safe Config Service (henceforth referred to as "config service") which are later consumed by the Safe Client Gateway (here on after referred to as "client gateway").
 
@@ -18,7 +18,7 @@ As you can see from Fig. 1 , our full production setup is a mixture of several i
 
 ## Safe Transaction Service
 
-The transaction service use event indexing to keep track of transactions related to our safe contracts. There is one instance of the transaction service per supported network (mainnet, goerli, gnosis chain, polygon, among others).
+The transaction service uses tracing in Mainnet/Goerli and Gnosis Chain, and event indexing in other chains to keep track of transactions related to our safe contracts. There is one instance of the transaction service per supported network (mainnet, goerli, gnosis chain, polygon, among others).
 
 ## Safe Config Service
 
