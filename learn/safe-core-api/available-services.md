@@ -15,7 +15,6 @@ description: This pages provides an overview of the available services
 | Avalanche                    | [https://safe-transaction-avalanche.safe.global/](https://safe-transaction-avalanche.safe.global/)       |
 | Aurora                       | [https://safe-transaction-aurora.safe.global/](https://safe-transaction-aurora.safe.global/)             |
 | Binance Smart Chain          | [https://safe-transaction-bsc.safe.global/](https://safe-transaction-bsc.safe.global/)                   |
-| Energy Web Chain             | [https://safe-transaction-ewc.safe.global/](https://safe-transaction-ewc.safe.global/)                   |
+| Coinbase Testnet - Goerli    | [https://safe-transaction-base-testnet.safe.global/](https://safe-transaction-base-testnet.safe.global/) |
 | Optimism                     | [https://safe-transaction-optimism.safe.global/](https://safe-transaction-optimism.safe.global/)         |
 | Polygon                      | [https://safe-transaction-polygon.safe.global/](https://safe-transaction-polygon.safe.global/)           |
-| Volta                        | [https://safe-transaction-volta.safe.global/](https://safe-transaction-volta.safe.global/)               |
