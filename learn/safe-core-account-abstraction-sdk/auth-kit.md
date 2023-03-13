@@ -98,7 +98,7 @@ When `txServiceUrl` is provided, the list of associated Safe addresses will be r
 
 ## Sending/signing transactions or messages using the Auth kit
 
-Once you are logged in using the auth-kit you can get the associated web3 provider using the `safeAuthKit.getProvider()` method. If you want to make any kind of operation afterwards you can use this method in conjunction with your favorite web3 library:
+Once you are logged in using the Auth kit you can get the associated web3 provider using the `safeAuthKit.getProvider()` method. If you want to make any kind of operation afterward, you can use this method with your favorite web3 library:
 
 ```typescript
 // Using web3
