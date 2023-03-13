@@ -106,6 +106,8 @@ const web3 = new Web3(safeAuthKit.getProvider());
 
 await web3.eth.sendTransaction(tx);
 await web3.eth.signTransaction(tx);
+const message = "hello world"
+const address = "0x..."
 await web3.eth.personal.sign(message, address);
 
 // Using ethers
