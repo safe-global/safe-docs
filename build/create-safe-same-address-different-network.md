@@ -10,9 +10,12 @@ For example, consider the following:
 4. Recreate a Safe with address `0xF1881` on Optimism and recover the funds 
 
 
-## Prequisites
+## Pre-requisites
 
-1. This tutorial works for contracts created with `createProxyWithNonce` (version 1.3.0 and higher)[TODO: confirm if true] and is on a [network with the same address for Safe Proxy Fractory, `0xa6B`](https://blockscan.com/address/0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2).
+1. This tutorial works for contracts created with `createProxyWithNonce` (version 1.3.0 and higher)[TODO: confirm if true] and is on a [network with the same address for Safe Proxy Fractory, `0xa6B`](https://blockscan.com/address/0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2). 
+
+1. Make sure to check that the implementation contract also exists.
+    1. If the implementation contract does not exist, the call will succeed, and people think it was deployed but it won't work
 
 `createProxyWithNonce` is similar to `CREATE2`
 TODO: confirm if the above is true, briefly explain create2 and link to a relevant resource
@@ -23,6 +26,46 @@ TODO: confirm if the above is true, briefly explain create2 and link to a releva
 
 TODO: what are the edge cases to be aware of when creating a Safe on different addresse?
 
+Recreating mainnet Safe's does not emit events. So it won't show up on Safe UI.
+
+So the Safe will show up in the UI but the transactions to and from the Safe UI won't show up.
+
+It uses a feature called tracing and look at low-level opcodes to figure out what happened.
+
+Backend is not listening Safe mainnet contract interactions deployed on sidechain.
+
+- Safe on mainnet, deployed to Optimism
+- THis Safe will use the Safe.sol Optimism contract, not SafeL2.sol
+- But if we had created the Safe using the UI, then it would have used the Safel2 contract
+- Safe.sol doens't emit events, because it was intended to be used on mainent
+- Emtting events uses gas, because it was so expensive, Safe.sol does not emit events
+- Instead it uses a thing called tracing, that reads the low-level opcodes to recreate that it was a send send 10 ETH to this address
+- Tracing has very node requirements, very slow, replaying the transaction
+- Doing tracing on chains with very high throughput it's hard to synchronize
+- Replay 100s of transactions every few seconds
+
+- Polygon and Binance don't have good support for tracing nodes, put such a high requirement for nodes required, tracing is not easy for them
+- No economic incentive to use tracing
+
+- Question of how often does this happen?
+- How often are people sending
+
+- If Safe wanted to, we could use tracing on chains with high throughput 
+    - We would need a node that supports tracing
+
+
+- Redeploying a Safe on a new network, deploys it with the same settings ast he original Safe had when it was created
+
+- The address of ad eployed contract, is a hash of the creator of a contract and hash of deployment data, owner addres, threshold, modules
+
+- Ouput hash is the variable of the address
+
+## Use Metamask Raw Transaction
+
+todo: mention Mikhail's Loom video
+
+Include checking that the Safe implementation address is deployed.
+
 ## Part 1: Use Etherscan UI
 
 
@@ -31,6 +74,8 @@ First, get the parameters used for `createProxywithNonce` from the transaction t
 You can find this from [Transactions history in Safe {Wallet} UI](https://app.safe.global/transactions/history?safe=gor:0xF188d41FD181f94960C5451D7ff6FdbcDf201a71) or the [first internal transaction in your block explorer](https://goerli.etherscan.io/address/0xF188d41FD181f94960C5451D7ff6FdbcDf201a71#internaltx).
 
 [todo: picture of transaction parmeters]
+
+
 
 ### Get Safe Creation Transaction Parameters
 
@@ -64,7 +109,7 @@ For our example:
 1. Confirm that the result matches the Safe address you want. In this example, it should start with `0xF188`
 
 1. If you get the desired address:
-    1. click `calculateCreateProxyWithNonceAddress`
+    1. click `calculateCreateProxyWithNonceAddress` -> You can recreate this with keccak hash
     1. Enter the same parameters from the last step
     1. Click Write
 
