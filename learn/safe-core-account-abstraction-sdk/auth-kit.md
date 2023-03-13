@@ -2,7 +2,9 @@
 
 The [Auth kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/auth-kit) creates an Ethereum address and authenticates a blockchain account using an email address, social media account, or traditional crypto wallets like Metamask.
 
-The main advantage auth-kit brings to the table is the capability to get an ethereum account using your traditional web2 authentication methods without worrying about how to create an account using a web3 wallet.
+Note: The Auth kit creates a [Signing Account, not a Smart Account](/learn/what-is-a-smart-contract-account.md#smart-accounts-vs-signing-accounts). 
+
+The quick start guide below shows you how to sign transactions using your Signing Account. You can sign transactions using your Signing Account to create a Smart Account.
 
 ## Quickstart
 
