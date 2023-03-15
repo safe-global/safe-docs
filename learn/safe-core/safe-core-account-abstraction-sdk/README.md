@@ -2,7 +2,7 @@
 
 The Safe {Core} Account abstraction SDK allows builders to add account abstraction functionality into their apps.
 
-<figure><img src="../../.gitbook/assets/MAIN_CHIP_V2_4 1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/MAIN_CHIP_V2_4 1.png" alt=""><figcaption></figcaption></figure>
 
 1. [Protocol Kit (aka Safe Core SDK)](protocol-kit/)
    1. Create and configure customizable smart contract accounts
