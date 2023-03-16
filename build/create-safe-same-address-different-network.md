@@ -37,53 +37,6 @@ The easiest way to recover your Safe is by using Metamask.
 
 See also: [Recreating a Rinkeby Safe on Polygon](https://www.loom.com/share/ca34aabcd62747fb9fb89bd463b4c741)
 
-## Use Etherscan
-
-
-First, get the parameters used for `createProxywithNonce` from the transaction that created the Safe ([`0xe090` in this example](https://goerli.etherscan.io/tx/0xe0903aebab87bfbe40e8cf25581eaf60c42c347136bdeddf79fe5a64878ba72e)).
-
-You can find this from [Transactions history in Safe {Wallet} UI](https://app.safe.global/transactions/history?safe=gor:0xF188d41FD181f94960C5451D7ff6FdbcDf201a71) or the [first internal transaction in your block explorer](https://goerli.etherscan.io/address/0xF188d41FD181f94960C5451D7ff6FdbcDf201a71#internaltx).
-
-[todo: picture of transaction parmeters]
-
-### Get Safe Creation Transaction Parameters
-
-1. Click on More Details
-2. Click on Decode Input Data
-3. Copy the parameters to a clipboard
-
-For our example:
-
-```txt
-0	_singleton	address	0x3E5c63644E683549055b9Be8653de26E0B4CD36E
-1	initializer	bytes	0xb63e800d000[truncated for brevity]
-2	saltNonce	uint256	1677334598968770
-```
-[TODO: Does the Nonce have to be incremental -> How can the Nonce's match]
-
-### Rerun Safe Creation Transaction Parameters on new Chain
-
-1. Go to the Safe Proxy Factory 1.3.0 for the contract on the chain we are trying to recover. Here is a [list of network with the same address for Safe Proxy Fractory 1.3.0 `0xa6B`](https://blockscan.com/address/0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2)
-
-    1. Here is the [contract page for Optimism](https://optimistic.etherscan.io/address/0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2).
-
-1. Go to [Write Contract](https://optimistic.etherscan.io/address/0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2#writeContract)
-
-1. Connect to Web3
-
-1. Open `calculateCreateProxyWithNonceAddress`
-
-1. Add the parameters from Get Safe Creation Transaction Parameters and click "Write"
-
-1. Confirm that the result matches the Safe address you want. In this example, it should start with `0xF188`
-
-1. If you get the desired address:
-    1. click `calculateCreateProxyWithNonceAddress` -> You can recreate this with keccak hash
-    1. Enter the same parameters from the last step
-    1. Click Write
-
-Then you should have the Safe recreated on the new network
-
 ## Part 2: Recreating Safe with Safe CLI
 
 TODO
