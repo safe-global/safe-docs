@@ -53,10 +53,9 @@ async function recreateSafe(originalChain: any, recoveryChain: any) {
 
     // Connect to the recovery chain
 
-    const recoveryChainProivder = new ethers.providers.JsonRpcProvider(recoveryChain.rpc)
+    const recoveryChainProvider = new ethers.providers.JsonRpcProvider(recoveryChain.rpc)
 
-
-    const owner1Signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, recoveryChainProivder)
+    const owner1Signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, recoveryChainProvider)
 
     const result = await owner1Signer.sendTransaction(reCreateSafeTx)
 
