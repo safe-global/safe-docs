@@ -41,6 +41,10 @@ See also: [Recreating a Rinkeby Safe on Polygon](https://www.loom.com/share/ca34
 ### Verify [Proxy Factory has the same address on Both Chains](https://github.com/safe-global/safe-deployments/blob/main/src/assets/v1.3.0/proxy_factory.json)
 ![Screen Shot 2023-03-17 at 4 08 07 PM](https://user-images.githubusercontent.com/9806858/226023682-4855ce25-129d-47b1-9f24-3b74a12852fb.png)
 
+### Alternate: Check list of deployed Proxy Factory Addresses
+
+https://blockscan.com/address/0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2
+
 ### Get Transaction Creation Data
 
 ### Copy Safe Contract Creation Data
