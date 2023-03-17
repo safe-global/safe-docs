@@ -1,8 +1,6 @@
 # How to Create a Safe with the Same Address on a Different Network to Recover Funds
 
-This guide will show you how to recreate a Safe with a specific address on a  different network. This is useful for recovering funds sent to a Safe that exists on one network but not another. This is is an issue that many users have faced ([example 1](https://ethereum.stackexchange.com/questions/141408/sent-usdc-to-wrong-chain-on-gnosis-need-to-recover), [example 2](https://ethereum.stackexchange.com/questions/129309/create-a-safe-with-the-same-address-on-the-bsc-chain), [example 3](https://ethereum.stackexchange.com/questions/127353/trying-to-recreate-a-safe-from-mainnet-into-gnosis-chain-issue)[more examples](https://ethereum.stackexchange.com/search?q=%5Bgnosis-safe%5D+wrong+chain)).
-
-[A user was able to use a similar method to recover their funds](https://i.imgur.com/Azm13n5.png).
+This guide will show you how to recreate a Safe with a specific address on a  different network. This is useful for recovering funds sent to a Safe that exists on one network but not another. This is is an issue that [many](https://ethereum.stackexchange.com/questions/141408/sent-usdc-to-wrong-chain-on-gnosis-need-to-recover) [users](https://ethereum.stackexchange.com/questions/129309/create-a-safe-with-the-same-address-on-the-bsc-chain) [have](https://ethereum.stackexchange.com/questions/127353/trying-to-recreate-a-safe-from-mainnet-into-gnosis-chain-issue) [faced](https://ethereum.stackexchange.com/search?q=%5Bgnosis-safe%5D+wrong+chain).
 
 Note: The goal of deploying the same Safe address on different chains is to recover locked funds. We don't recommend using this method as a default way of having the same address on different chains.
 
@@ -11,12 +9,14 @@ For example, consider the following:
 1. Safe is deployed at address [`0xF188` on Goerli](https://app.safe.global/home?safe=gor:0xF188d41FD181f94960C5451D7ff6FdbcDf201a71) in transaction
 2. User accidentally sends some Optimism ETH to the address [`0xF188` on Optimism](https://optimistic.etherscan.io/address/0xF188d41FD181f94960C5451D7ff6FdbcDf201a71) in [transaction `0x975f`](https://optimistic.etherscan.io/tx/0x975f81407a2b7dfdd5c73220a920f327e379fd5d03c0175a106640451d7790a6)
 3. There is no Smart Contract at that address, so those funds are currently locked
-4. Recreate a Safe with address `0xF1881` on Optimism and recover the funds 
+4. Recreate a Safe ([transaction `0x58d2`](https://optimistic.etherscan.io/tx/0x58d2e8d75f3d02fc4588fe2c50e44a51d98738916771b823e09876328bff3f77)  with address `0xF1881` on Optimism and recover the funds 
 
 
 ## Pre-requisites
 
-1. A Signing Account/EOA with crypto to pay the gas fees on the recovery chain
+1. Access to the same Signing Account/EOA that created the Safe on the original chain
+
+1. The Signing Account should have enough crypto to pay the gas fees on the recovery chain
 
 1. This tutorial works for contracts created with `createProxyWithNonce` (version 1.3.0 and higher) and is on a [network with the same address for Safe Proxy Fractory, `0xa6B`](https://blockscan.com/address/0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2). Here are a [list of all the diffeent contract addresses where the Proxy Factory is deployed](https://github.com/safe-global/safe-deployments/blob/main/src/assets/v1.3.0/proxy_factory.json). You will notice that most of them either start with either `0xa6B7` or `0xC228`. The original network and recovery network must have the same address.
 
@@ -30,6 +30,27 @@ For example, consider the following:
 The easiest way to recover your Safe is by using Metamask.
 
 See also: [Recreating a Rinkeby Safe on Polygon](https://www.loom.com/share/ca34aabcd62747fb9fb89bd463b4c741)
+
+### Enable Show Hex Data in Metamask
+![Screen Shot 2023-03-17 at 4 00 39 PM](https://user-images.githubusercontent.com/9806858/226020125-788ae92c-9f98-486a-89fb-45e88da179ec.png)
+
+### Add Network
+
+![Screen Shot 2023-03-17 at 4 00 53 PM](https://user-images.githubusercontent.com/9806858/226020214-56e5e9c2-9b7f-4cd0-b5e5-a21c73f91d88.png)
+
+### Verify [Proxy Factory has the same address on Both Chains](https://github.com/safe-global/safe-deployments/blob/main/src/assets/v1.3.0/proxy_factory.json)
+![Screen Shot 2023-03-17 at 4 08 07 PM](https://user-images.githubusercontent.com/9806858/226023682-4855ce25-129d-47b1-9f24-3b74a12852fb.png)
+
+
+### Copy Safe Contract Creation Data
+
+![Screen Shot 2023-03-17 at 4 06 53 PM](https://user-images.githubusercontent.com/9806858/226022160-2907617e-6283-41c1-bc97-ccd90d8ff9ef.png)
+
+### Paste Proxy Factory and Transaction Hex into Metamask
+
+![Screen Shot 2023-03-17 at 4 04 08 PM](https://user-images.githubusercontent.com/9806858/226022325-4be63630-9476-4d4e-aef7-498966f3bfa8.png)
+
+
 
 ## Part 3: Recreating Safe with Safe {Core} SDK
 
