@@ -9,7 +9,7 @@ For example, consider the following:
 1. Safe is deployed at address [`0xF188` on Goerli](https://app.safe.global/home?safe=gor:0xF188d41FD181f94960C5451D7ff6FdbcDf201a71) in transaction
 2. User accidentally sends some Optimism ETH to the address [`0xF188` on Optimism](https://optimistic.etherscan.io/address/0xF188d41FD181f94960C5451D7ff6FdbcDf201a71) in [transaction `0x975f`](https://optimistic.etherscan.io/tx/0x975f81407a2b7dfdd5c73220a920f327e379fd5d03c0175a106640451d7790a6)
 3. There is no Smart Contract at that address, so those funds are currently locked
-4. Recreate a Safe ([transaction `0x58d2`](https://optimistic.etherscan.io/tx/0x58d2e8d75f3d02fc4588fe2c50e44a51d98738916771b823e09876328bff3f77)  with address `0xF1881` on Optimism and recover the funds 
+4. Recreate a Safe ([transaction `0x58d2`](https://optimistic.etherscan.io/tx/0x58d2e8d75f3d02fc4588fe2c50e44a51d98738916771b823e09876328bff3f77)) with address `0xF1881` on Optimism and recover the funds 
 
 
 ## Pre-requisites
@@ -56,14 +56,13 @@ See also: [Recreating a Rinkeby Safe on Polygon](https://www.loom.com/share/ca34
 
 See the code snippet in [`recreateSafe.ts`](/examples/utils/recreateSafe.ts). 
 
-
 ## Appendix
 
 ### How it Works
 
 Safes are created by calling [`createProxyWithNonce` which uses `CREATE2`](https://github.com/safe-global/safe-contracts/blob/ba526d0475e3004f9fcd71cd25ebbd225ebeee7f/contracts/proxies/SafeProxyFactory.sol#L32)
 
-The [CREATE2 opcode](https://eips.ethereum.org/EIPS/eip-1014) gives you the ability to predict the address where a contract will be deployed, without deploying it. See [Deploying Smart Contracts Using CREATE2, Open Zeppelin](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2) for more information about this.
+The [CREATE2 opcode](https://eips.ethereum.org/EIPS/eip-1014) gives you the ability to predict the address where a contract will be deployed, without deploying it. See [Deploying Smart Contracts Using CREATE2](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2) for more information about this.
 
 ### Recreating a Safe from Ethereum Mainnet
 

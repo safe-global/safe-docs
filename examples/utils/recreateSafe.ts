@@ -2,8 +2,7 @@ import { ethers } from 'ethers'
 import EthersAdapter from '@safe-global/safe-ethers-lib'
 import SafeServiceClient, { SafeCreationInfoResponse } from '@safe-global/safe-service-client'
 
-
-const safeAddress = '0xF188d41FD181f94960C5451D7ff6FdbcDf201a71'
+const safeAddress = '0xb67bF8d736b7024eaE034Fc0fBe80625823a6b76'
 
 const proxyFactoryAddress = '0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2'
 
@@ -14,17 +13,19 @@ const CHAINS = {
         rpc: 'https://rpc.ankr.com/eth_goerli',
         txServiceUrl: 'https://safe-transaction-goerli.safe.global',
     },
-    '56': {
-        name: 'BSC',
-        rpc: 'https://bsc-dataseed.binance.org',
-        txServiceUrl: 'https://safe-transaction-bsc.safe.global/',
+    '137': {
+        name: 'Polygon',
+        // https://chainlist.org/
+        rpc: 'https://polygon.llamarpc.com',
+        // https://docs.safe.global/learn/safe-core/safe-core-api/available-services
+        txServiceUrl: 'https://safe-transaction-polygon.safe.global/',
     },
 }
 
 const ORIGINAL_CHAIN_ID = '5'
-const RECOVERY_CHAIN_ID = '56'
+const RECOVERY_CHAIN_ID = '137'
 
-async function recreateSafe(originalChain: any, recoveryChain: any) {
+async function recreateSafe(originalChain:any, recoveryChain: any) {
     const originalChainProvider = new ethers.providers.JsonRpcProvider(originalChain.rpc)
 
     const ethAdapter = new EthersAdapter({
@@ -35,6 +36,7 @@ async function recreateSafe(originalChain: any, recoveryChain: any) {
     const safeService = new SafeServiceClient({ txServiceUrl: originalChain.txServiceUrl,
         ethAdapter: ethAdapter })
 
+    // Get information about the safe creation transaction
     const safeCreationInfo: SafeCreationInfoResponse = await safeService.getSafeCreationInfo(safeAddress)
 
     console.log({safeCreationInfo})
@@ -45,15 +47,19 @@ async function recreateSafe(originalChain: any, recoveryChain: any) {
 
     console.log({safeCreationTx})
 
-    const reCreateSafeTx = {
-        to: proxyFactoryAddress,
-        data: safeCreationTx.data,
-        value: 0,
-    }
-
     // Connect to the recovery chain
 
     const recoveryChainProvider = new ethers.providers.JsonRpcProvider(recoveryChain.rpc)
+
+    const gasPrice = await recoveryChainProvider.getGasPrice();
+
+    // Replay the transaction that created the safe on the original chain on the recovery chain
+    const reCreateSafeTx = {
+        to: proxyFactoryAddress,
+        data: safeCreationTx.data,
+        gasPrice,
+        value: 0,
+    }
 
     const owner1Signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, recoveryChainProvider)
 
