@@ -1,6 +1,6 @@
 ---
 description: >-
-  Everything you need to know about Smart Contracts Accounts and how to building
+  Everything you need to know about Smart Contracts Accounts and how to build
   with them.
 ---
 
