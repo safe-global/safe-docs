@@ -4,6 +4,8 @@ The [Relay Kit](https://github.com/safe-global/account-abstraction-sdk/tree/main
 
 ## Quickstart
 
+In this quickstart guide you will send some tokens to another address while using the Relay Kit to pay for the gas fees. For full effect, we will be using a Signing Account/EOA that has no tokens. See the [full code example](../../../examples/relay-kit/index.ts).
+
 ### Prerequisites
 
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm).
@@ -16,33 +18,80 @@ The [Relay Kit](https://github.com/safe-global/account-abstraction-sdk/tree/main
 yarn add @safe-global/relay-kit @safe-global/account-abstraction-kit-poc
 ```
 
-### How to use
+### Relay Kit Options
 
 Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs.gelato.network/developer-services/relay). There are 2 ways to use the Gelato relay:
 1. [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance)
-2.  [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee)
+2. [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee)
 
-#### Gelato 1Balance
+## Gelato 1Balance
 
 [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance) allows you to execute transactions using a prepaid deposit. This can be used to sponsor transactions to other Safes or even to use a deposit on Polygon to pay the fees for a wallet on another chain.
 
+For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on Polygon using the Goerli ETH you've deposited into your Gelato 1Balance account.
+
+### Deposit Goerli ETH into Gelato 1Balance
+
+TODO: Show how to deposit Goerli ETH into 1Blanace
+
+### Import Packages
+
 ```typescript
+import { ethers } from 'ethers'
 import { GelatoRelayAdapter, MetaTransactionOptions } from '@safe-global/relay-kit'
+import AccountAbstraction, {
+    AccountAbstractionConfig,
+    MetaTransactionData,
+    OperationType
+} from '@safe-global/account-abstraction-kit-poc'
+```
+### Initialize your Transaction Settings
 
-const relayAdapter = new GelatoRelayAdapter(GELATO_RELAY_API_KEY)
+Modify the variables to customize to match your desired transaction settings.
 
-const options: MetaTransactionOptions = {
-  isSponsored: true // This parameter is mandatory to use the 1Balance method
-}
-relayAdapter.relayTransaction({
-  target: '0x...', // the Safe address
-  encodedTransaction: '0x...', // Encoded Safe transaction data
-  chainId: 5,
-  options
-})
+```typescript
+// https://chainlist.org
+const RPC_URL='https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
+const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
+const signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
+
+// Any address can be used for destination. In this example, we use vitalik.eth
+const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+const withdrawAmount = ethers.utils.parseUnits('0.005', 'ether').toString()
+
+// Usually a limit of 21000 is used but for smart contract interactions, you can increase to 100000 because of the more complex interactions.
+const gasLimit = '100000'
 ```
 
-#### Gelato SyncFee
+### Create your Transaction Object
+
+```typescript
+// Create a transaction object
+const safeTransaction: MetaTransactionData = {
+    to: destinationAddress,
+    data: '0x',// leave blank for ETH transfers
+    value: ethers.BigNumber.from(withdrawAmount),
+    operation: OperationType.Call
+}
+const options: MetaTransactionOptions = {
+    gasLimit: ethers.BigNumber.from(gasLimit),
+    isSponsored: true
+}
+```
+
+### Create your Relay Adapter Instance
+
+```typescript
+const safeAccountAbstraction = new AccountAbstraction(signer)
+const relayAdapter = new GelatoRelayAdapter(process.env.GELATO_RELAY_API_KEY!)
+const sdkConfig: AccountAbstractionConfig = {
+    relayAdapter
+}
+await safeAccountAbstraction.init(sdkConfig)
+```
+
+
+## Gelato SyncFee
 
 [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee) allows you to execute a transaction and pay the gas fees directly with funds in your Safe, even if you don't have ETH or the native blockchain token.
 
