@@ -33,6 +33,7 @@ const options: MetaTransactionOptions = {
 
 async function relayTransaction() {
     const safeAccountAbstraction = new AccountAbstraction(signer)
+   // Get Gelato Relay API Key: https://relay.gelato.network/
     const relayAdapter = new GelatoRelayAdapter(process.env.GELATO_RELAY_API_KEY!)
     const sdkConfig: AccountAbstractionConfig = {
         relayAdapter
