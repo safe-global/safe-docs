@@ -15,7 +15,7 @@ See the [Discover](https://docs.gnosis-safe.io/discover/) section to see example
 * Recovery mechanisms: Allow owners to recover access to their Safe if they lose a primary key.
 * Hierarchies: Different permission sets based on roles within an organization.
 * Transaction batching: Send multiple transactions at once.
-* [Gas abstraction](safe-core-account-abstraction-sdk/relay-kit.md): Pay for transaction fees using ERC-20 tokens.
+* [Gas abstraction](safe-core/safe-core-account-abstraction-sdk/relay-kit.md): Pay for transaction fees using ERC-20 tokens.
 * Allow & deny lists
 * Fraud monitoring
 * Automation
