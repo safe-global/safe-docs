@@ -2,7 +2,7 @@
 
 The [Auth kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/auth-kit) creates an Ethereum address and authenticates a blockchain account using an email address, social media account, or traditional crypto wallets like Metamask.
 
-Note: The Auth kit creates a [Signing Account, not a Smart Account](/learn/what-is-a-smart-contract-account.md#smart-accounts-vs-signing-accounts). 
+Note: The Auth kit creates a [Signing Account, not a Smart Account](/learn/what-is-a-smart-contract-account.md#smart-accounts-vs-signing-accounts).
 
 The quick start guide below shows you how to sign transactions using your Signing Account. You can sign transactions using your Signing Account to create a Smart Account.
 
@@ -21,37 +21,33 @@ yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal @web3auth/openlogi
 
 ### How to use
 
-Create an instance of the [SafeAuthKit](https://github.com/safe-global/account-abstraction-sdk/blob/main/packages/auth-kit/src/SafeAuthKit.ts) class providing the `SafeAuthProviderType` and `SafeAuthConfig` as parameters.
+Create an instance of the [SafeAuthKit](https://github.com/safe-global/account-abstraction-sdk/blob/main/packages/auth-kit/src/SafeAuthKit.ts) class providing the chosen adapter (e.g `Web3AuthAdapter`) and the kit configuration `SafeAuthConfig`.
 
 `Web3Auth` is the only provider type currently supported but we plan to add more providers in the future.
 
 ```typescript
-import { SafeAuthKit, SafeAuthProviderType } from '@safe-global/auth-kit'
+import { SafeAuthKit, SafeAuthProviderType } from '@safe-global/auth-kit';
 
-const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
-  chainId: '0x5',
-  authProviderConfig: {
-    rpcTarget: <Your rpc url>, // Add your RPC e.g. https://goerli.infura.io/v3/<your project id>
-    clientId: <Your client id>, // Add your client id. Get it from the Web3Auth dashboard
-    network: 'testnet' | 'mainnet', // The network to use for the Web3Auth modal. Use 'testnet' while developing and 'mainnet' for production use
-    theme: 'light' | 'dark', // The theme to use for the Web3Auth modal
-    modalConfig: {
-      // The modal config is optional and it's used to customize the Web3Auth modal
-      // Check the Web3Auth documentation for more info: https://web3auth.io/docs/sdk/web/modal/whitelabel#initmodal
-    }
-  }
-})
+// https://web3auth.io/docs/sdk/web/modal/initialize#arguments
+const options: Web3AuthOptions = {
+  clientId: 'web3Auth-client-id',
+  web3AuthNetwork: 'testnet',
+  chainConfig: { ... },
+};
+// https://web3auth.io/docs/sdk/web/modal/initialize#configuring-adapters
+const modalConfig = { ... };
+// https://web3auth.io/docs/sdk/web/modal/whitelabel#whitelabeling-while-modal-initialization
+const openloginAdapter = new OpenloginAdapter({ ... });
+
+// Create an instance of the Web3AuthAdapter
+const web3AuthAdapter = new Web3AuthAdapter(options, [openloginAdapter], modalConfig);
+
+// Create an instance of the SafeAuthKit using the adapter and the SafeAuthConfig allowed options
+const safeAuthKit = await SafeAuthKit.init(web3AuthAdapter, { ... });
 ```
 
-The `authProviderConfig` object is the specific configuration object for the Web3Auth modal:
+Once the instance is created, you can call the `signIn()` method to start the authentication process showing the web3Auth modal in case you use the `Web3AuthAdapter`.
 
-- `rpcTarget`: The rpc url to connect to the Ethereum network
-- `clientId`: The client id of your Web3Auth account. [Create an application in your Web3Auth account](https://dashboard.web3auth.io) to get this value.
-- `network`: The network name to use for the Web3Auth modal (mainnet | testnet)
-- `theme`: The theme to use for the Web3Auth modal (dark | light)
-- `modalConfig`: The modal config is used to customize the Web3Auth modal methods shown
-
-Once the instance is created, you can call the `signIn()` method to start the authentication process showing the web3Auth modal.
 While you sign in with the same email or social account, the same Ethereum address will be returned.
 
 ```typescript
@@ -72,14 +68,16 @@ Call `getProvider` to get the Ethereum provider instance.
 safeAuthKit.getProvider();
 ```
 
-We expose two events to know when the user is authenticated or when the session is removed.
+We expose two methods for listening to events. In the case of the `Web3AuthAdapter` we can listening to all the events listed [here](https://web3auth.io/docs/sdk/web/modal/initialize#subscribing-the-lifecycle-events).
 
 ```typescript
-safeAuthKit.subscribe(SafeAuthEvents.SIGN_IN, () => {
+import { ADAPTER_EVENTS } from '@web3auth/base';
+
+safeAuthKit.subscribe(ADAPTER_EVENTS.CONNECTED, () => {
   console.log('User is authenticated');
 });
 
-safeAuthKit.subscribe(SafeAuthEvents.SIGN_OUT, () => {
+safeAuthKit.subscribe(ADAPTER_EVENTS.DISCONNECTED, () => {
   console.log('User is not authenticated');
 });
 ```
@@ -87,11 +85,9 @@ safeAuthKit.subscribe(SafeAuthEvents.SIGN_OUT, () => {
 It's also possible to get the associated Safe addresses to a external owned account adding the transaction service url to the config. This could be useful depending on your workflow.
 
 ```typescript
-const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
-  ...
-  txServiceUrl: 'https://safe-transaction-goerli.safe.global' // Add the corresponding transaction service url depending on the network. Other networks: https://docs.gnosis-safe.io/learn/infrastructure/available-services#safe-transaction-service
-  authProviderConfig: { ... }
-})
+const safeAuthKit = await SafeAuthKit.init(web3AuthAdapter, {
+  txServiceUrl: 'https://safe-transaction-goerli.safe.global', // Add the corresponding transaction service url depending on the network
+});
 ```
 
 When `txServiceUrl` is provided, the list of associated Safe addresses will be returned as part of the `signIn()` method response.
@@ -106,8 +102,8 @@ const web3 = new Web3(safeAuthKit.getProvider());
 
 await web3.eth.sendTransaction(tx);
 await web3.eth.signTransaction(tx);
-const message = "hello world"
-const address = "0x..."
+const message = 'hello world';
+const address = '0x...';
 await web3.eth.personal.sign(message, address);
 
 // Using ethers
