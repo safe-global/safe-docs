@@ -13,30 +13,14 @@ The [Relay Kit](https://github.com/safe-global/account-abstraction-sdk/tree/main
 ### Install dependencies
 
 ```bash
-yarn add @safe-global/relay-kit
+yarn add @safe-global/relay-kit @safe-global/account-abstraction-kit-poc
 ```
 
 ### How to use
 
 Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs.gelato.network/developer-services/relay). There are 2 ways to use the Gelato relay:
-1.  [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee)
-2. [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance)
-
-#### Gelato SyncFee
-
-[Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee) is one of the most straightforward ways to use relaying. Gelato SyncFee allows you to execute a transaction and pay the gas fees directly with funds in your Safe, even if you don't have ETH or the native blockchain token.
-
-```typescript
-import { GelatoRelayAdapter } from '@safe-global/relay-kit'
-
-const relayAdapter = new GelatoRelayAdapter()
-
-relayAdapter.relayTransaction({
-  target: '0x...', // the Safe address
-  encodedTransaction: '0x...', // Encoded Safe transaction data
-  chainId: 5
-})
-```
+1. [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance)
+2.  [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee)
 
 #### Gelato 1Balance
 
@@ -55,5 +39,21 @@ relayAdapter.relayTransaction({
   encodedTransaction: '0x...', // Encoded Safe transaction data
   chainId: 5,
   options
+})
+```
+
+#### Gelato SyncFee
+
+[Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee) allows you to execute a transaction and pay the gas fees directly with funds in your Safe, even if you don't have ETH or the native blockchain token.
+
+```typescript
+import { GelatoRelayAdapter } from '@safe-global/relay-kit'
+
+const relayAdapter = new GelatoRelayAdapter()
+
+relayAdapter.relayTransaction({
+  target: '0x...', // the Safe address
+  encodedTransaction: '0x...', // Encoded Safe transaction data
+  chainId: 5
 })
 ```
