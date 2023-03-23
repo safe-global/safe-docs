@@ -2,7 +2,7 @@
 
 This guide will show you how to recreate a Safe with a specific address on a  different network. This is useful for recovering funds sent to a Safe that exists on one network but not another. This is is an issue that [many](https://ethereum.stackexchange.com/questions/141408/sent-usdc-to-wrong-chain-on-gnosis-need-to-recover) [users](https://ethereum.stackexchange.com/questions/129309/create-a-safe-with-the-same-address-on-the-bsc-chain) [have](https://ethereum.stackexchange.com/questions/127353/trying-to-recreate-a-safe-from-mainnet-into-gnosis-chain-issue) [faced](https://ethereum.stackexchange.com/search?q=%5Bgnosis-safe%5D+wrong+chain).
 
-Note: The goal of deploying the same Safe address on different chains is to recover locked funds. We don't recommend using this method as a default way of having the same address on different chains.
+Note: The goal of deploying the same Safe address on different chains is to recover locked funds. We don't recommend using this method as a default way of having the same address on different chains. See [Account Abstraction in a Multichain Landscape - Part 1: Addresses](https://safe.mirror.xyz/4GcGAOFno-suTCjBewiYH4k4yXPDdIukC5woO5Bjc4w).
 
 For example, consider the following:
 
@@ -41,11 +41,15 @@ See also: [Recreating a Rinkeby Safe on Polygon](https://www.loom.com/share/ca34
 ### Verify [Proxy Factory has the same address on Both Chains](https://github.com/safe-global/safe-deployments/blob/main/src/assets/v1.3.0/proxy_factory.json)
 ![Screen Shot 2023-03-17 at 4 08 07 PM](https://user-images.githubusercontent.com/9806858/226023682-4855ce25-129d-47b1-9f24-3b74a12852fb.png)
 
-### Alternate: Check list of deployed Proxy Factory Addresses
+### Alternate: Check the [List of deployed Proxy Factory Addresses on Other Chains](https://blockscan.com/address/0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2)
 
-https://blockscan.com/address/0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2
+![Screen Shot 2023-03-23 at 7 34 31 AM](https://user-images.githubusercontent.com/9806858/227191742-60aaab59-be71-4d8f-9f21-1a57d1910e0c.png)
 
-### Get Transaction Creation Data
+
+### Get [Transaction Creation Data](https://app.safe.global/transactions/history?safe=gor:0xF188d41FD181f94960C5451D7ff6FdbcDf201a71)
+
+![Screen Shot 2023-03-23 at 7 33 48 AM](https://user-images.githubusercontent.com/9806858/227191393-21843e91-0ac5-457c-9133-6a6d317ef8aa.png)
+
 
 ### Copy Safe Contract Creation Data
 
@@ -54,7 +58,6 @@ https://blockscan.com/address/0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2
 ### Paste Proxy Factory and Transaction Hex into Metamask
 
 ![Screen Shot 2023-03-17 at 4 04 08 PM](https://user-images.githubusercontent.com/9806858/226022325-4be63630-9476-4d4e-aef7-498966f3bfa8.png)
-
 
 
 ## Part 3: Recreating Safe with Safe {Core} SDK
