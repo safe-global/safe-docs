@@ -78,8 +78,12 @@ The [CREATE2 opcode](https://eips.ethereum.org/EIPS/eip-1014) gives you the abil
 
 ### Recreating a Safe from Ethereum Mainnet
 
-If you recreate a Safe that was originally created on Ethereum Mainnet not another chain, it won't show up in the UI.
+If you recreate a Safe that was originally created on Ethereum Mainnet not another chain, it won't show up in the [Safe App](https://app.safe.global/).
 
 This is because Safe Contracts on Ethereum Mainnet are created with `Safe.sol` while other chains use `Safe_l2.sol`. The difference is that `Safe.sol` does not emit events in order to save gas fees. While `Safe_l2.sol` emits events. The Safe Transaction servie listens to emitted events to know what transactions occured in a Safe. While on Ethereum Mainnet, transaction logs are recreated using a process called tracing that recreates the transaction using the bytecode. 
 
 So when you recreate a Safe that was created on Ethereum mainnet on another chain, because you are replaying the transaction, it will call `Safe.sol` on the new chain which means that it won't emit an event and because the Transaction service for this other chain is only listening for events and not tracing, the Safe transaction service won't know that a transaction was made to or from that Safe.
+
+### Recreating a Safe with a Different Implementation Address
+
+Another case where the Safe may not show up in the Safe  App is if the Safe does not use the singleton that we support on that specific chain. For example, on Optimism there are multiple versions deployed, but we do not support all of them via our interface. To see which versions we support, go to [Safe Deployments](https://github.com/safe-global/safe-deployments/tree/main/src/assets/v1.3.0) and check that the address for a given Chain ID in `gnosis_safe.json`, `gnosis_safe_l2.json`, `safe.json` or `safe_l2.json` matches the address used to create your Safe.
