@@ -352,28 +352,12 @@
     axios "0.24.0"
     ethers "5.7.2"
 
-"@gnosis.pm/safe-contracts@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@gnosis.pm/safe-contracts/-/safe-contracts-1.3.0.tgz#316741a7690d8751a1f701538cfc9ec80866eedc"
-  integrity sha512-1p+1HwGvxGUVzVkFjNzglwHrLNA67U/axP0Ct85FzzH8yhGJb4t9jDjPYocVMzLorDoWAfKicGy1akPY9jXRVw==
-
 "@gnosis.pm/safe-deployments@1.19.0":
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/@gnosis.pm/safe-deployments/-/safe-deployments-1.19.0.tgz#f4ba8cf92cd6fdff4241ac50e410b4a6ff89babe"
   integrity sha512-EvHR/LjMwJm0QKXyTscRXqR9vnJwCUDiMnRNKRyXe1akW+udiYXjJTAiGuleFS4DOUSqs6DpAjYlLnXMzUsVMw==
   dependencies:
     semver "^7.3.7"
-
-"@safe-global/account-abstraction-kit-poc@^0.1.0-alpha.1":
-  version "0.1.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@safe-global/account-abstraction-kit-poc/-/account-abstraction-kit-poc-0.1.0-alpha.1.tgz#8e4e44398c7e57cc3aac9325c26578bcc7341d7c"
-  integrity sha512-BIV/2z+gtYVHHygZOsJq8hsOKYCPlkIPFngFKXtEgmelFhn8C3HUW5jGjo5ghVTAsMi/0QV1o8e0m/2qY5IO0Q==
-  dependencies:
-    "@gnosis.pm/safe-contracts" "^1.3.0"
-    "@safe-global/relay-kit" "^0.1.0-alpha.2"
-    "@safe-global/safe-deployments" "^1.20.2"
-    ethereumjs-util "^7.1.5"
-    ethers "^5.7.2"
 
 "@safe-global/relay-kit@^0.1.0-alpha.2":
   version "0.1.0-alpha.2"
