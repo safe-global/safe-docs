@@ -4,7 +4,7 @@ The [Relay Kit](https://github.com/safe-global/account-abstraction-sdk/tree/main
 
 ## Quickstart
 
-In this quickstart guide you will send some tokens to another address while using the Relay Kit to pay for the gas fees. For full effect, we will be using a Signing Account/EOA that has no tokens. See the [full code example](../../../examples/relay-kit/index.ts).
+In this quickstart guide, you will send some tokens to another address using the Relay Kit to pay for the gas fees. For full effect, you can try this with a Signing Account/EOA that has no tokens. See the [full code example](../../../examples/relay-kit/index.ts) for a full working example.
 
 ### Prerequisites
 
@@ -128,7 +128,7 @@ const encodedTx = safeSDK.getContractManager().safeContract.encode('execTransact
 ])
 ```
 
-### Send Transaction to Relay
+### Send Transaction to Relayer
 
 ```typescript
 const relayTransaction: RelayTransaction = {
