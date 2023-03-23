@@ -30,7 +30,7 @@ Safe has a lot of features which means a lot of information. To make it easier t
    2. [Safe{Core} API](learn/safe-core/safe-core-api/)
    3. [Safe{Core} Protocol](learn/safe-core/safe-core-protocol/)
 3. [Discover](discover/) interesting projects that others have built using Smart Accounts
-   1. [Safe Hackathon Guide and List of Hackathon Winners](https://gnosis-safe.notion.site/Safe-Hackathon-Success-Guide-53d2fb3c29424b58b1c4407519a54930)
+   1. [Safe Hackathon Guide and List of Hackathon Winners](https://safe-global.notion.site/Safe-Hackathon-Success-Guide-53d2fb3c29424b58b1c4407519a54930)
 4. [Build](build/) your own apps using smart accounts
 
 You can also follow the [Ecosystem Diagram](https://viewer.diagrams.net/index.html?tags=%7B%7D\&target=blank\&highlight=0000ff\&edit=\_blank\&layers=1\&nav=1\&page-id=atRejJyS5DeNAtDboIeV\&title=Safe%20Diagrams.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1WcTgdHoQttJ0K\_fV8mDg-RmDZRYGe3D-%26export%3Ddownload).
