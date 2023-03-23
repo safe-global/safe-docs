@@ -2,13 +2,13 @@
 
 This package is provided for testing purposes only. It's not ready for production use. We are working with Stripe and participating in the pilot test for their new [crypto on-ramp](https://stripe.com/docs/crypto). Considering this, we provide a public key and a testing server already configured during the [Safe Account Abstraction hackathon](https://gnosis-safe.notion.site/Safe-d6c6ed61389041e28f5c7c925f653701)
 
-Once the hackathon and Stripe pilot are over, the server will be removed and you should use your own keys and server in case you opt-in for the [StripeAdapter](https://github.com/safe-global/account-abstraction-sdk/blob/838d89e98aa9f9e32a6cd499a898fa7f6e69e7c6/packages/onramp-kit/src/adapters/stripe/StripeAdapter.ts).
+Once the hackathon and Stripe pilot are over, the server will be removed and you should use your own keys and server in case you opt-in for the [StripeAdapter](https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/onramp-kit/src/packs/stripe/StripeAdapter.ts).
 
 Currently this package is only prepared to work with Stripe. See [considerations and limitations](#considerations-and-limitations) for more details.
 
 # OnRamp Kit
 
-The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit) allows users to buy cryptocurrencies using a credit card and other payment options.
+The [Onramp kit](https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/onramp-kit) allows users to buy cryptocurrencies using a credit card and other payment options.
 
 ## Quickstart
 
@@ -16,52 +16,59 @@ The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/mai
 
 - [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 - [Stripe account to get your own public and private keys](https://dashboard.stripe.com/register)
-- A deployed server ([example](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit/example/server)) for communicating with Stripe APIs
+- A deployed server ([example](https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/onramp-kit/example/server)) for communicating with Stripe APIs
 
 > The docs for the latest step (server) are not published yet as Stripe onramp solution is still in pilot testing
 
 ### Install dependencies
 
 ```bash
-yarn add @safe-global/onramp-kit
+yarn add @safe-global/onramp-kit @stripe/stripe-js @stripe/crypto
 ```
 
 ### How to use
 
-Create an instance of the [SafeOnRampKit](https://github.com/safe-global/account-abstraction-sdk/blob/838d89e98aa9f9e32a6cd499a898fa7f6e69e7c6/packages/onramp-kit/src/SafeOnRampKit.ts) using `SafeSafeOnRampProviderType` and `SafeOnRampConfig` as parameters.
+Create an instance of the [SafeOnRampKit](https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/onramp-kit/src/SafeOnRampKit.ts) using the desired adapter implementing the `SafeOnRampAdapter<TAdapter>` interface.
 
 _With Stripe_
 
 ```typescript
 import { SafeOnRampKit, SafeOnRampProviderType } from '@safe-global/onramp-kit'
 
-const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
-  onRampProviderConfig: {
-    stripePublicKey: <Your public key>, // You should get your own public and private keys from Stripe
-    onRampBackendUrl: <Your backend url> // You should deploy your own server
-  }
+const stripeAdapter = new StripeAdapter({
+  stripePublicKey: <Your public key>, // You should get your own public and private keys from Stripe
+  onRampBackendUrl: <Your backend url> // You should deploy your own server
+
+
 })
+const safeOnRampKit = await SafeOnRampKit.init(stripeAdapter)
 ```
 
-You can check [this server implementation](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit/example/server) as an example.
+You can check [this server implementation](https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/onramp-kit/example/server) as an example.
 
 > Currently we are providing both the public key and the server for testing purposes. In the future you will need to use your own public key and server based on the final documentation Stripe will provide once their on ramps solution is ready for production. See the [considerations and limitations](#considerations-and-limitations) section for more details.
 
-Once the instance is created, you can call the `open(SafeOnRampOpenOptions)` method to start the session with the provider and opening the widget.
+Once the instance is created, you can call the `open(SafeOnRampOpenOptions<TAdapter>)` method to start the session with the provider and opening the widget.
 
-As an example, you can use the following code:
+As an example, you can use the following code with Stripe:
 
 ```typescript
-const sessionData = await safeOnRamp.open({
-  walletAddress,
-  networks: ['polygon']
+// See options for using the StripeAdapter open method in:
+// https://stripe.com/docs/crypto/using-the-api
+const sessionData = await safeOnRampKit.open({
   element: '#stripe-root',
-  sessionId: 'cos_1Mei3cKSn9ArdBimJhkCt1XC', // Optional, if you want to use a specific created session
-  events: {
-    onLoaded: () => console.log('Loaded'),
-    onPaymentSuccessful: () => console.log('Payment successful')
-    onPaymentError: () => console.log('Payment failed')
-    onPaymentProcessing: () => console.log('Payment processing')
+  sessionId: sessionId,
+  theme: 'light',
+  defaultOptions: {
+    transaction_details: {
+      wallet_address: walletAddress,
+      lock_wallet_address: true
+      supported_destination_networks: ['ethereum', 'polygon'],
+      supported_destination_currencies: ['usdc'],
+    },
+    customer_information: {
+      email: 'john@doe.com'
+    }
   }
 })
 ```
@@ -112,4 +119,4 @@ const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
 
 ## Example
 
-[Check out a functional demo](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit/example) using the `onramp-kit`
+[Check out a functional demo](https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/onramp-kit/example) using the `onramp-kit`
