@@ -6,16 +6,18 @@ import { MetaTransactionData, OperationType } from '@safe-global/safe-core-sdk-t
 
 // Customize the following variables
 // https://chainlist.org
-// https://chainlist.org
-const RPC_URL='https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
+const RPC_URL='https://endpoints.omniatech.io/v1/bsc/mainnet/public	'
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
 const signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
-const safeAddress = '0x...' // Safe from which the transaction will be sent
-const chainId = 5
+const safeAddress = '0x6651FD6Abe0843f7B6CB9047b89655cc7Aa78221' // Safe from which the transaction will be sent
+const chainId = 56
 
 // Any address can be used for destination. In this example, we use vitalik.eth
 const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-const withdrawAmount = ethers.utils.parseUnits('0.005', 'ether').toString()
+const withdrawAmount = ethers.utils.parseUnits('0.0005', 'ether').toString()
+
+// Get Gelato Relay API Key: https://relay.gelato.network/
+const GELATO_RELAY_API_KEY=process.env.GELATO_RELAY_API_KEY!
 
 // Usually a limit of 21000 is used but for smart contract interactions, you can increase to 100000 because of the more complex interactions.
 const gasLimit = '100000'
@@ -45,8 +47,7 @@ async function relayTransaction() {
         safeAddress
     })
 
-    // Get Gelato Relay API Key: https://relay.gelato.network/
-    const relayAdapter = new GelatoRelayAdapter(process.env.GELATO_RELAY_API_KEY!)
+    const relayAdapter = new GelatoRelayAdapter(GELATO_RELAY_API_KEY)
 
     //Prepare the transaction
     const standarizedSafeTx = await safeSDK.createTransaction({
@@ -76,7 +77,7 @@ async function relayTransaction() {
       }
       const response = await relayAdapter.relayTransaction(relayTransaction)
 
-      console.log(`Relay Transaction Task ID:${response.taskId}`)
+      console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`)
 }
 
 relayTransaction()

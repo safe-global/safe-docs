@@ -28,13 +28,13 @@ Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs
 
 [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance) allows you to execute transactions using a prepaid deposit. This can be used to sponsor transactions to other Safes or even to use a deposit on Polygon to pay the fees for a wallet on another chain.
 
-For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on Polygon using the Goerli ETH you've deposited into your Gelato 1Balance account.
+For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on BNB Chain using the Polygon USDC you've deposited into your Gelato 1Balance account.
 
-For this tutorial you will need a 1/1 Safe deployed on Polygon. You can create one using [Safe UI](../../quickstart) or [Protocol Kit](./protocol-kit/).
+For this tutorial you will need a 1/1 Safe deployed on BNB Chain. You can create one using [Safe UI](../../quickstart) or [Protocol Kit](./protocol-kit/).
 
-### Deposit Goerli ETH into Gelato 1Balance
+### Deposit Polygon USDC into Gelato 1Balance
 
-TODO: Show how to deposit Goerli ETH into 1Balance
+See: [How Can I use 1Balance?](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance#how-can-i-use-1balance)
 
 ### Import Packages
 
@@ -130,7 +130,7 @@ const relayTransaction: RelayTransaction = {
 }
 const response = await relayAdapter.relayTransaction(relayTransaction)
 
-console.log(`Relay Transaction Task ID:${response.taskId}`)
+console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`)
 ```
 
 
