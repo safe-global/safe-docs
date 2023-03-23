@@ -15,7 +15,7 @@ In this quickstart guide you will send some tokens to another address while usin
 ### Install dependencies
 
 ```bash
-yarn add @safe-global/relay-kit @safe-global/safe-core-sdk @safe-global/safe-core-sdk-types
+yarn add ethers @safe-global/relay-kit @safe-global/safe-core-sdk @safe-global/safe-core-sdk-types @safe-global/safe-ethers-lib
 ```
 
 ### Relay Kit Options
@@ -29,6 +29,8 @@ Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs
 [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance) allows you to execute transactions using a prepaid deposit. This can be used to sponsor transactions to other Safes or even to use a deposit on Polygon to pay the fees for a wallet on another chain.
 
 For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on Polygon using the Goerli ETH you've deposited into your Gelato 1Balance account.
+
+For this tutorial you will need a 1/1 Safe deployed on Polygon. You can create one using [Safe UI](../../quickstart) or [Protocol Kit](./protocol-kit/).
 
 ### Deposit Goerli ETH into Gelato 1Balance
 
@@ -69,7 +71,7 @@ const gasLimit = '100000'
 const safeTransaction: MetaTransactionData = {
   to: destinationAddress,
   data: '0x',// leave blank for ETH transfers
-  value: ethers.BigNumber.from(withdrawAmount),
+  value: withdrawAmount,
   operation: OperationType.Call
 }
 const options: MetaTransactionOptions = {
@@ -101,7 +103,7 @@ const standarizedSafeTx = await safeSDK.createTransaction({
   safeTransactionData: safeTransaction
 })
 
-const signedSafeTx = safeSDK.signTransaction(standarizedSafeTx)
+const signedSafeTx = await safeSDK.signTransaction(standarizedSafeTx)
 
 const encodedTx = safeSDK.getContractManager().safeContract.encode('execTransaction', [
   signedSafeTx.data.to,
@@ -121,12 +123,14 @@ const encodedTx = safeSDK.getContractManager().safeContract.encode('execTransact
 
 ```typescript
 const relayTransaction: RelayTransaction = {
-  target: relayTransactionTarget,
-  encodedTransaction: encodedTransaction,
-  chainId: chainId,
+  target: safeAddress,
+  encodedTransaction: encodedTx,
+  chainId,
   options
 }
 const response = await relayAdapter.relayTransaction(relayTransaction)
+
+console.log(`Relay Transaction Task ID:${response.taskId}`)
 ```
 
 
