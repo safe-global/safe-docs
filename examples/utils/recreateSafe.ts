@@ -2,8 +2,11 @@ import { ethers } from 'ethers'
 import EthersAdapter from '@safe-global/safe-ethers-lib'
 import SafeServiceClient, { SafeCreationInfoResponse } from '@safe-global/safe-service-client'
 
+// put the address of the Safe on the Original chain here
 const safeAddress = '0xb67bF8d736b7024eaE034Fc0fBe80625823a6b76'
 
+// put the address of the ProxyFactory on the Original chain here
+// Here we use the address of the ProxyFactory on Goerli: https://blockscan.com/address/0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2
 const proxyFactoryAddress = '0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2'
 
 // put information about the original and recovery chain here
@@ -61,9 +64,10 @@ async function recreateSafe(originalChain:any, recoveryChain: any) {
         value: 0,
     }
 
-    const owner1Signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, recoveryChainProvider)
+    // this can be any account that has funds to pay gas fees on the recovery chain, not necessarily the owner of the Safe
+    const signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, recoveryChainProvider)
 
-    const result = await owner1Signer.sendTransaction(reCreateSafeTx)
+    const result = await signer.sendTransaction(reCreateSafeTx)
 
     console.log({result})
 
