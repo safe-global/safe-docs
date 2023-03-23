@@ -15,7 +15,7 @@ In this quickstart guide you will send some tokens to another address while usin
 ### Install dependencies
 
 ```bash
-yarn add @safe-global/relay-kit @safe-global/account-abstraction-kit-poc
+yarn add @safe-global/relay-kit @safe-global/safe-core-sdk @safe-global/safe-core-sdk-types
 ```
 
 ### Relay Kit Options
@@ -32,18 +32,15 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
 
 ### Deposit Goerli ETH into Gelato 1Balance
 
-TODO: Show how to deposit Goerli ETH into 1Blanace
+TODO: Show how to deposit Goerli ETH into 1Balance
 
 ### Import Packages
 
 ```typescript
 import { ethers } from 'ethers'
 import { GelatoRelayAdapter, MetaTransactionOptions } from '@safe-global/relay-kit'
-import AccountAbstraction, {
-    AccountAbstractionConfig,
-    MetaTransactionData,
-    OperationType
-} from '@safe-global/account-abstraction-kit-poc'
+import Safe from '@safe-global/safe-core-sdk'
+import { MetaTransactionData, OperationType } from '@safe-global/safe-core-sdk-types'
 ```
 ### Initialize your Transaction Settings
 
@@ -54,6 +51,8 @@ Modify the variables to customize to match your desired transaction settings.
 const RPC_URL='https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
 const signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
+const safeAddress = '0x...' // Safe from which the transaction will be sent
+const chainId = 5
 
 // Any address can be used for destination. In this example, we use vitalik.eth
 const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
@@ -68,26 +67,66 @@ const gasLimit = '100000'
 ```typescript
 // Create a transaction object
 const safeTransaction: MetaTransactionData = {
-    to: destinationAddress,
-    data: '0x',// leave blank for ETH transfers
-    value: ethers.BigNumber.from(withdrawAmount),
-    operation: OperationType.Call
+  to: destinationAddress,
+  data: '0x',// leave blank for ETH transfers
+  value: ethers.BigNumber.from(withdrawAmount),
+  operation: OperationType.Call
 }
 const options: MetaTransactionOptions = {
-    gasLimit: ethers.BigNumber.from(gasLimit),
-    isSponsored: true
+  gasLimit: ethers.BigNumber.from(gasLimit),
+  isSponsored: true
 }
 ```
 
-### Create your Relay Adapter Instance
+### Create the Protocol and Relay Adapter Instance
 
 ```typescript
-const safeAccountAbstraction = new AccountAbstraction(signer)
+const ethAdapter = new EthersAdapter({
+  ethers,
+  signerOrProvider: signer
+})
+
+const safeSDK = await Safe.create({
+  ethAdapter,
+  safeAddress
+})
+
 const relayAdapter = new GelatoRelayAdapter(process.env.GELATO_RELAY_API_KEY!)
-const sdkConfig: AccountAbstractionConfig = {
-    relayAdapter
+```
+
+### Prepare the transaction
+
+```typescript
+const standarizedSafeTx = await safeSDK.createTransaction({
+  safeTransactionData: safeTransaction
+})
+
+const signedSafeTx = safeSDK.signTransaction(standarizedSafeTx)
+
+const encodedTx = safeSDK.getContractManager().safeContract.encode('execTransaction', [
+  signedSafeTx.data.to,
+  signedSafeTx.data.value,
+  signedSafeTx.data.data,
+  signedSafeTx.data.operation,
+  signedSafeTx.data.safeTxGas,
+  signedSafeTx.data.baseGas,
+  signedSafeTx.data.gasPrice,
+  signedSafeTx.data.gasToken,
+  signedSafeTx.data.refundReceiver,
+  signedSafeTx.encodedSignatures()
+])
+```
+
+### Send transaction to relay
+
+```typescript
+const relayTransaction: RelayTransaction = {
+  target: relayTransactionTarget,
+  encodedTransaction: encodedTransaction,
+  chainId: chainId,
+  options
 }
-await safeAccountAbstraction.init(sdkConfig)
+const response = await relayAdapter.relayTransaction(relayTransaction)
 ```
 
 
