@@ -1,8 +1,12 @@
 # How to Create a Safe with the Same Address on a Different Network to Recover Funds
 
-This guide will show you how to recreate a Safe with a specific address on a  different network. This is useful for recovering funds sent to a Safe that exists on one network but not another. This is is an issue that [many](https://ethereum.stackexchange.com/questions/141408/sent-usdc-to-wrong-chain-on-gnosis-need-to-recover) [users](https://ethereum.stackexchange.com/questions/129309/create-a-safe-with-the-same-address-on-the-bsc-chain) [have](https://ethereum.stackexchange.com/questions/127353/trying-to-recreate-a-safe-from-mainnet-into-gnosis-chain-issue) [faced](https://ethereum.stackexchange.com/search?q=%5Bgnosis-safe%5D+wrong+chain).
+This guide will show you how to recreate a Safe with a specific address on a different network. This is useful for recovering funds sent to a Safe that exists on one network but not another. This is is an issue that [many](https://ethereum.stackexchange.com/questions/141408/sent-usdc-to-wrong-chain-on-gnosis-need-to-recover) [users](https://ethereum.stackexchange.com/questions/129309/create-a-safe-with-the-same-address-on-the-bsc-chain) [have](https://ethereum.stackexchange.com/questions/127353/trying-to-recreate-a-safe-from-mainnet-into-gnosis-chain-issue) [faced](https://ethereum.stackexchange.com/search?q=%5Bgnosis-safe%5D+wrong+chain).
 
 Note: The goal of deploying the same Safe address on different chains is to recover locked funds. We don't recommend using this method as a default way of having the same address on different chains. See [Account Abstraction in a Multichain Landscape - Part 1: Addresses](https://safe.mirror.xyz/4GcGAOFno-suTCjBewiYH4k4yXPDdIukC5woO5Bjc4w).
+
+## Resources
+- [Loom video showing how to recreate a Safe originally deployed to Rinkeby on Polygon](https://www.loom.com/share/ca34aabcd62747fb9fb89bd463b4c741)
+- For older Safe versions: [I sent assets to a Safe address on the wrong network, any chance to recover?](https://help.safe.global/en/articles/5267779-i-sent-assets-to-a-safe-address-on-the-wrong-network-any-chance-to-recover)
 
 For example, consider the following:
 
@@ -79,8 +83,3 @@ If you recreate a Safe that was originally created on Ethereum Mainnet not anoth
 This is because Safe Contracts on Ethereum Mainnet are created with `Safe.sol` while other chains use `Safe_l2.sol`. The difference is that `Safe.sol` does not emit events in order to save gas fees. While `Safe_l2.sol` emits events. The Safe Transaction servie listens to emitted events to know what transactions occured in a Safe. While on Ethereum Mainnet, transaction logs are recreated using a process called tracing that recreates the transaction using the bytecode. 
 
 So when you recreate a Safe that was created on Ethereum mainnet on another chain, because you are replaying the transaction, it will call `Safe.sol` on the new chain which means that it won't emit an event and because the Transaction service for this other chain is only listening for events and not tracing, the Safe transaction service won't know that a transaction was made to or from that Safe.
-
-## Resources
-- [Loom video showing how to recreate a Safe originally deployed to Rinkeby on Polygon](https://www.loom.com/share/ca34aabcd62747fb9fb89bd463b4c741)
-- [Hackathon project that created a Safe with same address on many networks](https://ethglobal.com/showcase/many-safes-2otg1)
-- [Article about Optimism Wintermute Hack](https://foresightnews.pro/article/detail/10296): A hacker used a very similar technique to take some money from Optimism.
