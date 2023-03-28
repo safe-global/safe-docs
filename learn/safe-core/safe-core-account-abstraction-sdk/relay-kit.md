@@ -110,7 +110,7 @@ const relayAdapter = new GelatoRelayAdapter(process.env.GELATO_RELAY_API_KEY!)
 ```typescript
 const safeTransaction = await safeSDK.createTransaction({ safeTransactionData })
 
-const signedSafeTx = await safeSDK.signTransaction(standarizedSafeTx)
+const signedSafeTx = await safeSDK.signTransaction(safeTransaction)
 
 const encodedTx = safeSDK.getContractManager().safeContract.encode('execTransaction', [
   signedSafeTx.data.to,
