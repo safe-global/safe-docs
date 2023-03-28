@@ -36,10 +36,11 @@ For this tutorial you will need a Safe with a threshold of 1 deployed on BNB Cha
 ### Summary
 
 1. Start with a [1/1 Safe on BNB Chain](https://app.safe.global/transactions/history?safe=bnb:0x6651FD6Abe0843f7B6CB9047b89655cc7Aa78221)
+1. [Deposit Polygon USDC into Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance#how-can-i-use-1balance)
 1. Safe owner [0x6Dbd](https://bscscan.com/address/0x6Dbd26Bca846BDa60A90890cfeF8fB47E7d0f22c) signs a [Safe Transaction 0xd94a](https://safe-transaction-bsc.safe.global/api/v1/multisig-transactions/0xd94abf947f2b14333edff2cbf96e9d26bee9d8357f06c0da7d0849eab97013d8/
 ) to send 0.0005 BNB and submits it to Gelato
 1. [Track the relay request](https://docs.gelato.network/developer-services/relay/quick-start/tracking-your-relay-request) of [Gelato Task ID 0x1bf7](https://relay.gelato.digital/tasks/status/0x1bf7664a1e176472f604bb3840d3d2a5bf56f98b60307961c3f8cee099f1eeb8)
-1. [Transaction 0x814d3](https://bscscan.com/tx/0x814d385c0ec036be65663b5fbfb0d8d4e0d35af395d4d96b13f2cafaf43138f9) executed on the blockchain
+1. [Transaction 0x814d3](https://bscscan.com/tx/0x814d385c0ec036be65663b5fbfb0d8d4e0d35af395d4d96b13f2cafaf43138f9) is executed on the blockchain
 
 ### Deposit Polygon USDC into Gelato 1Balance
 
