@@ -23,7 +23,7 @@ const GELATO_RELAY_API_KEY=process.env.GELATO_RELAY_API_KEY!
 const gasLimit = '100000'
 
 // Create a transaction object
-const safeTransaction: MetaTransactionData = {
+const safeTransactionData: MetaTransactionData = {
     to: destinationAddress,
     data: '0x',// leave blank for ETH transfers
     value: withdrawAmount,
@@ -50,11 +50,11 @@ async function relayTransaction() {
     const relayAdapter = new GelatoRelayAdapter(GELATO_RELAY_API_KEY)
 
     //Prepare the transaction
-    const standarizedSafeTx = await safeSDK.createTransaction({
-        safeTransactionData: safeTransaction
+    const safeTransaction = await safeSDK.createTransaction({
+        safeTransactionData
       })
       
-      const signedSafeTx = await safeSDK.signTransaction(standarizedSafeTx)
+      const signedSafeTx = await safeSDK.signTransaction(safeTransaction)
       
       const encodedTx = safeSDK.getContractManager().safeContract.encode('execTransaction', [
         signedSafeTx.data.to,
