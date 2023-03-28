@@ -77,7 +77,7 @@ const gasLimit = '100000'
 
 ```typescript
 // Create a transaction object
-const safeTransaction: MetaTransactionData = {
+const safeTransactionData: MetaTransactionData = {
   to: destinationAddress,
   data: '0x',// leave blank for ETH transfers
   value: withdrawAmount,
