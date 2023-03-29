@@ -10,7 +10,7 @@ Once the hackathon and Stripe pilot are over, the server will be removed and you
 
 ## Quickstart
 
-In this tutorial, we'll create a React component that allows you to enter an Ethereum address and fund it using a credit card. The full code example can be found in the [Safe Space repo](https://github.com/5afe/safe-space) in the [WalletFund.tsx file](https://github.com/5afe/safe-space/blob/onramp-kit-integration/src/scenes/Wallet/WalletFund.tsx) in [PR #8](https://github.com/5afe/safe-space/pull/8). We will also be using a [pre-deployed server](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit/example/server).
+In this tutorial, we'll create a React component that allows you to enter an Ethereum address and fund it using a credit card. The full code example can be found in the [Safe Space repo](https://github.com/5afe/safe-space) in the [WalletFund.tsx file](https://github.com/5afe/safe-space/blob/onramp-kit-integration/src/scenes/Wallet/WalletFund.tsx) in [PR #8](https://github.com/5afe/safe-space/pull/8). We will also be using a [pre-deployed server](https://github.com/5afe/aa-stripe-service).
 
 ### Demo
 https://user-images.githubusercontent.com/9806858/228415245-7b18b226-5ef4-4b7d-a4b1-5c9c53f625f5.mp4
