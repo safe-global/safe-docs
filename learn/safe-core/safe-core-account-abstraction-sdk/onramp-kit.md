@@ -46,7 +46,7 @@ Note: For the duration of the Safe hackathon and Stripe pilot, you can use this 
 
 ## Using OnrampKit in your Web App
 
-The Onramp kit can be used in any browser based node environment like Reactjs, Vuejs, Angular or even plain HTML and javascript. In this example, we will be using it in a React App.
+The Onramp kit can be used in any browser based node environment like Reactjs, Vuejs, Angular or even plain HTML and Javascript. In this example, we will be using it in a React App.
 
 ### Install dependencies
 
@@ -181,7 +181,7 @@ at async SafeOnRampKit.open (SafeOnRampKit.ts:50:1)
 
 ## Onramp Kit KYC Test Data
 
-To complete the KYC process in test mode, you can fill use the following test data. See [more details on testing payment methods in Stripe](https://stripe.com/docs/testing?testing-method=card-numbers#cards).
+To complete the KYC process in test mode, you can use the following test data. See [more details on testing payment methods in Stripe](https://stripe.com/docs/testing?testing-method=card-numbers#cards).
 
 | **Field**                   | **Value**                   | **Description**                                             |
 |-----------------------------|-----------------------------|-------------------------------------------------------------|
