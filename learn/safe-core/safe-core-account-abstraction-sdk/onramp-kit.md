@@ -28,7 +28,7 @@ Note: For the duration of the Safe hackathon and Stripe pilot, you can use this 
 
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 1. [Stripe account to get your own public and private keys](https://dashboard.stripe.com/register)
-1. A deployed server ([example](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit/example/server)) for communicating with Stripe APIs
+1. A deployed server ([example](https://github.com/5afe/aa-stripe-service)) for communicating with Stripe APIs
     1. Currently we are providing both the public key and the server for testing purposes. In the future, you will need to use your own public key and server based on the final documentation Stripe will provide once their on ramps solution is ready for production. See the [considerations and limitations](#considerations-and-limitations) section for more details.
 
 > The docs for the latest step (server) are not published yet as Stripe onramp solution is still in pilot testing
@@ -71,7 +71,7 @@ import { SafeOnRampKit, SafeOnRampProviderType } from '@safe-global/onramp-kit'
         // Get public key from Stripe: https://dashboard.stripe.com/register
         stripePublicKey:
         'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO',
-        // Deploy your own server: https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit/example/server
+        // Deploy your own server: https://github.com/5afe/aa-stripe-service
         onRampBackendUrl: 'https://aa-stripe.safe.global',
       },
     });
