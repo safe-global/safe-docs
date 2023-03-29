@@ -12,11 +12,15 @@ The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/mai
 
 ## Quickstart
 
+In this tutorial, we will be creating a simple component that takes a Safe address and fund it via credit card and other payment methods using the Stripe API.
+
 ### Prerequisites
 
-- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-- [Stripe account to get your own public and private keys](https://dashboard.stripe.com/register)
-- A deployed server ([example](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit/example/server)) for communicating with Stripe APIs
+Note: You can use Stripe without Steps 2 and 3 listed below, since you can use the provided server for the Safe hackathon and Stripe pilot.
+
+1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+1. [Stripe account to get your own public and private keys](https://dashboard.stripe.com/register)
+1. A deployed server ([example](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit/example/server)) for communicating with Stripe APIs
 
 > The docs for the latest step (server) are not published yet as Stripe onramp solution is still in pilot testing
 
@@ -49,21 +53,68 @@ You can check [this server implementation](https://github.com/safe-global/accoun
 
 Once the instance is created, you can call the `open(SafeOnRampOpenOptions)` method to start the session with the provider and opening the widget.
 
-As an example, you can use the following code:
+
+### Using in React
+
+If you want to use the onramp Kit in your React app, you can initialize the kit in the component load using `useEffect` and then trigger the modal opening when a button is clicked.
 
 ```typescript
-const sessionData = await safeOnRamp.open({
-  walletAddress,
-  networks: ['polygon']
-  element: '#stripe-root',
-  sessionId: 'cos_1Mei3cKSn9ArdBimJhkCt1XC', // Optional, if you want to use a specific created session
-  events: {
-    onLoaded: () => console.log('Loaded'),
-    onPaymentSuccessful: () => console.log('Payment successful')
-    onPaymentError: () => console.log('Payment failed')
-    onPaymentProcessing: () => console.log('Payment processing')
+import React, { useEffect, useState } from 'react';
+import { SafeOnRampKit, SafeOnRampProviderType } from '@safe-global/onramp-kit'
+
+export interface WalletFundProps {
+  address: string;
+};
+
+function WalletFund({address}: WalletFundProps) {
+  
+
+  let safeOnRamp: SafeOnRampKit;
+  useEffect(() => {
+
+    async function initializeOnramp() {
+        
+      safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
+        onRampProviderConfig: {
+            // Get public key from Stripe: https://dashboard.stripe.com/register
+          stripePublicKey:
+            'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO', // Safe public key
+            // Deploy your own server: https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit/example/server
+          onRampBackendUrl: 'https://aa-stripe.safe.global', // Safe deployed server
+        },
+      });
+    }
+  
+      initializeOnramp()
+}, [])
+
+  const fundWallet = async function() {
+    const sessionData = await safeOnRamp.open({
+      walletAddress: address,
+      networks: ['polygon'],
+      element: '#stripe-root',
+      sessionId: 'cos_1Mei3cKSn9ArdBimJhkCt1XC', // Optional, if you want to use a specific created session
+      events: {
+        onLoaded: () => console.log('Loaded'),
+        onPaymentSuccessful: () => console.log('Payment successful'),
+        onPaymentError: () => console.log('Payment failed'),
+        onPaymentProcessing: () => console.log('Payment processing')
+      }
+    })
   }
-})
+
+  return (
+    <div>
+
+      <button className="btn btn-primary my-2" onClick={fundWallet}>
+        Fund Wallet
+      </button>
+    </div>
+  );
+}
+
+export default WalletFund;
+
 ```
 
 ### Considerations and limitations
