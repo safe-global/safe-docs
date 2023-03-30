@@ -15,11 +15,11 @@ In this tutorial, we'll create a React component that allows you to enter an Eth
 ### Demo
 https://user-images.githubusercontent.com/9806858/228415245-7b18b226-5ef4-4b7d-a4b1-5c9c53f625f5.mp4
 
-<img width="394" alt="Screen Shot 2023-03-29 at 4 34 44 AM" src="https://user-images.githubusercontent.com/9806858/228415363-024fbfcd-443e-4024-8a2f-56390a09e9d4.png">
+<img width="394" alt="Payment Confirmation" src="https://user-images.githubusercontent.com/9806858/228415363-024fbfcd-443e-4024-8a2f-56390a09e9d4.png">
 
-<img width="388" alt="Screen Shot 2023-03-29 at 4 37 04 AM" src="https://user-images.githubusercontent.com/9806858/228415381-cf838ccc-4002-4327-a654-7c9dc2ba68f7.png">
+<img width="388" alt="Payment Success" src="https://user-images.githubusercontent.com/9806858/228415381-cf838ccc-4002-4327-a654-7c9dc2ba68f7.png">
 
-<img width="748" alt="Screen Shot 2023-03-29 at 4 36 52 AM" src="https://user-images.githubusercontent.com/9806858/228415378-901931d8-7095-4257-a7ae-5ff67246c297.png">
+<img width="748" alt="Transaction proof on the blockchain" src="https://user-images.githubusercontent.com/9806858/228415378-901931d8-7095-4257-a7ae-5ff67246c297.png">
 
 
 ### Prerequisites
@@ -175,7 +175,7 @@ at StripeAdapter.open (StripeAdapter.ts:85:1)
 at async SafeOnRampKit.open (SafeOnRampKit.ts:50:1)
 ```
 
-<img width="768" alt="Screen Shot 2023-03-29 at 4 02 16 AM" src="https://user-images.githubusercontent.com/9806858/228420761-0f24df48-03a1-4fe6-bd59-45cb4d18daf6.png">
+<img width="768" alt="Error when Specifying the element ID is not provided" src="https://user-images.githubusercontent.com/9806858/228420761-0f24df48-03a1-4fe6-bd59-45cb4d18daf6.png">
 
 
 
@@ -204,6 +204,6 @@ To complete the KYC process in test mode, you can use the following test data. S
 | **Billing Zip Code**        | 12345                       | Use any zip code 12345 for billing                          |
 
 ### Onramp Kit KYC Test Data - Examples
-<img width="403" alt="Screen Shot 2023-03-29 at 4 32 26 AM" src="https://user-images.githubusercontent.com/9806858/228418052-30b2239a-ca19-4639-9858-4344d3ba7d45.png">
-<img width="392" alt="Screen Shot 2023-03-29 at 4 33 03 AM" src="https://user-images.githubusercontent.com/9806858/228418056-48cfa6a6-fde9-4504-a8be-ce91b03c960f.png">
-<img width="386" alt="Screen Shot 2023-03-29 at 4 34 25 AM" src="https://user-images.githubusercontent.com/9806858/228418059-b83b6357-a6b0-4f09-a4b2-3b89767cb4f0.png">
+<img width="403" alt="KYC Personal info example" src="https://user-images.githubusercontent.com/9806858/228418052-30b2239a-ca19-4639-9858-4344d3ba7d45.png">
+<img width="392" alt="KYC Address Example" src="https://user-images.githubusercontent.com/9806858/228418056-48cfa6a6-fde9-4504-a8be-ce91b03c960f.png">
+<img width="386" alt="Payment Method" src="https://user-images.githubusercontent.com/9806858/228418059-b83b6357-a6b0-4f09-a4b2-3b89767cb4f0.png">
