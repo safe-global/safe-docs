@@ -6,10 +6,10 @@ import { MetaTransactionData, OperationType } from '@safe-global/safe-core-sdk-t
 
 // Customize the following variables
 // https://chainlist.org
-const RPC_URL='https://endpoints.omniatech.io/v1/bsc/mainnet/public	'
+const RPC_URL='https://endpoints.omniatech.io/v1/bsc/mainnet/public'
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
 const signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
-const safeAddress = '0x6651FD6Abe0843f7B6CB9047b89655cc7Aa78221' // Safe from which the transaction will be sent
+const safeAddress = '0x6651FD6Abe0843f7B6CB9047b89655cc7Aa78221' // Safe from which the transaction will be sent. Replace with your Safe address
 const chainId = 56
 
 // Any address can be used for destination. In this example, we use vitalik.eth
