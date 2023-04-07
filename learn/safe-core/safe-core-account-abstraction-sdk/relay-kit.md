@@ -46,6 +46,45 @@ For this tutorial you will need a Safe with a threshold of 1 deployed on BNB Cha
 
 See: [How Can I use 1Balance?](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance#how-can-i-use-1balance)
 
+### Using a Safe Smart Contract as the Relay App
+
+While using Gelato, you can specify that you only want your relayer to allow transations from specific smart contracts. If one of those smart contracts is a Safe smart contract, you will need to either verify the contract on a block explorer or get the ABI of the contract implementation (not the ABI of the smart contract address). This is because the Safe smart contracts use the [Proxy Pattern](https://medium.com/coinmonks/proxy-pattern-and-upgradeable-smart-contracts-45d68d6f15da), so the implementation logic for your smart contract exists on a different address.
+
+
+### Option 1: Verify Contract in Block Explorer
+Note: If you go with the contract verification method, you will likely need to make sure that the smart contract has at least one transaction in order for the verification to work.
+
+1. Go to the [contract tab for your smart contract in your block explorer](https://bscscan.com/address/0x6651fd6abe0843f7b6cb9047b89655cc7aa78221#code)
+2. Click on Is this a proxy?
+
+![Screen Shot 2023-04-07 at 8 18 10 AM](https://user-images.githubusercontent.com/9806858/230553070-0b246b75-263a-411b-a0f4-aa8e46f7a524.png)
+
+
+3. Verify your contract and click Save
+
+![Screen Shot 2023-04-07 at 8 16 38 AM](https://user-images.githubusercontent.com/9806858/230553089-4631a188-5df8-474d-8a3b-54bdfa842af0.png)
+
+The verification step will also give you an [implementation address](https://bscscan.com/address/0x3e5c63644e683549055b9be8653de26e0b4cd36e#code). The ABI of this implementation smart contract can also be used to add this smart contract to Gelato (explained more in next step).
+
+Once the contract has been verified, you can go back to [Relay Apps in Gelato](https://relay.gelato.network/apps/create), paste your contract adress and it should work.
+
+![Screen Shot 2023-04-07 at 8 22 20 AM](https://user-images.githubusercontent.com/9806858/230553527-da97855a-0bd7-4b48-8bdb-adfeb8fba80e.png)
+
+
+### Option 2: Use Implementation Contract ABI
+
+1. To find the implementation address of your contract, you can use the Chain ID to locate the corresponding implementation address in [safe deployments](https://github.com/safe-global/safe-deployments). 
+2. For example, our [Safe on BNB chain](https://bscscan.com/address/0x6651fd6abe0843f7b6cb9047b89655cc7aa78221) has a chain ID of 56 and the implementation contract it uses is gnosis_safe_l2. So we will check the file, [`gnosis_safe_l2.json`](https://github.com/safe-global/safe-deployments/blob/main/src/assets/v1.3.0/gnosis_safe_l2.json) for Chain ID 56, which gives us an address of `0x3E5c63644E683549055b9Be8653de26E0B4CD36E`.
+3. Find [this address on the block explorer](https://bscscan.com/address/0x3e5c63644e683549055b9be8653de26e0b4cd36e#code), scroll to the bottom of the contract tab and copy the ABI.
+4. If you've also verified your smart contract in the previous step, you can double check that both addresses are the same.
+
+![Screen Shot 2023-04-07 at 8 34 09 AM](https://user-images.githubusercontent.com/9806858/230555050-7a397c91-a98b-44da-92d7-3a30ed498b86.png)
+
+5. Go to [Relay Apps in Gelato](https://relay.gelato.network/apps/create), switch to custom ABI paste your contract ABI and it should work.
+
+![Screen Shot 2023-04-07 at 8 34 20 AM](https://user-images.githubusercontent.com/9806858/230555032-4256f4c0-22fb-444a-8ba0-6dbd017fe2db.png)
+
+
 ### Import Packages
 
 ```typescript
