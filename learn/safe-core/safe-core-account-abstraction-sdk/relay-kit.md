@@ -99,11 +99,11 @@ Modify the variables to customize to match your desired transaction settings.
 
 ```typescript
 // https://chainlist.org
-const RPC_URL='https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
+const RPC_URL='https://endpoints.omniatech.io/v1/bsc/mainnet/public'
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
 const signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
 const safeAddress = '0x...' // Safe from which the transaction will be sent
-const chainId = 5
+const chainId = 56
 
 // Any address can be used for destination. In this example, we use vitalik.eth
 const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
@@ -119,7 +119,7 @@ const gasLimit = '100000'
 // Create a transaction object
 const safeTransactionData: MetaTransactionData = {
   to: destinationAddress,
-  data: '0x',// leave blank for ETH transfers
+  data: '0x',// leave blank for native token transfers
   value: withdrawAmount,
   operation: OperationType.Call
 }
@@ -192,6 +192,6 @@ const relayAdapter = new GelatoRelayAdapter()
 relayAdapter.relayTransaction({
   target: '0x...', // the Safe address
   encodedTransaction: '0x...', // Encoded Safe transaction data
-  chainId: 5
+  chainId: 
 })
 ```
