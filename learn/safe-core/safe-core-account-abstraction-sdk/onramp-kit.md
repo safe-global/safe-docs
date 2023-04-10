@@ -6,7 +6,7 @@ The [Onramp kit](https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e8415
 
 This package is provided for testing purposes only. It's not ready for production use. We are working with Stripe and participating in the pilot test for their new [crypto on-ramp](https://stripe.com/docs/crypto). Considering this, we provide a public key and a testing server already configured during the [Safe Account Abstraction hackathon](https://safe-global.notion.site/Safe-d6c6ed61389041e28f5c7c925f653701)
 
-Once the hackathon and Stripe pilot are over, the server will be removed and you should use your own keys and server if you plan on using the [StripeAdapter](https://github.com/safe-global/account-abstraction-sdk/blob/838d89e98aa9f9e32a6cd499a898fa7f6e69e7c6/packages/onramp-kit/src/adapters/stripe/StripeAdapter.ts).
+Once the hackathon and Stripe pilot are over, the server will be removed and you should use your own keys and server if you plan on using the [StripeAdapter](https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/onramp-kit/src/packs/stripe/StripeAdapter.ts).
 
 ## Quickstart
 
@@ -54,114 +54,108 @@ yarn add @safe-global/onramp-kit @stripe/stripe-js @stripe/crypto
 Use the following snippet and call `fundWallet` when the user performs an action:
 
 ```typescript
+import { SafeOnRampKit, SafeOnRampProviderType, StripeAdapter } from '@safe-global/onramp-kit';
 
-import { SafeOnRampKit, SafeOnRampProviderType } from '@safe-global/onramp-kit'
-
-  const fundWallet = async function() {
-        
-    
-    const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
-      onRampProviderConfig: {
-        // Get public key from Stripe: https://dashboard.stripe.com/register
-        stripePublicKey:
+const fundWallet = async function () {
+  const safeOnRamp = await SafeOnRampKit.init(
+    new StripeAdapter({
+      // Get public key from Stripe: https://dashboard.stripe.com/register
+      stripePublicKey:
         'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO',
-        // Deploy your own server: https://github.com/5afe/aa-stripe-service
-        onRampBackendUrl: 'https://aa-stripe.safe.global',
-      },
-    });
-
-    const sessionData = await safeOnRamp.open({
-      walletAddress: address,
-      networks: ['polygon', 'ethereum'],
-      element: '#stripe-root',
-      // Optional, if you want to use a specific created session
-      // sessionId: 'cos_1Mei3cKSn9ArdBimJhkCt1XC', 
-      events: {
-        onLoaded: () => console.log('Loaded'),
-        onPaymentSuccessful: () => console.log('Payment successful'),
-        onPaymentError: () => console.log('Payment failed'),
-        onPaymentProcessing: () => console.log('Payment processing')
-      }
+      // Deploy your own server: https://github.com/5afe/aa-stripe-service
+      onRampBackendUrl: 'https://aa-stripe.safe.global',
     })
+  );
 
-    console.log({sessionData})
-  }
-
+  // See options for using the StripeAdapter open method in:
+  // https://stripe.com/docs/crypto/using-the-api
+  const sessionData = await safeOnRamp.open({
+    element: '#stripe-root',
+    theme: 'light',
+    // Optional, if you want to use a specific created session
+    // ---
+    // sessionId: 'cos_1Mei3cKSn9ArdBimJhkCt1XC',
+    // Optional, if you want to specify default options
+    // ---
+    // defaultOptions: {
+    // transaction_details: {
+    //   wallet_address: walletAddress,
+    //   lock_wallet_address: true
+    //   supported_destination_networks: ['ethereum', 'polygon'],
+    //   supported_destination_currencies: ['usdc'],
+    // },
+    // customer_information: {
+    //   email: 'john@doe.com'
+    // }
+  });
+};
 ```
 
-> Currently we are providing both the public key and the server for testing purposes. In the future you will need to use your own public key and server based on the final documentation Stripe will provide once their on ramps solution is ready for production. See the [considerations and limitations](#considerations-and-limitations) section for more details.
 Full React code:
 
 Recall:
 
 > The full code example can be found in the [Safe Space repo](https://github.com/5afe/safe-space) in the [WalletFund.tsx file](https://github.com/5afe/safe-space/blob/onramp-kit-integration/src/scenes/Wallet/WalletFund.tsx) in [PR #8](https://github.com/5afe/safe-space/pull/8).
 
-### Considerations and limitations
 ```typescript
 import React, { useState } from 'react';
-import { SafeOnRampKit, SafeOnRampProviderType } from '@safe-global/onramp-kit'
+import { SafeOnRampKit, SafeOnRampProviderType, StripeAdapter } from '@safe-global/onramp-kit';
 
-1. The library is under development and it's not ready for production use. We are working with Stripe and participating in the pilot testing for their new [on ramp solution](https://stripe.com/es/blog/crypto-onramp)
 export interface WalletFundProps {
   address: string;
-};
+}
 
-   Considering this, we provide a public key and a deployed server only available for testing purposes. It can be used like this:
 function WalletFund() {
-
-```typescript
-const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
-  onRampProviderConfig: {
-    stripePublicKey:
-      'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO', // Safe public key
-    onRampBackendUrl: 'https://aa-stripe.safe.global', // Safe deployed server
-  },
-});
-```
-  const [address, setAddress] = useState<string>(localStorage.getItem('safeAddress')||'');
+  const [address, setAddress] = useState<string>(
+    localStorage.getItem('safeAddress') || ''
+  );
 
   function handleAddressChange(event: React.ChangeEvent<HTMLInputElement>) {
     setAddress(event.target.value);
   }
 
-  const fundWallet = async function() {
-        
-    
-    const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
-      onRampProviderConfig: {
+  const fundWallet = async function () {
+    const safeOnRamp = await SafeOnRampKit.init(
+      new StripeAdapter({
         // Get public key from Stripe: https://dashboard.stripe.com/register
         stripePublicKey:
-        'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO',
-        // Deploy your own server: https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit/example/server
+          'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO',
+        // Deploy your own server: https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/onramp-kit/example/server)
         onRampBackendUrl: 'https://aa-stripe.safe.global',
-      },
-    });
+      })
+    );
 
+    // See options for using the StripeAdapter open method in:
+    // https://stripe.com/docs/crypto/using-the-api
     const sessionData = await safeOnRamp.open({
-      walletAddress: address,
-      networks: ['polygon', 'ethereum'],
       element: '#stripe-root',
+      theme: 'light',
       // Optional, if you want to use a specific created session
-      // sessionId: 'cos_1Mei3cKSn9ArdBimJhkCt1XC', 
-      events: {
-        onLoaded: () => console.log('Loaded'),
-        onPaymentSuccessful: () => console.log('Payment successful'),
-        onPaymentError: () => console.log('Payment failed'),
-        onPaymentProcessing: () => console.log('Payment processing')
-      }
-    })
-
-    console.log({sessionData})
-  }
+      // ---
+      // sessionId: 'cos_1Mei3cKSn9ArdBimJhkCt1XC',
+      // Optional, if you want to specify default options
+      // ---
+      // defaultOptions: {
+      // transaction_details: {
+      //   wallet_address: walletAddress,
+      //   lock_wallet_address: true
+      //   supported_destination_networks: ['ethereum', 'polygon'],
+      //   supported_destination_currencies: ['usdc'],
+      // },
+      // customer_information: {
+      //   email: 'john@doe.com'
+      // }
+    });
+  };
 
   return (
-    <div id='stripe-root'>
+    <div id="stripe-root">
       <label>Destination Address</label>
-            <input
-              className="form-control mb-3"
-              value={address}
-              onChange={handleAddressChange}
-            />
+      <input
+        className="form-control mb-3"
+        value={address}
+        onChange={handleAddressChange}
+      />
       <button className="btn btn-primary my-2" onClick={fundWallet}>
         Fund Wallet
       </button>
@@ -170,7 +164,6 @@ const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
 }
 
 export default WalletFund;
-
 ```
 
 ### Specifying the Element ID
@@ -189,25 +182,25 @@ at async SafeOnRampKit.open (SafeOnRampKit.ts:50:1)
 
 To complete the KYC process in test mode, you can use the following test data. See [more details on testing payment methods in Stripe](https://stripe.com/docs/testing?testing-method=card-numbers#cards).
 
-| **Field**                   | **Value**                   | **Description**                                               |
-| --------------------------- | --------------------------- | ------------------------------------------------------------- |
-| **Email**                   | 8404.john.smith@example.com | Use any test or fake emails                                   |
-| **Phone Number**            | +18004444444                | Use +18004444444 for phone number                             |
-| **OTP Verification Code**   | 000000                      | Use 000000 for the OTP verification code                      |
-| **First Name**              | John                        | Use any first name                                            |
-| **Last Name**               | Verified                    | Use Verified for the last name                                |
-| **Birthday**                | 01/01/1901                  | Use 01/01/1901 for successful identity verification           |
-| **Identification Type**     | Social Security Number      | Select Social Security Number for identification type         |
-| **Identification Number**   | 000000000                   | Enter 000000000 to fill the identification number field       |
-| **Country**                 | United States               | Select United States for country                              |
-| **Address Line 1**          | address\_full\_match        | Use address\_full\_match for successful identity verification |
-| **City**                    | Seattle                     | Use Seattle for city                                          |
-| **State**                   | Washington                  | Select Washington for state                                   |
-| **Zip Code**                | 12345                       | Use 12345 for zip code                                        |
-| **Test Credit Card Number** | 4242424242424242            | Use test credit card 4242424242424242                         |
-| **Expiration Date**         | 12/24                       | Use future expiration date 12/24                              |
-| **CVC**                     | 123                         | Use any CVC 123                                               |
-| **Billing Zip Code**        | 12345                       | Use any zip code 12345 for billing                            |
+| **Field**                   | **Value**                   | **Description**                                             |
+| --------------------------- | --------------------------- | ----------------------------------------------------------- |
+| **Email**                   | 8404.john.smith@example.com | Use any test or fake emails                                 |
+| **Phone Number**            | +18004444444                | Use +18004444444 for phone number                           |
+| **OTP Verification Code**   | 000000                      | Use 000000 for the OTP verification code                    |
+| **First Name**              | John                        | Use any first name                                          |
+| **Last Name**               | Verified                    | Use Verified for the last name                              |
+| **Birthday**                | 01/01/1901                  | Use 01/01/1901 for successful identity verification         |
+| **Identification Type**     | Social Security Number      | Select Social Security Number for identification type       |
+| **Identification Number**   | 000000000                   | Enter 000000000 to fill the identification number field     |
+| **Country**                 | United States               | Select United States for country                            |
+| **Address Line 1**          | address_full_match          | Use address_full_match for successful identity verification |
+| **City**                    | Seattle                     | Use Seattle for city                                        |
+| **State**                   | Washington                  | Select Washington for state                                 |
+| **Zip Code**                | 12345                       | Use 12345 for zip code                                      |
+| **Test Credit Card Number** | 4242424242424242            | Use test credit card 4242424242424242                       |
+| **Expiration Date**         | 12/24                       | Use future expiration date 12/24                            |
+| **CVC**                     | 123                         | Use any CVC 123                                             |
+| **Billing Zip Code**        | 12345                       | Use any zip code 12345 for billing                          |
 
 ### Onramp Kit KYC Test Data - Examples
 
