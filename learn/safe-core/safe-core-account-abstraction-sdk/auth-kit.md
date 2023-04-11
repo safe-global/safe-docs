@@ -1,6 +1,6 @@
 # Auth Kit
 
-The [Auth kit](https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/auth-kit) creates an Ethereum address and authenticates a blockchain account using an email address, social media account, or traditional crypto wallets like Metamask.
+The [Auth kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit) creates an Ethereum address and authenticates a blockchain account using an email address, social media account, or traditional crypto wallets like Metamask.
 
 Note: The Auth kit creates a [Signing Account, not a Smart Account](/learn/what-is-a-smart-contract-account.md#smart-accounts-vs-signing-accounts).
 
@@ -21,7 +21,7 @@ yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal @web3auth/openlogi
 
 ### How to use
 
-Create an instance of the [SafeAuthKit](https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/auth-kit/src/SafeAuthKit.ts) class providing the chosen adapter (e.g `Web3AuthAdapter`) and the kit configuration `SafeAuthConfig`.
+Create an instance of the [SafeAuthKit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/SafeAuthKit.ts) class providing the chosen adapter (e.g `Web3AuthAdapter`) and the kit configuration `SafeAuthConfig`.
 
 `Web3Auth` is the only provider type currently supported but we plan to add more providers in the future.
 
@@ -117,4 +117,4 @@ await signer.signMessage(message);
 
 ## Example
 
-[Check a functional demo](https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/auth-kit/example) using the `auth-kit`
+[Check a functional demo](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/example) using the `auth-kit`

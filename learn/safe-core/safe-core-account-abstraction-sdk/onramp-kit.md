@@ -1,12 +1,12 @@
 # Onramp Kit
 
-The [Onramp kit](https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/onramp-kit) allows users to buy cryptocurrencies using a credit card and other payment options.
+The [Onramp kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) allows users to buy cryptocurrencies using a credit card and other payment options.
 
 ## ⚠️ Warning ⚠️
 
 This package is provided for testing purposes only. It's not ready for production use. We are working with Stripe and participating in the pilot test for their new [crypto on-ramp](https://stripe.com/docs/crypto). Considering this, we provide a public key and a testing server already configured during the [Safe Account Abstraction hackathon](https://safe-global.notion.site/Safe-d6c6ed61389041e28f5c7c925f653701)
 
-Once the hackathon and Stripe pilot are over, the server will be removed and you should use your own keys and server if you plan on using the [StripeAdapter](https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/onramp-kit/src/packs/stripe/StripeAdapter.ts).
+Once the hackathon and Stripe pilot are over, the server will be removed and you should use your own keys and server if you plan on using the [StripeAdapter](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/src/packs/stripe/StripeAdapter.ts).
 
 ## Quickstart
 
