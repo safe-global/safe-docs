@@ -45,7 +45,7 @@ async function deploySafe() {
     ],
     threshold: 2,
     // ... (Optional params) 
-    // https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#deploysafe
+    // https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#deploysafe
   }
 
   /* This Safe is connected to owner 1 because the factory was initialized 

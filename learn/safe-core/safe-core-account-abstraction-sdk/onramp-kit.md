@@ -129,7 +129,7 @@ function WalletFund() {
         // Get public key from Stripe: https://dashboard.stripe.com/register
         stripePublicKey:
           'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO',
-        // Deploy your own server: https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/onramp-kit/example/server)
+        // Deploy your own server: https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/example/server)
         onRampBackendUrl: 'https://aa-stripe.safe.global',
       })
     );

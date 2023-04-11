@@ -1,6 +1,6 @@
 # Protocol Kit
 
-The Protocol Kit uses the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) to interact with [Safe contracts](https://github.com/safe-global/safe-contracts) using a Javascript interface. This SDK can be used to create new Safe accounts, update the configuration of existing Safes, and propose and execute transactions.
+The [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit) enables developers to interact with [Safe contracts](https://github.com/safe-global/safe-contracts) using a Javascript interface. This SDK can be used to create new Safe accounts, update the configuration of existing Safes, and propose and execute transactions.
 
 ## Quickstart
 
@@ -86,7 +86,7 @@ const ethAdapterOwner1 = new EthersAdapter({
 
 ### Initialize the Safe Service Client
 
-The [Safe Service Client](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-service-client) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeServiceClient` class, imported from `@safe-global/safe-service-client`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeServiceClient`.
+The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeServiceClient` class, imported from `@safe-global/safe-service-client`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeServiceClient`.
 
 You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](https://docs.gnosis-safe.io/learn/infrastructure/available-services).
 
@@ -99,7 +99,7 @@ const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter: ethAdapter
 
 ### **Initialize the Safe Core SDK**
 
-Goerli is a supported network so you don’t need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Instantiate an EThAdapter](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
+Goerli is a supported network so you don’t need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Instantiate an EthAdapter](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
 Safe Factory is used to create Safes. While Safe class represents an instance of a specific Safe account.
 
@@ -111,7 +111,7 @@ const safeFactory = await SafeFactory.create({ ethAdapter: ethAdapterOwner1 })
 
 ### Deploy a Safe
 
-Calling the `deploySafe` method will deploy the desired Safe and return a Safe Core SDK initialized instance ready to be used. Check the [API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#deploysafe) for more details on additional configuration parameters and callbacks.
+Calling the `deploySafe` method will deploy the desired Safe and return a Safe Core SDK initialized instance ready to be used. Check the [API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#deploysafe) for more details on additional configuration parameters and callbacks.
 
 ```tsx
 import { SafeAccountConfig } from '@safe-global/safe-core-sdk'
