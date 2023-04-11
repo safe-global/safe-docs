@@ -8,7 +8,7 @@ import { SafeTransaction, SafeTransactionDataPartial } from '@safe-global/safe-c
 // npx ts-node examples/protocol-kit/index.ts
 
 // https://chainlist.org/?search=goerli&testnets=true
-const RPC_URL='https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
+const RPC_URL = 'https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
 
 // Initialize signers
@@ -30,7 +30,7 @@ let safeSdkOwner1: Safe
 let safeAddress: string
 
 // If you have an existing Safe, you can use it instead of deploying a new one
-const EXISTING_SAFE_ADDRESS ='0xF188d41FD181f94960C5451D7ff6FdbcDf201a71'
+const EXISTING_SAFE_ADDRESS = '0xF188d41FD181f94960C5451D7ff6FdbcDf201a71'
 
 async function deploySafe() {
   console.log('Deploying Safe...')
@@ -58,8 +58,8 @@ async function deploySafe() {
   console.log(`https://app.safe.global/gor:${safeAddress}`)
 }
 
-async function initalizeSafe(existingAddress=EXISTING_SAFE_ADDRESS) {
-  
+async function initalizeSafe(existingAddress = EXISTING_SAFE_ADDRESS) {
+
   safeAddress = existingAddress
   const ethAdapterOwner1 = new EthersAdapter({
     ethers,
@@ -75,20 +75,20 @@ async function initalizeSafe(existingAddress=EXISTING_SAFE_ADDRESS) {
 async function depositToSafe(depositSigner = owner1Signer, amount = '0.01') {
 
   const safeAmount = ethers.utils.parseUnits(amount, 'ether').toHexString()
-  
+
   const transactionParameters = {
     to: safeAddress,
     value: safeAmount
   }
-  
+
   const tx = await depositSigner.sendTransaction(transactionParameters)
-  
+
   console.log(`Deposit Transaction: https://goerli.etherscan.io/tx/${tx.hash}`)
 }
 
 // Any address can be used for destination. In this example, we use vitalik.eth
 async function proposeTransaction(withdrawAmount = '0.005',
- destination='0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045') {
+  destination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045') {
 
   // Create a transaction object
   withdrawAmount = ethers.utils.parseUnits(withdrawAmount, 'ether').toString()
@@ -138,7 +138,7 @@ async function confirmTransaction() {
   const response = await safeService.confirmTransaction(safeTxHash, signature.data)
 
   console.log('Transaction confirmed:', response)
-  return {safeTxHash, confirmationResponse: response}
+  return { safeTxHash, confirmationResponse: response }
 }
 
 async function executeTransaction(safeTxHash: string, safeSdk: Safe = safeSdkOwner1) {
@@ -155,7 +155,7 @@ async function executeTransaction(safeTxHash: string, safeSdk: Safe = safeSdkOwn
   console.log(`https://goerli.etherscan.io/tx/${receipt?.transactionHash}`)
 
   safeBalance = await safeSdk.getBalance()
-  
+
   console.log(`[After Transaction] Safe Balance: ${ethers.utils.formatUnits(safeBalance, 'ether')} ETH`)
 }
 
