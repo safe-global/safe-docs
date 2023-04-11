@@ -88,6 +88,15 @@ const fundWallet = async function () {
     //   email: 'john@doe.com'
     // }
   });
+
+  // Subscribe to Stripe events
+  safeOnRamp.subscribe('onramp_ui_loaded', () => {
+    console.log('UI loaded')
+  })
+
+  safeOnRamp.subscribe('onramp_session_updated', (e) => {
+    console.log('Session Updated', e.payload)
+  })
 };
 ```
 
@@ -129,22 +138,7 @@ function WalletFund() {
     // https://stripe.com/docs/crypto/using-the-api
     const sessionData = await safeOnRamp.open({
       element: '#stripe-root',
-      theme: 'light',
-      // Optional, if you want to use a specific created session
-      // ---
-      // sessionId: 'cos_1Mei3cKSn9ArdBimJhkCt1XC',
-      // Optional, if you want to specify default options
-      // ---
-      // defaultOptions: {
-      // transaction_details: {
-      //   wallet_address: walletAddress,
-      //   lock_wallet_address: true
-      //   supported_destination_networks: ['ethereum', 'polygon'],
-      //   supported_destination_currencies: ['usdc'],
-      // },
-      // customer_information: {
-      //   email: 'john@doe.com'
-      // }
+      theme: 'light'
     });
   };
 
