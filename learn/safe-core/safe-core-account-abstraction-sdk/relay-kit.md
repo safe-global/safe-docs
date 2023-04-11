@@ -15,7 +15,7 @@ In this quickstart guide, you will send some tokens to another address using the
 ### Install dependencies
 
 ```bash
-yarn add ethers @safe-global/relay-kit @safe-global/safe-core-sdk @safe-global/safe-core-sdk-types @safe-global/safe-ethers-lib
+yarn add ethers @safe-global/relay-kit @safe-global/protocol-kit @safe-global/safe-core-sdk-types
 ```
 
 ### Relay Kit Options
@@ -89,9 +89,9 @@ Once the contract has been verified, you can go back to [Relay Apps in Gelato](h
 
 ```typescript
 import { ethers } from 'ethers'
-import { GelatoRelayAdapter, MetaTransactionOptions } from '@safe-global/relay-kit'
-import Safe from '@safe-global/safe-core-sdk'
-import { MetaTransactionData, OperationType } from '@safe-global/safe-core-sdk-types'
+import { GelatoRelayAdapter } from '@safe-global/relay-kit'
+import Safe, { EthersAdapter } from '@safe-global/protocol-kit'
+import { MetaTransactionData, MetaTransactionOptions, OperationType } from '@safe-global/safe-core-sdk-types'
 ```
 ### Initialize your Transaction Settings
 

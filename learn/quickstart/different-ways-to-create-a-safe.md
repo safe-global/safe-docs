@@ -3,12 +3,13 @@
 Here are some different ways to create a Safe account:
 
 ## [Safe Core SDK](https://github.com/safe-global/safe-core-sdk)
+```bash
+yarn add ethers@5.7.2 @safe-global/protocol-kit \
+```
 
 ```typescript
-// yarn install ethers@5.0.0 @safe-global/safe-core-sdk @safe-global/safe-ethers-lib
 import { ethers } from 'ethers'
-import Safe, { SafeFactory } from '@safe-global/safe-core-sdk'
-import EthersAdapter from '@safe-global/safe-ethers-lib'
+import Safe, { EthersAdapter, SafeFactory } from '@safe-global/protocol-kit'
 
 const provider = new ethers.providers.JsonRpcProvider('...'); //1
 const signerWallet = new ethers.Wallet('<PRIVATE_KEY>', provider); //2

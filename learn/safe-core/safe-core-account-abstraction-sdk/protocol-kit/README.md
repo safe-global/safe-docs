@@ -1,12 +1,12 @@
 # Protocol Kit
 
-The Protocol Kit uses the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk) to interact with [Safe contracts](https://github.com/safe-global/safe-contracts) using a Javascript interface. This SDK can be used to create new Safe accounts, update the configuration of existing Safes, and propose and execute transactions.
+The [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit) enables developers to interact with [Safe contracts](https://github.com/safe-global/safe-contracts) using a Javascript interface. This SDK can be used to create new Safe accounts, update the configuration of existing Safes, and propose and execute transactions.
 
 ## Quickstart
 
 In this quickstart guide, you will create a 2 of 3 multi-sig Safe and propose and execute a transaction to send some ETH out of this Safe.
 
-For a more detailed guide, including how to integrate with web3js and more Safe transaction configuration options, see [Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and [Safe Core SDK API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#sdk-api).
+For a more detailed guide, including how to integrate with web3js and more Safe transaction configuration options, see [Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and [Protocol Kit API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
 
 ### Prerequisites
 
@@ -17,17 +17,16 @@ For a more detailed guide, including how to integrate with web3js and more Safe 
 
 First, we'll need to install some dependences from `safe-core-sdk` and the `ethers` library.
 
-To interact with Ethereum and other EVM blockchains in Node, we can either use: web3.js or ethers.js. In this tutorial, we’ll use the ethers.js library. To use `web3js`, see [Instantiate an ETHAdapter section in Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
+To interact with Ethereum and other EVM blockchains in Node, we can either use: web3.js or ethers.js. In this tutorial, we’ll use the ethers.js library. To use `web3js`, see [Instantiate an EthAdapter section in Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
-The Safe Core SDK is compatible with ethers v4 and v5, not the latest v6 version so make sure you specify this when installing the SDK.
+The Protocol Kit is compatible with ethers v4 and v5, not the latest v6 version so make sure you specify this when installing the SDK.
 
 You can store your environment variables such as private keys in a `.env` file. To read easily from `.env` files, use the `dotenv` library.
 
 ```bash
-yarn add ethers@5.7.2 @safe-global/safe-core-sdk \
+yarn add ethers@5.7.2 @safe-global/protocol-kit \
+  @safe-global/api-kit \
   @safe-global/safe-core-sdk-types \
-  @safe-global/safe-service-client \
-  @safe-global/safe-ethers-lib \
   dotenv
 ```
 
@@ -67,7 +66,7 @@ For this tutorial, we will be creating a Safe on the Goerli testnet.
 
 ```tsx
 import { ethers } from 'ethers'
-import EthersAdapter from '@safe-global/safe-ethers-lib'
+import { EthersAdapter } from '@safe-global/protocol-kit'
 
 // https://chainlist.org/?search=goerli&testnets=true
 const RPC_URL='https://eth-goerli.public.blastapi.io'
@@ -84,37 +83,37 @@ const ethAdapterOwner1 = new EthersAdapter({
 })
 ```
 
-### Initialize the Safe Service Client
+### Initialize the Safe Api Kit
 
-The [Safe Service Client](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-service-client) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeServiceClient` class, imported from `@safe-global/safe-service-client`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeServiceClient`.
+The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeApiKit`.
 
 You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](https://docs.gnosis-safe.io/learn/infrastructure/available-services).
 
 ```tsx
-import SafeServiceClient from '@safe-global/safe-service-client'
+import SafeApiKit from '@safe-global/api-kit'
 
 const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
-const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
+const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
 ```
 
-### **Initialize the Safe Core SDK**
+### **Initialize the Protocol Kit**
 
-Goerli is a supported network so you don’t need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Instantiate an EThAdapter](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
+Goerli is a supported network so you don’t need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Instantiate an EthAdapter](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
 Safe Factory is used to create Safes. While Safe class represents an instance of a specific Safe account.
 
 ```tsx
-import { SafeFactory } from '@safe-global/safe-core-sdk'
+import { SafeFactory } from '@safe-global/protocol-kit'
 
 const safeFactory = await SafeFactory.create({ ethAdapter: ethAdapterOwner1 })
 ```
 
 ### Deploy a Safe
 
-Calling the `deploySafe` method will deploy the desired Safe and return a Safe Core SDK initialized instance ready to be used. Check the [API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#deploysafe) for more details on additional configuration parameters and callbacks.
+Calling the `deploySafe` method will deploy the desired Safe and return a Protocol Kit initialized instance ready to be used. Check the [API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#deploysafe) for more details on additional configuration parameters and callbacks.
 
 ```tsx
-import { SafeAccountConfig } from '@safe-global/safe-core-sdk'
+import { SafeAccountConfig } from '@safe-global/protocol-kit'
 
 const safeAccountConfig: SafeAccountConfig = {
   owners: [
@@ -202,7 +201,7 @@ const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionD
 
 ### Propose a Transaction
 
-To propose a transaction to the Safe Transaction Service we need to call the method `proposeTransaction` from the Safe Service Client instance.
+To propose a transaction to the Safe Transaction Service we need to call the method `proposeTransaction` from the Safe Api Kit instance.
 
 For a full list and description of the properties that `proposeTransaction` accepts, see [Propose the transaction to the service](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#propose-transaction) in the Safe Core SDK guide.
 
@@ -224,7 +223,7 @@ await safeService.proposeTransaction({
 
 ### Get Pending Transactions
 
-Recall that you created the `safeService` in [Initialize the Safe Service Client](./#initialize-the-safe-service-client).
+Recall that you created the `safeService` in [Initialize the Safe Api Kit](./#initialize-the-safe-api-kit).
 
 ```tsx
 const pendingTransactions = await safeService.getPendingTransactions(safeAddress).results
@@ -232,7 +231,7 @@ const pendingTransactions = await safeService.getPendingTransactions(safeAddress
 
 ### Confirm the Transaction: Second Confirmation
 
-When owner 2 is connected to the application, the Safe Core SDK should be initialized again with the existing Safe address the address of the owner 2 instead of the owner 1.
+When owner 2 is connected to the application, the Protocol Kit should be initialized again with the existing Safe address the address of the owner 2 instead of the owner 1.
 
 ```tsx
 // Assumes that the first pending transaction is the transaction you want to confirm
@@ -288,4 +287,4 @@ The final balance of the Safe: 0.005 ETH
 
 ### Conclusion
 
-In this quickstart, you learned how to createand deploy a Safe and propose and execute a transaction for the Safe.
+In this quickstart, you learned how to create and deploy a Safe and to propose and then execute a transaction for the Safe.

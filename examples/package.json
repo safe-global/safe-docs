@@ -1,18 +1,17 @@
 {
   "name": "safe-examples",
   "version": "1.0.0",
-  "description": "Code examples showing how to use safe tools.",
+  "description": "Code examples showing how to use Safe tools.",
   "main": "index.ts",
   "repository": "git@github.com:5afe/safe-examples.git",
   "author": "Safe <info@safe.global>",
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "@safe-global/relay-kit": "^0.1.0-alpha.2",
-    "@safe-global/safe-core-sdk": "^3.3.2",
-    "@safe-global/safe-core-sdk-types": "^1.9.0",
-    "@safe-global/safe-ethers-lib": "^1.9.2",
-    "@safe-global/safe-service-client": "^1.5.2",
+    "@safe-global/api-kit": "^1.0.0",
+    "@safe-global/protocol-kit": "^0.1.0",
+    "@safe-global/relay-kit": "^0.1.0",
+    "@safe-global/safe-core-sdk-types": "^1.10.0",
     "dotenv": "^16.0.3",
     "ethers": "5.7.2"
   }
