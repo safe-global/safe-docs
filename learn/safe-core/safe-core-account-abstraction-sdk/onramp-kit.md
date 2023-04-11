@@ -1,12 +1,12 @@
 # Onramp Kit
 
-The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit) allows users to buy cryptocurrencies using a credit card and other payment options.
+The [Onramp kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) allows users to buy cryptocurrencies using a credit card and other payment options.
 
 ## ⚠️ Warning ⚠️
 
 This package is provided for testing purposes only. It's not ready for production use. We are working with Stripe and participating in the pilot test for their new [crypto on-ramp](https://stripe.com/docs/crypto). Considering this, we provide a public key and a testing server already configured during the [Safe Account Abstraction hackathon](https://safe-global.notion.site/Safe-d6c6ed61389041e28f5c7c925f653701)
 
-Once the hackathon and Stripe pilot are over, the server will be removed and you should use your own keys and server if you plan on using the [StripeAdapter](https://github.com/safe-global/account-abstraction-sdk/blob/838d89e98aa9f9e32a6cd499a898fa7f6e69e7c6/packages/onramp-kit/src/adapters/stripe/StripeAdapter.ts).
+Once the hackathon and Stripe pilot are over, the server will be removed and you should use your own keys and server if you plan on using the [StripeAdapter](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/src/packs/stripe/StripeAdapter.ts).
 
 ## Quickstart
 
@@ -46,7 +46,7 @@ The Onramp kit can be used in any browser based node environment like Reactjs, V
 ### Install dependencies
 
 ```bash
-yarn add @safe-global/onramp-kit
+yarn add @safe-global/onramp-kit @stripe/stripe-js @stripe/crypto
 ```
 
 ### Using in React
@@ -54,39 +54,50 @@ yarn add @safe-global/onramp-kit
 Use the following snippet and call `fundWallet` when the user performs an action:
 
 ```typescript
+import { SafeOnRampKit, SafeOnRampProviderType, StripeAdapter } from '@safe-global/onramp-kit';
 
-import { SafeOnRampKit, SafeOnRampProviderType } from '@safe-global/onramp-kit'
-
-  const fundWallet = async function() {
-        
-    
-    const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
-      onRampProviderConfig: {
-        // Get public key from Stripe: https://dashboard.stripe.com/register
-        stripePublicKey:
+const fundWallet = async function () {
+  const safeOnRamp = await SafeOnRampKit.init(
+    new StripeAdapter({
+      // Get public key from Stripe: https://dashboard.stripe.com/register
+      stripePublicKey:
         'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO',
-        // Deploy your own server: https://github.com/5afe/aa-stripe-service
-        onRampBackendUrl: 'https://aa-stripe.safe.global',
-      },
-    });
-
-    const sessionData = await safeOnRamp.open({
-      walletAddress: address,
-      networks: ['polygon', 'ethereum'],
-      element: '#stripe-root',
-      // Optional, if you want to use a specific created session
-      // sessionId: 'cos_1Mei3cKSn9ArdBimJhkCt1XC', 
-      events: {
-        onLoaded: () => console.log('Loaded'),
-        onPaymentSuccessful: () => console.log('Payment successful'),
-        onPaymentError: () => console.log('Payment failed'),
-        onPaymentProcessing: () => console.log('Payment processing')
-      }
+      // Deploy your own server: https://github.com/5afe/aa-stripe-service
+      onRampBackendUrl: 'https://aa-stripe.safe.global',
     })
+  );
 
-    console.log({sessionData})
-  }
+  // See options for using the StripeAdapter open method in:
+  // https://stripe.com/docs/crypto/using-the-api
+  const sessionData = await safeOnRamp.open({
+    element: '#stripe-root',
+    theme: 'light',
+    // Optional, if you want to use a specific created session
+    // ---
+    // sessionId: 'cos_1Mei3cKSn9ArdBimJhkCt1XC',
+    // Optional, if you want to specify default options
+    // ---
+    // defaultOptions: {
+    // transaction_details: {
+    //   wallet_address: walletAddress,
+    //   lock_wallet_address: true
+    //   supported_destination_networks: ['ethereum', 'polygon'],
+    //   supported_destination_currencies: ['usdc'],
+    // },
+    // customer_information: {
+    //   email: 'john@doe.com'
+    // }
+  });
 
+  // Subscribe to Stripe events
+  safeOnRamp.subscribe('onramp_ui_loaded', () => {
+    console.log('UI loaded')
+  })
+
+  safeOnRamp.subscribe('onramp_session_updated', (e) => {
+    console.log('Session Updated', e.payload)
+  })
+};
 ```
 
 Full React code:
@@ -97,58 +108,48 @@ Recall:
 
 ```typescript
 import React, { useState } from 'react';
-import { SafeOnRampKit, SafeOnRampProviderType } from '@safe-global/onramp-kit'
+import { SafeOnRampKit, SafeOnRampProviderType, StripeAdapter } from '@safe-global/onramp-kit';
 
 export interface WalletFundProps {
   address: string;
-};
+}
 
 function WalletFund() {
-
-  const [address, setAddress] = useState<string>(localStorage.getItem('safeAddress')||'');
+  const [address, setAddress] = useState<string>(
+    localStorage.getItem('safeAddress') || ''
+  );
 
   function handleAddressChange(event: React.ChangeEvent<HTMLInputElement>) {
     setAddress(event.target.value);
   }
 
-  const fundWallet = async function() {
-        
-    
-    const safeOnRamp = await SafeOnRampKit.init(SafeOnRampProviderType.Stripe, {
-      onRampProviderConfig: {
+  const fundWallet = async function () {
+    const safeOnRamp = await SafeOnRampKit.init(
+      new StripeAdapter({
         // Get public key from Stripe: https://dashboard.stripe.com/register
         stripePublicKey:
-        'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO',
-        // Deploy your own server: https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit/example/server
+          'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO',
+        // Deploy your own server: https://github.com/safe-global/safe-core-sdk/blob/aa61f1e6e841594e14edb1acfee54bbf1408100b/packages/onramp-kit/example/server)
         onRampBackendUrl: 'https://aa-stripe.safe.global',
-      },
-    });
+      })
+    );
 
+    // See options for using the StripeAdapter open method in:
+    // https://stripe.com/docs/crypto/using-the-api
     const sessionData = await safeOnRamp.open({
-      walletAddress: address,
-      networks: ['polygon', 'ethereum'],
       element: '#stripe-root',
-      // Optional, if you want to use a specific created session
-      // sessionId: 'cos_1Mei3cKSn9ArdBimJhkCt1XC', 
-      events: {
-        onLoaded: () => console.log('Loaded'),
-        onPaymentSuccessful: () => console.log('Payment successful'),
-        onPaymentError: () => console.log('Payment failed'),
-        onPaymentProcessing: () => console.log('Payment processing')
-      }
-    })
-
-    console.log({sessionData})
-  }
+      theme: 'light'
+    });
+  };
 
   return (
-    <div id='stripe-root'>
+    <div id="stripe-root">
       <label>Destination Address</label>
-            <input
-              className="form-control mb-3"
-              value={address}
-              onChange={handleAddressChange}
-            />
+      <input
+        className="form-control mb-3"
+        value={address}
+        onChange={handleAddressChange}
+      />
       <button className="btn btn-primary my-2" onClick={fundWallet}>
         Fund Wallet
       </button>
@@ -157,7 +158,6 @@ function WalletFund() {
 }
 
 export default WalletFund;
-
 ```
 
 ### Specifying the Element ID
