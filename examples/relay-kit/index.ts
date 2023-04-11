@@ -1,8 +1,7 @@
 import { ethers } from 'ethers'
-import EthersAdapter from '@safe-global/safe-ethers-lib'
-import { GelatoRelayAdapter, MetaTransactionOptions, RelayTransaction } from '@safe-global/relay-kit'
-import Safe from '@safe-global/safe-core-sdk'
-import { MetaTransactionData, OperationType } from '@safe-global/safe-core-sdk-types'
+import { GelatoRelayAdapter } from '@safe-global/relay-kit'
+import Safe, { EthersAdapter } from '@safe-global/protocol-kit'
+import { MetaTransactionData, MetaTransactionOptions, OperationType, RelayTransaction } from '@safe-global/safe-core-sdk-types'
 
 // Customize the following variables
 // https://chainlist.org

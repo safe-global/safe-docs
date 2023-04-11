@@ -1,7 +1,6 @@
 import { ethers } from 'ethers'
 import SafeApiKit from '@safe-global/api-kit'
-import EthersAdapter from '@safe-global/safe-ethers-lib'
-import Safe, { SafeFactory, SafeAccountConfig } from '@safe-global/safe-core-sdk'
+import Safe, { EthersAdapter, SafeFactory, SafeAccountConfig } from '@safe-global/protocol-kit'
 import { SafeTransaction, SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
 
 // Run this file:

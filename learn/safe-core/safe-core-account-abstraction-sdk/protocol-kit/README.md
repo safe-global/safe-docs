@@ -25,8 +25,8 @@ You can store your environment variables such as private keys in a `.env` file. 
 
 ```bash
 yarn add ethers@5.7.2 @safe-global/safe-core-sdk \
-  @safe-global/safe-core-sdk-types \
   @safe-global/api-kit \
+  @safe-global/safe-core-sdk-types \
   @safe-global/safe-ethers-lib \
   dotenv
 ```
