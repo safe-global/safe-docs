@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
+import SafeApiKit from '@safe-global/api-kit'
 import EthersAdapter from '@safe-global/safe-ethers-lib'
-import SafeServiceClient from '@safe-global/safe-service-client'
 import Safe, { SafeFactory, SafeAccountConfig } from '@safe-global/safe-core-sdk'
 import { SafeTransaction, SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
 
@@ -25,7 +25,7 @@ const ethAdapterOwner1 = new EthersAdapter({
 })
 
 const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
-const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
+const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
 let safeFactory: SafeFactory
 let safeSdkOwner1: Safe
 let safeAddress: string

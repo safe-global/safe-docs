@@ -6,7 +6,7 @@ The [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packag
 
 In this quickstart guide, you will create a 2 of 3 multi-sig Safe and propose and execute a transaction to send some ETH out of this Safe.
 
-For a more detailed guide, including how to integrate with web3js and more Safe transaction configuration options, see [Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and [Safe Core SDK API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/safe-core-sdk#sdk-api).
+For a more detailed guide, including how to integrate with web3js and more Safe transaction configuration options, see [Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and [Safe Core SDK API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
 
 ### Prerequisites
 
@@ -26,7 +26,7 @@ You can store your environment variables such as private keys in a `.env` file. 
 ```bash
 yarn add ethers@5.7.2 @safe-global/safe-core-sdk \
   @safe-global/safe-core-sdk-types \
-  @safe-global/safe-service-client \
+  @safe-global/api-kit \
   @safe-global/safe-ethers-lib \
   dotenv
 ```
@@ -84,17 +84,17 @@ const ethAdapterOwner1 = new EthersAdapter({
 })
 ```
 
-### Initialize the Safe Service Client
+### Initialize the Safe Api Kit
 
-The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeServiceClient` class, imported from `@safe-global/safe-service-client`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeServiceClient`.
+The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeApiKit`.
 
 You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](https://docs.gnosis-safe.io/learn/infrastructure/available-services).
 
 ```tsx
-import SafeServiceClient from '@safe-global/safe-service-client'
+import SafeApiKit from '@safe-global/api-kit'
 
 const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
-const safeService = new SafeServiceClient({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
+const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
 ```
 
 ### **Initialize the Safe Core SDK**
@@ -202,7 +202,7 @@ const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionD
 
 ### Propose a Transaction
 
-To propose a transaction to the Safe Transaction Service we need to call the method `proposeTransaction` from the Safe Service Client instance.
+To propose a transaction to the Safe Transaction Service we need to call the method `proposeTransaction` from the Safe Api Kit instance.
 
 For a full list and description of the properties that `proposeTransaction` accepts, see [Propose the transaction to the service](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#propose-transaction) in the Safe Core SDK guide.
 
@@ -224,7 +224,7 @@ await safeService.proposeTransaction({
 
 ### Get Pending Transactions
 
-Recall that you created the `safeService` in [Initialize the Safe Service Client](./#initialize-the-safe-service-client).
+Recall that you created the `safeService` in [Initialize the Safe Api Kit](./#initialize-the-safe-api-kit).
 
 ```tsx
 const pendingTransactions = await safeService.getPendingTransactions(safeAddress).results
@@ -288,4 +288,4 @@ The final balance of the Safe: 0.005 ETH
 
 ### Conclusion
 
-In this quickstart, you learned how to createand deploy a Safe and propose and execute a transaction for the Safe.
+In this quickstart, you learned how to create and deploy a Safe and to propose and then execute a transaction for the Safe.

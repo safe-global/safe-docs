@@ -359,6 +359,15 @@
   dependencies:
     semver "^7.3.7"
 
+"@safe-global/api-kit@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@safe-global/api-kit/-/api-kit-1.0.0.tgz#f4e5e3d3cc3e4f99108c1dabec8b3a03c510e69d"
+  integrity sha512-dJF2vpUNCWkBzjbaSWV4gIgc6LNxEmg4of5M9+Uf6eQujKxLRL5SC2am7Q6FG7uPzmjHUGwboZAU3b/Un+NNGw==
+  dependencies:
+    "@ethersproject/abstract-signer" "^5.7.0"
+    "@safe-global/safe-core-sdk-types" "^1.10.0"
+    node-fetch "^2.6.6"
+
 "@safe-global/relay-kit@^0.1.0-alpha.2":
   version "0.1.0-alpha.2"
   resolved "https://registry.yarnpkg.com/@safe-global/relay-kit/-/relay-kit-0.1.0-alpha.2.tgz#0691eaf1dd07d93aa6a2aa797ab03f9b049b7e15"
@@ -366,6 +375,17 @@
   dependencies:
     "@gelatonetwork/relay-sdk" "^3.1.0"
     ethers "^5.7.2"
+
+"@safe-global/safe-core-sdk-types@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@safe-global/safe-core-sdk-types/-/safe-core-sdk-types-1.10.0.tgz#77e5561850391cc80cf133635899de2d62261d7d"
+  integrity sha512-ZHcxfa8Zw3dBEbMB7HoQHE0mVcrdNBlpnb+oTaLu+f2xvsmx8kPFeoi3dEbAXiyebaXapLwQC2PVMw9LSzRusw==
+  dependencies:
+    "@ethersproject/bignumber" "^5.7.0"
+    "@ethersproject/contracts" "^5.7.0"
+    "@safe-global/safe-deployments" "^1.20.2"
+    web3-core "^1.8.1"
+    web3-utils "^1.8.1"
 
 "@safe-global/safe-core-sdk-types@^1.9.0":
   version "1.9.0"
@@ -415,15 +435,6 @@
     "@safe-global/safe-core-sdk-types" "^1.9.0"
     "@safe-global/safe-core-sdk-utils" "^1.7.2"
     ethers "5.7.2"
-
-"@safe-global/safe-service-client@^1.5.2":
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/@safe-global/safe-service-client/-/safe-service-client-1.5.2.tgz#78a3453c3ebbc07ded8f2163e8d5d4644d379e5a"
-  integrity sha512-W5F4KfTO8iVIy/2GmbFFXyZ6d4Q00JKdWDbf/jSRJajvx/EL6Ix/lkCl/VuBgssNh4yTLZBHIuQDlIZgmnyVgA==
-  dependencies:
-    "@ethersproject/abstract-signer" "^5.7.0"
-    "@safe-global/safe-core-sdk-types" "^1.9.0"
-    node-fetch "^2.6.6"
 
 "@types/bn.js@^5.1.0":
   version "5.1.1"
