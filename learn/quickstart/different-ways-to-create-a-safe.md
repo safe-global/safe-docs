@@ -3,9 +3,11 @@
 Here are some different ways to create a Safe account:
 
 ## [Safe Core SDK](https://github.com/safe-global/safe-core-sdk)
+```bash
+yarn add ethers@5.7.2 @safe-global/protocol-kit \
+```
 
 ```typescript
-// yarn install ethers@5.0.0 @safe-global/protocol-kit
 import { ethers } from 'ethers'
 import Safe, { EthersAdapter, SafeFactory } from '@safe-global/protocol-kit'
 
