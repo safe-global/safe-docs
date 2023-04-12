@@ -12,9 +12,9 @@ There are three main sections in this guide: Learn, Discover, and Build.
 
 <figure><img src=".gitbook/assets/how-to-use.png" alt=""><figcaption></figcaption></figure>
 
-1. [Learn](https://docs.gnosis-safe.io/learn) about how Smart Accounts (aka Smart Contract Accounts) work.
-2. [Discover](https://docs.gnosis-safe.io/discover/) how others are building and using Smart Accounts
-3. [Build](https://docs.gnosis-safe.io/build) cool things with Smart Accounts.
+1. [Learn](https://docs.safe.global/learn) about how Smart Accounts (aka Smart Contract Accounts) work.
+2. [Discover](https://docs.safe.global/discover/) how others are building and using Smart Accounts
+3. [Build](https://docs.safe.global/build) cool things with Smart Accounts.
 
 We recommend starting with Learn and seeing some tutorials there to learn more about how Smart Accounts work. Then, head to the Discover section to get some ideas and inspiration for the types of things you can build with smart accounts. Finally, complete one of the Build tutorials to build something that uses Smart Accounts.
 

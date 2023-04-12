@@ -23,14 +23,14 @@ There are Dune Analytics dashboards about Safe Apps available:
 
 This is a list of several known public repositories containing Safe Apps for reference:
 
-* [Transaction builder](https://github.com/gnosis/safe-react-apps/tree/development/apps/tx-builder)
-* [WalletConnect](https://github.com/gnosis/safe-react-apps/tree/development/apps/wallet-connect)
+* [Transaction builder](https://github.com/safe-global/safe-react-apps/tree/development/apps/tx-builder)
+* [WalletConnect](https://github.com/safe-global/safe-react-apps/tree/development/apps/wallet-connect)
 * [CSV Airdrop](https://github.com/bh2smith/safe-airdrop)
 * [Open Zeppelin](https://github.com/OpenZeppelin/upgrades-safe-app)
 * [Balancer](https://github.com/balancer-labs/frontend-v2)
 * [1inch Exchange](https://github.com/CryptoManiacsZone/gnosis.1inch.exchange)
 * [Synthetix](https://github.com/protofire/safe-app-synthetix-mintr)
-* [Sablier](https://github.com/TomAFrench/sablier-safe-app)
+* [Sablier](https://github.com/sablierhq/safe-app)
 * [PancakeSwap](https://github.com/pancakeswap/pancake-frontend)
 
 #### Disclaimer

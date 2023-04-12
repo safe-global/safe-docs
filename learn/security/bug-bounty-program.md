@@ -1,10 +1,10 @@
 # Bug Bounty
 
-This is the page of the Safe bug bounty program. Find bugs and get rewarded. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](https://docs.gnosis-safe.io/introduction/security/bug-bounty-program#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global).
+This is the page of the Safe bug bounty program. Find bugs and get rewarded. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](https://docs.safe.global/learn/security/bug-bounty-program#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global).
 
 ### Audits
 
-The contracts have been carefully audited by smart contract security experts. For details, please refer to the [security audits page](https://docs.gnosis.io/safe/docs/intro\_audits).
+The contracts have been carefully audited by smart contract security experts. For details, please refer to the [security audits page](https://docs.safe.global/learn/security/security-audits).
 
 ### Rules
 
@@ -19,11 +19,11 @@ Many of the [Ethereum Foundation’s bug bounty program rules](https://bounty.et
 
 The scope of the bug bounty program includes the core contracts related to the following releases of the Safe contracts:
 
-* _v1.1.1_ ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.1.1), [readme](https://github.com/gnosis/safe-contracts/blob/v1.1.1/README.md))
-* _v1.2.0_ ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.2.0), [readme](https://github.com/gnosis/safe-contracts/blob/v1.2.0/README.md))
-* _v1.3.0_ ([Release details](https://github.com/gnosis/safe-contracts/releases/tag/v1.3.0), [readme](https://github.com/gnosis/safe-contracts/blob/v1.3.0/README.md))
+* _v1.1.1_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.1.1), [readme](https://github.com/safe-global/safe-contracts/blob/v1.1.1/README.md))
+* _v1.2.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.2.0), [readme](https://github.com/safe-global/safe-contracts/blob/v1.2.0/README.md))
+* _v1.3.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.3.0), [readme](https://github.com/safe-global/safe-contracts/blob/v1.3.0/README.md))
 
-The scope of the bug bounty also includes the [allowance module](https://github.com/gnosis/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
+The scope of the bug bounty also includes the [allowance module](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
 
 #### In scope
 
@@ -36,7 +36,7 @@ The scope of the bug bounty also includes the [allowance module](https://github.
 * CreateAndAddModules.sol, MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
 * DefaultCallbackHandler.sol, CompatibilityFallbackHandler.sol, HandlerContext.sol
 
-Addresses for deployed instances of these contracts can be found in the [Safe deployments](https://github.com/gnosis/safe-deployments) repository.
+Addresses for deployed instances of these contracts can be found in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
 
 **Safe modules contracts**
 
@@ -59,9 +59,9 @@ Addresses for deployed instances of these contracts can be found in the [Safe de
 
 ### Intended behavior
 
-Please refer to the [readme file](https://github.com/gnosis/safe-contracts/blob/v1.3.0/README.md) and the [release details](https://github.com/gnosis/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](https://docs.gnosis.io/safe/docs/contracts\_intro) for an extensive overview of the intended behavior of the smart contracts.
+Please refer to the [readme file](https://github.com/safe-global/safe-contracts/blob/v1.3.0/README.md) and the [release details](https://github.com/safe-global/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](https://docs.gnosis.io/safe/docs/contracts\_intro) for an extensive overview of the intended behavior of the smart contracts.
 
-For the allowance module, please refer to the corresponding [readme file](https://github.com/gnosis/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/README.md)
+For the allowance module, please refer to the corresponding [readme file](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/README.md)
 
 ### Compensation
 
@@ -104,7 +104,7 @@ _We ask that:_
 
 Public disclosure of the bug or the indication of an intention to exploit it on Mainnet will make the report ineligible for a bounty. If in doubt about other aspects of the bounty, most of the [Ethereum Foundation bug bounty program rules](https://bounty.ethereum.org) will apply here.
 
-Any questions? Reach us via email ([bounty@safe.global](mailto:bounty@safe.global)) or [Discord](https://chat.safe.global). For more information on the Safe, check out our [website](https://gnosis-safe.io) and our [Github](https://github.com/gnosis?q=safe).
+Any questions? Reach us via email ([bounty@safe.global](mailto:bounty@safe.global)) or [Discord](https://chat.safe.global). For more information on the Safe, check out our [website](https://safe.global) and our [Github](https://github.com/safe-global).
 
 _Happy hunting!_
 
@@ -114,21 +114,21 @@ _This list includes valid submissions from past and current contract versions fo
 
 #### Potential suicide of MultiSend library
 
-We use a [MultiSend](https://github.com/gnosis/safe-contracts/blob/v1.2.0/contracts/libraries/MultiSend.sol) library to batch multiple transactions together. A transaction could be created that would self-destruct the contract. While this would not have put any funds at risk, user experience would have been seriously impacted.
+We use a [MultiSend](https://github.com/safe-global/safe-contracts/blob/v1.2.0/contracts/libraries/MultiSend.sol) library to batch multiple transactions together. A transaction could be created that would self-destruct the contract. While this would not have put any funds at risk, user experience would have been seriously impacted.
 
-We have updated the library as well as our interfaces. Details about the fix can be found on [Github](https://github.com/gnosis/safe-contracts/pull/156).
+We have updated the library as well as our interfaces. Details about the fix can be found on [Github](https://github.com/safe-global/safe-contracts/pull/156).
 
 This bug was submitted by [Micah Zoltu](https://twitter.com/micahzoltu). It was regarded as "Low Threat", and a bounty of 1,000 USD has been paid out.
 
 #### Transaction failure when receiving funds via `transfer` or `send`
 
-Since the beginning of the bug bounty period, the contract update has been live on the Ethereum Mainnet. We performed extensive internal testing and also discovered an edge case where a Safe could not receive funds from another contract via `send` or `transfer`. This was due to additional gas costs caused by the [emission of additional events](https://github.com/gnosis/safe-contracts/pull/135) and [gas price changes](https://eips.ethereum.org/EIPS/eip-1884) in the latest hardfork. This issue has been fixed and more details can be found on [Github](https://github.com/gnosis/safe-contracts/issues/149).
+Since the beginning of the bug bounty period, the contract update has been live on the Ethereum Mainnet. We performed extensive internal testing and also discovered an edge case where a Safe could not receive funds from another contract via `send` or `transfer`. This was due to additional gas costs caused by the [emission of additional events](https://github.com/safe-global/safe-contracts/pull/135) and [gas price changes](https://eips.ethereum.org/EIPS/eip-1884) in the latest hardfork. This issue has been fixed and more details can be found on [Github](https://github.com/safe-global/safe-contracts/issues/149).
 
 #### Duplicate owners during setup could render Safe unusable
 
 There is a bug in the `setupOwners` function on `OwnerManager.sol` which allows duplicate owners to be set when the duplicated address is next to itself in the `_owners` array. This could cause unexpected behavior. While it is not possible to steal funds of existing Safes it is indeed an unexpected behaviour and user funds might be locked. During Safe creation the threshold of a Safe could be set to something unreachable, thereby making it impossible to execute a transaction afterwards.
 
-The Safe interfaces all prevent this from happening by checking for duplicates, but if users directly interact with the contracts this can still happen. The issue is tracked on [Github](https://github.com/gnosis/safe-contracts/issues/244).
+The Safe interfaces all prevent this from happening by checking for duplicates, but if users directly interact with the contracts this can still happen. The issue is tracked on [Github](https://github.com/safe-global/safe-contracts/issues/244).
 
 This bug was submitted by [David Nicholas](https://twitter.com/davidnich11). It was regarded as "Medium Threat" and a bounty of 2,500 USD has been paid out.
 
@@ -140,7 +140,7 @@ To our knowledge there is no real use case where it would make sense to set a Sa
 
 To fix this, the next contract update will prevent the Safe as its owner via `require(owner != address(this), "Safe can't be an owner")`. This check can be performed when adding owners and/or when checking signatures.
 
-Details about this issue can be found on [Github](https://github.com/gnosis/safe-contracts/issues/229).
+Details about this issue can be found on [Github](https://github.com/safe-global/safe-contracts/issues/229).
 
 The bug was submitted by [Kevin Foesenek](https://github.com/keviinfoes). It was regarded as "Medium Threat" and a bounty of 5,000 USD has been paid out.
 
