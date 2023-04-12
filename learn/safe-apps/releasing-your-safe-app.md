@@ -4,7 +4,7 @@
 
 #### How to get your Safe Apps into the hands of users
 
-As soon as you finish developing and testing your Safe App, you can already let some actual users test it by simply sending them the link to the hosted Safe App and asking them to add it as a Custom App. [This guide](https://help.gnosis-safe.io/en/articles/4022030-add-a-custom-safe-app) explains how to add custom apps.
+As soon as you finish developing and testing your Safe App, you can already let some actual users test it by simply sending them the link to the hosted Safe App and asking them to add it as a Custom App. [This guide](https://help.safe.global/en/articles/4022030-add-a-custom-safe-app) explains how to add custom apps.
 
 #### Get your Safe App listed in the Safe
 
@@ -28,7 +28,7 @@ A relative file path to your App's logo. The icon must be a square SVG image of 
 
 Few sentences describing your application, maximum 200 characters
 
-You can find an example manifest file on [Github](https://github.com/safe-global/safe-apps-sdk/blob/master/packages/cra-template-safe-app/template/public/manifest.json). In addition, you can find an example Safe App on IPFS [here](https://ipfs.io/ipfs/QmTgnb1J9FDR9gimptzvaEiNa25s92iQy37GyqYfwZw8Aj/).
+You can find an example manifest file on [Github](https://github.com/safe-global/safe-apps-sdk/blob/main/packages/cra-template-safe-app/template/public/manifest.json). In addition, you can find an example Safe App on IPFS [here](https://ipfs.io/ipfs/QmTgnb1J9FDR9gimptzvaEiNa25s92iQy37GyqYfwZw8Aj/).
 
 Remember that **CORS** should be configured correctly on the `manifest.json` so we can fetch the information as [mentioned here](get-started.md#cors).
 
@@ -50,7 +50,7 @@ We want to display interactions with Safe Apps as human-readable as possible. To
 
 Alternatively, you can provide us with the ABIs as JSON files or the links to the verified contracts on Etherscan, so we can implement transaction decoding for your Safe App interactions.
 
-**Create an issue in our repository once you've verified that your app meets these requirements:** [https://github.com/5afe/safe-apps-list](https://github.com/gnosis/safe-apps-list)
+**Create an issue in our repository once you've verified that your app meets these requirements:** [https://github.com/5afe/safe-apps-list](https://github.com/5afe/safe-apps-list)
 
 #### The Official launch and beyond
 

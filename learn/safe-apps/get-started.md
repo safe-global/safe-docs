@@ -8,26 +8,19 @@ Welcome! We are glad on your interest about creating a Safe App. The team is wor
 
 Once you are here the main resources include:
 
-* [UI Kit](get-started.md#ui-kit)
 * [SDK Packages](get-started.md#sdk-packages)
 * [Basic Requirements](get-started.md#basic-requirements)
+* [UI Kit](get-started.md#ui-kit)
 
-### UI Kit
+## SDK Packages
 
-If you are creating your Safe App from scratch, we provide a reusable react components package to make it easy to build Safe Apps with a near-native look and feel while still allowing to enable developers to use their branding in the Safe Apps.
+This is one of our main pieces for Safe Apps integrations. Either you already have a dapp or you are thinking about creating a new one you will find useful to rely in one of our integrations to easily communicate with the Safe application. In this packages you will find integrations with very common packages like Web3Modal, Blocknative onboard.js or web3-react, that you may be already using on your project. For those creating a new dapp, our [CRA template](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/cra-template-safe-app) to kickstart the basic structure with all the necessary configuration will speed up the process. [Check more about SDK Packages](build.md).
 
-* [Check all available components in the storybook](https://components.gnosis-safe.io)
-* [Check UI Kit repository](https://github.com/gnosis/safe-react-components)
-
-### SDK Packages
-
-This is one of our main pieces for Safe Apps integrations. Either you already have a dapp or you are thinking about creating a new one you will find useful to rely in one of our integrations to easily communicate with the Safe application. In this packages you will find integrations with very common packages like Web3Modal, Blocknative onboard.js or web3-react, that you may be already using on your project. For those creating a new dapp, our [CRA template](https://github.com/gnosis/safe-apps-sdk/tree/master/packages/cra-template-safe-app) to kickstart the basic structure with all the necessary configuration will speed up the process. [Check more about SDK Packages](build.md).
-
-### Basic requirements
+## Basic requirements
 
 If you already have a dapp these are some mandatory requirements to adapt your app to be used as a Safe App. Without this basic configuration the dapp won't work with the Safe as expected.
 
-If you are using our [CRA template](https://github.com/gnosis/safe-apps-sdk/tree/master/packages/cra-template-safe-app) to start your Safe App this basic requirements are already included.
+If you are using our [CRA template](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/cra-template-safe-app) to start your Safe App this basic requirements are already included.
 
 #### Manifest
 
@@ -113,3 +106,10 @@ To enable SSL with `react-scripts` it is necessary to set the `HTTPS` environmen
 ```
 
 As in most cases the SSL certificate provided by `react-scripts` is not valid it is required to mark it as trusted in your browser. For this open the Safe App in a separate tab (not in the Safe interface) and accept the certificate/ ignore the warning.
+
+## UI Kit
+
+If you are creating your Safe App from scratch, we provide a reusable react components package to make it easy to build Safe Apps with a near-native look and feel while still allowing to enable developers to use their branding in the Safe Apps.
+
+* [Check all available components in the storybook](https://components.safe.global)
+* [Check UI Kit repository](https://github.com/safe-global/safe-react-components)
