@@ -19,6 +19,76 @@ The quick start guide below shows you how to sign transactions using your Signin
 yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal @web3auth/openlogin-adapter
 ```
 
+### Fix Webpack 5 Polyfills Issue
+
+You might see some Polyfill errors such as `Module not found: Error: Can't resolve 'crypto'.
+
+See Web3Auth [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack-issues) for more context on how to fix.
+
+
+Install `react-app-rewired` and missing dependencies:
+
+```bash 
+yarn add --dev react-app-rewired crypto-browserify stream-browserify assert stream-http https-browserify os-browserify browserify-zlib url buffer process
+```
+
+Note: You might also need to include `zlib`, which is not included in the Web3Auth documentation.
+
+Create config-overrides.js in the root of your project folder with the content:
+
+```javascript
+const webpack = require("webpack");
+
+module.exports = function override(config) {
+  const fallback = config.resolve.fallback || {};
+  Object.assign(fallback, {
+    crypto: require.resolve("crypto-browserify"),
+    stream: require.resolve("stream-browserify"),
+    assert: require.resolve("assert"),
+    http: require.resolve("stream-http"),
+    https: require.resolve("https-browserify"),
+    os: require.resolve("os-browserify"),
+    url: require.resolve("url"),
+    zlib: require.resolve("browserify-zlib")
+  });
+  config.resolve.fallback = fallback;
+  config.plugins = (config.plugins || []).concat([
+    new webpack.ProvidePlugin({
+      process: "process/browser",
+      Buffer: ["buffer", "Buffer"],
+    }),
+  ]);
+  config.ignoreWarnings = [/Failed to parse source map/];
+  config.module.rules.push({
+    test: /\.(js|mjs|jsx)$/,
+    enforce: "pre",
+    loader: require.resolve("source-map-loader"),
+    resolve: {
+      fullySpecified: false,
+    },
+  });
+  return config;
+};
+```
+
+Within package.json change the scripts field for start, build and test. Instead of react-scripts replace it with react-app-rewired
+
+```json
+"scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+},
+```
+
+If you want to hide the warnings created by the console, in `config-overrides.js` within the override function, add:
+```javascript
+config.ignoreWarnings = [/Failed to parse source map/];
+```
+
+Then run the app with `yarn start`.
+
 ### How to use
 
 Create an instance of the [SafeAuthKit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/SafeAuthKit.ts) class providing the chosen adapter (e.g `Web3AuthAdapter`) and the kit configuration `SafeAuthConfig`.
