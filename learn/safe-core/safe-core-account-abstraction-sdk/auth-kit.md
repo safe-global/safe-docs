@@ -15,7 +15,7 @@ The quick start guide below shows you how to sign transactions using your Signin
 
 ## Example
 
-[Check a functional demo](https://github.com/safe-global/safe-core-sdk/blob/7959821ab08c96cf3babb9ed906c01d644ac49f4/packages/auth-kit/example/src/App.tsx#L33) using the `auth-kit`
+[Check a functional demo](https://github.com/safe-global/safe-core-sdk/blob/7959821ab08c96cf3babb9ed906c01d644ac49f4/packages/auth-kit/example/src/App.tsx#L33) using the `auth-kit` and [Pull Request 12](https://github.com/5afe/safe-space/pull/12) in the [Safe Space](https://github.com/5afe/safe-space) repo.
 
 ### Install dependencies
 
