@@ -47,7 +47,7 @@
   * [Built on Safe](build/projects-building-with-the-gnosis-safe.md)
   * [Workshops](build/workshops.md)
   * [modules](build/modules/README.md)
-    * [Zodiac](build/modules/safesnap.md)
+    * [Zodiac](build/modules/zodiac.md)
   * [other-tools](build/other-tools/README.md)
     * [Ape Safe](build/other-tools/ape-safe.md)
     * [Scaffold-ETH](build/other-tools/scaffold-eth.md)
