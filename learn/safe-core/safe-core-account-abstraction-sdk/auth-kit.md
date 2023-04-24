@@ -4,7 +4,7 @@ The [Auth kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/a
 
 Note: The Auth kit creates a [Signing Account, not a Smart Account](/learn/what-is-a-smart-contract-account.md#smart-accounts-vs-signing-accounts).
 
-The quick start guide below shows you how to sign transactions using your Signing Account. You can sign transactions using your Signing Account to create a Smart Account.
+The quick start guide below shows you how to create a Signing Account using your social media account. Once authenticated, you can sign transactions and interact with any Safe Smart Accounts you own.
 
 ## Quickstart
 
@@ -17,7 +17,9 @@ The quick start guide below shows you how to sign transactions using your Signin
 
 [Check a functional demo](https://github.com/safe-global/safe-core-sdk/blob/7959821ab08c96cf3babb9ed906c01d644ac49f4/packages/auth-kit/example/src/App.tsx#L33) using the `auth-kit` and [Pull Request 12](https://github.com/5afe/safe-space/pull/12) in [Safe Space](https://github.com/5afe/safe-space).
 
-## Install dependencies
+https://user-images.githubusercontent.com/9806858/234088191-441c1c18-5922-47a4-a4dd-44fb383a54d6.mp4
+
+### Install dependencies
 
 ```bash
 yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal @web3auth/openlogin-adapter
@@ -138,9 +140,9 @@ When `txServiceUrl` is provided, the list of associated Safe addresses will be r
 
 ## Signing transactions using the Auth kit and Protocol Kit
 
-The Auth Kit can be combined with the[Protocol Kit](./protocol-kit/) to connect to a Safe, using the `provider` and `signer` of the currently authenticated account.
+The Auth Kit can be combined with the [Protocol Kit](./protocol-kit/) to connect to a Safe using the `provider` and `signer` of the currently authenticated account.
 
-You can then use any of the methods available in the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
+Once connected, you can use any of the methods available in the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
 
 ```typescript
 import { ethers } from 'ethers'
