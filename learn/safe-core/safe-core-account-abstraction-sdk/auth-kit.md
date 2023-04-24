@@ -8,24 +8,24 @@ The quick start guide below shows you how to sign transactions using your Signin
 
 ## Quickstart
 
-### Prerequisites
+## Prerequisites
 
 - [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-- [Create a Web3Auth account](https://web3auth.io) to use Web3Auth as the authentication provider.
+- [Create a Web3Auth account](https://web3auth.io)
 
 ## Example
 
-[Check a functional demo](https://github.com/safe-global/safe-core-sdk/blob/7959821ab08c96cf3babb9ed906c01d644ac49f4/packages/auth-kit/example/src/App.tsx#L33) using the `auth-kit` and [Pull Request 12](https://github.com/5afe/safe-space/pull/12) in the [Safe Space](https://github.com/5afe/safe-space) repo.
+[Check a functional demo](https://github.com/safe-global/safe-core-sdk/blob/7959821ab08c96cf3babb9ed906c01d644ac49f4/packages/auth-kit/example/src/App.tsx#L33) using the `auth-kit` and [Pull Request 12](https://github.com/5afe/safe-space/pull/12) in [Safe Space](https://github.com/5afe/safe-space).
 
-### Install dependencies
+## Install dependencies
 
 ```bash
 yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal @web3auth/openlogin-adapter
 ```
 
-If you run `yarn start` and see an error like `Module not found: Error: Can't resolve 'crypto'.`, see [Fix Webback 5 Polyfill issues](#fix-webpack-5-polyfills-issue).
+If you run `yarn start` and see an error like `Module not found: Error: Can't resolve 'crypto'`, see [Fix Webback 5 Polyfill issues](#fix-webpack-5-polyfills-issue).
 
-### How to use
+## Create SafeAuthKit Instance
 
 Create an instance of the [SafeAuthKit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/SafeAuthKit.ts) class providing the chosen adapter (e.g `Web3AuthAdapter`) and the kit configuration `SafeAuthConfig`.
 
@@ -87,6 +87,8 @@ const safeAuthKit = await SafeAuthKit.init(adapter, {
   txServiceUrl: 'https://safe-transaction-goerli.safe.global'
 })
 ```
+
+## Sign In to an Ethereum Account
 
 Once the instance is created, you can call the `signIn()` method to start the authentication process showing the web3Auth modal in case you use the `Web3AuthAdapter`.
 
@@ -167,7 +169,7 @@ const safeTransactionData: MetaTransactionData = {
 const safeTransaction = await safeSDK.createTransaction({ safeTransactionData })
 ```
 
-## Sending/signing transactions or messages using the Auth kit
+## Sign transactions using the Auth kit
 
 You can also sign any arbitrary message or transaction as a regular Signing Account with your favorite web3 library:
 
@@ -190,7 +192,7 @@ await signer.signTransaction(tx);
 await signer.signMessage(message);
 ```
 
-### Fix Webpack 5 Polyfills Issue
+## Fix Webpack 5 Polyfills Issue
 
 You might see some Polyfill errors such as `Module not found: Error: Can't resolve 'crypto'.`
 
