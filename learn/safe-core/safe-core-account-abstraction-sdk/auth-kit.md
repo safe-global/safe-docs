@@ -15,7 +15,7 @@ The quick start guide below shows you how to create a Signing Account using your
 
 ## Example
 
-[Check a functional demo](https://github.com/safe-global/safe-core-sdk/blob/7959821ab08c96cf3babb9ed906c01d644ac49f4/packages/auth-kit/example/src/App.tsx#L33) using the `auth-kit` and [Pull Request 12](https://github.com/5afe/safe-space/pull/12) in [Safe Space](https://github.com/5afe/safe-space).
+See an [Auth Kit example in the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/7959821ab08c96cf3babb9ed906c01d644ac49f4/packages/auth-kit/example/src/App.tsx#L33) and [Pull Request 12](https://github.com/5afe/safe-space/pull/12) in [Safe Space](https://github.com/5afe/safe-space).
 
 https://user-images.githubusercontent.com/9806858/234088191-441c1c18-5922-47a4-a4dd-44fb383a54d6.mp4
 
@@ -25,11 +25,11 @@ https://user-images.githubusercontent.com/9806858/234088191-441c1c18-5922-47a4-a
 yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal @web3auth/openlogin-adapter
 ```
 
-If you run `yarn start` and see an error like `Module not found: Error: Can't resolve 'crypto'`, see [Fix Webback 5 Polyfill issues](#fix-webpack-5-polyfills-issue).
+If you run `yarn start` and see an error similar to `Module not found: Error: Can't resolve 'crypto'`, see [Fix Webback 5 Polyfill issues](#fix-webpack-5-polyfills-issue).
 
 ## Create SafeAuthKit Instance
 
-Create an instance of the [SafeAuthKit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/SafeAuthKit.ts) class providing the chosen adapter (e.g `Web3AuthAdapter`) and the kit configuration `SafeAuthConfig`.
+Create an instance of the [SafeAuthKit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/SafeAuthKit.ts) by providing the chosen adapter (e.g `Web3AuthAdapter`) and the kit configuration `SafeAuthConfig`.
 
 `Web3Auth` is the only provider type currently supported but we plan to add more providers in the future.
 
@@ -92,9 +92,11 @@ const safeAuthKit = await SafeAuthKit.init(adapter, {
 
 ## Sign In to an Ethereum Account
 
-Once the instance is created, you can call the `signIn()` method to start the authentication process showing the web3Auth modal in case you use the `Web3AuthAdapter`.
+Once your Auth Kit instance is created, call `signIn()` to start the authentication process.
 
-While you sign in with the same email or social account, the same Ethereum address will be returned.
+When you sign in with the same social account, the same Ethereum address will be returned.
+
+Note: When using Web3Auth, if you sign in with email and then "Sign in with Google", a different Ethereum address might be returned, even if you use the same email address for both login providers.
 
 ```typescript
 // The signIn method will return the user's Ethereum address
