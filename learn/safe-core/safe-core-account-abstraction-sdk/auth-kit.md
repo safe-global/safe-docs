@@ -13,6 +13,10 @@ The quick start guide below shows you how to sign transactions using your Signin
 - [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 - [Create a Web3Auth account](https://web3auth.io) to use Web3Auth as the authentication provider.
 
+## Example
+
+[Check a functional demo](https://github.com/safe-global/safe-core-sdk/blob/7959821ab08c96cf3babb9ed906c01d644ac49f4/packages/auth-kit/example/src/App.tsx#L33) using the `auth-kit`
+
 ### Install dependencies
 
 ```bash
@@ -23,7 +27,7 @@ yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal @web3auth/openlogi
 
 You might see some Polyfill errors such as `Module not found: Error: Can't resolve 'crypto'.
 
-See Web3Auth [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack-issues) for more context on how to fix.
+See Web3Auth [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack-issues) for more context on how to fix or [commit 85ccd22](https://github.com/5afe/safe-space/pull/12/commits/85ccd22b8528d7eacd013a8e3f5bb0093c85b081) for the necessary code changes to fix the Polyfill issues.
 
 
 Install `react-app-rewired` and missing dependencies:
@@ -220,7 +224,3 @@ await signer.sendTransaction(tx);
 await signer.signTransaction(tx);
 await signer.signMessage(message);
 ```
-
-## Example
-
-[Check a functional demo](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/example) using the `auth-kit`
