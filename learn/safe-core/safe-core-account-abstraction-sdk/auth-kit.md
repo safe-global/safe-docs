@@ -17,6 +17,12 @@ The quick start guide below shows you how to sign transactions using your Signin
 
 [Check a functional demo](https://github.com/safe-global/safe-core-sdk/blob/7959821ab08c96cf3babb9ed906c01d644ac49f4/packages/auth-kit/example/src/App.tsx#L33) using the `auth-kit`
 
+
+
+https://user-images.githubusercontent.com/9806858/234088191-441c1c18-5922-47a4-a4dd-44fb383a54d6.mp4
+
+
+
 ### Install dependencies
 
 ```bash
