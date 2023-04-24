@@ -4,7 +4,7 @@ The [Auth kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/a
 
 Note: The Auth kit creates a [Signing Account, not a Smart Account](/learn/what-is-a-smart-contract-account.md#smart-accounts-vs-signing-accounts).
 
-The quick start guide below shows you how to create a Signing Account using your social media account. Once authenticated, you can sign transactions and interact with any Safe Smart Accounts you own.
+The quick start guide below shows you how to create a Signing Account using your email or social media account. Once authenticated, you can sign transactions and interact with any Safe Smart Accounts you own.
 
 ## Quickstart
 
@@ -110,13 +110,13 @@ The `signOut` method will remove the current session.
 await safeAuthKit.signOut();
 ```
 
-Call `getProvider` to get the Ethereum provider instance.
+Call `getProvider()` to get the Ethereum provider instance.
 
 ```typescript
 safeAuthKit.getProvider();
 ```
 
-We expose two methods for listening to events. In the case of the `Web3AuthAdapter` we can listening to all the events listed [here](https://web3auth.io/docs/sdk/web/modal/initialize#subscribing-the-lifecycle-events).
+We expose two methods for listening to events. In the case of the `Web3AuthAdapter` we can listen to all the events listed [here](https://web3auth.io/docs/sdk/web/modal/initialize#subscribing-the-lifecycle-events).
 
 ```typescript
 import { ADAPTER_EVENTS } from '@web3auth/base';
@@ -200,7 +200,7 @@ await signer.signMessage(message);
 
 You might see some Polyfill errors such as `Module not found: Error: Can't resolve 'crypto'.`
 
-See Web3Auth [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack-issues) for more context on how to fix or [commit 85ccd22](https://github.com/5afe/safe-space/pull/12/commits/85ccd22b8528d7eacd013a8e3f5bb0093c85b081) for the necessary code changes to fix the Polyfill issues.
+See Web3Auth's [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack-issues) for more context on how to fix or [commit 85ccd22](https://github.com/5afe/safe-space/pull/12/commits/85ccd22b8528d7eacd013a8e3f5bb0093c85b081) for the necessary code changes to fix the Polyfill issues.
 
 
 Install `react-app-rewired` and missing dependencies:
@@ -209,9 +209,9 @@ Install `react-app-rewired` and missing dependencies:
 yarn add --dev react-app-rewired crypto-browserify stream-browserify assert stream-http https-browserify os-browserify browserify-zlib url buffer process
 ```
 
-Note: You might also need to include `zlib`, which is not included in the Web3Auth documentation.
+Note: You might also need to install `browserify-zlib`, which is not included in the Web3Auth documentation.
 
-Create config-overrides.js in the root of your project folder with the content:
+Create `config-overrides.js` in the root of your project folder with the content:
 
 ```javascript
 const webpack = require("webpack");
@@ -248,7 +248,7 @@ module.exports = function override(config) {
 };
 ```
 
-Within package.json change the scripts field for start, build and test. Instead of react-scripts replace it with react-app-rewired
+Within `package.json` change the scripts field for start, build and test. Replace `react-scripts` with `react-app-rewired`.
 
 ```json
 "scripts": {
@@ -264,4 +264,4 @@ If you want to hide the warnings created by the console, in `config-overrides.js
 config.ignoreWarnings = [/Failed to parse source map/];
 ```
 
-Then run the app with `yarn start`.
+Run the app with `yarn start`.
