@@ -1,8 +1,8 @@
 # Built on Safe
 
-This is a list of projects building on Safe.
+Projects building on Safe.
 
-If you know of any projects missing on this list, [please let us know](https://chat.safe.global).
+If you know any projects missing on this list, please let us know [on Discord](https://chat.safe.global) or Twitter [@safe](https://twitter.com/safe).
 
 ## [Safe Ecosystem Map](https://twitter.com/safe/status/1620017821714624518)
 
