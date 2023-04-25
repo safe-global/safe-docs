@@ -4,7 +4,7 @@ This is a list of projects building on Safe.
 
 If you know of any projects missing on this list, [please let us know](https://chat.safe.global).
 
-## [Safe Ecosystem Map 2023 V1](https://twitter.com/safe/status/1620017821714624518)
+## [Safe Ecosystem Map](https://twitter.com/safe/status/1620017821714624518)
 
 ![Fnt1noBacAAh5X6](https://user-images.githubusercontent.com/9806858/234247416-fe59daaa-472e-4217-8b2b-f9abb43add61.jpg)
 
