@@ -17,7 +17,12 @@ The quick start guide below shows you how to create a Signing Account using your
 
 See an [Auth Kit example in the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/7959821ab08c96cf3babb9ed906c01d644ac49f4/packages/auth-kit/example/src/App.tsx#L33) and [Pull Request 12](https://github.com/5afe/safe-space/pull/12) in [Safe Space](https://github.com/5afe/safe-space).
 
-https://user-images.githubusercontent.com/9806858/234088191-441c1c18-5922-47a4-a4dd-44fb383a54d6.mp4
+
+{% embed url="https://user-images.githubusercontent.com/9806858/234088191-441c1c18-5922-47a4-a4dd-44fb383a54d6.mp4" %}
+[Watch video demo](https://user-images.githubusercontent.com/9806858/234088191-441c1c18-5922-47a4-a4dd-44fb383a54d6.mp4)
+{% endembed %}
+
+
 
 ### Install dependencies
 
