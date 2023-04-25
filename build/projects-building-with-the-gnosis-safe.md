@@ -1,33 +1,13 @@
 # Built on Safe
 
-This is an incomplete and unordered list of projects build on or integrating with the Gnosis Safe. This includes projects leveraging the contracts, backend infrastructure as well as parts of the Gnosis Safe interfaces, including [Safe Apps](https://docs.gnosis.io/safe/docs/sdks_safe_apps).
-
-* [1inch](https://1inch.exchange/): Safe Apps
-* [Aave](https://aave.com/): Safe Apps
-* [Balancer](https://balancer.finance/): Safe Apps, Gnosis Safe Multisig
-* [Burner wallet](https://xdai.io/): Smart contract accounts
-* [DIAdata](https://diadata.org/): Gnosis Safe Multisig
-* [ENS](https://ens.domains/): Gnosis Safe Multisig
-* [Ethhub](https://ethhub.io/): Gnosis Safe Multisig
-* [Gelato](https://gelato.finance/): Smart contract accounts
-* [Groundhog](https://groundhog.network/): Contract module
-* [Metamask](https://metamask.io/): Smart contract accounts
-* [Open Zeppelin](https://openzeppelin.com/): Safe Apps
-* [Omen](https://docs.gnosis.io/safe/docs/intro_projects/omen.eth.link/): Contract proxy kit
-* [Request network](https://request.network/): Safe Apps
-* [Sablier](https://sablier.finance/): Safe Apps
-* [Slock it](https://slock.it/): Smart contract accounts
-* [Synthetix](https://synthetix.io/): Safe Apps
-* [Tasit](https://tasit.io/): Smart contract accounts
-* [Unilogin](https://unilogin.io/): Smart contract accounts
-* [Yearn](https://yearn.finance/): Gnosis Safe Multisig
-
-Hackathon projects:
-
-* [https://devpost.com/software/hermes-network](https://devpost.com/software/hermes-network)
-* [https://devpost.com/software/mapcovery](https://devpost.com/software/mapcovery)
-* [https://devpost.com/software/multy](https://devpost.com/software/multy)
-* [https://devpost.com/software/peerduck](https://devpost.com/software/peerduck)
+This is a list of projects building on Safe.
 
 If you know of any projects missing on this list, [please let us know](https://chat.safe.global).
 
+## [Safe Ecosystem Map 2023 V1](https://twitter.com/safe/status/1620017821714624518)
+
+![Fnt1noBacAAh5X6](https://user-images.githubusercontent.com/9806858/234247416-fe59daaa-472e-4217-8b2b-f9abb43add61.jpg)
+
+## [Hackathon Winners](https://safe-global.notion.site/6b4fe0e6c2bc49cb9c19f24d00ac02c0?v=29b399efc934443e874fba70175f8630)
+
+![safe-hackathon-winners](https://user-images.githubusercontent.com/9806858/234252894-5f5d1f32-f773-4f2d-9d87-da221447f645.gif)
