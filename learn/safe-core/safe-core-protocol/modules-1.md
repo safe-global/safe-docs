@@ -4,6 +4,9 @@ Modules add custom features to Safe contracts. They are smart contracts that imp
 
 Modules can include daily spending allowances, amounts that can be spent without the approval of other owners, recurring transactions modules, standing orders that are performed on a recurring set date, e.g. paying your rent, and social recovery modules, which may allow you to recover a Safe if you lose access to owner accounts. These are just a few examples of how to use modules, but there are many other ways you could use modules in your Safe.
 
+![safe-modules-diagram](https://user-images.githubusercontent.com/9806858/234940596-321b1c8c-c311-4016-84fe-d8aa8f550b06.jpg)
+Safe Module Interaction with a Safe Smart Account. Source: [Safe Smart Accounts & Diamond Proxies](https://safe.mirror.xyz/P83_rVQuUQJAM-SnMpWvsHlN8oLnCeSncD1txyMDqpE)
+
 ## How to Create a Safe Module
 
 A great way to understand how Safe modules work is by creating one. A great place to start is [Gnosis Safe 🛠 Safe modding 101: Create your own Safe module](https://www.youtube.com/watch?v=nmDYc9PlAic).
