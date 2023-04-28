@@ -99,7 +99,7 @@ const safeAuthKit = await SafeAuthKit.init(adapter, {
 
 Once your Auth Kit instance is created, call `signIn()` to start the authentication process.
 
-When you sign in with the same social account, the same Ethereum address will be returned.
+When you sign in with the same social account, the same Ethereum address will be returned for the same Client ID.
 
 Note: When using Web3Auth, if you sign in with email and then "Sign in with Google", a different Ethereum address might be returned, even if you use the same email address for both login providers.
 
