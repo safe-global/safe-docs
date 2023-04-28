@@ -30,7 +30,26 @@ See an [Auth Kit example in the Safe Core SDK](https://github.com/safe-global/sa
 yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal @web3auth/openlogin-adapter
 ```
 
-If you run `yarn start` and see an error similar to `Module not found: Error: Can't resolve 'crypto'`, see [Fix Webback 5 Polyfill issues](#fix-webpack-5-polyfills-issue).
+If you run `yarn start` and see an error similar to `Module not found: Error: Can't resolve 'crypto'`, see Web3Auth's [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack-issues) for more context on how to fix or [commit 85ccd22](https://github.com/5afe/safe-space/pull/12/commits/85ccd22b8528d7eacd013a8e3f5bb0093c85b081) for the necessary code changes to fix the Polyfill issues.
+
+Note: You might also need to also install `browserify-zlib` (`yarn add browserify-zlib`), which is not included in the Web3Auth documentation.
+
+Inside `config-overrides.js` in the root of your project folder with the content, add the following as well:
+
+```javascript
+const webpack = require("webpack");
+
+module.exports = function override(config) {
+  const fallback = config.resolve.fallback || {};
+  Object.assign(fallback, {
+    // ...
+    zlib: require.resolve("browserify-zlib")
+  });
+  // ...
+};
+```
+
+See [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack-issues) for the full `config-overrides.js` instructions.
 
 ## Create SafeAuthKit Instance
 
@@ -159,20 +178,20 @@ provider = new ethers.providers.Web3Provider(safeAuthKit.getProvider()!);
 signer = provider.getSigner();
 
 const ethAdapter = new EthersAdapter({
-      ethers,
-      signerOrProvider: signer || provider
+  ethers,
+  signerOrProvider: signer || provider
 })
 
 const safeSDK = await Safe.create({
-    ethAdapter,
-    safeAddress
+  ethAdapter,
+  safeAddress
 })
 
 // Create a Safe transaction with the provided parameters
 const safeTransactionData: MetaTransactionData = {
-    to: '0x',
-    data: '0x',
-    value: ethers.utils.parseUnits('0.0001', 'ether').toString()
+  to: '0x',
+  data: '0x',
+  value: ethers.utils.parseUnits('0.0001', 'ether').toString()
 }
 
 const safeTransaction = await safeSDK.createTransaction({ safeTransactionData })
@@ -200,73 +219,3 @@ await signer.sendTransaction(tx);
 await signer.signTransaction(tx);
 await signer.signMessage(message);
 ```
-
-## Fix Webpack 5 Polyfills Issue
-
-You might see some Polyfill errors such as `Module not found: Error: Can't resolve 'crypto'.`
-
-See Web3Auth's [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack-issues) for more context on how to fix or [commit 85ccd22](https://github.com/5afe/safe-space/pull/12/commits/85ccd22b8528d7eacd013a8e3f5bb0093c85b081) for the necessary code changes to fix the Polyfill issues.
-
-
-Install `react-app-rewired` and missing dependencies:
-
-```bash 
-yarn add --dev react-app-rewired crypto-browserify stream-browserify assert stream-http https-browserify os-browserify browserify-zlib url buffer process
-```
-
-Note: You might also need to install `browserify-zlib`, which is not included in the Web3Auth documentation.
-
-Create `config-overrides.js` in the root of your project folder with the content:
-
-```javascript
-const webpack = require("webpack");
-
-module.exports = function override(config) {
-  const fallback = config.resolve.fallback || {};
-  Object.assign(fallback, {
-    crypto: require.resolve("crypto-browserify"),
-    stream: require.resolve("stream-browserify"),
-    assert: require.resolve("assert"),
-    http: require.resolve("stream-http"),
-    https: require.resolve("https-browserify"),
-    os: require.resolve("os-browserify"),
-    url: require.resolve("url"),
-    zlib: require.resolve("browserify-zlib")
-  });
-  config.resolve.fallback = fallback;
-  config.plugins = (config.plugins || []).concat([
-    new webpack.ProvidePlugin({
-      process: "process/browser",
-      Buffer: ["buffer", "Buffer"],
-    }),
-  ]);
-  config.ignoreWarnings = [/Failed to parse source map/];
-  config.module.rules.push({
-    test: /\.(js|mjs|jsx)$/,
-    enforce: "pre",
-    loader: require.resolve("source-map-loader"),
-    resolve: {
-      fullySpecified: false,
-    },
-  });
-  return config;
-};
-```
-
-Within `package.json` change the scripts field for start, build and test. Replace `react-scripts` with `react-app-rewired`.
-
-```json
-"scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-scripts eject"
-},
-```
-
-If you want to hide the warnings created by the console, in `config-overrides.js` within the override function, add:
-```javascript
-config.ignoreWarnings = [/Failed to parse source map/];
-```
-
-Run the app with `yarn start`.
