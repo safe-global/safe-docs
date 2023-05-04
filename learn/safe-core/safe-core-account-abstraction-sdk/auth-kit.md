@@ -174,7 +174,7 @@ Once connected, you can use any of the methods available in the [Safe Core SDK](
 import { ethers } from 'ethers'
 import { EthersAdapter } from '@safe-global/protocol-kit'
 
-provider = new ethers.providers.Web3Provider(safeAuthKit.getProvider()!);
+provider = new ethers.providers.Web3Provider(safeAuthKit.getProvider());
 signer = provider.getSigner();
 
 const ethAdapter = new EthersAdapter({
