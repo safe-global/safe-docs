@@ -21,7 +21,7 @@ yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal @web3auth/openlogi
 
 ### How to use
 
-Create an instance of the [SafeAuthKit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/SafeAuthKit.ts) class providing the chosen adapter (e.g `Web3AuthAdapter`) and the kit configuration `SafeAuthConfig`.
+Create an instance of the [SafeAuthKit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/SafeAuthKit.ts) class providing the chosen adapter (e.g `Web3AuthModalPack`) and the kit configuration `SafeAuthConfig`.
 
 `Web3Auth` is the only provider type currently supported but we plan to add more providers in the future.
 
@@ -39,14 +39,14 @@ const modalConfig = { ... };
 // https://web3auth.io/docs/sdk/web/modal/whitelabel#whitelabeling-while-modal-initialization
 const openloginAdapter = new OpenloginAdapter({ ... });
 
-// Create an instance of the Web3AuthAdapter
-const web3AuthAdapter = new Web3AuthAdapter(options, [openloginAdapter], modalConfig);
+// Create an instance of the Web3AuthModalPack
+const web3AuthModalPack = new Web3AuthModalPack(options, [openloginAdapter], modalConfig);
 
 // Create an instance of the SafeAuthKit using the adapter and the SafeAuthConfig allowed options
-const safeAuthKit = await SafeAuthKit.init(web3AuthAdapter, { ... });
+const safeAuthKit = await SafeAuthKit.init(web3AuthModalPack, { ... });
 ```
 
-Once the instance is created, you can call the `signIn()` method to start the authentication process showing the web3Auth modal in case you use the `Web3AuthAdapter`.
+Once the instance is created, you can call the `signIn()` method to start the authentication process showing the web3Auth modal in case you use the `Web3AuthModalPack`.
 
 While you sign in with the same email or social account, the same Ethereum address will be returned.
 
@@ -68,7 +68,7 @@ Call `getProvider` to get the Ethereum provider instance.
 safeAuthKit.getProvider();
 ```
 
-We expose two methods for listening to events. In the case of the `Web3AuthAdapter` we can listening to all the events listed [here](https://web3auth.io/docs/sdk/web/modal/initialize#subscribing-the-lifecycle-events).
+We expose two methods for listening to events. In the case of the `Web3AuthModalPack` we can listening to all the events listed [here](https://web3auth.io/docs/sdk/web/modal/initialize#subscribing-the-lifecycle-events).
 
 ```typescript
 import { ADAPTER_EVENTS } from '@web3auth/base';
@@ -85,7 +85,7 @@ safeAuthKit.subscribe(ADAPTER_EVENTS.DISCONNECTED, () => {
 It's also possible to get the associated Safe addresses to a external owned account adding the transaction service url to the config. This could be useful depending on your workflow.
 
 ```typescript
-const safeAuthKit = await SafeAuthKit.init(web3AuthAdapter, {
+const safeAuthKit = await SafeAuthKit.init(web3AuthModalPack, {
   txServiceUrl: 'https://safe-transaction-goerli.safe.global', // Add the corresponding transaction service url depending on the network
 });
 ```

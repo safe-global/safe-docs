@@ -376,54 +376,55 @@
     axios "0.24.0"
     ethers "5.7.2"
 
-"@safe-global/api-kit@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@safe-global/api-kit/-/api-kit-1.0.0.tgz#f4e5e3d3cc3e4f99108c1dabec8b3a03c510e69d"
-  integrity sha512-dJF2vpUNCWkBzjbaSWV4gIgc6LNxEmg4of5M9+Uf6eQujKxLRL5SC2am7Q6FG7uPzmjHUGwboZAU3b/Un+NNGw==
+"@safe-global/api-kit@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@safe-global/api-kit/-/api-kit-1.1.0.tgz#b46bcb4491d43576832488183019769d37e3f3e6"
+  integrity sha512-3HB+Vl3dFunID4kadpAqYQQ9lfIJuCk9pYoJsfSWGeEgOOGFwexg3UtO8hh0JXoIO+bX8pm8x5GEF6pX8HeNTQ==
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
-    "@safe-global/safe-core-sdk-types" "^1.10.0"
+    "@safe-global/safe-core-sdk-types" "^2.0.0"
     node-fetch "^2.6.6"
 
-"@safe-global/protocol-kit@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@safe-global/protocol-kit/-/protocol-kit-0.1.0.tgz#9c3c3ee69e88782d70ca64247d111938510f2061"
-  integrity sha512-c9oG4WWacWgG7gX4fByo3lPQbk5ljJnuTBCOuBU94S3LW+gI79CaGphY+8ZcJsBE8MPHNgEDO0fRwpy/Fzuyuw==
+"@safe-global/protocol-kit@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@safe-global/protocol-kit/-/protocol-kit-1.0.0.tgz#92a50d975bc3a9971993590c254a48a184c054bf"
+  integrity sha512-dRU4ik7PVAWW/j9N1njaxAMA5qeXS7TQGrls2sKrwEfZTjoAJ0Jzn9BWn43yP9CaQJ++g5vZ9FjcHnAkVikblg==
   dependencies:
+    "@ethersproject/address" "^5.7.0"
     "@ethersproject/bignumber" "^5.7.0"
     "@ethersproject/solidity" "^5.7.0"
-    "@safe-global/safe-deployments" "^1.20.2"
+    "@safe-global/safe-deployments" "^1.22.0"
     ethereumjs-util "^7.1.5"
     semver "^7.3.8"
     web3 "^1.8.1"
     web3-core "^1.8.1"
     web3-utils "^1.8.1"
 
-"@safe-global/relay-kit@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@safe-global/relay-kit/-/relay-kit-0.1.0.tgz#c67af7b4c6e3cc1a80b72bf17b7f72641ee41b91"
-  integrity sha512-SPxco0Y2fvdTN0n6+WiP3PfucQ5Azij0JJggPtPQL6DpBdAklbJeExbsXmC0oqi8Sucz55Y/WXCodKIo6nnQYA==
+"@safe-global/relay-kit@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@safe-global/relay-kit/-/relay-kit-1.0.0.tgz#e2762badb6d9397acef05e8587f26fdc4553b5d0"
+  integrity sha512-kOFxOoXDd2ZfLH3r2kUocZquhfY/V0K4AXzzFzVU2W8f89XzfgiG3ibjftMMuW650WUG5mHB8sXEcjSilPXviA==
   dependencies:
     "@gelatonetwork/relay-sdk" "^3.1.0"
-    "@safe-global/protocol-kit" "^0.1.0"
-    "@safe-global/safe-core-sdk-types" "^1.10.0"
+    "@safe-global/protocol-kit" "^1.0.0"
+    "@safe-global/safe-core-sdk-types" "^2.0.0"
     ethers "^5.7.2"
 
-"@safe-global/safe-core-sdk-types@^1.10.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@safe-global/safe-core-sdk-types/-/safe-core-sdk-types-1.10.0.tgz#77e5561850391cc80cf133635899de2d62261d7d"
-  integrity sha512-ZHcxfa8Zw3dBEbMB7HoQHE0mVcrdNBlpnb+oTaLu+f2xvsmx8kPFeoi3dEbAXiyebaXapLwQC2PVMw9LSzRusw==
+"@safe-global/safe-core-sdk-types@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@safe-global/safe-core-sdk-types/-/safe-core-sdk-types-2.0.0.tgz#643dd87c9738ff8b3eaecb06ce399cae8a48af02"
+  integrity sha512-9bcGaEuJCRG1ccGxKNjLzJuXMqdJZEFkWi+1vf6UFO8gpmanasvBozMEo6fzUMtDBGgkkStYywhO6Cp0tKyD3Q==
   dependencies:
     "@ethersproject/bignumber" "^5.7.0"
     "@ethersproject/contracts" "^5.7.0"
-    "@safe-global/safe-deployments" "^1.20.2"
+    "@safe-global/safe-deployments" "^1.22.0"
     web3-core "^1.8.1"
     web3-utils "^1.8.1"
 
-"@safe-global/safe-deployments@^1.20.2":
-  version "1.20.2"
-  resolved "https://registry.yarnpkg.com/@safe-global/safe-deployments/-/safe-deployments-1.20.2.tgz#a005493c584909bba82bb7f06fef40a1e69d8fa8"
-  integrity sha512-4uPNpC5RUl2muGKfWUMMduG5+vKDHZOdPmFPmBkdyG+JL3jDzihgdZzdbKERQClg5xrwPhJY38hJezUFCGPR/w==
+"@safe-global/safe-deployments@^1.22.0":
+  version "1.22.0"
+  resolved "https://registry.yarnpkg.com/@safe-global/safe-deployments/-/safe-deployments-1.22.0.tgz#4214ac5a9ebcad7cdbf5f641b0728bc0e497286e"
+  integrity sha512-SmbeCRMlcO/EONxbV6nP6pM/60q0NIHVezxx5FMv0dIAkDffdbm25reonKlOk3AJYW1b/c6pZA0RbWDwFSJEkQ==
   dependencies:
     semver "^7.3.7"
 
@@ -476,9 +477,9 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "18.14.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.14.1.tgz#90dad8476f1e42797c49d6f8b69aaf9f876fc69f"
-  integrity sha512-QH+37Qds3E0eDlReeboBxfHbX9omAcBCXEzswCu6jySP642jiM3cYSIkU/REqwhCUqXdonHFuBfJDiAJxMNhaQ==
+  version "20.1.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.1.0.tgz#258805edc37c327cf706e64c6957f241ca4c4c20"
+  integrity sha512-O+z53uwx64xY7D6roOi4+jApDGFg0qn6WHcxe5QeqjMaTezBO/mxdfFXIVAVVyNWKx84OmPB3L8kbVYOTeN34A==
 
 "@types/node@^12.12.6":
   version "12.20.55"
@@ -1762,9 +1763,9 @@ mkdirp-promise@^5.0.1:
     mkdirp "*"
 
 mkdirp@*:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-3.0.0.tgz#758101231418bda24435c0888a91d9bd91f1372d"
-  integrity sha512-7+JDnNsyCvZXoUJdkMR0oUE2AmAdsNXGTmRbiOjYIwQ6q+bL6NwrozGQdPcmYaNcrhH37F50HHBUzoaBV6FITQ==
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-3.0.1.tgz#e44e4c5607fb279c168241713cc6e0fea9adcb50"
+  integrity sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==
 
 mkdirp@^0.5.5:
   version "0.5.6"
@@ -2052,9 +2053,9 @@ raw-body@2.5.2:
     unpipe "1.0.0"
 
 readable-stream@^3.6.0:
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.6.1.tgz#f9f9b5f536920253b3d26e7660e7da4ccff9bb62"
-  integrity sha512-+rQmrWMYGA90yenhTYsLWAsLsqVC8osOw6PKE1HDYiO0gdPeKe/xDHNzIAIn4C91YQ6oenEhfYqqc1883qHbjQ==
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.6.2.tgz#56a9b36ea965c00c5a93ef31eb111a0f11056967"
+  integrity sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==
   dependencies:
     inherits "^2.0.3"
     string_decoder "^1.1.1"
@@ -2143,9 +2144,9 @@ secp256k1@^4.0.1:
     node-gyp-build "^4.2.0"
 
 semver@^7.3.7, semver@^7.3.8:
-  version "7.3.8"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.8.tgz#07a78feafb3f7b32347d725e33de7e2a2df67798"
-  integrity sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.0.tgz#ed8c5dc8efb6c629c88b23d41dc9bf40c1d96cd0"
+  integrity sha512-+XC0AD/R7Q2mPSRuy2Id0+CGTZ98+8f+KvwirxOKIEyid+XSx6HbC63p+O4IndTHuX5Z+JxQ0TghCkO5Cg/2HA==
   dependencies:
     lru-cache "^6.0.0"
 

@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
-import { GelatoRelayAdapter } from '@safe-global/relay-kit'
-import Safe, { EthersAdapter } from '@safe-global/protocol-kit'
+import { GelatoRelayPack } from '@safe-global/relay-kit'
+import Safe, { EthersAdapter, getSafeContract } from '@safe-global/protocol-kit'
 import { MetaTransactionData, MetaTransactionOptions, OperationType, RelayTransaction } from '@safe-global/safe-core-sdk-types'
 
 // Customize the following variables
@@ -29,11 +29,11 @@ const safeTransactionData: MetaTransactionData = {
   operation: OperationType.Call
 }
 const options: MetaTransactionOptions = {
-  gasLimit: ethers.BigNumber.from(gasLimit),
+  gasLimit: gasLimit,
   isSponsored: true
 }
 
-// Create the Protocol and Relay Adapter Instance
+// Create the Protocol and Relay Kit instance
 
 async function relayTransaction() {
   const ethAdapter = new EthersAdapter({
@@ -46,16 +46,17 @@ async function relayTransaction() {
     safeAddress
   })
 
-  const relayAdapter = new GelatoRelayAdapter(GELATO_RELAY_API_KEY)
+  const relayKit = new GelatoRelayPack(GELATO_RELAY_API_KEY)
 
-  //Prepare the transaction
+  // Prepare the transaction
   const safeTransaction = await safeSDK.createTransaction({
     safeTransactionData
   })
 
   const signedSafeTx = await safeSDK.signTransaction(safeTransaction)
+  const safeSingletonContract = await getSafeContract({ ethAdapter, safeVersion: await safeSDK.getContractVersion() })
 
-  const encodedTx = safeSDK.getContractManager().safeContract.encode('execTransaction', [
+  const encodedTx = safeSingletonContract.encode('execTransaction', [
     signedSafeTx.data.to,
     signedSafeTx.data.value,
     signedSafeTx.data.data,
@@ -74,7 +75,7 @@ async function relayTransaction() {
     chainId: chainId,
     options
   }
-  const response = await relayAdapter.relayTransaction(relayTransaction)
+  const response = await relayKit.relayTransaction(relayTransaction)
 
   console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`)
 }
