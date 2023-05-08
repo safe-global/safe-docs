@@ -1,6 +1,6 @@
 # Modules
 
-Modules add custom features to Safe contracts. They are smart contracts that implement the Safe’s functionality while separating module logic from the Safe’s core contract. A basic Safe does not require any modules. Adding and removing a module requires confirmation from the configured threshold number of owners. Modules are security-critical, so they need to be as secure as all other Safe contracts. Events are emitted whenever a module is added or removed and whenever a module transaction was successful or failed.
+Modules add custom features to Safe contracts. They are smart contracts that implement Safe’s functionality while separating module logic from Safe’s core contract. A basic Safe does not require any modules. Adding and removing a module requires confirmation from the configured threshold number of owners. Events are emitted whenever a module is added or removed, and a module transaction succeeds or fails.
 
 Modules can include daily spending allowances, amounts that can be spent without the approval of other owners, recurring transactions modules, standing orders that are performed on a recurring set date, e.g. paying your rent, and social recovery modules, which may allow you to recover a Safe if you lose access to owner accounts. These are just a few examples of how to use modules, but there are many other ways you could use modules in your Safe.
 
@@ -18,3 +18,7 @@ Watch on Youtube
 
 1. [Safe Modules](https://github.com/gnosis/safe-modules)
 2. [Zodiac-compliant modules](https://zodiac.wiki/index.php/Introduction:\_Zodiac\_Standard#Modules)
+
+{% hint style="danger" %}
+Modules are a security risk since they can execute arbitrary transactions, so only trusted and audited modules should be added to a Safe. A malicious module can completely takeover a Safe.
+{% endhint %}
