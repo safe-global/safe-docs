@@ -29,11 +29,11 @@ const safeTransactionData: MetaTransactionData = {
   operation: OperationType.Call
 }
 const options: MetaTransactionOptions = {
-  gasLimit: gasLimit,
+  gasLimit,
   isSponsored: true
 }
 
-// Create the Protocol and Relay Kit instance
+// Create the Protocol and Relay Kits instances
 
 async function relayTransaction() {
   const ethAdapter = new EthersAdapter({
