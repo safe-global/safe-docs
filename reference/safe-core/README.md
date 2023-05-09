@@ -1,4 +1,4 @@
-# Safe{Core} API Reference
+# Safe{Core} Reference
 
 The Safe{Core} SDK enable developers to interact with Safe [contracts](https://github.com/safe-global/safe-contracts) and [services](https://github.com/safe-global/safe-transaction-service) and build applications that abstract the complexity of blockchain accounts and transactions.
 
