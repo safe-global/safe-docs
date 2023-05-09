@@ -1,0 +1,8 @@
+# Safe{Core} API Reference
+
+The Safe{Core} SDK enable developers to interact with Safe [contracts](https://github.com/safe-global/safe-contracts) and [services](https://github.com/safe-global/safe-transaction-service) and build applications that abstract the complexity of blockchain accounts and transactions.
+
+You can use this section as a developer reference to discover the available methods and objects in the Safe{Core} SDK.
+
+- [Auth Kit)](auth-kit/). The [Auth kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit) creates an Ethereum address and authenticates a blockchain account using an email address, social media account, or traditional crypto wallets like Metamask.
+- [OnRamp Kit](onramp-kit/). The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit) allows users to buy cryptocurrencies using a credit card and other payment options.
