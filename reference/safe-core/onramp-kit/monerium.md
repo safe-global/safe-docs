@@ -70,16 +70,16 @@ The `MoneriumOpenOptions` options to be passed to the `open` method are:
 
 ```typescript
 MoneriumOpenOptions {
-  redirect_uri: string
+  redirectUrl?: string
   authCode?: string
   refreshToken?: string
 }
 ```
 
-- `redirect_uri` - The redirect uri to be used by the Monerium SDK. This uri will be used to redirect the user after the authentication flow is completed.
+- `redirectUrl` - The redirect uri to be used by the Monerium SDK. This uri will be used to redirect the user after the authentication flow is completed.
 - `authCode` - The authorization code to be used by the Monerium SDK. This code will be returned as a query parameter (auth_code) after successfully authenticated (Sign In or Sign Up) and can be used to get access to the resources through the Monerium SDK. The typical use case for this should be:
 
-1. Use the open method only with the redirect_uri parameter. This will open the Monerium web page for Sign In or Sign Up.
+1. Use the open method only with the `redirectUrl` parameter. This will open the Monerium web page for Sign In or Sign Up.
 2. After authentication and returned to the calling DApp then use the authCode in the query string to call the open method again with the authCode parameter and authenticate.
 
 - `refreshToken` - The refresh token to be used by the Monerium SDK. This token will be used to get to get access to the resources through the Monerium SDK. The typical use case should be to store it in the browser storage after authenticating using the `authCode` and use it to authenticate in subsequent application openings.
