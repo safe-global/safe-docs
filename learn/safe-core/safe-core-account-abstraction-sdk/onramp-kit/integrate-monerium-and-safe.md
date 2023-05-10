@@ -168,10 +168,10 @@ The potential states are this ones:
 
 ```typescript
 OrderState {
-	placed = "placed",
-	pending = "pending",
-	processed = "processed",
-	rejected = "rejected"
+  placed = "placed",
+  pending = "pending",
+  processed = "processed",
+  rejected = "rejected"
 }
 ```
 
