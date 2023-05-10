@@ -1,10 +1,12 @@
 ## Monerium
 
-Using the Monerium pack you can leverage the use of Safe with the Monerium services. [Monerium](https://monerium.com) is a regulated platform allowing the use of digital fiat currencies on the blockchain.
+The Monerium package enables you to take advantage of Safe with Monerium services. [Monerium](https://monerium.com) is a regulated platform that facilitates the use of digital fiat currencies on the blockchain.
 
 ### Install
 
-If you choose to work with the MoneriumPack you need to install additional dependencies apart from the `@safe-global/onramp-kit` package.
+If you choose to use the `MoneriumPack`, you must install additional dependencies in addition to the `@safe-global/onramp-kit` package.
+
+Install the `@monerium/sdk` package:
 
 ```bash
 yarn add @monerium/sdk
@@ -12,18 +14,18 @@ yarn add @monerium/sdk
 
 ### MoneriumPack
 
-The `MoneriumPack` class allow to use the Monerium services with Safe. You need to create an instance of the pack and pass it to the `SafeOnRampKit` `init` method.
+The `MoneriumPack` class enables the use of Monerium services with Safe. To use it, create an instance of the pack and pass it to the `SafeOnRampKit` `init` method.
 
-This pack allow you to "Login with Monerium" by creating a link between Safe addresses and Monerium accounts. With this pack you will start an authentication flow using the Monerium SDK.
+This pack makes possible to "Login with Monerium" by creating a connection between your Safe address and your Monerium account. Using this pack you will start an authentication flow using the Monerium SDK which will allow you to gain access to your account resources.
 
-#### `MoneriumPack(moneriumConfig)`
+#### `new MoneriumPack(moneriumConfig)`
 
 ```typescript
 const moneriumPack = new MoneriumPack(moneriumConfig);
 await SafeAuthKit.init(moneriumPack);
 ```
 
-**Parameters**
+**Params**
 
 - `moneriumConfig` - The configuration for the Monerium pack. The options are:
 
@@ -34,22 +36,22 @@ MoneriumConfig {
 }
 ```
 
-The `clientId` is the client id for your Monerium account. You can get one using [your account](https://monerium.dev) and adding a [new application](https://monerium.dev/docs/getting-started/create-app).
+The `clientId` is the secret representing the "Authorization Code Flow" for your Monerium account. You can obtain one by logging into [your account](https://monerium.dev) and creating a [new application](https://monerium.dev/docs/getting-started/create-app).
 
 The `environment` is the environment for the Monerium SDK. You can choose between `production` and `sandbox`.
 
-The production environment will use the real Monerium services and the accounts will need to pass a kyc process and real money will be transferred. The sandbox environment will use the Monerium [sandbox services](https://sandbox.monerium.dev) and no kyc is required and no real money will be used.
+The `production` environment will use the production Monerium services and the accounts will need to go through a KYC process. Real money will be transferred. The sandbox environment will use the Monerium [sandbox services](https://sandbox.monerium.dev) and no KYC is required. Fake money will be used.
 
 **Returns**
-An instance of the `MoneriumPack` class implementing the `SafeAuthPack<TPack>` interface for being used with the `SafeOnRampKit`.
+An instance of the `MoneriumPack` class implementing the `SafeAuthPack<TPack>` interface for being used alongside the `SafeOnRampKit`.
 
 ⚠️ The following methods shouldn't be called directly but used from the `SafeOnRampKit` instance instead. ⚠️
 
 #### `init(moneriumInitOptions)`
 
-The `init` method will initialize the Monerium SDK and the Safe services creating a new instance of the [`SafeMoneriumClient`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/src/packs/monerium/SafeMoneriumClient.ts) class. This class will extend the [`MoneriumClient`](https://github.com/monerium/sdk/blob/main/src/client.ts) class from the Monerium SDK and will add some extra features for use it with the Safe services.
+The `init` method initializes the Monerium SDK and the Safe services by creating a new instance of the [`SafeMoneriumClient`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/src/packs/monerium/SafeMoneriumClient.ts) class. This class extends the [`MoneriumClient`](https://github.com/monerium/sdk/blob/main/src/client.ts) class from the Monerium SDK and adds extra features to use it with the Safe services.
 
-**params**
+**Params**
 
 The `MoneriumInitOptions` options to be passed to the `init` method are:
 
@@ -59,13 +61,14 @@ MoneriumInitOptions {
 }
 ```
 
-- `safeSdk` - The Safe class instance to be used by the Monerium SDK. You need to add the protocol-kit as a dependency for your project and create an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class.
+- `safeSdk` - To use the `MoneriumPack`, you need to add protocol-kit as a dependency for your project and create an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class.
 
 #### `open(moneriumOpenOptions)`
 
-The `open` method will start the authentication flow with Monerium. It will open a popup window with the Monerium authentication page.
+The `open()` method initiates the authentication process with Monerium. It opens a popup window with the Monerium authentication page.
 
-**params**
+**Params**
+
 The `MoneriumOpenOptions` options to be passed to the `open` method are:
 
 ```typescript
@@ -76,22 +79,24 @@ MoneriumOpenOptions {
 }
 ```
 
-- `redirectUrl` - The redirect uri to be used by the Monerium SDK. This uri will be used to redirect the user after the authentication flow is completed.
-- `authCode` - The authorization code to be used by the Monerium SDK. This code will be returned as a query parameter (auth_code) after successfully authenticated (Sign In or Sign Up) and can be used to get access to the resources through the Monerium SDK. The typical use case for this should be:
+- `redirectUrl` - The Monerium SDK requires a redirect URL. This URI will be used to send the user back to the app after they complete the authentication process.
+  If you Use the open method with the `redirectUrl` parameter alone. This will open the Monerium web page for Sign In or Sign Up.
 
-1. Use the open method only with the `redirectUrl` parameter. This will open the Monerium web page for Sign In or Sign Up.
-2. After authentication and returned to the calling DApp then use the authCode in the query string to call the open method again with the authCode parameter and authenticate.
+- `authCode` - This code is returned as a query parameter (auth_code) after a user has successfully signed in or signed up. The typical use case for this code is to gain access to the resources (Get a token) through the Monerium SDK. Once authenticated, the dApp can call again the `open()` method with then `authCode` obtained from the query string
 
-- `refreshToken` - The refresh token to be used by the Monerium SDK. This token will be used to get to get access to the resources through the Monerium SDK. The typical use case should be to store it in the browser storage after authenticating using the `authCode` and use it to authenticate in subsequent application openings.
+- `refreshToken` - This token will be used to get to get access to the resources through the Monerium SDK. The typical use case should be to store it in the browser storage after authenticating using the `authCode` and use it to authenticate in subsequent application openings by calling the `open()` method with the `refreshToken` alone.
 
 Take a look to [the example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client) for more information.
 
 **Returns**
 
-- A `SafeMoneriumClient` instance. This instance contain all the methods and properties from the Monerium SDK and some extra methods and properties for use it with the Safe services. You can use them in your application to build any flow you want.
-  Take a look to the Monerium SDK [documentation](https://monerium.github.io/sdk/) for more information about all the methods you can use.
-  The Monerium SDK will be enhanced with Safe related methods mostly used inside the `MoneriumPack` so you usually don't need to call them directly. The exception will be the `send` method that will be used to place the orders into the Monerium system.
-  The `send` method receive an order to be placed:
+A `SafeMoneriumClient` instance. This instance contains all the methods and properties from the Monerium SDK, plus some extra ones for using the Safe services. You can use them in your application to create any flow you need.
+
+For more information about the methods available, refer to the Monerium SDK [documentation](https://monerium.github.io/sdk/).
+
+The Monerium SDK will be enhanced with Safe-related methods, mainly used in the `MoneriumPack` so you won't need to call them directly. The exception will be the `send()` method, which is used to place the orders in the Monerium system.
+
+The `send(safeMoneriumOrder)` you can access as a property in the `SafeMoneriumClient` instance method takes an order to be placed:
 
 ```typescript
 SafeMoneriumOrder {
@@ -105,23 +110,19 @@ SafeMoneriumOrder {
 
 And will do the following:
 
-1. Create an redeem order with the proper format so the Monerium SDK can understand it
+1. Creates a `redeem` order with the correct format for the Monerium SDK to understand
 2. Place the order to Monerium
-3. Propose (and execute if 1/1 Safe) a `signMessage` transaction to the Safe services with the required Monerium message to be signed by the Safe owners. Monerium knowing the Safe is a multisig wallet will wait to this order to be confirmed and executed in order to execute the order in their systems.
+3. Propose a `signMessage` transaction to the Safe services with the required Monerium message to be signed and executed. Monerium systems are aware that the Safe is a multisig wallet and will wait for this order to be confirmed and executed before carrying out the order in their systems.
 
 **Caveats**
 
-- The order we use for evaluating the `authCode` and `refreshToken` is important. Each one open a different flow with Monerium and we evaluate the presence first for the `authCode` and then for the `refreshToken`. So have this in mind and don't use both together expecting to only authenticate.
-
-#### `close()`
-
-The `close` method will clean up things as subscriptions, the socket connection to the Monerium API and browser storage.
+- The order we use internally in the SDK for evaluating the `redirectUrl`, `authCode` and `refreshToken` is important. Each property opens a different flow with Monerium and we evaluate the presence of the `authCode`, then the `refreshToken` and `redirectUrl` as default. So have this in mind if you use all of them together in yout app
 
 #### `subscribe(event, handler)`
 
-Allow to subscribe to [order status changes](https://monerium.dev/api-docs#operation/profile-orders-notifications) using the Monerium API.
+You can subscribe to [order status changes](https://monerium.dev/api-docs#operation/profile-orders-notifications) through the Monerium API.
 
-**Parameters**
+**Params**
 
 - `event` - The event you want to subscribe to. You can choose between one of the following:
 
@@ -140,7 +141,11 @@ MoneriumEvent {
 
 Allow to unsubscribe to authentication state changes.
 
-**Parameters**
+**Params**
 
 - `event` - The event you want to unsubscribe to.
 - `handler` - The handler function that will be called when the event is triggered.
+
+#### `close()`
+
+The `close` method will clean up the socket, subscriptions and browser storage.
