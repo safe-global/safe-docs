@@ -55,18 +55,9 @@ When the `OnRampKit` is initialized this way with the `MoneriumPack`, internally
 await onRampKit.open({ redirectUrl: 'https://your-site-redirect-url' });
 ```
 
-This action will open the Monerium web page to begin the authentication process and get the permissions to gain access to your resources. You should login or create a new account if you don't have one already.
+This action will redirect you to the Monerium web page to begin the authentication process and get the permissions to gain access to your resources.
 
-⚠️ It is important to be aware of what is happening during this initial interaction. A `signMessage` transaction signing the [required Monerium message](https://monerium.dev/api-docs#operation/auth) will be proposed to your Safe and executed in case both of the following conditions are met:
-
-- The Safe threshold is 1/1
-- You have sufficient funds in the Safe owner’s account (`safeSdk.getSignerAddress()`)
-
-If the owner doesn't have enough funds or the Safe is a multi-owner one, then the signer address that initiated the flow will sign the message. To confirm and execute, you must also add the remaining signatures in the Safe UI and execute the transaction.
-
-If you use the `sandbox` environment, you can test this flow without KYC in `goerli`. To use the mainnets for `ethereum`, `gnosis` or `polygon` in production, you need to create an account in the Monerium dashboard and complete KYC. The `production` environment involves real money, whereas the `sandbox` environment uses fake money and test tokens.
-
-Once you are redirected to the Monerium web page, take a look at the URL. You will see that the query string includes parameters such as these, among others:
+Take a look to the Monerium web page URL. You will see that the query string includes parameters such as these, among others:
 
 - `address`: The safe address you want to bind to your Monerium account
 - `signature`: Always "0x". It means the origin wallet is a multisig, just like the Safe. Monerium will then verify confirmed transactions in your Safe contract
@@ -74,9 +65,15 @@ Once you are redirected to the Monerium web page, take a look at the URL. You wi
 - `network`: The Monerium selected network. The value is automatically calculated using the `safeSdk` instance
 - `redirect_uri`: The `redirectUrl` you sent in the `open` method. Once authenticated, control is returned to the url
 
-3. Once you authenticate through the Monerium UI, a window will appear asking for permission to access your resources. If you accept, control will be returned to the `redirectUrl` you specified in the `open` method.
+⚠️ It is important to be aware of what is happening during this initial interaction. A `signMessage` transaction signing the [required Monerium message](https://monerium.dev/api-docs#operation/auth) will be proposed to your Safe the first time you try to link your safe address. To confirm and execute it, you must also add the remaining signatures in the Safe UI and execute the transaction.
 
-⚠️ The Monerium UI, during the authentication process will wait until it detects the Safe address has signed the message and the transaction is confirmed. You may need to reload the Monerium UI page once you know the transaction is confirmed in order to continue with the flow. Alternatively, you can start the process again and Monerium will detect the transaction confirmation immediately. ⚠️
+Once you are in the Monerium web page, you should login or create a new account if you don't have one already.
+
+After that, the Monerium UI, will wait until it detects the Safe address has signed the message as explained above and the transaction is confirmed. You may need to reload the Monerium UI page once you know the transaction is confirmed in order to continue with the flow. Alternatively, you can start the process again and Monerium will detect the transaction confirmation immediately.
+
+Note. If you use the `sandbox` environment, you can test this flow without KYC in `goerli`. To use the mainnets for `ethereum`, `gnosis` or `polygon` in production, you need to create an account in the Monerium dashboard and complete KYC. The `production` environment involves real money, whereas the `sandbox` environment uses fake money and test tokens.
+
+3. Once you authenticate through the Monerium UI, a window will appear asking for permission to access your resources. If you accept, control will be returned to the `redirectUrl` you specified in the `open` method.
 
 4. The `redirectUrl` used in the `open` will be reached again with an extra query string parameter `code`. This is the authorization code you need to exchange in order to gain access to your Monerium account.
 
@@ -145,8 +142,9 @@ safeMoneriumClient.send({
 
 Once you place your order, it will be sent to the destination account. Two things will occur:
 
-- A `signMessage` transaction will be proposed to the Safe services with the same conditions as in step 2. It will be confirmed and executed based on the threshold and the owner funds. To verify the message to be signed, refer to [the API docs](https://monerium.dev/api-docs#operation/post-orders)
-- When an order is placed in the Monerium system, it listens for the transaction above to be confirmed and executed
+- A `signMessage` transaction will be proposed to the Safe services indicating in the message the amount of tokens to burn and the destination IBAN. To verify the message to be signed, refer to [the API docs](https://monerium.dev/api-docs#operation/post-orders).
+  You should confirm and execute it using the Safe UI or an alternative method as the transaction data is returned in the `send()` call.
+- An order is placed in the Monerium system, it listens for the `signMessage` transaction above to be confirmed and executed.
 
 Once the transaction is recorded on the blockchain, the token is burned and the transfer of real money begins, completing the order 🚀.
 
