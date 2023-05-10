@@ -44,5 +44,5 @@ You can also follow the [Ecosystem Diagram](https://viewer.diagrams.net/index.ht
 3. [Open an Issue on the Safe Github](https://github.com/safe-global)
    1. Check out the [5afe Github](https://github.com/5afe/) page where we put more experimental, non-production-ready code
 4. [Chat with us on Discord](https://chat.safe.global/)
-5. [Participate in the Safe Forum](https://forum.gnosis-safe.io/)
+5. [Participate in the Safe Forum](https://forum.safe.global/)
 

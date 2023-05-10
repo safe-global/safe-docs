@@ -53,7 +53,7 @@ See [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack
 
 ## Create SafeAuthKit Instance
 
-Create an instance of the [SafeAuthKit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/SafeAuthKit.ts) by providing the chosen adapter (e.g `Web3AuthAdapter`) and the kit configuration `SafeAuthConfig`.
+Create an instance of the [SafeAuthKit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/SafeAuthKit.ts) by providing the chosen adapter (e.g `Web3AuthModalPack`) and the kit configuration `SafeAuthConfig`.
 
 `Web3Auth` is the only provider type currently supported but we plan to add more providers in the future.
 
@@ -107,9 +107,9 @@ const openloginAdapter = new OpenloginAdapter({
   }
 })
 
-const adapter = new Web3AuthAdapter(options, [openloginAdapter], modalConfig)
+const pack = new Web3AuthModalPack(options, [openloginAdapter], modalConfig)
 
-const safeAuthKit = await SafeAuthKit.init(adapter, {
+const safeAuthKit = await SafeAuthKit.init(pack, {
   txServiceUrl: 'https://safe-transaction-goerli.safe.global'
 })
 ```
@@ -140,7 +140,7 @@ Call `getProvider()` to get the Ethereum provider instance.
 safeAuthKit.getProvider();
 ```
 
-We expose two methods for listening to events. In the case of the `Web3AuthAdapter` we can listen to all the events listed [here](https://web3auth.io/docs/sdk/web/modal/initialize#subscribing-the-lifecycle-events).
+We expose two methods for listening to events. In the case of the `Web3AuthModalPack` we can listen to all the events listed [here](https://web3auth.io/docs/sdk/web/modal/initialize#subscribing-the-lifecycle-events).
 
 ```typescript
 import { ADAPTER_EVENTS } from '@web3auth/base';
@@ -157,7 +157,7 @@ safeAuthKit.subscribe(ADAPTER_EVENTS.DISCONNECTED, () => {
 It's also possible to get the associated Safe addresses to a external owned account adding the transaction service url to the config. This could be useful depending on your workflow.
 
 ```typescript
-const safeAuthKit = await SafeAuthKit.init(web3AuthAdapter, {
+const safeAuthKit = await SafeAuthKit.init(web3AuthModalPack, {
   txServiceUrl: 'https://safe-transaction-goerli.safe.global', // Add the corresponding transaction service url depending on the network
 });
 ```
