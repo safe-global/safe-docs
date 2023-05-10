@@ -1,6 +1,8 @@
 # OnRamp Kit
 
-The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit) allows users to buy cryptocurrencies using a credit card and other payment options.
+The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit) allow users to access several on-ramp services and use them with their Safe's. 
+
+These services enable users to, for example, buy crypto assets using credit cards or make SEPA transfers between the Safe and bank accounts (Monerium).
 
 ### Install dependencies
 
@@ -8,7 +10,9 @@ The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/mai
 yarn add @safe-global/onramp-kit
 ```
 
-Currently we support these OnRamp providers delivered as "packs". To add the pack you want to use you should add the proper packages:
+Currently we support several providers delivered in the form of "packs". A pack is a piece of code that work with the chosen provider to provide new services to Safe users.
+
+Using one of our developed packs involves adding the proper packages:
 
 - [Monerium](./monerium.md/#install)
 - [Stripe](./stripe.md/#install)
