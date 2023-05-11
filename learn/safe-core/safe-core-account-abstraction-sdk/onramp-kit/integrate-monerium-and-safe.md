@@ -26,7 +26,7 @@ Monerium offers several authentication methods for web apps. The `MoneriumPack` 
 ### Install dependencies
 
 ```bash
-yarn add @safe-global/onramp-kit @monerium/sdk
+yarn add @safe-global/onramp-kit @safe-global/protocol-kit @monerium/sdk
 ```
 
 ### Login with Monerium
@@ -36,7 +36,7 @@ Creating a _Login with Monerium_ integration for the Safe requires a multi-step 
 1. Load the application and instantiate the `SafeOnRampKit` with the `MoneriumPack` using the following snippet:
 
 ```typescript
-import { SafeOnRampKit, MoneriumPack } from '@safe-global/onramp-kit'
+import { SafeOnRampKit, MoneriumPack } from '@safe-global/onramp-kit';
 
 const onRampKit = await SafeOnRampKit.init(
   new MoneriumPack({
@@ -44,7 +44,7 @@ const onRampKit = await SafeOnRampKit.init(
     environment: 'sandbox', // Use the proper Monerium environment ('sandbox' | 'production')
   }),
   { safeSdk }
-)
+);
 ```
 
 The `safeSdk` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. For more information on how to instantiate the `protocol-kit` refer [here](https://docs.safe.global/learn/safe-core/safe-core-account-abstraction-sdk/protocol-kit#quickstart).
