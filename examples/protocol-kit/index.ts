@@ -51,7 +51,7 @@ async function deploySafe() {
   with an adapter that had owner 1 as the signer. */
   safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
 
-  safeAddress = safeSdkOwner1.getAddress()
+  safeAddress = await safeSdkOwner1.getAddress()
 
   console.log('Your Safe has been deployed:')
   console.log(`https://goerli.etherscan.io/address/${safeAddress}`)

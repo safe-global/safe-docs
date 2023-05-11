@@ -89,8 +89,8 @@ Once the contract has been verified, you can go back to [Relay Apps in Gelato](h
 
 ```typescript
 import { ethers } from 'ethers'
-import { GelatoRelayAdapter } from '@safe-global/relay-kit'
-import Safe, { EthersAdapter } from '@safe-global/protocol-kit'
+import { GelatoRelayPack } from '@safe-global/relay-kit'
+import Safe, { EthersAdapter, getSafeContract } from '@safe-global/protocol-kit'
 import { MetaTransactionData, MetaTransactionOptions, OperationType } from '@safe-global/safe-core-sdk-types'
 ```
 ### Initialize your Transaction Settings
@@ -124,12 +124,12 @@ const safeTransactionData: MetaTransactionData = {
   operation: OperationType.Call
 }
 const options: MetaTransactionOptions = {
-  gasLimit: ethers.BigNumber.from(gasLimit),
+  gasLimit,
   isSponsored: true
 }
 ```
 
-### Create the Protocol and Relay Adapter Instance
+### Create the Protocol and Relay Kits instances
 
 ```typescript
 const ethAdapter = new EthersAdapter({
@@ -142,7 +142,7 @@ const safeSDK = await Safe.create({
   safeAddress
 })
 
-const relayAdapter = new GelatoRelayAdapter(process.env.GELATO_RELAY_API_KEY!)
+const relayKit = new GelatoRelayPack(process.env.GELATO_RELAY_API_KEY!)
 ```
 
 ### Prepare the Transaction
@@ -151,8 +151,9 @@ const relayAdapter = new GelatoRelayAdapter(process.env.GELATO_RELAY_API_KEY!)
 const safeTransaction = await safeSDK.createTransaction({ safeTransactionData })
 
 const signedSafeTx = await safeSDK.signTransaction(safeTransaction)
+const safeSingletonContract = await getSafeContract({ ethAdapter, safeVersion: await safeSDK.getContractVersion() })
 
-const encodedTx = safeSDK.getContractManager().safeContract.encode('execTransaction', [
+const encodedTx = safeSingletonContract.encode('execTransaction', [
   signedSafeTx.data.to,
   signedSafeTx.data.value,
   signedSafeTx.data.data,
@@ -175,7 +176,7 @@ const relayTransaction: RelayTransaction = {
   chainId,
   options
 }
-const response = await relayAdapter.relayTransaction(relayTransaction)
+const response = await relayKit.relayTransaction(relayTransaction)
 
 console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`)
 ```
@@ -185,11 +186,11 @@ console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/statu
 [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee) allows you to execute a transaction and pay the gas fees directly with funds in your Safe, even if you don't have ETH or the native blockchain token.
 
 ```typescript
-import { GelatoRelayAdapter } from '@safe-global/relay-kit'
+import { GelatoRelayPack } from '@safe-global/relay-kit'
 
-const relayAdapter = new GelatoRelayAdapter()
+const relayKit = new GelatoRelayPack()
 
-relayAdapter.relayTransaction({
+relayKit.relayTransaction({
   target: '0x...', // the Safe address
   encodedTransaction: '0x...', // Encoded Safe transaction data
   chainId: 

@@ -6,7 +6,7 @@ The [Onramp kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages
 
 This package is provided for testing purposes only. It's not ready for production use. We are working with Stripe and participating in the pilot test for their new [crypto on-ramp](https://stripe.com/docs/crypto). Considering this, we provide a public key and a testing server already configured during the [Safe Account Abstraction hackathon](https://safe-global.notion.site/Safe-d6c6ed61389041e28f5c7c925f653701)
 
-Once the hackathon and Stripe pilot are over, the server will be removed and you should use your own keys and server if you plan on using the [StripeAdapter](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/src/packs/stripe/StripeAdapter.ts).
+Once the hackathon and Stripe pilot are over, the server will be removed and you should use your own keys and server if you plan on using the [StripePack](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/src/packs/stripe/StripePack.ts).
 
 ## Quickstart
 
@@ -54,11 +54,11 @@ yarn add @safe-global/onramp-kit @stripe/stripe-js @stripe/crypto
 Use the following snippet and call `fundWallet` when the user performs an action:
 
 ```typescript
-import { SafeOnRampKit, SafeOnRampProviderType, StripeAdapter } from '@safe-global/onramp-kit';
+import { SafeOnRampKit, SafeOnRampProviderType, StripePack } from '@safe-global/onramp-kit';
 
 const fundWallet = async function () {
   const safeOnRamp = await SafeOnRampKit.init(
-    new StripeAdapter({
+    new StripePack({
       // Get public key from Stripe: https://dashboard.stripe.com/register
       stripePublicKey:
         'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO',
@@ -67,7 +67,7 @@ const fundWallet = async function () {
     })
   );
 
-  // See options for using the StripeAdapter open method in:
+  // See options for using the StripePack open method in:
   // https://stripe.com/docs/crypto/using-the-api
   const sessionData = await safeOnRamp.open({
     element: '#stripe-root',
@@ -108,7 +108,7 @@ Recall:
 
 ```typescript
 import React, { useState } from 'react';
-import { SafeOnRampKit, SafeOnRampProviderType, StripeAdapter } from '@safe-global/onramp-kit';
+import { SafeOnRampKit, SafeOnRampProviderType, StripePack } from '@safe-global/onramp-kit';
 
 export interface WalletFundProps {
   address: string;
@@ -125,7 +125,7 @@ function WalletFund() {
 
   const fundWallet = async function () {
     const safeOnRamp = await SafeOnRampKit.init(
-      new StripeAdapter({
+      new StripePack({
         // Get public key from Stripe: https://dashboard.stripe.com/register
         stripePublicKey:
           'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO',
@@ -134,7 +134,7 @@ function WalletFund() {
       })
     );
 
-    // See options for using the StripeAdapter open method in:
+    // See options for using the StripePack open method in:
     // https://stripe.com/docs/crypto/using-the-api
     const sessionData = await safeOnRamp.open({
       element: '#stripe-root',
@@ -166,7 +166,7 @@ Make sure you include `id='stripe-root'` (or any string that matches `element` i
 
 ```
 Uncaught (in promise) Error: Error trying to create a new Stripe session
-at StripeAdapter.open (StripeAdapter.ts:85:1)
+at StripePack.open (StripePack.ts:85:1)
 at async SafeOnRampKit.open (SafeOnRampKit.ts:50:1)
 ```
 
