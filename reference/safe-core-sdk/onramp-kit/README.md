@@ -1,8 +1,8 @@
 # OnRamp Kit
 
-The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit) allow users to access several on-ramp services and use them with their Safe's. 
+The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit) allow users to access on-ramp services and use them with their Safe's.
 
-These services enable users to, for example, buy crypto assets using credit cards or make SEPA transfers between the Safe and bank accounts (Monerium).
+Users can use these services to buy crypto assets with credit cards or make SEPA transfers between their Safe and bank accounts (Monerium).
 
 ### Install dependencies
 
@@ -10,64 +10,61 @@ These services enable users to, for example, buy crypto assets using credit card
 yarn add @safe-global/onramp-kit
 ```
 
-Currently we support several providers delivered in the form of "packs". A pack is a piece of code that work with the chosen provider to provide new services to Safe users.
+We currently offer several providers in the form of "packs". A pack is a piece of code that works with the chosen provider to give Safe users access to new services.
 
-Using one of our developed packs involves adding the proper packages:
+To use one of our developed packs, add the required packages.
 
 - [Monerium](./monerium.md/#install)
 - [Stripe](./stripe.md/#install)
 
 ### SafeOnRampKit
 
-Create an instance of the [SafeOnRampKit](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/src/SafeOnRampKit.ts)
-
-For creating an instance of the OnRamp Kit you need to use the static method `init` and use the chosen pack.
+This class offers a common interface for accessing different providers.
 
 ```typescript
-SafeOnRampKit.init(pack);
+const pack = new XXXPack(packConfig);
+const safeOnRampKit = await SafeOnRampKit.init(pack, initOptions);
 ```
 
-### Reference
+#### `static init(pack, safeOnRampInitOptions?)`
 
-#### `init(pack, safeSdk)`
-
-Call the `init` method to create an instance of the OnRamp Kit.
+To create an instance of the [SafeOnRampKit](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/src/SafeOnRampKit.ts), use the `init` static method and specify the desired pack.
 
 ```typescript
-const safeOnRampKit = await SafeOnRampKit.init(pack, safeSdk?);
+const safeOnRampKit = await SafeOnRampKit.init(pack, { safeSdk });
 ```
 
-**Parameters**
+**Params**
 
 - `pack` - The pack you want to use.
-- `safeSdk?` - The Safe SDK instance. This is an instance of the [protocol kit](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) and some packs can require it (e.g Monerium)
+- `safeOnRampInitOptions?` - The required options for each pack. The init options are different for each pack so you should check the pack documentation.
 
 **Returns**
-The SafeOnRampKit instance allowing the different methods to be called using the pack.
+The `SafeOnRampKit` instance enables you to call various methods using the pack.
 
 **Caveats**
-You should always call the `init` method before interacting with the OnRamp Kit.
+Before using the OnRamp Kit, ensure you call the `init` method.
 
 #### `open(options?)`
 
-The open method starts the interaction with the pack. It can do different things as creating a widget (e.g Stripe) or redirecting to a website (e.g Monerium).
+The `open()` method initiates the interaction with the pack. It can create a widget (e.g. Stripe) or redirect to a website (e.g. Monerium).
 
-This is the first method you are going to use after the `init` method.
+After the `init` method, this is the first method you'll use.
 
 ```typescript
 await safeOnRampKit.open(options?);
 ```
 
-**Parameters**
+**Params**
 
-- `options?` - The options for the pack. Some packs can require it and some others don't. The options are different for each pack so you should check the pack documentation.
+- `options?` - The options for the pack vary. Some require them, while others don't. Check the pack documentation for details.
 
 **Returns**
-The result of the interaction with the pack. It can be different depending on the pack. Check the corresponding pack documentation.
+The outcome of interacting with the pack varies. Refer to the pack's documentation for more information.
 
 #### `close()`
 
-Make some cleanup after the interaction with the pack. Typically this method is called when you stop using the kit as on page leaving or when you want to stop the interaction with the pack.
+Clean up after interacting with the pack. This method is usually called when you are done using the kit, such as when you leave the page, or when you want to end the interaction with the pack.
 
 ```typescript
 safeOnRampKit.close();
@@ -75,29 +72,34 @@ safeOnRampKit.close();
 
 #### `subscribe(event, handler)`
 
-Allow to subscribe to authentication state changes. The event depends on the pack you are using so read the chosen pack documentation.
+Subscribe to authentication state changes, depending on the package you are using. For more information, refer to the documentation of the chosen pack.
 
-**Parameters**
+**Params**
 
 - `event` - The event you want to subscribe to.
 - `handler` - The handler function that will be called when the event is triggered.
 
 #### `unsubscribe(event, handler)`
 
-Allow to unsubscribe to authentication state changes. The event depends on the pack you are using so read the chosen pack documentation.
+Unsubscribe from authentication state changes. The event depends on the package you are using, so read the relevant documentation.
 
-**Parameters**
+**Params**
 
 - `event` - The event you want to unsubscribe to.
 - `handler` - The handler function that will be called when the event is triggered.
 
 ### Usage
 
-Using the onramp kit is as simple as calling the `init` method and then the `open(options)` method. The `open` method will start the interaction with the pack and will return different objects depending on the pack you are using.
+Using the onRamp kit is easy: just call the `init` method when you load the page or component, followed by the `open(options)` method when you want to start the interaction.
+
+The `open` method starts the interaction with the pack and returns different objects based on the pack you're using.
 
 ```typescript
 // Instantiate
-const safeOnRampKit = await SafeOnRampKit.init(new Pack(PackOptions, safeSdk));
+const safeOnRampKit = await SafeOnRampKit.init(
+  new Pack(PackOptions),
+  initOptions
+);
 
 // Open
 const openResponse = await safeOnRampKit.open();
@@ -110,5 +112,3 @@ safeOnRampKit.unsubscribe(PackEvent, handler);
 // Close
 await safeOnRampKit.close();
 ```
-
-### TroubleShooting
