@@ -8,11 +8,11 @@ The contracts have been carefully audited by smart contract security experts. Fo
 
 ### Rules
 
-Many of the [Ethereum Foundation’s bug bounty program rules](https://bounty.ethereum.org) are also applicable for the Safe bug bounty program:
+Many of the [Ethereum Foundation’s bug bounty program rules](https://bounty.ethereum.org) are also applicable to the Safe bug bounty program:
 
-* Issues that have already been submitted by another user or are already known to the Gnosis team are not eligible for bounty rewards.
+* Issues that have already been submitted by another user or are already known to the Safe team are not eligible for bounty rewards.
 * Public disclosure of a vulnerability makes it ineligible for a bounty.
-* The Gnosis core development team, employees, and all other people paid by Gnosis, directly or indirectly (including the external auditors), are not eligible for rewards.
+* The Safe core development team, employees, and all other people paid by Safe, directly or indirectly (including the external auditors), are not eligible for rewards.
 * The Safe bounty program considers a number of variables in determining rewards. Determinations of eligibility, score, and all terms related to an award are at the sole and final discretion of the Safe bug bounty panel.
 
 ### Scope
@@ -22,12 +22,24 @@ The scope of the bug bounty program includes the core contracts related to the f
 * _v1.1.1_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.1.1), [readme](https://github.com/safe-global/safe-contracts/blob/v1.1.1/README.md))
 * _v1.2.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.2.0), [readme](https://github.com/safe-global/safe-contracts/blob/v1.2.0/README.md))
 * _v1.3.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.3.0), [readme](https://github.com/safe-global/safe-contracts/blob/v1.3.0/README.md))
+* v1.4.0 ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.4.0), [readme](https://github.com/safe-global/safe-contracts/blob/v1.4.0/README.md))
 
 The scope of the bug bounty also includes the [allowance module](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
 
 #### In scope
 
-**Gnosis Safe core contracts**
+**Safe core contracts (version 1.4.0)**
+
+* Safe.sol (formerly GnosisSafe.sol)
+* SafeL2.sol (formerly GnosisSafeL2.sol)
+* SafeProxyFactory.sol (formerly GnosisSafeProxyFactory.sol)
+* SafeProxy.sol (formerly GnosisSafeProxy.sol)
+* MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
+* TokenCallbackHandler.sol (formerly DefaultCallbackHandler.sol), CompatibilityFallbackHandler.sol, HandlerContext.sol
+
+Addresses for deployed instances of these contracts can be found in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
+
+**Gnosis Safe core contracts (up to version 1.3.0)**
 
 * GnosisSafe.sol
 * GnosisSafeL2.sol
@@ -47,7 +59,7 @@ Addresses for deployed instances of these contracts can be found in the [Safe de
 * Being able to steal funds
 * Being able to freeze funds or render them inaccessible by their owners
 * Being able to perform replay attacks on the same chain
-* Being able to change Safe settings or module settings without consent of owners
+* Being able to change Safe settings or module settings without the consent of owners
 
 #### Out of scope
 
@@ -85,7 +97,7 @@ Please note that the submission’s quality will factor into the level of compen
 
 ### Submission Process
 
-Please email your submissions to:  [bounty@safe.global](mailto:bounty@safe.global).
+Please email your submissions to: [bounty@safe.global](mailto:bounty@safe.global).
 
 Don’t forget to include your ETH address, so that you may be rewarded. If more than one address is specified, only one will be used at the discretion of the bounty program administrators. Anonymous submissions are welcome, too.
 
@@ -146,7 +158,7 @@ The bug was submitted by [Kevin Foesenek](https://github.com/keviinfoes). It was
 
 #### The function getModuledPaginated does not return all modules
 
-The method [getModuledPaginated](https://github.com/safe-global/safe-contracts/blob/v1.3.0/contracts/base/ModuleManager.sol#L114) is used to return enabled modules page by page. For this a `start` and a `pageSize` need to be specified and the method will return an array of module addresses and `next` . This next  can be used as the `start` to load the next page. When another page exists then `next` is a module address. This module address however will not be present in any of the returned arrays. While this does not put any user assets at risk directly, it could lead to a wrong perception of the enabled modules of a Safe and thereby its state.
+The method [getModuledPaginated](https://github.com/safe-global/safe-contracts/blob/v1.3.0/contracts/base/ModuleManager.sol#L114) is used to return enabled modules page by page. For this a `start` and a `pageSize` need to be specified and the method will return an array of module addresses and `next` . This next can be used as the `start` to load the next page. When another page exists then `next` is a module address. This module address however will not be present in any of the returned arrays. While this does not put any user assets at risk directly, it could lead to a wrong perception of the enabled modules of a Safe and thereby its state.
 
 The workaround is to append the `next` to the returned array of module addresses if it is not the zero or sentinel address. Alternatively the last element of the returned array can be used as the `start` for the next page.
 
