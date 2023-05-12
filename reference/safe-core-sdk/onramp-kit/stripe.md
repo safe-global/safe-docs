@@ -81,7 +81,7 @@ Subscribe to authentication state changes. Check the [Stripe frontend events](ht
 
 #### `unsubscribe(event, handler)`
 
-Allow to unsubscribe to authentication state changes.
+Unsubscribe from authentication state changes.
 
 **Params**
 
