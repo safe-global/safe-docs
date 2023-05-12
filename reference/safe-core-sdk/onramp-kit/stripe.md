@@ -2,7 +2,7 @@
 
 The [Stripe Crypto OnRamp service](https://stripe.com/docs/crypto/overview) allows individuals to securely purchase cryptocurrencies from your application.
 
-### Install
+### Install Dependencies
 
 ```bash
 yarn add @stripe/stripe-js @stripe/crypto @safe-global/onramp-kit
