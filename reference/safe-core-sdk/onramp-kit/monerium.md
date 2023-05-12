@@ -90,7 +90,7 @@ Take a look to [the example](https://github.com/safe-global/safe-core-sdk/blob/m
 
 **Returns**
 
-A `SafeMoneriumClient` instance. This instance contains all the methods and properties from the Monerium SDK, plus some extra ones for using the Safe services. You can use them in your application to create any flow you need.
+A `SafeMoneriumClient` instance. This instance contains all methods and properties from the Monerium SDK, plus some extra ones for using the Safe services. You can use them in your application to create any flow you need.
 
 For more information about the available methods, refer to the Monerium SDK [documentation](https://monerium.github.io/sdk/).
 
