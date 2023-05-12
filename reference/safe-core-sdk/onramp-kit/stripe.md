@@ -21,7 +21,7 @@ This pack provides a customizable widget for users to purchase cryptocurrencies 
 #### `StripePack(stripeConfig)`
 
 ```typescript
-const stripePack = new Web3AuthModalPack(stripeConfig);
+const stripePack = new StripePack(stripeConfig);
 await SafeOnRampKit.init(stripePack);
 ```
 
