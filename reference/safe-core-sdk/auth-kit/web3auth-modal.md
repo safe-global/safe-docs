@@ -47,7 +47,7 @@ await SafeAuthKit.init(web3AuthModalPack);
 **Returns**
 An instance of the `Web3AuthModalPack` class that implements the `SafeAuthPack<TPack>` interface.
 
-⚠️ The following methods shouldn't be called directly but used from the `SafeOnRampKit` instance instead. ⚠️
+⚠️ The following methods shouldn't be called directly but used from the `SafeAuthKit` instance instead. ⚠️
 
 #### `init()`
 
