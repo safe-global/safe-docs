@@ -47,7 +47,7 @@ const onRampKit = await SafeOnRampKit.init(
 );
 ```
 
-The `safeSdk` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. For more information on how to instantiate the `protocol-kit` refer [here](https://docs.safe.global/learn/safe-core/safe-core-account-abstraction-sdk/protocol-kit#quickstart).
+The `safeSdk` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. For more information on how to instantiate the `protocol-kit` refer to the [Protocol Kit Quickstart section](https://docs.safe.global/learn/safe-core/safe-core-account-abstraction-sdk/protocol-kit#quickstart).
 
 The `MoneriumPack` will use the Safe address configured in the `safeSdk` to link to your Monerium account.
 
