@@ -12,7 +12,7 @@ yarn add @monerium/sdk @safe-global/onramp-kit
 
 The `MoneriumPack` class enables the use of Monerium services with Safe. To use it, create an instance of the pack and pass it to the `SafeOnRampKit` `init` method.
 
-This pack makes possible to "Login with Monerium" by creating a connection between your Safe address and your Monerium account. Using this pack you will start an authentication flow using the Monerium SDK which will allow you to gain access to your account resources.
+This pack allows you to "Login with Monerium" by creating a connection between your Safe address and your Monerium account. This pack starts an authentication flow that uses the Monerium SDK to gain access to your account.
 
 #### `new MoneriumPack(moneriumConfig)`
 
