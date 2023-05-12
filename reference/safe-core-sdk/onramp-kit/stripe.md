@@ -38,7 +38,7 @@ StripeConfig {
 
 The `stripePublicKey` is the public key for your Stripe account. You can get one using [your account](https://stripe.com/docs/keys#obtain-api-keys)
 
-The `onRampBackendUrl` is the URL for the backend that starts a session with Stripe. For more information on how to create the server, refer to the [official documentation](https://stripe.com/docs/crypto/quickstart#init-stripe). You can also check out the example application and server in the [Safe{Core} monorepo](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/example/server).
+The `onRampBackendUrl` is the URL for the backend that starts a session with Stripe. For more information on how to create the server, refer to the [official documentation](https://stripe.com/docs/crypto/quickstart#init-stripe). You can also check out the example application and server in the [Safe{Core} SDK monorepo](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/example/server).
 
 **Returns**
 An instance of the `StripePack` class implementing the `SafeAuthPack<TPack>` interface for being used with the `SafeOnRampKit`.
