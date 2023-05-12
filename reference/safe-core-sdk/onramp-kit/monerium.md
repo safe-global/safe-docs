@@ -9,7 +9,7 @@ If you choose to use the `MoneriumPack`, you must install additional dependencie
 Install the `@monerium/sdk` package:
 
 ```bash
-yarn add @monerium/sdk
+yarn add @monerium/sdk @safe-global/onramp-kit
 ```
 
 ### MoneriumPack
