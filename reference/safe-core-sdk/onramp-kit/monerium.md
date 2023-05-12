@@ -128,10 +128,10 @@ You can subscribe to [order status changes](https://monerium.dev/api-docs#operat
 
 ```typescript
 MoneriumEvent {
-	placed = "placed",
-	pending = "pending",
-	processed = "processed",
-	rejected = "rejected"
+  placed = "placed",
+  pending = "pending",
+  processed = "processed",
+  rejected = "rejected"
 }
 ```
 
