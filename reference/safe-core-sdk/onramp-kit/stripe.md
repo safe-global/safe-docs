@@ -9,7 +9,7 @@ If you choose to use the `StripePack`, you must install additional dependencies 
 Install the `@stripe/stripe-js` and `@stripe/crypto` packages:
 
 ```bash
-yarn add @stripe/stripe-js @stripe/crypto
+yarn add @stripe/stripe-js @stripe/crypto @safe-global/onramp-kit
 ```
 
 ### StripePack
