@@ -32,7 +32,10 @@ MoneriumConfig {
 }
 ```
 
-The `clientId` is the secret representing the "Authorization Code Flow" for your Monerium account. You can obtain one by logging into [your account](https://monerium.dev) and creating a [new application](https://monerium.dev/docs/getting-started/create-app).
+The `clientId` is the secret representing the "Authorization Code Flow" for your Monerium account. To get your `clientId`:
+
+1. Log in to [your account](https://monerium.dev) 
+2. Create a [new application](https://monerium.dev/docs/getting-started/create-app).
 
 The `environment` is the environment for the Monerium SDK. You can choose between `production` and `sandbox`.
 
