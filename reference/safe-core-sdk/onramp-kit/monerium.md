@@ -84,7 +84,7 @@ MoneriumOpenOptions {
 
 - `authCode` - This code is returned as a query parameter (auth_code) after a user has successfully signed in or signed up. The typical use case for this code is to gain access to the resources (Get a token) through the Monerium SDK. Once authenticated, the dApp can call again the `open()` method with then `authCode` obtained from the query string
 
-- `refreshToken` - This token will be used to get to get access to the resources through the Monerium SDK. The typical use case should be to store it in the browser storage after authenticating using the `authCode` and use it to authenticate in subsequent application openings by calling the `open()` method with the `refreshToken` alone.
+- `refreshToken` - This token will be used to get access to the resources through the Monerium SDK. The typical use case should be to keep it in the browser storage after authenticating with the `authCode` and use it to authenticate in subsequent application openings by calling the `open()` method with the `refreshToken` alone.
 
 Take a look to [the example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client) for more information.
 
