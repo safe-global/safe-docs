@@ -8,13 +8,14 @@ The Safe{Core} Account abstraction SDK allows builders to add account abstractio
    1. Create and configure customizable smart contract accounts
    2. Use secure and Audited Smart Contracts
    3. Execute multiple transactions at once with Transaction Batching
-2. [Auth Kit](auth-kit.md)
+2. [Auth Kit](auth-kit/)
    1. Onboard using a social media account or email
    2. Easy onboarding using Web3Auth
 3. [Relay Kit](relay-kit.md)
    1. Pay gas fees in ERC-20 tokens
    2. Sponsor transaction fees on behalf of others
    3. Gas-less experiences using Gelato
-4. [Onramp Kit](onramp-kit.md)
+4. [Onramp Kit](onramp-kit/)
    1. Buy crypto using a credit card
-   2. Fiat on-ramping using Stripe
+   2. SEPA transfers using Monerium and Safe
+   3. Fiat on-ramping using Stripe
