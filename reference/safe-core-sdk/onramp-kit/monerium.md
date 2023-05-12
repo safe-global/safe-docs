@@ -4,10 +4,6 @@ The Monerium pack enables you to take advantage of Safe with Monerium services. 
 
 ### Install
 
-If you choose to use the `MoneriumPack`, you must install additional dependencies in addition to the `@safe-global/onramp-kit` package.
-
-Install the `@monerium/sdk` package:
-
 ```bash
 yarn add @monerium/sdk @safe-global/onramp-kit
 ```
