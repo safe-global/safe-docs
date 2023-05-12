@@ -61,7 +61,7 @@ The `signIn()` method call internally the [`connect()`](https://web3auth.io/docs
 
 #### `signOut()`
 
-Calls the [`logout()`](https://web3auth.io/docs/sdk/web/modal/usage#web3authlogout) method from Web3Auth and clear the web3 provider stored in the instance.
+Calls the [`logout()`](https://web3auth.io/docs/sdk/web/modal/usage#web3authlogout) method from Web3Auth and clears the web3 provider stored in the instance.
 
 #### `getUserInfo()`
 
