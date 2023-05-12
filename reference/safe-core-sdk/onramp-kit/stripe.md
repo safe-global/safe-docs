@@ -1,6 +1,6 @@
 ## Stripe
 
-The [Stripe Crypto OnRamp service](https://stripe.com/docs/crypto/overview) allows individuals to purchase cryptocurrencies securely from your platform or Dapp. It is fully customizable and can be easily integrated into your product or service.
+The [Stripe Crypto OnRamp service](https://stripe.com/docs/crypto/overview) allows individuals to securely purchase cryptocurrencies from your application.
 
 ### Install
 
