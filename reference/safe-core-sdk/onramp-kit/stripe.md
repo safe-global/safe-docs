@@ -81,7 +81,7 @@ Unsubscribe from authentication state changes.
 
 **Params**
 
-- `event` - The event you want to unsubscribe to.
+- `event` - The event you want to unsubscribe from.
 - `handler` - The handler function that will be called when the event is triggered.
 
 #### `close()`
