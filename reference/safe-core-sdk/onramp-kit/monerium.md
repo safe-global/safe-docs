@@ -2,7 +2,7 @@
 
 The Monerium pack enables you to take advantage of Safe with Monerium services. [Monerium](https://monerium.com) is a regulated platform that facilitates the use of e-money tokens on the blockchain.
 
-### Install
+### Install Dependencies
 
 ```bash
 yarn add @monerium/sdk @safe-global/onramp-kit
