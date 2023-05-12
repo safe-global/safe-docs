@@ -72,7 +72,7 @@ Subscribe to authentication state changes. Check the [Stripe frontend events](ht
 
 **Params**
 
-- `event` - The event you want to subscribe to.
+- `event` - The event you want to subscribe from.
 - `handler` - The handler function that will be called when the event is triggered.
 
 #### `unsubscribe(event, handler)`
