@@ -57,7 +57,7 @@ await safeOnRampKit.open(options?);
 
 **Params**
 
-- `options?` - The options for the pack vary. Some require them, while others don't. Check the pack documentation for details.
+- `options?` - The options for the pack. For some packs they will be required, while others don't. Check the pack documentation for details.
 
 **Returns**
 The outcome of interacting with the pack varies. Refer to the pack's documentation for more information.
