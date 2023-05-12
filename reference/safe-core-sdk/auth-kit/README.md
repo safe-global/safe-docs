@@ -83,7 +83,7 @@ Using `getProvider()` you will receive a regular web3 provider derived from the 
 A web3 provider.
 
 **Caveats**
-⚠️ Web3Auth with Social Logins provides a provider that allows you to sign transactions without any UI confirmations, unlike regular wallets such as Metamask ⚠️
+⚠️ Web3Auth with Social Logins returns a provider that allows you to sign transactions without any UI confirmations, unlike regular wallets such as Metamask ⚠️
 
 #### `getUserInfo()`
 
