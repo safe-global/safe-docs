@@ -21,7 +21,7 @@ This guide demonstrates how to use the `MoneriumPack` with the [`OnRampKit`](htt
 - [Vue CLI](https://cli.vuejs.org/guide/creating-a-project.html#vue-create)
 - [Angular CLI](https://angular.io/cli/new)
 
-Monerium offers several authentication methods for web apps. The `MoneriumPack` implements the _Authorization code flow with proof key for code exchange (PKCE)_. Learn more about it [here](https://monerium.dev/docs/api#authentication).
+Monerium offers several authentication methods for web apps. The `MoneriumPack` implements the _[Authorization code flow with proof key for code exchange (PKCE)](https://monerium.dev/docs/api#authentication)_.
 
 ### Install dependencies
 
