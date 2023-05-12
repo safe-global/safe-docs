@@ -1,6 +1,6 @@
 ## Monerium
 
-The Monerium pack enables you to take advantage of Safe with Monerium services. [Monerium](https://monerium.com) is a regulated platform that facilitates the use of e-money tokens on the blockchain.
+The Monerium pack enables you to use Safe with [Monerium](https://monerium.com), a regulated platform that facilitates the use of e-money tokens on the blockchain.
 
 ### Install Dependencies
 
