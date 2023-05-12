@@ -92,7 +92,7 @@ Take a look to [the example](https://github.com/safe-global/safe-core-sdk/blob/m
 
 A `SafeMoneriumClient` instance. This instance contains all the methods and properties from the Monerium SDK, plus some extra ones for using the Safe services. You can use them in your application to create any flow you need.
 
-For more information about the methods available, refer to the Monerium SDK [documentation](https://monerium.github.io/sdk/).
+For more information about the available methods, refer to the Monerium SDK [documentation](https://monerium.github.io/sdk/).
 
 The Monerium SDK will be enhanced with Safe-related methods, mainly used in the `MoneriumPack` so you won't need to call them directly. The exception will be the `send()` method, which is used to place the orders in the Monerium system.
 
