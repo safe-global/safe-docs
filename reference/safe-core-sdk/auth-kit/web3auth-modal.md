@@ -6,7 +6,7 @@ The `Web3AuthModalPack` enables you to use [Web3Auth modal](https://web3auth.io/
 
 ### Install
 
-To use the `Web3AuthModalPack`, you need to install additional dependencies in addition to the `@safe-global/onramp-kit` package.
+To use the `Web3AuthModalPack`, you need to install some extra dependencies in addition to the `@safe-global/auth-kit` package.
 
 ```bash
 yarn add @web3auth/base @web3auth/modal
