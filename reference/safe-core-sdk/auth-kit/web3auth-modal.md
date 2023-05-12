@@ -22,7 +22,7 @@ Refer to the [supported adapters](https://web3auth.io/docs/sdk/web/adapters/) in
 
 ### Web3AuthModalPack
 
-The `Web3AuthModalPack` class is the pack that makes Web3Auth modal and Safe work together. Create an instance of the pack and pass it to the `SafeOnRampKit` instance.
+The `Web3AuthModalPack` class is the pack that makes Web3Auth modal and Safe work together. Create an instance of the pack and pass it to the `SafeAuthKit` instance.
 
 #### `Web3AuthModalPack(web3AuthModalOptions, adapters[]?, modalConfig?)`
 
