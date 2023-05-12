@@ -57,7 +57,7 @@ The options and adapters being used are the ones passed to the `Web3AuthModalPac
 
 #### `signIn()`
 
-The `signIn()` method call internally the [`connect()`](https://web3auth.io/docs/sdk/web/modal/usage#connect) one from Web3Auth. It get a web3 provider and store it internally in the instance.
+The `signIn()` method call internally the [`connect()`](https://web3auth.io/docs/sdk/web/modal/usage#connect) one from Web3Auth. It gets a web3 provider and store it internally in the instance.
 
 #### `signOut()`
 
