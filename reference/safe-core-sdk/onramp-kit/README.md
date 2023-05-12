@@ -2,7 +2,7 @@
 
 The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit) allow users to access on-ramp services and use them with their Safe's.
 
-Users can use these services to buy crypto assets with credit cards or make SEPA transfers between their Safe and bank accounts (Monerium).
+These services can be used to buy crypto assets with credit cards or make SEPA transfers between their Safe and bank accounts (Monerium).
 
 ### Install dependencies
 
