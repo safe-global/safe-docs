@@ -22,7 +22,7 @@ This class offers a common interface for accessing different providers.
 
 Create an instance of the [SafeAuthKit](https://github.com/safe-global/safe-core-sdk/blob/main/packages/auth-kit/src/SafeAuthKit.ts)
 
-For creating an instance of the OnRamp Kit you need to use the static method `init` and use the chosen pack.
+For creating an instance of the Auth Kit you need to use the static method `init` and use the chosen pack.
 
 ```typescript
 const pack = new XXXPack(packConfig);
