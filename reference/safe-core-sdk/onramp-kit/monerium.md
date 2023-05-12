@@ -82,7 +82,7 @@ MoneriumOpenOptions {
 - `redirectUrl` - The Monerium SDK requires a redirect URL. This URI will be used to send the user back to the app after they complete the authentication process.
   If you Use the open method with the `redirectUrl` parameter alone. This will open the Monerium web page for Sign In or Sign Up.
 
-- `authCode` - This code is returned as a query parameter (auth_code) after a user has successfully signed in or signed up. The typical use case for this code is to gain access to the resources (Get a token) through the Monerium SDK. Once authenticated, the dApp can call again the `open()` method with then `authCode` obtained from the query string
+- `authCode` - This code is returned as a query parameter (auth_code) after an user has successfully signed in or signed up. The typical use case for this code is to get access to the resources (Get a token) through the Monerium SDK. Once authenticated, the dApp can call again the `open()` method with then `authCode` obtained from the query string.
 
 - `refreshToken` - This token will be used to get access to the resources through the Monerium SDK. The typical use case should be to keep it in the browser storage after authenticating with the `authCode` and use it to authenticate in subsequent application openings by calling the `open()` method with the `refreshToken` alone.
 
