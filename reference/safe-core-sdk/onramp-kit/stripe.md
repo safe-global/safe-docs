@@ -72,7 +72,7 @@ StripeOpenOptions {
 
 #### `subscribe(event, handler)`
 
-Allow to subscribe to authentication state changes. Check the [stripe documentation](https://stripe.com/docs/crypto/using-the-api#frontend-events) for the list of available events.
+Allow to subscribe to authentication state changes. Check the [Stripe documentation](https://stripe.com/docs/crypto/using-the-api#frontend-events) for the list of available events.
 
 **Params**
 
