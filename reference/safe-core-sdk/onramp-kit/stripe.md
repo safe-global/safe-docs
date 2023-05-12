@@ -4,10 +4,6 @@ The [Stripe Crypto OnRamp service](https://stripe.com/docs/crypto/overview) allo
 
 ### Install
 
-If you choose to use the `StripePack`, you must install additional dependencies in addition to the `@safe-global/onramp-kit` package.
-
-Install the `@stripe/stripe-js` and `@stripe/crypto` packages:
-
 ```bash
 yarn add @stripe/stripe-js @stripe/crypto @safe-global/onramp-kit
 ```
