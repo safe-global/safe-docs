@@ -78,6 +78,28 @@ Make sure you include the `element`. Otherwise, you may get the following error:
 
 You can also specify the default options for the widget. For example, you can specify the default wallet address, supported destination networks, and supported destination currencies. See the [Stripe API documentation](https://stripe.com/docs/crypto/using-the-api) for more details. The default options you specify using the `open` method will be passed through the Stripe API when using our provided server. When you create your own one you should do something similar.
 
+4. Listening to events is important for understanding what is happening around. It helps us to create a proper UI in our web page.
+
+Check the [Stripe frontend events](https://stripe.com/docs/crypto/using-the-api#frontend-events) for the list of available events.
+
+```typescript
+const uiLoadedHandler = () => {
+  console.log('UI loaded')
+}
+
+const sessionUpdatedHandler = (e) => {
+  console.log('Session Updated', e.payload)
+}
+
+stripePack.subscribe('onramp_ui_loaded', uiLoadedHandler)
+stripePack.subscribe('onramp_session_updated', sessionUpdatedHandler)
+
+...
+
+stripePack.unsubscribe('onramp_ui_loaded', uiLoadedHandler)
+stripePack.unsubscribe('onramp_session_updated', sessionUpdatedHandler)
+```
+
 ## Test the Stripe widget
 In production, each customer should pass an individual KYC process but probably you want to test your application before 😊. You can use the following test data for bypass the KYC process while in [test mode](https://stripe.com/docs/test-mode).
 

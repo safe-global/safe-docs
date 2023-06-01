@@ -1,4 +1,4 @@
-## Monerium
+## MoneriumPack
 
 The Monerium pack enables you to use Safe with [Monerium](https://monerium.com), a regulated platform that facilitates the use of e-money tokens on the blockchain.
 
@@ -8,7 +8,7 @@ The Monerium pack enables you to use Safe with [Monerium](https://monerium.com),
 yarn add @monerium/sdk @safe-global/onramp-kit
 ```
 
-### MoneriumPack
+### Reference
 
 The `MoneriumPack` class enables the use of Monerium services with Safe. To use it, create an instance of the pack and pass it to the `SafeOnRampKit` `init` method.
 
