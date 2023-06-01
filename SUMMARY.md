@@ -10,6 +10,7 @@
     * [Safe{Core} Account Abstraction SDK](learn/safe-core/safe-core-account-abstraction-sdk/README.md)
       * [Auth Kit](learn/safe-core/safe-core-account-abstraction-sdk/auth-kit/README.md)
       * [Onramp Kit](learn/safe-core/safe-core-account-abstraction-sdk/onramp-kit/README.md)
+        * [How to integrate Stripe with your Safe](learn/safe-core/safe-core-account-abstraction-sdk/onramp-kit/integrate-stripe-and-safe.md)
         * [How to integrate Monerium with your Safe](learn/safe-core/safe-core-account-abstraction-sdk/onramp-kit/integrate-monerium-and-safe.md)
       * [Relay Kit](learn/safe-core/safe-core-account-abstraction-sdk/relay-kit.md)
       * [Protocol Kit](learn/safe-core/safe-core-account-abstraction-sdk/protocol-kit/README.md)

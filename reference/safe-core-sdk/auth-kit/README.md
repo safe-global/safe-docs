@@ -16,20 +16,16 @@ To use one of our developed packs, add the required packages.
 
 - [Web3Auth](./web3auth-modal.md#install)
 
-### SafeAuthKit
+### How to use a pack
 
-This class offers a common interface for accessing different providers.
-
-Create an instance of the [SafeAuthKit](https://github.com/safe-global/safe-core-sdk/blob/main/packages/auth-kit/src/SafeAuthKit.ts)
-
-For creating an instance of the Auth Kit you need to use the static method `init` and use the chosen pack.
+Start working with one of our packs is as easy to instantiate the main class and and call the `init()` method afterwards.
 
 ```typescript
-const pack = new XXXPack(packConfig);
-const safeAuthKit = await SafeAuthKit.init(pack, safeAuthConfig);
+const xxxPack = new XXXPack(packConfig);
+await xxxPack.init(packInitOptions);
 ```
 
-#### `static init(pack, config?)`
+#### `init(initOptions?)`
 
 To create an instance of the [SafeAuthKit](https://github.com/safe-global/safe-core-sdk/blob/main/packages/auth-kit/src/SafeAuthKit.ts), use the `init` static method and specify the desired pack.
 
