@@ -1,6 +1,6 @@
 # How to integrate Web3Auth and Safe in your DApp
 
-This guide shows you how to create a [Signing Account](/learn/what-is-a-smart-contract-account.md#smart-accounts-vs-signing-accounts) using your email or social media account. Once authenticated, you can sign transactions and interact with any Safe Smart Accounts you own.
+This guide demonstrate how to create a [Signing Account](/learn/what-is-a-smart-contract-account.md#smart-accounts-vs-signing-accounts) using your email or social media account. Once authenticated, you can sign transactions and interact with any Safe Smart Accounts you own.
 
 ## Prerequisites
 
@@ -13,7 +13,7 @@ This guide shows you how to create a [Signing Account](/learn/what-is-a-smart-co
 yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal @web3auth/openlogin-adapter
 ```
 
-If you run `yarn start` and see an error similar to `Module not found: Error: Can't resolve 'crypto'`, see Web3Auth's [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack-issues) for more context on how to fix or [commit 85ccd22](https://github.com/5afe/safe-space/pull/12/commits/85ccd22b8528d7eacd013a8e3f5bb0093c85b081) for the necessary code changes to fix the Polyfill issues.
+If you run `yarn start` and see an error similar to `Module not found: Error: Can't resolve 'crypto'`, see Web3Auth's [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack-issues).
 
 Note: You might also need to also install `browserify-zlib` (`yarn add browserify-zlib`), which is not included in the Web3Auth documentation.
 
@@ -36,7 +36,7 @@ See [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack
 
 ## Create a Web3AuthModalPack instance
 
-We are going to use the provided `Web3AuthModalPack` inside our `safe-global/auth-kit` package.
+We are going to use the provided `Web3AuthModalPack` exported in the `@safe-global/auth-kit` package.
 
 Create an instance of the [Web3AuthModalPack](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/packs/web3auth/Web3AuthModalPack.ts) using the required `Web3AuthConfig` configuration object.
 
@@ -45,12 +45,10 @@ import { Web3AuthModalPack, Web3AuthConfig } from '@safe-global/auth-kit';
 import { Web3AuthOptions } from '@web3auth/modal';
 import { OpenloginAdapter } from '@web3auth/openlogin-adapter';
 
-// https://dashboard.web3auth.io/
-const WEB3_AUTH_CLIENT_ID=process.env.REACT_APP_WEB3_AUTH_CLIENT_ID!
 
 // https://web3auth.io/docs/sdk/web/modal/initialize#arguments
 const options: Web3AuthOptions = {
-  clientId: WEB3_AUTH_CLIENT_ID,
+  clientId: "YOUR_WEB3_AUTH_CLIENT_ID", // https://dashboard.web3auth.io/
   web3AuthNetwork: 'testnet',
   chainConfig: {
     chainNamespace: CHAIN_NAMESPACES.EIP155,
@@ -101,21 +99,21 @@ web3AuthModalPack.init(options, [openloginAdapter], modalConfig)
 
 ## Sign In to an Ethereum Account
 
-Once your `Web3AuthModalPack` instance is created, call `signIn()` to start the authentication process.
+Once your `Web3AuthModalPack` instance is created, use the `signIn()` method to start the authentication process. Usually, you call this method when the user clicks on a "Sign In" button added to your page.
 
 Important considerations about Web3Auth are:
 
-1) When you sign in with the same social account, the same Ethereum address will be returned for the same Web3Auth Client ID. Web3Auth scopes the creation of the signer to the DApp, so when interacting with other DApps using Web3Auth, a different Ethereum address will be returned. This is by design and for security.
+1) When you sign in with the same social account, the same Ethereum address will be returned for the same Web3Auth client ID. Web3Auth scopes the creation of the wallet (address) to the DApp, so when interacting with other DApps using Web3Auth, a different Ethereum address will be returned. This is by design and to enhanced security.
 
-2) If you sign in with email and then "Sign in with Google", a different Ethereum address might be returned, even if you use the same email address for both login providers.
+2) If you sign in with an email and then with a social account using the same email (e.g. "Sign in with Google"), a different Ethereum address might be returned even the same email address is used.
 
 ```typescript
-// The signIn method will return the user's Ethereum address
-// The await will last until the user is authenticated so while the UI modal is showed
+// The signIn() method will return the user's Ethereum address
+// The await will last until the user is authenticated, so while the UI modal is showed
 const authKitSignData = await web3AuthModalPack.signIn();
 ```
 
-The returned data `authKitSignData` will contain the following properties:
+The returned `authKitSignData` data contains the following props:
 
 ```typescript
 AuthKitSignInData {
@@ -124,7 +122,7 @@ AuthKitSignInData {
 }
 ```
 
-The `signOut` method will remove the current session.
+The `signOut()` method removes the current session.
 
 ```typescript
 await web3AuthModalPack.signOut();
@@ -136,7 +134,7 @@ Call `getProvider()` to get the Ethereum provider instance.
 web3AuthModalPack.getProvider();
 ```
 
-We expose two methods for listening to events. In the case of the `Web3AuthModalPack` we can listen to all the events listed [here](https://web3auth.io/docs/sdk/web/modal/initialize#subscribing-the-lifecycle-events).
+We expose two methods for listening to events, `subscribe()` and `unsubscribe()`. In the `Web3AuthModalPack` case, we can listen to all the events listed [here](https://web3auth.io/docs/sdk/web/modal/initialize#subscribing-the-lifecycle-events).
 
 ```typescript
 import { ADAPTER_EVENTS } from '@web3auth/base';
@@ -158,7 +156,7 @@ const web3AuthModalPack = new Web3AuthModalPack({
 })
 ```
 
-## Signing transactions using the Web3AuthPack and Protocol Kit
+## Signing transactions using the Web3AuthModalPack and Protocol Kit
 
 The `Web3AuthModalPack` can be combined with the [Protocol Kit](./protocol-kit/) to connect to a Safe using the `provider` and `signer` of the currently authenticated account.
 
@@ -191,7 +189,7 @@ const safeTransactionData: MetaTransactionData = {
 const safeTransaction = await safeSDK.createTransaction({ safeTransactionData })
 ```
 
-## Sign transactions using the `Web3AuthModalPack`
+## Sign messages using the `Web3AuthModalPack`
 
 You can also sign any arbitrary message or transaction as a regular Signing Account with your favorite web3 library:
 
