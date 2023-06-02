@@ -1,10 +1,10 @@
-## Web3AuthPack
+## Web3AuthModalPack
 
 Web3Auth is a pluggable authentication infrastructure for Web3 wallets and applications. It simplifies onboarding for both mainstream and crypto native users, offering experiences tailored to their preferences. It supports all social logins, web and mobile native platforms, wallets, and other key management methods, creating a cryptographic key provider specific to the user and application.
 
 The `Web3AuthModalPack` enables you to use [Web3Auth modal](https://web3auth.io/docs/sdk/web/modal/) SDK with added Safe capabilities, such as retrieving the related Safe addresses for an external owned account created using Web3Auth services.
 
-### Install
+### Install dependencies
 
 To use the `Web3AuthModalPack`, you need to install some extra dependencies in addition to the `@safe-global/auth-kit` package.
 

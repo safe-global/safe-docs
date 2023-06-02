@@ -1,10 +1,10 @@
 ## AuthKitBasePack
 
-Any pack class implemented to be used as part of the Auth kit should **extend** the `AuthKitBasePack` class. This `abstract` class bring a common interface that subclasses **must** implement and provides the specific Safe common functionality any custom implementation could need.
+New pack class implemented to be used as part of the Auth kit should **extend** the `AuthKitBasePack` class. This `abstract` class bring a common interface that subclasses **must** implement and provides the specific Safe common functionality any custom implementation could need.
 
 ### `AuthKitBasePack`
 
-### Install
+### Install dependencies
 
 To use the `AuthKitBasePack`, you need to install the `@safe-global/auth-kit` package.
 
@@ -14,7 +14,7 @@ yarn add @safe-global/auth-kit
 
 ### Reference
 
-This class is used to create new packs. Any new pack should extend this class and implement the abstract methods. Extending from the AuthKitBasePack class will give you access to Safe features as retrieving the associated Safes for a given Ethereum address.
+This class is used to create new packs. Any new pack should extend this class and implement the abstract methods. Extending from the `AuthKitBasePack` class will give you access to Safe features as retrieving the associated Safes for a given Ethereum address.
 
 ```typescript
 class MyPack extends AuthKitBasePack {
@@ -45,7 +45,7 @@ Return the user information as a JSON object.
 Provide a way to subscribe to events
 
 #### `unsubscribe(event, handler)`
-Provide a way to unsubscribes from an event.
+Provide a way to unsubscribe from an event.
 
 ### Specific `AuthKitBasePack` methods
 

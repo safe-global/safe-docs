@@ -2,7 +2,7 @@
 
 The Monerium pack enables you to use Safe with [Monerium](https://monerium.com), a regulated platform that facilitates the use of e-money tokens on the blockchain.
 
-### Install Dependencies
+### Install dependencies
 
 ```bash
 yarn add @monerium/sdk @safe-global/onramp-kit
@@ -17,9 +17,13 @@ This pack allows you to "Login with Monerium" by creating a connection between y
 #### `new MoneriumPack(moneriumConfig)`
 
 ```typescript
-const moneriumPack = new MoneriumPack(moneriumConfig);
-await SafeAuthKit.init(moneriumPack);
+const moneriumPack = new MoneriumPack({
+  clientId: 'YOUR_CLIENT_ID',
+  environment: 'sandbox'
+});
 ```
+
+#### `new MoneriumPack(moneriumConfig)`
 
 **Params**
 
@@ -40,11 +44,6 @@ The `clientId` is the secret representing the "Authorization Code Flow" for your
 The `environment` is the environment for the Monerium SDK. You can choose between `production` and `sandbox`.
 
 The `production` environment will use the production Monerium services and the accounts will need to go through a KYC process. Real money will be transferred. The sandbox environment will use the Monerium [sandbox services](https://sandbox.monerium.dev) and no KYC is required. Fake money will be used.
-
-**Returns**
-An instance of the `MoneriumPack` class implementing the `SafeAuthPack<TPack>` interface for being used alongside the `SafeOnRampKit`.
-
-⚠️ The following methods shouldn't be called directly but used from the `SafeOnRampKit` instance instead. ⚠️
 
 #### `init(moneriumInitOptions)`
 
@@ -148,3 +147,26 @@ Allow to unsubscribe to authentication state changes.
 #### `close()`
 
 The `close` method will clean up the socket, subscriptions and browser storage.
+
+### Usage
+
+Using the `MoneriumPack` is easy: just instantiate the class and call the `init` method when you load the page or component, followed by the `open(options)` method when you want to start the interaction.
+
+The `open` method starts the interaction with the pack and returns the Monerium SDK client enhanced with Safe specific methods.
+
+```typescript
+// Instantiate and initialize
+const moneriumPack = new MoneriumPack(moneriumConfig)
+moneriumPack.init({ safeSdk })
+
+// Open
+const safeMoneriumClient = await moneriumPack.open(moneriumPackOpenOptions);
+
+// Subscribe to events
+const handler = (event) => {};
+moneriumPack.subscribe(MoneriumEvent.placed, handler);
+moneriumPack.unsubscribe(MoneriumEvent.processed, handler);
+
+// Close
+await moneriumPack.close();
+```
