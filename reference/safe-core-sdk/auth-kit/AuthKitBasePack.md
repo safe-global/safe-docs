@@ -1,8 +1,6 @@
 ## AuthKitBasePack
 
-New pack class implemented to be used as part of the Auth kit should **extend** the `AuthKitBasePack` class. This `abstract` class bring a common interface that subclasses **must** implement and provides the specific Safe common functionality any custom implementation could need.
-
-### `AuthKitBasePack`
+New created pack classes to be used as part of the Auth kit need to **extend** the `AuthKitBasePack` class. This `abstract` class bring a common interface that subclasses **must** implement and provides the specific Safe common functionality any custom implementation can take advantage on.
 
 ### Install dependencies
 
@@ -14,7 +12,7 @@ yarn add @safe-global/auth-kit
 
 ### Reference
 
-This class is used to create new packs. Any new pack should extend this class and implement the abstract methods. Extending from the `AuthKitBasePack` class will give you access to Safe features as retrieving the associated Safes for a given Ethereum address.
+This class is used to create new packs. Any new pack should extend this class and implement the abstract methods. Extending from the `AuthKitBasePack` class will the subclass access to Safe features as retrieving the associated Safes for a given Ethereum address.
 
 ```typescript
 class MyPack extends AuthKitBasePack {
@@ -22,7 +20,7 @@ class MyPack extends AuthKitBasePack {
 }
 ```
 
-### Abstract methods any new pack should implement
+### Abstract methods any new pack need to implement
 
 These methods are the common interface for all the packs. Check each pack documentation to get more information about the parameters and return types.
 
@@ -52,19 +50,19 @@ Provide a way to unsubscribe from an event.
 These methods provide functionality associated with Safe so you can use them inside the pack implementation.
 
 #### `getAddress(): address`
-This method returns the Ethereum address extracted from the provider retrieved by `getProvider()`.
+This method returns the Ethereum address extracted from the provider retrieved by `getProvider()`. This returns a Safe owner (signer).
 
 **Returns**
 - `address`: The Ethereum address extracted from the provider.
 
 #### `getSafes(txServiceUrl): safes[]`
-This method returns the list of Safes associated addresses by calling internally the `getAddress()` method and then using the api-kit to retrieve the Safes associated with the signer.
+This method returns the list of Safes related to the signer address by calling internally the `getAddress()` method.
 
 **Params**
-- `txServiceUrl`: The transaction service url to use to retrieve the Safes associated with the signer.
+- `txServiceUrl`: The transaction service url to use to retrieve the Safes associated with the owner (signer).
 
 **Returns**
-- `safes[]`: The list of Safes associated with the signer.
+- `safes[]`: The list of Safes associated with the owner (signer).
 
 
 

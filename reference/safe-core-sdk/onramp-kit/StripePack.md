@@ -1,8 +1,10 @@
-## Stripe
+## StripePack
 
 The [Stripe Crypto OnRamp service](https://stripe.com/docs/crypto/overview) allows individuals to securely purchase cryptocurrencies from your application.
 
 ### Install dependencies
+
+To use the `StripePack`, you need to install the stripe frontend libraries in addition to the `@safe-global/onramp-kit` package.
 
 ```bash
 yarn add @stripe/stripe-js @stripe/crypto @safe-global/onramp-kit
@@ -14,12 +16,12 @@ The `StripePack` allow you to use the Stripe Crypto OnRamp services with Safe. Y
 
 This pack provides a customizable widget for users to purchase cryptocurrencies using Stripe services. It can be rendered in any chosen CSS selector on a webpage.
 
-#### `new MoneriumPack(stripeConfig)`
-
 ```typescript
 const stripePack = new StripePack(stripeConfig);
 await stripePack.init();
 ```
+
+#### `new StripePack(stripeConfig)`
 
 **Params**
 
@@ -35,6 +37,9 @@ StripeConfig {
 The `stripePublicKey` is the public key for your Stripe account. You can get one using [your account](https://stripe.com/docs/keys#obtain-api-keys)
 
 The `onRampBackendUrl` is the URL for the backend that starts a session with Stripe. For more information on how to create the server, refer to the [official documentation](https://stripe.com/docs/crypto/quickstart#init-stripe). You can also check out the example application and server in the [Safe{Core} SDK monorepo](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/example/server).
+
+**Caveats**
+You should always call the `init()` method afterwards before interacting with the pack.
 
 #### `init()`
 
@@ -91,7 +96,7 @@ Using the `StripePack` is easy: just instantiate the class and call the `init` m
 The `open` method renders the Stripe widget.
 
 ```typescript
-// Instantiate and initialize
+// Instantiate and initialize the pack
 const stripePack = new StripePack(stripeConfig)
 stripePack.init()
 

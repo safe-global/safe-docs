@@ -4,6 +4,8 @@ The Monerium pack enables you to use Safe with [Monerium](https://monerium.com),
 
 ### Install dependencies
 
+To use the `MoneriumPack`, you need to install the monerium SDK in addition to the `@safe-global/onramp-kit` package.
+
 ```bash
 yarn add @monerium/sdk @safe-global/onramp-kit
 ```
@@ -14,13 +16,12 @@ The `MoneriumPack` class enables the use of Monerium services with Safe. To use 
 
 This pack allows you to "Login with Monerium" by creating a connection between your Safe address and your Monerium account. This pack starts an authentication flow that uses the Monerium SDK to gain access to your account.
 
-#### `new MoneriumPack(moneriumConfig)`
-
 ```typescript
 const moneriumPack = new MoneriumPack({
   clientId: 'YOUR_CLIENT_ID',
   environment: 'sandbox'
 });
+await moneriumPack.init(moneriumInitOptions);
 ```
 
 #### `new MoneriumPack(moneriumConfig)`
@@ -44,6 +45,9 @@ The `clientId` is the secret representing the "Authorization Code Flow" for your
 The `environment` is the environment for the Monerium SDK. You can choose between `production` and `sandbox`.
 
 The `production` environment will use the production Monerium services and the accounts will need to go through a KYC process. Real money will be transferred. The sandbox environment will use the Monerium [sandbox services](https://sandbox.monerium.dev) and no KYC is required. Fake money will be used.
+
+**Caveats**
+You should always call the `init()` method afterwards before interacting with the pack.
 
 #### `init(moneriumInitOptions)`
 
@@ -155,7 +159,7 @@ Using the `MoneriumPack` is easy: just instantiate the class and call the `init`
 The `open` method starts the interaction with the pack and returns the Monerium SDK client enhanced with Safe specific methods.
 
 ```typescript
-// Instantiate and initialize
+// Instantiate and initialize the pack
 const moneriumPack = new MoneriumPack(moneriumConfig)
 moneriumPack.init({ safeSdk })
 

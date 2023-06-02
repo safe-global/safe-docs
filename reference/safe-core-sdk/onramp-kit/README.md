@@ -11,7 +11,6 @@ To add the Onramp kit to your project, run:
 ```bash
 yarn add @safe-global/onramp-kit
 ```
-
 We currently offer several providers in the form of "packs". A pack is a piece of code that works with the chosen provider to give Safe users access to new services.
 
 To use one of our developed packs, add the required packages.
@@ -21,12 +20,12 @@ To use one of our developed packs, add the required packages.
 
 ### How to use a pack
 
-Start working with one of our packs is as easy as instantiate the main class and and call the common `init()` method afterwards.
+To start working with our packs, instantiate the main class and and call the common `init()` method afterwards.
 
 ```typescript
 const pack = new MoneriumPack(packConfig);
 await pack.init(packInitOptions);
 ```
 
-After the initialization, you can use the pack methods to interact with the chosen provider. There are some common methods (`open()`, `close()` ...) that you can use with any pack. It creates a common interface that any pack should implement. Check the abstract class [`OnRampKitBasePack`](./OnRampKitBasePack.md) for more information.
+After the initialization, you can use the pack specific methods to interact with the chosen provider. There are some common methods (`open()`, `close()` ...) that you can use with any pack, it's the common interface that any pack should implement. Check the abstract class [`OnRampKitBasePack`](./OnRampKitBasePack.md) for more information.
 

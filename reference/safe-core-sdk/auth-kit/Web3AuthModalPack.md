@@ -22,19 +22,21 @@ Refer to the [supported adapters](https://web3auth.io/docs/sdk/web/adapters/) in
 
 ### Reference
 
-The `Web3AuthModalPack` class is what makes Web3Auth modal and Safe work together. Create an instance of the pack and pass it to the `SafeAuthKit` instance.
+The `Web3AuthModalPack` class is what makes Web3Auth modal and Safe work together. Create an instance of the pack and initialize it to start the interaction.
 
 ```typescript
 const web3AuthModalPack = new Web3AuthModalPack({
   txServiceUrl: 'https://safe-transaction-mainnet.safe.global',
 });
+await web3AuthModalPack.init(web3AuthModalOptions, [adapters], modalConfig);
 ```
+
 
 #### `new Web3AuthModalPack(web3AuthConfig)`
 
 **Params**
 
-The `web3AuthConfig` config used in the instantiation if the `Web3AuthModalPack` class accepts the following options:
+- `web3AuthConfig` - The configuration used in the instantiation of the `Web3AuthModalPack` class accepts the following options:
 
 ```typescript
 Web3AuthConfig {
@@ -66,7 +68,7 @@ Call always the `init()` method before interacting with the other methods in the
 
 #### `signIn()`
 
-The `signIn()` method call internally the [`connect()`](https://web3auth.io/docs/sdk/web/modal/usage#connect) one from Web3Auth. It gets a web3 provider and store it internally in the instance. It retrieves the associated Safe addresses for the external owned account created using Web3Auth services.
+`signIn()` calls internally the [`connect()`](https://web3auth.io/docs/sdk/web/modal/usage#connect) method from Web3Auth. It obtains a web3 provider and store it internally in the instance. Finally, retrieves the associated Safe addresses for the external owned account created using Web3Auth services.
 
 **Returns**
 An object with the derived external owned account address and the associated safe addresses.
