@@ -1,12 +1,12 @@
 ---
-description: Basic resoruces to start creating Safe Apps
+description: Basic resources to start creating Safe Apps
 ---
 
 # Get started
 
-Welcome! We are glad on your interest about creating a Safe App. The team is working hard to provide the tools to make it easier for you to build apps that can interact with the Safe.
+Welcome! We are glad on your interest about creating a Safe App. The team is working hard to provide the tools to make it easier for you to build apps that can interact with Safe.
 
-Once you are here the main resources include:
+Once you are here, the main resources include:
 
 * [SDK Packages](get-started.md#sdk-packages)
 * [Basic Requirements](get-started.md#basic-requirements)
@@ -14,13 +14,17 @@ Once you are here the main resources include:
 
 ## SDK Packages
 
-This is one of our main pieces for Safe Apps integrations. Either you already have a dapp or you are thinking about creating a new one you will find useful to rely in one of our integrations to easily communicate with the Safe application. In this packages you will find integrations with very common packages like Web3Modal, Blocknative onboard.js or web3-react, that you may be already using on your project. For those creating a new dapp, our [CRA template](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/cra-template-safe-app) to kickstart the basic structure with all the necessary configuration will speed up the process. [Check more about SDK Packages](build.md).
+This is one of our main resources for Safe Apps integrations. Whether you already have a dapp or are thinking about creating a new one, you will find it useful to rely on one of our integrations to easily communicate with Safe{Wallet}. In these packages, you will find integrations with very common packages like Web3Modal, Blocknative onboard.js or web3-react, that you may already be using on your project. \
+\
+For those creating a new dapp, using our [CRA template](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/cra-template-safe-app) to kickstart the basic structure with all the necessary configuration will speed up the process. \
+\
+[Check more about SDK Packages](build.md).
 
 ## Basic requirements
 
-If you already have a dapp these are some mandatory requirements to adapt your app to be used as a Safe App. Without this basic configuration the dapp won't work with the Safe as expected.
+If you already have a dapp, there are some mandatory requirements to adapt your app to be used as a Safe App. Without this basic configuration, the dapp won't work with the Safe as expected.
 
-If you are using our [CRA template](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/cra-template-safe-app) to start your Safe App this basic requirements are already included.
+If you are using our [CRA template](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/cra-template-safe-app) to start your Safe App, these basic requirements are already included.
 
 #### Manifest
 
@@ -50,7 +54,8 @@ The required headers are:
 
 #### React development
 
-It is possible to use the local React development server. For this you need to set the **CORS** headers and make sure to use the same protocol (http or https) as the Safe interface you are using for testing.
+It is possible to use the local React development server. For this you need to set the **CORS** headers and make sure to use the same protocol (http or https) as the Safe interface you are using for testing.\
+
 
 **CORS for development**
 
@@ -105,11 +110,11 @@ To enable SSL with `react-scripts` it is necessary to set the `HTTPS` environmen
 },
 ```
 
-As in most cases the SSL certificate provided by `react-scripts` is not valid it is required to mark it as trusted in your browser. For this open the Safe App in a separate tab (not in the Safe interface) and accept the certificate/ ignore the warning.
+In the case that the SSL certificate provided by `react-scripts` is not valid, it is required to mark it as trusted in your browser. To do this, open the Safe App in a separate tab (not in the Safe interface) and accept the certificate or ignore the warning.
 
 ## UI Kit
 
-If you are creating your Safe App from scratch, we provide a reusable react components package to make it easy to build Safe Apps with a near-native look and feel while still allowing to enable developers to use their branding in the Safe Apps.
+If you are creating your Safe App from scratch, we provide a reusable react components package to make it easy to build Safe Apps with a near-native look and feel while still enabling developers to use their branding in the Safe Apps.
 
 * [Check all available components in the storybook](https://components.safe.global)
 * [Check UI Kit repository](https://github.com/safe-global/safe-react-components)
