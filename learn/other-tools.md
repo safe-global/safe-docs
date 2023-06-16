@@ -12,4 +12,4 @@ The Safe Team and the community has created a few helpful tools, services and fr
 
 [Zodiac](https://github.com/gnosis/zodiac) is a series of tools to extend a Safe for DAO governance and treasury management.
 
-Safe [DID](https://github.com/ceramicnetwork/CIPs/blob/main/CIPs/cip-101.md) is a method that converts a Gnosis Safe instance into a DID
+Safe [DID](https://github.com/ceramicnetwork/CIPs/blob/main/CIPs/cip-101.md) is a method that converts a Safe instance into a DID
