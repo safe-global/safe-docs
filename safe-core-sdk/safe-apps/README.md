@@ -6,7 +6,7 @@ description: What are Safe Apps?
 
 With over $90B worth of digital assets held in Safe's alone, it’s essential for the dapp ecosystem to access the untapped market of multi-signature wallets. Safe Apps introduce a completely new way for developers to build their dapps right into a Multisig interface. Turn your Dapp into an HTML iframe component that can be accessed through the Safe. We are providing extensive developer tooling to make it easy to create, test and integrate Safe Apps into the Safe. This includes an unique design system, reusable components and a Safe App SDK that facilitates the Safe App <> Safe communication.
 
-Please refer to this [EthCC3 talk](https://www.youtube.com/watch?v=1GirpNHZPJM\&t=168s) to learn more about Safe Apps.
+Please refer to this [EthCC3 talk](https://www.youtube.com/watch?v=1GirpNHZPJM&t=168s) to learn more about Safe Apps.
 
 There are already Safe Apps available for a number of popular protocols such as [Aave](https://aave.com), [Synthetix](https://synthetix.io), [1inch](https://1inch.exchange) or [Balancer](https://balancer.finance). These have been build by 3rd party developers or the projects themselves.
 

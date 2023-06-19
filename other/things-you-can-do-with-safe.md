@@ -2,9 +2,7 @@
 
 Safe accounts are built to be fully customizable. This means that the only limit to what you can do with a Safe account is your imagination.
 
-See the [Discover](https://docs.safe.global/discover/) section to see examples of how people are building and using Safe.
-
-<figure><img src="../.gitbook/assets/Slide 16_9 - 1 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/safe-iceberg.png" alt=""><figcaption></figcaption></figure>
 
 ### Live Features
 
@@ -19,7 +17,7 @@ See the [Discover](https://docs.safe.global/discover/) section to see examples o
 * Recovery mechanisms: Allow owners to recover access to their Safe if they lose a primary key.
 * Hierarchies: Different permission sets based on roles within an organization.
 * Transaction batching: Send multiple transactions at once.
-* [Gas abstraction](safe-core/safe-core-account-abstraction-sdk/relay-kit.md): Pay for transaction fees using ERC-20 tokens.
+* [Gas abstraction](safe-core-sdk/relay-kit/README.md): Pay for transaction fees using ERC-20 tokens.
 * Ethereum staking: [Stake ETH with Confidence: How to Use Safe Smart Accounts for Ethereum Validators](https://help.safe.global/en/articles/71879-stake-eth-with-confidence-how-to-use-safe-smart-accounts-for-ethereum-validators)
 * Security
   * Allow & deny lists
@@ -61,4 +59,4 @@ See the [Discover](https://docs.safe.global/discover/) section to see examples o
 
 Here is a diagram to help you decide which tool to use.
 
-![](<../.gitbook/assets/Screen Shot 2023-02-28 at 11.55.19 AM.png>)
+![](<../.gitbook/assets/diagram-safe-tools.png>)

@@ -30,7 +30,7 @@ Few sentences describing your application, maximum 200 characters
 
 You can find an example manifest file on [Github](https://github.com/safe-global/safe-apps-sdk/blob/main/packages/cra-template-safe-app/template/public/manifest.json). In addition, you can find an example Safe App on IPFS [here](https://ipfs.io/ipfs/QmTgnb1J9FDR9gimptzvaEiNa25s92iQy37GyqYfwZw8Aj/).
 
-Remember that **CORS** should be configured correctly on the `manifest.json` so we can fetch the information as [mentioned here](get-started.md#cors).
+Remember that **CORS** should be configured correctly on the `manifest.json` so we can fetch the information as [mentioned here](./get-started.md#cors).
 
 **3) The app auto-connects to the Safe**
 
@@ -54,7 +54,7 @@ Alternatively, you can provide us with the ABIs as JSON files or the links to th
 
 #### The Official launch and beyond
 
-After we have reviewed and integrated your Safe App, the App will first be available in the [staging environment](https://safe-web-core.staging.5afe.dev) of the Safe for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
+After we have reviewed and integrated your Safe App, the App will first be available in the [staging environment](https://safe-wallet-web.staging.5afe.dev) of the Safe for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
 
 At any point after the launch, if you or your users encounter issues with the Safe App, or you want to release an update to an existing Safe App, please get in touch with us via [Discord](https://chat.safe.global).
 
@@ -62,8 +62,8 @@ While developing your Safe App you can directly use [our production interface](h
 
 Once your app is live, even if you are running it locally, you can import it to the Safe application as a custom app. To do so, you should select the "Apps" tab:
 
-<figure><img src="../../../../.gitbook/assets/Side bar menu.png" alt=""><figcaption><p>Apps section button</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/side-bar-menu.png" alt=""><figcaption><p>Apps section button</p></figcaption></figure>
 
 Use the `Add custom app` button and add your app using a link:
 
-<figure><img src="../../../../.gitbook/assets/Add custom app.png" alt=""><figcaption><p>Adding a custom app form</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/add-custom-app.png" alt=""><figcaption><p>Adding a custom app form</p></figcaption></figure>

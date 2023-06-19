@@ -34,7 +34,7 @@ To be able to use `eth_sign` we need to take the parameters `r`, `s` and `v` fro
 
 `r`, `s` and `v`are the required parts of the ECDSA signature to recover the signer. `v` will be substracted by `4` to calculate the signature.
 
-#### Contract Signature \(EIP-1271\)
+#### Contract Signature (EIP-1271)
 
 `signature type == 0`
 
@@ -44,11 +44,11 @@ To be able to use `eth_sign` we need to take the parameters `r`, `s` and `v` fro
 
 **Signature verifier** - Padded address of the contract that implements the EIP 1271 interface to verify the signature
 
-**Data position** - Position of the start of the signature data \(offset relative to the beginning of the signature data\)
+**Data position** - Position of the start of the signature data (offset relative to the beginning of the signature data)
 
 **Signature type** - 0
 
-**Dynamic part \(solidity bytes\):**
+**Dynamic part (solidity bytes):**
 
 `{32-bytes signature length}{bytes signature data}`
 
@@ -64,7 +64,7 @@ The method `signMessage` can be used to mark a message as signed on-chain.
 
 `{32-bytes hash validator}{32-bytes ignored}{1-byte signature type}`
 
-**Hash validator** - Padded address of the account that pre-validated the hash that should be validated. The Safe keeps track of all hashes that have been pre validated. This is done with a **mapping address to mapping of bytes32 to boolean** where it is possible to set a hash as validated by a certain address \(hash validator\). To add an entry to this mapping use `approveHash`. Also if the validator is the sender of transaction that executed the Safe transaction it is **not** required to use `approveHash` to add an entry to the mapping. \(This can be seen in the [Team Edition tests](https://github.com/gnosis/safe-contracts/blob/v1.0.0/test/gnosisSafeTeamEdition.js)\)
+**Hash validator** - Padded address of the account that pre-validated the hash that should be validated. The Safe keeps track of all hashes that have been pre validated. This is done with a **mapping address to mapping of bytes32 to boolean** where it is possible to set a hash as validated by a certain address (hash validator). To add an entry to this mapping use `approveHash`. Also if the validator is the sender of transaction that executed the Safe transaction it is **not** required to use `approveHash` to add an entry to the mapping. (This can be seen in the [Team Edition tests](https://github.com/gnosis/safe-contracts/blob/v1.0.0/test/gnosisSafeTeamEdition.js))
 
 **Signature type** - 1
 
@@ -74,12 +74,12 @@ Assuming that three signatures are required to confirm a transaction where one s
 
 We assume that the following addresses generate the following signatures:
 
-1. `0x3` \(EOA address\) -&gt; `bde0b9f486b1960454e326375d0b1680243e031fd4fb3f070d9a3ef9871ccfd5` \(r\) + `7d1a653cffb6321f889169f08e548684e005f2b0c3a6c06fba4c4a68f5e00624` \(s\) + `1c` \(v\)
-2. `0x1` \(EIP-1271 validator contract address\) -&gt; `0000000000000000000000000000000000000000000000000000000000000001` \(address\) + `00000000000000000000000000000000000000000000000000000000000000c3` \(dynamic position\) + `00` \(signature type\)
-   * The contract takes the following `bytes` \(dynamic part\) for verification `00000000000000000000000000000000000000000000000000000000deadbeef`
-3. `0x2` \(Validator address\) -&gt; `0000000000000000000000000000000000000000000000000000000000000002` \(address\) +`0000000000000000000000000000000000000000000000000000000000000000` \(padding - not used\) + `01` \(signature type\)
+1. `0x3` (EOA address) -&gt; `bde0b9f486b1960454e326375d0b1680243e031fd4fb3f070d9a3ef9871ccfd5` (r) + `7d1a653cffb6321f889169f08e548684e005f2b0c3a6c06fba4c4a68f5e00624` (s) + `1c` (v)
+2. `0x1` (EIP-1271 validator contract address) -&gt; `0000000000000000000000000000000000000000000000000000000000000001` (address) + `00000000000000000000000000000000000000000000000000000000000000c3` (dynamic position) + `00` (signature type)
+   * The contract takes the following `bytes` (dynamic part) for verification `00000000000000000000000000000000000000000000000000000000deadbeef`
+3. `0x2` (Validator address) -&gt; `0000000000000000000000000000000000000000000000000000000000000002` (address) +`0000000000000000000000000000000000000000000000000000000000000000` (padding - not used) + `01` (signature type)
 
-The constant parts need to be sorted so that the recovered signers are sorted **ascending** \(natural order\) by address \(not checksummed\).
+The constant parts need to be sorted so that the recovered signers are sorted **ascending** (natural order) by address (not checksummed).
 
 The signatures bytes used for `execTransaction` would therefore be the following:
 

@@ -48,7 +48,3 @@ Provide a way to unsubscribe from an event.
 These methods provide functionality associated with Safe so you can use them inside the pack implementation.
 
 > To be defined
-
-
-
-

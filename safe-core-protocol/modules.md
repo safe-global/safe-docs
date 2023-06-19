@@ -16,8 +16,8 @@ Watch on Youtube
 
 ## Examples
 
-1. [Safe Modules](https://github.com/gnosis/safe-modules)
-2. [Zodiac-compliant modules](https://zodiac.wiki/index.php/Introduction:\_Zodiac\_Standard#Modules)
+1. [Safe Modules](https://github.com/safe-global/safe-modules)
+2. [Zodiac-compliant modules](https://zodiac.wiki/index.php/Introduction:_Zodiac_Standard#Modules)
 
 {% hint style="danger" %}
 Modules are a security risk since they can execute arbitrary transactions, so only trusted and audited modules should be added to a Safe. A malicious module can completely takeover a Safe.

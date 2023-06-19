@@ -1,10 +1,10 @@
 # Bug Bounty
 
-This is the page of the Safe bug bounty program. Find bugs and get rewarded. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](https://docs.safe.global/learn/security/bug-bounty-program#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global).
+This is the page of the Safe bug bounty program. Find bugs and get rewarded. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](https://docs.safe.global/safe-core-protocol/security/bug-bounty-program#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global).
 
 ### Audits
 
-The contracts have been carefully audited by smart contract security experts. For details, please refer to the [security audits page](https://docs.safe.global/learn/security/security-audits).
+The contracts have been carefully audited by smart contract security experts. For details, please refer to the [security audits page](https://docs.safe.global/safe-core-protocol/security/security-audits).
 
 ### Rules
 
@@ -19,16 +19,16 @@ Many of the [Ethereum Foundation’s bug bounty program rules](https://bounty.et
 
 The scope of the bug bounty program includes the core contracts related to the following releases of the Safe contracts:
 
-* _v1.1.1_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.1.1), [readme](https://github.com/safe-global/safe-contracts/blob/v1.1.1/README.md))
-* _v1.2.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.2.0), [readme](https://github.com/safe-global/safe-contracts/blob/v1.2.0/README.md))
+* v1.4.1 ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.4.1), [readme](https://github.com/safe-global/safe-contracts/blob/v1.4.1/README.md))
 * _v1.3.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.3.0), [readme](https://github.com/safe-global/safe-contracts/blob/v1.3.0/README.md))
-* v1.4.0 ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.4.0), [readme](https://github.com/safe-global/safe-contracts/blob/v1.4.0/README.md))
+* _v1.2.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.2.0), [readme](https://github.com/safe-global/safe-contracts/blob/v1.2.0/README.md))
+* _v1.1.1_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.1.1), [readme](https://github.com/safe-global/safe-contracts/blob/v1.1.1/README.md))
 
 The scope of the bug bounty also includes the [allowance module](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
 
 #### In scope
 
-**Safe core contracts (version 1.4.0)**
+**Safe core contracts (version 1.4.1)**
 
 * Safe.sol (formerly GnosisSafe.sol)
 * SafeL2.sol (formerly GnosisSafeL2.sol)
@@ -71,7 +71,7 @@ Addresses for deployed instances of these contracts can be found in the [Safe de
 
 ### Intended behavior
 
-Please refer to the [readme file](https://github.com/safe-global/safe-contracts/blob/v1.3.0/README.md) and the [release details](https://github.com/safe-global/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](https://docs.gnosis.io/safe/docs/contracts\_intro) for an extensive overview of the intended behavior of the smart contracts.
+Please refer to the [readme file](https://github.com/safe-global/safe-contracts/blob/v1.3.0/README.md) and the [release details](https://github.com/safe-global/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](https://docs.safe.global) for an extensive overview of the intended behavior of the smart contracts.
 
 For the allowance module, please refer to the corresponding [readme file](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/README.md)
 
@@ -101,7 +101,7 @@ Please email your submissions to: [bounty@safe.global](mailto:bounty@safe.global
 
 Don’t forget to include your ETH address, so that you may be rewarded. If more than one address is specified, only one will be used at the discretion of the bounty program administrators. Anonymous submissions are welcome, too.
 
-Please consult our [privacy policy](https://gnosis.io/privacy-policy) for further details on how we handle submissions.
+Please consult our [privacy policy](https://safe.global/privacy) for further details on how we handle submissions.
 
 ### Responsible Disclosure Policy
 

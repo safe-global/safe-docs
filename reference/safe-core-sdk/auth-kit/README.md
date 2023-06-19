@@ -25,5 +25,5 @@ const pack = new Web3AuthModalPack(packConfig);
 await pack.init(packInitOptions);
 ```
 
-After the initialization, you can use the pack methods to interact with the chosen provider. There are some common methods (`signIn()`, `signOut()` ...) that you can use with any pack. It creates a common interface that any pack should implement. Check the abstract class [`AuthKitBasePack`](./AuthKitBasePack.md) for more information.
+After the initialization, you can use the pack methods to interact with the chosen provider. There are some common methods (`signIn()`, `signOut()`, etc.) that you can use with any pack. It creates a common interface that any pack should implement. Check the abstract class [`AuthKitBasePack`](./AuthKitBasePack.md) for more information.
 

@@ -4,7 +4,7 @@ There are a few key reasons why you might want to consider building your applica
 
 Multi-signature control is the tip of the iceberg and Safe accounts unlock a wide range of possibilities for new form of custody, ownership, and identity.
 
-<figure><img src="../../.gitbook/assets/Xnapper-2022-11-09-13.53.57.png" alt=""><figcaption><p>New forms of custody are possible with smart contract accounts</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/diagram-third-party-custody.png" alt=""><figcaption><p>New forms of custody are possible with smart contract accounts</p></figcaption></figure>
 
 #### High Security
 

@@ -20,9 +20,9 @@ When you change the very idea of an account from something that is simply using 
 
 The account that uses a key to sign transactions is a signing account. It's also known as an Externally Owned Account (EOA).
 
-<figure><img src="../.gitbook/assets/Slide 16_9 - 5 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/eoas-vs-smart-accounts.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/Slide 16_9 - 3.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/table-compare-storage-solutions.png" alt=""><figcaption></figcaption></figure>
 
 A common misconception is that all Smart Accounts are multi-sig accounts. This isn't true. A multi-sig account is a specific type of Smart Account that requires multiple signing accounts to approve transactions. In fact, the [most common Smart Account configuration is a 1/1](https://twitter.com/tomiwa1a/status/1619059531480444933). This means that only one signer is required for the account. Why would someone create a smart account that only has one signer? Martin Köppelmann has a [great thread explaining this](https://twitter.com/koeppelmann/status/1618998969992097793). In summary:
 
@@ -33,6 +33,6 @@ A common misconception is that all Smart Accounts are multi-sig accounts. This i
 
 ### Further Reading
 
-1. [Safe{Core} Account Abstraction SDK](safe-core/safe-core-account-abstraction-sdk/)
-2. [Safe Modules](safe-core/safe-core-protocol/modules-1.md)
-3. [Safe Guards](safe-core/safe-core-protocol/guards.md)
+1. [Safe{Core} Account Abstraction SDK](safe-core-sdk/introduction.md)
+2. [Safe Modules](safe-core-protocol/modules.md)
+3. [Safe Guards](safe-core-protocol/guards.md)
