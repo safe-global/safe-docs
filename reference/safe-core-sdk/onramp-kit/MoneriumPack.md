@@ -1,25 +1,30 @@
-## Monerium
+## MoneriumPack
 
 The Monerium pack enables you to use Safe with [Monerium](https://monerium.com), a regulated platform that facilitates the use of e-money tokens on the blockchain.
 
-### Install Dependencies
+### Install dependencies
+
+To use the `MoneriumPack`, you need to install the monerium SDK in addition to the `@safe-global/onramp-kit` package.
 
 ```bash
 yarn add @monerium/sdk @safe-global/onramp-kit
 ```
 
-### MoneriumPack
+### Reference
 
 The `MoneriumPack` class enables the use of Monerium services with Safe. To use it, create an instance of the pack and pass it to the `SafeOnRampKit` `init` method.
 
 This pack allows you to "Login with Monerium" by creating a connection between your Safe address and your Monerium account. This pack starts an authentication flow that uses the Monerium SDK to gain access to your account.
 
-#### `new MoneriumPack(moneriumConfig)`
-
 ```typescript
-const moneriumPack = new MoneriumPack(moneriumConfig);
-await SafeAuthKit.init(moneriumPack);
+const moneriumPack = new MoneriumPack({
+  clientId: 'YOUR_CLIENT_ID',
+  environment: 'sandbox'
+});
+await moneriumPack.init(moneriumInitOptions);
 ```
+
+#### `new MoneriumPack(moneriumConfig)`
 
 **Params**
 
@@ -41,10 +46,8 @@ The `environment` is the environment for the Monerium SDK. You can choose betwee
 
 The `production` environment will use the production Monerium services and the accounts will need to go through a KYC process. Real money will be transferred. The sandbox environment will use the Monerium [sandbox services](https://sandbox.monerium.dev) and no KYC is required. Fake money will be used.
 
-**Returns**
-An instance of the `MoneriumPack` class implementing the `SafeAuthPack<TPack>` interface for being used alongside the `SafeOnRampKit`.
-
-⚠️ The following methods shouldn't be called directly but used from the `SafeOnRampKit` instance instead. ⚠️
+**Caveats**
+You should always call the `init()` method afterwards before interacting with the pack.
 
 #### `init(moneriumInitOptions)`
 
@@ -148,3 +151,26 @@ Allow to unsubscribe to authentication state changes.
 #### `close()`
 
 The `close` method will clean up the socket, subscriptions and browser storage.
+
+### Usage
+
+Using the `MoneriumPack` is easy: just instantiate the class and call the `init` method when you load the page or component, followed by the `open(options)` method when you want to start the interaction.
+
+The `open` method starts the interaction with the pack and returns the Monerium SDK client enhanced with Safe specific methods.
+
+```typescript
+// Instantiate and initialize the pack
+const moneriumPack = new MoneriumPack(moneriumConfig)
+moneriumPack.init({ safeSdk })
+
+// Open
+const safeMoneriumClient = await moneriumPack.open(moneriumPackOpenOptions);
+
+// Subscribe to events
+const handler = (event) => {};
+moneriumPack.subscribe(MoneriumEvent.placed, handler);
+moneriumPack.unsubscribe(MoneriumEvent.processed, handler);
+
+// Close
+await moneriumPack.close();
+```

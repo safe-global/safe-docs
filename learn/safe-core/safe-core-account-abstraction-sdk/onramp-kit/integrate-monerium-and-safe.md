@@ -1,4 +1,4 @@
-# How to integrate Monerium with your Safe
+# How to integrate Monerium and Safe in your DApp
 
 The [`MoneriumPack`](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/src/packs/monerium) enables Safe users to make direct transfers of e-money tokens from their Safe addresses to an IBAN via the SEPA network. This allows them to use Monerium and Safe services together.
 
@@ -9,7 +9,7 @@ More info about Monerium:
 
 ### What are we going to learn?
 
-This guide demonstrates how to use the `MoneriumPack` with the [`OnRampKit`](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) and incorporate it into your web application.
+This guide demonstrates how to use the `MoneriumPack` as part of the [`OnRampKit`](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) and incorporate it into your web application.
 
 ### Prerequisites
 
@@ -33,18 +33,17 @@ yarn add @safe-global/onramp-kit @safe-global/protocol-kit @monerium/sdk
 
 Creating a _Login with Monerium_ integration for the Safe requires a multi-step process that should be implemented in your web app. The following steps are required.
 
-1. Load the application and instantiate the `SafeOnRampKit` with the `MoneriumPack` using the following snippet:
+1. Load the application and initialize the `MoneriumPack` using the following snippet:
 
 ```typescript
-import { SafeOnRampKit, MoneriumPack } from '@safe-global/onramp-kit';
+import { MoneriumPack } from '@safe-global/onramp-kit';
 
-const onRampKit = await SafeOnRampKit.init(
-  new MoneriumPack({
-    clientId: { YOUR_CLIENT_ID }, // Get your client id from Monerium
-    environment: 'sandbox', // Use the proper Monerium environment ('sandbox' | 'production')
-  }),
-  { safeSdk }
-);
+const moneriumPack = new MoneriumPack({
+  clientId: { YOUR_CLIENT_ID }, // Get your client id from Monerium
+  environment: 'sandbox', // Use the proper Monerium environment ('sandbox' | 'production')})
+})
+
+await moneriumPack.init({ safeSdk })
 ```
 
 The `safeSdk` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. For more information on how to instantiate the `protocol-kit` refer to the [Protocol Kit Quickstart section](https://docs.safe.global/learn/safe-core/safe-core-account-abstraction-sdk/protocol-kit#quickstart).
@@ -54,7 +53,7 @@ The `MoneriumPack` will use the Safe address configured in the `safeSdk` to link
 2. Start the _Login with Monerium_ flow by creating a button or link in your application. Use your favorite UI library to add a handler and start the login flow. In the button handler you should start the flow by calling the `open` method:
 
 ```typescript
-await onRampKit.open({ redirectUrl: 'https://your-site-redirect-url' });
+await moneriumPack.open({ redirectUrl: 'https://your-site-redirect-url' });
 ```
 
 This action will open the Monerium web page to begin the authentication process and get the permissions to gain access to your information.
@@ -79,10 +78,10 @@ Note. If you use the `sandbox` environment, you can test this flow without KYC i
 
 4. The `redirectUrl` used in the `open` will be reached again with an extra query string parameter `code`. This is the authorization code you need to exchange in order to gain access to your Monerium account.
 
-Re-initialize the authentication kit using the `init` method and exchange the code, as per Step 1.
+Re-initialize the `MoneriumPack` using the `init` method and exchange the code, as per Step 1.
 
 ```typescript
-const safeMoneriumClient = await onRampKit.open({ authCode: <The querystring code parameter> });
+const safeMoneriumClient = await moneriumPack.open({ authCode: <The querystring code parameter> });
 ```
 
 If the code is exchanged without problems, you will be now authenticated with Monerium and your Safe will be linked!. You can start using the `safeMoneriumClient` instance to interact with your Monerium account. This instance is an enhanced version of the Monerium SDK, with some additional Safe features.
@@ -98,7 +97,7 @@ const balances = await moneriumClient.getBalances();
 const orders = await moneriumClient.getOrders();
 ```
 
-5. When you reload a page, you usually want to stay authenticated as long as the tokens are valid. To do this, we have another way to open the `SafeOnRampKit` instance with the `MoneriumPack`.
+5. When you reload a page, you usually want to stay authenticated as long as the tokens are valid. To do this, we have another way to `open()` the `MoneriumPack`.
 
 Once authenticated in step 4, you can store the `refresh_token` found in the `bearerProfile` property of the `safeMoneriumClient` using browser storage methods.
 
@@ -109,10 +108,10 @@ localStorage.setItem(
 );
 ```
 
-If the user leaves the session or reloads the browser, detect and retrieve the stored token on the next session or page load. Always `init` the `SafeOnRampKit` instance when the page loads.
+If the user leaves the session or reloads the browser, detect and retrieve the stored token on the next session or page load. Always `init` the `MoneriumPack` instance when the page loads as showed in the step 1.
 
 ```typescript
-const safeMoneriumClient = await onRampKit.open({
+const safeMoneriumClient = await moneriumPack.open({
   refreshToken: localStorage.getItem('MONERIUM_TOKEN'),
 });
 ```
@@ -154,14 +153,16 @@ Once the transaction is recorded on the blockchain, the token is burned and the 
 
 You probably want to know when the order is completed. For this you can listen to events using the [Monerium API websockets](https://monerium.dev/api-docs#operation/profile-orders-notifications)
 
-Connecting to the socket is easy, just use the `onRampKit` instances `subscribe` and `unsubscribe` methods. To subscribe, do this:
+Connecting to the socket is easy, just use the `moneriumPack` instance along with the `subscribe()` and `unsubscribe()` methods. 
+
+To subscribe, do this:
 
 ```typescript
 const handler = (notification) => {
   console.log(notification);
 };
 
-client.subscribe(OrderState.processed, handler);
+moneriumPack.subscribe(OrderState.processed, handler);
 ```
 
 The potential states are this ones:
@@ -178,7 +179,7 @@ OrderState {
 If you wish to unsubscribe, you can do:
 
 ```typescript
-client.unsubscribe(OrderState.processed, handler);
+moneriumPack.unsubscribe(OrderState.processed, handler);
 ```
 
 ### MoneriumPack complete React example

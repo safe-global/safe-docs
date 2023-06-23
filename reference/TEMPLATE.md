@@ -9,13 +9,13 @@
 
 {Installation instructions}
 
-## Subtitle (e.g. Class/Module/Component to document)
+## Reference
 
-{Description}
+{Description of what the package or class does}
 
 {Code Example}
 
-#### `method1(param1, param2)`
+#### `method|constructor(param1, param2)`
 
 {Description}
 
