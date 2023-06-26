@@ -42,10 +42,8 @@ You can also follow the [Ecosystem Diagram](https://viewer.diagrams.net/index.ht
 #### Community
 
 - [Tweet us on Twitter @safe](https://twitter.com/safe).
-- [Ask 'gnosis-safe' Questions on the Ethereum Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/gnosis-safe).
 - GitHub
    - [Open an issue](https://github.com/safe-global).
-   - Contribute to the [Safe GitHub docs](https://github.com/safe-global/safe-docs).
    - Check out the [5afe GitHub](https://github.com/5afe/) page where we put more experimental, non-production-ready code.
 - [Chat with us on Discord](https://chat.safe.global/).
 - [Participate in the Safe Forum](https://forum.safe.global/).
@@ -53,10 +51,4 @@ You can also follow the [Ecosystem Diagram](https://viewer.diagrams.net/index.ht
 
 #### Support
 
-- Reach out through the [help center](https://help.safe.global).
-- Message us directly through the bottom-right message button on [our site](https://help.safe.global).
-- Email us at [safe@gnosis.io](mailto:safe@gnosis.io).
-
-### About Us
-
-Safe was originally built by the Gnosis team (Formerly Gnosis Safe) and [became it's own independent Safe Ecosystem Foundation (SEF)](https://safe.mirror.xyz/zMPp8uqZpxKgeXotSFv76bd2G8lJTmghH1FDWFm604c) in 2022. Investors include [1kx, Coinbase Ventures, ConsenSys, Digital Currency Group (DCG), Lightspeed, Tiger Global, and etc](https://www.coindesk.com/business/2022/07/12/gnosis-safe-rebrands-as-safe-raises-100m).
+- [Ask 'safe-core' questions on Ethereum Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core).
