@@ -4,7 +4,7 @@ description: Everything you need to know to start building on Safe.
 
 # 👋 Introduction
 
-Safe makes it easy for anyone to make and use accounts on the blockchain. These docs explain how to do this.
+Safe brings digital ownership of accounts to everyone by building universal and open contract standards for the custody of digital assets, data, and identity with the Safe ecosystem. These docs explain how to build with Safe.
 
 ### How to Read this Guide
 
@@ -22,7 +22,7 @@ We recommend starting with Learn and seeing some tutorials there to learn more a
 
 Safe has a lot of features which means a lot of information. To make it easier to navigate, here is a step-by-step guide you can follow:
 
-1. ****[**Learn about Smart Accounts**](learn/what-is-a-smart-contract-account.md)
+1. [Learn about Smart Accounts](learn/what-is-a-smart-contract-account.md)
    1. Make a Safe
    2. Learn about Account Abstraction
 2. [Learn about the different Safe{Core} tools](learn/safe-core/)
@@ -39,10 +39,16 @@ You can also follow the [Ecosystem Diagram](https://viewer.diagrams.net/index.ht
 
 ### Contact Us
 
-1. [Tweet us on Twitter @safe](https://twitter.com/safe)
-2. [Ask 'gnosis-safe' Questions on the Ethereum Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/gnosis-safe)
-3. [Open an Issue on the Safe Github](https://github.com/safe-global)
-   1. Check out the [5afe Github](https://github.com/5afe/) page where we put more experimental, non-production-ready code
-4. [Chat with us on Discord](https://chat.safe.global/)
-5. [Participate in the Safe Forum](https://forum.safe.global/)
+#### Community
 
+- [Tweet us on Twitter @safe](https://twitter.com/safe).
+- GitHub
+   - [Open an issue](https://github.com/safe-global).
+   - Check out the [5afe GitHub](https://github.com/5afe/) page where we put more experimental, non-production-ready code.
+- [Chat with us on Discord](https://chat.safe.global/).
+- [Participate in the Safe Forum](https://forum.safe.global/).
+- Follow Safe adoption on [Dune Analytics](https://dune.com/safe).
+
+#### Support
+
+- [Ask 'safe-core' questions on Ethereum Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core).
