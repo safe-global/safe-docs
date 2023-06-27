@@ -35,7 +35,7 @@ const stripePack = new StripePack({
   stripePublicKey:
     'pk_test_51MZbmZKSn9ArdBimSyl5i8DqfcnlhyhJHD8bF2wKrGkpvNWyPvBAYtE211oHda0X3Ea1n4e9J9nh2JkpC7Sxm5a200Ug9ijfoO',
   // Deploy your own server: https://github.com/5afe/aa-stripe-service
-  onRampBackendUrl: 'https://aa-stripe.safe.global',
+  onRampBackendUrl: 'https://aa-stripe.safe.global'
 })
 await stripePack.init()
 ```
@@ -53,7 +53,7 @@ await stripePack.init()
 // https://stripe.com/docs/crypto/using-the-api
 const sessionData = await stripePack.open({
   element: '#stripe-root', // Can be any CSS selector
-  theme: 'light', // light | dark
+  theme: 'light' // light | dark
   // Optional, if you want to use a specific created session
   // ---
   // sessionId: 'cos_1Mei3cKSn9ArdBimJhkCt1XC',
@@ -69,7 +69,7 @@ const sessionData = await stripePack.open({
   // customer_information: {
   //   email: 'john@doe.com'
   // }
-});
+})
 ```
 
 Make sure you include the `element`. Otherwise, you may get the following error:

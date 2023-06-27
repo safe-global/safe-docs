@@ -17,8 +17,8 @@ The `StripePack` allow you to use the Stripe Crypto OnRamp services with Safe. Y
 This pack provides a customizable widget for users to purchase cryptocurrencies using Stripe services. It can be rendered in any chosen CSS selector on a webpage.
 
 ```typescript
-const stripePack = new StripePack(stripeConfig);
-await stripePack.init();
+const stripePack = new StripePack(stripeConfig)
+await stripePack.init()
 ```
 
 #### `new StripePack(stripeConfig)`
@@ -101,13 +101,13 @@ const stripePack = new StripePack(stripeConfig)
 stripePack.init()
 
 // Open
-await stripePack.open(stripePackOpenOptions);
+await stripePack.open(stripePackOpenOptions)
 
 // Subscribe to events
-const handler = (event) => {};
-stripePack.subscribe('onramp_ui_loaded', handler);
-stripePack.unsubscribe('onramp_session_updated', handler);
+const handler = (event) => {}
+stripePack.subscribe('onramp_ui_loaded', handler)
+stripePack.unsubscribe('onramp_session_updated', handler)
 
 // Close
-await stripePack.close();
+await stripePack.close()
 ```

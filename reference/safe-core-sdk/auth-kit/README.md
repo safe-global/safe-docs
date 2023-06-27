@@ -21,8 +21,8 @@ To use one of our packs, add the corresponding pack required packages:
 Start working with one of our packs is as easy as instantiate the main class and and call the common `init()` method afterwards.
 
 ```typescript
-const pack = new Web3AuthModalPack(packConfig);
-await pack.init(packInitOptions);
+const pack = new Web3AuthModalPack(packConfig)
+await pack.init(packInitOptions)
 ```
 
 After the initialization, you can use the pack methods to interact with the chosen provider. There are some common methods (`signIn()`, `signOut()`, etc.) that you can use with any pack. It creates a common interface that any pack should implement. Check the abstract class [`AuthKitBasePack`](./AuthKitBasePack.md) for more information.

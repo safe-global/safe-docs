@@ -103,14 +103,12 @@ const RPC_URL='https://endpoints.omniatech.io/v1/bsc/mainnet/public'
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
 const signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
 const safeAddress = '0x...' // Safe from which the transaction will be sent
-const chainId = 56
+const chainId = 100
+const gasLimit = '100000' // Depends on the contract interaction
 
 // Any address can be used for destination. In this example, we use vitalik.eth
 const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
 const withdrawAmount = ethers.utils.parseUnits('0.005', 'ether').toString()
-
-// Usually a limit of 21000 is used but for smart contract interactions, you can increase to 100000 because of the more complex interactions.
-const gasLimit = '100000'
 ```
 
 ### Create your Transaction Object
@@ -119,7 +117,7 @@ const gasLimit = '100000'
 // Create a transaction object
 const safeTransactionData: MetaTransactionData = {
   to: destinationAddress,
-  data: '0x',// leave blank for native token transfers
+  data: '0x',
   value: withdrawAmount,
   operation: OperationType.Call
 }
@@ -151,7 +149,10 @@ const relayKit = new GelatoRelayPack(process.env.GELATO_RELAY_API_KEY!)
 const safeTransaction = await safeSDK.createTransaction({ safeTransactionData })
 
 const signedSafeTx = await safeSDK.signTransaction(safeTransaction)
-const safeSingletonContract = await getSafeContract({ ethAdapter, safeVersion: await safeSDK.getContractVersion() })
+const safeSingletonContract = await getSafeContract({
+  ethAdapter,
+  safeVersion: await safeSDK.getContractVersion()
+})
 
 const encodedTx = safeSingletonContract.encode('execTransaction', [
   signedSafeTx.data.to,
@@ -191,8 +192,8 @@ import { GelatoRelayPack } from '@safe-global/relay-kit'
 const relayKit = new GelatoRelayPack()
 
 relayKit.relayTransaction({
-  target: '0x...', // the Safe address
+  target: '0x...', // The Safe address
   encodedTransaction: '0x...', // Encoded Safe transaction data
-  chainId: 
+  chainId: '100'
 })
 ```
