@@ -4,7 +4,7 @@
 
 #### How to get your Safe Apps into the hands of users
 
-As soon as you finish developing and testing your Safe App, you can already let some actual users test it by simply sending them the link to the hosted Safe App and asking them to add it as a Custom App. [This guide](https://help.safe.global/en/articles/4022030-add-a-custom-safe-app) explains how to add custom apps.
+As soon as you finish developing and testing your Safe App, you can already let some actual users test it by simply sending them the link to the hosted Safe App and asking them to add it as a Custom App. [This guide](https://help.safe.global/en/articles/40859-add-a-custom-safe-app) explains how to add custom apps.
 
 #### Get your Safe App listed in the Safe
 
