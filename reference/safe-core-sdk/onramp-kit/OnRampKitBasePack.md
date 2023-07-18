@@ -1,8 +1,8 @@
 ## OnRampKitBasePack
 
-New created pack classes to be used as part of the Onramp kit need to **extend** the `OnRampKitBasePack` class. This `abstract` class bring a common interface that subclasses **must** implement and provides the specific Safe common functionality any custom implementation can take advantage on.
+To be used as part of the Onramp Kit, new packs need to extend the `OnRampKitBasePack` class. This abstract class provides a common interface that subclasses must implement. It provides the specific Safe common functionality that any custom implementation can take leverage.
 
-### Install dependencies
+## Install dependencies
 
 To use the `OnRampKitBasePack`, you need to install the `@safe-global/onramp-kit` package.
 
@@ -10,9 +10,9 @@ To use the `OnRampKitBasePack`, you need to install the `@safe-global/onramp-kit
 yarn add @safe-global/onramp-kit
 ```
 
-### Reference
+## Reference
 
-This class is used to create new packs. Any new pack should extend this class and implement the abstract methods. Extending from the `OnRampKitBasePack` class will give you access to common Safe features.
+This class is used to create new packs. Any new pack should extend this class and implement the abstract methods. Extending from the `OnRampKitBasePack` class will give the subclass access to common Safe features.
 
 ```typescript
 class MyPack extends OnRampKitBasePack {
@@ -20,31 +20,36 @@ class MyPack extends OnRampKitBasePack {
 }
 ```
 
-### Abstract methods any new pack nedd to implement
+## Abstract methods that OnRamp packs have to implement
 
-These methods are the common interface for all the packs. Check each pack documentation to get more information about the parameters and return types.
+These methods are the common interface for all the OnRamp packs. Check each pack's documentation to get more details.
 
-#### `init(options?)`
-Provide initialization options as for example packages initializations, instantiating other classes, initializing properties, etc.
+### init(options?)
 
-#### `open(options)`
-The `open()` method initiates the interaction with the pack. It can create a widget (e.g. Stripe) or redirect to a website (e.g. Monerium).
+Provides the initialization options for the required packages, classes and properties.
 
-It returns the outcome of interacting with the pack. Refer to the pack's documentation for more information.
+### open(options)
 
-#### `close()`
-Disconnect from the provider services and clean up any data related to the current interaction.
+Initiates the interaction with the pack. It can create a widget (e.g. Stripe) or redirect to a website (e.g. Monerium).
+
+It returns the outcome of interacting with the pack.
+
+### close()
+
+Disconnects the provider services and cleans up any data related to the current interaction.
 
 This method is usually called when you are done using the pack, such as when you leave a page, or when you want to end the interaction with the pack.
 
-#### `subscribe(event, handler)`
-Provide a way to subscribe to events.
+### subscribe(event, handler)
 
-#### `unsubscribe(event, handler)`
-Provide a way to unsubscribe from an event.
+Provides a way to subscribe to events.
 
-### Specific `OnRampKitBasePack` methods
+### unsubscribe(event, handler)
 
-These methods provide functionality associated with Safe so you can use them inside the pack implementation.
+Provides a way to unsubscribe from an event.
+
+## Specific `OnRampKitBasePack` methods
+
+These methods provide the functionality associated with Safe so they can be used in the implementation of the packs.
 
 > To be defined

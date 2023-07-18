@@ -1,27 +1,27 @@
-## StripePack
+# StripePack
 
-The [Stripe Crypto OnRamp service](https://stripe.com/docs/crypto/overview) allows individuals to securely purchase cryptocurrencies from your application.
+[Stripe Crypto OnRamp service](https://stripe.com/docs/crypto/overview) allows individuals to securely purchase cryptocurrencies from your application.
 
-### Install dependencies
+## Install dependencies
 
 To use the `StripePack`, you need to install the stripe frontend libraries in addition to the `@safe-global/onramp-kit` package.
 
 ```bash
-yarn add @stripe/stripe-js @stripe/crypto @safe-global/onramp-kit
+yarn add @safe-global/onramp-kit @stripe/stripe-js @stripe/crypto
 ```
 
-### Reference
+## Reference
 
-The `StripePack` allow you to use the Stripe Crypto OnRamp services with Safe. You need to create an instance of the pack and pass it to the `SafeOnRampKit` `init` method.
+The `StripePack` allows to use the Stripe Crypto OnRamp services with Safe by creating an instance of the pack and passing it to the `SafeOnRampKit` `init` method.
 
-This pack provides a customizable widget for users to purchase cryptocurrencies using Stripe services. It can be rendered in any chosen CSS selector on a webpage.
+This pack provides a customizable widget for users to purchase cryptocurrencies using Stripe services and it can be rendered in any chosen CSS selector on a webpage.
 
 ```typescript
 const stripePack = new StripePack(stripeConfig)
 await stripePack.init()
 ```
 
-#### `new StripePack(stripeConfig)`
+### new StripePack(stripeConfig)
 
 **Params**
 
@@ -41,17 +41,17 @@ The `onRampBackendUrl` is the URL for the backend that starts a session with Str
 **Caveats**
 You should always call the `init()` method afterwards before interacting with the pack.
 
-#### `init()`
+### init()
 
-The `init` method will load the Stripe scripts using the public key provided in the class instantiation and initialize the Stripe SDK.
+Loads the Stripe scripts using the public key provided in the class instantiation and initialize the Stripe SDK.
 
-#### `open(stripeOpenOptions)`
+### open(stripeOpenOptions)
 
-The `open` method will open the Stripe widget in the chosen slot (css selector) inside a webpage.
+Opens the Stripe widget in the chosen slot (CSS selector) inside a webpage.
 
 **Params**
 
-The `StripeOpenOptions` options to be passed to the `open` method are:
+The options to be passed to this method are:
 
 ```typescript
 StripeOpenOptions {
@@ -67,31 +67,31 @@ StripeOpenOptions {
 - `theme` - This is an optional theme for the widget. If not specified, the default theme will be applied.
 - `defaultOptions`- The default options for the widget are available [here](https://github.com/safe-global/safe-core-sdk/blob/f2e8e82d88d815d7b278f605a125f4cfb2816020/packages/onramp-kit/src/packs/stripe/types.ts#L104-L109). Refer to the [official Stripe docs](https://stripe.com/docs/crypto/using-the-api) for instructions.
 
-#### `close()`
+### close()
 
-The `close` method will close the Stripe widget. This method shouldn't be called directly but using the `SafeOnRampKit` `close` method instead.
+Closes the Stripe widget. This method shouldn't be called directly but using the `SafeOnRampKit` `close` method instead.
 
-#### `subscribe(event, handler)`
+### subscribe(event, handler)
 
-Subscribe to authentication state changes. Check the [Stripe frontend events](https://stripe.com/docs/crypto/using-the-api#frontend-events) for the list of available events.
+Subscribes to authentication state changes. Check the [Stripe frontend events](https://stripe.com/docs/crypto/using-the-api#frontend-events) for the list of available events.
 
 **Params**
 
 - `event` - The event you want to subscribe from.
 - `handler` - The handler function that will be called when the event is triggered.
 
-#### `unsubscribe(event, handler)`
+### unsubscribe(event, handler)
 
-Unsubscribe from authentication state changes.
+Unsubscribes from authentication state changes.
 
 **Params**
 
 - `event` - The event you want to unsubscribe from.
 - `handler` - The handler function that will be called when the event is triggered.
 
-### Usage
+## Usage
 
-Using the `StripePack` is easy: just instantiate the class and call the `init` method when you load the page or component, followed by the `open(options)` method when you want to start the interaction.
+Instantiate the class and call the `init` method when the page or component are loaded, followed by the `open(options)` method when you want to start the interaction.
 
 The `open` method renders the Stripe widget.
 

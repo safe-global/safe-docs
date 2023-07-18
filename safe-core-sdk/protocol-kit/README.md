@@ -13,7 +13,7 @@ For a more detailed guide, including how to integrate with web3js and more Safe 
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 2. [3 Signing Accounts with testnet ETH in at least one account](https://docs.safe.global/learn/quickstart)
 
-### Install Dependencies
+### Install dependencies
 
 First, we'll need to install some dependences from `safe-core-sdk` and the `ethers` library.
 
@@ -83,7 +83,7 @@ const ethAdapterOwner1 = new EthersAdapter({
 })
 ```
 
-### Initialize the Safe Api Kit
+### Initialize the API Kit
 
 The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeApiKit`.
 
@@ -201,7 +201,7 @@ const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionD
 
 ### Propose a Transaction
 
-To propose a transaction to the Safe Transaction Service we need to call the method `proposeTransaction` from the Safe Api Kit instance.
+To propose a transaction to the Safe Transaction Service we need to call the method `proposeTransaction` from the API Kit instance.
 
 For a full list and description of the properties that `proposeTransaction` accepts, see [Propose the transaction to the service](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#propose-transaction) in the Safe Core SDK guide.
 
@@ -223,7 +223,7 @@ await safeService.proposeTransaction({
 
 ### Get Pending Transactions
 
-Recall that you created the `safeService` in [Initialize the Safe Api Kit](./#initialize-the-safe-api-kit).
+Recall that you created the `safeService` in [Initialize the API Kit](./#initialize-the-safe-api-kit).
 
 ```tsx
 const pendingTransactions = await safeService.getPendingTransactions(safeAddress).results
