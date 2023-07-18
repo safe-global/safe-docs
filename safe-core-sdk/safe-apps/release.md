@@ -57,3 +57,13 @@ Alternatively, you can provide us with the ABIs as JSON files or the links to th
 After we have reviewed and integrated your Safe App, the App will first be available in the [staging environment](https://safe-web-core.staging.5afe.dev) of the Safe for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
 
 At any point after the launch, if you or your users encounter issues with the Safe App, or you want to release an update to an existing Safe App, please get in touch with us via [Discord](https://chat.safe.global).
+
+While developing your Safe App you can directly use [our production interface](https://app.safe.global) for testing it. Some testnets like Goerli are also available there.
+
+Once your app is live, even if you are running it locally, you can import it to the Safe application as a custom app. To do so, you should select the "Apps" tab:
+
+<figure><img src="../../../../.gitbook/assets/Side bar menu.png" alt=""><figcaption><p>Apps section button</p></figcaption></figure>
+
+Use the `Add custom app` button and add your app using a link:
+
+<figure><img src="../../../../.gitbook/assets/Add custom app.png" alt=""><figcaption><p>Adding a custom app form</p></figcaption></figure>
