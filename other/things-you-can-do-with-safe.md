@@ -6,8 +6,8 @@ Safe accounts are built to be fully customizable. This means that the only limit
 
 ### Live Features
 
-* [Multisig](https://help.safe.global/en/articles/3952319-signature-policies): Require multiple signing accounts to approve a transaction before executing.
-* [Spending policies](https://help.safe.global/en/articles/4667979-set-up-and-use-spending-limits): Limit the amount that a signing account can withdraw from a Safe.
+* [Multisig](https://help.safe.global/en/articles/40863-signature-policies): Require multiple signing accounts to approve a transaction before executing.
+* [Spending policies](https://help.safe.global/en/articles/40842-set-up-and-use-spending-limits): Limit the amount that a signing account can withdraw from a Safe.
 * Automation
   * Scheduling transactions: Automatically execute transactions on a schedule.
 * Access controls
