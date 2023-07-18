@@ -1,6 +1,6 @@
 # How to integrate Web3Auth and Safe in your DApp
 
-This guide demonstrate how to create a [Signing Account](/learn/what-is-a-smart-contract-account.md#smart-accounts-vs-signing-accounts) using your email or social media account. Once authenticated, you can sign transactions and interact with any Safe Smart Accounts you own.
+This guide demonstrate how to create an externally-owned account using your email or social media account. Once authenticated, you can sign transactions and interact with any Safe Smart Accounts you own.
 
 ## Prerequisites
 
@@ -160,7 +160,7 @@ const web3AuthModalPack = new Web3AuthModalPack({
 
 The `Web3AuthModalPack` can be combined with the [Protocol Kit](./protocol-kit/) to connect to a Safe using the `provider` and `signer` of the currently authenticated account.
 
-Once connected, you can use any of the methods available in the [Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
+Once connected, you can use any of the methods available in the [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
 
 ```typescript
 import { ethers } from 'ethers'
@@ -214,4 +214,4 @@ await signer.signMessage(message);
 
 ## Alternative example in `@safe-global/safe-core-sdk`
 
-See an [Auth Kit example in the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/example/src/App.tsx#L33)
+See an [example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/auth-kit/example/src/App.tsx) on how to initialize and use the Auth Kit.

@@ -2,7 +2,7 @@
 
 The Safe{Core} Account abstraction SDK allows builders to add account abstraction functionality into their apps.
 
-<figure><img src="../../../.gitbook/assets/MAIN_CHIP_V3_00240.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/diagram-safe-core-sdk.png" alt=""><figcaption></figcaption></figure>
 
 
 1. [Auth Kit](auth-kit/)

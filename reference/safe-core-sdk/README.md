@@ -6,6 +6,6 @@ You can use this section as a developer reference to discover the available meth
 
 - [Auth Kit)](auth-kit/). The [Auth kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit) creates an Ethereum address and authenticates a blockchain account using an email address, social media account, or traditional crypto wallets like Metamask.
 - [Protocol Kit](protocol-kit/).
-- [OnRamp Kit](onramp-kit/). The [Onramp kit](https://github.com/safe-global/account-abstraction-sdk/tree/main/packages/onramp-kit) allows users to buy cryptocurrencies using a credit card and other payment options.
+- [OnRamp Kit](onramp-kit/). The [Onramp kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) allows users to buy cryptocurrencies using a credit card and other payment options.
 - [Relay Kit](relay-kit/).
 - [API Kit](api-kit/).

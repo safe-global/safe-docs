@@ -8,13 +8,13 @@ Welcome! We are glad on your interest about creating a Safe App. The team is wor
 
 Once you are here the main resources include:
 
-* [SDK Packages](get-started.md#sdk-packages)
-* [Basic Requirements](get-started.md#basic-requirements)
-* [UI Kit](get-started.md#ui-kit)
+* [SDK Packages](./get-started.md#sdk-packages)
+* [Basic Requirements](./get-started.md#basic-requirements)
+* [UI Kit](./get-started.md#ui-kit)
 
 ## SDK Packages
 
-This is one of our main pieces for Safe Apps integrations. Either you already have a dapp or you are thinking about creating a new one you will find useful to rely in one of our integrations to easily communicate with the Safe application. In this packages you will find integrations with very common packages like Web3Modal, Blocknative onboard.js or web3-react, that you may be already using on your project. For those creating a new dapp, our [CRA template](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/cra-template-safe-app) to kickstart the basic structure with all the necessary configuration will speed up the process. [Check more about SDK Packages](build.md).
+This is one of our main pieces for Safe Apps integrations. Either you already have a dapp or you are thinking about creating a new one you will find useful to rely in one of our integrations to easily communicate with the Safe application. In this packages you will find integrations with very common packages like Web3Modal, Blocknative onboard.js or web3-react, that you may be already using on your project. For those creating a new dapp, our [CRA template](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/cra-template-safe-app) to kickstart the basic structure with all the necessary configuration will speed up the process. [Check more about SDK Packages](./overview.md).
 
 ## Basic requirements
 

@@ -114,7 +114,7 @@ In production, each customer should pass an individual KYC process but probably 
 | **Identification Type**     | Social Security Number      | Select Social Security Number for identification type         |
 | **Identification Number**   | 000000000                   | Enter 000000000 to fill the identification number field       |
 | **Country**                 | United States               | Select United States for country                              |
-| **Address Line 1**          | address\_full\_match        | Use address\_full\_match for successful identity verification |
+| **Address Line 1**          | address_full_match          | Use address_full_match for successful identity verification   |
 | **City**                    | Seattle                     | Use Seattle for city                                          |
 | **State**                   | Washington                  | Select Washington for state                                   |
 | **Zip Code**                | 12345                       | Use 12345 for zip code                                        |

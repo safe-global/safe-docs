@@ -4,7 +4,7 @@ The [Relay Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/
 
 ## Quickstart
 
-In this quickstart guide, you will send some tokens to another address using the Relay Kit to pay for the gas fees. For full effect, you can try this with a Signing Account/EOA that has no tokens. See the [full code example](../../../examples/relay-kit/index.ts) for a full working example.
+In this quickstart guide, you will send some tokens to another address using the Relay Kit to pay for the gas fees. For full effect, you can try this with an externally-owned account that has no tokens. See the full code example [here](https://github.com/safe-global/safe-docs/blob/main/examples/relay-kit/index.ts).
 
 ### Prerequisites
 
@@ -30,7 +30,7 @@ Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs
 
 For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on BNB Chain using the Polygon USDC you've deposited into your Gelato 1Balance account.
 
-For this tutorial you will need a Safe with a threshold of 1 deployed on BNB Chain. You can create one using [Safe UI](https://app.safe.global/) [(tutorial)](../../quickstart) or [Protocol Kit](./protocol-kit/).
+For this tutorial you will need a Safe with a threshold of 1 deployed on BNB Chain. You can create one using [Safe{Wallet}](https://app.safe.global/) or the [Protocol Kit](./protocol-kit/).
 
 
 ### Summary

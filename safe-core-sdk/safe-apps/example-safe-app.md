@@ -18,4 +18,4 @@ We'll assume that you are familiar with TypeScript (JavaScript), React, and Ethe
 
 ### Help
 
-If you need help, you can reach Safe developers in the #safe-developers channel in [https://chat.safe.global](https://chat.gnosis.io) or create a discussion in [https://github.com/gnosis/safe-apps-sdk/discussions](https://github.com/gnosis/safe-apps-sdk/discussions).
+If you need help, you can reach Safe developers in the `#safe-developers` channel in [https://chat.safe.global](https://chat.gnosis.io) or [create a discussion](https://github.com/safe-global/safe-apps-sdk/discussions).

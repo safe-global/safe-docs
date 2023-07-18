@@ -27,5 +27,5 @@ const pack = new MoneriumPack(packConfig);
 await pack.init(packInitOptions);
 ```
 
-After the initialization, you can use the pack specific methods to interact with the chosen provider. There are some common methods (`open()`, `close()` ...) that you can use with any pack, it's the common interface that any pack should implement. Check the abstract class [`OnRampKitBasePack`](./OnRampKitBasePack.md) for more information.
+After the initialization, you can use the pack specific methods to interact with the chosen provider. There are some common methods (`open()`, `close()`, etc.) that you can use with any pack, it's the common interface that any pack should implement. Check the abstract class [`OnRampKitBasePack`](./OnRampKitBasePack.md) for more information.
 
