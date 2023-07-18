@@ -20,16 +20,16 @@ Note: You might also need to also install `browserify-zlib` (`yarn add browserif
 Inside `config-overrides.js` in the root of your project folder with the content, add the following as well:
 
 ```javascript
-const webpack = require("webpack");
+const webpack = require('webpack')
 
 module.exports = function override(config) {
-  const fallback = config.resolve.fallback || {};
+  const fallback = config.resolve.fallback || {}
   Object.assign(fallback, {
     // ...
-    zlib: require.resolve("browserify-zlib")
-  });
+    zlib: require.resolve('browserify-zlib')
+  })
   // ...
-};
+}
 ```
 
 See [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack-issues) for the full `config-overrides.js` instructions.
@@ -41,20 +41,20 @@ We are going to use the provided `Web3AuthModalPack` exported in the `@safe-glob
 Create an instance of the [Web3AuthModalPack](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/packs/web3auth/Web3AuthModalPack.ts) using the required `Web3AuthConfig` configuration object.
 
 ```typescript
-import { Web3AuthModalPack, Web3AuthConfig } from '@safe-global/auth-kit';
-import { Web3AuthOptions } from '@web3auth/modal';
-import { OpenloginAdapter } from '@web3auth/openlogin-adapter';
+import { Web3AuthModalPack, Web3AuthConfig } from '@safe-global/auth-kit'
+import { Web3AuthOptions } from '@web3auth/modal'
+import { OpenloginAdapter } from '@web3auth/openlogin-adapter'
 
 
 // https://web3auth.io/docs/sdk/web/modal/initialize#arguments
 const options: Web3AuthOptions = {
-  clientId: "YOUR_WEB3_AUTH_CLIENT_ID", // https://dashboard.web3auth.io/
+  clientId: 'YOUR_WEB3_AUTH_CLIENT_ID', // https://dashboard.web3auth.io/
   web3AuthNetwork: 'testnet',
   chainConfig: {
     chainNamespace: CHAIN_NAMESPACES.EIP155,
     chainId: '0x5',
     // https://chainlist.org/
-    rpcTarget: `https://rpc.ankr.com/eth_goerli`
+    rpcTarget: 'https://rpc.ankr.com/eth_goerli'
   },
   uiConfig: {
     theme: 'dark',
@@ -110,7 +110,7 @@ Important considerations about Web3Auth are:
 ```typescript
 // The signIn() method will return the user's Ethereum address
 // The await will last until the user is authenticated, so while the UI modal is showed
-const authKitSignData = await web3AuthModalPack.signIn();
+const authKitSignData = await web3AuthModalPack.signIn()
 ```
 
 The returned `authKitSignData` data contains the following props:
@@ -125,27 +125,27 @@ AuthKitSignInData {
 The `signOut()` method removes the current session.
 
 ```typescript
-await web3AuthModalPack.signOut();
+await web3AuthModalPack.signOut()
 ```
 
 Call `getProvider()` to get the Ethereum provider instance.
 
 ```typescript
-web3AuthModalPack.getProvider();
+web3AuthModalPack.getProvider()
 ```
 
 We expose two methods for listening to events, `subscribe()` and `unsubscribe()`. In the `Web3AuthModalPack` case, we can listen to all the events listed [here](https://web3auth.io/docs/sdk/web/modal/initialize#subscribing-the-lifecycle-events).
 
 ```typescript
-import { ADAPTER_EVENTS } from '@web3auth/base';
+import { ADAPTER_EVENTS } from '@web3auth/base'
 
 web3AuthModalPack.subscribe(ADAPTER_EVENTS.CONNECTED, () => {
-  console.log('User is authenticated');
-});
+  console.log('User is authenticated')
+})
 
 web3AuthModalPack.subscribe(ADAPTER_EVENTS.DISCONNECTED, () => {
-  console.log('User is not authenticated');
-});
+  console.log('User is not authenticated')
+})
 ```
 
 When `txServiceUrl` is provided in the `Web3AuthModalPack` instantiation, the list of associated Safe addresses will be returned as part of the `signIn()` method response.
@@ -166,8 +166,8 @@ Once connected, you can use any of the methods available in the [Protocol Kit](h
 import { ethers } from 'ethers'
 import { EthersAdapter } from '@safe-global/protocol-kit'
 
-provider = new ethers.providers.Web3Provider(web3AuthModalPack.getProvider());
-signer = provider.getSigner();
+provider = new ethers.providers.Web3Provider(web3AuthModalPack.getProvider())
+signer = provider.getSigner()
 
 const ethAdapter = new EthersAdapter({
   ethers,
@@ -195,21 +195,21 @@ You can also sign any arbitrary message or transaction as a regular Signing Acco
 
 ```typescript
 // Using web3
-const web3 = new Web3(web3AuthModalPack.getProvider());
+const web3 = new Web3(web3AuthModalPack.getProvider())
 
-await web3.eth.sendTransaction(tx);
-await web3.eth.signTransaction(tx);
-const message = 'hello world';
-const address = '0x...';
-await web3.eth.personal.sign(message, address);
+await web3.eth.sendTransaction(tx)
+await web3.eth.signTransaction(tx)
+const message = 'hello world'
+const address = '0x...'
+await web3.eth.personal.sign(message, address)
 
 // Using ethers
-const provider = new ethers.providers.Web3Provider(web3AuthModalPack.getProvider());
-const signer = provider.getSigner();
+const provider = new ethers.providers.Web3Provider(web3AuthModalPack.getProvider())
+const signer = provider.getSigner()
 
-await signer.sendTransaction(tx);
-await signer.signTransaction(tx);
-await signer.signMessage(message);
+await signer.sendTransaction(tx)
+await signer.signTransaction(tx)
+await signer.signMessage(message)
 ```
 
 ## Alternative example in `@safe-global/safe-core-sdk`

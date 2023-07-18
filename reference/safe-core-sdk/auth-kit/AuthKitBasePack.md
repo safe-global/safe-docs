@@ -16,7 +16,7 @@ This class is used to create new packs. Any new pack should extend this class an
 
 ```typescript
 class MyPack extends AuthKitBasePack {
-  // ... Implementing the abstract methods
+  // Implementation of the abstract methods
 }
 ```
 

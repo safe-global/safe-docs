@@ -26,9 +26,9 @@ The `Web3AuthModalPack` class is what makes Web3Auth modal and Safe work togethe
 
 ```typescript
 const web3AuthModalPack = new Web3AuthModalPack({
-  txServiceUrl: 'https://safe-transaction-mainnet.safe.global',
-});
-await web3AuthModalPack.init(web3AuthModalOptions, [adapters], modalConfig);
+  txServiceUrl: 'https://safe-transaction-mainnet.safe.global'
+})
+await web3AuthModalPack.init(web3AuthModalOptions, [adapters], modalConfig)
 ```
 
 
@@ -40,7 +40,7 @@ await web3AuthModalPack.init(web3AuthModalOptions, [adapters], modalConfig);
 
 ```typescript
 Web3AuthConfig {
-  txServiceUrl: string;
+  txServiceUrl: string
 }
 ```
 - `txServiceUrl` - The URL of the Safe transaction service. It is used to retrieve the Safe addresses for an external owned account created using Web3Auth services. It is required to use the `Web3AuthModalPack` with Safe.
@@ -135,18 +135,18 @@ Calling `init()` when your page loads or component renders is all it takes to us
 ```typescript
 // Instantiate and initialize the pack
 const web3AuthModalPack = new Web3AuthModalPack(web3AuthConfig)
-await web3AuthModalPack.init(web3AuthModalOptions, adapters, modalConfig);
+await web3AuthModalPack.init(web3AuthModalOptions, adapters, modalConfig)
 
 // Sign in
-const { eoa, safes } = await web3AuthModalPack.signIn();
-const userInfo = await web3AuthModalPack.getUserInfo();
-const web3Provider = web3AuthModalPack.getProvider();
+const { eoa, safes } = await web3AuthModalPack.signIn()
+const userInfo = await web3AuthModalPack.getUserInfo()
+const web3Provider = web3AuthModalPack.getProvider()
 
 // Subscribe to events
-const handler = (event) => {};
-web3AuthModalPack.subscribe(packEvent, handler);
-web3AuthModalPack.unsubscribe(packEvent, handler);
+const handler = (event) => {}
+web3AuthModalPack.subscribe(packEvent, handler)
+web3AuthModalPack.unsubscribe(packEvent, handler)
 
 // Sign out
-await web3AuthModalPack.signOut();
+await web3AuthModalPack.signOut()
 ```

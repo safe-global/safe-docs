@@ -23,8 +23,8 @@ To use one of our developed packs, add the required packages.
 To start working with our packs, instantiate the main class and and call the common `init()` method afterwards.
 
 ```typescript
-const pack = new MoneriumPack(packConfig);
-await pack.init(packInitOptions);
+const pack = new MoneriumPack(packConfig)
+await pack.init(packInitOptions)
 ```
 
 After the initialization, you can use the pack specific methods to interact with the chosen provider. There are some common methods (`open()`, `close()`, etc.) that you can use with any pack, it's the common interface that any pack should implement. Check the abstract class [`OnRampKitBasePack`](./OnRampKitBasePack.md) for more information.

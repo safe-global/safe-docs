@@ -1,10 +1,10 @@
-import { ethers } from 'ethers'
 import SafeApiKit from '@safe-global/api-kit'
-import Safe, { EthersAdapter, SafeFactory, SafeAccountConfig } from '@safe-global/protocol-kit'
+import Safe, { EthersAdapter, SafeAccountConfig, SafeFactory } from '@safe-global/protocol-kit'
 import { SafeTransaction, SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
+import { ethers } from 'ethers'
 
 // Run this file:
-// source examples/.env
+// Source examples/.env
 // npx ts-node examples/protocol-kit/index.ts
 
 // https://chainlist.org/?search=goerli&testnets=true

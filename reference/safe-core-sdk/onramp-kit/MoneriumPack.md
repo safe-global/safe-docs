@@ -20,8 +20,8 @@ This pack allows you to "Login with Monerium" by creating a connection between y
 const moneriumPack = new MoneriumPack({
   clientId: 'YOUR_CLIENT_ID',
   environment: 'sandbox'
-});
-await moneriumPack.init(moneriumInitOptions);
+})
+await moneriumPack.init(moneriumInitOptions)
 ```
 
 #### `new MoneriumPack(moneriumConfig)`
@@ -130,10 +130,10 @@ You can subscribe to [order status changes](https://monerium.dev/api-docs#operat
 
 ```typescript
 MoneriumEvent {
-  placed = "placed",
-  pending = "pending",
-  processed = "processed",
-  rejected = "rejected"
+  placed = 'placed',
+  pending = 'pending',
+  processed = 'processed',
+  rejected = 'rejected'
 }
 ```
 
@@ -164,13 +164,13 @@ const moneriumPack = new MoneriumPack(moneriumConfig)
 moneriumPack.init({ safeSdk })
 
 // Open
-const safeMoneriumClient = await moneriumPack.open(moneriumPackOpenOptions);
+const safeMoneriumClient = await moneriumPack.open(moneriumPackOpenOptions)
 
 // Subscribe to events
-const handler = (event) => {};
-moneriumPack.subscribe(MoneriumEvent.placed, handler);
-moneriumPack.unsubscribe(MoneriumEvent.processed, handler);
+const handler = (event) => {}
+moneriumPack.subscribe(MoneriumEvent.placed, handler)
+moneriumPack.unsubscribe(MoneriumEvent.processed, handler)
 
 // Close
-await moneriumPack.close();
+await moneriumPack.close()
 ```

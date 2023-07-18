@@ -36,11 +36,11 @@ Creating a _Login with Monerium_ integration for the Safe requires a multi-step 
 1. Load the application and initialize the `MoneriumPack` using the following snippet:
 
 ```typescript
-import { MoneriumPack } from '@safe-global/onramp-kit';
+import { MoneriumPack } from '@safe-global/onramp-kit'
 
 const moneriumPack = new MoneriumPack({
   clientId: { YOUR_CLIENT_ID }, // Get your client id from Monerium
-  environment: 'sandbox', // Use the proper Monerium environment ('sandbox' | 'production')})
+  environment: 'sandbox' // Use the proper Monerium environment ('sandbox' | 'production')})
 })
 
 await moneriumPack.init({ safeSdk })
@@ -53,7 +53,7 @@ The `MoneriumPack` will use the Safe address configured in the `safeSdk` to link
 2. Start the _Login with Monerium_ flow by creating a button or link in your application. Use your favorite UI library to add a handler and start the login flow. In the button handler you should start the flow by calling the `open` method:
 
 ```typescript
-await moneriumPack.open({ redirectUrl: 'https://your-site-redirect-url' });
+await moneriumPack.open({ redirectUrl: 'https://your-site-redirect-url' })
 ```
 
 This action will open the Monerium web page to begin the authentication process and get the permissions to gain access to your information.
@@ -81,7 +81,7 @@ Note. If you use the `sandbox` environment, you can test this flow without KYC i
 Re-initialize the `MoneriumPack` using the `init` method and exchange the code, as per Step 1.
 
 ```typescript
-const safeMoneriumClient = await moneriumPack.open({ authCode: <The querystring code parameter> });
+const safeMoneriumClient = await moneriumPack.open({ authCode: '<The querystring code parameter>' })
 ```
 
 If the code is exchanged without problems, you will be now authenticated with Monerium and your Safe will be linked!. You can start using the `safeMoneriumClient` instance to interact with your Monerium account. This instance is an enhanced version of the Monerium SDK, with some additional Safe features.
@@ -91,10 +91,10 @@ To learn more about the methods you can use with the `safeMoneriumClient` instan
 Here are some examples:
 
 ```typescript
-const authContext = await moneriumClient.getAuthContext();
-const profile = await moneriumClient.getProfile(authContext.defaultProfile);
-const balances = await moneriumClient.getBalances();
-const orders = await moneriumClient.getOrders();
+const authContext = await moneriumClient.getAuthContext()
+const profile = await moneriumClient.getProfile(authContext.defaultProfile)
+const balances = await moneriumClient.getBalances()
+const orders = await moneriumClient.getOrders()
 ```
 
 5. When you reload a page, you usually want to stay authenticated as long as the tokens are valid. To do this, we have another way to `open()` the `MoneriumPack`.
@@ -105,15 +105,15 @@ Once authenticated in step 4, you can store the `refresh_token` found in the `be
 localStorage.setItem(
   'MONERIUM_TOKEN',
   safeMoneriumClient.bearerProfile.refresh_token
-);
+)
 ```
 
 If the user leaves the session or reloads the browser, detect and retrieve the stored token on the next session or page load. Always `init` the `MoneriumPack` instance when the page loads as showed in the step 1.
 
 ```typescript
 const safeMoneriumClient = await moneriumPack.open({
-  refreshToken: localStorage.getItem('MONERIUM_TOKEN'),
-});
+  refreshToken: localStorage.getItem('MONERIUM_TOKEN')
+})
 ```
 
 6. You're now ready to place orders. In the `production` environment, real funds will be transferred. In the `sandbox` environment, fake money will be used. If you add funds using the `sandbox` or create a transfer from your bank account to your Monerium IBAN in the `production` environment, you'll receive the corresponding tokens in your Safe. For example, if your Monerium IBAN is associated with the EURe token of your Safe, and you transfer 10 euros, the EURe balance of your Safe will be 10 after the SEPA system completes the transfer.
@@ -137,8 +137,8 @@ safeMoneriumClient.send({
       country: 'You ISO country code',
     },
   },
-  memo: 'Testing Safe-Monerium integration',
-});
+  memo: 'Testing Safe-Monerium integration'
+})
 ```
 
 Once you place your order, it will be sent to the destination account. Two things will occur:
@@ -159,27 +159,27 @@ To subscribe, do this:
 
 ```typescript
 const handler = (notification) => {
-  console.log(notification);
-};
+  console.log(notification)
+}
 
-moneriumPack.subscribe(OrderState.processed, handler);
+moneriumPack.subscribe(OrderState.processed, handler)
 ```
 
 The potential states are this ones:
 
 ```typescript
 OrderState {
-  placed = "placed",
-  pending = "pending",
-  processed = "processed",
-  rejected = "rejected"
+  placed = 'placed',
+  pending = 'pending',
+  processed = 'processed',
+  rejected = 'rejected'
 }
 ```
 
 If you wish to unsubscribe, you can do:
 
 ```typescript
-moneriumPack.unsubscribe(OrderState.processed, handler);
+moneriumPack.unsubscribe(OrderState.processed, handler)
 ```
 
 ### MoneriumPack complete React example
