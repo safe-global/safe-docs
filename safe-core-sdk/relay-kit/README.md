@@ -127,7 +127,7 @@ const options: MetaTransactionOptions = {
 }
 ```
 
-### Create the Protocol and Relay Kits instances
+### Create the Protocol and Relay kits instances
 
 ```typescript
 const ethAdapter = new EthersAdapter({
