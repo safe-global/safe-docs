@@ -1,29 +1,32 @@
 # Auth Kit
 
-The [Auth kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit) creates or retrieves an Ethereum address and authenticates a blockchain account using an email address, social media platform, or traditional crypto wallets such as Metamask.
+The [Auth Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit) creates or retrieves an Ethereum address and authenticates a blockchain account using an email address, a social media platform or a crypto wallet address.
 
-### Install dependencies
+## Install dependencies
 
-To add the Auth kit to your project, run:
+To add the Auth Kit to your project, run:
 
 ```bash
 yarn add @safe-global/auth-kit
 ```
 
-We currently offer several providers in the form of **"packs"**. A pack is a piece of code that works with the chosen provider to give Safe users access to new services.
+The Aut Kit can integrate several providers in the form of **"packs"**. A pack is a piece of code that works with the chosen provider to give Safe users access to new services.
 
-To use one of our packs, add the corresponding pack required packages:
+To use each pack, the right package needs to be installed:
 
 - [Web3Auth](./Web3AuthModalPack.md#install)
 
-### How to use a pack
+## How to use a pack
 
-Start working with one of our packs is as easy as instantiate the main class and and call the common `init()` method afterwards.
+To start working with the packs, instantiate the main class and call the `init()` method afterwards.
 
 ```typescript
 const pack = new Web3AuthModalPack(packConfig)
 await pack.init(packInitOptions)
 ```
 
-After the initialization, you can use the pack methods to interact with the chosen provider. There are some common methods (`signIn()`, `signOut()`, etc.) that you can use with any pack. It creates a common interface that any pack should implement. Check the abstract class [`AuthKitBasePack`](./AuthKitBasePack.md) for more information.
+After the initialization, use the methods in the pack to interact with the chosen provider.
 
+There are some common methods (`signIn()`, `signOut()`, etc.) that can be called regardless of the package being used.
+
+The kit creates a common interface that any pack should implement. Check the [`AuthKitBasePack`](./AuthKitBasePack.md) abstract class to get more details.

@@ -1,16 +1,16 @@
-## MoneriumPack
+# MoneriumPack
 
-The Monerium pack enables you to use Safe with [Monerium](https://monerium.com), a regulated platform that facilitates the use of e-money tokens on the blockchain.
+Monerium Pack enables using Safe with [Monerium](https://monerium.com), a regulated platform that facilitates the use of e-money tokens on the blockchain.
 
-### Install dependencies
+## Install dependencies
 
 To use the `MoneriumPack`, you need to install the monerium SDK in addition to the `@safe-global/onramp-kit` package.
 
 ```bash
-yarn add @monerium/sdk @safe-global/onramp-kit
+yarn add @safe-global/onramp-kit @monerium/sdk
 ```
 
-### Reference
+## Reference
 
 The `MoneriumPack` class enables the use of Monerium services with Safe. To use it, create an instance of the pack and pass it to the `SafeOnRampKit` `init` method.
 
@@ -24,7 +24,7 @@ const moneriumPack = new MoneriumPack({
 await moneriumPack.init(moneriumInitOptions)
 ```
 
-#### `new MoneriumPack(moneriumConfig)`
+### new MoneriumPack(moneriumConfig)
 
 **Params**
 
@@ -49,7 +49,7 @@ The `production` environment will use the production Monerium services and the a
 **Caveats**
 You should always call the `init()` method afterwards before interacting with the pack.
 
-#### `init(moneriumInitOptions)`
+### init(moneriumInitOptions)
 
 The `init` method initializes the Monerium SDK and the Safe services by creating a new instance of the [`SafeMoneriumClient`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/src/packs/monerium/SafeMoneriumClient.ts) class. This class extends the [`MoneriumClient`](https://github.com/monerium/sdk/blob/main/src/client.ts) class from the Monerium SDK and adds extra features to use it with the Safe services.
 
@@ -63,9 +63,9 @@ MoneriumInitOptions {
 }
 ```
 
-- `safeSdk` - To use the `MoneriumPack`, you need to add protocol-kit as a dependency for your project and create an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class.
+- `safeSdk` - To use the `MoneriumPack`, you need to add Protocol Kit as a dependency for your project and create an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class.
 
-#### `open(moneriumOpenOptions)`
+### open(moneriumOpenOptions)
 
 The `open()` method initiates the authentication process with Monerium. It opens a popup window with the Monerium authentication page.
 
@@ -120,7 +120,7 @@ And will do the following:
 
 - The order we use internally in the SDK for evaluating the `redirectUrl`, `authCode` and `refreshToken` is important. Each property opens a different flow with Monerium and we evaluate the presence of the `authCode`, then the `refreshToken` and `redirectUrl` as default. So have this in mind if you use all of them together in yout app
 
-#### `subscribe(event, handler)`
+### subscribe(event, handler)
 
 You can subscribe to [order status changes](https://monerium.dev/api-docs#operation/profile-orders-notifications) through the Monerium API.
 
@@ -139,7 +139,7 @@ MoneriumEvent {
 
 - `handler` - The handler function that will be called when the event is triggered.
 
-#### `unsubscribe(event, handler)`
+### unsubscribe(event, handler)
 
 Allow to unsubscribe to authentication state changes.
 
@@ -148,13 +148,13 @@ Allow to unsubscribe to authentication state changes.
 - `event` - The event you want to unsubscribe to.
 - `handler` - The handler function that will be called when the event is triggered.
 
-#### `close()`
+### close()
 
 The `close` method will clean up the socket, subscriptions and browser storage.
 
-### Usage
+## Usage
 
-Using the `MoneriumPack` is easy: just instantiate the class and call the `init` method when you load the page or component, followed by the `open(options)` method when you want to start the interaction.
+Instantiate the class and call the `init` method when the page or component are loaded, followed by the `open(options)` method when you want to start the interaction.
 
 The `open` method starts the interaction with the pack and returns the Monerium SDK client enhanced with Safe specific methods.
 
