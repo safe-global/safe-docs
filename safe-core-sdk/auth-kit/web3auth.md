@@ -13,27 +13,6 @@ This guide demonstrate how to create an externally-owned account using your emai
 yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal @web3auth/openlogin-adapter
 ```
 
-If you run `yarn start` and see an error similar to `Module not found: Error: Can't resolve 'crypto'`, see Web3Auth's [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack-issues).
-
-Note: You might also need to also install `browserify-zlib` (`yarn add browserify-zlib`), which is not included in the Web3Auth documentation.
-
-Inside `config-overrides.js` in the root of your project folder with the content, add the following as well:
-
-```javascript
-const webpack = require('webpack')
-
-module.exports = function override(config) {
-  const fallback = config.resolve.fallback || {}
-  Object.assign(fallback, {
-    // ...
-    zlib: require.resolve('browserify-zlib')
-  })
-  // ...
-}
-```
-
-See [Webpack 5 Polyfills Issue](https://web3auth.io/docs/troubleshooting/webpack-issues) for the full `config-overrides.js` instructions.
-
 ## Create a Web3AuthModalPack instance
 
 We are going to use the provided `Web3AuthModalPack` exported in the `@safe-global/auth-kit` package.
