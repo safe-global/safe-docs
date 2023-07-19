@@ -4,6 +4,8 @@ The Safe{Core} AA SDK main purpose is to bring Account Abstraction to life by fo
 
 This set of integrations are grouped in different kits, which are very important pillars and we aim to providing the right tools to developers to reproduce a web2-like user experience.
 
+<figure><img src="../.gitbook/assets/diagram-safe-core-sdk.png" alt=""><figcaption></figcaption></figure>
+
 ### [Auth Kit](auth-kit/)
 
 The [Auth Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit) creates externally-owned accounts and authenticates them using an email address, a social media account or another crypto wallet account.

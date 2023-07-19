@@ -28,14 +28,14 @@
 
 ## Safe{Core} AA SDK
 
-* [Introduction](safe-core-sdk/introduction.md)
+* [Introduction](safe-core-sdk/README.md)
 
 * [Auth Kit](safe-core-sdk/auth-kit/README.md)
   * [Web3Auth](safe-core-sdk/auth-kit/web3auth.md)
 
 * [Protocol Kit](safe-core-sdk/protocol-kit/README.md)
 
-* [Onramp Kit](safe-core-sdk/onramp-kit/README.md)
+* [OnRamp Kit](safe-core-sdk/onramp-kit/README.md)
   * [Stripe](safe-core-sdk/onramp-kit/stripe.md)
   * [Monerium](safe-core-sdk/onramp-kit/monerium.md)
 
@@ -60,19 +60,17 @@
 
 ## Reference
 
-* [Safe{Core} SDK](reference/safe-core-sdk/README.md)
+* [Auth Kit](reference/safe-core-sdk/auth-kit/README.md)
+  * [AuthKitBasePack](reference/safe-core-sdk/auth-kit/AuthKitBasePack.md)
+  * [Web3AuthModalPack](reference/safe-core-sdk/auth-kit/Web3AuthModalPack.md)
 
-  * [Auth Kit](reference/safe-core-sdk/auth-kit/README.md)
-    * [AuthKitBasePack](reference/safe-core-sdk/auth-kit/AuthKitBasePack.md)
-    * [Web3AuthModalPack](reference/safe-core-sdk/auth-kit/Web3AuthModalPack.md)
+* [Protocol Kit](reference/safe-core-sdk/protocol-kit/README.md)
 
-  * [Protocol Kit](reference/safe-core-sdk/protocol-kit/README.md)
+* [OnRamp Kit](reference/safe-core-sdk/onramp-kit/README.md)
+  * [OnRampKitBasePack](reference/safe-core-sdk/onramp-kit/OnRampKitBasePack.md)
+  * [StripePack](reference/safe-core-sdk/onramp-kit/StripePack.md)      
+  * [MoneriumPack](reference/safe-core-sdk/onramp-kit/MoneriumPack.md)
 
-  * [Onramp Kit](reference/safe-core-sdk/onramp-kit/README.md)
-    * [OnRampKitBasePack](reference/safe-core-sdk/onramp-kit/OnRampKitBasePack.md)
-    * [StripePack](reference/safe-core-sdk/onramp-kit/StripePack.md)      
-    * [MoneriumPack](reference/safe-core-sdk/onramp-kit/MoneriumPack.md)
+* [Relay Kit](reference/safe-core-sdk/relay-kit/README.md)
 
-  * [Relay Kit](reference/safe-core-sdk/relay-kit/README.md)
-
-  * [API Kit](reference/safe-core-sdk/api-kit/README.md)
+* [API Kit](reference/safe-core-sdk/api-kit/README.md)

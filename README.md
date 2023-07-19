@@ -2,7 +2,7 @@
 description: Everything you need to know to start building on Safe.
 ---
 
-# 👋 Introduction
+# Introduction
 
 Safe brings digital ownership of accounts to everyone by building universal and open contract standards for the custody of digital assets, data, and identity with the Safe ecosystem. These docs explain how to build with Safe.
 
