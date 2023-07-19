@@ -1,8 +1,8 @@
-## How to integrate Stripe and Safe in your DApp
+# Integration with Stripe
 
 The [Stripe Crypto OnRamp service](https://stripe.com/docs/crypto/overview) allows individuals to securely purchase cryptocurrencies from your application. 
 
-### What are we going to learn?
+## What are we going to learn?
 
 This guide demonstrates how to use the `StripePack` as part of the [`OnRampKit`](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) and incorporate it into your web application.
 
@@ -10,14 +10,14 @@ We are going to learn how to render the Stripe widget into your page. This widge
 
 ![The Stripe widget](https://b.stripecdn.com/docs-statics-srv/assets/crypto-onramp-overview.c4c0682697f2cd4c1c2769c3c5e08506.png)
 
-### Prerequisites
+## Prerequisites
 
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 2. [Stripe account to get your own public and private keys](https://dashboard.stripe.com/register)
 3. A deployed server ([example](https://github.com/5afe/aa-stripe-service)) for communicating with Stripe APIs.
    We are providing both the public key and the server for testing purposes but you must use your own public key and server in production.
 
-### Install dependencies
+## Install dependencies
 
 ```bash
 yarn add @safe-global/onramp-kit @stripe/stripe-js @stripe/crypto
@@ -123,12 +123,10 @@ In production, each customer should pass an individual KYC process but probably 
 | **CVC**                     | 123                         | Use any CVC 123                                               |
 | **Billing Zip Code**        | 12345                       | Use any zip code 12345 for billing                            |
 
-### Onramp Kit KYC Test Data - Examples
+## OnRamp Kit KYC Test Data - Examples
 
 ![KYC Personal info example](https://user-images.githubusercontent.com/9806858/228418052-30b2239a-ca19-4639-9858-4344d3ba7d45.png) ![KYC Address Example](https://user-images.githubusercontent.com/9806858/228418056-48cfa6a6-fde9-4504-a8be-ce91b03c960f.png) ![Payment Method](https://user-images.githubusercontent.com/9806858/228418059-b83b6357-a6b0-4f09-a4b2-3b89767cb4f0.png)
 
-### StripePack complete React example
+## StripePack complete React example
 
 Check a complete [example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client) in the `safe-core-sdk` repo. Follow the steps in the [`README.md`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/README.md) to run the example and configure the environment variables (`VITE_MONERIUM_CLIENT_ID` is not necessary) for the pack following the [`.env.sample`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/.env.sample).
-
-

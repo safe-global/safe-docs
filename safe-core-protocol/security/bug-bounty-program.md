@@ -2,11 +2,11 @@
 
 This is the page of the Safe bug bounty program. Find bugs and get rewarded. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](https://docs.safe.global/safe-core-protocol/security/bug-bounty-program#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global).
 
-### Audits
+## Audits
 
 The contracts have been carefully audited by smart contract security experts. For details, please refer to the [security audits page](https://docs.safe.global/safe-core-protocol/security/security-audits).
 
-### Rules
+## Rules
 
 Many of the [Ethereum Foundation’s bug bounty program rules](https://bounty.ethereum.org) are also applicable to the Safe bug bounty program:
 
@@ -15,7 +15,7 @@ Many of the [Ethereum Foundation’s bug bounty program rules](https://bounty.et
 * The Safe core development team, employees, and all other people paid by Safe, directly or indirectly (including the external auditors), are not eligible for rewards.
 * The Safe bounty program considers a number of variables in determining rewards. Determinations of eligibility, score, and all terms related to an award are at the sole and final discretion of the Safe bug bounty panel.
 
-### Scope
+## Scope
 
 The scope of the bug bounty program includes the core contracts related to the following releases of the Safe contracts:
 
@@ -26,7 +26,7 @@ The scope of the bug bounty program includes the core contracts related to the f
 
 The scope of the bug bounty also includes the [allowance module](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
 
-#### In scope
+### In scope
 
 **Safe core contracts (version 1.4.1)**
 
@@ -54,14 +54,14 @@ Addresses for deployed instances of these contracts can be found in the [Safe de
 
 * AllowanceModule.sol
 
-#### Examples of what’s in scope
+### Examples of what's in scope
 
 * Being able to steal funds
 * Being able to freeze funds or render them inaccessible by their owners
 * Being able to perform replay attacks on the same chain
 * Being able to change Safe settings or module settings without the consent of owners
 
-#### Out of scope
+### Out of scope
 
 * Any files, modules or libraries other than the ones mentioned above
 * More efficient gas solutions
@@ -69,25 +69,25 @@ Addresses for deployed instances of these contracts can be found in the [Safe de
 * Any points listed in the audit or formal verification results reports
 * Any points fixed in a newer version
 
-### Intended behavior
+## Intended behavior
 
 Please refer to the [readme file](https://github.com/safe-global/safe-contracts/blob/v1.3.0/README.md) and the [release details](https://github.com/safe-global/safe-contracts/releases) of the respective contract version on Github as well as our [developer docs](https://docs.safe.global) for an extensive overview of the intended behavior of the smart contracts.
 
 For the allowance module, please refer to the corresponding [readme file](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/README.md)
 
-### Compensation
+## Compensation
 
 Any bugs — they do not need to necessarily lead to a redeploy — will be considered for a bounty, but the severity of the threat will change the reward. Below are the reward levels for each threat severity along with an example of such a threat.
 
-#### High threat: up to $1,000,000
+### High threat: up to $1,000,000
 
 An identified attack that could steal funds or tokens or lock user funds would be considered a high threat. Likewise, a reported bug that, on its own, leads to a redeploy of the code will always be considered a high threat.
 
-#### Medium threat: up to $50,000
+### Medium threat: up to $50,000
 
 An identified attack where it is possible to steal funds because of unexpected behavior on the part of the user. Unexpected behavior here means that it is not possible for the user to anticipate and comprehend that the funds will be lost.
 
-#### Low threat: up to $10,000
+### Low threat: up to $10,000
 
 A way to avoid transaction fees or an exploit that in some way compromises the experience of other Safe users.
 
@@ -95,7 +95,7 @@ _All bounties will be paid in ETH._
 
 Please note that the submission’s quality will factor into the level of compensation. A high-quality submission includes an explanation of how the bug can be reproduced, a failing test case, a valid scenario in which the bug can be exploited, and a fix that makes the test case pass. High-quality submissions may be awarded amounts higher than the amounts specified above.
 
-### Submission Process
+## Submission Process
 
 Please email your submissions to: [bounty@safe.global](mailto:bounty@safe.global).
 
@@ -103,7 +103,7 @@ Don’t forget to include your ETH address, so that you may be rewarded. If more
 
 Please consult our [privacy policy](https://safe.global/privacy) for further details on how we handle submissions.
 
-### Responsible Disclosure Policy
+## Responsible Disclosure Policy
 
 If you comply with the policies below when reporting a security issue to us, we will not initiate a lawsuit or law enforcement investigation against you in response to your report.
 
@@ -120,11 +120,11 @@ Any questions? Reach us via email ([bounty@safe.global](mailto:bounty@safe.globa
 
 _Happy hunting!_
 
-### Past paid bounties
+## Past paid bounties
 
 _This list includes valid submissions from past and current contract versions for which a bounty has been paid._
 
-#### Potential suicide of MultiSend library
+### Potential suicide of MultiSend library
 
 We use a [MultiSend](https://github.com/safe-global/safe-contracts/blob/v1.2.0/contracts/libraries/MultiSend.sol) library to batch multiple transactions together. A transaction could be created that would self-destruct the contract. While this would not have put any funds at risk, user experience would have been seriously impacted.
 
@@ -132,11 +132,11 @@ We have updated the library as well as our interfaces. Details about the fix can
 
 This bug was submitted by [Micah Zoltu](https://twitter.com/micahzoltu). It was regarded as "Low Threat", and a bounty of 1,000 USD has been paid out.
 
-#### Transaction failure when receiving funds via `transfer` or `send`
+### Transaction failure when receiving funds via `transfer` or `send`
 
 Since the beginning of the bug bounty period, the contract update has been live on the Ethereum Mainnet. We performed extensive internal testing and also discovered an edge case where a Safe could not receive funds from another contract via `send` or `transfer`. This was due to additional gas costs caused by the [emission of additional events](https://github.com/safe-global/safe-contracts/pull/135) and [gas price changes](https://eips.ethereum.org/EIPS/eip-1884) in the latest hardfork. This issue has been fixed and more details can be found on [Github](https://github.com/safe-global/safe-contracts/issues/149).
 
-#### Duplicate owners during setup could render Safe unusable
+### Duplicate owners during setup could render Safe unusable
 
 There is a bug in the `setupOwners` function on `OwnerManager.sol` which allows duplicate owners to be set when the duplicated address is next to itself in the `_owners` array. This could cause unexpected behavior. While it is not possible to steal funds of existing Safes it is indeed an unexpected behaviour and user funds might be locked. During Safe creation the threshold of a Safe could be set to something unreachable, thereby making it impossible to execute a transaction afterwards.
 
@@ -144,7 +144,7 @@ The Safe interfaces all prevent this from happening by checking for duplicates, 
 
 This bug was submitted by [David Nicholas](https://twitter.com/davidnich11). It was regarded as "Medium Threat" and a bounty of 2,500 USD has been paid out.
 
-#### Setting a Safe as an owner of itself essentially reduces threshold by 1
+### Setting a Safe as an owner of itself essentially reduces threshold by 1
 
 The contracts allow to set a Safe as an owner of itself. This has the same effect as lowering the threshold by 1, as it is possible for anyone to generate a valid signature for the Safe itself when triggering `execTransaction`. This is especially an issue for Safes with a threshold of 1. If a Safe with threshold 1 adds itself as an owner, anyone can execute transactions.
 
@@ -156,7 +156,7 @@ Details about this issue can be found on [Github](https://github.com/safe-global
 
 The bug was submitted by [Kevin Foesenek](https://github.com/keviinfoes). It was regarded as "Medium Threat" and a bounty of 5,000 USD has been paid out.
 
-#### The function getModuledPaginated does not return all modules
+### The function getModuledPaginated does not return all modules
 
 The method [getModuledPaginated](https://github.com/safe-global/safe-contracts/blob/v1.3.0/contracts/base/ModuleManager.sol#L114) is used to return enabled modules page by page. For this a `start` and a `pageSize` need to be specified and the method will return an array of module addresses and `next` . This next can be used as the `start` to load the next page. When another page exists then `next` is a module address. This module address however will not be present in any of the returned arrays. While this does not put any user assets at risk directly, it could lead to a wrong perception of the enabled modules of a Safe and thereby its state.
 

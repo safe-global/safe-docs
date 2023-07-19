@@ -1,4 +1,4 @@
-# How to integrate Web3Auth and Safe in your DApp
+# Integration with Web3Auth
 
 This guide demonstrate how to create an externally-owned account using your email or social media account. Once authenticated, you can sign transactions and interact with any Safe Smart Accounts you own.
 

@@ -96,7 +96,7 @@ const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
 const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
 ```
 
-### **Initialize the Protocol Kit**
+### Initialize the Protocol Kit
 
 Goerli is a supported network so you don’t need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Instantiate an EthAdapter](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 

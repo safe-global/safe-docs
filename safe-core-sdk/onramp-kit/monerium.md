@@ -1,4 +1,4 @@
-# How to integrate Monerium and Safe in your DApp
+# Integration with Monerium
 
 The [`MoneriumPack`](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/src/packs/monerium) enables Safe users to make direct transfers of e-money tokens from their Safe addresses to an IBAN via the SEPA network. This allows them to use Monerium and Safe services together.
 
@@ -7,11 +7,11 @@ More info about Monerium:
 - [Monerium](https://monerium.com)
 - [Monerium Developers](https://monerium.dev)
 
-### What are we going to learn?
+## What are we going to learn?
 
 This guide demonstrates how to use the `MoneriumPack` as part of the [`OnRampKit`](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) and incorporate it into your web application.
 
-### Prerequisites
+## Prerequisites
 
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 2. [Monerium account and application](https://monerium.dev/docs/getting-started/create-app)
@@ -23,13 +23,13 @@ This guide demonstrates how to use the `MoneriumPack` as part of the [`OnRampKit
 
 Monerium offers several authentication methods for web apps. The `MoneriumPack` implements the _[Authorization code flow with proof key for code exchange (PKCE)](https://monerium.dev/docs/api#authentication)_.
 
-### Install dependencies
+## Install dependencies
 
 ```bash
 yarn add @safe-global/onramp-kit @safe-global/protocol-kit @monerium/sdk
 ```
 
-### Login with Monerium
+## Login with Monerium
 
 Creating a _Login with Monerium_ integration for the Safe requires a multi-step process that should be implemented in your web app. The following steps are required.
 
@@ -182,6 +182,6 @@ If you wish to unsubscribe, you can do:
 moneriumPack.unsubscribe(OrderState.processed, handler)
 ```
 
-### MoneriumPack complete React example
+## MoneriumPack complete React example
 
 Check a complete [example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client) in the `safe-core-sdk` repo. Follow the steps in the [`README.md`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/README.md) to run the example and configure the environment variables for the pack following the [`.env.sample`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/.env.sample).
