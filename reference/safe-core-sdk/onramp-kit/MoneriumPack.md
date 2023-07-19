@@ -24,7 +24,7 @@ const moneriumPack = new MoneriumPack({
 await moneriumPack.init(moneriumInitOptions)
 ```
 
-### new MoneriumPack(moneriumConfig)
+### `new MoneriumPack(moneriumConfig)`
 
 **Params**
 
@@ -49,7 +49,7 @@ The `production` environment will use the production Monerium services and the a
 **Caveats**
 You should always call the `init()` method afterwards before interacting with the pack.
 
-### init(moneriumInitOptions)
+### `init(moneriumInitOptions)`
 
 The `init` method initializes the Monerium SDK and the Safe services by creating a new instance of the [`SafeMoneriumClient`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/src/packs/monerium/SafeMoneriumClient.ts) class. This class extends the [`MoneriumClient`](https://github.com/monerium/sdk/blob/main/src/client.ts) class from the Monerium SDK and adds extra features to use it with the Safe services.
 
@@ -65,7 +65,7 @@ MoneriumInitOptions {
 
 - `safeSdk` - To use the `MoneriumPack`, you need to add Protocol Kit as a dependency for your project and create an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class.
 
-### open(moneriumOpenOptions)
+### `open(moneriumOpenOptions)`
 
 The `open()` method initiates the authentication process with Monerium. It opens a popup window with the Monerium authentication page.
 
@@ -110,7 +110,7 @@ SafeMoneriumOrder {
 }
 ```
 
-And will do the following:
+And it will do the following:
 
 1. Creates a `redeem` order with the correct format for the Monerium SDK to understand
 2. Place the order to Monerium
@@ -120,7 +120,7 @@ And will do the following:
 
 - The order we use internally in the SDK for evaluating the `redirectUrl`, `authCode` and `refreshToken` is important. Each property opens a different flow with Monerium and we evaluate the presence of the `authCode`, then the `refreshToken` and `redirectUrl` as default. So have this in mind if you use all of them together in yout app
 
-### subscribe(event, handler)
+### `subscribe(event, handler)`
 
 You can subscribe to [order status changes](https://monerium.dev/api-docs#operation/profile-orders-notifications) through the Monerium API.
 
@@ -139,7 +139,7 @@ MoneriumEvent {
 
 - `handler` - The handler function that will be called when the event is triggered.
 
-### unsubscribe(event, handler)
+### `unsubscribe(event, handler)`
 
 Allow to unsubscribe to authentication state changes.
 
@@ -148,7 +148,7 @@ Allow to unsubscribe to authentication state changes.
 - `event` - The event you want to unsubscribe to.
 - `handler` - The handler function that will be called when the event is triggered.
 
-### close()
+### `close()`
 
 The `close` method will clean up the socket, subscriptions and browser storage.
 
