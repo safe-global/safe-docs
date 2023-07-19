@@ -340,10 +340,10 @@ const balance = await safeSdk.getBalance()
 
 ### `getGuard`
 
-Returns the enabled Safe guard or 0x address if no guards are enabled.
+Returns the enabled Safe Hook or 0x address if no hooks are enabled.
 
 ```typescript
-const guardAddress = await safeSdk.getGuard()
+const hookAddress = await safeSdk.getGuard()
 ```
 
 ### `getModules`
@@ -649,7 +649,7 @@ const safeTransaction = await safeSdk.createDisableFallbackHandlerTx(options)
 
 ### `createEnableGuardTx`
 
-Returns the Safe transaction to enable a Safe guard.
+Returns the Safe transaction to enable a Safe Hook.
 
 ```typescript
 const safeTransaction = await safeSdk.createEnableGuardTx(guardAddress)
@@ -673,7 +673,7 @@ const safeTransaction = await safeSdk.createEnableGuardTx(guardAddress, options)
 
 ### `createDisableGuardTx`
 
-Returns the Safe transaction to disable a Safe guard.
+Returns the Safe transaction to disable a Safe Hook.
 
 ```typescript
 const safeTransaction = await safeSdk.createDisableGuardTx()
