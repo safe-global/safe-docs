@@ -12,9 +12,9 @@ yarn add @safe-global/onramp-kit @stripe/stripe-js @stripe/crypto
 
 ## Reference
 
-The `StripePack` allows to use the Stripe Crypto OnRamp services with Safe by creating an instance of the pack and passing it to the `SafeOnRampKit` `init` method.
+The `StripePack` allows users to use the Stripe Crypto OnRamp services with Safe.
 
-This pack provides a customizable widget for users to purchase cryptocurrencies using Stripe services and it can be rendered in any chosen CSS selector on a webpage.
+This pack provides a customizable widget for users to purchase cryptocurrencies using Stripe services and it can be rendered in a DOM node on a webpage.
 
 ```typescript
 const stripePack = new StripePack(stripeConfig)
@@ -47,7 +47,7 @@ Loads the Stripe scripts using the public key provided in the class instantiatio
 
 ### open(stripeOpenOptions)
 
-Opens the Stripe widget in the chosen slot (CSS selector) inside a webpage.
+Opens the Stripe widget in the chosen DOM node (CSS selector) inside a webpage.
 
 **Params**
 

@@ -1,12 +1,12 @@
 # Protocol Kit
 
-The [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit) enables developers to interact with [Safe contracts](https://github.com/safe-global/safe-contracts) using a Javascript interface. This SDK can be used to create new Safe accounts, update the configuration of existing Safes, and propose and execute transactions.
+The [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit) enables developers to interact with the [Safe contracts](https://github.com/safe-global/safe-contracts) using a TypeScript interface. This Kit can be used to create new Safe accounts, update the configuration of existing Safes, propose and execute transactions, among other features.
 
 ## Quickstart
 
 In this quickstart guide, you will create a 2 of 3 multi-sig Safe and propose and execute a transaction to send some ETH out of this Safe.
 
-For a more detailed guide, including how to integrate with web3js and more Safe transaction configuration options, see [Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and [Protocol Kit API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
+For a more detailed guide, including how to integrate with `web3.js`` and more Safe transaction configuration options, see [Guide: Integrating the Protocol Kit and API Kit](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and [Protocol Kit Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
 
 ### Prerequisites
 
@@ -156,9 +156,9 @@ console.log('Fundraising.')
 console.log(`Deposit Transaction: https://goerli.etherscan.io/tx/${tx.hash}`)
 ```
 
-## Making a Transaction from a Safe
+## Making a transaction from a Safe
 
-Owner 1 will sign and propose a transaction to send 0.005 ETH out of the Safe. Then, owner 2 will add their own proposal and execute the transaction since it meets the 2 of 3 thresholds.
+The first signer will sign and propose a transaction to send 0.005 ETH out of the Safe. Then, the second signer will add their own proposal and execute the transaction since it meets the 2 of 3 thresholds.
 
 At a high level, making a transaction from the Safe requires the following steps:
 
@@ -166,22 +166,22 @@ At a high level, making a transaction from the Safe requires the following steps
 
 The high-level overview of a multi-sig transaction is PCE: Propose. Confirm. Execute.
 
-1. **Owner 1 proposes a transaction**
+1. **First signer proposes a transaction**
    1. Create transaction: define the amount, destination, and any additional data
    2. Perform an off-chain signature of the transaction before proposing
    3. Submit the transaction and signature to the Safe Transaction Service
-2. **Owner 2 confirms the transaction**
+2. **Second signer confirms the transaction**
    1. Get pending transactions from the Safe service
    2. Perform an off-chain signature of the transaction
    3. Submit the signature to the service
 3. **Anyone executes the transaction**
-   1. In this example, Owner 1 executes the transaction
+   1. In this example, the first signer executes the transaction
    2. Anyone can get the pending transaction from the Safe service
    3. Account executing the transaction pays the gas fee
 
-### Create a Transaction
+### Create a transaction
 
-For more details on what to include in a transaction see, [Create a Transaction in the Safe Core SDK Guide](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#4-create-a-transaction).
+For more details on what to include in a transaction see [Create a Transaction in the Safe Core SDK Guide](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#4-create-a-transaction).
 
 ```tsx
 import { SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
@@ -199,9 +199,9 @@ const safeTransactionData: SafeTransactionDataPartial = {
 const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionData })
 ```
 
-### Propose a Transaction
+### Propose the transaction
 
-To propose a transaction to the Safe Transaction Service we need to call the method `proposeTransaction` from the API Kit instance.
+To propose a transaction to the Safe Transaction Service we need to call the `proposeTransaction` method from the API Kit instance.
 
 For a full list and description of the properties that `proposeTransaction` accepts, see [Propose the transaction to the service](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#propose-transaction) in the Safe Core SDK guide.
 
@@ -221,7 +221,7 @@ await safeService.proposeTransaction({
 })
 ```
 
-### Get Pending Transactions
+### Get pending transactions
 
 Recall that you created the `safeService` in [Initialize the API Kit](./#initialize-the-safe-api-kit).
 
@@ -229,7 +229,7 @@ Recall that you created the `safeService` in [Initialize the API Kit](./#initial
 const pendingTransactions = await safeService.getPendingTransactions(safeAddress).results
 ```
 
-### Confirm the Transaction: Second Confirmation
+### Confirm the transaction: second confirmation
 
 When owner 2 is connected to the application, the Protocol Kit should be initialized again with the existing Safe address the address of the owner 2 instead of the owner 1.
 
@@ -252,7 +252,7 @@ const signature = await safeSdkOwner2.signTransactionHash(safeTxHash)
 const response = await safeService.confirmTransaction(safeTxHash, signature.data)
 ```
 
-### Execute Transaction
+### Execute the transaction
 
 Anyone can execute the Safe transaction once it has the required number of signatures. In this example, owner 1 will execute the transaction and pay for the gas fees.
 
@@ -265,7 +265,7 @@ console.log('Transaction executed:')
 console.log(`https://goerli.etherscan.io/tx/${receipt.transactionHash}`)
 ```
 
-### Confirm that the Transaction was Executed
+### Confirm that the transaction was executed
 
 You know that the transaction was executed if the balance in your Safe changes.
 

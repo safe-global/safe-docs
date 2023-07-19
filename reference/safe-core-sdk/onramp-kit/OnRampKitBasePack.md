@@ -1,6 +1,6 @@
 # OnRampKitBasePack
 
-To be used as part of the Onramp Kit, new packs need to extend the `OnRampKitBasePack` class. This abstract class provides a common interface that subclasses must implement. It provides the specific Safe common functionality that any custom implementation can take leverage.
+To be used as part of the Onramp Kit, new packs need to extend the `OnRampKitBasePack` class. This abstract class provides a common interface that subclasses must implement. It provides the specific Safe common functionality that any custom implementation can leverage.
 
 ## Install dependencies
 
@@ -20,7 +20,7 @@ class MyPack extends OnRampKitBasePack {
 }
 ```
 
-## Abstract methods that OnRamp packs have to implement
+## Abstract methods that OnRamp packs must implement
 
 These methods are the common interface for all the OnRamp packs. Check each pack's documentation to get more details.
 

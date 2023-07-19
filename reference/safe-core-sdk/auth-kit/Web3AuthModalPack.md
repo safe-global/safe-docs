@@ -2,7 +2,7 @@
 
 Web3Auth is a pluggable authentication infrastructure for Web3 wallets and applications. It simplifies onboarding for both mainstream and crypto native users, offering experiences tailored to their preferences. It supports all social logins, web and mobile native platforms, wallets, and other key management methods, creating a cryptographic key provider specific to the user and application.
 
-The `Web3AuthModalPack` enables the use of [Web3Auth modal SDK](https://web3auth.io/docs/sdk/web/modal/) with added Safe capabilities, such as retrieving the related Safe addresses for a given externally-owned account created using Web3Auth services.
+The `Web3AuthModalPack` enables the use of [Web3Auth modal SDK](https://web3auth.io/docs/sdk/pnp/web/modal) with added Safe capabilities, such as retrieving the related Safe addresses for a given externally-owned account created using Web3Auth services.
 
 ## Install dependencies
 
@@ -12,13 +12,13 @@ To use the `Web3AuthModalPack`, you need to install some extra dependencies in a
 yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal
 ```
 
-Choose the adapters to use with Web3Auth, and add them. For example, to use the [OpenLogin](https://docs.openlogin.com/) adapter, you must install the following dependency:
+Choose the adapters to use with Web3Auth, and add them. For example, to use the [OpenLogin](https://web3auth.io/docs/sdk/pnp/web/adapters/openlogin) adapter, you must install the following dependency:
 
 ```bash
 yarn add @web3auth/openlogin-adapter
 ```
 
-Refer to the [supported adapters](https://web3auth.io/docs/sdk/web/adapters/) in the official documentation.
+Refer to the [supported adapters](https://web3auth.io/docs/sdk/pnp/web/adapters/#currently-available-wallet-adapters) in the official documentation.
 
 ## Reference
 
@@ -50,31 +50,31 @@ You should always call the `init()` method afterwards before interacting with th
 
 ### init(web3AuthModalOptions, adapters[]?, modalConfig?)
 
-The init method initialize the required Web3Auth modal SDK and Safe services. It [instantiates the `Web3Auth`](https://web3auth.io/docs/quick-start?product=Plug+and+Play&sdk=Plug+and+Play+Web+Modal+SDK&platform=React#3-initialize-web3auth-for-your-preferred-blockchain) class and [configure the adapters](https://web3auth.io/docs/sdk/web/no-modal/initialize#configureadapteradapter). It calls the [`initModal`](https://web3auth.io/docs/sdk/web/modal/whitelabel#initmodal) method internally.
+The init method initialize the required Web3Auth modal SDK and Safe services. It [instantiates the `Web3Auth`](https://web3auth.io/docs/quick-start?product=Plug+and+Play&sdk=Plug+and+Play+Web+Modal+SDK&platform=React#3-initialize-web3auth-for-your-preferred-blockchain) class and [configure the adapters](https://web3auth.io/docs/sdk/pnp/web/no-modal/initialize#configureadapteradapter). It calls the [`initModal`](https://web3auth.io/docs/sdk/pnp/web/modal/whitelabel#initmodal) method internally.
 
 It initializes as well the web3 provider we can retrieve afterwards using the `getProvider()` method.
 
 **Params**
 
-- `web3AuthModalOptions` - The options to create the `Web3Auth` [instance](https://web3auth.io/docs/sdk/web/modal/initialize#instantiating-web3auth). You can send a configuration object matching the [official one](https://web3auth.io/docs/sdk/web/modal/initialize#web3authoptions) as we passthrough the options to the `Web3Auth` instance when we instantiate it inside the pack.
-- `adapters` - The adapters for the Web3Auth modal sdk. You can use any of the [supported adapters](https://web3auth.io/docs/sdk/web/adapters/). This prop accepts an array of adapters and the `Web3AuthModalPack` will call the [`configureAdapter`](https://web3auth.io/docs/sdk/web/no-modal/initialize#configureadapteradapter) method for each one of them internally.
+- `web3AuthModalOptions` - The options to create the `Web3Auth` [instance](https://web3auth.io/docs/sdk/pnp/web/modal/initialize#instantiating-web3auth). You can send a configuration object matching the [official one](https://web3auth.io/docs/sdk/pnp/web/modal/initialize#web3authoptions) as we passthrough the options to the `Web3Auth` instance when we instantiate it inside the pack.
+- `adapters` - The adapters for the Web3Auth modal sdk. You can use any of the [supported adapters](https://web3auth.io/docs/sdk/pnp/web/adapters/). This prop accepts an array of adapters and the `Web3AuthModalPack` will call the [`configureAdapter`](https://web3auth.io/docs/sdk/pnp/web/no-modal/initialize#configureadapteradapter) method for each one of them internally.
 
 ⚠️ Remember to add the corresponding package for each adapter (e.g `@web3auth/openlogin-adapter` for OpenLogin).
 
-- `modalConfig` - The configuration for the Web3Auth modal sdk. You can explore the options [here](https://web3auth.io/docs/sdk/web/modal/whitelabel#initmodal). This options are used with the `initModal` method internally.
+- `modalConfig` - The configuration for the Web3Auth modal sdk. You can explore the options [here](https://web3auth.io/docs/sdk/pnp/web/modal/whitelabel#initmodal). This options are used with the `initModal` method internally.
 
 **Caveats**
 Call always the `init()` method before interacting with the other methods in the pack.
 
 ### signIn()
 
-`signIn()` calls internally the [`connect()`](https://web3auth.io/docs/sdk/web/modal/usage#connect) method from Web3Auth. It obtains a web3 provider and store it internally in the instance. Finally, retrieves the associated Safe addresses for the externally-owned account created using Web3Auth services.
+`signIn()` calls internally the [`connect()`](https://web3auth.io/docs/sdk/pnp/web/modal/usage#connect) method from Web3Auth. It obtains a web3 provider and store it internally in the instance. Finally, retrieves the associated Safe addresses for the externally-owned account created using Web3Auth services.
 
 **Returns**
 An object with the derived externally-owned account address and the associated safe addresses.
 
 ```typescript
-SafeAuthSignInData {
+AuthKitSignInData {
   eoa: string
   safes?: string[]
 }
@@ -89,13 +89,13 @@ SafeAuthSignInData {
 
 Call this method to sign out the user and clean the session.
 
-Internally it calls the [`logout()`](https://web3auth.io/docs/sdk/web/modal/usage#web3authlogout) method from Web3Auth and clears the web3 provider stored in the instance.
+Internally it calls the [`logout()`](https://web3auth.io/docs/sdk/pnp/web/modal/usage#web3authlogout) method from Web3Auth and clears the web3 provider stored in the instance.
 
 ### getUserInfo()
 
 Using `getUserInfo()` you will receive the user information derived from the pack you are using. It varies depending on the provider.
 
-Internally it calls the [`getUserInfo()`](https://web3auth.io/docs/sdk/web/modal/usage#getuserinfo) method from Web3Auth.
+Internally it calls the [`getUserInfo()`](https://web3auth.io/docs/sdk/pnp/web/modal/usage#getuserinfo) method from Web3Auth.
 
 **Returns**
 The `UserInfo` object has properties that depend on the adapter and authentication platform and method used.
@@ -116,7 +116,7 @@ Allow to subscribe to authentication state changes. The event depends on the pac
 
 **Params**
 
-- `event` - The event you want to subscribe to. The events are defined [in the documentation](https://web3auth.io/docs/sdk/web/no-modal/initialize#subscribing-the-lifecycle-events).
+- `event` - The event you want to subscribe to. The events are defined [in the documentation](https://web3auth.io/docs/sdk/pnp/web/no-modal/initialize#subscribing-the-lifecycle-events).
 - `handler` - The handler function that will be called when the event is triggered.
 
 ### unsubscribe(event, handler)

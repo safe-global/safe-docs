@@ -5,7 +5,7 @@ This guide demonstrate how to create an externally-owned account using your emai
 ## Prerequisites
 
 - [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-- [Create a Web3Auth account](https://web3auth.io)
+- [Create a Web3Auth account](https://dashboard.web3auth.io)
 
 ### Install dependencies
 
@@ -25,7 +25,7 @@ import { Web3AuthOptions } from '@web3auth/modal'
 import { OpenloginAdapter } from '@web3auth/openlogin-adapter'
 
 
-// https://web3auth.io/docs/sdk/web/modal/initialize#arguments
+// https://web3auth.io/docs/sdk/pnp/web/modal/initialize#arguments
 const options: Web3AuthOptions = {
   clientId: 'YOUR_WEB3_AUTH_CLIENT_ID', // https://dashboard.web3auth.io/
   web3AuthNetwork: 'testnet',
@@ -41,7 +41,7 @@ const options: Web3AuthOptions = {
   }
 }
 
-// https://web3auth.io/docs/sdk/web/modal/initialize#configuring-adapters
+// https://web3auth.io/docs/sdk/pnp/web/modal/initialize#configuring-adapters
 const modalConfig = {
   [WALLET_ADAPTERS.TORUS_EVM]: {
     label: 'torus',
@@ -54,7 +54,7 @@ const modalConfig = {
   }
 }
 
-// https://web3auth.io/docs/sdk/web/modal/whitelabel#whitelabeling-while-modal-initialization
+// https://web3auth.io/docs/sdk/pnp/web/modal/whitelabel#whitelabeling-while-modal-initialization
 const openloginAdapter = new OpenloginAdapter({
   loginSettings: {
     mfaLevel: 'mandatory'
@@ -73,7 +73,7 @@ const web3AuthConfig: Web3AuthConfig = {
 
 // Instantiate and initialize the pack
 const web3AuthModalPack = new Web3AuthModalPack(web3AuthConfig)
-web3AuthModalPack.init(options, [openloginAdapter], modalConfig)
+await web3AuthModalPack.init({ options, adapters: [openloginAdapter], modalConfig })
 ```
 
 ## Sign in to an Ethereum account
@@ -82,7 +82,7 @@ Once your `Web3AuthModalPack` instance is created, use the `signIn()` method to 
 
 Important considerations about Web3Auth are:
 
-1) When you sign in with the same social account, the same Ethereum address will be returned for the same Web3Auth client ID. Web3Auth scopes the creation of the wallet (address) to the DApp, so when interacting with other DApps using Web3Auth, a different Ethereum address will be returned. This is by design and to enhanced security.
+1) When you sign in with the same social account, the same Ethereum address will be returned for the same Web3Auth client ID. Web3Auth [scopes the creation of the wallet](https://web3auth.io/docs/troubleshooting/different-wallet-address-issue) (address) to the DApp, so when interacting with other DApps using Web3Auth, a different Ethereum address will be returned. This is by design and to enhanced security.
 
 2) If you sign in with an email and then with a social account using the same email (e.g. "Sign in with Google"), a different Ethereum address might be returned even the same email address is used.
 
@@ -113,7 +113,7 @@ Call `getProvider()` to get the Ethereum provider instance.
 web3AuthModalPack.getProvider()
 ```
 
-We expose two methods for listening to events, `subscribe()` and `unsubscribe()`. In the `Web3AuthModalPack` case, we can listen to all the events listed [here](https://web3auth.io/docs/sdk/web/modal/initialize#subscribing-the-lifecycle-events).
+We expose two methods for listening to events, `subscribe()` and `unsubscribe()`. In the `Web3AuthModalPack` case, we can listen to all the events listed [here](https://web3auth.io/docs/sdk/pnp/web/modal/initialize#subscribing-the-lifecycle-events).
 
 ```typescript
 import { ADAPTER_EVENTS } from '@web3auth/base'
@@ -137,7 +137,7 @@ const web3AuthModalPack = new Web3AuthModalPack({
 
 ## Signing transactions using the Web3AuthModalPack and Protocol Kit
 
-The `Web3AuthModalPack` can be combined with the [Protocol Kit](./protocol-kit/) to connect to a Safe using the `provider` and `signer` of the currently authenticated account.
+The `Web3AuthModalPack` can be combined with the [Protocol Kit](../protocol-kit/) to connect to a Safe using the `provider` and `signer` of the currently authenticated account.
 
 Once connected, you can use any of the methods available in the [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
 

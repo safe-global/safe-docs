@@ -14,7 +14,7 @@ The [Gelato relay](https://docs.gelato.network/developer-services/relay) allows 
 yarn add ethers @safe-global/relay-kit @safe-global/protocol-kit @safe-global/safe-core-sdk-types
 ```
 
-## Relay Kit Options
+## Relay Kit options
 
 Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs.gelato.network/developer-services/relay). There are 2 different ways to use the Gelato relay:
 1. [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance)
@@ -39,13 +39,13 @@ For this tutorial you will need a Safe with a threshold of 1 deployed on BNB Cha
 
 ### Deposit Polygon USDC into Gelato 1Balance
 
-See: [How Can I use 1Balance?](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance#how-can-i-use-1balance)
+See: [How can I use 1Balance?](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance#how-can-i-use-1balance)
 
-### Using a Safe Smart Contract as the Relay App
+### Using a Safe account as the Relay App
 
-While using Gelato, you can specify that you only want your relayer to allow transactions from specific smart contracts. If one of those smart contracts is a Safe smart contract, you will need to either verify the contract on a block explorer or get the ABI of the contract implementation (not the ABI of the smart contract address). This is because the Safe smart contracts use the [Proxy Pattern](https://medium.com/coinmonks/proxy-pattern-and-upgradeable-smart-contracts-45d68d6f15da), so the implementation logic for your smart contract exists on a different address.
+While using Gelato, you can specify that you only want the relay to allow transactions from specific smart contracts. If one of those smart contracts is a Safe smart contract, you will need to either verify the contract on a block explorer or get the ABI of the contract implementation (not the ABI of the smart contract address). This is because the Safe smart contracts use the [Proxy Pattern](https://medium.com/coinmonks/proxy-pattern-and-upgradeable-smart-contracts-45d68d6f15da), so the implementation logic for your smart contract exists on a different address.
 
-### Import Packages
+### Import the packages
 
 ```typescript
 import { ethers } from 'ethers'
@@ -53,7 +53,7 @@ import { GelatoRelayPack } from '@safe-global/relay-kit'
 import Safe, { EthersAdapter, getSafeContract } from '@safe-global/protocol-kit'
 import { MetaTransactionData, MetaTransactionOptions, OperationType } from '@safe-global/safe-core-sdk-types'
 ```
-### Initialize your Transaction Settings
+### Initialize the transaction settings
 
 Modify the variables to customize to match your desired transaction settings.
 
@@ -71,7 +71,7 @@ const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
 const withdrawAmount = ethers.utils.parseUnits('0.005', 'ether').toString()
 ```
 
-### Create your Transaction Object
+### Create the transaction object
 
 ```typescript
 // Create a transaction object
@@ -87,7 +87,7 @@ const options: MetaTransactionOptions = {
 }
 ```
 
-### Create the Protocol and Relay kits instances
+### Create the Protocol Kit and Relay Kit instances
 
 ```typescript
 const ethAdapter = new EthersAdapter({
@@ -103,7 +103,7 @@ const safeSDK = await Safe.create({
 const relayKit = new GelatoRelayPack(process.env.GELATO_RELAY_API_KEY!)
 ```
 
-### Prepare the Transaction
+### Prepare the transaction
 
 ```typescript
 const safeTransaction = await safeSDK.createTransaction({ safeTransactionData })
@@ -128,7 +128,7 @@ const encodedTx = safeSingletonContract.encode('execTransaction', [
 ])
 ```
 
-### Send Transaction to Relayer
+### Send the transaction to the relay
 
 ```typescript
 const relayTransaction: RelayTransaction = {
