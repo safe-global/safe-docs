@@ -31,7 +31,7 @@ A common misconception is that all Smart Accounts are multi-sig accounts. This i
 2. Pay for transactions using any ERC20 tokens or even cash. The relayer pays for gas on your behalf
 3. Add customizable rules such as spending limits
 
-### Further Reading
+### Further reading
 
 1. [Safe{Core} Account Abstraction SDK](safe-core-sdk/introduction.md)
 2. [Safe Plugins](safe-core-protocol/plugins.md)

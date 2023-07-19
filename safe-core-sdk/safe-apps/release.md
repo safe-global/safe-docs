@@ -1,6 +1,6 @@
 # Releasing your Safe App
 
-### Release Process
+### Release process
 
 #### How to get your Safe Apps into the hands of users
 
@@ -52,7 +52,7 @@ Alternatively, you can provide us with the ABIs as JSON files or the links to th
 
 **Create an issue in our repository once you've verified that your app meets these requirements:** [https://github.com/5afe/safe-apps-list](https://github.com/5afe/safe-apps-list)
 
-#### The Official launch and beyond
+#### The official launch and beyond
 
 After we have reviewed and integrated your Safe App, the App will first be available in the [staging environment](https://safe-wallet-web.staging.5afe.dev) of the Safe for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
 

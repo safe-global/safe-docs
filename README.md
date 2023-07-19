@@ -6,7 +6,7 @@ description: Everything you need to know to start building on Safe.
 
 Safe brings digital ownership of accounts to everyone by building universal and open contract standards for the custody of digital assets, data, and identity with the Safe ecosystem. These docs explain how to build with Safe.
 
-### How to Read this Guide
+### How to read this guide
 
 There are three main sections in this guide: Learn, Discover, and Build.
 
@@ -18,7 +18,7 @@ There are three main sections in this guide: Learn, Discover, and Build.
 
 We recommend starting with Learn and seeing some tutorials there to learn more about how Smart Accounts work. Then, head to the Discover section to get some ideas and inspiration for the types of things you can build with smart accounts. Finally, complete one of the Build tutorials to build something that uses Smart Accounts.
 
-### Getting Started
+### Getting started
 
 Safe has a lot of features which means a lot of information. To make it easier to navigate, here is a step-by-step guide you can follow:
 

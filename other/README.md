@@ -6,7 +6,7 @@ Multi-signature control is the tip of the iceberg and Safe accounts unlock a wid
 
 <figure><img src="../.gitbook/assets/diagram-third-party-custody.png" alt=""><figcaption><p>New forms of custody are possible with smart contract accounts</p></figcaption></figure>
 
-#### High Security
+#### High security
 
 Safe's **multi-signature** functionality allows you to define a list of owner accounts and a threshold number of accounts required to confirm a transaction. Once the threshold of owner accounts have confirmed a transaction, the Safe transaction can be executed. Owners can either be EOAs or other smart contract accounts.
 

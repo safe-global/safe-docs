@@ -4,7 +4,7 @@ Safe accounts are built to be fully customizable. This means that the only limit
 
 <figure><img src="../.gitbook/assets/safe-iceberg.png" alt=""><figcaption></figcaption></figure>
 
-### Live Features
+### Live features
 
 * [Multisig](https://help.safe.global/en/articles/40863-signature-policies): Require multiple signing accounts to approve a transaction before executing.
 * [Spending policies](https://help.safe.global/en/articles/40842-set-up-and-use-spending-limits): Limit the amount that a signing account can withdraw from a Safe.
@@ -55,7 +55,7 @@ Safe accounts are built to be fully customizable. This means that the only limit
     - E.g. Ethereum Name Service (ENS) maps the name/ID to each chain-specific address.
     - [Account Abstraction in a Multichain Landscape - Part 1: Addresses](https://safe.mirror.xyz/4GcGAOFno-suTCjBewiYH4k4yXPDdIukC5woO5Bjc4w)
 
-## Which Safe Tool Should I Use?
+## Which Safe tool should I use?
 
 Here is a diagram to help you decide which tool to use.
 

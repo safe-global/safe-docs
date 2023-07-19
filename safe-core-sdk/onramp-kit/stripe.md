@@ -123,7 +123,7 @@ In production, each customer should pass an individual KYC process but probably 
 | **CVC**                     | 123                         | Use any CVC 123                                               |
 | **Billing Zip Code**        | 12345                       | Use any zip code 12345 for billing                            |
 
-## OnRamp Kit KYC Test Data - Examples
+## OnRamp Kit KYC test data - Examples
 
 ![KYC Personal info example](https://user-images.githubusercontent.com/9806858/228418052-30b2239a-ca19-4639-9858-4344d3ba7d45.png) ![KYC Address Example](https://user-images.githubusercontent.com/9806858/228418056-48cfa6a6-fde9-4504-a8be-ce91b03c960f.png) ![Payment Method](https://user-images.githubusercontent.com/9806858/228418059-b83b6357-a6b0-4f09-a4b2-3b89767cb4f0.png)
 

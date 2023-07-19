@@ -2,7 +2,7 @@
 description: Up-to-date overview document on how our services interact with each other
 ---
 
-# Service Architecture
+# Service architecture
 
 The Safe infrastructure consists of 4 services:
 

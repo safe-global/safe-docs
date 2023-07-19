@@ -76,7 +76,7 @@ const web3AuthModalPack = new Web3AuthModalPack(web3AuthConfig)
 web3AuthModalPack.init(options, [openloginAdapter], modalConfig)
 ```
 
-## Sign In to an Ethereum Account
+## Sign in to an Ethereum account
 
 Once your `Web3AuthModalPack` instance is created, use the `signIn()` method to start the authentication process. Usually, you call this method when the user clicks on a "Sign In" button added to your page.
 

@@ -1,4 +1,4 @@
-# Safe Developer Docs Code Examples
+# Safe developer docs code examples
 
 Code examples showing how to use safe tools.
 

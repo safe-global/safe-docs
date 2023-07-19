@@ -10,7 +10,7 @@ Constant part per signature: `{(max) 64-bytes signature data}{1-byte signature t
 
 All the signatures are sorted by the signer address and concatenated.
 
-#### ECDSA Signature
+#### ECDSA signature
 
 `31 > signature type > 26`
 
@@ -34,7 +34,7 @@ To be able to use `eth_sign` we need to take the parameters `r`, `s` and `v` fro
 
 `r`, `s` and `v`are the required parts of the ECDSA signature to recover the signer. `v` will be substracted by `4` to calculate the signature.
 
-#### Contract Signature (EIP-1271)
+#### Contract signature (EIP-1271)
 
 `signature type == 0`
 
@@ -56,7 +56,7 @@ To be able to use `eth_sign` we need to take the parameters `r`, `s` and `v` fro
 
 The method `signMessage` can be used to mark a message as signed on-chain.
 
-#### Pre-Validated Signatures
+#### Pre-validated signatures
 
 `signature type == 1`
 

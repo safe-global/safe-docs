@@ -4,7 +4,7 @@ description: >-
   transaction
 ---
 
-# Build a Batch transactions Safe App
+# Build Safe App with batch transactions 
 
 ## What are we building?
 

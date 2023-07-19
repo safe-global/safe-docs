@@ -10,7 +10,7 @@ To add the Protocol Kit to your project, run:
 yarn add @safe-global/protocol-kit
 ```
 
-## Safe Factory Reference
+## Safe Factory reference
 
 ### `create`
 
@@ -149,7 +149,7 @@ const callback = (txHash: string): void => {
 const safeSdk = await safeFactory.deploySafe({ safeAccountConfig, callback })
 ```
 
-## Safe Reference
+## Safe reference
 
 ### `create`
 

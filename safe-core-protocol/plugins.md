@@ -6,7 +6,7 @@ Safe Plugins can include daily spending allowances, amounts that can be spent wi
 
 <figure><img src="https://user-images.githubusercontent.com/9806858/234940596-321b1c8c-c311-4016-84fe-d8aa8f550b06.jpg" alt=""><figcaption><p>Safe Plugin Interaction with a Safe Smart Account. Source: <a href="https://safe.mirror.xyz/P83_rVQuUQJAM-SnMpWvsHlN8oLnCeSncD1txyMDqpE">Safe Smart Accounts & Diamond Proxies</a></p></figcaption></figure>
 
-## How to Create a Safe Plugin
+## How to create a Safe Plugin
 
 A great way to understand how Safe Plugins work is by creating one. A great place to start is [Gnosis Safe 🛠 Safe modding 101: Create your own Safe Plugin](https://www.youtube.com/watch?v=nmDYc9PlAic).
 
