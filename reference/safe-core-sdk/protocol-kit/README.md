@@ -348,7 +348,7 @@ const guardAddress = await safeSdk.getGuard()
 
 ### `getModules`
 
-Returns the list of addresses of all the enabled Safe modules.
+Returns the list of addresses of all the enabled Safe Plugins.
 
 ```typescript
 const moduleAddresses = await safeSdk.getModules()
@@ -356,7 +356,7 @@ const moduleAddresses = await safeSdk.getModules()
 
 ### `isModuleEnabled`
 
-Checks if a specific Safe module is enabled for the current Safe.
+Checks if a specific Safe Plugin is enabled for the current Safe.
 
 ```typescript
 const isEnabled = await safeSdk.isModuleEnabled(moduleAddress)
@@ -690,7 +690,7 @@ const safeTransaction = await safeSdk.createDisableGuardTx(options)
 
 ### `createEnableModuleTx`
 
-Returns a Safe transaction ready to be signed that will enable a Safe module.
+Returns a Safe transaction ready to be signed that will enable a Safe Plugin.
 
 ```typescript
 const safeTransaction = await safeSdk.createEnableModuleTx(moduleAddress)
@@ -707,7 +707,7 @@ const safeTransaction = await safeSdk.createEnableModuleTx(moduleAddress, option
 
 ### `createDisableModuleTx`
 
-Returns a Safe transaction ready to be signed that will disable a Safe module.
+Returns a Safe transaction ready to be signed that will disable a Safe Plugin.
 
 ```typescript
 const safeTransaction = await safeSdk.createDisableModuleTx(moduleAddress)

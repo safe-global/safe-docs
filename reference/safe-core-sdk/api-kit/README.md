@@ -46,7 +46,7 @@ const safes: OwnerResponse = await safeService.getSafesByOwner(ownerAddress)
 
 ### `getSafesByModule`
 
-Returns the list of Safes where the module address provided is enabled.
+Returns the list of Safes where the plugin address provided is enabled.
 
 ```typescript
 const safes: ModulesResponse = await getSafesByModule(moduleAddress)
@@ -174,7 +174,7 @@ const incomingTxs: TransferListResponse = await safeService.getIncomingTransacti
 
 ### `getModuleTransactions`
 
-Returns the history of module transactions of a Safe account.
+Returns the history of plugin transactions of a Safe account.
 
 ```typescript
 const moduleTxs: SafeModuleTransactionListResponse = await safeService.getModuleTransactions(

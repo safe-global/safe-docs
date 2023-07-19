@@ -16,7 +16,7 @@ It is possible to make use of different **Safe Library contracts** to perform co
 
 #### Advanced access management
 
-You can add **Safe Modules** to your Safe. Thereby it is possible to implement more fine-grained access management. For instance, it is possible to define a module that can only be used to **recover access** to a Safe under specific circumstances. A popular version of this is the **Social Recovery Module**. A different example is **allowance modules** that allow owners of a Safe to grant limited execution permission, such as a daily limit to external accounts.
+You can add **Safe Plugins** to your Safe. Thereby it is possible to implement more fine-grained access management. For instance, it is possible to define a plugin that can only be used to **recover access** to a Safe under specific circumstances. A popular version of this is the **Social Recovery Plugin**. A different example is the **allowance plugin** that allow owners of a Safe to grant limited execution permission, such as a daily limit to external accounts.
 
 #### Token callback support
 

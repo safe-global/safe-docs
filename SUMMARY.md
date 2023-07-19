@@ -15,9 +15,9 @@
 
 ## Safe{Core} Protocol
 
-* [Modules](safe-core-protocol/modules.md)
+* [Safe Plugins](safe-core-protocol/plugins.md)
 
-* [Guards](safe-core-protocol/guards.md)
+* [Safe Hooks](safe-core-protocol/hooks.md)
 
 * [Security](safe-core-protocol/security/README.md)
   * [Bug Bounty](safe-core-protocol/security/bug-bounty-program.md)

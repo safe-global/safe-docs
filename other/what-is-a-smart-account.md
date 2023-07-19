@@ -34,5 +34,5 @@ A common misconception is that all Smart Accounts are multi-sig accounts. This i
 ### Further Reading
 
 1. [Safe{Core} Account Abstraction SDK](safe-core-sdk/introduction.md)
-2. [Safe Modules](safe-core-protocol/modules.md)
-3. [Safe Guards](safe-core-protocol/guards.md)
+2. [Safe Plugins](safe-core-protocol/plugins.md)
+3. [Safe Hooks](safe-core-protocol/hooks.md)
