@@ -2,7 +2,7 @@
 
 Safe accounts are built to be fully customizable. This means that the only limit to what you can do with a Safe account is your imagination.
 
-<figure><img src="../.gitbook/assets/safe-iceberg.png" alt=""><figcaption></figcaption></figure>
+<img src="../.gitbook/assets/safe-iceberg.png" alt="">
 
 ### Live features
 
