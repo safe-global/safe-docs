@@ -1,10 +1,10 @@
 # Bug Bounty
 
-This is the page of the Safe bug bounty program. Find bugs and get rewarded. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](https://docs.safe.global/safe-core-protocol/security/bug-bounty-program#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global).
+This is the page of the Safe bug bounty program. Find bugs and get rewarded. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](./bug-bounty-program.md#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global).
 
 ## Audits
 
-The contracts have been carefully audited by smart contract security experts. For details, please refer to the [security audits page](https://docs.safe.global/safe-core-protocol/security/security-audits).
+The contracts have been carefully audited by smart contract security experts. For details, please refer to the [security audits page](./security-audits.md).
 
 ## Rules
 

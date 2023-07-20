@@ -14,25 +14,25 @@ Our brand is separated into three categories and it is important to differentiat
 
 ## Safe{Core} Protocol
 
-The [Safe{Core} Protocol](https://docs.safe.global/safe-core-protocol/safe-core-protocol) is an open, modular framework to make smart accounts secure, portable, and composable.
+The [Safe{Core} Protocol](safe-core-protocol/README.md) is an open, modular framework to make smart accounts secure, portable, and composable.
 
 This section in the documentation contains information and relevant links about the Safe{Core} Protocol, what it is and what are the different elements involved.
 
 ## Safe{Core} AA SDK
 
-The [Safe{Core} AA SDK](https://docs.safe.global/safe-core-sdk) is a set of developer kits that allow integrating Safe with different external service providers to provide developers and users the ability to abstract the complexity that comes with operating a smart contract account.
+The [Safe{Core} AA SDK](safe-core-sdk/README.md) is a set of developer kits that allow integrating Safe with different external service providers to provide developers and users the ability to abstract the complexity that comes with operating a smart contract account.
 
 This section in the documentation contains relevant information and tutorials on what SDK Kits there are and how to integrate them.
 
 ## Safe{Core} API
 
-The [Safe{Core} API](https://docs.safe.global/safe-core-api) makes reference to all the Safe infrastructure needed to power interfaces with all Safe account related information. This includes the Safe Transaction Service, Safe Events Service, etc.
+The [Safe{Core} API](safe-core-api/available-services.md) makes reference to all the Safe infrastructure needed to power interfaces with all Safe account related information. This includes the Safe Transaction Service, Safe Events Service, etc.
 
 This section in the documentation contains information related with the services architecture.
 
 ## Reference
 
-The [Reference](https://docs.safe.global/reference) section in this documentation contains technical details describing the different tools available at Safe in detail.
+The [Reference](reference/safe-core-sdk/auth-kit/README.md) section in this documentation contains technical details describing the different tools available at Safe in detail.
 
 <!---
 ## Getting started
