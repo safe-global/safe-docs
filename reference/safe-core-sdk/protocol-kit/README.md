@@ -469,8 +469,6 @@ If the optional properties are not manually set, the Safe transaction returned w
 - `refundReceiver`: 0x address is the default value.
 - `nonce`: The current Safe nonce is the default value.
 
-Read more about [create transactions from a Safe](https://docs.safe.global/learn/safe-core-account-abstraction-sdk/protocol-kit#making-a-transaction-from-a-safe).
-
 ### `createRejectionTransaction`
 
 Returns a Safe transaction ready to be signed by the owners that invalidates the pending Safe transaction/s with a specific nonce.

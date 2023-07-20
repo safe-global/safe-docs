@@ -11,7 +11,7 @@ For a more detailed guide, including how to integrate with `web3.js`` and more S
 ### Prerequisites
 
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-2. [3 Signing Accounts with testnet ETH in at least one account](https://docs.safe.global/learn/quickstart)
+2. 3 externally-owned accounts with testnet ETH in at least one account
 
 ### Install dependencies
 
@@ -87,7 +87,7 @@ const ethAdapterOwner1 = new EthersAdapter({
 
 The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeApiKit`.
 
-You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](https://docs.safe.global/learn/infrastructure/available-services).
+You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](https://docs.safe.global/safe-core-api/infrastructure/available-services).
 
 ```tsx
 import SafeApiKit from '@safe-global/api-kit'
@@ -138,7 +138,7 @@ console.log(`https://app.safe.global/gor:${safeAddress}`)
 
 ### Send ETH to the Safe
 
-You will send some ETH to this Safe. Owner 1 will deposit 0.01 Goerli ETH to this Safe from our personal account following the [instructions in Quickstart](https://docs.safe.global/learn/quickstart).
+You will send some ETH to this Safe.
 
 ```tsx
 const safeAddress = safeSdk.getAddress()

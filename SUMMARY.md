@@ -72,9 +72,9 @@
   * [OnRampKitBasePack](reference/safe-core-sdk/onramp-kit/OnRampKitBasePack.md)
   * [StripePack](reference/safe-core-sdk/onramp-kit/StripePack.md)      
   * [MoneriumPack](reference/safe-core-sdk/onramp-kit/MoneriumPack.md)
-
+<!---
 * [Relay Kit](reference/safe-core-sdk/relay-kit/README.md)
-
+--->
 * [API Kit](reference/safe-core-sdk/api-kit/README.md)
 
 ***
