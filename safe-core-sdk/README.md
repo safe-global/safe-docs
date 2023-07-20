@@ -11,7 +11,7 @@ Links of interest:
 
 This set of integrations are grouped in different kits, which are very important pillars and we aim to providing the right tools to developers to reproduce a web2-like user experience.
 
-<img src="../.gitbook/assets/diagram-safe-core-sdk.png" alt="">
+<figure><img src="../.gitbook/assets/diagram-safe-core-sdk.png" width="100%" alt="" /></figure>
 
 ### Auth Kit
 

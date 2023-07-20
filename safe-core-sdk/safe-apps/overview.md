@@ -2,7 +2,7 @@
 
 You can find several packages on [our developer tools](https://github.com/safe-global/safe-apps-sdk) to make it easier to integrate third-party applications (Safe Apps) with [Safe](https://app.safe.global). Check the following diagram to see which package is more convenient for you:
 
-<img src="../../.gitbook/assets/diagram-safe-apps.png" alt="">
+<figure><img src="../../.gitbook/assets/diagram-safe-apps.png" width="100%" alt="" /></figure>
 
 ## Packages
 

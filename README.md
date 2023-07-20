@@ -10,7 +10,7 @@ Safe is at the forefront of modular Smart Account infrastructure, paving the way
 
 Our brand is separated into three categories and it is important to differentiate each of them:
 
-<img src=".gitbook/assets/core-brands.png" alt="">
+<figure><img src=".gitbook/assets/core-brands.png" width="100%" alt="" /></figure></figure>
 
 ## Safe{Core} Protocol
 
@@ -51,5 +51,5 @@ Safe has a lot of features which means a lot of information. To make it easier t
 
 There is also available the [Safe Ecosystem Diagram](https://viewer.diagrams.net/index.html?tags=%7B%7D&target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&page-id=atRejJyS5DeNAtDboIeV&title=Safe%20Diagrams.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1WcTgdHoQttJ0K_fV8mDg-RmDZRYGe3D-%26export%3Ddownload):
 
-<img src=".gitbook/assets/diagram-safe-ecosystem.png" alt="">
+<figure><img src=".gitbook/assets/diagram-safe-ecosystem.png" width="100%" alt="" /></figure>
 --->

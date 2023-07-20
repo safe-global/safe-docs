@@ -62,8 +62,8 @@ While developing your Safe App you can directly use [our production interface](h
 
 Once your app is live, even if you are running it locally, you can import it to the Safe application as a custom app. To do so, you should select the "Apps" tab:
 
-<img src="../../.gitbook/assets/side-bar-menu.png" alt="">
+<figure><img src="../../.gitbook/assets/side-bar-menu.png" width="100%" alt="" /></figure>
 
 Use the `Add custom app` button and add your app using a link:
 
-<img src="../../.gitbook/assets/add-custom-app.png" alt="">
+<figure><img src="../../.gitbook/assets/add-custom-app.png" width="100%" alt="" /></figure></figure>
