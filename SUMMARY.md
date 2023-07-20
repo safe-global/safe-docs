@@ -77,6 +77,6 @@
 
 * [API Kit](reference/safe-core-sdk/api-kit/README.md)
 
-##
+***
 
 * [Contact us](contact-us.md)
