@@ -1,6 +1,6 @@
 # Integration with Monerium
 
-The [`MoneriumPack`](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/src/packs/monerium) enables Safe users to make direct transfers of e-money tokens from their Safe addresses to an IBAN via the SEPA network. This allows them to use Monerium and Safe services together.
+The [`MoneriumPack`](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/src/packs/monerium) enables Safe users to make direct transfers of e-money tokens from their Safe accounts to an IBAN via the SEPA network. This allows them to use Monerium and Safe services together.
 
 More info about Monerium:
 
@@ -48,7 +48,7 @@ await moneriumPack.init({ safeSdk })
 
 The `safeSdk` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. For more information on how to instantiate the `protocol-kit` refer to the [Protocol Kit Quickstart section](https://docs.safe.global/safe-core-sdk/protocol-kit).
 
-The `MoneriumPack` will use the Safe address configured in the `safeSdk` to link to your Monerium account.
+The `MoneriumPack` will use the Safe account address configured in the `safeSdk` to link to your Monerium account.
 
 2. Start the _Login with Monerium_ flow by creating a button or link in your application. Use your favorite UI library to add a handler and start the login flow. In the button handler you should start the flow by calling the `open` method:
 
@@ -84,7 +84,7 @@ Re-initialize the `MoneriumPack` using the `init` method and exchange the code, 
 const safeMoneriumClient = await moneriumPack.open({ authCode: '<The querystring code parameter>' })
 ```
 
-If the code is exchanged without problems, you will be now authenticated with Monerium and your Safe will be linked!. You can start using the `safeMoneriumClient` instance to interact with your Monerium account. This instance is an enhanced version of the Monerium SDK, with some additional Safe features.
+If the code is exchanged successfully, you will be now authenticated with Monerium and your Safe will be linked!. You can start using the `safeMoneriumClient` instance to interact with your Monerium account. This instance is an enhanced version of the Monerium SDK, with some additional Safe features.
 
 To learn more about the methods you can use with the `safeMoneriumClient` instance, check the [Monerium SDK documentation](https://monerium.dev/docs/sdk).
 

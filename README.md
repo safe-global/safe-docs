@@ -4,7 +4,7 @@ description: Everything you need to know to start building on Safe.
 
 # What is Safe?
 
-[Safe](https://global.safe) brings digital ownership of accounts to everyone by building universal and open contract standards for the custody of digital assets, data, and identity.
+[Safe](https://safe.global) brings digital ownership of accounts to everyone by building universal and open contract standards for the custody of digital assets, data, and identity.
 
 Safe is at the forefront of modular Smart Account infrastructure, paving the way for developers to create a diverse range of applications and wallets.
 

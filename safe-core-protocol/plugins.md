@@ -2,7 +2,7 @@
 
 Safe Plugins add custom features to Safe contracts. They are smart contracts that implement Safe's functionality while separating plugin logic from Safes core contracts. A basic Safe does not require any plugin. Adding and removing a plugin requires confirmation from the configured threshold number of owners. Events are emitted whenever a plugin is added or removed, and a plugin transaction succeeds or fails.
 
-Safe Plugins can include daily spending allowances, amounts that can be spent without the approval of other owners, recurring transactions plugins, standing orders that are performed on a recurring set date, e.g. paying your rent, and social recovery plugins, which may allow you to recover a Safe if you lose access to owner accounts. These are just a few examples of how to use plugins, but there are many other ways you could use plugins in your Safe.
+Safe Plugins can include daily spending allowances, amounts that can be spent without the approval of other owners, recurring transactions plugins, standing orders that are performed on a recurring set date, e.g. paying your rent, and social recovery plugins, which may allow you to recover a Safe if you lose access to owner accounts. These are just a few examples of how to use plugins, but there are many more.
 
 <figure><img src="https://user-images.githubusercontent.com/9806858/234940596-321b1c8c-c311-4016-84fe-d8aa8f550b06.jpg" width="100%" alt="" /></figure>
 
