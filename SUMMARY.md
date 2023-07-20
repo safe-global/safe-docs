@@ -11,9 +11,11 @@
 
 ## Getting started
 
-* [Introduction](README.md)
+* [What is Safe?](README.md)
 
 ## Safe{Core} Protocol
+
+* [Overview](safe-core-protocol/README.md)
 
 * [Safe Plugins](safe-core-protocol/plugins.md)
 
@@ -28,7 +30,7 @@
 
 ## Safe{Core} AA SDK
 
-* [Introduction](safe-core-sdk/README.md)
+* [Overview](safe-core-sdk/README.md)
 
 * [Auth Kit](safe-core-sdk/auth-kit/README.md)
   * [Web3Auth](safe-core-sdk/auth-kit/web3auth.md)
@@ -74,3 +76,7 @@
 * [Relay Kit](reference/safe-core-sdk/relay-kit/README.md)
 
 * [API Kit](reference/safe-core-sdk/api-kit/README.md)
+
+##
+
+* [Contact us](contact-us.md)
