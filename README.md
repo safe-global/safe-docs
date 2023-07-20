@@ -14,7 +14,7 @@ Our brand is separated into three categories and it is important to differentiat
 
 ## Safe{Core} Protocol
 
-The [Safe{Core} Protocol](https://docs.safe.global/safe-core-protocol) is an open, modular framework to make smart accounts secure, portable, and composable.
+The [Safe{Core} Protocol](https://docs.safe.global/safe-core-protocol/safe-core-protocol) is an open, modular framework to make smart accounts secure, portable, and composable.
 
 This section in the documentation contains information and relevant links about the Safe{Core} Protocol, what it is and what are the different elements involved.
 
