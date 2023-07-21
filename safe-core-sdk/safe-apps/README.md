@@ -8,7 +8,7 @@ With over $90B worth of digital assets held in Safe accounts alone, it’s essen
 
 Please refer to this [EthCC3 talk](https://www.youtube.com/watch?v=1GirpNHZPJM&t=168s) to learn more about Safe Apps.
 
-There are already Safe Apps available for a number of popular protocols such as [Aave](https://aave.com), [Synthetix](https://synthetix.io), [1inch](https://1inch.exchange) or [Balancer](https://balancer.finance). These have been build by 3rd party developers or the projects themselves.
+There are already Safe Apps available for a number of popular protocols such as [CoW Swap](https://cow.fi) [Aave](https://aave.com), [Synthetix](https://synthetix.io), [1inch](https://1inch.exchange) or [Balancer](https://balancer.finance). These have been build by 3rd party developers or the projects themselves.
 
 If you are missing a Safe App, get in touch with the respective project or get building with the [Safe Apps SDK](build.md).
 
@@ -32,6 +32,7 @@ This is a list of several known public repositories containing Safe Apps for ref
 * [Synthetix](https://github.com/protofire/safe-app-synthetix-mintr)
 * [Sablier](https://github.com/sablierhq/safe-app)
 * [PancakeSwap](https://github.com/pancakeswap/pancake-frontend)
+* [CoW Swap](https://github.com/cowprotocol/cowswap)
 
 #### Disclaimer
 
