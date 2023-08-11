@@ -17,9 +17,17 @@
 
 * [Overview](safe-core-protocol/README.md)
 
-* [Safe Plugins](safe-core-protocol/plugins.md)
+* [Accounts](safe-core-protocol/accounts.md)
 
-* [Safe Hooks](safe-core-protocol/hooks.md)
+* [Plugins](safe-core-protocol/plugins/README.md)
+  * [Modules migration](safe-core-protocol/plugins/modules-migration.md)
+
+* [Hooks](safe-core-protocol/hooks/README.md)
+  * [Guards migration](safe-core-protocol/hooks/guards-migration.md)
+
+* [Registry](safe-core-protocol/registry.md)
+
+* [Manager](safe-core-protocol/manager.md)
 
 * [Security](safe-core-protocol/security/README.md)
   * [Bug Bounty](safe-core-protocol/security/bug-bounty-program.md)
