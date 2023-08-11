@@ -20,10 +20,10 @@
 * [Accounts](safe-core-protocol/accounts.md)
 
 * [Plugins](safe-core-protocol/plugins/README.md)
-  * [Modules](safe-core-protocol/plugins/modules-migration.md)
+  * [Modules](safe-core-protocol/plugins/modules.md)
 
 * [Hooks](safe-core-protocol/hooks/README.md)
-  * [Guards](safe-core-protocol/hooks/guards-migration.md)
+  * [Guards](safe-core-protocol/hooks/guards.md)
 
 * [Registry](safe-core-protocol/registry.md)
 

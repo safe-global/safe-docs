@@ -52,7 +52,7 @@ To handle the return data (as it is an array of actions):
 - Each element in `data` corresponds to the action that has been executed i.e. `data[i]` is the result of `action[i]`.
 - If the execution of action(s) fail, the transaction must revert.
 
-The [`executeRootAccess`](https://github.com/5afe/safe-core-protocol/blob/main/contracts/SafeProtocolManager.sol#L129) function executes a delegate call on a Safe if the [Plugin](./plugins/README.md) is enabled and root access it granted. It will return the data bytes containing the result of the executed action.
+The [`executeRootAccess`](https://github.com/5afe/safe-core-protocol/blob/main/contracts/SafeProtocolManager.sol#L129) function executes a delegate call on a Safe if the Plugin is enabled and root access it granted. It will return the data bytes containing the result of the executed action.
 
 ### Enable the Manager as a Plugin in an Account
 
@@ -96,11 +96,11 @@ function getPluginsPaginated(
 
 The [`getPluginInfo`](https://github.com/5afe/safe-core-protocol/blob/main/contracts/SafeProtocolManager.sol#L222) function returns information about an Account and a Plugin.
 
-```typscript
+```typescript
 function getPluginInfo(address safe, address plugin) external view returns (PluginAccessInfo memory enabled) function returns if a Plugin is enabled for a given Account.
 ```
 
-The [`isPluginEnabled`](https://github.com/5afe/safe-core-protocol/blob/main/contracts/SafeProtocolManager.sol#L230)
+The [`isPluginEnabled`](https://github.com/5afe/safe-core-protocol/blob/main/contracts/SafeProtocolManager.sol#L230) function allows to check if a Plugin is enabled for a given Account.
 
 ```typescript
 function isPluginEnabled(address safe, address plugin) public view returns (bool)
