@@ -19,20 +19,33 @@ The architecture of the Safe{Core} Protocol is composed of several integral comp
 
 ### Manager
 
-At the heart of the protocol is the `Manager`, ensuring adherence to the prescribed rules set by the `Registry`. The `Manager` serves as an intermediary layer coordinating communication and interactions between `Accounts` and `Integrations`.
+At the heart of the protocol is the `Manager`, ensuring adherence to the prescribed rules set by the `Registry`. The `Manager` serves as an intermediary layer coordinating communication and interactions between `Accounts` and `Modules`.
 
 ### Accounts
 
 `Accounts` are smart-contract based user accounts (or "smart accounts"). The Safe{Core} Protocol is account-agnostic, meaning that it is not tied to a specific account implementation.
 
-### Integrations
+### Modules
 
-`Integrations` extend the functionality of `Accounts` in different ways. Initial integrations are plugins, hooks, function handlers and signature verifiers, but additional integrations can be added to the Safe{Core} Protocol at a later point.
+`Modules` extend the functionality of `Accounts` in different ways. Initial `Modules` are `Plugins`, `Hooks`, `Function Handlers` and `Signature Verifiers`, but additional `Modules` can be added to the Safe{Core} Protocol at a later point.
 
 ### Registry
 
-The `Registry` plays a critical role in maintaining and enforcing standards and security guarantees. Only the `Integrations` that adhere to these guidelines will be recognized and managed by the `Manager`.
+The `Registry` plays a critical role in maintaining and enforcing standards and security guarantees. Only the `Modules` that adhere to these guidelines will be recognized and managed by the `Manager`.
 
 ### Metadata
 
 To provide a coherent context to the various parts and their interactions, the provision of `Metadata` is crucial. This information allows developers to append additional context to interactions, enhancing user understanding and interaction transparency.
+
+## Deployed contracts
+
+The Safe{Core} Protocol is still in alpha version and it should only be used in test networks until there is a production release.
+
+This is the list of the contracts deployed on Goerli test network.
+
+| Contract Name | Address (click to view on Etherscan) |
+| -------------- | -------------------------------- |
+| SafeProtocolManager | <a href="https://goerli.etherscan.io/address/0x4026BA244d773F17FFA2d3173dAFe3fdF94216b9" target="_blank">0x4026BA244d773F17FFA2d3173dAFe3fdF94216b9</a> |
+| SafeProtocolRegistry | <a href="https://goerli.etherscan.io/address/0xc9361a1c6A8DeB0e4bB069820BB3f0Eaf94ae829" target="_blank">0xc9361a1c6A8DeB0e4bB069820BB3f0Eaf94ae829</a> |
+| TestSafeProtocolRegistryUnrestricted | <a href="https://goerli.etherscan.io/address/0x9EFbBcAD12034BC310581B9837D545A951761F5A" target="_blank">0x9EFbBcAD12034BC310581B9837D545A951761F5A</a> |
+| TestSafeProtocolManager | <a href="https://goerli.etherscan.io/address/0xAbd9769A78Ee63632A4fb603D85F63b8D3596DF9" target="_blank">0xAbd9769A78Ee63632A4fb603D85F63b8D3596DF9</a> |
