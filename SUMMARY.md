@@ -17,9 +17,9 @@
 
 * [Overview](safe-core-protocol/README.md)
 
-* [Safe Plugins](safe-core-protocol/plugins.md)
+* [Safe Modules](safe-core-protocol/modules.md)
 
-* [Safe Hooks](safe-core-protocol/hooks.md)
+* [Safe Guards](safe-core-protocol/guards.md)
 
 * [Security](safe-core-protocol/security/README.md)
   * [Bug Bounty](safe-core-protocol/security/bug-bounty-program.md)
