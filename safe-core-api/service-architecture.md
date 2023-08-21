@@ -9,7 +9,7 @@ The Safe infrastructure consists of 4 services:
 * [Safe Transaction Service](https://github.com/safe-global/safe-transaction-service): Keeps track of transactions related to Safe contracts (Python)
 * [Safe Events Service](https://github.com/safe-global/safe-events-service): Handles Safe indexing events from the Transaction Service and delivers them as HTTP webhooks.
 * [Safe Config Service](https://github.com/safe-global/safe-config-service): Keeps track of all supported networks and chain-specific variables (Python)
-* [Safe Client Gateway](https://github.com/safe-global/safe-client-gateway): Uses the config service to determine how to reach the transaction service instance required for a given request (Rust)
+* [Safe Client Gateway](https://github.com/safe-global/safe-client-gateway-nest): Uses the config service to determine how to reach the transaction service instance required for a given request (NodeJS)
 
 [Safe Infrastructure](https://github.com/safe-global/safe-infrastructure) and the [running our services locally guide](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_locally.md) shows how to run all our infrastructure together; including how to run the Safe UI, Safe {Wallet} and the backend, Safe {Core}. Note that this document is only an example of how these services are run and you should adapt the configuration to your specific needs.
 
