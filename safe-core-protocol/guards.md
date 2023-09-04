@@ -10,7 +10,7 @@ This check after a transaction is called at the very end of the transaction exec
 
 To read about different examples of Safe Guards, see the implementations from [Zodiac](https://github.com/gnosis/zodiac-guard-scope) and [Yearn](https://mirror.xyz/yearn-finance-engineering.eth/9uInM_sCrogPBs5qkFSNF6qe-32-0XLN5bty5wKLVqU).
 
-<figure><img src="https://user-images.githubusercontent.com/9806858/234941573-736dd09d-9ca6-4233-b74d-84cdb7d310e4.jpg" width="100%" alt="" /></figure>
+<figure><img src="../.gitbook/assets/diagram-safe-guards.png" width="100%" alt="" /></figure>
 
 {% hint style="danger" %}
 **IMPORTANT: Since a Safe Guard has full power to block Safe transaction execution, a broken Guard can cause a denial of service for a Safe. Make sure to audit the Guard code and pay attention to recovery mechanisms.**
