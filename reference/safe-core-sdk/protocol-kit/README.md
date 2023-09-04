@@ -340,15 +340,15 @@ const balance = await safeSdk.getBalance()
 
 ### `getGuard`
 
-Returns the enabled Safe Hook or 0x address if no hooks are enabled.
+Returns the enabled Safe guard or 0x address if no guards are enabled.
 
 ```typescript
-const hookAddress = await safeSdk.getGuard()
+const guardAddress = await safeSdk.getGuard()
 ```
 
 ### `getModules`
 
-Returns the list of addresses of all the enabled Safe Plugins.
+Returns the list of addresses of all the enabled Safe modules.
 
 ```typescript
 const moduleAddresses = await safeSdk.getModules()
@@ -356,7 +356,7 @@ const moduleAddresses = await safeSdk.getModules()
 
 ### `isModuleEnabled`
 
-Checks if a specific Safe Plugin is enabled for the current Safe.
+Checks if a specific Safe module is enabled for the current Safe.
 
 ```typescript
 const isEnabled = await safeSdk.isModuleEnabled(moduleAddress)
@@ -647,7 +647,7 @@ const safeTransaction = await safeSdk.createDisableFallbackHandlerTx(options)
 
 ### `createEnableGuardTx`
 
-Returns the Safe transaction to enable a Safe Hook.
+Returns the Safe transaction to enable a Safe guard.
 
 ```typescript
 const safeTransaction = await safeSdk.createEnableGuardTx(guardAddress)
@@ -671,7 +671,7 @@ const safeTransaction = await safeSdk.createEnableGuardTx(guardAddress, options)
 
 ### `createDisableGuardTx`
 
-Returns the Safe transaction to disable a Safe Hook.
+Returns the Safe transaction to disable a Safe guard.
 
 ```typescript
 const safeTransaction = await safeSdk.createDisableGuardTx()
@@ -688,7 +688,7 @@ const safeTransaction = await safeSdk.createDisableGuardTx(options)
 
 ### `createEnableModuleTx`
 
-Returns a Safe transaction ready to be signed that will enable a Safe Plugin.
+Returns a Safe transaction ready to be signed that will enable a Safe module.
 
 ```typescript
 const safeTransaction = await safeSdk.createEnableModuleTx(moduleAddress)
@@ -705,7 +705,7 @@ const safeTransaction = await safeSdk.createEnableModuleTx(moduleAddress, option
 
 ### `createDisableModuleTx`
 
-Returns a Safe transaction ready to be signed that will disable a Safe Plugin.
+Returns a Safe transaction ready to be signed that will disable a Safe module.
 
 ```typescript
 const safeTransaction = await safeSdk.createDisableModuleTx(moduleAddress)
