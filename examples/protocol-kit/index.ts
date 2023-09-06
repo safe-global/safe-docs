@@ -23,8 +23,7 @@ const ethAdapterOwner1 = new EthersAdapter({
   signerOrProvider: owner1Signer
 })
 
-const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
-const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
+const safeService = new SafeApiKit({ chainId: 5 })
 let safeFactory: SafeFactory
 let safeSdkOwner1: Safe
 let safeAddress: string

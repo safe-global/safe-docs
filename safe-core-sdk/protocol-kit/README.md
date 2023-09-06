@@ -85,15 +85,14 @@ const ethAdapterOwner1 = new EthersAdapter({
 
 ### Initialize the API Kit
 
-The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeApiKit`.
+The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit`. Use the chainId you need from the Safe supported ones. If not supported you can use the optional `txServiceUrl` property with a custom Transaction Service deployment.
 
 You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](../../safe-core-api/available-services.md).
 
 ```tsx
 import SafeApiKit from '@safe-global/api-kit'
 
-const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
-const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
+const safeService = new SafeApiKit({ chainId: 5 })
 ```
 
 ### Initialize the Protocol Kit

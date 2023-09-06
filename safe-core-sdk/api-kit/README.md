@@ -53,8 +53,7 @@ We need to create an instance of the API Kit.
 import SafeApiKit from '@safe-global/api-kit'
 
 const safeApiKit = new SafeApiKit({
-  txServiceUrl: 'https://safe-transaction-mainnet.safe.global',
-  ethAdapter
+  chainId: 1,
 })
 ```
 
