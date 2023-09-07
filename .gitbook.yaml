@@ -1,0 +1,12 @@
+root: ./
+
+redirects:
+  safe-core-protocol/modules: safe-smart-account/modules.md
+  safe-core-protocol/plugins: safe-smart-account/modules.md
+  safe-core-protocol/guards: safe-smart-account/guards.md
+  safe-core-protocol/hooks: safe-smart-account/guards.md
+  safe-core-protocol/security: safe-smart-account/security/README.md
+  safe-core-protocol/security/bug-bounty-program: safe-smart-account/security/bug-bounty-program.md
+  safe-core-protocol/security/security-audits: safe-smart-account/security/security-audits.md
+  safe-core-protocol/signatures: safe-smart-account/signatures/README.md
+  safe-core-protocol/signatures/eip-1271: safe-smart-account/signatures/eip-1271.md
