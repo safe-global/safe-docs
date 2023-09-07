@@ -13,13 +13,11 @@
 
 * [What is Safe?](README.md)
 
-## Safe{Core} Protocol
-
-* [Overview](safe-core-protocol/README.md)
-
 ## Safe Smart Account
 
+<!---
 * [Overview](safe-smart-account/README.md)
+--->
 
 * [Safe Modules](safe-smart-account/modules.md)
 
@@ -31,6 +29,10 @@
 
 * [Signatures](safe-smart-account/signatures/README.md)
   * [EIP-1271 Off-Chain signatures](safe-smart-account/signatures/eip-1271.md)
+
+## Safe{Core} Protocol
+
+* [Overview](safe-core-protocol/README.md)
 
 ## Safe{Core} AA SDK
 
