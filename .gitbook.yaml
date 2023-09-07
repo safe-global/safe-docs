@@ -1,6 +1,7 @@
 root: ./
 
 redirects:
+  safe-core-protocol: safe-smart-account
   safe-core-protocol/modules: safe-smart-account/modules.md
   safe-core-protocol/plugins: safe-smart-account/modules.md
   safe-core-protocol/guards: safe-smart-account/guards.md
