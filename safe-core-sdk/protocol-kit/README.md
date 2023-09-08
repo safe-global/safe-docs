@@ -67,6 +67,8 @@ For this tutorial, we will be creating a Safe on the Goerli testnet.
 ```tsx
 import { ethers } from 'ethers'
 import { EthersAdapter } from '@safe-global/protocol-kit'
+// Load environment variables from .env file
+import 'dotenv/config';
 
 // https://chainlist.org/?search=goerli&testnets=true
 const RPC_URL='https://eth-goerli.public.blastapi.io'
