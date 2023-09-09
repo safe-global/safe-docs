@@ -15,9 +15,7 @@
 
 ## Safe Smart Account
 
-<!---
 * [Overview](safe-smart-account/README.md)
---->
 
 * [Safe Modules](safe-smart-account/modules.md)
 

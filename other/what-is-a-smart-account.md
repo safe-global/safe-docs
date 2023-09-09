@@ -8,7 +8,7 @@ description: >-
 
 A Smart Account (aka Smart Contract Account) is a fully customizable account. If you think of your regular bank account or crypto account, it uses keys to sign transactions. This means that anyone with the key (password, private key) can sign transactions and approve sending money out of your account.
 
-If someone gained access to your username and password, they would have access to all your money. If you forgot your password, then you have to go through a lengthy password reset process with a regular bank account. If it’s a crypto account, your money is gone forever.
+If someone gained access to your username and password, they would have access to all your money. If you forgot your password, then you have to go through a lengthy password reset process with a regular bank account. If it's a crypto account, your money is gone forever.
 
 A Smart Account is fully customizable, which means you can create any type of rule you want. The most common type of rule you can create is a multiple-signer account (also known as a multi-sig). For example, instead of having just one private key authorized to sign on behalf of your account, you can require multiple signers. For example, you can add 2 other people you trust to be signers of your account. Then if you want to send any transactions, at least 2 of them have to approve the transaction.
 

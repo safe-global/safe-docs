@@ -8,7 +8,7 @@ The contracts have been carefully audited by smart contract security experts. Fo
 
 ## Rules
 
-Many of the [Ethereum Foundation’s bug bounty program rules](https://bounty.ethereum.org) are also applicable to the Safe bug bounty program:
+Many of the [Ethereum Foundation's bug bounty program rules](https://bounty.ethereum.org) are also applicable to the Safe bug bounty program:
 
 * Issues that have already been submitted by another user or are already known to the Safe team are not eligible for bounty rewards.
 * Public disclosure of a vulnerability makes it ineligible for a bounty.
@@ -93,13 +93,13 @@ A way to avoid transaction fees or an exploit that in some way compromises the e
 
 _All bounties will be paid in ETH._
 
-Please note that the submission’s quality will factor into the level of compensation. A high-quality submission includes an explanation of how the bug can be reproduced, a failing test case, a valid scenario in which the bug can be exploited, and a fix that makes the test case pass. High-quality submissions may be awarded amounts higher than the amounts specified above.
+Please note that the submission's quality will factor into the level of compensation. A high-quality submission includes an explanation of how the bug can be reproduced, a failing test case, a valid scenario in which the bug can be exploited, and a fix that makes the test case pass. High-quality submissions may be awarded amounts higher than the amounts specified above.
 
 ## Submission Process
 
 Please email your submissions to: [bounty@safe.global](mailto:bounty@safe.global).
 
-Don’t forget to include your ETH address, so that you may be rewarded. If more than one address is specified, only one will be used at the discretion of the bounty program administrators. Anonymous submissions are welcome, too.
+Don't forget to include your ETH address, so that you may be rewarded. If more than one address is specified, only one will be used at the discretion of the bounty program administrators. Anonymous submissions are welcome, too.
 
 Please consult our [privacy policy](https://safe.global/privacy) for further details on how we handle submissions.
 
