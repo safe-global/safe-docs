@@ -17,7 +17,7 @@ For a more detailed guide, including how to integrate with `web3.js`` and more S
 
 First, we'll need to install some dependences from `safe-core-sdk` and the `ethers` library.
 
-To interact with Ethereum and other EVM blockchains in Node, we can either use: web3.js or ethers.js. In this tutorial, we’ll use the ethers.js library. To use `web3js`, see [Instantiate an EthAdapter section in Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
+To interact with Ethereum and other EVM blockchains in Node, we can either use: web3.js or ethers.js. In this tutorial, we'll use the ethers.js library. To use `web3js`, see [Instantiate an EthAdapter section in Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
 The Protocol Kit is compatible with ethers v4 and v5, not the latest v6 version so make sure you specify this when installing the SDK.
 
@@ -98,7 +98,7 @@ const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterOwner1 
 
 ### Initialize the Protocol Kit
 
-Goerli is a supported network so you don’t need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Instantiate an EthAdapter](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
+Goerli is a supported network so you don't need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Instantiate an EthAdapter](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
 Safe Factory is used to create Safes. While Safe class represents an instance of a specific Safe account.
 

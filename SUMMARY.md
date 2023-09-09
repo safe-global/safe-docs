@@ -4,7 +4,7 @@
 * [Built on Safe](other/built-on-safe.md)
 * [Tools, Frameworks, and Extensions](other/other-tools.md)
 * [Introduction](other/README.md)
-* [Things you can do with Safe](other/things-you-can-do-with-safe.md) 
+* [Things you can do with Safe](other/things-you-can-do-with-safe.md)
 * [What is a Smart Account?](other/what-is-a-smart-account.md)
 * [Workshops](other/workshops.md)
 --->
@@ -13,20 +13,24 @@
 
 * [What is Safe?](README.md)
 
+## Safe Smart Account
+
+* [Overview](safe-smart-account/README.md)
+
+* [Safe Modules](safe-smart-account/modules.md)
+
+* [Safe Guards](safe-smart-account/guards.md)
+
+* [Security](safe-smart-account/security/README.md)
+  * [Bug Bounty](safe-smart-account/security/bug-bounty-program.md)
+  * [Audits](safe-smart-account/security/security-audits.md)
+
+* [Signatures](safe-smart-account/signatures/README.md)
+  * [EIP-1271 Off-Chain signatures](safe-smart-account/signatures/eip-1271.md)
+
 ## Safe{Core} Protocol
 
 * [Overview](safe-core-protocol/README.md)
-
-* [Safe Plugins](safe-core-protocol/plugins.md)
-
-* [Safe Hooks](safe-core-protocol/hooks.md)
-
-* [Security](safe-core-protocol/security/README.md)
-  * [Bug Bounty](safe-core-protocol/security/bug-bounty-program.md)
-  * [Audits](safe-core-protocol/security/security-audits.md)
-
-* [Signatures](safe-core-protocol/signatures/README.md)
-  * [EIP-1271 Off-Chain signatures](safe-core-protocol/signatures/eip-1271.md)
 
 ## Safe{Core} AA SDK
 

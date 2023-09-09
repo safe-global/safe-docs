@@ -8,7 +8,7 @@ The contracts have been carefully audited by smart contract security experts. Fo
 
 ## Rules
 
-Many of the [Ethereum Foundation’s bug bounty program rules](https://bounty.ethereum.org) are also applicable to the Safe bug bounty program:
+Many of the [Ethereum Foundation's bug bounty program rules](https://bounty.ethereum.org) are also applicable to the Safe bug bounty program:
 
 * Issues that have already been submitted by another user or are already known to the Safe team are not eligible for bounty rewards.
 * Public disclosure of a vulnerability makes it ineligible for a bounty.
@@ -24,7 +24,7 @@ The scope of the bug bounty program includes the core contracts related to the f
 * _v1.2.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.2.0), [readme](https://github.com/safe-global/safe-contracts/blob/v1.2.0/README.md))
 * _v1.1.1_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.1.1), [readme](https://github.com/safe-global/safe-contracts/blob/v1.1.1/README.md))
 
-The scope of the bug bounty also includes the [Allowance Plugin](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
+The scope of the bug bounty also includes the [Allowance Module](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
 
 ### In scope
 
@@ -50,7 +50,7 @@ Addresses for deployed instances of these contracts can be found in the [Safe de
 
 Addresses for deployed instances of these contracts can be found in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
 
-**Safe Plugins contracts**
+**Safe Modules contracts**
 
 * AllowanceModule.sol
 
@@ -59,11 +59,11 @@ Addresses for deployed instances of these contracts can be found in the [Safe de
 * Being able to steal funds
 * Being able to freeze funds or render them inaccessible by their owners
 * Being able to perform replay attacks on the same chain
-* Being able to change Safe settings or plugin settings without the consent of owners
+* Being able to change Safe settings or module settings without the consent of owners
 
 ### Out of scope
 
-* Any files, Safe Plugins or libraries other than the ones mentioned above
+* Any files, Safe Modules or libraries other than the ones mentioned above
 * More efficient gas solutions
 * Any points listed as an already known weaknesses
 * Any points listed in the audit or formal verification results reports
@@ -93,13 +93,13 @@ A way to avoid transaction fees or an exploit that in some way compromises the e
 
 _All bounties will be paid in ETH._
 
-Please note that the submission’s quality will factor into the level of compensation. A high-quality submission includes an explanation of how the bug can be reproduced, a failing test case, a valid scenario in which the bug can be exploited, and a fix that makes the test case pass. High-quality submissions may be awarded amounts higher than the amounts specified above.
+Please note that the submission's quality will factor into the level of compensation. A high-quality submission includes an explanation of how the bug can be reproduced, a failing test case, a valid scenario in which the bug can be exploited, and a fix that makes the test case pass. High-quality submissions may be awarded amounts higher than the amounts specified above.
 
 ## Submission Process
 
 Please email your submissions to: [bounty@safe.global](mailto:bounty@safe.global).
 
-Don’t forget to include your ETH address, so that you may be rewarded. If more than one address is specified, only one will be used at the discretion of the bounty program administrators. Anonymous submissions are welcome, too.
+Don't forget to include your ETH address, so that you may be rewarded. If more than one address is specified, only one will be used at the discretion of the bounty program administrators. Anonymous submissions are welcome, too.
 
 Please consult our [privacy policy](https://safe.global/privacy) for further details on how we handle submissions.
 
@@ -156,10 +156,10 @@ Details about this issue can be found on [Github](https://github.com/safe-global
 
 The bug was submitted by [Kevin Foesenek](https://github.com/keviinfoes). It was regarded as "Medium Threat" and a bounty of 5,000 USD has been paid out.
 
-### The function getModulesPaginated does not return all plugins
+### The function getModulesPaginated does not return all modules
 
-The method [getModuledPaginated](https://github.com/safe-global/safe-contracts/blob/v1.3.0/contracts/base/ModuleManager.sol#L114) is used to return enabled plugins page by page. For this a `start` and a `pageSize` need to be specified and the method will return an array of Safe Plugin addresses and `next` . This next can be used as the `start` to load the next page. When another page exists then `next` is a plugin address. This plugin address however will not be present in any of the returned arrays. While this does not put any user assets at risk directly, it could lead to a wrong perception of the enabled plugins of a Safe and thereby its state.
+The method [getModuledPaginated](https://github.com/safe-global/safe-contracts/blob/v1.3.0/contracts/base/ModuleManager.sol#L114) is used to return enabled modules page by page. For this a `start` and a `pageSize` need to be specified and the method will return an array of Safe Module addresses and `next` . This next can be used as the `start` to load the next page. When another page exists then `next` is a module address. This module address however will not be present in any of the returned arrays. While this does not put any user assets at risk directly, it could lead to a wrong perception of the enabled modules of a Safe and thereby its state.
 
-The workaround is to append the `next` to the returned array of plugin addresses if it is not the zero or sentinel address. Alternatively the last element of the returned array can be used as the `start` for the next page.
+The workaround is to append the `next` to the returned array of module addresses if it is not the zero or sentinel address. Alternatively the last element of the returned array can be used as the `start` for the next page.
 
 This bug was submitted by [Renan Souza](https://github.com/RenanSouza2). It was regarded as "Low Threat", and a bounty of 2,000 USD has been paid out.
