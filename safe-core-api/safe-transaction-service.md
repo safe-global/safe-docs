@@ -7,7 +7,7 @@ Safe transaction service keeps track of transactions sent via Safe contracts. It
 
 - [**Blockchain Indexing**]() executed transactions, configuration changes, erc20/721 transfers, onchain confirmations… are automatically indexed from blockchain.
 - [**Offchain transaction signatures**](#offchain-transaction-signatures): transactions can also be sent to the service, enabling off-chain signature collection. This feature is useful for informing owners about pending transactions that are awaiting confirmation to be executed.
-- [**Offchain messages**](): service can collect offchain signatures following [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271).
+- [**Offchain messages**](#offchain-messages): service can collect offchain signatures to confirm messages following [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271).
 - [**Transactions decode**](): the service keeps getting source and ABI’s from contracts that interact with safe to be able to decode this interactions.
 
 **Technology Stack Overview**
@@ -62,4 +62,76 @@ print(safe_tx.safe_tx_hash.hex())
 **Output**
 ``` 
 0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18
+```
+
+## Offchain messages 
+Safe transaction service is able to collect the necessary offchain signatures to confirm a message  following [EIP1271](https://ethereum.org/pt/developers/tutorials/eip-1271-smart-contract-signatures/#example-eip-1271-implementation-safe).    
+The message can be a string (EIP-191 is used to get the hash) or an object EIP-712.    
+
+**Messages endpoints**
+- `GET /v1/safes/{address}/messages/` return the messages created for given safe address.
+- `POST /v1/safes/{address}/messages/` create a message with at least one signature
+- `GET /v1/messages/{message_hash}/`  return a message for a given message hash
+- `POST /v1/messages/{message_hash}/signatures/` add another signature to message with given message hash
+
+The following sequence diagram shows an use case from a Safe shared by Alice and Bob where at least 1 signature for each one is required to fully confirm a message:
+``` mermaid
+sequenceDiagram
+    participant A as Alice
+    participant B as Bob
+    A-->A: Prepare message and sign message_hash
+    A->>+SafeTransactionService: createMessage POST /v1/safes/0x5Afe/messages/
+    SafeTransactionService-->>-A: Http(201) {Created}
+    B-->B: Sign message_hash
+    B->>+SafeTransactionService: addConfirmation POST /v1/messages/{message_hash}/signatures/
+    SafeTransactionService-->>-B: Http(200) 
+```
+**Message string example**    
+**Python**  
+safe-eth-py is required for this example.
+```python
+from gnosis.eth.ethereum_client import EthereumClient
+from gnosis.safe.safe import Safe 
+from eth_account.messages import defunct_hash_message
+from eth_account import Account
+import requests
+
+alice = Account.from_key(Alice_key)
+
+# Message that we want to confirm 
+message = "Hello SafeMessages"
+# Hash EIP-191
+message_hash = defunct_hash_message(text=message)
+# get message hash from safe
+eth_client = EthereumClient("https://rpc.goerli.eth.gateway.fm")
+safe_address = "TheAliceAndBobSafeAddress"
+safe = Safe(safe_address, eth_client)
+safe_message_hash = safe.get_message_hash(message_hash)
+
+# Alice is going to create the message on safe transaction service
+# First sign the safe_message_hash
+signature_alice = alice.signHash(safe_message_hash)
+
+# Create the request
+body = {
+    "message": message,
+    "safeAppId": 0,
+    "signature": signature_alice.signature.hex()
+}
+requests.post(f'https://safe-transaction-goerli.safe.global/api/v1/safes/{safe_address}/messages/',json=body)
+
+# Message was created, let's request by message hash
+response =  requests.get(f'https://safe-transaction-goerli.safe.global/api/v1/messages/{safe_message_hash.hex()}/')
+print(response.json())
+
+# Adding Bob confirmation
+bob = Account.from_key(Bob_key)
+signature_bob = bob.signHash(safe_message_hash)
+
+# Create the request
+body = {
+    "signature": signature_bob.signature.hex()
+}
+requests.post(f'https://safe-transaction-goerli.safe.global/api/v1/messages/{safe_message_hash.hex()}/signatures/',json=body)
+
 ```
