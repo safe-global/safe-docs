@@ -8,7 +8,7 @@ Safe transaction service keeps track of transactions sent via Safe contracts. It
 - [**Blockchain Indexing**]() executed transactions, configuration changes, erc20/721 transfers, onchain confirmations… are automatically indexed from blockchain.
 - [**Offchain transaction signatures**](#offchain-transaction-signatures): transactions can also be sent to the service, enabling off-chain signature collection. This feature is useful for informing owners about pending transactions that are awaiting confirmation to be executed.
 - [**Offchain messages**](#offchain-messages): service can collect offchain signatures to confirm messages following [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271).
-- [**Transactions decode**](): the service keeps getting source and ABI’s from contracts that interact with safe to be able to decode this interactions.
+- [**Transactions decode**](#transactions-decode): the service keeps getting source and ABI’s from contracts that interact with safe to be able to decode this interactions.
 
 **Technology Stack Overview**
 
@@ -19,7 +19,7 @@ Safe transaction service is a [Django](https://www.djangoproject.com/) app writt
 - [RabbitMq](https://www.rabbitmq.com/): It is is a distributed message broker system used by celery to share the messages between scheduler, workers and django app.
 - [PostgreSql](https://www.postgresql.org/): it is an open source object-relational database system.
 - [Redis](https://redis.com/): it an open source, in-memory data structure store that can be used as a database, cache, message broker, and streaming engine. It is the cache of safe transaction service.
-
+- [safe-eth-py](https://github.com/safe-global/safe-eth-py) library to interact with Safe and blockchain.
 
 <figure><img src="../.gitbook/assets/transaction_service_architecture.png" width="100%" alt="" /></figure>
 
@@ -96,7 +96,7 @@ from eth_account.messages import defunct_hash_message
 from eth_account import Account
 import requests
 
-alice = Account.from_key(Alice_key)
+alice = Account.from_key("Alice_key")
 
 # Message that we want to confirm 
 message = "Hello SafeMessages"
@@ -125,7 +125,7 @@ response =  requests.get(f'https://safe-transaction-goerli.safe.global/api/v1/me
 print(response.json())
 
 # Adding Bob confirmation
-bob = Account.from_key(Bob_key)
+bob = Account.from_key("Bob_key")
 signature_bob = bob.signHash(safe_message_hash)
 
 # Create the request
@@ -135,3 +135,51 @@ body = {
 requests.post(f'https://safe-transaction-goerli.safe.global/api/v1/messages/{safe_message_hash.hex()}/signatures/',json=body)
 
 ```
+
+## Transactions decode
+Safe transaction service is able to decode contract interactions, to achive it, the service is periodically getting source and ABI's from different sources (Sourcify, etherscan and blockscout) using the `safe-eth-py` library.   
+The detection of contract interactions is done in a periodic task that is executed every hour for `multisig-transaction` and `module-transactions` or every 6 hours for `multisend-transactions` on `worker-contracts-tokens`.
+For every new contract the service try to download the source and the ABI requesting it first to `soucify`, then `etherscan` and as last chance `blockscout`. It's important to know that not all this datasources are supported or configured for every network on `safe-eth-py`.   
+Supported and configured networks on `safe-eth-py`:   
+- [**Sourcify** supported networks](https://docs.sourcify.dev/docs/chains/)
+- [**Etherscan** configured networks](https://github.com/safe-global/safe-eth-py/blob/master/gnosis/eth/clients/etherscan_client.py#L24)
+- [**Blockscout** configured networks](https://github.com/safe-global/safe-eth-py/blob/master/gnosis/eth/clients/blockscout_client.py#L21)
+
+
+**Transaction decoder endpoint** 
+- `POST /v1/data-decoder/` decode a transaction `data` passed on body for a `to` contract address.
+
+
+
+**Example transaction decoder**
+```bash
+curl -X 'POST' \
+  'https://safe-transaction-goerli.safe.global/api/v1/data-decoder/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'X-CSRFToken: Gx1aRa8kIJGIAfReLAWwr9Q6dHv22dFt7VprdipLryHcxpfhk9aV0UDAhNz8gGYz' \
+  -d '{
+  "data": "0x095ea7b3000000000000000000000000e6fc577e87f7c977c4393300417dcc592d90acf8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+  "to": "0x4127839cdf4F73d9fC9a2C2861d8d1799e9DF40C"
+}'
+```
+Output:
+```
+{
+  "method": "approve",
+  "parameters": [
+    {
+      "name": "spender",
+      "type": "address",
+      "value": "0xe6fC577E87F7c977c4393300417dCC592D90acF8"
+    },
+    {
+      "name": "value",
+      "type": "uint256",
+      "value": "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+    }
+  ]
+}
+```
+
+This decoded data is also included as `dataDecoded` in `GET` of `multisig-transactions`, `module-transactions` and `all-transactions` endpoints. 
