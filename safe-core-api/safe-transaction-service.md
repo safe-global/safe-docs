@@ -6,7 +6,7 @@ Safe transaction service keeps track of transactions sent via Safe contracts. It
 **Key Features:**  
 
 - [**Blockchain Indexing**](): Executed transactions, configuration changes, ERC20/721 transfers, and onchain confirmations are automatically indexed from the blockchain.
-- [**Offchain transaction signatures**](#offchain-transaction-signatures): Transactions can be sent to the service, enabling off-chain signature collection. This feature helps inform owners about pending transactions that are awaiting confirmation to be executed.
+- [**Offchain transaction signatures**](#offchain-transaction-signatures): Transactions can be sent to the service, enabling offchain signature collection. This feature helps inform owners about pending transactions that are awaiting confirmation to be executed.
 - [**Offchain messages**](#offchain-messages): The service can collect offchain signatures to confirm messages following [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271).
 - [**Transactions decode**](#transactions-decode): The service keeps getting source and ABIs from contracts that interact with Safe to decode these interactions.
 
