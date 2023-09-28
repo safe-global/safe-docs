@@ -5,7 +5,7 @@ Safe transaction service keeps track of transactions sent via Safe contracts. It
 
 **Key Features:**  
 
-- [**Blockchain Indexing**](): Executed transactions, configuration changes, ERC20/721 transfers, and onchain confirmations are automatically indexed from the blockchain.
+- [**Blockchain Indexing**](#blockchain-indexing): Executed transactions, configuration changes, ERC20/721 transfers, and onchain confirmations are automatically indexed from the blockchain.
 - [**Offchain transaction signatures**](#offchain-transaction-signatures): Transactions can be sent to the service, enabling offchain signature collection. This feature helps inform owners about pending transactions that are awaiting confirmation to be executed.
 - [**Offchain messages**](#offchain-messages): The service can collect offchain signatures to confirm messages following [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271).
 - [**Transactions decode**](#transactions-decode): The service keeps getting source and ABIs from contracts that interact with Safe to decode these interactions.
@@ -22,6 +22,38 @@ Safe transaction service is a [Django](https://www.djangoproject.com/) app writt
 - [safe-eth-py](https://github.com/safe-global/safe-eth-py): A library to interact with Safe and blockchains.
 
 <figure><img src="../.gitbook/assets/transaction_service_architecture.png" width="100%" alt="" /></figure>
+
+## Blockchain Indexing 
+Safe transaction service can index automatically executed transactions, configuration changes, ERC20/721 transfers, and onchain confirmations.
+The indexer is running on `worker-indexer` by different periodic [tasks](https://github.com/safe-global/safe-transaction-service/blob/master/safe_transaction_service/history/tasks.py). 
+
+ERC20 and ERC721 are indexed using [eth_getLogs](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) filtered by the Transfer topic `keccak('Transfer(address,address,uint256)')`.
+
+Safe creation, executed transactions, configuration changes and onchain confirmations are indexed at different way depending if the chain is L1 or L2. 
+
+For L1 chains the indexer call tracing methods, for oldest blocks [trace_filter](https://openethereum.github.io/JSONRPC-trace-module#trace_filter) is used filtered by singleton address of safe contracts and for latest blocks [trace_block](https://openethereum.github.io/JSONRPC-trace-module#trace_block). The number of considered latest blocks is defined in `ETH_INTERNAL_TXS_NUMBER_TRACE_BLOCKS`. The environment variables used by indexing are defined [here](https://github.com/safe-global/safe-transaction-service/blob/master/config/settings/base.py#L433). 
+
+For L2 chains the indexing is by events with [eth_getLogs](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) method with the corresponding topics.  
+
+From safe creation the transaction service is storing each contract change on `SafeStatus` model as nonce, owners... and the last current status of a Safe in `SafeLastStatus`.
+
+The following endpoints let us to know the current indexing status on safe transaction service:
+- `/v1/about/indexing/` 
+
+Response example: 
+```json
+{
+  "currentBlockNumber": 9773327, // Last block on blockchain
+  "erc20BlockNumber": 9773326,   // Last block indexed for erc20/721 events
+  "erc20Synced": true,
+  "masterCopiesBlockNumber": 9773327, // Last block indexed for executed transactions, ether transfers, configuration changes...
+  "masterCopiesSynced": true,
+  "synced": true
+}
+```
+
+**Reorgs handling**  
+When indexed every block is marked as not confirmed unless it has some depth (configured via ETH_REORG_BLOCKS environment variable). Not confirmed blocks are checked periodically to check if the blockchain blockHash for that number changed before it reaches the desired number of confirmations, if that's the case, all blocks from that block and the transactions related are deleted and indexing is restarted to the last confirmed block.
 
 ## Offchain Transaction Signatures
 The transaction service can collect offchain transaction signatures, allowing the owners to share their signatures to reach the required threshold before executing a transaction and spending less gas than onchain approvals.
