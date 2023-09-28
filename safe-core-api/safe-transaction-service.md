@@ -31,11 +31,11 @@ ERC20 and ERC721 are indexed using [eth_getLogs](https://ethereum.org/en/develop
 
 Safe creation, executed transactions, configuration changes and onchain confirmations are indexed at different way depending if the chain is L1 or L2. 
 
-For L1 chains the indexer call tracing methods, for oldest blocks [trace_filter](https://openethereum.github.io/JSONRPC-trace-module#trace_filter) is used filtered by singleton address of safe contracts and for latest blocks [trace_block](https://openethereum.github.io/JSONRPC-trace-module#trace_block). The number of considered latest blocks is defined in `ETH_INTERNAL_TXS_NUMBER_TRACE_BLOCKS`. The environment variables used by indexing are defined [here](https://github.com/safe-global/safe-transaction-service/blob/master/config/settings/base.py#L433). 
+For L1 chains the indexer calls tracing methods, for oldest blocks [trace_filter](https://openethereum.github.io/JSONRPC-trace-module#trace_filter) is used filtering by singleton address of Safe contracts and for latest blocks [trace_block](https://openethereum.github.io/JSONRPC-trace-module#trace_block) is used, as `trace_filter` takes longer to return updated information. `trace_block` will be used if the block depth is lower than `ETH_INTERNAL_TXS_NUMBER_TRACE_BLOCKS`. The environment variables used by indexing are defined [here](https://github.com/safe-global/safe-transaction-service/blob/master/config/settings/base.py#L433). 
 
 For L2 chains the indexing is by events with [eth_getLogs](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) method with the corresponding topics.  
 
-From safe creation the transaction service is storing each contract change on `SafeStatus` model as nonce, owners... and the last current status of a Safe in `SafeLastStatus`.
+From Safe creation the transaction service is storing each contract change on `SafeStatus` model as `nonce`, `owners`... and the last current status of a Safe in `SafeLastStatus`, for database easy access and optimization.
 
 The following endpoints let us to know the current indexing status on safe transaction service:
 - `/v1/about/indexing/` 
@@ -52,11 +52,13 @@ Response example:
 }
 ```
 
-**Reorgs handling**  
-When indexed every block is marked as not confirmed unless it has some depth (configured via ETH_REORG_BLOCKS environment variable). Not confirmed blocks are checked periodically to check if the blockchain blockHash for that number changed before it reaches the desired number of confirmations, if that's the case, all blocks from that block and the transactions related are deleted and indexing is restarted to the last confirmed block.
+### Reorgs handling  
+Every block is marked as `not confirmed` during indexing unless it has some depth (configured via `ETH_REORG_BLOCKS` environment variable). Not confirmed blocks are checked periodically to check if the blockchain `blockHash` for that number changed before it reaches the desired number of confirmations, if that's the case, all blocks from that block and the transactions related are deleted and indexing is restarted to the last confirmed block.
+
+**Note:** No offchain signatures, transactions or messages are lost on this process. Only onchain data is removed.
 
 ## Offchain Transaction Signatures
-The transaction service can collect offchain transaction signatures, allowing the owners to share their signatures to reach the required threshold before executing a transaction and spending less gas than onchain approvals.
+Safe Transaction Service can collect offchain transaction signatures, allowing the owners to share their signatures to reach the required threshold before executing a transaction and spending less gas than onchain approvals.
 
 The following endpoints let us propose a transaction and collect every confirmation (offchain signatures):
 
