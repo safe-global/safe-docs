@@ -10,7 +10,7 @@ Please refer to this [EthCC3 talk](https://www.youtube.com/watch?v=1GirpNHZPJM&t
 
 There are already Safe Apps available for a number of popular protocols such as [Aave](https://aave.com), [Synthetix](https://synthetix.io), [1inch](https://1inch.exchange) or [Balancer](https://balancer.finance). These have been build by 3rd party developers or the projects themselves.
 
-If you are missing a Safe App, get in touch with the respective project or get building with the [Safe Apps SDK](build.md).
+If you are missing a Safe App, get in touch with the respective project or get building with the [Safe Apps SDK](https://github.com/safe-global/safe-docs/tree/main/safe-core-sdk/safe-apps).
 
 #### On-chain stats
 
