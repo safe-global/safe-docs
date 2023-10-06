@@ -123,7 +123,7 @@ console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/statu
 
 [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee) allows you to execute a transaction and pay the gas fees directly with funds in your Safe, even if you don't have ETH or the native blockchain token.
 
-For the SyncFee quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on BNB Chain using the BNB you hold in your Safe, no need to have funds on your signer.
+For the SyncFee quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on the BNB Chain using the BNB you hold in your Safe. No need to have funds on your signer.
 
 For this tutorial you will need a Safe with a threshold of 1 deployed on BNB Chain. You can create one using [Safe{Wallet}](https://app.safe.global/) or the [Protocol Kit](./protocol-kit/).
 
