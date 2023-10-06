@@ -17,13 +17,13 @@ The architectural design of Safe Smart Account keeps the following principles in
 
 Here are some core components of a Safe Smart Account that you will learn about:
 
-## Modules
+## Safe Modules
 
-[Modules](modules.md) are smart contracts that extend Safe's functionality with added custom features while the module logic remains separate from Safe's core contracts. 
+[Safe Modules](modules.md) are smart contracts that extend Safe's functionality with added custom features while the module logic remains separate from Safe's core contracts. 
 
-## Guards
+## Safe Guards
 
-[Guards](guards.md) make checks before and after a Safe transaction.
+[Safe Guards](guards.md) make checks before and after a Safe transaction.
 
 ## Signatures
 
