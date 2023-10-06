@@ -26,7 +26,7 @@ Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs
 
 For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on BNB Chain using the Polygon USDC you've deposited into your Gelato 1Balance account.
 
-For this tutorial you will need a Safe with a threshold of 1 deployed on BNB Chain. You can create one using [Safe{Wallet}](https://app.safe.global/) or the [Protocol Kit](./protocol-kit/).
+For this tutorial you will need a Safe with a threshold of 1 deployed on BNB Chain. You can create one using [Safe{Wallet}](https://app.safe.global/) or the [Protocol Kit](../protocol-kit/).
 
 ### Summary
 
@@ -125,7 +125,7 @@ console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/statu
 
 For the SyncFee quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on the BNB Chain using the BNB you hold in your Safe. No need to have funds on your signer.
 
-For this tutorial, you will need a Safe with a threshold of one deployed on the BNB Chain. You can create one using [Safe{Wallet}](https://app.safe.global/) or the [Protocol Kit](./protocol-kit/).
+For this tutorial, you will need a Safe with a threshold of one deployed on the BNB Chain. You can create one using [Safe{Wallet}](https://app.safe.global/) or the [Protocol Kit](../protocol-kit/).
 
 ### Import the packages
 
