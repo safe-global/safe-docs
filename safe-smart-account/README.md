@@ -19,12 +19,12 @@ Here are some core components of a Safe Smart Account that you will learn about:
 
 ## Modules
 
-Modules are smart contracts that extend Safe's functionality with added custom features while the module logic remains separate from Safe's core contracts. 
+[Modules](modules.md) are smart contracts that extend Safe's functionality with added custom features while the module logic remains separate from Safe's core contracts. 
 
 ## Guards
 
-Guards make checks before and after a Safe transaction.
+[Guards](guards.md) make checks before and after a Safe transaction.
 
 ## Signatures
 
-Safe contracts support alternative signature schemes such as [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) and [EIP-712](https://eips.ethereum.org/EIPS/eip-712) and relaying by making the confirmation/verification logic independent of `msg.sender`.
+Safe contracts support alternative [signature schemes](signatures/README.md) such as [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) and [EIP-712](https://eips.ethereum.org/EIPS/eip-712) and relaying by making the confirmation/verification logic independent of `msg.sender`.
