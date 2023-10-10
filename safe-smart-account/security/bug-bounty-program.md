@@ -1,6 +1,6 @@
 # Bug Bounty
 
-Participate in the Safe Bug Bounty program to find bugs and get rewards. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](./bug-bounty-program.md#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global).
+Participate in the Safe Bug Bounty program to find bugs and get rewards. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](./bug-bounty-program.md#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global). You can also review the [bug bounties](./past-paid-bounties.md) we have paid in the past.
 
 ## Audits
 
@@ -93,12 +93,8 @@ A way to avoid transaction fees or an exploit that in some way compromises the e
 
 _Safe will pay all bounties in ETH._
 
-Please note that the submission's quality will factor into the level of compensation. A high-quality submission includes:
-An explanation of how somebody can reproduce the bug.
-A failing test case.
-A valid scenario in which somebody can exploit the bug.
-A fix that makes the test case pass.
-High-quality submissions may be awarded amounts higher than the amounts specified above.
+Please note that the submission's quality will factor into the level of compensation. A high-quality submission should include an explanation of how somebody can reproduce the bug.
+
 
 ## Submission Process
 
