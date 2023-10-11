@@ -2,37 +2,35 @@
 
 Safe{Core} Protocol is an open, modular framework to make smart accounts secure, portable, and composable.
 
-Links of interest:
-- [Safe{Core} Protocol Specification](https://github.com/safe-global/safe-core-protocol-specs)
-- [Safe{Core} Protocol Implementation](https://github.com/5afe/safe-core-protocol)
-- [Safe{Core} Protocol Demo Application](https://github.com/5afe/safe-core-protocol-demo/)
-
-## Objectives
-
-The goal is to create a comprehensive system, designed to enhance the safety and flexibility of user interactions within the smart account ecosystem. The protocol provides a common framework for building additional tools, encourages the composition of various modules, and supports different types of smart accounts. In order to achieve interoperability and security, the protocol enforces a set of rules within the smart account ecosystem.
+Safe{Core} Protocol aims to create a comprehensive system to enhance user interactions' safety and flexibility within the smart account ecosystem. The protocol provides a common framework for building more tools, encourages the composition of various modules, and supports different types of smart accounts. The protocol enforces rules within the smart account ecosystem to achieve interoperability and security.
 
 ## Architecture
 
-The architecture of the Safe{Core} Protocol is composed of several integral components, each carrying its unique responsibilities. The protocol is designed to distinctly separate these elements by defining explicit interfaces, thus allowing independent expansion and iteration of each part. This modularity ensures the sustainable growth and evolution of the smart account ecosystem.
+The architecture of the Safe{Core} Protocol comprises several integral components, each carrying its unique responsibilities. The protocol separates these elements by defining explicit interfaces, thus allowing independent expansion and iteration of each part. This modularity ensures the sustainable growth and evolution of the smart account ecosystem.
 
 <figure><img src="../.gitbook/assets/diagram-safe-core-protocol.png" width="100%" alt="" /></figure>
 
 ### Manager
 
-At the heart of the protocol is the `Manager`, ensuring adherence to the prescribed rules set by the `Registry`. The `Manager` serves as an intermediary layer coordinating communication and interactions between `Accounts` and `Modules`.
+At the heart of the protocol is the `Manager`, ensuring adherence to the prescribed rules set by the `Registry`. The `Manager` is an intermediary layer coordinating communication and interactions between `Accounts` and `Modules`.
 
 ### Accounts
 
-`Accounts` are smart-contract based user accounts (or "smart accounts"). The Safe{Core} Protocol is account-agnostic, meaning that it is not tied to a specific account implementation.
+`Accounts` are smart-contract-based user accounts (or Smart Accounts). The Safe{Core} Protocol is account-agnostic, meaning it is not tied to a specific account implementation.
 
 ### Modules
 
-`Modules` extend the functionality of `Accounts` in different ways. Initial `Modules` are `Plugins`, `Hooks`, `Function Handlers` and `Signature Verifiers`, but additional `Modules` can be added to the Safe{Core} Protocol at a later point.
+`Modules` extend the functionality of `Accounts` in different ways. Initial `Modules` are `Plugins`, `Hooks`, `Function Handlers`, and `Signature Verifiers`.
 
 ### Registry
 
-The `Registry` plays a critical role in maintaining and enforcing standards and security guarantees. Only the `Modules` that adhere to these guidelines will be recognized and managed by the `Manager`.
+The `Registry` is critical in maintaining and enforcing standards and security guarantees. The `Manager` will recognize and manage only the `Modules` that adhere to these guidelines.
 
 ### Metadata
 
-To provide a coherent context to the various parts and their interactions, the provision of `Metadata` is crucial. This information allows developers to append additional context to interactions, enhancing user understanding and interaction transparency.
+Giving `Metadata` is crucial to offer a coherent context to the various parts and their interactions. This information helps developers add context to interactions, enhancing user understanding and transparency.
+
+## Further reading
+- [Safe{Core} Protocol Specification](https://github.com/safe-global/safe-core-protocol-specs)
+- [Safe{Core} Protocol Implementation](https://github.com/5afe/safe-core-protocol)
+- [Safe{Core} Protocol Demo Application](https://github.com/5afe/safe-core-protocol-demo/)
