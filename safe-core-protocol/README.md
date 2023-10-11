@@ -20,7 +20,7 @@ At the heart of the protocol is the `Manager`, ensuring adherence to the prescri
 
 ### Modules
 
-`Modules` extend the functionality of `Accounts` in different ways. Initial `Modules` are `Plugins`, `Hooks`, `Function Handlers`, and `Signature Verifiers`. You can add more `Modules` to the Safe{Core} Protocol later.
+`Modules` extend the functionality of `Accounts` in different ways. Initial `Modules` are `Plugins`, `Hooks`, `Function Handlers`, and `Signature Verifiers`.
 
 ### Registry
 
