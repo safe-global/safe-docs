@@ -4,25 +4,25 @@ Safe Transaction Service keeps track of transactions sent via Safe contracts. It
 
 **Key Features:**  
 
-- [**Blockchain Indexing**](#blockchain-indexing): Executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations are automatically indexed from the blockchain.
-- [**Offchain transaction signatures**](#offchain-transaction-signatures): Transactions can be sent to the service, enabling offchain signature collection. This feature helps inform owners about pending transactions awaiting confirmation to be executed.
+- [**Blockchain indexing**](#blockchain-indexing): Executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations are automatically indexed from the blockchain.
+- [**Offchain transaction signatures**](#offchain-transaction-signatures): Transactions can be sent to the service, enabling offchain signature collection. This feature helps inform owners about pending transactions awaiting confirmation for execution.
 - [**Offchain messages**](#offchain-messages): The service can collect offchain signatures to confirm messages following [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271).
 - [**Transactions decode**](#transactions-decode): The service keeps getting source and ABIs from contracts that interact with Safe to decode these interactions.
 
-**Technology Stack Overview**
+## Technology stack overview
 
-Safe transaction service is a [Django](https://www.djangoproject.com/) app written in Python that follows a very common architecture: 
+Safe Transaction Service is a [Django](https://www.djangoproject.com/) app written in Python with the following architecture: 
 
 - [Gunicorn](https://gunicorn.org/): A Python WSGI HTTP Server.
-- [Celery](https://docs.celeryq.dev/en/stable/): A task queue with focus on real-time processing, while also supporting task scheduling. Safe transaction service currently has a scheduler (for periodic tasks), a worker indexer to consume and execute indexing tasks, and a contracts worker mainly to get metadata from contracts.
+- [Celery](https://docs.celeryq.dev/en/stable/): A task queue with focus on real-time processing, while also supporting task scheduling. Safe Transaction Service has a scheduler (for periodic tasks), a worker indexer to consume and execute indexing tasks, and a contracts worker mainly to get metadata from contracts.
 - [RabbitMQ](https://www.rabbitmq.com/): A distributed message broker system Celery uses to share messages between the scheduler, workers, and the Django application.
 - [PostgreSQL](https://www.postgresql.org/): An open source object-relational database system.
-- [Redis](https://redis.com/): An open source, in-memory data structure store that can be used as a database, cache, message broker, and streaming engine. It is used for caching by the Safe transaction service.
+- [Redis](https://redis.com/): An open source, in-memory data structure store used for caching by the Safe Transaction Service.
 - [safe-eth-py](https://github.com/safe-global/safe-eth-py): A library to interact with Safe and blockchains.
 
 <figure><img src="../.gitbook/assets/transaction_service_architecture.png" width="100%" alt="" /></figure>
 
-## Blockchain Indexing 
+## Blockchain indexing 
 Safe transaction service can index automatically executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations.
 The indexer is running on `worker-indexer` by different periodic [tasks](https://github.com/safe-global/safe-transaction-service/blob/master/safe_transaction_service/history/tasks.py). 
 
