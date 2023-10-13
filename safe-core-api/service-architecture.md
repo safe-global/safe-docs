@@ -33,4 +33,4 @@ Even though Safe config and transaction service instances are reachable by clien
 
 ## Running locally
 
-[Safe Infrastructure](https://github.com/safe-global/safe-infrastructure) and the [running services locally guide](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_locally.md) show how to run all of Safe's infrastructure (Safe UI, Safe{Wallet} and the backend, and Safe{Core}). Note that these documents are examples of how these services run, and the configuration should adapt to the needs of a specific use case.
+[Safe Infrastructure](https://github.com/safe-global/safe-infrastructure) and the [running services locally guide](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_locally.md) show how to run Safe's infrastructure (Safe UI, Safe{Wallet} and the backend, and Safe{Core}). Note that these documents are examples of how these services run, and the configuration should adapt to the needs of a specific use case.
