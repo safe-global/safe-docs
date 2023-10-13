@@ -1,12 +1,11 @@
 # Safe Transaction Service
-## Overview
 
-Safe transaction service keeps track of transactions sent via Safe contracts. It indexes these transactions by using events (L2 chains) and tracing (L1 chains) mechanisms.
+Safe Transaction Service keeps track of transactions sent via Safe contracts. It indexes these transactions using events (L2 chains) and tracing (L1 chains) mechanisms.
 
 **Key Features:**  
 
 - [**Blockchain Indexing**](#blockchain-indexing): Executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations are automatically indexed from the blockchain.
-- [**Offchain transaction signatures**](#offchain-transaction-signatures): Transactions can be sent to the service, enabling offchain signature collection. This feature helps inform owners about pending transactions that are awaiting confirmation to be executed.
+- [**Offchain transaction signatures**](#offchain-transaction-signatures): Transactions can be sent to the service, enabling offchain signature collection. This feature helps inform owners about pending transactions awaiting confirmation to be executed.
 - [**Offchain messages**](#offchain-messages): The service can collect offchain signatures to confirm messages following [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271).
 - [**Transactions decode**](#transactions-decode): The service keeps getting source and ABIs from contracts that interact with Safe to decode these interactions.
 
@@ -27,13 +26,13 @@ Safe transaction service is a [Django](https://www.djangoproject.com/) app writt
 Safe transaction service can index automatically executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations.
 The indexer is running on `worker-indexer` by different periodic [tasks](https://github.com/safe-global/safe-transaction-service/blob/master/safe_transaction_service/history/tasks.py). 
 
-ERC-20 and ERC-721 are indexed using [eth_getLogs](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) filtered by the Transfer topic `keccak('Transfer(address,address,uint256)')`.
+ERC-20 and ERC-721 are indexed using [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) filtered by the Transfer topic `keccak('Transfer(address,address,uint256)')`.
 
 Safe creation, executed transactions, configuration changes, and onchain confirmations are indexed differently depending on whether the chain is L1 or L2. 
 
-For L1 chains, the indexer calls tracing methods. For the oldest blocks, [trace_filter](https://openethereum.github.io/JSONRPC-trace-module#trace_filter) is used filtering by singleton address of Safe contracts, and for the latest blocks [trace_block](https://openethereum.github.io/JSONRPC-trace-module#trace_block) is used, as `trace_filter` takes longer to return updated information. `trace_block` will be used if the block depth is lower than `ETH_INTERNAL_TXS_NUMBER_TRACE_BLOCKS`. The environment variables indexing uses are defined [here](https://github.com/safe-global/safe-transaction-service/blob/master/config/settings/base.py#L433). 
+For L1 chains, the indexer calls tracing methods. For the oldest blocks, [`trace_filter`](https://openethereum.github.io/JSONRPC-trace-module#trace_filter) is used filtering by singleton address of Safe contracts, and for the latest blocks [`trace_block`](https://openethereum.github.io/JSONRPC-trace-module#trace_block) is used, as `trace_filter` takes longer to return updated information. `trace_block` will be used if the block depth is lower than `ETH_INTERNAL_TXS_NUMBER_TRACE_BLOCKS`. The environment variables indexing uses are defined [here](https://github.com/safe-global/safe-transaction-service/blob/master/config/settings/base.py#L433). 
 
-For L2 chains, the indexing is by events with the [eth_getLogs](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) method with the corresponding topics.  
+For L2 chains, the indexing is by events with the [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) method with the corresponding topics.  
 
 From Safe creation, the transaction service stores each contract change on the `SafeStatus` model as `nonce`, `owners`, etc. The latest and current status of a Safe is stored as `SafeLastStatus` for easy database access and optimization.
 
@@ -79,13 +78,13 @@ sequenceDiagram
     B->>+SafeTransactionService: confirmTransaction POST /v1/multisig-transactions/0x5afe0001/confirmations/
     SafeTransactionService->>-B: Http(201) {Created}
 ```
-**What is the safe_tx_hash?**
+**What is the `safe_tx_hash`?**
      
 `safe_tx_hash` is the unique identifier for a Safe transaction and is calculated using the [EIP-712](https://eips.ethereum.org/EIPS/eip-712) standard:  
 `keccak256(0x19 || 0x1 || domainSeparator || safeTxHashStruct)`  
-where `safeTxHashStruct` is the hashStruct of a Safe transaction.
+where `safeTxHashStruct` is the `hashStruct` of a Safe transaction.
 
-The following example shows how to get a `safe_tx_hash` with [safe-eth-py](https://pypi.org/project/safe-eth-py/) with the parameter of the next transaction [0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18](https://safe-transaction-goerli.safe.global/api/v1/multisig-transactions/0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18/)
+The following example shows how to get a `safe_tx_hash` with [`safe-eth-py`](https://pypi.org/project/safe-eth-py/) with the parameter of the next transaction [0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18](https://safe-transaction-goerli.safe.global/api/v1/multisig-transactions/0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18/)
 ```python
 from gnosis.safe.safe_tx import SafeTx
 from gnosis.eth.ethereum_client import EthereumClient
