@@ -99,8 +99,9 @@ print(safe_tx.safe_tx_hash.hex())
 0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18
 ```
 
-## Offchain Messages 
-Safe transaction service can collect the necessary offchain signatures to confirm a message using [EIP-1271](https://ethereum.org/pt/developers/tutorials/eip-1271-smart-contract-signatures/#example-eip-1271-implementation-safe).    
+## Offchain messages 
+
+Safe Transaction Service can collect the necessary offchain signatures to confirm a message using [EIP-1271](https://ethereum.org/pt/developers/tutorials/eip-1271-smart-contract-signatures/#example-eip-1271-implementation-safe).    
 The message can be a string (EIP-191 is used to get the hash) or an object EIP-712.
 
 **Messages endpoints**
@@ -173,7 +174,7 @@ requests.post(f'https://safe-transaction-goerli.safe.global/api/v1/messages/{saf
 
 ## Transaction decoder
 
-The Safe Transaction Service can decode contract interactions. To achieve it, the service periodically gets source and ABIs from different sources like Sourcify, etherscan, and blockscout using the `safe-eth-py` library.   
+The Safe Transaction Service can decode contract interactions. To achieve it, the service periodically gets source and ABIs from different sources like Sourcify, Etherscan, and Blockscout using the `safe-eth-py` library.   
 The detection of contract interactions is done in a periodic task executed every hour for `multisig-transaction` and `module-transactions` or every six hours for `multisend-transactions` on `worker-contracts-tokens`.
 For every new contract, the service tries to download the source, and the ABI requests it first to Sourcify, then Etherscan, and as a last chance, Blockscout. It's important to know that not all these data sources are supported or configured for every network on `safe-eth-py`.   
 Supported and configured networks on `safe-eth-py`:   
