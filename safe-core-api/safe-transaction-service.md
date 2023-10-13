@@ -57,7 +57,7 @@ Every block is marked as `not confirmed` during indexing unless it has some dept
 
 **Note:** No offchain signatures, transactions, or messages are lost in this process. Only onchain data is removed.
 
-## Offchain transaction wignatures
+## Offchain transaction signatures
 
 Safe Transaction Service can collect offchain transaction signatures, allowing the owners to share their signatures to reach the required threshold before executing a transaction and spending less gas than onchain approvals.
 
