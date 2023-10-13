@@ -5,7 +5,7 @@ Safe Transaction Service keeps track of transactions sent via Safe contracts. It
 **Key Features:**  
 
 - [**Blockchain indexing**](#blockchain-indexing): Executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations are automatically indexed from the blockchain.
-- [**Offchain transaction signatures**](#offchain-transaction-signatures): Transactions can be sent to the service, enabling offchain signature collection. This feature helps inform owners about pending transactions awaiting confirmation for execution.
+- [**Offchain transaction signatures**](#offchain-transaction-signatures): Transactions are sent to the service, enabling offchain signature collection. This feature helps inform owners about pending transactions awaiting confirmation for execution.
 - [**Offchain messages**](#offchain-messages): The service can collect offchain signatures to confirm messages following [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271).
 - [**Transactions decode**](#transactions-decode): The service keeps getting source and ABIs from contracts that interact with Safe to decode these interactions.
 
@@ -23,7 +23,7 @@ Safe Transaction Service is a [Django](https://www.djangoproject.com/) app writt
 <figure><img src="../.gitbook/assets/transaction_service_architecture.png" width="100%" alt="" /></figure>
 
 ## Blockchain indexing 
-Safe transaction service can index automatically executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations.
+Safe Transaction Service can index automatically executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations.
 The indexer is running on `worker-indexer` by different periodic [tasks](https://github.com/safe-global/safe-transaction-service/blob/master/safe_transaction_service/history/tasks.py). 
 
 ERC-20 and ERC-721 are indexed using [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) filtered by the Transfer topic `keccak('Transfer(address,address,uint256)')`.
@@ -36,7 +36,7 @@ For L2 chains, the indexing is by events with the [`eth_getLogs`](https://ethere
 
 From Safe creation, the transaction service stores each contract change on the `SafeStatus` model as `nonce`, `owners`, etc. The latest and current status of a Safe is stored as `SafeLastStatus` for easy database access and optimization.
 
-The following endpoints let us know the current indexing status of the Safe transaction service:
+The following endpoints show the current indexing status of the Safe Transaction Service:
 - `/v1/about/indexing/` 
 
 Response example: 
@@ -52,11 +52,13 @@ Response example:
 ```
 
 ### Reorgs handling  
+
 Every block is marked as `not confirmed` during indexing unless it has some depth (configured via the `ETH_REORG_BLOCKS` environment variable). Unconfirmed blocks are checked periodically to see if the blockchain `blockHash` for that number changed before it reaches the desired number of confirmations. If that's the case, all blocks from that block and related transactions are deleted, and indexing is restarted to the last confirmed block.
 
 **Note:** No offchain signatures, transactions, or messages are lost in this process. Only onchain data is removed.
 
-## Offchain Transaction Signatures
+## Offchain transaction wignatures
+
 Safe Transaction Service can collect offchain transaction signatures, allowing the owners to share their signatures to reach the required threshold before executing a transaction and spending less gas than onchain approvals.
 
 The following endpoints let us propose a transaction and collect every confirmation (offchain signatures):
@@ -169,8 +171,9 @@ requests.post(f'https://safe-transaction-goerli.safe.global/api/v1/messages/{saf
 
 ```
 
-## Transaction Decoder
-The Safe transaction service can decode contract interactions. To achieve it, the service periodically gets source and ABIs from different sources like Sourcify, etherscan, and blockscout using the `safe-eth-py` library.   
+## Transaction decoder
+
+The Safe Transaction Service can decode contract interactions. To achieve it, the service periodically gets source and ABIs from different sources like Sourcify, etherscan, and blockscout using the `safe-eth-py` library.   
 The detection of contract interactions is done in a periodic task executed every hour for `multisig-transaction` and `module-transactions` or every six hours for `multisend-transactions` on `worker-contracts-tokens`.
 For every new contract, the service tries to download the source, and the ABI requests it first to Sourcify, then Etherscan, and as a last chance, Blockscout. It's important to know that not all these data sources are supported or configured for every network on `safe-eth-py`.   
 Supported and configured networks on `safe-eth-py`:   
