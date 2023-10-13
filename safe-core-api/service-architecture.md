@@ -29,8 +29,8 @@ The client gateway leverages the config service to find the transaction service 
 
 ![Service interaction diagram.](<../.gitbook/assets/diagram-services-requests.png>)
 
-Even though our config and transaction service instances are reachable by clients that are not the client gateway, this may change in the future. The client gateway is the outermost component of our infrastructure and should be the single point of communication with any frontend client.
+Even though Safe config and transaction service instances are reachable by clients that are not the client gateway, this may change in the future. The client gateway is the outermost component of the Safe infrastructure and should be the single point of communication with any frontend client.
 
 ## Running locally
 
-[Safe Infrastructure](https://github.com/safe-global/safe-infrastructure) and the [running our services locally guide](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_locally.md) show how to run all of Safe's infrastructure (Safe UI, Safe{Wallet} and the backend, and Safe{Core}). Note that these documents are examples of how these services run, and the configuration should adapt to the needs of a specific use case.
+[Safe Infrastructure](https://github.com/safe-global/safe-infrastructure) and the [running services locally guide](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_locally.md) show how to run all of Safe's infrastructure (Safe UI, Safe{Wallet} and the backend, and Safe{Core}). Note that these documents are examples of how these services run, and the configuration should adapt to the needs of a specific use case.
