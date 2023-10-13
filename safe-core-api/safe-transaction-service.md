@@ -23,6 +23,7 @@ Safe Transaction Service is a [Django](https://www.djangoproject.com/) app writt
 <figure><img src="../.gitbook/assets/transaction_service_architecture.png" width="100%" alt="" /></figure>
 
 ## Blockchain indexing 
+
 Safe Transaction Service can index automatically executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations.
 The indexer is running on `worker-indexer` by different periodic [tasks](https://github.com/safe-global/safe-transaction-service/blob/master/safe_transaction_service/history/tasks.py). 
 
@@ -63,12 +64,13 @@ Safe Transaction Service can collect offchain transaction signatures, allowing t
 
 The following endpoints let us propose a transaction and collect every confirmation (offchain signatures):
 
-- `POST /v1/safes/{address}/multisig-transactions/`: Create a new transaction. At least one signature is required.
-- `POST /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Add a new confirmation. The `safe_tx_hash` is needed.
+- `POST /v1/safes/{address}/multisig-transactions/`: Create a new transaction. Requires at least one signature.
+- `POST /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Add a new confirmation. Needs `safe_tx_hash`.
 - `GET /v1/multisig-transactions/{safe_tx_hash}/`: Return all the multisig transaction information.
 - `GET /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Return the list of all confirmations to a multisig transaction.
 
 The following sequence diagram shows a use case for a Safe shared by Alice and Bob where at least one confirmation for each one is required:
+
 ``` mermaid
 sequenceDiagram
     participant A as Alice
@@ -80,6 +82,7 @@ sequenceDiagram
     B->>+SafeTransactionService: confirmTransaction POST /v1/multisig-transactions/0x5afe0001/confirmations/
     SafeTransactionService->>-B: Http(201) {Created}
 ```
+
 **What is the `safe_tx_hash`?**
      
 `safe_tx_hash` is the unique identifier for a Safe transaction and is calculated using the [EIP-712](https://eips.ethereum.org/EIPS/eip-712) standard:  
@@ -111,6 +114,7 @@ The message can be a string (EIP-191 is used to get the hash) or an object EIP-7
 - `POST /v1/messages/{message_hash}/signatures/`: Add another signature to the message with the given message hash.
 
 The following sequence diagram shows a use case for a Safe shared by Alice and Bob where at least one signature for each one is required to confirm a message fully:
+
 ``` mermaid
 sequenceDiagram
     participant A as Alice
@@ -124,7 +128,7 @@ sequenceDiagram
 ```
 **Message string example**    
 **Python**  
-safe-eth-py is required for this example.
+`safe-eth-py` is required for this example.
 ```python
 from gnosis.eth.ethereum_client import EthereumClient
 from gnosis.safe.safe import Safe 
