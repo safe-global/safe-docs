@@ -6,30 +6,30 @@ description: An overview of how our services interact with each other
 
 The Safe infrastructure consists of four services:
 
-* [Safe Transaction Service](https://github.com/safe-global/safe-transaction-service): Keeps track of transactions related to Safe contracts (Python).
+* [Safe Transaction Service](https://github.com/safe-global/safe-transaction-service): Keeps track of transactions related to Safe contracts (Python). Also referred to as *Transaction Service*.
 * [Safe Events Service](https://github.com/safe-global/safe-events-service): Handles Safe indexing events from the Transaction Service and delivers them as HTTP webhooks.
-* [Safe Config Service](https://github.com/safe-global/safe-config-service): Keeps track of all supported networks and chain-specific variables (Python). Also referred to as *config service*.
-* [Safe Client Gateway](https://github.com/safe-global/safe-client-gateway-nest): Uses the config service to find the transaction service instance required for a given request (Node.js). Also referred to as *client gateway*.
+* [Safe Config Service](https://github.com/safe-global/safe-config-service): Keeps track of all supported networks and chain-specific variables (Python). Also referred to as *Config Service*.
+* [Safe Client Gateway](https://github.com/safe-global/safe-client-gateway-nest): Uses the config service to find the transaction service instance required for a given request (Node.js). Also referred to as *Client Gateway*.
 
-Safe's production setup is a mixture of several instances of the Safe Transaction Service orchestrated by the config service, later consumed by the client gateway.
+Safe's production setup is a mixture of several instances of the Safe Transaction Service orchestrated by the Config Service, later consumed by the Client Gateway.
 
 ![Overview of the backend services and their components.](<../.gitbook/assets/diagram-services.png>)
 
 ## Safe Transaction Service
 
-The transaction service uses tracing in Mainnet/Goerli and Gnosis Chain and event indexing in other chains to keep track of transactions related to Safe contracts. One instance of the transaction service runs per supported network (Mainnet, Goerli, Gnosis Chain, Polygon, etc.).
+The Transaction Service uses tracing in Mainnet/Goerli and Gnosis Chain and event indexing in other chains to keep track of transactions related to Safe contracts. One instance of the Transaction Service runs per supported network (Mainnet, Goerli, Gnosis Chain, Polygon, etc.).
 
 ## Safe Config Service
 
-The config service keeps track of all the supported networks and all the available transaction service instances. The config service also provides information about chain-dependent variables such as RPC endpoints, gas price oracles, and URLs for the transaction service instances for different chains.
+The Config Service keeps track of all the supported networks and all the available Transaction Service instances. The Config Service also provides information about chain-dependent variables such as RPC endpoints, gas price oracles, and URLs for the Transaction Service instances for different chains.
 
 ## Safe Client Gateway
 
-The client gateway leverages the config service to find the transaction service instance required for a specific request. The client gateway forwards the request to the specified transaction service instance for the supported networks (determined by the config service). The client gateway transforms, aggregates, and caches information from the config and transaction services, optimizing data for Safe's web and mobile clients.
+The Client Gateway leverages the config service to find the transaction service instance required for a specific request. The client gateway forwards the request to the specified Transaction Service instance for the supported networks (determined by the Config Service). The Client Gateway transforms, aggregates, and caches information from the Config and Transaction Services, optimizing data for Safe's web and mobile clients.
 
 ![Service interaction diagram.](<../.gitbook/assets/diagram-services-requests.png>)
 
-Even though Safe config and transaction service instances are reachable by clients that are not the client gateway, this may change in the future. The client gateway is the outermost component of the Safe infrastructure and should be the single point of communication with any frontend client.
+Even though Safe Config and Transaction Service instances are reachable by clients that are not the Client Gateway, this may change in the future. The Client Gateway is the outermost component of the Safe infrastructure and should be the single point of communication with any frontend client.
 
 ## Running locally
 
