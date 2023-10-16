@@ -1,43 +1,43 @@
 # Safe Transaction Service
-## Overview
 
-Safe transaction service keeps track of transactions sent via Safe contracts. It indexes these transactions by using events (L2 chains) and tracing (L1 chains) mechanisms.
+Safe Transaction Service keeps track of transactions sent via Safe contracts. It indexes these transactions using events (L2 chains) and tracing (L1 chains) mechanisms.
 
 **Key Features:**  
 
-- [**Blockchain Indexing**](#blockchain-indexing): Executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations are automatically indexed from the blockchain.
-- [**Offchain transaction signatures**](#offchain-transaction-signatures): Transactions can be sent to the service, enabling offchain signature collection. This feature helps inform owners about pending transactions that are awaiting confirmation to be executed.
+- [**Blockchain indexing**](#blockchain-indexing): Executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations are automatically indexed from the blockchain.
+- [**Offchain transaction signatures**](#offchain-transaction-signatures): Transactions can be sent to the service, enabling offchain signature collection. This feature helps inform owners about pending transactions awaiting confirmation for execution.
 - [**Offchain messages**](#offchain-messages): The service can collect offchain signatures to confirm messages following [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271).
 - [**Transactions decode**](#transactions-decode): The service keeps getting source and ABIs from contracts that interact with Safe to decode these interactions.
 
-**Technology Stack Overview**
+## Technology stack overview
 
-Safe transaction service is a [Django](https://www.djangoproject.com/) app written in Python that follows a very common architecture: 
+Safe Transaction Service is a [Django](https://www.djangoproject.com/) app written in Python with the following architecture: 
 
 - [Gunicorn](https://gunicorn.org/): A Python WSGI HTTP Server.
-- [Celery](https://docs.celeryq.dev/en/stable/): A task queue with focus on real-time processing, while also supporting task scheduling. Safe transaction service currently has a scheduler (for periodic tasks), a worker indexer to consume and execute indexing tasks, and a contracts worker mainly to get metadata from contracts.
+- [Celery](https://docs.celeryq.dev/en/stable/): A task queue with focus on real-time processing, while also supporting task scheduling. Safe Transaction Service has a scheduler (for periodic tasks), a worker indexer to consume and execute indexing tasks, and a contracts worker mainly to get metadata from contracts.
 - [RabbitMQ](https://www.rabbitmq.com/): A distributed message broker system Celery uses to share messages between the scheduler, workers, and the Django application.
 - [PostgreSQL](https://www.postgresql.org/): An open source object-relational database system.
-- [Redis](https://redis.com/): An open source, in-memory data structure store that can be used as a database, cache, message broker, and streaming engine. It is used for caching by the Safe transaction service.
+- [Redis](https://redis.com/): An open source, in-memory data structure store used for caching by the Safe Transaction Service.
 - [safe-eth-py](https://github.com/safe-global/safe-eth-py): A library to interact with Safe and blockchains.
 
 <figure><img src="../.gitbook/assets/transaction_service_architecture.png" width="100%" alt="" /></figure>
 
-## Blockchain Indexing 
-Safe transaction service can index automatically executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations.
+## Blockchain indexing 
+
+Safe Transaction Service can index automatically executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations.
 The indexer is running on `worker-indexer` by different periodic [tasks](https://github.com/safe-global/safe-transaction-service/blob/master/safe_transaction_service/history/tasks.py). 
 
-ERC-20 and ERC-721 are indexed using [eth_getLogs](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) filtered by the Transfer topic `keccak('Transfer(address,address,uint256)')`.
+ERC-20 and ERC-721 are indexed using [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) filtered by the Transfer topic `keccak('Transfer(address,address,uint256)')`.
 
 Safe creation, executed transactions, configuration changes, and onchain confirmations are indexed differently depending on whether the chain is L1 or L2. 
 
-For L1 chains, the indexer calls tracing methods. For the oldest blocks, [trace_filter](https://openethereum.github.io/JSONRPC-trace-module#trace_filter) is used filtering by singleton address of Safe contracts, and for the latest blocks [trace_block](https://openethereum.github.io/JSONRPC-trace-module#trace_block) is used, as `trace_filter` takes longer to return updated information. `trace_block` will be used if the block depth is lower than `ETH_INTERNAL_TXS_NUMBER_TRACE_BLOCKS`. The environment variables indexing uses are defined [here](https://github.com/safe-global/safe-transaction-service/blob/master/config/settings/base.py#L433). 
+For L1 chains, the indexer calls tracing methods. For the oldest blocks, [`trace_filter`](https://openethereum.github.io/JSONRPC-trace-module#trace_filter) is used filtering by singleton address of Safe contracts, and for the latest blocks [`trace_block`](https://openethereum.github.io/JSONRPC-trace-module#trace_block) is used, as `trace_filter` takes longer to return updated information. `trace_block` will be used if the block depth is lower than `ETH_INTERNAL_TXS_NUMBER_TRACE_BLOCKS`. The environment variables indexing uses are defined [here](https://github.com/safe-global/safe-transaction-service/blob/master/config/settings/base.py#L433). 
 
-For L2 chains, the indexing is by events with the [eth_getLogs](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) method with the corresponding topics.  
+For L2 chains, the indexing is by events with the [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) method with the corresponding topics.  
 
 From Safe creation, the transaction service stores each contract change on the `SafeStatus` model as `nonce`, `owners`, etc. The latest and current status of a Safe is stored as `SafeLastStatus` for easy database access and optimization.
 
-The following endpoints let us know the current indexing status of the Safe transaction service:
+The following endpoints show the current indexing status of the Safe Transaction Service:
 - `/v1/about/indexing/` 
 
 Response example: 
@@ -53,21 +53,24 @@ Response example:
 ```
 
 ### Reorgs handling  
+
 Every block is marked as `not confirmed` during indexing unless it has some depth (configured via the `ETH_REORG_BLOCKS` environment variable). Unconfirmed blocks are checked periodically to see if the blockchain `blockHash` for that number changed before it reaches the desired number of confirmations. If that's the case, all blocks from that block and related transactions are deleted, and indexing is restarted to the last confirmed block.
 
 **Note:** No offchain signatures, transactions, or messages are lost in this process. Only onchain data is removed.
 
-## Offchain Transaction Signatures
+## Offchain transaction signatures
+
 Safe Transaction Service can collect offchain transaction signatures, allowing the owners to share their signatures to reach the required threshold before executing a transaction and spending less gas than onchain approvals.
 
 The following endpoints let us propose a transaction and collect every confirmation (offchain signatures):
 
-- `POST /v1/safes/{address}/multisig-transactions/`: Create a new transaction. At least one signature is required.
-- `POST /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Add a new confirmation. The `safe_tx_hash` is needed.
-- `GET /v1/multisig-transactions/{safe_tx_hash}/`: Return all the multisig transaction information.
-- `GET /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Return the list of all confirmations to a multisig transaction.
+- `POST /v1/safes/{address}/multisig-transactions/`: Creates a new transaction. Requires at least one signature.
+- `POST /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Adds a new confirmation. Needs `safe_tx_hash`.
+- `GET /v1/multisig-transactions/{safe_tx_hash}/`: Returns all the multisig transaction information.
+- `GET /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Returns the list of all confirmations to a multisig transaction.
 
 The following sequence diagram shows a use case for a Safe shared by Alice and Bob where at least one confirmation for each one is required:
+
 ``` mermaid
 sequenceDiagram
     participant A as Alice
@@ -79,13 +82,14 @@ sequenceDiagram
     B->>+SafeTransactionService: confirmTransaction POST /v1/multisig-transactions/0x5afe0001/confirmations/
     SafeTransactionService->>-B: Http(201) {Created}
 ```
-**What is the safe_tx_hash?**
+
+**What is the `safe_tx_hash`?**
      
 `safe_tx_hash` is the unique identifier for a Safe transaction and is calculated using the [EIP-712](https://eips.ethereum.org/EIPS/eip-712) standard:  
 `keccak256(0x19 || 0x1 || domainSeparator || safeTxHashStruct)`  
-where `safeTxHashStruct` is the hashStruct of a Safe transaction.
+where `safeTxHashStruct` is the `hashStruct` of a Safe transaction.
 
-The following example shows how to get a `safe_tx_hash` with [safe-eth-py](https://pypi.org/project/safe-eth-py/) with the parameter of the next transaction [0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18](https://safe-transaction-goerli.safe.global/api/v1/multisig-transactions/0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18/)
+The following example shows how to get a `safe_tx_hash` with [`safe-eth-py`](https://pypi.org/project/safe-eth-py/) with the parameter of the next transaction [0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18](https://safe-transaction-goerli.safe.global/api/v1/multisig-transactions/0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18/)
 ```python
 from gnosis.safe.safe_tx import SafeTx
 from gnosis.eth.ethereum_client import EthereumClient
@@ -98,17 +102,19 @@ print(safe_tx.safe_tx_hash.hex())
 0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18
 ```
 
-## Offchain Messages 
-Safe transaction service can collect the necessary offchain signatures to confirm a message using [EIP-1271](https://ethereum.org/pt/developers/tutorials/eip-1271-smart-contract-signatures/#example-eip-1271-implementation-safe).    
+## Offchain messages 
+
+Safe Transaction Service can collect the necessary offchain signatures to confirm a message using [EIP-1271](https://ethereum.org/pt/developers/tutorials/eip-1271-smart-contract-signatures/#example-eip-1271-implementation-safe).    
 The message can be a string (EIP-191 is used to get the hash) or an object EIP-712.
 
 **Messages endpoints**
-- `GET /v1/safes/{address}/messages/`: Return the messages created for the given Safe address.
-- `POST /v1/safes/{address}/messages/`: Create a message with at least one signature.
-- `GET /v1/messages/{message_hash}/`: Return a message for a given message hash.
-- `POST /v1/messages/{message_hash}/signatures/`: Add another signature to the message with the given message hash.
+- `GET /v1/safes/{address}/messages/`: Returns the messages created for the given Safe address.
+- `POST /v1/safes/{address}/messages/`: Creates a message with at least one signature.
+- `GET /v1/messages/{message_hash}/`: Returns a message for a given message hash.
+- `POST /v1/messages/{message_hash}/signatures/`: Adds another signature to the message with the given message hash.
 
 The following sequence diagram shows a use case for a Safe shared by Alice and Bob where at least one signature for each one is required to confirm a message fully:
+
 ``` mermaid
 sequenceDiagram
     participant A as Alice
@@ -122,7 +128,7 @@ sequenceDiagram
 ```
 **Message string example**    
 **Python**  
-safe-eth-py is required for this example.
+`safe-eth-py` is required for this example.
 ```python
 from gnosis.eth.ethereum_client import EthereumClient
 from gnosis.safe.safe import Safe 
@@ -170,8 +176,9 @@ requests.post(f'https://safe-transaction-goerli.safe.global/api/v1/messages/{saf
 
 ```
 
-## Transaction Decoder
-The Safe transaction service can decode contract interactions. To achieve it, the service periodically gets source and ABIs from different sources like Sourcify, etherscan, and blockscout using the `safe-eth-py` library.   
+## Transaction decoder
+
+The Safe Transaction Service can decode contract interactions. To achieve it, the service periodically gets source and ABIs from different sources like Sourcify, Etherscan, and Blockscout using the `safe-eth-py` library.   
 The detection of contract interactions is done in a periodic task executed every hour for `multisig-transaction` and `module-transactions` or every six hours for `multisend-transactions` on `worker-contracts-tokens`.
 For every new contract, the service tries to download the source, and the ABI requests it first to Sourcify, then Etherscan, and as a last chance, Blockscout. It's important to know that not all these data sources are supported or configured for every network on `safe-eth-py`.   
 Supported and configured networks on `safe-eth-py`:   
