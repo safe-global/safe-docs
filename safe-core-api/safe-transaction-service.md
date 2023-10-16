@@ -129,6 +129,7 @@ sequenceDiagram
 **Message string example**    
 **Python**  
 `safe-eth-py` is required for this example.
+
 ```python
 from gnosis.eth.ethereum_client import EthereumClient
 from gnosis.safe.safe import Safe 
@@ -179,6 +180,7 @@ requests.post(f'https://safe-transaction-goerli.safe.global/api/v1/messages/{saf
 ## Transaction decoder
 
 The Safe Transaction Service can decode contract interactions. To achieve it, the service periodically gets source and ABIs from different sources like Sourcify, Etherscan, and Blockscout using the `safe-eth-py` library.   
+
 The detection of contract interactions is done in a periodic task executed every hour for `multisig-transaction` and `module-transactions` or every six hours for `multisend-transactions` on `worker-contracts-tokens`.
 For every new contract, the service tries to download the source, and the ABI requests it first to Sourcify, then Etherscan, and as a last chance, Blockscout. It's important to know that not all these data sources are supported or configured for every network on `safe-eth-py`.   
 Supported and configured networks on `safe-eth-py`:   
