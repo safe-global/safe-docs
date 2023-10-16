@@ -61,9 +61,9 @@
 
 * [Available Services](safe-core-api/available-services.md)
 
-* [Safe Transaction Service](safe-core-api/safe-transaction-service.md)
-
 * [Service Architecture](safe-core-api/service-architecture.md)
+
+* [Safe Transaction Service](safe-core-api/safe-transaction-service.md)
 
 * [RPC Requirements](safe-core-api/rpc-requirements.md)
 
