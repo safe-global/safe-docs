@@ -1,7 +1,9 @@
 # Relay Kit
 
-The [Relay Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/relay-kit) allows users to pay transaction fees (gas fees) using the native blockchain token or ERC-20 tokens. This allows you to pay gas fees using any ERC-20 token in your Safe, even if you don't have ETH.
+The Relay Kit lets users pay transaction fees (gas fees) using the native blockchain token or ERC-20 tokens. Gas fees can be payed with this kit using any ERC-20 token in your Safe, even if there is no native token balance.
 
-## Quickstart
+The following guides show how to use the Relay Kit and integrate it into your project by using one of the packs:
+- [Gelato Pack](./gelato.md)
 
-In this quickstart guide, you will send some tokens to another address using the Relay Kit to pay for the gas fees. For full effect, you can try this with an externally-owned account that has no tokens. See the full code example [here](https://github.com/safe-global/safe-docs/blob/main/examples/relay-kit/index.ts).
+## Resources
+- [Relay Kit on GitHub](https://github.com/safe-global/safe-core-sdk/tree/main/packages/relay-kit)
