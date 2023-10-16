@@ -64,10 +64,10 @@ Safe Transaction Service can collect offchain transaction signatures, allowing t
 
 The following endpoints let us propose a transaction and collect every confirmation (offchain signatures):
 
-- `POST /v1/safes/{address}/multisig-transactions/`: Create a new transaction. Requires at least one signature.
-- `POST /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Add a new confirmation. Needs `safe_tx_hash`.
-- `GET /v1/multisig-transactions/{safe_tx_hash}/`: Return all the multisig transaction information.
-- `GET /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Return the list of all confirmations to a multisig transaction.
+- `POST /v1/safes/{address}/multisig-transactions/`: Creates a new transaction. Requires at least one signature.
+- `POST /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Adds a new confirmation. Needs `safe_tx_hash`.
+- `GET /v1/multisig-transactions/{safe_tx_hash}/`: Returns all the multisig transaction information.
+- `GET /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Returns the list of all confirmations to a multisig transaction.
 
 The following sequence diagram shows a use case for a Safe shared by Alice and Bob where at least one confirmation for each one is required:
 
@@ -108,10 +108,10 @@ Safe Transaction Service can collect the necessary offchain signatures to confir
 The message can be a string (EIP-191 is used to get the hash) or an object EIP-712.
 
 **Messages endpoints**
-- `GET /v1/safes/{address}/messages/`: Return the messages created for the given Safe address.
-- `POST /v1/safes/{address}/messages/`: Create a message with at least one signature.
-- `GET /v1/messages/{message_hash}/`: Return a message for a given message hash.
-- `POST /v1/messages/{message_hash}/signatures/`: Add another signature to the message with the given message hash.
+- `GET /v1/safes/{address}/messages/`: Returns the messages created for the given Safe address.
+- `POST /v1/safes/{address}/messages/`: Creates a message with at least one signature.
+- `GET /v1/messages/{message_hash}/`: Returns a message for a given message hash.
+- `POST /v1/messages/{message_hash}/signatures/`: Adds another signature to the message with the given message hash.
 
 The following sequence diagram shows a use case for a Safe shared by Alice and Bob where at least one signature for each one is required to confirm a message fully:
 
