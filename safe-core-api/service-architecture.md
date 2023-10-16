@@ -1,34 +1,36 @@
 ---
-description: Up-to-date overview document on how our services interact with each other
+description: An overview of how our services interact with each other
 ---
 
 # Service architecture
 
-The Safe infrastructure consists of 4 services:
+The Safe infrastructure consists of four services:
 
-* [Safe Transaction Service](https://github.com/safe-global/safe-transaction-service): Keeps track of transactions related to Safe contracts (Python)
+* [Safe Transaction Service](https://github.com/safe-global/safe-transaction-service): Keeps track of transactions related to Safe contracts (Python). Also referred to as *Transaction Service*.
 * [Safe Events Service](https://github.com/safe-global/safe-events-service): Handles Safe indexing events from the Transaction Service and delivers them as HTTP webhooks.
-* [Safe Config Service](https://github.com/safe-global/safe-config-service): Keeps track of all supported networks and chain-specific variables (Python)
-* [Safe Client Gateway](https://github.com/safe-global/safe-client-gateway-nest): Uses the config service to determine how to reach the transaction service instance required for a given request (Node.js)
+* [Safe Config Service](https://github.com/safe-global/safe-config-service): Keeps track of all supported networks and chain-specific variables (Python). Also referred to as *Config Service*.
+* [Safe Client Gateway](https://github.com/safe-global/safe-client-gateway-nest): Uses the config service to find the transaction service instance required for a given request (Node.js). Also referred to as *Client Gateway*.
 
-[Safe Infrastructure](https://github.com/safe-global/safe-infrastructure) and the [running our services locally guide](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_locally.md) shows how to run all our infrastructure together; including how to run the Safe UI, Safe {Wallet} and the backend, Safe {Core}. Note that this document is only an example of how these services are run and you should adapt the configuration to your specific needs.
+Safe's production setup is a mixture of several instances of the Safe Transaction Service orchestrated by the Config Service, later consumed by the Client Gateway.
 
-As you can see from Fig. 1 , our full production setup is a mixture of several instances of the Safe Transaction Service orchestrated by the Safe Config Service (henceforth referred to as "config service") which are later consumed by the Safe Client Gateway (here on after referred to as "client gateway").
-
-![Fig 1. Broad view of the backend services and their components.](<../.gitbook/assets/diagram-services.png>)
+![Overview of the backend services and their components.](<../.gitbook/assets/diagram-services.png>)
 
 ## Safe Transaction Service
 
-The transaction service uses tracing in Mainnet/Goerli and Gnosis Chain, and event indexing in other chains to keep track of transactions related to our safe contracts. There is one instance of the transaction service per supported network (mainnet, goerli, gnosis chain, polygon, among others).
+The Transaction Service uses tracing in Mainnet/Goerli and Gnosis Chain and event indexing in other chains to keep track of transactions related to Safe contracts. One instance of the Transaction Service runs per supported network (Mainnet, Goerli, Gnosis Chain, Polygon, etc.).
 
 ## Safe Config Service
 
-The config service keeps track of all the networks we support and therefore of all the instances of the transaction service that are available. In addition to this, the config service provides information regarding chain dependent variables such as RPC endpoints, gas price oracles, in which URL a given transaction service instance for a chain can be reached, among other things.
+The Config Service keeps track of all the supported networks and all the available Transaction Service instances. The Config Service also provides information about chain-dependent variables such as RPC endpoints, gas price oracles, and URLs for the Transaction Service instances for different chains.
 
 ## Safe Client Gateway
 
-The client gateway leverages the config service to determine how to reach the transaction service instance required for a given request. If the network is supported (which is determined by the config service, as aforementioned) the client gateway forwards the request to the given transaction service instance. The client gateway transforms, aggregates and caches information from the config service and the transaction service, optimizing data for our web and mobile clients. This process is illustrated in Fig. 2
+The Client Gateway leverages the config service to find the transaction service instance required for a specific request. The client gateway forwards the request to the specified Transaction Service instance for the supported networks (determined by the Config Service). The Client Gateway transforms, aggregates, and caches information from the Config and Transaction Services, optimizing data for Safe's web and mobile clients.
 
-![Fig 2. Service interaction diagram.](<../.gitbook/assets/diagram-services-requests.png>)
+![Service interaction diagram.](<../.gitbook/assets/diagram-services-requests.png>)
 
-Even though currently our config and transaction service instances are reachable by clients that are not the client gateway, in the future we may change this; the client gateway was conceived as the outermost component of our infrastructure, therefore ideally should be the single point of communication with any frontend client.
+Even though Safe Config and Transaction Service instances are reachable by clients that are not the Client Gateway, this may change in the future. The Client Gateway is the outermost component of the Safe infrastructure and should be the single point of communication with any frontend client.
+
+## Running locally
+
+[Safe Infrastructure](https://github.com/safe-global/safe-infrastructure) and the [running services locally guide](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_locally.md) show how to run Safe's infrastructure (Safe UI, Safe{Wallet} and the backend, and Safe{Core}). Note that these documents are examples of how these services run, and the configuration should adapt to the needs of a specific use case.
