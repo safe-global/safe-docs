@@ -23,6 +23,7 @@
 
 * [Security](safe-smart-account/security/README.md)
   * [Bug Bounty](safe-smart-account/security/bug-bounty-program.md)
+  * [Past paid bounties](safe-smart-account/security/past-paid-bounties.md)
   * [Audits](safe-smart-account/security/security-audits.md)
 
 * [Signatures](safe-smart-account/signatures/README.md)
@@ -41,7 +42,7 @@
 
 * [Protocol Kit](safe-core-sdk/protocol-kit/README.md)
 
-* [OnRamp Kit](safe-core-sdk/onramp-kit/README.md)
+* [Onramp Kit](safe-core-sdk/onramp-kit/README.md)
   * [Stripe](safe-core-sdk/onramp-kit/stripe.md)
   * [Monerium](safe-core-sdk/onramp-kit/monerium.md)
 
@@ -60,6 +61,8 @@
 
 * [Available Services](safe-core-api/available-services.md)
 
+* [Safe Transaction Service](safe-core-api/safe-transaction-service.md)
+
 * [Service Architecture](safe-core-api/service-architecture.md)
 
 * [RPC Requirements](safe-core-api/rpc-requirements.md)
@@ -72,7 +75,7 @@
 
 * [Protocol Kit](reference/safe-core-sdk/protocol-kit/README.md)
 
-* [OnRamp Kit](reference/safe-core-sdk/onramp-kit/README.md)
+* [Onramp Kit](reference/safe-core-sdk/onramp-kit/README.md)
   * [OnRampKitBasePack](reference/safe-core-sdk/onramp-kit/OnRampKitBasePack.md)
   * [StripePack](reference/safe-core-sdk/onramp-kit/StripePack.md)      
   * [MoneriumPack](reference/safe-core-sdk/onramp-kit/MoneriumPack.md)
