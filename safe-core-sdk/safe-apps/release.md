@@ -42,7 +42,7 @@ The requirement doesn't apply for battle-tested applications hosted on the same 
 
 5. **Decode your Safe App transactions**: We want to display interactions with Safe Apps as human-readable as possible. You'll need to provide the contract ABI of the contracts that your Safe App interacts with. The ideal way to do this would be to verify your contracts via [Sourcify](https://github.com/ethereum/sourcify), which we can leverage to decode transactions interacting with those contracts. Alternatively, you can provide us with the ABIs as JSON files or the links to the verified contracts on Etherscan, so we can implement transaction decoding for your Safe App interactions.
 
-6. **Create an Issue in Our Repository**: Once you've verified that your app meets these requirements, create an issue in our [Safe default apps list](https://github.com/5afe/safe-apps-list) repository.
+6. **Create an issue in our repository**: Once you've verified that your app meets these requirements, create an issue in our [Safe default apps list](https://github.com/5afe/safe-apps-list) repository.
 
 ## The official launch and beyond
 
