@@ -6,7 +6,7 @@ description: Everything you need to know to start building on Safe.
 
 [Safe](https://safe.global) brings digital ownership of accounts to everyone by building universal and open contract standards for the custody of digital assets, data, and identity.
 
-Safe is at the forefront of modular smart account infrastructure, paving the way for developers to create various applications and wallets.
+Safe is at the fafront of modeular smart account infrastructure, paving the way for developers to create various applications and wallets.
 
 Safe{Core} consists of three components:
 
@@ -16,7 +16,7 @@ Safe{Core} consists of three components:
 
 The [Safe{Core} Protocol](safe-core-protocol/README.md) is an open, modular framework to make smart accounts secure, portable, and composable.
 
-This section in the documentation has information and relevant links about the Safe{Core} Protocol and the different elements involved.
+This section in the documentation has information and relevant links about the Safe{Core} Protocol and the different elements involved and the different topics and more information about Safe.
 
 ## Safe{Core} AA SDK
 
