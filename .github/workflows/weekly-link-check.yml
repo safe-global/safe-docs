@@ -1,0 +1,27 @@
+name: Weekly link check
+
+on:
+  schedule:
+  - cron: "0 9 * * 1"
+
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: gaurav-nelson/github-action-markdown-link-check@v1
+      id: check
+      with:
+        use-quiet-mode: 'yes'
+        use-verbose-mode: 'yes'
+        folder-path: './'
+        base-branch: 'main'
+    - name: Create Issue
+      if: "${{ steps.check.outcome != 'success' }}"
+      uses: dacbd/create-issue-action@main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        title: Link Checker Report
+        labels: report, automated issue
+        body: "${{ steps.check.output }}"
