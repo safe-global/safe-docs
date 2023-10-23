@@ -14,3 +14,4 @@ jobs:
         uses: errata-ai/vale-action@reviewdog
         with:
           vale_flags: "--glob=*.md"
+          fail_on_error: true
