@@ -18,7 +18,7 @@ jobs:
         folder-path: './'
         base-branch: 'main'
     - name: Create Issue
-      if: "${{ steps.check.outcome != 'success' }}"
+      if: ${{ steps.check.outcome != 'success' }}
       uses: dacbd/create-issue-action@main
       with:
         token: ${{ github.token }}
