@@ -11,7 +11,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: gaurav-nelson/github-action-markdown-link-check@v1
-      id: check
       with:
         use-quiet-mode: 'yes'
         use-verbose-mode: 'yes'
@@ -25,6 +24,5 @@ jobs:
         title: Link Checker Report
         labels: report, automated issue
         body: |
-          ### Context
-          [Failed Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-          Workflow name - `${{ github.workflow }}`
+          Broken links found: [Failed Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          Workflow: `${{ github.workflow }}`
