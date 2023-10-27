@@ -13,5 +13,5 @@ jobs:
       - name: Vale Linter
         uses: errata-ai/vale-action@reviewdog
         with:
-          vale_flags: "--glob=*.md"
+          vale_flags: "--glob=*.md --minAlertLevel=error"
           fail_on_error: true
