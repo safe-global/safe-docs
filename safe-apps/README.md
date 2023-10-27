@@ -1,10 +1,10 @@
 # Safe Apps SDK
 
-The Safe Apps SDK allow developers to build their dApps right into the Safe{Wallet}. Turn your Dapp into an HTML iframe component that can be accessed through the Safe. We are providing extensive developer tooling to make it easy to create, test and integrate Safe Apps into the Safe. This includes an unique design system, reusable components and a Safe App SDK that facilitates the Safe App <> Safe communication.
+The Safe Apps SDK allows developers to build their dapps into the Safe{Wallet}. It turns a dapp into an HTML iframe component that can be accessed through Safe. This SDK provides extensive developer tooling to make it easy to create, test, and integrate Safe Apps into Safe. This includes a design system, reusable components, and a Safe App SDK that facilitates communication between the Safe App and Safe.
 
 ## Packages
 
-You can find several packages on [our developer tools](https://github.com/safe-global/safe-apps-sdk) to make it easier to integrate third-party applications (Safe Apps) with [Safe](https://app.safe.global). Check the following diagram to see which package is more convenient for you:
+Here are several packages to make it easier to integrate third-party applications (Safe Apps) with [Safe](https://app.safe.global). Check the following diagram to see which package is suitable for you:
 
 <figure><img src="../../.gitbook/assets/diagram-safe-apps.png" width="100%" alt="" /></figure>
 
@@ -16,16 +16,10 @@ You can find several packages on [our developer tools](https://github.com/safe-g
 | [safe-apps-provider](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/safe-apps-provider)         |  [![npm](https://img.shields.io/npm/v/@safe-global/safe-apps-provider)](https://www.npmjs.com/package/@safe-global/safe-apps-provider)   | A generic provider that can be used with common web3 libraries. (e.g. web3.js or Ethers)                                                                                                                                                                                                           |
 | [safe-apps-web3modal](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/safe-apps-web3modal)       |  [![npm](https://img.shields.io/npm/v/@safe-global/safe-apps-web3modal)](https://www.npmjs.com/package/@safe-global/safe-apps-web3modal) | A wrapper around [Web3Modal](https://github.com/Web3Modal/web3modal) that would automatically connect to the Safe when the app is loaded in the Safe Apps section.                                                                                                                                 |
 | [safe-apps-wagmi](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/safe-apps-wagmi)               |                                                                                                                                          | A [wagmi](https://github.com/wagmi-dev/wagmi) connector for Safe Apps                                                                                                                                                                                                                              |
-| [@web3-onboard/gnosis](https://github.com/blocknative/web3-onboard/tree/v2-web3-onboard-develop/packages/gnosis) |                                                                                                                                          | Blocknative included Safe App support in [@web3-onboard](https://github.com/blocknative/web3-onboard) v1.26.0. If you are already using this package you can [check here](https://github.com/blocknative/web3-onboard/blob/v2-web3-onboard-develop/packages/gnosis/README.md) how to configure it. |
-| [@web3-react/gnosis-safe](https://github.com/Uniswap/web3-react/tree/main/packages/gnosis-safe)                  |                                                                                                                                          | [web3-react](https://github.com/Uniswap/web3-react) already includes a connector for Safe Apps by default. You can check at their docs how to use it.                                                                                                                                              |
+| [@web3-onboard/gnosis](https://github.com/blocknative/web3-onboard/tree/v2-web3-onboard-develop/packages/gnosis) |                                                                                                                                          | Blocknative included Safe App support in [@web3-onboard](https://github.com/blocknative/web3-onboard) v1.26.0. If you are already using this package, you can [check here](https://github.com/blocknative/web3-onboard/blob/v2-web3-onboard-develop/packages/gnosis/README.md) how to configure it. |
+| [@web3-react/gnosis-safe](https://github.com/Uniswap/web3-react/tree/main/packages/gnosis-safe)                  |                                                                                                                                          | [web3-react](https://github.com/Uniswap/web3-react) already includes a connector for Safe Apps by default. You can check their docs on how to use it.                                                                                                                                              |
 
-## Onchain stats
-
-There are Dune Analytics dashboards about Safe Apps available:
-
-* [Number of transactions](https://explore.duneanalytics.com/dashboard/gnosis-safe---safe-apps-transactions)
-* [Transaction volume](https://explore.duneanalytics.com/dashboard/gnosis-safe---safe-apps-volume)
 
 ## Disclaimer
 
-It is at our sole discretion to list or delist apps from the Safe. Safe Apps are not owned, controlled, maintained, or audited by Gnosis.
+Safe Apps are not owned, controlled, maintained, or audited by Safe. Safe can list or delist apps from Safe{Wallet} at its sole discretion. 
