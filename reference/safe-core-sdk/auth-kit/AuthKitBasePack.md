@@ -36,7 +36,7 @@ Provides a mechanism to connect to the provider services and returns an Ethereum
 
 Disconnects the provider services and cleans up any data related to the current user.
 
-### `getProvider(): web3Provider`
+### `getProvider(): BrowserProvider`
 
 Returns a Web3 provider that can be used to interact with the blockchain (`web3.js` or `ethers.js` for example).
 

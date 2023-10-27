@@ -24,7 +24,7 @@ yarn add @safe-global/api-kit
 
 ## Instantiate an EthAdapter
 
-First of all, we need to create an `EthAdapter`, which contains all the required utilities for the SDKs to interact with the blockchain. It acts as a wrapper for [web3.js](https://web3js.readthedocs.io/) or [ethers.js](https://docs.ethers.io/v5/) Ethereum libraries.
+First of all, we need to create an `EthAdapter`, which contains all the required utilities for the SDKs to interact with the blockchain. It acts as a wrapper for [web3.js](https://web3js.readthedocs.io/) or [ethers.js](https://docs.ethers.org/v6/) Ethereum libraries.
 
 Depending on the library used by the Dapp, there are two options:
 
@@ -36,7 +36,7 @@ Once the instance of `EthersAdapter` or `Web3Adapter` is created, it can be used
 ```typescript
 import { EthersAdapter } from '@safe-global/protocol-kit'
 
-const provider = new ethers.providers.JsonRpcProvider(config.RPC_URL)
+const provider = new ethers.JsonRpcProvider(config.RPC_URL)
 const signer = new ethers.Wallet(config.SIGNER_ADDRESS_PRIVATE_KEY, provider)
 
 const ethAdapter = new EthersAdapter({

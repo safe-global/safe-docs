@@ -60,13 +60,13 @@ Modify the variables to customize to match your desired transaction settings.
 ```typescript
 // https://chainlist.org
 const RPC_URL='https://endpoints.omniatech.io/v1/bsc/mainnet/public'
-const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
+const provider = new ethers.JsonRpcProvider(RPC_URL)
 const signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
 const safeAddress = '0x...' // Safe from which the transaction will be sent
 
 // Any address can be used for destination. In this example, we use vitalik.eth
 const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-const withdrawAmount = ethers.utils.parseUnits('0.005', 'ether').toString()
+const withdrawAmount = ethers.parseUnits('0.005', 'ether').toString()
 ```
 
 ### Create the transaction object
@@ -143,13 +143,13 @@ Modify the variables to customize to match your desired transaction settings.
 ```typescript
 // https://chainlist.org
 const RPC_URL='https://endpoints.omniatech.io/v1/bsc/mainnet/public'
-const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
+const provider = new ethers.JsonRpcProvider(RPC_URL)
 const signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
 const safeAddress = '0x...' // Safe from which the transaction will be sent
 
 // Any address can be used for destination. In this example, we use vitalik.eth
 const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-const withdrawAmount = ethers.utils.parseUnits('0.005', 'ether').toString()
+const withdrawAmount = ethers.parseUnits('0.005', 'ether').toString()
 ```
 
 ### Create the transaction object

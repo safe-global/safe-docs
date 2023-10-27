@@ -9,7 +9,7 @@ import { ethers } from 'ethers'
 
 // https://chainlist.org/?search=goerli&testnets=true
 const RPC_URL = 'https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
-const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
+const provider = new ethers.JsonRpcProvider(RPC_URL)
 
 // Initialize signers
 
@@ -74,7 +74,7 @@ async function initalizeSafe(existingAddress = EXISTING_SAFE_ADDRESS) {
 
 async function depositToSafe(depositSigner = owner1Signer, amount = '0.01') {
 
-  const safeAmount = ethers.utils.parseUnits(amount, 'ether').toHexString()
+  const safeAmount = ethers.parseUnits(amount, 'ether').toHexString()
 
   const transactionParameters = {
     to: safeAddress,
@@ -91,7 +91,7 @@ async function proposeTransaction(withdrawAmount = '0.005',
   destination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045') {
 
   // Create a transaction object
-  withdrawAmount = ethers.utils.parseUnits(withdrawAmount, 'ether').toString()
+  withdrawAmount = ethers.parseUnits(withdrawAmount, 'ether').toString()
 
   const safeTransactionData: SafeTransactionDataPartial = {
     to: destination,
@@ -145,7 +145,7 @@ async function executeTransaction(safeTxHash: string, safeSdk: Safe = safeSdkOwn
 
   let safeBalance = await safeSdk.getBalance()
 
-  console.log(`[Before Transaction] Safe Balance: ${ethers.utils.formatUnits(safeBalance, 'ether')} ETH`)
+  console.log(`[Before Transaction] Safe Balance: ${ethers.formatUnits(safeBalance, 'ether')} ETH`)
 
   const safeTransaction = await safeService.getTransaction(safeTxHash)
   const executeTxResponse = await safeSdk.executeTransaction(safeTransaction)
@@ -156,7 +156,7 @@ async function executeTransaction(safeTxHash: string, safeSdk: Safe = safeSdkOwn
 
   safeBalance = await safeSdk.getBalance()
 
-  console.log(`[After Transaction] Safe Balance: ${ethers.utils.formatUnits(safeBalance, 'ether')} ETH`)
+  console.log(`[After Transaction] Safe Balance: ${ethers.formatUnits(safeBalance, 'ether')} ETH`)
 }
 
 async function main() {

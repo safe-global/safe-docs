@@ -19,12 +19,12 @@ First, we'll need to install some dependences from `safe-core-sdk` and the `ethe
 
 To interact with Ethereum and other EVM blockchains in Node, we can either use: web3.js or ethers.js. In this tutorial, we'll use the ethers.js library. To use `web3js`, see [Instantiate an EthAdapter section in Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
-The Protocol Kit is compatible with ethers v4 and v5, not the latest v6 version so make sure you specify this when installing the SDK.
+The Protocol Kit is compatible only with ethers v6. Make sure you specify this version when installing the SDK.
 
 You can store your environment variables such as private keys in a `.env` file. To read easily from `.env` files, use the `dotenv` library.
 
 ```bash
-yarn add ethers@5.7.2 @safe-global/protocol-kit \
+yarn add ethers @safe-global/protocol-kit \
   @safe-global/api-kit \
   @safe-global/safe-core-sdk-types \
   dotenv
@@ -73,7 +73,7 @@ dotenv.config()
 
 // https://chainlist.org/?search=goerli&testnets=true
 const RPC_URL='https://eth-goerli.public.blastapi.io'
-const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
+const provider = new ethers.JsonRpcProvider(RPC_URL)
 
 // Initialize signers
 const owner1Signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
@@ -146,7 +146,7 @@ You will send some ETH to this Safe.
 ```tsx
 const safeAddress = safeSdk.getAddress()
 
-const safeAmount = ethers.utils.parseUnits('0.01', 'ether').toHexString()
+const safeAmount = ethers.parseUnits('0.01', 'ether').toHexString()
 
 const transactionParameters = {
   to: safeAddress,
@@ -191,7 +191,7 @@ import { SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
 
 // Any address can be used. In this example you will use vitalik.eth
 const destination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-const amount = ethers.utils.parseUnits('0.005', 'ether').toString()
+const amount = ethers.parseUnits('0.005', 'ether').toString()
 
 const safeTransactionData: SafeTransactionDataPartial = {
   to: destination,
@@ -275,7 +275,7 @@ You know that the transaction was executed if the balance in your Safe changes.
 ```tsx
 const afterBalance = await safeSdk.getBalance()
 
-console.log(`The final balance of the Safe: ${ethers.utils.formatUnits(afterBalance, 'ether')} ETH`)
+console.log(`The final balance of the Safe: ${ethers.formatUnits(afterBalance, 'ether')} ETH`)
 ```
 
 ```bash

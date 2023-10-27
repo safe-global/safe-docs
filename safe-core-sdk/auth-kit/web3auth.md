@@ -145,7 +145,7 @@ Once connected, you can use any of the methods available in the [Protocol Kit](h
 import { ethers } from 'ethers'
 import { EthersAdapter } from '@safe-global/protocol-kit'
 
-provider = new ethers.providers.Web3Provider(web3AuthModalPack.getProvider())
+provider = new ethers.BrowserProvider(web3AuthModalPack.getProvider())
 signer = provider.getSigner()
 
 const ethAdapter = new EthersAdapter({
@@ -162,7 +162,7 @@ const safeSDK = await Safe.create({
 const safeTransactionData: MetaTransactionData = {
   to: '0x',
   data: '0x',
-  value: ethers.utils.parseUnits('0.0001', 'ether').toString()
+  value: ethers.parseUnits('0.0001', 'ether').toString()
 }
 
 const safeTransaction = await safeSDK.createTransaction({ safeTransactionData })
@@ -183,7 +183,7 @@ const address = '0x...'
 await web3.eth.personal.sign(message, address)
 
 // Using ethers
-const provider = new ethers.providers.Web3Provider(web3AuthModalPack.getProvider())
+const provider = new ethers.BrowserProvider(web3AuthModalPack.getProvider())
 const signer = provider.getSigner()
 
 await signer.sendTransaction(tx)
