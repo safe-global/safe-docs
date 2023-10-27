@@ -20,7 +20,7 @@
 
 * [Auth Kit](safe-core-sdk/auth-kit/README.md)
   * [Guides](safe-core-sdk/auth-kit/guides/README.md) 
-    * [Web3Auth](safe-core-sdk/auth-kit/web3auth.md)
+    * [Web3Auth](safe-core-sdk/auth-kit/guides/web3auth.md)
   * [Reference](safe-core-sdk/auth-kit/reference/README.md)
     * [AuthKitBasePack](safe-core-sdk/auth-kit/reference/AuthKitBasePack.md)
     * [Web3AuthModalPack](safe-core-sdk/auth-kit/reference/Web3AuthModalPack.md)
