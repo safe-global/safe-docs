@@ -47,15 +47,11 @@
 
 ## Safe Apps SDK
  
-* [Safe Apps SDK](safe-core-sdk/safe-apps/README.md)
+* [Overview](safe-apps/README.md)
 
-* [Overview](safe-core-sdk/safe-apps/overview.md)
+* [Getting started](safe-apps/get-started.md)
 
-* [Get started](safe-core-sdk/safe-apps/get-started.md)
-
-* [Release](safe-core-sdk/safe-apps/release.md)
-* 
-* [Safe App example](safe-core-sdk/safe-apps/example-safe-app.md)
+* [Release](safe-apps/release.md)
 
 ## Reference
 
