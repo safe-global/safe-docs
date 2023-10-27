@@ -12,9 +12,9 @@ Here are some resources to help you get started with building Safe Apps:
 
 ## Safe Apps SDK packages
 
-This is one of our main resources for Safe Apps integrations. Whether you already have a dapp or are considering creating a new one, you will find it useful to rely on one of our integrations to communicate with Safe{Wallet}. In these packages, you will find integrations with common packages like Web3Modal, Blocknative onboard.js, and web3-react.
+Whether you already have a dapp or are considering creating a new one, you will find it useful to rely on one of our integrations to communicate with Safe{Wallet}. You will find integrations with common packages like `Web3Modal`, Blocknative onboard.js, and `web3-react` in these packages.
 
-For those creating a new dapp, using our [CRA template](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/cra-template-safe-app) to kickstart the basic structure with all the necessary configuration will speed up the process.
+For those creating a new dapp, using the [CRA template](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/cra-template-safe-app) to kickstart the basic structure with all the necessary configuration will speed up the process.
 
 ## Basic requirements
 
@@ -24,7 +24,7 @@ If you are using our [CRA template](https://github.com/safe-global/safe-apps-sdk
 
 ### Manifest
 
-It is mandatory that your app exposes a `manifest.json` file in the root dir with this structure:
+It is mandatory that your app exposes a `manifest.json` file in the root directory with this structure:
 
 ```json
 {
@@ -38,7 +38,7 @@ It is mandatory that your app exposes a `manifest.json` file in the root dir wit
 
 ### CORS
 
-We need to reach the `manifest.json` from our app. To allow this, it is required to enable *Cross Site Requests* by setting the *CORS* headers to the `manifest.json`.
+Safe needs to reach the `manifest.json` from the app. To allow this, it is required to enable *Cross Site Requests* by setting the *CORS* headers to the `manifest.json`.
 
 The required headers are:
 
@@ -50,12 +50,12 @@ The required headers are:
 
 ### React development
 
-It is possible to use the local React development server. For this, you need to set the *CORS* headers and use the same protocol (http or https) as the Safe interface you use for testing.
+It is possible to use the local React development server. For this, you need to set the *CORS* headers and use the same protocol (HTTP or HTTPS) as the Safe interface you use for testing.
 
 
 **CORS for development**
 
-For this, we recommend to use [react-app-rewired](https://www.npmjs.com/package/react-app-rewired). To enable the library, update the `scripts` section in the `package.json`:
+For this, use [react-app-rewired](https://www.npmjs.com/package/react-app-rewired). To enable the library, update the `scripts` section in the `package.json`:
 
 ```json
 "scripts": {
@@ -65,7 +65,7 @@ For this, we recommend to use [react-app-rewired](https://www.npmjs.com/package/
 },
 ```
 
-Additionally, create the `config-overrides.js` file in the project's root to configure the *CORS* headers. The content of the file should be:
+Also, create the `config-overrides.js` file in the project's root to configure the *CORS* headers. The content of the file should be:
 
 ```js
 /* config-overrides.js */
@@ -110,11 +110,11 @@ If the SSL certificate provided by `react-scripts` is not valid, it is required 
 
 ## UI Kit
 
-If you are creating your Safe App from scratch, we provide a reusable react components package to build Safe Apps with a near-native look while enabling developers to use their branding in the Safe Apps.
+Safe offers a react components package if you are creating your Safe App from scratch. This helps with a near-native look while enabling developers to use their branding in the Safe Apps.
 
 * [Check all available components in the storybook](https://components.safe.global)
 * [Check UI Kit repository](https://github.com/safe-global/safe-react-components)
 
 ## Example app
 
-This [tutorial](https://github.com/gnosis/safe-apps-sdk/tree/master/guides/drain-safe-app) will build a Safe App that enables us to migrate all the assets from Safe to any other wallet in a single transaction. You will also learn about smart contract wallets, multi-signature transaction flow, and batched transactions.
+This [tutorial](https://github.com/gnosis/safe-apps-sdk/tree/master/guides/drain-safe-app) will build a Safe App that enables migrating all the assets from Safe to any other wallet in a single transaction. You will also learn about smart contract wallets, multi-signature transaction flow, and batched transactions.
