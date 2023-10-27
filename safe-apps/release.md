@@ -1,6 +1,6 @@
 # Releasing your Safe App
 
-Here are some details of the release process for Safe Apps.
+Here are some details about the release process for Safe Apps.
 
 ## Get your Safe Apps into the hands of users
 
@@ -14,7 +14,7 @@ If you would like your Safe App to appear in the Safe, it must meet the followin
 
 ### Smart contracts must be audited
 
-Security is the top priority for Safe. If the Safe App includes its own smart contracts, please provide an external audit result document. If a third party created the smart contracts, ensure they are properly audited.
+Security is the top priority for Safe. Please provide an external audit result document if the Safe App includes smart contracts. If a third party created the smart contracts, ensure they are audited.
 
 ### Your Safe App must include a manifest
 
@@ -36,7 +36,7 @@ You can find an example manifest file on [GitHub](https://github.com/safe-global
 
 Remember that **CORS** should be configured correctly on the `manifest.json` so we can fetch the information as [mentioned here](./get-started.md#cors).
 
-### The app auto-connects to the Safe
+### The app auto connects to the Safe
 
 When a user opens the app, it should automatically select the Safe as a wallet. Ensure to check the case if the user previously opened the app outside of the Safe with another wallet.
 
@@ -44,13 +44,13 @@ When a user opens the app, it should automatically select the Safe as a wallet. 
 
 The requirement doesn't apply for battle-tested applications hosted on the same domain as the main dapp.
 
-While we won't be able to do a proper audit for your Safe App, we still would like to look at the source code to raise issues or suggest improvements. So whether your Safe App is open or closed source, please send us either a link to the public repository or an invitation to the private repository.
+While we won't be able to do a proper audit for your Safe App, we still would like to look at the source code to raise issues or suggest improvements. Whether your Safe App is open or closed source, please send us either a link to the public repository or an invitation to the private repository.
 
 We also would like to make a rough functional review of the App, so please provide us with a high-level test plan/feature list that allows our QA team to ensure everything works as intended in production. Video walkthroughs are also welcome.
 
 ### Help us decode your Safe App transactions
 
-We want to display interactions with Safe Apps as human-readable as possible. To do this, we need the contract ABI of the contracts that your Safe App interacts with. The ideal way to do this would be to verify your contracts via [Sourcify](https://github.com/ethereum/sourcify), which we can leverage to decode transactions interacting with those contracts.
+We want to display interactions with Safe Apps as human-readable as possible. To do this, we need the ABI of the contracts your Safe App interacts with. The ideal way to do this would be to verify your contracts via [Sourcify](https://github.com/ethereum/sourcify), which we can leverage to decode transactions interacting with those contracts.
 
 Alternatively, you can provide us with the ABIs as JSON files or the links to the verified contracts on Etherscan so we can implement transaction decoding for your Safe App interactions.
 
