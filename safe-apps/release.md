@@ -18,7 +18,7 @@ Security is the top priority for Safe. Please provide an external audit result d
 
 ### Your Safe App must include a manifest
 
-There should be a `manifest.json` at the root directory containing the following data:
+There must be a `manifest.json` at the root directory containing the following data:
 
 `"name": "Name of your Safe App"`
 
