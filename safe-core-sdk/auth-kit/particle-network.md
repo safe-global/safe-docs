@@ -49,9 +49,9 @@ await particleModalPack.init(particleConfig)
 
 ## Sign in to an Ethereum account
 
-Now that an instance of `ParticleModalPack` is created and initialized, you can use the `signIn()` method to facilitate login through the standard Particle Auth authentication menu. `signIn()` is most often assigned to something like a "Sign In" button.
+Now that an instance of `ParticleModalPack` is created and initialized, you can use the `signIn()` method to facilitate logging in through the standard Particle Auth authentication menu. `signIn()` is most often assigned to something like a "Sign In" button.
 
-Each authentication mechanism (email, Google, Twitter, etc.) results in a **constant** and **unique** externally-owned account. This account will exist across any other Particle-integrated applications & is tied directly to a specific social account relating to the chosen authentication mechanism.
+Each authentication mechanism (email, Google, Twitter, etc.) results in a **constant** and **unique** externally-owned account. This account will exist across any other Particle-integrated applications and be tied directly to a specific social account relating to the chosen authentication mechanism.
 
 ```ts
 // Once a user signs in, this returns the user's EOA address
@@ -107,7 +107,7 @@ particleModalPack.subscribe('chainChanged', (chain) => {
 
 ## Signing transactions using ParticleModalPack and Protocol Kit
 
-`ParticleModalPack` can be used in tandem with the [Protocol Kit](../protocol-kit) to connect to a Safe using the `provider` (via `getProvider()`), and the `signer` of the currently authenticated account
+`ParticleModalPack` can be used in tandem with the [Protocol Kit](../protocol-kit) to connect to a Safe using the `provider` (via `getProvider()`), and the `signer` of the currently-authenticated account.
 
 Once connected, you can use any of the methods available in the [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
 
@@ -122,7 +122,7 @@ const ethAdapter = new EthersAdapter({
 	ethers,
 	signerOrProvider: signer || provider
 })
-  
+
 const safeSDK =  wait Safe.create({
 	ethAdapter,
 	safeAddress
@@ -140,7 +140,7 @@ const safeTransaction = await safeSDK.createTransaction({ safeTransactionData })
 
 ## Sign messages using `ParticleModalPack`
 
-Additionally, you can also sign any message or transaction as you would traditionally (using the authenticated account as a regular signer) with your preferred web3 library.
+Additionally, you can also sign any message or transaction as you would traditionally (using the authenticated account as a regular signer) with your preferred Web3 library.
 
 ```ts
 // Using web3
