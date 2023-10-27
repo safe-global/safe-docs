@@ -34,7 +34,7 @@ Few sentences describing your application, a maximum of 200 characters
 
 You can find an example manifest file on [GitHub](https://github.com/safe-global/safe-apps-sdk/blob/main/packages/cra-template-safe-app/template/public/manifest.json). You can also find an example Safe App on IPFS [here](https://ipfs.io/ipfs/QmTgnb1J9FDR9gimptzvaEiNa25s92iQy37GyqYfwZw8Aj/).
 
-Remember that **CORS** should be configured correctly on the `manifest.json` so we can fetch the information as [mentioned here](./get-started.md#cors).
+Remember that **CORS** needs to be configured correctly on the `manifest.json` so we can fetch the information as [mentioned here](./get-started.md#cors).
 
 ### The app auto connects to the Safe
 
