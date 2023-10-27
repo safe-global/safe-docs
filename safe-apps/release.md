@@ -22,7 +22,7 @@ There must be a `manifest.json` at the root directory containing the following d
 
 `"name": "Name of your Safe App"`
 
-Your Safe App's name should be a maximum of 50 characters.
+Your Safe App's name needs to have 50 characters maximum.
 
 `"iconPath": "your_logo.svg"`
 
