@@ -1,22 +1,22 @@
 # Releasing your Safe App
 
-## Release process
+Here are some details of the release process for Safe Apps.
 
-### Get your Safe Apps into the hands of users
+## Get your Safe Apps into the hands of users
 
-As soon as you finish developing and testing your Safe App, you can let users test it by sending them the link to the hosted Safe App and asking them to add it as a Custom App. [This guide](https://help.safe.global/en/articles/40859-add-a-custom-safe-app) explains how to add custom apps.
+Once you finish developing and testing your Safe App, your users can test it by opening the link to the hosted Safe App and adding it as a Custom App. [This guide](https://help.safe.global/en/articles/40859-add-a-custom-safe-app) explains how to add custom apps.
 
-### Get your Safe App listed in Safe{Wallet}
+## Get your Safe App listed in Safe{Wallet}
 
 {% hint style="info" %} There is currently a delay of up to three months for the Safe App review process. {% endhint %}
 
 If you would like your Safe App to appear in the Safe, it must meet the following criteria:
 
-#### Smart contracts must be audited
+### Smart contracts must be audited
 
-Security is the top priority for Safe. If the Safe App includes smart contracts of its own, please provide an external audit result document. If a third party created the smart contracts, ensure they are properly audited.
+Security is the top priority for Safe. If the Safe App includes its own smart contracts, please provide an external audit result document. If a third party created the smart contracts, ensure they are properly audited.
 
-#### Your Safe App must include a manifest
+### Your Safe App must include a manifest
 
 There should be a `manifest.json` at the root directory containing the following data:
 
@@ -36,11 +36,11 @@ You can find an example manifest file on [GitHub](https://github.com/safe-global
 
 Remember that **CORS** should be configured correctly on the `manifest.json` so we can fetch the information as [mentioned here](./get-started.md#cors).
 
-#### The app auto-connects to the Safe
+### The app auto-connects to the Safe
 
 When a user opens the app, it should automatically select the Safe as a wallet. Ensure to check the case if the user previously opened the app outside of the Safe with another wallet.
 
-#### The Safe team has reviewed the Safe App
+### The Safe team has reviewed the Safe App
 
 The requirement doesn't apply for battle-tested applications hosted on the same domain as the main dapp.
 
@@ -48,7 +48,7 @@ While we won't be able to do a proper audit for your Safe App, we still would li
 
 We also would like to make a rough functional review of the App, so please provide us with a high-level test plan/feature list that allows our QA team to ensure everything works as intended in production. Video walkthroughs are also welcome.
 
-#### Help us decode your Safe App transactions
+### Help us decode your Safe App transactions
 
 We want to display interactions with Safe Apps as human-readable as possible. To do this, we need the contract ABI of the contracts that your Safe App interacts with. The ideal way to do this would be to verify your contracts via [Sourcify](https://github.com/ethereum/sourcify), which we can leverage to decode transactions interacting with those contracts.
 
@@ -56,7 +56,7 @@ Alternatively, you can provide us with the ABIs as JSON files or the links to th
 
 Create an issue in our [repository](https://github.com/5afe/safe-apps-list) once you've verified that your app meets these requirements.
 
-### Official launch and beyond
+## Official launch and beyond
 
 After we have reviewed and integrated your Safe App, the App will first be available in the [staging environment](https://safe-wallet-web.staging.5afe.dev) of the Safe for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
 
