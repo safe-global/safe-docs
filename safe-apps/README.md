@@ -1,10 +1,12 @@
-# Safe Apps SDK Packages
+# Safe Apps SDK
+
+The Safe Apps SDK allow developers to build their dApps right into the Safe{Wallet}. Turn your Dapp into an HTML iframe component that can be accessed through the Safe. We are providing extensive developer tooling to make it easy to create, test and integrate Safe Apps into the Safe. This includes an unique design system, reusable components and a Safe App SDK that facilitates the Safe App <> Safe communication.
+
+## Packages
 
 You can find several packages on [our developer tools](https://github.com/safe-global/safe-apps-sdk) to make it easier to integrate third-party applications (Safe Apps) with [Safe](https://app.safe.global). Check the following diagram to see which package is more convenient for you:
 
 <figure><img src="../../.gitbook/assets/diagram-safe-apps.png" width="100%" alt="" /></figure>
-
-## Packages
 
 | Package                                                                                                          | Version                                                                                                                                  | Description                                                                                                                                                                                                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -16,3 +18,14 @@ You can find several packages on [our developer tools](https://github.com/safe-g
 | [safe-apps-wagmi](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/safe-apps-wagmi)               |                                                                                                                                          | A [wagmi](https://github.com/wagmi-dev/wagmi) connector for Safe Apps                                                                                                                                                                                                                              |
 | [@web3-onboard/gnosis](https://github.com/blocknative/web3-onboard/tree/v2-web3-onboard-develop/packages/gnosis) |                                                                                                                                          | Blocknative included Safe App support in [@web3-onboard](https://github.com/blocknative/web3-onboard) v1.26.0. If you are already using this package you can [check here](https://github.com/blocknative/web3-onboard/blob/v2-web3-onboard-develop/packages/gnosis/README.md) how to configure it. |
 | [@web3-react/gnosis-safe](https://github.com/Uniswap/web3-react/tree/main/packages/gnosis-safe)                  |                                                                                                                                          | [web3-react](https://github.com/Uniswap/web3-react) already includes a connector for Safe Apps by default. You can check at their docs how to use it.                                                                                                                                              |
+
+## Onchain stats
+
+There are Dune Analytics dashboards about Safe Apps available:
+
+* [Number of transactions](https://explore.duneanalytics.com/dashboard/gnosis-safe---safe-apps-transactions)
+* [Transaction volume](https://explore.duneanalytics.com/dashboard/gnosis-safe---safe-apps-volume)
+
+## Disclaimer
+
+It is at our sole discretion to list or delist apps from the Safe. Safe Apps are not owned, controlled, maintained, or audited by Gnosis.

@@ -2,7 +2,7 @@
 description: Basic resources to start creating Safe Apps
 ---
 
-# Get started
+# Getting started
 
 Welcome! We are glad on your interest about creating a Safe App. The team is working hard to provide the tools to make it easier for you to build apps that can interact with Safe.
 
@@ -118,3 +118,9 @@ If you are creating your Safe App from scratch, we provide a reusable react comp
 
 * [Check all available components in the storybook](https://components.safe.global)
 * [Check UI Kit repository](https://github.com/safe-global/safe-react-components)
+
+## Example app
+
+This tutorial will build a Safe App that enables us to migrate all the assets from a Safe to any other wallet in a single transaction. It doesn't include NFTs, but this is a great thing to do on your own. In addition, you will learn about smart contract wallets, multi-signature transaction flow, and batched transactions.
+
+Find the Github repo with the complete guide [here](https://github.com/gnosis/safe-apps-sdk/tree/master/guides/drain-safe-app).
