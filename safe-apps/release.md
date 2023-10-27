@@ -8,7 +8,7 @@ Once you finish developing and testing your Safe App, your users can test it by 
 
 ## Get your Safe App listed in Safe{Wallet}
 
-{% hint style="info" %} There is currently a delay of up to three months for the Safe App review process. {% endhint %}
+{% hint style="info" %} Currently, we expect delays in the Safe App review process. {% endhint %}
 
 If you would like your Safe App to appear in the Safe, it must meet the following criteria:
 
