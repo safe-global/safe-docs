@@ -20,10 +20,13 @@ We are going to use the provided `Web3AuthPack` exported in the `@safe-global/au
 Create an instance of the [Web3AuthPack](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/packs/web3auth/Web3AuthPack.ts) using the required `Web3AuthConfig` configuration object.
 
 ```typescript
-import { Web3AuthPack, Web3AuthConfig } from '@safe-global/auth-kit';
-import { TorusParams, UserInfo } from '@web3auth/ws-embed';
+import {
+  Web3AuthPack,
+  Web3AuthConfig,
+  Web3AuthInitOptions,
+} from '@safe-global/auth-kit';
 
-const options: TorusParams = {
+const options: Web3AuthInitOptions = {
   enableLogging: true,
   showWidgetButton: false,
   chainConfig: {
