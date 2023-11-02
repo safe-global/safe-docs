@@ -1,6 +1,6 @@
 # AuthKitBasePack
 
-To be used as part of the Auth Kit, new packs need to extend the `AuthKitBasePack` class. This abstract class provides a common interface that subclasses must implement. It provides the specific Safe common functionality that any custom implementation can take leverage.
+To be used as part of the Auth Kit, new packs need to extend the `AuthKitBasePack` class. This abstract class provides a common interface that subclasses must implement. It provides the specific Safe common functionality that any custom implementation can leverage.
 
 ## Install dependencies
 
@@ -20,9 +20,13 @@ class MyPack extends AuthKitBasePack {
 }
 ```
 
-## Abstract methods that Auth packs have to implement
+## Abstract members that any pack must implement
 
-These methods are the common interface for all the Auth packs. Check each pack's documentation to get more details.
+These methods and properties are the common interface for all the Auth packs. Check each pack's documentation to get more details.
+
+### `isAuthenticated(): boolean`
+
+Any pack extending the `AuthKitBasePack` class must implement the `isAuthenticated()` method. This method returns a boolean indicating if the user is authenticated or not.
 
 ### `init(options?)`
 
@@ -61,14 +65,17 @@ These methods provide the functionality associated with Safe so they can be used
 Returns the Ethereum address extracted from the provider retrieved by `getProvider()`. This returns a Safe owner (signer).
 
 **Returns**
+
 - `address`: The Ethereum address extracted from the provider.
 
 ### `getSafes(txServiceUrl): safes[]`
 
-Returns the list of Safes associated with the signer address by calling  the `getAddress()` method internally.
+Returns the list of Safes associated with the signer address by calling the `getAddress()` method internally.
 
 **Params**
+
 - `txServiceUrl`: The Safe Transaction Service url to retrieve the Safes associated with the owner (signer).
 
 **Returns**
+
 - `safes[]`: The list of Safes associated with the owner (signer).
