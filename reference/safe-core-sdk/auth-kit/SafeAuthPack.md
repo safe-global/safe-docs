@@ -1,14 +1,14 @@
-# Web3AuthModalPack
+# SafeAuthPack
 
-Web3Auth is a pluggable authentication infrastructure for Web3 wallets and applications. It simplifies onboarding for both mainstream and crypto native users, offering experiences tailored to their preferences. It supports all social logins, web and mobile native platforms, wallets, and other key management methods, creating a cryptographic key provider specific to the user and application.
+SafeAuth is a pluggable authentication infrastructure for Web3 wallets and applications. It simplifies onboarding for both mainstream and crypto native users, offering experiences tailored to their preferences. It supports all social logins, web and mobile native platforms, wallets, and other key management methods, creating a cryptographic key provider specific to the user and application.
 
-The `Web3AuthPack` enables the use of the [Web3Auth infrastructure](https://web3auth.io) with added Safe capabilities, such as retrieving the related Safe addresses for a given externally-owned account created using Web3Auth services.
+The `SafeAuthPack` enables the use of the [Web3Auth infrastructure](https://web3auth.io) with added Safe capabilities, such as retrieving the related Safe addresses for a given externally-owned account created using SafeAuth services.
 
-The pack allow the onboarding of web2 users and provides a ethereum signer address that can be used across any dApp using the different Ethereum chains.
+The pack helps with the onboarding of web2 users and provides a ethereum signer address that can be used across any dApp using the different Ethereum chains.
 
 ## Install dependencies
 
-To use the `Web3AuthPack`, you need to install the `@safe-global/auth-kit` package.
+To use the `SafeAuthPack`, you need to install the `@safe-global/auth-kit` package.
 
 ```bash
 yarn add @safe-global/auth-kit
@@ -16,42 +16,42 @@ yarn add @safe-global/auth-kit
 
 ## Reference
 
-The `Web3AuthPack` class is what makes Web3Auth modal and Safe work together. Create an instance of the pack and initialize it to start the interaction.
+The `SafeAuthPack` class is what makes SafeAuth modal and Safe work together. Create an instance of the pack and initialize it to start the interaction.
 
 ```typescript
-const web3AuthPack = new Web3AuthPack({
+const safeAuthPack = new SafeAuthPack({
   txServiceUrl: 'https://safe-transaction-mainnet.safe.global',
 });
-await web3AuthPack.init(web3AuthOptions);
+await safeAuthPack.init(safeAuthInitOptions);
 ```
 
-### new Web3AuthPack(web3AuthConfig)
+### new SafeAuthPack(safeAuthConfig)
 
 **Params**
 
-- `web3AuthConfig` - The configuration used in the instantiation of the `Web3AuthPack` class accepts the following options:
+- `safeAuthConfig` - The configuration used in the instantiation of the `SafeAuthPack` class accepts the following options:
 
 ```typescript
-Web3AuthConfig {
+SafeAuthConfig {
   txServiceUrl: string
 }
 ```
 
-- `txServiceUrl` - The URL of the Safe transaction service. It is used to retrieve the Safe addresses for an externally-owned account created using Web3Auth services. It is required to use the `Web3AuthPack` with Safe.
+- `txServiceUrl` - The URL of the Safe transaction service. It is used to retrieve the Safe addresses for an externally-owned account created using SafeAuth services. It is required to use the `SafeAuthPack` with Safe.
 
 **Caveats**
 You should always call the `init()` method afterwards before interacting with the pack.
 
-### init(web3AuthOptions)
+### init(safeAuthInitOptions)
 
-The init method initialize the Web3Auth SDK and Safe services
+The init method initialize the SafeAuth SDK and Safe services
 
 **Params**
 
-- `web3AuthOptions` - The options to initialize the SDK instance.
+- `safeAuthInitOptions` - The options to initialize the SDK instance.
 
 ```typescript
-web3AuthOptions {
+safeAuthInitOptions {
   enableLogging?: boolean
   showWidgetButton?: boolean
   buttonPosition?: "bottom-left" | "top-left" | "bottom-right" | "top-right"
@@ -92,14 +92,14 @@ web3AuthOptions {
 **Caveats**
 Call always the `init()` method before interacting with the other methods in the pack.
 
-### signIn(web3AuthSignInOptions)
+### signIn(safeAuthSignInOptions)
 
-`signIn(web3AuthSignInOptions)` starts the authentication flow. It shows a popup that allow the user to choose the oAuth or email to use for generating the web3 wallet address. Returns the EOA and associated Safe addresses.
+`signIn(safeAuthSignInOptions)` starts the authentication flow. It shows a popup that allow the user to choose the oAuth or email to use for generating the web3 wallet address. Returns the EOA and associated Safe addresses.
 
 **Params**
 
 ```typescript
-Web3AuthSignInOptions = {
+SafeAuthSignInOptions = {
   loginProvider?: "google" | "facebook" | "reddit" | "discord" | "twitch" | "apple" | "line" | "github" | "kakao" | "linkedin" | "twitter" | "weibo" | "wechat" | "email_passwordless"
   login_hint?: string
 }
@@ -124,19 +124,19 @@ AuthKitSignInData {
 - To get the Safe addresses, instantiate the authKit with the `txServiceUrl` property in the config object. Otherwise, only the eoa will be returned.
 - ⚠️ This method currently returns the Safe addresses which the EOA is the owner of. It does not create a Safe. We are investigating ways to enhance the Auth Kit and the associated flows. ⚠️
 
-### signOut(web3AuthSignOutOptions?)
+### signOut(safeAuthSignOutOptions?)
 
 Call this method to sign out the user and clean the session.
 
 ```typescript
-Web3AuthSignOutOptions {
+SafeAuthSignOutOptions {
   reset: boolean;
 }
 ```
 
 **Params**
 
-- `reset` - If true, the user will be logged out from the provider and the widget will be destroyed so don't use this parameter if you want to logout and login again without refreshing the browser or reinitializing the `Web3AuthPack` instance.
+- `reset` - If true, the user will be logged out from the provider and the widget will be destroyed so don't use this parameter if you want to logout and login again without refreshing the browser or reinitializing the `SafeAuthPack` instance.
 
 ### getUserInfo()
 
@@ -172,26 +172,22 @@ Allow to unsubscribe to authentication state changes
 
 ## Usage
 
-Calling `init()` when your page loads or component renders is all it takes to use the Auth Kit with the `Web3AuthModalPack`. To start the authentication process, simply call `signIn()` afterwards. This method returns the EOA and associated Safe addresses.
+Calling `init()` when your page loads or component renders is all it takes to use the Auth Kit with the `SafeAuthPack`. To start the authentication process, simply call `signIn()` afterwards. This method returns the EOA and associated Safe addresses.
 
 ```typescript
 // Instantiate and initialize the pack
-const web3AuthPack = new Web3AuthModalPack(web3AuthConfig);
-await web3AuthPack.init(web3AuthOptions);
+const safeAuthPack = new SafeAuthPack(safeAuthConfig);
+await safeAuthPack.init(safeAuthInitOptions);
 
-const { eoa, safes } = await web3AuthPack.signIn();
-const userInfo = await web3AuthPack.getUserInfo();
-const web3Provider = web3AuthPack.getProvider();
+const { eoa, safes } = await safeAuthPack.signIn();
+const userInfo = await safeAuthPack.getUserInfo();
+const web3Provider = safeAuthPack.getProvider();
 
 // Subscribe to events
 const handler = (event) => {};
-web3AuthPack.subscribe(packEvent, handler);
-web3AuthPack.unsubscribe(packEvent, handler);
+safeAuthPack.subscribe(packEvent, handler);
+safeAuthPack.unsubscribe(packEvent, handler);
 
 // Sign out
-await web3AuthPack.signOut();
-```
-
-```
-
+await safeAuthPack.signOut();
 ```

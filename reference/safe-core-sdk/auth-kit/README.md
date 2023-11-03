@@ -12,17 +12,17 @@ yarn add @safe-global/auth-kit
 
 The Auth Kit can integrate several providers in the form of **"packs"**. A pack is a piece of code that works with the chosen provider to give Safe users access to new services.
 
-To use each pack, the right package needs to be installed:
+To use each pack, the right packages needs to be installed:
 
-- [Web3Auth](./Web3AuthModalPack.md#install)
+- [SafeAuth](./SafeAuthPack.md#install)
 
 ## How to use a pack
 
 To start working with the packs, instantiate the main class and call the `init()` method afterwards.
 
 ```typescript
-const pack = new Web3AuthModalPack(packConfig)
-await pack.init(packInitOptions)
+const pack = new SafeAuthPack(packConfig);
+await pack.init(packInitOptions);
 ```
 
 After the initialization, use the methods in the pack to interact with the chosen provider.
