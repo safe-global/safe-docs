@@ -137,9 +137,9 @@ const safeTransaction = await protocolKit.createTransaction({
   safeTransactionData,
 });
 
-// Sign the transaction
-const signedTx = await protocolKit.signTransaction(safeTransaction);
-// ... You can sign with more owners if required
+// Sign the transaction if the Safe have several owners
+// safeTransaction = await protocolKit1.signTransaction(safeTransaction);
+// safeTransaction = await protocolKit2.signTransaction(safeTransaction);
 
 // Execute the transaction
 await protocolKit.executeTransaction(safeTransaction);
