@@ -1,8 +1,8 @@
 # Integration with SafeAuth
 
-This guide demonstrate how to create an externally-owned account using your email or social media account. Once authenticated, you can sign transactions and interact with any Safe Smart Accounts you own.
+This guide demonstrate how to create an externally-owned account using your email or social media account. Once authenticated, you can sign transactions and interact with any Safe accounts you own.
 
-The `SafeAuthPack` is an authentication system that utilizes the [Web3Auth](https://web3auth.io) MPC technology. It was developed in collaboration with Web3Auth to create a smooth onboarding experience for web2 users.
+The `SafeAuthPack` is an authentication system that utilizes the [Web3Auth](https://web3auth.io) MPC technology. It was developed in collaboration with Web3Auth to create a smooth onboarding experience for web2 users across different dApps.
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ import {
 } from '@safe-global/auth-kit';
 
 const safeAuthConfig: SafeAuthConfig = {
-  txServiceUrl: 'https://safe-transaction-goerli.safe.global',
+  txServiceUrl: 'https://safe-transaction-mainnet.safe.global',
 };
 const safeAuthInitOptions: SafeAuthInitOptions = {
   enableLogging: true,
@@ -50,13 +50,13 @@ await safeAuthPack.init(safeAuthInitOptions);
 
 ## Sign in to an Ethereum account
 
-Once your `SafeAuthPack` instance is created, use the `signIn()` method to start the authentication process. Usually, you call this method when the user clicks on a "Sign In" button added to your page.
+After creating your `SafeAuthPack` instance, initiate the authentication process by calling the `signIn()` method. Typically, this method is called when the user clicks on a "Sign In" button on the web page.
 
-After the signing, you are going to create a new Ethereum Wallet that will remain the same for all the future logins and **will be shared across different applications**.
+After successfully signing in, you will create a new Ethereum Wallet. This wallet will be used for all future logins and can be **shared across different applications**.
 
 ```typescript
-// The signIn() method will return the user's Ethereum address and the associated Safe addresses
-// The await will last until the user is authenticated, so while the authentication popup is showed
+// The signIn() method returns the user's Ethereum address and the associated Safe addresses
+// The `await` will last until the user is authenticated. Therefore, it will be active while the authentication popup is being displayed.
 const authKitSignData = await safeAuthPack.signIn();
 ```
 
@@ -84,16 +84,15 @@ safeAuthPack.getProvider();
 We expose two methods for listening to events, `subscribe()` and `unsubscribe()`.
 
 ```typescript
-safeAuthPack.subscribe('?', () => {
-  console.log('User is authenticated');
-});
+const accountChangedHandler = (accounts: string[]) => {
+  console.log('Signer accounts:', accounts);
+};
 
-safeAuthPack.subscribe('?', () => {
-  console.log('User is not authenticated');
-});
+safeAuthPack.subscribe('accountsChanged', accountChangedHandler);
+safeAuthPack.unsubscribe('accountsChanged', accountChangedHandler);
 ```
 
-When `txServiceUrl` is provided in the `SafeAuthPack` instantiation, the list of associated Safe addresses will be returned as part of the `signIn()` method response.
+The `SafeAuthPack` instantiation will return the list of associated Safe addresses as part of the response from the `signIn()` method when the `txServiceUrl` is provided.
 
 ```typescript
 const safeAuthPack = new SafeAuthPack({
@@ -101,39 +100,49 @@ const safeAuthPack = new SafeAuthPack({
 });
 ```
 
-## Signing transactions using the SafeAuthPack and Protocol Kit
+## Signing and executing transactions using the SafeAuthPack and Protocol Kit
 
-The `SafeAuthPack` can be combined with the [Protocol Kit](../protocol-kit/) to connect to a Safe using the `provider` and `signer` of the currently authenticated account.
+The `SafeAuthPack` can be used in conjunction with the [Protocol Kit](../protocol-kit/README.md) to establish a connection to a Safe. This connection is made using the `provider` and `signer` associated with the authenticated account.
 
-Once connected, you can use any of the methods available in the [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
+After connecting, you can use any of the methods provided in the [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
 
 ```typescript
 import { ethers } from 'ethers';
 import { EthersAdapter } from '@safe-global/protocol-kit';
 
+// Wrap EIP-1193 provider with ethers
 const provider = new ethers.providers.Web3Provider(safeAuthPack.getProvider());
 const signer = provider.getSigner();
 
+// Create the Safe EthersAdapter
 const ethAdapter = new EthersAdapter({
   ethers,
   signerOrProvider: signer || provider,
 });
 
-const safeSDK = await Safe.create({
+// Instantiate the protocolKit
+const protocolKit = await Safe.create({
   ethAdapter,
   safeAddress,
 });
 
 // Create a Safe transaction with the provided parameters
 const safeTransactionData: MetaTransactionData = {
-  to: '0x',
+  to: `${ethAddress}`,
   data: '0x',
   value: ethers.utils.parseUnits('0.0001', 'ether').toString(),
 };
 
-const safeTransaction = await safeSDK.createTransaction({
+const safeTransaction = await protocolKit.createTransaction({
   safeTransactionData,
 });
+
+// Sign the transaction
+const signedTx = await protocolKit.signTransaction(safeTransaction);
+// ... You can sign with more owners if required
+
+// Execute the transaction
+await protocolKit.executeTransaction(safeTransaction);
 ```
 
 ## Sign messages using the `SafeAuthPack`

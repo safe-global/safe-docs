@@ -8,15 +8,15 @@ The pack helps with the onboarding of web2 users and provides a ethereum signer 
 
 ## Install dependencies
 
-To use the `SafeAuthPack`, you need to install the `@safe-global/auth-kit` package.
+To use the `SafeAuthPack`, you need to install the `@safe-global/auth-kit` package and the corresponding Web3Auth one.
 
 ```bash
-yarn add @safe-global/auth-kit
+yarn add @safe-global/auth-kit @web3auth/ws-embed
 ```
 
 ## Reference
 
-The `SafeAuthPack` class is what makes SafeAuth modal and Safe work together. Create an instance of the pack and initialize it to start the interaction.
+The `SafeAuthPack` class is what makes SafeAuth modal and Safe accounts work together. Create an instance of the pack and initialize it to start the interaction.
 
 ```typescript
 const safeAuthPack = new SafeAuthPack({
@@ -29,7 +29,7 @@ await safeAuthPack.init(safeAuthInitOptions);
 
 **Params**
 
-- `safeAuthConfig` - The configuration used in the instantiation of the `SafeAuthPack` class accepts the following options:
+- `safeAuthConfig` - The `SafeAuthPack` class instantiation accepts the following options in its configuration:
 
 ```typescript
 SafeAuthConfig {
@@ -44,7 +44,7 @@ You should always call the `init()` method afterwards before interacting with th
 
 ### init(safeAuthInitOptions)
 
-The init method initialize the SafeAuth SDK and Safe services
+The init method initialize the provided Web3Auth SDK and Safe services. It creates an embedded browser wallet within an iframe, establishing communication through the internally generated EIP-1193 provider.
 
 **Params**
 
@@ -82,19 +82,21 @@ safeAuthInitOptions {
   - `tickerName` - Name for ticker (e.g Ethereum)
   - `ticker` - Symbol for ticker (e.g ETH)
   - `rpcTarget` - The RPC url to be used
-  - `wcTarget` - The websocket url to be used
+  - `wcTarget?` - The websocket url to be used. Use this or `rpcTarget`
   - `chainId` - The chain id to be used. Should be an hex with 0x prefix (e.g 0x1 for mainnet)
   - `displayName` - The display name for the network
-  - `isTestnet` - Whether the network is testnet or not
-  - `isErc20`- Wether the token is an ERC20 token or not
-  - `tokenAddress` - The token address for the chain. Should be an hex with 0x prefix (e.g 0x6b175474e89094c44da98b954eedeac495271d0f for DAI)
+  - `isTestnet?` - Whether the network is testnet or not
+  - `isErc20?`- Wether the token is an ERC20 token or not
+  - `tokenAddress?` - The token address for the chain. Should be an hex with 0x prefix (e.g 0x6b175474e89094c44da98b954eedeac495271d0f for DAI)
 
 **Caveats**
-Call always the `init()` method before interacting with the other methods in the pack.
+
+- Call always the `init()` method before interacting with the other methods in the pack.
+- The `init()` method creates an iframe and establishes a connection with the embedded wallet domain. To remove the iframe and disconnect the connection, use the `signOut()` method. If you want to sign out and sign in again in a single-page application (SPA) fashion, avoid using `signOut({ reset: true })` as it will clean up the session, iframe, and connection. Instead, you will need to re-instantiate the pack.
 
 ### signIn(safeAuthSignInOptions)
 
-`signIn(safeAuthSignInOptions)` starts the authentication flow. It shows a popup that allow the user to choose the oAuth or email to use for generating the web3 wallet address. Returns the EOA and associated Safe addresses.
+`signIn(safeAuthSignInOptions)` starts the authentication flow. It displays a popup that enables the user to select either an social authentication method (oAuth) or an email for generating the web3 wallet address. It returns the EOA and the associated Safe addresses.
 
 **Params**
 
@@ -136,34 +138,45 @@ SafeAuthSignOutOptions {
 
 **Params**
 
-- `reset` - If true, the user will be logged out from the provider and the widget will be destroyed so don't use this parameter if you want to logout and login again without refreshing the browser or reinitializing the `SafeAuthPack` instance.
+- `reset` - If true, the user will be logged out from the provider and the widget will be destroyed so don't use this parameter if you want to logout and login again without refreshing the browser or re-initializing the `SafeAuthPack` instance.
 
 ### getUserInfo()
 
 Using `getUserInfo()` you will receive the user information derived from the pack you are using. It varies depending on the provider.
 
 **Returns**
-The `UserInfo` object has properties that depend on the provider.
+The `UserInfo` object's properties vary depending on the provider.
 
 ### getProvider()
 
-Using `getProvider()` you will receive a regular web3 provider derived from the pack you are using and compatible with the EIP-1193 standard.
+By using `getProvider()`, you will receive a standard web3 provider compatible with the EIP-1193 standard.
 
 **Returns**
 A EIP-1193 compatible provider.
 
+**Caveats**
+
+- You can wrap the provider using your favorite library (ethers, web3 ...)
+
+### destroy()
+
+This method removes the iframe. It is useful when you need to re-instantiate the pack, for example when the you want to change the connected chain.
+
 ### subscribe(event, handler)
 
-Allow to subscribe to authentication state changes. The event depends on the pack you are using so read the chosen pack documentation.
+Allow to subscribe to authentication state changes
 
 **Params**
 
-- `event` - The event you want to subscribe to. The events are defined [in the documentation](https://web3auth.io/docs/sdk/pnp/web/no-modal/initialize#subscribing-the-lifecycle-events).
+- `event` - The event you want to subscribe to. Currently you can subscribe to `accountsChanged` or `chainChanged`.
 - `handler` - The handler function that will be called when the event is triggered.
 
 ### unsubscribe(event, handler)
 
 Allow to unsubscribe to authentication state changes
+
+**Caveats**
+The `accountsChanged` event is useful for detecting whether the user has previously signed in. This allows you to reauthenticate when the browser is refreshed by calling the `signIn` method, thereby preventing the user to click again in the signin button.
 
 **Params**
 

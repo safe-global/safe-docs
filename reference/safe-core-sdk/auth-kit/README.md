@@ -12,7 +12,7 @@ yarn add @safe-global/auth-kit
 
 The Auth Kit can integrate several providers in the form of **"packs"**. A pack is a piece of code that works with the chosen provider to give Safe users access to new services.
 
-To use each pack, the right packages needs to be installed:
+To use each pack, you need to ensure that the appropriate packages are installed.
 
 - [SafeAuth](./SafeAuthPack.md#install)
 
