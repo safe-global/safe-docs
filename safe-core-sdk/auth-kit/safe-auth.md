@@ -168,6 +168,7 @@ await signer.signTransaction(tx);
 await signer.signMessage(message);
 ```
 
-## Alternative example in `@safe-global/safe-core-sdk`
+## Examples
 
-See an [example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/auth-kit/example/src/App.tsx) on how to initialize and use the Auth Kit.
+- [React](https://github.com/safe-global/safe-core-sdk/blob/main/packages/auth-kit/example/src/App.tsx)
+- [Vanilla Typescript](https://github.com/5afe/safe-auth)
