@@ -37,7 +37,7 @@ That's not written in stone. Tx service has some environment variables that can 
 * If the request takes **less than 1 second**, the node can process more. The number of blocks to fetch is duplicated for the next request.
 * If the request takes **less than 3 seconds**, the number of blocks to process is incremented by a small amount (currently 20).
 * If the request takes **more than 20 seconds**, the number of blocks to process is decremented by a small amount (currently 20).
-* If request takes **more than 30 seconds**, number of blocks to process are halved.
+* If the request takes **more than 30 seconds**, the number of blocks to process is halved.
 * If there is **an exception** when requesting the information (I/O error) number of blocks to process is reset to the minimum number of blocks (currently 1).
 * All this happens in every request to the node used for indexing (safe transactions, erc20/721 events...).
 
