@@ -20,6 +20,11 @@ We are going to use the provided `SafeAuthPack` exported in the `@safe-global/au
 
 Create an instance of the [SafeAuthPack](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/packs/safe-auth/SafeAuthPack.ts) using the required `SafeAuthConfig` configuration object.
 
+> The list of supported chains is:
+>
+> - Production: Ethereum, Polygon, BSC, Avalanche, Optimism, Celo, Arbitrum, Gnosis chain
+> - Test: Goerli, Sepolia, Polygon Mumbai, BSC testnet, Avalanche testnet, Arbitrum testnet, Optimism testnet
+
 ```typescript
 import {
   SafeAuthPack,
