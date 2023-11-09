@@ -38,7 +38,7 @@ Remember that **CORS** needs to be configured correctly on the `manifest.json` s
 
 ### The app auto connects to the Safe
 
-When a user opens the app, it should automatically select the Safe as a wallet. Ensure to check the case if the user previously opened the app outside the Safe with another wallet.
+When a user opens the app, it should automatically select the Safe as a wallet. Ensure to check the case if the user previously opened the app outside of the Safe with another wallet.
 
 ### The Safe team has reviewed the Safe App
 
