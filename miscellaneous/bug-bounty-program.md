@@ -1,10 +1,10 @@
 # Bug Bounty
 
-Participate in the Safe Bug Bounty program to find bugs and get rewards. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](./bug-bounty-program.md#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global). You can also review the [bug bounties](./past-paid-bounties.md) we have paid in the past.
+Participate in the Safe Bug Bounty program to find bugs and get rewards. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](miscellaneous/bug-bounty-program.md#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global). You can also review the [bug bounties](./past-paid-bounties.md) we have paid in the past.
 
 ## Audits
 
-Smart contract security experts have carefully audited Safe's contracts. Please refer to the [security audits page](./security-audits.md) for details.
+Smart contract security experts have carefully audited Safe's contracts. Please refer to the [security audits page](safe-smart-account/security-audits.md) for details.
 
 ## Rules
 
