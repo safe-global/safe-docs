@@ -112,7 +112,14 @@ SafeAuthSignInOptions = {
 
 - `loginProvider` - If specified, instead showing the popup to choose the oAuth or email a direct attempt to login with the specified provider will be made
 
-- `login_hint`
+- `login_hint` - Used to provide default mail given a `loginProvider`:
+
+```typescript
+safeAuthPack.signIn({
+  loginProvider: 'google',
+  login_hint: 'my-mail@safe.global',
+});
+```
 
 **Returns**
 An object with the derived externally-owned account address and the associated safe addresses.
