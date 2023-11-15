@@ -7,7 +7,7 @@ The [Auth Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/a
 To add the Auth Kit to your project, run:
 
 ```bash
-yarn add @safe-global/auth-kit
+yarn add @safe-global/auth-kit @web3auth/safeauth-embed
 ```
 
 The Auth Kit can integrate several providers in the form of **"packs"**. A pack is a piece of code that works with the chosen provider to give Safe users access to new services.

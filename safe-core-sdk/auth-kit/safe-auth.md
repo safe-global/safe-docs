@@ -11,7 +11,7 @@ The `SafeAuthPack` is an authentication system that utilizes the [Web3Auth](http
 ### Install dependencies
 
 ```bash
-npm i @safe-global/auth-kit @web3auth/ws-embed
+npm i @safe-global/auth-kit @web3auth/safeauth-embed
 ```
 
 ## Create a SafeAuthPack instance
