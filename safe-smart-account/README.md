@@ -27,4 +27,4 @@ Here are some core components of a Safe Smart Account that you will learn about:
 
 ## Signatures
 
-Safe contracts support alternative [signature schemes](signatures/README.md) such as [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) and [EIP-712](https://eips.ethereum.org/EIPS/eip-712) and relaying by making the confirmation/verification logic independent of `msg.sender`.
+Safe contracts support alternative signature schemes such as [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) and [EIP-712](https://eips.ethereum.org/EIPS/eip-712) and relaying by making the confirmation/verification logic independent of `msg.sender`. Read more about the [signature schemes](https://github.com/safe-global/safe-contracts/blob/main/docs/signatures.md) supported by Safe.
