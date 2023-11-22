@@ -93,9 +93,11 @@ ${networks
     return `
 ### ${network}
 
+This networks's Chain Id is ${chainId}.
+
 ${_contracts
   .filter(c => c.chainId === chainId)
-  .map(c => `- \`${c.name}.sol\`: (${c.address})[${c.blockExplorerUrl}/address/${c.address}]]`)
+  .map(c => `- \`${c.name}.sol\`: [${c.address}](${c.blockExplorerUrl}/address/${c.address})`)
   .join('\n')}
 `
   })

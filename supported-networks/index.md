@@ -1,0 +1,3 @@
+This section lists the addresses of all the Safe\{Core\} Protocol contracts deployed on all supported networks for each version. The same list can be found on our [GitHub repository](https://github.com/safe-global/safe-deployments), from which these pages are automatically generated.
+
+The most recent version of the Safe\{Core\} Protocol is v1.4.1, however the default version to be used is v1.3.0 as it is deployed in many more networks and is the only currently supported in the [Safe Transaction Service](safe-core-api/safe-transaction-service.md).
