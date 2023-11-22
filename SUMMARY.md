@@ -73,8 +73,8 @@
 
 ## Supported Networks
 
-* [v.1.0.0](supported-networks/v.1.0.0.md)
-* [v.1.1.1](supported-networks/v.1.1.1.md)
-* [v.1.2.0](supported-networks/v.1.2.0.md)
-* [v.1.3.0](supported-networks/v.1.3.0.md)
-* [v.1.4.1](supported-networks/v.1.4.1.md)
+* [v.1.0.0](supported-networks/v1.0.0.md)
+* [v.1.1.1](supported-networks/v1.1.1.md)
+* [v.1.2.0](supported-networks/v1.2.0.md)
+* [v.1.3.0](supported-networks/v1.3.0.md)
+* [v.1.4.1](supported-networks/v1.4.1.md)
