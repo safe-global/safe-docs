@@ -29,10 +29,12 @@ const deduplicate = () => [
   []
 ]
 
+const supportedNetworksPath = './safe-smart-account/supported-networks'
+
 const generateSupportedNetworks = async () => {
   const deploymentRepoUrl = 'https://github.com/safe-global/safe-deployments/'
   shell.exec(`git clone ${deploymentRepoUrl} ./deployments`)
-  shell.rm('-rf', './supported-networks')
+  shell.rm('-rf', supportedNetworksPath)
 
   const fetch = await import('node-fetch')
   const paths = walkPath('deployments/src/assets').map(p =>
@@ -64,7 +66,7 @@ const generateSupportedNetworks = async () => {
     .reduce(...deduplicate())
     .reverse()
 
-  shell.mkdir('./supported-networks')
+  shell.mkdir(supportedNetworksPath)
 
   versions.forEach(version => {
     const _contracts = contracts.flat().filter(c => c.version === version)
@@ -111,7 +113,7 @@ ${_contracts
   .join('\n')}
 
     `
-    fs.writeFileSync(`./supported-networks/${version}.md`, content)
+    fs.writeFileSync(`${supportedNetworksPath}/${version}.md`, content)
   })
 
   shell.rm('-rf', './deployments')
