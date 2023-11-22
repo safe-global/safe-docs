@@ -1,4 +1,4 @@
-name: Weekly link check
+name: Weekly update for supported networks
 
 on:
   schedule:
@@ -28,4 +28,4 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Generate supported networks
-        run: node ./scripts/generateSupportedNetworks.js
+        run: node ./.github/scripts/generateSupportedNetworks.js
