@@ -1,3 +1,3 @@
-This section lists the addresses of all the Safe\{Core\} Protocol contracts deployed on all supported networks for each version. The same list can be found on our [GitHub repository](https://github.com/safe-global/safe-deployments), from which these pages are automatically generated.
+This section lists the addresses of all the Safe contracts deployed grouped by version and chain. The same list can be found on the [GitHub repository](https://github.com/safe-global/safe-deployments), from which these pages are automatically generated.
 
-The most recent version of the Safe\{Core\} Protocol is v1.4.1, however the default version to be used is v1.3.0 as it is deployed in many more networks and is the only currently supported in the [Safe Transaction Service](safe-core-api/safe-transaction-service.md).
+The most recent version of the Safe contracts is `v1.4.1`, which adds compatibility with the ERC-4337. However, it is not supported yet in the[Safe{Wallet}](app.safe.global) interface and the Safe Transaction Service. For that reason, depending on your use case, it might be recommended to continue using `v1.3.0` until there is better support.

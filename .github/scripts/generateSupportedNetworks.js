@@ -85,7 +85,7 @@ const generateSupportedNetworks = async () => {
 
     const content = `# ${version}
 
-This page references the addresses of all the Safe\\{Core\\} Protocol contracts deployed on all supported networks for ${version}.
+This page lists the addresses of all the Safe contracts \`${version}\` grouped by chain.
 
 ## Networks
 ${networks

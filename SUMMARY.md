@@ -14,6 +14,13 @@
 
 * [Audits](safe-smart-account/security-audits.md)
 
+* [Supported Networks](safe-smart-account/supported-networks.md)
+  * [v.1.4.1](supported-networks/v1.4.1.md)
+  * [v.1.3.0](supported-networks/v1.3.0.md)
+  * [v.1.2.0](supported-networks/v1.2.0.md)
+  * [v.1.1.1](supported-networks/v1.1.1.md)
+  * [v.1.0.0](supported-networks/v1.0.0.md)
+
 ## Safe{Core} AA SDK
 
 * [Overview](safe-core-sdk/README.md)
@@ -43,13 +50,6 @@
 
 * [API Kit](safe-core-sdk/api-kit/README.md)
   * [Reference](safe-core-sdk/api-kit/reference/README.md)
-
-* [Supported Networks](safe-smart-account/supported-networks.md)
-  * [v.1.4.1](supported-networks/v1.4.1.md)
-  * [v.1.3.0](supported-networks/v1.3.0.md)
-  * [v.1.2.0](supported-networks/v1.2.0.md)
-  * [v.1.1.1](supported-networks/v1.1.1.md)
-  * [v.1.0.0](supported-networks/v1.0.0.md)
 
 ## Safe{Core} Protocol
 
