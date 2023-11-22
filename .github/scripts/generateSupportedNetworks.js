@@ -42,7 +42,7 @@ const generateSupportedNetworks = async () => {
   const allNetworks = await fetch
     .default('https://chainid.network/chains.json')
     .then(res => res.json())
-  console.log(allNetworks)
+
   const contracts = paths.map(p => {
     const file = fs.readFileSync(`deployments/src/assets/${p}`, 'utf8')
     const json = JSON.parse(file)
@@ -54,7 +54,7 @@ const generateSupportedNetworks = async () => {
       chainId,
       chainName: allNetworks.find(n => n.chainId === parseInt(chainId))?.name,
       blockExplorerUrl: allNetworks.find(n => n.chainId === parseInt(chainId))
-        ?.explorers?.[0]
+        ?.explorers?.[0]?.url
     }))
   })
 
@@ -97,7 +97,14 @@ This networks's Chain Id is ${chainId}.
 
 ${_contracts
   .filter(c => c.chainId === chainId)
-  .map(c => `- \`${c.name}.sol\`: [${c.address}](${c.blockExplorerUrl}/address/${c.address})`)
+  .map(
+    c =>
+      `- \`${c.name}.sol\`: ${
+        c.blockExplorerUrl == null
+          ? c.address
+          : `[${c.address}](${c.blockExplorerUrl}/address/${c.address})`
+      }`
+  )
   .join('\n')}
 `
   })
