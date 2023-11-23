@@ -69,7 +69,7 @@ Returns the list of Safes associated with the signer address by calling  the `ge
 
 **Params**
 - `chainId`: Indicate the chain ID.
-- `txServiceUrl`(optional): The Safe Transaction Service url to retrieve the Safes associated with the owner (signer).
+- `txServiceUrl`(optional): The Safe Transaction Service URL to retrieve the Safes associated with the owner (signer).
 
 **Returns**
 - `safes[]`: The list of Safes associated with the owner (signer).
