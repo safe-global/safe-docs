@@ -10,4 +10,4 @@ We take great care of ensuring the security of our smart contracts. Please find 
 * [Safe v0.0.1](https://github.com/safe-global/safe-contracts/blob/v1.1.1/docs/alexey_audit.md)
 * [Allowance Module v0.1.0](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/AllowanceModuleAuditOct2020.md)
 
-Did you find a bug? Please [get in touch](mailto:bounty@safe.global) with us via our [bug bounty program](./bug-bounty-program.md).
+Did you find a bug? Please [get in touch](mailto:bounty@safe.global) with us via our [bug bounty program](../miscellaneous/bug-bounty-program.md).
