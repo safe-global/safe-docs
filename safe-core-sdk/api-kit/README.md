@@ -47,14 +47,20 @@ const ethAdapter = new EthersAdapter({
 
 ## Initialize the API Kit
 
-We need to create an instance of the API Kit.
+We need to create an instance of the API Kit. In those chains where Safe provides a transaction service is enough to specify the chainId. You can specify your own service using the optional `txServiceUrl` parameter.
 
 ```typescript
 import SafeApiKit from '@safe-global/api-kit'
 
 const safeApiKit = new SafeApiKit({
-  txServiceUrl: 'https://safe-transaction-mainnet.safe.global',
-  ethAdapter
+  chainId: 1n
+})
+
+
+// or using a custom service
+const safeApiKit = new SafeApiKit({
+  chainId: 1n, // set the correct chainId
+  txServiceUrl: 'https://url-to-your-custom-service'
 })
 ```
 
@@ -72,14 +78,14 @@ const safe = await Safe.create({
 })
 
 // Create transaction
-const safeTransactionData: SafeTransactionDataPartial = {
+const safeTransactionData: MetaTransactionData = {
   to: '0x',
   value: '1', // 1 wei
   data: '0x',
   operation: OperationType.Call
 }
 
-const safeTransaction = await safe.createTransaction({ safeTransactionData })
+const safeTransaction = await safe.createTransaction({ transactions: [safeTransactionData] })
 
 const senderAddress = await signer.getAddress()
 const safeTxHash = await safe.getTransactionHash(safeTransaction)

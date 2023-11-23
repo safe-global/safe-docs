@@ -20,12 +20,12 @@ Returns the information and configuration of the service.
 const serviceInfo: SafeServiceInfoResponse = await safeService.getServiceInfo()
 ```
 
-### `getServiceMasterCopiesInfo`
+### `getServiceSingletonsInfo`
 
-Returns the list of Safe master copies.
+Returns the list of Safe singletons.
 
 ```typescript
-const masterCopies: MasterCopyResponse = await safeService.getServiceMasterCopiesInfo()
+const singletons: SafeSingletonResponse = await safeService.getServiceSingletonsInfo()
 ```
 
 ### `decodeData`

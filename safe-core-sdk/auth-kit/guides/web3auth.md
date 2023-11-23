@@ -165,7 +165,7 @@ const safeTransactionData: MetaTransactionData = {
   value: ethers.parseUnits('0.0001', 'ether').toString()
 }
 
-const safeTransaction = await safeSDK.createTransaction({ safeTransactionData })
+const safeTransaction = await safeSDK.createTransaction({ transactions: [safeTransactionData] })
 ```
 
 ## Sign messages using the `Web3AuthModalPack`

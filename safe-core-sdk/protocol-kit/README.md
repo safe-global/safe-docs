@@ -88,15 +88,23 @@ const ethAdapterOwner1 = new EthersAdapter({
 
 ### Initialize the API Kit
 
-The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeApiKit`.
+The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit. In those chains where Safe provides a transaction service is enough to specify the chainId. You can specify your own service using the optional `txServiceUrl` parameter.
 
 You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](../../safe-core-api/available-services.md).
 
 ```tsx
 import SafeApiKit from '@safe-global/api-kit'
 
-const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
-const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
+const safeApiKit = new SafeApiKit({
+  chainId: 1n
+})
+
+
+// or using a custom service
+const safeApiKit = new SafeApiKit({
+  chainId: 1n, // set the correct chainId
+  txServiceUrl: 'https://url-to-your-custom-service'
+})
 ```
 
 ### Initialize the Protocol Kit
@@ -187,19 +195,19 @@ The high-level overview of a multi-sig transaction is PCE: Propose. Confirm. Exe
 For more details on what to include in a transaction see [Create a Transaction in the Safe Core SDK Guide](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#4-create-a-transaction).
 
 ```tsx
-import { SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
+import { MetaTransactionData } from '@safe-global/safe-core-sdk-types'
 
 // Any address can be used. In this example you will use vitalik.eth
 const destination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
 const amount = ethers.parseUnits('0.005', 'ether').toString()
 
-const safeTransactionData: SafeTransactionDataPartial = {
+const safeTransactionData: MetaTransactionData = {
   to: destination,
   data: '0x',
   value: amount
 }
 // Create a Safe transaction with the provided parameters
-const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionData })
+const safeTransaction = await safeSdkOwner1.createTransaction({ transactions: [safeTransactionData] })
 ```
 
 ### Propose the transaction

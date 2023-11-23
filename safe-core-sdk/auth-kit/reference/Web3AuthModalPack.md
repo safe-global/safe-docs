@@ -140,7 +140,7 @@ await web3AuthModalPack.init(web3AuthModalOptions, adapters, modalConfig)
 // Sign in
 const { eoa, safes } = await web3AuthModalPack.signIn()
 const userInfo = await web3AuthModalPack.getUserInfo()
-const BrowserProvider = web3AuthModalPack.getProvider()
+const web3Provider = web3AuthModalPack.getProvider()
 
 // Subscribe to events
 const handler = (event) => {}
