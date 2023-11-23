@@ -4,6 +4,7 @@ The Auth Kit creates an Ethereum address and authenticates a blockchain account 
 
 The following guides show how to use the Auth Kit and integrate it into your project by using one of the packs:
 - [Web3Auth Pack](./web3auth.md)
+- [Particle Network Pack](./particle-network.md)
 
 ## Resources
 - [Auth Kit on GitHub](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit)
