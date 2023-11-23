@@ -137,7 +137,7 @@ const web3AuthModalPack = new Web3AuthModalPack({
 
 ## Signing transactions using the Web3AuthModalPack and Protocol Kit
 
-The `Web3AuthModalPack` can be combined with the [Protocol Kit](../protocol-kit/) to connect to a Safe using the `provider` and `signer` of the currently authenticated account.
+The `Web3AuthModalPack` can be combined with the [Protocol Kit](../../protocol-kit/README.md) to connect to a Safe using the `provider` and `signer` of the currently authenticated account.
 
 Once connected, you can use any of the methods available in the [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
 
