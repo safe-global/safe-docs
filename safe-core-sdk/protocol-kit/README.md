@@ -11,11 +11,11 @@ For a more detailed guide, including how to integrate with `web3.js`` and more S
 ### Prerequisites
 
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-2. 3 externally-owned accounts with testnet ETH in at least one account
+2. 3 externally-owned accounts with Testnet ETH in at least one account
 
 ### Install dependencies
 
-First, we'll need to install some dependences from `safe-core-sdk` and the `ethers` library.
+First, we'll need to install some dependencies from `safe-core-sdk` and the `ethers` library.
 
 To interact with Ethereum and other EVM blockchains in Node, we can either use: web3.js or ethers.js. In this tutorial, we'll use the ethers.js library. To use `web3js`, see [Instantiate an EthAdapter section in Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
@@ -62,7 +62,7 @@ The signers trigger transactions to the Ethereum blockchain or off-chain transac
 
 You can get a public RPC URL from [Chainlist](https://chainlist.org), however, public RPC URLs can be unreliable so you can also try a dedicated provider like Infura or Alchemy.
 
-For this tutorial, we will be creating a Safe on the Goerli testnet.
+For this tutorial, we will be creating a Safe on the Goerli Testnet.
 
 ```tsx
 import { ethers } from 'ethers'
@@ -240,7 +240,7 @@ Recall that you created the `safeService` in [Initialize the API Kit](./#initial
 const pendingTransactions = await safeService.getPendingTransactions(safeAddress).results
 ```
 
-### Confirm the transaction: second confirmation
+### Confirm the transaction: Second confirmation
 
 When owner 2 is connected to the application, the Protocol Kit should be initialized again with the existing Safe address the address of the owner 2 instead of the owner 1.
 
