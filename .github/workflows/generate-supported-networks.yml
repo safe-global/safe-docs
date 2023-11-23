@@ -1,0 +1,34 @@
+name: Weekly update for supported networks
+
+on:
+  schedule:
+  - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+jobs:
+  generate-supported-networks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.x'
+          cache: 'yarn'
+          cache-dependency-path: ./yarn.lock
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Generate supported networks
+        run: node ./.github/scripts/generateSupportedNetworks.js
+      - uses: actions/checkout@v4
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
