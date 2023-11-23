@@ -51,7 +51,7 @@ You should always call the `init()` method afterwards before interacting with th
 
 ### `init(moneriumInitOptions)`
 
-The `init` method initializes the Monerium SDK and the Safe services by creating a new instance of the [`SafeMoneriumClient`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/src/packs/monerium/SafeMoneriumClient.ts) class. This class extends the [`MoneriumClient`](https://github.com/monerium/sdk/blob/main/src/client.ts) class from the Monerium SDK and adds extra features to use it with the Safe services.
+The `init` method initializes the Monerium SDK and the Safe services by creating a new instance of the [`SafeMoneriumClient`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/src/packs/monerium/SafeMoneriumClient.ts) class. This class extends the [`MoneriumClient`](https://github.com/monerium/js-sdk/blob/main/libs/sdk/src/client.ts) class from the Monerium SDK and adds extra features to use it with the Safe services.
 
 **Params**
 
