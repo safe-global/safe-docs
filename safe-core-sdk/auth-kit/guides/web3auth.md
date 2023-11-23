@@ -10,7 +10,7 @@ This guide demonstrate how to create an externally-owned account using your emai
 ### Install dependencies
 
 ```bash
-npm i @safe-global/auth-kit @web3auth/base@4.3.0 @web3auth/modal@4.3.1 @web3auth/openlogin-adapter@4.3.0
+npm i @safe-global/auth-kit @web3auth/base@4.6.0 @web3auth/modal@4.6.2 @web3auth/openlogin-adapter@4.6.0
 ```
 
 ## Create a Web3AuthModalPack instance
