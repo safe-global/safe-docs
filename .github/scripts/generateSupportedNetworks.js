@@ -102,7 +102,7 @@ ${_contracts
   .map(
     c =>
       `- \`${c.name}.sol\`: ${
-        c.blockExplorerUrl == null
+        c.blockExplorerUrl == null || deprecatedBlockExplorers.includes(c.blockExplorerUrl)
           ? c.address
           : `[${c.address}](${c.blockExplorerUrl}/address/${c.address})`
       }`
@@ -120,3 +120,20 @@ ${_contracts
 }
 
 generateSupportedNetworks()
+
+const deprecatedBlockExplorers = [
+  'https://ropsten.etherscan.io',
+  'https://rinkeby.etherscan.io',
+  'https://kovan-optimistic.etherscan.io',
+  'https://stardust-explorer.metis.io',
+  'https://blockexplorer.rinkeby.boba.network',
+  'https://blockexplorer.bobabeam.boba.network',
+  'https://rabbit.analogscan.com',
+  'https://explorer.eurus.network',
+  'https://testnetexplorer.eurus.network',
+  'https://explorer.tst.publicmint.io',
+  'https://evm-testnet.venidiumexplorer.com',
+  'https://evm.venidiumexplorer.com',
+  'https://evm.explorer.canto.io',
+  'https://explorer.autobahn.network'
+]
