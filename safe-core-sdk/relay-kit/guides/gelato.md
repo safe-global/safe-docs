@@ -91,30 +91,29 @@ const ethAdapter = new EthersAdapter({
   signerOrProvider: signer
 })
 
-const safeSDK = await Safe.create({
+const protocolKit = await Safe.create({
   ethAdapter,
   safeAddress
 })
 
-const relayKit = new GelatoRelayPack(process.env.GELATO_RELAY_API_KEY!)
+const relayKit = new GelatoRelayPack({ apiKey: process.env.GELATO_RELAY_API_KEY!, protocolKit })
 ```
 
 ### Prepare the transaction
 
 ```typescript
 const safeTransaction = await relayKit.createRelayedTransaction({
-  safe: safeSDK,
   transactions,
   options
 })
 
-const signedSafeTransaction = await safeSDK.signTransaction(safeTransaction)
+const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
 ```
 
 ### Send the transaction to the relay
 
 ```typescript
-const response = await relayKit.executeRelayTransaction(signedSafeTransaction, safeSDK, options)
+const response = await relayKit.executeRelayTransaction(signedSafeTransaction, options)
 
 console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`)
 ```
@@ -171,26 +170,26 @@ const ethAdapter = new EthersAdapter({
   signerOrProvider: signer
 })
 
-const safeSDK = await Safe.create({
+const protocolKit = await Safe.create({
   ethAdapter,
   safeAddress
 })
 
-const relayKit = new GelatoRelayPack()
+const relayKit = new GelatoRelayPack({ protocolKit })
 ```
 
 ### Prepare the transaction
 
 ```typescript
-const safeTransaction = await relayKit.createRelayedTransaction({ safe: safeSDK, transactions })
+const safeTransaction = await relayKit.createRelayedTransaction({ transactions })
 
-const signedSafeTransaction = await safeSDK.signTransaction(safeTransaction)
+const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
 ```
 
 ### Send the transaction to the relay
 
 ```typescript
-const response = await relayKit.executeRelayTransaction(signedSafeTransaction, safeSDK)
+const response = await relayKit.executeRelayTransaction(signedSafeTransaction)
 
 console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`)
 ```
