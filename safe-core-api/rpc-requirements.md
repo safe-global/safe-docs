@@ -34,10 +34,10 @@ For the L2 version of the Safe, no special RPC methods are used. The most demand
 
 That's not written in stone. Tx service has some environment variables that can be configured to set a limit on the number of blocks that are processed together (`ETH_EVENTS_BLOCK_PROCESS_LIMIT_MAX`), but the default behaviour is trying to detect the best configuration for every network similar to how [TCP congestion control](https://en.wikipedia.org/wiki/TCP_congestion_control) works.Indexer tries to process a low number of blocks (currently 50). Depending on that:
 
-* If request takes **less than 1 second**, node can process more. Number of blocks to fetch is duplicated for the next request.
-* If request takes **less than 3 seconds**, number of blocks to process are incremented by an small amount (currently 20).
-* If request takes **more than 20 seconds**, number of blocks to process are decremented by an small amount (currently 20).
-* If request takes **more than 30 seconds**, number of blocks to process are halved.
+* If the request takes **less than 1 second**, the node can process more. The number of blocks to fetch is duplicated for the next request.
+* If the request takes **less than 3 seconds**, the number of blocks to process is incremented by a small amount (currently 20).
+* If the request takes **more than 20 seconds**, the number of blocks to process is decremented by a small amount (currently 20).
+* If the request takes **more than 30 seconds**, the number of blocks to process is halved.
 * If there is **an exception** when requesting the information (I/O error) number of blocks to process is reset to the minimum number of blocks (currently 1).
 * All this happens in every request to the node used for indexing (safe transactions, erc20/721 events...).
 
