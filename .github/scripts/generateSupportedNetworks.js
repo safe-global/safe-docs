@@ -95,7 +95,7 @@ ${networks
     return `
 ### ${network}
 
-This network's Chain Id is ${chainId}.
+This network's chain ID is ${chainId}.
 
 ${_contracts
   .filter(c => c.chainId === chainId)

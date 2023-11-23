@@ -29,3 +29,17 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Generate supported networks
         run: node ./.github/scripts/generateSupportedNetworks.js
+      - uses: actions/checkout@v4
+      - name: Commit changes
+        run: |
+          git config --local user.email "gha@gha.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Update supported networks"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
