@@ -324,7 +324,7 @@ const threshold = await safeSdk.getThreshold()
 
 ### `getChainId`
 
-Returns the chainId of the connected network.
+Returns the chain ID of the connected network.
 
 ```typescript
 const chainId = await safeSdk.getChainId()
@@ -374,70 +374,68 @@ const isOwner = await safeSdk.isOwner(address)
 
 Returns a Safe transaction ready to be signed by the owners and executed. The Protocol Kit supports the creation of single Safe transactions but also MultiSend transactions.
 
-- **Single transactions**
+This method takes an array of `MetaTransactionData` objects that represent the individual transactions we want to include in our MultiSend transaction.
 
-  This method takes an array of `MetaTransactionData` objects that represent the individual transactions we want to include in our MultiSend transaction.
+When the array contains only one transaction, it's not wrapped in the MultiSend.
 
-  When the array contains only one transaction, it's not wrapped in the MultiSend.
-
-  ```typescript
-  const transactions: MetaTransactionData[] = [
-    {
-      to,
-      data,
-      value,
-      operation // Optional
-    },
-    {
-      to,
-      data,
-      value,
-      operation // Optional
-    }
-    // ...
-  ]
-  const safeTransaction = await safeSdk.createTransaction({ transactions })
-  ```
-
-  This method can also receive the `options` parameter to set the optional properties in the MultiSend transaction:
-
-  ```typescript
-  const transactions: MetaTransactionData[] = [
-    {
-      to,
-      data,
-      value,
-      operation // Optional
-    },
-    {
-      to,
-      data,
-      value,
-      operation // Optional
-    }
-    // ...
-  ]
-  const options: SafeTransactionOptionalProps = {
-    safeTxGas, // Optional
-    baseGas, // Optional
-    gasPrice, // Optional
-    gasToken, // Optional
-    refundReceiver, // Optional
-    nonce // Optional
+```typescript
+const transactions: MetaTransactionData[] = [
+  {
+    to,
+    data,
+    value,
+    operation // Optional
+  },
+  {
+    to,
+    data,
+    value,
+    operation // Optional
   }
-  const safeTransaction = await safeSdk.createTransaction({ transactions, options })
-  ```
+  // ...
+]
+const safeTransaction = await safeSdk.createTransaction({ transactions })
+```
 
-  In addition, the optional `callsOnly` parameter, which is `false` by default, allows to force the use of the `MultiSendCallOnly` instead of the `MultiSend` contract when sending a batch transaction:
+This method can also receive the `options` parameter to set the optional properties in the MultiSend transaction:
 
-  ```typescript
-  const callsOnly = true
-  const safeTransaction = await safeSdk.createTransaction({
-    transactions,
-    options,
-    callsOnly
-  })
-  ```
+```typescript
+const transactions: MetaTransactionData[] = [
+  {
+    to,
+    data,
+    value,
+    operation // Optional
+  },
+  {
+    to,
+    data,
+    value,
+    operation // Optional
+  }
+  // ...
+]
+const options: SafeTransactionOptionalProps = {
+  safeTxGas, // Optional
+  baseGas, // Optional
+  gasPrice, // Optional
+  gasToken, // Optional
+  refundReceiver, // Optional
+  nonce // Optional
+}
+const safeTransaction = await safeSdk.createTransaction({ transactions, options })
+```
+
+In addition, the optional `callsOnly` parameter, which is `false` by default, allows to force the use of the `MultiSendCallOnly` instead of the `MultiSend` contract when sending a batch transaction:
+
+```typescript
+const callsOnly = true
+const safeTransaction = await safeSdk.createTransaction({
+  transactions,
+  options,
+  callsOnly
+})
+```
 
 If the optional properties are not manually set, the Safe transaction returned will have the default value for each one:
 

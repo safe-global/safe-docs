@@ -72,7 +72,7 @@ Before a transaction can be executed, any of the Safe signers needs to initiate 
 import Safe from '@safe-global/protocol-kit'
 
 // Create Safe instance
-const safe = await Safe.create({
+const protocolKit = await Safe.create({
   ethAdapter,
   safeAddress: config.SAFE_ADDRESS
 })
@@ -85,15 +85,15 @@ const safeTransactionData: MetaTransactionData = {
   operation: OperationType.Call
 }
 
-const safeTransaction = await safe.createTransaction({ transactions: [safeTransactionData] })
+const safeTransaction = await protocolKit.createTransaction({ transactions: [safeTransactionData] })
 
 const senderAddress = await signer.getAddress()
-const safeTxHash = await safe.getTransactionHash(safeTransaction)
-const signature = await safe.signTransactionHash(safeTxHash)
+const safeTxHash = await protocolKit.getTransactionHash(safeTransaction)
+const signature = await protocolKit.signTransactionHash(safeTxHash)
 
 // Propose transaction to the service
 await safeApiKit.proposeTransaction({
-  safeAddress: await safe.getAddress(),
+  safeAddress: await protocolKit.getAddress(),
   safeTransactionData: safeTransaction.data,
   safeTxHash,
   senderAddress,
@@ -116,14 +116,14 @@ const transaction = await service.getTransaction("<SAFE_TX_HASH>")
 
 ## Confirm the transaction
 
-In this step we need to sign the transaction with the Protocol Kit and submit the signature the the Safe Transaction Service using the `confirmTransaction` method.
+In this step we need to sign the transaction with the Protocol Kit and submit the signature to the Safe Transaction Service using the `confirmTransaction` method.
 
 ```typescript
 const safeTxHash = transaction.transactionHash
-const signature = await safe.signTransactionHash(safeTxHash)
+const signature = await protocolKit.signTransactionHash(safeTxHash)
 
 // Confirm the Safe transaction
-const signatureResponse = await service.confirmTransaction(safeTxHash, signature.data)
+const signatureResponse = await safeApiKit.confirmTransaction(safeTxHash, signature.data)
 ```
 
 The Safe transaction is now ready to be executed. This can be done using the Safe{Wallet} web interface, the Protocol Kit or any other tool that's available.
