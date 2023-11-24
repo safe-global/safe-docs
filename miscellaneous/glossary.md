@@ -64,7 +64,7 @@ Safe{Core} is a set of smart contracts and Typescript packages that are used to 
 
 ### Safe{Wallet}
 
-Safe{Wallet} is a web and mobile wallet UI that is used to manage Safes. It is used to sign transactions and messages, and to interact with other smart contracts from the web, at [app.safe.global](https://app.safe.global), or from a mobile device, using the [Safe{Wallet} mobile app](https://safe.global/download). It is built entirely using the [Safe{Core} SDK](../safe-core-sdk/README.md).
+Safe{Wallet} is a web and mobile wallet UI that is used to manage Safes. It is used to sign transactions and messages, and to interact with other smart contracts from the web, at [app.safe.global](https://app.safe.global), or from a mobile device, using the [Safe{Wallet} mobile app](https://safe.global/wallet). It is built entirely using the [Safe{Core} SDK](../safe-core-sdk/README.md).
 
 ## T
 
