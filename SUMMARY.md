@@ -34,6 +34,7 @@
 
 * [Protocol Kit](safe-core-sdk/protocol-kit/README.md)
   * [Reference](safe-core-sdk/protocol-kit/reference/README.md)
+    * [Migrating to v2](safe-core-sdk/protocol-kit/reference/migrating/v2.md)
 
 * [Onramp Kit](safe-core-sdk/onramp-kit/README.md)
   * [Guides](safe-core-sdk/onramp-kit/guides/README.md)
@@ -47,9 +48,13 @@
 * [Relay Kit](safe-core-sdk/relay-kit/README.md)
   * [Guides](safe-core-sdk/relay-kit/guides/README.md)
     * [Gelato Relay](safe-core-sdk/relay-kit/guides/gelato.md)
+  * [Reference](safe-core-sdk/relay-kit/reference/README.md)
+    * [Migrating to v2](safe-core-sdk/relay-kit/reference/migrating/v2.md)
 
 * [API Kit](safe-core-sdk/api-kit/README.md)
   * [Reference](safe-core-sdk/api-kit/reference/README.md)
+    * [Migrating to v2](safe-core-sdk/api-kit/reference/migrating/v2.md)
+
 
 ## Safe{Core} Protocol
 
