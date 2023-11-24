@@ -169,3 +169,8 @@ const particle = new ParticleNetwork(config) // @particle-network/auth
 await particle.evm.sendTransaction(tx) // Send transaction
 await particle.evm.personalSign(message) // Sign message
 ```
+
+To learn more about Particle Network, take a look at the following resources:
+- https://particle.network
+- https://blog.particle.network
+- https://docs.particle.network
