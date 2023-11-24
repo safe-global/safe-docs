@@ -74,6 +74,7 @@
 
 ## Miscellaneous
 
+* [Glossary](miscellaneous/glossary.md)
 * [Bug Bounty](miscellaneous/bug-bounty-program.md)
 * [Past paid bounties](miscellaneous/past-paid-bounties.md)
 * [Contact us](miscellaneous/contact-us.md)
