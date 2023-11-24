@@ -47,7 +47,7 @@ const ethAdapter = new EthersAdapter({
 
 ## Initialize the API Kit
 
-We need to create an instance of the API Kit. In those chains where Safe provides a Transaction Service is enough to specify the `chainId`. You can set your own service using the optional `txServiceUrl` parameter.
+We need to create an instance of the API Kit. In chains where Safe provides a Transaction Service, it is enough to specify the `chainId`. You can set your own service using the optional `txServiceUrl` parameter.
 
 ```typescript
 import SafeApiKit from '@safe-global/api-kit'

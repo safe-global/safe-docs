@@ -11,7 +11,7 @@ For a more detailed guide, including how to integrate with `web3.js`` and more S
 ### Prerequisites
 
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-2. 3 externally-owned accounts with Testnet ETH in at least one account
+2. Three externally-owned accounts with Testnet ETH in at least one account
 
 ### Install dependencies
 
@@ -88,7 +88,7 @@ const ethAdapterOwner1 = new EthersAdapter({
 
 ### Initialize the API Kit
 
-The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit. In those chains where Safe provides a transaction service is enough to specify the chainId. You can specify your own service using the optional `txServiceUrl` parameter.
+The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To use this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit`. In those chains where Safe provides a transaction service, it is enough to specify the `chainId.` You can specify your own service using the optional `txServiceUrl` parameter.
 
 You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](../../safe-core-api/available-services.md).
 
