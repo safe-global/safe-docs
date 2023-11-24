@@ -18,6 +18,7 @@ Watch on YouTube
 
 1. [Safe Modules](https://github.com/safe-global/safe-modules)
 2. [Zodiac-compliant modules](https://zodiac.wiki/index.php/Introduction:_Zodiac_Standard#Modules)
+3. [Pimlico](https://docs.pimlico.io/permissionless/how-to/accounts/use-safe-account)
 
 {% hint style="danger" %}
 Safe Modules can be a security risk since they can execute arbitrary transactions. Only add trusted and audited modules to a Safe. A malicious module can take over a Safe.
