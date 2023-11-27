@@ -83,7 +83,7 @@ safeAuthInitOptions {
   - `ticker` - Symbol for ticker (e.g ETH).
   - `rpcTarget` - The RPC URL to be used.
   - `wcTarget?` - The websocket URL to be used. Use this or `rpcTarget`.
-  - `chainId` - The chain ID to be used. Should be an hex with 0x prefix (e.g 0x1 for mainnet).
+  - `chainId` - The chain ID to be used. Should be an hex with 0x prefix (e.g 0x1 for Mainnet).
   - `displayName` - The display name for the network.
   - `isTestnet?` - Whether the network is Testnet or not.
   - `isErc20?`- Whether the token is an ERC20 token or not.
