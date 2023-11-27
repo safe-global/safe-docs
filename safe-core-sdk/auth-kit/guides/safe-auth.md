@@ -23,7 +23,7 @@ Create an instance of the [SafeAuthPack](https://github.com/safe-global/safe-cor
 > The list of supported chains is:
 >
 > - Production: Ethereum, Polygon, BSC, Avalanche, Optimism, Celo, Arbitrum, Gnosis chain
-> - Test: Goerli, Sepolia, Polygon Mumbai, BSC testnet, Avalanche testnet, Arbitrum testnet, Optimism testnet
+> - Test: Goerli, Sepolia, Polygon Mumbai, BSC Testnet, Avalanche Testnet, Arbitrum Testnet, Optimism Testnet
 
 ```typescript
 import {

@@ -77,15 +77,15 @@ safeAuthInitOptions {
 - `showWidgetButton` - Show the widget button. Defaults to `true`.
 - `buttonPosition` - If `showWidgetButton` is true then this prop represent the position of the widget button. Defaults to `bottom-left`.
 - `chainConfig` - The chain configuration. Defaults to `ethereum` if no configuration is provided.
-  - `blockExplorerUrl` - Block explorer URL for the chain (e.g https://etherscan.io).
-  - `logo` - Logo URL for the base token of the chain (e.g https://eth.svg).
+  - `blockExplorerUrl` - Block explorer URL of the chain (e.g `https://etherscan.io`).
+  - `logo` - Logo URL of the base token of the chain (e.g `https://eth.svg`).
   - `tickerName` - Name for ticker (e.g Ethereum).
   - `ticker` - Symbol for ticker (e.g ETH).
   - `rpcTarget` - The RPC URL to be used.
   - `wcTarget?` - The websocket URL to be used. Use this or `rpcTarget`.
   - `chainId` - The chain ID to be used. Should be an hex with 0x prefix (e.g 0x1 for mainnet).
   - `displayName` - The display name for the network.
-  - `isTestnet?` - Whether the network is testnet or not.
+  - `isTestnet?` - Whether the network is Testnet or not.
   - `isErc20?`- Whether the token is an ERC20 token or not.
   - `tokenAddress?` - The token address for the chain. Should be an hex with 0x prefix (e.g 0x6b175474e89094c44da98b954eedeac495271d0f for DAI).
 
@@ -93,7 +93,7 @@ safeAuthInitOptions {
 
 - The list of supported chains is:
   - Production: Ethereum, Polygon, BSC, Avalanche, Optimism, Celo, Arbitrum, Gnosis chain.
-  - Test: Goerli, Sepolia, Polygon Mumbai, BSC testnet, Avalanche testnet, Arbitrum testnet, Optimism testnet.
+  - Test: Goerli, Sepolia, Polygon Mumbai, BSC Testnet, Avalanche Testnet, Arbitrum Testnet, Optimism Testnet.
 - Call always the `init()` method before interacting with the other methods in the pack.
 - The `init()` method creates an iframe and establishes a connection with the embedded wallet domain. To remove the iframe and disconnect the connection, use the `signOut()` method. If you want to sign out and sign in again in a single-page application (SPA) fashion, avoid using `signOut({ reset: true })` as it will clean up the session, iframe, and connection. Instead, you will need to re-instantiate the pack.
 
@@ -134,8 +134,8 @@ AuthKitSignInData {
 
 **Caveats**
 
-- To get the Safe addresses, instantiate the `authKit` with the `txServiceUrl` property in the config object. Otherwise, only the eoa will be returned.
-- ⚠️ This method currently returns the Safe addresses where the EOA is an owner. It does not create a Safe. We are investigating ways to enhance the Auth Kit and the associated flows. ⚠️
+- To get the Safe addresses, instantiate the `authKit` with the `txServiceUrl` property in the config object. Otherwise, only the EOA will be returned.
+- ⚠️ This method currently returns the Safe addresses where the EOA is an owner. It doesn't create a Safe. We are investigating ways to enhance the Auth Kit and the associated flows. ⚠️
 
 ### `signOut(safeAuthSignOutOptions?)`
 

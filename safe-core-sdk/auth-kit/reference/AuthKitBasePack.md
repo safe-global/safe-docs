@@ -26,7 +26,7 @@ These methods and properties are the common interface for all the Auth packs. Ch
 
 ### `isAuthenticated(): boolean`
 
-Any pack extending the `AuthKitBasePack` class must implement the `isAuthenticated()` getter. This method returns a boolean indicating if the user is authenticated or not.
+Any pack extending the `AuthKitBasePack` class must implement the `isAuthenticated()` getter. This method returns a `boolean` indicating if the user is authenticated or not.
 
 ### `init(options?): Promise<void>`
 
