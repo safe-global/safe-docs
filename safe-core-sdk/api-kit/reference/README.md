@@ -17,15 +17,15 @@ yarn add @safe-global/api-kit
 Returns the information and configuration of the service.
 
 ```typescript
-const serviceInfo: SafeServiceInfoResponse = await safeService.getServiceInfo()
+const serviceInfo: SafeServiceInfoResponse = await safeApiKit.getServiceInfo()
 ```
 
-### `getServiceMasterCopiesInfo`
+### `getServiceSingletonsInfo`
 
-Returns the list of Safe master copies.
+Returns the list of Safe singletons.
 
 ```typescript
-const masterCopies: MasterCopyResponse = await safeService.getServiceMasterCopiesInfo()
+const singletons: SafeSingletonResponse = await safeApiKit.getServiceSingletonsInfo()
 ```
 
 ### `decodeData`
@@ -33,7 +33,7 @@ const masterCopies: MasterCopyResponse = await safeService.getServiceMasterCopie
 Decodes the specified Safe transaction data.
 
 ```typescript
-const decodedData = await safeService.decodeData(data)
+const decodedData = await safeApiKit.decodeData(data)
 ```
 
 ### `getSafesByOwner`
@@ -41,7 +41,7 @@ const decodedData = await safeService.decodeData(data)
 Returns the list of Safes where the address provided is an owner.
 
 ```typescript
-const safes: OwnerResponse = await safeService.getSafesByOwner(ownerAddress)
+const safes: OwnerResponse = await safeApiKit.getSafesByOwner(ownerAddress)
 ```
 
 ### `getSafesByModule`
@@ -57,7 +57,7 @@ const safes: ModulesResponse = await getSafesByModule(moduleAddress)
 Returns all the information of a Safe transaction.
 
 ```typescript
-const tx: SafeMultisigTransactionResponse = await safeService.getTransaction(safeTxHash)
+const tx: SafeMultisigTransactionResponse = await safeApiKit.getTransaction(safeTxHash)
 ```
 
 ### `getTransactionConfirmations`
@@ -66,7 +66,7 @@ Returns the list of confirmations for a given a Safe transaction.
 
 ```typescript
 const confirmations: SafeMultisigConfirmationListResponse =
-  await safeService.getTransactionConfirmations(safeTxHash)
+  await safeApiKit.getTransactionConfirmations(safeTxHash)
 ```
 
 ### `confirmTransaction`
@@ -74,7 +74,7 @@ const confirmations: SafeMultisigConfirmationListResponse =
 Adds a confirmation for a Safe transaction.
 
 ```typescript
-const signature: SignatureResponse = await safeService.confirmTransaction(safeTxHash, signature)
+const signature: SignatureResponse = await safeApiKit.confirmTransaction(safeTxHash, signature)
 ```
 
 ### `getSafeInfo`
@@ -82,7 +82,7 @@ const signature: SignatureResponse = await safeService.confirmTransaction(safeTx
 Returns the information and configuration of the provided Safe address.
 
 ```typescript
-const safeInfo: SafeInfoResponse = await safeService.getSafeInfo(safeAddress)
+const safeInfo: SafeInfoResponse = await safeApiKit.getSafeInfo(safeAddress)
 ```
 
 ### `getSafeDelegates`
@@ -98,7 +98,7 @@ const delegateConfig: GetSafeDelegateProps = {
   limit, // Optional
   offset // Optional
 }
-const delegates: SafeDelegateListResponse = await safeService.getSafeDelegates(delegateConfig)
+const delegates: SafeDelegateListResponse = await safeApiKit.getSafeDelegates(delegateConfig)
 ```
 
 ### `addSafeDelegate`
@@ -113,7 +113,7 @@ const delegateConfig: AddSafeDelegateProps = {
   label,
   signer
 }
-await safeService.addSafeDelegate(delegateConfig)
+await safeApiKit.addSafeDelegate(delegateConfig)
 ```
 
 ### `removeSafeDelegate`
@@ -126,7 +126,7 @@ const delegateConfig: DeleteSafeDelegateProps = {
   delegatorAddress,
   signer
 }
-await safeService.removeSafeDelegate(delegateConfig)
+await safeApiKit.removeSafeDelegate(delegateConfig)
 ```
 
 ### `getSafeCreationInfo`
@@ -134,7 +134,7 @@ await safeService.removeSafeDelegate(delegateConfig)
 Returns the creation information of a Safe.
 
 ```typescript
-const safeCreationInfo: SafeCreationInfoResponse = await safeService.getSafeCreationInfo(
+const safeCreationInfo: SafeCreationInfoResponse = await safeApiKit.getSafeCreationInfo(
   safeAddress
 )
 ```
@@ -145,7 +145,7 @@ Estimates the safeTxGas for a given Safe multi-signature transaction.
 
 ```typescript
 const estimateTx: SafeMultisigTransactionEstimateResponse =
-  await safeService.estimateSafeTransaction(safeAddress, safeTransaction)
+  await safeApiKit.estimateSafeTransaction(safeAddress, safeTransaction)
 ```
 
 ### `proposeTransaction`
@@ -161,7 +161,7 @@ const transactionConfig: ProposeTransactionProps = {
   senderSignature,
   origin
 }
-await safeService.proposeTransaction(transactionConfig)
+await safeApiKit.proposeTransaction(transactionConfig)
 ```
 
 ### `getIncomingTransactions`
@@ -169,7 +169,7 @@ await safeService.proposeTransaction(transactionConfig)
 Returns the history of incoming transactions of a Safe account.
 
 ```typescript
-const incomingTxs: TransferListResponse = await safeService.getIncomingTransactions(safeAddress)
+const incomingTxs: TransferListResponse = await safeApiKit.getIncomingTransactions(safeAddress)
 ```
 
 ### `getModuleTransactions`
@@ -177,7 +177,7 @@ const incomingTxs: TransferListResponse = await safeService.getIncomingTransacti
 Returns the history of module transactions of a Safe account.
 
 ```typescript
-const moduleTxs: SafeModuleTransactionListResponse = await safeService.getModuleTransactions(
+const moduleTxs: SafeModuleTransactionListResponse = await safeApiKit.getModuleTransactions(
   safeAddress
 )
 ```
@@ -187,7 +187,7 @@ const moduleTxs: SafeModuleTransactionListResponse = await safeService.getModule
 Returns the history of multi-signature transactions of a Safe account.
 
 ```typescript
-const multisigTxs: SafeMultisigTransactionListResponse = await safeService.getMultisigTransactions(
+const multisigTxs: SafeMultisigTransactionListResponse = await safeApiKit.getMultisigTransactions(
   safeAddress
 )
 ```
@@ -197,13 +197,13 @@ const multisigTxs: SafeMultisigTransactionListResponse = await safeService.getMu
 Returns the list of multi-signature transactions that are waiting for the confirmation of the Safe owners.
 
 ```typescript
-const pendingTxs: SafeMultisigTransactionListResponse = await safeService.getPendingTransactions(
+const pendingTxs: SafeMultisigTransactionListResponse = await safeApiKit.getPendingTransactions(
   safeAddress
 )
 ```
 
 ```typescript
-const pendingTxs: SafeMultisigTransactionListResponse = await safeService.getPendingTransactions(
+const pendingTxs: SafeMultisigTransactionListResponse = await safeApiKit.getPendingTransactions(
   safeAddress,
   currentNonce
 )
@@ -214,7 +214,7 @@ const pendingTxs: SafeMultisigTransactionListResponse = await safeService.getPen
 Returns a list of transactions for a Safe. The list has different structures depending on the transaction type.
 
 ```typescript
-const allTxs: SafeMultisigTransactionListResponse = await safeService.getAllTransactions(
+const allTxs: SafeMultisigTransactionListResponse = await safeApiKit.getAllTransactions(
   safeAddress
 )
 ```
@@ -225,7 +225,7 @@ const allTxsOptions: AllTransactionsOptions = {
   queued,
   trusted
 }
-const allTxs: SafeMultisigTransactionListResponse = await safeService.getAllTransactions(
+const allTxs: SafeMultisigTransactionListResponse = await safeApiKit.getAllTransactions(
   safeAddress,
   allTxsOptions
 )
@@ -236,7 +236,7 @@ const allTxs: SafeMultisigTransactionListResponse = await safeService.getAllTran
 Returns the right nonce to propose a new transaction right after the last pending transaction.
 
 ```typescript
-const nextNonce = await safeService.getNextNonce(safeAddress)
+const nextNonce = await safeApiKit.getNextNonce(safeAddress)
 ```
 
 ### `getTokenList`
@@ -244,7 +244,7 @@ const nextNonce = await safeService.getNextNonce(safeAddress)
 Returns the list of all the ERC20 tokens handled by the Safe.
 
 ```typescript
-const tokens: TokenInfoListResponse = await safeService.getTokenList()
+const tokens: TokenInfoListResponse = await safeApiKit.getTokenList()
 ```
 
 ### `getToken`
@@ -252,5 +252,5 @@ const tokens: TokenInfoListResponse = await safeService.getTokenList()
 Returns the information of a given ERC20 token.
 
 ```typescript
-const token: TokenInfoResponse = await safeService.getToken(tokenAddress)
+const token: TokenInfoResponse = await safeApiKit.getToken(tokenAddress)
 ```
