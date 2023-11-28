@@ -1,6 +1,34 @@
 {
+  "version": "0.0.1",
+  "description": "Safe docs",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "generate-supported-networks": "node .github/scripts/generateSupportedNetworks.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/safe-global/safe-docs.git"
+  },
+  "author": "Safe Core Contributors <support@safe.global>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/safe-global/safe-docs/issues"
+  },
+  "homepage": "https://github.com/safe-global/safe-docs#readme",
   "dependencies": {
+    "next": "^13.0.6",
+    "nextra": "latest",
+    "nextra-theme-docs": "latest",
     "node-fetch": "^3.3.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "shelljs": "^0.8.5"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.10",
+    "@types/react": "18.2.37",
+    "typescript": "^4.9.3"
   }
 }
