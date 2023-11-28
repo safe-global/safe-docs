@@ -8,7 +8,7 @@ Safe{Core} Protocol aims to create a comprehensive system to enhance user intera
 
 The architecture of the Safe{Core} Protocol comprises several integral components, each carrying its unique responsibilities. The protocol separates these elements by defining explicit interfaces, thus allowing independent expansion and iteration of each part. This modularity ensures the sustainable growth and evolution of the smart account ecosystem.
 
-<figure><img src="../.gitbook/assets/diagram-safe-core-protocol.png" width="100%" alt="" /></figure>
+<figure><img src="../../assets/diagram-safe-core-protocol.png" width="100%" alt="" /></figure>
 
 ### Manager
 
