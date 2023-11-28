@@ -30,7 +30,7 @@ Provides the initialization options for the required packages, classes and prope
 
 ### open(options)
 
-Initiates the interaction with the pack. It can create a widget (e.g. Stripe) or redirect to a website (e.g. Monerium).
+Initiates the interaction with the pack. It can create a widget (for example Stripe) or redirect to a website (for example Monerium).
 
 It returns the outcome of interacting with the pack.
 

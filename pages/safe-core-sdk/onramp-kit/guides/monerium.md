@@ -61,7 +61,7 @@ This action will open the Monerium web page to begin the authentication process 
 Take a look to the Monerium web page URL. You will see that the query string includes parameters such as these, among others:
 
 - `address`: The Safe address you want to bind to your Monerium account.
-- `signature`: Always "0x". It means the origin wallet is a multisig, just like the Safe. Monerium will then verify for onchain signatures in your Safe contract
+- `signature`: Always "0x." It means the origin wallet is a multisig, just like the Safe. Monerium will then verify for onchain signatures in your Safe contract
 - `chain`: The Monerium selected chain. The value is automatically calculated using the `safeSdk` instance.
 - `network`: The Monerium selected network. The value is automatically calculated using the `safeSdk` instance.
 - `redirect_uri`: The `redirectUrl` you sent in the `open` method. Once authenticated Monerium dashboard will redirect to that URL.
@@ -184,4 +184,4 @@ moneriumPack.unsubscribe(OrderState.processed, handler)
 
 ## MoneriumPack complete React example
 
-Check a complete [example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client) in the `safe-core-sdk` sitory. Follow the steps in the [`README.md`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/README.md) to run the example and configure the environment variables for the pack following the [`.env.sample`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/.env.sample).
+Check a complete [example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client) in the `safe-core-sdk` repository. Follow the steps in the [`README.md`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/README.md) to run the example and configure the environment variables for the pack following the [`.env.sample`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/.env.sample).

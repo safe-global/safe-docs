@@ -46,7 +46,7 @@ The requirement doesn't apply for battle-tested applications hosted on the same 
 
 While we won't be able to do a proper audit for your Safe App, we still would like to look at the source code to raise issues or suggest improvements. Whether your Safe App is open or closed source, please send us either a link to the public repository or an invitation to the private repository.
 
-We also would like to make a rough functional review of the App, so please provide us with a high-level test plan/feature list that allows our QA team to ensure everything works as intended in production. Video walkthroughs are also welcome.
+We also would like to make a rough functional review of the App, so please provide us with a high-level test plan/feature list that allows our QA team to ensure everything works as intended in production. Video walk-throughs are also welcome.
 
 ### Help us decode your Safe App transactions
 

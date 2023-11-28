@@ -84,7 +84,7 @@ Important considerations about Web3Auth are:
 
 1) When you sign in with the same social account, the same Ethereum address will be returned for the same Web3Auth client ID. Web3Auth [scopes the creation of the wallet](https://web3auth.io/docs/troubleshooting/different-wallet-address-issue) (address) to the dapp, so when interacting with other dapps using Web3Auth, a different Ethereum address will be returned. This is by design and to enhanced security.
 
-2) If you sign in with an email and then with a social account using the same email (e.g. "Sign in with Google"), a different Ethereum address might be returned even the same email address is used.
+2) If you sign in with an email and then with a social account using the same email (for example "Sign in with Google"), a different Ethereum address might be returned even the same email address is used.
 
 ```typescript
 // The signIn() method will return the user's Ethereum address

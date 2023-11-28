@@ -83,7 +83,7 @@ sequenceDiagram
     SafeTransactionService->>-B: Http(201) {Created}
 ```
 
-**What is the `safe_tx_hash`?**
+**What's the `safe_tx_hash`?**
      
 `safe_tx_hash` is the unique identifier for a Safe transaction and is calculated using the [EIP-712](https://eips.ethereum.org/EIPS/eip-712) standard:  
 `keccak256(0x19 || 0x1 || domainSeparator || safeTxHashStruct)`  

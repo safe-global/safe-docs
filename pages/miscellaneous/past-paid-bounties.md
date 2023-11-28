@@ -8,7 +8,7 @@ We use a [MultiSend](https://github.com/safe-global/safe-contracts/blob/v1.2.0/c
 
 We have updated the library as well as our interfaces. Details about the fix can be found on [GitHub](https://github.com/safe-global/safe-contracts/pull/156).
 
-This bug was submitted by [Micah Zoltu](https://twitter.com/micahzoltu). It was regarded as a "Low Threat", and a bounty of 1,000 USD has been paid out.
+This bug was submitted by [Micah Zoltu](https://twitter.com/micahzoltu). It was regarded as a "Low Threat," and a bounty of 1,000 USD has been paid out.
 
 ## Transaction failure when receiving funds via `transfer` or `send`
 
@@ -32,7 +32,7 @@ To fix this, the next contract update will prevent the Safe as its owner via `re
 
 Details about this issue can be found on [GitHub](https://github.com/safe-global/safe-contracts/issues/229).
 
-The bug was submitted by [Kevin Foesenek](https://github.com/keviinfoes). It was regarded as a "Medium Threat", and a bounty of 5,000 USD has been paid out.
+The bug was submitted by [Kevin Foesenek](https://github.com/keviinfoes). It was regarded as a "Medium Threat," and a bounty of 5,000 USD has been paid out.
 
 ## The function `getModulesPaginated` doesn't return all modules
 

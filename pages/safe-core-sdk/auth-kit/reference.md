@@ -10,7 +10,7 @@ To add the Auth Kit to your project, run:
 yarn add @safe-global/auth-kit
 ```
 
-The Auth Kit can integrate several providers in the form of **"packs"**. A pack is a piece of code that works with the chosen provider to give Safe users access to new services.
+The Auth Kit can integrate several providers in the form of **"packs."** A pack is a piece of code that works with the chosen provider to give Safe users access to new services.
 
 To use each pack, the right package needs to be installed:
 
