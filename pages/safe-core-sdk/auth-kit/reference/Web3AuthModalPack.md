@@ -43,7 +43,7 @@ Web3AuthConfig {
   txServiceUrl: string
 }
 ```
-- `txServiceUrl` - The URL of the Safe transaction service. It is used to retrieve the Safe addresses for an externally-owned account created using Web3Auth services. It is required to use the `Web3AuthModalPack` with Safe.
+- `txServiceUrl` - The URL for the Safe transaction service. It's used to retrieve the Safe addresses for an externally-owned account created using Web3Auth services. It's required to use the `Web3AuthModalPack` with Safe.
 
 **Caveats**
 You should always call the `init()` method afterwards before interacting with the pack.
@@ -82,8 +82,8 @@ AuthKitSignInData {
 
 **Caveats**
 
-- To get the Safe addresses, instantiate the authKit with the `txServiceUrl` property in the config object. Otherwise, only the eoa will be returned.
-- ⚠️ This method currently returns the Safe addresses which the EOA is the owner of. It does not create a Safe. We are investigating ways to enhance the Auth Kit and the associated flows. ⚠️
+- To get the Safe addresses, instantiate the authKit with the `txServiceUrl` property in the config object. Otherwise, only the EOA will be returned.
+- ⚠️ This method currently returns the Safe addresses which the EOA is the owner of. It doesn't create a Safe. We are investigating ways to enhance the Auth Kit and the associated flows. ⚠️
 
 ### signOut()
 

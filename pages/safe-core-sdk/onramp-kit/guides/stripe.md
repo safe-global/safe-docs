@@ -1,10 +1,10 @@
 # Integration with Stripe
 
-The [Stripe Crypto OnRamp service](https://stripe.com/docs/crypto/overview) allows individuals to securely purchase cryptocurrencies from your application. 
+The [Stripe Crypto Onramp service](https://stripe.com/docs/crypto/overview) allows individuals to securely purchase cryptocurrencies from your application. 
 
 ## What are we going to learn?
 
-This guide demonstrates how to use the `StripePack` as part of the [`OnRampKit`](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) and incorporate it into your web application.
+This guide demonstrates how to use the `StripePack` as part of the [`OnrampKit`](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) and incorporate it into your web application.
 
 We are going to learn how to render the Stripe widget into your page. This widget allows the use your own Ethereum address for onramping cryptocurrencies. As [Stripe API](https://stripe.com/docs/crypto/using-the-api) usage [requires a server](https://stripe.com/docs/crypto/quickstart?client=html&lang=node) to start the interaction with their services, we will also be using a [pre-deployed server](https://github.com/5afe/aa-stripe-service) and providing a public key for testing purposes.
 
@@ -25,7 +25,7 @@ yarn add @safe-global/onramp-kit @stripe/stripe-js @stripe/crypto
 
 ## Using the `StripePack` in your Web App
 
-The `StripePack` can be used with any frontend framework like Reactjs, Vuejs, Angular or even plain HTML and Javascript. In this example, we are using it with plain JavaScript.
+The `StripePack` can be used with any frontend framework like React, Vue, Angular or even plain HTML and Javascript. In this example, we are using it with plain JavaScript.
 
 1. Load the application and initialize the `StripePack` using the following snippet:
 
@@ -74,11 +74,11 @@ const sessionData = await stripePack.open({
 
 Make sure you include the `element`. Otherwise, you may get the following error:
 
-![Error when Specifying the element ID is not provided](https://user-images.githubusercontent.com/9806858/228420761-0f24df48-03a1-4fe6-bd59-45cb4d18daf6.png)
+![Error when Specifying the element ID isn't provided](https://user-images.githubusercontent.com/9806858/228420761-0f24df48-03a1-4fe6-bd59-45cb4d18daf6.png)
 
 You can also specify the default options for the widget. For example, you can specify the default wallet address, supported destination networks, and supported destination currencies. See the [Stripe API documentation](https://stripe.com/docs/crypto/using-the-api) for more details. The default options you specify using the `open` method will be passed through the Stripe API when using our provided server. When you create your own one (you need to do it on your production apps) you should do something similar.
 
-4. Listening to events is important for understanding what is happening around. It helps us to create a proper UI in our web page.
+4. Listening to events is important for understanding what's happening around. It helps us to create a proper UI in our web page.
 
 Check the [Stripe frontend events](https://stripe.com/docs/crypto/using-the-api#frontend-events) for the list of available events.
 
@@ -100,7 +100,7 @@ stripePack.unsubscribe('onramp_ui_loaded', uiLoadedHandler)
 stripePack.unsubscribe('onramp_session_updated', sessionUpdatedHandler)
 ```
 
-## Testing my DApp containing the Stripe widget
+## Testing my dapp containing the Stripe widget
 In production, each customer should pass an individual KYC process but probably you want to test your application before 😊. You can use the following test data for bypass the KYC process while in [test mode](https://stripe.com/docs/test-mode).
 
 | **Field**                   | **Value**                   | **Description**                                               |
@@ -123,10 +123,10 @@ In production, each customer should pass an individual KYC process but probably 
 | **CVC**                     | 123                         | Use any CVC 123                                               |
 | **Billing Zip Code**        | 12345                       | Use any zip code 12345 for billing                            |
 
-## OnRamp Kit KYC test data - Examples
+## Onramp Kit KYC test data - Examples
 
 ![KYC Personal info example](https://user-images.githubusercontent.com/9806858/228418052-30b2239a-ca19-4639-9858-4344d3ba7d45.png) ![KYC Address Example](https://user-images.githubusercontent.com/9806858/228418056-48cfa6a6-fde9-4504-a8be-ce91b03c960f.png) ![Payment Method](https://user-images.githubusercontent.com/9806858/228418059-b83b6357-a6b0-4f09-a4b2-3b89767cb4f0.png)
 
 ## StripePack complete React example
 
-Check a complete [example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client) in the `safe-core-sdk` repo. Follow the steps in the [`README.md`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/README.md) to run the example and configure the environment variables (`VITE_MONERIUM_CLIENT_ID` is not necessary) for the pack following the [`.env.sample`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/.env.sample).
+Check a complete [example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client) in the `safe-core-sdk` repository. Follow the steps in the [`README.md`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/README.md) to run the example and configure the environment variables (`VITE_MONERIUM_CLIENT_ID` isn't necessary) for the pack following the [`.env.sample`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/.env.sample).

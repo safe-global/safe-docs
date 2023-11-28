@@ -1,6 +1,6 @@
 # Safe Modules
 
-Safe Modules add custom features to Safe contracts. They are smart contracts that add functionality to Safe while separating module logic from Safe's core contracts. A basic Safe does not require any modules. Adding and removing a module requires confirmation from the configured threshold number of owners. Events are emitted whenever a module is added or removed and a module transaction succeeds or fails.
+Safe Modules add custom features to Safe contracts. They're smart contracts that add functionality to Safe while separating module logic from Safe's core contracts. A basic Safe doesn't require any modules. Adding and removing a module requires confirmation from the configured threshold number of owners. Events are emitted whenever a module is added or removed and a module transaction succeeds or fails.
 
 Safe Modules can include daily spending allowances, amounts that can be spent without the approval of other owners, recurring transactions modules, and standing orders performed on a recurring date. For example, paying your rent or social recovery modules may allow you to recover a Safe if you lose access to owner accounts. 
 

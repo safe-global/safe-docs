@@ -2,15 +2,15 @@ This page is taken from https://github.com/5afe/account-abstraction-demo-ui
 
 # Account Abstraction demo app
 
-[The Safe{Core} SDK](https://github.com/safe-global/safe-core-sdk) allows builders to add account abstraction functionality into their apps. This demo is an example on how to use our different packages (Auth Kit, OnRamp Kit & Relay Kit).
+[The Safe{Core} SDK](https://github.com/safe-global/safe-core-sdk) allows builders to add account abstraction functionality into their apps. This demo is an example on how to use our different packages (Auth Kit, Onramp Kit & Relay Kit).
 
-See the [Safe{Core} Account Abstraction SDK Docs](https://docs.safe.global/learn/safe-core-account-abstraction-sdk) for more details.
+See the [Safe{Core} Account Abstraction SDK Docs](../safe-core-sdk/overview.md) for more details.
 
 ## Installation
 
 To run this project locally:
 
-Install deps:
+Install dependencies:
 
 ```bash
 yarn install

@@ -29,6 +29,6 @@ await pack.init(packInitOptions)
 
 After the initialization, use the methods in the pack to interact with the chosen provider.
 
-There are some common methods (`open()`, `close()`, etc.) that can be called regardless of the package being used.
+Some common methods (`open()`, `close()`, etc.) can be called regardless of the package being used.
 
 The kit creates a common interface that any pack should implement. Check the [`OnRampKitBasePack`](./OnRampKitBasePack.md) abstract class to get more details.

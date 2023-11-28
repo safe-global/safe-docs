@@ -10,9 +10,9 @@ Smart contract security experts have carefully audited Safe's contracts. Please 
 
 Many of the [Ethereum Foundation's bug bounty program rules](https://bounty.ethereum.org) are also applicable to the Safe Bug Bounty program:
 
-* Issues already submitted by another user or known to the Safe team are not eligible for bounty rewards.
+* Issues already submitted by another user or known to the Safe team aren't eligible for bounty rewards.
 * Public disclosure of a vulnerability makes it ineligible for a bounty.
-* The Safe core development team, employees, and all other people paid by Safe, directly or indirectly (including the external auditors), are not eligible for rewards.
+* The Safe core development team, employees, and all other people paid by Safe, directly or indirectly (including the external auditors), aren't eligible for rewards.
 * The Safe Bounty program considers several variables in determining rewards. Determinations of eligibility, score, and all terms related to an award are at the sole and final discretion of the Safe Bug Bounty panel.
 
 ## Scope
@@ -79,15 +79,15 @@ For the allowance module, please refer to the corresponding [README file](https:
 
 All bugs (they do not necessarily need to lead to a redeploy) will be considered for a bounty, but the severity of the threat will change the reward. Below are the reward levels for each threat severity and an example of such a threat.
 
-### High threat: up to $1,000,000
+### High threat: Up to $1,000,000
 
 An identified attack that could steal funds or tokens or lock user funds would be considered a high threat. Likewise, a reported bug that, on its own, leads to a redeploy of the code will always be regarded as a high threat.
 
-### Medium threat: up to $50,000
+### Medium threat: Up to $50,000
 
-An identified attack where it is possible to steal funds because of unexpected behavior on the user's part. Unexpected behavior here means the user can't anticipate and comprehend that they will lose the funds.
+An identified attack where it's possible to steal funds because of unexpected behavior on the user's part. Unexpected behavior here means the user can't anticipate and comprehend that they will lose the funds.
 
-### Low threat: up to $10,000
+### Low threat: Up to $10,000
 
 A way to avoid transaction fees or an exploit that in some way compromises the experience of other Safe users.
 
@@ -106,7 +106,7 @@ Please consult our [privacy policy](https://safe.global/privacy) for further det
 
 ## Responsible Disclosure Policy
 
-If you comply with the policies below when reporting a security issue to us, we will not initiate a lawsuit or law enforcement investigation against you in response to your report.
+If you comply with the policies below when reporting a security issue to us, we won't initiate a lawsuit or law enforcement investigation against you in response to your report.
 
 _We ask that:_
 

@@ -66,7 +66,7 @@ Take a look to the Monerium web page URL. You will see that the query string inc
 - `network`: The Monerium selected network. The value is automatically calculated using the `safeSdk` instance.
 - `redirect_uri`: The `redirectUrl` you sent in the `open` method. Once authenticated Monerium dashboard will redirect to that url.
 
-⚠️ It is important to be aware of what is happening during this initial interaction. A `signMessage` transaction accepting the [required Monerium message](https://monerium.dev/api-docs#operation/auth) will be proposed to your Safe the first time you try to link your Safe address. To confirm and execute it, you must also add the remaining signatures in the Safe UI and execute the transaction.
+⚠️ It's important to be aware of what's happening during this initial interaction. A `signMessage` transaction accepting the [required Monerium message](https://monerium.dev/api-docs#operation/auth) will be proposed to your Safe the first time you try to link your Safe address. To confirm and execute it, you must also add the remaining signatures in the Safe UI and execute the transaction.
 
 Once you are in the Monerium web page, you should login or create a new account if you don't have one already.
 
@@ -149,7 +149,7 @@ Once you place your order, it will be sent to the destination account. Two thing
 
 Once the transaction is recorded on the blockchain, the token is burned and the transfer of real money begins, completing the order 🚀.
 
-7. Listening to events is important for understanding what is happening around. It helps us to create a proper UI in our web page.
+7. Listening to events is important for understanding what's happening around. It helps us to create a proper UI in our web page.
 
 You probably want to know when the order is completed. For this you can listen to events using the [Monerium API websockets](https://monerium.dev/api-docs#operation/profile-orders-notifications)
 
@@ -184,4 +184,4 @@ moneriumPack.unsubscribe(OrderState.processed, handler)
 
 ## MoneriumPack complete React example
 
-Check a complete [example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client) in the `safe-core-sdk` repo. Follow the steps in the [`README.md`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/README.md) to run the example and configure the environment variables for the pack following the [`.env.sample`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/.env.sample).
+Check a complete [example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client) in the `safe-core-sdk` sitory. Follow the steps in the [`README.md`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/README.md) to run the example and configure the environment variables for the pack following the [`.env.sample`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/.env.sample).

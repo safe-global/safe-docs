@@ -20,4 +20,4 @@ Here are several packages to make it easier to integrate third-party application
 | [@web3-react/gnosis-safe](https://github.com/Uniswap/web3-react/tree/main/packages/gnosis-safe)                  |                                                                                                                                          | [web3-react](https://github.com/Uniswap/web3-react) already includes a connector for Safe Apps by default. You can check their docs on how to use it.                                                                                                                                              |
 
 
-{% hint style="warning" %} Safe Apps are not owned, controlled, maintained, or audited by Safe. Safe can list or delist apps from Safe{Wallet} at its sole discretion. {% endhint %}
+{% hint style="warning" %} Safe Apps aren't owned, controlled, maintained, or audited by Safe. Safe can list or delist apps from Safe{Wallet} at its sole discretion. {% endhint %}

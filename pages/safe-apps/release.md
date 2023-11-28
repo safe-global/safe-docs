@@ -14,7 +14,7 @@ If you would like your Safe App to appear in the Safe, it must meet the followin
 
 ### Smart contracts must be audited
 
-Security is the top priority for Safe. Please provide an external audit result document if the Safe App includes smart contracts. If a third party created the smart contracts, ensure they are audited.
+Security is the top priority for Safe. Please provide an external audit result document if the Safe App includes smart contracts. If a third party created the smart contracts, ensure they're audited.
 
 ### Your Safe App must include a manifest
 

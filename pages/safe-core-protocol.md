@@ -16,7 +16,7 @@ At the heart of the protocol is the `Manager`, ensuring adherence to the prescri
 
 ### Accounts
 
-`Accounts` are smart-contract-based user accounts (or Smart Accounts). The Safe{Core} Protocol is account-agnostic, meaning it is not tied to a specific account implementation.
+`Accounts` are smart-contract-based user accounts (or Smart Accounts). The Safe{Core} Protocol is account-agnostic, meaning it's not tied to a specific account implementation.
 
 ### Modules
 

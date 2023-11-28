@@ -123,7 +123,7 @@ web3AuthModalPack.subscribe(ADAPTER_EVENTS.CONNECTED, () => {
 })
 
 web3AuthModalPack.subscribe(ADAPTER_EVENTS.DISCONNECTED, () => {
-  console.log('User is not authenticated')
+  console.log('User isn't authenticated')
 })
 ```
 

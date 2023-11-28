@@ -24,7 +24,7 @@ const safeFactory = await SafeFactory.create({ ethAdapter })
 
 - The `isL1SafeSingleton` flag
 
-  There are two versions of the Safe contracts: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that does not trigger events in order to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
+  Two versions of the Safe contracts are available: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that doesn't trigger events in order to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
 
   By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force the use of the `Safe.sol` contract.
 
@@ -34,7 +34,7 @@ const safeFactory = await SafeFactory.create({ ethAdapter })
 
 - The `contractNetworks` property
 
-  If the Safe contracts are not deployed to your current network, the `contractNetworks` property will be required to point to the addresses of the Safe contracts previously deployed by you.
+  If the Safe contracts aren't deployed to your current network, the `contractNetworks` property will be required to point to the addresses of the Safe contracts previously deployed by you.
 
   ```typescript
   import { ContractNetworksConfig } from '@safe-global/protocol-kit'
@@ -163,7 +163,7 @@ import Safe from '@safe-global/protocol-kit'
 const safeSdk = await Safe.create({ ethAdapter, safeAddress })
 ```
 
-Initialization of a not deployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to initialize the SDK with the Safe configuration and use it to some extent before it is deployed:
+Initialization of a not deployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to initialize the SDK with the Safe configuration and use it to some extent before it's deployed:
 
 ```typescript
 import Safe, { PredictedSafeProps } from '@safe-global/protocol-kit'
@@ -178,7 +178,7 @@ const safeSdk = await Safe.create({ ethAdapter, predictedSafe })
 
 - The `isL1SafeSingleton` flag
 
-  There are two versions of the Safe contracts: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that does not trigger events in order to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
+  Two versions of the Safe contracts are available: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that doesn't trigger events in order to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
 
   By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force the use of the `Safe.sol` contract.
 
@@ -188,7 +188,7 @@ const safeSdk = await Safe.create({ ethAdapter, predictedSafe })
 
 - The `contractNetworks` property
 
-  If the Safe contracts are not deployed to your current network, the `contractNetworks` property will be required to point to the addresses of the Safe contracts previously deployed by you.
+  If the Safe contracts aren't deployed to your current network, the `contractNetworks` property will be required to point to the addresses of the Safe contracts previously deployed by you.
 
   ```typescript
   import { ContractNetworksConfig } from '@safe-global/protocol-kit'
@@ -243,7 +243,7 @@ const safeSdk = await safeSdk.connect({ ethAdapter, predictedSafe })
 
 - The `isL1SafeSingleton` flag
 
-  There are two versions of the Safe contracts: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that does not trigger events in order to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
+  Two versions of the Safe contracts are available: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that doesn't trigger events in order to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
 
   By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force the use of the `Safe.sol` contract.
 
@@ -253,7 +253,7 @@ const safeSdk = await safeSdk.connect({ ethAdapter, predictedSafe })
 
 - The `contractNetworks` property
 
-  If the Safe contracts are not deployed to your current network, the `contractNetworks` property will be required to point to the addresses of the Safe contracts previously deployed by you.
+  If the Safe contracts aren't deployed to your current network, the `contractNetworks` property will be required to point to the addresses of the Safe contracts previously deployed by you.
 
   ```typescript
   import { ContractNetworksConfig } from '@safe-global/protocol-kit'
@@ -437,7 +437,7 @@ const safeTransaction = await safeSdk.createTransaction({
 })
 ```
 
-If the optional properties are not manually set, the Safe transaction returned will have the default value for each one:
+If the optional properties aren't manually set, the Safe transaction returned will have the default value for each one:
 
 - `operation`: `OperationType.Call` (0) is the default value.
 - `safeTxGas`: The right gas estimation is the default value.
@@ -705,7 +705,7 @@ Returns the Safe transaction to add an owner and optionally change the threshold
 ```typescript
 const params: AddOwnerTxParams = {
   ownerAddress,
-  threshold // Optional. If `threshold` is not provided the current threshold will not change.
+  threshold // Optional. If `threshold` isn't provided the current threshold won't change.
 }
 const safeTransaction = await safeSdk.createAddOwnerTx(params)
 const txResponse = await safeSdk.executeTransaction(safeTransaction)
@@ -726,7 +726,7 @@ Returns the Safe transaction to remove an owner and optionally change the thresh
 ```typescript
 const params: RemoveOwnerTxParams = {
   ownerAddress,
-  newThreshold // Optional. If `newThreshold` is not provided, the current threshold will be decreased by one.
+  newThreshold // Optional. If `newThreshold` isn't provided, the current threshold will be decreased by one.
 }
 const safeTransaction = await safeSdk.createRemoveOwnerTx(params)
 const txResponse = await safeSdk.executeTransaction(safeTransaction)

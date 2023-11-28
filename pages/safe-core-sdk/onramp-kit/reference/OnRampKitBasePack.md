@@ -20,9 +20,9 @@ class MyPack extends OnRampKitBasePack {
 }
 ```
 
-## Abstract methods that OnRamp packs must implement
+## Abstract methods that Onramp packs must implement
 
-These methods are the common interface for all the OnRamp packs. Check each pack's documentation to get more details.
+These methods are the common interface for all the Onramp packs. Check each pack's documentation to get more details.
 
 ### init(options?)
 

@@ -1,6 +1,6 @@
 # StripePack
 
-[Stripe Crypto OnRamp service](https://stripe.com/docs/crypto/overview) allows individuals to securely purchase cryptocurrencies from your application.
+[Stripe Crypto Onramp service](https://stripe.com/docs/crypto/overview) allows individuals to securely purchase cryptocurrencies from your application.
 
 ## Install dependencies
 
@@ -12,7 +12,7 @@ yarn add @safe-global/onramp-kit @stripe/stripe-js @stripe/crypto
 
 ## Reference
 
-The `StripePack` allows users to use the Stripe Crypto OnRamp services with Safe.
+The `StripePack` allows users to use the Stripe Crypto Onramp services with Safe.
 
 This pack provides a customizable widget for users to purchase cryptocurrencies using Stripe services and it can be rendered in a DOM node on a webpage.
 
@@ -23,7 +23,7 @@ await stripePack.init()
 
 ### new StripePack(stripeConfig)
 
-**Params**
+**Parameters**
 
 - `stripeConfig` - The configuration for the Stripe pack. The options are:
 
@@ -49,7 +49,7 @@ Loads the Stripe scripts using the public key provided in the class instantiatio
 
 Opens the Stripe widget in the chosen DOM node (CSS selector) inside a webpage.
 
-**Params**
+**Parameters**
 
 The options to be passed to this method are:
 
@@ -69,13 +69,13 @@ StripeOpenOptions {
 
 ### close()
 
-Closes the Stripe widget. This method shouldn't be called directly but using the `SafeOnRampKit` `close` method instead.
+Closes the Stripe widget. This method shouldn't be called directly but using the `SafeOnrampKit` `close` method instead.
 
 ### subscribe(event, handler)
 
 Subscribes to authentication state changes. Check the [Stripe frontend events](https://stripe.com/docs/crypto/using-the-api#frontend-events) for the list of available events.
 
-**Params**
+**Parameters**
 
 - `event` - The event you want to subscribe from.
 - `handler` - The handler function that will be called when the event is triggered.
@@ -84,7 +84,7 @@ Subscribes to authentication state changes. Check the [Stripe frontend events](h
 
 Unsubscribes from authentication state changes.
 
-**Params**
+**Parameters**
 
 - `event` - The event you want to unsubscribe from.
 - `handler` - The handler function that will be called when the event is triggered.

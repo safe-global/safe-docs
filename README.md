@@ -1,6 +1,6 @@
 # Safe Docs
 
-This is [Safe](safe.global) documentation website, built with [Nextra](https://nextra.site).
+This is [Safe](https://safe.global) documentation website, built with [Nextra](https://nextra.site).
 
 ## Quick Start
 

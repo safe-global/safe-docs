@@ -26,7 +26,7 @@ yarn add @safe-global/api-kit
 
 First of all, we need to create an `EthAdapter`, which contains all the required utilities for the SDKs to interact with the blockchain. It acts as a wrapper for [web3.js](https://web3js.readthedocs.io/) or [ethers.js](https://docs.ethers.org/v6/) Ethereum libraries.
 
-Depending on the library used by the Dapp, there are two options:
+Depending on the library used by the dapp, there are two options:
 
 - [Create an `EthersAdapter` instance](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit/src/adapters/ethers)
 - [Create a `Web3Adapter` instance](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit/src/adapters/web3)
@@ -103,7 +103,7 @@ await safeApiKit.proposeTransaction({
 
 ## Retrieve the pending transactions
 
-There are different methods in the API Kit available to retrieve pending transactions depending on the situation. To retrieve a transaction given the Safe transaction hash use the uncommented method.
+Different methods in the API Kit are available to retrieve pending transactions depending on the situation. To retrieve a transaction given the Safe transaction hash use the uncommented method.
 
 ```typescript
 const transaction = await service.getTransaction("<SAFE_TX_HASH>")

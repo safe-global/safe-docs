@@ -24,7 +24,7 @@ If you are using our [CRA template](https://github.com/safe-global/safe-apps-sdk
 
 ### Manifest
 
-It is mandatory that your app exposes a `manifest.json` file in the root directory with this structure:
+It's mandatory that your app exposes a `manifest.json` file in the root directory with this structure:
 
 ```json
 {
@@ -38,7 +38,7 @@ It is mandatory that your app exposes a `manifest.json` file in the root directo
 
 ### CORS
 
-Safe needs to reach the `manifest.json` from the app. To allow this, it is required to enable *Cross Site Requests* by setting the *CORS* headers to the `manifest.json`.
+Safe needs to reach the `manifest.json` from the app. To allow this, it's required to enable *Cross Site Requests* by setting the *CORS* headers to the `manifest.json`.
 
 The required headers are:
 
@@ -50,7 +50,7 @@ The required headers are:
 
 ### React development
 
-It is possible to use the local React development server. For this, you need to set the *CORS* headers and use the same protocol (HTTP or HTTPS) as the Safe interface you use for testing.
+It's possible to use the local React development server. For this, you need to set the *CORS* headers and use the same protocol (HTTP or HTTPS) as the Safe interface you use for testing.
 
 
 **CORS for development**
@@ -98,7 +98,7 @@ module.exports = {
 
 **SSL**
 
-To enable SSL with `react-scripts`, it is necessary to set the `HTTPS` environment variable to `true`. This can be done in the `package.json` file by adjusting the `scripts` section to:
+To enable SSL with `react-scripts`, it's necessary to set the `HTTPS` environment variable to `true`. This can be done in the `package.json` file by adjusting the `scripts` section to:
 
 ```json
 "scripts": {
@@ -106,7 +106,7 @@ To enable SSL with `react-scripts`, it is necessary to set the `HTTPS` environme
 },
 ```
 
-If the SSL certificate provided by `react-scripts` is not valid, it is required to mark it as trusted in your browser. To do this, open the Safe App in a separate tab (not in the Safe interface) and accept the certificate or ignore the warning.
+If the SSL certificate provided by `react-scripts` isn't valid, it's required to mark it as trusted in your browser. To do this, open the Safe App in a separate tab (not in the Safe interface) and accept the certificate or ignore the warning.
 
 ## UI Kit
 
