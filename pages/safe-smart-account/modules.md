@@ -4,7 +4,7 @@ Safe Modules add custom features to Safe contracts. They are smart contracts tha
 
 Safe Modules can include daily spending allowances, amounts that can be spent without the approval of other owners, recurring transactions modules, and standing orders performed on a recurring date. For example, paying your rent or social recovery modules may allow you to recover a Safe if you lose access to owner accounts. 
 
-<figure><img src="../.gitbook/assets/diagram-safe-modules.png" width="100%" alt="" /></figure>
+<figure><img src="../../assets/diagram-safe-modules.png" width="100%" alt="" /></figure>
 
 ## How to create a Safe Module
 
