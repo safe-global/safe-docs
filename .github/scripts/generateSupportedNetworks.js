@@ -1,7 +1,11 @@
+// This script generates the supported networks page from the safe-deployments repo.
+// It clones the repo, reads the JSON files, and generates the markdown files as well as a _meta.json file for nextra.
+
 const shell = require('shelljs')
 const fs = require('fs')
 const path = require('path')
 
+// Explore a given directory recursively and return all the file paths
 const walkPath = dir => {
   let results = []
   const list = fs.readdirSync(dir)
@@ -18,18 +22,16 @@ const walkPath = dir => {
   return results
 }
 
-const deduplicate = () => [
-  (acc, curr) => {
-    if (acc.includes(curr)) {
-      return acc
-    }
+// Reduce function to deduplicate an array
+const deduplicate = (acc, curr) => {
+  if (acc.includes(curr)) {
+    return acc
+  }
 
-    return [...acc, curr]
-  },
-  []
-]
+  return [...acc, curr]
+}
 
-const supportedNetworksPath = './safe-smart-account/supported-networks'
+const supportedNetworksPath = './pages/safe-smart-account/supported-networks'
 
 const generateSupportedNetworks = async () => {
   const deploymentRepoUrl = 'https://github.com/safe-global/safe-deployments/'
@@ -63,7 +65,7 @@ const generateSupportedNetworks = async () => {
   const versions = contracts
     .flat()
     .map(c => c.version)
-    .reduce(...deduplicate())
+    .reduce(deduplicate, [])
     .reverse()
 
   shell.mkdir(supportedNetworksPath)
@@ -102,7 +104,8 @@ ${_contracts
   .map(
     c =>
       `- \`${c.name}.sol\`: ${
-        c.blockExplorerUrl == null || deprecatedBlockExplorers.includes(c.blockExplorerUrl)
+        c.blockExplorerUrl == null ||
+        deprecatedBlockExplorers.includes(c.blockExplorerUrl)
           ? c.address
           : `[${c.address}](${c.blockExplorerUrl}/address/${c.address})`
       }`
@@ -115,6 +118,16 @@ ${_contracts
     `
     fs.writeFileSync(`${supportedNetworksPath}/${version}.md`, content)
   })
+
+  // Generate _meta.json file to order versions in descending order
+  fs.writeFileSync(
+    `${supportedNetworksPath}/_meta.json`,
+    JSON.stringify(
+      versions.reduce((acc, curr) => ({ ...acc, [curr]: curr }), {}),
+      null,
+      2
+    )
+  )
 
   shell.rm('-rf', './deployments')
 }
@@ -136,5 +149,5 @@ const deprecatedBlockExplorers = [
   'https://evm.venidiumexplorer.com',
   'https://evm.explorer.canto.io',
   'https://explorer.autobahn.network',
-  'https://explorer.cascadia.foundation',
+  'https://explorer.cascadia.foundation'
 ]
