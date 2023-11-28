@@ -25,7 +25,7 @@ yarn add @safe-global/onramp-kit @stripe/stripe-js @stripe/crypto
 
 ## Using the `StripePack` in your Web App
 
-The `StripePack` can be used with any frontend framework like React, Vue, Angular or even plain HTML and Javascript. In this example, we're using it with plain JavaScript.
+The `StripePack` can be used with any frontend framework like React, Vue, Angular or even plain HTML and JavaScript. In this example, we're using it with plain JavaScript.
 
 1. Load the application and initialize the `StripePack` using the following snippet:
 

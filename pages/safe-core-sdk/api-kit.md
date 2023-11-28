@@ -103,7 +103,7 @@ await safeApiKit.proposeTransaction({
 
 ## Retrieve the pending transactions
 
-Different methods in the API Kit are available to retrieve pending transactions depending on the situation. To retrieve a transaction given the Safe transaction hash use the method that is not commented.
+Different methods in the API Kit are available to retrieve pending transactions depending on the situation. To retrieve a transaction given the Safe transaction hash use the method that's not commented.
 
 ```typescript
 const transaction = await service.getTransaction("<SAFE_TX_HASH>")

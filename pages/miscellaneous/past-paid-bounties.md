@@ -6,7 +6,7 @@ _This list includes valid submissions from past and current contract versions fo
 
 We use a [MultiSend](https://github.com/safe-global/safe-contracts/blob/v1.2.0/contracts/libraries/MultiSend.sol) library to batch multiple transactions together. A transaction could be created that would self-destruct the contract. While this would not have put any funds at risk, user experience would have been seriously impacted.
 
-We have updated the library as well as our interfaces. Details about the fix can be found on [GitHub](https://github.com/safe-global/safe-contracts/pull/156).
+We've updated the library as well as our interfaces. Details about the fix can be found on [GitHub](https://github.com/safe-global/safe-contracts/pull/156).
 
 This bug was submitted by [Micah Zoltu](https://twitter.com/micahzoltu). It was regarded as a "Low Threat," and a bounty of 1,000 USD has been paid out.
 
