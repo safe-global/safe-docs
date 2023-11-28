@@ -116,7 +116,7 @@ import { ethers } from 'ethers'
 import { EthersAdapter } from '@safe-global/protocol-kit'
 
 // Wrap EIP-1193 provider with ethers
-const provider = new ethers.providers.Web3Provider(safeAuthPack.getProvider())
+const provider = new ethers.BrowserProvider(safeAuthPack.getProvider())
 const signer = provider.getSigner()
 
 // Create the Safe EthersAdapter
@@ -135,11 +135,11 @@ const protocolKit = await Safe.create({
 const safeTransactionData: MetaTransactionData = {
   to: `${ethAddress}`,
   data: '0x',
-  value: ethers.utils.parseUnits('0.0001', 'ether').toString(),
+  value: ethers.parseUnits('0.0001', 'ether').toString(),
 }
 
 const safeTransaction = await protocolKit.createTransaction({
-  safeTransactionData,
+  transactions: [safeTransactionData],
 })
 
 // Sign the transaction if the Safe have several owners
@@ -165,7 +165,7 @@ const address = '0x...'
 await web3.eth.personal.sign(message, address)
 
 // Using ethers
-const provider = new ethers.providers.Web3Provider(safeAuthPack.getProvider())
+const provider = new ethers.BrowserProvider(safeAuthPack.getProvider())
 const signer = provider.getSigner()
 
 await signer.sendTransaction(tx)
