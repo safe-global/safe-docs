@@ -9,13 +9,13 @@ The `Web3AuthModalPack` enables the use of [Web3Auth modal SDK](https://web3auth
 To use the `Web3AuthModalPack`, you need to install some extra dependencies in addition to the `@safe-global/auth-kit` package.
 
 ```bash
-yarn add @safe-global/auth-kit @web3auth/base @web3auth/modal
+yarn add @safe-global/auth-kit @web3auth/base@4.6.0 @web3auth/modal@4.6.2
 ```
 
 Choose the adapters to use with Web3Auth, and add them. For example, to use the [OpenLogin](https://web3auth.io/docs/sdk/pnp/web/adapters/openlogin) adapter, you must install the following dependency:
 
 ```bash
-yarn add @web3auth/openlogin-adapter
+yarn add @web3auth/openlogin-adapter@4.6.0
 ```
 
 Refer to the [supported adapters](https://web3auth.io/docs/sdk/pnp/web/adapters/#currently-available-wallet-adapters) in the official documentation.
