@@ -24,19 +24,19 @@ class MyPack extends AuthKitBasePack {
 
 These methods are the common interface for all the Auth packs. Check each pack's documentation to get more details.
 
-### `init(options?): Promise<void>`
+### `init(options?)`
 
 Provides the initialization options for the required packages, classes and properties.
 
-### `signIn(): Promise<AuthKitSignInData>`
+### `signIn(): authKitSignInData`
 
 Provides a mechanism to connect to the provider services and returns an Ethereum address that will be used as a signer along with the associated Safe addresses.
 
-### `signOut(): Promise<void>`
+### `signOut()`
 
 Disconnects the provider services and cleans up any data related to the current user.
 
-### `getProvider(): Eip1193Provider | null`
+### `getProvider(): web3Provider`
 
 Returns a Web3 provider that can be used to interact with the blockchain (`web3.js` or `ethers.js` for example).
 
@@ -63,13 +63,12 @@ Returns the Ethereum address extracted from the provider retrieved by `getProvid
 **Returns**
 - `address`: The Ethereum address extracted from the provider.
 
-### `getSafes(chainId, txServiceUrl?): safes[]`
+### `getSafes(txServiceUrl): safes[]`
 
 Returns the list of Safes associated with the signer address by calling  the `getAddress()` method internally.
 
 **Params**
-- `chainId`: Indicate the chain ID.
-- `txServiceUrl`(optional): The Safe Transaction Service URL to retrieve the Safes associated with the owner (signer).
+- `txServiceUrl`: The Safe Transaction Service url to retrieve the Safes associated with the owner (signer).
 
 **Returns**
 - `safes[]`: The list of Safes associated with the owner (signer).
