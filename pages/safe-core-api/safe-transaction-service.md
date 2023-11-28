@@ -20,7 +20,7 @@ Safe Transaction Service is a [Django](https://www.djangoproject.com/) app writt
 - [Redis](https://redis.com/): An open source, in-memory data structure store used for caching by the Safe Transaction Service.
 - [safe-eth-py](https://github.com/safe-global/safe-eth-py): A library to interact with Safe and blockchains.
 
-<figure><img src="../.gitbook/assets/transaction_service_architecture.png" width="100%" alt="" /></figure>
+<figure><img src="../../assets/transaction_service_architecture.png" width="100%" alt="" /></figure>
 
 ## Blockchain indexing 
 
