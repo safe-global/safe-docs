@@ -6,7 +6,7 @@ The Safe Apps SDK helps developers to build their dapps into the Safe{Wallet}. I
 
 Here are several packages to make it easier to integrate third-party applications (Safe Apps) with [Safe](https://app.safe.global). Check the following diagram to see which package is suitable for you:
 
-<figure><img src="../../.gitbook/assets/diagram-safe-apps.png" width="100%" alt="" /></figure>
+<figure><img src="../../../assets/diagram-safe-apps.png" width="100%" alt="" /></figure>
 
 | Package                                                                                                          | Version                                                                                                                                  | Description                                                                                                                                                                                                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
