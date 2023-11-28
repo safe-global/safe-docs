@@ -67,8 +67,8 @@ Returns the Ethereum address extracted from the provider retrieved by `getProvid
 
 Returns the list of Safes associated with the signer address by calling  the `getAddress()` method internally.
 
-**Params**
-- `txServiceUrl`: The Safe Transaction Service url to retrieve the Safes associated with the owner (signer).
+**Parameters**
+- `txServiceUrl`: The Safe Transaction Service URL to retrieve the Safes associated with the owner (signer).
 
 **Returns**
 - `safes[]`: The list of Safes associated with the owner (signer).

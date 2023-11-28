@@ -58,7 +58,7 @@ Create an issue in our [repository](https://github.com/5afe/safe-apps-list) once
 
 ## Official launch and beyond
 
-After we have reviewed and integrated your Safe App, the App will first be available in the [staging environment](https://safe-wallet-web.staging.5afe.dev) of the Safe for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
+After we've reviewed and integrated your Safe App, the App will first be available in the [staging environment](https://safe-wallet-web.staging.5afe.dev) of the Safe for you to do a final review. We would then approach you to coordinate the launch and a joint announcement.
 
 At any point after the launch, if you or your users encounter issues with the Safe App or want to release an update to an existing Safe App, please contact us via [Discord](https://chat.safe.global).
 

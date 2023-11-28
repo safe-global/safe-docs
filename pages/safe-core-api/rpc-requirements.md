@@ -1,15 +1,15 @@
 # RPC Requirements
 
-### What are the RPC requirements for the transaction service? <a href="#what-are-the-rpc-requirements-for-the-tx-service" id="what-are-the-rpc-requirements-for-the-tx-service"></a>
+### What are the RPC requirements for the Transaction Service? <a href="#what-are-the-rpc-requirements-for-the-tx-service" id="what-are-the-rpc-requirements-for-the-tx-service"></a>
 
-To run the transaction service in **tracing mode** you will need a tracing compatible node:
+To run the Transaction Service in **tracing mode** you will need a tracing compatible node:
 
 * [Erigon ](https://github.com/ledgerwatch/erigon)node (recommended).
 * Deprecated [OpenEthereum ](https://github.com/openethereum/openethereum)node with tracing enabled (`--tracing` flag) if it's still supported on your network.
 * [Nethermind ](https://nethermind.io/)(**archive mode** so tracing is enabled).
 * **Any RPC** that supports **eth_getLogs** if using the **Safe L2 Version.** From Safe **v1.3.0** there's an alternative and **recommended way** to avoid using tracing, the **L2 Safe version** ([https://github.com/safe-global/safe-deployments/blob/main/src/assets/v1.3.0/gnosis_safe_l2.json](https://github.com/safe-global/safe-deployments/blob/main/src/assets/v1.3.0/gnosis_safe_l2.json)) that emits events, so no tracing node is required. This is the approach used in networks like _Polygon_ or _Binance Smart Chain_ where fees are cheap and emitting events don't impact the user:
-  * A transaction service configured **with a tracing** node can index L2 and non L2 versions of the Safe contracts.
-  * A transaction service configured **without a tracing** node can only index L2 versions of the Safe contracts. Indexing mode should not be changed after initializing the service, as the database could become corrupted, so if a tracing node was not set up it shouldn't be added later. The opposite is also problematic.
+  * A Transaction Service configured **with a tracing** node can index L2 and non L2 versions of the Safe contracts.
+  * A Transaction Service configured **without a tracing** node can only index L2 versions of the Safe contracts. Indexing mode shouldn't be changed after initializing the service, as the database could become corrupted, so if a tracing node wasn't set up it shouldn't be added later. The opposite is also problematic.
 
 ### What RPC methods are used? <a href="#what-rpc-methods-are-used" id="what-rpc-methods-are-used"></a>
 
@@ -30,9 +30,9 @@ For the regular version of the Safe (not L2), tracing endpoints are used:
 
 For the L2 version of the Safe, no special RPC methods are used. The most demanding one will be [eth_getLogs](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) to get the Safe events.
 
-### How many queries will the transaction service do to the RPC? <a href="#how-many-queries-will-the-tx-service-do-to-the-rpc" id="how-many-queries-will-the-tx-service-do-to-the-rpc"></a>
+### How many queries will the Transaction Service do to the RPC? <a href="#how-many-queries-will-the-tx-service-do-to-the-rpc" id="how-many-queries-will-the-tx-service-do-to-the-rpc"></a>
 
-That's not written in stone. Transaction service has some environment variables that can be configured to set a limit on the number of blocks that are processed together (`ETH_EVENTS_BLOCK_PROCESS_LIMIT_MAX`), but the default behaviour is trying to detect the best configuration for every network similar to how [TCP congestion control](https://en.wikipedia.org/wiki/TCP_congestion_control) works. Indexer tries to process a low number of blocks (currently 50). Depending on that:
+That's not written in stone. Transaction Service has some environment variables that can be configured to set a limit on the number of blocks that are processed together (`ETH_EVENTS_BLOCK_PROCESS_LIMIT_MAX`), but the default behaviour is trying to detect the best configuration for every network similar to how [TCP congestion control](https://en.wikipedia.org/wiki/TCP_congestion_control) works. Indexer tries to process a low number of blocks (currently 50). Depending on that:
 
 * If the request takes **less than 1 second**, the node can process more. The number of blocks to fetch is duplicated for the next request.
 * If the request takes **less than 3 seconds**, the number of blocks to process is incremented by a small amount (currently 20).

@@ -1,6 +1,6 @@
 # Bug Bounty
 
-Participate in the Safe Bug Bounty program to find bugs and get rewards. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](./bug-bounty-program.md#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global). You can also review the [bug bounties](./past-paid-bounties.md) we have paid in the past.
+Participate in the Safe Bug Bounty program to find bugs and get rewards. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](./bug-bounty-program.md#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global). You can also review the [bug bounties](./past-paid-bounties.md) we've paid in the past.
 
 ## Audits
 
@@ -77,7 +77,7 @@ For the allowance module, please refer to the corresponding [README file](https:
 
 ## Compensation
 
-All bugs (they do not necessarily need to lead to a redeploy) will be considered for a bounty, but the severity of the threat will change the reward. Below are the reward levels for each threat severity and an example of such a threat.
+All bugs (they don't necessarily need to lead to a redeploy) will be considered for a bounty, but the severity of the threat will change the reward. Below are the reward levels for each threat severity and an example of such a threat.
 
 ### High threat: Up to $1,000,000
 
@@ -112,8 +112,8 @@ _We ask that:_
 
 * You give us reasonable time to investigate and mitigate an issue you report before making public any information about the report or sharing such information with others.
 * You make a good faith effort to avoid privacy violations and disruptions to others, including (but not limited to) data destruction and interruption or degradation of our services.
-* You do not exploit a security issue you discover for any reason. This includes demonstrating additional risk, such as an attempted compromise of sensitive company data or probing for additional issues.
-* You do not violate any other applicable laws or regulations.
+* You don't exploit a security issue you discover for any reason. This includes demonstrating additional risk, such as an attempted compromise of sensitive company data or probing for additional issues.
+* You don't violate any other applicable laws or regulations.
 
 Public disclosure of the bug or the indication of an intention to exploit it on Mainnet will make the report ineligible for a bounty. If in doubt about other aspects of the bounty, most of the [Ethereum Foundation bug bounty program rules](https://bounty.ethereum.org) will apply here.
 

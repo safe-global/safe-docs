@@ -12,7 +12,7 @@ This bug was submitted by [Micah Zoltu](https://twitter.com/micahzoltu). It was 
 
 ## Transaction failure when receiving funds via `transfer` or `send`
 
-Since the beginning of the bug bounty period, the contract update has been live on the Ethereum Mainnet. We performed extensive internal testing and discovered an edge case where a Safe could not receive funds from another contract via `send` or `transfer`. This was due to additional gas costs caused by the [emission of additional events](https://github.com/safe-global/safe-contracts/pull/135) and [gas price changes](https://eips.ethereum.org/EIPS/eip-1884) in the latest hard fork. This issue has been fixed, and more details can be found on [GitHub](https://github.com/safe-global/safe-contracts/issues/149).
+Since the beginning of the bug bounty period, the contract update has been live on the Ethereum Mainnet. We performed extensive internal testing and discovered an edge case where a Safe couldn't receive funds from another contract via `send` or `transfer`. This was due to additional gas costs caused by the [emission of additional events](https://github.com/safe-global/safe-contracts/pull/135) and [gas price changes](https://eips.ethereum.org/EIPS/eip-1884) in the latest hard fork. This issue has been fixed, and more details can be found on [GitHub](https://github.com/safe-global/safe-contracts/issues/149).
 
 ## Duplicate owners during setup could render Safe unusable
 

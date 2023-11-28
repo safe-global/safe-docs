@@ -199,7 +199,7 @@ const nonce = await safeService.getNextNonce(safeAddress)
 
 ## <a name="propose-transaction">5. Propose the transaction to the service</a>
 
-Once we have the Safe transaction object we can share it with the other owners of the Safe so they can sign it. To send the transaction to the Safe Transaction Service we need to call the method `proposeTransaction` from the Safe API Kit instance and pass an object with the properties:
+Once we've the Safe transaction object we can share it with the other owners of the Safe so they can sign it. To send the transaction to the Safe Transaction Service we need to call the method `proposeTransaction` from the Safe API Kit instance and pass an object with the properties:
 
 - `safeAddress`: The Safe address.
 - `safeTransactionData`: The `data` object inside the Safe transaction object returned from the method `createTransaction`.

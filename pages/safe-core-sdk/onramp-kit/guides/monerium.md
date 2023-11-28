@@ -64,7 +64,7 @@ Take a look to the Monerium web page URL. You will see that the query string inc
 - `signature`: Always "0x". It means the origin wallet is a multisig, just like the Safe. Monerium will then verify for onchain signatures in your Safe contract
 - `chain`: The Monerium selected chain. The value is automatically calculated using the `safeSdk` instance.
 - `network`: The Monerium selected network. The value is automatically calculated using the `safeSdk` instance.
-- `redirect_uri`: The `redirectUrl` you sent in the `open` method. Once authenticated Monerium dashboard will redirect to that url.
+- `redirect_uri`: The `redirectUrl` you sent in the `open` method. Once authenticated Monerium dashboard will redirect to that URL.
 
 ⚠️ It's important to be aware of what's happening during this initial interaction. A `signMessage` transaction accepting the [required Monerium message](https://monerium.dev/api-docs#operation/auth) will be proposed to your Safe the first time you try to link your Safe address. To confirm and execute it, you must also add the remaining signatures in the Safe UI and execute the transaction.
 
@@ -97,7 +97,7 @@ const balances = await moneriumClient.getBalances()
 const orders = await moneriumClient.getOrders()
 ```
 
-5. When you reload a page, you usually want to stay authenticated as long as the tokens are valid. To do this, we have another way to `open()` the `MoneriumPack`.
+5. When you reload a page, you usually want to stay authenticated as long as the tokens are valid. To do this, we've another way to `open()` the `MoneriumPack`.
 
 Once authenticated in step 4, you can store the `refresh_token` found in the `bearerProfile` property of the `safeMoneriumClient` using browser storage methods.
 
@@ -151,7 +151,7 @@ Once the transaction is recorded on the blockchain, the token is burned and the 
 
 7. Listening to events is important for understanding what's happening around. It helps us to create a proper UI in our web page.
 
-You probably want to know when the order is completed. For this you can listen to events using the [Monerium API websockets](https://monerium.dev/api-docs#operation/profile-orders-notifications)
+You probably want to know when the order is completed. For this you can listen to events using the [Monerium API web sockets](https://monerium.dev/api-docs#operation/profile-orders-notifications)
 
 Connecting to the socket is easy, just use the `moneriumPack` instance along with the `subscribe()` and `unsubscribe()` methods. 
 

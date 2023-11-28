@@ -35,7 +35,7 @@ For L1 chains, the indexer calls tracing methods. For the oldest blocks, [`trace
 
 For L2 chains, the indexing is by events with the [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) method with the corresponding topics.  
 
-From Safe creation, the transaction service stores each contract change on the `SafeStatus` model as `nonce`, `owners`, etc. The latest and current status of a Safe is stored as `SafeLastStatus` for easy database access and optimization.
+From Safe creation, the Transaction Service stores each contract change on the `SafeStatus` model as `nonce`, `owners`, etc. The latest and current status of a Safe is stored as `SafeLastStatus` for easy database access and optimization.
 
 The following endpoints show the current indexing status of the Safe Transaction Service:
 - `/v1/about/indexing/` 
@@ -149,7 +149,7 @@ safe_address = "TheAliceAndBobSafeAddress"
 safe = Safe(safe_address, eth_client)
 safe_message_hash = safe.get_message_hash(message_hash)
 
-# Alice is going to create the message on safe transaction service
+# Alice is going to create the message on safe Transaction Service
 # First sign the safe_message_hash
 signature_alice = alice.signHash(safe_message_hash)
 

@@ -15,7 +15,7 @@ npm i @safe-global/auth-kit @web3auth/base@4.6.0 @web3auth/modal@4.6.2 @web3auth
 
 ## Create a Web3AuthModalPack instance
 
-We are going to use the provided `Web3AuthModalPack` exported in the `@safe-global/auth-kit` package.
+We're going to use the provided `Web3AuthModalPack` exported in the `@safe-global/auth-kit` package.
 
 Create an instance of the [Web3AuthModalPack](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/packs/web3auth/Web3AuthModalPack.ts) using the required `Web3AuthConfig` configuration object.
 
@@ -82,7 +82,7 @@ Once your `Web3AuthModalPack` instance is created, use the `signIn()` method to 
 
 Important considerations about Web3Auth are:
 
-1) When you sign in with the same social account, the same Ethereum address will be returned for the same Web3Auth client ID. Web3Auth [scopes the creation of the wallet](https://web3auth.io/docs/troubleshooting/different-wallet-address-issue) (address) to the DApp, so when interacting with other DApps using Web3Auth, a different Ethereum address will be returned. This is by design and to enhanced security.
+1) When you sign in with the same social account, the same Ethereum address will be returned for the same Web3Auth client ID. Web3Auth [scopes the creation of the wallet](https://web3auth.io/docs/troubleshooting/different-wallet-address-issue) (address) to the dapp, so when interacting with other dapps using Web3Auth, a different Ethereum address will be returned. This is by design and to enhanced security.
 
 2) If you sign in with an email and then with a social account using the same email (e.g. "Sign in with Google"), a different Ethereum address might be returned even the same email address is used.
 

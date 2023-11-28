@@ -1,6 +1,6 @@
 # Web3AuthModalPack
 
-Web3Auth is a pluggable authentication infrastructure for Web3 wallets and applications. It simplifies onboarding for both mainstream and crypto native users, offering experiences tailored to their preferences. It supports all social logins, web and mobile native platforms, wallets, and other key management methods, creating a cryptographic key provider specific to the user and application.
+Web3Auth is a plug-and-play authentication infrastructure for Web3 wallets and applications. It simplifies on-boarding for both mainstream and crypto native users, offering experiences tailored to their preferences. It supports all social logins, web and mobile native platforms, wallets, and other key management methods, creating a cryptographic key provider specific to the user and application.
 
 The `Web3AuthModalPack` enables the use of [Web3Auth modal SDK](https://web3auth.io/docs/sdk/pnp/web/modal) with added Safe capabilities, such as retrieving the related Safe addresses for a given externally-owned account created using Web3Auth services.
 
@@ -34,7 +34,7 @@ await web3AuthModalPack.init(web3AuthModalOptions, [adapters], modalConfig)
 
 ### new Web3AuthModalPack(web3AuthConfig)
 
-**Params**
+**Parameters**
 
 - `web3AuthConfig` - The configuration used in the instantiation of the `Web3AuthModalPack` class accepts the following options:
 
@@ -43,7 +43,7 @@ Web3AuthConfig {
   txServiceUrl: string
 }
 ```
-- `txServiceUrl` - The URL for the Safe transaction service. It's used to retrieve the Safe addresses for an externally-owned account created using Web3Auth services. It's required to use the `Web3AuthModalPack` with Safe.
+- `txServiceUrl` - The URL of the Safe Transaction Service. It's used to retrieve the Safe addresses for an externally-owned account created using Web3Auth services. It's required to use the `Web3AuthModalPack` with Safe.
 
 **Caveats**
 You should always call the `init()` method afterwards before interacting with the pack.
@@ -54,9 +54,9 @@ The init method initialize the required Web3Auth modal SDK and Safe services. It
 
 It initializes as well the web3 provider we can retrieve afterwards using the `getProvider()` method.
 
-**Params**
+**Parameters**
 
-- `web3AuthModalOptions` - The options to create the `Web3Auth` [instance](https://web3auth.io/docs/sdk/pnp/web/modal/initialize#instantiating-web3auth). You can send a configuration object matching the [official one](https://web3auth.io/docs/sdk/pnp/web/modal/initialize#web3authoptions) as we passthrough the options to the `Web3Auth` instance when we instantiate it inside the pack.
+- `web3AuthModalOptions` - The options to create the `Web3Auth` [instance](https://web3auth.io/docs/sdk/pnp/web/modal/initialize#instantiating-web3auth). You can send a configuration object matching the [official one](https://web3auth.io/docs/sdk/pnp/web/modal/initialize#web3authoptions) as we pass through the options to the `Web3Auth` instance when we instantiate it inside the pack.
 - `adapters` - The adapters for the Web3Auth modal sdk. You can use any of the [supported adapters](https://web3auth.io/docs/sdk/pnp/web/adapters/). This prop accepts an array of adapters and the `Web3AuthModalPack` will call the [`configureAdapter`](https://web3auth.io/docs/sdk/pnp/web/no-modal/initialize#configureadapteradapter) method for each one of them internally.
 
 ⚠️ Remember to add the corresponding package for each adapter (e.g `@web3auth/openlogin-adapter` for OpenLogin).
@@ -82,8 +82,8 @@ AuthKitSignInData {
 
 **Caveats**
 
-- To get the Safe addresses, instantiate the authKit with the `txServiceUrl` property in the config object. Otherwise, only the EOA will be returned.
-- ⚠️ This method currently returns the Safe addresses which the EOA is the owner of. It doesn't create a Safe. We are investigating ways to enhance the Auth Kit and the associated flows. ⚠️
+- To get the Safe addresses, instantiate the Auth Kit with the `txServiceUrl` property in the config object. Otherwise, only the EOA will be returned.
+- ⚠️ This method currently returns the Safe addresses which the EOA is the owner of. It doesn't create a Safe. We're investigating ways to enhance the Auth Kit and the associated flows. ⚠️
 
 ### signOut()
 
@@ -114,7 +114,7 @@ A web3 provider.
 
 Allow to subscribe to authentication state changes. The event depends on the pack you are using so read the chosen pack documentation.
 
-**Params**
+**Parameters**
 
 - `event` - The event you want to subscribe to. The events are defined [in the documentation](https://web3auth.io/docs/sdk/pnp/web/no-modal/initialize#subscribing-the-lifecycle-events).
 - `handler` - The handler function that will be called when the event is triggered.
@@ -123,7 +123,7 @@ Allow to subscribe to authentication state changes. The event depends on the pac
 
 Allow to unsubscribe to authentication state changes
 
-**Params**
+**Parameters**
 
 - `event` - The event you want to unsubscribe to.
 - `handler` - The handler function that will be called when the event is triggered.
