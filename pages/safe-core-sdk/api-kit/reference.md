@@ -1,4 +1,4 @@
-# API Kit
+# Reference
 
 The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) facilitates the interaction with the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service).
 

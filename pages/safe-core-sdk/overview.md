@@ -6,7 +6,7 @@ The Safe{Core} Account Abstraction (AA) SDK aims to bring Account Abstraction to
 
 The SDK groups its functionality into five different kits.
 
-<figure><img src="../.gitbook/assets/diagram-safe-core-sdk.png" width="100%" alt="" /></figure>
+<figure><img src="../../assets/diagram-safe-core-sdk.png" width="100%" alt="" /></figure>
 
 ### Auth Kit
 

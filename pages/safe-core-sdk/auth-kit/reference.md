@@ -1,4 +1,4 @@
-# Auth Kit
+# Reference
 
 The [Auth Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit) creates or retrieves an Ethereum address and authenticates a blockchain account using an email address, a social media platform or a crypto wallet address.
 

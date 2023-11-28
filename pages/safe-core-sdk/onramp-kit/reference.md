@@ -1,4 +1,4 @@
-# Onramp Kit
+# Reference
 
 The [Onramp Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) allow users to access on-ramp services and use them with their Safes.
 
