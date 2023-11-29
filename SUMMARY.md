@@ -34,6 +34,7 @@
 
 * [Protocol Kit](safe-core-sdk/protocol-kit/README.md)
   * [Reference](safe-core-sdk/protocol-kit/reference/README.md)
+    * [Migrating to v1](safe-core-sdk/protocol-kit/reference/migrating/v1.md)
     * [Migrating to v2](safe-core-sdk/protocol-kit/reference/migrating/v2.md)
 
 * [Onramp Kit](safe-core-sdk/onramp-kit/README.md)
@@ -53,6 +54,7 @@
 
 * [API Kit](safe-core-sdk/api-kit/README.md)
   * [Reference](safe-core-sdk/api-kit/reference/README.md)
+    * [Migrating to v1](safe-core-sdk/api-kit/reference/migrating/v1.md)
     * [Migrating to v2](safe-core-sdk/api-kit/reference/migrating/v2.md)
 
 
