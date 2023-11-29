@@ -7,6 +7,10 @@ a.nx-text-primary-600 {
   color: #12ff80;
 }
 
+html[class~='dark'] .dark\:nx-bg-dark.dark\:nx-bg-dark {
+  background-color: #121312;
+}
+
 .nextra-nav-container.nextra-nav-container {
   background-color: #12ff80;
   color: rgb(59, 69, 78);
@@ -27,4 +31,20 @@ a.nx-text-primary-600 {
   > div
   > input.focus-visible {
   background-color: #00883f;
+}
+
+#__next > div > footer {
+  background-color: #121312;
+}
+
+#__next > div > footer > div {
+  padding-right: 0;
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#__next > div > footer > div > div > div > div > ul {
+  margin-top: 18px;
+  margin-bottom: 18px;
 }

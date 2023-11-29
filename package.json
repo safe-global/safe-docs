@@ -18,6 +18,11 @@
   },
   "homepage": "https://github.com/safe-global/safe-docs#readme",
   "dependencies": {
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.18",
+    "@svgr/webpack": "^8.1.0",
     "next": "^13.0.6",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
