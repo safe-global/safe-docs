@@ -62,12 +62,12 @@
 
 ## Safe{Core} API
 
-* [Available Services](safe-core-api/available-services.md)
-
 * [Service Architecture](safe-core-api/service-architecture.md)
   * [Safe Transaction Service](safe-core-api/safe-transaction-service.md)
 
 * [RPC Requirements](safe-core-api/rpc-requirements.md)
+
+* [Supported Networks](safe-core-api/supported-networks.md)
 
 ## Safe Apps SDK
  
@@ -80,5 +80,5 @@
 ## Miscellaneous
 
 * [Bug Bounty](miscellaneous/bug-bounty-program.md)
-* [Past paid bounties](miscellaneous/past-paid-bounties.md)
+  * [Past paid bounties](miscellaneous/past-paid-bounties.md)
 * [Contact us](miscellaneous/contact-us.md)
