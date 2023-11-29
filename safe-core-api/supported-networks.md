@@ -1,8 +1,8 @@
 ---
-description: This pages provides an overview of the available services
+description: This page provides an overview of the available services
 ---
 
-# Available Services
+# Supported Networks
 
 ## Safe Transaction Service
 
