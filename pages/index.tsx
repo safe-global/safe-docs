@@ -1,3 +1,14 @@
-import Home from '../components/Home'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
-export default Home
+const RedirectIndex: React.FC = () => {
+  const { push } = useRouter()
+
+  useEffect(() => {
+    void push('/getting-started/what-is-safe')
+  }, [push])
+
+  return <></>
+}
+
+export default RedirectIndex
