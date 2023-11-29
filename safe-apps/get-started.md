@@ -96,6 +96,8 @@ module.exports = {
 }
 ```
 
+We also offer a [middleware](https://github.com/safe-global/safe-apps-sdk/blob/4dad4fdf700ed299d3a81cc08cd4928b137787e9/packages/cra-template-safe-app/template/src/setupProxy.js#L1-L15) in our React template for using frameworks like Express, Next.js, etc.
+
 **SSL**
 
 To enable SSL with `react-scripts`, it is necessary to set the `HTTPS` environment variable to `true`. This can be done in the `package.json` file by adjusting the `scripts` section to:
