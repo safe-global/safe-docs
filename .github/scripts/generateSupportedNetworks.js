@@ -149,5 +149,6 @@ const deprecatedBlockExplorers = [
   'https://evm.venidiumexplorer.com',
   'https://evm.explorer.canto.io',
   'https://explorer.autobahn.network',
-  'https://explorer.cascadia.foundation'
+  'https://explorer.cascadia.foundation',
+  'https://testnet.torusscan.com'
 ]
