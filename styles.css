@@ -1,0 +1,30 @@
+html.dark.dark body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: #121312;
+}
+
+a.nx-text-primary-600 {
+  color: #12ff80;
+}
+
+.nextra-nav-container.nextra-nav-container {
+  background-color: #12ff80;
+  color: rgb(59, 69, 78);
+}
+
+.nextra-nav-container.nextra-nav-container span:not(.nx-text-xs) {
+  color: rgb(59, 69, 78);
+}
+
+.nextra-nav-container-blur {
+  display: none;
+}
+
+.nextra-nav-container.nextra-nav-container > nav > div > div > input,
+.nextra-nav-container.nextra-nav-container
+  > nav
+  > div
+  > div
+  > input.focus-visible {
+  background-color: #00883f;
+}
