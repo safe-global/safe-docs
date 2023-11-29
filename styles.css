@@ -11,26 +11,13 @@ html[class~='dark'] .dark\:nx-bg-dark.dark\:nx-bg-dark {
   background-color: #121312;
 }
 
-.nextra-nav-container.nextra-nav-container {
-  background-color: #12ff80;
-  color: rgb(59, 69, 78);
-}
-
-.nextra-nav-container.nextra-nav-container span:not(.nx-text-xs) {
-  color: rgb(59, 69, 78);
-}
-
-.nextra-nav-container-blur {
-  display: none;
-}
-
-.nextra-nav-container.nextra-nav-container > nav > div > div > input,
-.nextra-nav-container.nextra-nav-container
-  > nav
+#__next
   > div
   > div
-  > input.focus-visible {
-  background-color: #00883f;
+  > div {
+  backdrop-filter: blur(8px);
+  background: hsla(0, 0%, 100%, 0.005);
+  background-color: transparent!important;
 }
 
 #__next > div > footer {
