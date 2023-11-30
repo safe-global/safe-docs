@@ -29,11 +29,11 @@ await safeAuthPack.init(safeAuthInitOptions);
 
 **Params**
 
-- `safeAuthConfig` - The `SafeAuthPack` class instantiation accepts the following options in its configuration:
+- `safeAuthConfig?` - The `SafeAuthPack` class instantiation accepts the following options in its configuration:
 
 ```typescript
 SafeAuthConfig {
-  txServiceUrl: string
+  txServiceUrl?: string
 }
 ```
 
