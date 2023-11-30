@@ -11,7 +11,7 @@ The pack helps onboard web2 users and provides an Ethereum signer address that c
 To use the `SafeAuthPack`, you must install the `@safe-global/auth-kit` package and the corresponding Web3Auth one.
 
 ```bash
-yarn add @safe-global/auth-kit @web3auth/safeauth-embed
+yarn add @safe-global/auth-kit@alpha @web3auth/safeauth-embed
 ```
 
 ## Reference
