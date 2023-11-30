@@ -1,11 +1,51 @@
 {
-  "getting-started": "Getting Started",
-  "safe-smart-account": "Safe Smart Account",
-  "safe-core-sdk": "Safe{Core} AA SDK",
-  "safe-core-protocol": "Safe{Core} Protocol",
-  "safe-core-api": "Safe{Core} API",
-  "safe-apps": "Safe Apps SDK",
-  "miscellaneous": "Miscellaneous",
+  "-- Getting Started": {
+    "type": "separator",
+    "title": "Getting Started"
+  },
+  "what-is-safe": "What is Safe?",
+  "-- Safe Smart Account": {
+    "type": "separator",
+    "title": "Safe Smart Account"
+  },
+  "safe-smart-account-overview": "Overview",
+  "modules": "Safe Modules",
+  "guards": "Safe Guards",
+  "audits": "Audits",
+  "supported-networks": "Supported Networks",
+  "-- Safe{Core} AA SDK": {
+    "type": "separator",
+    "title": "Safe{Core} AA SDK"
+  },
+  "safe-core-sdk-overview": "Overview",
+  "auth-kit": "Auth Kit",
+  "protocol-kit": "Protocol Kit",
+  "onramp-kit": "Onramp Kit",
+  "relay-kit": "Relay Kit",
+  "api-kit": "API Kit",
+  "-- Safe{Core} Protocol": {
+    "type": "separator",
+    "title": "Safe{Core} Protocol"
+  },
+  "safe-core-protocol-overview": "Overview",
+  "-- Safe{Core} API": {
+    "type": "separator",
+    "title": "Safe{Core} API"
+  },
+  "service-architecture": "Service Architecture",
+  "rpc-requirements": "RPC Requirements",
+  "api-supported-networks": "Supported Networks",
+  "-- Safe Apps SDK": {
+    "type": "separator",
+    "title": "Safe Apps SDK"
+  },
+  "safe-apps-overview": "Overview",
+  "get-started": "Get Started",
+  "release": "Release",
+  "-- Miscellaneous": {
+    "type": "separator",
+    "title": "Miscellaneous"
+  },
   "support": {
     "title": "Support ↗",
     "type": "page",

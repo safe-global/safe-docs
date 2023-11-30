@@ -1,6 +1,6 @@
 # RPC Requirements
 
-### What are the RPC requirements for the Transaction Service? <a href="#what-are-the-rpc-requirements-for-the-tx-service" id="what-are-the-rpc-requirements-for-the-tx-service"></a>
+### What are the RPC requirements for the Transaction Service?
 
 To run the Transaction Service in **tracing mode** you will need a tracing compatible node:
 
@@ -11,7 +11,7 @@ To run the Transaction Service in **tracing mode** you will need a tracing compa
   * A Transaction Service configured **with a tracing** node can index L2 and non L2 versions of the Safe contracts.
   * A Transaction Service configured **without a tracing** node can only index L2 versions of the Safe contracts. Indexing mode shouldn't be changed after initializing the service, as the database could become corrupted, so if a tracing node wasn't set up it shouldn't be added later. The opposite is also problematic.
 
-### What RPC methods are used? <a href="#what-rpc-methods-are-used" id="what-rpc-methods-are-used"></a>
+### What RPC methods are used?
 
 For indexing, basic RPC methods are required, and the service uses _batching_ to query the RPC:
 
@@ -30,7 +30,7 @@ For the regular version of the Safe (not L2), tracing endpoints are used:
 
 For the L2 version of the Safe, no special RPC methods are used. The most demanding one will be [eth_getLogs](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) to get the Safe events.
 
-### How many queries will the Transaction Service do to the RPC? <a href="#how-many-queries-will-the-tx-service-do-to-the-rpc" id="how-many-queries-will-the-tx-service-do-to-the-rpc"></a>
+### How many queries will the Transaction Service do to the RPC?
 
 That's not written in stone. Transaction Service has some environment variables that can be configured to set a limit on the number of blocks that are processed together (`ETH_EVENTS_BLOCK_PROCESS_LIMIT_MAX`), but the default behaviour is trying to detect the best configuration for every network similar to how [TCP congestion control](https://en.wikipedia.org/wiki/TCP_congestion_control) works. Indexer tries to process a low number of blocks (currently 50). Depending on that:
 

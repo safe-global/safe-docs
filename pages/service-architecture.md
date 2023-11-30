@@ -13,7 +13,7 @@ The Safe infrastructure consists of four services:
 
 Safe's production setup is a mixture of several instances of the Safe Transaction Service orchestrated by the Config Service, later consumed by the Client Gateway.
 
-![Overview of the backend services and their components.](../../assets/diagram-services.png)
+![Overview of the backend services and their components.](../assets/diagram-services.png)
 
 ## Safe Transaction Service
 
@@ -27,7 +27,7 @@ The Config Service keeps track of all the supported networks and all the availab
 
 The Client Gateway leverages the config service to find the Transaction Service instance required for a specific request. The Client Gateway forwards the request to the specified Transaction Service instance for the supported networks (determined by the Config Service). The Client Gateway transforms, aggregates, and caches information from the Config and Transaction Services, optimizing data for Safe's web and mobile clients.
 
-![Service interaction diagram.](../../assets/diagram-services-requests.png)
+![Service interaction diagram.](../assets/diagram-services-requests.png)
 
 Even though Safe Config and Transaction Service instances are reachable by clients that aren't the Client Gateway, this may change in the future. The Client Gateway is the outermost component of the Safe infrastructure and should be the single point of communication with any frontend client.
 
