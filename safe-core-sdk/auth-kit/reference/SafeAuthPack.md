@@ -37,7 +37,7 @@ SafeAuthConfig {
 }
 ```
 
-- `txServiceUrl` - The URL of the Safe Transaction Service. It retrieves the Safe addresses for an externally owned account created using SafeAuth services. It is required to use the `SafeAuthPack` with Safe.
+- `txServiceUrl?` - The URL of the Safe Transaction Service. It's mandatory in chains where Safe doesn't provide a Transaction Service. It's used to retrieve the Safe addresses for an EOA created using SafeAuth services.
 
 **Caveats**
 You should always call the `init()` method afterward before interacting with the pack.
