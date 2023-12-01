@@ -46,5 +46,8 @@ const options = {
   nonce: '',
   safeTxGas: ''
 }
-const safeTransaction = protocolKit.createTransaction({ [safeTransactionData], options })
+const safeTransaction = protocolKit.createTransaction({
+  transactions: [safeTransactionData],
+  options
+})
 ```
