@@ -10,7 +10,7 @@ Safe is at the forefront of modular smart account infrastructure, paving the way
 
 Safe\{Core\} consists of three components:
 
-<figure><img src="assets/core-brands.png" width="100%" alt="" /></figure>
+![Overview of Safe Core and its components.](../assets/core-brands.png)
 
 ## Safe\{Core\} Protocol
 

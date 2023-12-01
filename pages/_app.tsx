@@ -14,7 +14,7 @@ import { createEmotionCache } from '../styles/emotion'
 
 import { theme } from '../styles/theme'
 
-import '../styles.css'
+import '../styles/styles.css'
 // import PageLayout from '../components/common/PageLayout'
 // import { useGa } from '../hooks/useGa'
 // import useHotjar from '../hooks/useHotjar'

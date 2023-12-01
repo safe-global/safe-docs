@@ -1,12 +1,12 @@
-# Safe{Core} Account Abstraction SDK
+# Safe\{Core\} Account Abstraction SDK
 
-The Safe{Core} Account Abstraction (AA) SDK aims to bring Account Abstraction to life by integrating Safe with different third parties. This SDK helps developers to abstract the complexity of setting up a smart contract account.
+The Safe\{Core\} Account Abstraction (AA) SDK aims to bring Account Abstraction to life by integrating Safe with different third parties. This SDK helps developers to abstract the complexity of setting up a smart contract account.
 
 ## Architecture
 
 The SDK groups its functionality into five different kits.
 
-<figure><img src="../../assets/diagram-safe-core-sdk.png" width="100%" alt="" /></figure>
+![diagram safe core sdk](../assets/diagram-safe-core-sdk.png)
 
 ### Auth Kit
 
@@ -29,5 +29,5 @@ The Relay Kit relays Safe transactions, allowing you to get them sponsored by a 
 The API Kit helps interact with the Safe Transaction Service API. It helps share transactions among the signers and get information from a Safe account. For example, the configuration or transaction history.
 
 ## Resources
-- [Safe{Core} Account Abstraction SDK on GitHub](https://github.com/safe-global/safe-core-sdk)
-- [Safe{Core} Account Abstraction SDK demo application](https://github.com/5afe/account-abstraction-demo-ui)
+- [Safe\{Core\} Account Abstraction SDK on GitHub](https://github.com/safe-global/safe-core-sdk)
+- [Safe\{Core\} Account Abstraction SDK demo application](https://github.com/5afe/account-abstraction-demo-ui)

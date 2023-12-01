@@ -1,16 +1,11 @@
 const withNextra = require('nextra')({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.tsx',
+  latex: true
 })
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-  // `Image` not supported in static export
-  images: {
-    unoptimized: true,
-  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,

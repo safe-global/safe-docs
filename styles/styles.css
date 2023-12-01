@@ -11,13 +11,17 @@ html[class~='dark'] .dark\:nx-bg-dark.dark\:nx-bg-dark {
   background-color: #121312;
 }
 
-#__next
-  > div
-  > div
-  > div {
+#__next > div > div > div {
   backdrop-filter: blur(8px);
   background: hsla(0, 0%, 100%, 0.005);
-  background-color: transparent!important;
+  background-color: transparent !important;
+}
+
+#__next
+  > div
+  > div.nextra-nav-container.nx-sticky.nx-top-0.nx-z-20.nx-w-full.nx-bg-transparent
+  > nav {
+  height: 94px;
 }
 
 #__next > div > footer {
@@ -34,4 +38,19 @@ html[class~='dark'] .dark\:nx-bg-dark.dark\:nx-bg-dark {
 #__next > div > footer > div > div > div > div > ul {
   margin-top: 18px;
   margin-bottom: 18px;
+}
+
+.video-responsive {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+
+.video-responsive iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
