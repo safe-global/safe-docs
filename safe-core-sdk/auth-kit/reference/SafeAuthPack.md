@@ -97,7 +97,7 @@ safeAuthInitOptions {
 - Call always the `init()` method before interacting with the other methods in the pack.
 - The `init()` method creates an iframe and establishes a connection with the embedded wallet domain. To remove the iframe and disconnect the connection, use the `signOut()` method. If you want to sign out and sign in again in a single-page application (SPA) fashion, avoid using `signOut({ reset: true })` as it will clean up the session, iframe, and connection. Instead, you will need to re-instantiate the pack.
 
-### `signIn(safeAuthSignInOptions)`
+### `signIn(safeAuthSignInOptions?)`
 
 `signIn(safeAuthSignInOptions)` starts the authentication flow. It displays a popup that enables users to select a social authentication method (OAuth) or an email to generate the web3 wallet address. It returns the EOA and the associated Safe addresses.
 

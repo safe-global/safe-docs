@@ -60,7 +60,19 @@ Provides a way to unsubscribe from an event.
 
 These methods provide the functionality associated with Safe so they can be used in the implementation of the packs.
 
-### `getAddress(): address`
+### `getSafes(txServiceUrl?): Promise<safes[]>`
+
+Returns the list of Safes associated with the signer address by internally calling the `getAddress()` method.
+
+**Parameters**
+
+- `txServiceUrl`(optional): The Safe Transaction Service URL to retrieve the Safes associated with the owner (signer).
+
+**Returns**
+
+- `safes[]`: The list of Safes associated with the owner (signer).
+
+### `getAddress(): Promise<address>`
 
 Returns the Ethereum address extracted from the provider retrieved by `getProvider()`. This returns a Safe owner (signer).
 
@@ -68,14 +80,10 @@ Returns the Ethereum address extracted from the provider retrieved by `getProvid
 
 - `address`: The Ethereum address extracted from the provider.
 
-### `getSafes(txServiceUrl?): safes[]`
+### `getChainId(): Promise<chainId>`
 
-Returns the list of Safes associated with the signer address by internally calling the `getAddress()` method.
-
-**Params**
-
-- `txServiceUrl`(optional): The Safe Transaction Service URL to retrieve the Safes associated with the owner (signer).
+Returns the chain ID of the connected network.
 
 **Returns**
 
-- `safes[]`: The list of Safes associated with the owner (signer).
+- `chainId`: The chain ID extracted from the provider.
