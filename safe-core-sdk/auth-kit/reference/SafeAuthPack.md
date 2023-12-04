@@ -195,7 +195,7 @@ The `accountsChanged` event helps detect whether the user has previously signed 
 **Parameters**
 
 - `event` - The event you want to unsubscribe to.
-- `handler` - When the event is triggered, the function will be called.
+- `handler` - The function will be called when the event is triggered.
 
 ## Usage
 
