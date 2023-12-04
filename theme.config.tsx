@@ -6,6 +6,10 @@ import SafeLogo from './assets/svg/safe-logo-white.svg'
 import Footer from './components/Footer'
 
 const config: DocsThemeConfig = {
+  darkMode: false,
+  nextThemes: {
+    forcedTheme: 'dark',
+  },
   logo: <SafeLogo />,
   project: {
     link: 'https://github.com/safe-global'
