@@ -22,11 +22,11 @@ class MyPack extends AuthKitBasePack {
 
 ## Abstract methods and properties that any pack must implement
 
-These methods and properties are the common interface for all the Auth packs. Check each pack's documentation to get more details.
+These methods and properties are the common interface for all the Auth packs. Check each pack's documentation for more details.
 
 ### `isAuthenticated(): boolean`
 
-Any pack extending the `AuthKitBasePack` class must implement the `isAuthenticated()` getter. This method returns a `boolean` indicating if the user is authenticated or not.
+Any pack extending the `AuthKitBasePack` class must implement the `isAuthenticated()` getter. This method returns a `boolean` indicating whether the user is authenticated.
 
 ### `init(options?): Promise<void>`
 
