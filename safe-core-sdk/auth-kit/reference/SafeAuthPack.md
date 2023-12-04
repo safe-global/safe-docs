@@ -179,7 +179,7 @@ This method removes the iframe. It's useful when you need to re-instantiate the 
 
 Allow to subscribe to authentication state changes.
 
-**Params**
+**Parameters**
 
 - `event` - The event you want to subscribe to. Currently, you can subscribe to `accountsChanged` or `chainChanged`.
 - `handler` - When the event is triggered, the function will be called.
