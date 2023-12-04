@@ -131,7 +131,7 @@ AuthKitSignInData {
 
 **Caveats**
 
-- The `txServiceUrl` should be used with custom Transaction services endpoints. If empty, the default Safe Transaction Service domain will be used if we have it deployed in the corresponding chain
+- The `txServiceUrl` should be used with custom Transaction services endpoints. If empty, the default Safe Transaction service domain will be used if we have it deployed in the corresponding chain.
 - ⚠️ This method currently returns the Safe addresses where the EOA is an owner. It doesn't create a Safe. We're investigating ways to enhance the Auth Kit and the associated flows.
 
 ### `signOut(safeAuthSignOutOptions?)`
