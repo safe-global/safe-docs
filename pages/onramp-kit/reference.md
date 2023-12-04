@@ -15,8 +15,8 @@ The Onramp Kit can integrate several providers in the form of **"packs."** A pac
 
 To use each pack, the right package needs to be installed:
 
-- [Monerium](./MoneriumPack.md#install)
-- [Stripe](./StripePack.md#install)
+- [Monerium](./reference/MoneriumPack.md#install)
+- [Stripe](./reference/StripePack.md#install)
 
 ## How to use a pack
 
@@ -31,4 +31,4 @@ After the initialization, use the methods in the pack to interact with the chose
 
 Some common methods (`open()`, `close()`, etc.) can be called regardless of the package being used.
 
-The kit creates a common interface that any pack should implement. Check the [`OnRampKitBasePack`](./OnRampKitBasePack.md) abstract class to get more details.
+The kit creates a common interface that any pack should implement. Check the [`OnRampKitBasePack`](./reference/OnRampKitBasePack.md) abstract class to get more details.

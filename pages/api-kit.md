@@ -6,7 +6,7 @@ The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/ap
 
 In this guide we will see how to propose transactions to the service and collect the signatures from the owners so they become executable.
 
-For more detailed information, see the guide [Integrating the Protocol Kit and API Kit](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and the [API Kit Reference](./reference/README.md).
+For more detailed information, see the guide [Integrating the Protocol Kit and API Kit](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and the [API Kit Reference](./api-kit/reference.md).
 
 ### Prerequisites
 

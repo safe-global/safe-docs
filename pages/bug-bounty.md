@@ -1,10 +1,10 @@
 # Bug Bounty
 
-Participate in the Safe Bug Bounty program to find bugs and get rewards. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](./bug-bounty-program.md#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global). You can also review the [bug bounties](./past-paid-bounties.md) we've paid in the past.
+Participate in the Safe Bug Bounty program to find bugs and get rewards. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](./bug-bounty-program.md#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global). You can also review the [bug bounties](./bug-bounty/past-paid-bounties.md) we've paid in the past.
 
 ## Audits
 
-Smart contract security experts have carefully audited Safe's contracts. Please refer to the [security audits page](../safe-smart-account/security-audits.md) for details.
+Smart contract security experts have carefully audited Safe's contracts. Please refer to the [security audits page](./audits.md) for details.
 
 ## Rules
 
@@ -37,7 +37,7 @@ The scope of the bug bounty also includes the [Allowance Module](https://github.
 * MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
 * TokenCallbackHandler.sol (formerly DefaultCallbackHandler.sol), CompatibilityFallbackHandler.sol, HandlerContext.sol
 
-You can find addresses for deployed instances of these contracts [here](../safe-smart-account/supported-networks/v1.4.1.md) or in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
+You can find addresses for deployed instances of these contracts [here](./supported-networks/v1.4.1.md) or in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
 
 **Gnosis Safe core contracts (up to version 1.3.0)**
 
@@ -48,7 +48,7 @@ You can find addresses for deployed instances of these contracts [here](../safe-
 * CreateAndAddModules.sol, MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
 * DefaultCallbackHandler.sol, CompatibilityFallbackHandler.sol, HandlerContext.sol
 
-You can find addresses for deployed instances of these contracts [here](../safe-smart-account/supported-networks/v1.3.0.md) in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
+You can find addresses for deployed instances of these contracts [here](./supported-networks/v1.3.0.md) in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
 
 **Safe Modules contracts**
 

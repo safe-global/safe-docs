@@ -14,7 +14,7 @@ The Auth Kit can integrate several providers in the form of **"packs."** A pack 
 
 To use each pack, the right package needs to be installed:
 
-- [Web3Auth](./Web3AuthModalPack.md#install)
+- [Web3Auth](./reference/Web3AuthModalPack.md#install-dependencies)
 
 ## How to use a pack
 
@@ -29,4 +29,4 @@ After the initialization, use the methods in the pack to interact with the chose
 
 Some common methods (`signIn()`, `signOut()`, etc.) can be called regardless of the package being used.
 
-The kit creates a common interface that any pack should implement. Check the [`AuthKitBasePack`](./AuthKitBasePack.md) abstract class to get more details.
+The kit creates a common interface that any pack should implement. Check the [`AuthKitBasePack`](./reference/AuthKitBasePack.md) abstract class to get more details.

@@ -6,9 +6,9 @@ description: Basic resources to start creating Safe Apps
 
 Here are some resources to help you get started with building Safe Apps:
 
-* [Safe Apps SDK Packages](./get-started.md#safe-apps-sdk-packages)
-* [Basic Requirements](./get-started.md#basic-requirements)
-* [UI Kit](./get-started.md#ui-kit)
+* [Safe Apps SDK Packages](#safe-apps-sdk-packages)
+* [Basic Requirements](#basic-requirements)
+* [UI Kit](#ui-kit)
 
 ## Safe Apps SDK packages
 
