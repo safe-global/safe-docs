@@ -1,10 +1,10 @@
 # SafeAuthPack
 
-SafeAuth is a pluggable authentication infrastructure for Web3 wallets and applications. It simplifies onboarding for mainstream and crypto native users, offering experiences tailored to their preferences. It supports all social logins, web and mobile native platforms, wallets, and other key management methods, creating a cryptographic key provider specific to the user and application.
+SafeAuth is a pluggable authentication infrastructure for web3 wallets and applications. It simplifies onboarding for mainstream and crypto native users, offering experiences tailored to their preferences. It supports all social logins, web and mobile native platforms, wallets, and other key management methods, creating a cryptographic key provider specific to the user and application.
 
 The `SafeAuthPack` enables using the [Web3Auth infrastructure](https://web3auth.io) with added Safe capabilities, such as retrieving the related Safe addresses for a given externally-owned account created using SafeAuth services.
 
-The pack helps onboard web2 users and provides an Ethereum signer address that can be used across any dApp using the different Ethereum chains.
+The pack helps onboard web2 users and provides an Ethereum signer address that can be used across any dapp using the different Ethereum chains.
 
 ## Install dependencies
 
@@ -27,7 +27,7 @@ await safeAuthPack.init(safeAuthInitOptions);
 
 ### `new SafeAuthPack(safeAuthConfig)`
 
-**Params**
+**Parameters**
 
 - `safeAuthConfig?` - The `SafeAuthPack` class instantiation accepts the following options in its configuration:
 
@@ -37,7 +37,7 @@ SafeAuthConfig {
 }
 ```
 
-- `txServiceUrl?` - The URL of the Safe Transaction Service. It's mandatory in chains where Safe doesn't provide a Transaction Service. It's used to retrieve the Safe addresses for an EOA created using SafeAuth services.
+- `txServiceUrl?` - The URL of the Safe Transaction Service. It's mandatory in chains where Safe doesn't provide a Transaction Service. It retrieves the Safe addresses for an EOA created using SafeAuth services.
 
 **Caveats**
 You should always call the `init()` method afterward before interacting with the pack.
@@ -46,7 +46,7 @@ You should always call the `init()` method afterward before interacting with the
 
 The init method initializes the provided Web3Auth SDK and Safe services. It creates an embedded browser wallet within an iframe, establishing communication through the internally generated EIP-1193 provider.
 
-**Params**
+**Parameters**
 
 - `safeAuthInitOptions` - The options to initialize the SDK instance.
 
@@ -73,7 +73,7 @@ safeAuthInitOptions {
 ```
 
 - `enableLogging` - Enable logging for the SDK. Defaults to `false`.
-- `buildEnv` - The build environment. 'production' and 'testing' uses "https://safe.web3auth.com". 'development' uses "http://localhost:4050". Defaults to `production`.
+- `buildEnv` - The build environment. `production` and `testing` use `https://safe.web3auth.com`. `development` uses `http://localhost:4050`. Defaults to `production`.
 - `showWidgetButton` - Show the widget button. Defaults to `true`.
 - `buttonPosition` - If `showWidgetButton` is true then this prop represent the position of the widget button. Defaults to `bottom-left`.
 - `chainConfig` - The chain configuration. Defaults to `ethereum` if no configuration is provided.
@@ -82,7 +82,7 @@ safeAuthInitOptions {
   - `tickerName` - Name for ticker (e.g Ethereum).
   - `ticker` - Symbol for ticker (e.g ETH).
   - `rpcTarget` - The RPC URL to be used.
-  - `wcTarget?` - The websocket URL to be used. Use this or `rpcTarget`.
+  - `wcTarget?` - The WebSocket URL to be used. Use this or `rpcTarget`.
   - `chainId` - The chain ID to be used. Should be an hex with 0x prefix (e.g 0x1 for Mainnet).
   - `displayName` - The display name for the network.
   - `isTestnet?` - Whether the network is Testnet or not.
@@ -101,7 +101,7 @@ safeAuthInitOptions {
 
 `signIn(safeAuthSignInOptions)` starts the authentication flow. It displays a popup that enables users to select a social authentication method (OAuth) or an email to generate the web3 wallet address. It returns the EOA and the associated Safe addresses.
 
-**Params**
+**Parameters**
 
 ```typescript
 SafeAuthSignInOptions = {
@@ -135,7 +135,7 @@ AuthKitSignInData {
 **Caveats**
 
 - To get the Safe addresses, instantiate the `authKit` with the `txServiceUrl` property in the config object. Otherwise, only the EOA will be returned.
-- ⚠️ This method currently returns the Safe addresses where the EOA is an owner. It doesn't create a Safe. We are investigating ways to enhance the Auth Kit and the associated flows. ⚠️
+- ⚠️ This method currently returns the Safe addresses where the EOA is an owner. It doesn't create a Safe. We are investigating ways to enhance the Auth Kit and the associated flows.
 
 ### `signOut(safeAuthSignOutOptions?)`
 
@@ -147,7 +147,7 @@ SafeAuthSignOutOptions {
 }
 ```
 
-**Params**
+**Parameters**
 
 - `reset` - If true, the user will be logged out from the provider, and the widget will be destroyed. Don't use this parameter if you want to log out and log in again without refreshing the browser or re-initializing the `SafeAuthPack` instance.
 
