@@ -18,7 +18,7 @@ description: This page provides an overview of the available services
 | Ethereum Mainnet             | [https://safe-transaction-mainnet.safe.global](https://safe-transaction-mainnet.safe.global/)            |
 | Gnosis Chain                 | [https://safe-transaction-gnosis-chain.safe.global](https://safe-transaction-gnosis-chain.safe.global/)  |
 | Goerli                       | [https://safe-transaction-goerli.safe.global](https://safe-transaction-goerli.safe.global/)              |
-| Sepolia                       | [https://safe-transaction-sepolia.safe.global](https://safe-transaction-goerli.safe.global/)              |
+| Sepolia                       | [https://safe-transaction-sepolia.safe.global](https://safe-transaction-sepolia.safe.global/)              |
 | Optimism                     | [https://safe-transaction-optimism.safe.global](https://safe-transaction-optimism.safe.global/)          |
 | Polygon                      | [https://safe-transaction-polygon.safe.global](https://safe-transaction-polygon.safe.global/)            |
 | Polygon zkEVM                | [https://safe-transaction-zkevm.safe.global](https://safe-transaction-zkevm.safe.global/)                |
