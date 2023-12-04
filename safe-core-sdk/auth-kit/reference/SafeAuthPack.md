@@ -135,7 +135,7 @@ AuthKitSignInData {
 **Caveats**
 
 - To get the Safe addresses, instantiate the `authKit` with the `txServiceUrl` property in the config object. Otherwise, only the EOA will be returned.
-- ⚠️ This method currently returns the Safe addresses where the EOA is an owner. It doesn't create a Safe. We are investigating ways to enhance the Auth Kit and the associated flows.
+- ⚠️ This method currently returns the Safe addresses where the EOA is an owner. It doesn't create a Safe. We're investigating ways to enhance the Auth Kit and the associated flows.
 
 ### `signOut(safeAuthSignOutOptions?)`
 
