@@ -2,7 +2,7 @@
 
 This guide demonstrates creating an externally-owned account using your email or social media account. Once authenticated, you can sign transactions and interact with your Safe accounts.
 
-The `SafeAuthPack` is an authentication system that utilizes the [Web3Auth](https://web3auth.io) MPC technology. It was developed in collaboration with Web3Auth to create a smooth onboarding experience for web2 users across different dApps.
+The `SafeAuthPack` is an authentication system that utilizes the [Web3Auth](https://web3auth.io) MPC technology. It was developed in collaboration with Web3Auth to create a smooth onboarding experience for web2 users across different dapps.
 
 ## Prerequisites
 
