@@ -13,7 +13,10 @@ const config: DocsThemeConfig = {
   docsRepositoryBase: 'https://github.com/safe-global/safe-docs/tree/main',
   footer: {
     text: <Footer />
-  }, 
+  },
+  sidebar: {
+    defaultMenuCollapseLevel: 1
+  },
   useNextSeoProps: () => {
     const { asPath } = useRouter()
     if (asPath !== '/') {
@@ -22,7 +25,6 @@ const config: DocsThemeConfig = {
       }
     }
   }
-
 }
 
 export default config
