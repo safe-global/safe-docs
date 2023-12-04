@@ -16,7 +16,7 @@ yarn add @safe-global/auth-kit@alpha @web3auth/safeauth-embed
 
 ## Create a SafeAuthPack instance
 
-We will use the provided `SafeAuthPack` exported in the `@safe-global/auth-kit` package.
+We will use the `SafeAuthPack` exported from the `@safe-global/auth-kit` package.
 
 Create an instance of the [SafeAuthPack](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/src/packs/safe-auth/SafeAuthPack.ts) using the required `SafeAuthConfig` configuration object.
 
