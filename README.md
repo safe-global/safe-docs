@@ -26,6 +26,6 @@ This section in the documentation has relevant information and tutorials on the 
 
 ## Safe{Core} API
 
-The [Safe{Core} API](safe-core-api/available-services.md) refers to all the Safe infrastructure needed to power interfaces with all Safe account related information. This includes the Safe Transaction Service, Safe Events Service, etc.
+The [Safe{Core} API](safe-core-api/supported-networks.md) refers to all the Safe infrastructure needed to power interfaces with all Safe account related information. This includes the Safe Transaction Service, Safe Events Service, etc.
 
 This section in the documentation has information related to the services architecture.
