@@ -1,8 +1,6 @@
 name: Deploy to staging
 
 on:
-  pull_request:
-
   push:
     branches:
       - nextra
@@ -46,19 +44,3 @@ jobs:
         env:
           BUCKET: s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/current
         run: bash ./.github/scripts/s3_upload.sh
-
-      # Comment
-      - name: Post a deployment link in the PR
-        if: always() && github.event.number
-        uses: mshick/add-pr-comment@v2
-        with:
-          message-id: praul
-          message: |
-            ## Branch preview
-            ✅  Deployed to dev:
-
-            https://safe-web-landing.dev.5afe.dev
-          message-failure: |
-            ## Branch preview
-            ❌  Deploy failed!
-
