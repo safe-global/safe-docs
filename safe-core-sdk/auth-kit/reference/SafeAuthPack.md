@@ -173,7 +173,7 @@ A EIP-1193 compatible provider.
 
 ### `destroy()`
 
-This method removes the iframe. It is useful when you need to re-instantiate the pack, for example, when changing the connected chain.
+This method removes the iframe. It's useful when you need to re-instantiate the pack, for example, when changing the connected chain.
 
 ### `subscribe(event, handler)`
 
