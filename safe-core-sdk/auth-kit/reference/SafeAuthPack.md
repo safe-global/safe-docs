@@ -57,17 +57,15 @@ safeAuthInitOptions {
   buttonPosition?: "bottom-left" | "top-left" | "bottom-right" | "top-right"
   buildEnv?: "production" | "development" | "testing"
   chainConfig?: {
-    blockExplorerUrl: string
-    logo: string
-    tickerName: string
-    ticker: string
+    blockExplorerUrl?: string
+    logo?: string
+    tickerName?: string
+    ticker?: string
     rpcTarget: string
     wcTarget?: string
     chainId: string
-    displayName: string
+    displayName?: string
     isTestnet?: boolean
-    isErc20?: boolean
-    tokenAddress?: string
   }
 }
 ```
@@ -77,17 +75,16 @@ safeAuthInitOptions {
 - `showWidgetButton` - Show the widget button. Defaults to `true`.
 - `buttonPosition` - If `showWidgetButton` is true then this prop represent the position of the widget button. Defaults to `bottom-left`.
 - `chainConfig` - The chain configuration. Defaults to `ethereum` if no configuration is provided.
+  - `chainId` - The chain ID to be used. Should be an hex with 0x prefix (e.g 0x1 for Mainnet).
+  - `rpcTarget` - The RPC URL to be used.
+  The following properties are optional:
   - `blockExplorerUrl` - Block explorer URL of the chain (e.g `https://etherscan.io`).
   - `logo` - Logo URL of the base token of the chain (e.g `https://eth.svg`).
   - `tickerName` - Name for ticker (e.g Ethereum).
   - `ticker` - Symbol for ticker (e.g ETH).
-  - `rpcTarget` - The RPC URL to be used.
   - `wcTarget?` - The WebSocket URL to be used. Use this or `rpcTarget`.
-  - `chainId` - The chain ID to be used. Should be an hex with 0x prefix (e.g 0x1 for Mainnet).
   - `displayName` - The display name for the network.
   - `isTestnet?` - Whether the network is Testnet or not.
-  - `isErc20?`- Whether the token is an ERC20 token or not.
-  - `tokenAddress?` - The token address for the chain. Should be an hex with 0x prefix (e.g 0x6b175474e89094c44da98b954eedeac495271d0f for DAI).
 
 **Caveats**
 
@@ -134,7 +131,7 @@ AuthKitSignInData {
 
 **Caveats**
 
-- To get the Safe addresses, instantiate the `authKit` with the `txServiceUrl` property in the config object. Otherwise, only the EOA will be returned.
+- The `txServiceUrl` should be used with custom Transaction services endpoints. If empty, the default Safe Transaction Service domain will be used if it has been deployed in the corresponding chain.
 - ⚠️ This method currently returns the Safe addresses where the EOA is an owner. It doesn't create a Safe. We're investigating ways to enhance the Auth Kit and the associated flows.
 
 ### `signOut(safeAuthSignOutOptions?)`
