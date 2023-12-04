@@ -86,7 +86,7 @@ After the user is authenticated, call `getProvider()` to get the Ethereum provid
 safeAuthPack.getProvider()
 ```
 
-We expose two methods for listening to events, `subscribe()` and `unsubscribe()`.
+We offer two methods for listening to events, `subscribe()` and `unsubscribe()`.
 
 ```typescript
 const accountChangedHandler = (accounts: string[]) => {
