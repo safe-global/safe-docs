@@ -192,7 +192,7 @@ Allow to unsubscribe to authentication state changes.
 
 The `accountsChanged` event helps detect whether the user has previously signed in. This allows you to reauthenticate when the browser is refreshed by calling the `signIn` method, preventing the user from clicking the sign-in button again.
 
-**Params**
+**Parameters**
 
 - `event` - The event you want to unsubscribe to.
 - `handler` - When the event is triggered, the function will be called.
