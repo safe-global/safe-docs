@@ -141,6 +141,7 @@ const deprecatedBlockExplorers = [
   'https://stardust-explorer.metis.io',
   'https://blockexplorer.rinkeby.boba.network',
   'https://blockexplorer.bobabeam.boba.network',
+  'https://blockexplorer.avax.boba.network',
   'https://rabbit.analogscan.com',
   'https://explorer.eurus.network',
   'https://testnetexplorer.eurus.network',
