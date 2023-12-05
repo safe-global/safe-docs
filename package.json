@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "generate-supported-networks": "node .github/scripts/generateSupportedNetworks.js"
+  },
   "dependencies": {
     "node-fetch": "^3.3.2",
     "shelljs": "^0.8.5"
