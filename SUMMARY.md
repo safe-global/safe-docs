@@ -27,13 +27,15 @@
 
 * [Auth Kit](safe-core-sdk/auth-kit/README.md)
   * [Guides](safe-core-sdk/auth-kit/guides/README.md) 
-    * [Web3Auth](safe-core-sdk/auth-kit/guides/web3auth.md)
+    * [SafeAuth](safe-core-sdk/auth-kit/guides/safe-auth.md)
   * [Reference](safe-core-sdk/auth-kit/reference/README.md)
     * [AuthKitBasePack](safe-core-sdk/auth-kit/reference/AuthKitBasePack.md)
-    * [Web3AuthModalPack](safe-core-sdk/auth-kit/reference/Web3AuthModalPack.md)
+    * [SafeAuthPack](safe-core-sdk/auth-kit/reference/SafeAuthPack.md)
 
 * [Protocol Kit](safe-core-sdk/protocol-kit/README.md)
   * [Reference](safe-core-sdk/protocol-kit/reference/README.md)
+    * [Migrating to v2](safe-core-sdk/protocol-kit/reference/migrating/v2.md)
+    * [Migrating to v1](safe-core-sdk/protocol-kit/reference/migrating/v1.md)
 
 * [Onramp Kit](safe-core-sdk/onramp-kit/README.md)
   * [Guides](safe-core-sdk/onramp-kit/guides/README.md)
@@ -47,9 +49,14 @@
 * [Relay Kit](safe-core-sdk/relay-kit/README.md)
   * [Guides](safe-core-sdk/relay-kit/guides/README.md)
     * [Gelato Relay](safe-core-sdk/relay-kit/guides/gelato.md)
+  * [Reference](safe-core-sdk/relay-kit/reference/README.md)
+    * [Migrating to v2](safe-core-sdk/relay-kit/reference/migrating/v2.md)
 
 * [API Kit](safe-core-sdk/api-kit/README.md)
   * [Reference](safe-core-sdk/api-kit/reference/README.md)
+    * [Migrating to v2](safe-core-sdk/api-kit/reference/migrating/v2.md)
+    * [Migrating to v1](safe-core-sdk/api-kit/reference/migrating/v1.md)
+
 
 ## Safe{Core} Protocol
 
@@ -57,12 +64,12 @@
 
 ## Safe{Core} API
 
-* [Available Services](safe-core-api/available-services.md)
-
 * [Service Architecture](safe-core-api/service-architecture.md)
   * [Safe Transaction Service](safe-core-api/safe-transaction-service.md)
 
 * [RPC Requirements](safe-core-api/rpc-requirements.md)
+
+* [Supported Networks](safe-core-api/supported-networks.md)
 
 ## Safe Apps SDK
  
@@ -76,5 +83,5 @@
 
 * [Glossary](miscellaneous/glossary.md)
 * [Bug Bounty](miscellaneous/bug-bounty-program.md)
-* [Past paid bounties](miscellaneous/past-paid-bounties.md)
+  * [Past paid bounties](miscellaneous/past-paid-bounties.md)
 * [Contact us](miscellaneous/contact-us.md)

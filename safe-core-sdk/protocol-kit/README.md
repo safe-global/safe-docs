@@ -6,25 +6,25 @@ The [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packag
 
 In this quickstart guide, you will create a 2 of 3 multi-sig Safe and propose and execute a transaction to send some ETH out of this Safe.
 
-For a more detailed guide, including how to integrate with `web3.js`` and more Safe transaction configuration options, see [Guide: Integrating the Protocol Kit and API Kit](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and [Protocol Kit Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
+For a more detailed guide, including how to integrate with web3.js and more Safe transaction configuration options, see [Guide: Integrating the Protocol Kit and API Kit](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and [Protocol Kit Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
 
 ### Prerequisites
 
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-2. 3 externally-owned accounts with testnet ETH in at least one account
+2. Three externally-owned accounts with Testnet ETH in at least one account
 
 ### Install dependencies
 
-First, we'll need to install some dependences from `safe-core-sdk` and the `ethers` library.
+First, we'll need to install some dependencies from `safe-core-sdk` and the `ethers` library.
 
 To interact with Ethereum and other EVM blockchains in Node, we can either use: web3.js or ethers.js. In this tutorial, we'll use the ethers.js library. To use `web3js`, see [Instantiate an EthAdapter section in Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
-The Protocol Kit is compatible with ethers v4 and v5, not the latest v6 version so make sure you specify this when installing the SDK.
+The Protocol Kit is compatible only with **ethers.js v6**. Make sure you specify this version when installing the SDK.
 
 You can store your environment variables such as private keys in a `.env` file. To read easily from `.env` files, use the `dotenv` library.
 
 ```bash
-yarn add ethers@5.7.2 @safe-global/protocol-kit \
+yarn add ethers @safe-global/protocol-kit \
   @safe-global/api-kit \
   @safe-global/safe-core-sdk-types \
   dotenv
@@ -62,7 +62,7 @@ The signers trigger transactions to the Ethereum blockchain or off-chain transac
 
 You can get a public RPC URL from [Chainlist](https://chainlist.org), however, public RPC URLs can be unreliable so you can also try a dedicated provider like Infura or Alchemy.
 
-For this tutorial, we will be creating a Safe on the Goerli testnet.
+For this tutorial, we will be creating a Safe on the Goerli Testnet.
 
 ```tsx
 import { ethers } from 'ethers'
@@ -73,7 +73,7 @@ dotenv.config()
 
 // https://chainlist.org/?search=goerli&testnets=true
 const RPC_URL='https://eth-goerli.public.blastapi.io'
-const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
+const provider = new ethers.JsonRpcProvider(RPC_URL)
 
 // Initialize signers
 const owner1Signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
@@ -88,15 +88,23 @@ const ethAdapterOwner1 = new EthersAdapter({
 
 ### Initialize the API Kit
 
-The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To start using this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit`, and pass the Safe Transaction Service URL for your desired network to the constructor of the `SafeApiKit`.
+The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To use this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit`. In chains where Safe provides a Transaction Service, it's enough to specify the `chainId.` You can specify your own service using the optional `txServiceUrl` parameter.
 
-You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](../../safe-core-api/available-services.md).
+You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](../../safe-core-api/supported-networks.md).
 
 ```tsx
 import SafeApiKit from '@safe-global/api-kit'
 
-const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
-const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterOwner1 })
+const safeApiKit = new SafeApiKit({
+  chainId: 1n
+})
+
+
+// or using a custom service
+const safeApiKit = new SafeApiKit({
+  chainId: 1n, // set the correct chainId
+  txServiceUrl: 'https://url-to-your-custom-service'
+})
 ```
 
 ### Initialize the Protocol Kit
@@ -146,7 +154,7 @@ You will send some ETH to this Safe.
 ```tsx
 const safeAddress = safeSdk.getAddress()
 
-const safeAmount = ethers.utils.parseUnits('0.01', 'ether').toHexString()
+const safeAmount = ethers.parseUnits('0.01', 'ether').toHexString()
 
 const transactionParameters = {
   to: safeAddress,
@@ -187,19 +195,19 @@ The high-level overview of a multi-sig transaction is PCE: Propose. Confirm. Exe
 For more details on what to include in a transaction see [Create a Transaction in the Safe Core SDK Guide](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#4-create-a-transaction).
 
 ```tsx
-import { SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
+import { MetaTransactionData } from '@safe-global/safe-core-sdk-types'
 
 // Any address can be used. In this example you will use vitalik.eth
 const destination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-const amount = ethers.utils.parseUnits('0.005', 'ether').toString()
+const amount = ethers.parseUnits('0.005', 'ether').toString()
 
-const safeTransactionData: SafeTransactionDataPartial = {
+const safeTransactionData: MetaTransactionData = {
   to: destination,
   data: '0x',
   value: amount
 }
 // Create a Safe transaction with the provided parameters
-const safeTransaction = await safeSdkOwner1.createTransaction({ safeTransactionData })
+const safeTransaction = await safeSdkOwner1.createTransaction({ transactions: [safeTransactionData] })
 ```
 
 ### Propose the transaction
@@ -232,7 +240,7 @@ Recall that you created the `safeService` in [Initialize the API Kit](./#initial
 const pendingTransactions = await safeService.getPendingTransactions(safeAddress).results
 ```
 
-### Confirm the transaction: second confirmation
+### Confirm the transaction: Second confirmation
 
 When owner 2 is connected to the application, the Protocol Kit should be initialized again with the existing Safe address the address of the owner 2 instead of the owner 1.
 
@@ -275,7 +283,7 @@ You know that the transaction was executed if the balance in your Safe changes.
 ```tsx
 const afterBalance = await safeSdk.getBalance()
 
-console.log(`The final balance of the Safe: ${ethers.utils.formatUnits(afterBalance, 'ether')} ETH`)
+console.log(`The final balance of the Safe: ${ethers.formatUnits(afterBalance, 'ether')} ETH`)
 ```
 
 ```bash

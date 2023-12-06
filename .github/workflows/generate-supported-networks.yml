@@ -13,22 +13,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '20.x'
-          cache: 'yarn'
-          cache-dependency-path: ./yarn.lock
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      - uses: actions/cache@v3
-        id: yarn-cache
+      - uses: pnpm/action-setup@v2
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          version: 8
+      - name: Install dependencies
+        run: pnpm install
       - name: Generate supported networks
-        run: node ./.github/scripts/generateSupportedNetworks.js
+        run: pnpm generate-supported-networks
       - uses: actions/checkout@v4
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5

@@ -22,14 +22,14 @@ import { SafeFactory } from '@safe-global/protocol-kit'
 const safeFactory = await SafeFactory.create({ ethAdapter })
 ```
 
-- The `isL1SafeMasterCopy` flag
+- The `isL1SafeSingleton` flag
 
   There are two versions of the Safe contracts: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that does not trigger events in order to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
 
-  By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeMasterCopy` flag to force the use of the `Safe.sol` contract.
+  By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force the use of the `Safe.sol` contract.
 
   ```typescript
-  const safeFactory = await SafeFactory.create({ ethAdapter, isL1SafeMasterCopy: true })
+  const safeFactory = await SafeFactory.create({ ethAdapter, isL1SafeSingleton: true })
   ```
 
 - The `contractNetworks` property
@@ -42,7 +42,7 @@ const safeFactory = await SafeFactory.create({ ethAdapter })
   const chainId = await ethAdapter.getChainId()
   const contractNetworks: ContractNetworksConfig = {
     [chainId]: {
-      safeMasterCopyAddress: '<MASTER_COPY_ADDRESS>',
+      safeSingletonAddress: '<SINGLETON_ADDRESS>',
       safeProxyFactoryAddress: '<PROXY_FACTORY_ADDRESS>',
       multiSendAddress: '<MULTI_SEND_ADDRESS>',
       multiSendCallOnlyAddress: '<MULTI_SEND_CALL_ONLY_ADDRESS>',
@@ -50,7 +50,7 @@ const safeFactory = await SafeFactory.create({ ethAdapter })
       signMessageLibAddress: '<SIGN_MESSAGE_LIB_ADDRESS>',
       createCallAddress: '<CREATE_CALL_ADDRESS>',
       simulateTxAccessorAddress: '<SIMULATE_TX_ACCESSOR_ADDRESS>',
-      safeMasterCopyAbi: '<MASTER_COPY_ABI>', // Optional. Only needed with web3.js
+      safeSingletonAbi: '<SINGLETON_ABI>', // Optional. Only needed with web3.js
       safeProxyFactoryAbi: '<PROXY_FACTORY_ABI>', // Optional. Only needed with web3.js
       multiSendAbi: '<MULTI_SEND_ABI>', // Optional. Only needed with web3.js
       multiSendCallOnlyAbi: '<MULTI_SEND_CALL_ONLY_ABI>', // Optional. Only needed with web3.js
@@ -75,7 +75,7 @@ const safeFactory = await SafeFactory.create({ ethAdapter })
 
 ### `deploySafe`
 
-Deploys a new Safe and returns an instance of the Protocol Kit connected to the deployed Safe. The address of the Master Copy, Safe contract version and the contract (`Safe.sol` or `SafeL2.sol`) of the deployed Safe will depend on the initialization of the `safeFactory` instance.
+Deploys a new Safe and returns an instance of the Protocol Kit connected to the deployed Safe. The address of the singleton, Safe contract version and the contract (`Safe.sol` or `SafeL2.sol`) of the deployed Safe will depend on the initialization of the `safeFactory` instance.
 
 ```typescript
 const safeAccountConfig: SafeAccountConfig = {
@@ -176,14 +176,14 @@ const predictedSafe: PredictedSafeProps = {
 const safeSdk = await Safe.create({ ethAdapter, predictedSafe })
 ```
 
-- The `isL1SafeMasterCopy` flag
+- The `isL1SafeSingleton` flag
 
   There are two versions of the Safe contracts: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that does not trigger events in order to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
 
-  By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeMasterCopy` flag to force the use of the `Safe.sol` contract.
+  By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force the use of the `Safe.sol` contract.
 
   ```typescript
-  const safeSdk = await Safe.create({ ethAdapter, safeAddress, isL1SafeMasterCopy: true })
+  const safeSdk = await Safe.create({ ethAdapter, safeAddress, isL1SafeSingleton: true })
   ```
 
 - The `contractNetworks` property
@@ -196,7 +196,7 @@ const safeSdk = await Safe.create({ ethAdapter, predictedSafe })
   const chainId = await ethAdapter.getChainId()
   const contractNetworks: ContractNetworksConfig = {
     [chainId]: {
-      safeMasterCopyAddress: '<MASTER_COPY_ADDRESS>',
+      safeSingletonAddress: '<SINGLETON_ADDRESS>',
       safeProxyFactoryAddress: '<PROXY_FACTORY_ADDRESS>',
       multiSendAddress: '<MULTI_SEND_ADDRESS>',
       multiSendCallOnlyAddress: '<MULTI_SEND_CALL_ONLY_ADDRESS>',
@@ -204,7 +204,7 @@ const safeSdk = await Safe.create({ ethAdapter, predictedSafe })
       signMessageLibAddress: '<SIGN_MESSAGE_LIB_ADDRESS>',
       createCallAddress: '<CREATE_CALL_ADDRESS>',
       simulateTxAccessorAddress: '<SIMULATE_TX_ACCESSOR_ADDRESS>',
-      safeMasterCopyAbi: '<MASTER_COPY_ABI>', // Optional. Only needed with web3.js
+      safeSingletonAbi: '<SINGLETON_ABI>', // Optional. Only needed with web3.js
       safeProxyFactoryAbi: '<PROXY_FACTORY_ABI>', // Optional. Only needed with web3.js
       multiSendAbi: '<MULTI_SEND_ABI>', // Optional. Only needed with web3.js
       multiSendCallOnlyAbi: '<MULTI_SEND_CALL_ONLY_ABI>', // Optional. Only needed with web3.js
@@ -241,14 +241,14 @@ const predictedSafe: PredictedSafeProps = {
 const safeSdk = await safeSdk.connect({ ethAdapter, predictedSafe })
 ```
 
-- The `isL1SafeMasterCopy` flag
+- The `isL1SafeSingleton` flag
 
   There are two versions of the Safe contracts: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that does not trigger events in order to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
 
-  By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeMasterCopy` flag to force the use of the `Safe.sol` contract.
+  By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force the use of the `Safe.sol` contract.
 
   ```typescript
-  const safeSdk = await Safe.connect({ ethAdapter, safeAddress, isL1SafeMasterCopy: true })
+  const safeSdk = await Safe.connect({ ethAdapter, safeAddress, isL1SafeSingleton: true })
   ```
 
 - The `contractNetworks` property
@@ -261,7 +261,7 @@ const safeSdk = await safeSdk.connect({ ethAdapter, predictedSafe })
   const chainId = await ethAdapter.getChainId()
   const contractNetworks: ContractNetworksConfig = {
     [chainId]: {
-      safeMasterCopyAddress: '<MASTER_COPY_ADDRESS>',
+      safeSingletonAddress: '<SINGLETON_ADDRESS>',
       safeProxyFactoryAddress: '<PROXY_FACTORY_ADDRESS>',
       multiSendAddress: '<MULTI_SEND_ADDRESS>',
       multiSendCallOnlyAddress: '<MULTI_SEND_CALL_ONLY_ADDRESS>',
@@ -269,7 +269,7 @@ const safeSdk = await safeSdk.connect({ ethAdapter, predictedSafe })
       signMessageLibAddress: '<SIGN_MESSAGE_LIB_ADDRESS>',
       createCallAddress: '<CREATE_CALL_ADDRESS>',
       simulateTxAccessorAddress: '<SIMULATE_TX_ACCESSOR_ADDRESS>',
-      safeMasterCopyAbi: '<MASTER_COPY_ABI>', // Optional. Only needed with web3.js
+      safeSingletonAbi: '<SINGLETON_ABI>', // Optional. Only needed with web3.js
       safeProxyFactoryAbi: '<PROXY_FACTORY_ABI>', // Optional. Only needed with web3.js
       multiSendAbi: '<MULTI_SEND_ABI>', // Optional. Only needed with web3.js
       multiSendCallOnlyAbi: '<MULTI_SEND_CALL_ONLY_ABI>', // Optional. Only needed with web3.js
@@ -292,7 +292,7 @@ const safeAddress = await safeSdk.getAddress()
 
 ### `getContractVersion`
 
-Returns the Safe Master Copy contract version.
+Returns the Safe singleton contract version.
 
 ```typescript
 const contractVersion = await safeSdk.getContractVersion()
@@ -324,7 +324,7 @@ const threshold = await safeSdk.getThreshold()
 
 ### `getChainId`
 
-Returns the chainId of the connected network.
+Returns the chain ID of the connected network.
 
 ```typescript
 const chainId = await safeSdk.getChainId()
@@ -374,90 +374,68 @@ const isOwner = await safeSdk.isOwner(address)
 
 Returns a Safe transaction ready to be signed by the owners and executed. The Protocol Kit supports the creation of single Safe transactions but also MultiSend transactions.
 
-- **Single transactions**
+This method takes an array of `MetaTransactionData` objects that represent the individual transactions we want to include in our MultiSend transaction.
 
-  This method can take an object of type `SafeTransactionDataPartial` that represents the transaction we want to execute (once the signatures are collected). It accepts some optional properties as follows.
+When the array contains only one transaction, it's not wrapped in the MultiSend.
 
-  ```typescript
-  import { SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
-
-  const safeTransactionData: SafeTransactionDataPartial = {
+```typescript
+const transactions: MetaTransactionData[] = [
+  {
     to,
     data,
     value,
-    operation, // Optional
-    safeTxGas, // Optional
-    baseGas, // Optional
-    gasPrice, // Optional
-    gasToken, // Optional
-    refundReceiver, // Optional
-    nonce // Optional
+    operation // Optional
+  },
+  {
+    to,
+    data,
+    value,
+    operation // Optional
   }
-  const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
-  ```
+  // ...
+]
+const safeTransaction = await safeSdk.createTransaction({ transactions })
+```
 
-- **MultiSend transactions**
+This method can also receive the `options` parameter to set the optional properties in the MultiSend transaction:
 
-  This method can take an array of `MetaTransactionData` objects that represent the multiple transactions we want to include in our MultiSend transaction. If we want to specify some of the optional properties in our MultiSend transaction, we can pass a second argument to the `createTransaction` method with the `SafeTransactionOptionalProps` object.
-
-  ```typescript
-  const safeTransactionData: MetaTransactionData[] = [
-    {
-      to,
-      data,
-      value,
-      operation // Optional
-    },
-    {
-      to,
-      data,
-      value,
-      operation // Optional
-    }
-    // ...
-  ]
-  const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
-  ```
-
-  This method can also receive the `options` parameter to set the optional properties in the MultiSend transaction:
-
-  ```typescript
-  const safeTransactionData: MetaTransactionData[] = [
-    {
-      to,
-      data,
-      value,
-      operation // Optional
-    },
-    {
-      to,
-      data,
-      value,
-      operation // Optional
-    }
-    // ...
-  ]
-  const options: SafeTransactionOptionalProps = {
-    safeTxGas, // Optional
-    baseGas, // Optional
-    gasPrice, // Optional
-    gasToken, // Optional
-    refundReceiver, // Optional
-    nonce // Optional
+```typescript
+const transactions: MetaTransactionData[] = [
+  {
+    to,
+    data,
+    value,
+    operation // Optional
+  },
+  {
+    to,
+    data,
+    value,
+    operation // Optional
   }
-  const safeTransaction = await safeSdk.createTransaction({ safeTransactionData, options })
-  ```
+  // ...
+]
+const options: SafeTransactionOptionalProps = {
+  safeTxGas, // Optional
+  baseGas, // Optional
+  gasPrice, // Optional
+  gasToken, // Optional
+  refundReceiver, // Optional
+  nonce // Optional
+}
+const safeTransaction = await safeSdk.createTransaction({ transactions, options })
+```
 
-  In addition, the optional `callsOnly` parameter, which is `false` by default, allows to force the use of the `MultiSendCallOnly` instead of the `MultiSend` contract when sending a batch transaction:
+In addition, the optional `callsOnly` parameter, which is `false` by default, allows to force the use of the `MultiSendCallOnly` instead of the `MultiSend` contract when sending a batch transaction:
 
-  ```typescript
-  const callsOnly = true
-  const safeTransaction = await safeSdk.createTransaction({
-    safeTransactionData,
-    options,
-    callsOnly
-  })
-  ```
+```typescript
+const callsOnly = true
+const safeTransaction = await safeSdk.createTransaction({
+  transactions,
+  options,
+  callsOnly
+})
+```
 
 If the optional properties are not manually set, the Safe transaction returned will have the default value for each one:
 
@@ -474,10 +452,10 @@ If the optional properties are not manually set, the Safe transaction returned w
 Returns a Safe transaction ready to be signed by the owners that invalidates the pending Safe transaction/s with a specific nonce.
 
 ```typescript
-const safeTransactionData: SafeTransactionDataPartial = {
+const transactions: MetaTransactionData[] = [{
   // ...
-}
-const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
+}]
+const safeTransaction = await safeSdk.createTransaction({ transactions })
 const rejectionTransaction = await safeSdk.createRejectionTransaction(safeTransaction.data.nonce)
 ```
 
@@ -486,7 +464,7 @@ const rejectionTransaction = await safeSdk.createRejectionTransaction(safeTransa
 Copies a Safe transaction.
 
 ```typescript
-const safeTransaction1 = await safeSdk.createTransaction({ safeTransactionData })
+const safeTransaction1 = await safeSdk.createTransaction({ transactions })
 const safeTransaction2 = await copyTransaction(safeTransaction1)
 ```
 
@@ -495,10 +473,10 @@ const safeTransaction2 = await copyTransaction(safeTransaction1)
 Returns the transaction hash of a Safe transaction.
 
 ```typescript
-const safeTransactionData: SafeTransactionDataPartial = {
+const transactions: MetaTransactionData[] = [{
   // ...
-}
-const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
+}]
+const safeTransaction = await safeSdk.createTransaction({ transactions })
 const txHash = await safeSdk.getTransactionHash(safeTransaction)
 ```
 
@@ -507,10 +485,10 @@ const txHash = await safeSdk.getTransactionHash(safeTransaction)
 Signs a hash using the current owner account.
 
 ```typescript
-const safeTransactionData: SafeTransactionDataPartial = {
+const transactions: MetaTransactionData[] = [{
   // ...
-}
-const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
+}]
+const safeTransaction = await safeSdk.createTransaction({ transactions })
 const txHash = await safeSdk.getTransactionHash(safeTransaction)
 const signature = await safeSdk.signTransactionHash(txHash)
 ```
@@ -520,10 +498,10 @@ const signature = await safeSdk.signTransactionHash(txHash)
 Signs a transaction according to the EIP-712 using the current signer account.
 
 ```typescript
-const safeTransactionData: SafeTransactionDataPartial = {
+const transactions: MetaTransactionData[] = [{
   // ...
-}
-const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
+}]
+const safeTransaction = await safeSdk.createTransaction({ transactions })
 const signature = await safeSdk.signTypedData(safeTransaction)
 ```
 
@@ -532,10 +510,10 @@ const signature = await safeSdk.signTypedData(safeTransaction)
 Returns a new `SafeTransaction` object that includes the signature of the current owner. `eth_sign` will be used by default to generate the signature.
 
 ```typescript
-const safeTransactionData: SafeTransactionDataPartial = {
+const transactions: MetaTransactionData[] = [{
   // ...
-}
-const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
+}]
+const safeTransaction = await safeSdk.createTransaction({ transactions })
 const signedSafeTransaction = await safeSdk.signTransaction(safeTransaction)
 ```
 
@@ -554,10 +532,10 @@ const signedSafeTransaction = await safeSdk.signTransaction(safeTransaction, 'et
 Approves a hash on-chain using the current owner account.
 
 ```typescript
-const safeTransactionData: SafeTransactionDataPartial = {
+const transactions: MetaTransactionData[] = [{
   // ...
-}
-const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
+}]
+const safeTransaction = await safeSdk.createTransaction({ transactions })
 const txHash = await safeSdk.getTransactionHash(safeTransaction)
 const txResponse = await safeSdk.approveTransactionHash(txHash)
 await txResponse.transactionResponse?.wait()
@@ -596,10 +574,10 @@ const txResponse = await safeSdk.approveTransactionHash(txHash, options)
 Returns a list of owners who have approved a specific Safe transaction.
 
 ```typescript
-const safeTransactionData: SafeTransactionDataPartial = {
+const transactions: MetaTransactionData[] = [{
   // ...
-}
-const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
+}]
+const safeTransaction = await safeSdk.createTransaction({ transactions })
 const txHash = await safeSdk.getTransactionHash(safeTransaction)
 const ownerAddresses = await safeSdk.getOwnersWhoApprovedTx(txHash)
 ```
@@ -805,10 +783,10 @@ const safeTransaction = await safeSdk.createChangeThresholdTx(newThreshold, opti
 Checks if a Safe transaction can be executed successfully with no errors.
 
 ```typescript
-const safeTransactionData: SafeTransactionDataPartial = {
+const transactions: MetaTransactionData[] = [{
   // ...
-}
-const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
+}]
+const safeTransaction = await safeSdk.createTransaction({ transactions })
 const isValidTx = await safeSdk.isValidTransaction(safeTransaction)
 ```
 
@@ -845,10 +823,10 @@ const isValidTx = await safeSdk.isValidTransaction(safeTransaction, options)
 Executes a Safe transaction.
 
 ```typescript
-const safeTransactionData: SafeTransactionDataPartial = {
+const transactions: MetaTransactionData[] = [{
   // ...
-}
-const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
+}]
+const safeTransaction = await safeSdk.createTransaction({ transactions })
 const txResponse = await safeSdk.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```

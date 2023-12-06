@@ -24,7 +24,7 @@ yarn add @safe-global/api-kit
 
 ## Instantiate an EthAdapter
 
-First of all, we need to create an `EthAdapter`, which contains all the required utilities for the SDKs to interact with the blockchain. It acts as a wrapper for [web3.js](https://web3js.readthedocs.io/) or [ethers.js](https://docs.ethers.io/v5/) Ethereum libraries.
+First of all, we need to create an `EthAdapter`, which contains all the required utilities for the SDKs to interact with the blockchain. It acts as a wrapper for [web3.js](https://web3js.readthedocs.io/) or [ethers.js](https://docs.ethers.org/v6/) Ethereum libraries.
 
 Depending on the library used by the Dapp, there are two options:
 
@@ -36,7 +36,7 @@ Once the instance of `EthersAdapter` or `Web3Adapter` is created, it can be used
 ```typescript
 import { EthersAdapter } from '@safe-global/protocol-kit'
 
-const provider = new ethers.providers.JsonRpcProvider(config.RPC_URL)
+const provider = new ethers.JsonRpcProvider(config.RPC_URL)
 const signer = new ethers.Wallet(config.SIGNER_ADDRESS_PRIVATE_KEY, provider)
 
 const ethAdapter = new EthersAdapter({
@@ -47,47 +47,53 @@ const ethAdapter = new EthersAdapter({
 
 ## Initialize the API Kit
 
-We need to create an instance of the API Kit.
+We need to create an instance of the API Kit. In chains where Safe provides a Transaction Service, it's enough to specify the `chainId`. You can set your own service using the optional `txServiceUrl` parameter.
 
 ```typescript
 import SafeApiKit from '@safe-global/api-kit'
 
 const safeApiKit = new SafeApiKit({
-  txServiceUrl: 'https://safe-transaction-mainnet.safe.global',
-  ethAdapter
+  chainId: 1n
+})
+
+
+// or using a custom service
+const safeApiKit = new SafeApiKit({
+  chainId: 1n, // set the correct chainId
+  txServiceUrl: 'https://url-to-your-custom-service'
 })
 ```
 
 ## Propose a transaction to the service
 
-Before a transaction can be executed, any of the Safe signers needs to initiate the process by creating a proposal of a transaction. We send this transaction to the service to make it accessible by the other owners so they can give their approbal and sign the transaction as well.
+Before a transaction can be executed, any of the Safe signers needs to initiate the process by creating a proposal of a transaction. We send this transaction to the service to make it accessible by the other owners so they can give their approval and sign the transaction as well.
 
 ```typescript
 import Safe from '@safe-global/protocol-kit'
 
 // Create Safe instance
-const safe = await Safe.create({
+const protocolKit = await Safe.create({
   ethAdapter,
   safeAddress: config.SAFE_ADDRESS
 })
 
 // Create transaction
-const safeTransactionData: SafeTransactionDataPartial = {
+const safeTransactionData: MetaTransactionData = {
   to: '0x',
   value: '1', // 1 wei
   data: '0x',
   operation: OperationType.Call
 }
 
-const safeTransaction = await safe.createTransaction({ safeTransactionData })
+const safeTransaction = await protocolKit.createTransaction({ transactions: [safeTransactionData] })
 
 const senderAddress = await signer.getAddress()
-const safeTxHash = await safe.getTransactionHash(safeTransaction)
-const signature = await safe.signTransactionHash(safeTxHash)
+const safeTxHash = await protocolKit.getTransactionHash(safeTransaction)
+const signature = await protocolKit.signTransactionHash(safeTxHash)
 
 // Propose transaction to the service
 await safeApiKit.proposeTransaction({
-  safeAddress: await safe.getAddress(),
+  safeAddress: await protocolKit.getAddress(),
   safeTransactionData: safeTransaction.data,
   safeTxHash,
   senderAddress,
@@ -110,14 +116,14 @@ const transaction = await service.getTransaction("<SAFE_TX_HASH>")
 
 ## Confirm the transaction
 
-In this step we need to sing the transaction with the Protocol Kit and submit the signature the the Safe Transaction Service using the `confirmTransaction` method.
+In this step we need to sign the transaction with the Protocol Kit and submit the signature to the Safe Transaction Service using the `confirmTransaction` method.
 
 ```typescript
 const safeTxHash = transaction.transactionHash
-const signature = await safe.signTransactionHash(safeTxHash)
+const signature = await protocolKit.signTransactionHash(safeTxHash)
 
 // Confirm the Safe transaction
-const signatureResponse = await service.confirmTransaction(safeTxHash, signature.data)
+const signatureResponse = await safeApiKit.confirmTransaction(safeTxHash, signature.data)
 ```
 
-The Safe transaction is now ready to be executed. This can be done using the Safe{Wallet} web interface, the Protocol Kit or any other tool that is available.
+The Safe transaction is now ready to be executed. This can be done using the Safe{Wallet} web interface, the Protocol Kit or any other tool that's available.

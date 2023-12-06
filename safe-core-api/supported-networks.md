@@ -1,8 +1,8 @@
 ---
-description: This pages provides an overview of the available services
+description: This page provides an overview of the available services
 ---
 
-# Available Services
+# Supported Networks
 
 ## Safe Transaction Service
 
@@ -21,4 +21,5 @@ description: This pages provides an overview of the available services
 | Optimism                     | [https://safe-transaction-optimism.safe.global](https://safe-transaction-optimism.safe.global/)          |
 | Polygon                      | [https://safe-transaction-polygon.safe.global](https://safe-transaction-polygon.safe.global/)            |
 | Polygon zkEVM                | [https://safe-transaction-zkevm.safe.global](https://safe-transaction-zkevm.safe.global/)                |
+| Sepolia                      | [https://safe-transaction-sepolia.safe.global](https://safe-transaction-sepolia.safe.global/)            |
 | zkSync Era Mainnet           | [https://safe-transaction-zksync.safe.global](https://safe-transaction-zksync.safe.global/)              |

@@ -1,17 +1,17 @@
-# OnRamp Kit
+# Onramp Kit
 
-The [OnRamp Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) allow users to access on-ramp services and use them with their Safes.
+The [Onramp Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) allow users to access on-ramp services and use them with their Safes.
 
 These services can be used to buy crypto assets with credit cards or make SEPA transfers between their Safe and bank accounts (Monerium).
 
 ## Install dependencies
 
-To add the OnRamp Kit to your project, run:
+To add the Onramp Kit to your project, run:
 
 ```bash
 yarn add @safe-global/onramp-kit
 ```
-The OnRamp Kit can integrate several providers in the form of "packs". A pack is a piece of code that works with the chosen provider to give Safe users access to new services.
+The Onramp Kit can integrate several providers in the form of **"packs"**. A pack is a piece of code that works with the chosen provider to give Safe users access to new services.
 
 To use each pack, the right package needs to be installed:
 
