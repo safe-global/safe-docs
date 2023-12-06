@@ -46,9 +46,9 @@ Relayers are third-party services that can pay for gas fees on behalf of users. 
 
 ## S
 
-### Safe
+### Safes
 
-A Safe is a smart contract used to store funds and execute transactions on behalf of its owners. It has an Ethereum address and is supercharged with features, making it as easy as possible. It is the main output from Safe's vision for modular [Smart Accounts](#smart-accounts).
+Safes are smart contracts used to store funds and execute transactions on behalf of their owners. They have an Ethereum address and are provide multiple features, making it as easy as possible. They are the main output from [Safe](https://safe.global)'s vision for modular [Smart Accounts](#smart-accounts).
 
 ### Safe{Core}
 
@@ -56,7 +56,7 @@ Safe{Core} is a set of smart contracts and Typescript packages used to build Saf
 
 ### Safe{Wallet}
 
-Safe{Wallet} is a web and mobile wallet UI that manages Safes. It can sign transactions and messages and interact with other smart contracts from the web, at [app.safe.global](https://app.safe.global), or from a mobile device, using the [Safe{Wallet} mobile app](https://safe.global/wallet). It uses the Safe{Core} SDK internally.
+Safe{Wallet} is the official user interface to manage Safe accounts. It can sign transactions and messages and interact with other smart contracts from the web, at [app.safe.global](https://app.safe.global), or from a mobile device, using the [Safe{Wallet} mobile app](https://safe.global/wallet). It uses the Safe{Core} SDK internally.
 
 ### Safe{RecoveryHub}
 
