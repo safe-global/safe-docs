@@ -14,9 +14,21 @@ The AuthKit is a library of the Safe{Core} SDK that provides a set of tools to a
 
 ## E
 
+### EIP-1271
+
+[EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) is an Ethereum Improvement Proposal describing a standard contract interface to verify signatures and hashes. Both Safe{Core} [Protocol](#safecore-protocol) and [SDK](#safecore-sdk) use it to verify signatures on Safe transactions.
+
+### EIP-712
+
+[EIP-712](https://eips.ethereum.org/EIPS/eip-712) is an Ethereum Improvement Proposal describing a typed data hashing and signing standard. All Safe{Core} [Protocol](#safecore-protocol) and [SDK](#safecore-sdk) transactions follow this standard, enabling them to be compatible with [EIP-1271](#eip-1271) signature verification.
+
+### ERC-4337
+
+[ERC-4337](https://www.erc4337.io/) is an Ethereum Request for Comments describing a standard for a [Safe Module](#safe-modules) that allows users to execute transactions without paying gas fees. The Gelato Network uses it to provide [gasless transactions](#gasless-transactions) to Safe users.
+
 ### Externally Owned Accounts
 
-An Externally Owned Account (or EOA) is one of the two types of [accounts on Ethereum](https://ethereum.org/en/whitepaper/#ethereum-accounts). It represents an Ethereum address and is used to sign transactions and messages. It was introduced by the Ethereum whitepaper, along with the other type of accounts: smart contracts. The central vision of Safe is to provide safe and secure tools for users to interact with the blockchain, and moving from EOAs to [Smart Accounts](#smart-accounts) is its primary way of achieving this vision.
+An Externally Owned Account (or EOA) is one of the two types of [accounts on Ethereum](https://ethereum.org/en/whitepaper/#ethereum-accounts). It represents an Ethereum address and is used to sign transactions and messages. The Ethereum white paper introduced it along with the other type of account: smart contracts. The central vision of Safe is to provide safe and secure tools for users to interact with the blockchain, and moving from EOAs to [Smart Accounts](#smart-accounts) is its primary way of achieving this vision.
 
 ## G
 
@@ -28,7 +40,7 @@ Gasless transactions are [Ethereum transactions](#transactions) that are paid fo
 
 ### Networks
 
-Networks are Ethereum-based ledgers. They're used to store transactions and smart contracts. They're also used to transfer funds from one account to another or as a support to interact with smart contracts. You can find a list of supported networks by Safe{Core} Protocol [here](../safe-smart-account/supported-networks.md) and the list of the ones supported by Safe{Core} API [here](../safe-core-api/supported-networks).
+Networks are Ethereum-based ledgers. They're used to store transactions and smart contracts. They're also used to transfer funds from one account to another or as a support to interact with smart contracts. You can find a list of supported networks by Safe{Core} Protocol [here](../safe-smart-account/supported-networks.md) and the list of the ones supported by Safe{Core} API [here](../safe-core-api/supported-networks.md).
 
 ## P
 
@@ -50,7 +62,7 @@ Safe{Core} is a set of smart contracts and Typescript packages used to build Saf
 
 ### Safe{Core} API
 
-[Safe{Core} API](../safe-core-api/service-architecture) is a set of REST APIs built to interact more easily with [Safe{Core} Protocol](#safecore-protocol). The [Safe{Core} SDK API Kit](../safe-core-aa-sdk/api-kit) is a TypeScript client for this API.
+[Safe{Core} API](../safe-core-api/service-architecture.md) is a set of REST APIs built to interact more easily with [Safe{Core} Protocol](#safecore-protocol). The [Safe{Core} SDK API Kit](../safe-core-sdk/api-kit/README.md) is a TypeScript client for this API.
 
 ### Safe{Core} SDK
 
@@ -90,7 +102,7 @@ Safe Modules add custom features to Safe contracts. Smart contracts add function
 
 ### Safe Smart Accounts
 
-Safe Smart Accounts (sometimes known as Smart Contract Wallets, Smart Wallets, or Contract Wallets) is a way to improve the security of Ethereum [Externally Owned Accounts](#externally-owned-account) by adding a layer of abstraction on top of them, adding features for recovery, [social logins](#social-login), and [gasless transactions](#gasless-transactions). They are [smart contracts](https://ethereum.org/en/whitepaper/#scripting) used to store funds and execute transactions on behalf of their owners. This abstraction layer is our central concept for building [Safe's vision](https://docs.safe.global/safe-smart-account/safe-smart-account).
+Safe Smart Accounts (sometimes known as Smart Contract Wallets, Smart Wallets, or Contract Wallets) is a way to improve the security of Ethereum [Externally Owned Accounts](#externally-owned-account) by adding a layer of abstraction on top of them, adding features for recovery, [social logins](#social-login), and [gasless transactions](#gasless-transactions). They're [smart contracts](https://ethereum.org/en/whitepaper/#scripting) used to store funds and execute transactions on behalf of their owners. This abstraction layer is our central concept for building [Safe's vision](https://docs.safe.global/safe-smart-account/safe-smart-account).
 
 ### Singleton
 
@@ -98,7 +110,7 @@ Singleton is a term used to describe a smart contract that can only be deployed 
 
 ## T
 
-### Transactions‡
+### Transactions
 
 Transactions are what change the state of Ethereum-based ledgers. They're used to transfer funds from one account to another or to interact with smart contracts. You can learn more about how Safe{Wallet} handles transactions by reading the [Transactions](https://help.safe.global/en/collections/9814-transactions) section of our [Support Center](https://help.safe.global).
 
