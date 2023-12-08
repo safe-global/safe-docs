@@ -8,8 +8,9 @@ import Footer from './components/Footer'
 const config: DocsThemeConfig = {
   darkMode: false,
   nextThemes: {
-    forcedTheme: 'dark',
+    forcedTheme: 'dark'
   },
+  primaryHue: 150,
   logo: <SafeLogo />,
   project: {
     link: 'https://github.com/safe-global'
@@ -21,6 +22,7 @@ const config: DocsThemeConfig = {
   sidebar: {
     defaultMenuCollapseLevel: 1
   },
+  head: <link rel='icon' type='image/png' sizes='32x32' href='/favicon.png' />,
   useNextSeoProps: () => {
     const { asPath } = useRouter()
     if (asPath !== '/') {

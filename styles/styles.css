@@ -3,10 +3,6 @@ html.dark.dark body {
   background-color: #121312;
 }
 
-a.nx-text-primary-600 {
-  color: #12ff80;
-}
-
 html[class~='dark'] .dark\:nx-bg-dark.dark\:nx-bg-dark {
   background-color: #121312;
 }
@@ -17,10 +13,7 @@ html[class~='dark'] .dark\:nx-bg-dark.dark\:nx-bg-dark {
   background-color: transparent !important;
 }
 
-#__next
-  > div
-  > div.nextra-nav-container.nx-sticky.nx-top-0.nx-z-20.nx-w-full.nx-bg-transparent
-  > nav {
+#__next > div > div > nav {
   height: 94px;
 }
 
@@ -38,6 +31,10 @@ html[class~='dark'] .dark\:nx-bg-dark.dark\:nx-bg-dark {
 #__next > div > footer > div > div > div > div > ul {
   margin-top: 18px;
   margin-bottom: 18px;
+}
+
+.nextra-breadcrumb.nextra-breadcrumb {
+  display: none;
 }
 
 .video-responsive {
