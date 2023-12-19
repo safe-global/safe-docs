@@ -7,21 +7,21 @@ The [Auth Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/a
 To add the Auth Kit to your project, run:
 
 ```bash
-yarn add @safe-global/auth-kit
+yarn add @safe-global/auth-kit @web3auth/safeauth-embed
 ```
 
 The Auth Kit can integrate several providers in the form of **"packs."** A pack is a piece of code that works with the chosen provider to give Safe users access to new services.
 
-To use each pack, the right package needs to be installed:
+TTo use each pack, you must ensure the appropriate packages are installed.
 
-- [Web3Auth](./reference/Web3AuthModalPack.md#install-dependencies)
+- [SafeAuth](./reference/SafeAuthPack.md#install)
 
 ## How to use a pack
 
 To start working with the packs, instantiate the main class and call the `init()` method afterwards.
 
 ```typescript
-const pack = new Web3AuthModalPack(packConfig)
+const pack = new SafeAuthPack(packConfig)
 await pack.init(packInitOptions)
 ```
 
