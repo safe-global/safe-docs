@@ -12,9 +12,9 @@ yarn add @safe-global/auth-kit @web3auth/safeauth-embed
 
 The Auth Kit can integrate several providers in the form of **"packs."** A pack is a piece of code that works with the chosen provider to give Safe users access to new services.
 
-TTo use each pack, you must ensure the appropriate packages are installed.
+To use each pack, you must ensure the appropriate packages are installed.
 
-- [SafeAuth](./reference/SafeAuthPack.md#install)
+- [SafeAuth](./SafeAuthPack.md#install)
 
 ## How to use a pack
 

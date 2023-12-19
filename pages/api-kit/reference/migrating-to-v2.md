@@ -27,7 +27,8 @@ const apiKit = new SafeApiKit({
 const apiKit = new SafeApiKit({
   chainId,
   txServiceUrl: 'https://your-transaction-service-url'
-})```
+})
+```
 
 ## Use the route you prefer
 
@@ -38,11 +39,17 @@ Note that if you use a custom service running under `/api`, you will now need to
 ```js
 // old:
 const txServiceUrl = 'https://your-transaction-service-domain/'
-constructor({ txServiceUrl, ethAdapter }: SafeApiKitConfig)
-
+const apiKit = new SafeApiKit({
+  txServiceUrl,
+  ethAdapter
+})
 // new:
+const chainId: bigint = 1n
 const txServiceUrl = 'https://your-transaction-service-domain/api'
-constructor({ chainId, txServiceUrl? }: SafeApiKitConfig)
+const apiKit = new SafeApiKit({
+  chainId,
+  txServiceUrl
+})
 ```
 
 ## MasterCopy to Singleton
