@@ -38,16 +38,15 @@ const safeAuthInitOptions: SafeAuthInitOptions = {
   enableLogging: true,
   showWidgetButton: false,
   chainConfig: {
-    blockExplorerUrl: 'https://etherscan.io',
     chainId: '0x1',
-    displayName: 'Main Ethereum Network',
-    logo: 'eth.svg',
-    rpcTarget: `${rpcUrl}`,
-    ticker: 'ETH',
-    tickerName: 'Ethereum',
+    rpcTarget: `${rpcUrl}`
   },
 }
 
+// You can also pass the SafeAuthConfig as a parameter to the SafeAuthPack constructor if you are using a custom txServiceUrl domain
+// e.g. const safeAuthConfig: SafeAuthConfig = {
+//   txServiceUrl: 'https://safe-transaction-mainnet.safe.global'
+// }
 const safeAuthPack = new SafeAuthPack(safeAuthConfig)
 await safeAuthPack.init(safeAuthInitOptions)
 ```
@@ -99,9 +98,7 @@ safeAuthPack.unsubscribe('accountsChanged', accountChangedHandler)
 The `SafeAuthPack` instantiation will return the list of associated Safe addresses as part of the response from the `signIn()` method when the `txServiceUrl` is provided.
 
 ```typescript
-const safeAuthPack = new SafeAuthPack({
-  txServiceUrl: 'https://safe-transaction-mainnet.safe.global',
-})
+const safeAuthPack = new SafeAuthPack()
 ```
 
 ## Signing and executing transactions using the SafeAuthPack and Protocol Kit
