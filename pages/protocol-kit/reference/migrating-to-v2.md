@@ -2,6 +2,8 @@
 
 This guide references the major changes between v1 and v2 to help those migrating an existing app.
 
+**Note:** When upgrading to `protocol-kit` v2, it's necessary to upgrade to `safe-core-sdk-types` v3.
+
 ## MasterCopy to Singleton
 
 To avoid confusion between terms used as synonyms, we aligned all our code to use the word `singleton`.

@@ -8,11 +8,26 @@ It won't be necessary to specify a `txServiceUrl` in environments where Safe has
 
 ```js
 // old:
-constructor({ txServiceUrl, ethAdapter }: SafeApiKitConfig)
+import SafeApiKit from '@safe-global/api-kit'
+
+const apiKit = new SafeApiKit({
+  txServiceUrl: 'https://your-transaction-service-url',
+  ethAdapter
+})
 
 // new:
-constructor({ chainId, txServiceUrl? }: SafeApiKitConfig)
-```
+import SafeApiKit from '@safe-global/api-kit'
+
+const chainId: bigint = 1n
+const apiKit = new SafeApiKit({
+  chainId
+})
+
+// or set a custom Transaction Service
+const apiKit = new SafeApiKit({
+  chainId,
+  txServiceUrl: 'https://your-transaction-service-url'
+})```
 
 ## Use the route you prefer
 
