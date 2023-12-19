@@ -64,7 +64,7 @@ Hooks are a type of [module](#safe-modules) that allows users to perform checks 
 
 ### Managers
 
-Managers are a core unit constituting the [Safe{Core} Protocol](#safecore-protocol) (along with [modules](#modules) and [registries](#registries)) that allows users to manage the modules installed on a specific implementation of [account asbstraction](#account-abstraction) standards.
+Managers are a core unit constituting the [Safe{Core} Protocol](#safecore-protocol) (along with [modules](#modules) and [registries](#registries)) that allows users to manage the modules installed on a specific implementation of [account abstraction](#account-abstraction) standards.
 
 ## N
 
@@ -76,7 +76,7 @@ Networks are Ethereum-based ledgers. They're used to store transactions and smar
 
 ### Owners
 
-Owners are the Ethereum addresses that control a [Safe smart account](#safe-smart-accounts). They can be either [EOAs](#externally-owned-account) or other [smart accounts](#safe-smart-accounts).
+Owners are the Ethereum addresses that control a [Safe Smart Account](#safe-smart-accounts). They can be either [EOAs](#externally-owned-account) or other [smart accounts](#safe-smart-accounts).
 
 ## P
 
@@ -96,7 +96,7 @@ Relayers are third-party services that can pay for gas fees on behalf of users. 
 
 ### Registries
 
-Registries are a core unit constituting the [Safe{Core} Protocol](#safecore-protocol) (along with [modules](#modules) and [managers](#managers)) that allows users to register and unregister modules on a Safe. They're used to provide a way for users to manage the modules installed on their Safes while ensuring the security of the protocol.
+Registries are a core unit constituting the [Safe{Core} Protocol](#safecore-protocol) (along with [modules](#modules) and [managers](#managers)) that allows users to register and un-register modules on a Safe. They're used to provide a way for users to manage the modules installed on their Safes while ensuring the security of the protocol.
 
 ## S
 
@@ -114,9 +114,9 @@ Safe{Core} SDK is a Typescript library built to interact with Safe{Core} Protoco
 
 ### Safe{Core} Protocol
 
-[Safe{Core} Protocol](https://docs.safe.global/safe-core-protocol/safe-core-protocol) is a set of [smart contracts](https://github.com/safe-global/safe-core-protocol) used to build [Safe Smart Accounts](#safe-smart-accounts). You can find information about why we built Safe{Core} Protocol in its original [announcement](https://safe.mirror.xyz/KiklifJINUpklBzf-usK_54EC86AfSeX5wH89bNxglM). This standard is the core of the Safe ecosystem, and Safe{Wallet} relies on it to interact with Safes via [Safe{Core} SDK Protocol Kit](https://docs.safe.global/safe-core-aa-sdk/protocol-kit), which allows developers to interact with the protocol using TypeScript. You can read more in the [protocol specifications](https://github.com/safe-global/safe-core-protocol-specs) and the [whitepaper](https://github.com/safe-global/safe-core-protocol-specs/blob/main/whitepaper.pdf).
+[Safe{Core} Protocol](https://docs.safe.global/safe-core-protocol/safe-core-protocol) is a set of [smart contracts](https://github.com/safe-global/safe-core-protocol) used to build [Safe Smart Accounts](#safe-smart-accounts). You can find information about why we built Safe{Core} Protocol in its original [announcement](https://safe.mirror.xyz/KiklifJINUpklBzf-usK_54EC86AfSeX5wH89bNxglM). This standard is the core of the Safe ecosystem, and Safe{Wallet} relies on it to interact with Safes via [Safe{Core} SDK Protocol Kit](https://docs.safe.global/safe-core-aa-sdk/protocol-kit), which allows developers to interact with the protocol using TypeScript. You can read more in the [protocol specifications](https://github.com/safe-global/safe-core-protocol-specs) and the [white paper](https://github.com/safe-global/safe-core-protocol-specs/blob/main/whitepaper.pdf).
 
-{% hint style="warning" %} Safe{Core} Protocol is not yet ready for production. For the current implementation used across Safe's ecosystem, see the [`safe-contracts`](https://github.com/safe-global/safe-contracts/tree/main) repo. {% endhint %}
+{% hint style="warning" %} Safe{Core} Protocol isn't yet ready for production. For the current implementation used across Safe's ecosystem, see the [`safe-contracts`](https://github.com/safe-global/safe-contracts/tree/main) repository. {% endhint %}
 
 ### Safe{DAO}
 
@@ -166,7 +166,7 @@ Transactions are what change the state of Ethereum-based ledgers. They're used t
 
 ### Threshold
 
-Threshold is a term used to describe the number of signatures required to execute a Safe transaction. It's used to improve the security of Safes by requiring multiple signatures to execute a transaction. You can know more by reading the [`getThreshold`](https://docs.safe.global/safe-core-aa-sdk/protocol-kit/reference#getthreshold) and [`createChangeThresholdTx`](https://docs.safe.global/safe-core-aa-sdk/protocol-kit/reference#createchangethresholdtx) sections of the [Safe{Core} SDK](#safecore-sdk) [Protocol kit](https://docs.safe.global/safe-core-aa-sdk/protocol-kit) [reference](https://docs.safe.global/safe-core-aa-sdk/protocol-kit/reference).
+Threshold is a term used to describe the number of signatures required to execute a Safe transaction. It's used to improve the security of Safes by requiring multiple signatures to execute a transaction. You can know more by reading the [`getThreshold`](https://docs.safe.global/safe-core-aa-sdk/protocol-kit/reference#getthreshold) and [`createChangeThresholdTx`](https://docs.safe.global/safe-core-aa-sdk/protocol-kit/reference#createchangethresholdtx) sections of the [Safe{Core} SDK](#safecore-sdk) [Protocol Kit](https://docs.safe.global/safe-core-aa-sdk/protocol-kit) [reference](https://docs.safe.global/safe-core-aa-sdk/protocol-kit/reference).
 
 ## U
 
