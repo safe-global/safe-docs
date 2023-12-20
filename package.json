@@ -8,7 +8,8 @@
     "generate-supported-networks": "node .github/scripts/generateSupportedNetworks.js",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit --incremental false",
-    "prepush": "pnpm lint && pnpm typecheck"
+    "prepush": "pnpm lint && pnpm typecheck",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
