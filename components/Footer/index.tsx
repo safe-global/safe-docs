@@ -13,7 +13,7 @@ import Link from 'next/link'
 import Logo from '../../assets/svg/safe-logo-white.svg'
 
 const AppRoutes = {
-  '404': 'https://safe.global/404',
+  404: 'https://safe.global/404',
   wallet: 'https://safe.global/wallet',
   terms: 'https://safe.global/terms',
   privacy: 'https://safe.global/privacy',
@@ -152,7 +152,7 @@ const createFooterButton = (
   label: string,
   href: string,
   IconComponent: ComponentType
-) => {
+): JSX.Element => {
   const buttonBaseAttributes = {
     disableRipple: true,
     target: '_blank',
@@ -166,10 +166,10 @@ const createFooterButton = (
   )
 }
 
-const Footer = () => {
+const Footer: React.FC = () => {
   //   const { openBanner } = useCookieBannerContext()
 
-  const showBanner = (e: SyntheticEvent) => {
+  const showBanner = (e: SyntheticEvent): void => {
     // Prevent opening the hash link
     e.preventDefault()
     // openBanner()
@@ -231,12 +231,12 @@ const Footer = () => {
 
         <Grid item xs={12} md={3} mt={{ xs: 6, md: 0 }}>
           <div className={css.socials}>
-            {createFooterButton('X page', TWITTER_LINK, XIcon)}
-            {createFooterButton('Discourse forum', FORUM_LINK, DiscourseIcon)}
-            {createFooterButton('Discord server', DISCORD_LINK, DiscordIcon)}
-            {createFooterButton('Youtube channel', YOUTUBE_LINK, YoutubeIcon)}
-            {createFooterButton('Mirror blog', MIRROR_LINK, MirrorIcon)}
-            {createFooterButton('Github organization', GITHUB_LINK, GithubIcon)}
+            {createFooterButton('X page', TWITTER_LINK, XIcon as React.FC)}
+            {createFooterButton('Discourse forum', FORUM_LINK, DiscourseIcon as React.FC)}
+            {createFooterButton('Discord server', DISCORD_LINK, DiscordIcon as React.FC)}
+            {createFooterButton('Youtube channel', YOUTUBE_LINK, YoutubeIcon as React.FC)}
+            {createFooterButton('Mirror blog', MIRROR_LINK, MirrorIcon as React.FC)}
+            {createFooterButton('Github organization', GITHUB_LINK, GithubIcon as React.FC)}
           </div>
         </Grid>
       </Grid>

@@ -1,4 +1,4 @@
-const YoutubeEmbed = ({ embedId }) => (
+const YoutubeEmbed: React.FC<{ embedId: string }> = ({ embedId }) => (
   <div className='video-responsive'>
     <iframe
       width='853'

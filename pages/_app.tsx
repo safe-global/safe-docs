@@ -60,7 +60,7 @@ const App = ({
         <Component {...pageProps} />
         {/* </PageLayout>
 
-          <CookieBanner /> 
+          <CookieBanner />
         </CookieBannerContextProvider> */}
       </CssVarsProvider>
     </CacheProvider>
