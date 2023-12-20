@@ -1,5 +1,5 @@
 import React from 'react'
-import { DocsThemeConfig } from 'nextra-theme-docs'
+import type { DocsThemeConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
 
 import SafeLogo from './assets/svg/safe-logo-white.svg'
