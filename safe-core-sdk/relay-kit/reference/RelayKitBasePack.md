@@ -38,7 +38,7 @@ It returns a Promise that resolves with a SafeTransaction object.
 
 Sends the Safe transaction to the relay for execution.
 
-If the Safe is not deployed, it will create a transaction batch including the Safe deployment.
+If the Safe isn't deployed, it will create a transaction batch including the Safe deployment.
 
 It returns a Promise that resolves with a RelayResponse object.
 

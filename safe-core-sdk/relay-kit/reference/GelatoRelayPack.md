@@ -89,7 +89,7 @@ const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
 
 ### `executeRelayTransaction(executeTransactionOptions)`
 
-This method mimics the [`executeTransaction`](../../protocol-kit/reference/README.md#executetransaction) from `@safe-global/protocol-kit`. It sends a signed Safe transaction and returns the Gelato relay taskId.
+This method mimics the [`executeTransaction`](../../protocol-kit/reference/README.md#executetransaction) from `@safe-global/protocol-kit`. It sends a signed Safe transaction and returns the Gelato relay `taskId`.
 
 **Parameters**
 
