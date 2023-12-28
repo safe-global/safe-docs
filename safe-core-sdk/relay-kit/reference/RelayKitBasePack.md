@@ -30,13 +30,13 @@ Get an estimation of the fee that will be paid for a transaction.
 
 ### `createRelayedTransaction({ transactions, options?, onlyCalls? })`
 
-Creates a Safe transaction designed to be executed using the relayer.
+Creates a Safe transaction designed to be executed using the relay.
 
 It returns a Promise that resolves with a SafeTransaction object.
 
 ### `executeRelayTransaction(safeTransaction, options?)`
 
-Sends the Safe transaction to the relayer for execution.
+Sends the Safe transaction to the relay for execution.
 
 If the Safe is not deployed, it will create a transaction batch including the Safe deployment.
 
