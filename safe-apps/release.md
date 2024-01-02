@@ -8,7 +8,7 @@ Once you finish developing and testing your Safe App, your users can test it by 
 
 ## Get your Safe App listed in Safe{Wallet}
 
-{% hint style="info" %} Currently, we expect delays in the Safe App review process. {% endhint %}
+{% hint style="info" %} Due to the limited resource the Safe team can't ensure prompt app review. Please fill in [this Google Form](https://forms.gle/PcDcaVx715LKrrQs8) before submission. {% endhint %}
 
 If you would like your Safe App to appear in the Safe, it must meet the following criteria:
 
@@ -53,8 +53,6 @@ We also would like to make a rough functional review of the App, so please provi
 We want to display interactions with Safe Apps as human-readable as possible. To do this, we need the ABI of the contracts your Safe App interacts with. The ideal way to do this would be to verify your contracts via [Sourcify](https://github.com/ethereum/sourcify), which we can leverage to decode transactions interacting with those contracts.
 
 Alternatively, you can provide us with the ABIs as JSON files or the links to the verified contracts on Etherscan so we can implement transaction decoding for your Safe App interactions.
-
-Create an issue in our [repository](https://github.com/5afe/safe-apps-list) once you've verified that your app meets these requirements.
 
 ## Official launch and beyond
 
