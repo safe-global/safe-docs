@@ -1,3 +1,5 @@
+import type { ReactElement } from 'react'
+import type { AppProps } from 'next/app'
 import {
   Experimental_CssVarsProvider as CssVarsProvider,
   experimental_extendTheme as extendMuiTheme
@@ -5,20 +7,11 @@ import {
 import { CssBaseline } from '@mui/material'
 import { CacheProvider } from '@emotion/react'
 import type { EmotionCache } from '@emotion/react'
-import type { AppProps } from 'next/app'
-import type { ReactElement } from 'react'
+import ReactGA from 'react-ga4'
 
 import { createEmotionCache } from '../styles/emotion'
-// import { CookieBannerContextProvider } from '../components/common/CookieBanner/CookieBannerContext'
-// import { CookieBanner } from '../components/common/CookieBanner'
-
 import { theme } from '../styles/theme'
-
 import '../styles/styles.css'
-// import PageLayout from '../components/common/PageLayout'
-// import { useGa } from '../hooks/useGa'
-// import useHotjar from '../hooks/useHotjar'
-// import DOMPurify from 'isomorphic-dompurify'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -26,20 +19,17 @@ const clientSideEmotionCache = createEmotionCache()
 // Extended theme for CssVarsProvider
 const cssVarsTheme = extendMuiTheme(theme)
 
-// Allow external links when sanitizing json data
-// DOMPurify.addHook('afterSanitizeAttributes', function (node) {
-//   // set all elements owning target to target=_blank
-//   if ('target' in node) {
-//     node.setAttribute('target', '_blank')
-//   }
-// })
-
-// const InitHooks = () => {
-//   useGa()
-//   useHotjar()
-
-//   return null
-// }
+const GoogleAnalytics: React.FC = () => {
+  if (typeof window === 'undefined') return null
+  if (process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID === undefined) return null
+  ReactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID, {
+    gaOptions: {
+      cookieFlags: 'SameSite=Strict;Secure',
+      cookieDomain: process.env.GOOGLE_ANALYTICS_DOMAIN
+    }
+  })
+  return null
+}
 
 const App = ({
   Component,
@@ -52,16 +42,8 @@ const App = ({
     <CacheProvider value={emotionCache}>
       <CssVarsProvider theme={cssVarsTheme}>
         <CssBaseline />
-
-        {/* <CookieBannerContextProvider>
-          <InitHooks />
-
-          <PageLayout> */}
+        <GoogleAnalytics />
         <Component {...pageProps} />
-        {/* </PageLayout>
-
-          <CookieBanner />
-        </CookieBannerContextProvider> */}
       </CssVarsProvider>
     </CacheProvider>
   )
