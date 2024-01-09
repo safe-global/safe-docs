@@ -19,11 +19,11 @@ Here are some core components of a Safe Smart Account that you will learn about:
 
 ## Safe Modules
 
-[Safe Modules](modules.md) are smart contracts that extend Safe's functionality with added custom features while the module logic remains separate from Safe's core contracts. 
+[Safe Modules](smart-account-modules.mdx) are smart contracts that extend Safe's functionality with added custom features while the module logic remains separate from Safe's core contracts. 
 
 ## Safe Guards
 
-[Safe Guards](guards.md) make checks before and after a Safe transaction.
+[Safe Guards](smart-account-guards.mdx) make checks before and after a Safe transaction.
 
 ## Signatures
 

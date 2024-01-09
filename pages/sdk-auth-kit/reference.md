@@ -14,11 +14,11 @@ The Auth Kit can integrate several providers in the form of **"packs."** A pack 
 
 To use each pack, you must ensure the appropriate packages are installed.
 
-- [SafeAuth](./SafeAuthPack.md#install)
+- [SafeAuth](./reference/SafeAuthPack.md#install)
 
 ## How to use a pack
 
-To start working with the packs, instantiate the main class and call the `init()` method afterwards.
+To start working with the packs, instantiate the main class and call the `init()` method afterward.
 
 ```typescript
 const pack = new SafeAuthPack(packConfig)
