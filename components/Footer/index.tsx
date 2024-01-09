@@ -48,6 +48,9 @@ export const DISCORD_LINK = 'https://chat.safe.global'
 export const YOUTUBE_LINK = 'https://www.youtube.com/@safeglobal'
 export const MIRROR_LINK = 'https://safe.mirror.xyz'
 export const GITHUB_LINK = 'https://github.com/safe-global'
+export const EXPERIMENTAL_LINK = 'https://github.com/5afe'
+export const DUNE_LINK = 'https://dune.com/safe'
+export const STACKEXCHANGE_LINK = 'https://ethereum.stackexchange.com/questions/tagged/safe-core'
 
 export const PROTOCOL_KIT_LINK =
   'https://docs.safe.global/safe-core-aa-sdk/protocol-kit'
@@ -97,6 +100,12 @@ const communityItems = [
     href: SAFECON_LINK,
     target: '_blank',
     rel: 'noreferrer'
+  },
+  {
+    label: 'Safe analytics',
+    href: DUNE_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
   }
 ]
 
@@ -116,7 +125,20 @@ const resourcesItems = [
     href: PRESS_LINK,
     target: '_blank',
     rel: 'noreferrer'
-  }
+  },
+  {
+    label: 'Developer Support',
+    href: STACKEXCHANGE_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
+  },
+  {
+    label: 'Experimental tools',
+    href: EXPERIMENTAL_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
+  },
+
 ]
 
 const subFooterItems = [
