@@ -137,7 +137,7 @@ const resourcesItems = [
     href: EXPERIMENTAL_LINK,
     target: '_blank',
     rel: 'noreferrer'
-  },
+  }
 
 ]
 
