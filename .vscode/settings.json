@@ -1,3 +1,4 @@
 {
     "grammarly.files.include": ["**/*.md", "**/*.mdx"],
+    "vale.valeCLI.config": "${workspaceFolder}/.vale.ini"
 }
