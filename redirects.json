@@ -230,7 +230,47 @@
     "permanent": true
   },
   {
-    "source": "miscellaneous/bug-bounty-program/past-paid-bounties",
+    "source": "/miscellaneous/bug-bounty-program/past-paid-bounties",
+    "destination": "/bug-bounty/past-paid-bounties",
+    "permanent": true
+  },
+  {
+    "source": "/safe-core-protocol",
+    "destination": "/sdk-overview",
+    "permanent": true
+  },
+  {
+    "source": "/safe-core-protocol/plugins",
+    "destination": "/smart-account-modules",
+    "permanent": true
+  },
+  {
+    "source": "/safe-core-protocol/hooks",
+    "destination": "/smart-account-guards",
+    "permanent": true
+  },
+  {
+    "source": "/safe-core-protocol/security",
+    "destination": "/bug-bounty/past-paid-bounties",
+    "permanent": true
+  },
+  {
+    "source": "/safe-core-protocol/security/bug-bounty-program",
+    "destination": "/bug-bounty",
+    "permanent": true
+  },
+  {
+    "source": "/ safe-core-protocol/security/security-audits",
+    "destination": "/smart-account-audits",
+    "permanent": true
+  },
+  {
+    "source": "/miscellaneous/bug-bounty-program/past-paid-bounties",
+    "destination": "/bug-bounty/past-paid-bounties",
+    "permanent": true
+  },
+  {
+    "source": "/miscellaneous/bug-bounty-program/past-paid-bounties",
     "destination": "/bug-bounty/past-paid-bounties",
     "permanent": true
   }
