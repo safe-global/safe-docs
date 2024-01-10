@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "serve out",
     "generate-supported-networks": "node .github/scripts/generateSupportedNetworks.js",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit --incremental false",
@@ -58,6 +58,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-security": "^2.1.0",
     "husky": "^8.0.3",
+    "serve": "^14.2.1",
     "typescript": "^4.9.3"
   }
 }

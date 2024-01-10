@@ -1,3 +1,4 @@
+const redirections = require('./redirects.json')
 const withNextra = require('nextra')({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.tsx',
@@ -8,9 +9,9 @@ const withNextra = require('nextra')({
 const nextConfig = {
   output: 'export',
   images: {
-    unoptimized: true,
+    unoptimized: true
   },
-  webpack(config) {
+  webpack (config) {
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: { and: [/\.(js|ts|md)x?$/] },
@@ -25,19 +26,22 @@ const nextConfig = {
                 {
                   name: 'preset-default',
                   params: {
-                    overrides: { removeViewBox: false },
-                  },
-                },
-              ],
+                    overrides: { removeViewBox: false }
+                  }
+                }
+              ]
             },
-            titleProp: true,
-          },
-        },
-      ],
+            titleProp: true
+          }
+        }
+      ]
     })
 
     return config
   },
+  async redirects () {
+    return redirections
+  }
 }
 
 module.exports = withNextra(nextConfig)
