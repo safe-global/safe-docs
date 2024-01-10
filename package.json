@@ -8,8 +8,8 @@
     "generate-supported-networks": "node .github/scripts/generateSupportedNetworks.js",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit --incremental false",
-    "linkcheck": "find ./pages -name '*.md' -not -name '*v1.3.0*' -print0 | xargs -0 -n1 pnpm markdown-link-check --quiet --config linkchecker-config.json",
-    "prepush": "pnpm lint && pnpm typecheck && pnpm linkcheck",
+    "linkcheck": "find ./pages -name '*.md*' -print0 | xargs -0 -n1 pnpm markdown-link-check --quiet --progress --config linkchecker-config.json",
+    "prepush": "pnpm lint && pnpm typecheck",
     "prepare": "husky install"
   },
   "repository": {
