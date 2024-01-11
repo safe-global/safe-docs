@@ -12,6 +12,9 @@
 
 * [Safe Guards](safe-smart-account/guards.md)
 
+* [Signatures](safe-smart-account/signatures/README.md)
+  * [EIP-1271](safe-smart-account/signatures/eip-1271.md)
+
 * [Audits](safe-smart-account/security-audits.md)
 
 * [Supported Networks](safe-smart-account/supported-networks.md)
