@@ -8,7 +8,7 @@ Once you finish developing and testing your Safe App, your users can test it by 
 
 ## Get your Safe App listed in Safe{Wallet}
 
-{% hint style="info" %} Due to the limited resource the Safe team can't ensure prompt app review. Please fill in [this Google Form](https://forms.gle/PcDcaVx715LKrrQs8) before submission. {% endhint %}
+{% hint style="info" %} Due to the limited resource the Safe team can't ensure prompt app review. Please fill in <a href="https://forms.gle/PcDcaVx715LKrrQs8" target="_blank">this Google Form</a> before submission. {% endhint %}
 
 If you would like your Safe App to appear in the Safe, it must meet the following criteria:
 
