@@ -30,6 +30,16 @@
     "permanent": true
   },
   {
+    "source": "/safe-smart-account/signatures",
+    "destination": "/smart-account-signatures",
+    "permanent": true
+  },
+  {
+    "source": "/safe-smart-account/signatures/eip-1271",
+    "destination": "/smart-account-signatures/eip-1271",
+    "permanent": true
+  },
+  {
     "source": "/safe-smart-account/supported-networks",
     "destination": "/smart-account-supported-networks",
     "permanent": true
