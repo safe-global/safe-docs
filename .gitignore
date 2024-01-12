@@ -1,5 +1,8 @@
 .DS_Store
+node_modules/
+out/
+dist/
 .next
-out
-node_modules
+.eslintcache
 .env
+tsconfig.tsbuildinfo
