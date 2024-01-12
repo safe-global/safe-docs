@@ -42,7 +42,7 @@ To be able to use `eth_sign` we need to take the parameters `r`, `s` and `v` fro
 
 `{32-bytes signature verifier}{32-bytes data position}{1-byte signature type}`
 
-**Signature verifier** - Padded address of the contract that implements the EIP 1271 interface to verify the signature
+**Signature verifier** - Padded address of the contract that implements the EIP-1271 interface to verify the signature
 
 **Data position** - Position of the start of the signature data (offset relative to the beginning of the signature data)
 
