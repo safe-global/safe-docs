@@ -148,7 +148,7 @@ Guards are smart contracts that can protect Safe transactions. They're used to a
 
 ### Safe Smart Accounts
 
-Smart Accounts (sometimes known as Smart Contract Wallets, Smart Wallets, or Contract Wallets) are a way to improve the security of Ethereum [Externally Owned Accounts](#externally-owned-account) by adding a layer of abstraction on top of them, adding features for recovery, [social logins](#social-login), and [gasless transactions](#gasless-transactions). They're [smart contracts](https://ethereum.org/en/whitepaper/#scripting) used to store funds and execute transactions on behalf of their owners. In Safe's context, Safe Smart Accounts are any implementation of the [`safe-contracts`]() repository. This abstraction layer is our central concept for building [Safe's vision](https://docs.safe.global/safe-smart-account/safe-smart-account).
+Smart Accounts (sometimes known as Smart Contract Wallets, Smart Wallets, or Contract Wallets) are a way to improve the security of Ethereum [Externally Owned Accounts](#externally-owned-account) by adding a layer of abstraction on top of them, adding features for recovery, [social logins](#social-login), and [gasless transactions](#gasless-transactions). They're [smart contracts](https://ethereum.org/en/whitepaper/#scripting) used to store funds and execute transactions on behalf of their owners. In Safe's context, Safe Smart Accounts are any implementation of the [`safe-contracts`](https://github.com/safe-global/safe-contracts/) repository. This abstraction layer is our central concept for building [Safe's vision](https://docs.safe.global/safe-smart-account/safe-smart-account).
 
 ### Singleton
 
