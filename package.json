@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "serve out",
     "generate-supported-networks": "node .github/scripts/generateSupportedNetworks.js",
-    "lint": "eslint .",
+    "lint": "eslint . && vale . --minAlertLevel=error",
     "typecheck": "tsc --noEmit --incremental false",
     "linkcheck": "find ./pages -name '*.md*' -print0 | xargs -0 -n1 pnpm markdown-link-check --quiet --progress --config linkchecker-config.json",
     "prepush": "pnpm lint && pnpm typecheck",
