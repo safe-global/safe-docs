@@ -7,11 +7,11 @@ Understanding and generating signatures can be challenging. In the **Safe{Core} 
 Your Safe Account can be configured with various thresholds and different types of owners. An owner can be any Ethereum address, such as:
 
 - External Owned Account (EOA)
-- Child Signer Safe (A Safe Account that is an owner of another Safe Account)
+- Child Signer Safe (A Safe Account that's an owner of another Safe Account)
 
-When the owner is an EOA, we generate a signature that is different from the signature created using a Safe Account. The Safe Account is a Smart Contract Account, so we need to consider this when gathering the signatures, as the Safe Contracts validate them differently.
+When the owner is an EOA, we generate a signature that's different from the signature created using a Safe Account. The Safe Account is a Smart Contract Account, so we need to consider this when gathering the signatures, as the Safe Contracts validate them differently.
 
-In this article, we will use the following Safe Account setup as examples. We have five different Ethereum addresses that can act as signers, namely _owner1_ to _owner5_.
+In this article, we will use the following Safe Account setup as examples. We've five different Ethereum addresses that can act as signers, namely _owner1_ to _owner5_.
 
 - `safeAddress3_4`: 3/4 Safe Account (3 signatures required out of 4 owners)
   - `owner1`
@@ -88,7 +88,7 @@ class EthSafeTransaction implements SafeTransaction {
 
 ### Generating transaction signatures
 
-Now that we have the transaction object (`safeTx`), it's time to add the necessary signatures.
+Now that we've the transaction object (`safeTx`), it's time to add the necessary signatures.
 
 #### Creating an ECDSA signature
 
@@ -181,7 +181,7 @@ signerSafeTx1_1 = await protocolKit.signTransaction(
 );
 ```
 
-> When signing with a child Safe Account, it is important to specify the parent Safe address. The parent Safe address is used to generate the signature verifier address based on the version of the contracts you are using
+> When signing with a child Safe Account, it's important to specify the parent Safe address. The parent Safe address is used to generate the signature verifier address based on the version of the contracts you are using
 
 Once signed, we will have a transaction object (`signerSafeTx1_1`) similar to this one:
 
@@ -198,7 +198,7 @@ EthSafeTransaction {
 }
 ```
 
-Inside the signatures map, there is a regular ECDSA signature (`isContractSignature = false`). We can use this signature to generate an EIP-1271 compatible signature. This can be achieved by using the `buildContractSignature()` utility method, which can be found [~here~](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/signatures/utils.ts#L139-L150). This method takes an array of signatures and output another signature that is ready to be used with Safe contracts.
+Inside the signatures map, there is a regular ECDSA signature (`isContractSignature = false`). We can use this signature to generate an EIP-1271 compatible signature. This can be achieved by using the `buildContractSignature()` utility method, which can be found [~here~](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/signatures/utils.ts#L139-L150). This method takes an array of signatures and output another signature that's ready to be used with Safe contracts.
 
 ```typescript
 const signerSafeSig1_1 = await buildContractSignature(
@@ -207,7 +207,7 @@ const signerSafeSig1_1 = await buildContractSignature(
 );
 ```
 
-The contract signature will look like like this:
+The contract signature will look like this:
 
 ```
 EthSafeSignature {
@@ -248,7 +248,7 @@ Let's break down this signature into parts:
 | Signature Length | 32    | 0000000000000000000000000000000000000000000000000000000000000041                                                                   | The length of the signature. 41 hex is 65 in decimal                                                                                               |
 | Signature        | 65    | 5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f | Signature bytes that are verified by the signature verifier                                                                                        |
 
-This is what an **EIP-1271** contract signature for Safe contracts looks like. Now that we have explained this lengthy string, let's add the signature to the original transaction.
+This is what an **EIP-1271** contract signature for Safe contracts looks like. Now that we've explained this lengthy string, let's add the signature to the original transaction.
 
 ```typescript
 safeTx.addSignature(signerSafeSig1_1);
@@ -343,7 +343,7 @@ We're finished. Let's add the signature to the original transaction.
 safeTx.addSignature(signerSafeSig2_3);
 ```
 
-🚀🚀🚀 We are now done!!, we have signed with all the owners. We even have one more owner than the required threshold of 3 💃🏻, but that's okay. Now, let's take a look at the final structure of the `safeTx` object.
+🚀🚀🚀 We are now done!!, we've signed with all the owners. We even have one more owner than the required threshold of 3 💃🏻, but that's okay. Now, let's take a look at the final structure of the `safeTx` object.
 
 ```json
 EthSafeTransaction {
@@ -434,17 +434,17 @@ At this point, The transaction should be executed on-chain and the process is fi
 
 In the example we just saw, we used the `protocol-kit` utilities to create and compose a signature for executing a transaction with Safe. This process can be done entirely on-chain without the need for any external service. However, in a real-world application, you would typically gather signatures from multiple Ethereum addresses, wallets, ... and private keys belonging to different users. To handle this, you can either develop your own system (such as an API or services) to store each signature before sending it to the blockchain (although we don't recommend it 😰), or you can utilize Safe services for this purpose.
 
-We have already deployed Safe services on the main chains. More information can be found in:
+We've already deployed Safe services on the main chains. More information can be found in:
 
 - [~Safe Core API documentation~](https://docs.safe.global/safe-core-api/supported-networks).
 - [~Safe Transaction Service~](https://docs.safe.global/safe-core-api/service-architecture/safe-transaction-service)
 - [~Transaction Service Swagger~](https://safe-transaction-mainnet.safe.global/)
 
-You can use the API directly to gather signatures. Alternatively, you can use the `api-kit` package, which utilizes the transaction service. With the kit, you can propose transactions and add signatures to existing ones before executing them.
+You can use the API directly to gather signatures. Alternatively, you can use the `api-kit` package, which uses the Transaction Service. With the kit, you can propose transactions and add signatures to existing ones before executing them.
 
 How can we do that? In the previous steps we instantiated the `protocol-kit` and created a transaction using the `createTransaction()` method. In order to start gathering the signatures using our services we need:
 
-- A calculated safe transaction hash. We used this hash as a reference (id) for requesting data in the transaction service
+- A calculated safe transaction hash. We used this hash as a reference (id) for requesting data in the Transaction Service
 - The signature. Can be calculated in the same way as in the previous steps.
 
 ```typescript
@@ -468,7 +468,7 @@ await apiKit.proposeTransaction({
 });
 ```
 
-Now that we have the proposed transaction, we can view it in the Safe{Wallet} UI. However, to execute the transaction, we need the other owners to confirm it by providing their signatures.
+Now that we've the proposed transaction, we can view it in the Safe{Wallet} UI. However, to execute the transaction, we need the other owners to confirm it by providing their signatures.
 
 ```typescript
 // Extract the signer address and the signature
@@ -496,7 +496,7 @@ await apiKit.confirmTransaction(
 );
 ```
 
-We have now reached the threshold! We can confirm it by retrieving the transaction and examine the `confirmations` property.
+We've now reached the threshold! We can confirm it by retrieving the transaction and examine the `confirmations` property.
 
 ```typescript
 const confirmedTx = await api.getTransaction(txHash);
@@ -520,7 +520,7 @@ In this section, we will explain how to generate and sign messages. The concept 
 
 ### Creating the message object
 
-We already have a `protocolKit` instance right? So let’s use it to create a new message. A message can be a plain string or a valid EIP-712 typed data structure
+We already have a `protocolKit` instance right?, let’s use it to create a new message. A message can be a plain string or a valid EIP-712 typed data structure
 
 ```json
 // An example of string message
@@ -581,7 +581,7 @@ Let's compose the message. You can use either the string or the typed JSON forma
 let safeMessage = protocolKit.createMessage(TYPED_MESSAGE);
 ```
 
-The `safeMessage` is an object of type `EthSafeMessage` that contains the message data (`data`) and a map of owner-signature pairs (`signatures`). It is similar to the `EthSafeTransaction`.
+The `safeMessage` is an object of type `EthSafeMessage` that contains the message data (`data`) and a map of owner-signature pairs (`signatures`). It's similar to the `EthSafeTransaction`.
 
 ```typescript
 class EthSafeMessage implements SafeMessage {
@@ -594,7 +594,7 @@ class EthSafeMessage implements SafeMessage {
 
 ### Generating the message signatures
 
-Now that we have the transaction object (`safeTx`), it is time to collect signatures.
+Now that we've the transaction object (`safeTx`), it's time to collect signatures.
 
 #### Creating a ECDSA signature
 
@@ -711,22 +711,20 @@ This would validate the validity of the signatures we create.
 
 ### What are the messages about ?
 
-We cannot execute a message like transactions. Instead, we can store messages in the Safe contract and later check for their existence. This is useful, for example, for flows from third-party apps. It declares ownership of a Safe address and authorizes the Safe contract and the dApp to collaborate.
-
-We cannot “execute” a message like transactions so what can do ?. Instead, we can store messages in the Safe contract and later check for their existence. This is useful for example for flows from third-party apps where the app ask the Safe owner to declare ownership and authorize the Safe Account and dApp to work together.
+We can't execute a message like transactions. Instead, we can store messages in the Safe contract and later check for their existence. This is useful, for example, for flows from third-party apps. It declares ownership of a Safe address and authorizes the Safe contract and the dApp to collaborate.
 
 Safe supports these two kinds of messages:
 
-- **Off-chain**: This is the default method and does not require any on-chain interaction.
+- **Off-chain**: This is the default method and doesn't require any on-chain interaction.
 - **on-chain** : Messages [~stored~](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L68-L69) in the Safe contract
 
 Safe Accounts support signing of ~[~EIP-191~](https://eips.ethereum.org/EIPS/eip-191)~ compliant messages as well as ~[~EIP-712~](https://eips.ethereum.org/EIPS/eip-712)~ typed data messages all together with off-chain ~[~EIP-1271~](https://eips.ethereum.org/EIPS/eip-1271)~ validation for signatures. More about this topic [~here~](https://docs.safe.global/safe-smart-account/signatures/eip-1271).
 
 ### Off-chain messages (default)
 
-By default, Safe supports off-chain messages. To use off-chain messages, you need to use the utilities described in this document and the transaction service API. Off-chain messages do not require any interaction with the blockchain.
+By default, Safe supports off-chain messages. To use off-chain messages, you need to use the utilities described in this document and the Transaction Service API. Off-chain messages do not require any interaction with the blockchain.
 
-We mentioned the utility of storing messages in the contract. Off-chain messages have the same purpose, but they are stored in the transaction service. The transaction service stores the messages and signatures in a database. It is a centralized service, but it is open-source and can be deployed by anyone. The transaction service is used by the Safe{Wallet} UI to store messages and signatures by default.
+We mentioned the utility of storing messages in the contract. Off-chain messages have the same purpose, but they're stored in the Transaction Service. It stores the messages and signatures in a database. It's a centralized service, but it's open-source and can be deployed by anyone. The Transaction Service is used by the Safe{Wallet} UI to store messages and signatures by default.
 
 We will perform a task similar to the `proposeTransaction()` and `confirmTransaction()` methods.
 
@@ -744,11 +742,11 @@ apiKit.addMessage(safeAddress3_4, {
 });
 ```
 
-We have added the message!
+We've added the message!
 
 #### Confirm messages by adding additional signatures
 
-We should confirm the message with other owners, just like we did with transactions. The `id` of the stored message is the `safeMessageHash`, and we have utilities available to calculate it and add more signatures.
+We should confirm the message with other owners, just like we did with transactions. The `id` of the stored message is the `safeMessageHash`, and we've utilities available to calculate it and add more signatures.
 
 ```typescript
 // Get the safeMessageHash
@@ -771,14 +769,14 @@ await apiKit.addMessageSignature(
   buildSignatureBytes([signerSafeMessageSig1_1])
 );
 
-// The threshold has already been matched, so it is not necessary.
+// The threshold has already been matched, so it's not necessary.
 await apiKit.addMessageSignature(
   safeMessageHash,
   buildSignatureBytes([signerSafeMessageSig2_3])
 );
 ```
 
-Now we have the message signed by all Safe owners. We have even "crossed the threshold" 🥳
+Now we've the message signed by all Safe owners. We've even "crossed the threshold" 🥳
 
 We can check the status of the message by using the `getMessage()` function.
 
@@ -822,7 +820,7 @@ const signMessageTx = await protocolKit.createTransaction({
 });
 ```
 
-Now that we have a transaction, we need its signatures. If you've read this far, you probably know how to gather them 😉. If you started from this section, please go to the beginning and learn how to generate all the necessary signatures. Remember, you can gather them on your own or use the transaction service.
+Now that we've a transaction, we need its signatures. If you've read this far, you probably know how to gather them 😉. If you started from this section, please go to the beginning and learn how to generate all the necessary signatures. Remember, you can gather them on your own or use the Transaction Service.
 
 After that, execute the transaction and you will have the message stored in the contract.
 
