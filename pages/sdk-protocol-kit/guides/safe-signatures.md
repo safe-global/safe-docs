@@ -134,13 +134,13 @@ EthSafeTransaction {
 
 The `data` prop in the `signatures` map represents the concrete signature. The `isContractSignature` flag (_false_) indicates if the signature is an Ethereum signature or a Contract signature (A signer Safe Account).
 
-An Ethereum signature is composed of two 32-byte integers (r, s) and an extra byte for recovery id (v), making a total of 65 bytes. In hexadecimal string format, each byte is represented by 2 characters. Hence, a 65-byte Ethereum signature will be 130 characters long. Including the '0x' prefix commonly used with signatures, the total character count for such a signature would be 132. For a more detailed explanation, you can refer to [~this link~](https://docs.safe.global/safe-smart-account/signatures) for more information.
+An Ethereum signature is composed of two 32-byte integers (r, s) and an extra byte for recovery id (v), making a total of 65 bytes. In hexadecimal string format, each byte is represented by 2 characters. Hence, a 65-byte Ethereum signature will be 130 characters long. Including the '0x' prefix commonly used with signatures, the total character count for such a signature would be 132. For a more detailed explanation, you can refer to [this link](https://docs.safe.global/safe-smart-account/signatures) for more information.
 
 > To represent a byte (8 bits) in hexadecimal, you need 2 characters. Each hexadecimal character represents 4 bits. Therefore, 2 hexadecimal characters (2 x 4 bits) are able to represent a byte (8 bits).
 
 The final part of the signature, either `1f` or `1c`, indicates the signature type.
 
-The hexadecimal number `1f` converts to the decimal number 31. It indicates that the signature is an `eth_sign` because the number is greater than 30. This adjustment is made for the `eth_sign` flow in the contracts. You can find the relevant code [~here~](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L344-L347).
+The hexadecimal number `1f` converts to the decimal number 31. It indicates that the signature is an `eth_sign` because the number is greater than 30. This adjustment is made for the `eth_sign` flow in the contracts. You can find the relevant code [here](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L344-L347).
 
 The hexadecimal number `1c` converts to the decimal number 28, indicating that the signature is a typed data signature. For instance, in the case of the initial signature:
 
@@ -199,7 +199,7 @@ EthSafeTransaction {
 }
 ```
 
-Inside the signatures map, there is a regular ECDSA signature (`isContractSignature=false`). We can use this signature to generate an Safe Account smart contract compatible signature. This can be achieved by using the `buildContractSignature()` utility method, which can be found [~here~](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/signatures/utils.ts#L139-L150). This method takes an array of signatures and output another signature that's ready to be used with Safe Accounts.
+Inside the signatures map, there is a regular ECDSA signature (`isContractSignature=false`). We can use this signature to generate an Safe Account smart contract compatible signature. This can be achieved by using the `buildContractSignature()` utility method, which can be found [here](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/signatures/utils.ts#L139-L150). This method takes an array of signatures and output another signature that's ready to be used with Safe Accounts.
 
 ```typescript
 const signerSafeSig1_1 = await buildContractSignature(
@@ -224,7 +224,7 @@ The main changes from the one in the `EthSafeTransaction` object are the followi
 - Set `isContractSignature` to `true`
 - Build the `data` by considering all the individual signatures of the child Safe
 
-After signing the contract, we can generate the final contract compatible with Safe Accounts using the `buildSignatureBytes()` method. This method is also used internally in the `buildContractSignature()` method. You can find the implementation of the `buildSignatureBytes()` method [~here~](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/signatures/utils.ts#L152-L189).
+After signing the contract, we can generate the final contract compatible with Safe Accounts using the `buildSignatureBytes()` method. This method is also used internally in the `buildContractSignature()` method. You can find the implementation of the `buildSignatureBytes()` method [here](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/signatures/utils.ts#L152-L189).
 
 Let’s examine the output of the do `buildSignatureBytes()` method. We can log it:
 
@@ -240,14 +240,14 @@ The output will be
 
 Let's break down this signature into parts:
 
-| Type             | Bytes | Value                                                                                                                              | Description                                                                                                                                        |
-| ---------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Hex              | 1     | 0x                                                                                                                                 | Hex string characters                                                                                                                              |
-| Verifier         | 32    | 000000000000000000000000215033cdE0619D60B7352348F4598316Cc39bC6E                                                                   | Padded address of the contract that implements the EIP-1271 interface to verify the signature. The Safe signer address                             |
-| Data position    | 32    | 0000000000000000000000000000000000000000000000000000000000000041                                                                   | Start position of the signature data (offset relative to the beginning of the signature data). 41 hex is 65 in decimal                             |
-| Signature Type   | 1     | 00                                                                                                                                 | 00 for [~Safe Accounts~](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L322-L336) |
-| Signature Length | 32    | 0000000000000000000000000000000000000000000000000000000000000041                                                                   | The length of the signature. 41 hex is 65 in decimal                                                                                               |
-| Signature        | 65    | 5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f | Signature bytes that are verified by the signature verifier                                                                                        |
+| Type             | Bytes | Value                                                                                                                              | Description                                                                                                                                      |
+| ---------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Hex              | 1     | 0x                                                                                                                                 | Hex string characters                                                                                                                            |
+| Verifier         | 32    | 000000000000000000000000215033cdE0619D60B7352348F4598316Cc39bC6E                                                                   | Padded address of the contract that implements the EIP-1271 interface to verify the signature. The Safe signer address                           |
+| Data position    | 32    | 0000000000000000000000000000000000000000000000000000000000000041                                                                   | Start position of the signature data (offset relative to the beginning of the signature data). 41 hex is 65 in decimal                           |
+| Signature Type   | 1     | 00                                                                                                                                 | 00 for [Safe Accounts](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L322-L336) |
+| Signature Length | 32    | 0000000000000000000000000000000000000000000000000000000000000041                                                                   | The length of the signature. 41 hex is 65 in decimal                                                                                             |
+| Signature        | 65    | 5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f | Signature bytes that are verified by the signature verifier                                                                                      |
 
 This is what an **EIP-1271** contract signature for Safe contracts looks like. Now that we've explained this lengthy string, let's add the signature to the original transaction.
 
@@ -327,14 +327,14 @@ The output will be:
 
 Let's break down this signature into parts again:
 
-| Type             | Bytes | Value                                                                                                                                                                                                                                                                | Description                                                                                                                                        |
-| ---------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Hex              | 1     | 0x                                                                                                                                                                                                                                                                   | Hex string characters                                                                                                                              |
-| Verifier         | 32    | 000000000000000000000000f75D61D6C27a7CC5788E633c1FC130f0F4a62D33                                                                                                                                                                                                     | Padded address of the contract that implements the EIP-1271 interface to verify the signature. The Safe signer address                             |
-| Data position    | 32    | 0000000000000000000000000000000000000000000000000000000000000041                                                                                                                                                                                                     | Start position of the signature data (offset relative to the beginning of the signature data). 41 hex is 65 in decimal                             |
-| Signature Type   | 1     | 00                                                                                                                                                                                                                                                                   | 00 for [~Safe Accounts~](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L322-L336) |
-| Signature Length | 32    | 0000000000000000000000000000000000000000000000000000000000000082                                                                                                                                                                                                     | The length of the signature. 82 hex is 130 in decimal                                                                                              |
-| Signature        | 130   | 023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f | Signature bytes that are verified by the signature verifier (130 bytes are represented by 260 characters in an hex string)                         |
+| Type             | Bytes | Value                                                                                                                                                                                                                                                                | Description                                                                                                                                      |
+| ---------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Hex              | 1     | 0x                                                                                                                                                                                                                                                                   | Hex string characters                                                                                                                            |
+| Verifier         | 32    | 000000000000000000000000f75D61D6C27a7CC5788E633c1FC130f0F4a62D33                                                                                                                                                                                                     | Padded address of the contract that implements the EIP-1271 interface to verify the signature. The Safe signer address                           |
+| Data position    | 32    | 0000000000000000000000000000000000000000000000000000000000000041                                                                                                                                                                                                     | Start position of the signature data (offset relative to the beginning of the signature data). 41 hex is 65 in decimal                           |
+| Signature Type   | 1     | 00                                                                                                                                                                                                                                                                   | 00 for [Safe Accounts](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L322-L336) |
+| Signature Length | 32    | 0000000000000000000000000000000000000000000000000000000000000082                                                                                                                                                                                                     | The length of the signature. 82 hex is 130 in decimal                                                                                            |
+| Signature        | 130   | 023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f | Signature bytes that are verified by the signature verifier (130 bytes are represented by 260 characters in an hex string)                       |
 
 The decomposition appears unchanged, but there are two changes: the signature length has doubled because there are now two signatures, and the signature itself is a concatenation of the two regular signatures.
 
@@ -399,7 +399,7 @@ protocolKit = await protocolKit.connect({
 const transactionResponse = await protocolKit.executeTransaction(safeTx);
 ```
 
-When we call the `executeTransaction()` method, it internally uses the [~`safeTx.encodedSignatures()`~](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/adapters/ethers/contracts/Safe/SafeContractEthers.ts#L159-L171) function, which in turn calls [~`buildSignatureBytes()`~](<(https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/transactions/SafeTransaction.ts#L24-L26)>) with the four signatures generated by the different owners.
+When we call the `executeTransaction()` method, it internally uses the [`safeTx.encodedSignatures()`](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/adapters/ethers/contracts/Safe/SafeContractEthers.ts#L159-L171) function, which in turn calls [`buildSignatureBytes()`](<(https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/transactions/SafeTransaction.ts#L24-L26)>) with the four signatures generated by the different owners.
 
 Let’s log that.
 
@@ -437,9 +437,9 @@ In the example we just saw, we used the `protocol-kit` utilities to create and c
 
 We've already deployed Safe services on the main chains. More information can be found in:
 
-- [~Safe Core API documentation~](https://docs.safe.global/safe-core-api/supported-networks).
-- [~Safe Transaction Service~](https://docs.safe.global/safe-core-api/service-architecture/safe-transaction-service)
-- [~Transaction Service Swagger~](https://safe-transaction-mainnet.safe.global/)
+- [Safe Core API documentation](https://docs.safe.global/safe-core-api/supported-networks).
+- [Safe Transaction Service](https://docs.safe.global/safe-core-api/service-architecture/safe-transaction-service)
+- [Transaction Service Swagger](https://safe-transaction-mainnet.safe.global/)
 
 You can use the API directly to gather signatures. Alternatively, you can use the `api-kit` package, which uses the Transaction Service. With the kit, you can propose transactions and add signatures to existing ones before executing them.
 
@@ -697,7 +697,7 @@ That's it. We simplified the explanations because the concept remains the same.
 
 ### Validating a message signature
 
-We can use the `isValidSignature()` method defined in the `CompatibilityFallbackHandler` [~contract~](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/handler/CompatibilityFallbackHandler.sol#L51-L68) to validate the signature of the previous generated message.
+We can use the `isValidSignature()` method defined in the `CompatibilityFallbackHandler` [contract](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/handler/CompatibilityFallbackHandler.sol#L51-L68) to validate the signature of the previous generated message.
 
 ```typescript
 import { hashSafeMessage } from '@safe-global/protocol-kit';
@@ -717,9 +717,9 @@ We can't execute a message like transactions. Instead, we can store messages in 
 Safe supports these two kinds of messages:
 
 - **Off-chain**: This is the default method and doesn't require any on-chain interaction.
-- **on-chain** : Messages [~stored~](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L68-L69) in the Safe contract
+- **on-chain** : Messages [stored](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L68-L69) in the Safe contract
 
-Safe Accounts support signing of ~[~EIP-191~](https://eips.ethereum.org/EIPS/eip-191)~ compliant messages as well as ~[~EIP-712~](https://eips.ethereum.org/EIPS/eip-712)~ typed data messages all together with off-chain ~[~EIP-1271~](https://eips.ethereum.org/EIPS/eip-1271)~ validation for signatures. More about this topic [~here~](https://docs.safe.global/safe-smart-account/signatures/eip-1271).
+Safe Accounts support signing of [EIP-191](https://eips.ethereum.org/EIPS/eip-191) compliant messages as well as [EIP-712](https://eips.ethereum.org/EIPS/eip-712) typed data messages all together with off-chain [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) validation for signatures. More about this topic [here](https://docs.safe.global/safe-smart-account/signatures/eip-1271).
 
 ### Off-chain messages (default)
 
