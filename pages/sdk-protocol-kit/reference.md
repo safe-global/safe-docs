@@ -480,7 +480,7 @@ const safeTransaction = await safeSdk.createTransaction({ transactions })
 const txHash = await safeSdk.getTransactionHash(safeTransaction)
 ```
 
-### `signTransactionHash`
+### `signHash`
 
 Signs a hash using the current owner account.
 
@@ -490,7 +490,7 @@ const transactions: MetaTransactionData[] = [{
 }]
 const safeTransaction = await safeSdk.createTransaction({ transactions })
 const txHash = await safeSdk.getTransactionHash(safeTransaction)
-const signature = await safeSdk.signTransactionHash(txHash)
+const signature = await safeSdk.signHash(txHash)
 ```
 
 ### `signTypedData`

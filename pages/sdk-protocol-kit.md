@@ -221,7 +221,7 @@ For a full list and description of the properties that `proposeTransaction` acce
 const safeTxHash = await safeSdkOwner1.getTransactionHash(safeTransaction)
 
 // Sign transaction to verify that the transaction is coming from owner 1
-const senderSignature = await safeSdkOwner1.signTransactionHash(safeTxHash)
+const senderSignature = await safeSdkOwner1.signHash(safeTxHash)
 
 await safeService.proposeTransaction({
   safeAddress,
@@ -259,7 +259,7 @@ const safeSdkOwner2 = await Safe.create({
   safeAddress
 })
 
-const signature = await safeSdkOwner2.signTransactionHash(safeTxHash)
+const signature = await safeSdkOwner2.signHash(safeTxHash)
 const response = await safeService.confirmTransaction(safeTxHash, signature.data)
 ```
 

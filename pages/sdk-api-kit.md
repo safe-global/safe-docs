@@ -89,7 +89,7 @@ const safeTransaction = await protocolKit.createTransaction({ transactions: [saf
 
 const senderAddress = await signer.getAddress()
 const safeTxHash = await protocolKit.getTransactionHash(safeTransaction)
-const signature = await protocolKit.signTransactionHash(safeTxHash)
+const signature = await protocolKit.signHash(safeTxHash)
 
 // Propose transaction to the service
 await safeApiKit.proposeTransaction({
@@ -120,7 +120,7 @@ In this step we need to sign the transaction with the Protocol Kit and submit th
 
 ```typescript
 const safeTxHash = transaction.transactionHash
-const signature = await protocolKit.signTransactionHash(safeTxHash)
+const signature = await protocolKit.signHash(safeTxHash)
 
 // Confirm the Safe transaction
 const signatureResponse = await safeApiKit.confirmTransaction(safeTxHash, signature.data)
