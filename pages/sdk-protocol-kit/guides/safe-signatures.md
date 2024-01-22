@@ -112,9 +112,9 @@ safeTx = await protocolKit.signTransaction(
 
 In this snippet, we add the signature for `owner1`. Then, we use the `connect()` method to connect the `owner2` adapter and sign again to add the second signature.
 
-If we examine the `safeTx` object at this point, we should observe something similar to the following:
+If we examine the `safeTx` object at this point, we should see something similar to the following:
 
-```json
+```javascript
 EthSafeTransaction {
   signatures: Map(2) {
     '0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1' => EthSafeSignature {
@@ -132,19 +132,17 @@ EthSafeTransaction {
 }
 ```
 
-The `data` prop in the `signatures` map represents the concrete signature. The `isContractSignature` flag (false) indicates if the signature is an Ethereum signature or a Contract signature (A signer Safe Account).
+The `data` prop in the `signatures` map represents the concrete signature. The `isContractSignature` flag (_false_) indicates if the signature is an Ethereum signature or a Contract signature (A signer Safe Account).
 
 An Ethereum signature is composed of two 32-byte integers (r, s) and an extra byte for recovery id (v), making a total of 65 bytes. In hexadecimal string format, each byte is represented by 2 characters. Hence, a 65-byte Ethereum signature will be 130 characters long. Including the '0x' prefix commonly used with signatures, the total character count for such a signature would be 132. For a more detailed explanation, you can refer to [~this link~](https://docs.safe.global/safe-smart-account/signatures) for more information.
 
 > To represent a byte (8 bits) in hexadecimal, you need 2 characters. Each hexadecimal character represents 4 bits. Therefore, 2 hexadecimal characters (2 x 4 bits) are able to represent a byte (8 bits).
 
-The final part of the signature, either `1f` or `1b`, indicates the signature type.
+The final part of the signature, either `1f` or `1c`, indicates the signature type.
 
 The hexadecimal number `1f` converts to the decimal number 31. It indicates that the signature is an `eth_sign` because the number is greater than 30. This adjustment is made for the `eth_sign` flow in the contracts. You can find the relevant code [~here~](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L344-L347).
 
-The hexadecimal number `1c` converts to the decimal number 28, indicating that the signature is a data signature of types.
-
-For instance, in the case of the initial signature:
+The hexadecimal number `1c` converts to the decimal number 28, indicating that the signature is a typed data signature. For instance, in the case of the initial signature:
 
 `0x969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b1261f`:
 
@@ -154,13 +152,13 @@ For instance, in the case of the initial signature:
 | Signature      | 64    | 969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b126 | Signature bytes         |
 | Signature Type | 1     | 1f                                                                                                                               | 1f hex is 31 in decimal |
 
-#### Creating Smart contract signatures (EIP-1271)
+#### Creating Smart contract signatures
 
 ---
 
 **1/1 Safe Account**
 
-The smart contract signatures supported by Safe differ from regular ECDSA signatures. We will use the special method `SigningMethod.ETH_SIGN_TYPED_DATA_V4` to generate these signatures.
+The smart contract signatures supported by Safe differ from regular ECDSA signatures. We will use the special method `SigningMethod.SAFE_SIGNATURE` to generate these kind of signatures.
 
 To start signing with the 1/1 Safe, we need the adapter for `owner3` and the new `safeAddress` for the signature. The new `safeAddress` is associated with the child Safe Account. Let's connect the adapter and safe, and continue with the signing process:
 
@@ -184,11 +182,11 @@ signerSafeTx1_1 = await protocolKit.signTransaction(
 );
 ```
 
-> When signing with a child Safe Account, it's important to specify the parent Safe address. The parent Safe address is used to generate the signature verifier address based on the version of the contracts you are using
+> When signing with a child Safe Account, it's important to specify the parent Safe address. The parent Safe address is used internally to generate the signature based on the version of the contracts you are using
 
 Once signed, we will have a transaction object (`signerSafeTx1_1`) similar to this one:
 
-```json
+```javascript
 EthSafeTransaction {
   signatures: Map(1) {
     '0x22d491bde2303f2f43325b2108d26f1eaba1e32b' => EthSafeSignature {
@@ -201,7 +199,7 @@ EthSafeTransaction {
 }
 ```
 
-Inside the signatures map, there is a regular ECDSA signature (`isContractSignature = false`). We can use this signature to generate an EIP-1271 compatible signature. This can be achieved by using the `buildContractSignature()` utility method, which can be found [~here~](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/signatures/utils.ts#L139-L150). This method takes an array of signatures and output another signature that's ready to be used with Safe contracts.
+Inside the signatures map, there is a regular ECDSA signature (`isContractSignature=false`). We can use this signature to generate an Safe Account smart contract compatible signature. This can be achieved by using the `buildContractSignature()` utility method, which can be found [~here~](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/signatures/utils.ts#L139-L150). This method takes an array of signatures and output another signature that's ready to be used with Safe Accounts.
 
 ```typescript
 const signerSafeSig1_1 = await buildContractSignature(
@@ -220,7 +218,7 @@ EthSafeSignature {
 }
 ```
 
-The main changes are as follows:
+The main changes from the one in the `EthSafeTransaction` object are the following ones:
 
 - Specify the correct `signer` (the Safe owner Account)
 - Set `isContractSignature` to `true`
@@ -228,7 +226,7 @@ The main changes are as follows:
 
 After signing the contract, we can generate the final contract compatible with Safe Accounts using the `buildSignatureBytes()` method. This method is also used internally in the `buildContractSignature()` method. You can find the implementation of the `buildSignatureBytes()` method [~here~](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/signatures/utils.ts#L152-L189).
 
-Let’s examine the output of the do `buildSignatureBytes()` method. We can log the output of the method by doing
+Let’s examine the output of the do `buildSignatureBytes()` method. We can log it:
 
 ```typescript
 console.log(buildSignatureBytes([signerSafeSig1_1])
@@ -348,7 +346,7 @@ safeTx.addSignature(signerSafeSig2_3);
 
 🚀🚀🚀 We're now done!!, we've signed with all the owners. We even have one more owner than the required threshold of 3 💃🏻, but that's okay. Now, let's take a look at the final structure of the `safeTx` object.
 
-```json
+```javascript
 EthSafeTransaction {
   signatures: Map(4) {
     '0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1' => EthSafeSignature {
