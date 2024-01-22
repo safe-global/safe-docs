@@ -490,18 +490,18 @@ await apiKit.confirmTransaction(
 );
 
 // Confirm the transaction with the 2/3 signer Safe
-// Not really necessary as the threshold is matched at this point
+// It's not really necessary as the threshold is matched at this point
 await apiKit.confirmTransaction(
   txHash,
   buildSignatureBytes([signerSafeSig2_3])
 );
 ```
 
-We've now reached the threshold! We can confirm it by retrieving the transaction and examine the `confirmations` property.
+We've now reached the threshold! We can check it by retrieving the transaction and examine the `confirmations` property.
 
 ```typescript
 const confirmedTx = await api.getTransaction(txHash);
-// Examine the confirmedTx.confirmations property
+// Examine the `confirmedTx.confirmations` property
 ```
 
 Now, we can execute the transaction just as we did without using the services.
@@ -511,7 +511,7 @@ Now, we can execute the transaction just as we did without using the services.
 const executedTxResponse = await safeSdk.executeTransaction(confirmedTx);
 ```
 
-The transaction should be executed now.
+The transaction should be executed now and after the Transaction Service indexes it we should be able to see it using the Safe{Wallet} UI.
 
 ## Messages
 
