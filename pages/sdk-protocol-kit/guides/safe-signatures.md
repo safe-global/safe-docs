@@ -433,7 +433,7 @@ At this point, The transaction should be executed on-chain and the process is fi
 
 ### Proposing transactions using Safe Services
 
-Until now, in the previous examples, we used the `protocol-kit` utilities to create and compose a signature for executing a transaction with Safe. This process can be done entirely on-chain without the need for any external service. However, in a real-world application, you would typically gather signatures from multiple Ethereum addresses, wallets, ... and private keys belonging to different users. To handle this, you can either develop your own system (such as an API or services) to store each signature before sending it to the blockchain (although we don't recommend it 😰), or you can utilize Safe services for this purpose.
+Until now, in the previous examples, we used the `protocol-kit` utilities to create and compose a signature for executing a transaction with Safe. This process can be done entirely on-chain without the need for any external service. However, in a real-world application, you would typically collect signatures from multiple Ethereum addresses (wallets), and there will be private keys belonging to different users. To handle this situation, you can either develop your own system (such as an API or services) to store each signature before sending it along the transaction to the blockchain (although we don't recommend it 😰), or you can utilize Safe services for this purpose 🚀.
 
 We've already deployed Safe services on the main chains. More information can be found in:
 
@@ -441,9 +441,9 @@ We've already deployed Safe services on the main chains. More information can be
 - [Safe Transaction Service](https://docs.safe.global/safe-core-api/service-architecture/safe-transaction-service)
 - [Transaction Service Swagger](https://safe-transaction-mainnet.safe.global/)
 
-You can use the API directly to gather signatures. Alternatively, you can use the `api-kit` package, which uses the Transaction Service. With the kit, you can propose transactions and add signatures to existing ones before executing them.
+You can use our APIs directly to collect signatures. Alternatively, you can use the `api-kit` package, which uses the Transaction Service under the hood. With the `api-kit`, you can propose transactions and add signatures to existing ones before execution.
 
-How can we do that? In the previous steps we instantiated the `protocol-kit` and created a transaction using the `createTransaction()` method. In order to start gathering the signatures using our services we need:
+How can we do that? In the previous steps we instantiated the `protocol-kit` and created a transaction using the `createTransaction()` method. In order to start collecting signatures using our services we'll need:
 
 - A calculated safe transaction hash. We used this hash as a reference (id) for requesting data in the Transaction Service
 - The signature. Can be calculated in the same way as in the previous steps.
@@ -480,7 +480,7 @@ const ethSig2 = safeTx.getSignature(signerAddress) as EthSafeSignature;
 await apiKit.confirmTransaction(txHash, buildSignatureBytes([ethSig2]));
 ```
 
-`owner2` has confirmed that the transaction is valid at this point! We only need one more confirmation to meet the threshold.
+`owner2` has confirmed that the transaction is valid at this point! We only need one more confirmation to meet the configured threshold.
 
 ```typescript
 // Confirm the transaction with the 1/1 signer Safe
