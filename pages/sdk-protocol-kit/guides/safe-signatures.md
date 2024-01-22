@@ -1,17 +1,17 @@
 # Safe Signatures
 
-Understanding and generating signatures can be challenging. In the **Safe{Core} SDK**, we provide a set of utilities that can assist in using signatures with Safe. In this article, we will explain how signatures work and how to generate them using the `protocol-kit` utilities.
+Understanding and generating signatures can be challenging. In the **Safe{Core} SDK**, we provide a set of utilities that can assist in using signatures with Safe. In this article, we will explain how signatures work and how to generate them using the `@safe-global/protocol-kit` package.
 
-## Setting up the Safe Accounts threshold
+## Setting up the example Safe Account
 
-Your Safe Account can be configured with various thresholds and different types of owners. An owner can be any Ethereum address, such as:
+Your Safe Account can be configured with various thresholds and different owner types. An owner can be any Ethereum address, such as:
 
 - External Owned Account (EOA)
 - Child Signer Safe (A Safe Account that's an owner of another Safe Account)
 
-When the owner is an EOA, we generate a signature that's different from the signature created using a Safe Account. The Safe Account is a Smart Contract Account, so we need to consider this when gathering the signatures, as the Safe Contracts validate them differently.
+When the owner is an EOA, we generate a signature that's different from the signature created using a Safe Account. The Safe Account is a Smart Contract Account, so we need to consider this when collecting the signatures, as the Safe Accounts validate them differently.
 
-In this article, we will use the following Safe Account setup as examples. We've five different Ethereum addresses that can act as signers, namely _owner1_ to _owner5_.
+In this article, we will use the following Safe Account setup. We've five different Ethereum addresses that can act as signers, namely _owner1_ to _owner5_.
 
 - `safeAddress3_4`: 3/4 Safe Account (3 signatures required out of 4 owners)
   - `owner1`
@@ -39,18 +39,19 @@ All the owners are Ethereum addresses. Here are the addresses for this example:
 
 ### Creating the transaction object
 
-We can sign transactions using the `protocol-kit` by creating a `protocol-kit` instance. Here's how we can do it:
+We can sign transactions using the `protocol-kit` by creating an instance of the `Safe` class. Here's how we can do it:
 
 ```typescript
 import Safe from '@safe-global/protocol-kit';
 
+// You can use any compatible adapter, such as Web3Adapter or EthersAdapter
 const protocolKit = await Safe.create({
-  ethAdapter: ethAdapter1, // You can use any compatible adapter, such as Web3Adapter or EthersAdapter
+  ethAdapter: ethAdapter1,
   safeAddress: safeAddress3_4,
 });
 ```
 
-The `ethAdapter1` is bound to `owner1`. In the examples provided in this article, we will have 5 ethAdapters, each one bound to an owner.
+The `ethAdapter1` is bound to `owner1`. In the examples provided in this article, we will have 5 adapters, each one bound to an owner.
 
 | Adapter     | Bound to |
 | ----------- | -------- |
@@ -60,7 +61,7 @@ The `ethAdapter1` is bound to `owner1`. In the examples provided in this article
 | ethAdapter4 | owner4   |
 | ethAdapter5 | owner5   |
 
-After obtaining the `protocolKit` instance, we can use `createTransaction()` to generate a transaction.
+After obtaining the `protocolKit` instance, we can use `createTransaction()` to generate a transaction object.
 
 ```typescript
 // Create the transaction. Send 0.01 ETH
@@ -94,17 +95,19 @@ Now that we've the transaction object (`safeTx`), it's time to add the necessary
 
 ---
 
-We will sign with `owner1` and `owner2` using the `signTransaction()` method. This method adds 2 new signatures to the `signatures` map by using the transaction `data` as input.
+We will sign with `owner1` and `owner2` using the `signTransaction()` method. This method add new signatures to the `signatures` map by using the transaction `data` as input.
 
-It's possible to use several signing methods, such as `ETH_SIGN`, `ETH_SIGN_TYPED_DATA_V4`, ...etc. The default signing method is `ETH_SIGN_TYPED_DATA_V4`.
+It's possible to use several signing methods, such as `ETH_SIGN` (eth_sign), `ETH_SIGN_TYPED_DATA_V4` (eth_signTypedData_v4), ...etc. The default signing method is `ETH_SIGN_TYPED_DATA_V4`.
+
+`ETH_SIGN` produces a regular [EIP-191](https://eips.ethereum.org/EIPS/eip-191) signature. `ETH_SIGN_TYPED_DATA_V4` produces a signature that's compatible with the [EIP-712](https://eips.ethereum.org/EIPS/eip-712) standard. The EIP-712 standard is used by Safe contracts to verify the signatures.
 
 ```typescript
-safeTx = await protocolKit.signTransaction(safeTx, SigningMethod.ETH_SIGN); // owner1 EIP-191 signature
+safeTx = await protocolKit.signTransaction(safeTx, SigningMethod.ETH_SIGN); // EIP-191 signature from owner1
 protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter2 }); // Connect another owner
 safeTx = await protocolKit.signTransaction(
   safeTx,
   SigningMethod.ETH_SIGN_TYPED_DATA_V4
-); // owner2 EIP-712 typed data signature (default)
+); // owner2 EIP-712 typed data signature
 ```
 
 In this snippet, we add the signature for `owner1`. Then, we use the `connect()` method to connect the `owner2` adapter and sign again to add the second signature.
