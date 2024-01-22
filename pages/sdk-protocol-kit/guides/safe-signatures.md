@@ -343,7 +343,7 @@ We're finished. Let's add the signature to the original transaction.
 safeTx.addSignature(signerSafeSig2_3);
 ```
 
-🚀🚀🚀 We are now done!!, we've signed with all the owners. We even have one more owner than the required threshold of 3 💃🏻, but that's okay. Now, let's take a look at the final structure of the `safeTx` object.
+🚀🚀🚀 We're now done!!, we've signed with all the owners. We even have one more owner than the required threshold of 3 💃🏻, but that's okay. Now, let's take a look at the final structure of the `safeTx` object.
 
 ```json
 EthSafeTransaction {
@@ -600,7 +600,7 @@ Now that we've the transaction object (`safeTx`), it's time to collect signature
 
 ---
 
-We are going to sign with `owner1` and `owner2`. For that we use the `signMessage()` method that takes the tx `data` and add a new signature to the `signatures` map.
+We're going to sign with `owner1` and `owner2`. For that we use the `signMessage()` method that takes the transaction `data` and add a new signature to the `signatures` map.
 
 ```typescript
 safeMessage = await protocolKit.signMessage(
@@ -722,7 +722,7 @@ Safe Accounts support signing of ~[~EIP-191~](https://eips.ethereum.org/EIPS/eip
 
 ### Off-chain messages (default)
 
-By default, Safe supports off-chain messages. To use off-chain messages, you need to use the utilities described in this document and the Transaction Service API. Off-chain messages do not require any interaction with the blockchain.
+By default, Safe supports off-chain messages. To use off-chain messages, you need to use the utilities described in this document and the Transaction Service API. Off-chain messages don't require any interaction with the blockchain.
 
 We mentioned the utility of storing messages in the contract. Off-chain messages have the same purpose, but they're stored in the Transaction Service. It stores the messages and signatures in a database. It's a centralized service, but it's open-source and can be deployed by anyone. The Transaction Service is used by the Safe{Wallet} UI to store messages and signatures by default.
 
