@@ -210,7 +210,7 @@ const signerSafeSig1_1 = await buildContractSignature(
 
 The contract signature will look like this:
 
-```
+```javascript
 EthSafeSignature {
   signer: '0x215033cdE0619D60B7352348F4598316Cc39bC6E',
   data: '0x5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f',
@@ -433,7 +433,7 @@ At this point, The transaction should be executed on-chain and the process is fi
 
 ### Proposing transactions using Safe Services
 
-In the example we just saw, we used the `protocol-kit` utilities to create and compose a signature for executing a transaction with Safe. This process can be done entirely on-chain without the need for any external service. However, in a real-world application, you would typically gather signatures from multiple Ethereum addresses, wallets, ... and private keys belonging to different users. To handle this, you can either develop your own system (such as an API or services) to store each signature before sending it to the blockchain (although we don't recommend it 😰), or you can utilize Safe services for this purpose.
+Until now, in the previous examples, we used the `protocol-kit` utilities to create and compose a signature for executing a transaction with Safe. This process can be done entirely on-chain without the need for any external service. However, in a real-world application, you would typically gather signatures from multiple Ethereum addresses, wallets, ... and private keys belonging to different users. To handle this, you can either develop your own system (such as an API or services) to store each signature before sending it to the blockchain (although we don't recommend it 😰), or you can utilize Safe services for this purpose.
 
 We've already deployed Safe services on the main chains. More information can be found in:
 
