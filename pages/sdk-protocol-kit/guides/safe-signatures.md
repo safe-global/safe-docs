@@ -9,7 +9,7 @@ Your Safe Account can be configured with various thresholds and different owner 
 - External Owned Account (EOA)
 - Child Signer Safe (A Safe Account that's an owner of another Safe Account)
 
-When the owner is an EOA, we generate a signature that's different from the signature created using a Safe Account. The Safe Account is a Smart Contract Account, so we need to consider this when collecting the signatures, as the Safe Accounts validate them differently.
+When the owner is an EOA, an ECDSA signature is generated. When the signer is a smart account, the exact signature algorithm depends on the signer itself.
 
 In this article, we will use the following Safe Account setup. We've five different Ethereum addresses that can act as signers, namely _owner1_ to _owner5_.
 
@@ -39,7 +39,7 @@ All the owners are Ethereum addresses. Here are the addresses for this example:
 
 ### Creating the transaction object
 
-We can sign transactions using the `protocol-kit` by creating an instance of the `Safe` class. Here's how we can do it:
+We can sign transactions using the `protocol-kit` by creating an instance of the `Safe` class:
 
 ```typescript
 import Safe from '@safe-global/protocol-kit';
@@ -134,7 +134,7 @@ EthSafeTransaction {
 
 The `data` prop in the `signatures` map represents the concrete signature. The `isContractSignature` flag (_false_) indicates if the signature is an Ethereum signature or a Contract signature (A signer Safe Account).
 
-An Ethereum signature is composed of two 32-byte integers (r, s) and an extra byte for recovery id (v), making a total of 65 bytes. In hexadecimal string format, each byte is represented by 2 characters. Hence, a 65-byte Ethereum signature will be 130 characters long. Including the '0x' prefix commonly used with signatures, the total character count for such a signature would be 132. For a more detailed explanation, you can refer to [this link](https://docs.safe.global/safe-smart-account/signatures) for more information.
+An ECDSA signature is composed of two 32-byte integers (r, s) and an extra byte for recovery id (v), making a total of 65 bytes. In hexadecimal string format, each byte is represented by 2 characters. Hence, a 65-byte Ethereum signature will be 130 characters long. Including the '0x' prefix commonly used with signatures, the total character count for such a signature would be 132. For a more detailed explanation, you can refer to [this link](https://docs.safe.global/safe-smart-account/signatures) for more information.
 
 > To represent a byte (8 bits) in hexadecimal, you need 2 characters. Each hexadecimal character represents 4 bits. Therefore, 2 hexadecimal characters (2 x 4 bits) are able to represent a byte (8 bits).
 
