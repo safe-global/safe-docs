@@ -138,6 +138,14 @@ An ECDSA signature is composed of two 32-byte integers (r, s) and an extra byte 
 
 The final part of the signature, either `1f` or `1c`, indicates the signature type.
 
+> There are the following V values supported by Safe:
+>
+> - 0: Contract signature
+> - 1: Approved hash
+> - {27, 28} + 4: Ethereum adjusted ECDSA recovery byte for eip-191 signed message
+>   It's important that for the EIP-191 signed message the V is adjusted to the ecdsa V + 4. If the generated value is 28 and you adjust it to 0x1f, the signature verification will fail, it should be 0x20 (28+4=32) instead. So, if v > 30 then default v (27,28) has been adjusted for eth_sign flow. This is automatically done in the SDK
+> - Other: Ethereum adjusted ECDSA recovery byte for raw signed hash
+
 The hexadecimal value `1f` equals to the decimal number 31. Because the decimal value is greater than 30, it [indicates to the Safe smart contract]()(https://github.com/safe-global/safe-smart-account/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L344-L347) that the signature is an `eth_sign`.
 
 The hexadecimal value `1c` equals to the decimal number 28, indicating that the signature is a typed data signature. For instance, in the case of the initial signature:
