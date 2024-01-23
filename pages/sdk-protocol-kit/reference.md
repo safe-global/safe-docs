@@ -858,3 +858,79 @@ const options: EthersTransactionOptions = {
 ```typescript
 const txResponse = await protocolKit.executeTransaction(safeTransaction, options)
 ```
+
+### `getEncodedTransaction`
+
+Returns the Safe Transaction encoded. This method is useful when you don't want to execute the transaction directly but you want to send it to a third party to be executed.
+
+```typescript
+const transactionData: MetaTransactionData = { to, value, data }
+const transaction = await protocolKit.createTransaction({ transactions: [safeTransactionData] })
+const encodedTransaction = await protocolKit.getEncodedTransaction(transaction)
+```
+
+### `wrapSafeTransactionIntoDeploymentBatch`
+
+Wraps a Safe transaction into a Safe deployment batch.
+This function creates a transaction batch of 2 transactions, which includes the deployment of the Safe and the provided Safe transaction.
+
+```typescript
+const transactionData: MetaTransactionData = { to, value, data }
+const transaction = await protocolKit.createTransaction({ transactions: [safeTransactionData] })
+const wrappedTransaction = await protocolKit.wrapSafeTransactionIntoDeploymentBatch(safeTransaction)
+```
+
+### `createSafeDeploymentTransaction`
+
+Creates a Safe deployment transaction.
+This function prepares a transaction for the deployment of a Safe. Both the saltNonce and options parameters are optional, and if not provided, default values will be used.
+
+```typescript
+const deploymentTransaction = await protocolKit.createSafeDeploymentTransaction()
+```
+
+### `createTransactionBatch`
+
+This function creates a batch of the provided Safe transactions using the MultiSend contract. It groups the transactions together into a single transaction which can then be executed atomically.
+
+```typescript
+const transaction = { to, value, data }
+const batchTransaction = await safeSdk.createTransactionBatch([transaction, transaction])
+```
+
+### `getSafeMessageHash`
+
+Retrieve the Safe message hash of a string or EIP-712 typed data. It produces the identical hash as invoking the CompatibilityFallbackHandler's getMessageHash method.
+
+```typescript
+const rawMessage = ... // String or EIP-712 typed data
+const messageHash = hashSafeMessage(rawMessage)
+
+const safeMessageHash = await protocolKit.getSafeMessageHash(messageHash)
+```
+
+### `isValidSignature`
+
+Calls the CompatibilityFallbackHandler isValidSignature method (EIP-1271).
+
+It requires 2 parameters:
+
+- messageHash The hash of the message
+- signature The signature to be validated or '0x'. You can send as signature one of the following:
+  1) An array of SafeSignature. In this case the signatures are concatenated for validation (buildSignatureBytes())
+  2) The concatenated signatures as string
+  3) '0x' if you want to validate an onchain message (Approved hash)
+
+The method returns if the signature is valid
+
+```typescript
+const rawMessage = ... // String or EIP-712 typed data
+const messageHash = hashSafeMessage(rawMessage)
+const safeMessageHash = await protocolKit.getSafeMessageHash(messageHash)
+
+const isValidSignature = await protocolKit.isValidSignature(safeMessageHash, signature)
+...
+const isValidSignature = await protocolKit.isValidSignature(safeMessageHash, [signature1, signature2])
+...
+const isValidSignature = await protocolKit.isValidSignature(safeMessageHash, '0x')
+```
