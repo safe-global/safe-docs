@@ -99,15 +99,13 @@ We will sign with `owner1` and `owner2` using the `signTransaction()` method. Th
 
 It's possible to use several signing methods, such as `ETH_SIGN` (eth_sign), `ETH_SIGN_TYPED_DATA_V4` (eth_signTypedData_v4), ...etc. The default signing method is `ETH_SIGN_TYPED_DATA_V4`.
 
-`ETH_SIGN` produces a regular [EIP-191](https://eips.ethereum.org/EIPS/eip-191) signature. `ETH_SIGN_TYPED_DATA_V4` produces a signature that's compatible with the [EIP-712](https://eips.ethereum.org/EIPS/eip-712) standard. The EIP-712 standard is used by Safe contracts to verify the signatures.
-
 ```typescript
-safeTx = await protocolKit.signTransaction(safeTx, SigningMethod.ETH_SIGN); // EIP-191 signature from owner1
+safeTx = await protocolKit.signTransaction(safeTx, SigningMethod.ETH_SIGN);
 protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter2 }); // Connect another owner
 safeTx = await protocolKit.signTransaction(
   safeTx,
   SigningMethod.ETH_SIGN_TYPED_DATA_V4
-); // owner2 EIP-712 typed data signature
+);
 ```
 
 In this snippet, we add the signature for `owner1`. Then, we use the `connect()` method to connect the `owner2` adapter and sign again to add the second signature.
@@ -140,7 +138,7 @@ An ECDSA signature is composed of two 32-byte integers (r, s) and an extra byte 
 
 The final part of the signature, either `1f` or `1c`, indicates the signature type.
 
-The hexadecimal value `1f` equals to the decimal number 31. Because the decimal value is greater than 30,  it [indicates to the Safe smart contract]()(https://github.com/safe-global/safe-smart-account/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L344-L347) that the signature is an `eth_sign`.
+The hexadecimal value `1f` equals to the decimal number 31. Because the decimal value is greater than 30, it [indicates to the Safe smart contract]()(https://github.com/safe-global/safe-smart-account/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L344-L347) that the signature is an `eth_sign`.
 
 The hexadecimal value `1c` equals to the decimal number 28, indicating that the signature is a typed data signature. For instance, in the case of the initial signature:
 
@@ -340,7 +338,6 @@ The table looks very similar to the previous one, but there are two changes:
 
 - The _signature length_ has doubled because this Safe needs two signatures.
 - The _signature_ value is a concatenation of the two regular signatures.
-
 
 We're finished. Let's add the signature to the original transaction.
 
