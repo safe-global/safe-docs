@@ -254,3 +254,36 @@ Returns the information of a given ERC20 token.
 ```typescript
 const token: TokenInfoResponse = await apiKit.getToken(tokenAddress)
 ```
+
+### `getMessage`
+
+Get a message using safe message hash
+
+```typescript
+const message: SafeMessage = await apiKit.getMessage(safeMessageHash)
+```
+
+### `getMessages`
+
+Get the list of messages associated to a Safe account
+
+```typescript
+const messagesResponse: SafeMessageListResponse = await apiKit.getMessages(safeAddress, {  ordering, limit, offset })
+```
+
+### `addMessage`
+
+Creates a new message with an initial signature. If you need to add more signatures from other owners use `addMessageSignature()`
+
+```typescript
+await apiKit.addMessage(safeAddress, { message, signature, safeAppId })
+```
+
+### `addMessageSignature`
+
+Add a signature to an existing message
+
+```typescript
+await apiKit.addMessageSignature(safeMessageHash, signature)
+```
+
