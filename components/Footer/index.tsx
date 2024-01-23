@@ -102,7 +102,7 @@ const communityItems = [
     rel: 'noreferrer'
   },
   {
-    label: 'Safe analytics',
+    label: 'Safe Analytics',
     href: DUNE_LINK,
     target: '_blank',
     rel: 'noreferrer'
@@ -133,7 +133,7 @@ const resourcesItems = [
     rel: 'noreferrer'
   },
   {
-    label: 'Experimental tools',
+    label: 'Experimental Tools',
     href: EXPERIMENTAL_LINK,
     target: '_blank',
     rel: 'noreferrer'
