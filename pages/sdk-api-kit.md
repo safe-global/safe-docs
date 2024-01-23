@@ -52,13 +52,13 @@ We need to create an instance of the API Kit. In chains where Safe provides a Tr
 ```typescript
 import SafeApiKit from '@safe-global/api-kit'
 
-const safeApiKit = new SafeApiKit({
+const apiKit = new SafeApiKit({
   chainId: 1n
 })
 
 
 // or using a custom service
-const safeApiKit = new SafeApiKit({
+const apiKit = new SafeApiKit({
   chainId: 1n, // set the correct chainId
   txServiceUrl: 'https://url-to-your-custom-service'
 })
@@ -92,7 +92,7 @@ const safeTxHash = await protocolKit.getTransactionHash(safeTransaction)
 const signature = await protocolKit.signHash(safeTxHash)
 
 // Propose transaction to the service
-await safeApiKit.proposeTransaction({
+await apiKit.proposeTransaction({
   safeAddress: await protocolKit.getAddress(),
   safeTransactionData: safeTransaction.data,
   safeTxHash,
@@ -123,7 +123,7 @@ const safeTxHash = transaction.transactionHash
 const signature = await protocolKit.signHash(safeTxHash)
 
 // Confirm the Safe transaction
-const signatureResponse = await safeApiKit.confirmTransaction(safeTxHash, signature.data)
+const signatureResponse = await apiKit.confirmTransaction(safeTxHash, signature.data)
 ```
 
 The Safe transaction is now ready to be executed. This can be done using the Safe{Wallet} web interface, the Protocol Kit or any other tool that's available.
