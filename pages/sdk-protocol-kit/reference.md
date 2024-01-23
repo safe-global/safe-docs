@@ -447,6 +447,15 @@ If the optional properties aren't manually set, the Safe transaction returned wi
 - `refundReceiver`: 0x address is the default value.
 - `nonce`: The current Safe nonce is the default value.
 
+### `createMessage`
+
+Returns a SafeMessage ready to be signed by the owners.
+
+```typescript
+const rayMessage: string | EIP712TypedData = "I am the owner of this Safe"
+const message = protocolKit.createMessage(rawMessage)
+```
+
 ### `createRejectionTransaction`
 
 Returns a Safe transaction ready to be signed by the owners that invalidates the pending Safe transaction/s with a specific nonce.
@@ -507,7 +516,17 @@ const signature = await protocolKit.signTypedData(safeTransaction)
 
 ### `signTransaction`
 
-Returns a new `SafeTransaction` object that includes the signature of the current owner. `eth_sign` will be used by default to generate the signature.
+Returns a new `SafeTransaction` object that includes the signature of the current owner. 
+
+You can use multiple signing methods, such as:
+
+- ETH_SIGN (`eth_sign`): Regular hash signature
+- ETH_SIGN_TYPED_DATA_V4 (`eth_signTypedData_v4`): Typed data signature v4, The default method if no signing method is passed
+- ETH_SIGN_TYPED_DATA_V3 `eth_signTypedData_v3`: Typed data signature v3
+- ETH_SIGN_TYPED_DATA `eth_signTypedData`: Typed data signature
+- SAFE_SIGNATURE: Signing with another Safe contract as signer
+
+The third parameter (optional) is the preImageSafeAddress. If the preimage is required, this is the address of the Safe that will be used to calculate the preimage. It's mandatory parameter for 1.3.0 and 1.4.1 contract versions. This is because the safe uses the old EIP-1271 interface which uses `bytes` instead of `bytes32` for the message we need to use the pre-image of the message to calculate the message hash. This parameter is used in conjunction with the SAFE_SIGNATURE signing method.
 
 ```typescript
 const transactions: MetaTransactionData[] = [{
@@ -521,10 +540,36 @@ Optionally, an additional parameter can be passed to specify a different way of 
 
 ```typescript
 const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction, SigningMethod.ETH_SIGN_TYPED_DATA_V4) // Default option
+const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction, SigningMethod.ETH_SIGN)
+const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction, SigningMethod.SAFE_SIGNATURE, parentSafeAddress).
 ```
 
+### `signMessage`
+
+Returns a new `SafeMessage` object that includes the signature of the current owner. 
+
+You can use multiple signing methods, such as:
+
+- ETH_SIGN (`eth_sign`): Regular hash signature
+- ETH_SIGN_TYPED_DATA_V4 (`eth_signTypedData_v4`): Typed data signature v4, The default method if no signing method is passed
+- ETH_SIGN_TYPED_DATA_V3 `eth_signTypedData_v3`: Typed data signature v3
+- ETH_SIGN_TYPED_DATA `eth_signTypedData`: Typed data signature
+- SAFE_SIGNATURE: Signing with another Safe contract as signer
+
+The third parameter (optional) is the preImageSafeAddress. If the preimage is required, this is the address of the Safe that will be used to calculate the preimage. It's mandatory parameter for 1.3.0 and 1.4.1 contract versions. This is because the safe uses the old EIP-1271 interface which uses `bytes` instead of `bytes32` for the message we need to use the pre-image of the message to calculate the message hash. This parameter is used in conjunction with the SAFE_SIGNATURE signing method.
+
 ```typescript
-const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction, SigningMethod.ETH_SIGN).
+const rawMessage: string | EIP712TypedData = "I am the owner of this Safe"
+const message = protocolKit.createMessage(rawMessage)
+const signedMessage = await protocolKit.signMessage(message)
+```
+
+Optionally, an additional parameter can be passed to specify a different way of signing:
+
+```typescript
+const signedMessage = await protocolKit.signMessage(signedMessage, SigningMethod.ETH_SIGN_TYPED_DATA_V4) // Default option
+const signedMessage = await protocolKit.signMessage(signedMessage, SigningMethod.ETH_SIGN)
+const signedMessage = await protocolKit.signMessage(signedMessage, SigningMethod.SAFE_SIGNATURE, parentSafeAddress).
 ```
 
 ### `approveTransactionHash`
