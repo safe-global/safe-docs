@@ -140,9 +140,9 @@ An Ethereum signature is composed of two 32-byte integers (r, s) and an extra by
 
 The final part of the signature, either `1f` or `1c`, indicates the signature type.
 
-The hexadecimal number `1f` converts to the decimal number 31. It indicates that the signature is an `eth_sign` because the number is greater than 30. This adjustment is made for the `eth_sign` flow in the contracts. You can find the relevant code [here](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L344-L347).
+The hexadecimal value `1f` equals to the decimal number 31. Because the decimal value is greater than 30,  it [indicates to the Safe smart contract]()(https://github.com/safe-global/safe-smart-account/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L344-L347) that the signature is an `eth_sign`.
 
-The hexadecimal number `1c` converts to the decimal number 28, indicating that the signature is a typed data signature. For instance, in the case of the initial signature:
+The hexadecimal value `1c` equals to the decimal number 28, indicating that the signature is a typed data signature. For instance, in the case of the initial signature:
 
 `0x969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b1261f`:
 
@@ -336,7 +336,11 @@ Let's break down this signature into parts again:
 | Signature Length | 32    | 0000000000000000000000000000000000000000000000000000000000000082                                                                                                                                                                                                     | The length of the signature. 82 hex is 130 in decimal                                                                                            |
 | Signature        | 130   | 023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f | Signature bytes that are verified by the signature verifier (130 bytes are represented by 260 characters in an hex string)                       |
 
-The decomposition appears unchanged, but there are two changes: the signature length has doubled because there are now two signatures, and the signature itself is a concatenation of the two regular signatures.
+The table looks very similar to the previous one, but there are two changes:
+
+- The _signature length_ has doubled because this Safe needs two signatures.
+- The _signature_ value is a concatenation of the two regular signatures.
+
 
 We're finished. Let's add the signature to the original transaction.
 
