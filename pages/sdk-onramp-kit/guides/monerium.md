@@ -62,7 +62,7 @@ This action will open the Monerium web page to begin the authentication process 
 Take a look to the Monerium web page URL. You will see that the query string includes parameters such as these, among others:
 
 - `address`: The Safe address you want to bind to your Monerium account.
-- `signature`: Always "0x". It means the origin wallet is a multisig, just like the Safe. Monerium will then verify for onchain signatures in your Safe contract.
+- `signature`: Always "0x." It means the origin wallet is a multisig, just like the Safe. Monerium will then verify for onchain signatures in your Safe contract.
 - `chain`: The Monerium selected chain. The value is automatically calculated using the `protocolKit` instance.
 - `network`: The Monerium selected network. The value is automatically calculated using the `protocolKit` instance.
 - `redirect_uri`: The `redirectUrl` you sent in the `MoneriumPack` constructor. Once authenticated Monerium dashboard will redirect to that URL.
@@ -83,7 +83,7 @@ Note. If you use the `sandbox` environment, you can test this flow without KYC i
 const safeMoneriumClient = await moneriumPack.open()
 ```
 
-If the process was succesful, you will be now authenticated with Monerium and your Safe will be linked!. You can start using the `safeMoneriumClient` instance to interact with your Monerium account. This instance is an enhanced version of the Monerium SDK, with some additional Safe features.
+If the process was successful, you will be now authenticated with Monerium and your Safe will be linked!. You can start using the `safeMoneriumClient` instance to interact with your Monerium account. This instance is an enhanced version of the Monerium SDK, with some additional Safe features.
 
 To learn more about the methods you can use with the `safeMoneriumClient` instance, check the [Monerium SDK documentation](https://monerium.dev/docs/sdk).
 
