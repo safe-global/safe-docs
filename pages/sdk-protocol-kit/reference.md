@@ -520,11 +520,11 @@ const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
 Optionally, an additional parameter can be passed to specify a different way of signing:
 
 ```typescript
-const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction, 'eth_signTypedData')
+const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction, SigningMethod.ETH_SIGN_TYPED_DATA_V4) // Default option
 ```
 
 ```typescript
-const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction, 'eth_sign') // default option.
+const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction, SigningMethod.ETH_SIGN).
 ```
 
 ### `approveTransactionHash`
