@@ -40,20 +40,21 @@ import { MoneriumPack } from '@safe-global/onramp-kit'
 
 const moneriumPack = new MoneriumPack({
   clientId: { YOUR_CLIENT_ID }, // Get your client id from Monerium
+  redirectUrl: 'https://your-site-redirect-url' // return URL after authenticating in Monerium
   environment: 'sandbox' // Use the proper Monerium environment ('sandbox' | 'production')})
 })
 
-await moneriumPack.init({ safeSdk })
+await moneriumPack.init({ protocolKit })
 ```
 
-The `safeSdk` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. For more information on how to instantiate the `protocol-kit` refer to the [Protocol Kit Quickstart section](../../sdk-protocol-kit.md).
+The `protocolKit` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. For more information on how to instantiate the `protocol-kit` refer to the [Protocol Kit Quickstart section](../../sdk-protocol-kit.md).
 
-The `MoneriumPack` will use the Safe account address configured in the `safeSdk` to link to your Monerium account.
+The `MoneriumPack` will use the Safe account address configured in the `protocolKit` to link to your Monerium account.
 
 2. Start the _Login with Monerium_ flow by creating a button or link in your application. Use your favorite UI library to add a handler and start the login flow. In the button handler you should start the flow by calling the `open` method:
 
 ```typescript
-await moneriumPack.open({ redirectUrl: 'https://your-site-redirect-url' })
+await moneriumPack.open({ initiateAuthFlow: true })
 ```
 
 This action will open the Monerium web page to begin the authentication process and get the permissions to gain access to your information.
@@ -61,10 +62,10 @@ This action will open the Monerium web page to begin the authentication process 
 Take a look to the Monerium web page URL. You will see that the query string includes parameters such as these, among others:
 
 - `address`: The Safe address you want to bind to your Monerium account.
-- `signature`: Always "0x." It means the origin wallet is a multisig, just like the Safe. Monerium will then verify for onchain signatures in your Safe contract
-- `chain`: The Monerium selected chain. The value is automatically calculated using the `safeSdk` instance.
-- `network`: The Monerium selected network. The value is automatically calculated using the `safeSdk` instance.
-- `redirect_uri`: The `redirectUrl` you sent in the `open` method. Once authenticated Monerium dashboard will redirect to that URL.
+- `signature`: Always "0x." It means the origin wallet is a multisig, just like the Safe. Monerium will then verify for onchain signatures in your Safe contract.
+- `chain`: The Monerium selected chain. The value is automatically calculated using the `protocolKit` instance.
+- `network`: The Monerium selected network. The value is automatically calculated using the `protocolKit` instance.
+- `redirect_uri`: The `redirectUrl` you sent in the `MoneriumPack` constructor. Once authenticated Monerium dashboard will redirect to that URL.
 
 ⚠️ It's important to be aware of what's happening during this initial interaction. A `signMessage` transaction accepting the [required Monerium message](https://monerium.dev/api-docs#operation/auth) will be proposed to your Safe the first time you try to link your Safe address. To confirm and execute it, you must also add the remaining signatures in the Safe UI and execute the transaction.
 
@@ -74,17 +75,15 @@ After that, the Monerium UI, will wait until it detects the Safe address has sig
 
 Note. If you use the `sandbox` environment, you can test this flow without KYC in `Goerli`. To use the mainnets for `ethereum`, `gnosis` or `polygon` in production, you need to create an account in the Monerium dashboard and complete KYC. The `production` environment involves real money, whereas the `sandbox` environment uses fake money and test tokens.
 
-3. Once you authenticate through the Monerium UI, a window will appear asking for permission to access your information. If you accept, control will be returned to the `redirectUrl` you specified in the `open` method.
+3. Once you authenticate through the Monerium UI, a window will appear asking for permission to access your information. If you accept, control will be returned to the `redirectUrl` you specified in the `MoneriumPack` constructor.
 
-4. The `redirectUrl` used in the `open` will be reached again with an extra query string parameter `code`. This is the authorization code you need to exchange in order to gain access to your Monerium account.
-
-Re-initialize the `MoneriumPack` using the `init` method and exchange the code, as per Step 1.
+4. Once we reach the `redirectUrl` we can call open again, now without using arguments.
 
 ```typescript
-const safeMoneriumClient = await moneriumPack.open({ authCode: '<The querystring code parameter>' })
+const safeMoneriumClient = await moneriumPack.open()
 ```
 
-If the code is exchanged successfully, you will be now authenticated with Monerium and your Safe will be linked!. You can start using the `safeMoneriumClient` instance to interact with your Monerium account. This instance is an enhanced version of the Monerium SDK, with some additional Safe features.
+If the process was successful, you will be now authenticated with Monerium and your Safe will be linked!. You can start using the `safeMoneriumClient` instance to interact with your Monerium account. This instance is an enhanced version of the Monerium SDK, with some additional Safe features.
 
 To learn more about the methods you can use with the `safeMoneriumClient` instance, check the [Monerium SDK documentation](https://monerium.dev/docs/sdk).
 
@@ -97,24 +96,7 @@ const balances = await moneriumClient.getBalances()
 const orders = await moneriumClient.getOrders()
 ```
 
-5. When you reload a page, you usually want to stay authenticated as long as the tokens are valid. To do this, we've another way to `open()` the `MoneriumPack`.
-
-Once authenticated in step 4, you can store the `refresh_token` found in the `bearerProfile` property of the `safeMoneriumClient` using browser storage methods.
-
-```typescript
-localStorage.setItem(
-  'MONERIUM_TOKEN',
-  safeMoneriumClient.bearerProfile.refresh_token
-)
-```
-
-If the user leaves the session or reloads the browser, detect and retrieve the stored token on the next session or page load. Always `init` the `MoneriumPack` instance when the page loads as showed in the step 1.
-
-```typescript
-const safeMoneriumClient = await moneriumPack.open({
-  refreshToken: localStorage.getItem('MONERIUM_TOKEN')
-})
-```
+5. When you reload a page, you usually want to stay authenticated as long as the tokens are valid. To do this, just call the `open()` method without arguments.
 
 6. You're now ready to place orders. In the `production` environment, real funds will be transferred. In the `sandbox` environment, fake money will be used. If you add funds using the `sandbox` or create a transfer from your bank account to your Monerium IBAN in the `production` environment, you'll receive the corresponding tokens in your Safe. For example, if your Monerium IBAN is associated with the EURe token of your Safe, and you transfer 10 euros, the EURe balance of your Safe will be 10 after the SEPA system completes the transfer.
 
@@ -125,7 +107,6 @@ Once you have tokens, you can create a [`redeem` order](https://monerium.dev/api
 ```typescript
 safeMoneriumClient.send({
   amount: '10',
-  currency: Currency.eur, // You can redeem the currency of your choice. Your Monerium IBAN will be linked to a single token.
   counterpart: {
     identifier: {
       standard: 'iban',
