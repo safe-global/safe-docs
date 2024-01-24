@@ -19,7 +19,7 @@
     "incremental": true,
     "sourceMap": true,
     "outDir": "dist",
-    "types": ["cypress", "cypress-wait-until", "@testing-library/cypress"]
+    "types": ["cypress"]
   },
   "include": [
     "next-env.d.ts",
