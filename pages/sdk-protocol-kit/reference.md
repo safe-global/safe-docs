@@ -904,44 +904,6 @@ const options: EthersTransactionOptions = {
 const txResponse = await protocolKit.executeTransaction(safeTransaction, options)
 ```
 
-### `getEncodedTransaction`
-
-Returns the Safe Transaction encoded. This method is useful when you don't want to execute the transaction directly but you want to send it to a third party to be executed.
-
-```typescript
-const transactionData: MetaTransactionData = { to, value, data }
-const transaction = await protocolKit.createTransaction({ transactions: [safeTransactionData] })
-const encodedTransaction = await protocolKit.getEncodedTransaction(transaction)
-```
-
-### `wrapSafeTransactionIntoDeploymentBatch`
-
-Wraps a Safe transaction into a Safe deployment batch.
-This function creates a transaction batch of 2 transactions, which includes the deployment of the Safe and the provided Safe transaction.
-
-```typescript
-const transactionData: MetaTransactionData = { to, value, data }
-const transaction = await protocolKit.createTransaction({ transactions: [safeTransactionData] })
-const wrappedTransaction = await protocolKit.wrapSafeTransactionIntoDeploymentBatch(safeTransaction)
-```
-
-### `createSafeDeploymentTransaction`
-
-Creates a Safe deployment transaction.
-This function prepares a transaction for the deployment of a Safe. Both the saltNonce and options parameters are optional, and if not provided, default values will be used.
-
-```typescript
-const deploymentTransaction = await protocolKit.createSafeDeploymentTransaction()
-```
-
-### `createTransactionBatch`
-
-This function creates a batch of the provided Safe transactions using the MultiSend contract. It groups the transactions together into a single transaction which can then be executed atomically.
-
-```typescript
-const transaction = { to, value, data }
-const batchTransaction = await safeSdk.createTransactionBatch([transaction, transaction])
-```
 
 ### `getSafeMessageHash`
 
