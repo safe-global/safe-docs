@@ -225,7 +225,8 @@ Returns a new instance of the Protocol Kit connected to a new Safe or a new Sign
 Connection of a deployed Safe using the `safeAddress` property:
 
 ```typescript
-const protocolKit = await protocolKit.connect({ ethAdapter, safeAddress })
+let protocolKit = await Safe.create({ ethAdapter, safeAddress })
+protocolKit = await protocolKit.connect({ ethAdapter: anotherEthAdapter, safeAddress: anotherSafeAddress })
 ```
 
 Connection of a not deployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to connect a Safe to the SDK with the Safe configuration:
@@ -238,7 +239,9 @@ const predictedSafe: PredictedSafeProps = {
   safeDeploymentConfig
 }
 
-const protocolKit = await protocolKit.connect({ ethAdapter, predictedSafe })
+let protocolKit = await Safe.create({ ethAdapter, safeAddress })
+...
+protocolKit = await protocolKit.connect({ predictedSafe })
 ```
 
 - The `isL1SafeSingleton` flag
@@ -248,7 +251,7 @@ const protocolKit = await protocolKit.connect({ ethAdapter, predictedSafe })
   By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force the use of the `Safe.sol` contract.
 
   ```typescript
-  const protocolKit = await Safe.connect({ ethAdapter, safeAddress, isL1SafeSingleton: true })
+  protocolKit = await protocolKit.connect({ ethAdapter, safeAddress, isL1SafeSingleton: true })
   ```
 
 - The `contractNetworks` property
@@ -279,7 +282,9 @@ const protocolKit = await protocolKit.connect({ ethAdapter, predictedSafe })
       simulateTxAccessorAbi: '<SIMULATE_TX_ACCESSOR_ABI>' // Optional. Only needed with web3.js
     }
   }
-  const protocolKit = await Safe.connect({ ethAdapter, safeAddress, contractNetworks })
+  let protocolKit = await Safe.create({ ethAdapter, safeAddress })
+  ...
+  protocolKit = await protocolKit.connect({ contractNetworks })
   ```
 
 ### `getAddress`
