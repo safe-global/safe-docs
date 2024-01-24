@@ -268,7 +268,7 @@ const message: SafeMessage = await apiKit.getMessage(safeMessageHash)
 Get the list of messages associated to a Safe account
 
 ```typescript
-const messagesResponse: SafeMessageListResponse = await apiKit.getMessages(safeAddress, {  ordering, limit, offset })
+const messagesResponse: SafeMessageListResponse = await apiKit.getMessages(safeAddress, { ordering, limit, offset })
 ```
 
 ### `addMessage`

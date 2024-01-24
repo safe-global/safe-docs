@@ -73,7 +73,7 @@ const safeAccountConfig: SafeAccountConfig = {
 }
 const safeDeploymentConfig: SafeDeploymentConfig = { saltNonce }
 
-const protocolKit = await safeFactory.deploySafe({ safeAccountConfig, safeDeploymentConfig })
+const safeSdk = await safeFactory.deploySafe({ safeAccountConfig, safeDeploymentConfig })
 
 // new
 const safeAccountConfig: SafeAccountConfig = {
@@ -91,7 +91,7 @@ The `getAddress()` method now returns a `Promise`.
 
 ```typescript
 // old
-const safeAddress = protocolKit.getAddress()
+const safeAddress = safeSdk.getAddress()
 
 // new
 const safeAddress = await protocolKit.getAddress()
