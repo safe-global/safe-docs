@@ -1,0 +1,53 @@
+html.dark.dark body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: #121312;
+}
+
+html[class~='dark'] .dark\:nx-bg-dark.dark\:nx-bg-dark {
+  background-color: #121312;
+}
+
+#__next > div > div > div {
+  backdrop-filter: blur(8px);
+  background: hsla(0, 0%, 100%, 0.005);
+  background-color: transparent !important;
+}
+
+#__next > div > div > nav {
+  height: 94px;
+}
+
+#__next > div > footer {
+  background-color: #121312;
+}
+
+#__next > div > footer > div {
+  padding-right: 0;
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#__next > div > footer > div > div > div > div > ul {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.nextra-breadcrumb.nextra-breadcrumb {
+  display: none;
+}
+
+.video-responsive {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+
+.video-responsive iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}

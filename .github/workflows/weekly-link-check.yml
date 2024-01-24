@@ -1,0 +1,28 @@
+name: Weekly link check
+
+on:
+  schedule:
+  - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        use-verbose-mode: 'yes'
+        folder-path: './'
+        base-branch: 'main'
+    - name: Create Issue
+      if: ${{ failure() }}
+      uses: dacbd/create-issue-action@main
+      with:
+        token: ${{ github.token }}
+        title: Link Checker Report
+        labels: report, automated issue
+        body: |
+          Broken links found: [Failed Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          Workflow: `${{ github.workflow }}`

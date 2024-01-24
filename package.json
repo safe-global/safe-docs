@@ -1,0 +1,66 @@
+{
+  "version": "0.0.1",
+  "description": "Safe docs",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "generate-supported-networks": "node .github/scripts/generateSupportedNetworks.js",
+    "linkcheck": "find ./pages -name '*.md*' -print0 | xargs -0 -n1 pnpm markdown-link-check --quiet --progress --config linkchecker-config.json",
+    "lint": "eslint . && vale . --minAlertLevel=error",
+    "start": "serve out",
+    "test": "env-cmd cypress run --headless",
+    "typecheck": "tsc --noEmit --incremental false",
+    "prepush": "pnpm lint && pnpm typecheck",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/safe-global/safe-docs.git"
+  },
+  "author": "Safe Core Contributors <support@safe.global>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/safe-global/safe-docs/issues"
+  },
+  "homepage": "https://github.com/safe-global/safe-docs#readme",
+  "dependencies": {
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.18",
+    "@preact/signals": "^1.2.2",
+    "@svgr/webpack": "^8.1.0",
+    "cypress": "^13.6.3",
+    "markdown-link-check": "^3.11.2",
+    "next": "^14.0.3",
+    "nextra": "2.13.2",
+    "nextra-theme-docs": "2.13.2",
+    "node-fetch": "^3.3.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-ga4": "^2.1.0",
+    "shelljs": "^0.8.5"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "^14.0.4",
+    "@types/node": "18.11.10",
+    "@types/react": "18.2.37",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "env-cmd": "^10.1.0",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^14.0.4",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-config-standard-jsx": "^11.0.0",
+    "eslint-config-standard-with-typescript": "^43.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^16.5.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-security": "^2.1.0",
+    "husky": "^8.0.3",
+    "serve": "^14.2.1",
+    "typescript": "^4.9.3"
+  }
+}
