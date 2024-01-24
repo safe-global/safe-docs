@@ -23,7 +23,7 @@ Create an instance of the [SafeAuthPack](https://github.com/safe-global/safe-cor
 > Supported networks:
 >
 > - Production: Ethereum, Polygon, BSC, Avalanche, Optimism, Celo, Arbitrum, Gnosis chain
-> - Test: Goerli, Sepolia, Polygon Mumbai, BSC Testnet, Avalanche Testnet, Arbitrum Testnet, Optimism Testnet
+> - Test: Sepolia, Polygon Mumbai, BSC Testnet, Avalanche Testnet, Arbitrum Testnet, Optimism Testnet
 ```typescript
 import {
   SafeAuthPack,

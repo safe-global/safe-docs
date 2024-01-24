@@ -93,7 +93,7 @@ The following example shows how to get a `safe_tx_hash` with [`safe-eth-py`](htt
 ```python
 from gnosis.safe.safe_tx import SafeTx
 from gnosis.eth.ethereum_client import EthereumClient
-eth_client = EthereumClient("https://rpc.goerli.eth.gateway.fm")
+eth_client = EthereumClient("https://sepolia.gateway.tenderly.co")
 safe_tx = SafeTx(eth_client, "0x4127839cdf4F73d9fC9a2C2861d8d1799e9DF40C", "0xc6b82bA149CFA113f8f48d5E3b1F78e933e16DfD",10000000000000000,"",0,0,0,0,"0x0000000000000000000000000000000000000000","0x0000000000000000000000000000000000000000", safe_nonce=206)
 print(safe_tx.safe_tx_hash.hex())
 ```
@@ -144,7 +144,7 @@ message = "Hello SafeMessages"
 # Hash EIP-191
 message_hash = defunct_hash_message(text=message)
 # get message hash from safe
-eth_client = EthereumClient("https://rpc.goerli.eth.gateway.fm")
+eth_client = EthereumClient("https://sepolia.gateway.tenderly.co")
 safe_address = "TheAliceAndBobSafeAddress"
 safe = Safe(safe_address, eth_client)
 safe_message_hash = safe.get_message_hash(message_hash)
@@ -159,10 +159,10 @@ body = {
     "safeAppId": 0,
     "signature": signature_alice.signature.hex()
 }
-requests.post(f'https://safe-transaction-goerli.safe.global/api/v1/safes/{safe_address}/messages/',json=body)
+requests.post(f'https://safe-transaction-sepolia.safe.global/api/v1/safes/{safe_address}/messages/',json=body)
 
 # Message was created, let's request by message hash
-response =  requests.get(f'https://safe-transaction-goerli.safe.global/api/v1/messages/{safe_message_hash.hex()}/')
+response =  requests.get(f'https://safe-transaction-sepolia.safe.global/api/v1/messages/{safe_message_hash.hex()}/')
 print(response.json())
 
 # Adding Bob confirmation
@@ -173,7 +173,7 @@ signature_bob = bob.signHash(safe_message_hash)
 body = {
     "signature": signature_bob.signature.hex()
 }
-requests.post(f'https://safe-transaction-goerli.safe.global/api/v1/messages/{safe_message_hash.hex()}/signatures/',json=body)
+requests.post(f'https://safe-transaction-sepolia.safe.global/api/v1/messages/{safe_message_hash.hex()}/signatures/',json=body)
 
 ```
 
@@ -197,7 +197,7 @@ Supported and configured networks on `safe-eth-py`:
 **Example transaction decoder**
 ```bash
 curl -X 'POST' \
-  'https://safe-transaction-goerli.safe.global/api/v1/data-decoder/' \
+  'https://safe-transaction-sepolia.safe.global/api/v1/data-decoder/' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-CSRFToken: Gx1aRa8kIJGIAfReLAWwr9Q6dHv22dFt7VprdipLryHcxpfhk9aV0UDAhNz8gGYz' \

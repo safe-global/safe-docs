@@ -62,7 +62,7 @@ The signers trigger transactions to the Ethereum blockchain or off-chain transac
 
 You can get a public RPC URL from [Chainlist](https://chainlist.org), however, public RPC URLs can be unreliable so you can also try a dedicated provider like Infura or Alchemy.
 
-For this tutorial, we will be creating a Safe on the Goerli Testnet.
+For this tutorial, we will be creating a Safe on the Sepolia Testnet.
 
 ```tsx
 import { ethers } from 'ethers'
@@ -71,8 +71,8 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-// https://chainlist.org/?search=goerli&testnets=true
-const RPC_URL='https://eth-goerli.public.blastapi.io'
+// https://chainlist.org/?search=sepolia&testnets=true
+const RPC_URL='https://eth-sepolia.public.blastapi.io'
 const provider = new ethers.JsonRpcProvider(RPC_URL)
 
 // Initialize signers
@@ -90,7 +90,7 @@ const ethAdapterOwner1 = new EthersAdapter({
 
 The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To use this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit`. In chains where Safe provides a Transaction Service, it's enough to specify the `chainId.` You can specify your own service using the optional `txServiceUrl` parameter.
 
-You will be using Goerli for this tutorial, however, you can also get [service URLs for different networks](./api-supported-networks.md).
+You will be using Sepolia for this tutorial, however, you can also get [service URLs for different networks](./api-supported-networks.md).
 
 ```tsx
 import SafeApiKit from '@safe-global/api-kit'
@@ -109,7 +109,7 @@ const safeApiKit = new SafeApiKit({
 
 ### Initialize the Protocol Kit
 
-Goerli is a supported network so you don't need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Instantiate an EthAdapter](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
+Sepolia is a supported network so you don't need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Instantiate an EthAdapter](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
 Safe Factory is used to create Safes. While Safe class represents an instance of a specific Safe account.
 
@@ -143,8 +143,8 @@ const safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
 const safeAddress = await safeSdkOwner1.getAddress()
 
 console.log('Your Safe has been deployed:')
-console.log(`https://goerli.etherscan.io/address/${safeAddress}`)
-console.log(`https://app.safe.global/gor:${safeAddress}`)
+console.log(`https://sepolia.etherscan.io/address/${safeAddress}`)
+console.log(`https://app.safe.global/sep:${safeAddress}`)
 ```
 
 ### Send ETH to the Safe
@@ -164,7 +164,7 @@ const transactionParameters = {
 const tx = await owner1Signer.sendTransaction(transactionParameters)
 
 console.log('Fundraising.')
-console.log(`Deposit Transaction: https://goerli.etherscan.io/tx/${tx.hash}`)
+console.log(`Deposit Transaction: https://sepolia.etherscan.io/tx/${tx.hash}`)
 ```
 
 ## Making a transaction from a Safe
@@ -273,7 +273,7 @@ const executeTxResponse = await safeSdk.executeTransaction(safeTransaction)
 const receipt = await executeTxResponse.transactionResponse?.wait()
 
 console.log('Transaction executed:')
-console.log(`https://goerli.etherscan.io/tx/${receipt.transactionHash}`)
+console.log(`https://sepolia.etherscan.io/tx/${receipt.transactionHash}`)
 ```
 
 ### Confirm that the transaction was executed
