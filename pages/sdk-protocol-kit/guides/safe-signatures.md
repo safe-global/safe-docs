@@ -26,7 +26,7 @@ All the owners are Ethereum addresses. Here are the addresses for this example:
 
 | Who                | Address                                    |
 | ------------------ | ------------------------------------------ |
-| **safeAddress3_4** | 0xb3b3862D8e38a1E965eb350B09f2167B2371D652 |
+| **safe3_4** | 0xb3b3862D8e38a1E965eb350B09f2167B2371D652 |
 | **owner1**         | 0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1 |
 | **owner2**         | 0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0 |
 | **signerSafe1_1**  | 0x215033cdE0619D60B7352348F4598316Cc39bC6E |
@@ -47,7 +47,7 @@ import Safe from '@safe-global/protocol-kit';
 // You can use any compatible adapter, such as Web3Adapter or EthersAdapter
 const protocolKit = await Safe.create({
   ethAdapter: ethAdapter1,
-  safeAddress: safeAddress3_4,
+  safeAddress: safe3_4,
 });
 ```
 
