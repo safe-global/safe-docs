@@ -180,7 +180,7 @@ protocolKit = await protocolKit.connect({
 signerSafeTx1_1 = await protocolKit.signTransaction(
   signerSafeTx1_1,
   SigningMethod.SAFE_SIGNATURE,
-  safeAddress3_4 // Parent Safe address
+  safe3_4 // Parent Safe address
 );
 ```
 
@@ -277,7 +277,7 @@ protocolKit = await protocolKit.connect({
 signerSafeTx2_3 = await protocolKit.signTransaction(
   signerSafeTx2_3,
   SigningMethod.SAFE_SIGNATURE,
-  safeAddress3_4
+  safe3_4
 );
 
 // Connect the adapter for owner5
@@ -640,7 +640,7 @@ protocolKit = await protocolKit.connect({
 signerSafeMessage1_1 = await signMessage(
   signerSafeMessage1_1,
   SigningMethod.SAFE_SIGNATURE,
-  safeAddress3_4 // Parent Safe address
+  safe3_4 // Parent Safe address
 );
 
 // Build contract signature
@@ -671,7 +671,7 @@ protocolKit = await protocolKit.connect({
 signerSafeMessage2_3 = await protocolKit.signMessage(
   signerSafeMessage2_3,
   SigningMethod.SAFE_SIGNATURE,
-  safeAddress3_4
+  safe3_4
 );
 
 // Connect the adapter for owner5
@@ -681,7 +681,7 @@ protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter5 });
 signerSafeMessage2_3 = await protocolKit.signMessage(
   signerSafeMessage2_3,
   SigningMethod.SAFE_SIGNATURE,
-  safeAddress3_4
+  safe3_4
 );
 
 // Build contract signature
@@ -737,7 +737,7 @@ We will use the `api-kit` to add a new message. The process is similar to the on
 const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x';
 const ethSig1 = safeMessage.getSignature(signerAddress) as EthSafeSignature;
 
-apiKit.addMessage(safeAddress3_4, {
+apiKit.addMessage(safe3_4, {
   message: TYPED_MESSAGE, // or STRING_MESSAGE
   signature: buildSignatureBytes([ethSig1]),
 });
