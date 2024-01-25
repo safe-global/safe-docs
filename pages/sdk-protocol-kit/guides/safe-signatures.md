@@ -93,8 +93,6 @@ Once we have the `safeTx` transaction object, the necessary signatures can be ad
 
 #### Creating an ECDSA signature
 
----
-
 We will sign with `owner1` and `owner2` using the `signTransaction()` method. This method add new signatures to the `signatures` map by using the transaction `data` as input.
 
 It's possible to use several signing methods, such as `ETH_SIGN` (eth_sign), `ETH_SIGN_TYPED_DATA_V4` (eth_signTypedData_v4), ...etc. The default signing method is `ETH_SIGN_TYPED_DATA_V4`.
@@ -159,8 +157,6 @@ The hexadecimal value `1c` equals to the decimal number 28, indicating that the 
 | Signature Type | 1     | 1f                                                                                                                               | 1f hex is 31 in decimal |
 
 #### Creating Smart contract signatures
-
----
 
 **1/1 Safe Account**
 
@@ -702,7 +698,6 @@ const signerSafeMessageSig2_3 = await buildContractSignature(
 message.addSignature(signerSafeMessageSig2_3);
 ```
 
-That's it. We simplified the explanations because the concept remains the same.
 
 ### Validating a message signature
 
