@@ -1,87 +1,72 @@
 import { ButtonBase, Container, Divider, Grid, Typography } from '@mui/material'
+import Link from 'next/link'
 import type { ComponentType, SyntheticEvent } from 'react'
-
 import DiscordIcon from '../../assets/svg/discord-icon.svg'
+import DiscourseIcon from '../../assets/svg/discourse-icon.svg'
+import GithubIcon from '../../assets/svg/github-icon.svg'
+import MirrorIcon from '../../assets/svg/mirror-icon.svg'
+import Logo from '../../assets/svg/safe-logo-white.svg'
 import XIcon from '../../assets/svg/x-icon.svg'
 import YoutubeIcon from '../../assets/svg/youtube-icon.svg'
-import DiscourseIcon from '../../assets/svg/discourse-icon.svg'
-import MirrorIcon from '../../assets/svg/mirror-icon.svg'
-import GithubIcon from '../../assets/svg/github-icon.svg'
-
 import css from './Footer.module.css'
-import Link from 'next/link'
-import Logo from '../../assets/svg/safe-logo-white.svg'
 
-const AppRoutes = {
-  404: 'https://safe.global/404',
-  wallet: 'https://safe.global/wallet',
-  terms: 'https://safe.global/terms',
-  privacy: 'https://safe.global/privacy',
-  index: 'https://safe.global/',
-  imprint: 'https://safe.global/imprint',
-  ecosystem: 'https://safe.global/ecosystem',
-  core: 'https://safe.global/core',
-  cookie: 'https://safe.global/cookie',
-  cla: {
-    index: 'https://safe.global/cla'
-  },
-  careers: 'https://safe.global/careers',
-  governance: 'https://safe.global/governance'
+const SAFE_LINK = 'https://safe.global'
+
+// Safe
+const CORE_LINK = 'https://core.safe.global'
+
+// Community
+const GOVERNANCE_LINK = 'https://safe.global/governance' // Do not use: https://governance.safe.global
+const ECOSYSTEM_LINK = 'https://ecosystem.safe.global'
+const GRANTS_LINK = 'https://grants.safe.global'
+const SAFECON_LINK = 'https://conf.safe.global'
+const DUNE_LINK = 'https://dune.com/safe'
+
+// Resources
+const HELP_LINK = 'https://help.safe.global'
+const CAREERS_LINK = 'https://safe.global/careers'
+const BRAND_LINK = 'https://press.safe.global'
+const STACKEXCHANGE_LINK = 'https://ethereum.stackexchange.com/questions/tagged/safe-core'
+const EXPERIMENTAL_LINK = 'https://github.com/5afe'
+
+// Sub-Footer
+const TERMS_LINK = 'https://safe.global/terms'
+const PRIVACY_LINK = 'https://safe.global/privacy'
+const LICENSES_LINK = 'https://app.safe.global/licenses'
+const COOKIE_LINK = 'https://safe.global/cookie'
+const COOKIE_PREFERENCES_LINK = '#cookies'
+const IMPRINT_LINK = 'https://safe.global/imprint'
+
+// Socials
+const X_LINK = 'https://x.com/safe'
+const FORUM_LINK = 'https://forum.safe.global'
+const DISCORD_LINK = 'https://chat.safe.global'
+const YOUTUBE_LINK = 'https://www.youtube.com/@safeglobal'
+const MIRROR_LINK = 'https://safe.mirror.xyz'
+const GITHUB_LINK = 'https://github.com/safe-global'
+
+interface FooterLink {
+  label: string
+  href: string
+  target: string
+  rel: string
 }
 
-export const WALLET_LINK = 'https://app.safe.global'
-export const SAFECON_LINK = 'https://conf.safe.global'
-export const CORE_LINK = 'https://core.safe.global'
-export const PRESS_LINK = 'https://press.safe.global'
-export const HELP_LINK = 'https://help.safe.global'
-export const DOCS_LINK = 'https://docs.safe.global'
-export const FORUM_LINK = 'https://forum.safe.global'
-export const IOS_LINK = 'https://apps.apple.com/app/id1515759131'
-export const GPLAY_LINK =
-  'https://play.google.com/store/apps/details?id=io.gnosis.safe'
-export const LICENSES_LINK = 'https://app.safe.global/licenses'
-export const GOVERNANCE_LINK = 'https://gov.safe.global'
-export const ECOSYSTEM_LINK = 'https://ecosystem.safe.global'
-export const GRANTS_LINK = 'https://grants.safe.global'
-export const TWITTER_LINK = 'https://x.com/safe'
-export const DISCORD_LINK = 'https://chat.safe.global'
-export const YOUTUBE_LINK = 'https://www.youtube.com/@safeglobal'
-export const MIRROR_LINK = 'https://safe.mirror.xyz'
-export const GITHUB_LINK = 'https://github.com/safe-global'
-export const EXPERIMENTAL_LINK = 'https://github.com/5afe'
-export const DUNE_LINK = 'https://dune.com/safe'
-export const STACKEXCHANGE_LINK = 'https://ethereum.stackexchange.com/questions/tagged/safe-core'
-
-export const PROTOCOL_KIT_LINK =
-  'https://docs.safe.global/safe-core-aa-sdk/protocol-kit'
-export const AUTH_KIT_LINK =
-  'https://docs.safe.global/safe-core-aa-sdk/auth-kit'
-export const RELAY_KIT_LINK =
-  'https://docs.safe.global/safe-core-aa-sdk/relay-kit'
-export const ONRAMP_KIT_LINK =
-  'https://docs.safe.global/safe-core-aa-sdk/onramp-kit'
-
-const COOKIE_PREFERENCES = '#cookies'
-
-const safeProtocolItems = [
+const safeItems: FooterLink[] = [
   {
     label: 'Safe{Core}',
     href: CORE_LINK,
     target: '_blank',
     rel: 'noreferrer'
-  },
-  {
-    label: 'Developer Docs',
-    href: DOCS_LINK,
-    target: '_blank',
-    rel: 'noreferrer'
   }
 ]
 
-const communityItems = [
+const communityItems: FooterLink[] = [
   {
     label: 'Governance',
-    href: AppRoutes.governance
+    href: GOVERNANCE_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
   },
   {
     label: 'Ecosystem',
@@ -109,7 +94,7 @@ const communityItems = [
   }
 ]
 
-const resourcesItems = [
+const resourcesItems: FooterLink[] = [
   {
     label: 'Help Center',
     href: HELP_LINK,
@@ -118,11 +103,13 @@ const resourcesItems = [
   },
   {
     label: 'Careers',
-    href: AppRoutes.careers
+    href: CAREERS_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
   },
   {
     label: 'Brand Kit',
-    href: PRESS_LINK,
+    href: BRAND_LINK,
     target: '_blank',
     rel: 'noreferrer'
   },
@@ -141,14 +128,18 @@ const resourcesItems = [
 
 ]
 
-const subFooterItems = [
+const subFooterItems: FooterLink[] = [
   {
     label: 'Terms',
-    href: AppRoutes.terms
+    href: TERMS_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
   },
   {
     label: 'Privacy',
-    href: AppRoutes.privacy
+    href: PRIVACY_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
   },
   {
     label: 'Licenses',
@@ -158,17 +149,96 @@ const subFooterItems = [
   },
   {
     label: 'Cookie Policy',
-    href: AppRoutes.cookie
+    href: COOKIE_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
   },
   {
     label: 'Preferences',
-    href: COOKIE_PREFERENCES
+    href: COOKIE_PREFERENCES_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
   },
   {
     label: 'Imprint',
-    href: AppRoutes.imprint
+    href: IMPRINT_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
   }
 ]
+
+function LinksColumn({ title, items } : { title: string, items: FooterLink[] }) {
+  return (
+    <Grid item sm={6} md={2}>
+      <Typography variant='caption' color='text.primary'>
+        {title}
+      </Typography>
+      <ul className={css.list}>
+        {items.map(item => (
+          <li className={css.listItem} key={item.href}>
+            <Link href={item.href} target={item.target} rel={item.rel}>
+              {item.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </Grid>
+  )
+}
+
+function Socials() {
+  return (
+    <Grid item xs={12} md={3} mt={{ xs: 6, md: 0 }}>
+      <div className={css.socials}>
+        {createFooterButton('X page', X_LINK, XIcon as React.FC)}
+        {createFooterButton('Discourse forum', FORUM_LINK, DiscourseIcon as React.FC)}
+        {createFooterButton('Discord server', DISCORD_LINK, DiscordIcon as React.FC)}
+        {createFooterButton('Youtube channel', YOUTUBE_LINK, YoutubeIcon as React.FC)}
+        {createFooterButton('Mirror blog', MIRROR_LINK, MirrorIcon as React.FC)}
+        {createFooterButton('Github organization', GITHUB_LINK, GithubIcon as React.FC)}
+      </div>
+    </Grid>
+  )
+}
+
+function SubFooter() {
+  // const { openBanner } = useCookieBannerContext()
+
+  const showBanner = (e: SyntheticEvent): void => {
+    // Prevent opening the hash link
+    e.preventDefault()
+    // openBanner()
+  }
+
+  return (
+    <Grid container alignItems='center' justifyContent='space-between'>
+      <Grid item>
+        <ul className={css.subList}>
+          {subFooterItems.map(item => {
+            const isCookiePreferencesLink = false // item.href === COOKIE_PREFERENCES_LINK
+            return (
+              <li className={css.subListItem} key={item.href}>
+                <Link
+                  href={item.href}
+                  target={item.target}
+                  rel={item.rel}
+                  onClick={isCookiePreferencesLink ? showBanner : undefined}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </Grid>
+      <Grid item my={2}>
+        <Typography color='primary.light' fontSize='16px'>
+          ©{new Date().getFullYear()} Safe Ecosystem Foundation
+        </Typography>
+      </Grid>
+    </Grid>
+  )
+}
 
 const createFooterButton = (
   label: string,
@@ -180,7 +250,6 @@ const createFooterButton = (
     target: '_blank',
     rel: 'noreferrer'
   }
-
   return (
     <ButtonBase {...buttonBaseAttributes} aria-label={label} href={href}>
       <IconComponent />
@@ -188,111 +257,22 @@ const createFooterButton = (
   )
 }
 
-const Footer: React.FC = () => {
-  //   const { openBanner } = useCookieBannerContext()
-
-  const showBanner = (e: SyntheticEvent): void => {
-    // Prevent opening the hash link
-    e.preventDefault()
-    // openBanner()
-  }
-
+function Footer() {
   return (
     <Container className={css.wrapper}>
       <Grid container flexDirection={{ xs: 'column', sm: 'row' }}>
         <Grid item xs={12} md={3} mb={{ xs: 4, md: 0 }}>
-          <Link href={AppRoutes.index}>
+          <Link href={SAFE_LINK} target="_blank" rel="noreferrer">
             <Logo className={css.logo} />
           </Link>
         </Grid>
-
-        <Grid item sm={6} md={2}>
-          <Typography variant='caption' color='text.primary'>
-            Safe Core Protocol
-          </Typography>
-          <ul className={css.list}>
-            {safeProtocolItems.map(item => (
-              <li className={css.listItem} key={item.href}>
-                <Link href={item.href} target='_blank' rel='noreferrer'>
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Grid>
-
-        <Grid item sm={6} md={2}>
-          <Typography variant='caption' color='text.primary'>
-            Community
-          </Typography>
-          <ul className={css.list}>
-            {communityItems.map(item => (
-              <li className={css.listItem} key={item.href}>
-                <Link href={item.href} target={item.target} rel={item.rel}>
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Grid>
-
-        <Grid item sm={6} md={2}>
-          <Typography variant='caption' color='text.primary'>
-            Resources
-          </Typography>
-          <ul className={css.list}>
-            {resourcesItems.map(item => (
-              <li className={css.listItem} key={item.href}>
-                <Link href={item.href} target={item.target} rel={item.rel}>
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Grid>
-
-        <Grid item xs={12} md={3} mt={{ xs: 6, md: 0 }}>
-          <div className={css.socials}>
-            {createFooterButton('X page', TWITTER_LINK, XIcon as React.FC)}
-            {createFooterButton('Discourse forum', FORUM_LINK, DiscourseIcon as React.FC)}
-            {createFooterButton('Discord server', DISCORD_LINK, DiscordIcon as React.FC)}
-            {createFooterButton('Youtube channel', YOUTUBE_LINK, YoutubeIcon as React.FC)}
-            {createFooterButton('Mirror blog', MIRROR_LINK, MirrorIcon as React.FC)}
-            {createFooterButton('Github organization', GITHUB_LINK, GithubIcon as React.FC)}
-          </div>
-        </Grid>
+        <LinksColumn title="Safe" items={safeItems} />
+        <LinksColumn title="Community" items={communityItems} />
+        <LinksColumn title="Resources" items={resourcesItems} />
+        <Socials />
       </Grid>
-
       <Divider sx={{ mt: 5, mb: { xs: 3, md: 0 } }} />
-
-      <Grid container alignItems='center' justifyContent='space-between'>
-        <Grid item>
-          <ul className={css.subList}>
-            {subFooterItems.map(item => {
-              const isCookiePreference = item.href === COOKIE_PREFERENCES
-
-              return (
-                <li className={css.subListItem} key={item.href}>
-                  <Link
-                    href={item.href}
-                    target={item.target}
-                    rel={item.rel}
-                    onClick={isCookiePreference ? showBanner : undefined}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        </Grid>
-
-        <Grid item my={2}>
-          <Typography color='primary.light' fontSize='16px'>
-            ©{new Date().getFullYear()} Safe Ecosystem Foundation
-          </Typography>
-        </Grid>
-      </Grid>
+      <SubFooter />
     </Container>
   )
 }
