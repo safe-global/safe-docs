@@ -42,13 +42,13 @@ All the owners are Ethereum addresses. Here are the addresses for this example:
 We can sign transactions using the `protocol-kit` by creating an instance of the `Safe` class:
 
 ```typescript
-import Safe from '@safe-global/protocol-kit';
+import Safe from '@safe-global/protocol-kit'
 
 // You can use any compatible adapter, such as Web3Adapter or EthersAdapter
 const protocolKit = await Safe.create({
   ethAdapter: ethAdapter1,
   safeAddress: safe3_4,
-});
+})
 ```
 
 The `ethAdapter1` is bound to `owner1`. In the examples provided in this article, we will have 5 adapters, each one bound to an owner.
@@ -69,11 +69,11 @@ const safeTransactionData: SafeTransactionDataPartial = {
   to: '0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1',
   value: '100000000000000000', // 0.01 ETH
   data: '0x',
-};
+}
 
 let safeTx = await protocolKit.createTransaction({
   transactions: [safeTransactionData],
-});
+})
 ```
 
 The `safeTx` object is an instance of the `EthSafeTransaction` class, which stores the Safe transaction data and a map of the signatures from the Safe owners.
@@ -98,12 +98,12 @@ We will sign with `owner1` and `owner2` using the `signTransaction()` method. Th
 It's possible to use several signing methods, such as `ETH_SIGN` (eth_sign), `ETH_SIGN_TYPED_DATA_V4` (eth_signTypedData_v4), ...etc. The default signing method is `ETH_SIGN_TYPED_DATA_V4`.
 
 ```typescript
-safeTx = await protocolKit.signTransaction(safeTx, SigningMethod.ETH_SIGN);
-protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter2 }); // Connect another owner
+safeTx = await protocolKit.signTransaction(safeTx, SigningMethod.ETH_SIGN)
+protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter2 }) // Connect another owner
 safeTx = await protocolKit.signTransaction(
   safeTx,
   SigningMethod.ETH_SIGN_TYPED_DATA_V4
-);
+)
 ```
 
 In this snippet, we add the signature for `owner1`. Then, we use the `connect()` method to connect the `owner2` adapter and sign again to add the second signature.
@@ -168,20 +168,20 @@ To start signing with the 1/1 Safe, we need the adapter for `owner3` and the new
 // Create a new transaction object with an empty signatures array. The txHash should remain the same. You can copy the safeTx object and remove the contents of the signatures array
 let signerSafeTx1_1 = await protocolKit.createTransaction({
   transactions: [safeTransactionData],
-});
+})
 
 // Connect the adapter for owner3 and provide the address of the signer Safe account
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter3,
   safeAddress: signerSafe1_1,
-});
+})
 
 // Sign the transaction
 signerSafeTx1_1 = await protocolKit.signTransaction(
   signerSafeTx1_1,
   SigningMethod.SAFE_SIGNATURE,
   safe3_4 // Parent Safe address
-);
+)
 ```
 
 > When signing with a child Safe account, it's important to specify the parent Safe address. The parent Safe address is used internally to generate the signature based on the version of the contracts you are using
@@ -207,7 +207,7 @@ Inside the signatures map, there is a regular ECDSA signature (`isContractSignat
 const signerSafeSig1_1 = await buildContractSignature(
   Array.from(signerSafeTx1_1.signatures.values()),
   signerSafe1_1
-);
+)
 ```
 
 The contract signature will look like this:
@@ -254,7 +254,7 @@ Let's break down this signature into parts:
 This is what an **EIP-1271** contract signature for Safe contracts looks like. Now that we've explained this lengthy string, let's add the signature to the original transaction.
 
 ```typescript
-safeTx.addSignature(signerSafeSig1_1);
+safeTx.addSignature(signerSafeSig1_1)
 ```
 
 **2/3 Safe account**
@@ -265,30 +265,30 @@ The 2/3 Safe account requires a minimum of 2 signatures to be considered valid. 
 // Create a new transaction object
 let signerSafeTx2_3 = await protocolKit.createTransaction({
   transactions: [safeTransactionData],
-});
+})
 
 // Connect the adapter for owner4 and specify the address of the signer Safe account
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter4,
   safeAddress: signerSafeAddress2_3,
-});
+})
 
 // Sign the transaction with owner4
 signerSafeTx2_3 = await protocolKit.signTransaction(
   signerSafeTx2_3,
   SigningMethod.SAFE_SIGNATURE,
   safe3_4
-);
+)
 
 // Connect the adapter for owner5
-protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter5 });
+protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter5 })
 
 // Sign the transaction with owner5
 signerSafeTx2_3 = await protocolKit.signTransaction(
   signerSafeTx2_3,
   SigningMethod.SAFE_SIGNATURE,
   safeAddress
-);
+)
 ```
 
 Once signed, we will have a transaction object like this one:
@@ -346,7 +346,7 @@ The table looks very similar to the previous one, but there are two changes:
 We're finished. Let's add the signature to the original transaction.
 
 ```typescript
-safeTx.addSignature(signerSafeSig2_3);
+safeTx.addSignature(signerSafeSig2_3)
 ```
 
 🚀🚀🚀 We're now done!!, we've signed with all the owners. We even have one more owner than the required threshold of 3 💃🏻, but that's okay. Now, let's take a look at the final structure of the `safeTx` object.
@@ -400,8 +400,8 @@ To start, connect to the original safe and the desired adapter. Ensure sufficien
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter1,
   safeAddress,
-});
-const transactionResponse = await protocolKit.executeTransaction(safeTx);
+})
+const transactionResponse = await protocolKit.executeTransaction(safeTx)
 ```
 
 When we call the `executeTransaction()` method, it internally uses the [`safeTx.encodedSignatures()`](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/adapters/ethers/contracts/Safe/SafeContractEthers.ts#L159-L171) function, which in turn calls [`buildSignatureBytes()`](<(https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/transactions/SafeTransaction.ts#L24-L26)>) with the four signatures generated by the different owners.
@@ -409,7 +409,7 @@ When we call the `executeTransaction()` method, it internally uses the [`safeTx.
 Let’s log that.
 
 ```typescript
-console.log(safeTx.encodedSignatures()); // Call buildSignatureBytes()
+console.log(safeTx.encodedSignatures()) // Call buildSignatureBytes()
 ```
 
 ```
@@ -455,14 +455,14 @@ How can we do that? In the previous steps we instantiated the `protocol-kit` and
 
 ```typescript
 // Get the transaction hash of the safeTx
-const txHash = await protocolKit.getTransactionHash(safeTx);
+const txHash = await protocolKit.getTransactionHash(safeTx)
 
 // Instantiate the api-kit
-const apiKit = new SafeApiKit({ chainId }); // Use the chainId where you have the Safe account deployed
+const apiKit = new SafeApiKit({ chainId }) // Use the chainId where you have the Safe account deployed
 
 // Extract the signer address and the signature
-const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x';
-const ethSig1 = safeTx.getSignature(signerAddress) as EthSafeSignature;
+const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x'
+const ethSig1 = safeTx.getSignature(signerAddress) as EthSafeSignature
 
 // Propose the transaction
 await apiKit.proposeTransaction({
@@ -471,18 +471,18 @@ await apiKit.proposeTransaction({
   safeTxHash: txHash,
   senderAddress: signerAddress,
   senderSignature: buildSignatureBytes([ethSig1]),
-});
+})
 ```
 
 Now that we've the proposed transaction, we can view it in the Safe{Wallet} UI. However, to execute the transaction, we need the other owners to confirm it by providing their signatures.
 
 ```typescript
 // Extract the signer address and the signature
-const signerAddress = (await ethAdapter2.getSignerAddress()) || '0x';
-const ethSig2 = safeTx.getSignature(signerAddress) as EthSafeSignature;
+const signerAddress = (await ethAdapter2.getSignerAddress()) || '0x'
+const ethSig2 = safeTx.getSignature(signerAddress) as EthSafeSignature
 
 // Confirm the transaction
-await apiKit.confirmTransaction(txHash, buildSignatureBytes([ethSig2]));
+await apiKit.confirmTransaction(txHash, buildSignatureBytes([ethSig2]))
 ```
 
 `owner2` has confirmed that the transaction is valid at this point! We only need one more confirmation to meet the configured threshold.
@@ -492,20 +492,20 @@ await apiKit.confirmTransaction(txHash, buildSignatureBytes([ethSig2]));
 await apiKit.confirmTransaction(
   txHash,
   buildSignatureBytes([signerSafeSig1_1])
-);
+)
 
 // Confirm the transaction with the 2/3 signer Safe
 // It's not really necessary as the threshold is matched at this point
 await apiKit.confirmTransaction(
   txHash,
   buildSignatureBytes([signerSafeSig2_3])
-);
+)
 ```
 
 We've now reached the threshold! We can check it by retrieving the transaction and examine the `confirmations` property.
 
 ```typescript
-const confirmedTx = await api.getTransaction(txHash);
+const confirmedTx = await api.getTransaction(txHash)
 // Examine the `confirmedTx.confirmations` property
 ```
 
@@ -513,7 +513,7 @@ Now, we can execute the transaction just as we did without using the services.
 
 ```typescript
 // Use the retrieved confirmedTx to execute
-const executedTxResponse = await safeSdk.executeTransaction(confirmedTx);
+const executedTxResponse = await safeSdk.executeTransaction(confirmedTx)
 ```
 
 The transaction should be executed now and after the Transaction Service indexes it we should be able to see it using the Safe{Wallet} UI.
@@ -584,7 +584,7 @@ const TYPED_MESSAGE = {
 Let's compose the message. You can use either the string or the typed JSON format:
 
 ```typescript
-let safeMessage = protocolKit.createMessage(TYPED_MESSAGE);
+let safeMessage = protocolKit.createMessage(TYPED_MESSAGE)
 ```
 
 The `safeMessage` is an object of type `EthSafeMessage` that contains the message data (`data`) and a map of owner-signature pairs (`signatures`). It's similar to the `EthSafeTransaction`.
@@ -610,12 +610,12 @@ We're going to sign with `owner1` and `owner2`. For that we use the `signMessage
 safeMessage = await protocolKit.signMessage(
   safeMessage,
   SigningMethod.ETH_SIGN
-);
-protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter2 });
+)
+protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter2 })
 safeMessage = await protocolKit.signMessage(
   safeMessage,
   SigningMethod.ETH_SIGN_TYPED_DATA_V4
-);
+)
 ```
 
 It feels very similar to the transactions, right? That's because the process is basically the same and the signatures are being accumulated in the signatures Map of the `safeMessage` object. The previous concepts related to `data`, `signatures`, and `isContractSignature` still apply.
@@ -628,29 +628,29 @@ We will sign the message using the 1/1 Safe. Connect `owner3` and sign using the
 
 ```typescript
 // Create a new message object
-let signerSafeMessage1_1 = await createMessage(TYPED_MESSAGE);
+let signerSafeMessage1_1 = await createMessage(TYPED_MESSAGE)
 
 // Connect the adapter for owner3 and specify the address of the signer Safe account
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter3,
   safeAddress: signerSafe1_1,
-});
+})
 
 // Sign the message
 signerSafeMessage1_1 = await signMessage(
   signerSafeMessage1_1,
   SigningMethod.SAFE_SIGNATURE,
   safe3_4 // Parent Safe address
-);
+)
 
 // Build contract signature
 const signerSafeMessageSig1_1 = await buildContractSignature(
   Array.from(signerSafeMessage1_1.signatures.values()),
   signerSafe1_1
-);
+)
 
 // Add the signature
-safeMessage.addSignature(signerSafeMessageSig1_1);
+safeMessage.addSignature(signerSafeMessageSig1_1)
 ```
 
 **2/3 Safe account**
@@ -659,39 +659,39 @@ The 2/3 Safe account requires a minimum of 2 signatures to be considered valid. 
 
 ```typescript
 // Create a new message object
-let signerSafeMessage2_3 = await createMessage(TYPED_MESSAGE);
+let signerSafeMessage2_3 = await createMessage(TYPED_MESSAGE)
 
 // Connect the adapter for owner4 and specify the address of the signer Safe account
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter4,
   safeAddress: signerSafeAddress2_3,
-});
+})
 
 // Sign the message
 signerSafeMessage2_3 = await protocolKit.signMessage(
   signerSafeMessage2_3,
   SigningMethod.SAFE_SIGNATURE,
   safe3_4
-);
+)
 
 // Connect the adapter for owner5
-protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter5 });
+protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter5 })
 
 // Sign the message
 signerSafeMessage2_3 = await protocolKit.signMessage(
   signerSafeMessage2_3,
   SigningMethod.SAFE_SIGNATURE,
   safe3_4
-);
+)
 
 // Build contract signature
 const signerSafeMessageSig2_3 = await buildContractSignature(
   Array.from(signerSafeMessage2_3.signatures.values()),
   signerSafe2_3
-);
+)
 
 // Add the signature
-message.addSignature(signerSafeMessageSig2_3);
+message.addSignature(signerSafeMessageSig2_3)
 ```
 
 
@@ -700,12 +700,12 @@ message.addSignature(signerSafeMessageSig2_3);
 We can use the `isValidSignature()` method defined in the `CompatibilityFallbackHandler` [contract](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/handler/CompatibilityFallbackHandler.sol#L51-L68) to validate the signature of the previous generated message.
 
 ```typescript
-import { hashSafeMessage } from '@safe-global/protocol-kit';
+import { hashSafeMessage } from '@safe-global/protocol-kit'
 
 await protocolKit.isValidSignature(
   hashSafeMessage(MESSAGE),
   safeMessage.encodedSignatures()
-);
+)
 ```
 
 This would validate the validity of the signatures we create.
@@ -734,13 +734,13 @@ We will perform a task similar to the `proposeTransaction()` and `confirmTransac
 We will use the `api-kit` to add a new message. The process is similar to the one we used for transactions. We need to calculate the `safeMessageHash` and add the message to the service.
 
 ```typescript
-const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x';
-const ethSig1 = safeMessage.getSignature(signerAddress) as EthSafeSignature;
+const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x'
+const ethSig1 = safeMessage.getSignature(signerAddress) as EthSafeSignature
 
 apiKit.addMessage(safe3_4, {
   message: TYPED_MESSAGE, // or STRING_MESSAGE
   signature: buildSignatureBytes([ethSig1]),
-});
+})
 ```
 
 We've added the message!
@@ -753,28 +753,28 @@ We should confirm the message with other owners, just like we did with transacti
 // Get the safeMessageHash
 const safeMessageHash = await protocolKit.getSafeMessageHash(
   hashSafeMessage(TYPED_MESSAGE)
-);
+)
 
 // Get the signature for owner2
-const signerAddress = (await ethAdapter2.getSignerAddress()) || '0x';
-const ethSig2 = safeMessage.getSignature(signerAddress) as EthSafeSignature;
+const signerAddress = (await ethAdapter2.getSignerAddress()) || '0x'
+const ethSig2 = safeMessage.getSignature(signerAddress) as EthSafeSignature
 
 // Add the different signatures
 await apiKit.addMessageSignature(
   safeMessageHash,
   buildSignatureBytes([ethSig2])
-);
+)
 
 await apiKit.addMessageSignature(
   safeMessageHash,
   buildSignatureBytes([signerSafeMessageSig1_1])
-);
+)
 
 // The threshold has already been matched, so it's not necessary.
 await apiKit.addMessageSignature(
   safeMessageHash,
   buildSignatureBytes([signerSafeMessageSig2_3])
-);
+)
 ```
 
 Now we've the message signed by all Safe owners. We've even "crossed the threshold" 🥳
@@ -782,7 +782,7 @@ Now we've the message signed by all Safe owners. We've even "crossed the thresho
 We can check the status of the message by using the `getMessage()` function.
 
 ```typescript
-const confirmedMessage = await apiKit.getMessage(safeMessageHash);
+const confirmedMessage = await apiKit.getMessage(safeMessageHash)
 ```
 
 Or, better yet, visit the SafeWallet UI and navigate to the off-chain messages section.
@@ -801,24 +801,24 @@ We require a special contract, the `SignMessageLib` library, to sign messages on
 // Get the contract with the correct version
 const signMessageLibContract = await ethAdapter1.getSignMessageLibContract({
   safeVersion: '1.4.1',
-});
+})
 ```
 
 Now we need to encode it and create a transaction:
 
 ```typescript
-const messageHash = hashSafeMessage(MESSAGE);
-const txData = signMessageLibContract.encode('signMessage', [messageHash]);
+const messageHash = hashSafeMessage(MESSAGE)
+const txData = signMessageLibContract.encode('signMessage', [messageHash])
 const safeTransactionData: SafeTransactionDataPartial = {
   to: customContract.signMessageLibAddress,
   value: '0',
   data: txData,
   operation: OperationType.DelegateCall,
-};
+}
 
 const signMessageTx = await protocolKit.createTransaction({
   transactions: [safeTransactionData],
-});
+})
 ```
 
 Now that we've a transaction, we need its signatures. If you've read this far, you probably know how to gather them 😉. If you started from this section, please go to the beginning and learn how to generate all the necessary signatures. Remember, you can gather them on your own or use the Transaction Service.
@@ -838,7 +838,7 @@ await protocolKit.executeTransaction(signMessageTx)
 You can also use the `isValidSignature()` method to validate on-chain messages. However, make sure to pass `0x` as the second parameter.
 
 ```typescript
-await protocolKit.isValidSignature(messageHash, '0x');
+await protocolKit.isValidSignature(messageHash, '0x')
 ```
 
 This way, the method will check the stored hashes in the contract.
