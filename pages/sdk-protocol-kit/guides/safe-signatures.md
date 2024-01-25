@@ -1,13 +1,13 @@
 # Safe Signatures
 
-Understanding and generating signatures can be challenging. In the **Safe{Core} SDK**, we provide a set of utilities that can assist in using signatures with Safe. In this article, we will explain how signatures work and how to generate them using the `@safe-global/protocol-kit` package.
+Understanding and generating signatures can be challenging. The **Safe{Core} SDK** provides a set of utilities to use signatures with Safe. This guide covers how signatures work and how to generate them using the `@safe-global/protocol-kit` package.
 
 ## Setting up the example Safe Account
 
-Your Safe Account can be configured with various thresholds and different owner types. An owner can be any Ethereum address, such as:
+A Safe account can be configured with different values for the threshold and different types of owner. An owner can be any Ethereum address, such as:
 
-- External Owned Account (EOA)
-- An smart contract that implements [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) for signature validation, such as Safe Account
+- Externally-owned account (EOA)
+- An smart contract that implements [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) for signature validation, such as another Safe.
 
 When the owner is an EOA, an ECDSA signature is generated. When the signer is a smart account, the exact signature algorithm depends on the signer itself.
 
