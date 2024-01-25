@@ -32,8 +32,9 @@ await moneriumPack.init(moneriumInitOptions)
 - `moneriumConfig` - The configuration for the Monerium pack. The options are:
 
 ```typescript
-MoneriumConfig {
+MoneriumProviderConfig {
   clientId: string
+  redirectUrl: string
   environment: 'production' | 'sandbox'
 }
 ```
