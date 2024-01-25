@@ -7,7 +7,7 @@ Monerium Pack enables using Safe with [Monerium](https://monerium.com), a regula
 To use the `MoneriumPack`, you need to install the Monerium SDK in addition to the `@safe-global/onramp-kit` package.
 
 ```bash
-yarn add @safe-global/onramp-kit @monerium/sdk
+yarn add @safe-global/onramp-kit @safe-global/protocol-kit @monerium/sdk
 ```
 
 ## Reference
@@ -19,6 +19,7 @@ This pack allows you to "Login with Monerium" by creating a connection between y
 ```typescript
 const moneriumPack = new MoneriumPack({
   clientId: 'YOUR_CLIENT_ID',
+  redirectUrl: 'URL_AFTER_AUTHENTICATION'
   environment: 'sandbox'
 })
 await moneriumPack.init(moneriumInitOptions)
@@ -31,16 +32,19 @@ await moneriumPack.init(moneriumInitOptions)
 - `moneriumConfig` - The configuration for the Monerium pack. The options are:
 
 ```typescript
-MoneriumConfig {
+MoneriumProviderConfig {
   clientId: string
+  redirectUrl: string
   environment: 'production' | 'sandbox'
 }
 ```
 
 The `clientId` is the secret representing the "Authorization Code Flow" for your Monerium account. To get your `clientId`:
 
-1. Log in to [your account](https://monerium.dev) 
+1. Log in to [your account](https://monerium.dev).
 2. Create a [new application](https://monerium.dev/docs/getting-started/create-app).
+
+The `redirectUrl` is an URI that will be used to send the user back to the app after they complete the authentication process.
 
 The `environment` is the environment for the Monerium SDK. You can choose between `production` and `sandbox`.
 
@@ -59,11 +63,11 @@ The `MoneriumInitOptions` options to be passed to the `init` method are:
 
 ```typescript
 MoneriumInitOptions {
-  safeSdk: Safe
+  protocolKit: Safe
 }
 ```
 
-- `safeSdk` - To use the `MoneriumPack`, you need to add Protocol Kit as a dependency for your project and create an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class.
+- `protocolKit` - To use the `MoneriumPack`, you need to add Protocol Kit as a dependency for your project and create an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class.
 
 ### `open(moneriumOpenOptions)`
 
@@ -75,18 +79,11 @@ The `MoneriumOpenOptions` options to be passed to the `open` method are:
 
 ```typescript
 MoneriumOpenOptions {
-  redirectUrl?: string
-  authCode?: string
-  refreshToken?: string
+  initiateAuthFlow?: boolean
 }
 ```
 
-- `redirectUrl` - The Monerium SDK requires a redirect URL. This URI will be used to send the user back to the app after they complete the authentication process.
-  If you Use the open method with the `redirectUrl` parameter alone. This will open the Monerium web page for Sign In or Sign Up.
-
-- `authCode` - This code is returned as a query parameter (auth_code) after an user has successfully signed in or signed up. The typical use case for this code is to get access to the resources (Get a token) through the Monerium SDK. Once authenticated, the dapp can call again the `open()` method with then `authCode` obtained from the query string.
-
-- `refreshToken` - This token will be used to get access to the resources through the Monerium SDK. The typical use case should be to keep it in the browser storage after authenticating with the `authCode` and use it to authenticate in subsequent application openings by calling the `open()` method with the `refreshToken` alone.
+- `initiateAuthFlow` - This flag should be added the first time `open()` is called to prompt the user to the authorization flow. Once authenticated, the dApp can call again the `open()` method to get the `MoneriumClient`.
 
 Take a look to [the example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client) for more information.
 
@@ -161,7 +158,7 @@ The `open` method starts the interaction with the pack and returns the Monerium 
 ```typescript
 // Instantiate and initialize the pack
 const moneriumPack = new MoneriumPack(moneriumConfig)
-moneriumPack.init({ safeSdk })
+moneriumPack.init({ protocolKit })
 
 // Open
 const safeMoneriumClient = await moneriumPack.open(moneriumPackOpenOptions)

@@ -95,13 +95,13 @@ You will be using Goerli for this tutorial, however, you can also get [service U
 ```tsx
 import SafeApiKit from '@safe-global/api-kit'
 
-const safeApiKit = new SafeApiKit({
+const apiKit = new SafeApiKit({
   chainId: 1n
 })
 
 
 // or using a custom service
-const safeApiKit = new SafeApiKit({
+const apiKit = new SafeApiKit({
   chainId: 1n, // set the correct chainId
   txServiceUrl: 'https://url-to-your-custom-service'
 })
@@ -138,9 +138,9 @@ const safeAccountConfig: SafeAccountConfig = {
 
 /* This Safe is tied to owner 1 because the factory was initialized with
 an adapter that had owner 1 as the signer. */
-const safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
+const protocolKitOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
 
-const safeAddress = await safeSdkOwner1.getAddress()
+const safeAddress = await protocolKitOwner1.getAddress()
 
 console.log('Your Safe has been deployed:')
 console.log(`https://goerli.etherscan.io/address/${safeAddress}`)
@@ -152,7 +152,7 @@ console.log(`https://app.safe.global/gor:${safeAddress}`)
 You will send some ETH to this Safe.
 
 ```tsx
-const safeAddress = safeSdk.getAddress()
+const safeAddress = protocolKit.getAddress()
 
 const safeAmount = ethers.parseUnits('0.01', 'ether').toHexString()
 
@@ -207,7 +207,7 @@ const safeTransactionData: MetaTransactionData = {
   value: amount
 }
 // Create a Safe transaction with the provided parameters
-const safeTransaction = await safeSdkOwner1.createTransaction({ transactions: [safeTransactionData] })
+const safeTransaction = await protocolKitOwner1.createTransaction({ transactions: [safeTransactionData] })
 ```
 
 ### Propose the transaction
@@ -218,12 +218,12 @@ For a full list and description of the properties that `proposeTransaction` acce
 
 ```tsx
 // Deterministic hash based on transaction parameters
-const safeTxHash = await safeSdkOwner1.getTransactionHash(safeTransaction)
+const safeTxHash = await protocolKitOwner1.getTransactionHash(safeTransaction)
 
 // Sign transaction to verify that the transaction is coming from owner 1
-const senderSignature = await safeSdkOwner1.signTransactionHash(safeTxHash)
+const senderSignature = await protocolKitOwner1.signHash(safeTxHash)
 
-await safeService.proposeTransaction({
+await apiKit.proposeTransaction({
   safeAddress,
   safeTransactionData: safeTransaction.data,
   safeTxHash,
@@ -234,10 +234,10 @@ await safeService.proposeTransaction({
 
 ### Get pending transactions
 
-Recall that you created the `safeService` in [Initialize the API Kit](./#initialize-the-safe-api-kit).
+Recall that you created the `apiKit` in [Initialize the API Kit](./#initialize-the-safe-api-kit).
 
 ```tsx
-const pendingTransactions = await safeService.getPendingTransactions(safeAddress).results
+const pendingTransactions = await apiKit.getPendingTransactions(safeAddress).results
 ```
 
 ### Confirm the transaction: Second confirmation
@@ -254,13 +254,13 @@ const ethAdapterOwner2 = new EthersAdapter({
   signerOrProvider: owner2Signer
 })
 
-const safeSdkOwner2 = await Safe.create({
+const protocolKitOwner2 = await Safe.create({
   ethAdapter: ethAdapterOwner2,
   safeAddress
 })
 
-const signature = await safeSdkOwner2.signTransactionHash(safeTxHash)
-const response = await safeService.confirmTransaction(safeTxHash, signature.data)
+const signature = await protocolKitOwner2.signHash(safeTxHash)
+const response = await apiKit.confirmTransaction(safeTxHash, signature.data)
 ```
 
 ### Execute the transaction
@@ -268,8 +268,8 @@ const response = await safeService.confirmTransaction(safeTxHash, signature.data
 Anyone can execute the Safe transaction once it has the required number of signatures. In this example, owner 1 will execute the transaction and pay for the gas fees.
 
 ```tsx
-const safeTransaction = await safeService.getTransaction(safeTxHash)
-const executeTxResponse = await safeSdk.executeTransaction(safeTransaction)
+const safeTransaction = await apiKit.getTransaction(safeTxHash)
+const executeTxResponse = await protocolKit.executeTransaction(safeTransaction)
 const receipt = await executeTxResponse.transactionResponse?.wait()
 
 console.log('Transaction executed:')
@@ -281,7 +281,7 @@ console.log(`https://goerli.etherscan.io/tx/${receipt.transactionHash}`)
 You know that the transaction was executed if the balance in your Safe changes.
 
 ```tsx
-const afterBalance = await safeSdk.getBalance()
+const afterBalance = await protocolKit.getBalance()
 
 console.log(`The final balance of the Safe: ${ethers.formatUnits(afterBalance, 'ether')} ETH`)
 ```

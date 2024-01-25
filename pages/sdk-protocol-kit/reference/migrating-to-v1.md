@@ -82,7 +82,7 @@ const safeAccountConfig: SafeAccountConfig = {
 
 const saltNonce = '<YOUR_CUSTOM_VALUE>'
 
-const safeSdk = await safeFactory.deploySafe({ safeAccountConfig, saltNonce })
+const protocolKit = await safeFactory.deploySafe({ safeAccountConfig, saltNonce })
 ```
 
 ## `getAddress()`

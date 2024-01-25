@@ -89,7 +89,7 @@ const safeAccountConfig: SafeAccountConfig = {
   paymentReceiver // Optional
 }
 
-const safeSdk = await safeFactory.deploySafe({ safeAccountConfig })
+const protocolKit = await safeFactory.deploySafe({ safeAccountConfig })
 ```
 
 This method can optionally receive the `saltNonce` parameter.
@@ -108,7 +108,7 @@ const safeAccountConfig: SafeAccountConfig = {
 
 const saltNonce = '<YOUR_CUSTOM_VALUE>'
 
-const safeSdk = await safeFactory.deploySafe({ safeAccountConfig, saltNonce })
+const protocolKit = await safeFactory.deploySafe({ safeAccountConfig, saltNonce })
 ```
 
 Optionally, some properties can be passed as execution options:
@@ -136,7 +136,7 @@ const options: EthersTransactionOptions = {
 ```
 
 ```typescript
-const safeSdk = await safeFactory.deploySafe({ safeAccountConfig, safeDeploymentConfig, options })
+const protocolKit = await safeFactory.deploySafe({ safeAccountConfig, safeDeploymentConfig, options })
 ```
 
 It can also take an optional callback which receives the `txHash` of the Safe deployment transaction prior to returning a new instance of the Protocol Kit:
@@ -146,7 +146,7 @@ const callback = (txHash: string): void => {
   console.log({ txHash })
 }
 
-const safeSdk = await safeFactory.deploySafe({ safeAccountConfig, callback })
+const protocolKit = await safeFactory.deploySafe({ safeAccountConfig, callback })
 ```
 
 ## Safe reference
@@ -160,7 +160,7 @@ Initialization of a deployed Safe using the `safeAddress` property:
 ```typescript
 import Safe from '@safe-global/protocol-kit'
 
-const safeSdk = await Safe.create({ ethAdapter, safeAddress })
+const protocolKit = await Safe.create({ ethAdapter, safeAddress })
 ```
 
 Initialization of a not deployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to initialize the SDK with the Safe configuration and use it to some extent before it's deployed:
@@ -173,7 +173,7 @@ const predictedSafe: PredictedSafeProps = {
   safeDeploymentConfig
 }
 
-const safeSdk = await Safe.create({ ethAdapter, predictedSafe })
+const protocolKit = await Safe.create({ ethAdapter, predictedSafe })
 ```
 
 - The `isL1SafeSingleton` flag
@@ -183,7 +183,7 @@ const safeSdk = await Safe.create({ ethAdapter, predictedSafe })
   By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force the use of the `Safe.sol` contract.
 
   ```typescript
-  const safeSdk = await Safe.create({ ethAdapter, safeAddress, isL1SafeSingleton: true })
+  const protocolKit = await Safe.create({ ethAdapter, safeAddress, isL1SafeSingleton: true })
   ```
 
 - The `contractNetworks` property
@@ -215,7 +215,7 @@ const safeSdk = await Safe.create({ ethAdapter, predictedSafe })
     }
   }
 
-  const safeSdk = await Safe.create({ ethAdapter, safeAddress, contractNetworks })
+  const protocolKit = await Safe.create({ ethAdapter, safeAddress, contractNetworks })
   ```
 
 ### `connect`
@@ -225,7 +225,8 @@ Returns a new instance of the Protocol Kit connected to a new Safe or a new Sign
 Connection of a deployed Safe using the `safeAddress` property:
 
 ```typescript
-const safeSdk = await safeSdk.connect({ ethAdapter, safeAddress })
+let protocolKit = await Safe.create({ ethAdapter, safeAddress })
+protocolKit = await protocolKit.connect({ ethAdapter: anotherEthAdapter, safeAddress: anotherSafeAddress })
 ```
 
 Connection of a not deployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to connect a Safe to the SDK with the Safe configuration:
@@ -238,7 +239,9 @@ const predictedSafe: PredictedSafeProps = {
   safeDeploymentConfig
 }
 
-const safeSdk = await safeSdk.connect({ ethAdapter, predictedSafe })
+let protocolKit = await Safe.create({ ethAdapter, safeAddress })
+...
+protocolKit = await protocolKit.connect({ predictedSafe })
 ```
 
 - The `isL1SafeSingleton` flag
@@ -248,7 +251,7 @@ const safeSdk = await safeSdk.connect({ ethAdapter, predictedSafe })
   By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force the use of the `Safe.sol` contract.
 
   ```typescript
-  const safeSdk = await Safe.connect({ ethAdapter, safeAddress, isL1SafeSingleton: true })
+  protocolKit = await protocolKit.connect({ ethAdapter, safeAddress, isL1SafeSingleton: true })
   ```
 
 - The `contractNetworks` property
@@ -279,7 +282,9 @@ const safeSdk = await safeSdk.connect({ ethAdapter, predictedSafe })
       simulateTxAccessorAbi: '<SIMULATE_TX_ACCESSOR_ABI>' // Optional. Only needed with web3.js
     }
   }
-  const safeSdk = await Safe.connect({ ethAdapter, safeAddress, contractNetworks })
+  let protocolKit = await Safe.create({ ethAdapter, safeAddress })
+  ...
+  protocolKit = await protocolKit.connect({ contractNetworks })
   ```
 
 ### `getAddress`
@@ -287,7 +292,7 @@ const safeSdk = await safeSdk.connect({ ethAdapter, predictedSafe })
 Returns the address of the current SafeProxy contract.
 
 ```typescript
-const safeAddress = await safeSdk.getAddress()
+const safeAddress = await protocolKit.getAddress()
 ```
 
 ### `getContractVersion`
@@ -295,7 +300,7 @@ const safeAddress = await safeSdk.getAddress()
 Returns the Safe singleton contract version.
 
 ```typescript
-const contractVersion = await safeSdk.getContractVersion()
+const contractVersion = await protocolKit.getContractVersion()
 ```
 
 ### `getOwners`
@@ -303,7 +308,7 @@ const contractVersion = await safeSdk.getContractVersion()
 Returns the list of Safe owner accounts.
 
 ```typescript
-const ownerAddresses = await safeSdk.getOwners()
+const ownerAddresses = await protocolKit.getOwners()
 ```
 
 ### `getNonce`
@@ -311,7 +316,7 @@ const ownerAddresses = await safeSdk.getOwners()
 Returns the Safe nonce.
 
 ```typescript
-const nonce = await safeSdk.getNonce()
+const nonce = await protocolKit.getNonce()
 ```
 
 ### `getThreshold`
@@ -319,7 +324,7 @@ const nonce = await safeSdk.getNonce()
 Returns the Safe threshold.
 
 ```typescript
-const threshold = await safeSdk.getThreshold()
+const threshold = await protocolKit.getThreshold()
 ```
 
 ### `getChainId`
@@ -327,7 +332,7 @@ const threshold = await safeSdk.getThreshold()
 Returns the chain ID of the connected network.
 
 ```typescript
-const chainId = await safeSdk.getChainId()
+const chainId = await protocolKit.getChainId()
 ```
 
 ### `getBalance`
@@ -335,7 +340,7 @@ const chainId = await safeSdk.getChainId()
 Returns the ETH balance of the Safe.
 
 ```typescript
-const balance = await safeSdk.getBalance()
+const balance = await protocolKit.getBalance()
 ```
 
 ### `getGuard`
@@ -343,7 +348,7 @@ const balance = await safeSdk.getBalance()
 Returns the enabled Safe Guard or 0x address if no guards are enabled.
 
 ```typescript
-const guardAddress = await safeSdk.getGuard()
+const guardAddress = await protocolKit.getGuard()
 ```
 
 ### `getModules`
@@ -351,7 +356,7 @@ const guardAddress = await safeSdk.getGuard()
 Returns the list of addresses of all the enabled Safe Modules.
 
 ```typescript
-const moduleAddresses = await safeSdk.getModules()
+const moduleAddresses = await protocolKit.getModules()
 ```
 
 ### `isModuleEnabled`
@@ -359,7 +364,7 @@ const moduleAddresses = await safeSdk.getModules()
 Checks if a specific Safe Module is enabled for the current Safe.
 
 ```typescript
-const isEnabled = await safeSdk.isModuleEnabled(moduleAddress)
+const isEnabled = await protocolKit.isModuleEnabled(moduleAddress)
 ```
 
 ### `isOwner`
@@ -367,7 +372,7 @@ const isEnabled = await safeSdk.isModuleEnabled(moduleAddress)
 Checks if a specific address is an owner of the current Safe.
 
 ```typescript
-const isOwner = await safeSdk.isOwner(address)
+const isOwner = await protocolKit.isOwner(address)
 ```
 
 ### `createTransaction`
@@ -394,7 +399,7 @@ const transactions: MetaTransactionData[] = [
   }
   // ...
 ]
-const safeTransaction = await safeSdk.createTransaction({ transactions })
+const safeTransaction = await protocolKit.createTransaction({ transactions })
 ```
 
 This method can also receive the `options` parameter to set the optional properties in the MultiSend transaction:
@@ -423,14 +428,14 @@ const options: SafeTransactionOptionalProps = {
   refundReceiver, // Optional
   nonce // Optional
 }
-const safeTransaction = await safeSdk.createTransaction({ transactions, options })
+const safeTransaction = await protocolKit.createTransaction({ transactions, options })
 ```
 
 In addition, the optional `callsOnly` parameter, which is `false` by default, allows to force the use of the `MultiSendCallOnly` instead of the `MultiSend` contract when sending a batch transaction:
 
 ```typescript
 const callsOnly = true
-const safeTransaction = await safeSdk.createTransaction({
+const safeTransaction = await protocolKit.createTransaction({
   transactions,
   options,
   callsOnly
@@ -447,6 +452,15 @@ If the optional properties aren't manually set, the Safe transaction returned wi
 - `refundReceiver`: 0x address is the default value.
 - `nonce`: The current Safe nonce is the default value.
 
+### `createMessage`
+
+Returns a SafeMessage ready to be signed by the owners.
+
+```typescript
+const rayMessage: string | EIP712TypedData = "I am the owner of this Safe"
+const message = protocolKit.createMessage(rawMessage)
+```
+
 ### `createRejectionTransaction`
 
 Returns a Safe transaction ready to be signed by the owners that invalidates the pending Safe transaction/s with a specific nonce.
@@ -455,8 +469,8 @@ Returns a Safe transaction ready to be signed by the owners that invalidates the
 const transactions: MetaTransactionData[] = [{
   // ...
 }]
-const safeTransaction = await safeSdk.createTransaction({ transactions })
-const rejectionTransaction = await safeSdk.createRejectionTransaction(safeTransaction.data.nonce)
+const safeTransaction = await protocolKit.createTransaction({ transactions })
+const rejectionTransaction = await protocolKit.createRejectionTransaction(safeTransaction.data.nonce)
 ```
 
 ### `copyTransaction`
@@ -464,7 +478,7 @@ const rejectionTransaction = await safeSdk.createRejectionTransaction(safeTransa
 Copies a Safe transaction.
 
 ```typescript
-const safeTransaction1 = await safeSdk.createTransaction({ transactions })
+const safeTransaction1 = await protocolKit.createTransaction({ transactions })
 const safeTransaction2 = await copyTransaction(safeTransaction1)
 ```
 
@@ -476,11 +490,11 @@ Returns the transaction hash of a Safe transaction.
 const transactions: MetaTransactionData[] = [{
   // ...
 }]
-const safeTransaction = await safeSdk.createTransaction({ transactions })
-const txHash = await safeSdk.getTransactionHash(safeTransaction)
+const safeTransaction = await protocolKit.createTransaction({ transactions })
+const txHash = await protocolKit.getTransactionHash(safeTransaction)
 ```
 
-### `signTransactionHash`
+### `signHash`
 
 Signs a hash using the current owner account.
 
@@ -488,9 +502,9 @@ Signs a hash using the current owner account.
 const transactions: MetaTransactionData[] = [{
   // ...
 }]
-const safeTransaction = await safeSdk.createTransaction({ transactions })
-const txHash = await safeSdk.getTransactionHash(safeTransaction)
-const signature = await safeSdk.signTransactionHash(txHash)
+const safeTransaction = await protocolKit.createTransaction({ transactions })
+const txHash = await protocolKit.getTransactionHash(safeTransaction)
+const signature = await protocolKit.signHash(txHash)
 ```
 
 ### `signTypedData`
@@ -501,30 +515,66 @@ Signs a transaction according to the EIP-712 using the current signer account.
 const transactions: MetaTransactionData[] = [{
   // ...
 }]
-const safeTransaction = await safeSdk.createTransaction({ transactions })
-const signature = await safeSdk.signTypedData(safeTransaction)
+const safeTransaction = await protocolKit.createTransaction({ transactions })
+const signature = await protocolKit.signTypedData(safeTransaction)
 ```
 
 ### `signTransaction`
 
-Returns a new `SafeTransaction` object that includes the signature of the current owner. `eth_sign` will be used by default to generate the signature.
+Returns a new `SafeTransaction` object that includes the signature of the current owner. 
+
+You can use multiple signing methods, such as:
+
+- ETH_SIGN (`eth_sign`): Regular hash signature
+- ETH_SIGN_TYPED_DATA_V4 (`eth_signTypedData_v4`): Typed data signature v4, The default method if no signing method is passed
+- ETH_SIGN_TYPED_DATA_V3 `eth_signTypedData_v3`: Typed data signature v3
+- ETH_SIGN_TYPED_DATA `eth_signTypedData`: Typed data signature
+- SAFE_SIGNATURE: Signing with another Safe contract as signer
+
+The third parameter (optional) is the preImageSafeAddress. If the preimage is required, this is the address of the Safe that will be used to calculate the preimage. It's mandatory parameter for 1.3.0 and 1.4.1 contract versions. This is because the safe uses the old EIP-1271 interface which uses `bytes` instead of `bytes32` for the message we need to use the pre-image of the message to calculate the message hash. This parameter is used in conjunction with the SAFE_SIGNATURE signing method.
 
 ```typescript
 const transactions: MetaTransactionData[] = [{
   // ...
 }]
-const safeTransaction = await safeSdk.createTransaction({ transactions })
-const signedSafeTransaction = await safeSdk.signTransaction(safeTransaction)
+const safeTransaction = await protocolKit.createTransaction({ transactions })
+const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
 ```
 
 Optionally, an additional parameter can be passed to specify a different way of signing:
 
 ```typescript
-const signedSafeTransaction = await safeSdk.signTransaction(safeTransaction, 'eth_signTypedData')
+const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction, SigningMethod.ETH_SIGN_TYPED_DATA_V4) // Default option
+const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction, SigningMethod.ETH_SIGN)
+const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction, SigningMethod.SAFE_SIGNATURE, parentSafeAddress).
 ```
 
+### `signMessage`
+
+Returns a new `SafeMessage` object that includes the signature of the current owner. 
+
+You can use multiple signing methods, such as:
+
+- ETH_SIGN (`eth_sign`): Regular hash signature
+- ETH_SIGN_TYPED_DATA_V4 (`eth_signTypedData_v4`): Typed data signature v4, The default method if no signing method is passed
+- ETH_SIGN_TYPED_DATA_V3 `eth_signTypedData_v3`: Typed data signature v3
+- ETH_SIGN_TYPED_DATA `eth_signTypedData`: Typed data signature
+- SAFE_SIGNATURE: Signing with another Safe contract as signer
+
+The third parameter (optional) is the preImageSafeAddress. If the preimage is required, this is the address of the Safe that will be used to calculate the preimage. It's mandatory parameter for 1.3.0 and 1.4.1 contract versions. This is because the safe uses the old EIP-1271 interface which uses `bytes` instead of `bytes32` for the message we need to use the pre-image of the message to calculate the message hash. This parameter is used in conjunction with the SAFE_SIGNATURE signing method.
+
 ```typescript
-const signedSafeTransaction = await safeSdk.signTransaction(safeTransaction, 'eth_sign') // default option.
+const rawMessage: string | EIP712TypedData = "I am the owner of this Safe"
+const message = protocolKit.createMessage(rawMessage)
+const signedMessage = await protocolKit.signMessage(message)
+```
+
+Optionally, an additional parameter can be passed to specify a different way of signing:
+
+```typescript
+const signedMessage = await protocolKit.signMessage(signedMessage, SigningMethod.ETH_SIGN_TYPED_DATA_V4) // Default option
+const signedMessage = await protocolKit.signMessage(signedMessage, SigningMethod.ETH_SIGN)
+const signedMessage = await protocolKit.signMessage(signedMessage, SigningMethod.SAFE_SIGNATURE, parentSafeAddress).
 ```
 
 ### `approveTransactionHash`
@@ -535,9 +585,9 @@ Approves a hash on-chain using the current owner account.
 const transactions: MetaTransactionData[] = [{
   // ...
 }]
-const safeTransaction = await safeSdk.createTransaction({ transactions })
-const txHash = await safeSdk.getTransactionHash(safeTransaction)
-const txResponse = await safeSdk.approveTransactionHash(txHash)
+const safeTransaction = await protocolKit.createTransaction({ transactions })
+const txHash = await protocolKit.getTransactionHash(safeTransaction)
+const txResponse = await protocolKit.approveTransactionHash(txHash)
 await txResponse.transactionResponse?.wait()
 ```
 
@@ -566,7 +616,7 @@ const options: EthersTransactionOptions = {
 ```
 
 ```typescript
-const txResponse = await safeSdk.approveTransactionHash(txHash, options)
+const txResponse = await protocolKit.approveTransactionHash(txHash, options)
 ```
 
 ### `getOwnersWhoApprovedTx`
@@ -577,9 +627,9 @@ Returns a list of owners who have approved a specific Safe transaction.
 const transactions: MetaTransactionData[] = [{
   // ...
 }]
-const safeTransaction = await safeSdk.createTransaction({ transactions })
-const txHash = await safeSdk.getTransactionHash(safeTransaction)
-const ownerAddresses = await safeSdk.getOwnersWhoApprovedTx(txHash)
+const safeTransaction = await protocolKit.createTransaction({ transactions })
+const txHash = await protocolKit.getTransactionHash(safeTransaction)
+const ownerAddresses = await protocolKit.getOwnersWhoApprovedTx(txHash)
 ```
 
 ### `createEnableFallbackHandlerTx`
@@ -587,8 +637,8 @@ const ownerAddresses = await safeSdk.getOwnersWhoApprovedTx(txHash)
 Returns the Safe transaction to enable the fallback handler.
 
 ```typescript
-const safeTransaction = await safeSdk.createEnableFallbackHandlerTx(fallbackHandlerAddress)
-const txResponse = await safeSdk.executeTransaction(safeTransaction)
+const safeTransaction = await protocolKit.createEnableFallbackHandlerTx(fallbackHandlerAddress)
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
@@ -603,7 +653,7 @@ const options: SafeTransactionOptionalProps = {
   refundReceiver, // Optional
   nonce // Optional
 }
-const safeTransaction = await safeSdk.createEnableFallbackHandlerTx(fallbackHandlerAddress, options)
+const safeTransaction = await protocolKit.createEnableFallbackHandlerTx(fallbackHandlerAddress, options)
 ```
 
 ### `createDisableFallbackHandlerTx`
@@ -611,8 +661,8 @@ const safeTransaction = await safeSdk.createEnableFallbackHandlerTx(fallbackHand
 Returns the Safe transaction to disable the fallback handler.
 
 ```typescript
-const safeTransaction = await safeSdk.createDisableFallbackHandlerTx()
-const txResponse = await safeSdk.executeTransaction(safeTransaction)
+const safeTransaction = await protocolKit.createDisableFallbackHandlerTx()
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
@@ -620,7 +670,7 @@ This method can optionally receive the `options` parameter:
 
 ```typescript
 const options: SafeTransactionOptionalProps = { ... }
-const safeTransaction = await safeSdk.createDisableFallbackHandlerTx(options)
+const safeTransaction = await protocolKit.createDisableFallbackHandlerTx(options)
 ```
 
 ### `createEnableGuardTx`
@@ -628,8 +678,8 @@ const safeTransaction = await safeSdk.createDisableFallbackHandlerTx(options)
 Returns the Safe transaction to enable a Safe Guard.
 
 ```typescript
-const safeTransaction = await safeSdk.createEnableGuardTx(guardAddress)
-const txResponse = await safeSdk.executeTransaction(safeTransaction)
+const safeTransaction = await protocolKit.createEnableGuardTx(guardAddress)
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
@@ -644,7 +694,7 @@ const options: SafeTransactionOptionalProps = {
   refundReceiver, // Optional
   nonce // Optional
 }
-const safeTransaction = await safeSdk.createEnableGuardTx(guardAddress, options)
+const safeTransaction = await protocolKit.createEnableGuardTx(guardAddress, options)
 ```
 
 ### `createDisableGuardTx`
@@ -652,8 +702,8 @@ const safeTransaction = await safeSdk.createEnableGuardTx(guardAddress, options)
 Returns the Safe transaction to disable a Safe Guard.
 
 ```typescript
-const safeTransaction = await safeSdk.createDisableGuardTx()
-const txResponse = await safeSdk.executeTransaction(safeTransaction)
+const safeTransaction = await protocolKit.createDisableGuardTx()
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
@@ -661,7 +711,7 @@ This method can optionally receive the `options` parameter:
 
 ```typescript
 const options: SafeTransactionOptionalProps = { ... }
-const safeTransaction = await safeSdk.createDisableGuardTx(options)
+const safeTransaction = await protocolKit.createDisableGuardTx(options)
 ```
 
 ### `createEnableModuleTx`
@@ -669,8 +719,8 @@ const safeTransaction = await safeSdk.createDisableGuardTx(options)
 Returns a Safe transaction ready to be signed that will enable a Safe Module.
 
 ```typescript
-const safeTransaction = await safeSdk.createEnableModuleTx(moduleAddress)
-const txResponse = await safeSdk.executeTransaction(safeTransaction)
+const safeTransaction = await protocolKit.createEnableModuleTx(moduleAddress)
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
@@ -678,7 +728,7 @@ This method can optionally receive the `options` parameter:
 
 ```typescript
 const options: SafeTransactionOptionalProps = { ... }
-const safeTransaction = await safeSdk.createEnableModuleTx(moduleAddress, options)
+const safeTransaction = await protocolKit.createEnableModuleTx(moduleAddress, options)
 ```
 
 ### `createDisableModuleTx`
@@ -686,8 +736,8 @@ const safeTransaction = await safeSdk.createEnableModuleTx(moduleAddress, option
 Returns a Safe transaction ready to be signed that will disable a Safe Module.
 
 ```typescript
-const safeTransaction = await safeSdk.createDisableModuleTx(moduleAddress)
-const txResponse = await safeSdk.executeTransaction(safeTransaction)
+const safeTransaction = await protocolKit.createDisableModuleTx(moduleAddress)
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
@@ -695,7 +745,7 @@ This method can optionally receive the `options` parameter:
 
 ```typescript
 const options: SafeTransactionOptionalProps = { ... }
-const safeTransaction = await safeSdk.createDisableModuleTx(moduleAddress, options)
+const safeTransaction = await protocolKit.createDisableModuleTx(moduleAddress, options)
 ```
 
 ### `createAddOwnerTx`
@@ -707,8 +757,8 @@ const params: AddOwnerTxParams = {
   ownerAddress,
   threshold // Optional. If `threshold` isn't provided the current threshold won't change.
 }
-const safeTransaction = await safeSdk.createAddOwnerTx(params)
-const txResponse = await safeSdk.executeTransaction(safeTransaction)
+const safeTransaction = await protocolKit.createAddOwnerTx(params)
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
@@ -716,7 +766,7 @@ This method can optionally receive the `options` parameter:
 
 ```typescript
 const options: SafeTransactionOptionalProps = { ... }
-const safeTransaction = await safeSdk.createAddOwnerTx(params, options)
+const safeTransaction = await protocolKit.createAddOwnerTx(params, options)
 ```
 
 ### `createRemoveOwnerTx`
@@ -728,8 +778,8 @@ const params: RemoveOwnerTxParams = {
   ownerAddress,
   newThreshold // Optional. If `newThreshold` isn't provided, the current threshold will be decreased by one.
 }
-const safeTransaction = await safeSdk.createRemoveOwnerTx(params)
-const txResponse = await safeSdk.executeTransaction(safeTransaction)
+const safeTransaction = await protocolKit.createRemoveOwnerTx(params)
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
@@ -737,7 +787,7 @@ This method can optionally receive the `options` parameter:
 
 ```typescript
 const options: SafeTransactionOptionalProps = { ... }
-const safeTransaction = await safeSdk.createRemoveOwnerTx(params, options)
+const safeTransaction = await protocolKit.createRemoveOwnerTx(params, options)
 ```
 
 ### `createSwapOwnerTx`
@@ -749,8 +799,8 @@ const params: SwapOwnerTxParams = {
   oldOwnerAddress,
   newOwnerAddress
 }
-const safeTransaction = await safeSdk.createSwapOwnerTx(params)
-const txResponse = await safeSdk.executeTransaction(safeTransaction)
+const safeTransaction = await protocolKit.createSwapOwnerTx(params)
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
@@ -758,7 +808,7 @@ This method can optionally receive the `options` parameter:
 
 ```typescript
 const options: SafeTransactionOptionalProps = { ... }
-const safeTransaction = await safeSdk.createSwapOwnerTx(params, options)
+const safeTransaction = await protocolKit.createSwapOwnerTx(params, options)
 ```
 
 ### `createChangeThresholdTx`
@@ -766,8 +816,8 @@ const safeTransaction = await safeSdk.createSwapOwnerTx(params, options)
 Returns the Safe transaction to change the threshold.
 
 ```typescript
-const safeTransaction = await safeSdk.createChangeThresholdTx(newThreshold)
-const txResponse = await safeSdk.executeTransaction(safeTransaction)
+const safeTransaction = await protocolKit.createChangeThresholdTx(newThreshold)
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
@@ -775,7 +825,7 @@ This method can optionally receive the `options` parameter:
 
 ```typescript
 const options: SafeTransactionOptionalProps = { ... }
-const safeTransaction = await safeSdk.createChangeThresholdTx(newThreshold, options)
+const safeTransaction = await protocolKit.createChangeThresholdTx(newThreshold, options)
 ```
 
 ### `isValidTransaction`
@@ -786,8 +836,8 @@ Checks if a Safe transaction can be executed successfully with no errors.
 const transactions: MetaTransactionData[] = [{
   // ...
 }]
-const safeTransaction = await safeSdk.createTransaction({ transactions })
-const isValidTx = await safeSdk.isValidTransaction(safeTransaction)
+const safeTransaction = await protocolKit.createTransaction({ transactions })
+const isValidTx = await protocolKit.isValidTransaction(safeTransaction)
 ```
 
 Optionally, some properties can be passed as execution options:
@@ -815,7 +865,7 @@ const options: EthersTransactionOptions = {
 ```
 
 ```typescript
-const isValidTx = await safeSdk.isValidTransaction(safeTransaction, options)
+const isValidTx = await protocolKit.isValidTransaction(safeTransaction, options)
 ```
 
 ### `executeTransaction`
@@ -826,8 +876,8 @@ Executes a Safe transaction.
 const transactions: MetaTransactionData[] = [{
   // ...
 }]
-const safeTransaction = await safeSdk.createTransaction({ transactions })
-const txResponse = await safeSdk.executeTransaction(safeTransaction)
+const safeTransaction = await protocolKit.createTransaction({ transactions })
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
@@ -856,5 +906,43 @@ const options: EthersTransactionOptions = {
 ```
 
 ```typescript
-const txResponse = await safeSdk.executeTransaction(safeTransaction, options)
+const txResponse = await protocolKit.executeTransaction(safeTransaction, options)
+```
+
+
+### `getSafeMessageHash`
+
+Retrieve the Safe message hash of a string or EIP-712 typed data. It produces the identical hash as invoking the CompatibilityFallbackHandler's getMessageHash method.
+
+```typescript
+const rawMessage = ... // String or EIP-712 typed data
+const messageHash = hashSafeMessage(rawMessage)
+
+const safeMessageHash = await protocolKit.getSafeMessageHash(messageHash)
+```
+
+### `isValidSignature`
+
+Calls the CompatibilityFallbackHandler isValidSignature method (EIP-1271).
+
+It requires 2 parameters:
+
+- messageHash The hash of the message
+- signature The signature to be validated or '0x'. You can send as signature one of the following:
+  1) An array of SafeSignature. In this case the signatures are concatenated for validation (buildSignatureBytes())
+  2) The concatenated signatures as string
+  3) '0x' if you want to validate an onchain message (Approved hash)
+
+The method returns if the signature is valid
+
+```typescript
+const rawMessage = ... // String or EIP-712 typed data
+const messageHash = hashSafeMessage(rawMessage)
+const safeMessageHash = await protocolKit.getSafeMessageHash(messageHash)
+
+const isValidSignature = await protocolKit.isValidSignature(safeMessageHash, signature)
+...
+const isValidSignature = await protocolKit.isValidSignature(safeMessageHash, [signature1, signature2])
+...
+const isValidSignature = await protocolKit.isValidSignature(safeMessageHash, '0x')
 ```
