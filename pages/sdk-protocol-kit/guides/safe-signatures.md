@@ -9,7 +9,7 @@ A Safe account can be configured with different values for the threshold and dif
 - Externally-owned account (EOA)
 - A smart contract that implements the [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) for signature validation, like Safe does.
 
-When a Safe owner is an EOA it will generate generate an ECDSA signature to approve a Safe transaction. When a Safe owner is a smart account, the signature algorithm will depends on the implementation of the smart account.
+When a Safe owner is an EOA it will generate an ECDSA signature to approve a Safe transaction. When a Safe owner is a smart account, the signature algorithm will depends on the implementation of the smart account.
 
 In this guide we will use the following Safe account setup:
 
@@ -89,7 +89,7 @@ class EthSafeTransaction implements SafeTransaction {
 
 ### Generating transaction signatures
 
-Once we have the `safeTx` transaction object, the necessary signatures can be added to it.
+Once we've the `safeTx` transaction object, the necessary signatures can be added to it.
 
 #### Creating an ECDSA signature
 
