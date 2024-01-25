@@ -1,16 +1,14 @@
 import { ButtonBase, Container, Divider, Grid, Typography } from '@mui/material'
+import Link from 'next/link'
 import type { ComponentType, SyntheticEvent } from 'react'
-
 import DiscordIcon from '../../assets/svg/discord-icon.svg'
+import DiscourseIcon from '../../assets/svg/discourse-icon.svg'
+import GithubIcon from '../../assets/svg/github-icon.svg'
+import MirrorIcon from '../../assets/svg/mirror-icon.svg'
+import Logo from '../../assets/svg/safe-logo-white.svg'
 import XIcon from '../../assets/svg/x-icon.svg'
 import YoutubeIcon from '../../assets/svg/youtube-icon.svg'
-import DiscourseIcon from '../../assets/svg/discourse-icon.svg'
-import MirrorIcon from '../../assets/svg/mirror-icon.svg'
-import GithubIcon from '../../assets/svg/github-icon.svg'
-
 import css from './Footer.module.css'
-import Link from 'next/link'
-import Logo from '../../assets/svg/safe-logo-white.svg'
 
 const AppRoutes = {
   404: 'https://safe.global/404',
@@ -43,7 +41,7 @@ export const LICENSES_LINK = 'https://app.safe.global/licenses'
 export const GOVERNANCE_LINK = 'https://gov.safe.global'
 export const ECOSYSTEM_LINK = 'https://ecosystem.safe.global'
 export const GRANTS_LINK = 'https://grants.safe.global'
-export const TWITTER_LINK = 'https://x.com/safe'
+export const X_LINK = 'https://x.com/safe'
 export const DISCORD_LINK = 'https://chat.safe.global'
 export const YOUTUBE_LINK = 'https://www.youtube.com/@safeglobal'
 export const MIRROR_LINK = 'https://safe.mirror.xyz'
@@ -253,7 +251,7 @@ const Footer: React.FC = () => {
 
         <Grid item xs={12} md={3} mt={{ xs: 6, md: 0 }}>
           <div className={css.socials}>
-            {createFooterButton('X page', TWITTER_LINK, XIcon as React.FC)}
+            {createFooterButton('X page', X_LINK, XIcon as React.FC)}
             {createFooterButton('Discourse forum', FORUM_LINK, DiscourseIcon as React.FC)}
             {createFooterButton('Discord server', DISCORD_LINK, DiscordIcon as React.FC)}
             {createFooterButton('Youtube channel', YOUTUBE_LINK, YoutubeIcon as React.FC)}
