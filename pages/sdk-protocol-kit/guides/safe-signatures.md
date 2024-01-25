@@ -604,8 +604,6 @@ Now that we've the transaction object (`safeTx`), it's time to collect signature
 
 #### Creating a ECDSA signature
 
----
-
 We're going to sign with `owner1` and `owner2`. For that we use the `signMessage()` method that takes the transaction `data` and add a new signature to the `signatures` map.
 
 ```typescript
