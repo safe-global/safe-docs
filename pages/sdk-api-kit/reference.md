@@ -281,7 +281,7 @@ await apiKit.addMessage(safeAddress, { message, signature, safeAppId })
 
 ### `addMessageSignature`
 
-Add a signature to an existing message
+Adds a signature to an existing message.
 
 ```typescript
 await apiKit.addMessageSignature(safeMessageHash, signature)
