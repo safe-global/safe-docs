@@ -53,7 +53,7 @@ const protocolKit = await Safe.create({
 
 The `ethAdapter1` is bound to `owner1`. In the examples provided in this article, we will have 5 adapters, each one bound to an owner.
 
-| Adapter     | Bound to |
+| Adapter     | Signer |
 | ----------- | -------- |
 | ethAdapter1 | owner1   |
 | ethAdapter2 | owner2   |
@@ -76,20 +76,20 @@ let safeTx = await protocolKit.createTransaction({
 });
 ```
 
-The `safeTx` is an `EthSafeTransaction` object that stores the transaction data (`data` prop) and a map of owner-signature pairs (`signatures` prop).
+The `safeTx` object is an instance of the `EthSafeTransaction` class, which stores the Safe transaction data and a map of the signatures from the Safe owners.
 
 ```typescript
 class EthSafeTransaction implements SafeTransaction {
   data: SafeTransactionData
   signatures: Map<string, SafeSignature> = new Map()
-...
-// Other props and methods
+  ...
+  // Other properties and methods
 }
 ```
 
 ### Generating transaction signatures
 
-Now that we've the transaction object (`safeTx`), it's time to add the necessary signatures.
+Once we have the `safeTx` transaction object, the necessary signatures can be added to it.
 
 #### Creating an ECDSA signature
 
