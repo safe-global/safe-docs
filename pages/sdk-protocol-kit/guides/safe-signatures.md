@@ -7,7 +7,7 @@ Understanding and generating signatures can be challenging. The **Safe{Core} SDK
 A Safe account can be configured with different values for the threshold and different types of owner. An owner can be any Ethereum address, such as:
 
 - Externally-owned account (EOA)
-- An smart contract that implements [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) for signature validation, such as another Safe.
+- A smart contract that implements the [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) for signature validation, like Safe does.
 
 When a Safe owner is an EOA it will generate generate an ECDSA signature to approve a Safe transaction. When a Safe owner is a smart account, the signature algorithm will depends on the implementation of the smart account.
 
