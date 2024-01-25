@@ -273,7 +273,7 @@ const messagesResponse: SafeMessageListResponse = await apiKit.getMessages(safeA
 
 ### `addMessage`
 
-Creates a new message with an initial signature. If you need to add more signatures from other owners use `addMessageSignature()`
+Creates a new message with an initial signature.
 
 ```typescript
 await apiKit.addMessage(safeAddress, { message, signature, safeAppId })
