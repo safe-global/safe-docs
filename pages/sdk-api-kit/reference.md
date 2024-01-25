@@ -257,7 +257,7 @@ const token: TokenInfoResponse = await apiKit.getToken(tokenAddress)
 
 ### `getMessage`
 
-Get a message using safe message hash
+Returns a message from its hash.
 
 ```typescript
 const message: SafeMessage = await apiKit.getMessage(safeMessageHash)
