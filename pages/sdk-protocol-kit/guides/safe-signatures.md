@@ -2,7 +2,7 @@
 
 Understanding and generating signatures can be challenging. The **Safe{Core} SDK** provides a set of utilities to use signatures with Safe. This guide covers how signatures work and how to generate them using the `@safe-global/protocol-kit` package.
 
-## Setting up the example Safe Account
+## Setting up the example Safe account
 
 A Safe account can be configured with different values for the threshold and different types of owner. An owner can be any Ethereum address, such as:
 
@@ -16,9 +16,9 @@ In this guide we will use the following Safe account setup:
 - `safe3_4`: 3/4 Safe (3 signatures required out of 4 owners)
   - `owner1`
   - `owner2`
-  - `signerSafe1_1`: 1/1 Safe Account as child owner
+  - `signerSafe1_1`: 1/1 Safe account as child owner
     - `owner3`
-  - `signerSafe2_3`: 2/3 Safe Account as another child owner
+  - `signerSafe2_3`: 2/3 Safe account as another child owner
     - `owner4`
     - `owner5`
 
@@ -128,7 +128,7 @@ EthSafeTransaction {
 }
 ```
 
-The `data` prop in the `signatures` map represents the concrete signature. The `isContractSignature` flag (_false_) indicates if the signature is an Ethereum signature or a Contract signature (A signer Safe Account).
+The `data` prop in the `signatures` map represents the concrete signature. The `isContractSignature` flag (_false_) indicates if the signature is an Ethereum signature or a Contract signature (A signer Safe account).
 
 An ECDSA signature is composed of two 32-byte integers (r, s) and an extra byte for recovery id (v), making a total of 65 bytes. In hexadecimal string format, each byte is represented by 2 characters. Hence, a 65-byte Ethereum signature will be 130 characters long. Including the '0x' prefix commonly used with signatures, the total character count for such a signature would be 132. For a more detailed explanation, you can refer to [this link](https://docs.safe.global/safe-smart-account/signatures) for more information.
 
@@ -158,11 +158,11 @@ The hexadecimal value `1c` equals to the decimal number 28, indicating that the 
 
 #### Creating Smart contract signatures
 
-**1/1 Safe Account**
+**1/1 Safe account**
 
 The smart contract signatures supported by Safe differ from regular ECDSA signatures. We will use the special method `SigningMethod.SAFE_SIGNATURE` to generate these kind of signatures.
 
-To start signing with the 1/1 Safe, we need the adapter for `owner3` and the new `safeAddress` for the signature. The new `safeAddress` is associated with the child Safe Account. Let's connect the adapter and safe, and continue with the signing process:
+To start signing with the 1/1 Safe, we need the adapter for `owner3` and the new `safeAddress` for the signature. The new `safeAddress` is associated with the child Safe account. Let's connect the adapter and safe, and continue with the signing process:
 
 ```typescript
 // Create a new transaction object with an empty signatures array. The txHash should remain the same. You can copy the safeTx object and remove the contents of the signatures array
@@ -170,7 +170,7 @@ let signerSafeTx1_1 = await protocolKit.createTransaction({
   transactions: [safeTransactionData],
 });
 
-// Connect the adapter for owner3 and provide the address of the signer Safe Account
+// Connect the adapter for owner3 and provide the address of the signer Safe account
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter3,
   safeAddress: signerSafe1_1,
@@ -184,7 +184,7 @@ signerSafeTx1_1 = await protocolKit.signTransaction(
 );
 ```
 
-> When signing with a child Safe Account, it's important to specify the parent Safe address. The parent Safe address is used internally to generate the signature based on the version of the contracts you are using
+> When signing with a child Safe account, it's important to specify the parent Safe address. The parent Safe address is used internally to generate the signature based on the version of the contracts you are using
 
 Once signed, we will have a transaction object (`signerSafeTx1_1`) similar to this one:
 
@@ -201,7 +201,7 @@ EthSafeTransaction {
 }
 ```
 
-Inside the signatures map, there is a regular ECDSA signature (`isContractSignature=false`). We can use this signature to generate an Safe Account smart contract compatible signature. This can be achieved by using the `buildContractSignature()` utility method, which can be found [here](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/signatures/utils.ts#L139-L150). This method takes an array of signatures and output another signature that's ready to be used with Safe Accounts.
+Inside the signatures map, there is a regular ECDSA signature (`isContractSignature=false`). We can use this signature to generate an Safe account smart contract compatible signature. This can be achieved by using the `buildContractSignature()` utility method, which can be found [here](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/signatures/utils.ts#L139-L150). This method takes an array of signatures and output another signature that's ready to be used with Safe Accounts.
 
 ```typescript
 const signerSafeSig1_1 = await buildContractSignature(
@@ -257,9 +257,9 @@ This is what an **EIP-1271** contract signature for Safe contracts looks like. N
 safeTx.addSignature(signerSafeSig1_1);
 ```
 
-**2/3 Safe Account**
+**2/3 Safe account**
 
-The 2/3 Safe Account requires a minimum of 2 signatures to be considered valid. Let's sign it with `owner4` and `owner5`.
+The 2/3 Safe account requires a minimum of 2 signatures to be considered valid. Let's sign it with `owner4` and `owner5`.
 
 ```typescript
 // Create a new transaction object
@@ -267,7 +267,7 @@ let signerSafeTx2_3 = await protocolKit.createTransaction({
   transactions: [safeTransactionData],
 });
 
-// Connect the adapter for owner4 and specify the address of the signer Safe Account
+// Connect the adapter for owner4 and specify the address of the signer Safe account
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter4,
   safeAddress: signerSafeAddress2_3,
@@ -394,7 +394,7 @@ The transaction includes four signatures: two regular and two contract signature
 
 ### Executing the transaction
 
-To start, connect to the original safe and the desired adapter. Ensure sufficient funds are available in the underlying owner account to execute the transaction. In the previous step, we connected the `protocolKit` instance to the 2/3 Safe Account. Once connected, proceed with executing the transaction.
+To start, connect to the original safe and the desired adapter. Ensure sufficient funds are available in the underlying owner account to execute the transaction. In the previous step, we connected the `protocolKit` instance to the 2/3 Safe account. Once connected, proceed with executing the transaction.
 
 ```typescript
 protocolKit = await protocolKit.connect({
@@ -458,7 +458,7 @@ How can we do that? In the previous steps we instantiated the `protocol-kit` and
 const txHash = await protocolKit.getTransactionHash(safeTx);
 
 // Instantiate the api-kit
-const apiKit = new SafeApiKit({ chainId }); // Use the chainId where you have the Safe Account deployed
+const apiKit = new SafeApiKit({ chainId }); // Use the chainId where you have the Safe account deployed
 
 // Extract the signer address and the signature
 const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x';
@@ -530,7 +530,7 @@ We already have a `protocolKit` instance right?, let’s use it to create a new 
 
 ```json
 // An example of string message
-const STRING_MESSAGE = "I'm the owner of this Safe Account"
+const STRING_MESSAGE = "I'm the owner of this Safe account"
 
 // An example of typed data message
 const TYPED_MESSAGE = {
@@ -622,7 +622,7 @@ It feels very similar to the transactions, right? That's because the process is 
 
 #### Creating Smart contract signatures (EIP-1271)
 
-**1/1 Safe Account**
+**1/1 Safe account**
 
 We will sign the message using the 1/1 Safe. Connect `owner3` and sign using the concepts explained earlier.
 
@@ -630,7 +630,7 @@ We will sign the message using the 1/1 Safe. Connect `owner3` and sign using the
 // Create a new message object
 let signerSafeMessage1_1 = await createMessage(TYPED_MESSAGE);
 
-// Connect the adapter for owner3 and specify the address of the signer Safe Account
+// Connect the adapter for owner3 and specify the address of the signer Safe account
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter3,
   safeAddress: signerSafe1_1,
@@ -653,15 +653,15 @@ const signerSafeMessageSig1_1 = await buildContractSignature(
 safeMessage.addSignature(signerSafeMessageSig1_1);
 ```
 
-**2/3 Safe Account**
+**2/3 Safe account**
 
-The 2/3 Safe Account requires a minimum of 2 signatures to be considered valid. Let's sign it with the owners `owner4` and `owner5`.
+The 2/3 Safe account requires a minimum of 2 signatures to be considered valid. Let's sign it with the owners `owner4` and `owner5`.
 
 ```typescript
 // Create a new message object
 let signerSafeMessage2_3 = await createMessage(TYPED_MESSAGE);
 
-// Connect the adapter for owner4 and specify the address of the signer Safe Account
+// Connect the adapter for owner4 and specify the address of the signer Safe account
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter4,
   safeAddress: signerSafeAddress2_3,
