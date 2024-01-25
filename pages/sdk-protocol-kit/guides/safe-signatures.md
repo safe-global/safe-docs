@@ -624,8 +624,6 @@ It feels very similar to the transactions, right? That's because the process is 
 
 #### Creating Smart contract signatures (EIP-1271)
 
----
-
 **1/1 Safe Account**
 
 We will sign the message using the 1/1 Safe. Connect `owner3` and sign using the concepts explained earlier.
