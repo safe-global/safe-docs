@@ -9,11 +9,11 @@ A Safe account can be configured with different values for the threshold and dif
 - Externally-owned account (EOA)
 - An smart contract that implements [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) for signature validation, such as another Safe.
 
-When the owner is an EOA, an ECDSA signature is generated. When the signer is a smart account, the exact signature algorithm depends on the signer itself.
+When a Safe owner is an EOA it will generate generate an ECDSA signature to approve a Safe transaction. When a Safe owner is a smart account, the signature algorithm will depends on the implementation of the smart account.
 
-In this article, we will use the following Safe Account setup. We've five different Ethereum addresses that can act as signers, namely _owner1_ to _owner5_.
+In this guide we will use the following Safe account setup:
 
-- `safeAddress3_4`: 3/4 Safe Account (3 signatures required out of 4 owners)
+- `safe3_4`: 3/4 Safe (3 signatures required out of 4 owners)
   - `owner1`
   - `owner2`
   - `signerSafe1_1`: 1/1 Safe Account as child owner
