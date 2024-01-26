@@ -1,7 +1,13 @@
 {
   "ignorePatterns": [
     {
-      "pattern": "^https://twitter.com"
+      "pattern": "^https://x.com"
+    },
+    {
+      "pattern": "^https://linkedin.com"
+    },
+    {
+      "pattern": "^https://dune.com"
     }
   ]
 }
