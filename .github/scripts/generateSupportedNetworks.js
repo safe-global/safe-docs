@@ -135,22 +135,22 @@ ${_contracts
 generateSupportedNetworks()
 
 const deprecatedBlockExplorers = [
-  'https://ropsten.etherscan.io',
-  'https://rinkeby.etherscan.io',
-  'https://kovan-optimistic.etherscan.io',
-  'https://stardust-explorer.metis.io',
-  'https://blockexplorer.rinkeby.boba.network',
-  'https://blockexplorer.bobabeam.boba.network',
   'https://blockexplorer.avax.boba.network',
-  'https://rabbit.analogscan.com',
-  'https://explorer.eurus.network',
-  'https://testnetexplorer.eurus.network',
-  'https://explorer.tst.publicmint.io',
+  'https://blockexplorer.bobabeam.boba.network',
+  'https://blockexplorer.rinkeby.boba.network',
+  'https://evm.explorer.canto.io',
   'https://evm-testnet.venidiumexplorer.com',
   'https://evm.venidiumexplorer.com',
-  'https://evm.explorer.canto.io',
   'https://explorer.autobahn.network',
-  'https://explorer.cascadia.foundation',
+  'https://explorer.eurus.network',
+  'https://explorer.tst.publicmint.io',
+  'https://goerli.arbiscan.io',
+  'https://kovan-optimistic.etherscan.io',
+  'https://rabbit.analogscan.com',
+  'https://rinkeby.etherscan.io',
+  'https://ropsten.etherscan.io',
+  'https://stardust-explorer.metis.io',
+  'https://testnet.arbiscan.io',
   'https://testnet.torusscan.com',
-  'https://testnet.toruscan.com'
+  'https://testnetexplorer.eurus.network'
 ]
