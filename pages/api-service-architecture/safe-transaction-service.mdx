@@ -89,7 +89,7 @@ sequenceDiagram
 `keccak256(0x19 || 0x1 || domainSeparator || safeTxHashStruct)`  
 where `safeTxHashStruct` is the `hashStruct` of a Safe transaction.
 
-The following example shows how to get a `safe_tx_hash` with [`safe-eth-py`](https://pypi.org/project/safe-eth-py/) with the parameter of the next transaction [0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18](https://safe-transaction-goerli.safe.global/api/v1/multisig-transactions/0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18/)
+The following example shows how to get a `safe_tx_hash` with [`safe-eth-py`](https://pypi.org/project/safe-eth-py/)
 ```python
 from gnosis.safe.safe_tx import SafeTx
 from gnosis.eth.ethereum_client import EthereumClient
