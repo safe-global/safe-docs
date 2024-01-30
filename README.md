@@ -1,8 +1,8 @@
-# <img src="/public/favicon.svg" height="60" valign="middle" alt="Safe{Docs}" />
+# <img src="/public/favicon.png" height="60" valign="middle" alt="Safe{Docs}" />
 
 [![License](https://img.shields.io/github/license/safe-global/safe-docs)](https://github.com/safe-global/safe-docs/blob/main/LICENSE.md)
-<!-- ![Tests](https://img.shields.io/github/actions/workflow/status/safe-global/safe-docs/test.yml?branch=main&label=tests) -->
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/safe-global/safe-docs)
+<!-- ![Tests](https://img.shields.io/github/actions/workflow/status/safe-global/safe-docs/test.yml?branch=main&label=tests) -->
 
 # Safe Docs
 
