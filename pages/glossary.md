@@ -1,185 +1,157 @@
 # Glossary
 
-This glossary contains terms and definitions used throughout the Safe{Core} documentation.
+This glossary contains terms and definitions used throughout the Safe documentation.
 
-## A
+## Account Abstraction
 
-### Account Abstraction
+Account Abstraction is the new paradigm that focuses on improving the user experience when interacting with the blockchain by replacing the use of [externally-owned accounts](#externally-owned-account) with [smart accounts](#smart-account).
 
-Account abstraction is a term used to describe abstracting the concept of an Externally Owned Account (EOA). It's a way to improve the security of Ethereum accounts by adding a layer of abstraction on top of them, effectively turning them into [Smart Accounts](#smart-accounts). This abstraction layer is our central concept for building Safe's vision, as you can read more [here](https://docs.safe.global/safe-smart-account/safe-smart-account).
+Some common features that Account Abstraction can fix are:
+- Elimination of seed phrase reliance
+- Ease of multichain interactions
+- Account recovery
+- [Gasless transactions](#gasless-transaction)
+- Transaction batching
 
-### AuthKit
+See also:
+- [Account Abstraction](https://ethereum.org/en/roadmap/account-abstraction) on ethereum.org
+- [EIP-4337: Account Abstraction](https://www.erc4337.io) on erc4337.io
 
-The AuthKit is a library of the Safe{Core} SDK that provides a set of tools to authenticate users with one of the different [Social Login](#social-login) methods offered, generating an externally owned account that can act as the signer of a Safe.
+## EIP-1271
 
-## B
+The [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) is an [Ethereum Improvement Proposal](https://eips.ethereum.org) that proposes a standard way for any contract to verify whether a signature on behalf of a given contract is valid. This is possible via the implementation of a `isValidSignature(hash, signature)` function on the signing contract, which can be called to validate a signature.
 
-### Bundlers
+## EIP-712
 
-Bundlers are third-party off-chain services that can pay for gas fees on behalf of users. They're used to provide [gasless transactions](#gasless-transactions) in the context of [ERC-4337](#erc-4337) by broadcasting [UserOperations](#userops) as full-fledged Ethereum transactions. You can know more by reading the [Bundlers](https://erc4337.io/docs/bundlers/introduction) section of the 4337 Standard.
+The [EIP-712](https://eips.ethereum.org/EIPS/eip-712) is an Ethereum Improvement Proposal that proposes a standard for hashing and signing of typed structured data as opposed to just bytestrings.
 
-## E
+## ERC-4337
 
-### EIP-1271
+The [ERC-4337](https://eips.ethereum.org/EIPS/eip-4337) is an [Ethereum Request for Comments](https://eips.ethereum.org/erc) that introduces a higher-layer pseudo-transaction object called `UserOperation`. Users send `UserOperation` objects into a separate mempool. A special class of actor called bundlers package up a set of these objects into a transaction making a `handleOps` call to a special contract, and that transaction then gets included in a block.
 
-[EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) is an Ethereum Improvement Proposal describing a standard contract interface to verify signatures and hashes. Both Safe{Core} [Protocol](#safecore-protocol) and [SDK](#safecore-sdk) use it to verify signatures on Safe transactions and enable off-chain functionalities.
+See also:
+- [ERC-4337 Documentation](https://www.erc4337.io) on erc4337.io
 
-### EIP-712
+## Externally-Owned Account
 
-[EIP-712](https://eips.ethereum.org/EIPS/eip-712) is an Ethereum Improvement Proposal describing a typed data hashing and signing standard. All Safe{Core} [Protocol](#safecore-protocol) and [SDK](#safecore-sdk) transactions follow this standard, making them compatible with [EIP-1271](#eip-1271) signature verification.
+An externally-owned account (also known as EOA) is one of the two types of Ethereum accounts. It is controlled by a private key, it has no code and users can send messages by creating and signing Ethereum transactions.
 
-### ERC-4337
+See also:
+- [Ethereum Accounts](https://ethereum.org/en/developers/docs/accounts) on ethereum.org
+- [Ethereum Whitepaper](https://ethereum.org/en/whitepaper/#ethereum-accounts) on ethereum.org
 
-[ERC-4337](https://erc4337.io/) is an Ethereum Request for Comments describing a standard for a [Safe Module](#safe-modules) that allows users to execute transactions without paying gas fees. The Gelato Network uses it to provide [gasless transactions](#gasless-transactions) to Safe users. Safe also partnered with [Pimlico](https://pimlico.io) to develop a [Safe Module](#safe-modules) that implements this standard, allowing developers and [Safe{Wallet}](https://app.safe.global).
+## Gasless Transaction
 
-### EntryPoint
+Gasless transactions (also known as meta-transactions) are Ethereum transactions that are executed by a third party called [relayer](#relayer) on behalf of a [smart account](#smart-account) to abstract the use of gas. Users need to sign a message (instead of the transaction itself) with information about the transaction they want to execute and a relayer will be in charge of creating the Ethereum transaction, signing it and executing it, paying for the gas costs. The main benefit is that users can interact with the blockchain without needing to hold the native token in their account.
 
-EntryPoint is part of the [4337 Standard](#erc-4337) and describes a smart contract deployed once per chain (a [singleton](#singleton)) to verify and execute bundles of [UserOps](#userops) sent to it. You can know more by reading the [EntryPoint](https://erc4337.io/docs/understanding-ERC-4337/entry-point-contract) section of the 4337 Standard.
+See also:
+- [Relay Kit documentation](./sdk-relay-kit) on docs.safe.global
 
-### Externally Owned Accounts
+## Network
 
-An Externally Owned Account (or EOA) is one of Ethereum's two types of [accounts](https://ethereum.org/en/whitepaper/#ethereum-accounts). It represents an Ethereum address and is used to sign transactions and messages. The Ethereum white paper introduced it along with the other type of account: [smart contracts](https://ethereum.org/en/whitepaper/#scripting). The central vision of Safe is to provide safe and secure tools for users to interact with the blockchain, and moving from EOAs to [Smart Accounts](#smart-accounts) is its primary way of achieving this vision.
+A blockchain network is a collection of interconnected computers that utilize a blockchain protocol for communication.
+Decentralized networks allow users to send transactions, that are processed on a distributed ledger with a consensus mechanism ensuring the batching,
+verification, and acceptance of data into blocks. This structure enables the development of applications without the need for a central authority or server.
 
-## F
+See also:
+- [Networks](https://ethereum.org/en/developers/docs/networks) on ethereum.org
 
-### Function Handlers
+## Owner
 
-Function handlers are a type of [module](#safe-modules) that extends the functionality of Safe{Core} by allowing Safes to respond to any instructions from arbitrary function calls. You can learn more by reading the Safe Modular Smart Account Architecture presentation [here](https://safe.mirror.xyz/t76RZPgEKdRmWNIbEzi75onWPeZrBrwbLRejuj-iPpQ).
+A Safe owner is one of the accounts that control a given Safe, being the only ones that can manage the configuration of a Safe and approve transactions. They can be either [externally-owned accounts](#externally-owned-account) or [smart accounts](#safe-smart-accounts). The [threshold](#threshold) of a Safe defines how many owners need to approve a Safe transaction to make it executable.
 
-<!-- You can know more by reading the [Function Handlers](https://docs.safe.global/safe-modules/function-handlers) section of the Safe{Core} SDK documentation. -->
+See also:
+- [OwnerManager.sol](https://github.com/safe-global/safe-smart-account/blob/main/contracts/base/OwnerManager.sol) on github.com
 
-## G
+## Relayer
 
-### Gasless Transactions
+A relayer is a third-party service serving as an intermediary between users' accounts and [blockchain networks](#network). It executes transactions on behalf of users and covers the associated execution costs, which may or may not be claimed.
 
-Gasless transactions (also known as meta-transactions) are [Ethereum transactions](#transactions) paid for by a third party. They can be paid for by a [relayer](#relayers) or a Safe{Wallet} user's Safe. They're used to provide a better user experience by removing the need for users to pay for gas fees or even having to buy cryptocurrency altogether when interacting with a blockchain.
+See also:
+- [What is Relaying?](https://docs.gelato.network/developer-services/relay/what-is-relaying) on docs.gelato.network
 
-## H
+## Safe{DAO}
 
-### Hooks
+The Safe{DAO} is the [Decentralized Autonomous Organization](https://ethereum.org/dao) (DAO) that aims to foster a vibrant ecosystem of applications and wallets leveraging Safe accounts. This will be achieved through data-backed discussions, grants, ecosystem investments, as well as providing developer tools and infrastructure.
 
-Hooks are a type of [module](#safe-modules) that allows users to perform checks or function calls before and after a Safe transaction.
+See also:
+- [Safe{DAO} Forum](https://forum.safe.global)
+- [Safe{DAO} Governance process](https://forum.safe.global/t/how-to-safedao-governance-process/846) on forum.safe.global
+- [Safe{DAO} Proposals](https://snapshot.org/#/safe.eth) on snapshot.org
 
-## M
+## Safe{Wallet}
 
-### Managers
+[Safe{Wallet}](https://app.safe.global) is the official user interface to manage Safe accounts.
 
-Managers are a core unit constituting the [Safe{Core} Protocol](#safecore-protocol) (along with [modules](#modules) and [registries](#registries)) that allows users to manage the modules installed on a specific implementation of [account abstraction](#account-abstraction) standards.
+See also:
+- [Getting Started with Safe{Wallet}](https://help.safe.global/en/collections/9801-getting-started) on help.safe.global
 
-## N
+## Safe Apps
 
-### Networks
+Safe Apps are web applications that are run in the Safe Apps marketplace. They support Safe, use the Safe Apps SDK to interact with it and are not owned, controlled, maintained, or audited by Safe.
 
-Networks are Ethereum-based ledgers. They're used to store transactions and smart contracts. They're also used to transfer funds from one account to another or as a support to interact with smart contracts. You can find a list of supported networks by Safe{Core} Protocol [here](../safe-smart-account/supported-networks.md) and the list of the ones supported by Safe{Core} API [here](../safe-core-api/supported-networks.md).
+See also:
+- [Safe Apps SDK documentation](./apps-sdk-overview) on docs.safe.global
 
-## O
+## SafeAuth
 
-### Owners
+SafeAuth is a Multi-Party Computation (MPC)-based product developed by [Safe](https://safe.global) and [Web3Auth](https://web3auth.io). Compatible with [Safe{Wallet}](https://app.safe.global), SafeAuth allows developers to build portable smart account use cases. Users are empowered to plug and play their user accounts between one decentralised application to another through just their social login.
 
-Owners are the Ethereum addresses that control a [Safe Smart Account](#safe-smart-accounts). They can be either [EOAs](#externally-owned-account) or other [smart accounts](#safe-smart-accounts).
+See also:
+- [SafeAuth documentation](./sdk-auth-kit/guides/safe-auth.md) on docs.safe.global
+- [SafeAuth demo app](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/example) on github.com
+- [Safe + Web3Auth = SafeAuth: Portable Safe Accounts with social login](https://safe.mirror.xyz/WKxK5FENvkT8BjpowJQAhokYzb22438zUCG3wUSWvjc) on safe.mirror.xyz
 
-## P
+## Safe Guard
 
-### Plugins
+A Safe Guard is a smart contract that adds restrictions on top of the n-out-of-m scheme that Safe accounts offer, making checks before and after a Safe transaction is executed.
 
-Plugins are a [module](#safe-modules) that extends the functionality of Safe{Core} by adding custom features. They can be used to add support for off-chain operations interacting with a Safe through an external service or to add support for a specific smart contract.
+See also:
+- [Safe Guards documentation](./smart-account-guards) on docs.safe.global
+- [Zodiac Guards](https://zodiac.wiki/index.php?title=Category:Guards) on zodiac.wiki
+- [Get the enabled Safe Guard](./sdk-protocol-kit/reference#getguard) and [enable a Safe Guard](./sdk-protocol-kit/reference#createenableguardtx) with the Safe{Core} SDK on docs.safe.global
 
-### Paymasters
+## Safe Module
 
-Paymasters are part of the [4337 Standard](#erc-4337) and describe a smart contract that can pay for gas fees on behalf of users. In the context of Safe, they're used to provide [gasless transactions](#gasless-transactions) to Safe users, and can be customized to follow specific business logics. You can know more by reading the [Paymasters](https://erc4337.io/docs/paymasters/introduction) section of the 4337 Standard.
+A Safe Module is a smart contract that adds functionality to Safe while separating module logic from Safe core contracts.
 
-## R
+See also:
+- [Safe Modules documentation](./smart-account-modules) on docs.safe.global
+- [Safe Modules repository](https://github.com/safe-global/safe-modules) on github.com
+- [Zodiac Modules](https://zodiac.wiki/index.php?title=Category:Module) on zodiac.wiki
+- [Get the enabled Safe Modules](./sdk-protocol-kit/reference#getmodules) and [enable a Safe Module](./sdk-protocol-kit/reference#createenablemoduletx) with the Safe{Core} SDK on docs.safe.global
 
-### Relayers
+## Smart Account
 
-Relayers are third-party services that can pay for gas fees on behalf of users. They're used to provide [gasless transactions](#gasless-transactions) to Safe users.
+A smart account (also known as smart contract account) leverages the programmability of smart contracts to extend its functionality and improve its security in comparison with [externally-owned accounts](#externally-owned-account). Smart accounts are controlled by one or multiple externally-owned accounts or other smart accounts, and all its transactions have to be initiated by one of those.
 
-### Registries
+Some common features that smart accounts offer to their users are:
+- Multisignature scheme
+- Transaction batching
+- Account recovery
+- [Gasless transactions](#gasless-transaction)
 
-Registries are a core unit constituting the [Safe{Core} Protocol](#safecore-protocol) (along with [modules](#modules) and [managers](#managers)) that allows users to register and un-register modules on a Safe. They're used to provide a way for users to manage the modules installed on their Safes while ensuring the security of the protocol.
+Safe is one of the most trusted implementations of a smart account.
 
-## S
+## Transaction
 
-### Safe{Core}
+A transaction is an action initiated by an [externally-owned account](#externally-owned-account) to update the state of the EVM network. Transaction objects need to be signed using the sender's private key, require a fee and must be included in a validated block.
 
-Safe{Core} is a set of smart contracts and Typescript packages used to build Safe{Wallet} and other open-source wallets with security and usability in mind.
+A Safe transaction is a transaction sent to a Safe Proxy contract calling the [execTransaction](https://github.com/safe-global/safe-smart-account/blob/main/contracts/Safe.sol#L104) method.
 
-### Safe{Core} API
+See also:
+- [Transactions](https://ethereum.org/developers/docs/transactions) on ethereum.org
 
-[Safe{Core} API](../safe-core-api/service-architecture.md) is a set of REST APIs built to interact more easily with [Safe{Core} Protocol](#safecore-protocol). The [Safe{Core} SDK API Kit](../safe-core-sdk/api-kit/README.md) is a TypeScript client for this API.
+## Threshold
 
-### Safe{Core} SDK
+The threshold of a Safe account is a crucial configuration element that enables the use of Safe as a multisignature smart account. It defines the number of required confirmations from the Safe owners a Safe transaction must have to be executable.
 
-Safe{Core} SDK is a Typescript library built to interact with Safe{Core} Protocol. Safe{Wallet} interacts with Safes by using it internally. You can know more by reading the [Safe{Core} SDK](https://docs.safe.global/safe-core-aa-sdk) documentation. If you are facing any issues without a solution in the documentation, you can also ask questions in [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core-sdk) using the tag `safe-core-sdk`.
+See also:
+- [Get the threshold](./sdk-protocol-kit/reference#getthreshold) and [change the threshold](./sdk-protocol-kit/reference#createchangethresholdtx) of a Safe with the Safe{Core} SDK on docs.safe.global
 
-### Safe{Core} Protocol
+## Wallet
 
-[Safe{Core} Protocol](https://docs.safe.global/safe-core-protocol/safe-core-protocol) is a set of [smart contracts](https://github.com/safe-global/safe-core-protocol) used to build [Safe Smart Accounts](#safe-smart-accounts). You can find information about why we built Safe{Core} Protocol in its original [announcement](https://safe.mirror.xyz/KiklifJINUpklBzf-usK_54EC86AfSeX5wH89bNxglM). This standard is the core of the Safe ecosystem, and Safe{Wallet} relies on it to interact with Safes via [Safe{Core} SDK Protocol Kit](https://docs.safe.global/safe-core-aa-sdk/protocol-kit), which allows developers to interact with the protocol using TypeScript. You can read more in the [protocol specifications](https://github.com/safe-global/safe-core-protocol-specs) and the [white paper](https://github.com/safe-global/safe-core-protocol-specs/blob/main/whitepaper.pdf).
+A Wallet is an interface or application that gives users control over their blockchain account. Wallets allow users to sign in to applications, read their account balance, send transactions and verify their identity.
 
-{% hint style="warning" %} Safe{Core} Protocol isn't yet ready for production. For the current implementation used across Safe's ecosystem, see the [`safe-contracts`](https://github.com/safe-global/safe-contracts/tree/main) repository. {% endhint %}
-
-### Safe{DAO}
-
-Safe{DAO} is a decentralized autonomous organization that governs the Safe ecosystem. It manages the Safe{Core} smart contracts and parts of the Safe{RecoveryHub} process. You can know more by visiting the [Safe{DAO}](https://governance.safe.global/) governance portal.
-
-### Safe{Wallet}
-
-Safe{Wallet} is the official user interface to manage Safe accounts. It can sign transactions and messages and interact with other smart contracts from the web, at [app.safe.global](https://app.safe.global), or from a mobile device, using the [Safe{Wallet} mobile app](https://safe.global/wallet). It uses the Safe{Core} SDK internally. You can know more by reading our [Support Center](https://help.safe.global)'s [Safe{Wallet}](https://help.safe.global/en/collections/9801-getting-started) section.
-
-<!-- ### Safe{RecoveryHub}
-
-Safe{RecoveryHub} is a process used to describe recovering access to a Safe. It's a way to improve the security of Safes by enabling Safe owners to split control of their Safe with a decentralized committee selected by Safe{DAO}. You can know more by reading the [Safe Recovery](https://help.safe.global/en/articles/110656-account-recovery-with-safe-recoveryhub) guide. -->
-
-### Safe Apps
-
-Safe Apps are web applications that can interact with Safe. They're used to provide a better user experience when interacting with Safe and internally use the [Safe Apps SDK](../safe-apps/README.md). They can interact with Safe{Wallet} and fully utilize its main features, such as [transactions](#transactions) and [modules](#modules). The [Safe App Gallery](https://app.safe.global/apps) displays all the Apps that any Safe{Wallet} user can use.
-
-### SafeAuth
-
-SafeAuth is a part of the [Safe{Core} SDK Auth Kit](https://docs.safe.global/safe-core-aa-sdk/auth-kit) that provides tools to authenticate users with one of the different [Social Login](#social-login) methods offered, thanks to our integration with [Web3Auth](https://web3auth.io/) generating an externally owned account that can act as a [Safe Smart Account](#safe-smart-accounts) signer. You can know more by reading the [Safe Auth](https://docs.safe.global/safe-core-aa-sdk/auth-kit/guides/safe-auth) guide.
-
-### Safe Guards
-
-Guards are smart contracts that can protect Safe transactions. They're used to add an extra layer of security to Safe transactions by adding custom rules to them before or after a transaction. For example, a guard can protect a Safe transaction from being executed if a specific user doesn't sign the transaction.
-
-### Safe Modules
-
-[Safe Modules](https://docs.safe.global/safe-smart-account/modules) are the core units constituting the [Safe{Core} Protocol](#safecore-protocol). They come in four types: [Function Handlers](#function-handlers), [Hooks](#hooks), [Plugins](#plugins), and [Signature Verifiers](#signature-verifiers). They're used to extend the functionality of Safe{Core} by adding custom features and business logic in a secured way, while avoiding any type of vendor lock-in. The protocol ensures the security of modules through [registries](#registries), and that it remains vendor agnostic by encapsulating different [account abstraction](#account-abstraction) implementations through a [manager](#managers).
-
-### Safe Smart Accounts
-
-Smart Accounts (sometimes known as Smart Contract Wallets, Smart Wallets, or Contract Wallets) are a way to improve the security of Ethereum [Externally Owned Accounts](#externally-owned-account) by adding a layer of abstraction on top of them, adding features for recovery, [social logins](#social-login), and [gasless transactions](#gasless-transactions). They're [smart contracts](https://ethereum.org/en/whitepaper/#scripting) used to store funds and execute transactions on behalf of their owners. In Safe's context, Safe Smart Accounts are any implementation of the [`safe-contracts`](https://github.com/safe-global/safe-contracts/) repository. This abstraction layer is our central concept for building [Safe's vision](https://docs.safe.global/safe-smart-account/safe-smart-account).
-
-### Singleton
-
-Singleton is a term used to describe a smart contract that can only be deployed once. In the context of Safe, it describes the [Safe{Core} Proxy](https://github.com/safe-global/safe-contracts/blob/main/contracts/proxies/SafeProxy.sol) smart contract deployed once on each [supported network](../safe-smart-account/supported-networks.md) so that all future Safes deployed on these networks can delegate transactions and function calls to it.
-
-### Signature verifiers
-
-Signature verifiers are a type of [module](#safe-modules) that allows users to verify [EIP-1271](#eip-1271) signatures on Safe transactions. It offers developers greater flexibility to define the verification logic of their choice.
-
-## T
-
-### Transactions
-
-Transactions are what change the state of Ethereum-based ledgers. They're used to transfer funds from one account to another or to interact with smart contracts. You can learn more about how Safe{Wallet} handles transactions by reading the [Transactions](https://help.safe.global/en/collections/9814-transactions) section of our [Support Center](https://help.safe.global).
-
-### Threshold
-
-Threshold is a term used to describe the number of signatures required to execute a Safe transaction. It's used to improve the security of Safes by requiring multiple signatures to execute a transaction. You can know more by reading the [`getThreshold`](https://docs.safe.global/safe-core-aa-sdk/protocol-kit/reference#getthreshold) and [`createChangeThresholdTx`](https://docs.safe.global/safe-core-aa-sdk/protocol-kit/reference#createchangethresholdtx) sections of the [Safe{Core} SDK](#safecore-sdk) [Protocol Kit](https://docs.safe.global/safe-core-aa-sdk/protocol-kit) [reference](https://docs.safe.global/safe-core-aa-sdk/protocol-kit/reference).
-
-## U
-
-### UserOps
-
-UserOps is part of the [4337 Standard](#erc-4337) and describes an object ("pseudo-transaction") representing a transaction that can be executed without paying gas fees. Dapps usually create them, and wallets (not only Safe{Wallet}) should be able to translate them into regular transactions and execute them. You can know more by reading the [UserOps](https://erc4337.io/docs/understanding-ERC-4337/user-operation) section of the 4337 Standard.
-
-## W
-
-### Wallet
-
-A wallet is a piece of software used to manage Ethereum accounts. It can sign transactions and messages and interact with smart contracts.
-
-<!-- ### WalletConnect
-
-WalletConnect is a protocol for connecting decentralized applications to mobile wallets with QR code scanning or deep linking. It can link Safe{Wallet} to other decentralized applications. You can follow [this guide](https://help.safe.global/en/articles/108235-how-to-connect-a-safe-to-a-dapp-using-walletconnect) to know more. -->
+See also:
+- [Ethereum Wallets](https://ethereum.org/wallets) on ethereum.org
