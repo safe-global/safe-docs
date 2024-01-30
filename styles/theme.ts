@@ -66,10 +66,10 @@ export const theme = createTheme({
     h1: {
       fontSize: '56px',
       lineHeight: '60px',
-      fontWeight: 400,
+      fontWeight: 700,
 
       '@media (min-width:600px)': {
-        fontSize: '80px',
+        fontSize: '36px',
         lineHeight: '82px'
       }
     },

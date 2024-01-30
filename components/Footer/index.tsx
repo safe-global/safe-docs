@@ -167,41 +167,56 @@ const subFooterItems: FooterLink[] = [
   }
 ]
 
-function LinksColumn({ title, items } : { title: string, items: FooterLink[] }) {
-  return (
-    <Grid item sm={6} md={2}>
-      <Typography variant='caption' color='text.primary'>
-        {title}
-      </Typography>
-      <ul className={css.list}>
-        {items.map(item => (
-          <li className={css.listItem} key={item.href}>
-            <Link href={item.href} target={item.target} rel={item.rel}>
-              {item.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </Grid>
-  )
-}
+const LinksColumn: React.FC<{ title: string, items: FooterLink[] }> = ({
+  title,
+  items
+}) => (
+  <Grid item sm={6} md={2}>
+    <Typography variant='caption' color='text.primary'>
+      {title}
+    </Typography>
+    <ul className={css.list}>
+      {items.map(item => (
+        <li className={css.listItem} key={item.href}>
+          <Link href={item.href} target={item.target} rel={item.rel}>
+            {item.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </Grid>
+)
 
-function Socials() {
-  return (
-    <Grid item xs={12} md={3} mt={{ xs: 6, md: 0 }}>
-      <div className={css.socials}>
-        {createFooterButton('X page', X_LINK, XIcon as React.FC)}
-        {createFooterButton('Discourse forum', FORUM_LINK, DiscourseIcon as React.FC)}
-        {createFooterButton('Discord server', DISCORD_LINK, DiscordIcon as React.FC)}
-        {createFooterButton('Youtube channel', YOUTUBE_LINK, YoutubeIcon as React.FC)}
-        {createFooterButton('Mirror blog', MIRROR_LINK, MirrorIcon as React.FC)}
-        {createFooterButton('Github organization', GITHUB_LINK, GithubIcon as React.FC)}
-      </div>
-    </Grid>
-  )
-}
+const Socials: React.FC = () => (
+  <Grid item xs={12} md={3} mt={{ xs: 6, md: 0 }}>
+    <div className={css.socials}>
+      {createFooterButton('X page', X_LINK, XIcon as React.FC)}
+      {createFooterButton(
+        'Discourse forum',
+        FORUM_LINK,
+        DiscourseIcon as React.FC
+      )}
+      {createFooterButton(
+        'Discord server',
+        DISCORD_LINK,
+        DiscordIcon as React.FC
+      )}
+      {createFooterButton(
+        'Youtube channel',
+        YOUTUBE_LINK,
+        YoutubeIcon as React.FC
+      )}
+      {createFooterButton('Mirror blog', MIRROR_LINK, MirrorIcon as React.FC)}
+      {createFooterButton(
+        'Github organization',
+        GITHUB_LINK,
+        GithubIcon as React.FC
+      )}
+    </div>
+  </Grid>
+)
 
-function SubFooter() {
+const SubFooter: React.FC = () => {
   // const { openBanner } = useCookieBannerContext()
 
   const showBanner = (e: SyntheticEvent): void => {
@@ -257,24 +272,22 @@ const createFooterButton = (
   )
 }
 
-function Footer() {
-  return (
-    <Container className={css.wrapper}>
-      <Grid container flexDirection={{ xs: 'column', sm: 'row' }}>
-        <Grid item xs={12} md={3} mb={{ xs: 4, md: 0 }}>
-          <Link href={SAFE_LINK} target="_blank" rel="noreferrer">
-            <Logo className={css.logo} />
-          </Link>
-        </Grid>
-        <LinksColumn title="Safe" items={safeItems} />
-        <LinksColumn title="Community" items={communityItems} />
-        <LinksColumn title="Resources" items={resourcesItems} />
-        <Socials />
+const Footer: React.FC = () => (
+  <Container className={css.wrapper}>
+    <Grid container flexDirection={{ xs: 'column', sm: 'row' }}>
+      <Grid item xs={12} md={3} mb={{ xs: 4, md: 0 }}>
+        <Link href={SAFE_LINK} target='_blank' rel='noreferrer'>
+          <Logo className={css.logo} />
+        </Link>
       </Grid>
-      <Divider sx={{ mt: 5, mb: { xs: 3, md: 0 } }} />
-      <SubFooter />
-    </Container>
-  )
-}
+      <LinksColumn title='Safe' items={safeItems} />
+      <LinksColumn title='Community' items={communityItems} />
+      <LinksColumn title='Resources' items={resourcesItems} />
+      <Socials />
+    </Grid>
+    <Divider sx={{ mt: 5, mb: { xs: 3, md: 0 } }} />
+    <SubFooter />
+  </Container>
+)
 
 export default Footer

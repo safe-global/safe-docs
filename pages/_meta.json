@@ -47,6 +47,14 @@
     "type": "separator",
     "title": "Miscellaneous"
   },
+  "resource-hub": {
+    "title": "Resource Hub",
+    "type": "page",
+    "theme": {
+      "layout": "raw"
+    }
+  },
+  "bug-bounty": "Bug Bounty",
   "support": {
     "title": "Support ↗",
     "type": "page",
