@@ -2,7 +2,7 @@
 
 ## Social media
 
-- [Twitter](https://twitter.com/safe)
+- [Twitter](https://x.com/safe)
 - [LinkedIn](https://www.linkedin.com/company/safe-ecosystem/)
 - [YouTube](https://www.youtube.com/@safeglobal)
 - [Mirror](https://safe.mirror.xyz)
