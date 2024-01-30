@@ -67,11 +67,12 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
         borderColor: 'transparent',
         '&:hover': {
           borderColor: 'secondary.light'
-        }
+        },
+        width: '100%'
       }}
       className={css.card}
     >
-      <a href={resource.url} target='_blank' rel='noreferrer'>
+      <a href={resource.url} target='_blank' rel='noreferrer' style={{ width: '100%' }}>
         {CardContent}
       </a>
     </Box>
