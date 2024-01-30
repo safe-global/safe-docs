@@ -31,7 +31,7 @@ const deduplicate = (acc, curr) => {
   return [...acc, curr]
 }
 
-const supportedNetworksPath = './pages/safe-smart-account/supported-networks'
+const supportedNetworksPath = './pages/smart-account-supported-networks'
 
 const generateSupportedNetworks = async () => {
   const deploymentRepoUrl = 'https://github.com/safe-global/safe-deployments/'
