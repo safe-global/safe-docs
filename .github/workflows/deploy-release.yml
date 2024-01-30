@@ -1,16 +1,15 @@
-name: Deploy to staging
+name: Release
 
 on:
-  push:
-    branches:
-      - development
+  release:
+    types: [published]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions: write-all
 
-    name: Deploy to staging
+    name: Deploy release
 
     steps:
       - name: Cancel previous runs
@@ -38,9 +37,16 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # Deploy the development branch to staging
-      - name: Deploy to the staging S3
-        if: github.ref == 'refs/heads/development'
+      # Deploy the main branch to production environment
+      - name: Deploy to the production S3
+        if: github.ref == 'refs/heads/main'
         env:
-          BUCKET: s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/current
+          BUCKET: s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/releases/${{ github.event.release.tag_name }}
         run: bash ./.github/scripts/s3_upload.sh
+
+      # Script to prepare production deployments
+      - run: bash ./.github/scripts/prepare_production_deployment.sh
+        env:
+          PROD_DEPLOYMENT_HOOK_TOKEN: ${{ secrets.PROD_DEPLOYMENT_HOOK_TOKEN }}
+          PROD_DEPLOYMENT_HOOK_URL: ${{ secrets.PROD_DEPLOYMENT_HOOK_URL }}
+          VERSION_TAG: ${{ github.event.release.tag_name }}

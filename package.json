@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "4.0.0",
   "description": "Safe docs",
   "scripts": {
     "build": "next build",
@@ -31,6 +31,7 @@
     "@preact/signals": "^1.2.2",
     "@svgr/webpack": "^8.1.0",
     "cypress": "^13.6.3",
+    "fuse.js": "^7.0.0",
     "markdown-link-check": "^3.11.2",
     "next": "^14.0.3",
     "nextra": "2.13.2",

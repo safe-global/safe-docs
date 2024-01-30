@@ -8,7 +8,7 @@ We use a [MultiSend](https://github.com/safe-global/safe-contracts/blob/v1.2.0/c
 
 We've updated the library as well as our interfaces. Details about the fix can be found on [GitHub](https://github.com/safe-global/safe-contracts/pull/156).
 
-This bug was submitted by [Micah Zoltu](https://twitter.com/micahzoltu). It was regarded as a "Low Threat," and a bounty of 1,000 USD has been paid out.
+This bug was submitted by [Micah Zoltu](https://x.com/micahzoltu). It was regarded as a "Low Threat," and a bounty of 1,000 USD has been paid out.
 
 ## Transaction failure when receiving funds via `transfer` or `send`
 
@@ -20,7 +20,7 @@ A bug in the `setupOwners` function on `OwnerManager.sol` allows duplicate owner
 
 The Safe interfaces prevent this by checking for duplicates, but if users directly interact with the contracts, this can still happen. The issue is tracked on [GitHub](https://github.com/safe-global/safe-contracts/issues/244).
 
-This bug was submitted by [David Nicholas](https://twitter.com/davidnich11). It was regarded as a "Medium Threat," and a bounty of 2,500 USD has been paid out.
+This bug was submitted by [David Nicholas](https://x.com/davidnich11). It was regarded as a "Medium Threat," and a bounty of 2,500 USD has been paid out.
 
 ## Setting a Safe as an owner of itself essentially reduces the threshold by 1
 
