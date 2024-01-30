@@ -17,7 +17,7 @@ Safe's production setup is a mixture of several instances of the Safe Transactio
 
 ## Safe Transaction Service
 
-The Transaction Service uses tracing in Mainnet/Goerli and Gnosis Chain and event indexing in other chains to keep track of transactions related to Safe contracts. One instance of the Transaction Service runs per supported network (Mainnet, Goerli, Gnosis Chain, Polygon, etc.).
+The Transaction Service uses tracing in Mainnet/Sepolia and Gnosis Chain and event indexing in other chains to keep track of transactions related to Safe contracts. One instance of the Transaction Service runs per supported network (Mainnet, Sepolia, Gnosis Chain, Polygon, etc.).
 
 ## Safe Config Service
 
