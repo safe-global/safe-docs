@@ -65,22 +65,15 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
         transition: 'all 0.2s ease-in-out',
         border: '1px solid',
         borderColor: 'transparent',
-        '&:hover':
-          resource.type === 'Video'
-            ? undefined
-            : {
-                borderColor: 'secondary.light'
-              }
+        '&:hover': {
+          borderColor: 'secondary.light'
+        }
       }}
       className={css.card}
     >
-      {resource.type === 'Video' ? (
-        CardContent
-      ) : (
-        <a href={resource.url} target='_blank' rel='noreferrer'>
-          {CardContent}
-        </a>
-      )}
+      <a href={resource.url} target='_blank' rel='noreferrer'>
+        {CardContent}
+      </a>
     </Box>
   )
 }
