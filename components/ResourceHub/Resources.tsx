@@ -11,7 +11,8 @@ import {
   Toolbar,
   IconButton,
   Box,
-  Link
+  Link,
+  Container
 } from '@mui/material'
 import type { Dispatch, ReactElement, SetStateAction } from 'react'
 import type { GridProps } from '@mui/material'
@@ -238,13 +239,23 @@ export const Resources = (): ReactElement => {
   )
 
   return (
-    <>
+    <Container>
       <Grid container mb={8} mt={4}>
-        <Grid item xs={12} md={8}>
+        <Grid
+          item
+          container
+          xs={12}
+          flexDirection='column'
+          alignItems='center'
+          justifyContent='center'
+        >
+          <Typography textAlign='center' variant='h1'>
+            Resource Hub
+          </Typography>
           <TextField
             className={css.searchField}
             variant='outlined'
-            placeholder='Search by name, description or category'
+            placeholder='Search by name, description or tag'
             InputProps={{
               startAdornment: (
                 <InputAdornment position='start'>
@@ -261,13 +272,12 @@ export const Resources = (): ReactElement => {
                 ) : undefined
             }}
             value={query}
-            sx={{ border: 'none' }}
+            sx={{ border: 'none', width: '80%' }}
             onChange={e => {
               setQuery(e.target.value)
             }}
             fullWidth
           />
-
           <Typography mt={2}>
             <Typography component='span' color='primary.light'>
               Example:
@@ -322,7 +332,7 @@ export const Resources = (): ReactElement => {
             onClick={() => {
               setIsFilterDrawerOpen(true)
             }}
-            sx={{ display: ['flex', 'none'] }}
+            sx={{ display: ['flex', 'flex', 'none'] }}
           >
             <FilterIcon />
             Filter
@@ -382,7 +392,7 @@ export const Resources = (): ReactElement => {
           ))}
         </Grid>
 
-        <Grid item sx={{ display: ['none', 'block'] }} md={3}>
+        <Grid item sx={{ display: ['none', 'none', 'block'] }} md={3}>
           {sidebar}
         </Grid>
 
@@ -480,7 +490,7 @@ export const Resources = (): ReactElement => {
           </Button>
         </div>
       </Dialog>
-    </>
+    </Container>
   )
 }
 
