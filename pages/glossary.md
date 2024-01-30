@@ -34,7 +34,7 @@ See also:
 
 ## Externally-Owned Account
 
-An externally-owned account (also known as EOA) is one of the two types of Ethereum accounts. It is controlled by a private key, it has no code and users can send messages by creating and signing Ethereum transactions.
+An externally-owned account (also known as EOA) is one of the two types of Ethereum accounts. It's controlled by a private key, it has no code and users can send messages by creating and signing Ethereum transactions.
 
 See also:
 - [Ethereum Accounts](https://ethereum.org/en/developers/docs/accounts) on ethereum.org
@@ -68,7 +68,7 @@ See also:
 A relayer is a third-party service serving as an intermediary between users' accounts and [blockchain networks](#network). It executes transactions on behalf of users and covers the associated execution costs, which may or may not be claimed.
 
 See also:
-- [What is Relaying?](https://docs.gelato.network/developer-services/relay/what-is-relaying) on docs.gelato.network
+- [What's Relaying?](https://docs.gelato.network/developer-services/relay/what-is-relaying) on docs.gelato.network
 
 ## Safe{DAO}
 
@@ -88,7 +88,7 @@ See also:
 
 ## Safe Apps
 
-Safe Apps are web applications that are run in the Safe Apps marketplace. They support Safe, use the Safe Apps SDK to interact with it and are not owned, controlled, maintained, or audited by Safe.
+Safe Apps are web applications that are run in the Safe Apps marketplace. They support Safe, use the Safe Apps SDK to interact with it and aren't owned, controlled, maintained, or audited by Safe.
 
 See also:
 - [Safe Apps SDK documentation](./apps-sdk-overview) on docs.safe.global

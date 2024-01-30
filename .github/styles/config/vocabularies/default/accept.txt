@@ -12,6 +12,7 @@
 [Bb]inance
 [Bb]lockchain
 [Bb]lockchains
+[Bb]undlers
 [Cc]elo
 [Cc]omposable
 [Cc]onfig
@@ -22,7 +23,9 @@
 [Dd]elist
 [Ee]ndhint
 [Ee]rigon
+[Ee]thereum
 [Gg]asless
+[Gg]elato
 [Gg]oerli
 [Gg]nosis
 [Ll]ogics
@@ -42,6 +45,7 @@
 [Ss]epolia
 [Tt]estnet
 [Vv]alidator
+[Ww]hitepaper 
 A1
 AA
 ABI
@@ -62,7 +66,6 @@ Blocknative
 Blockscout
 Boba
 Bobabeam
-Bundlers
 C-Chain
 C1
 CORS
@@ -88,7 +91,6 @@ EVM
 EdgeEVM
 Edgeware
 EtherLite
-Ethereum
 Etherscan
 Eurus
 Evmos
@@ -97,7 +99,6 @@ Foesenek
 Fuji
 Fuse
 GC
-Gelato
 Godwoken
 Gunicorn
 Haqq
@@ -193,8 +194,12 @@ Zora
 address_full_match
 auth_code
 boolean
+bytestrings
 checksummed
+execTransaction
+mempool
 monorepo
+multichain
 npm
 onboarding
 onchain
