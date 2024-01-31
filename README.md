@@ -1,28 +1,75 @@
-# <img src="assets/svg/safe-logo-white.svg" height="60" valign="middle" alt="Safe{Docs}" />
+# Safe Documentation
 
 [![License](https://img.shields.io/github/license/safe-global/safe-docs)](https://github.com/safe-global/safe-docs/blob/main/LICENSE.md)
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/safe-global/safe-docs)
-<!-- ![Tests](https://img.shields.io/github/actions/workflow/status/safe-global/safe-docs/test.yml?branch=main&label=tests) -->
 
-# Safe{Docs}
+This repository hosts [Safe](https://safe.global) documentation.
 
-This repository hosts [Safe](https://safe.global)'s documentation website, built with [Nextra](https://nextra.site). Live version can be found at [docs.safe.global](https://docs.safe.global).
+The documentation is built with [Nextra](https://nextra.site) and is live at [docs.safe.global](https://docs.safe.global).
 
-## Quick Start
+## Installation
 
-First, run `pnpm i` to install the dependencies.
+Install the dependencies using [pnpm](https://pnpm.io):
 
-Then, run `pnpm dev` to start the development server and visit `localhost:3000``.
+```
+pnpm install
+```
 
-## Build
+## Development
 
-Run `pnpm build` to build the site. The output will be in the `out` folder.
+Git hooks are set up to run tests and linting checks before every `git push`. These hooks can be executed locally by running the following command:
 
-Run `pnpm start` to serve the site locally.
+```
+pnpm prepush
+```
 
-## Test
+All links in the documentation are checked for validity on every pull request. These checks can be executed locally by running the following command:
 
-Run `pnpm test` to run the tests.
+```
+pnpm linkcheck
+```
+
+## Execution
+
+The project can be run with a server that's executed in development and production mode.
+
+### Development mode
+
+Run the server in development mode using the following command:
+
+```
+pnpm dev
+```
+
+### Production mode
+
+Build the project:
+
+```
+pnpm build
+```
+
+Run the server in production mode using the following command:
+
+```
+pnpm start
+```
+
+## Testing
+
+Create an environment file in the root of the project and copy the content from the `.env.example` file using the following command:
+
+```
+cp .env.example .env
+```
+
+Remember to update the environment variables once the `.env` file is created.
+
+Run the tests using the following command:
+
+```
+pnpm test
+```
 
 ## License
 
@@ -30,7 +77,4 @@ This project is licensed under the [MIT License](./LICENSE.md).
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request by following our [contributions guidelines](./CONTRIBUTING.md).
-
-Git hooks are set up to run tests and linting before every push. You can run these hooks locally with `pnpm prepush`. All links will also be checked for validity on every pull request. You can check them locally with `pnpm linkcheck`.
-
+Contributions are more than welcome! Please open an issue or create a pull request by following our [contributions guidelines](./CONTRIBUTING.md).
