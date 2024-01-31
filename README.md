@@ -31,7 +31,7 @@ pnpm linkcheck
 
 ## Execution
 
-The project can be run with a server that is executed in development and production mode.
+The project can be run with a server that's executed in development and production mode.
 
 ### Development mode
 
