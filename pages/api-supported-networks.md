@@ -12,7 +12,6 @@ description: This page provides an overview of the available services
 | Aurora                       | [https://safe-transaction-aurora.safe.global](https://safe-transaction-aurora.safe.global/)              |
 | Avalanche                    | [https://safe-transaction-avalanche.safe.global](https://safe-transaction-avalanche.safe.global/)        |
 | Base                         | [https://safe-transaction-base.safe.global](https://safe-transaction-base.safe.global)                   |
-<!-- TO DO: Add Base Sepolia when ready in prod -->
 | BNB Smart Chain              | [https://safe-transaction-bsc.safe.global](https://safe-transaction-bsc.safe.global/)                    |
 | Celo                         | [https://safe-transaction-celo.safe.global](https://safe-transaction-celo.safe.global/)                  |
 | Ethereum Mainnet             | [https://safe-transaction-mainnet.safe.global](https://safe-transaction-mainnet.safe.global/)            |
