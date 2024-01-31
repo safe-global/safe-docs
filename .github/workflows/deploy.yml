@@ -38,9 +38,9 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # Deploy the development branch to staging
+      # Deploy the main branch to staging
       - name: Deploy to the staging S3
-        if: github.ref == 'refs/heads/development'
+        if: github.ref == 'refs/heads/main'
         env:
           BUCKET: s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/current
         run: bash ./.github/scripts/s3_upload.sh
