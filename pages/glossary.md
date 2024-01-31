@@ -89,7 +89,7 @@ See also:
 Safe Apps are web applications that run in the Safe Apps marketplace. They support Safe, use the Safe Apps SDK to interact with it, and aren't owned, controlled, maintained, or audited by Safe.
 
 See also:
-- [Safe Apps SDK documentation](./apps-sdk-overview.md) on docs.safe.global
+- [Safe Apps SDK documentation](./apps-sdk-overview.mdx) on docs.safe.global
 
 ## SafeAuth
 
@@ -105,7 +105,7 @@ See also:
 A Safe Guard is a smart contract that adds restrictions on top of the n-out-of-m scheme that Safe accounts offer. They make checks before and after the execution of a Safe transaction.
 
 See also:
-- [Safe Guards documentation](./smart-account-guards.md) on docs.safe.global
+- [Safe Guards documentation](./smart-account-guards.mdx) on docs.safe.global
 - [Zodiac Guards](https://zodiac.wiki/index.php?title=Category:Guards) on zodiac.wiki
 - [Get the enabled Safe Guard](./sdk-protocol-kit/reference.md#getguard) and [enable a Safe Guard](./sdk-protocol-kit/reference.md#createenableguardtx) with the Safe{Core} SDK on docs.safe.global
 
@@ -114,7 +114,7 @@ See also:
 A Safe Module is a smart contract that adds functionality to Safe while separating module logic from Safe core contracts.
 
 See also:
-- [Safe Modules documentation](./smart-account-modules.md) on docs.safe.global
+- [Safe Modules documentation](./smart-account-modules.mdx) on docs.safe.global
 - [Safe Modules repository](https://github.com/safe-global/safe-modules) on github.com
 - [Zodiac Modules](https://zodiac.wiki/index.php?title=Category:Module) on zodiac.wiki
 - [Get the enabled Safe Modules](./sdk-protocol-kit/reference.md#getmodules) and [enable a Safe Module](./sdk-protocol-kit/reference.md#createenablemoduletx) with the Safe{Core} SDK on docs.safe.global
