@@ -5,7 +5,7 @@
 
 This repository hosts [Safe](https://safe.global) documentation.
 
-The project is built using [Nextra](https://nextra.site) framework and it can be found live at [docs.safe.global](https://docs.safe.global).
+The documentation is built with [Nextra](https://nextra.site) and is live at [docs.safe.global](https://docs.safe.global).
 
 ## Installation
 
