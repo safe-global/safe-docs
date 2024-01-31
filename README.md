@@ -9,7 +9,7 @@ The project is built using [Nextra](https://nextra.site) framework and it can be
 
 ## Installation
 
-Install the project:
+Install the dependencies using [pnpm](https://pnpm.io):
 
 ```
 pnpm install
@@ -35,7 +35,7 @@ The project can be run with a server that's executed in development and producti
 
 ### Development mode
 
-Run the server in development mode:
+Run the server in development mode using the following command:
 
 ```
 pnpm dev
@@ -49,7 +49,7 @@ Build the project:
 pnpm build
 ```
 
-Run de server in production mode:
+Run the server in production mode using the following command:
 
 ```
 pnpm start
@@ -57,19 +57,15 @@ pnpm start
 
 ## Testing
 
-Create an environment file in the root of the project and copy the content from the `.env.example` file:
+Create an environment file in the root of the project and copy the content from the `.env.example` file using the following command:
 
 ```
-touch .env
+cp .env.example .env
 ```
 
-```
-NEXT_PUBLIC_HOST_URL='http://localhost:3000'
-NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID=
-NEXT_PUBLIC_GOOGLE_ANALYTICS_DOMAIN=
-```
+Remember to update the environment variables once the `.env` file is created.
 
-Run the tests:
+Run the tests using the following command:
 
 ```
 pnpm test
