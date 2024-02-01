@@ -7,7 +7,7 @@ body:
     validations:
       required: true
     attributes:
-      label: Feedback Summary
+      label: Feedback
       description: |
         What is the error you found in our documentation or what do you think should be enhanced?
   - type: textarea
@@ -25,5 +25,5 @@ body:
       label: Are you interested in working on this?
       description: If you're interested in not only reporting this issue but also fix it, check the box below.
       options:
-        - label: "I would like to fix this issue"
+        - label: "I would like to implement/fix this issue"
           required: false
