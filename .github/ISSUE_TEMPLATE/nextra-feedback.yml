@@ -7,7 +7,7 @@ body:
     validations:
       required: true
     attributes:
-      label: Issue Summary
+      label: Feedback Summary
       description: |
         What is the error you found in our documentation or what do you think should be enhanced?
   - type: textarea
@@ -22,7 +22,7 @@ body:
         3.
   - type: checkboxes
     attributes:
-      label: Are you interested in working on this issue?
+      label: Are you interested in working on this?
       description: If you're interested in not only reporting this issue but also fix it, check the box below.
       options:
         - label: "I would like to fix this issue"
