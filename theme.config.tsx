@@ -24,7 +24,7 @@ const config: DocsThemeConfig = {
     defaultMenuCollapseLevel: 1
   },
   feedback: {
-    useLink: 'https://github.com/safe-global/safe-docs/issues/new?template=nextra-feedback.yml'
+    useLink: () => { return 'https://github.com/safe-global/safe-docs/issues/new?template=nextra-feedback.yml' }
   },
   head: <link rel='icon' type='image/png' sizes='32x32' href='/favicon.png' />,
   useNextSeoProps: () => {
