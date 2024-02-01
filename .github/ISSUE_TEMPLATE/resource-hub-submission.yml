@@ -1,0 +1,50 @@
+name: Resource Hub Submission
+description: Suggest a resource to add to our resource hub.
+labels: ["resource-hub"]
+title: "[Resource Hub]: "
+body:
+  - type: checkboxes
+    attributes:
+      label: Preliminary Checks
+      description: Please make sure that you verify each checkbox and follow the instructions for them.
+      options:
+        - label: "This issue is not a duplicate. Before opening a new issue, please search existing issues: https://github.com/safe-global/safe-docs/issues"
+          required: true
+  - type: input
+    attributes:
+      label: URL
+      description: The URL of the resource.
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Type
+      description: The type of resource
+      options:
+        - Blog post
+        - Podcast
+        - Video
+      validations:
+        required: true
+  - type: options
+    attributes:
+      label: Tags
+      description: Select some tags for your resource.
+      options:
+        - Account Abstraction
+        - Deep Dive
+        - Gasless Transactions
+        - Guards
+        - Hardhat
+        - Introduction
+        - Mass Adoption
+        - Modules
+        - Tutorial
+        - Perspectives
+        - Plugins
+        - Protocol
+        - Safe Core SDK
+        - Safe Transaction Service
+        - Safe Wallet
+        - Security
+
