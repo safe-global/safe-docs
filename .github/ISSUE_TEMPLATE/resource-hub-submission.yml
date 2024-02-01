@@ -18,6 +18,7 @@ body:
     attributes:
       label: URL
       description: The URL of the resource.
+    validations:
       required: true
   - type: dropdown
     attributes:
@@ -27,8 +28,8 @@ body:
         - Blog post
         - Podcast
         - Video
-      validations:
-        required: true
+    validations:
+      required: true
   - type: checkboxes
     attributes:
       label: Tags
