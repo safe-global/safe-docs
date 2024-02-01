@@ -16,7 +16,7 @@ body:
           required: true
   - type: input
     attributes:
-      label: URL
+      label: Link
       description: The URL of the resource.
     validations:
       required: true
