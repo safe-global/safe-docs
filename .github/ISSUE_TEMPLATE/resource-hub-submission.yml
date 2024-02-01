@@ -27,7 +27,8 @@ body:
         - Blog post
         - Podcast
         - Video
-      required: true
+      validations:
+        required: true
   - type: checkboxes
     attributes:
       label: Tags
