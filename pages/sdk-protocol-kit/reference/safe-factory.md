@@ -12,9 +12,9 @@ const safeFactory = await SafeFactory.create({ ethAdapter })
 
 - The `isL1SafeSingleton` flag
 
-  Two versions of the Safe contracts are available: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that doesn't trigger events in order to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
+  Two versions of the Safe contracts are available: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that doesn't trigger events to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
 
-  By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force the use of the `Safe.sol` contract.
+  By default, `Safe.sol` will only be used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force using the `Safe.sol` contract.
 
   ```typescript
   const safeFactory = await SafeFactory.create({ ethAdapter, isL1SafeSingleton: true })
@@ -63,7 +63,7 @@ const safeFactory = await SafeFactory.create({ ethAdapter })
 
 ### `deploySafe`
 
-Deploys a new Safe and returns an instance of the Protocol Kit connected to the deployed Safe. The address of the singleton, Safe contract version and the contract (`Safe.sol` or `SafeL2.sol`) of the deployed Safe will depend on the initialization of the `safeFactory` instance.
+Deploys a new Safe and returns an instance of the Protocol Kit connected to the deployed Safe. The address of the singleton, Safe contract version, and the contract (`Safe.sol` or `SafeL2.sol`) of the deployed Safe will depend on the initialization of the `safeFactory` instance.
 
 ```typescript
 const safeAccountConfig: SafeAccountConfig = {
@@ -127,7 +127,7 @@ const options: EthersTransactionOptions = {
 const protocolKit = await safeFactory.deploySafe({ safeAccountConfig, safeDeploymentConfig, options })
 ```
 
-It can also take an optional callback which receives the `txHash` of the Safe deployment transaction prior to returning a new instance of the Protocol Kit:
+It can also take an optional callback, which receives the `txHash` of the Safe deployment transaction before returning a new instance of the Protocol Kit:
 
 ```typescript
 const callback = (txHash: string): void => {

@@ -13,7 +13,7 @@ let protocolKit = await Safe.create({ ethAdapter, safeAddress })
 protocolKit = await protocolKit.connect({ ethAdapter: anotherEthAdapter, safeAddress: anotherSafeAddress })
 ```
 
-Connection of a not deployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to connect a Safe to the SDK with the Safe configuration:
+Connection of an undeployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to connect a Safe to the SDK with the Safe configuration:
 
 ```typescript
 import { PredictedSafeProps } from '@safe-global/protocol-kit'
@@ -30,9 +30,9 @@ protocolKit = await protocolKit.connect({ predictedSafe })
 
 - The `isL1SafeSingleton` flag
 
-  Two versions of the Safe contracts are available: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that doesn't trigger events in order to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
+  Two versions of the Safe contracts are available: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that doesn't trigger events to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
 
-  By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force the use of the `Safe.sol` contract.
+  By default `Safe.sol` will only be used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force using the `Safe.sol` contract.
 
   ```typescript
   protocolKit = await protocolKit.connect({ ethAdapter, safeAddress, isL1SafeSingleton: true })
@@ -83,7 +83,7 @@ import Safe from '@safe-global/protocol-kit'
 const protocolKit = await Safe.create({ ethAdapter, safeAddress })
 ```
 
-Initialization of a not deployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to initialize the SDK with the Safe configuration and use it to some extent before it's deployed:
+Initialization of an undeployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to initialize the SDK with the Safe configuration and use it to some extent before it's deployed:
 
 ```typescript
 import Safe, { PredictedSafeProps } from '@safe-global/protocol-kit'
@@ -98,9 +98,9 @@ const protocolKit = await Safe.create({ ethAdapter, predictedSafe })
 
 - The `isL1SafeSingleton` flag
 
-  Two versions of the Safe contracts are available: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that doesn't trigger events in order to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
+  Two versions of the Safe contracts are available: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that doesn't trigger events to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
 
-  By default `Safe.sol` will be only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force the use of the `Safe.sol` contract.
+  By default `Safe.sol` will only be used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force using the `Safe.sol` contract.
 
   ```typescript
   const protocolKit = await Safe.create({ ethAdapter, safeAddress, isL1SafeSingleton: true })
@@ -193,7 +193,7 @@ const safeTransaction2 = await copyTransaction(safeTransaction1)
 
 ### `createRejectionTransaction`
 
-Returns a Safe transaction ready to be signed by the owners that invalidates the pending Safe transaction/s with a specific nonce.
+Returns a Safe transaction ready to be signed by the owners that invalidates the pending Safe transaction(s) with a specific nonce.
 
 ```typescript
 const transactions: MetaTransactionData[] = [{
@@ -207,7 +207,7 @@ const rejectionTransaction = await protocolKit.createRejectionTransaction(safeTr
 
 Returns a Safe transaction ready to be signed by the owners and executed. The Protocol Kit supports the creation of single Safe transactions but also MultiSend transactions.
 
-This method takes an array of `MetaTransactionData` objects that represent the individual transactions we want to include in our MultiSend transaction.
+This method takes an array of `MetaTransactionData` objects representing the individual transactions we want to include in our MultiSend transaction.
 
 When the array contains only one transaction, it's not wrapped in the MultiSend.
 
@@ -259,7 +259,7 @@ const options: SafeTransactionOptionalProps = {
 const safeTransaction = await protocolKit.createTransaction({ transactions, options })
 ```
 
-In addition, the optional `callsOnly` parameter, which is `false` by default, allows to force the use of the `MultiSendCallOnly` instead of the `MultiSend` contract when sending a batch transaction:
+In addition, the optional `callsOnly` parameter, which is `false` by default, allows forcing the use of the `MultiSendCallOnly` instead of the `MultiSend` contract when sending a batch transaction:
 
 ```typescript
 const callsOnly = true
@@ -442,7 +442,7 @@ You can use multiple signing methods, such as:
 - ETH_SIGN_TYPED_DATA `eth_signTypedData`: Typed data signature
 - SAFE_SIGNATURE: Signing with another Safe contract as signer
 
-The third parameter (optional) is the preImageSafeAddress. If the preimage is required, this is the address of the Safe that will be used to calculate the preimage. It's mandatory parameter for 1.3.0 and 1.4.1 contract versions. This is because the safe uses the old EIP-1271 interface which uses `bytes` instead of `bytes32` for the message we need to use the pre-image of the message to calculate the message hash. This parameter is used in conjunction with the SAFE_SIGNATURE signing method.
+The third parameter (optional) is the preImageSafeAddress. If the preimage is required, this is the address of the Safe that will be used to calculate the preimage. It's a mandatory parameter for 1.3.0 and 1.4.1 contract versions. This is because the safe uses the old EIP-1271 interface, which uses `bytes` instead of `bytes32` for the message; we need to use the pre-image of the message to calculate the message hash. This parameter is used in conjunction with the SAFE_SIGNATURE signing method.
 
 ```typescript
 const transactions: MetaTransactionData[] = [{
@@ -752,7 +752,7 @@ const message = protocolKit.createMessage(rawMessage)
 
 ### `getSafeMessageHash`
 
-Retrieve the Safe message hash of a string or EIP-712 typed data. It produces the identical hash as invoking the CompatibilityFallbackHandler's getMessageHash method.
+Retrieve the Safe message hash of a string, or EIP-712 typed data. It produces the identical hash as invoking the CompatibilityFallbackHandler's getMessageHash method.
 
 ```typescript
 const rawMessage = ... // String or EIP-712 typed data
@@ -765,10 +765,10 @@ const safeMessageHash = await protocolKit.getSafeMessageHash(messageHash)
 
 Calls the CompatibilityFallbackHandler isValidSignature method (EIP-1271).
 
-It requires 2 parameters:
+It requires two parameters:
 
-- messageHash The hash of the message
-- signature The signature to be validated or '0x'. You can send as signature one of the following:
+- messageHash: The hash of the message
+- signature: The signature to be validated or '0x'. You can send as signature one of the following:
   1) An array of SafeSignature. In this case the signatures are concatenated for validation (buildSignatureBytes())
   2) The concatenated signatures as string
   3) '0x' if you want to validate an onchain message (Approved hash)
@@ -799,7 +799,7 @@ You can use multiple signing methods, such as:
 - ETH_SIGN_TYPED_DATA `eth_signTypedData`: Typed data signature
 - SAFE_SIGNATURE: Signing with another Safe contract as signer
 
-The third parameter (optional) is the preImageSafeAddress. If the preimage is required, this is the address of the Safe that will be used to calculate the preimage. It's mandatory parameter for 1.3.0 and 1.4.1 contract versions. This is because the safe uses the old EIP-1271 interface which uses `bytes` instead of `bytes32` for the message we need to use the pre-image of the message to calculate the message hash. This parameter is used in conjunction with the SAFE_SIGNATURE signing method.
+The third parameter (optional) is the preImageSafeAddress. If the preimage is required, this is the address of the Safe that will be used to calculate the preimage. It's a mandatory parameter for 1.3.0 and 1.4.1 contract versions. This is because the safe uses the old EIP-1271 interface, which uses `bytes` instead of `bytes32` for the message; we need to use the pre-image of the message to calculate the message hash. This parameter is used in conjunction with the SAFE_SIGNATURE signing method.
 
 ```typescript
 const rawMessage: string | EIP712TypedData = "I am the owner of this Safe"
