@@ -278,7 +278,7 @@ export const Resources = (): ReactElement => {
             }}
             fullWidth
           />
-          <Typography mt={2}>
+          <Typography textAlign={['center', 'left']} mt={2}>
             <Typography component='span' color='primary.light'>
               Example:
             </Typography>{' '}
