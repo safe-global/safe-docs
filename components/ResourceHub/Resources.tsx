@@ -244,12 +244,11 @@ export const Resources = (): ReactElement => {
         <Grid
           item
           container
-          xs={12}
           flexDirection='column'
           alignItems='center'
           justifyContent='center'
         >
-          <Typography textAlign='center' variant='h1'>
+          <Typography textAlign='center' variant='h1' mb={[2, 0]}>
             Resource Hub
           </Typography>
           <TextField
@@ -272,7 +271,7 @@ export const Resources = (): ReactElement => {
                 ) : undefined
             }}
             value={query}
-            sx={{ border: 'none', width: '80%' }}
+            sx={{ border: 'none', width: '80%', mt: [2, 0] }}
             onChange={e => {
               setQuery(e.target.value)
             }}
