@@ -255,7 +255,7 @@ export const Resources = (): ReactElement => {
           <TextField
             className={css.searchField}
             variant='outlined'
-            placeholder='Search by name, description or tag'
+            placeholder='Search by name, description, or tag'
             InputProps={{
               startAdornment: (
                 <InputAdornment position='start'>
@@ -278,7 +278,7 @@ export const Resources = (): ReactElement => {
             }}
             fullWidth
           />
-          <Typography mt={2}>
+          <Typography textAlign={['center', 'left']} mt={2}>
             <Typography component='span' color='primary.light'>
               Example:
             </Typography>{' '}
@@ -437,7 +437,7 @@ export const Resources = (): ReactElement => {
                   mx='auto'
                   textAlign='center'
                 >
-                  Listings are not endorsements and are only for informational
+                  Listings are not endorsements and are only for educational
                   purposes.
                 </Typography>
               </Grid>
