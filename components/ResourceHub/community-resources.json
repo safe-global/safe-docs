@@ -1,14 +1,5 @@
 [
   {
-    "name": "Gnosis Safe 🛠 Starting with the Safe Core SDK",
-    "url": "https://www.youtube.com/watch?v=t2LzhAFBxkI",
-    "type": "Video",
-    "tags": [
-      "Introduction",
-      "Safe Core SDK"
-    ]
-  },
-  {
     "name": "How To Deploy a Smart Contract From a Web3 Multi-Sig Wallet",
     "url": "https://www.youtube.com/watch?v=zn6omKzm3BI",
     "type": "Video",
@@ -116,6 +107,16 @@
       "Tutorial",
       "Safe Smart Account",
       "Hardhat"
+    ]
+  },
+  {
+    "name": "How to create and use a Safe account with permissionless.js",
+    "url": "https://docs.pimlico.io/permissionless/how-to/accounts/use-safe-account",
+    "type": "Blog Post",
+    "abstract": "This guide will walk you through how to create and use a Safe account with permissionless.js.",
+    "tags": [
+      "Tutorial",
+      "Safe Smart Account"
     ]
   },
   {

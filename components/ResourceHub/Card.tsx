@@ -21,7 +21,7 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
         {resource.name}
       </Typography>
 
-      {resource.type === 'Blog post' && (
+      {resource.type === 'Blog Post' && (
         <Typography
           variant='body2'
           color='text.secondary'
