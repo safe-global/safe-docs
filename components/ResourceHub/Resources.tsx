@@ -421,6 +421,7 @@ export const Resources = (): ReactElement => {
                     shallow
                     // Pagination marker for search engines
                     rel='next'
+                    scroll={false}
                   >
                     <Button variant='contained' size='large'>
                       Show more
