@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import { useEffect, type ReactElement } from 'react'
 import type { AppProps } from 'next/app'
 import {
   Experimental_CssVarsProvider as CssVarsProvider,
@@ -12,6 +12,11 @@ import ReactGA from 'react-ga4'
 import { createEmotionCache } from '../styles/emotion'
 import { theme } from '../styles/theme'
 import '../styles/styles.css'
+import {
+  CookieBannerContextProvider,
+  useCookieBannerContext
+} from '../components/Footer/CookieBannerContext'
+import { CookieBanner } from '../components/CookieBanner'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -19,15 +24,29 @@ const clientSideEmotionCache = createEmotionCache()
 // Extended theme for CssVarsProvider
 const cssVarsTheme = extendMuiTheme(theme)
 
+let isAnalyticsInitialized = false
+
 const GoogleAnalytics: React.FC = () => {
-  if (typeof window === 'undefined') return null
-  if (process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID === undefined) return null
-  ReactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID, {
-    gaOptions: {
-      cookieFlags: 'SameSite=Strict;Secure',
-      cookieDomain: process.env.GOOGLE_ANALYTICS_DOMAIN
+  const { isAnalyticsEnabled } = useCookieBannerContext()
+
+  // Enable/disable tracking
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true' && isAnalyticsEnabled) {
+      ReactGA.initialize(String(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID), {
+        gaOptions: {
+          cookieFlags: 'SameSite=Strict;Secure',
+          cookieDomain: process.env.GOOGLE_ANALYTICS_DOMAIN
+        }
+      })
+      isAnalyticsInitialized = true
+      return
     }
-  })
+
+    if (!isAnalyticsEnabled && isAnalyticsInitialized) {
+      // Injected script will otherwise remain in memory until new session
+      location.reload()
+    }
+  }, [isAnalyticsEnabled])
   return null
 }
 
@@ -41,9 +60,12 @@ const App = ({
   return (
     <CacheProvider value={emotionCache}>
       <CssVarsProvider theme={cssVarsTheme}>
-        <CssBaseline />
-        <GoogleAnalytics />
-        <Component {...pageProps} />
+        <CookieBannerContextProvider>
+          <CssBaseline />
+          <GoogleAnalytics />
+          <Component {...pageProps} />
+          <CookieBanner />
+        </CookieBannerContextProvider>
       </CssVarsProvider>
     </CacheProvider>
   )
