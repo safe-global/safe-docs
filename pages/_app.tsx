@@ -15,7 +15,7 @@ import '../styles/styles.css'
 import {
   CookieBannerContextProvider,
   useCookieBannerContext
-} from '../components/Footer/CookieBannerContext'
+} from '../components/CookieBanner/CookieBannerContext'
 import { CookieBanner } from '../components/CookieBanner'
 
 // Client-side cache, shared for the whole session of the user in the browser.

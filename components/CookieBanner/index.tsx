@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 import type { ReactElement } from 'react'
 
 import css from './styles.module.css'
-import { useCookieBannerContext } from '../Footer/CookieBannerContext'
+import { useCookieBannerContext } from './CookieBannerContext'
 
 export const enum CookieType {
   NECESSARY = 'necessary',

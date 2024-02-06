@@ -9,7 +9,7 @@ import Logo from '../../assets/svg/safe-logo-white.svg'
 import XIcon from '../../assets/svg/x-icon.svg'
 import YoutubeIcon from '../../assets/svg/youtube-icon.svg'
 import css from './Footer.module.css'
-import { useCookieBannerContext } from './CookieBannerContext'
+import { useCookieBannerContext } from '../CookieBanner/CookieBannerContext'
 
 const SAFE_LINK = 'https://safe.global'
 
@@ -231,7 +231,7 @@ const SubFooter: React.FC = () => {
       <Grid item>
         <ul className={css.subList}>
           {subFooterItems.map(item => {
-            const isCookiePreferencesLink = false // item.href === COOKIE_PREFERENCES_LINK
+            const isCookiePreferencesLink = item.href === COOKIE_PREFERENCES_LINK
             return (
               <li className={css.subListItem} key={item.href}>
                 <Link
