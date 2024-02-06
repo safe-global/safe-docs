@@ -231,7 +231,17 @@ export const Resources = (): ReactElement => {
 
       <SidebarAccordion
         title='Topics'
-        items={uniqueTags}
+        items={uniqueTags.sort((a, b) =>
+          a === '4337' && b === 'Introduction'
+            ? -1
+            : a === 'Introduction' && b === '4337'
+              ? 1
+              : a === 'Introduction'
+                ? -1
+                : b === 'Introduction'
+                  ? 1
+                  : a.localeCompare(b)
+        )}
         selectedItems={selectedTags}
         onChange={onSelectTag}
       />
