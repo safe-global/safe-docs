@@ -20,8 +20,10 @@ import { Fragment, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 import type { NextRouter } from 'next/router'
+import AddIcon from '@mui/icons-material/Add'
 
 import SearchIcon from '../../assets/svg/search.svg'
+import UploadIcon from '../../assets/svg/upload.svg'
 import CrossIcon from '../../assets/svg/cross.svg'
 import CloseIcon from '../../assets/svg/close.svg'
 import FilterIcon from '../../assets/svg/filter.svg'
@@ -32,6 +34,9 @@ import { ProjectCard } from './Card'
 import companyResources from './company-resources.json'
 import communityResources from './community-resources.json'
 import css from './styles.module.css'
+
+export const uploadResourceUrl =
+  'https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=resource-hub%5B%E2%80%A6%5D&template=resource-hub-submission.yml&title=%5BResource+Hub%5D+'
 
 const resources = [
   ...communityResources.map(r => ({ ...r, origin: 'Community' })),
@@ -215,6 +220,29 @@ export const Resources = (): ReactElement => {
 
   const sidebar = (
     <>
+      <NextLink href={uploadResourceUrl}>
+        <Button
+          startIcon={<UploadIcon />}
+          endIcon={
+            <AddIcon sx={{ color: 'rgba(18, 255, 128, 1)', mr: [1.5, 1] }} />
+          }
+          sx={{
+            alignItems: 'space-between',
+            border: ['none', 'solid 1px rgba(161, 163, 167, 1)'],
+            color: 'white',
+            my: 2
+          }}
+          fullWidth
+        >
+          <Typography
+            sx={{ width: '100%', textAlign: 'left' }}
+            color='white'
+            variant='caption'
+          >
+            Upload new resource
+          </Typography>
+        </Button>
+      </NextLink>
       <SidebarAccordion
         title='Resource type'
         items={uniqueTypes}
