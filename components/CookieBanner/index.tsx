@@ -50,7 +50,7 @@ export const CookieBanner = (): ReactElement | null => {
         <Typography align='center'>
           We use cookies to provide you with the best experience and to help
           improve our website and application. Please read our{' '}
-          <Link href='https://safe.global/cookie'>Cookie Policy</Link> for more
+          <Link target='_blank' href='https://safe.global/cookie'>Cookie Policy</Link> for more
           information. By clicking &quot;Accept all&quot;, you agree to the
           storing of cookies on your device to enhance site navigation, analyze
           site usage and provide customer support.
