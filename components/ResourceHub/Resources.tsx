@@ -23,7 +23,6 @@ import type { NextRouter } from 'next/router'
 import AddIcon from '@mui/icons-material/Add'
 
 import SearchIcon from '../../assets/svg/search.svg'
-import UploadIcon from '../../assets/svg/upload.svg'
 import CrossIcon from '../../assets/svg/cross.svg'
 import CloseIcon from '../../assets/svg/close.svg'
 import FilterIcon from '../../assets/svg/filter.svg'
@@ -222,9 +221,8 @@ export const Resources = (): ReactElement => {
     <>
       <NextLink href={uploadResourceUrl} target='_blank' rel='noreferrer'>
         <Button
-          startIcon={<UploadIcon />}
           endIcon={
-            <AddIcon sx={{ color: 'rgba(18, 255, 128, 1)', mr: [1.5, 1] }} />
+            <AddIcon sx={{ mr: [1.5, 1] }} />
           }
           sx={{
             alignItems: 'space-between',
@@ -235,11 +233,11 @@ export const Resources = (): ReactElement => {
           fullWidth
         >
           <Typography
-            sx={{ width: '100%', textAlign: 'left' }}
+            sx={{ width: '100%', textAlign: 'left', ml: 1 }}
             color='white'
             variant='caption'
           >
-            Add new resource
+            Suggest new resource
           </Typography>
         </Button>
       </NextLink>
