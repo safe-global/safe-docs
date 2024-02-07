@@ -70,6 +70,11 @@
     "permanent": true
   },
   {
+    "source": "/safe-core-aa-sdk",
+    "destination": "/sdk-overview",
+    "permanent": true
+  },
+  {
     "source": "/safe-core-aa-sdk/safe-core-sdk",
     "destination": "/sdk-overview",
     "permanent": true
@@ -192,6 +197,11 @@
   {
     "source": "/safe-core-protocol/safe-core-protocol",
     "destination": "/protocol-overview",
+    "permanent": true
+  },
+  {
+    "source": "/safe-core-api",
+    "destination": "/api-service-architecture",
     "permanent": true
   },
   {
