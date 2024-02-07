@@ -36,7 +36,7 @@ import communityResources from './community-resources.json'
 import css from './styles.module.css'
 
 export const uploadResourceUrl =
-  'https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=resource-hub%5B%E2%80%A6%5D&template=resource-hub-submission.yml&title=%5BResource+Hub%5D+'
+  'https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=resource-hub&projects=&template=resource-hub-submission.yml&title=%5BResource+Hub%5D+'
 
 const resources = [
   ...communityResources.map(r => ({ ...r, origin: 'Community' })),
@@ -220,7 +220,7 @@ export const Resources = (): ReactElement => {
 
   const sidebar = (
     <>
-      <NextLink href={uploadResourceUrl}>
+      <NextLink href={uploadResourceUrl} target='_blank' rel='noreferrer'>
         <Button
           startIcon={<UploadIcon />}
           endIcon={
@@ -239,7 +239,7 @@ export const Resources = (): ReactElement => {
             color='white'
             variant='caption'
           >
-            Upload new resource
+            Add new resource
           </Typography>
         </Button>
       </NextLink>
