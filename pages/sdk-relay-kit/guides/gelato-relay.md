@@ -22,7 +22,7 @@ Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs
 
 ## Gelato 1Balance
 
-[Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance) allows [you](you) to execute transactions using a prepaid deposit. This can be used to sponsor transactions to other Safes or even to use a deposit on Polygon to pay the fees for a wallet on another chain.
+[Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance) allows you to execute transactions using a prepaid deposit. This can be used to sponsor transactions to other Safes or even to use a deposit on Polygon to pay the fees for a wallet on another chain.
 
 For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on BNB Chain using the Polygon USDC you have deposited into your Gelato 1Balance account.
 
