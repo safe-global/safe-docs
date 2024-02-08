@@ -281,7 +281,7 @@ const Footer: React.FC = () => (
           <Logo className={css.logo} />
         </Link>
       </Grid>
-      <LinksColumn title='Safe' items={safeItems} />
+      <LinksColumn title='Developers' items={safeItems} />
       <LinksColumn title='Community' items={communityItems} />
       <LinksColumn title='Resources' items={resourcesItems} />
       <Socials />
