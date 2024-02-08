@@ -9,6 +9,7 @@ import Logo from '../../assets/svg/safe-logo-white.svg'
 import XIcon from '../../assets/svg/x-icon.svg'
 import YoutubeIcon from '../../assets/svg/youtube-icon.svg'
 import css from './Footer.module.css'
+import { useCookieBannerContext } from '../CookieBanner/CookieBannerContext'
 
 const SAFE_LINK = 'https://safe.global'
 
@@ -26,7 +27,8 @@ const DUNE_LINK = 'https://dune.com/safe'
 const HELP_LINK = 'https://help.safe.global'
 const CAREERS_LINK = 'https://safe.global/careers'
 const BRAND_LINK = 'https://press.safe.global'
-const STACKEXCHANGE_LINK = 'https://ethereum.stackexchange.com/questions/tagged/safe-core'
+const STACKEXCHANGE_LINK =
+  'https://ethereum.stackexchange.com/questions/tagged/safe-core'
 const EXPERIMENTAL_LINK = 'https://github.com/5afe'
 
 // Sub-Footer
@@ -125,7 +127,6 @@ const resourcesItems: FooterLink[] = [
     target: '_blank',
     rel: 'noreferrer'
   }
-
 ]
 
 const subFooterItems: FooterLink[] = [
@@ -217,12 +218,12 @@ const Socials: React.FC = () => (
 )
 
 const SubFooter: React.FC = () => {
-  // const { openBanner } = useCookieBannerContext()
+  const { openBanner } = useCookieBannerContext()
 
   const showBanner = (e: SyntheticEvent): void => {
     // Prevent opening the hash link
     e.preventDefault()
-    // openBanner()
+    openBanner()
   }
 
   return (
@@ -230,7 +231,7 @@ const SubFooter: React.FC = () => {
       <Grid item>
         <ul className={css.subList}>
           {subFooterItems.map(item => {
-            const isCookiePreferencesLink = false // item.href === COOKIE_PREFERENCES_LINK
+            const isCookiePreferencesLink = item.href === COOKIE_PREFERENCES_LINK
             return (
               <li className={css.subListItem} key={item.href}>
                 <Link
