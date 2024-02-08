@@ -1,6 +1,6 @@
 # Bug Bounty
 
-Participate in the Safe Bug Bounty program to find bugs and get rewards. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](./bug-bounty.md#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global). You can also review the [bug bounties](./bug-bounty/past-paid-bounties.md) we've paid in the past.
+Participate in the Safe Bug Bounty program to find bugs and get rewards. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](./bug-bounty.md#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global). You can also review the [bug bounties](./bug-bounty/past-paid-bounties.md) we have paid in the past.
 
 ## Audits
 
