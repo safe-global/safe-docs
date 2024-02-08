@@ -16,15 +16,15 @@ yarn add ethers @safe-global/relay-kit @safe-global/protocol-kit @safe-global/sa
 
 ## Relay Kit options
 
-Currently, the Relay Kit's only compatible with the [Gelato relay](https://docs.gelato.network/developer-services/relay). The Gelato relay can be used in two ways:
+Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs.gelato.network/developer-services/relay). The Gelato relay can be used in two ways:
 1. [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance)
 2. [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee)
 
 ## Gelato 1Balance
 
-[Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance) allows you to execute transactions using a prepaid deposit. This can be used to sponsor transactions to other Safes or even to use a deposit on Polygon to pay the fees for a wallet on another chain.
+[Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance) allows [you](you) to execute transactions using a prepaid deposit. This can be used to sponsor transactions to other Safes or even to use a deposit on Polygon to pay the fees for a wallet on another chain.
 
-For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on BNB Chain using the Polygon USDC you've deposited into your Gelato 1Balance account.
+For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on BNB Chain using the Polygon USDC you have deposited into your Gelato 1Balance account.
 
 For this tutorial you will need a Safe with a threshold of 1 deployed on BNB Chain. You can create one using [Safe{Wallet}](https://app.safe.global/) or the [Protocol Kit](../../sdk-protocol-kit.md).
 

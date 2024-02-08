@@ -19,7 +19,7 @@ First, we'll need to install some dependencies from `safe-core-sdk` and the `eth
 
 To interact with Ethereum and other EVM blockchains in Node, we can either use: web3.js or ethers.js. In this tutorial, we'll use the ethers.js library. To use `web3js`, see [Instantiate an EthAdapter section in Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
 
-The Protocol Kit's compatible only with **ethers.js v6**. Make sure you specify this version when installing the SDK.
+The Protocol Kit is compatible only with **ethers.js v6**. Make sure you specify this version when installing the SDK.
 
 You can store your environment variables such as private keys in a `.env` file. To read easily from `.env` files, use the `dotenv` library.
 
