@@ -1,4 +1,5 @@
-import { Card, Typography } from '@mui/material'
+import { Card, Typography, Grid } from '@mui/material'
+import ArrowIcon from '../../assets/svg/arrow-outward.svg'
 
 import css from './styles.module.css'
 
@@ -6,7 +7,8 @@ const CustomCard: React.FC<{
   title: string
   description: string
   url: string
-}> = ({ title, description, url }) => (
+  icon: JSX.Element
+}> = ({ title, description, url, icon }) => (
   <Card
     sx={{
       transition: 'all 0.2s ease-in-out',
@@ -21,9 +23,19 @@ const CustomCard: React.FC<{
   >
     <a href={url} target='_blank' rel='noreferrer' style={{ width: '100%' }}>
       <div style={{ width: '100%' }}>
-        <Typography fontWeight='500' mb={0.5}>
-          {title}
-        </Typography>
+        <Grid
+          item
+          container
+          flexDirection='column'
+          justifyContent='center'
+          alignItems='center'
+        >
+          {icon}
+          <ArrowIcon className={css.icon} />
+          <Typography fontWeight='500' variant='h4' mt={1} mb={1}>
+            {title}
+          </Typography>
+        </Grid>
         <Typography
           variant='body2'
           color='text.secondary'

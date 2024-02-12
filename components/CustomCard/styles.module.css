@@ -7,7 +7,12 @@
   flex-direction: column;
   align-items: flex-start;
   position: relative;
-  transition: 0.3s;
+  transition: var(--transition-duration);
+}
+
+.card:hover {
+  outline-color: var(--mui-palette-primary-main);
+  outline-width: 2px;
 }
 
 .outline:hover {
@@ -21,4 +26,19 @@
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   flex-shrink: 0;
+}
+
+.icon {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  transition: transform var(--transition-duration);
+}
+
+.card:hover .icon {
+  transform: rotate(45deg);
+}
+
+.card:hover .icon path {
+  fill: var(--mui-palette-primary-main);
 }
