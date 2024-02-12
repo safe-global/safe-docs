@@ -1,0 +1,44 @@
+.card {
+  background: var(--mui-palette-border-background);
+  box-shadow: inset 0 0 0 1px var(--mui-palette-border-light);
+  border-radius: 6px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  transition: var(--transition-duration);
+}
+
+.card:hover {
+  outline-color: var(--mui-palette-primary-main);
+  outline-width: 2px;
+}
+
+.outline:hover {
+  box-shadow: inset 0 0 0 1px var(--mui-palette-primary-main);
+}
+
+.description {
+  color: var(--mui-palette-primary-light);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  flex-shrink: 0;
+}
+
+.icon {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  transition: transform var(--transition-duration);
+}
+
+.card:hover .icon {
+  transform: rotate(45deg);
+}
+
+.card:hover .icon path {
+  fill: var(--mui-palette-primary-main);
+}

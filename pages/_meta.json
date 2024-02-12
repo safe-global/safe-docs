@@ -57,9 +57,10 @@
   },
   "bug-bounty": "Bug Bounty",
   "support": {
-    "title": "Support ↗",
+    "title": "Support",
     "type": "page",
-    "href": "https://ethereum.stackexchange.com/questions/tagged/safe-core",
-    "newWindow": true
-  }
+    "theme": {
+      "layout": "full"
+    }
+  } 
 }
