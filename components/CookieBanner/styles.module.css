@@ -1,0 +1,44 @@
+.container {
+  position: fixed;
+  z-index: 1300;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 0 !important;
+}
+
+.content {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px 32px;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.container form {
+  margin-top: 24px;
+}
+
+.container label,
+.container input {
+  user-select: none;
+}
+
+.container button {
+  min-width: 180px;
+}
+
+.container a {
+  color: var(--mui-palette-primary-main);
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 24px 8px;
+  }
+}

@@ -1,0 +1,53 @@
+name: Resource Hub Submission
+description: Suggest a resource to add to our resource hub.
+labels: ["resource-hub"]
+title: "[Resource Hub] "
+body:
+  - type: checkboxes
+    attributes:
+      label: Checklist
+      description: Please make sure that you verify each checkbox and follow the instructions for them.
+      options:
+        - label: "This resource is not a duplicate. Before opening a new issue, please search existing issues and the Resource Hub."
+          required: true
+        - label: "This resource is related to Safe{Core} and is educational in nature."
+          required: true
+        - label: "This resource is not promotional in nature."
+          required: true
+  - type: input
+    attributes:
+      label: Link
+      description: The URL of the resource.
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Type
+      description: The type of resource.
+      options:
+        - Blog Post
+        - Podcast
+        - Video
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: Tags
+      description: Select some tags for your resource.
+      options:
+        - label: "4337"
+        - label: Account Abstraction
+        - label: Deep Dive
+        - label: Gasless Transactions
+        - label: Guards
+        - label: Hardhat
+        - label: Introduction
+        - label: Modules
+        - label: Tutorial
+        - label: Perspectives
+        - label: Plugins
+        - label: Safe Core SDK
+        - label: Safe Transaction Service
+        - label: Safe Wallet
+        - label: Safe Smart Account
+        - label: Security

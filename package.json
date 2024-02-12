@@ -1,12 +1,12 @@
 {
-  "version": "4.0.0",
+  "version": "4.0.2",
   "description": "Safe docs",
   "scripts": {
     "build": "next build",
     "dev": "next dev",
     "generate-supported-networks": "node .github/scripts/generateSupportedNetworks.js",
     "linkcheck": "find ./pages -name '*.md*' -print0 | xargs -0 -n1 pnpm markdown-link-check --quiet --progress --config linkchecker-config.json",
-    "lint": "eslint . && vale . --minAlertLevel=error",
+    "lint": "eslint . && vale pages/ --minAlertLevel=error",
     "start": "serve out",
     "test": "env-cmd cypress run --headless",
     "typecheck": "tsc --noEmit --incremental false",
@@ -27,6 +27,7 @@
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.8",
     "@mui/material": "^5.14.18",
     "@preact/signals": "^1.2.2",
     "@svgr/webpack": "^8.1.0",

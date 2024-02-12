@@ -98,7 +98,7 @@ const orders = await moneriumClient.getOrders()
 
 5. When you reload a page, you usually want to stay authenticated as long as the tokens are valid. To do this, just call the `open()` method without arguments.
 
-6. You're now ready to place orders. In the `production` environment, real funds will be transferred. In the `sandbox` environment, fake money will be used. If you add funds using the `sandbox` or create a transfer from your bank account to your Monerium IBAN in the `production` environment, you'll receive the corresponding tokens in your Safe. For example, if your Monerium IBAN is associated with the EURe token of your Safe, and you transfer 10 euros, the EURe balance of your Safe will be 10 after the SEPA system completes the transfer.
+6. You are now ready to place orders. In the `production` environment, real funds will be transferred. In the `sandbox` environment, fake money will be used. If you add funds using the `sandbox` or create a transfer from your bank account to your Monerium IBAN in the `production` environment, you'll receive the corresponding tokens in your Safe. For example, if your Monerium IBAN is associated with the EURe token of your Safe, and you transfer 10 euros, the EURe balance of your Safe will be 10 after the SEPA system completes the transfer.
 
 Add tokens to your Safe using the `sandbox`. They should be available almost instantly. You can check the balance of your assets [here](https://app.safe.global/balances) afterwards.
 

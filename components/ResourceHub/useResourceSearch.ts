@@ -23,6 +23,7 @@ const useResourceSearch = (
             weight: 0.5
           }
         ],
+        distance: 500,
         threshold: 0.3,
         findAllMatches: true
       }),

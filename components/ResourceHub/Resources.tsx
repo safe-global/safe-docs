@@ -20,6 +20,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 import type { NextRouter } from 'next/router'
+import AddIcon from '@mui/icons-material/Add'
 
 import SearchIcon from '../../assets/svg/search.svg'
 import CrossIcon from '../../assets/svg/cross.svg'
@@ -32,6 +33,9 @@ import { ProjectCard } from './Card'
 import companyResources from './company-resources.json'
 import communityResources from './community-resources.json'
 import css from './styles.module.css'
+
+export const uploadResourceUrl =
+  'https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=resource-hub&projects=&template=resource-hub-submission.yml&title=%5BResource+Hub%5D+'
 
 const resources = [
   ...communityResources.map(r => ({ ...r, origin: 'Community' })),
@@ -215,6 +219,28 @@ export const Resources = (): ReactElement => {
 
   const sidebar = (
     <>
+      <NextLink href={uploadResourceUrl} target='_blank' rel='noreferrer'>
+        <Button
+          endIcon={
+            <AddIcon sx={{ mr: [1.5, 1] }} />
+          }
+          sx={{
+            alignItems: 'space-between',
+            border: ['none', 'solid 1px rgba(161, 163, 167, 1)'],
+            color: 'white',
+            my: 2
+          }}
+          fullWidth
+        >
+          <Typography
+            sx={{ width: '100%', textAlign: 'left', ml: 1 }}
+            color='white'
+            variant='caption'
+          >
+            Suggest new resource
+          </Typography>
+        </Button>
+      </NextLink>
       <SidebarAccordion
         title='Resource type'
         items={uniqueTypes}
@@ -231,7 +257,17 @@ export const Resources = (): ReactElement => {
 
       <SidebarAccordion
         title='Topics'
-        items={uniqueTags}
+        items={uniqueTags.sort((a, b) =>
+          a === '4337' && b === 'Introduction'
+            ? -1
+            : a === 'Introduction' && b === '4337'
+              ? 1
+              : a === 'Introduction'
+                ? -1
+                : b === 'Introduction'
+                  ? 1
+                  : a.localeCompare(b)
+        )}
         selectedItems={selectedTags}
         onChange={onSelectTag}
       />
@@ -244,18 +280,17 @@ export const Resources = (): ReactElement => {
         <Grid
           item
           container
-          xs={12}
           flexDirection='column'
           alignItems='center'
           justifyContent='center'
         >
-          <Typography textAlign='center' variant='h1'>
+          <Typography textAlign='center' variant='h1' mb={[2, 0]}>
             Resource Hub
           </Typography>
           <TextField
             className={css.searchField}
             variant='outlined'
-            placeholder='Search by name, description or tag'
+            placeholder='Search by name, description, or tag'
             InputProps={{
               startAdornment: (
                 <InputAdornment position='start'>
@@ -272,13 +307,13 @@ export const Resources = (): ReactElement => {
                 ) : undefined
             }}
             value={query}
-            sx={{ border: 'none', width: '80%' }}
+            sx={{ border: 'none', width: '80%', mt: [2, 0] }}
             onChange={e => {
               setQuery(e.target.value)
             }}
             fullWidth
           />
-          <Typography mt={2}>
+          <Typography textAlign={['center', 'left']} mt={2}>
             <Typography component='span' color='primary.light'>
               Example:
             </Typography>{' '}
@@ -422,6 +457,7 @@ export const Resources = (): ReactElement => {
                     shallow
                     // Pagination marker for search engines
                     rel='next'
+                    scroll={false}
                   >
                     <Button variant='contained' size='large'>
                       Show more
@@ -437,7 +473,7 @@ export const Resources = (): ReactElement => {
                   mx='auto'
                   textAlign='center'
                 >
-                  Listings are not endorsements and are only for informational
+                  Listings are not endorsements and are only for educational
                   purposes.
                 </Typography>
               </Grid>

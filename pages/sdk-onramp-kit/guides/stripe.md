@@ -6,7 +6,7 @@ The [Stripe Crypto Onramp service](https://stripe.com/docs/crypto/overview) allo
 
 This guide demonstrates how to use the `StripePack` as part of the [`OnrampKit`](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) and incorporate it into your web application.
 
-We're going to learn how to render the Stripe widget into your page. This widget allows the use your own Ethereum address for onramping cryptocurrencies. As [Stripe API](https://stripe.com/docs/crypto/using-the-api) usage [requires a server](https://stripe.com/docs/crypto/quickstart?client=html&lang=node) to start the interaction with their services, we will also be using a [pre-deployed server](https://github.com/5afe/aa-stripe-service) and providing a public key for testing purposes.
+We are going to learn how to render the Stripe widget into your page. This widget allows the use your own Ethereum address for onramping cryptocurrencies. As [Stripe API](https://stripe.com/docs/crypto/using-the-api) usage [requires a server](https://stripe.com/docs/crypto/quickstart?client=html&lang=node) to start the interaction with their services, we will also be using a [pre-deployed server](https://github.com/5afe/aa-stripe-service) and providing a public key for testing purposes.
 
 ![The Stripe widget](https://b.stripecdn.com/docs-statics-srv/assets/crypto-onramp-overview.c4c0682697f2cd4c1c2769c3c5e08506.png)
 
@@ -15,7 +15,7 @@ We're going to learn how to render the Stripe widget into your page. This widget
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 2. [Stripe account to get your own public and private keys](https://dashboard.stripe.com/register)
 3. A deployed server ([example](https://github.com/5afe/aa-stripe-service)) for communicating with Stripe APIs.
-   We're providing both the public key and the server for testing purposes but you must use your own public key and server in production.
+   We are providing both the public key and the server for testing purposes but you must use your own public key and server in production.
 
 ## Install dependencies
 
@@ -25,7 +25,7 @@ yarn add @safe-global/onramp-kit @stripe/stripe-js @stripe/crypto
 
 ## Using the `StripePack` in your Web App
 
-The `StripePack` can be used with any frontend framework like React, Vue, Angular or even plain HTML and JavaScript. In this example, we're using it with plain JavaScript.
+The `StripePack` can be used with any frontend framework like React, Vue, Angular or even plain HTML and JavaScript. In this example, we are using it with plain JavaScript.
 
 1. Load the application and initialize the `StripePack` using the following snippet:
 

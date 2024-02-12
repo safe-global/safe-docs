@@ -1,0 +1,29 @@
+name: Docs Feedback
+description: Report errors you find in our documentation or ideas for enhancing our documentation.
+title: "[Feedback] "
+labels: ["nextra-feedback"]
+body:
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Feedback
+      description: |
+        What is the error you found in our documentation or what do you think should be enhanced?
+  - type: textarea
+    validations:
+      required: false
+    attributes:
+      label: How can this issue be resolved?
+      description: If you have an idea of how the issue can be resolved, please detail the steps below.
+      value: |
+        1.
+        2.
+        3.
+  - type: checkboxes
+    attributes:
+      label: Are you interested in working on this?
+      description: If you're interested in not only reporting this issue but also fix it, check the box below.
+      options:
+        - label: "I would like to implement/fix this issue"
+          required: false
