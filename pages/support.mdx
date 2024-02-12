@@ -1,0 +1,34 @@
+import { Grid, Container} from '@mui/material'
+import CustomCard from '../components/CustomCard'
+
+<Container>
+<Grid container mb={8} mt={4}>
+
+# Support
+
+If you have a question, chances are high that somebody else might have the same question, too. You help yourself and everyone who comes after you by asking your questions. 
+
+Please help us respond faster by asking your question in the correct place.
+
+<Grid
+container
+spacing={2}
+display='flex'
+alignContent='flex-start'
+mt={3}
+>
+<Grid item xs={12} md={4}>
+  <CustomCard title={'Safe{Wallet}'} description={'For questions about the Safe{Wallet} - the web app and the mobile apps, please ask your questions at our Help Center.'} url={'https://help.safe.global/en/'} />
+</Grid>
+
+<Grid item xs={12} md={4}>
+  <CustomCard title={'Safe{Core}'} description={'For technical questions about Safe Smart Accounts (smart contracts), SDK, and the API, please ask your questions on our Stack Exchange.'} url={'https://ethereum.stackexchange.com/questions/tagged/safe-core'} />
+</Grid>
+
+<Grid item xs={12} md={4}>
+  <CustomCard title={'Report Bugs'} description={'Please file an issue in the associated GitHub repository for things not working as expected and for reporting bugs.'} url={'https://github.com/safe-global'} />
+</Grid>
+
+</Grid>
+</Grid>
+</Container>
