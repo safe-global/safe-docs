@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import SafeLogo from './assets/svg/safe-logo-white.svg'
 import Footer from './components/Footer'
-// import Feedback from './components/Feedback'
+import Feedback from './components/Feedback'
 
 const config: DocsThemeConfig = {
   darkMode: false,
@@ -34,13 +34,13 @@ const config: DocsThemeConfig = {
         titleTemplate: '%s – Safe Docs'
       }
     }
-  }
-  // main: ({ children }) => (
-  //   <>
-  //     {children}
-  //     <Feedback />
-  //   </>
-  // )
+  },
+  main: ({ children }) => (
+    <>
+      {children}
+      <Feedback />
+    </>
+  )
 }
 
 export default config
