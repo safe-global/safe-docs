@@ -11,8 +11,7 @@ const CustomCard: React.FC<{
   url: string
   icon: JSX.Element
   newTab?: boolean
-  heading?: string
-}> = ({ title, description, url, icon, newTab, heading }) => (
+}> = ({ title, description, url, icon, newTab }) => (
   <Card
     sx={{
       transition: 'all 0.2s ease-in-out',
@@ -42,7 +41,7 @@ const CustomCard: React.FC<{
         >
           {icon}
           <ArrowIcon className={css.icon} />
-          <Typography fontWeight='500' variant={heading ?? 'h4'} mt={1} mb={1}>
+          <Typography fontWeight='500' variant='h4' mt={1} mb={1}>
             {title}
           </Typography>
         </Grid>
