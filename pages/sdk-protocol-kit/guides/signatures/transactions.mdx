@@ -27,7 +27,7 @@ let safeTransaction = await protocolKit.createTransaction({
 
 The returned `safeTransaction` object contains the transaction data (`safeTransaction.data`) and a map of the owner-signature pairs (`safeTransaction.signatures`). The structure is very similar to the `EthSafeMessage` class but applied for transactions instead of messages.
 
-We use `let` to initialize the `safeTransaction` variable because we are going to add the signatures later.
+We use `let` to initialize the `safeTransaction` variable because we're going to add the signatures later.
 
 ```typescript
 class EthSafeTransaction implements SafeTransaction {
@@ -94,7 +94,7 @@ EthSafeTransaction {
 }
 ```
 
-The `signatures.data` represents a specific signature. The `isContractSignature` flag set to `false` indicates that the signature is not a smart contract signature, but an ECDSA signature instead.
+The `signatures.data` represents a specific signature. The `isContractSignature` flag set to `false` indicates that the signature isn't a smart contract signature, but an ECDSA signature instead.
 
 An ECDSA signature is composed of two 32-byte integers (`r`, `s`) and an extra byte for recovery (`v`), making a total of 65 bytes. In hexadecimal string format, each byte is represented by two characters. Hence, a 65-byte Ethereum signature will be 130 characters long. Including the `0x` prefix commonly used with signatures, the total character count for such a signature would be 132. Check the [Safe signatures](https://docs.safe.global/safe-smart-account/signatures) documentation to learn more.
 
@@ -106,7 +106,7 @@ Safe supports the following `v` values:
 - `0`: Contract signature.
 - `1`: Approved hash.
 - `{27, 28} + 4`: Ethereum adjusted ECDSA recovery byte for EIP-191 signed message.
-> Regarding the EIP-191 signed message the `v` value is adjusted to the ECDSA `v + 4`. If the generated value is `28` and it is adjusted to `0x1f`, the signature verification will fail as it should be `0x20` (`28 + 4 = 32`) instead. If `v > 30` then the default `v` (`27`, `28`) was adjusted because of `eth_sign` implementation. This calculation is automatically done by the Safe\{Core\} SDK.
+> Regarding the EIP-191 signed message the `v` value is adjusted to the ECDSA `v + 4`. If the generated value is `28` and it's adjusted to `0x1f`, the signature verification will fail as it should be `0x20` (`28 + 4 = 32`) instead. If `v > 30` then the default `v` (`27`, `28`) was adjusted because of `eth_sign` implementation. This calculation is automatically done by the Safe\{Core\} SDK.
 - Other: Ethereum adjusted ECDSA recovery byte for raw signed hash.
 
 The hexadecimal value `1f` equals the decimal number `31`. If the decimal value is greater than `30`, it [indicates](https://github.com/safe-global/safe-smart-account/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L344-L347) that the signature is an `eth_sign` signature.
@@ -171,7 +171,7 @@ EthSafeTransaction {
 }
 ```
 
-The `signatures.data` represents a specific signature. The `isContractSignature` flag set to `false` indicates that the signature is not a smart contract signature, but an ECDSA signature instead.
+The `signatures.data` represents a specific signature. The `isContractSignature` flag set to `false` indicates that the signature isn't a smart contract signature, but an ECDSA signature instead.
 
 To generate a Safe compatible signature we use the `buildContractSignature` method, which takes an array of signatures and returns another signature that can be used with Safe accounts. After that, we add the signature from `safe1_1` to our initial transaction.
 
@@ -274,7 +274,7 @@ EthSafeTransaction {
 
 We now have two signatures from the owners, `owner4` and `owner5`. By following the same process, we can create the contract signature and examine the result.
 
-The `signatures.data` represents a specific signature. The `isContractSignature` flag set to `false` indicates that the signature is not a smart contract signature, but an ECDSA signature instead.
+The `signatures.data` represents a specific signature. The `isContractSignature` flag set to `false` indicates that the signature isn't a smart contract signature, but an ECDSA signature instead.
 
 To generate a Safe compatible signature we use the `buildContractSignature` method, which takes an array of signatures and returns another signature that can be used with Safe accounts. After that, we add the signature from `safe1_1` to our initial transaction.
 

@@ -67,7 +67,7 @@ const TYPED_MESSAGE = {
 }
 ```
 
-The `createMessage` method in the Protocol Kit allows creating new messages and it returns an instance of the `EthSafeMessage` class. Here we are passing `TYPED_MESSAGE` but `STRING_MESSAGE` could be passed as well.
+The `createMessage` method in the Protocol Kit allows creating new messages and it returns an instance of the `EthSafeMessage` class. Here we're passing `TYPED_MESSAGE` but `STRING_MESSAGE` could be passed as well.
 
 ```typescript
 let safeMessage = protocolKit.createMessage(TYPED_MESSAGE)
@@ -75,7 +75,7 @@ let safeMessage = protocolKit.createMessage(TYPED_MESSAGE)
 
 The returned `safeMessage` object contains the message data (`safeMessage.data`) and a map of owner-signature pairs (`safeMessage.signatures`). The structure is very similar to the `EthSafeTransaction` class but applied for messages instead of transactions.
 
-We use `let` to initialize the `safeMessage` variable because we are going to add the signatures later.
+We use `let` to initialize the `safeMessage` variable because we're going to add the signatures later.
 
 ```typescript
 class EthSafeMessage implements SafeMessage {
@@ -213,7 +213,7 @@ After following all the steps above, the `safeMessage` now contains all the sign
 
 ## Publish the signed message
 
-As messages are not stored in the blockchain we need to make them public and available to others by storing them somewhere else.
+As messages aren't stored in the blockchain we need to make them public and available to others by storing them somewhere else.
 
 Safe messages can be stored on-chain and off-chain:
 
@@ -226,7 +226,7 @@ Safe supports signing [EIP-191](https://eips.ethereum.org/EIPS/eip-191) messages
 
 To use off-chain messages, we need to use the functionality from this guide and call the Safe Transaction Service API to store the messages and signatures.
 
-We mentioned the utility of storing messages in the contract. Off-chain messages have the same purpose, but they are stored in the Safe Transaction Service. It stores the messages and signatures in a database. It's a centralized service, but it's open-source and can be deployed by anyone.
+We mentioned the utility of storing messages in the contract. Off-chain messages have the same purpose, but they're stored in the Safe Transaction Service. It stores the messages and signatures in a database. It's a centralized service, but it's open-source and can be deployed by anyone.
 
 The Safe Transaction Service is used by [Safe\{Wallet\}](https:/app.safe.global) to store messages and signatures by default.
 
