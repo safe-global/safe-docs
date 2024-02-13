@@ -36,7 +36,12 @@
   },
   {
     "source": "/safe-smart-account/signatures/eip-1271",
-    "destination": "/smart-account-signatures/eip-1271",
+    "destination": "/sdk-protocol-kit/guides/signatures",
+    "permanent": true
+  },
+  {
+    "source": "/smart-account-signatures/eip-1271",
+    "destination": "/sdk-protocol-kit/guides/signatures",
     "permanent": true
   },
   {
