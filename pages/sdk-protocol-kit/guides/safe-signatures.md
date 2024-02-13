@@ -1,82 +1,86 @@
 # Safe Signatures
 
-Understanding and generating signatures can be challenging. The **Safe{Core} SDK** provides a set of utilities to use signatures with Safe. This guide covers how signatures work and how to generate them using the `@safe-global/protocol-kit` package.
+This guide shows how Safe signatures work and how to generate them using the Protocol Kit.
 
-## Setting up the example Safe account
+## Prerequisites
 
-A Safe account can be configured with different values for the threshold and different types of owner. An owner can be any Ethereum address, such as:
+- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
-- Externally-owned account (EOA)
-- A smart contract that implements the [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) for signature validation, like Safe does.
+## Install dependencies
 
-When a Safe owner is an EOA it will generate an ECDSA signature to approve a Safe transaction. When a Safe owner is a smart account, the signature algorithm will depends on the implementation of the smart account.
-
-In this guide we will use the following Safe account setup:
-
-- `safe3_4`: 3/4 Safe (3 signatures required out of 4 owners)
-  - `owner1`
-  - `owner2`
-  - `signerSafe1_1`: 1/1 Safe account as child owner
-    - `owner3`
-  - `signerSafe2_3`: 2/3 Safe account as another child owner
-    - `owner4`
-    - `owner5`
-
-All the owners are Ethereum addresses. Here are the addresses for this example:
-
-| Who                | Address                                    |
-| ------------------ | ------------------------------------------ |
-| **safe3_4** | 0xb3b3862D8e38a1E965eb350B09f2167B2371D652 |
-| **owner1**         | 0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1 |
-| **owner2**         | 0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0 |
-| **signerSafe1_1**  | 0x215033cdE0619D60B7352348F4598316Cc39bC6E |
-| **owner3**         | 0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b |
-| **signerSafe2_3**  | 0xf75D61D6C27a7CC5788E633c1FC130f0F4a62D33 |
-| **owner4**         | 0xE11BA2b4D45Eaed5996Cd0823791E0C93114882d |
-| **owner5**         | 0xd03ea8624C8C5987235048901fB614fDcA89b117 |
-
-## Transactions
-
-### Creating the transaction object
-
-We can sign transactions using the `protocol-kit` by creating an instance of the `Safe` class:
-
-```typescript
-import Safe from '@safe-global/protocol-kit'
-
-// You can use any compatible adapter, such as Web3Adapter or EthersAdapter
-const protocolKit = await Safe.create({
-  ethAdapter: ethAdapter1,
-  safeAddress: safe3_4,
-})
+```bash
+yarn install @safe-global/protocol-kit
 ```
 
-The `ethAdapter1` is bound to `owner1`. In the examples provided in this article, we will have 5 adapters, each one bound to an owner.
+## Setup
 
-| Adapter     | Signer |
-| ----------- | -------- |
-| ethAdapter1 | owner1   |
-| ethAdapter2 | owner2   |
-| ethAdapter3 | owner3   |
-| ethAdapter4 | owner4   |
-| ethAdapter5 | owner5   |
+Safe accounts can be configured with different values for the threshold and different types of owners. Safe owners can be any Ethereum address, such as:
+- Externally-owned accounts (EOAs). They generate an ECDSA signature to approve Safe transactions.
+- Smart accounts that implement the [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) for signature validation, like Safe does. They use a different signature algorithm depending on the implementation of the smart account.
 
-After obtaining the `protocolKit` instance, we can use `createTransaction()` to generate a transaction object.
+In the following guides, there are different accounts involved that will be used as an example:
+
+| Who | Description | Address for this example |
+| :--- | :--- | :--- |
+| `safe3_4` | 3/4 Safe (3 signatures required out of 4 owners) | 0xb3b3862D8e38a1E965eb350B09f2167B2371D652 |
+| `owner1` | EOA and owner of `safe3_4` | 0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1 |
+| `owner2` | EOA and owner of `safe3_4` | 0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0 |
+| `safe1_1` | 1/1 Safe and owner of `safe3_4` | 0x215033cdE0619D60B7352348F4598316Cc39bC6E |
+| `owner3` | EOA and owner of `safe1_1` | 0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b |
+| `safe2_3` | 2/3 Safe and owner of `safe3_4` | 0xf75D61D6C27a7CC5788E633c1FC130f0F4a62D33 |
+| `owner4` | EOA and owner of `safe2_3` | 0xE11BA2b4D45Eaed5996Cd0823791E0C93114882d |
+| `owner5` | EOA and owner of `safe2_3` | 0xd03ea8624C8C5987235048901fB614fDcA89b117 |
+
+Each EOA owner described above is bound to an `EthAdapter` instance that should be initialized as well.
+
+| Adapter | Signer |
+| :--- | :--- |
+| `ethAdapter1` | `owner1` |
+| `ethAdapter2` | `owner2` |
+| `ethAdapter3` | `owner3` |
+| `ethAdapter4` | `owner4` |
+| `ethAdapter5` | `owner5` |
+
+## Guides
+
+### Transaction signatures
+
+- The [Transaction signatures](./signatures/transactions.mdx) guide explains how transactions are signed by Safe owners using the Protocol Kit.
+
+### Message signatures
+
+- The [Message signatures](./signatures/messages.mdx) guide explains how to generate and sign messages, including plain string messages and EIP-712 JSON messages, using the Protocol Kit.
+
+import { Callout } from 'nextra/components'
+
+# Transaction signatures
+
+This guide explains how transactions are signed by the Safe owners using the Protocol Kit.
+
+<Callout type="info">
+  Before starting, make sure to check the [setup](../signatures.md) for this guide.
+</Callout>
+
+## Create the transaction
+
+The `createTransaction` method in the Protocol Kit allows creating new Safe transactions and returns an instance of the `EthSafeTransaction` class.
 
 ```typescript
-// Create the transaction. Send 0.01 ETH
+// Create a transaction to send 0.01 ETH
 const safeTransactionData: SafeTransactionDataPartial = {
   to: '0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1',
   value: '100000000000000000', // 0.01 ETH
-  data: '0x',
+  data: '0x'
 }
 
-let safeTx = await protocolKit.createTransaction({
-  transactions: [safeTransactionData],
+let safeTransaction = await protocolKit.createTransaction({
+  transactions: [safeTransactionData]
 })
 ```
 
-The `safeTx` object is an instance of the `EthSafeTransaction` class, which stores the Safe transaction data and a map of the signatures from the Safe owners.
+The returned `safeTransaction` object contains the transaction data (`safeTransaction.data`) and a map of the owner-signature pairs (`safeTransaction.signatures`). The structure is very similar to the `EthSafeMessage` class but applied for transactions instead of messages.
+
+We use `let` to initialize the `safeTransaction` variable because we are going to add the signatures later.
 
 ```typescript
 class EthSafeTransaction implements SafeTransaction {
@@ -87,30 +91,45 @@ class EthSafeTransaction implements SafeTransaction {
 }
 ```
 
-### Generating transaction signatures
+## Sign the transaction
 
-Once we've the `safeTx` transaction object, the necessary signatures can be added to it.
+Once the `safeTransaction` object is created, we need to collect the signatures from the signers who will sign it.
 
-#### Creating an ECDSA signature
+Following our [setup](../signatures.md), we will sign a Safe transaction from `safe3_4`, the main Safe account in this guide. To do that we need first to sign the same transaction with its owners: `owner1`, `owner2`, `safe1_1, and `safe2_3`.
 
-We will sign with `owner1` and `owner2` using the `signTransaction()` method. This method add new signatures to the `signatures` map by using the transaction `data` as input.
+### ECDSA signature
 
-It's possible to use several signing methods, such as `ETH_SIGN` (eth_sign), `ETH_SIGN_TYPED_DATA_V4` (eth_signTypedData_v4), ...etc. The default signing method is `ETH_SIGN_TYPED_DATA_V4`.
+This applies to `owner1` and `owner2` accounts as both accounts are EOAs.
+
+The `signTransaction` method takes the `safeTransaction` together with a `SigningMethod` and adds the new signature to the `safeTransaction.signatures` map. Depending on the type of message, the `SigningMethod` can take these values:
+- `SigningMethod.ETH_SIGN`
+- `SigningMethod.ETH_SIGN_TYPED_DATA_V4`
 
 ```typescript
-safeTx = await protocolKit.signTransaction(safeTx, SigningMethod.ETH_SIGN)
-protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter2 }) // Connect another owner
-safeTx = await protocolKit.signTransaction(
-  safeTx,
+// Connect the EthAdapter from owner1
+protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter1 })
+
+// Sign the safeTransaction with owner1
+// After this, the safeTransaction contains the signature from owner1
+safeTransaction = await protocolKit.signTransaction(
+  safeTransaction,
+  SigningMethod.ETH_SIGN
+)
+
+// Connect the EthAdapter from owner2
+protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter2 })
+
+// Sign the safeTransaction with owner2
+// After this, the safeTransaction contains the signature from owner1 and owner2
+safeTransaction = await protocolKit.signTransaction(
+  safeTransaction,
   SigningMethod.ETH_SIGN_TYPED_DATA_V4
 )
 ```
 
-In this snippet, we add the signature for `owner1`. Then, we use the `connect()` method to connect the `owner2` adapter and sign again to add the second signature.
+At this point, the `safeTransaction` object should look like this:
 
-If we examine the `safeTx` object at this point, we should see something similar to the following:
-
-```javascript
+```typescript
 EthSafeTransaction {
   signatures: Map(2) {
     '0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1' => EthSafeSignature {
@@ -128,67 +147,71 @@ EthSafeTransaction {
 }
 ```
 
-The `data` prop in the `signatures` map represents the concrete signature. The `isContractSignature` flag (_false_) indicates if the signature is an Ethereum signature or a Contract signature (A signer Safe account).
+The `signatures.data` represents a specific signature. The `isContractSignature` flag set to `false` indicates that the signature is not a smart contract signature, but an ECDSA signature instead.
 
-An ECDSA signature is composed of two 32-byte integers (r, s) and an extra byte for recovery id (v), making a total of 65 bytes. In hexadecimal string format, each byte is represented by 2 characters. Hence, a 65-byte Ethereum signature will be 130 characters long. Including the '0x' prefix commonly used with signatures, the total character count for such a signature would be 132. For a more detailed explanation, you can refer to [this link](https://docs.safe.global/safe-smart-account/signatures) for more information.
+An ECDSA signature is composed of two 32-byte integers (`r`, `s`) and an extra byte for recovery (`v`), making a total of 65 bytes. In hexadecimal string format, each byte is represented by two characters. Hence, a 65-byte Ethereum signature will be 130 characters long. Including the `0x` prefix commonly used with signatures, the total character count for such a signature would be 132. Check the [Safe signatures](https://docs.safe.global/safe-smart-account/signatures) documentation to learn more.
 
-> To represent a byte (8 bits) in hexadecimal, you need 2 characters. Each hexadecimal character represents 4 bits. Therefore, 2 hexadecimal characters (2 x 4 bits) are able to represent a byte (8 bits).
+To represent a byte (8 bits) in hexadecimal, two more characters are required. Each hexadecimal character represents four bits. Therefore, two hexadecimal characters (2 x 4 bits) can represent a byte (8 bits).
 
 The final part of the signature, either `1f` or `1c`, indicates the signature type.
 
-> Safe supports the following V values:
->
-> - 0: Contract signature
-> - 1: Approved hash
-> - {27, 28} + 4: Ethereum adjusted ECDSA recovery byte for EIP-191 signed message
->   It's important that for the EIP-191 signed message the V is adjusted to the ECDSA V + 4. If the generated value is 28 and you adjust it to 0x1f, the signature verification will fail, it should be 0x20 (28+4=32) instead, so, if v > 30 then default v (27,28) has been adjusted for eth_sign flow. This is automatically done in the SDK
-> - Other: Ethereum adjusted ECDSA recovery byte for raw signed hash
+Safe supports the following `v` values:
+- `0`: Contract signature.
+- `1`: Approved hash.
+- `{27, 28} + 4`: Ethereum adjusted ECDSA recovery byte for EIP-191 signed message.
+> Regarding the EIP-191 signed message the `v` value is adjusted to the ECDSA `v + 4`. If the generated value is `28` and it is adjusted to `0x1f`, the signature verification will fail as it should be `0x20` (`28 + 4 = 32`) instead. If `v > 30` then the default `v` (`27`, `28`) was adjusted because of `eth_sign` implementation. This calculation is automatically done by the Safe\{Core\} SDK.
+- Other: Ethereum adjusted ECDSA recovery byte for raw signed hash.
 
-The hexadecimal value `1f` equals to the decimal number 31. Because the decimal value is greater than 30, it [indicates to the Safe smart contract]()(https://github.com/safe-global/safe-smart-account/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L344-L347) that the signature is an `eth_sign`.
+The hexadecimal value `1f` equals the decimal number `31`. If the decimal value is greater than `30`, it [indicates](https://github.com/safe-global/safe-smart-account/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L344-L347) that the signature is an `eth_sign` signature.
 
-The hexadecimal value `1c` equals to the decimal number 28, indicating that the signature is a typed data signature. For instance, in the case of the initial signature:
+The hexadecimal value `1c` equals the decimal number `28`, indicating that the signature is a typed data signature.
+
+The initial signature should look like this:
 
 `0x969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b1261f`:
 
-| Type           | Bytes | Value                                                                                                                            | Description             |
-| -------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| Hex            | 1     | 0x                                                                                                                               | Hex string characters   |
-| Signature      | 64    | 969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b126 | Signature bytes         |
-| Signature Type | 1     | 1f                                                                                                                               | 1f hex is 31 in decimal |
+| Type | Description | Bytes | Value |
+| :--- | :--- | :---: | :--- |
+| Hex | Hex string characters | 1 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0x</div> |
+| Signature | Signature bytes | 64 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b126</div> |
+| Signature Type | 1f hex is 31 in decimal | 1 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>1f</div> |
 
-#### Creating Smart contract signatures
+### Smart contract signatures
 
-**1/1 Safe account**
+When signing with a Safe account the `SigningMethod` will take the value `SigningMethod.SAFE_SIGNATURE`.
 
-The smart contract signatures supported by Safe differ from regular ECDSA signatures. We will use the special method `SigningMethod.SAFE_SIGNATURE` to generate these kind of signatures.
+#### 1/1 Safe account
 
-To start signing with the 1/1 Safe, we need the adapter for `owner3` and the new `safeAddress` for the signature. The new `safeAddress` is associated with the child Safe account. Let's connect the adapter and safe, and continue with the signing process:
+This applies to the `safe1_1` account, another owner of `safe3_4`.
+
+We need to connect the Protocol Kit to `safe1_1` and the `owner3` account (the only owner of `safe1_1`) and sign the transaction.
 
 ```typescript
-// Create a new transaction object with an empty signatures array. The txHash should remain the same. You can copy the safeTx object and remove the contents of the signatures array
-let signerSafeTx1_1 = await protocolKit.createTransaction({
-  transactions: [safeTransactionData],
+// Create a new transaction object
+let transactionSafe1_1 = await protocolKit.createTransaction({
+  transactions: [safeTransactionData]
 })
 
-// Connect the adapter for owner3 and provide the address of the signer Safe account
+// Connect the adapter from owner3 and the address of safe1_1
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter3,
-  safeAddress: signerSafe1_1,
+  safeAddress: safe1_1
 })
 
-// Sign the transaction
-signerSafeTx1_1 = await protocolKit.signTransaction(
-  signerSafeTx1_1,
+// Sign the transactionSafe1_1 with owner3
+// After this, transactionSafe1_1 contains the signature from owner3
+transactionSafe1_1 = await protocolKit.signTransaction(
+  transactionSafe1_1,
   SigningMethod.SAFE_SIGNATURE,
   safe3_4 // Parent Safe address
 )
 ```
 
-> When signing with a child Safe account, it's important to specify the parent Safe address. The parent Safe address is used internally to generate the signature based on the version of the contracts you are using
+When signing with a child Safe account, we need to specify the parent Safe address to generate the signature based on the version of the contract.
 
-Once signed, we will have a transaction object (`signerSafeTx1_1`) similar to this one:
+At this point, the `transactionSafe1_1` object should look like this:
 
-```javascript
+```typescript
 EthSafeTransaction {
   signatures: Map(1) {
     '0x22d491bde2303f2f43325b2108d26f1eaba1e32b' => EthSafeSignature {
@@ -201,18 +224,25 @@ EthSafeTransaction {
 }
 ```
 
-Inside the signatures map, there is a regular ECDSA signature (`isContractSignature=false`). We can use this signature to generate an Safe account smart contract compatible signature. This can be achieved by using the `buildContractSignature()` utility method, which can be found [here](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/signatures/utils.ts#L139-L150). This method takes an array of signatures and output another signature that's ready to be used with Safe Accounts.
+The `signatures.data` represents a specific signature. The `isContractSignature` flag set to `false` indicates that the signature is not a smart contract signature, but an ECDSA signature instead.
+
+To generate a Safe compatible signature we use the `buildContractSignature` method, which takes an array of signatures and returns another signature that can be used with Safe accounts. After that, we add the signature from `safe1_1` to our initial transaction.
 
 ```typescript
-const signerSafeSig1_1 = await buildContractSignature(
-  Array.from(signerSafeTx1_1.signatures.values()),
-  signerSafe1_1
+// Build the contract signature of safe1_1
+const signatureSafe1_1 = await buildContractSignature(
+  Array.from(transactionSafe1_1.signatures.values()),
+  safe1_1
 )
+
+// Add the signatureSafe1_1 to safeTransaction
+// After this, the safeTransaction contains the signature from owner1, owner2 and safe1_1
+safeTransaction.addSignature(signatureSafe1_1)
 ```
 
-The contract signature will look like this:
+The `signatureSafe1_1` object should look like this:
 
-```javascript
+```typescript
 EthSafeSignature {
   signer: '0x215033cdE0619D60B7352348F4598316Cc39bC6E',
   data: '0x5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f',
@@ -220,80 +250,64 @@ EthSafeSignature {
 }
 ```
 
-The main changes from the one in the `EthSafeTransaction` object are the following ones:
+The `isContractSignature` flag is now `true` because `signatureSafe1_1` is an EIP-1271 smart contract signature from the `safe1_1` account.
 
-- Specify the correct `signer` (the Safe owner Account)
-- Set `isContractSignature` to `true`
-- Build the `data` by considering all the individual signatures of the child Safe
-
-After signing the contract, we can generate the final contract compatible with Safe Accounts using the `buildSignatureBytes()` method. This method is also used internally in the `buildContractSignature()` method. You can find the implementation of the `buildSignatureBytes()` method [here](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/signatures/utils.ts#L152-L189).
-
-Let’s examine the output of the do `buildSignatureBytes()` method. We can log it:
-
-```typescript
-console.log(buildSignatureBytes([signerSafeSig1_1])
-```
-
-The output will be
+The `signatureSafe1_1.data` signature should look like this:
 
 ```
 0x000000000000000000000000215033cdE0619D60B7352348F4598316Cc39bC6E00000000000000000000000000000000000000000000000000000000000000410000000000000000000000000000000000000000000000000000000000000000415edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f
 ```
 
-Let's break down this signature into parts:
+| Type | Description | Bytes | Value |
+| :--- | :--- | :---: | :--- |
+| Hex | Hex string characters | 1 | 0x |
+| Verifier | Padded address of the contract that implements the EIP-1271 interface to verify the signature. The Safe signer address | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>000000000000000000000000215033cdE0619D60B7352348F4598316Cc39bC6E</div> |
+| Data position | Start position of the signature data (offset relative to the beginning of the signature data). 41 hex is 65 in decimal | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000041</div> |
+| Signature Type | [00 for Safe accounts](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L322-L336) | 1 | 00 |
+| Signature Length | The length of the signature. 41 hex is 65 in decimal | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000041</div> |
+| Signature | Signature bytes that are verified by the signature verifier | 65 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f</div> |
 
-| Type             | Bytes | Value                                                                                                                              | Description                                                                                                                                      |
-| ---------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Hex              | 1     | 0x                                                                                                                                 | Hex string characters                                                                                                                            |
-| Verifier         | 32    | 000000000000000000000000215033cdE0619D60B7352348F4598316Cc39bC6E                                                                   | Padded address of the contract that implements the EIP-1271 interface to verify the signature. The Safe signer address                           |
-| Data position    | 32    | 0000000000000000000000000000000000000000000000000000000000000041                                                                   | Start position of the signature data (offset relative to the beginning of the signature data). 41 hex is 65 in decimal                           |
-| Signature Type   | 1     | 00                                                                                                                                 | 00 for [Safe Accounts](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L322-L336) |
-| Signature Length | 32    | 0000000000000000000000000000000000000000000000000000000000000041                                                                   | The length of the signature. 41 hex is 65 in decimal                                                                                             |
-| Signature        | 65    | 5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f | Signature bytes that are verified by the signature verifier                                                                                      |
+#### 2/3 Safe account
 
-This is what an **EIP-1271** contract signature for Safe contracts looks like. Now that we've explained this lengthy string, let's add the signature to the original transaction.
+This applies to the `safe2_3` account, another owner of `safe3_4`.
 
-```typescript
-safeTx.addSignature(signerSafeSig1_1)
-```
-
-**2/3 Safe account**
-
-The 2/3 Safe account requires a minimum of 2 signatures to be considered valid. Let's sign it with `owner4` and `owner5`.
+We need to connect the Protocol Kit to `safe2_3` and the `owner4` and `owner5` accounts (owners of `safe2_3`) and sign the transaction.
 
 ```typescript
 // Create a new transaction object
-let signerSafeTx2_3 = await protocolKit.createTransaction({
-  transactions: [safeTransactionData],
+let transactionSafe2_3 = await protocolKit.createTransaction({
+  transactions: [safeTransactionData]
 })
 
-// Connect the adapter for owner4 and specify the address of the signer Safe account
+// Connect the EthAdapter from owner4 and the address of safe2_3
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter4,
-  safeAddress: signerSafeAddress2_3,
+  safeAddress: safe2_3
 })
 
-// Sign the transaction with owner4
-signerSafeTx2_3 = await protocolKit.signTransaction(
-  signerSafeTx2_3,
+// Sign the transactionSafe2_3 with owner4
+// After this, the transactionSafe2_3 contains the signature from owner4
+transactionSafe2_3 = await protocolKit.signTransaction(
+  transactionSafe2_3,
   SigningMethod.SAFE_SIGNATURE,
-  safe3_4
+  safe3_4 // Parent Safe address
 )
 
 // Connect the adapter for owner5
 protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter5 })
 
-// Sign the transaction with owner5
-signerSafeTx2_3 = await protocolKit.signTransaction(
-  signerSafeTx2_3,
+// Sign the transactionSafe2_3 with owner5
+// After this, the transactionSafe2_3 contains the signature from owner5
+transactionSafe2_3 = await protocolKit.signTransaction(
+  transactionSafe2_3,
   SigningMethod.SAFE_SIGNATURE,
-  safeAddress
+  safe3_4 // Parent Safe address
 )
 ```
 
-Once signed, we will have a transaction object like this one:
+At this point, the `transactionSafe2_3` object should look like this:
 
-```javascript
+```typescript
 EthSafeTransaction {
   signatures: Map(2) {
     '0xe11ba2b4d45eaed5996cd0823791e0c93114882d' => EthSafeSignature {
@@ -313,45 +327,46 @@ EthSafeTransaction {
 
 We now have two signatures from the owners, `owner4` and `owner5`. By following the same process, we can create the contract signature and examine the result.
 
+The `signatures.data` represents a specific signature. The `isContractSignature` flag set to `false` indicates that the signature is not a smart contract signature, but an ECDSA signature instead.
+
+To generate a Safe compatible signature we use the `buildContractSignature` method, which takes an array of signatures and returns another signature that can be used with Safe accounts. After that, we add the signature from `safe1_1` to our initial transaction.
+
 ```typescript
-const signerSafeSig2_3 = await buildContractSignature(
-  Array.from(signerSafeTx2_3.signatures.values()),
-  signerSafe2_3
+// Build the contract signature of safe2_3
+const signatureSafe2_3 = await buildContractSignature(
+  Array.from(transactionSafe2_3.signatures.values()),
+  safe2_3
 )
-console.log(buildSignatureBytes([signerSafeSig2_3])
+
+// Add the signatureSafe2_3 to safeTransaction
+// After this, the safeTransaction contains the signature from owner1, owner2, safe1_1 and safe2_3
+safeTransaction.addSignature(signatureSafe2_3)
 ```
 
-The output will be:
+The `signatureSafe2_3` object should look like this:
 
 ```
 0x000000000000000000000000f75D61D6C27a7CC5788E633c1FC130f0F4a62D330000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000082023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f
 ```
 
-Let's break down this signature into parts again:
+| Type | Description | Bytes | Value |
+| :--- | :--- | :---: | :--- |
+| Hex | Hex string characters | 1 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0x</div> |
+| Verifier | Padded address of the contract that implements the EIP-1271 interface to verify the signature. The Safe signer address | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>000000000000000000000000f75D61D6C27a7CC5788E633c1FC130f0F4a62D33</div> |
+| Data position | Start position of the signature data (offset relative to the beginning of the signature data). 41 hex is 65 in decimal | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000041</div> |
+| Signature Type | [00 for Safe accounts](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L322-L336) | 1 | 00 
+| Signature Length | The length of the signature. 82 hex is 130 in decimal | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000082</div> |
+| Signature | Signature bytes that are verified by the signature verifier (130 bytes are represented by 260 characters in an hex string) | 130 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f</div> |
 
-| Type             | Bytes | Value                                                                                                                                                                                                                                                                | Description                                                                                                                                      |
-| ---------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Hex              | 1     | 0x                                                                                                                                                                                                                                                                   | Hex string characters                                                                                                                            |
-| Verifier         | 32    | 000000000000000000000000f75D61D6C27a7CC5788E633c1FC130f0F4a62D33                                                                                                                                                                                                     | Padded address of the contract that implements the EIP-1271 interface to verify the signature. The Safe signer address                           |
-| Data position    | 32    | 0000000000000000000000000000000000000000000000000000000000000041                                                                                                                                                                                                     | Start position of the signature data (offset relative to the beginning of the signature data). 41 hex is 65 in decimal                           |
-| Signature Type   | 1     | 00                                                                                                                                                                                                                                                                   | 00 for [Safe Accounts](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L322-L336) |
-| Signature Length | 32    | 0000000000000000000000000000000000000000000000000000000000000082                                                                                                                                                                                                     | The length of the signature. 82 hex is 130 in decimal                                                                                            |
-| Signature        | 130   | 023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f | Signature bytes that are verified by the signature verifier (130 bytes are represented by 260 characters in an hex string)                       |
+The table looks very similar to the previous one, but there are two main differences:
+- The **Signature Length** value has doubled because `safe2_3` needs two signatures.
+- The **Signature** value is a concatenation of the two regular signatures.
 
-The table looks very similar to the previous one, but there are two changes:
+After following all the steps above, the `safeTransaction` now contains all the signatures from the owners of the Safe.
 
-- The _signature length_ has doubled because this Safe needs two signatures.
-- The _signature_ value is a concatenation of the two regular signatures.
-
-We're finished. Let's add the signature to the original transaction.
+The `safeTransaction` object should look like this:
 
 ```typescript
-safeTx.addSignature(signerSafeSig2_3)
-```
-
-🚀🚀🚀 We're now done!!, we've signed with all the owners. We even have one more owner than the required threshold of 3 💃🏻, but that's okay. Now, let's take a look at the final structure of the `safeTx` object.
-
-```javascript
 EthSafeTransaction {
   signatures: Map(4) {
     '0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1' => EthSafeSignature {
@@ -390,149 +405,150 @@ EthSafeTransaction {
 }
 ```
 
-The transaction includes four signatures: two regular and two contract signatures. Since the threshold is three, we can even remove one signature 😉. Nevertheless, the transaction is prepared for sending to the contract and execution.
+## Propose the transaction
 
-### Executing the transaction
+To store the transactions and signatures off-chain we need to call the Safe Transaction Service API, a centralized and open-source service that can be deployed and run by anyone.
 
-To start, connect to the original safe and the desired adapter. Ensure sufficient funds are available in the underlying owner account to execute the transaction. In the previous step, we connected the `protocolKit` instance to the 2/3 Safe account. Once connected, proceed with executing the transaction.
+The Safe Transaction Service is used by [Safe\{Wallet\}](https://app.safe.global) to store transactions and signatures by default.
+
+To store a new transaction we need to call the `proposeTransaction` from the API Kit passing the Safe address and an object with the transaction and a signature from one owner.
+
+```typescript
+const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x'
+
+// Get the signature from owner1
+const signatureOwner1 = safeTransaction.getSignature(signerAddress) as EthSafeSignature
+
+// Get the transaction hash of the safeTransaction
+const safeTransactionHash = await protocolKit.getTransactionHash(safeTransaction)
+
+// Instantiate the API Kit
+// Use the chainId where you have the Safe account deployed
+const apiKit = new SafeApiKit({ chainId })
+
+// Propose the transaction
+await apiKit.proposeTransaction({
+  safeAddress: safe3_4,
+  safeTransactionData: safeTransaction.data,
+  safeTxHash: safeTransactionHash,
+  senderAddress: signerAddress,
+  senderSignature: buildSignatureBytes([signatureOwner1])
+})
+```
+
+The transaction is now publicly available in the Safe Transaction Service with the signature of the owner who submitted it.
+
+## Confirm the transaction
+
+To add the signatures from the remaining owners, we need to call the `confirmTransaction` passing the `safeMessageHash` and a signature from the owner.
+
+Once a transaction is proposed it becomes available on [Safe\{Wallet\}](https://app.safe.global). However, to execute the transaction it needs to have all the confirmations from the owners.
+
+```typescript
+const signerAddress = (await ethAdapter2.getSignerAddress()) || '0x'
+
+const signatureOwner2 = safeTransaction.getSignature(signerAddress) as EthSafeSignature
+
+// Confirm the transaction from owner2
+await apiKit.confirmTransaction(
+  safeTransactionHash,
+  buildSignatureBytes([signatureOwner2])
+)
+
+// Confirm the transaction with the owner safe1_1
+await apiKit.confirmTransaction(
+  safeTransactionHash,
+  buildSignatureBytes([signatureSafe1_1])
+)
+
+// Add signature from the owner safe2_3
+await apiKit.confirmTransaction(
+  safeTransactionHash,
+  buildSignatureBytes([signerSafeSig2_3])
+)
+```
+
+At this point, the transaction stored in the Safe Transaction Service contains all the required signatures from the owners of the Safe.
+
+The `getTransaction` method returns the transaction with the `confirmations` property, used to check all the signatures that were added.
+
+```typescript
+// Get the transactions
+const signedTransaction = await apiKit.getTransaction(safeTransactionHash)
+
+// Get the confirmations
+const confirmations = signedTransaction.confirmations
+```
+
+[Safe\{Wallet\}](https://app.safe.global) exposes to its users the list of pending transactions.
+
+```
+https://app.safe.global/transactions/queue?safe=<NETWORK_PREFIX>:<SAFE_ADDRESS>
+```
+
+## Execute the transaction
+
+Connect the Safe and the adapter of an owner to the Protocol Kit. Ensure there are enough funds available in the owner's account to execute the transaction and cover the gas costs. Once the Protocol Kit is initialized, the `executeTransaction` method receives the transaction with the required signatures and executes it.
 
 ```typescript
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter1,
-  safeAddress,
+  safeAddress: safe3_4
 })
-const transactionResponse = await protocolKit.executeTransaction(safeTx)
+
+// Execute the Safe transaction
+const transactionResponse = await protocolKit.executeTransaction(safeTransaction)
 ```
 
-When we call the `executeTransaction()` method, it internally uses the [`safeTx.encodedSignatures()`](https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/adapters/ethers/contracts/Safe/SafeContractEthers.ts#L159-L171) function, which in turn calls [`buildSignatureBytes()`](<(https://github.com/safe-global/safe-core-sdk/blob/cce519b4204b2c54ae0c3d2295ab6031332c0fe7/packages/protocol-kit/src/utils/transactions/SafeTransaction.ts#L24-L26)>) with the four signatures generated by the different owners.
+At this point, the Safe transaction should be executed on-chain and listed on [Safe\{Wallet\}](https://app.safe.global).
 
-Let’s log that.
-
-```typescript
-console.log(safeTx.encodedSignatures()) // Call buildSignatureBytes()
 ```
+https://app.safe.global/transactions/history?safe=<NETWORK_PREFIX>:<SAFE_ADDRESS>
+```
+
+The `safeTransaction.encodedSignature` method returns the signatures concatenated and sorted by the address of the signers. It should look like this:
 
 ```
 0x000000000000000000000000215033cdE0619D60B7352348F4598316Cc39bC6E000000000000000000000000000000000000000000000000000000000000010400969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b1261f000000000000000000000000f75D61D6C27a7CC5788E633c1FC130f0F4a62D330000000000000000000000000000000000000000000000000000000000000165004d63c79cf9d743782bc31ad58c1a316020b39839ab164caee7ecac9829f685cc44ec0d066a5dfe646b2ffeeb37575df131daf9c96ced41b8c7c4aea8dc5461801c00000000000000000000000000000000000000000000000000000000000000415edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f0000000000000000000000000000000000000000000000000000000000000082023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f
 ```
 
-This is the final signature we sent to the contract. The signatures are concatenated and sorted by signer address. Let’s decompose it.
+| Type | Description | Bytes | Acc byte | Value |
+| :--- | :--- | :---: | :---: | :--- |
+| Hex | Hex string characters | 1 | - | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0x</div> |
+| 1/1 Safe signer | Safe Address | 32 | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>000000000000000000000000215033cdE0619D60B7352348F4598316Cc39bC6E</div> |
+| Data position for 1/1 Safe | 104 hex = Signature data for 1/1 Safe start at byte 260 | 32 | 64 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000104</div> |
+| Signature Type | Smart contract signature | 1 | 65 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>00</div> |
+| Owner signature | `owner1` signature | 65 |  130 |<div style={{ maxWidth: "300px", textWrap: "wrap" }}>969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b1261f</div> |
+| 2/3 Safe signer | Safe Address | 32 | 162 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>000000000000000000000000f75D61D6C27a7CC5788E633c1FC130f0F4a62D33</div> |
+| Data position for 2/3 Verifier | 165 hex = Signature data for 2/3 Safe start at byte 357 | 32 | 194 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000165</div> |
+| Signature | Type Smart contract signature | 1 | 195 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>00</div> |
+| Owner signature | `owner2` signature | 65 | 260 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>4d63c79cf9d743782bc31ad58c1a316020b39839ab164caee7ecac9829f685cc44ec0d066a5dfe646b2ffeeb37575df131daf9c96ced41b8c7c4aea8dc5461801c</div> |
+| 1/1 Safe Signature Length | Start of the 1/1 Safe Signature. 41 hex = 65 bytes | 32 | 292 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000041</div> |
+| Signature | `owner3` signature | 65 | 357 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f</div> |
+| 2/3 Safe Signature length | Start of the 2/3 Safe Signature. 82 hex = 130 bytes | 32 | 389 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000082</div> |
+| Signature | `owner4` and `owner5` concatenated signatures | 130 | 519 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f</div> |
 
-| Type                           | Bytes | Value                                                                                                                                                                                                                                                                | Acc byte | Description                                             |
-| ------------------------------ | :---: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------: | ------------------------------------------------------- |
-| Hex                            |   1   | 0x                                                                                                                                                                                                                                                                   |    -     | Hex string characters                                   |
-| 1/1 Safe signer                |  32   | 000000000000000000000000215033cdE0619D60B7352348F4598316Cc39bC6E                                                                                                                                                                                                     |    32    | Safe Address                                            |
-| Data position for 1/1 Safe     |  32   | 0000000000000000000000000000000000000000000000000000000000000104                                                                                                                                                                                                     |    64    | 104 hex = Signature data for 1/1 Safe start at byte 260 |
-| Signature Type                 |   1   | 00                                                                                                                                                                                                                                                                   |    65    | Smart contract signature                                |
-| Owner signature                |  65   | 969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b1261f                                                                                                                                   |   130    | `owner1` signature                                      |
-| 2/3 Safe signer                |  32   | 000000000000000000000000f75D61D6C27a7CC5788E633c1FC130f0F4a62D33                                                                                                                                                                                                     |   162    | Safe Address                                            |
-| Data position for 2/3 Verifier |  32   | 0000000000000000000000000000000000000000000000000000000000000165                                                                                                                                                                                                     |   194    | 165 hex = Signature data for 2/3 Safe start at byte 357 |
-| Signature Type                 |   1   | 00                                                                                                                                                                                                                                                                   |   195    | Smart contract signature                                |
-| Owner signature                |  65   | 4d63c79cf9d743782bc31ad58c1a316020b39839ab164caee7ecac9829f685cc44ec0d066a5dfe646b2ffeeb37575df131daf9c96ced41b8c7c4aea8dc5461801c                                                                                                                                   |   260    | `owner2` signature                                      |
-| 1/1 Safe Signature Length      |  32   | 0000000000000000000000000000000000000000000000000000000000000041                                                                                                                                                                                                     |   292    | Start of the 1/1 Safe Signature. 41 hex = 65 bytes      |
-| Signature                      |  65   | 5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f                                                                                                                                   |   357    | `owner3` signature                                      |
-| 2/3 Safe Signature length      |  32   | 0000000000000000000000000000000000000000000000000000000000000082                                                                                                                                                                                                     |   389    | Start of the 2/3 Safe Signature. 82 hex = 130 bytes     |
-| Signature                      |  130  | 023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f |   519    | `owner4` and `owner5` concatenated signatures           |
+import { Callout } from 'nextra/components'
 
-At this point, The transaction should be executed on-chain and the process is finished.
+# Message signatures
 
-### Proposing transactions using Safe Services
+This guide explains how to generate and sign messages from a Safe account, including plain string messages and EIP-712 JSON messages, using the Protocol Kit.
 
-Until now, in the previous examples, we used the `protocol-kit` utilities to create and compose a signature for executing a transaction with Safe. This process can be done entirely on-chain without the need for any external service. However, in a real-world application, you would typically collect signatures from multiple Ethereum addresses (wallets), and there will be private keys belonging to different users. To handle this situation, you can either develop your own system (such as an API or services) to store each signature before sending it along the transaction to the blockchain (although we don't recommend it 😰), or you can utilize Safe services for this purpose 🚀.
+<Callout type="info">
+  Before starting, make sure to check the [setup](../signatures.md) for this guide.
+</Callout>
 
-We've already deployed Safe services on the main chains. More information can be found in:
+## Create the message
 
-- [Safe Core API documentation](https://docs.safe.global/safe-core-api/supported-networks).
-- [Safe Transaction Service](https://docs.safe.global/safe-core-api/service-architecture/safe-transaction-service)
-- [Transaction Service Swagger](https://safe-transaction-mainnet.safe.global/)
-
-You can use our APIs directly to collect signatures. Alternatively, you can use the `api-kit` package, which uses the Transaction Service under the hood. With the `api-kit`, you can propose transactions and add signatures to existing ones before execution.
-
-How can we do that? In the previous steps we instantiated the `protocol-kit` and created a transaction using the `createTransaction()` method. In order to start collecting signatures using our services we'll need:
-
-- A calculated safe transaction hash. We used this hash as a reference (id) for requesting data in the Transaction Service
-- The signature. Can be calculated in the same way as in the previous steps.
+Messages can be plain strings or valid EIP-712 typed data structures.
 
 ```typescript
-// Get the transaction hash of the safeTx
-const txHash = await protocolKit.getTransactionHash(safeTx)
-
-// Instantiate the api-kit
-const apiKit = new SafeApiKit({ chainId }) // Use the chainId where you have the Safe account deployed
-
-// Extract the signer address and the signature
-const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x'
-const ethSig1 = safeTx.getSignature(signerAddress) as EthSafeSignature
-
-// Propose the transaction
-await apiKit.proposeTransaction({
-  safeAddress,
-  safeTransactionData: safeTx.data,
-  safeTxHash: txHash,
-  senderAddress: signerAddress,
-  senderSignature: buildSignatureBytes([ethSig1]),
-})
-```
-
-Now that we've the proposed transaction, we can view it in the Safe{Wallet} UI. However, to execute the transaction, we need the other owners to confirm it by providing their signatures.
-
-```typescript
-// Extract the signer address and the signature
-const signerAddress = (await ethAdapter2.getSignerAddress()) || '0x'
-const ethSig2 = safeTx.getSignature(signerAddress) as EthSafeSignature
-
-// Confirm the transaction
-await apiKit.confirmTransaction(txHash, buildSignatureBytes([ethSig2]))
-```
-
-`owner2` has confirmed that the transaction is valid at this point! We only need one more confirmation to meet the configured threshold.
-
-```typescript
-// Confirm the transaction with the 1/1 signer Safe
-await apiKit.confirmTransaction(
-  txHash,
-  buildSignatureBytes([signerSafeSig1_1])
-)
-
-// Confirm the transaction with the 2/3 signer Safe
-// It's not really necessary as the threshold is matched at this point
-await apiKit.confirmTransaction(
-  txHash,
-  buildSignatureBytes([signerSafeSig2_3])
-)
-```
-
-We've now reached the threshold! We can check it by retrieving the transaction and examine the `confirmations` property.
-
-```typescript
-const confirmedTx = await api.getTransaction(txHash)
-// Examine the `confirmedTx.confirmations` property
-```
-
-Now, we can execute the transaction just as we did without using the services.
-
-```typescript
-// Use the retrieved confirmedTx to execute
-const executedTxResponse = await safeSdk.executeTransaction(confirmedTx)
-```
-
-The transaction should be executed now and after the Transaction Service indexes it we should be able to see it using the Safe{Wallet} UI.
-
-## Messages
-
-Previously, we explained how to work with transactions using the `protocol-kit`. However, we can also work with messages, including plain string messages and **EIP-712** JSON messages.
-
-In this section, we will explain how to generate and sign messages. The concept of signatures is the same as with transactions, so the tables explaining the signature parts also apply to messages. We will focus on generating signed messages using snippets. For a more detailed understanding of how signatures work, please refer to the **Generating the signatures** section above.
-
-### Creating the message object
-
-We already have a `protocolKit` instance right?, let’s use it to create a new message. A message can be a plain string or a valid EIP-712 typed data structure
-
-```json
-// An example of string message
+// An example of a string message
 const STRING_MESSAGE = "I'm the owner of this Safe account"
+```
 
-// An example of typed data message
+```typescript
+// An example of a typed data message
 const TYPED_MESSAGE = {
   types: {
     EIP712Domain: [
@@ -581,264 +597,302 @@ const TYPED_MESSAGE = {
 }
 ```
 
-Let's compose the message. You can use either the string or the typed JSON format:
+The `createMessage` method in the Protocol Kit allows creating new messages and it returns an instance of the `EthSafeMessage` class. Here we are passing `TYPED_MESSAGE` but `STRING_MESSAGE` could be passed as well.
 
 ```typescript
 let safeMessage = protocolKit.createMessage(TYPED_MESSAGE)
 ```
 
-The `safeMessage` is an object of type `EthSafeMessage` that contains the message data (`data`) and a map of owner-signature pairs (`signatures`). It's similar to the `EthSafeTransaction`.
+The returned `safeMessage` object contains the message data (`safeMessage.data`) and a map of owner-signature pairs (`safeMessage.signatures`). The structure is very similar to the `EthSafeTransaction` class but applied for messages instead of transactions.
+
+We use `let` to initialize the `safeMessage` variable because we are going to add the signatures later.
 
 ```typescript
 class EthSafeMessage implements SafeMessage {
   data: EIP712TypedData | string
   signatures: Map<string, SafeSignature> = new Map()
-...
-// Other props and methods
+  ...
+  // Other props and methods
 }
 ```
 
-### Generating the message signatures
+## Sign the message
 
-Now that we've the transaction object (`safeTx`), it's time to collect signatures.
+Once the `safeMessage` object is created, we need to collect the signatures from the signers who will sign it.
 
-#### Creating a ECDSA signature
+Following our [setup](../signatures.md), we will sign a message with `safe3_4`, the main Safe account in this guide. To do that we need first to sign the same message with its owners: `owner1`, `owner2`, `safe1_1`, and `safe2_3`.
 
-We're going to sign with `owner1` and `owner2`. For that we use the `signMessage()` method that takes the transaction `data` and add a new signature to the `signatures` map.
+### ECDSA signatures
+
+This applies to `owner1` and `owner2` accounts as both accounts are EOAs.
+
+The `signMessage` method takes the `safeMessage` together with a `SigningMethod` and adds the new signature to the `signMessage.signatures` map. Depending on the type of message, the `SigningMethod` can take these values:
+- `SigningMethod.ETH_SIGN`
+- `SigningMethod.ETH_SIGN_TYPED_DATA_V4`
 
 ```typescript
+// Connect the EthAdapter from owner1
+protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter1 })
+
+// Sign the safeMessage with owner1
+// After this, the safeMessage contains the signature from owner1
 safeMessage = await protocolKit.signMessage(
   safeMessage,
-  SigningMethod.ETH_SIGN
+  SigningMethod.ETH_SIGN_TYPED_DATA_V4
 )
+
+// Connect the EthAdapter from owner2
 protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter2 })
+
+// Sign the safeMessage with owner2
+// After this, the safeMessage contains the signature from owner1 and owner2
 safeMessage = await protocolKit.signMessage(
   safeMessage,
   SigningMethod.ETH_SIGN_TYPED_DATA_V4
 )
 ```
 
-It feels very similar to the transactions, right? That's because the process is basically the same and the signatures are being accumulated in the signatures Map of the `safeMessage` object. The previous concepts related to `data`, `signatures`, and `isContractSignature` still apply.
+### Smart contract signatures
 
-#### Creating Smart contract signatures (EIP-1271)
+When signing with a Safe account the `SigningMethod` will take the value `SigningMethod.SAFE_SIGNATURE`.
 
-**1/1 Safe account**
+#### 1/1 Safe account
 
-We will sign the message using the 1/1 Safe. Connect `owner3` and sign using the concepts explained earlier.
+This applies to the `safe1_1` account, another owner of `safe3_4`.
+
+We need to connect the Protocol Kit to `safe1_1` and the `owner3` account (the only owner of `safe1_1`) and sign the message.
 
 ```typescript
 // Create a new message object
-let signerSafeMessage1_1 = await createMessage(TYPED_MESSAGE)
+let messageSafe1_1 = await createMessage(TYPED_MESSAGE)
 
-// Connect the adapter for owner3 and specify the address of the signer Safe account
+// Connect the EthAdapter from owner3 and the address of safe1_1
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter3,
-  safeAddress: signerSafe1_1,
+  safeAddress: safe1_1
 })
 
-// Sign the message
-signerSafeMessage1_1 = await signMessage(
-  signerSafeMessage1_1,
+// Sign the messageSafe1_1 with owner3
+// After this, the messageSafe1_1 contains the signature from owner3
+messageSafe1_1 = await signMessage(
+  messageSafe1_1,
   SigningMethod.SAFE_SIGNATURE,
   safe3_4 // Parent Safe address
 )
 
-// Build contract signature
-const signerSafeMessageSig1_1 = await buildContractSignature(
-  Array.from(signerSafeMessage1_1.signatures.values()),
-  signerSafe1_1
+// Build the contract signature of safe1_1
+const signatureSafe1_1 = await buildContractSignature(
+  Array.from(messageSafe1_1.signatures.values()),
+  safe1_1
 )
 
-// Add the signature
-safeMessage.addSignature(signerSafeMessageSig1_1)
+// Add the signatureSafe1_1 to safeMessage
+// After this, the safeMessage contains the signature from owner1, owner2 and safe1_1
+safeMessage.addSignature(signatureSafe1_1)
 ```
 
-**2/3 Safe account**
+When signing with a child Safe account, we need to specify the parent Safe address to generate the signature based on the version of the contract.
 
-The 2/3 Safe account requires a minimum of 2 signatures to be considered valid. Let's sign it with the owners `owner4` and `owner5`.
+#### 2/3 Safe account
+
+This applies to the `safe2_3` account, another owner of `safe3_4`.
+
+We need to connect the Protocol Kit to `safe2_3` and the `owner4` and `owner5` accounts (owners of `safe2_3`) and sign the message.
 
 ```typescript
 // Create a new message object
-let signerSafeMessage2_3 = await createMessage(TYPED_MESSAGE)
+let messageSafe2_3 = await createMessage(TYPED_MESSAGE)
 
-// Connect the adapter for owner4 and specify the address of the signer Safe account
+// Connect the EthAdapter from owner4 and the address of safe2_3
 protocolKit = await protocolKit.connect({
   ethAdapter: ethAdapter4,
-  safeAddress: signerSafeAddress2_3,
+  safeAddress: safe2_3
 })
 
-// Sign the message
-signerSafeMessage2_3 = await protocolKit.signMessage(
-  signerSafeMessage2_3,
+// Sign the messageSafe2_3 with owner4
+// After this, the messageSafe2_3 contains the signature from owner4
+messageSafe2_3 = await protocolKit.signMessage(
+  messageSafe2_3,
   SigningMethod.SAFE_SIGNATURE,
-  safe3_4
+  safe3_4 // Parent Safe address
 )
 
-// Connect the adapter for owner5
+// Connect the EthAdapter from owner5
 protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter5 })
 
-// Sign the message
-signerSafeMessage2_3 = await protocolKit.signMessage(
-  signerSafeMessage2_3,
+// Sign the messageSafe2_3 with owner5
+// After this, the messageSafe2_3 contains the signature from owner5
+messageSafe2_3 = await protocolKit.signMessage(
+  messageSafe2_3,
   SigningMethod.SAFE_SIGNATURE,
-  safe3_4
+  safe3_4 // Parent Safe address
 )
 
-// Build contract signature
-const signerSafeMessageSig2_3 = await buildContractSignature(
-  Array.from(signerSafeMessage2_3.signatures.values()),
-  signerSafe2_3
+// Build the contract signature of safe2_3
+const signatureSafe2_3 = await buildContractSignature(
+  Array.from(messageSafe2_3.signatures.values()),
+  safe2_3
 )
 
-// Add the signature
-message.addSignature(signerSafeMessageSig2_3)
+// Add the signatureSafe2_3 to safeMessage
+// After this, the safeMessage contains the signature from owner1, owner2, safe1_1 and safe2_3
+safeMessage.addSignature(signatureSafe2_3)
 ```
 
+After following all the steps above, the `safeMessage` now contains all the signatures from the owners of the Safe.
 
-### Validating a message signature
+## Publish the signed message
 
-We can use the `isValidSignature()` method defined in the `CompatibilityFallbackHandler` [contract](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/handler/CompatibilityFallbackHandler.sol#L51-L68) to validate the signature of the previous generated message.
+As messages are not stored in the blockchain we need to make them public and available to others by storing them somewhere else.
 
-```typescript
-import { hashSafeMessage } from '@safe-global/protocol-kit'
+Safe messages can be stored on-chain and off-chain:
 
-await protocolKit.isValidSignature(
-  hashSafeMessage(MESSAGE),
-  safeMessage.encodedSignatures()
-)
-```
+- **Off-chain**: Messages are stored in the Safe Transaction Service. This is the default option and doesn't require any on-chain interaction.
+- **On-chain**: Messages are [stored](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L68-L69) in the Safe contract.
 
-This would validate the validity of the signatures we create.
+Safe supports signing [EIP-191](https://eips.ethereum.org/EIPS/eip-191) messages and [EIP-712](https://eips.ethereum.org/EIPS/eip-712) typed data messages all together with off-chain [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) validation for signatures.
 
-### What are the messages about ?
+### Off-chain messages
 
-We can't execute a message like transactions. Instead, we can store messages in the Safe contract and later check for their existence. This is useful, for example, for flows from third-party apps. It declares ownership of a Safe address and authorizes the Safe contract and the dApp to collaborate.
+To use off-chain messages, we need to use the functionality from this guide and call the Safe Transaction Service API to store the messages and signatures.
 
-Safe supports these two kinds of messages:
+We mentioned the utility of storing messages in the contract. Off-chain messages have the same purpose, but they are stored in the Safe Transaction Service. It stores the messages and signatures in a database. It's a centralized service, but it's open-source and can be deployed by anyone.
 
-- **Off-chain**: This is the default method and doesn't require any on-chain interaction.
-- **on-chain** : Messages [stored](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L68-L69) in the Safe contract
+The Safe Transaction Service is used by [Safe\{Wallet\}](https:/app.safe.global) to store messages and signatures by default.
 
-Safe Accounts support signing of [EIP-191](https://eips.ethereum.org/EIPS/eip-191) compliant messages as well as [EIP-712](https://eips.ethereum.org/EIPS/eip-712) typed data messages all together with off-chain [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) validation for signatures. More about this topic [here](https://docs.safe.global/safe-smart-account/signatures/eip-1271).
+#### Propose the message
 
-### Off-chain messages (default)
-
-By default, Safe supports off-chain messages. To use off-chain messages, you need to use the utilities described in this document and the Transaction Service API. Off-chain messages don't require any interaction with the blockchain.
-
-We mentioned the utility of storing messages in the contract. Off-chain messages have the same purpose, but they're stored in the Transaction Service. It stores the messages and signatures in a database. It's a centralized service, but it's open-source and can be deployed by anyone. The Transaction Service is used by the Safe{Wallet} UI to store messages and signatures by default.
-
-We will perform a task similar to the `proposeTransaction()` and `confirmTransaction()` methods.
-
-#### Adding new messages using Safe services.
-
-We will use the `api-kit` to add a new message. The process is similar to the one we used for transactions. We need to calculate the `safeMessageHash` and add the message to the service.
+To store a new message we need to call the `addMessage` from the API Kit passing the Safe address and an object with the message and a signature from one owner.
 
 ```typescript
 const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x'
-const ethSig1 = safeMessage.getSignature(signerAddress) as EthSafeSignature
 
+// Get the signature from owner1
+const signatureOwner1 = safeMessage.getSignature(signerAddress) as EthSafeSignature
+
+// Instantiate the API Kit
+// Use the chainId where you have the Safe account deployed
+const apiKit = new SafeApiKit({ chainId })
+
+// Propose the message
 apiKit.addMessage(safe3_4, {
   message: TYPED_MESSAGE, // or STRING_MESSAGE
-  signature: buildSignatureBytes([ethSig1]),
+  signature: buildSignatureBytes([signatureOwner1])
 })
 ```
 
-We've added the message!
+The message is now publicly available in the Safe Transaction Service with the signature of the owner who submitted it.
 
-#### Confirm messages by adding additional signatures
+#### Confirm the message
 
-We should confirm the message with other owners, just like we did with transactions. The `id` of the stored message is the `safeMessageHash`, and we've utilities available to calculate it and add more signatures.
+To add the signatures from the remaining owners, we need to call the `addMessageSignature` passing the `safeMessageHash` and a signature from the owner.
 
 ```typescript
 // Get the safeMessageHash
 const safeMessageHash = await protocolKit.getSafeMessageHash(
-  hashSafeMessage(TYPED_MESSAGE)
+  hashSafeMessage(TYPED_MESSAGE) // or STRING_MESSAGE
 )
 
-// Get the signature for owner2
+// Get the signature from owner2
 const signerAddress = (await ethAdapter2.getSignerAddress()) || '0x'
-const ethSig2 = safeMessage.getSignature(signerAddress) as EthSafeSignature
+const signatureOwner2 = safeMessage.getSignature(signerAddress) as EthSafeSignature
 
-// Add the different signatures
+// Add signature from owner2
 await apiKit.addMessageSignature(
   safeMessageHash,
-  buildSignatureBytes([ethSig2])
+  buildSignatureBytes([signatureOwner2])
 )
 
+// Add signature from the owner safe1_1
 await apiKit.addMessageSignature(
   safeMessageHash,
-  buildSignatureBytes([signerSafeMessageSig1_1])
+  buildSignatureBytes([signatureSafe1_1])
 )
 
-// The threshold has already been matched, so it's not necessary.
+// Add signature from the owner safe2_3
 await apiKit.addMessageSignature(
   safeMessageHash,
-  buildSignatureBytes([signerSafeMessageSig2_3])
+  buildSignatureBytes([signatureSafe2_3])
 )
 ```
 
-Now we've the message signed by all Safe owners. We've even "crossed the threshold" 🥳
+At this point, the message stored in the Safe Transaction Service contains all the required signatures from the owners of the Safe.
 
-We can check the status of the message by using the `getMessage()` function.
+The `getMessage` method returns the status of a message.
 
 ```typescript
 const confirmedMessage = await apiKit.getMessage(safeMessageHash)
 ```
 
-Or, better yet, visit the SafeWallet UI and navigate to the off-chain messages section.
+[Safe\{Wallet\}](https://app.safe.global) exposes to its users the list of off-chain messages signed by a Safe account.
 
 ```
-https://app.safe.global/transactions/messages?safe={myNetWorkPrefix}:{mySafeAddress}
+https://app.safe.global/transactions/messages?safe=<NETWORK_PREFIX>:<SAFE_ADDRESS>
 ```
 
 ### On-chain messages
 
-The previous method used by Safe for messages involved on-chain signing. This is less efficient than off-chain messages because it requires a transaction to store the message hash in the contract, resulting in additional gas costs.
-
-We require a special contract, the `SignMessageLib` library, to sign messages on the chain. In this library, we use the `signMessage` method in the contract to encode the message and execute a transaction for storing it. Let's proceed with this process:
+Storing messages on-chain is less efficient than doing it off-chain because it requires executing a transaction to store the message hash in the contract, resulting in additional gas costs. To do this on-chain we use the `SignMessageLib` contract.
 
 ```typescript
 // Get the contract with the correct version
 const signMessageLibContract = await ethAdapter1.getSignMessageLibContract({
-  safeVersion: '1.4.1',
+  safeVersion: '1.4.1'
 })
 ```
 
-Now we need to encode it and create a transaction:
+We need to calculate the `messageHash`, encode the call to the `signMessage` function in the `SignMessageLib` contract and create the transaction that will store the message hash in that contract.
 
 ```typescript
 const messageHash = hashSafeMessage(MESSAGE)
 const txData = signMessageLibContract.encode('signMessage', [messageHash])
+
 const safeTransactionData: SafeTransactionDataPartial = {
-  to: customContract.signMessageLibAddress,
+  to: signMessageLibContract.address,
   value: '0',
   data: txData,
   operation: OperationType.DelegateCall,
 }
 
 const signMessageTx = await protocolKit.createTransaction({
-  transactions: [safeTransactionData],
+  transactions: [safeTransactionData]
 })
 ```
 
-Now that we've a transaction, we need its signatures. If you've read this far, you probably know how to gather them 😉. If you started from this section, please go to the beginning and learn how to generate all the necessary signatures. Remember, you can gather them on your own or use the Transaction Service.
-
-After that, execute the transaction and you will have the message stored in the contract.
+Once the transaction object is instantiated, we need the owners to sign it and execute it.
 
 ```typescript
-// Gather signatures using signTransaction()
-...
+// Collect the signatures using the signTransaction method
 
-// Execute tre transaction
+// Execute the transaction to store the messageHash
 await protocolKit.executeTransaction(signMessageTx)
 ```
 
-### Validating on-chain messages
+Once the transaction is executed, the message hash will be stored in the contract.
 
-You can also use the `isValidSignature()` method to validate on-chain messages. However, make sure to pass `0x` as the second parameter.
+## Validate the signature
+
+### On-chain
+
+When a message is stored on-chain, the `isValidSignature` method in the Protocol Kit needs to be called with the `messageHash` and `0x` as the parameters. The method will check the stored hashes in the Safe contract to validate the signature.
 
 ```typescript
-await protocolKit.isValidSignature(messageHash, '0x')
+import { hashSafeMessage } from '@safe-global/protocol-kit'
+
+const messageHash = hashSafeMessage(MESSAGE)
+
+const isValid = await protocolKit.isValidSignature(messageHash, '0x')
 ```
 
-This way, the method will check the stored hashes in the contract.
+### Off-chain
+
+When a message is stored off-chain, the `isValidSignature` method in the Protocol Kit needs to be called with the `messageHash` and the `encodedSignatures` parameters. The method will check the `isValidSignature` function defined in the `CompatibilityFallbackHandler` [contract](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/handler/CompatibilityFallbackHandler.sol#L51-L68) to validate the signature.
+
+```typescript
+const encodedSignatures = safeMessage.encodedSignatures()
+
+const isValid = await protocolKit.isValidSignature(
+  messageHash,
+  encodedSignatures
+)
+```
