@@ -14,11 +14,11 @@ yarn install @safe-global/protocol-kit
 
 ## Setup
 
-Safe accounts can be configured with different values for the threshold and different types of owners. Safe owners can be any Ethereum address, such as:
+Safe accounts can be configured with different threshold values and types of owners. Safe owners can be any Ethereum address, such as:
 - Externally-owned accounts (EOAs). They generate an ECDSA signature to approve Safe transactions.
 - Smart accounts that implement the [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) for signature validation, like Safe does. They use a different signature algorithm depending on the implementation of the smart account.
 
-In the following guides there are different accounts involved that will be used as an example:
+In the following guides, there are different accounts involved that will be used as an example:
 
 | Who | Description | Address for this example |
 | :--- | :--- | :--- |
@@ -31,7 +31,7 @@ In the following guides there are different accounts involved that will be used 
 | `owner4` | EOA and owner of `safe2_3` | 0xE11BA2b4D45Eaed5996Cd0823791E0C93114882d |
 | `owner5` | EOA and owner of `safe2_3` | 0xd03ea8624C8C5987235048901fB614fDcA89b117 |
 
-Each EOA owner described above is bound to an `EthAdapter` instance that should be initialized as well.
+Each EOA owner described above is bound to an `EthAdapter` instance that should also be initialized.
 
 | Adapter | Signer |
 | :--- | :--- |
@@ -49,4 +49,4 @@ Each EOA owner described above is bound to an `EthAdapter` instance that should 
 
 ### Message signatures
 
-- The [Message signatures](./signatures/messages.mdx) guide explains how to generate and sign messages, including plain string messages and EIP-712 JSON messages, using the Protocol Kit.
+- Using the Protocol Kit, the [Message signatures](./signatures/messages.mdx) guide explains how to generate and sign messages, including plain string messages and EIP-712 JSON messages.

@@ -2,10 +2,10 @@ import { Callout } from 'nextra/components'
 
 # Message signatures
 
-This guide explains how to generate and sign messages from a Safe account, including plain string messages and EIP-712 JSON messages, using the Protocol Kit.
+Using the Protocol Kit, this guide explains how to generate and sign messages from a Safe account, including plain string messages and EIP-712 JSON messages.
 
 <Callout type="info">
-  Before starting, make sure to check the [setup](../signatures.md) for this guide.
+  Before starting, check this guide's [setup](../signatures.md).
 </Callout>
 
 ## Create the message
@@ -67,15 +67,15 @@ const TYPED_MESSAGE = {
 }
 ```
 
-The `createMessage` method in the Protocol Kit allows creating new messages and it returns an instance of the `EthSafeMessage` class. Here we're passing `TYPED_MESSAGE` but `STRING_MESSAGE` could be passed as well.
+The `createMessage` method in the Protocol Kit allows for creating new messages and returns an instance of the `EthSafeMessage` class. Here, we are passing `TYPED_MESSAGE`, but `STRING_MESSAGE` could also be passed.
 
 ```typescript
 let safeMessage = protocolKit.createMessage(TYPED_MESSAGE)
 ```
 
-The returned `safeMessage` object contains the message data (`safeMessage.data`) and a map of owner-signature pairs (`safeMessage.signatures`). The structure is very similar to the `EthSafeTransaction` class but applied for messages instead of transactions.
+The returned `safeMessage` object contains the message data (`safeMessage.data`) and a map of owner-signature pairs (`safeMessage.signatures`). The structure is similar to the `EthSafeTransaction` class but applied for messages instead of transactions.
 
-We use `let` to initialize the `safeMessage` variable because we're going to add the signatures later.
+We use `let` to initialize the `safeMessage` variable because we will add the signatures later.
 
 ```typescript
 class EthSafeMessage implements SafeMessage {
@@ -90,11 +90,11 @@ class EthSafeMessage implements SafeMessage {
 
 Once the `safeMessage` object is created, we need to collect the signatures from the signers who will sign it.
 
-Following our [setup](../signatures.md), we will sign a message with `safe3_4`, the main Safe account in this guide. To do that we need first to sign the same message with its owners: `owner1`, `owner2`, `safe1_1`, and `safe2_3`.
+Following our [setup](../signatures.md), we will sign a message with `safe3_4`, the main Safe account in this guide. To do that, we first need to sign the same message with its owners: `owner1`, `owner2`, `safe1_1`, and `safe2_3`.
 
 ### ECDSA signatures
 
-This applies to `owner1` and `owner2` accounts as both accounts are EOAs.
+This applies to `owner1` and `owner2` accounts, as both are EOAs.
 
 The `signMessage` method takes the `safeMessage` together with a `SigningMethod` and adds the new signature to the `signMessage.signatures` map. Depending on the type of message, the `SigningMethod` can take these values:
 - `SigningMethod.ETH_SIGN`
@@ -124,7 +124,7 @@ safeMessage = await protocolKit.signMessage(
 
 ### Smart contract signatures
 
-When signing with a Safe account the `SigningMethod` will take the value `SigningMethod.SAFE_SIGNATURE`.
+When signing with a Safe account, the `SigningMethod` will take the value `SigningMethod.SAFE_SIGNATURE`.
 
 #### 1/1 Safe account
 
@@ -213,7 +213,7 @@ After following all the steps above, the `safeMessage` now contains all the sign
 
 ## Publish the signed message
 
-As messages aren't stored in the blockchain we need to make them public and available to others by storing them somewhere else.
+As messages aren't stored in the blockchain, we must make them public and available to others by storing them elsewhere.
 
 Safe messages can be stored on-chain and off-chain:
 
@@ -232,7 +232,7 @@ The Safe Transaction Service is used by [Safe\{Wallet\}](https:/app.safe.global)
 
 #### Propose the message
 
-To store a new message we need to call the `addMessage` from the API Kit passing the Safe address and an object with the message and a signature from one owner.
+To store a new message, we need to call the `addMessage` from the API Kit, passing the Safe address, an object with the message, and a signature from one owner.
 
 ```typescript
 const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x'
@@ -255,7 +255,7 @@ The message is now publicly available in the Safe Transaction Service with the s
 
 #### Confirm the message
 
-To add the signatures from the remaining owners, we need to call the `addMessageSignature` passing the `safeMessageHash` and a signature from the owner.
+To add the signatures from the remaining owners, we need to call the `addMessageSignature`, passing the `safeMessageHash` and a signature from the owner.
 
 ```typescript
 // Get the safeMessageHash
@@ -302,7 +302,7 @@ https://app.safe.global/transactions/messages?safe=<NETWORK_PREFIX>:<SAFE_ADDRES
 
 ### On-chain messages
 
-Storing messages on-chain is less efficient than doing it off-chain because it requires executing a transaction to store the message hash in the contract, resulting in additional gas costs. To do this on-chain we use the `SignMessageLib` contract.
+Storing messages on-chain is less efficient than doing it off-chain because it requires executing a transaction to store the message hash in the contract, resulting in additional gas costs. To do this on-chain, we use the `SignMessageLib` contract.
 
 ```typescript
 // Get the contract with the correct version
@@ -329,7 +329,7 @@ const signMessageTx = await protocolKit.createTransaction({
 })
 ```
 
-Once the transaction object is instantiated, we need the owners to sign it and execute it.
+Once the transaction object is instantiated, the owners must sign and execute it.
 
 ```typescript
 // Collect the signatures using the signTransaction method
@@ -344,7 +344,7 @@ Once the transaction is executed, the message hash will be stored in the contrac
 
 ### On-chain
 
-When a message is stored on-chain, the `isValidSignature` method in the Protocol Kit needs to be called with the `messageHash` and `0x` as the parameters. The method will check the stored hashes in the Safe contract to validate the signature.
+When a message is stored on-chain, the `isValidSignature` method in the Protocol Kit needs to be called with the parameters `messageHash` and `0x`. The method will check the stored hashes in the Safe contract to validate the signature.
 
 ```typescript
 import { hashSafeMessage } from '@safe-global/protocol-kit'
@@ -356,7 +356,7 @@ const isValid = await protocolKit.isValidSignature(messageHash, '0x')
 
 ### Off-chain
 
-When a message is stored off-chain, the `isValidSignature` method in the Protocol Kit needs to be called with the `messageHash` and the `encodedSignatures` parameters. The method will check the `isValidSignature` function defined in the `CompatibilityFallbackHandler` [contract](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/handler/CompatibilityFallbackHandler.sol#L51-L68) to validate the signature.
+When a message is stored off-chain, the `isValidSignature` method in the Protocol Kit must be called with the `messageHash` and the `encodedSignatures` parameters. The method will check the `isValidSignature` function defined in the `CompatibilityFallbackHandler` [contract](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/handler/CompatibilityFallbackHandler.sol#L51-L68) to validate the signature.
 
 ```typescript
 const encodedSignatures = safeMessage.encodedSignatures()
