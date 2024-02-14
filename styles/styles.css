@@ -13,7 +13,7 @@ html[class~='dark'] .dark\:nx-bg-dark.dark\:nx-bg-dark {
   background-color: transparent !important;
 }
 
-#__next > div > div > nav {
+#__next > div > div.nextra-nav-container > nav {
   height: 94px;
 }
 
