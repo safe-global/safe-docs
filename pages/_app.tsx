@@ -4,6 +4,7 @@ import {
   Experimental_CssVarsProvider as CssVarsProvider,
   experimental_extendTheme as extendMuiTheme
 } from '@mui/material/styles'
+import type { CssVarsThemeOptions } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
 import { CacheProvider } from '@emotion/react'
 import type { EmotionCache } from '@emotion/react'
@@ -22,7 +23,7 @@ import { CookieBanner } from '../components/CookieBanner'
 const clientSideEmotionCache = createEmotionCache()
 
 // Extended theme for CssVarsProvider
-const cssVarsTheme = extendMuiTheme(theme)
+const cssVarsTheme = extendMuiTheme(theme as CssVarsThemeOptions)
 
 let isAnalyticsInitialized = false
 
@@ -31,13 +32,19 @@ const GoogleAnalytics: React.FC = () => {
 
   // Enable/disable tracking
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true' && isAnalyticsEnabled) {
-      ReactGA.initialize(String(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID), {
-        gaOptions: {
-          cookieFlags: 'SameSite=Strict;Secure',
-          cookieDomain: process.env.GOOGLE_ANALYTICS_DOMAIN
+    if (
+      process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true' &&
+      isAnalyticsEnabled
+    ) {
+      ReactGA.initialize(
+        String(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID),
+        {
+          gaOptions: {
+            cookieFlags: 'SameSite=Strict;Secure',
+            cookieDomain: process.env.GOOGLE_ANALYTICS_DOMAIN
+          }
         }
-      })
+      )
       isAnalyticsInitialized = true
       return
     }
