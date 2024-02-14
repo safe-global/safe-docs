@@ -22,7 +22,6 @@ const Feedback: React.FC = () => {
   const [steps, setSteps] = useState('')
   const [version, setVersion] = useState('')
   const [errorFix, setErrorFix] = useState('')
-  const [contactInfo, setContactInfo] = useState('')
 
   if (asPath === '/what-is-safe' || asPath === '/support') return null
 
@@ -104,73 +103,35 @@ const Feedback: React.FC = () => {
                         Can you provide the exact steps you took before
                         receiving the error? For example, the commands you ran.
                       </Typography>
-                      <Input
-                        fullWidth
-                        multiline
-                        rows={4}
-                        placeholder='1. I ran npm dev...'
+                      <TextArea
+                        placeholder='1. I ran npm dev.'
                         onChange={e => {
                           setSteps(e.target.value)
                         }}
                         value={steps}
-                        sx={{
-                          backgroundColor: 'rgba(249,250,251,.1)',
-                          p: 1
-                        }}
                       />
                       <Typography variant='h5' mt={3} mb={1}>
-                        If applicable, what version of Safe are you using? If a
-                        package is related to the error, please provide a
-                        version of that as well.
+                        What version of Safe Smart Account, SDK, or API are you
+                        using, if applicable? If a package is related to the
+                        error, please provide a version.
                       </Typography>
-                      <Input
-                        fullWidth
-                        multiline
-                        rows={4}
-                        placeholder='Safe{Core} SDK: v2'
+                      <TextArea
+                        placeholder='@safe-global/auth-kit v2.0.1'
                         onChange={e => {
                           setVersion(e.target.value)
                         }}
                         value={version}
-                        sx={{
-                          backgroundColor: 'rgba(249,250,251,.1)',
-                          p: 1
-                        }}
                       />
                       <Typography variant='h5' mt={3} mb={1}>
                         Were you able to fix the error? If so, what steps did
                         you follow?
                       </Typography>
-                      <Input
-                        fullWidth
-                        multiline
-                        rows={4}
-                        placeholder="1. I right-clicked and selected 'Fix all issues automatically'..."
+                      <TextArea
+                        placeholder="1. I right-clicked and selected 'Fix all issues automatically'."
                         onChange={e => {
                           setErrorFix(e.target.value)
                         }}
                         value={errorFix}
-                        sx={{
-                          backgroundColor: 'rgba(249,250,251,.1)',
-                          p: 1
-                        }}
-                      />
-                      <Typography variant='h5' mt={3} mb={1}>
-                        Can you provide your email or discord username? This
-                        would allow us to contact you for further info or assist
-                        you with your issue.
-                      </Typography>
-                      <Input
-                        fullWidth
-                        placeholder='user@example.com'
-                        onChange={e => {
-                          setContactInfo(e.target.value)
-                        }}
-                        value={contactInfo}
-                        sx={{
-                          backgroundColor: 'rgba(249,250,251,.1)',
-                          p: 1
-                        }}
                       />
                     </AccordionDetails>
                   </Accordion>
@@ -221,5 +182,28 @@ const Feedback: React.FC = () => {
     </Grid>
   )
 }
+
+const TextArea: React.FC<{
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+  value: string
+  placeholder: string
+}> = ({ onChange, value, placeholder }) => (
+  <Input
+    fullWidth
+    multiline
+    rows={4}
+    placeholder={placeholder}
+    onChange={onChange}
+    value={value}
+    inputProps={{
+      sx: { fontSize: '15px' }
+    }}
+    sx={{
+      backgroundColor: 'rgba(249,250,251,.1)',
+      p: 1,
+      borderRadius: '4px'
+    }}
+  />
+)
 
 export default Feedback
