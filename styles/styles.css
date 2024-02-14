@@ -7,14 +7,21 @@ html[class~='dark'] .dark\:nx-bg-dark.dark\:nx-bg-dark {
   background-color: #121312;
 }
 
+/* Navbar */
 #__next > div > div > div {
   backdrop-filter: blur(8px);
   background: hsla(0, 0%, 100%, 0.005);
   background-color: transparent !important;
 }
 
+/* Navbar container */
 #__next > div > div.nextra-nav-container > nav {
   height: 94px;
+}
+
+/* Sidebar */
+#__next > div > div.nx-mx-auto.nx-flex.nx-max-w-\[90rem\] > aside {
+  top: 2rem;
 }
 
 #__next > div > footer {
@@ -50,4 +57,16 @@ html[class~='dark'] .dark\:nx-bg-dark.dark\:nx-bg-dark {
   height: 100%;
   width: 100%;
   position: absolute;
+}
+
+@media (min-width: 768px) {
+  /* Sidebar */
+  #__next > div > div.nx-mx-auto.nx-flex.nx-max-w-\[90rem\] > aside {
+    top: 5rem;
+  }
+
+  /* TOC */
+  #__next > div > div.nx-mx-auto.nx-flex.nx-max-w-\[90rem\] > nav > div {
+    top: 5rem;
+  }
 }
