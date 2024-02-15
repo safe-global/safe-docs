@@ -200,11 +200,6 @@
     "permanent": true
   },
   {
-    "source": "/safe-core-protocol/safe-core-protocol",
-    "destination": "/protocol-overview",
-    "permanent": true
-  },
-  {
     "source": "/safe-core-api",
     "destination": "/api-service-architecture",
     "permanent": true
@@ -261,32 +256,37 @@
   },
   {
     "source": "/safe-core-protocol",
-    "destination": "/sdk-overview",
+    "destination": "https://github.com/5afe/safe-core-protocol",
+    "permanent": true
+  },
+  {
+    "source": "/safe-core-protocol/safe-core-protocol",
+    "destination": "https://github.com/5afe/safe-core-protocol",
     "permanent": true
   },
   {
     "source": "/safe-core-protocol/plugins",
-    "destination": "/smart-account-modules",
+    "destination": "https://github.com/5afe/safe-core-protocol",
     "permanent": true
   },
   {
     "source": "/safe-core-protocol/hooks",
-    "destination": "/smart-account-guards",
+    "destination": "https://github.com/5afe/safe-core-protocol",
     "permanent": true
   },
   {
     "source": "/safe-core-protocol/security",
-    "destination": "/bug-bounty/past-paid-bounties",
+    "destination": "https://github.com/5afe/safe-core-protocol",
     "permanent": true
   },
   {
     "source": "/safe-core-protocol/security/bug-bounty-program",
-    "destination": "/bug-bounty",
+    "destination": "https://github.com/5afe/safe-core-protocol",
     "permanent": true
   },
   {
     "source": "/safe-core-protocol/security/security-audits",
-    "destination": "/smart-account-audits",
+    "destination": "https://github.com/5afe/safe-core-protocol",
     "permanent": true
   },
   {
