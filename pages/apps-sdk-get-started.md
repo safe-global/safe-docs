@@ -1,7 +1,3 @@
----
-description: Basic resources to start creating Safe Apps
----
-
 # Getting started
 
 Here are some resources to help you get started with building Safe Apps:
@@ -12,7 +8,7 @@ Here are some resources to help you get started with building Safe Apps:
 
 ## Safe Apps SDK packages
 
-Whether you already have a dapp or are considering creating a new one, you will find it useful to rely on one of our integrations to communicate with Safe{Wallet}. You will find integrations with common packages like `Web3Modal`, Blocknative onboard.js, and `web3-react` in these packages.
+Whether you already have a dapp or are considering creating a new one, you will find it useful to rely on one of our integrations to communicate with [Safe{Wallet}](https://app.safe.global). You will find integrations with common packages like `Web3Modal`, Blocknative onboard.js, and `web3-react` in these packages.
 
 For those creating a new dapp, using the [CRA template](https://github.com/safe-global/safe-apps-sdk/tree/main/packages/cra-template-safe-app) to kickstart the basic structure with all the necessary configuration will speed up the process.
 
