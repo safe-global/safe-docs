@@ -40,7 +40,14 @@ const Feedback: React.FC = () => {
   }
 
   return (
-    <Grid>
+    <Grid
+      sx={{
+        backgroundColor: 'rgba(249,250,251,.1)',
+        p: 3,
+        mt: 3,
+        borderRadius: '8px'
+      }}
+    >
       {submitted ? (
         <Typography variant='h5'>
           Thank you, your feedback has been submitted.
@@ -142,7 +149,7 @@ const Feedback: React.FC = () => {
                   variant='outlined'
                   sx={{ mt: 2 }}
                   onClick={handleSubmit}
-                  disabled={loading}
+                  disabled={loading || feedback === ''}
                 >
                   {loading ? 'Submitting...' : 'Submit'}
                 </Button>
@@ -155,6 +162,10 @@ const Feedback: React.FC = () => {
               </Typography>
               <Button
                 onClick={() => {
+                  ReactGA.event('feedback', {
+                    path: window.location.pathname,
+                    positive: true
+                  })
                   setIsPositive(true)
                 }}
               >
@@ -163,6 +174,10 @@ const Feedback: React.FC = () => {
 
               <Button
                 onClick={() => {
+                  ReactGA.event('feedback', {
+                    path: window.location.pathname,
+                    positive: false
+                  })
                   setIsPositive(false)
                 }}
               >
@@ -173,7 +188,15 @@ const Feedback: React.FC = () => {
                 rel='noopener noreferrer'
                 href='https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=nextra-feedback&projects=&template=nextra-feedback.yml&title=%5BFeedback%5D+'
               >
-                <Button>Report issue</Button>
+                <Button
+                  onClick={() => {
+                    ReactGA.event('issue', {
+                      path: window.location.pathname
+                    })
+                  }}
+                >
+                  Report issue
+                </Button>
               </NextLink>
             </>
           )}
