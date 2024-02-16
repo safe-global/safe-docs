@@ -1,7 +1,3 @@
----
-description: An overview of how our services interact with each other
----
-
 # Service architecture
 
 The Safe infrastructure consists of four services:
@@ -33,4 +29,4 @@ Even though Safe Config and Transaction Service instances are reachable by clien
 
 ## Running locally
 
-[Safe Infrastructure](https://github.com/safe-global/safe-infrastructure) and the [running services locally guide](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_locally.md) show how to run Safe's infrastructure (Safe UI, Safe{Wallet} and the backend, and Safe{Core}). Note that these documents are examples of how these services run, and the configuration should adapt to the needs of a specific use case.
+[Safe Infrastructure](https://github.com/safe-global/safe-infrastructure) repository and the [running services locally](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_locally.md) guide show how to run Safe's infrastructure ([Safe{Wallet}](https://app.safe.global) and Safe{Core}). Note that these documents are examples of how these services run, and the configuration should adapt to the needs of a specific use case.

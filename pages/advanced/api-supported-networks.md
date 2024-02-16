@@ -1,7 +1,3 @@
----
-description: This page provides an overview of the available services
----
-
 # Supported Networks
 
 ## Safe Transaction Service
