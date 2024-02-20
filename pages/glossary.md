@@ -88,9 +88,6 @@ See also:
 
 Safe Apps are web applications that run in the Safe Apps marketplace. They support Safe, use the Safe Apps SDK to interact with it, and aren't owned, controlled, maintained, or audited by Safe.
 
-See also:
-- [Safe Apps SDK documentation](./apps-sdk-overview.mdx) on docs.safe.global
-
 ## SafeAuth
 
 SafeAuth is a Multi-Party Computation (MPC) based product developed by [Safe](https://safe.global) and [Web3Auth](https://web3auth.io). Compatible with [Safe{Wallet}](https://app.safe.global), SafeAuth allows developers to build portable smart account use cases. Users are empowered to plug and play their user accounts between different decentralized applications through their social login.
