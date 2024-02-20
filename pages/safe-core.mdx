@@ -2,8 +2,9 @@ import { Grid } from '@mui/material'
 
 import CustomCard from '../components/CustomCard'
 
-import SafeWallet from '../assets/svg/lock.svg'
-import SafeCore from '../assets/svg/code.svg'
+import SafeCoreSDK from '../assets/svg/ic-sdk.svg'
+import SafeSmartAccount from '../assets/svg/ic-smart-account.svg'
+import SafeCoreAPI from '../assets/svg/ic-api.svg'
 
 # Safe\{Core\}
 
@@ -19,15 +20,15 @@ mt={3}
 >
 
 <Grid item xs={12} md={4}>
-  <CustomCard title={'Safe Smart Account'} description={'One line description of Safe Smart Account.'} url={'./smart-account-overview'} icon={<SafeWallet />} newTab={false} />
+  <CustomCard title={'Safe Smart Account'} description={'One line description of Safe Smart Account.'} url={'./smart-account-overview'} icon={<SafeSmartAccount />} newTab={false} />
 </Grid>
 
 <Grid item xs={12} md={4}>
-  <CustomCard title={'Safe{Core} AA SDK'} description={'One line description of Safe{Core} AA SDK.'} url={'./sdk-overview'} icon={<SafeCore />} newTab={false}  />
+  <CustomCard title={'Safe{Core} AA SDK'} description={'One line description of Safe{Core} AA SDK.'} url={'./sdk-overview'} icon={<SafeCoreSDK />} newTab={false}  />
 </Grid>
 
 <Grid item xs={12} md={4}>
-  <CustomCard title={'Safe{Core} API'} description={'One line description of Safe{Core} API.'} url={'./api-service-architecture'} icon={<SafeWallet />} newTab={false} />
+  <CustomCard title={'Safe{Core} API'} description={'One line description of Safe{Core} API.'} url={'./api-service-architecture'} icon={<SafeCoreAPI />} newTab={false} />
 </Grid>
 
 </Grid>

@@ -44,14 +44,14 @@ const CustomCard: React.FC<{
           <Typography fontWeight='500' variant='h4' mt={1} mb={1}>
             {title}
           </Typography>
+          <Typography
+            variant='body2'
+            color='text.secondary'
+            className={css.description}
+          >
+            {description}
+          </Typography>
         </Grid>
-        <Typography
-          variant='body2'
-          color='text.secondary'
-          className={css.description}
-        >
-          {description}
-        </Typography>
       </div>
     </NextLink>
   </Card>
