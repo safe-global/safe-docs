@@ -11,7 +11,8 @@ description: This page provides an overview of the available services
 | Arbitrum                     | [https://safe-transaction-arbitrum.safe.global](https://safe-transaction-arbitrum.safe.global/)          |
 | Aurora                       | [https://safe-transaction-aurora.safe.global](https://safe-transaction-aurora.safe.global/)              |
 | Avalanche                    | [https://safe-transaction-avalanche.safe.global](https://safe-transaction-avalanche.safe.global/)        |
-| Base                         | [https://safe-transaction-base.safe.global](https://safe-transaction-base.safe.global)                   |
+| Base                         | [https://safe-transaction-base.safe.global](https://safe-transaction-base.safe.global/)                  |
+| Base Sepolia                 | [https://safe-transaction-base-sepolia.safe.global](https://safe-transaction-base-sepolia.safe.global/)  |
 | BNB Smart Chain              | [https://safe-transaction-bsc.safe.global](https://safe-transaction-bsc.safe.global/)                    |
 | Celo                         | [https://safe-transaction-celo.safe.global](https://safe-transaction-celo.safe.global/)                  |
 | Ethereum Mainnet             | [https://safe-transaction-mainnet.safe.global](https://safe-transaction-mainnet.safe.global/)            |
