@@ -32,7 +32,7 @@ const config: DocsThemeConfig = {
   },
   head: (
     <>
-      {process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true' && (
+      {process.env.NEXT_PUBLIC_IS_PRODUCTION !== 'true' && (
         <meta name='robots' content='noindex' />
       )}
       <link rel='icon' type='image/png' sizes='32x32' href='/favicon.png' />
