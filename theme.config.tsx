@@ -26,9 +26,18 @@ const config: DocsThemeConfig = {
     backToTop: true
   },
   feedback: {
-    useLink: () => { return 'https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=nextra-feedback&projects=&template=nextra-feedback.yml&title=%5BFeedback%5D+' }
+    useLink: () => {
+      return 'https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=nextra-feedback&projects=&template=nextra-feedback.yml&title=%5BFeedback%5D+'
+    }
   },
-  head: <link rel='icon' type='image/png' sizes='32x32' href='/favicon.png' />,
+  head: (
+    <>
+      {process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true' && (
+        <meta name='robots' content='noindex' />
+      )}
+      <link rel='icon' type='image/png' sizes='32x32' href='/favicon.png' />
+    </>
+  ),
   useNextSeoProps: () => {
     const { asPath } = useRouter()
     if (asPath !== '/') {
