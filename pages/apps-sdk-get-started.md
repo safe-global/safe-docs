@@ -114,7 +114,6 @@ If the SSL certificate provided by `react-scripts` isn't valid, it's required to
 
 Safe offers a react components package if you are creating your Safe App from scratch. This helps with a near-native look while enabling developers to use their branding in the Safe Apps.
 
-* [Check all available components in the storybook](https://components.safe.global)
 * [Check UI Kit repository](https://github.com/safe-global/safe-react-components)
 
 ## Example app
