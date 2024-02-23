@@ -1,6 +1,5 @@
-import React from 'react'
-import type { DocsThemeConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
+import type { DocsThemeConfig } from 'nextra-theme-docs'
 
 import SafeLogo from './assets/svg/safe-logo-white.svg'
 import Footer from './components/Footer'
@@ -23,8 +22,12 @@ const config: DocsThemeConfig = {
   sidebar: {
     defaultMenuCollapseLevel: 1
   },
+  toc: {
+    backToTop: true
+  },
   feedback: {
-    useLink: () => { return 'https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=nextra-feedback&projects=&template=nextra-feedback.yml&title=%5BFeedback%5D+' }
+    useLink: () =>
+      'https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=nextra-feedback&projects=&template=nextra-feedback.yml&title=%5BFeedback%5D+'
   },
   head: <link rel='icon' type='image/png' sizes='32x32' href='/favicon.png' />,
   useNextSeoProps: () => {

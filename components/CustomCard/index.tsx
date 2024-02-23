@@ -14,6 +14,7 @@ const CustomCard: React.FC<{
       transition: 'all 0.2s ease-in-out',
       border: '1px solid',
       borderColor: 'transparent',
+      backgroundColor: 'transparent',
       '&:hover': {
         borderColor: 'secondary.light'
       },
