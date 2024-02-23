@@ -31,6 +31,8 @@ const config: DocsThemeConfig = {
     const { asPath } = useRouter()
     if (asPath !== '/') {
       return {
+        noindex: process.env.NEXT_PUBLIC_IS_PRODUCTION !== 'true',
+        nofollow: process.env.NEXT_PUBLIC_IS_PRODUCTION !== 'true',
         titleTemplate: '%s – Safe Docs'
       }
     }
