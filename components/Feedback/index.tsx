@@ -49,9 +49,7 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
         p: 3,
         mt: 3,
         borderRadius: '8px',
-        backgroundColor:
-          label !== null ? 'rgba(249,250,251,.1)' : 'transparent',
-        border: label !== null ? 'none' : '1px solid rgba(249,250,251,.1)'
+        border: label != null ? 'none' : '1px solid rgba(249,250,251,.1)'
       }}
     >
       {submitted ? (
@@ -172,16 +170,17 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
           ) : (
             <Grid
               container
-              {...(label !== null
+              {...(label != null
                 ? { alignItems: 'center' }
                 : { flexDirection: 'column', alignItems: 'center' })}
             >
-              {label !== null ? (
+              {label != null ? (
                 <>
                   <Typography variant='h5' mr={3}>
                     {label}
                   </Typography>
                   <Button
+                    sx={{ color: 'white' }}
                     onClick={() => {
                       ReactGA.event('feedback', {
                         path: window.location.pathname,
@@ -194,6 +193,7 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
                   </Button>
 
                   <Button
+                    sx={{ color: 'white' }}
                     onClick={() => {
                       ReactGA.event('feedback', {
                         path: window.location.pathname,
