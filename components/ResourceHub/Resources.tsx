@@ -46,6 +46,7 @@ export interface KnowledgeResource {
   url: string
   name: string
   type: string
+  date: string
   origin: string
   abstract?: string
   tags: string[]
@@ -169,15 +170,15 @@ export const Resources = (): ReactElement => {
 
   const onSelect =
     (setState: Dispatch<SetStateAction<string[]>>) =>
-      (property: string, checked: boolean) => {
-        setState(prev => {
-          if (checked) {
-            return prev.concat(property)
-          } else {
-            return prev.filter(item => item !== property)
-          }
-        })
-      }
+    (property: string, checked: boolean) => {
+      setState(prev => {
+        if (checked) {
+          return prev.concat(property)
+        } else {
+          return prev.filter(item => item !== property)
+        }
+      })
+    }
 
   const onSelectType = onSelect(setSelectedTypes)
   const onSelectSource = onSelect(setSelectedSources)
@@ -221,9 +222,7 @@ export const Resources = (): ReactElement => {
     <>
       <NextLink href={uploadResourceUrl} target='_blank' rel='noreferrer'>
         <Button
-          endIcon={
-            <AddIcon sx={{ mr: [1.5, 1] }} />
-          }
+          endIcon={<AddIcon sx={{ mr: [1.5, 1] }} />}
           sx={{
             alignItems: 'space-between',
             border: ['none', 'solid 1px rgba(161, 163, 167, 1)'],
@@ -261,12 +260,12 @@ export const Resources = (): ReactElement => {
           a === '4337' && b === 'Introduction'
             ? -1
             : a === 'Introduction' && b === '4337'
-              ? 1
-              : a === 'Introduction'
-                ? -1
-                : b === 'Introduction'
-                  ? 1
-                  : a.localeCompare(b)
+            ? 1
+            : a === 'Introduction'
+            ? -1
+            : b === 'Introduction'
+            ? 1
+            : a.localeCompare(b)
         )}
         selectedItems={selectedTags}
         onChange={onSelectTag}
