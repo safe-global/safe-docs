@@ -162,7 +162,6 @@ Safe Modules
 Safe Smart Account
 Safe Transaction Service
 Safe{Core} Account Abstraction SDK
-Safe{Core} Protocol
 Safe{DAO}
 Shiden
 ShimmerEVM
@@ -202,18 +201,20 @@ bytestrings
 checksummed
 eSpace
 execTransaction
+maxWidth
 mempool
+messageHash
 monorepo
 multichain
 npm
 onboarding
 onchain
 pluggable
+saltNonce
+textWrap
 trace_block
 trace_filter
 trace_transaction
 undefined
 undeployed
 v1
-saltNonce
-messageHash
