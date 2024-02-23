@@ -30,6 +30,10 @@ jobs:
       - name: Build app
         shell: bash
         run: pnpm build
+        env:
+          NEXT_PUBLIC_GOOGLE_ANALYTICS_DOMAIN: ${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS_DOMAIN }}
+          NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID }}
+          NEXT_PUBLIC_IS_PRODUCTION: true
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
