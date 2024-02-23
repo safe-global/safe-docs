@@ -1,13 +1,11 @@
 import { Typography, Chip, Box } from '@mui/material'
 
 import css from './styles.module.css'
-// import { ECOSYSTEM_DATA_URL } from '@/config/constants'
 import { type KnowledgeResource } from './Resources'
 import YouTubeEmbed from '../YouTube'
-// import clsx from 'clsx'
 
 export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
-  const months: string[] = [
+  const months = [
     'January',
     'February',
     'March',
@@ -36,14 +34,22 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
         {resource.name}
       </Typography>
 
+      <Typography color='text.secondary'>
+        {months[new Date(resource.date).getMonth()] +
+          ', ' +
+          new Date(resource.date).getFullYear()}
+      </Typography>
+
       {resource.type === 'Blog Post' && (
-        <Typography
-          variant='body2'
-          color='text.secondary'
-          className={css.description}
-        >
-          {resource.abstract}
-        </Typography>
+        <>
+          <Typography
+            variant='body2'
+            color='text.secondary'
+            className={css.description}
+          >
+            {resource.abstract}
+          </Typography>
+        </>
       )}
 
       <div className={css.categories}>
@@ -56,20 +62,6 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
           }}
           className={css.chip}
           label={resource.type}
-        />
-        <Chip
-          sx={{
-            borderRadius: '4px',
-            height: '23px',
-            fontSize: '14px',
-            cursor: 'pointer'
-          }}
-          className={css.chip}
-          label={
-            months[new Date(resource.date).getMonth()] +
-            ', ' +
-            new Date(resource.date).getFullYear()
-          }
         />
         {resource.tags.map(tag => (
           <Chip

@@ -170,15 +170,15 @@ export const Resources = (): ReactElement => {
 
   const onSelect =
     (setState: Dispatch<SetStateAction<string[]>>) =>
-    (property: string, checked: boolean) => {
-      setState(prev => {
-        if (checked) {
-          return prev.concat(property)
-        } else {
-          return prev.filter(item => item !== property)
-        }
-      })
-    }
+      (property: string, checked: boolean) => {
+        setState(prev => {
+          if (checked) {
+            return prev.concat(property)
+          } else {
+            return prev.filter(item => item !== property)
+          }
+        })
+      }
 
   const onSelectType = onSelect(setSelectedTypes)
   const onSelectSource = onSelect(setSelectedSources)
@@ -260,12 +260,12 @@ export const Resources = (): ReactElement => {
           a === '4337' && b === 'Introduction'
             ? -1
             : a === 'Introduction' && b === '4337'
-            ? 1
-            : a === 'Introduction'
-            ? -1
-            : b === 'Introduction'
-            ? 1
-            : a.localeCompare(b)
+              ? 1
+              : a === 'Introduction'
+                ? -1
+                : b === 'Introduction'
+                  ? 1
+                  : a.localeCompare(b)
         )}
         selectedItems={selectedTags}
         onChange={onSelectTag}
