@@ -41,7 +41,7 @@ const GoogleAnalytics: React.FC = () => {
         {
           gaOptions: {
             cookieFlags: 'SameSite=Strict;Secure',
-            cookieDomain: process.env.GOOGLE_ANALYTICS_DOMAIN
+            cookieDomain: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_DOMAIN
           }
         }
       )
