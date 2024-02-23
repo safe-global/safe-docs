@@ -17,7 +17,7 @@ import FeedbackGood from '../../assets/svg/feedback-good.svg'
 import FeedbackBad from '../../assets/svg/feedback-bad.svg'
 import Check from '../../assets/svg/check.svg'
 
-const Feedback: React.FC = () => {
+const Feedback: React.FC<{ label?: string }> = ({ label }) => {
   const { asPath } = useRouter()
   const [isPositive, setIsPositive] = useState<boolean | null>(null)
   const [feedback, setFeedback] = useState('')
@@ -49,7 +49,9 @@ const Feedback: React.FC = () => {
         p: 3,
         mt: 3,
         borderRadius: '8px',
-        border: '1px solid rgba(249,250,251,.1)'
+        backgroundColor:
+          label !== null ? 'rgba(249,250,251,.1)' : 'transparent',
+        border: label !== null ? 'none' : '1px solid rgba(249,250,251,.1)'
       }}
     >
       {submitted ? (
@@ -168,60 +170,98 @@ const Feedback: React.FC = () => {
               </Grid>
             </Grid>
           ) : (
-            <Grid container flexDirection='column' alignItems='center'>
-              <Typography textAlign='center' fontWeight='700' color='white'>
-                Was this page helpful?
-              </Typography>
-              <Grid item justifyContent='space-around' mt={1}>
-                <Button
-                  sx={{
-                    p: 0.5,
-                    mr: 1.5,
-                    minWidth: 0,
-                    borderRadius: 48,
-                    '&:hover': {
-                      svg: {
-                        path: {
-                          stroke: 'rgba(18, 255, 128, 1)'
+            <Grid
+              container
+              {...(label !== null
+                ? { alignItems: 'center' }
+                : { flexDirection: 'column', alignItems: 'center' })}
+            >
+              {label !== null ? (
+                <>
+                  <Typography variant='h5' mr={3}>
+                    {label}
+                  </Typography>
+                  <Button
+                    onClick={() => {
+                      ReactGA.event('feedback', {
+                        path: window.location.pathname,
+                        positive: true
+                      })
+                      setIsPositive(true)
+                    }}
+                  >
+                    Yes
+                  </Button>
+
+                  <Button
+                    onClick={() => {
+                      ReactGA.event('feedback', {
+                        path: window.location.pathname,
+                        positive: false
+                      })
+                      setIsPositive(false)
+                    }}
+                  >
+                    No
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Typography textAlign='center' fontWeight='700' color='white'>
+                    Was this page helpful?
+                  </Typography>
+                  <Grid item justifyContent='space-around' mt={1}>
+                    <Button
+                      sx={{
+                        p: 0.5,
+                        mr: 1.5,
+                        minWidth: 0,
+                        borderRadius: 48,
+                        '&:hover': {
+                          svg: {
+                            path: {
+                              stroke: 'rgba(18, 255, 128, 1)'
+                            }
+                          }
                         }
-                      }
-                    }
-                  }}
-                  onClick={() => {
-                    ReactGA.event('feedback', {
-                      path: window.location.pathname,
-                      positive: true
-                    })
-                    setIsPositive(true)
-                  }}
-                >
-                  <FeedbackGood width='24px' />
-                </Button>
-                <Button
-                  color='error'
-                  sx={{
-                    p: 0.5,
-                    minWidth: 0,
-                    borderRadius: 48,
-                    '&:hover': {
-                      svg: {
-                        path: {
-                          stroke: 'rgba(255, 95, 114, 1)'
+                      }}
+                      onClick={() => {
+                        ReactGA.event('feedback', {
+                          path: window.location.pathname,
+                          positive: true
+                        })
+                        setIsPositive(true)
+                      }}
+                    >
+                      <FeedbackGood width='24px' />
+                    </Button>
+                    <Button
+                      color='error'
+                      sx={{
+                        p: 0.5,
+                        minWidth: 0,
+                        borderRadius: 48,
+                        '&:hover': {
+                          svg: {
+                            path: {
+                              stroke: 'rgba(255, 95, 114, 1)'
+                            }
+                          }
                         }
-                      }
-                    }
-                  }}
-                  onClick={() => {
-                    ReactGA.event('feedback', {
-                      path: window.location.pathname,
-                      positive: false
-                    })
-                    setIsPositive(false)
-                  }}
-                >
-                  <FeedbackBad width='24px' stroke='red' />
-                </Button>
-              </Grid>
+                      }}
+                      onClick={() => {
+                        ReactGA.event('feedback', {
+                          path: window.location.pathname,
+                          positive: false
+                        })
+                        setIsPositive(false)
+                      }}
+                    >
+                      <FeedbackBad width='24px' stroke='red' />
+                    </Button>
+                  </Grid>
+                </>
+              )}
               <NextLink
                 target='_blank'
                 rel='noopener noreferrer'
