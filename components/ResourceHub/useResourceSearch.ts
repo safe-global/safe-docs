@@ -6,9 +6,16 @@ const useResourceSearch = (
   resources: KnowledgeResource[],
   query: string
 ): KnowledgeResource[] => {
+  const sortedByDate = useMemo(
+    () =>
+      resources.sort((a, b) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime()
+      }),
+    [resources]
+  )
   const fuse = useMemo(
     () =>
-      new Fuse(resources, {
+      new Fuse(sortedByDate, {
         keys: [
           {
             name: 'name',
@@ -27,16 +34,16 @@ const useResourceSearch = (
         threshold: 0.3,
         findAllMatches: true
       }),
-    [resources]
+    [sortedByDate]
   )
 
   return useMemo(() => {
     if (query.length === 0) {
-      return resources
+      return sortedByDate
     }
 
     return fuse.search(query).map(result => result.item)
-  }, [fuse, resources, query])
+  }, [fuse, sortedByDate, query])
 }
 
 export { useResourceSearch }
