@@ -13,6 +13,10 @@ import NextLink from 'next/link'
 import ReactGA from 'react-ga4'
 import { useRouter } from 'next/router'
 
+import FeedbackGood from '../../assets/svg/feedback-good.svg'
+import FeedbackBad from '../../assets/svg/feedback-bad.svg'
+import Check from '../../assets/svg/check.svg'
+
 const Feedback: React.FC = () => {
   const { asPath } = useRouter()
   const [isPositive, setIsPositive] = useState<boolean | null>(null)
@@ -23,7 +27,7 @@ const Feedback: React.FC = () => {
   const [version, setVersion] = useState('')
   const [errorFix, setErrorFix] = useState('')
 
-  if (asPath === '/what-is-safe' || asPath === '/support') return null
+  if (asPath === '/support') return null
 
   const handleSubmit = (): void => {
     setLoading(true)
@@ -42,16 +46,24 @@ const Feedback: React.FC = () => {
   return (
     <Grid
       sx={{
-        backgroundColor: 'rgba(249,250,251,.1)',
         p: 3,
         mt: 3,
-        borderRadius: '8px'
+        borderRadius: '8px',
+        border: '1px solid rgba(249,250,251,.1)'
       }}
     >
       {submitted ? (
-        <Typography variant='h5'>
-          Thank you, your feedback has been submitted.
-        </Typography>
+        <Grid
+          container
+          flexDirection='column'
+          justifyContent='center'
+          alignItems='center'
+        >
+          <Check width='32px' />
+          <Typography variant='h5' fontWeight='700' color='white' mt={2} mb={1}>
+            Thank you for your feedback!
+          </Typography>
+        </Grid>
       ) : (
         <Grid container alignItems='center'>
           {isPositive != null ? (
@@ -156,33 +168,60 @@ const Feedback: React.FC = () => {
               </Grid>
             </Grid>
           ) : (
-            <>
-              <Typography variant='h5' mr={3}>
+            <Grid container flexDirection='column' alignItems='center'>
+              <Typography textAlign='center' fontWeight='700' color='white'>
                 Was this page helpful?
               </Typography>
-              <Button
-                onClick={() => {
-                  ReactGA.event('feedback', {
-                    path: window.location.pathname,
-                    positive: true
-                  })
-                  setIsPositive(true)
-                }}
-              >
-                Yes
-              </Button>
-
-              <Button
-                onClick={() => {
-                  ReactGA.event('feedback', {
-                    path: window.location.pathname,
-                    positive: false
-                  })
-                  setIsPositive(false)
-                }}
-              >
-                No
-              </Button>
+              <Grid item justifyContent='space-around' mt={1}>
+                <Button
+                  sx={{
+                    p: 0.5,
+                    mr: 1.5,
+                    minWidth: 0,
+                    borderRadius: 48,
+                    '&:hover': {
+                      svg: {
+                        path: {
+                          stroke: 'rgba(18, 255, 128, 1)'
+                        }
+                      }
+                    }
+                  }}
+                  onClick={() => {
+                    ReactGA.event('feedback', {
+                      path: window.location.pathname,
+                      positive: true
+                    })
+                    setIsPositive(true)
+                  }}
+                >
+                  <FeedbackGood width='24px' />
+                </Button>
+                <Button
+                  color='error'
+                  sx={{
+                    p: 0.5,
+                    minWidth: 0,
+                    borderRadius: 48,
+                    '&:hover': {
+                      svg: {
+                        path: {
+                          stroke: 'rgba(255, 95, 114, 1)'
+                        }
+                      }
+                    }
+                  }}
+                  onClick={() => {
+                    ReactGA.event('feedback', {
+                      path: window.location.pathname,
+                      positive: false
+                    })
+                    setIsPositive(false)
+                  }}
+                >
+                  <FeedbackBad width='24px' stroke='red' />
+                </Button>
+              </Grid>
               <NextLink
                 target='_blank'
                 rel='noopener noreferrer'
@@ -194,11 +233,12 @@ const Feedback: React.FC = () => {
                       path: window.location.pathname
                     })
                   }}
+                  sx={{ color: 'rgba(249,250,251,.7)' }}
                 >
                   Report issue
                 </Button>
               </NextLink>
-            </>
+            </Grid>
           )}
         </Grid>
       )}
