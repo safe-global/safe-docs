@@ -1,12 +1,25 @@
 import { Typography, Chip, Box } from '@mui/material'
 
 import css from './styles.module.css'
-// import { ECOSYSTEM_DATA_URL } from '@/config/constants'
 import { type KnowledgeResource } from './Resources'
 import YouTubeEmbed from '../YouTube'
-// import clsx from 'clsx'
 
 export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
+
   const CardContent = (
     <div style={{ width: '100%' }}>
       {resource.type === 'Video' && (
@@ -21,14 +34,27 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
         {resource.name}
       </Typography>
 
+      <Typography
+        variant='body2'
+        color='text.secondary'
+        className={css.description}
+        mb={0.5}
+      >
+        {months[new Date(resource.date).getMonth()] +
+          ', ' +
+          new Date(resource.date).getFullYear()}
+      </Typography>
+
       {resource.type === 'Blog Post' && (
-        <Typography
-          variant='body2'
-          color='text.secondary'
-          className={css.description}
-        >
-          {resource.abstract}
-        </Typography>
+        <>
+          <Typography
+            variant='body2'
+            color='text.secondary'
+            className={css.description}
+          >
+            {resource.abstract}
+          </Typography>
+        </>
       )}
 
       <div className={css.categories}>
@@ -72,7 +98,12 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
       }}
       className={css.card}
     >
-      <a href={resource.url} target='_blank' rel='noreferrer' style={{ width: '100%' }}>
+      <a
+        href={resource.url}
+        target='_blank'
+        rel='noreferrer'
+        style={{ width: '100%' }}
+      >
         {CardContent}
       </a>
     </Box>
