@@ -34,7 +34,12 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
         {resource.name}
       </Typography>
 
-      <Typography color='text.secondary'>
+      <Typography
+        variant='body2'
+        color='text.secondary'
+        className={css.description}
+        mb={0.5}
+      >
         {months[new Date(resource.date).getMonth()] +
           ', ' +
           new Date(resource.date).getFullYear()}
