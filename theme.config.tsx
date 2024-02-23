@@ -3,7 +3,7 @@ import type { DocsThemeConfig } from 'nextra-theme-docs'
 
 import SafeLogo from './assets/svg/safe-logo-white.svg'
 import Footer from './components/Footer'
-// import Feedback from './components/Feedback'
+import Feedback from './components/Feedback'
 
 const config: DocsThemeConfig = {
   darkMode: false,
@@ -34,16 +34,18 @@ const config: DocsThemeConfig = {
     const { asPath } = useRouter()
     if (asPath !== '/') {
       return {
-        titleTemplate: '%s - Safe Docs'
+        noindex: process.env.NEXT_PUBLIC_IS_PRODUCTION !== 'true',
+        nofollow: process.env.NEXT_PUBLIC_IS_PRODUCTION !== 'true',
+        titleTemplate: '%s – Safe Docs'
       }
     }
-  }
-  // main: ({ children }) => (
-  //   <>
-  //     {children}
-  //     <Feedback />
-  //   </>
-  // )
+  },
+  main: ({ children }) => (
+    <>
+      {children}
+      <Feedback />
+    </>
+  )
 }
 
 export default config
