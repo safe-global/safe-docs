@@ -4,9 +4,9 @@ import { Callout } from 'nextra/components'
 
 This guide explains how transactions are signed by the Safe owners using the Protocol Kit.
 
-<Callout type="info">
+< Callout type = "info" >
   Before starting, check this guide's [setup](../signatures.md).
-</Callout>
+< /Callout>
 
 ## Create the transaction
 
@@ -42,7 +42,7 @@ class EthSafeTransaction implements SafeTransaction {
 
 Once the `safeTransaction` object is created, we need to collect the signatures from the signers who will sign it.
 
-Following our [setup](../signatures.md), we will sign a Safe transaction from `safe3_4`, the main Safe account in this guide. To do that, we first need to sign the same transaction with its owners: `owner1`, `owner2`, `safe1_1, and `safe2_3`.
+Following our [setup](../signatures.md), we will sign a Safe transaction from `safe3_4`, the main Safe account in this guide. To do that, we first need to sign the same transaction with its owners: `owner1`, `owner2`, `safe1_1`, and `safe2_3`.
 
 ### ECDSA signature
 
@@ -119,9 +119,9 @@ The initial signature should look like this:
 
 | Type | Description | Bytes | Value |
 | :--- | :--- | :---: | :--- |
-| Hex | Hex string characters | 1 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0x</div> |
-| Signature | Signature bytes | 64 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b126</div> |
-| Signature Type | 1f hex is 31 in decimal | 1 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>1f</div> |
+| Hex | Hex string characters | 1 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>0x< /div> |
+| Signature | Signature bytes | 64 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b126< /div> |
+| Signature Type | 1f hex is 31 in decimal | 1 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>1f< /div> |
 
 ### Smart contract signatures
 
@@ -208,11 +208,11 @@ The `signatureSafe1_1.data` signature should look like this:
 | Type | Description | Bytes | Value |
 | :--- | :--- | :---: | :--- |
 | Hex | Hex string characters | 1 | 0x |
-| Verifier | Padded address of the contract that implements the EIP-1271 interface to verify the signature. The Safe signer address | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>000000000000000000000000215033cdE0619D60B7352348F4598316Cc39bC6E</div> |
-| Data position | Start position of the signature data (offset relative to the beginning of the signature data). 41 hex is 65 in decimal | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000041</div> |
+| Verifier | Padded address of the contract that implements the EIP-1271 interface to verify the signature. The Safe signer address | 32 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>000000000000000000000000215033cdE0619D60B7352348F4598316Cc39bC6E< /div> |
+| Data position | Start position of the signature data (offset relative to the beginning of the signature data). 41 hex is 65 in decimal | 32 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>0000000000000000000000000000000000000000000000000000000000000041< /div> |
 | Signature Type | [00 for Safe accounts](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L322-L336) | 1 | 00 |
-| Signature Length | The length of the signature. 41 hex is 65 in decimal | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000041</div> |
-| Signature | Signature bytes that are verified by the signature verifier | 65 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f</div> |
+| Signature Length | The length of the signature. 41 hex is 65 in decimal | 32 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>0000000000000000000000000000000000000000000000000000000000000041< /div> |
+| Signature | Signature bytes that are verified by the signature verifier | 65 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f< /div> |
 
 #### 2/3 Safe account
 
@@ -298,12 +298,12 @@ The `signatureSafe2_3` object should look like this:
 
 | Type | Description | Bytes | Value |
 | :--- | :--- | :---: | :--- |
-| Hex | Hex string characters | 1 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0x</div> |
-| Verifier | Padded address of the contract that implements the EIP-1271 interface to verify the signature. The Safe signer address | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>000000000000000000000000f75D61D6C27a7CC5788E633c1FC130f0F4a62D33</div> |
-| Data position | Start position of the signature data (offset relative to the beginning of the signature data). 41 hex is 65 in decimal | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000041</div> |
+| Hex | Hex string characters | 1 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>0x< /div> |
+| Verifier | Padded address of the contract that implements the EIP-1271 interface to verify the signature. The Safe signer address | 32 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>000000000000000000000000f75D61D6C27a7CC5788E633c1FC130f0F4a62D33< /div> |
+| Data position | Start position of the signature data (offset relative to the beginning of the signature data). 41 hex is 65 in decimal | 32 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>0000000000000000000000000000000000000000000000000000000000000041< /div> |
 | Signature Type | [00 for Safe accounts](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L322-L336) | 1 | 00 
-| Signature Length | The length of the signature. 82 hex is 130 in decimal | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000082</div> |
-| Signature | Signature bytes that are verified by the signature verifier (130 bytes are represented by 260 characters in an hex string) | 130 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f</div> |
+| Signature Length | The length of the signature. 82 hex is 130 in decimal | 32 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>0000000000000000000000000000000000000000000000000000000000000082< /div> |
+| Signature | Signature bytes that are verified by the signature verifier (130 bytes are represented by 260 characters in an hex string) | 130 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f< /div> |
 
 The table looks very similar to the previous one, but there are two main differences:
 - The **Signature Length** value has doubled because `safe2_3` needs two signatures.
@@ -461,16 +461,16 @@ The `safeTransaction.encodedSignature` method returns the signatures concatenate
 
 | Type | Description | Bytes | Acc byte | Value |
 | :--- | :--- | :---: | :---: | :--- |
-| Hex | Hex string characters | 1 | - | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0x</div> |
-| 1/1 Safe signer | Safe Address | 32 | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>000000000000000000000000215033cdE0619D60B7352348F4598316Cc39bC6E</div> |
-| Data position for 1/1 Safe | 104 hex = Signature data for 1/1 Safe start at byte 260 | 32 | 64 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000104</div> |
-| Signature Type | Smart contract signature | 1 | 65 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>00</div> |
-| Owner signature | `owner1` signature | 65 |  130 |<div style={{ maxWidth: "300px", textWrap: "wrap" }}>969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b1261f</div> |
-| 2/3 Safe signer | Safe Address | 32 | 162 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>000000000000000000000000f75D61D6C27a7CC5788E633c1FC130f0F4a62D33</div> |
-| Data position for 2/3 Verifier | 165 hex = Signature data for 2/3 Safe start at byte 357 | 32 | 194 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000165</div> |
-| Signature | Type Smart contract signature | 1 | 195 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>00</div> |
-| Owner signature | `owner2` signature | 65 | 260 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>4d63c79cf9d743782bc31ad58c1a316020b39839ab164caee7ecac9829f685cc44ec0d066a5dfe646b2ffeeb37575df131daf9c96ced41b8c7c4aea8dc5461801c</div> |
-| 1/1 Safe Signature Length | Start of the 1/1 Safe Signature. 41 hex = 65 bytes | 32 | 292 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000041</div> |
-| Signature | `owner3` signature | 65 | 357 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f</div> |
-| 2/3 Safe Signature length | Start of the 2/3 Safe Signature. 82 hex = 130 bytes | 32 | 389 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000082</div> |
-| Signature | `owner4` and `owner5` concatenated signatures | 130 | 519 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f</div> |
+| Hex | Hex string characters | 1 | - | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>0x< /div> |
+| 1/1 Safe signer | Safe Address | 32 | 32 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>000000000000000000000000215033cdE0619D60B7352348F4598316Cc39bC6E< /div> |
+| Data position for 1/1 Safe | 104 hex = Signature data for 1/1 Safe start at byte 260 | 32 | 64 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>0000000000000000000000000000000000000000000000000000000000000104< /div> |
+| Signature Type | Smart contract signature | 1 | 65 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>00< /div> |
+| Owner signature | `owner1` signature | 65 |  130 |<div style={ { maxWidth: "300px", textWrap: "wrap" } }>969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b1261f< /div> |
+| 2/3 Safe signer | Safe Address | 32 | 162 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>000000000000000000000000f75D61D6C27a7CC5788E633c1FC130f0F4a62D33< /div> |
+| Data position for 2/3 Verifier | 165 hex = Signature data for 2/3 Safe start at byte 357 | 32 | 194 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>0000000000000000000000000000000000000000000000000000000000000165< /div> |
+| Signature | Type Smart contract signature | 1 | 195 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>00< /div> |
+| Owner signature | `owner2` signature | 65 | 260 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>4d63c79cf9d743782bc31ad58c1a316020b39839ab164caee7ecac9829f685cc44ec0d066a5dfe646b2ffeeb37575df131daf9c96ced41b8c7c4aea8dc5461801c< /div> |
+| 1/1 Safe Signature Length | Start of the 1/1 Safe Signature. 41 hex = 65 bytes | 32 | 292 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>0000000000000000000000000000000000000000000000000000000000000041< /div> |
+| Signature | `owner3` signature | 65 | 357 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f< /div> |
+| 2/3 Safe Signature length | Start of the 2/3 Safe Signature. 82 hex = 130 bytes | 32 | 389 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>0000000000000000000000000000000000000000000000000000000000000082< /div> |
+| Signature | `owner4` and `owner5` concatenated signatures | 130 | 519 | <div style={ { maxWidth: "300px", textWrap: "wrap" } }>023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f< /div> |
