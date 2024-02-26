@@ -47,11 +47,11 @@ const moneriumPack = new MoneriumPack({
 await moneriumPack.init({ protocolKit })
 ```
 
-The `protocolKit` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. For more information on how to instantiate the `protocol-kit` refer to the [Protocol Kit Quickstart section](../../sdk-protocol-kit.md).
+The `protocolKit` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. For more information on how to instantiate the `protocol-kit` refer to the [Protocol Kit Quickstart section](../../protocol-kit.md).
 
 The `MoneriumPack` will use the Safe account address configured in the `protocolKit` to link to your Monerium account.
 
-2. Start the _Login with Monerium_ flow by creating a button or link in your application. Use your favorite UI library to add a handler and start the login flow. In the button handler you should start the flow by calling the `open` method:
+1. Start the _Login with Monerium_ flow by creating a button or link in your application. Use your favorite UI library to add a handler and start the login flow. In the button handler you should start the flow by calling the `open` method:
 
 ```typescript
 await moneriumPack.open({ initiateAuthFlow: true })
