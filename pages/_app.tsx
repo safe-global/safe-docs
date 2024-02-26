@@ -1,22 +1,22 @@
-import { useEffect, type ReactElement } from 'react'
-import type { AppProps } from 'next/app'
+import type { EmotionCache } from '@emotion/react'
+import { CacheProvider } from '@emotion/react'
+import { CssBaseline } from '@mui/material'
 import {
   Experimental_CssVarsProvider as CssVarsProvider,
   experimental_extendTheme as extendMuiTheme
 } from '@mui/material/styles'
-import { CssBaseline } from '@mui/material'
-import { CacheProvider } from '@emotion/react'
-import type { EmotionCache } from '@emotion/react'
+import type { AppProps } from 'next/app'
+import { useEffect, type ReactElement } from 'react'
 import ReactGA from 'react-ga4'
 
-import { createEmotionCache } from '../styles/emotion'
-import { theme } from '../styles/theme'
-import '../styles/styles.css'
+import { CookieBanner } from '../components/CookieBanner'
 import {
   CookieBannerContextProvider,
   useCookieBannerContext
 } from '../components/CookieBanner/CookieBannerContext'
-import { CookieBanner } from '../components/CookieBanner'
+import { createEmotionCache } from '../styles/emotion'
+import '../styles/styles.css'
+import { theme } from '../styles/theme'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
