@@ -526,7 +526,10 @@ export const Resources: React.FC = () => {
             <Grid container flexDirection='column' alignItems='center'>
               <SearchIcon />
               <Typography variant='h4' my={2}>
-                No results found for &quot;{searchQuery ?? 'selected filters'}&quot;
+                No results found for{' '}
+                {searchQuery.length !== 0
+                  ? `"${searchQuery}"`
+                  : 'selected filters'}
               </Typography>
               <Typography color='primary.light'>
                 Try searching something else
