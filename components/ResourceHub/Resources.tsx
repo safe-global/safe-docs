@@ -139,7 +139,9 @@ const getFilters = (query: NextRouter['query'], filter: string): string[] => {
 }
 
 const getSearchQuery = (query: NextRouter['query']): string => {
-  const searchQuery = Array.isArray(query.q) ? query.q[0] : query.q
+  const searchQuery = Array.isArray(query.search)
+    ? query.search[0]
+    : query.search
   return decodeURIComponent(searchQuery ?? '')
 }
 
@@ -183,8 +185,9 @@ export const Resources: React.FC = () => {
     void push(
       {
         query: {
-          ...query,
-          q: undefined
+          ...Object.fromEntries(
+            Object.entries(query).filter(([key]) => key !== 'search')
+          )
         }
       },
       undefined,
@@ -195,7 +198,13 @@ export const Resources: React.FC = () => {
   const onResetFilters = (): void => {
     void push(
       {
-        query: undefined
+        query: {
+          ...Object.fromEntries(
+            Object.entries(query).filter(
+              ([key]) => key !== 'tag' && key !== 'type' && key !== 'source'
+            )
+          )
+        }
       },
       undefined,
       { shallow: true }
@@ -343,7 +352,7 @@ export const Resources: React.FC = () => {
             value={searchQuery}
             sx={{ border: 'none', width: '80%', mt: [2, 0] }}
             onChange={e => {
-              setSelectedFilter([e.target.value], 'q')
+              setSelectedFilter([e.target.value], 'search')
             }}
             fullWidth
           />
