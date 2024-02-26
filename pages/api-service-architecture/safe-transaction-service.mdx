@@ -75,14 +75,14 @@ The following sequence diagram shows a use case for a Safe shared by Alice and B
 sequenceDiagram
     participant A as Alice
     participant B as Bob
-    participant BlockChain
+    participant Blockchain
     rect rgba(255,255,255,.1)
     Note over A,B: Process of creating a new Safe 
     A-->A: create and sign setup transaction
-    A->>+BlockChain: Safe.setup(_owners=["0xAlice","0xBob"],_threshold=2,...)
-    BlockChain-->>-A: Success
-    SafeTransactionService->>+BlockChain: picks the transaction (scheduled task)
-    BlockChain-->>-SafeTransactionService: transaction information
+    A->>+Blockchain: Safe.setup(_owners=["0xAlice","0xBob"],_threshold=2,...)
+    Blockchain-->>-A: Success
+    SafeTransactionService->>+Blockchain: picks the transaction (scheduled task)
+    Blockchain-->>-SafeTransactionService: transaction information
     SafeTransactionService-->SafeTransactionService: save transaction data (block, block hash, transaction hash, gas used...)
     SafeTransactionService->>RabbitMQ: sendEvent SAFE_CREATED
     SafeTransactionService->>Firebase: sendEvent SAFE_CREATED
@@ -103,10 +103,10 @@ sequenceDiagram
     SafeTransactionService->>Firebase: sendEvent NEW_CONFIRMATION
     A->>+SafeTransactionService: GET /v1/multisig-transactions/0x5afe0001/
     SafeTransactionService-->>-A: Http(200) {..."safeTxHash":"0x5afe0001"}
-    A->>+BlockChain: Safe.execTransaction(to = 0x0.., value = 1, signatures = 0x0AliceBob, ..)
-    BlockChain-->>-A: Success
-    SafeTransactionService->>+BlockChain: picks the transaction (scheduled task)
-    BlockChain-->>-SafeTransactionService: transaction information
+    A->>+Blockchain: Safe.execTransaction(to = 0x0.., value = 1, signatures = 0x0AliceBob, ..)
+    Blockchain-->>-A: Success
+    SafeTransactionService->>+Blockchain: picks the transaction (scheduled task)
+    Blockchain-->>-SafeTransactionService: transaction information
     SafeTransactionService-->SafeTransactionService: save transaction data (block, block hash, transaction hash, gas used...)
     SafeTransactionService->>RabbitMQ: sendEvent EXECUTED_MULTISIG_TRANSACTION
     SafeTransactionService->>Firebase: sendEvent EXECUTED_MULTISIG_TRANSACTION
