@@ -1,257 +1,497 @@
 [
   {
     "source": "/getting-started",
-    "destination": "/what-is-safe",
+    "destination": "/home/what-is-safe",
     "permanent": true
   },
   {
     "source": "/getting-started/readme",
-    "destination": "/what-is-safe",
+    "destination": "/home/what-is-safe",
+    "permanent": true
+  },
+  {
+    "source": "/what-is-safe",
+    "destination": "/home/what-is-safe",
     "permanent": true
   },
   {
     "source": "/safe-smart-account/safe-smart-account",
-    "destination": "/smart-account-overview",
+    "destination": "/advanced/smart-account-overview",
+    "permanent": true
+  },
+  {
+    "source": "/smart-account-overview",
+    "destination": "/advanced/smart-account-overview",
     "permanent": true
   },
   {
     "source": "/safe-smart-account/modules",
-    "destination": "/smart-account-modules",
+    "destination": "/advanced/smart-account-modules",
+    "permanent": true
+  },
+  {
+    "source": "/smart-account-modules",
+    "destination": "/advanced/smart-account-modules",
     "permanent": true
   },
   {
     "source": "/safe-smart-account/guards",
-    "destination": "/smart-account-guards",
+    "destination": "/advanced/smart-account-guards",
+    "permanent": true
+  },
+  {
+    "source": "/smart-account-guards",
+    "destination": "/advanced/smart-account-guards",
     "permanent": true
   },
   {
     "source": "/safe-smart-account/security-audits",
-    "destination": "/smart-account-audits",
+    "destination": "/advanced/smart-account-audits",
+    "permanent": true
+  },
+  {
+    "source": "/smart-account-audits",
+    "destination": "/advanced/smart-account-audits",
     "permanent": true
   },
   {
     "source": "/safe-smart-account/signatures",
-    "destination": "/smart-account-signatures",
+    "destination": "/advanced/smart-account-signatures",
+    "permanent": true
+  },
+  {
+    "source": "/smart-account-signatures",
+    "destination": "/advanced/smart-account-signatures",
     "permanent": true
   },
   {
     "source": "/safe-smart-account/signatures/eip-1271",
-    "destination": "/sdk-protocol-kit/guides/signatures",
+    "destination": "/sdk/protocol-kit/guides/signatures",
     "permanent": true
   },
   {
     "source": "/smart-account-signatures/eip-1271",
-    "destination": "/sdk-protocol-kit/guides/signatures",
+    "destination": "/sdk/protocol-kit/guides/signatures",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-protocol-kit/guides/signatures",
+    "destination": "/sdk/protocol-kit/guides/signatures",
     "permanent": true
   },
   {
     "source": "/safe-smart-account/supported-networks",
-    "destination": "/smart-account-supported-networks",
+    "destination": "/advanced/smart-account-supported-networks",
+    "permanent": true
+  },
+  {
+    "source": "/smart-account-supported-networks",
+    "destination": "/advanced/smart-account-supported-networks",
     "permanent": true
   },
   {
     "source": "/safe-smart-account/supported-networks/v1.4.1",
-    "destination": "/smart-account-supported-networks/v1.4.1",
+    "destination": "/advanced/smart-account-supported-networks/v1.4.1",
+    "permanent": true
+  },
+  {
+    "source": "/smart-account-supported-networks/v1.4.1",
+    "destination": "/advanced/smart-account-supported-networks/v1.4.1",
     "permanent": true
   },
   {
     "source": "/safe-smart-account/supported-networks/v1.3.0",
-    "destination": "/smart-account-supported-networks/v1.3.0",
+    "destination": "/advanced/smart-account-supported-networks/v1.3.0",
+    "permanent": true
+  },
+  {
+    "source": "/smart-account-supported-networks/v1.3.0",
+    "destination": "/advanced/smart-account-supported-networks/v1.3.0",
     "permanent": true
   },
   {
     "source": "/safe-smart-account/supported-networks/v1.2.0",
-    "destination": "/smart-account-supported-networks/v1.2.0",
+    "destination": "/advanced/smart-account-supported-networks/v1.2.0",
+    "permanent": true
+  },
+  {
+    "source": "/smart-account-supported-networks/v1.2.0",
+    "destination": "/advanced/smart-account-supported-networks/v1.2.0",
     "permanent": true
   },
   {
     "source": "/safe-smart-account/supported-networks/v1.1.1",
-    "destination": "/smart-account-supported-networks/v1.1.1",
+    "destination": "/advanced/smart-account-supported-networks/v1.1.1",
+    "permanent": true
+  },
+  {
+    "source": "/smart-account-supported-networks/v1.1.1",
+    "destination": "/advanced/smart-account-supported-networks/v1.1.1",
     "permanent": true
   },
   {
     "source": "/safe-smart-account/supported-networks/v1.0.0",
-    "destination": "/smart-account-supported-networks/v1.0.0",
+    "destination": "/advanced/smart-account-supported-networks/v1.0.0",
+    "permanent": true
+  },
+  {
+    "source": "/smart-account-supported-networks/v1.0.0",
+    "destination": "/advanced/smart-account-supported-networks/v1.0.0",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk",
-    "destination": "/sdk-overview",
+    "destination": "/sdk/overview",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/safe-core-sdk",
-    "destination": "/sdk-overview",
+    "destination": "/sdk/overview",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-overview",
+    "destination": "/sdk/overview",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit",
-    "destination": "/sdk-auth-kit",
+    "destination": "/sdk/auth-kit",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-auth-kit",
+    "destination": "/sdk/auth-kit",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit/guides/safe-auth",
-    "destination": "/sdk-auth-kit/guides/safe-auth",
+    "destination": "/sdk/auth-kit/guides/safe-auth",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-auth-kit/guides/safe-auth",
+    "destination": "/sdk/auth-kit/guides/safe-auth",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit/reference",
-    "destination": "/sdk-auth-kit/reference",
+    "destination": "/sdk/auth-kit/reference",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-auth-kit/reference",
+    "destination": "/sdk/auth-kit/reference",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit/reference/authkitbasepack",
-    "destination": "/sdk-auth-kit/reference/auth-kit-base-pack",
+    "destination": "/sdk/auth-kit/reference/auth-kit-base-pack",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-auth-kit/reference/auth-kit-base-pack",
+    "destination": "/sdk/auth-kit/reference/auth-kit-base-pack",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit/reference/safeauthpack",
-    "destination": "/sdk-auth-kit/reference/safe-auth-pack",
+    "destination": "/sdk/auth-kit/reference/safe-auth-pack",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-auth-kit/reference/safe-auth-pack",
+    "destination": "/sdk/auth-kit/reference/safe-auth-pack",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/protocol-kit",
-    "destination": "/sdk-protocol-kit",
+    "destination": "/sdk/protocol-kit",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-protocol-kit",
+    "destination": "/sdk/protocol-kit",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/protocol-kit/reference",
-    "destination": "/sdk-protocol-kit/reference",
+    "destination": "/sdk/protocol-kit/reference",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-protocol-kit/reference",
+    "destination": "/sdk/protocol-kit/reference",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/protocol-kit/reference/v1",
-    "destination": "/sdk-protocol-kit/reference/migrating-to-v1",
+    "destination": "/sdk/protocol-kit/reference/migrating-to-v1",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-protocol-kit/reference/migrating-to-v1",
+    "destination": "/sdk/protocol-kit/reference/migrating-to-v1",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/protocol-kit/reference/v2",
-    "destination": "/sdk-protocol-kit/reference/migrating-to-v2",
+    "destination": "/sdk/protocol-kit/reference/migrating-to-v2",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-protocol-kit/reference/migrating-to-v2",
+    "destination": "/sdk/protocol-kit/reference/migrating-to-v2",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit",
-    "destination": "/sdk-onramp-kit",
+    "destination": "/sdk/onramp-kit",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-onramp-kit",
+    "destination": "/sdk/onramp-kit",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit/guides/stripe",
-    "destination": "/sdk-onramp-kit/guides/stripe",
+    "destination": "/sdk/onramp-kit/guides/stripe",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-onramp-kit/guides/stripe",
+    "destination": "/sdk/onramp-kit/guides/stripe",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit/guides/monerium",
-    "destination": "/sdk-onramp-kit/guides/monerium",
+    "destination": "/sdk/onramp-kit/guides/monerium",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-onramp-kit/guides/monerium",
+    "destination": "/sdk/onramp-kit/guides/monerium",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit/reference",
-    "destination": "/sdk-onramp-kit/reference",
+    "destination": "/sdk/onramp-kit/reference",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-onramp-kit/reference",
+    "destination": "/sdk/onramp-kit/reference",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit/reference/stripepack",
-    "destination": "/sdk-onramp-kit/reference/stripe-pack",
+    "destination": "/sdk/onramp-kit/reference/stripe-pack",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-onramp-kit/reference/stripe-pack",
+    "destination": "/sdk/onramp-kit/reference/stripe-pack",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit/reference/onrampkitbasepack",
-    "destination": "/sdk-onramp-kit/reference/onramp-kit-base-pack",
+    "destination": "/sdk/onramp-kit/reference/onramp-kit-base-pack",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-onramp-kit/reference/onramp-kit-base-pack",
+    "destination": "/sdk/onramp-kit/reference/onramp-kit-base-pack",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit/reference/moneriumpack",
-    "destination": "/sdk-onramp-kit/reference/monerium-pack",
+    "destination": "/sdk/onramp-kit/reference/monerium-pack",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-onramp-kit/reference/monerium-pack",
+    "destination": "/sdk/onramp-kit/reference/monerium-pack",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/relay-kit",
-    "destination": "/sdk-relay-kit",
+    "destination": "/sdk/relay-kit",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-relay-kit",
+    "destination": "/sdk/relay-kit",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/relay-kit/guides/gelato",
-    "destination": "/sdk-relay-kit/guides/gelato-relay",
+    "destination": "/sdk/relay-kit/guides/gelato-relay",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-relay-kit/guides/gelato-relay",
+    "destination": "/sdk/relay-kit/guides/gelato-relay",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/relay-kit/reference/v2",
-    "destination": "/sdk-relay-kit/reference/migrating-to-v2",
+    "destination": "/sdk/relay-kit/reference/migrating-to-v2",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-relay-kit/reference/migrating-to-v2",
+    "destination": "/sdk/relay-kit/reference/migrating-to-v2",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/api-kit",
-    "destination": "/sdk-api-kit",
+    "destination": "/sdk/api-kit",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-api-kit",
+    "destination": "/sdk/api-kit",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/api-kit/reference",
-    "destination": "/sdk-api-kit/reference",
+    "destination": "/sdk/api-kit/reference",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-api-kit/reference",
+    "destination": "/sdk/api-kit/reference",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/api-kit/reference/v1",
-    "destination": "/sdk-api-kit/reference/migrating-to-v1",
+    "destination": "/sdk/api-kit/reference/migrating-to-v1",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-api-kit/reference/migrating-to-v1",
+    "destination": "/sdk/api-kit/reference/migrating-to-v1",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/api-kit/reference/v2",
-    "destination": "/sdk-api-kit/reference/migrating-to-v2",
+    "destination": "/sdk/api-kit/reference/migrating-to-v2",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-api-kit/reference/migrating-to-v2",
+    "destination": "/sdk/api-kit/reference/migrating-to-v2",
     "permanent": true
   },
   {
     "source": "/safe-core-api",
-    "destination": "/api-service-architecture",
+    "destination": "/api/service-architecture",
+    "permanent": true
+  },
+  {
+    "source": "/api-service-architecture",
+    "destination": "/api/service-architecture",
     "permanent": true
   },
   {
     "source": "/safe-core-api/service-architecture",
-    "destination": "/api-service-architecture",
+    "destination": "/api/service-architecture",
+    "permanent": true
+  },
+  {
+    "source": "/api-service-architecture",
+    "destination": "/api/service-architecture",
     "permanent": true
   },
   {
     "source": "/safe-core-api/service-architecture/safe-transaction-service",
-    "destination": "/api-service-architecture/safe-transaction-service",
+    "destination": "/api/service-architecture/safe-transaction-service",
+    "permanent": true
+  },
+  {
+    "source": "/api-service-architecture/safe-transaction-service",
+    "destination": "/api/service-architecture/safe-transaction-service",
     "permanent": true
   },
   {
     "source": "/safe-core-api/rpc-requirements",
-    "destination": "/api-rpc-requirements",
+    "destination": "/api/rpc-requirements",
+    "permanent": true
+  },
+  {
+    "source": "/api-rpc-requirements",
+    "destination": "/api/rpc-requirements",
     "permanent": true
   },
   {
     "source": "/safe-core-api/supported-networks",
-    "destination": "/api-supported-networks",
+    "destination": "/api/supported-networks",
+    "permanent": true
+  },
+  {
+    "source": "/api-supported-networks",
+    "destination": "/api/supported-networks",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/safe-apps",
-    "destination": "/apps-sdk-overview",
+    "destination": "https://github.com/safe-global/safe-apps-sdk",
+    "permanent": true
+  },
+  {
+    "source": "/apps-sdk-overview",
+    "destination": "https://github.com/safe-global/safe-apps-sdk",
     "permanent": true
   },
   {
     "source": "/safe-apps-sdk/safe-apps",
-    "destination": "/apps-sdk-overview",
+    "destination": "https://github.com/safe-global/safe-apps-sdk",
+    "permanent": true
+  },
+  {
+    "source": "/apps-sdk-overview",
+    "destination": "https://github.com/safe-global/safe-apps-sdk",
     "permanent": true
   },
   {
     "source": "/safe-apps-sdk/get-started",
-    "destination": "/apps-sdk-get-started",
+    "destination": "https://github.com/safe-global/safe-apps-sdk",
+    "permanent": true
+  },
+  {
+    "source": "/apps-sdk-get-started",
+    "destination": "https://github.com/safe-global/safe-apps-sdk",
     "permanent": true
   },
   {
     "source": "/safe-apps-sdk/release",
-    "destination": "/apps-sdk-release",
+    "destination": "https://github.com/safe-global/safe-apps-sdk",
+    "permanent": true
+  },
+  {
+    "source": "/apps-sdk-release",
+    "destination": "https://github.com/safe-global/safe-apps-sdk",
     "permanent": true
   },
   {
     "source": "/miscellaneous/bug-bounty-program",
-    "destination": "/bug-bounty",
+    "destination": "/advanced/smart-account-bug-bounty",
+    "permanent": true
+  },
+  {
+    "source": "/bug-bounty",
+    "destination": "/advanced/smart-account-bug-bounty",
     "permanent": true
   },
   {
     "source": "/miscellaneous/bug-bounty-program/past-paid-bounties",
-    "destination": "/bug-bounty/past-paid-bounties",
+    "destination": "/advanced/smart-account-bug-bounty/past-paid-bounties",
+    "permanent": true
+  },
+  {
+    "source": "/bug-bounty/past-paid-bounties",
+    "destination": "/advanced/smart-account-bug-bounty/past-paid-bounties",
     "permanent": true
   },
   {
@@ -287,16 +527,6 @@
   {
     "source": "/safe-core-protocol/security/security-audits",
     "destination": "https://github.com/5afe/safe-core-protocol",
-    "permanent": true
-  },
-  {
-    "source": "/miscellaneous/bug-bounty-program/past-paid-bounties",
-    "destination": "/bug-bounty/past-paid-bounties",
-    "permanent": true
-  },
-  {
-    "source": "/miscellaneous/bug-bounty-program/past-paid-bounties",
-    "destination": "/bug-bounty/past-paid-bounties",
     "permanent": true
   }
 ]
