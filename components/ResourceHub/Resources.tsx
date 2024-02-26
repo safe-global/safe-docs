@@ -14,7 +14,6 @@ import {
   Link,
   Container
 } from '@mui/material'
-import type { Dispatch, ReactElement, SetStateAction } from 'react'
 import type { GridProps } from '@mui/material'
 import { Fragment, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -116,8 +115,6 @@ const SpecificTypeFilter = ({
   )
 }
 
-const EMPTY_FILTER: string[] = []
-
 const GRID_SPACING: GridProps['spacing'] = {
   xs: 2,
   md: '30px'
@@ -125,26 +122,52 @@ const GRID_SPACING: GridProps['spacing'] = {
 
 const PAGE_LENGTH = 12
 
-const PAGE_QUERY_PARAM = 'page'
-
 const getPage = (query: NextRouter['query']): number => {
-  const page = Array.isArray(query[PAGE_QUERY_PARAM])
-    ? query[PAGE_QUERY_PARAM][0]
-    : query[PAGE_QUERY_PARAM]
+  const page = Array.isArray(query.page) ? query.page[0] : query.page
 
   return parseInt(page ?? '1')
 }
 
-export const Resources = (): ReactElement => {
-  const [query, setQuery] = useState('')
+const getFilters = (query: NextRouter['query'], filter: string): string[] => {
+  const filters = Array.isArray(query[filter])
+    ? (query[filter] as string[])
+    : ([query[filter] ?? ''] as string[])
+
+  return (
+    filters?.map(s => decodeURIComponent(s)).filter(s => s.length !== 0) ?? []
+  )
+}
+
+const getSearchQuery = (query: NextRouter['query']): string => {
+  const searchQuery = Array.isArray(query.search)
+    ? query.search[0]
+    : query.search
+  return decodeURIComponent(searchQuery ?? '')
+}
+
+export const Resources: React.FC = () => {
+  const { query, push } = useRouter()
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false)
 
-  const [selectedTypes, setSelectedTypes] = useState(EMPTY_FILTER)
-  const [selectedSources, setSelectedSources] = useState(EMPTY_FILTER)
-  const [selectedTags, setSelectedTags] = useState(EMPTY_FILTER)
+  const searchQuery = getSearchQuery(query)
+  const selectedTypes = getFilters(query, 'type')
+  const selectedSources = getFilters(query, 'source')
+  const selectedTags = getFilters(query, 'tag')
 
-  const router = useRouter()
-  const page = getPage(router.query)
+  const setSelectedFilter = (filters: string[], filterName: string): void => {
+    void push(
+      {
+        query: {
+          ...query,
+          [filterName]: filters
+        }
+      },
+      undefined,
+      { shallow: true }
+    )
+  }
+
+  const page = getPage(query)
 
   // Types
   const allTypes = resources.flatMap(resource => resource.type)
@@ -159,30 +182,51 @@ export const Resources = (): ReactElement => {
   const uniqueTags = getUniqueStrings(allTags)
 
   const onResetSearch = (): void => {
-    setQuery('')
+    void push(
+      {
+        query: {
+          ...Object.fromEntries(
+            Object.entries(query).filter(([key]) => key !== 'search')
+          )
+        }
+      },
+      undefined,
+      { shallow: true }
+    )
   }
 
   const onResetFilters = (): void => {
-    setSelectedTypes(EMPTY_FILTER)
-    setSelectedSources(EMPTY_FILTER)
-    setSelectedTags(EMPTY_FILTER)
+    void push(
+      {
+        query: {
+          ...Object.fromEntries(
+            Object.entries(query).filter(
+              ([key]) => key !== 'tag' && key !== 'type' && key !== 'source'
+            )
+          )
+        }
+      },
+      undefined,
+      { shallow: true }
+    )
   }
 
   const onSelect =
-    (setState: Dispatch<SetStateAction<string[]>>) =>
+    (prev: string[], filterName: string) =>
       (property: string, checked: boolean) => {
-        setState(prev => {
-          if (checked) {
-            return prev.concat(property)
-          } else {
-            return prev.filter(item => item !== property)
-          }
-        })
+        if (checked) {
+          setSelectedFilter(prev.concat(property), filterName)
+        } else {
+          setSelectedFilter(
+            prev.filter(item => item !== property),
+            filterName
+          )
+        }
       }
 
-  const onSelectType = onSelect(setSelectedTypes)
-  const onSelectSource = onSelect(setSelectedSources)
-  const onSelectTag = onSelect(setSelectedTags)
+  const onSelectType = onSelect(selectedTypes, 'type')
+  const onSelectSource = onSelect(selectedSources, 'source')
+  const onSelectTag = onSelect(selectedTags, 'tag')
 
   const toggleSpecificTag = (tag: string): void => {
     onSelectTag(tag, !selectedTags.includes(tag))
@@ -211,7 +255,7 @@ export const Resources = (): ReactElement => {
   }, [noFilters, selectedTypes, selectedSources, selectedTags])
 
   // Search results
-  const searchResults = useResourceSearch(filteredResources, query)
+  const searchResults = useResourceSearch(filteredResources, searchQuery)
 
   // Paginated filtered/search-based results
   const visibleResults = searchResults.slice(0, PAGE_LENGTH * page)
@@ -297,7 +341,7 @@ export const Resources = (): ReactElement => {
                 </InputAdornment>
               ),
               endAdornment:
-                query.length !== 0 ? (
+                searchQuery.length !== 0 ? (
                   <InputAdornment position='end'>
                     <IconButton onClick={onResetSearch}>
                       <CloseIcon />
@@ -305,10 +349,11 @@ export const Resources = (): ReactElement => {
                   </InputAdornment>
                 ) : undefined
             }}
-            value={query}
+            value={searchQuery}
             sx={{ border: 'none', width: '80%', mt: [2, 0] }}
             onChange={e => {
-              setQuery(e.target.value)
+              if (e.target.value.length === 0) onResetSearch()
+              else setSelectedFilter([e.target.value], 'search')
             }}
             fullWidth
           />
@@ -452,7 +497,7 @@ export const Resources = (): ReactElement => {
                   justifyContent='center'
                 >
                   <NextLink
-                    href={{ query: { [PAGE_QUERY_PARAM]: page + 1 } }}
+                    href={{ query: { page: page + 1 } }}
                     shallow
                     // Pagination marker for search engines
                     rel='next'
@@ -481,7 +526,7 @@ export const Resources = (): ReactElement => {
             <Grid container flexDirection='column' alignItems='center'>
               <SearchIcon />
               <Typography variant='h4' my={2}>
-                No results found for {query ?? 'selected filters'}
+                No results found for &quot;{searchQuery ?? 'selected filters'}&quot;
               </Typography>
               <Typography color='primary.light'>
                 Try searching something else
