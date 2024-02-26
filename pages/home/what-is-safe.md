@@ -8,7 +8,7 @@ description: Everything you need to know to start building on Safe.
 
 Safe is at the forefront of modular smart account infrastructure, paving the way for developers to create various applications and wallets.
 
-![Overview of Safe Core and its components.](../assets/core-brands.png)
+![Overview of Safe Core and its components.](../../assets/core-brands.png)
 
 ## Safe\{Core\} AA SDK
 
