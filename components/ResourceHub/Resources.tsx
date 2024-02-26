@@ -352,7 +352,8 @@ export const Resources: React.FC = () => {
             value={searchQuery}
             sx={{ border: 'none', width: '80%', mt: [2, 0] }}
             onChange={e => {
-              setSelectedFilter([e.target.value], 'search')
+              if (e.target.value.length === 0) onResetSearch()
+              else setSelectedFilter([e.target.value], 'search')
             }}
             fullWidth
           />
@@ -525,7 +526,7 @@ export const Resources: React.FC = () => {
             <Grid container flexDirection='column' alignItems='center'>
               <SearchIcon />
               <Typography variant='h4' my={2}>
-                No results found for {searchQuery ?? 'selected filters'}
+                No results found for &quot;{searchQuery ?? 'selected filters'}&quot;
               </Typography>
               <Typography color='primary.light'>
                 Try searching something else
