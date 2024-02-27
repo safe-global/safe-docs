@@ -271,7 +271,7 @@ export const Resources: React.FC = () => {
             alignItems: 'space-between',
             border: ['none', 'solid 1px rgba(161, 163, 167, 1)'],
             color: 'white',
-            my: 2
+            mb: 2
           }}
           fullWidth
         >
