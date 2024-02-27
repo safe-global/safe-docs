@@ -104,7 +104,6 @@ ${_contracts
   .map(
     c =>
       `- \`${c.name}.sol\`: ${
-        c.blockExplorerUrl == null ||
         curatedBlockExplorers.includes(c.blockExplorerUrl)
           ? `[${c.address}](${c.blockExplorerUrl}/address/${c.address})`
           : c.address
