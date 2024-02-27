@@ -4,6 +4,9 @@ import css from './styles.module.css'
 import { type KnowledgeResource } from './Resources'
 import YouTubeEmbed from '../YouTube'
 
+import Podcast from '../../assets/svg/podcast.svg'
+import Blog from '../../assets/svg/blog-post.svg'
+
 export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
   const months = [
     'January',
@@ -54,8 +57,11 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
           >
             {resource.abstract}
           </Typography>
+          <Blog />
         </>
       )}
+
+      {resource.type === 'Podcast' && <Podcast />}
 
       <div className={css.categories}>
         <Chip
