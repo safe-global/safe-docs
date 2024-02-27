@@ -7,7 +7,7 @@ Safe Transaction Service keeps track of transactions sent via Safe contracts. It
 - [**Blockchain indexing**](#blockchain-indexing): Executed transactions, configuration changes, ERC-20/721 transfers, and onchain confirmations are automatically indexed from the blockchain.
 - [**Offchain transaction signatures**](#offchain-transaction-signatures): Transactions can be sent to the service, enabling offchain signature collection. This feature helps inform owners about pending transactions awaiting confirmation for execution.
 - [**Offchain messages**](#offchain-messages): The service can collect offchain signatures to confirm messages following [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271).
-- [**Transactions decode**](#transactions-decode): The service keeps getting source and ABIs from contracts that interact with Safe to decode these interactions.
+- [**Transaction decoding**](#transaction-decoder): The service keeps getting source and ABIs from contracts that interact with Safe to decode these interactions.
 
 ## Technology stack overview
 
@@ -20,7 +20,7 @@ Safe Transaction Service is a [Django](https://www.djangoproject.com/) app writt
 - [Redis](https://redis.com/): An open source, in-memory data structure store used for caching by the Safe Transaction Service.
 - [safe-eth-py](https://github.com/safe-global/safe-eth-py): A library to interact with Safe and blockchains.
 
-![Transaction Service architecture](../../assets/transaction_service_architecture.png)
+![Transaction Service architecture](../../../assets/transaction_service_architecture.png)
 
 ## Blockchain indexing 
 

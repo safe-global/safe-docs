@@ -1,11 +1,11 @@
-import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 const RedirectIndex: React.FC = () => {
   const { push } = useRouter()
 
   useEffect(() => {
-    void push('/what-is-safe')
+    void push('/home/what-is-safe')
   }, [push])
 
   return <></>

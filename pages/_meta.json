@@ -1,59 +1,54 @@
 {
-  "-- Getting Started": {
-    "type": "separator",
-    "title": "Getting Started"
+  "home": {
+    "title": "Home",
+    "type": "page"
   },
-  "what-is-safe": "What is Safe?",
-  "-- Safe Smart Account": {
-    "type": "separator",
-    "title": "Safe Smart Account"
+  "sdk": {
+    "title": "SDK",
+    "type": "page"
   },
-  "smart-account-overview": "Overview",
-  "smart-account-modules": "Safe Modules",
-  "smart-account-guards": "Safe Guards",
-  "smart-account-audits": "Audits",
-  "smart-account-signatures": "Signatures",
-  "smart-account-supported-networks": "Supported Networks",
-  "-- Safe{Core} AA SDK": {
-    "type": "separator",
-    "title": "Safe{Core} AA SDK"
+  "advanced": {
+    "title": "Advanced",
+    "type": "page"
   },
-  "sdk-overview": "Overview",
-  "sdk-auth-kit": "Auth Kit",
-  "sdk-protocol-kit": "Protocol Kit",
-  "sdk-onramp-kit": "Onramp Kit",
-  "sdk-relay-kit": "Relay Kit",
-  "sdk-api-kit": "API Kit",
-  "-- Safe{Core} API": {
-    "type": "separator",
-    "title": "Safe{Core} API"
+  "help": {
+    "title": "Help",
+    "type": "menu",
+    "items": {
+      "resource-hub": {
+        "title": "Resource Hub",
+        "href": "/resource-hub"
+      },
+      "glossary": {
+        "title": "Glossary",
+        "href": "/glossary"
+      },
+      "support": {
+        "title": "Support",
+        "href": "/support"
+      }
+    }
   },
-  "api-service-architecture": "Service Architecture",
-  "api-rpc-requirements": "RPC Requirements",
-  "api-supported-networks": "Supported Networks",
-  "-- Safe Apps SDK": {
-    "type": "separator",
-    "title": "Safe Apps SDK"
-  },
-  "apps-sdk-overview": "Overview",
-  "apps-sdk-get-started": "Get Started",
-  "apps-sdk-release": "Release",
-  "-- Miscellaneous": {
-    "type": "separator",
-    "title": "Miscellaneous"
-  },
-  "glossary": "Glossary",
   "resource-hub": {
     "title": "Resource Hub",
     "type": "page",
+    "display": "hidden",
     "theme": {
       "layout": "raw"
     }
   },
-  "bug-bounty": "Bug Bounty",
+  "glossary": {
+    "title": "Glossary",
+    "display": "hidden",
+    "theme": {
+      "toc": true,
+      "sidebar": false
+    }
+  },
   "support": {
     "title": "Support",
     "type": "page",
+    "display": "hidden",
     "theme": {
       "layout": "full"
     }
