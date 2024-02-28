@@ -44,15 +44,19 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
         style={{ width: '100%' }}
       >
         <div style={{ width: '100%' }}>
-          {resource.type === 'Video' && (
+          {resource.type === 'Video' ? (
             <YouTubeEmbed embedId={resource.url.slice(-11)} />
+          ) : resource?.og?.image == null ? (
+            resource.type === 'Blog Post' ? (
+              <Blog />
+            ) : (
+              <Podcast />
+            )
+          ) : (
+            <img alt='resource-img' src={resource.og.image} />
           )}
 
-          <Typography
-            fontWeight='500'
-            mt={resource.type === 'Video' ? 2 : 0}
-            mb={0.5}
-          >
+          <Typography mt={2} fontWeight='500' mb={0.5}>
             {resource.name}
           </Typography>
 
@@ -76,11 +80,8 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
               >
                 {resource.abstract}
               </Typography>
-              <Blog />
             </>
           )}
-
-          {resource.type === 'Podcast' && <Podcast />}
 
           <div className={css.categories}>
             <Chip
