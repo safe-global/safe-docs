@@ -1,0 +1,50 @@
+import { Grid } from '@mui/material'
+import CustomCard from '../../components/CustomCard'
+import SafeCoreSDK from '../../assets/svg/ic-sdk.svg'
+import SafeSmartAccount from '../../assets/svg/ic-smart-account.svg'
+import SafeCoreAPI from '../../assets/svg/ic-api.svg'
+
+# Safe\{Core\}
+
+Safe\{Core\} is an open-source and modular [Account Abstraction](../glossary.md#account-abstraction) stack that brings a flexible developer experience. It serves as the essential tooling and infrastructure for integrating the Safe Smart Account into any digital platform, ensuring a tested core with flexible and secure capabilities for innovative applications.
+
+The Safe\{Core\} stack is categorized into three distinct groups:
+- Safe\{Core\} Account Abstraction SDK
+- Safe\{Core\} API
+- Safe Smart Account
+
+<Grid
+  container
+  spacing={2}
+  display='flex'
+  alignContent='flex-start'
+  mt={3}
+>
+  <Grid item xs={12} md={12}>
+    <CustomCard
+      title={'Safe{Core} Account Abstraction SDK'}
+      description={'Set of developer kits that help integrate Safe with external service providers. The SDK offers developers the ability to abstract the complexity that comes with operating a smart contract account.'}
+      url={'../sdk/overview'}
+      icon={<SafeCoreSDK />}
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={6}>
+    <CustomCard
+      title={'Safe{Core} API'}
+      description={'The Safe infrastructure needed to power interfaces with all Safe account related information. This includes the Safe Transaction Service, Safe Events Service, etc.'}
+      url={'../advanced/api-service-architecture'}
+      icon={<SafeCoreAPI />}
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={6}>
+    <CustomCard
+      title={'Safe Smart Account'}
+      description={'The modular and extensible smart contract account, designed to serve as the standard core utilized in all smart contract-based wallets and applications.'}
+      url={'../advanced/smart-account-overview'}
+      icon={<SafeSmartAccount />}
+      newTab={false}
+      />
+  </Grid>
+</Grid>
