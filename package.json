@@ -5,6 +5,7 @@
     "build": "next build",
     "dev": "next dev",
     "generate-supported-networks": "node .github/scripts/generateSupportedNetworks.js",
+    "get-resources-og": "node .github/scripts/getResourcesOg.js",
     "linkcheck": "find ./pages -name '*.md*' -print0 | xargs -0 -n1 pnpm markdown-link-check --quiet --progress --config linkchecker-config.json",
     "lint": "eslint . && vale pages/ --minAlertLevel=error",
     "start": "serve out",
@@ -62,6 +63,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-security": "^2.1.0",
     "husky": "^9.0.10",
+    "open-graph-scraper": "^6.4.0",
     "serve": "^14.2.1",
     "typescript": "^5.3.3"
   }
