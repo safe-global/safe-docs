@@ -53,7 +53,7 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
               <Podcast />
             )
           ) : (
-            <Box minHeight='100px' maxHeight='240px' overflow='hidden'>
+            <Box minHeight='100px'>
               <img alt='resource-img' src={resource.og.image} />
             </Box>
           )}
