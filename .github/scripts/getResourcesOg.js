@@ -44,7 +44,9 @@ const updateResourceOg = async () => {
           og: {
             title: og.ogTitle,
             description: og.ogDescription,
-            image: og.ogImage[0]?.url
+            ...(!(parseInt(og.ogImage[0].height) < 60) && {
+              image: og.ogImage[0].url
+            })
           }
         }
       })

@@ -53,7 +53,9 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
               <Podcast />
             )
           ) : (
-            <img alt='resource-img' src={resource.og.image} />
+            <Box minHeight='100px' maxHeight='240px' overflow='hidden'>
+              <img alt='resource-img' src={resource.og.image} />
+            </Box>
           )}
 
           <Typography mt={2} fontWeight='500' mb={0.5}>
