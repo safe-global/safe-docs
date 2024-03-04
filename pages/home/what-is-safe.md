@@ -12,7 +12,7 @@ Safe is at the forefront of modular smart account infrastructure, paving the way
 
 ## Safe\{Core\} AA SDK
 
-The [Safe\{Core\} Account Abstraction SDK](../sdk/overview.md) is a set of developer kits that help integrate Safe with different external service providers. The SDK offers developers the ability to abstract the complexity that comes with operating a smart contract account.
+The [Safe\{Core\} Account Abstraction SDK](../sdk/overview.mdx) is a set of developer kits that help integrate Safe with different external service providers. The SDK offers developers the ability to abstract the complexity that comes with operating a smart contract account.
 
 This section in the documentation has relevant information and tutorials on the SDK kits and how to integrate them.
 
