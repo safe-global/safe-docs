@@ -29,5 +29,5 @@ The [Relay Kit](./sdk-relay-kit.md) relays Safe transactions, allowing you to ge
 The [API Kit](./sdk-api-kit.md) helps interact with the Safe Transaction Service API. It helps share transactions among the signers and get information from a Safe account. For example, the configuration or transaction history.
 
 ## Resources
-- [Safe{Core} Account Abstraction SDK on GitHub](https://github.com/safe-global/safe-core-sdk)
-- [Safe{Core} Account Abstraction SDK demo application](https://github.com/5afe/account-abstraction-demo-ui)
+- [Safe{Core} SDK on GitHub](https://github.com/safe-global/safe-core-sdk)
+- [Safe{Core} SDK demo application](https://github.com/5afe/account-abstraction-demo-ui)
