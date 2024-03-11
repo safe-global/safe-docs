@@ -8,7 +8,7 @@ import css from './styles.module.css'
 const CustomCard: React.FC<{
   title: string
   description: string
-  url?: string
+  url: string
   icon: JSX.Element
   newTab?: boolean
 }> = ({ title, description, url, icon, newTab }) => (
