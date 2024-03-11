@@ -34,6 +34,10 @@
   transition: transform var(--transition-duration);
 }
 
+.hide {
+  display: none;
+}
+
 .card:hover .icon {
   transform: rotate(45deg);
 }

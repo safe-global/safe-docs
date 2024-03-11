@@ -8,7 +8,7 @@ import css from './styles.module.css'
 const CustomCard: React.FC<{
   title: string
   description: string
-  url: string
+  url?: string
   icon: JSX.Element
   newTab?: boolean
 }> = ({ title, description, url, icon, newTab }) => (
@@ -21,6 +21,7 @@ const CustomCard: React.FC<{
       '&:hover': {
         borderColor: 'secondary.light'
       },
+      height: '100%',
       width: '100%'
     }}
     className={css.card}
@@ -40,7 +41,9 @@ const CustomCard: React.FC<{
           alignItems='center'
         >
           {icon}
-          <ArrowIcon className={css.icon} />
+          <ArrowIcon
+            className={url === '' || url === null ? css.hide : css.icon}
+          />
           <Typography fontWeight='500' variant='h4' mt={1} mb={1}>
             {title}
           </Typography>
