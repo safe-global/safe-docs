@@ -104,10 +104,9 @@ ${_contracts
   .map(
     c =>
       `- \`${c.name}.sol\`: ${
-        c.blockExplorerUrl == null ||
-        deprecatedBlockExplorers.includes(c.blockExplorerUrl)
-          ? c.address
-          : `[${c.address}](${c.blockExplorerUrl}/address/${c.address})`
+        curatedBlockExplorers.includes(c.blockExplorerUrl)
+          ? `[${c.address}](${c.blockExplorerUrl}/address/${c.address})`
+          : c.address
       }`
   )
   .join('\n')}
@@ -134,23 +133,17 @@ ${_contracts
 
 generateSupportedNetworks()
 
-const deprecatedBlockExplorers = [
-  'https://blockexplorer.avax.boba.network',
-  'https://blockexplorer.bobabeam.boba.network',
-  'https://blockexplorer.rinkeby.boba.network',
-  'https://evm.explorer.canto.io',
-  'https://evm-testnet.venidiumexplorer.com',
-  'https://evm.venidiumexplorer.com',
-  'https://explorer.autobahn.network',
-  'https://explorer.eurus.network',
-  'https://explorer.tst.publicmint.io',
-  'https://goerli.arbiscan.io',
-  'https://kovan-optimistic.etherscan.io',
-  'https://rabbit.analogscan.com',
-  'https://rinkeby.etherscan.io',
-  'https://ropsten.etherscan.io',
-  'https://stardust-explorer.metis.io',
-  'https://testnet.arbiscan.io',
-  'https://testnet.torusscan.com',
-  'https://testnetexplorer.eurus.network'
+const curatedBlockExplorers = [
+  'https://etherscan.io',
+  'https://goerli.etherscan.io/',
+  'https://optimistic.etherscan.io/',
+  'https://bscscan.com',
+  'https://testnet.bscscan.com',
+  'https://gnosisscan.io',
+  'https://polygonscan.com',
+  'https://mumbai.polygonscan.com/',
+  'https://zkevm.polygonscan.com/',
+  'https://explorer.zksync.io/',
+  'https://basescan.org/',
+  'https://sepolia.basescan.org/',
 ]
