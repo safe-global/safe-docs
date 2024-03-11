@@ -3,9 +3,9 @@ import CustomCard from '../../components/CustomCard'
 
 # What is the ERC-4337?
 
-[ERC-4337](../glossary.md#erc-4337) addresses the challenges associated with account abstraction without requiring changes to the consensus-layer protocol. It serves as a transaction relayer for smart accounts like Safe. It does so by introducing a pseudo-transaction object called a UserOperation, which sends a transaction on behalf of the user.
+[ERC-4337](../glossary.md#erc-4337) addresses the challenges associated with account abstraction without requiring changes to the consensus-layer protocol. It serves as a transaction relayer for smart accounts like Safe. It does so by introducing a pseudo-transaction object called a `UserOperation`, which sends a transaction on behalf of the user.
 
-Nodes in Ethereum can act as a Bundler, which picks up multiple UserOperations and packs them into a single transaction known as a bundle transaction. The bundle transactions are then sent to a global smart contract on Ethereum (of which there is only one) called the EntryPoint.
+Nodes in Ethereum can act as a Bundler, which picks up multiple UserOperations and packs them into a single transaction known as a bundle transaction. The bundle transactions are then sent to a global smart contract on Ethereum (of which there is only one) called the `EntryPoint`.
 
 ERC-4337 enhances usability by introducing paymasters. This decentralized mechanism allows users to pay gas fees using ERC-20 tokens (like USDC) instead of native tokens like ETH or to seek a third party to cover their gas fees entirely.
 
@@ -22,7 +22,7 @@ ERC-4337 provides a bunch of benefits along with all the inherent advantages of 
   alignContent='flex-start'
   mt={3}
 >
-  <Grid item xs={12} md={12}>
+  <Grid item xs={12} md={4}>
     <CustomCard
       title={'Flexibility of payments'}
       description={'Users can decide how to pay the gas fees. Use native tokens like ETH, ERC-20 tokens, or even sponsored transactions.'}
@@ -30,18 +30,18 @@ ERC-4337 provides a bunch of benefits along with all the inherent advantages of 
       newTab={false}
     />
   </Grid>
-  <Grid item xs={12} md={12}>
+  <Grid item xs={12} md={4}>
     <CustomCard
       title={'Freedom of Authentication'}
-      description={'With ERC-4337, users can fully utilize smart accounts to authorize transactions onchain. This enables flexible use of different authentication mechanisms, such as multi-signature, passkeys, and future quantum-proof cryptography.'}
+      description={'It enables the use of different authentication mechanisms, such as multi-signature, passkeys, and future quantum-proof cryptography.'}
       url=""
       newTab={false}
     />
   </Grid>
-  <Grid item xs={12} md={12}>
+  <Grid item xs={12} md={4}>
     <CustomCard
       title={'Decentralization'}
-      description={'This open standard is supported by various providers, avoiding lock-in to a single-relayer technology. It offers an anti-fragile approach with no single point of failure and is censorship-resistant.'}
+      description={'It is supported by various providers, avoiding lock-in to a single-relayer technology, offering an anti-fragile approach with no single point of failure.'}
       url=""
       newTab={false}
     />
