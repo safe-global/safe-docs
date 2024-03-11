@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 
-import { Card, Typography, Grid } from '@mui/material'
+import { Card, Grid, Typography } from '@mui/material'
 import ArrowIcon from '../../assets/svg/arrow-outward.svg'
 
 import css from './styles.module.css'

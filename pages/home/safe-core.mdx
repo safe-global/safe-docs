@@ -1,4 +1,5 @@
 import { Grid } from '@mui/material'
+import { Cards, Card } from 'nextra/components'
 import CustomCard from '../../components/CustomCard'
 import SafeCoreSDK from '../../assets/svg/ic-sdk.svg'
 import SafeSmartAccount from '../../assets/svg/ic-smart-account.svg'
@@ -6,15 +7,20 @@ import SafeCoreAPI from '../../assets/svg/ic-api.svg'
 
 # Safe\{Core\}
 
-[Safe\{Core\}](https://safe.global/core) is an open-source and modular [Account Abstraction](../glossary.md#account-abstraction) stack with flexible developer experience. It is the essential tooling and infrastructure for integrating the Safe Smart Account into any digital platform, ensuring a tested core with flexible and secure capabilities for innovative applications.
+[Safe\{Core\}](https://safe.global/core) is an open-source and modular account abstraction stack. It is the essential tooling and infrastructure for integrating the Safe Smart Account into any digital platform, ensuring a tested core with flexible and secure capabilities for innovative applications.
+
 
 ## Why build on Safe\{Core\}?
 
-Safe secures an [extensive amount of assets](https://dune.com/safe). It has been thoroughly [audited](../advanced/smart-account-audits.md) and tested since 2018, and it has become the default wallet of choice for many, including DAOs, web3 native companies, and individuals like Vitalik Buterin, who trust Safe with their own assets. In addition, over [200 projects](https://safe.global/ecosystem) are currently building on top of Safe, and it is expected that this number will only continue to grow.
+Safe secures an extensive amount of assets. It has been thoroughly audited and tested since 2018, and it has become the default wallet of choice for many, including DAOs, web3 native companies, and individuals like Vitalik Buterin, who trust Safe with their own assets. In addition, over 200 projects are currently building on top of Safe, and it is expected that this number will only continue to grow.
 
-With Safe\{Core\}, we are putting a modular stack in the hands of developers to build the next generation of account abstraction wallets and solutions.
+<Cards>
+  <Card title="$100B+ secured" href="https://dune.com/safe" />
+  <Card title="Formally verified contracts" href="../advanced/smart-account-audits" />
+  <Card title="200+ projects built on Safe" href="https://safe.global/ecosystem" />
+</Cards>
 
-We have partnered with the best in the business to improve UX capabilities for authentication, relaying, and on-ramping as part of Safe\{Core\} SDK kits. Over time, we will introduce new integrations that will add more functionality and UX benefits for developers and end users, making the bridge between web2 and web3 even more seamless.
+With Safe\{Core\}, we are putting a modular stack in the hands of developers to build the next generation of account abstraction wallets and solutions. We have partnered with the best in the business to improve UX capabilities and compatibility with existing ecosystem tools. 
 
 ## Our stack
 
@@ -30,7 +36,7 @@ The Safe\{Core\} stack is categorized into three distinct groups:
   <Grid item xs={12} md={12}>
     <CustomCard
       title={'Safe{Core} SDK'}
-      description={'Set of developer kits that help integrate Safe with external service providers. The SDK offers developers the ability to abstract the complexity that comes with operating a smart contract account.'}
+      description={'The SDK offers developers the ability to abstract the complexity that comes with operating a smart contract account. It also provides developer kits to help integrate Safe with external service providers.'}
       url={'../sdk/overview'}
       icon={<SafeCoreSDK />}
       newTab={false}
@@ -55,3 +61,7 @@ The Safe\{Core\} stack is categorized into three distinct groups:
       />
   </Grid>
 </Grid>
+
+## Getting started
+
+Are you new to Safe and not sure where to get started? We recommend heading over to our tutorial on Safe and ERC-4337.
