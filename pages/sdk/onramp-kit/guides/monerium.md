@@ -47,7 +47,7 @@ const moneriumPack = new MoneriumPack({
 await moneriumPack.init({ protocolKit })
 ```
 
-The `protocolKit` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. For more information on how to instantiate the `protocol-kit` refer to the [Protocol Kit Quickstart section](../../protocol-kit.md).
+The `protocolKit` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. For more information on how to instantiate the `protocol-kit` refer to the [Protocol Kit Quickstart section](../../protocol-kit.mdx).
 
 The `MoneriumPack` will use the Safe account address configured in the `protocolKit` to link to your Monerium account.
 

@@ -103,7 +103,7 @@ const safeAuthPack = new SafeAuthPack()
 
 ## Signing and executing transactions using the SafeAuthPack and Protocol Kit
 
-The `SafeAuthPack` can be used with the [Protocol Kit](../../protocol-kit.md) to establish a connection to a Safe. This connection is made using the `provider` and `signer` associated with the authenticated account.
+The `SafeAuthPack` can be used with the [Protocol Kit](../../protocol-kit.mdx) to establish a connection to a Safe. This connection is made using the `provider` and `signer` associated with the authenticated account.
 
 After connecting, you can use any of the methods provided in the [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
 
