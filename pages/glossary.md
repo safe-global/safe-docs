@@ -124,7 +124,7 @@ See also:
 A smart account (also known as a smart contract account) leverages the programmability of smart contracts to extend its functionality and improve its security in comparison with [externally-owned accounts](#externally-owned-account). Smart accounts are controlled by one or multiple externally-owned accounts or other smart accounts, and all transactions have to be initiated by one of those.
 
 Some common features that smart accounts offer to their users are:
-- Multisignature scheme
+- Multi-signature scheme
 - Transaction batching
 - Account recovery
 - [Gasless transactions](#gasless-transaction)

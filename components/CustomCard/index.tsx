@@ -1,4 +1,6 @@
-import { Card, Typography, Grid } from '@mui/material'
+import NextLink from 'next/link'
+
+import { Card, Grid, Typography } from '@mui/material'
 import ArrowIcon from '../../assets/svg/arrow-outward.svg'
 
 import css from './styles.module.css'
@@ -8,7 +10,8 @@ const CustomCard: React.FC<{
   description: string
   url: string
   icon: JSX.Element
-}> = ({ title, description, url, icon }) => (
+  newTab?: boolean
+}> = ({ title, description, url, icon, newTab }) => (
   <Card
     sx={{
       transition: 'all 0.2s ease-in-out',
@@ -22,7 +25,12 @@ const CustomCard: React.FC<{
     }}
     className={css.card}
   >
-    <a href={url} target='_blank' rel='noreferrer' style={{ width: '100%' }}>
+    <NextLink
+      href={url}
+      target={newTab === null || newTab === undefined ? '_blank' : ''}
+      rel='noreferrer'
+      style={{ width: '100%' }}
+    >
       <div style={{ width: '100%' }}>
         <Grid
           item
@@ -36,16 +44,16 @@ const CustomCard: React.FC<{
           <Typography fontWeight='500' variant='h4' mt={1} mb={1}>
             {title}
           </Typography>
+          <Typography
+            variant='body2'
+            color='text.secondary'
+            className={css.description}
+          >
+            {description}
+          </Typography>
         </Grid>
-        <Typography
-          variant='body2'
-          color='text.secondary'
-          className={css.description}
-        >
-          {description}
-        </Typography>
       </div>
-    </a>
+    </NextLink>
   </Card>
 )
 
