@@ -1,11 +1,29 @@
 import { Grid } from '@mui/material'
 import CustomCard from '../../components/CustomCard'
 
-# What is the ERC-4337?
+# What is ERC-4337?
 
 [ERC-4337](../glossary.md#erc-4337) addresses the challenges associated with account abstraction without requiring changes to the consensus-layer protocol. It serves as a transaction relayer for smart accounts like Safe. It does so by introducing a pseudo-transaction object called a `UserOperation`, which sends a transaction on behalf of the user.
 
-Nodes in Ethereum can act as a Bundler, which picks up multiple UserOperations and packs them into a single transaction known as a bundle transaction. The bundle transactions are then sent to a global smart contract on Ethereum (of which there is only one) called the `EntryPoint`.
+Nodes in Ethereum can act as a Bundler, which picks up multiple `UserOperation`(s) and packs them into a single transaction known as a bundle transaction. The bundle transactions are then sent to a global smart contract on Ethereum (of which there is only one) called the `EntryPoint`.
+
+``` mermaid
+---
+title: Simplified 4337 flow
+---
+flowchart TD
+    A(Dapp
+    Users kick off a 4337 flow through a dapp) -->|UserOperation| B(Bundler
+    Decentralized network of relayers to propagate user operations)
+    B -->|Bundle Transactions| C(EntryPoint Contract
+    Contract to ensure onchain authentication)
+    C -->|Invoke UserOperation| D(Smart Account 
+    Smart contract validates and executes the individual UserOperations)
+    style A stroke:#12ff80
+    style B stroke:#12ff80
+    style C stroke:#12ff80
+    style D stroke:#12ff80
+```
 
 ERC-4337 enhances usability by introducing paymasters. This decentralized mechanism allows users to pay gas fees using ERC-20 tokens (like USDC) instead of native tokens like ETH or to seek a third party to cover their gas fees entirely.
 
