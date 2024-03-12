@@ -123,6 +123,6 @@ _Happy hunting!_
 
 ## Note on Safe{Wallet}
 
-Generally, bugs and issues regarding Safe{Wallet} frontend or backend are _out of scope_. This refers to the [web app](https://app.safe.global), mobile apps as well as backend services required. For any bug reports, please consider submitting an issue on the respective repository on Github such as [safe-wallet-web](https://github.com/safe-global/safe-wallet-web/issues). 
+Generally, bugs and issues regarding Safe{Wallet} frontend or backend are _out of scope_. This refers to the [web app](https://app.safe.global), mobile apps as well as backend services required. For any bug reports, please consider submitting an issue on the respective repository such as [safe-wallet-web](https://github.com/safe-global/safe-wallet-web/issues). 
 
 Please only use [bounty@safe.global](mailto:bounty@safe.global) for severe, security-related issues. We will carefully check all submissions however rewards remain voluntarily at our sole discretion.
