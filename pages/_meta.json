@@ -11,14 +11,17 @@
     "title": "Advanced",
     "type": "page"
   },
+  "resource-hub": {
+    "title": "Resource Hub",
+    "type": "page",
+    "theme": {
+      "layout": "raw"
+    }
+  },
   "help": {
     "title": "Help",
     "type": "menu",
     "items": {
-      "resource-hub": {
-        "title": "Resource Hub",
-        "href": "/resource-hub"
-      },
       "glossary": {
         "title": "Glossary",
         "href": "/glossary"
@@ -27,14 +30,6 @@
         "title": "Support",
         "href": "/support"
       }
-    }
-  },
-  "resource-hub": {
-    "title": "Resource Hub",
-    "type": "page",
-    "display": "hidden",
-    "theme": {
-      "layout": "raw"
     }
   },
   "glossary": {
