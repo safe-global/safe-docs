@@ -1,35 +1,29 @@
-import { Tabs } from 'nextra/components'
+import { Tabs, Steps } from 'nextra/components'
 import { Grid } from '@mui/material'
 import CustomCard from '../../../components/CustomCard'
 
-# Pimlico and Permissionless.js
+# Sponsor UserOperations with Pimlico
 
-`permissionless` is a TypeScript library focused on building with the ERC-4337 stack, including smart accounts, bundlers, paymasters, and user operations. Some of its core principles are providing a great developer experience and avoiding vendor lock-in by supporting different providers and ERC-4337 smart accounts.
+In this guide you will learn how to sponsor the deployment of an ERC-4337 Safe account and its future user operations using [Pimlico](https://pimlico.io) infrastructure and the [permissionless](https://npmjs.com/permissionless) library.
 
-This library provides support for the Safe Smart Account, and this guide explains how to build with ERC-4337 compatible Safe accounts and [Pimlico](https://pimlico.io) infrastructure.
+`permissionless` is a TypeScript library focused on building with the ERC-4337 stack, including smart accounts, bundlers, paymasters, and user operations. Some of its core principles are providing a great developer experience and avoiding vendor lock-in by supporting different providers and ERC-4337 smart accounts, including Safe.
 
-<Grid item mt={3}>
-  <CustomCard
-    title={'permissionless.js'}
-    description={''}
-    url={'https://www.npmjs.com/package/permissionless'}
-  />
-</Grid>
+<Steps>
 
-## Prerequisites
+### Prerequisites
 
 - [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
-- Pimlico API key from their [dashboard](https://dashboard.pimlico.io/apikeys).
+- A [Pimlico account](https://dashboard.pimlico.io) and an API key.
 
-## Install dependencies
+### Install dependencies
 
-We can install the required dependencies by running the following command:
+We can install [viem](https://npmjs.com/viem) and [permissionless](https://npmjs.com/permissionless) dependencies by running the following command:
 
 ```bash
 pnpm install viem permissionless
 ```
 
-## Contracts
+### Contracts
 
 This guide is built on Gnosis Chain, so all the contracts used are deployed on that network. Check the commented links to get the right addresses in case you use a different network.
 
@@ -58,7 +52,7 @@ const SAFE_SINGLETON_ADDRESS = '0x41675C099F32341bf84BFc5382aF534df5C7461a'
 const SAFE_MULTISEND_ADDRESS = '0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526'
 ```
 
-## Imports
+### Imports
 
 These are all the imports required in the script we are building for this guide, that include `permissionless` and `viem` packages. There is also a `utils.ts` file where some utility functions are implemented and will be shared in the sections below.
 
@@ -71,7 +65,7 @@ import { gnosis } from 'viem/chains'
 import { getAccountAddress, getAccountInitCode } from './utils'
 ```
 
-## Create a signer
+### Create a signer
 
 First of all, we need a signer instance that will be the owner of the Safe account once it is deployed.
 
@@ -81,7 +75,7 @@ const PRIVATE_KEY = '0x...'
 const signer = privateKeyToAccount(PRIVATE_KEY as Hash)
 ```
 
-## Initialize the clients
+### Initialize the clients
 
 To query the blockchain network and operate with Pimlico infrastructure we need to create a few client instances.
 
@@ -120,7 +114,7 @@ const pimlicoPaymasterClient = createClient({
 }).extend(pimlicoPaymasterActions)
 ```
 
-## Create an ERC-4337 Safe
+### Create an ERC-4337 Safe
 
 A counterfactual account is a smart account that is not deployed yet but the address where it will be deployed is already known. This is allowed thanks to deterministic deployments and 
 
@@ -461,9 +455,9 @@ const USDC_TOKEN_ADDRESS = '0xddafbb505ad214d7b80b1f830fccc89b60fb7a83'
   </Tabs.Tab>
 </Tabs>
 
-After calculating the predicted address of the counterfactual ERC-4773 Safe account, the `senderAddress`, we can check on the https://gnosisscan.io block explorer that the account is not deployed yet.
+After calculating the predicted address of the counterfactual ERC-4773 Safe account, the `senderAddress`, we can check on the [Gnosis Chain block explorer](https://gnosisscan.io) that the account is not deployed yet.
 
-## Create a UserOperation
+### Create a UserOperation
 
 <Tabs items={['script.ts', 'utils.ts']}>
   <Tabs.Tab>
@@ -556,7 +550,7 @@ const sponsoredUserOperation: UserOperation = {
 }
 ```
 
-## Estimate the UserOperation gas
+### Estimate the UserOperation gas
 
 To estimate the gas limits for a `UserOperation` we call the `estimateUserOperationGas` method from the bundler, which receives the `userOperation` and `entryPoint` as parameters.
 
@@ -576,9 +570,9 @@ sponsoredUserOperation.maxFeePerGas = maxGasPriceResult.fast.maxFeePerGas
 sponsoredUserOperation.maxPriorityFeePerGas = maxGasPriceResult.fast.maxPriorityFeePerGas
 ```
 
-If we want to use the Paymaster to pay for the fees, we need to provide a `POLICY_ID` that can be generated in the [Pimlico dashboard](https://dashboard.pimlico.io/sponsorship-policies). Sponsorship policies allow to define custom rules for sponsorships with a variety of options to limit the amount of sponsorships in total, per user, and per user operation.
+If we want to use the Paymaster to pay for the fees, we need to provide a `POLICY_ID` that can be provided by a third party willing to sponsor our `UserOperation`(s) or can be generated in the [Pimlico dashboard](https://dashboard.pimlico.io/sponsorship-policies). Sponsorship policies allow to define custom rules for sponsorships with a variety of options to limit the amount of sponsorships in total, per user, and per user operation.
 
-On top of that, we would need to overwrite some gas values from the Paymaster and add the `paymasterAndData` to the `sponsoredUserOperation`.
+On top of that, we need to overwrite some gas values from the Paymaster and add the `paymasterAndData` to the `sponsoredUserOperation`.
 
 ```typescript
 if (usePaymaster) {
@@ -595,9 +589,9 @@ if (usePaymaster) {
 }
 ```
 
-In case we don't want to use a paymaster to pay for the gas fees we would need to verify that the Safe account holds at least 1 USD token, as the fees would be extracted from the Safe itself.
+In case we don't want to use a Paymaster to pay for the gas fees we need to make sure the Safe account holds at least 1 USD token, as the fees will be extracted from the Safe itself.
 
-## Sign the UserOperation
+### Sign the UserOperation
 
 To sign the `sponsoredUserOperation` we have created a utility function that returns the signature from the signer and accepts the following parameters. Check the `utils.ts` tab to see its implementation.
 
@@ -679,7 +673,7 @@ To sign the `sponsoredUserOperation` we have created a utility function that ret
   </Tabs.Tab>
 </Tabs>
 
-## Submit the UserOperation
+### Submit the UserOperation
 
 Call the `sendUserOperation` method from the bundler to submit the `sponsoredUserOperation` to the `EntryPoint` contract.
 
@@ -690,9 +684,9 @@ const userOperationHash = await bundlerClient.sendUserOperation({
 })
 ```
 
-To get more details about the submitted `UserOperation` copy the value of the `userOperationHash` returned, visit https://jiffyscan.xyz/?network=gnosis and paste it in the search bar.
+To get more details about the submitted `UserOperation` copy the value of the `userOperationHash` returned, visit the [UserOp Explorer](https://jiffyscan.xyz/?network=gnosis) and paste it in the search bar.
 
-Lastly, to get more details about the transaction we can get the receipt of the `sponsoredUserOperation`, get the `transactionHash`, and check the tansaction details in the https://gnosisscan.io block explorer.
+Lastly, to get more details about the transaction we can get the receipt of the `sponsoredUserOperation`, get the `transactionHash`, and check the tansaction details in the [Gnosis Chain block explorer](https://gnosisscan.io).
 
 ```typescript
 const receipt = await bundlerClient.waitForUserOperationReceipt({
@@ -701,3 +695,7 @@ const receipt = await bundlerClient.waitForUserOperationReceipt({
 
 const transactionHash = receipt.receipt.transactionHash
 ```
+
+### Further reading
+
+</Steps>
