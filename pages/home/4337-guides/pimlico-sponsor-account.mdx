@@ -118,7 +118,7 @@ const pimlicoPaymasterClient = createClient({
 
 ### Create an ERC-4337 Safe
 
-A counterfactual account is a smart account that is not deployed yet but the address where it will be deployed is already known. This is allowed thanks to deterministic deployments and 
+A counterfactual account is a smart account that is not deployed yet but the address where it will be deployed is already known. This is allowed thanks to deterministic deployments and it depends on the address of the factory contract and the 
 
 We can create a counterfactual Safe
 
@@ -700,6 +700,19 @@ const transactionHash = receipt.receipt.transactionHash
 
 </Steps>
 
-## Further reading
+## Recap and further reading
 
+This guide covered how to sponsor the deployment of a new ERC-4337 Safe and its user operations with Pimlico infrastructure using of a Paymaster.
 
+Feel free to try out other ideas and posibilities, as there are many more regarding:
+- The deployment and initial setup of ERC-4337 accounts.
+- Who is responsible for paying for the transaction fees.
+- The tokens used to pay the transaction fees.
+
+This includes, but is not limited to:
+
+- Turning an existing Safe account into an ERC-4337 Safe account.
+- Paying the transaction fees from a Safe account in the native token.
+- Paying the transaction fees from a Safe account in an ERC-20 token.
+
+Explore our [4337-gas-metering](https://github.com/safe-global/safe-modules/tree/main/examples/4337-gas-metering) repository on GitHub to see how most of these options work with Safe and notice the integrations with different providers like Alchemy, Gelato, and Pimlico (where you will find most of the code used in this guide).
