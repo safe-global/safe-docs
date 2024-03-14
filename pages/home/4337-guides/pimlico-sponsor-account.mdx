@@ -8,16 +8,18 @@ In this guide you will learn how to sponsor the deployment of an ERC-4337 Safe a
 
 `permissionless` is a TypeScript library focused on building with the ERC-4337 stack, including smart accounts, bundlers, paymasters, and user operations. Some of its core principles are providing a great developer experience and avoiding vendor lock-in by supporting different providers and ERC-4337 smart accounts, including Safe.
 
-<Steps>
-
-### Prerequisites
+## Prerequisites
 
 - [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 - A [Pimlico account](https://dashboard.pimlico.io) and an API key.
 
+## Steps
+
+<Steps>
+
 ### Install dependencies
 
-We can install [viem](https://npmjs.com/viem) and [permissionless](https://npmjs.com/permissionless) dependencies by running the following command:
+Install [viem](https://npmjs.com/viem) and [permissionless](https://npmjs.com/permissionless) dependencies by running the following command:
 
 ```bash
 pnpm install viem permissionless
@@ -25,7 +27,7 @@ pnpm install viem permissionless
 
 ### Contracts
 
-This guide is built on Gnosis Chain, so all the contracts used are deployed on that network. Check the commented links to get the right addresses in case you use a different network.
+This guide is built on Gnosis Chain, so all the contracts used are deployed on that network. Check the commented links in the code snippet to get the right addresses in case you use a different network.
 
 As you can see in the URLs, we will use some specific versions for the following contracts:
 - `v0.6.0` EntryPoint
@@ -696,6 +698,8 @@ const receipt = await bundlerClient.waitForUserOperationReceipt({
 const transactionHash = receipt.receipt.transactionHash
 ```
 
-### Further reading
-
 </Steps>
+
+## Further reading
+
+
