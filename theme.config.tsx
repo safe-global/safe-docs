@@ -2,8 +2,8 @@ import { useRouter } from 'next/router'
 import type { DocsThemeConfig } from 'nextra-theme-docs'
 
 import SafeLogo from './assets/svg/safe-logo-white.svg'
-import Footer from './components/Footer'
 import Feedback from './components/Feedback'
+import Footer from './components/Footer'
 
 const config: DocsThemeConfig = {
   darkMode: false,
@@ -45,7 +45,14 @@ const config: DocsThemeConfig = {
       {children}
       <Feedback />
     </>
-  )
+  ),
+  banner: {
+    key: 'ethglobal-london-2024',
+    text: <a href="https://ethglobal.com/events/london2024/prizes#safe" target="_blank">
+    💰 Are you hacking at ETHGlobal London? Check our bounties →
+  </a>,
+  dismissible: true
+  }
 }
 
 export default config
