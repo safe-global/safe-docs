@@ -1,0 +1,46 @@
+import { Callout } from 'nextra/components'
+
+
+# Recovery Safe Deployment
+
+This guide will walk you through recreating a Safe with the same address on the desired network if you send funds to your Safe address in an incorrect chain.
+
+<Callout type='info' emoji='ℹ️'>
+  It's not always possible to recover a Safe, learn more [here](https://help.safe.global/en/articles/40812-i-sent-assets-to-a-safe-address-on-the-wrong-network-any-chance-to-recover).
+</Callout>
+
+## Recreate Safe 1.3.0 or 1.1.1
+
+To recreate a Safe (version 1.3.0 or 1.1.1), you'll need the following essential data:
+
+- The `Singleton` address
+- The `ProxyFactory` address
+- The `FallbackHandler` address
+- The `Owners` addresses with which Safe was created
+- The `SaltNonce` value
+- The `Threshold` value
+- RPC node provider for the target chain.
+- The private-key of the deployer address
+
+The necessary addresses can be collected from [safe-deployments](https://github.com/safe-global/safe-deployments/tree/main/src/assets) and the salt nonce from the *Safe creation transaction* in a block explorer.
+
+<Callout type="warning" emoji="⚠️">
+  Ensure that the `Singleton`, `ProxyFactory`, and `FallbackHandler` are deployed in the target chain in the same addresses as the origin chain.
+</Callout>
+
+To recreate the Safe, it is necessary to execute `safe-creator` as follows:
+
+```bash
+safe-creator --owners <owners-addresses> --safe-contract <singleton-address>
+--callback-handler <fallback-handler-address> --proxy-factory <proxy-factory-address>
+--threshold <threshold-value> --salt-nonce <salt-nonce-value> <url-rpc-node>  <deployer-private-key>
+```
+
+The Safe should have been successfully recreated with the same address on the target chain. If not, double-check the data collected from the transaction and ensure that all the necessary contracts are deployed in the chain.
+
+## Migrate a Safe from non-L2 to L2
+
+If you've recreated a Safe from an L1 network (like mainnet) on an L2 network, our services cannot index them. That's because for L1, we use trace-based indexing, and for L2 events indexing, L1 Safe singleton does not emit events.
+
+To address this, you'll need to update it to the L2 singleton with the command `update_to_l2` or consider transferring the funds to a new Safe on L2 that you control with the `drain` command.
+For detailed instructions on running these commands, please refer to the [common operations](../cli-reference.mdx#common-operations) section for more information.
