@@ -611,7 +611,7 @@ sponsoredUserOperation.maxFeePerGas = maxGasPriceResult.fast.maxFeePerGas
 sponsoredUserOperation.maxPriorityFeePerGas = maxGasPriceResult.fast.maxPriorityFeePerGas
 ```
 
-If we want to use the Paymaster to pay for the fees, we need to provide a `POLICY_ID` that can be provided by a third party willing to sponsor our user operations, or it can be generated in the [Pimlico dashboard](https://dashboard.pimlico.io/sponsorship-policies). Sponsorship policies allow the definition of custom rules for sponsorships with various options to limit the total sponsored amount, per user, and per user operation.
+To use the Paymaster to pay for the fees, we need to provide a `SPONSORSHIP_POLICY_ID` that can be provided by a third party willing to sponsor our user operations, or it can be generated in the [Pimlico dashboard](https://dashboard.pimlico.io/sponsorship-policies). Sponsorship policies allow the definition of custom rules for sponsorships with various options to limit the total sponsored amount, per user, and per user operation.
 
 On top of that, we need to overwrite some gas values from the Paymaster and add the `paymasterAndData` to the `sponsoredUserOperation`.
 
@@ -620,7 +620,7 @@ if (usePaymaster) {
   const sponsorResult = await pimlicoPaymasterClient.sponsorUserOperation({
     userOperation: sponsoredUserOperation,
     entryPoint: ENTRYPOINT_ADDRESS_V06,
-    sponsorshipPolicyId: POLICY_ID
+    sponsorshipPolicyId: SPONSORSHIP_POLICY_ID
   })
 
   sponsoredUserOperation.callGasLimit = sponsorResult.callGasLimit
@@ -734,6 +734,7 @@ const receipt = await bundlerClient.waitForUserOperationReceipt({
 
 const transactionHash = receipt.receipt.transactionHash
 ```
+
 </Steps>
 
 ## Recap and further reading
