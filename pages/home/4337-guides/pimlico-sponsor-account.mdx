@@ -105,7 +105,7 @@ const bundlerClient = createClient({
   chain: gnosis
 })
   .extend(bundlerActions(ENTRYPOINT_ADDRESS_V06))
-  .extend(pimlicoBundlerActions(ENTRYPOINT_ADDRESS_V06));
+  .extend(pimlicoBundlerActions(ENTRYPOINT_ADDRESS_V06))
 ```
 
 Lastly, we instantiate the `pimlicoPaymasterClient` using the Pimlico API `v2`, which is dedicated to the Paymaster methods and responsible for interacting with Pimlico's Verifying Paymaster endpoint and requesting sponsorship.
