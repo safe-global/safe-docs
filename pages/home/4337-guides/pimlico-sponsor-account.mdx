@@ -4,7 +4,7 @@ import CustomCard from '../../../components/CustomCard'
 
 # Sponsor UserOperations with Pimlico
 
-In this guide, you will learn how to sponsor the deployment of an ERC-4337 Safe account and its future user operations using [Pimlico](https://pimlico.io) infrastructure and the [permissionless](https://npmjs.com/permissionless) library.
+In this guide, you will learn how to sponsor the deployment of an ERC-4337 Safe account and its user operations using [Pimlico](https://pimlico.io) infrastructure and the [permissionless](https://npmjs.com/permissionless) library.
 
 This guide focuses on how user operations are built and what happens under the hood when a Safe is configured and deployed with the `Safe4337Module` enabled. For a quick start guide, feel free to check [How to create and use a Safe account with permissionless.js](https://docs.pimlico.io/permissionless/how-to/accounts/use-safe-account).
 
@@ -104,8 +104,8 @@ const bundlerClient = createClient({
   transport: http(PIMLICO_API_V1),
   chain: gnosis
 })
-  .extend(bundlerActions)
-  .extend(pimlicoBundlerActions)
+  .extend(bundlerActions(ENTRYPOINT_ADDRESS_V06))
+  .extend(pimlicoBundlerActions(ENTRYPOINT_ADDRESS_V06));
 ```
 
 Lastly, we instantiate the `pimlicoPaymasterClient` using the Pimlico API `v2`, which is dedicated to the Paymaster methods and responsible for interacting with Pimlico's Verifying Paymaster endpoint and requesting sponsorship.
@@ -116,7 +116,7 @@ const PIMLICO_API_V2 = `https://api.pimlico.io/v2/gnosis/rpc?apikey=${PIMLICO_AP
 const pimlicoPaymasterClient = createClient({
   transport: http(PIMLICO_API_V2),
   chain: gnosis
-}).extend(pimlicoPaymasterActions)
+}).extend(pimlicoPaymasterActions(ENTRYPOINT_ADDRESS_V06))
 ```
 
 ### Create a UserOperation
@@ -173,7 +173,7 @@ The `initializer` is calculated using the `getInitializerCode` function from its
 
 In this case, we are creating a Safe account with one owner (our signer), threshold one, and the `Safe4337Module` as the `fallbackHandler`.
 
-This initialization also includes the option to execute a call by using the `to` and `data` parameters, which we will use to enable the `Safe4337Module` contract in the Safe and give an allowance to the `EntryPoint` contract in case we want to pay the gas fees in an ERC-20 token like USDC. As we are performing multiple calls, we need to encode a call to the `MultiSend` contract using the `encodeMultiSend` function, setting the `SAFE_MULTISEND_ADDRESS` as the `to` and its encoding as the `data`.
+This initialization also includes the option to execute a call by using the `to` and `data` parameters, which we will use to enable the `Safe4337Module` contract in the Safe and give an allowance to the `EntryPoint` contract to pay the gas fees in an ERC-20 token like USDC. As we are performing multiple calls, we need to encode a call to the `MultiSend` contract using the `encodeMultiSend` function, setting the `SAFE_MULTISEND_ADDRESS` as the `to` and its encoding as the `data`.
 
 To enable the module in the `enableModuleCallData` function, we will encode a call to the `AddModuleLib` contract by passing the address of the `Safe4337Module`.
 
@@ -524,7 +524,7 @@ Notice that the `sender` address will depend on the value of the Safe configurat
   </Tabs.Tab>
 </Tabs>
 
-After calculating the predicted address of the counterfactual ERC-4773 Safe account, the `sender`, we can check on the [Gnosis Chain block explorer](https://gnosisscan.io) that the account is not deployed yet.
+After calculating the predicted address of the counterfactual ERC-4337 Safe account, the `sender`, we can check on the [Gnosis Chain block explorer](https://gnosisscan.io) that the account is not deployed yet.
 
 #### Get the `nonce`
 
@@ -634,7 +634,7 @@ if (usePaymaster) {
 }
 ```
 
-If we don't want to use a Paymaster to pay for the gas fees, we need to ensure the Safe account holds at least 1 USD token because the fees would be extracted from the Safe itself.
+If we don't want to use a Paymaster to pay the gas fees, we need to ensure the Safe account holds at least a few USDC tokens because the fees would be extracted from the Safe itself. Be cautious with the amount as it will depend on the `callData`, and the network `gasPrice`.
 
 ### Sign the UserOperation
 
