@@ -171,7 +171,7 @@ The `initializer` is calculated using the `getInitializerCode` function from its
 
 In this case, we are creating a Safe account with one owner (our signer), threshold one, and the `Safe4337Module` as the `fallbackHandler`.
 
-This initialization also includes the option to execute a call by using the `to` and `data` parameters, which we will use to enable the `Safe4337Module` contract in the Safe and give an allowance to the `EntryPoint` contract in case we want to pay the gas fees in an ERC-20 token like USDC. As we are performing multiple calls, we need to encode a call to the `MultiSend` contract using the `encodeMultiSend` function, setting the `MULTISEND_ADDRESS` as the `to` and its encoding as the `data`.
+This initialization also includes the option to execute a call by using the `to` and `data` parameters, which we will use to enable the `Safe4337Module` contract in the Safe and give an allowance to the `EntryPoint` contract in case we want to pay the gas fees in an ERC-20 token like USDC. As we are performing multiple calls, we need to encode a call to the `MultiSend` contract using the `encodeMultiSend` function, setting the `SAFE_MULTISEND_ADDRESS` as the `to` and its encoding as the `data`.
 
 To enable the module in the `enableModuleCallData` function, we will encode a call to the `AddModuleLib` contract by passing the address of the `Safe4337Module`.
 
@@ -185,7 +185,7 @@ To enable the module in the `enableModuleCallData` function, we will encode a ca
       safeProxyFactoryAddress: SAFE_PROXY_FACTORY_ADDRESS,
       safeSingletonAddress: SAFE_SINGLETON_ADDRESS,
       saltNonce,
-      multiSendAddress: MULTISEND_ADDRESS,
+      multiSendAddress: SAFE_MULTISEND_ADDRESS,
       erc20TokenAddress: USDC_TOKEN_ADDRESS,
       paymasterAddress: ERC20_PAYMASTER_ADDRESS
     })
@@ -444,7 +444,7 @@ Notice that the `sender` address will depend on the value of the Safe configurat
       safeProxyFactoryAddress: SAFE_PROXY_FACTORY_ADDRESS,
       safeSingletonAddress: SAFE_SINGLETON_ADDRESS,
       saltNonce,
-      multiSendAddress: MULTISEND_ADDRESS,
+      multiSendAddress: SAFE_MULTISEND_ADDRESS,
       erc20TokenAddress: USDC_TOKEN_ADDRESS,
       paymasterAddress: ERC20_PAYMASTER_ADDRESS
     })
@@ -636,15 +636,17 @@ If we don't want to use a Paymaster to pay for the gas fees, we need to ensure t
 
 ### Sign the UserOperation
 
-To sign the `sponsoredUserOperation`, we have created the `signUserOperation` utility function that returns the signature from the signer and accepts the following parameters. Check the `utils.ts` tab to see its implementation.
+To sign the `sponsoredUserOperation`, we have created the `signUserOperation` utility function that returns the signature from the signer and accepts the following parameters. Check the second tab to see its implementation.
 
-<Tabs items={['script.ts', 'utils.ts']}>
+<Tabs items={['script.ts', 'signUserOperation.ts']}>
   <Tabs.Tab>
     ```typescript
+    const chainId = 100
+
     sponsoredUserOperation.signature = await signUserOperation(
       sponsoredUserOperation,
       signer,
-      chainId: 100
+      chainId,
       SAFE_4337_MODULE_ADDRESS
     )
     ```
