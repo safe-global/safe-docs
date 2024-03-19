@@ -125,4 +125,4 @@ _Happy hunting!_
 
 Generally, bugs and issues regarding Safe{Wallet} frontend or backend are _out of scope_. This refers to the [web app](https://app.safe.global), mobile apps, as well as the wallet backend services. For general bug reports, please consider submitting an issue on the respective repository such as [safe-wallet-web](https://github.com/safe-global/safe-wallet-web/issues). 
 
-Please only use [bounty@safe.global](mailto:bounty@safe.global) for severe security-related issues. We will carefully check all submissions; however, rewards remain voluntarily at our sole discretion.
+Please send _severe security-related_ issues concerning Safe{Wallet} to [wallet-reports@safe.global](mailto:wallet-reports@safe.global). We will carefully check all submissions; however, rewards remain voluntarily at our sole discretion.
