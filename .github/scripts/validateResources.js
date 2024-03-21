@@ -5,7 +5,7 @@ const communityResourcesPath =
   './components/ResourceHub/community-resources.json'
 
 const validateResource = (resource, index, resources) => {
-  const errorMessage = 'community-resources.json:1:1:'
+  const errorMessage = resourcesPath + ':1:1:'
   if (resources.findIndex(r => r.url === resource.url) !== index) {
     console.log(errorMessage + `Duplicate resource: ${resource.url}`)
     return false
