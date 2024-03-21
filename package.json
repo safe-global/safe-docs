@@ -6,6 +6,7 @@
     "dev": "next dev",
     "generate-supported-networks": "node .github/scripts/generateSupportedNetworks.js",
     "get-resources-og": "node .github/scripts/getResourcesOg.js",
+    "validate-resources": "node .github/scripts/validateResources.js",
     "linkcheck": "find ./pages -name '*.md*' -print0 | xargs -0 -n1 pnpm markdown-link-check --quiet --progress --config linkchecker-config.json",
     "lint": "eslint . && vale pages/ --minAlertLevel=error",
     "start": "serve out",
