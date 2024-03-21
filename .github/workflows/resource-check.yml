@@ -17,4 +17,4 @@ jobs:
       - name: Validate resource hub JSON files
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node .github/scripts/validateResources.js | reviewdog -f=checkstyle -name="Validate Resources" -reporter=github-pr-check -fail-on-error=true
+        run: node .github/scripts/validateResources.js | reviewdog -efm="%f:%l:%c:%m" -name="Validate Resources" -reporter=github-pr-check -fail-on-error=true
