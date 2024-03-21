@@ -46,7 +46,7 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
         <div style={{ width: '100%' }}>
           {resource.type === 'Video' ? (
             <YouTubeEmbed embedId={resource.url.slice(-11)} />
-          ) : resource?.og?.image == null ? (
+          ) : resource?.image == null ? (
             resource.type === 'Blog Post' ? (
               <Blog />
             ) : (
@@ -54,7 +54,7 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
             )
           ) : (
             <Box minHeight='100px'>
-              <img alt='resource-img' src={resource.og.image} />
+              <img alt='resource-img' src={resource.image} />
             </Box>
           )}
 
@@ -80,7 +80,7 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
                 color='text.secondary'
                 className={css.description}
               >
-                {resource.abstract}
+                {resource.description}
               </Typography>
             </>
           )}
