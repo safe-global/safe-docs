@@ -13,6 +13,7 @@ jobs:
       - uses: reviewdog/action-setup@v1
         with:
           reviewdog_version: latest
+      - uses: actions/checkout@v4
       - name: Validate resource hub JSON files
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
