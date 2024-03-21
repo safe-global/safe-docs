@@ -10,15 +10,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 8
-      - name: Install dependencies
-        run: pnpm install
       - uses: reviewdog/action-setup@v1
         with:
           reviewdog_version: latest
       - name: Validate resource hub JSON files
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: pnpm validate-resources | reviewdog -f=checkstyle -name="Validate Resources" -reporter=github-pr-check -fail-on-error=true
+        run: node .github/scripts/validate-resources | reviewdog -f=checkstyle -name="Validate Resources" -reporter=github-pr-check -fail-on-error=true
