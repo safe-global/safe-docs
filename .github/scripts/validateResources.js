@@ -5,29 +5,36 @@ const communityResourcesPath =
   './components/ResourceHub/community-resources.json'
 
 const validateResource = (resource, index, resources) => {
-  const errorMessage = resourcesPath + ':1:1:'
   if (resources.findIndex(r => r.url === resource.url) !== index) {
-    console.log(errorMessage + `Duplicate resource: ${resource.url}`)
+    console.log(`Duplicate resource`)
     return false
   }
   if (!resource.name) {
-    console.log(errorMessage + `Resource name is missing: ${resource.url}`)
+    console.log(`Resource name is missing`)
     return false
   }
   if (!resource.type) {
-    console.log(errorMessage + `Resource type is missing: ${resource.url}`)
+    console.log(`Resource type is missing`)
     return false
   }
   if (!resource.date) {
-    console.log(errorMessage + `Resource date is missing: ${resource.url}`)
+    console.log(`Resource date is missing`)
     return false
   }
   if (!resource.description) {
-    console.log(errorMessage + `Resource description is missing: ${resource.url}`)
+    console.log(`Resource description is missing`)
     return false
   }
   if (!resource.tags || !resource.tags.length) {
-    console.log(errorMessage + `Resource tags are missing: ${resource.url}`)
+    console.log(errorMessage + `Resource tags are missing`)
+    return false
+  }
+  if (
+    resource.url.includes('youtube') &&
+    (!resource.url.startsWith('https://www.youtube.com/watch?v=') ||
+      resource.url.length !== 43)
+  ) {
+    console.log(`Invalid YouTube URL`)
     return false
   }
   return true

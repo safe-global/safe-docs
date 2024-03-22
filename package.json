@@ -12,7 +12,7 @@
     "start": "serve out",
     "test": "env-cmd cypress run --headless",
     "typecheck": "tsc --noEmit --incremental false",
-    "prepush": "pnpm lint && pnpm typecheck",
+    "prepush": "pnpm lint && pnpm typecheck && pnpm validate-resources",
     "prepare": "husky install"
   },
   "repository": {
