@@ -21,11 +21,11 @@ const updateResourceOg = async () => {
     resources.map(async resource => {
       const og = await getResourceOg(resource.url)
       return {
-        name: og.ogTitle,
+        name: resource.name ?? og.ogTitle,
         url: resource.url,
         type: resource.type,
         date: resource.date,
-        description: og.ogDescription ?? resource.description,
+        description: resource.description ?? og.ogDescription,
         tags: resource.tags,
         image: og.ogImage[0]?.url
       }
@@ -36,11 +36,11 @@ const updateResourceOg = async () => {
     communityResources.map(async resource => {
       const og = await getResourceOg(resource.url)
       return {
-        name: og.ogTitle,
+        name: resource.name ?? og.ogTitle,
         url: resource.url,
         type: resource.type,
         date: resource.date,
-        description: og.ogDescription ?? resource.description,
+        description: resource.description ?? og.ogDescription,
         tags: resource.tags,
         ...(!(parseInt(og.ogImage[0].height) < 60) && {
           image: og.ogImage[0].url
