@@ -1,0 +1,100 @@
+import { Callout } from 'nextra/components'
+
+# Operations for the `tx-service` mode
+
+## Return balance
+
+Returns a list of balances for ERC-20 tokens and ether.
+
+```bash
+balances
+```
+
+## Transactions
+
+### Return transaction history
+
+Returns history of multi-sig transactions (including pending).
+
+```bash
+history
+```
+
+### Execute a pending transaction
+
+Execute a pending transaction with enough signatures.
+
+```bash
+execute-tx <safe-tx-hash>
+```
+
+### Sign transaction
+
+Sign a transaction with the loaded owners for the provided `SafeTxHash`.
+
+```bash
+sign-tx <safe-tx-hash>
+```
+
+### Sign message
+
+Sign the provided string message provided by standard input or the `EIP712` provided by file.
+
+```bash
+sign_message [--eip191_message <str>] [--eip712_path <file-path>]
+```
+
+### Batch transactions
+
+Batch transactions into one Multisig transaction using the provided `safe-nonce.` Any safe-tx can be used, like transactions from other Safes, already executed transactions, pending execution, etc. The only limitation is that the *transactions from other networks cannot be used*. The batching order will follow the same order of the `safe-tx-hashes` provided.
+
+```bash
+batch-txs <safe-nonce> <safe-tx-hash> [ <safe-tx-hash> ... ]
+```
+
+### Remove proposed transaction
+
+Removes a proposed non-executed transaction with the owner's signature that proposed the transaction.
+
+```bash
+remove_proposed_transaction <safe_tx_hsh>
+```
+
+## Delegates
+
+### Return delegates
+
+Returns a list of *delegates* for the Safe. A *delegate* can be used when you *trust an address to post transactions to the tx-service on your behalf*. If a transaction is not trusted (posted to the service and not signed by a delegate or an owner of the Safe), it will be stored in the service but not shown in the Safe \{Wallet\} web interface
+and mobile app.
+
+```bash
+get_delegates
+```
+
+### Add delegate
+
+Adds a new delegate `address` for the `owner` of the Safe.
+
+```bash
+add_delegate <address> <label> <owner-address>
+```
+
+### Remove delegate
+
+Removes a delegate `address` from the Safe.
+
+```bash
+remove_delegate <address> <owner-address>
+```
+
+<Callout type="warning" emoji="⚠️">
+  Only use the following operation if you are sure about what you are doing, as they can result in all your funds getting lost.
+</Callout>
+
+## Drain account
+
+Sends all ether and ERC-20 funds to the provided account.
+
+```bash
+drain <address>
+```

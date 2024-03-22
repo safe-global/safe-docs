@@ -1,0 +1,22 @@
+import { Cards, Card } from 'nextra/components'
+import Guides from '../../../assets/svg/guides.svg'
+import Reference from '../../../assets/svg/reference.svg'
+
+# Reference
+
+Safe CLI has two operation modes:
+
+- **blockchain**: The default mode. Use the `blockchain` command to enable it. Transactions are sent to the blockchain.
+- **tx-service**: Use the `tx-service` command to enable it. Transactions are sent to the Safe Transaction Service (if available on the network), and you can see them on the Safe \{Wallet\} web interface
+and mobile app. At least one signer is needed to send transactions to the service. Transactions are *not executed*. It requires *Safe\{Core\} API running on the network*.
+
+<Cards>
+  <Card icon={<Guides />} title="Common Operations" href="./common-operations" />
+  <Card icon={<Reference />} title="Transaction Service Operations" href="./tx-service-operations" />
+</Cards>
+
+## Use custom contracts
+
+Safe CLI comes with the official deterministic Safe contract addresses deployed on multiple chains configured by default. If you want to use your own, you can edit the file `safe_cli/safe_addresses.py`
+
+Be careful when modifying these addresses, as the funds in a Safe can get stuck if an invalid address is used when updating to an invalid Safe Master Copy.
