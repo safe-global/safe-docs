@@ -15,6 +15,7 @@ jobs:
         use-quiet-mode: 'yes'
         use-verbose-mode: 'yes'
         folder-path: './'
+        config-file: 'linkchecker-config.json'
         base-branch: 'main'
     - name: Create Issue
       if: ${{ failure() }}
