@@ -20,7 +20,7 @@ Returns history of multi-signature transactions (including pending).
 history
 ```
 
-### Execute a pending transaction
+### Execute pending transaction
 
 Execute a pending transaction with enough signatures.
 
@@ -38,7 +38,7 @@ sign-tx <safe-tx-hash>
 
 ### Sign message
 
-Sign the provided string message provided by standard input or the `EIP712` provided by file.
+Sign the string message provided by the standard input or the EIP-712 provided by the file.
 
 ```bash
 sign_message [--eip191_message <str>] [--eip712_path <file-path>]
@@ -46,7 +46,7 @@ sign_message [--eip191_message <str>] [--eip712_path <file-path>]
 
 ### Batch transactions
 
-Batch transactions into one multi-signature transaction using the provided `safe-nonce.` Any `safe-tx` can be used, like transactions from other Safe accounts, already executed transactions, pending execution, etc. The only limitation is that the *transactions from other networks cannot be used*. The batching order will follow the same order of the `safe-tx-hashes` provided.
+Batch transactions into one multi-signature transaction using the provided `safe-nonce.` Any `safe-tx` can be used, like transactions from other Safe accounts, already executed transactions, pending execution, etc. The only limitation is that the transactions from other networks cannot be used. The batching order will follow the same order of the `safe-tx-hashes` provided.
 
 ```bash
 batch-txs <safe-nonce> <safe-tx-hash> [ <safe-tx-hash> ... ]
@@ -64,8 +64,7 @@ remove_proposed_transaction <safe_tx_hsh>
 
 ### Return delegates
 
-Returns a list of *delegates* for the Safe. A *delegate* can be used when you *trust an address to post transactions to the tx-service on your behalf*. If a transaction is not trusted (posted to the service and not signed by a delegate or an owner of the Safe), it will be stored in the service but not shown in the Safe \{Wallet\} web interface
-and mobile app.
+Returns a list of delegates for the Safe. A delegate can be used when you trust an address to post transactions to the tx-service on your behalf. If a transaction is not trusted (posted to the service and not signed by a delegate or an owner of the Safe), it will be stored in the service but not shown in Safe \{Wallet\}.
 
 ```bash
 get_delegates
