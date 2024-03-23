@@ -46,7 +46,7 @@ sign_message [--eip191_message <str>] [--eip712_path <file-path>]
 
 ### Batch transactions
 
-Batch transactions into one Multisig transaction using the provided `safe-nonce.` Any safe-tx can be used, like transactions from other Safes, already executed transactions, pending execution, etc. The only limitation is that the *transactions from other networks cannot be used*. The batching order will follow the same order of the `safe-tx-hashes` provided.
+Batch transactions into one multi-signature transaction using the provided `safe-nonce.` Any `safe-tx` can be used, like transactions from other Safe accounts, already executed transactions, pending execution, etc. The only limitation is that the *transactions from other networks cannot be used*. The batching order will follow the same order of the `safe-tx-hashes` provided.
 
 ```bash
 batch-txs <safe-nonce> <safe-tx-hash> [ <safe-tx-hash> ... ]
