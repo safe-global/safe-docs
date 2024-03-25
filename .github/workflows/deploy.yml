@@ -31,6 +31,8 @@ jobs:
       - name: Build app
         shell: bash
         run: pnpm build
+        env:
+          NEXT_PUBLIC_HOST_URL: 'https://docs.staging.5afe.dev'
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
