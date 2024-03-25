@@ -8,14 +8,22 @@ We use the [Microsoft Style Guide](https://learn.microsoft.com/en-us/style-guide
 
 Please open an [issue](https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=resource-hub&projects=&template=resource-hub-submission.yml&title=%5BResource+Hub%5D+) to submit a resource to our Resource Hub.
 
-### Resource Hub approval process
+### Adding Resources to Resource Hub
 
-The Safe team will review the submission and provide feedback. Once the submission is approved, the Safe team will merge the submission into the Resource Hub, by:
-<!-- vale off -->
-- Adding the new entry (`url`, `tags`, and `date`) to the [community-resources.json](./components/ResourceHub/community-resources.json) file;
-- Running the `pnpm get-resources-og` script to fetch Open Graph metadata for the new resource automatically;
-- (Optional) Edit the copy for `name` and `description`.
-<!-- vale on -->
+[For the Safe team] To add a new resource to the Resource Hub, follow these steps:
+- Add the new entry (`type`, `url`, `tags`, and `date`) to the [community-resources.json](./components/ResourceHub/community-resources.json) or [company-resources.json](./components/ResourceHub/company-resources.json) file.
+    ```
+    {
+        "url": "https://example.com",
+        "type": "Blog Post",
+        "date": "2023-10-09",
+        "tags": [
+        "Tutorial"
+        ]
+    }
+    ```
+- Run `pnpm get-resources-og` to fetch open graph metadata for the new resource automatically.
+- Copy edit the automatically generated copy for `name` and `description`.
 
 ## Using Vale
 
