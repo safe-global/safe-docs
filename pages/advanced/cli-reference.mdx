@@ -1,4 +1,5 @@
-import { Cards, Card } from 'nextra/components'
+import { Grid } from '@mui/material'
+import CustomCard from '../../components/CustomCard'
 import Guides from '../../assets/svg/guides.svg'
 import Reference from '../../assets/svg/reference.svg'
 
@@ -9,12 +10,34 @@ The Safe CLI has two operation modes:
 - **blockchain**: The default mode. Use the `blockchain` command to enable it. Transactions are sent to the blockchain.
 - **tx-service**: Use the `tx-service` command to enable it. Transactions are sent to the Safe Transaction Service (if available on the network), and you can see them on Safe\{Wallet\}. At least one signer is needed to send transactions to the service. Transactions are not executed. It requires Safe\{Core\} API running on the network.
 
-<Cards>
-  <Card icon={<Guides />} title="Common Operations" href="./cli-reference/common-operations" />
-  <Card icon={<Reference />} title="Transaction Service Operations" href="./cli-reference/tx-service-operations" />
-</Cards>
+<Grid
+  container
+  spacing={2}
+  display='flex'
+  alignContent='flex-start'
+  mt={3}
+>
+  <Grid item xs={12} md={6}>
+    <CustomCard
+      title={'Common commands for both modes'}
+      description={''}
+      url="./cli-reference/common-operations"
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={6}>
+    <CustomCard
+      title={'Commands specific to the tx-service mode'}
+      description={''}
+      url="./cli-reference/tx-service-operations"
+      newTab={false}
+    />
+  </Grid>
+</Grid>
 
-## Use custom contracts
+## Configuration
+
+### Use custom contracts
 
 The Safe CLI comes with the official deterministic Safe Smart Account addresses deployed on multiple chains configured by default. You can edit the `safe_cli/safe_addresses.py` file if you want to use your own.
 
