@@ -32,28 +32,26 @@ const config: DocsThemeConfig = {
   head: <link rel='icon' type='image/png' sizes='32x32' href='/favicon.png' />,
   useNextSeoProps: () => {
     const { asPath } = useRouter()
-    if (asPath !== '/') {
-      return {
-        noindex: process.env.NEXT_PUBLIC_IS_PRODUCTION !== 'true',
-        nofollow: process.env.NEXT_PUBLIC_IS_PRODUCTION !== 'true',
-        titleTemplate: '%s – Safe Docs',
-        openGraph: {
-          type: 'website',
-          locale: 'en_US',
-          url: `https://docs.safe.global${asPath}`,
-          site_name: 'Safe Docs',
-          description:
-            'Safe{Core} is an open-source and modular account abstraction stack. Learn about its features and how to use it.',
-          images: [
-            {
-              url: '/og_image.png',
-              width: 1200,
-              height: 672,
-              alt: 'Safe Logo',
-              type: 'image/png'
-            }
-          ]
-        }
+    return {
+      noindex: process.env.NEXT_PUBLIC_IS_PRODUCTION !== 'true',
+      nofollow: process.env.NEXT_PUBLIC_IS_PRODUCTION !== 'true',
+      titleTemplate: asPath !== '/' ? '%s – Safe Docs' : 'Safe Docs',
+      openGraph: {
+        type: 'website',
+        locale: 'en_US',
+        url: `${process.env.NEXT_PUBLIC_HOST_URL}${asPath}`,
+        site_name: 'Safe Docs',
+        description:
+          'Safe{Core} is an open-source and modular account abstraction stack. Learn about its features and how to use it.',
+        images: [
+          {
+            url: `${process.env.NEXT_PUBLIC_HOST_URL}/og_image.png`,
+            width: 1200,
+            height: 672,
+            alt: 'Safe Logo',
+            type: 'image/png'
+          }
+        ]
       }
     }
   },
