@@ -36,7 +36,22 @@ const config: DocsThemeConfig = {
       return {
         noindex: process.env.NEXT_PUBLIC_IS_PRODUCTION !== 'true',
         nofollow: process.env.NEXT_PUBLIC_IS_PRODUCTION !== 'true',
-        titleTemplate: '%s – Safe Docs'
+        titleTemplate: '%s – Safe Docs',
+        openGraph: {
+          type: 'website',
+          locale: 'en_US',
+          url: `https://docs.safe.global${asPath}`,
+          site_name: 'Safe Docs',
+          images: [
+            {
+              url: '/og_image.png',
+              width: 1200,
+              height: 672,
+              alt: 'Safe Logo',
+              type: 'image/png'
+            }
+          ]
+        }
       }
     }
   },
