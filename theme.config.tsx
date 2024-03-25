@@ -42,6 +42,8 @@ const config: DocsThemeConfig = {
           locale: 'en_US',
           url: `https://docs.safe.global${asPath}`,
           site_name: 'Safe Docs',
+          description:
+            'Safe{Core} is an open-source and modular account abstraction stack. Learn about its features and how to use it.',
           images: [
             {
               url: '/og_image.png',
