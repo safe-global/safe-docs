@@ -25,6 +25,10 @@ const validateResource = (resource, index, resources) => {
     console.log(`Resource description is missing`)
     return false
   }
+  if (resource.description.length > 200) {
+    console.log(`Resource description is too long`)
+    return false
+  }
   if (!resource.tags || !resource.tags.length) {
     console.log(errorMessage + `Resource tags are missing`)
     return false
