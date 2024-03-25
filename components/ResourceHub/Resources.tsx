@@ -47,13 +47,9 @@ export interface KnowledgeResource {
   type: string
   date: string
   origin: string
-  abstract?: string
+  description: string
   tags: string[]
-  og?: {
-    title?: string
-    description?: string
-    image?: string
-  }
+  image?: string
 }
 
 const getUniqueStrings = (entries: string[]): string[] => {
