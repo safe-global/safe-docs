@@ -8,8 +8,10 @@ import {
 } from '@mui/material/styles'
 import type { AppProps } from 'next/app'
 import { useEffect, type ReactElement } from 'react'
+import Head from 'next/head'
 import ReactGA from 'react-ga4'
 
+import MetaTags from '../components/MetaTags'
 import { CookieBanner } from '../components/CookieBanner'
 import {
   CookieBannerContextProvider,
@@ -60,21 +62,27 @@ const GoogleAnalytics: React.FC = () => {
 const App = ({
   Component,
   pageProps,
+  router,
   emotionCache = clientSideEmotionCache
 }: AppProps & {
   emotionCache?: EmotionCache
 }): ReactElement => {
   return (
-    <CacheProvider value={emotionCache}>
-      <CssVarsProvider theme={cssVarsTheme}>
-        <CookieBannerContextProvider>
-          <CssBaseline />
-          <GoogleAnalytics />
-          <Component {...pageProps} />
-          <CookieBanner />
-        </CookieBannerContextProvider>
-      </CssVarsProvider>
-    </CacheProvider>
+    <>
+      <Head>
+        <MetaTags path={router.asPath} />
+      </Head>
+      <CacheProvider value={emotionCache}>
+        <CssVarsProvider theme={cssVarsTheme}>
+          <CookieBannerContextProvider>
+            <CssBaseline />
+            <GoogleAnalytics />
+            <Component {...pageProps} />
+            <CookieBanner />
+          </CookieBannerContextProvider>
+        </CssVarsProvider>
+      </CacheProvider>
+    </>
   )
 }
 
