@@ -8,7 +8,7 @@ const RedirectIndex: React.FC = () => {
     void push('/home/what-is-safe')
   }, [push])
 
-  return <>Loading...</>
+  return <></>
 }
 
 export default RedirectIndex
