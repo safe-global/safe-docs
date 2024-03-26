@@ -30,6 +30,7 @@ const MetaTags: React.FC<{ path: string }> = ({ path }) => {
       <meta property='og:description' content={description} />
       <meta property='og:image' content={image} />
       <meta property='og:type' content='website' />
+      {path === '/' && <meta property='og:title' content='Safe Docs' />}
       <meta name='twitter:card' content='summary_large_image' />
       <meta name='twitter:description' content={description} />
       <meta name='twitter:image' content={image} />
