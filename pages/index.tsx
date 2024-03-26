@@ -1,14 +1,14 @@
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import type { GetStaticProps } from 'next'
 
-const RedirectIndex: React.FC = () => {
-  const { push } = useRouter()
-
-  useEffect(() => {
-    void push('/home/what-is-safe')
-  }, [push])
-
-  return <></>
-}
+const RedirectIndex: React.FC = () => <></>
 
 export default RedirectIndex
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    redirect: {
+      destination: '/home/what-is-safe',
+      permanent: true
+    }
+  }
+}
