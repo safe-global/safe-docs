@@ -28,7 +28,7 @@ const safe4337Pack = await Safe4337Pack.init({
 });
 ```
 
-### static async init(safe4337InitOptions)
+### `init(safe4337InitOptions)`
 
 The static method `init()` creates an instance of the `Safe4337Pack`. This method should be used to create the initial instance instead the regular constructor.
 
@@ -108,11 +108,11 @@ A promise that resolves to an instance of the `Safe4337Pack`.
 - Using a paymaster to sponsor transactions is optional. You can use the `isSponsored` prop to indicate if you want to use a paymaster to sponsor transactions. If you don't want to use a paymaster to sponsor transactions, you can omit the `paymasterOptions` prop. Some approvals are needed to use a paymaster to sponsor transactions.
 - You can use the `amountToApprove` prop to specify the amount of the `paymasterTokenAddress` to approve to be used. You should use this prop when the Safe account does not exist and you want to approve the paymaster token to be used to pay the transactions and the Safe account deployment.
 
-### new Safe4337Pack({protocolKit, bundlerClient, publicClient, bundlerUrl, paymasterOptions, entryPointAddress, safe4337ModuleAddress})
+### `new Safe4337Pack({protocolKit, bundlerClient, publicClient, bundlerUrl, paymasterOptions, entryPointAddress, safe4337ModuleAddress})`
 
 The `Safe4337Pack` constructor method is used inside the `init()` method and should not be used directly. The different params are calculated or provided by the `init()` method.
 
-### async createTransaction(safe4337CreateTransactionProps)
+### `createTransaction(safe4337CreateTransactionProps)`
 
 Creates a `SafeOperation` using a batch of transactions. You can send multiple transactions to this method. Internally the SDK will bundle these transactions in a transaction batch that will be sent to the bundler as an `UserOperation`.
 
@@ -177,7 +177,7 @@ All the methods are optional and will be called in the following order if you pr
 2. `adjustEstimation` : This method is invocated AFTER the `eth_estimateUserOperationGas` is called from the pack code. Use this method to adjust the bundler estimation.
 3. `getPaymasterEstimation` : This method is invocated AFTER the bundler `eth_estimateUserOperationGas` is called from the pack code and IF the UserOperation `isSponsored`. Use this method to adjust the bundler estimation when using a paymaster to sponsor the transaction.
 
-### async signSafeOperation(safeOperation, signingMethod)
+### `signSafeOperation(safeOperation, signingMethod)`
 
 Signs a `SafeOperation`.
 
@@ -195,7 +195,7 @@ A promise that resolves to the signed `SafeOperation`.
 - This method will add the signature of the signer contained in the `EthersAdapter` to the signatures map of the `SafeOperation` object. More signatures can be added when we have more than one owner.
 - It works similar to the regular `signTransaction` and `signMessafe` methods in the `protocol-kit` but with a `SafeOperation` instead of a `SafeTransaction` or `SafeMessage`. For reference you can read more on the Safe [docs](https://docs.safe.global/sdk/protocol-kit/guides/signatures)
 
-### async executeTransaction(safe4337ExecutableProps)
+### `executeTransaction(safe4337ExecutableProps)`
 
 This method send the `UserOperation` to the bundler.
 
@@ -218,7 +218,7 @@ A promise, resolves to `UserOperation` hash string.
 - This method transforms the `SafeOperation` to a regular `UserOperation` and sends it to the bundler. The `SafeOperation` should be previously created and signed by the Safe owner (`EthersAdapter`).
 - You can use the `UserOperation` hash to browse the status in `https://jiffyscan.xyz/userOpHash/{userOpHash}`
 
-### async getUserOperationByHash(userOpHash)
+### `getUserOperationByHash(userOpHash)`
 
 Get `UserOperation` by its hash.
 
@@ -243,7 +243,7 @@ UserOperationWithPayload = {
 
 - Use this method to requests information about the `UserOperation` sent to the bundler.
 
-### async getUserOperationReceipt(userOpHash)
+### `getUserOperationReceipt(userOpHash)`
 
 Get `UserOperation` receipt by a hash.
 
@@ -272,7 +272,7 @@ UserOperationReceipt = {
 - Use this method to get the complete execution trace and status
 - You can use this method to determine if the `UserOperation` was executed successfully or not by calling the method until the receipt is available.
 
-### async getSupportedEntryPoints()
+### `getSupportedEntryPoints()`
 
 Get all supported entry points.
 
@@ -282,7 +282,7 @@ A Promise that resolves to an array of the entry point addresses (strings) suppo
 **Caveats**
 We use this method to get the default entry point when not provided in the `init()` method.
 
-### async getChainId()
+### `getChainId()`
 
 Get the EIP-155 Chain ID.
 

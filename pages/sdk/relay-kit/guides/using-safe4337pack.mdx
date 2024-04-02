@@ -1,10 +1,8 @@
 import { Tabs, Steps } from "nextra/components";
-import { Grid } from "@mui/material";
-import CustomCard from "../../../components/CustomCard";
 
-# How to create and use a Safe account with the Safe4337Pack
+# Using the Safe4337Pack
 
-In this guide, you will learn how you can create and use Safe accounts with the Safe ERC-4337 compatible module through the `safe-core-sdk`
+In this guide, you will learn how you can create and use Safe accounts with the [Safe ERC-4337 compatible module](https://github.com/safe-global/safe-modules/tree/main/modules/4337/contracts/Safe4337Module.sol) through the `safe-core-sdk`
 
 This guide focuses on how user operations are built and what happens under the hood when a Safe is configured and deployed with the `Safe4337Module` enabled.
 
@@ -45,9 +43,8 @@ First, we need a signer instance that will be the owner of the Safe account once
 
 ```typescript
 const PRIVATE_KEY = "0x...";
-const RPC_URL = "https://...";
 
-const provider = new ethers.JsonRpcProvider(RPC_URL);
+const provider = new ethers.JsonRpcProvider("https://rpc.ankr.com/eth_sepolia");
 const signer = new ethers.Wallet(PRIVATE_KEY, provider);
 const ethersAdapter = new EthersAdapter({
   ethers,
@@ -67,8 +64,8 @@ To generate an instance of the `Safe4337Pack`, we need to use the static `init()
     // Create a new Safe account. Specify owners and threshold
     const safe4337Pack = await Safe4337Pack.init({
       ethersAdapter,
-      rpcUrl: RPC_URL,
-      bundlerUrl: BUNDLER_URL,
+      rpcUrl: 'https://rpc.ankr.com/eth_sepolia',
+      bundlerUrl: `https://api.pimlico.io/v1/${CHAIN_NAME}/rpc?apikey=${PIMLICO_API_KEY}`,
       options: {
         owners: [await signer.getAddress()],
         threshold: 1
@@ -81,13 +78,14 @@ To generate an instance of the `Safe4337Pack`, we need to use the static `init()
     // Use an existing Safe account
     const safe4337Pack = await Safe4337Pack.init({
       ethersAdapter,
-      rpcUrl: RPC_URL,
-      bundlerUrl: BUNDLER_URL,
+      rpcUrl: 'https://rpc.ankr.com/eth_sepolia',
+      bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
       options: {
-        safeAddress: SAFE_ADDRESS
+        safeAddress: '0x...'
       }
     })
     ```
+    </Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
