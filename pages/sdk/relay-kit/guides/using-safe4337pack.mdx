@@ -6,7 +6,7 @@ In this guide, you will learn how you can create and use Safe accounts with the 
 
 This guide focuses on how user operations are built and what happens under the hood when a Safe is configured and deployed with the `Safe4337Module` enabled.
 
-The 4337 utils lives in the `relay-kit` package as we are basically relaying transactions to a bundler.
+The 4337 package lives in the `relay-kit` package as we are basically relaying transactions to a bundler.
 
 For this guide, we are going to use Pimlico as a provider but this is completely optional and you can use any other provider that supports bundling and/or paymaster services.
 
@@ -92,7 +92,7 @@ To generate an instance of the `Safe4337Pack`, we need to use the static `init()
 
 ### Create the transaction
 
-Create a transaction by using the `createTransaction` method. This method accepts an array of transaction objects that will use the Safe Multisend contract to encode a transaction batch
+Create a transaction by using the `createTransaction` method. This method accepts an array of transaction objects that will use the Safe multisend contract to encode a transaction batch
 
 ```typescript
 // Create transactions in your preferred way
