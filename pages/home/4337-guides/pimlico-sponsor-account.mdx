@@ -1,6 +1,6 @@
-import { Tabs, Steps } from 'nextra/components'
-import { Grid } from '@mui/material'
-import CustomCard from '../../../components/CustomCard'
+import { Tabs, Steps } from "nextra/components";
+import { Grid } from "@mui/material";
+import CustomCard from "../../../components/CustomCard";
 
 # Sponsor UserOperations with Pimlico
 
@@ -32,6 +32,7 @@ pnpm install viem permissionless
 ### Contracts
 
 In this guide, we will use some specific versions for the following contracts deployed on Gnosis Chain.
+
 - `v0.6.0` EntryPoint
 - `v1.4.1` Safe Smart Account
 - `v0.2.0` Safe4337Module
@@ -40,22 +41,22 @@ In this guide, we will use some specific versions for the following contracts de
 Check the commented links in the code snippet to get the correct addresses if you use a different network.
 
 ```typescript
-const ENTRYPOINT_ADDRESS_V06 = '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789'
+const ENTRYPOINT_ADDRESS_V06 = "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789";
 
 // https://github.com/safe-global/safe-modules-deployments/blob/main/src/assets/safe-4337-module/v0.2.0/add-modules-lib.json#L8
-const ADD_MODULE_LIB_ADDRESS = '0x8EcD4ec46D4D2a6B64fE960B3D64e8B94B2234eb'
+const ADD_MODULE_LIB_ADDRESS = "0x8EcD4ec46D4D2a6B64fE960B3D64e8B94B2234eb";
 
 // https://github.com/safe-global/safe-modules-deployments/blob/main/src/assets/safe-4337-module/v0.2.0/safe-4337-module.json#L8
-const SAFE_4337_MODULE_ADDRESS = '0xa581c4A4DB7175302464fF3C06380BC3270b4037'
+const SAFE_4337_MODULE_ADDRESS = "0xa581c4A4DB7175302464fF3C06380BC3270b4037";
 
 // https://github.com/safe-global/safe-deployments/blob/main/src/assets/v1.4.1/safe_proxy_factory.json#L13
-const SAFE_PROXY_FACTORY_ADDRESS = '0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67'
+const SAFE_PROXY_FACTORY_ADDRESS = "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67";
 
 // https://github.com/safe-global/safe-deployments/blob/main/src/assets/v1.4.1/safe.json#L13
-const SAFE_SINGLETON_ADDRESS = '0x41675C099F32341bf84BFc5382aF534df5C7461a'
+const SAFE_SINGLETON_ADDRESS = "0x41675C099F32341bf84BFc5382aF534df5C7461a";
 
 // https://github.com/safe-global/safe-deployments/blob/main/src/assets/v1.4.1/multi_send.json#L13
-const SAFE_MULTISEND_ADDRESS = '0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526'
+const SAFE_MULTISEND_ADDRESS = "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526";
 ```
 
 ### Imports
@@ -63,11 +64,24 @@ const SAFE_MULTISEND_ADDRESS = '0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526'
 These are all the imports required in the script we are building for this guide, which includes `permissionless` and `viem` packages.
 
 ```typescript
-import { bundlerActions, getAccountNonce } from 'permissionless'
-import { pimlicoBundlerActions, pimlicoPaymasterActions } from 'permissionless/actions/pimlico'
-import { Address, Client, Hash, Hex, PrivateKeyAccount, createClient, createPublicClient, encodeFunctionData, http } from 'viem'
-import { privateKeyToAccount } from 'viem/accounts'
-import { gnosis } from 'viem/chains'
+import { bundlerActions, getAccountNonce } from "permissionless";
+import {
+  pimlicoBundlerActions,
+  pimlicoPaymasterActions,
+} from "permissionless/actions/pimlico";
+import {
+  Address,
+  Client,
+  Hash,
+  Hex,
+  PrivateKeyAccount,
+  createClient,
+  createPublicClient,
+  encodeFunctionData,
+  http,
+} from "viem";
+import { privateKeyToAccount } from "viem/accounts";
+import { gnosis } from "viem/chains";
 ```
 
 ### Create a signer
@@ -75,9 +89,9 @@ import { gnosis } from 'viem/chains'
 First, we need a signer instance that will be the owner of the Safe account once it is deployed.
 
 ```typescript
-const PRIVATE_KEY = '0x...'
+const PRIVATE_KEY = "0x...";
 
-const signer = privateKeyToAccount(PRIVATE_KEY as Hash)
+const signer = privateKeyToAccount(PRIVATE_KEY as Hash);
 ```
 
 ### Initialize the clients
@@ -87,36 +101,36 @@ We need to create a few client instances to query the blockchain network and ope
 Firstly, we instantiate a standard `publicClient` instance for regular Ethereum RPC calls. To do this, we must first define the corresponding RPC URL depending on our network.
 
 ```typescript
-const rpcURL = 'https://rpc.ankr.com/gnosis'
+const rpcURL = "https://rpc.ankr.com/gnosis";
 
 const publicClient = createPublicClient({
   transport: http(rpcURL),
-  chain: gnosis
-})
+  chain: gnosis,
+});
 ```
 
 Secondly, we instantiate the `bundlerClient` using the Pimlico API `v1`, which is dedicated to the Bundler methods. This API requires a `PIMLICO_API_KEY` that we can get from their [dashboard](https://dashboard.pimlico.io/apikeys).
 
 ```typescript
-const PIMLICO_API_V1 = `https://api.pimlico.io/v1/gnosis/rpc?apikey=${PIMLICO_API_KEY}`
+const PIMLICO_API_V1 = `https://api.pimlico.io/v1/gnosis/rpc?apikey=${PIMLICO_API_KEY}`;
 
 const bundlerClient = createClient({
   transport: http(PIMLICO_API_V1),
-  chain: gnosis
+  chain: gnosis,
 })
   .extend(bundlerActions(ENTRYPOINT_ADDRESS_V06))
-  .extend(pimlicoBundlerActions(ENTRYPOINT_ADDRESS_V06))
+  .extend(pimlicoBundlerActions(ENTRYPOINT_ADDRESS_V06));
 ```
 
 Lastly, we instantiate the `pimlicoPaymasterClient` using the Pimlico API `v2`, which is dedicated to the Paymaster methods and responsible for interacting with Pimlico's Verifying Paymaster endpoint and requesting sponsorship.
 
 ```typescript
-const PIMLICO_API_V2 = `https://api.pimlico.io/v2/gnosis/rpc?apikey=${PIMLICO_API_KEY}`
+const PIMLICO_API_V2 = `https://api.pimlico.io/v2/gnosis/rpc?apikey=${PIMLICO_API_KEY}`;
 
 const pimlicoPaymasterClient = createClient({
   transport: http(PIMLICO_API_V2),
-  chain: gnosis
-}).extend(pimlicoPaymasterActions(ENTRYPOINT_ADDRESS_V06))
+  chain: gnosis,
+}).extend(pimlicoPaymasterActions(ENTRYPOINT_ADDRESS_V06));
 ```
 
 ### Create a UserOperation
@@ -125,18 +139,18 @@ We now define the user operation object we want to execute following the structu
 
 ```typescript
 type UserOperation = {
-  sender: Address
-  nonce: bigint
-  initCode: Hex
-  callData: Hex
-  callGasLimit: bigint
-  verificationGasLimit: bigint
-  preVerificationGas: bigint
-  maxFeePerGas: bigint
-  maxPriorityFeePerGas: bigint
-  paymasterAndData: Hex
-  signature: Hex
-}
+  sender: Address;
+  nonce: bigint;
+  initCode: Hex;
+  callData: Hex;
+  callGasLimit: bigint;
+  verificationGasLimit: bigint;
+  preVerificationGas: bigint;
+  maxFeePerGas: bigint;
+  maxPriorityFeePerGas: bigint;
+  paymasterAndData: Hex;
+  signature: Hex;
+};
 ```
 
 We are currently missing the values for the `sender`, `nonce`, `initCode`, and `callData` properties, so we need to calculate them. The gas-related properties will be calculated later in the next step, and the `signature` in the following one.
@@ -144,12 +158,12 @@ We are currently missing the values for the `sender`, `nonce`, `initCode`, and `
 After getting these properties, we can instantiate the `sponsoredUserOperation` object.
 
 ```typescript
-const contractCode = await publicClient.getBytecode({ address: sender })
+const contractCode = await publicClient.getBytecode({ address: sender });
 
 const sponsoredUserOperation: UserOperation = {
   sender,
   nonce,
-  initCode: contractCode ? '0x' : initCode,
+  initCode: contractCode ? "0x" : initCode,
   callData,
   callGasLimit: 1n, // All gas values will be filled by Estimation Response Data.
   verificationGasLimit: 1n,
@@ -157,8 +171,8 @@ const sponsoredUserOperation: UserOperation = {
   maxFeePerGas: 1n,
   maxPriorityFeePerGas: 1n,
   paymasterAndData: ERC20_PAYMASTER_ADDRESS,
-  signature: '0x'
-}
+  signature: "0x",
+};
 ```
 
 #### Get the `initCode`
@@ -177,7 +191,7 @@ This initialization also includes the option to execute a call by using the `to`
 
 To enable the module in the `enableModuleCallData` function, we will encode a call to the `AddModuleLib` contract by passing the address of the `Safe4337Module`.
 
-{ /* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
 <Tabs items={['script.ts', 'getAccountInitCode.ts', 'getInitializerCode.ts', 'enableModuleCallData.ts', 'encodeMultiSend.ts']}>
   <Tabs.Tab>
@@ -268,6 +282,7 @@ To enable the module in the `enableModuleCallData` function, we will encode a ca
       return concatHex([safeProxyFactoryAddress, initCodeCallData])
     }
     ```
+
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
@@ -369,6 +384,7 @@ To enable the module in the `enableModuleCallData` function, we will encode a ca
       })
     }
     ```
+
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
@@ -413,17 +429,19 @@ To enable the module in the `enableModuleCallData` function, we will encode a ca
       functionName: 'multiSend',
       args: [data]
     })
-  }
 
-  const encodeInternalTransaction = (tx: InternalTx): string => {
-    const encoded = encodePacked(
-      ['uint8', 'address', 'uint256', 'uint256', 'bytes'],
-      [tx.operation, tx.to, tx.value, BigInt(tx.data.slice(2).length / 2), tx.data],
-    )
-    return encoded.slice(2)
-  }
-  ```
-  </Tabs.Tab>
+}
+
+const encodeInternalTransaction = (tx: InternalTx): string => {
+const encoded = encodePacked(
+['uint8', 'address', 'uint256', 'uint256', 'bytes'],
+[tx.operation, tx.to, tx.value, BigInt(tx.data.slice(2).length / 2), tx.data],
+)
+return encoded.slice(2)
+}
+
+````
+</Tabs.Tab>
 </Tabs>
 
 { /* <!-- vale on --> */}
@@ -442,92 +460,92 @@ Notice that the `sender` address will depend on the value of the Safe configurat
 {/* <!-- vale off --> */}
 
 <Tabs items={['script.ts', 'getAccountAddress.ts']}>
-  <Tabs.Tab>
-    ```typescript
-    const sender = await getAccountAddress({
-      client: publicClient,
-      owner: signer.address,
-      addModuleLibAddress: ADD_MODULE_LIB_ADDRESS,
-      safe4337ModuleAddress: SAFE_4337_MODULE_ADDRESS,
-      safeProxyFactoryAddress: SAFE_PROXY_FACTORY_ADDRESS,
-      safeSingletonAddress: SAFE_SINGLETON_ADDRESS,
-      saltNonce,
-      multiSendAddress: SAFE_MULTISEND_ADDRESS,
-      erc20TokenAddress: USDC_TOKEN_ADDRESS,
-      paymasterAddress: ERC20_PAYMASTER_ADDRESS
+<Tabs.Tab>
+  ```typescript
+  const sender = await getAccountAddress({
+    client: publicClient,
+    owner: signer.address,
+    addModuleLibAddress: ADD_MODULE_LIB_ADDRESS,
+    safe4337ModuleAddress: SAFE_4337_MODULE_ADDRESS,
+    safeProxyFactoryAddress: SAFE_PROXY_FACTORY_ADDRESS,
+    safeSingletonAddress: SAFE_SINGLETON_ADDRESS,
+    saltNonce,
+    multiSendAddress: SAFE_MULTISEND_ADDRESS,
+    erc20TokenAddress: USDC_TOKEN_ADDRESS,
+    paymasterAddress: ERC20_PAYMASTER_ADDRESS
+  })
+  ```
+</Tabs.Tab>
+<Tabs.Tab>
+  ```typescript
+  export const getAccountAddress = async ({
+    client,
+    owner,
+    addModuleLibAddress,
+    safe4337ModuleAddress,
+    safeProxyFactoryAddress,
+    safeSingletonAddress,
+    saltNonce = 0n,
+    multiSendAddress,
+    erc20TokenAddress,
+    paymasterAddress
+  }: {
+    client: PublicClient
+    owner: Address
+    addModuleLibAddress: Address
+    safe4337ModuleAddress: Address
+    safeProxyFactoryAddress: Address
+    safeSingletonAddress: Address
+    saltNonce?: bigint
+    multiSendAddress: Address
+    erc20TokenAddress: Address
+    paymasterAddress: Address
+  }): Promise<Address> => {
+    const proxyCreationCode = await client.readContract({
+      abi: [
+        {
+          inputs: [],
+          name: 'proxyCreationCode',
+          outputs: [
+            {
+              internalType: 'bytes',
+              name: '',
+              type: 'bytes'
+            }
+          ],
+          stateMutability: 'pure',
+          type: 'function'
+        }
+      ],
+      address: safeProxyFactoryAddress,
+      functionName: 'proxyCreationCode'
     })
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```typescript
-    export const getAccountAddress = async ({
-      client,
+
+    const deploymentCode = encodePacked(
+      ['bytes', 'uint256'],
+      [proxyCreationCode, hexToBigInt(safeSingletonAddress)]
+    )
+
+    const initializer = await getInitializerCode({
       owner,
       addModuleLibAddress,
       safe4337ModuleAddress,
-      safeProxyFactoryAddress,
-      safeSingletonAddress,
-      saltNonce = 0n,
       multiSendAddress,
       erc20TokenAddress,
       paymasterAddress
-    }: {
-      client: PublicClient
-      owner: Address
-      addModuleLibAddress: Address
-      safe4337ModuleAddress: Address
-      safeProxyFactoryAddress: Address
-      safeSingletonAddress: Address
-      saltNonce?: bigint
-      multiSendAddress: Address
-      erc20TokenAddress: Address
-      paymasterAddress: Address
-    }): Promise<Address> => {
-      const proxyCreationCode = await client.readContract({
-        abi: [
-          {
-            inputs: [],
-            name: 'proxyCreationCode',
-            outputs: [
-              {
-                internalType: 'bytes',
-                name: '',
-                type: 'bytes'
-              }
-            ],
-            stateMutability: 'pure',
-            type: 'function'
-          }
-        ],
-        address: safeProxyFactoryAddress,
-        functionName: 'proxyCreationCode'
-      })
+    })
 
-      const deploymentCode = encodePacked(
-        ['bytes', 'uint256'],
-        [proxyCreationCode, hexToBigInt(safeSingletonAddress)]
-      )
+    const salt = keccak256(encodePacked(['bytes32', 'uint256'], [keccak256(encodePacked(['bytes'], [initializer])), saltNonce]))
 
-      const initializer = await getInitializerCode({
-        owner,
-        addModuleLibAddress,
-        safe4337ModuleAddress,
-        multiSendAddress,
-        erc20TokenAddress,
-        paymasterAddress
-      })
-
-      const salt = keccak256(encodePacked(['bytes32', 'uint256'], [keccak256(encodePacked(['bytes'], [initializer])), saltNonce]))
-
-      return getContractAddress({
-        from: safeProxyFactoryAddress,
-        salt,
-        bytecode: deploymentCode,
-        opcode: 'CREATE2'
-      })
-    }
-    ```
-  </Tabs.Tab>
+    return getContractAddress({
+      from: safeProxyFactoryAddress,
+      salt,
+      bytecode: deploymentCode,
+      opcode: 'CREATE2'
+    })
+  }
+  ```
+</Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
@@ -540,10 +558,10 @@ To get the nonce, we can use the `getAccountNonce` function.
 
 ```typescript
 const nonce = await getAccountNonce(publicClient as Client, {
-  entryPoint: ENTRYPOINT_ADDRESS_V06,
-  sender
+entryPoint: ENTRYPOINT_ADDRESS_V06,
+sender
 })
-```
+````
 
 #### Get the `callData`
 
@@ -616,15 +634,16 @@ After that, we call the `getUserOperationGasPrice` method to get the maximum gas
 ```typescript
 const gasEstimate = await bundlerClient.estimateUserOperationGas({
   userOperation: sponsoredUserOperation,
-  entryPoint: ENTRYPOINT_ADDRESS_V06
-})
-const maxGasPriceResult = await bundlerClient.getUserOperationGasPrice()
+  entryPoint: ENTRYPOINT_ADDRESS_V06,
+});
+const maxGasPriceResult = await bundlerClient.getUserOperationGasPrice();
 
-sponsoredUserOperation.callGasLimit = gasEstimate.callGasLimit
-sponsoredUserOperation.verificationGasLimit = gasEstimate.verificationGasLimit
-sponsoredUserOperation.preVerificationGas = gasEstimate.preVerificationGas
-sponsoredUserOperation.maxFeePerGas = maxGasPriceResult.fast.maxFeePerGas
-sponsoredUserOperation.maxPriorityFeePerGas = maxGasPriceResult.fast.maxPriorityFeePerGas
+sponsoredUserOperation.callGasLimit = gasEstimate.callGasLimit;
+sponsoredUserOperation.verificationGasLimit = gasEstimate.verificationGasLimit;
+sponsoredUserOperation.preVerificationGas = gasEstimate.preVerificationGas;
+sponsoredUserOperation.maxFeePerGas = maxGasPriceResult.fast.maxFeePerGas;
+sponsoredUserOperation.maxPriorityFeePerGas =
+  maxGasPriceResult.fast.maxPriorityFeePerGas;
 ```
 
 To use the Paymaster to pay for the fees, we need to provide a `SPONSORSHIP_POLICY_ID` that can be provided by a third party willing to sponsor our user operations, or it can be generated in the [Pimlico dashboard](https://dashboard.pimlico.io/sponsorship-policies). Sponsorship policies allow the definition of custom rules for sponsorships with various options to limit the total sponsored amount, per user, and per user operation.
@@ -636,13 +655,14 @@ if (usePaymaster) {
   const sponsorResult = await pimlicoPaymasterClient.sponsorUserOperation({
     userOperation: sponsoredUserOperation,
     entryPoint: ENTRYPOINT_ADDRESS_V06,
-    sponsorshipPolicyId: SPONSORSHIP_POLICY_ID
-  })
+    sponsorshipPolicyId: SPONSORSHIP_POLICY_ID,
+  });
 
-  sponsoredUserOperation.callGasLimit = sponsorResult.callGasLimit
-  sponsoredUserOperation.verificationGasLimit = sponsorResult.verificationGasLimit
-  sponsoredUserOperation.preVerificationGas = sponsorResult.preVerificationGas
-  sponsoredUserOperation.paymasterAndData = sponsorResult.paymasterAndData
+  sponsoredUserOperation.callGasLimit = sponsorResult.callGasLimit;
+  sponsoredUserOperation.verificationGasLimit =
+    sponsorResult.verificationGasLimit;
+  sponsoredUserOperation.preVerificationGas = sponsorResult.preVerificationGas;
+  sponsoredUserOperation.paymasterAndData = sponsorResult.paymasterAndData;
 }
 ```
 
@@ -666,6 +686,7 @@ To sign the `sponsoredUserOperation`, we have created the `signUserOperation` ut
       SAFE_4337_MODULE_ADDRESS
     )
     ```
+
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
@@ -729,6 +750,7 @@ To sign the `sponsoredUserOperation`, we have created the `signUserOperation` ut
       return signatureBytes
     }
     ```
+
   </Tabs.Tab>
 </Tabs>
 
@@ -741,8 +763,8 @@ Call the `sendUserOperation` method from the bundler to submit the `sponsoredUse
 ```typescript
 const userOperationHash = await bundlerClient.sendUserOperation({
   userOperation: sponsoredUserOperation,
-  entryPoint: ENTRYPOINT_ADDRESS_V06
-})
+  entryPoint: ENTRYPOINT_ADDRESS_V06,
+});
 ```
 
 To get more details about the submitted `UserOperation` copy the value of the `userOperationHash` returned, visit the [UserOp Explorer](https://jiffyscan.xyz/?network=gnosis), and paste it into the search bar.
@@ -751,10 +773,10 @@ Lastly, to get more details about the transaction, we can get the receipt of the
 
 ```typescript
 const receipt = await bundlerClient.waitForUserOperationReceipt({
-  hash: userOperationHash
-})
+  hash: userOperationHash,
+});
 
-const transactionHash = receipt.receipt.transactionHash
+const transactionHash = receipt.receipt.transactionHash;
 ```
 
 </Steps>
@@ -764,6 +786,7 @@ const transactionHash = receipt.receipt.transactionHash
 This guide covered how to sponsor the deployment of a new ERC-4337 Safe and its user operations with Pimlico infrastructure using a Paymaster.
 
 Feel free to try out other ideas and possibilities, as there are many more regarding:
+
 - The deployment and initial setup of ERC-4337 accounts.
 - The entity responsible for paying the transaction fees.
 - The tokens used to pay the transaction fees.
