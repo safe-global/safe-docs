@@ -75,14 +75,14 @@ PaymasterOptions = {
 - **`bundlerUrl`** : The bundler's URL.
 - **`safeModulesVersion`** : The version of the [Safe Modules contract](https://github.com/safe-global/safe-modules-deployments/tree/main/src/assets/safe-4337-module).
 - **`customContracts`** : An object with custom contract addresses. This is optional, if no custom contracts are provided, default ones will be used.
-  - **`entryPointAddress`** : The address of the entry point. Defaults to the address returned by the `eth_supportedEntryPoints` method.
-  - **`safe4337ModuleAddress`** : The address of the `Safe4337Module`. Defaults to `safe-modules-deployments`.
-  - **`addModulesLibAddress`** : The address of the `AddModulesLib` library. Defaults to `safe-modules-deployments`.
+  - **`entryPointAddress`** : The address of the entry point. Defaults to the address returned by the `eth_supportedEntryPoints` method from the provider API.
+  - **`safe4337ModuleAddress`** : The address of the `Safe4337Module`. Defaults to `safe-modules-deployments` using the current version.
+  - **`addModulesLibAddress`** : The address of the `AddModulesLib` library. Defaults to `safe-modules-deployments` using the current version.
 - **`options`** : The Safe account options.
   - **`safeAddress`** : The Safe address. You can only use this prop to specify an existing Safe account.
   - **`owners`** : The array with Safe owners.
   - **`threshold`** : The Safe threshold. This is the number of owners required to sign and execute a transaction.
-  - **`safeVersion`** : The version of the [Safe contract](https://github.com/safe-global/safe-deployments/tree/main/src/assets).
+  - **`safeVersion`** : The version of the [Safe contract](https://github.com/safe-global/safe-deployments/tree/main/src/assets). Defaults to the current version.
   - **`saltNonce`** : The Safe salt nonce. Changing this value enables the creation of different safe (predicted) addresses using the same configuration (`owners`, `threshold`, and `safeVersion`).
 - **`paymasterOptions`** : The paymaster options.
   - **`paymasterUrl`** : The paymaster URL. You can obtain the URL from the management dashboard of the selected services provider. This URL will be used for gas estimations.
@@ -99,13 +99,13 @@ A promise that resolves to an instance of the `Safe4337Pack`.
 
 - Use this method to create the initial instance instead of the standard constructor.
 - You can refer to [this link](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit/src/adapters/ethers) to create instances of `EthersAdapter`.
-- You can find various URLs and contract addresses in the management dashboards of your selected provider. These include `bundlerUrl`, `paymasterUrl`, `paymasterAddress`, `paymasterTokenAddress`, `sponsorshipPolicyId`, and `rpcUrl`.
-- The SDK uses default versions when `safeModulesVersion` or `safeVersion` are not specified. You can find more details [here](https://github.com/safe-global/safe-core-sdk/blob/924ae56ff707509e561c99296fb5e1fbc2050d28/packages/relay-kit/src/packs/safe-4337/Safe4337Pack.ts#L34-L35).
+- You should search for some API services URLs and contract addresses in the management dashboards of your selected provider. These include `bundlerUrl`, `paymasterUrl`, `paymasterAddress`, `paymasterTokenAddress`, `sponsorshipPolicyId`, and `rpcUrl` (In this case any valid rpc should be fine).
+- The SDK uses default versions when `safeModulesVersion` or `safeVersion` are not specified. You can find more details about the current versions [here](https://github.com/safe-global/safe-core-sdk/blob/924ae56ff707509e561c99296fb5e1fbc2050d28/packages/relay-kit/src/packs/safe-4337/Safe4337Pack.ts#L34-L35).
 - The `saltNonce` derives different Safe addresses by using the `protocol-kit` method `predictSafeAddress`. You can find more details about this process [here](https://github.com/safe-global/safe-core-sdk/blob/924ae56ff707509e561c99296fb5e1fbc2050d28/packages/protocol-kit/src/contracts/utils.ts#L245-L315).
 - We typically initialize the pack in two ways. One way is by using an existing account with the `safeAddress` prop. The other way is by using the `owners`, `threshold`, `saltNonce`, and `safeVersion` props to create a new Safe account. You can also apply the second method to existing addresses, as the output address will be the same if the inputs are identical.
 - The SDK queries `eth_supportedEntryPoints` for a default `entryPointAddress` if not given. It fetches `safe4337ModuleAddress` and `addModulesLibAddress` from the `safe-modules-deployments` repository if not provided. You can find them at: [safe-modules-deployments](https://github.com/safe-global/safe-modules-deployments/tree/main/src/assets/safe-4337-module).
-- Using a paymaster to sponsor transactions is optional. You can indicate if you want to use a paymaster by setting the `isSponsored` prop. If not, you can skip the `paymasterOptions` prop. Approval is required to use a paymaster so remember to add the `paymasterTokenAddress` of the ERC-20 token that will pay the fees.
-- Specify the amount to approve for the `paymasterTokenAddress` using the `amountToApprove` prop. This is necessary when the Safe account is not created, and you need to approve the paymaster token for transaction payments and Safe account setup.
+- Using a paymaster to sponsor transactions is optional. You can indicate if you want to use a paymaster by setting the `isSponsored` prop. If not, you can skip the `paymasterOptions` prop. An approval for the concrete ERC-20 token is required to use the paymaster so remember to add the `paymasterTokenAddress` of the ERC-20 token that will pay the fees. The SDK will encode this approval internally and send it to the bundler with the rest of the user operation.
+- Specify the amount to approve for the `paymasterTokenAddress` using the `amountToApprove` prop. This is necessary when the Safe account is not deployed, and you need to approve the paymaster token for fee payments and Safe account setup.
 
 ### `new Safe4337Pack({protocolKit, bundlerClient, publicClient, bundlerUrl, paymasterOptions, entryPointAddress, safe4337ModuleAddress})`
 
@@ -113,7 +113,7 @@ The `Safe4337Pack` constructor method is used within the `init()` method and sho
 
 ### `createTransaction(safe4337CreateTransactionProps)`
 
-Create a `SafeOperation` by batching transactions. You can send multiple transactions to this method. The SDK internally bundles these transactions into a batch sent to the bundler as a `UserOperation`.
+Create a `SafeOperation` from a transaction batch. You can send multiple transactions to this method. The SDK internally bundles these transactions into a batch sent to the bundler as a `UserOperation`. If the transaction is only one then no batch is created a it's not necessary.
 
 **Parameters**
 
