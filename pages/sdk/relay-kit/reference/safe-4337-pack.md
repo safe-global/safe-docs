@@ -203,8 +203,8 @@ The `Safe4337ExecutableProps`
 
 ```typescript
 Safe4337ExecutableProps = {
-  executable: SafeOperation,
-};
+  executable: SafeOperation
+}
 ```
 
 - **`executable`** : The `SafeOperation` to execute.

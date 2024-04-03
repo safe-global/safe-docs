@@ -1,4 +1,4 @@
-import { Tabs, Steps, Callout } from "nextra/components";
+import { Tabs, Steps, Callout } from 'nextra/components'
 
 # Bundling user operations with the Safe4337Pack
 
@@ -142,7 +142,7 @@ To check the transaction status, you can use the `getTransactionReceipt()` metho
 let userOperationReceipt = null
 
 while (!userOperationReceipt) {
-  // Wait 2 seconds before checking the status again 
+  // Wait 2 seconds before checking the status again
   await new Promise((resolve) => setTimeout(resolve, 2000))
   userOperationReceipt = await safe4337Pack.getUserOperationReceipt(
     userOperationHash
