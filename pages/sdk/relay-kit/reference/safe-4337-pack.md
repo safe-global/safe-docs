@@ -22,8 +22,8 @@ const safe4337Pack = await Safe4337Pack.init({
   safeModulesVersion,
   customContracts,
   options,
-  paymasterOptions,
-});
+  paymasterOptions
+})
 ```
 
 ### `init(safe4337InitOptions)`

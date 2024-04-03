@@ -34,9 +34,9 @@ yarn add ethers @safe-global/protocol-kit @safe-global/relay-kit@alpha
 Here are all the necessary imports for the script we are coding in this guide.
 
 ```typescript
-import { ethers } from "ethers";
-import { EthersAdapter } from "@safe-global/protocol-kit";
-import { Safe4337Pack } from "@safe-global/relay-kit";
+import { ethers } from 'ethers'
+import { EthersAdapter } from '@safe-global/protocol-kit'
+import { Safe4337Pack } from '@safe-global/relay-kit'
 ```
 
 ### Create a signer
@@ -49,14 +49,14 @@ As a first step, we need a signer instance, which will become the owner of the S
 </Callout>
 
 ```typescript
-const PRIVATE_KEY = "0x...";
+const PRIVATE_KEY = '0x...'
 
-const provider = new ethers.JsonRpcProvider("https://rpc.ankr.com/eth_sepolia");
-const signer = new ethers.Wallet(PRIVATE_KEY, provider);
+const provider = new ethers.JsonRpcProvider('https://rpc.ankr.com/eth_sepolia')
+const signer = new ethers.Wallet(PRIVATE_KEY, provider)
 const ethersAdapter = new EthersAdapter({
   ethers,
-  signerOrProvider: signer,
-});
+  signerOrProvider: signer
+})
 ```
 
 ### Initialize `Safe4337Pack`
@@ -103,13 +103,13 @@ Generate a transaction using the `createTransaction()` method. This method takes
 
 ```typescript
 // Create some transactions
-const transaction1 = { to, data, value };
-const transaction2 = { to, data, value };
+const transaction1 = { to, data, value }
+const transaction2 = { to, data, value }
 
-const transactions = [transaction1, transaction2];
+const transactions = [transaction1, transaction2]
 
 // Create the transaction batch bundled in a SafeOperation object
-const safeOperation = await safe4337Pack.createTransaction({ transactions });
+const safeOperation = await safe4337Pack.createTransaction({ transactions })
 ```
 
 Calling the `createTransaction()` method returns a `SafeOperation` object, which contains transaction batch data encoded by the Safe multisend contract. If the Safe account doesn't exist, the `initCode` field of the user operation will hold the Safe account creation bytecode ready to be sent to the bundler. As the bundler processes the user operation, this code is used to deploy the Safe account before executing the transaction batch.
@@ -119,7 +119,7 @@ Calling the `createTransaction()` method returns a `SafeOperation` object, which
 Before sending it to the bundler, it's essential to sign the `SafeOperation` with the signer associated to the `EthersAdapter` instance. This generates a signature that will authorize the execution of the transaction batch.
 
 ```typescript
-const signedSafeOperation = await safe4337Pack.signSafeOperation(safeOperation);
+const signedSafeOperation = await safe4337Pack.signSafeOperation(safeOperation)
 ```
 
 ### Execute the transaction
@@ -128,8 +128,8 @@ Finally, once the `SafeOperation` is signed, you can forward the underlying user
 
 ```typescript
 const userOperationHash = await safe4337Pack.executeTransaction({
-  executable: signedSafeOperation,
-});
+  executable: signedSafeOperation
+})
 ```
 
 The `executeTransaction()` method will return the hash of the user operation sent to the bundler. This allows you to monitor the transaction's status using a block explorer or the bundler's API.
@@ -139,13 +139,14 @@ The `executeTransaction()` method will return the hash of the user operation sen
 To check the transaction status, you can use the `getTransactionReceipt()` method. This method returns the transaction receipt once the transaction is mined, allowing you to wait until the receipt object is present.
 
 ```typescript
-let userOperationReceipt = null;
+let userOperationReceipt = null
 
 while (!userOperationReceipt) {
-  await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait 2 seconds before checking the status again
+  // Wait 2 seconds before checking the status again 
+  await new Promise((resolve) => setTimeout(resolve, 2000))
   userOperationReceipt = await safe4337Pack.getUserOperationReceipt(
     userOperationHash
-  );
+  )
 }
 ```
 
@@ -154,7 +155,7 @@ In addition, you can use the `getUserOperationByHash()` method with the returned
 ```typescript
 const userOperationPayload = await safe4337Pack.getUserOperationByHash(
   userOperationHash
-);
+)
 ```
 
 </Steps>
