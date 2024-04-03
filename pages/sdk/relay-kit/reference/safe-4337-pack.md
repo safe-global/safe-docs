@@ -12,7 +12,7 @@ yarn add @safe-global/relay-kit@alpha
 
 ## Reference
 
-The `Safe4337Pack` class facilitates utilizing the [Safe 4337 Module](https://github.com/safe-global/safe-modules/tree/main/modules/4337/contracts/Safe4337Module.sol) with your Safe. It enables creating, signing, and executing transactions grouped in user operations using a selected provider. You can select your preferred [bundler](https://www.erc4337.io/docs/bundlers/introduction) or [paymaster](https://www.erc4337.io/docs/paymasters/introduction).
+The `Safe4337Pack` class make easy to use the [Safe 4337 Module](https://github.com/safe-global/safe-modules/tree/main/modules/4337/contracts/Safe4337Module.sol) with your Safe. It enables creating, signing, and executing transactions grouped in user operations using a selected provider. You can select your preferred [bundler](https://www.erc4337.io/docs/bundlers/introduction) and [paymaster](https://www.erc4337.io/docs/paymasters/introduction).
 
 ```typescript
 const safe4337Pack = await Safe4337Pack.init({
