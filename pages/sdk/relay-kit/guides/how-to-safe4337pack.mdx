@@ -1,4 +1,4 @@
-import { Tabs, Steps } from "nextra/components";
+import { Tabs, Steps, Callout } from "nextra/components";
 
 # Bundling user operations with the Safe4337Pack
 
@@ -39,7 +39,12 @@ import { Safe4337Pack } from "@safe-global/relay-kit";
 
 ### Create a signer
 
-Firstly, we need a signer instance, which will become the owner of the Safe account after deployment. We use the `EthersAdapter` from the `protocol-kit` package to represent and create the signer from a private key. This `protocol-kit` instance is linked to the signer and used for signing user operations.
+As a first step, we need a signer instance, which will become the owner of the Safe account after deployment. We use the `EthersAdapter` from the `protocol-kit` package to represent and create the signer from a private key. This `protocol-kit` instance is linked to the signer and used for signing user operations.
+
+<Callout type="info" emoji="ℹ️">
+  We are using the private key here but you can use any other method to create a
+  [signer](https://docs.ethers.org/v6/api/providers/#Signer) instance.
+</Callout>
 
 ```typescript
 const PRIVATE_KEY = "0x...";
@@ -145,14 +150,16 @@ while (!userOperationReceipt) {
 In addition, you can use the `getUserOperationByHash()` method with the returned hash to retrieve the user operation object you sent to the bundler.
 
 ```typescript
-await safe4337Pack.getUserOperationByHash(userOperationHash);
+const userOperationPayload = await safe4337Pack.getUserOperationByHash(
+  userOperationHash
+);
 ```
 
 </Steps>
 
 ## Recap and further reading
 
-This guide explains using the `Safe4337Pack` for execute transactions by deploying the Safe account when necessary. The process includes creating a Safe account with the enabled `Safe4337Module` for relaying transactions to a bundler.
+This guide explains using the `Safe4337Pack` and how this simplifies the process of creating and executing transactions in a batch with non existing Safe accounts. The process includes creating a Safe account with the enabled `Safe4337Module` ready for relaying transactions to a chosen bundler provider.
 
 Learn more about the ERC-4337 standard and the `Safe4337Module` contract at these links:
 

@@ -1,5 +1,3 @@
-# Safe4337Pack reference
-
 # Safe4337Pack
 
 The `Safe4337Pack` enables Safe accounts to interact with user operations through the implementation of the `RelayKitBasePack`. You can find more about ERC-4337 at [this link](https://eips.ethereum.org/EIPS/eip-4337).
