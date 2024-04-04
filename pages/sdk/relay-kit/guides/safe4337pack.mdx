@@ -65,10 +65,10 @@ To create an instance of the `Safe4337Pack`, use the static `init()` method. You
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['new-safe.ts','existing-safe.ts']}>
+<Tabs items={['new-safe.ts','existing-safe.ts','new-safe-using-paymaster.ts','new-safe-using-paymaster-and-sponsoring.ts']}>
   <Tabs.Tab>
     ```typescript
-    // Create a new Safe account. Set up owners and threshold
+    // Deploy a new Safe account. Set up owners and threshold
     const safe4337Pack = await Safe4337Pack.init({
       ethersAdapter,
       rpcUrl: 'https://rpc.ankr.com/eth_sepolia',
@@ -89,6 +89,46 @@ To create an instance of the `Safe4337Pack`, use the static `init()` method. You
       bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
       options: {
         safeAddress: '0x...'
+      }
+    })
+    ```
+    </Tabs.Tab>
+      <Tabs.Tab>
+    ```typescript
+    // Deploy a new Safe account and use a paymaster
+    // Remember you need to hold some paymasterTokenAddress tokens in your Safe account address to pay for the transaction fees
+    const safe4337Pack = await Safe4337Pack.init({
+      ethersAdapter,
+      rpcUrl: 'https://rpc.ankr.com/eth_sepolia',
+      bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+      paymasterOptions: {
+        paymasterTokenAddress: '0x...',
+        paymasterAddress: '0x...'
+        // amountToApprove?: bigint // optional value to set the paymaster approve amount on the deployment
+      },
+      options: {
+        owners: [await signer.getAddress()],
+        threshold: 1
+      }
+    })
+    ```
+    </Tabs.Tab>
+      <Tabs.Tab>
+    ```typescript
+    // Deploy a new Safe account and sponsor with a paymaster
+    const safe4337Pack = await Safe4337Pack.init({
+      ethersAdapter,
+      rpcUrl: 'https://rpc.ankr.com/eth_sepolia',
+      bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+      paymasterOptions: {
+        isSponsored: true,
+        paymasterUrl: `https://api.pimlico.io/v2/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,,
+        paymasterAddress: '0x...',
+        // sponsorshipPolicyId // optional value to set the sponsorship policy id
+      },
+      options: {
+        owners: [await signer.getAddress()],
+        threshold: 1
       }
     })
     ```
