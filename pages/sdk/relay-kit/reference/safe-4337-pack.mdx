@@ -1,3 +1,5 @@
+import { Callout } from 'nextra/components'
+
 # Safe4337Pack
 
 The `Safe4337Pack` enables Safe accounts to interact with user operations through the implementation of the `RelayKitBasePack`. You can find more about ERC-4337 at [this link](https://eips.ethereum.org/EIPS/eip-4337).
@@ -104,7 +106,9 @@ A promise that resolves to an instance of the `Safe4337Pack`.
 - The `saltNonce` derives different Safe addresses by using the `protocol-kit` method `predictSafeAddress`. You can find more details about this process [here](https://github.com/safe-global/safe-core-sdk/blob/924ae56ff707509e561c99296fb5e1fbc2050d28/packages/protocol-kit/src/contracts/utils.ts#L245-L315).
 - We typically initialize the pack in two ways. One way is by using an existing account with the `safeAddress` prop. The other way is by using the `owners`, `threshold`, `saltNonce`, and `safeVersion` props to create a new Safe account. You can also apply the second method to existing addresses, as the output address will be the same if the inputs are identical.
 - The SDK queries `eth_supportedEntryPoints` for a default `entryPointAddress` if not given. It fetches `safe4337ModuleAddress` and `addModulesLibAddress` from the `safe-modules-deployments` repository if not provided. You can find them at: [safe-modules-deployments](https://github.com/safe-global/safe-modules-deployments/tree/main/src/assets/safe-4337-module).
-- Using a paymaster to sponsor transactions is optional. You can indicate if you want to use a paymaster by setting the `isSponsored` prop. If not, you can skip the `paymasterOptions` prop. An approval for the concrete ERC-20 token is required to use the paymaster so remember to add the `paymasterTokenAddress` of the ERC-20 token that will pay the fees. The SDK will encode this approval internally and send it to the bundler with the rest of the user operation.
+- To use a paymaster without sponsorship, you need to hold a certain amount of `paymasterTokenAddress` in the Safe account for fees. Make sure to provide the `paymasterAddress` as well.
+- You can choose to use a paymaster to sponsor transactions by setting the `isSponsored` prop. When sponsoring transactions, you need to provide the `paymasterUrl`, `paymasterAddress`, and optionally the `sponsorshipPolicyId`.
+- An approval for the concrete ERC-20 token is required to use the paymaster so remember to add the `paymasterTokenAddress` of the ERC-20 token that will pay the fees. The SDK will encode this approval internally and send it to the bundler with the rest of the user operation.
 - Specify the amount to approve for the `paymasterTokenAddress` using the `amountToApprove` prop. This is necessary when the Safe account is not deployed, and you need to approve the paymaster token for fee payments and Safe account setup.
 
 ### `new Safe4337Pack({protocolKit, bundlerClient, publicClient, bundlerUrl, paymasterOptions, entryPointAddress, safe4337ModuleAddress})`
@@ -198,7 +202,14 @@ A promise that resolves to the signed `SafeOperation`.
 
 This method sends the user operation to the bundler.
 
+<Callout type="info" emoji="ℹ️">
+  If you are not using a paymaster and need to deploy a new Safe (counterfactual
+  deployment), you must hold in the predicted Safe address the amount of native
+  token required to cover the fees.
+</Callout>
+
 **Parameters**
+
 The `Safe4337ExecutableProps`
 
 ```typescript
