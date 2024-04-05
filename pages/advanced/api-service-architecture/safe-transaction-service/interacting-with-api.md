@@ -110,8 +110,7 @@ pip install safe-eth-py web3 hexbytes
         
         // Initialize the Api Kit
         const apiKit = new SafeApiKit({
-            chainId: 11155111n,
-            txServiceUrl: 'https://safe-transaction-sepolia.safe.global/api'
+            chainId: 11155111n
         });
 
         // Create a Tx in Tx service with Signature of Owner A
@@ -198,7 +197,6 @@ It is also possible to group multiple transactions into a single transaction and
         # Instantiate a Tx Service Api
         transaction_service_api = TransactionServiceApi(
             network=EthereumNetwork.SEPOLIA,
-            base_url="https://safe-transaction-sepolia.safe.global",
             ethereum_client=ethereum_client
         )
     
@@ -236,8 +234,7 @@ It is also possible to group multiple transactions into a single transaction and
     async function getAndExecuteSignedTx(safeTxHash: string) {
         // Initialize the Api Kit
         const apiKit = new SafeApiKit({
-            chainId: 11155111n,
-            txServiceUrl: 'https://safe-transaction-sepolia.safe.global/api'
+            chainId: 11155111n
         });
 
         // Get signed Tx
@@ -280,7 +277,6 @@ It is also possible to group multiple transactions into a single transaction and
     
         transaction_service_api = TransactionServiceApi(
             network=EthereumNetwork.SEPOLIA,
-            base_url="https://safe-transaction-sepolia.safe.global",
             ethereum_client=ethereum_client
         )
     
@@ -309,8 +305,7 @@ It is also possible to group multiple transactions into a single transaction and
 
     async function getLastExecutedTx() {
         const apiKit = new SafeApiKit({
-            chainId: 11155111n,
-            txServiceUrl: 'https://safe-transaction-sepolia.safe.global/api'
+            chainId: 11155111n
         });
 
         const transactions = await apiKit.getMultisigTransactions(config.SAFE_ADDRESS);
@@ -335,7 +330,6 @@ It is also possible to group multiple transactions into a single transaction and
         ethereum_client = EthereumClient(config.get("RPC_URL"))
         transaction_service_api = TransactionServiceApi(
             network=EthereumNetwork.SEPOLIA,
-            base_url="https://safe-transaction-sepolia.safe.global",
             ethereum_client=ethereum_client
         )
     
@@ -419,8 +413,7 @@ It is also possible to group multiple transactions into a single transaction and
         
         // Initialize the Api Kit
         const apiKit = new SafeApiKit({
-            chainId: 11155111n,
-            txServiceUrl: 'https://safe-transaction-sepolia.safe.global/api'
+            chainId: 11155111n
         });
 
         // Add Message to Tx service
@@ -520,8 +513,7 @@ It is also possible to group multiple transactions into a single transaction and
 
         // Initialize the Api Kit
         const apiKit = new SafeApiKit({
-            chainId: 11155111n,
-            txServiceUrl: 'https://safe-transaction-sepolia.safe.global/api'
+            chainId: 11155111n
         });
 
         const ownerAAddress = await ethAdapterOwnerA.getSignerAddress();
@@ -578,7 +570,6 @@ It is also possible to group multiple transactions into a single transaction and
         ethereum_client = EthereumClient(config.get("RPC_URL"))
         transaction_service_api = TransactionServiceApi(
             network=EthereumNetwork.SEPOLIA,
-            base_url="https://safe-transaction-sepolia.safe.global",
             ethereum_client=ethereum_client
         )
     
