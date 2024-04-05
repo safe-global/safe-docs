@@ -67,6 +67,11 @@ pip install safe-eth-py web3 hexbytes
 #### Using safe-core-sdk
 
 ```js
+    import { ethers } from 'ethers';
+    import SafeApiKit from '@safe-global/api-kit';
+    import Safe, { EthersAdapter } from '@safe-global/protocol-kit';
+    import { MetaTransactionData, OperationType } from '@safe-global/safe-core-sdk-types';
+
     async function createTransactionAndSignByOwners() {    
         // Instantiate an EthAdapter for Owner A
         const ethProvider = new ethers.JsonRpcProvider(config.RPC_URL);
@@ -173,6 +178,11 @@ It is also possible to group multiple transactions into a single transaction and
 #### Using safe-eth-py
 
 ```python
+    from gnosis.safe.api.transaction_service_api import TransactionServiceApi
+    from gnosis.eth import EthereumClient, EthereumNetwork
+    from gnosis.safe import Safe
+    from hexbytes import HexBytes
+
     def create_transaction_and_sign_by_owners():
     
         # Instantiate a Safe
@@ -219,6 +229,10 @@ It is also possible to group multiple transactions into a single transaction and
 #### Using safe-core-sdk
 
 ```js
+    import { ethers } from 'ethers';
+    import SafeApiKit from '@safe-global/api-kit';
+    import Safe, { EthersAdapter } from '@safe-global/protocol-kit';
+
     async function getAndExecuteSignedTx(safeTxHash: string) {
         // Initialize the Api Kit
         const apiKit = new SafeApiKit({
@@ -257,6 +271,9 @@ It is also possible to group multiple transactions into a single transaction and
 #### Using safe-eth-py
 
 ```python
+    from gnosis.eth import EthereumClient, EthereumNetwork
+    from gnosis.safe.api.transaction_service_api import TransactionServiceApi
+
     def get_and_execute_signed_tx(safe_tx_hash):
         # Instantiate a Tx Service Api
         ethereum_client = EthereumClient(config.get("RPC_URL"))
@@ -288,6 +305,8 @@ It is also possible to group multiple transactions into a single transaction and
 #### Using safe-core-sdk
 
 ```js
+    import SafeApiKit from '@safe-global/api-kit';
+
     async function getLastExecutedTx() {
         const apiKit = new SafeApiKit({
             chainId: 11155111n,
@@ -308,6 +327,9 @@ It is also possible to group multiple transactions into a single transaction and
 #### Using safe-eth-py
 
 ```python
+    from gnosis.eth import EthereumClient, EthereumNetwork
+    from gnosis.safe.api.transaction_service_api import TransactionServiceApi
+    
     def get_last_executed_tx():
         # Instantiate a Tx Service Api
         ethereum_client = EthereumClient(config.get("RPC_URL"))
@@ -364,6 +386,10 @@ It is also possible to group multiple transactions into a single transaction and
 #### Using safe-core-sdk
 
 ```js
+    import { ethers } from 'ethers';
+    import SafeApiKit, { AddMessageProps } from '@safe-global/api-kit';
+    import Safe, { EthersAdapter, hashSafeMessage } from '@safe-global/protocol-kit';
+
     async function createMessageAndSignByOwners() {
         // Instantiate an EthAdapter for Owner A
         const ethProvider = new ethers.JsonRpcProvider(config.RPC_URL);
@@ -478,6 +504,10 @@ It is also possible to group multiple transactions into a single transaction and
 #### Using safe-core-sdk
 
 ```js
+    import { ethers } from 'ethers';
+    import SafeApiKit, { AddSafeDelegateProps } from '@safe-global/api-kit';
+    import { EthersAdapter } from '@safe-global/protocol-kit';
+
     async function manageDelegates() {    
         // Instantiate an EthAdapter for Owner A
         const ethProvider = new ethers.JsonRpcProvider(config.RPC_URL);
@@ -538,6 +568,11 @@ It is also possible to group multiple transactions into a single transaction and
 #### Using safe-eth-py
 
 ```python
+    from gnosis.eth import EthereumClient, EthereumNetwork
+    from gnosis.safe.api.transaction_service_api import TransactionServiceApi
+    from eth_account import Account
+    from eth_typing import ChecksumAddress
+
     def manage_delegates():
         # Instantiate a Tx Service Api
         ethereum_client = EthereumClient(config.get("RPC_URL"))
