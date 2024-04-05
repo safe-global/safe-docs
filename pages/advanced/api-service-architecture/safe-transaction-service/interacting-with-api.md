@@ -178,8 +178,8 @@ It is also possible to group multiple transactions into a single transaction and
 #### Using safe-eth-py
 
 ```python
-    from gnosis.safe.api.transaction_service_api import TransactionServiceApi
     from gnosis.eth import EthereumClient, EthereumNetwork
+    from gnosis.safe.api.transaction_service_api import TransactionServiceApi
     from gnosis.safe import Safe
     from hexbytes import HexBytes
 
