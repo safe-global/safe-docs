@@ -185,7 +185,6 @@ from gnosis.safe import Safe
 from hexbytes import HexBytes
 
 def create_transaction_and_sign_by_owners():
-
     # Instantiate a Safe
     ethereum_client = EthereumClient(config.get("RPC_URL"))
     safe = Safe(config.get("SAFE_ADDRESS"), ethereum_client)
@@ -205,15 +204,18 @@ def create_transaction_and_sign_by_owners():
     # Send Tx to Tx Service
     transaction_service_api.post_transaction(safe_tx)
 
-    # Sign Tx by Owner B
-    owner_b_signature = safe_tx.sign(config.get("OWNER_B_PRIVATE_KEY"))
-
-    # Add signature of owner B in Tx service
-    transaction_service_api.post_signatures(safe_tx.safe_tx_hash, owner_b_signature)
-
+    # Get Tx from Tx Service
     (safe_tx_from_tx_service, _) = transaction_service_api.get_safe_transaction(safe_tx.safe_tx_hash)
 
-    print(f"Tx created: {safe_tx_from_tx_service}")
+    # Sign Tx by Owner B
+    owner_b_signature = safe_tx_from_tx_service.sign(config.get("OWNER_B_PRIVATE_KEY"))
+
+    # Add signature of owner B in Tx service
+    transaction_service_api.post_signatures(safe_tx_from_tx_service.safe_tx_hash, owner_b_signature)
+
+    (safe_signed_tx_from_tx_service, _) = transaction_service_api.get_safe_transaction(safe_tx_from_tx_service.safe_tx_hash)
+
+    print(f"Tx created: {safe_signed_tx_from_tx_service}")
 ```
 
 ### Getting a transaction using safe transaction hash and executing it
