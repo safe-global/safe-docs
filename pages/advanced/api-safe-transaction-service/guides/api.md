@@ -2,7 +2,7 @@
 
 This section shows some examples of how to interact with the Safe Transaction Service API in different situations.
 
-The examples have been proposed using [Curl](https://github.com/curl/curl) requests, the [Safe Apps SDK](https://github.com/safe-global/safe-apps-sdk) and the [safe-eth-py](https://github.com/safe-global/safe-eth-py) python library.
+The examples have been proposed using [Curl](https://github.com/curl/curl) requests, the [Safe Apps SDK](https://github.com/safe-global/safe-apps-sdk) **Typescript** library and the [safe-eth-py](https://github.com/safe-global/safe-eth-py) **Python** library.
 
 ## Prerequisites
 
