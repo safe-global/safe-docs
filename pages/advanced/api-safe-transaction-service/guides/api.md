@@ -495,7 +495,7 @@ def create_message_and_sign_by_owners():
     message = f"A Safe Message - {datetime.now()}"
     message_hash = defunct_hash_message(text=message)
 
-    # Get message hash from safe
+    # Get Safe message hash
     safe_message_hash = safe.get_message_hash(message_hash)
 
     # Sign Message by Owner A
@@ -505,7 +505,7 @@ def create_message_and_sign_by_owners():
     # Add Message to Tx service
     transaction_service_api.post_message(config.get("SAFE_ADDRESS"), message, owner_a_signature.signature)
 
-    # Sign Message by Owner A
+    # Sign Message by Owner B
     account_owner_b = Account.from_key(config.get("OWNER_B_PRIVATE_KEY"))
     owner_b_signature = account_owner_b.signHash(safe_message_hash)
 
