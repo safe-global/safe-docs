@@ -293,7 +293,7 @@ def get_and_execute_signed_tx(safe_tx_hash):
     print(f"Tx executed: {result}")
 ```
 
-### Getting the last executed transaction
+### Getting the last executed multisig transaction
 
 #### Using Curl
 
