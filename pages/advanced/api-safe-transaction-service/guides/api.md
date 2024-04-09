@@ -469,6 +469,54 @@ async function createMessageAndSignByOwners() {
 }
 ```
 
+#### Using safe-eth-py
+
+```python
+from datetime import datetime
+from eth_account import Account
+from eth_account.messages import defunct_hash_message
+from gnosis.eth import EthereumClient, EthereumNetwork
+from gnosis.safe import Safe
+from gnosis.safe.api.transaction_service_api import TransactionServiceApi
+
+
+def create_message_and_sign_by_owners():
+    # Instantiate a Safe
+    ethereum_client = EthereumClient(config.get("RPC_URL"))
+    safe = Safe(config.get("SAFE_ADDRESS"), ethereum_client)
+
+    # Instantiate a Tx Service Api
+    transaction_service_api = TransactionServiceApi(
+        network=EthereumNetwork.SEPOLIA,
+        ethereum_client=ethereum_client
+    )
+
+    # Create a message and get the message hash EIP-191
+    message = f"A Safe Message - {datetime.now()}"
+    message_hash = defunct_hash_message(text=message)
+
+    # Get message hash from safe
+    safe_message_hash = safe.get_message_hash(message_hash)
+
+    # Sign Message by Owner A
+    account_owner_a = Account.from_key(config.get("OWNER_A_PRIVATE_KEY"))
+    owner_a_signature = account_owner_a.signHash(safe_message_hash)
+
+    # Add Message to Tx service
+    transaction_service_api.post_message(config.get("SAFE_ADDRESS"), message, owner_a_signature.signature)
+
+    # Sign Message by Owner A
+    account_owner_b = Account.from_key(config.get("OWNER_B_PRIVATE_KEY"))
+    owner_b_signature = account_owner_b.signHash(safe_message_hash)
+
+    # Add Message signature to Tx service
+    transaction_service_api.post_message_signature(safe_message_hash, owner_b_signature.signature)
+
+    # Get signed message from Tx Service
+    signed_message = transaction_service_api.get_message(safe_message_hash)
+    print(f"Signed message: {signed_message}")
+```
+
 ### Manage user delegates
 
 #### Using Curl
