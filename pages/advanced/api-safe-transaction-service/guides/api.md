@@ -6,7 +6,7 @@ The examples have been proposed using [Curl](https://github.com/curl/curl) reque
 
 ## Prerequisites
 
-1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm).
+1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm) (If using `Safe Apps SDK`).
 2. [Python](https://www.python.org/downloads/) >= 3.9 (If using `safe-eth-py`).
 3. Have a Safe configured with threshold equal to 2, where 2 signatures are needed to execute transactions.
 
