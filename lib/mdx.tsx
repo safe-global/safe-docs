@@ -18,7 +18,7 @@ import MuiLink from '@mui/material/Link'
 
 import { type Heading } from '../components/ApiReference/TOC'
 import swagger from '../components/ApiReference/mainnet-swagger.json'
-import { capitalize } from 'lodash'
+import pathsMetadata from '../components/ApiReference/paths-metadata.json'
 
 export const slugify: (text: string) => string = text =>
   text?.replace?.(/ /g, '_').replace(/\//g, '_')
@@ -29,11 +29,12 @@ export const getHeadingChildren: (heading: string) => Heading[] = heading => {
     .filter(path => path.startsWith(headingPath))
     .map(path => {
       const method = Object.keys(swagger.paths[path as '/v1/about/'])[0]
-      const pathParts = path.split('/')
-      const pathText = capitalize(pathParts[pathParts.length - 2])
+      const title =
+        pathsMetadata?.[path as '/v1/about/ethereum-rpc/']?.[method as 'get']
+          ?.title ?? path + ' - ' + method
       return {
-        text: pathText,
-        link: `#${slugify(path)}`,
+        text: title,
+        link: `#${slugify(title)}`,
         method
       }
     })

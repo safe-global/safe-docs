@@ -11,14 +11,16 @@ import {
 import AddIcon from '@mui/icons-material/Add'
 import NextLink from 'next/link'
 import ReactGA from 'react-ga4'
-import { useRouter } from 'next/router'
 
 import FeedbackGood from '../../assets/svg/feedback-good.svg'
 import FeedbackBad from '../../assets/svg/feedback-bad.svg'
 import Check from '../../assets/svg/check.svg'
 
-const Feedback: React.FC<{ label?: string }> = ({ label }) => {
-  const { asPath } = useRouter()
+const Feedback: React.FC<{
+  label?: string
+  asPath?: string
+  small?: boolean
+}> = ({ label, asPath, small = false }) => {
   const [isPositive, setIsPositive] = useState<boolean | null>(null)
   const [feedback, setFeedback] = useState('')
   const [loading, setLoading] = useState(false)
@@ -55,7 +57,7 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
       {submitted ? (
         <Grid
           container
-          flexDirection='column'
+          flexDirection={small ? 'row' : 'column'}
           justifyContent='center'
           alignItems='center'
         >
@@ -176,11 +178,20 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
             >
               {label != null ? (
                 <>
-                  <Typography variant='h5' mr={3}>
+                  <Typography
+                    color='primary'
+                    variant='h5'
+                    mr={3}
+                    sx={{ width: small ? '100%' : '', mb: small ? 1 : 0 }}
+                  >
                     {label}
                   </Typography>
                   <Button
-                    sx={{ color: 'white' }}
+                    sx={{
+                      color: 'white',
+                      backgroundColor: ({ palette }) => palette.grey[900],
+                      mr: 1
+                    }}
                     onClick={() => {
                       ReactGA.event('feedback', {
                         path: window.location.pathname,
@@ -193,7 +204,11 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
                   </Button>
 
                   <Button
-                    sx={{ color: 'white' }}
+                    sx={{
+                      color: 'white',
+                      backgroundColor: ({ palette }) => palette.grey[900],
+                      mr: 1
+                    }}
                     onClick={() => {
                       ReactGA.event('feedback', {
                         path: window.location.pathname,
@@ -273,7 +288,12 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
                       path: window.location.pathname
                     })
                   }}
-                  sx={{ color: 'rgba(249,250,251,.7)' }}
+                  sx={{
+                    color: 'rgba(249,250,251,.7)',
+                    backgroundColor: small
+                      ? ({ palette }) => palette.grey[900]
+                      : 'transparent'
+                  }}
                 >
                   Report issue
                 </Button>

@@ -28,112 +28,121 @@ const TableOfContents: React.FC<{ headings: Heading[] }> = ({ headings }) => {
       item
       flexDirection='column'
       sx={{
-        height: '100vh',
+        height: `calc(100vh - ${navHeight}px - 16px)`,
         position: 'sticky',
         top: navHeight,
         overflowX: 'hidden',
+        overflowY: 'scroll',
         maxWidth: [tocWidthSm.toString() + 'px', tocWidthMd.toString() + 'px'],
-        borderRight: '1px solid #2e3035',
-        pb: 4
+        borderRight: '1px solid #2e3035'
       }}
     >
-      {headings.map((heading, index) => (
-        <Grid
-          item
-          sx={{
-            width: [tocWidthSm.toString() + 'px', tocWidthMd.toString() + 'px']
-          }}
-          key={heading.text}
-        >
-          <Accordion
-            disableGutters
-            expanded={
-              currentIndex === heading.link ||
-              heading.children?.some(child => currentIndex === child.link)
-            }
+      <Grid item sx={{ height: '100%' }}>
+        {headings.map((heading, index) => (
+          <Grid
+            item
             sx={{
-              '&.Mui-expanded': { margin: '0px' },
-              backgroundColor: 'transparent',
-              borderRadius: '5px',
-              boxShadow: 'none',
-              ':before': {
-                backgroundColor: 'transparent'
-              }
+              width: [
+                tocWidthSm.toString() + 'px',
+                tocWidthMd.toString() + 'px'
+              ]
             }}
-            // disabled={accordion.disabled}
+            key={heading.text}
           >
-            <AccordionSummary
+            <Accordion
+              disableGutters
+              expanded={
+                currentIndex === heading.link ||
+                heading.children?.some(child => currentIndex === child.link)
+              }
               sx={{
-                color: 'text.primary',
+                '&.Mui-expanded': { margin: '0px' },
+                backgroundColor: 'transparent',
                 borderRadius: '5px',
-                my: -1,
-                backgroundColor:
-                  currentIndex === heading.link
-                    ? theme.palette.background.light
-                    : 'transparent'
-              }}
-              aria-controls={`panel${index}d-content`}
-              id={`panel${index}d-header`}
-            >
-              <Link
-                href={heading.link}
-                color={
-                  currentIndex === heading.link ? 'text.primary' : 'grey.400'
+                boxShadow: 'none',
+                ':before': {
+                  backgroundColor: 'transparent'
                 }
+              }}
+              // disabled={accordion.disabled}
+            >
+              <AccordionSummary
                 sx={{
-                  fontSize: '14px',
-                  fontWeight: '700',
-                  textDecoration: 'none',
-                  transition: 'color 0.1s',
-                  '&:hover': {
-                    color: 'primary.main'
-                  }
-                }}
-              >
-                {heading.text}
-              </Link>
-            </AccordionSummary>
-            {heading.children?.map((child, index) => (
-              <AccordionDetails
-                key={index}
-                sx={{
-                  textAlign: 'justify',
+                  color: 'text.primary',
                   borderRadius: '5px',
-                  mr: 2,
-                  pb: 1,
+                  my: -1,
                   backgroundColor:
-                    currentIndex === child.link
+                    currentIndex === heading.link
                       ? theme.palette.background.light
                       : 'transparent'
                 }}
+                aria-controls={`panel${index}d-content`}
+                id={`panel${index}d-header`}
               >
                 <Link
-                  href={child.link}
+                  href={heading.link}
                   color={
-                    currentIndex === child.link ? 'text.primary' : 'grey.600'
+                    currentIndex === heading.link ? 'text.primary' : 'grey.400'
                   }
                   sx={{
-                    ml: 2,
                     fontSize: '14px',
-                    fontWeight: '500',
+                    fontWeight: '700',
                     textDecoration: 'none',
                     transition: 'color 0.1s',
                     '&:hover': {
                       color: 'primary.main'
-                    },
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
+                    }
                   }}
                 >
-                  {child.text}
-                  <Method method={child.method} />
+                  {heading.text.length > 20
+                    ? heading.text.slice(0, 20) + '...'
+                    : heading.text}
                 </Link>
-              </AccordionDetails>
-            ))}
-          </Accordion>
-        </Grid>
-      ))}
+              </AccordionSummary>
+              {heading.children?.map((child, index) => (
+                <AccordionDetails
+                  key={index}
+                  sx={{
+                    textAlign: 'justify',
+                    borderRadius: '5px',
+                    mr: 2,
+                    pb: 1,
+                    backgroundColor:
+                      currentIndex === child.link
+                        ? theme.palette.background.light
+                        : 'transparent'
+                  }}
+                >
+                  <Link
+                    href={child.link}
+                    color={
+                      currentIndex === child.link ? 'text.primary' : 'grey.600'
+                    }
+                    sx={{
+                      ml: 2,
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      textDecoration: 'none',
+                      transition: 'color 0.1s',
+                      '&:hover': {
+                        color: 'primary.main'
+                      },
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}
+                  >
+                    {child.text.length > 20
+                      ? child.text.slice(0, 20) + '...'
+                      : child.text}
+                    <Method method={child.method} />
+                  </Link>
+                </AccordionDetails>
+              ))}
+            </Accordion>
+          </Grid>
+        ))}
+      </Grid>
     </Grid>
   )
 }

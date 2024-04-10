@@ -1,16 +1,21 @@
-import { Chip } from '@mui/material'
+import { Chip, type SxProps } from '@mui/material'
 
-const Method: React.FC<{ method?: string }> = ({ method }) => (
+const MethodChip: React.FC<{ method?: string, sx?: SxProps }> = ({
+  method,
+  sx,
+  ...props
+}) => (
   <Chip
-    sx={{ borderRadius: 1 }}
+    sx={{ borderRadius: 1, ...sx }}
     label={method}
     color={chipColor(method) as 'primary'}
     variant='outlined'
     size='small'
+    {...props}
   />
 )
 
-export default Method
+export default MethodChip
 
 const chipColor = (method?: string): string => {
   switch (method?.toUpperCase()) {

@@ -27,9 +27,11 @@
   },
   "homepage": "https://github.com/safe-global/safe-docs#readme",
   "dependencies": {
+    "@code-hike/mdx": "^0.9.0",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
+    "@mdx-js/loader": "^3.0.1",
     "@mui/icons-material": "^5.15.12",
     "@mui/material": "^5.15.12",
     "@preact/signals": "^1.2.2",
@@ -45,7 +47,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-ga4": "^2.1.0",
-    "shelljs": "^0.8.5"
+    "remark-gfm": "^4.0.0",
+    "shelljs": "^0.8.5",
+    "shiki": "^1.2.4"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.1.3",

@@ -28,5 +28,5 @@
     ".eslintrc.js",
     "**/scripts/**/*"
   ],
-  "exclude": ["node_modules", "next.config.mjs"]
+  "exclude": ["node_modules", "components/ApiReference/index.tsx"]
 }

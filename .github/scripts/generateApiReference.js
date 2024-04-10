@@ -1,25 +1,25 @@
 const fs = require('fs')
 const { capitalize } = require('lodash')
 
-const mainnetApiJson = require('../../components/ApiReference/mainnet-swagger.json')
+const jsonFile = require('../../components/ApiReference/mainnet-swagger.json')
 const pathsMetadata = require('../../components/ApiReference/paths-metadata.json')
 
-const transactionServiceUrls = [
-  'https://safe-transaction-mainnet.safe.global',
-  'https://safe-transaction-arbitrum.safe.global',
-  'https://safe-transaction-aurora.safe.global',
-  'https://safe-transaction-avalanche.safe.global',
-  'https://safe-transaction-base.safe.global',
-  'https://safe-transaction-base-sepolia.safe.global',
-  'https://safe-transaction-bsc.safe.global',
-  'https://safe-transaction-celo.safe.global',
-  'https://safe-transaction-gnosis-chain.safe.global',
-  'https://safe-transaction-optimism.safe.global',
-  'https://safe-transaction-polygon.safe.global',
-  'https://safe-transaction-zkevm.safe.global',
-  'https://safe-transaction-sepolia.safe.global',
-  'https://safe-transaction-zksync.safe.global'
-]
+const slugify = text => text?.replace?.(/ /g, '_').replace(/\//g, '_')
+const resolveRef = ref => jsonFile.definitions[ref.split('/').pop()]
+const resolveRefs = obj => {
+  if (typeof obj === 'object') {
+    for (const key in obj) {
+      if (key === '$ref') {
+        obj = resolveRef(obj[key])
+      } else {
+        obj[key] = resolveRefs(obj[key])
+      }
+    }
+  }
+  return obj
+}
+
+const mainnetApiJson = resolveRefs(jsonFile)
 
 const addMethodContext = json => ({
   ...json,
@@ -30,8 +30,8 @@ const addMethodContext = json => ({
         [method]: {
           ...data,
           path,
-          title: pathsMetadata[path]?.title ?? '',
-          additionalInfo: pathsMetadata[path]?.additionalInfo ?? ''
+          title: pathsMetadata[path]?.[method]?.title ?? '',
+          additionalInfo: pathsMetadata[path]?.[method]?.additionalInfo ?? ''
         }
       }),
       {}
@@ -55,43 +55,58 @@ const getApiJson = async url => {
   return withContext
 }
 
-const generateResponseContent = (response, path, method) =>
-  `**${response}** - ${mainnetApiJson.paths[path][method].responses[response].description}`
-
-const generateParameterContent = parameter =>
-  `**${parameter.name}** - ${
-    parameter.name === '200' ? 'OK' : parameter.description
-  }`
-
 const generateMethodContent = (path, method) => {
   const _method = mainnetApiJson.paths[path][method]
-  const responses = Object.keys(_method.responses)
-  return `### ${path}
-  <Method method="${method}" /> 
-  
+  const responses = Object.entries(_method.responses).map(
+    ([code, { schema, ...data }]) => ({
+      code,
+      schema:
+        schema?.['$ref'] !== undefined
+          ? resolveRef(schema['$ref'])
+          : {
+              ...schema,
+              items:
+                schema?.items?.['$ref'] !== undefined
+                  ? resolveRef(schema.items['$ref'])
+                  : schema?.items
+            },
+      ...data
+    })
+  )
+  const title =
+    pathsMetadata[path]?.[method]?.title ??
+    path.replace(/{/g, '\\{').replace(/}/g, '\\}') + ' - ' + method
+
+  return `
+  ### ${title}
+
+<Grid container justifyContent='space-between'>
+  <Grid item xs={5.6}>
+
 ${_method.summary ?? ''}
 
-${_method.description ?? ''}
+${_method.description.replace(/{/g, '\\{').replace(/}/g, '\\}') ?? ''}
 
-${
-  _method.parameters?.length > 0
-    ? `##### Parameters
-${_method.parameters
-  ?.map(parameter => generateParameterContent(parameter))
-  .join('\n')}`
-    : ''
-}
-
-${
-  responses.length > 0
-    ? `##### Responses
-
-${responses
-  .map(response => generateResponseContent(response, path, method))
-  .join('\n')}
+  <Parameters parameters={${JSON.stringify(_method.parameters ?? [])}} />
+  <Responses responses={${JSON.stringify(responses)}} />
+  <Feedback asPath={'/api-reference#${slugify(
+      title
+    )}'} label='Did this API route run successfully?' small />
+</Grid>
+  <Grid item xs={5.6}>
+   <Path path="${path}" method="${method}" />
+   ${
+     pathsMetadata[path]?.[method]?.example === true
+       ? `
+    \`\`\`js query.js
+      // from ./examples/${slugify(path)}.ts
+    \`\`\`
+  `
+       : ''
+   }
+   </Grid>
+</Grid>
 `
-    : ''
-}`
 }
 
 const generatePathContent = path =>
@@ -114,7 +129,7 @@ const getCategories = version =>
       return {
         title: pathname.split('/')[0],
         paths: Object.entries(mainnetApiJson.paths)
-          .filter(([key]) => key.includes(pathname))
+          .filter(([key]) => key.includes(path))
           .flat()
           .filter((value, index) => index % 2 === 0)
       }
@@ -126,25 +141,39 @@ const getCategories = version =>
     )
 
 const generateMainContent = () => {
-  const categories = [...getCategories('v1'), ...getCategories('v2')]
+  const categories = [...getCategories('v1')]
 
   return `
-import Method from './Method'
+import Path from './Path'
+import Parameters from './Parameter'
+import NetworkSwitcher from './Network'
+import Responses from './Response'
+import Feedback from '../Feedback'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import '@code-hike/mdx/dist/index.css'
 
-# Safe Transaction Service API Reference  
+# Safe Transaction Service API Reference
 
-  ${mainnetApiJson.info?.description}
-    
+This is the Safe Transaction Service API Reference. It is a
+collection of endpoints that allow you to keep track of
+transactions sent via Safe smart contracts.
+
+The Transaction Service is available on [multiple networks](../../advanced/api-supported-networks), at
+different endpoints:
+
+<NetworkSwitcher />
+
   ${categories.map(path => generateCategoryContent(path)).join('\n')}
-  `
+`
 }
 
 const main = async () => {
-  await getApiJson(transactionServiceUrls[0])
+  await getApiJson('https://safe-transaction-mainnet.safe.global')
   const mdxContent = generateMainContent()
   fs.writeFileSync(
     `./components/ApiReference/generated-reference.mdx`,
-    mdxContent.replace(/{/g, '\\{').replace(/}/g, '\\}')
+    mdxContent
   )
 }
 

@@ -69,8 +69,8 @@
           "v1"
         ],
         "path": "/v1/about/ethereum-rpc/",
-        "title": "",
-        "additionalInfo": ""
+        "title": "Ethereum RPC",
+        "additionalInfo": "This is an example of more detailed information about Ethereum RPC endpoint. This should support MDX."
       },
       "parameters": {
         "path": "/v1/about/ethereum-rpc/",
@@ -3470,7 +3470,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "0f220e04-e69e-4483-aba5-d5864ae7f8e3"
+          "default": "cf4a06e2-ad0b-450a-96c6-1924a981e66f"
         },
         "safes": {
           "type": "array",
@@ -3539,7 +3539,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "98e514ad-b5e8-4227-a4bb-4051704f8a1f"
+          "default": "79f11af9-c54f-4efe-a600-bffc0c1991c0"
         },
         "safes": {
           "type": "array",
