@@ -30,6 +30,8 @@ different endpoints:
 
 Returns information and configuration of the service
 
+
+
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"200","schema":{},"description":""}]} />
   <Feedback asPath={'/api-reference#_v1_about__-_get'} label='Did this API route run successfully?' small />
@@ -48,6 +50,8 @@ Returns information and configuration of the service
 
 
 Get information about the Ethereum RPC node used by the service
+
+This is an example of more detailed information about Ethereum RPC endpoint. This should support MDX.
 
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"200","schema":{},"description":""}]} />
@@ -72,6 +76,8 @@ Get information about the Ethereum RPC node used by the service
 
 Get information about the Ethereum Tracing RPC node used by the service (if any configured)
 
+
+
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"200","schema":{},"description":""}]} />
   <Feedback asPath={'/api-reference#_v1_about_ethereum-tracing-rpc__-_get'} label='Did this API route run successfully?' small />
@@ -90,6 +96,8 @@ Get information about the Ethereum Tracing RPC node used by the service (if any 
 
 
 Get current indexing status for ERC20/721 events
+
+
 
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"200","schema":{"type":"array","items":{"required":["currentBlockNumber","erc20BlockNumber","erc20Synced","masterCopiesBlockNumber","masterCopiesSynced","synced"],"type":"object","properties":{"currentBlockNumber":{"title":"Current block number","type":"integer"},"erc20BlockNumber":{"title":"Erc20 block number","type":"integer"},"erc20Synced":{"title":"Erc20 synced","type":"boolean"},"masterCopiesBlockNumber":{"title":"Master copies block number","type":"integer"},"masterCopiesSynced":{"title":"Master copies synced","type":"boolean"},"synced":{"title":"Synced","type":"boolean"}}}},"description":""}]} />
@@ -110,6 +118,8 @@ Get current indexing status for ERC20/721 events
 
 Use `singletons` instead of `master-copies`
 
+
+
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"200","schema":{},"description":"Ok"}]} />
   <Feedback asPath={'/api-reference#_v1_about_master-copies__-_get'} label='Did this API route run successfully?' small />
@@ -124,6 +134,8 @@ Use `singletons` instead of `master-copies`
 
 <Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
+
+
 
 
 
@@ -150,6 +162,8 @@ Use `singletons` instead of `master-copies`
 
 
 
+
+
   <Parameters parameters={[{"name":"ordering","in":"query","description":"Which field to use when ordering the results.","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"}]} />
   <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"required":["address","name","displayName","contractAbi","trustedForDelegateCall"],"type":"object","properties":{"address":{"title":"Address","type":"string"},"name":{"title":"Name","type":"string","minLength":1},"displayName":{"title":"Display name","type":"string","minLength":1},"logoUri":{"title":"Logo uri","type":"string","readOnly":true,"format":"uri"},"contractAbi":{"required":["abi","description","relevance"],"type":"object","properties":{"abi":{"type":"array","items":{"type":"object","additionalProperties":{"type":"string","x-nullable":true}}},"description":{"title":"Description","type":"string","minLength":1},"relevance":{"title":"Relevance","type":"integer"}}},"trustedForDelegateCall":{"title":"Trusted for delegate call","type":"boolean"}}}}}},"description":""}]} />
   <Feedback asPath={'/api-reference#_v1_contracts__-_get'} label='Did this API route run successfully?' small />
@@ -164,6 +178,8 @@ Use `singletons` instead of `master-copies`
 
 <Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
+
+
 
 
 
@@ -193,6 +209,8 @@ data as a `0x` prefixed hexadecimal string.
 If address of the receiving contract is provided decoded data will be more accurate,
 as in case of ABI collision service will know which ABI to use.
 
+
+
   <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["data"],"type":"object","properties":{"data":{"title":"Data","type":"string"},"to":{"title":"To","type":"string","x-nullable":true}}}}]} />
   <Responses responses={[{"code":"200","schema":{},"description":"Decoded data"},{"code":"404","schema":{},"description":"Cannot find function selector to decode data"},{"code":"422","schema":{},"description":"Invalid data"}]} />
   <Feedback asPath={'/api-reference#_v1_data-decoder__-_post'} label='Did this API route run successfully?' small />
@@ -213,6 +231,8 @@ as in case of ABI collision service will know which ABI to use.
 
 
 Get list of delegates
+
+
 
   <Parameters parameters={[{"name":"safe","in":"query","description":"safe","required":false,"type":"string"},{"name":"delegate","in":"query","description":"delegate","required":false,"type":"string"},{"name":"delegator","in":"query","description":"delegator","required":false,"type":"string"},{"name":"label","in":"query","description":"label","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"}]} />
   <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"required":["safe","delegate","delegator","label"],"type":"object","properties":{"safe":{"title":"Safe","type":"string"},"delegate":{"title":"Delegate","type":"string"},"delegator":{"title":"Delegator","type":"string"},"label":{"title":"Label","type":"string","maxLength":50,"minLength":1}}}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"}]} />
@@ -241,6 +261,8 @@ For example:
      - `TOTP = epoch // 3600 = 1586779140 // 3600 = 440771`
      - The hash to sign by a Safe owner would be `keccak("0x132512f995866CcE1b0092384A6118EDaF4508Ff440771")`
 
+
+
   <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["delegate","delegator","signature","label"],"type":"object","properties":{"safe":{"title":"Safe","type":"string","x-nullable":true},"delegate":{"title":"Delegate","type":"string"},"delegator":{"title":"Delegator","type":"string"},"signature":{"title":"Signature","type":"string"},"label":{"title":"Label","type":"string","maxLength":50,"minLength":1}}}}]} />
   <Responses responses={[{"code":"202","schema":{},"description":"Accepted"},{"code":"400","schema":{},"description":"Malformed data"}]} />
   <Feedback asPath={'/api-reference#_v1_delegates__-_post'} label='Did this API route run successfully?' small />
@@ -261,6 +283,8 @@ For example:
 Delete every pair delegate/delegator found. Signature is built the same way as for adding a delegate,
 but in this case the signer can be either the `delegator` (owner) or the `delegate` itself.
 Check `POST /delegates/`
+
+
 
   <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["delegate","delegator","signature"],"type":"object","properties":{"delegate":{"title":"Delegate","type":"string"},"delegator":{"title":"Delegator","type":"string"},"signature":{"title":"Signature","type":"string"}}}}]} />
   <Responses responses={[{"code":"204","schema":{},"description":"Deleted"},{"code":"400","schema":{},"description":"Malformed data"},{"code":"404","schema":{},"description":"Delegate not found"},{"code":"422","schema":{},"description":"Invalid Ethereum address/Error processing data"}]} />
@@ -283,6 +307,8 @@ Check `POST /delegates/`
 
 
 
+
+
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"200","schema":{"required":["created","modified","safe","messageHash","message","proposedBy","safeAppId"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"safe":{"title":"Safe","type":"string"},"messageHash":{"title":"Message hash","type":"string"},"message":{"title":"Message","type":"object"},"proposedBy":{"title":"Proposed by","type":"string"},"safeAppId":{"title":"Safe app id","type":"integer"},"confirmations":{"title":"Confirmations","type":"string","readOnly":true},"preparedSignature":{"title":"Prepared signature","type":"string","readOnly":true}}},"description":""}]} />
   <Feedback asPath={'/api-reference#_v1_messages_\{message_hash\}__-_get'} label='Did this API route run successfully?' small />
@@ -297,6 +323,8 @@ Check `POST /delegates/`
 
 <Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
+
+
 
 
 
@@ -323,6 +351,8 @@ Check `POST /delegates/`
 
 :return: module transaction filtered by module_transaction_id
 
+
+
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"200","schema":{"required":["executionDate","safe","module","to","value","data","operation"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer","readOnly":true},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string","readOnly":true},"safe":{"title":"Safe","type":"string","minLength":1},"module":{"title":"Module","type":"string","minLength":1},"to":{"title":"To","type":"string","minLength":1},"value":{"title":"Value","type":"string","format":"decimal"},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","enum":[0,1,2]},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"moduleTransactionId":{"title":"Module transaction id","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`","type":"string","readOnly":true}}},"description":""},{"code":"400","schema":{},"description":"Invalid moduleTransactionId"},{"code":"404","schema":{},"description":"ModuleTransaction does not exist"}]} />
   <Feedback asPath={'/api-reference#_v1_module-transaction_\{module_transaction_id\}_-_get'} label='Did this API route run successfully?' small />
@@ -344,6 +374,8 @@ Check `POST /delegates/`
 
 Return Safes where the module address provided is enabled
 
+
+
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"200","schema":{"required":["safes"],"type":"object","properties":{"safes":{"type":"array","items":{"type":"string"}}}},"description":""},{"code":"422","schema":{},"description":"Module address checksum not valid"}]} />
   <Feedback asPath={'/api-reference#_v1_modules_\{address\}_safes__-_get'} label='Did this API route run successfully?' small />
@@ -360,6 +392,8 @@ Return Safes where the module address provided is enabled
 
 <Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
+
+
 
 
 
@@ -418,6 +452,8 @@ An EOA is required to sign the following EIP712 data:
 `totp` parameter is calculated with `T0=0` and `Tx=3600`. `totp` is calculated by taking the
 Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)
 
+
+
   <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["safeTxHash","signature"],"type":"object","properties":{"safeTxHash":{"title":"Safe tx hash","type":"string"},"signature":{"title":"Signature","type":"string"}}}}]} />
   <Responses responses={[{"code":"204","schema":{},"description":"Deleted"},{"code":"400","schema":{},"description":"Error processing data"},{"code":"404","schema":{},"description":"Transaction not found"}]} />
   <Feedback asPath={'/api-reference#_v1_multisig-transactions_\{safe_tx_hash\}__-_delete'} label='Did this API route run successfully?' small />
@@ -436,6 +472,8 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
 
 
 Get the list of confirmations for a multisig transaction
+
+
 
   <Parameters parameters={[{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"}]} />
   <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"description":"\nFilters confirmations queryset\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n","required":["owner","submissionDate","signature"],"type":"object","properties":{"owner":{"title":"Owner","type":"string","minLength":1},"submissionDate":{"title":"Submission date","type":"string","format":"date-time"},"transactionHash":{"title":"Transaction hash","type":"string","readOnly":true},"signature":{"title":"Signature","type":"string"},"signatureType":{"title":"Signature type","type":"string","readOnly":true}}}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"}]} />
@@ -456,6 +494,8 @@ Get the list of confirmations for a multisig transaction
 
 Add a confirmation for a transaction. More than one signature can be used. This endpoint does not support
 the use of delegates to make a transaction trusted.
+
+
 
   <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["signature"],"type":"object","properties":{"signature":{"title":"Signature","type":"string"}}}}]} />
   <Responses responses={[{"code":"201","schema":{},"description":"Created"},{"code":"400","schema":{},"description":"Malformed data"},{"code":"422","schema":{},"description":"Error processing data"}]} />
@@ -483,8 +523,10 @@ Signature must sign `keccack256('gnosis-safe\{timestamp-epoch\}\{uuid\}\{cloud_m
     - `\{timestamp-epoch\}` must be an integer (no milliseconds)
     - `\{safes_sorted\}` must be checksummed safe addresses sorted and joined with no spaces
 
-  <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["safes","cloudMessagingToken","buildNumber","bundle","deviceType","version"],"type":"object","properties":{"uuid":{"title":"Uuid","type":"string","format":"uuid","default":"cf4a06e2-ad0b-450a-96c6-1924a981e66f"},"safes":{"type":"array","items":{"type":"string"}},"cloudMessagingToken":{"title":"Cloud messaging token","type":"string","maxLength":200,"minLength":100},"buildNumber":{"title":"Build number","type":"integer","minimum":0},"bundle":{"title":"Bundle","type":"string","maxLength":100,"minLength":1},"deviceType":{"title":"Device type","type":"string","enum":["ANDROID","IOS","WEB"]},"version":{"title":"Version","type":"string","maxLength":100,"minLength":1},"timestamp":{"title":"Timestamp","type":"integer"},"signatures":{"type":"array","items":{"type":"string"}}}}}]} />
-  <Responses responses={[{"code":"200","schema":{"required":["safes","cloudMessagingToken","buildNumber","bundle","deviceType","version","ownersRegistered","ownersNotRegistered"],"type":"object","properties":{"uuid":{"title":"Uuid","type":"string","format":"uuid","default":"79f11af9-c54f-4efe-a600-bffc0c1991c0"},"safes":{"type":"array","items":{"type":"string"}},"cloudMessagingToken":{"title":"Cloud messaging token","type":"string","maxLength":200,"minLength":100},"buildNumber":{"title":"Build number","type":"integer","minimum":0},"bundle":{"title":"Bundle","type":"string","maxLength":100,"minLength":1},"deviceType":{"title":"Device type","type":"string","enum":["ANDROID","IOS","WEB"]},"version":{"title":"Version","type":"string","maxLength":100,"minLength":1},"timestamp":{"title":"Timestamp","type":"integer"},"signatures":{"type":"array","items":{"type":"string"}},"ownersRegistered":{"type":"array","items":{"type":"string"}},"ownersNotRegistered":{"type":"array","items":{"type":"string"}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"}]} />
+
+
+  <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["safes","cloudMessagingToken","buildNumber","bundle","deviceType","version"],"type":"object","properties":{"uuid":{"title":"Uuid","type":"string","format":"uuid","default":"633242b5-0610-4a0a-ac22-2bd4c17ed0e5"},"safes":{"type":"array","items":{"type":"string"}},"cloudMessagingToken":{"title":"Cloud messaging token","type":"string","maxLength":200,"minLength":100},"buildNumber":{"title":"Build number","type":"integer","minimum":0},"bundle":{"title":"Bundle","type":"string","maxLength":100,"minLength":1},"deviceType":{"title":"Device type","type":"string","enum":["ANDROID","IOS","WEB"]},"version":{"title":"Version","type":"string","maxLength":100,"minLength":1},"timestamp":{"title":"Timestamp","type":"integer"},"signatures":{"type":"array","items":{"type":"string"}}}}}]} />
+  <Responses responses={[{"code":"200","schema":{"required":["safes","cloudMessagingToken","buildNumber","bundle","deviceType","version","ownersRegistered","ownersNotRegistered"],"type":"object","properties":{"uuid":{"title":"Uuid","type":"string","format":"uuid","default":"5bfbbbf3-5169-41b1-aa09-07aeb39af0f4"},"safes":{"type":"array","items":{"type":"string"}},"cloudMessagingToken":{"title":"Cloud messaging token","type":"string","maxLength":200,"minLength":100},"buildNumber":{"title":"Build number","type":"integer","minimum":0},"bundle":{"title":"Bundle","type":"string","maxLength":100,"minLength":1},"deviceType":{"title":"Device type","type":"string","enum":["ANDROID","IOS","WEB"]},"version":{"title":"Version","type":"string","maxLength":100,"minLength":1},"timestamp":{"title":"Timestamp","type":"integer"},"signatures":{"type":"array","items":{"type":"string"}},"ownersRegistered":{"type":"array","items":{"type":"string"}},"ownersNotRegistered":{"type":"array","items":{"type":"string"}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"}]} />
   <Feedback asPath={'/api-reference#_v1_notifications_devices__-_post'} label='Did this API route run successfully?' small />
 </Grid>
   <Grid item xs={5.6}>
@@ -501,6 +543,8 @@ Signature must sign `keccack256('gnosis-safe\{timestamp-epoch\}\{uuid\}\{cloud_m
 
 
 Remove a FirebaseDevice
+
+
 
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"204","schema":{},"description":""}]} />
@@ -520,6 +564,8 @@ Remove a FirebaseDevice
 
 
 Remove a Safe for a FirebaseDevice
+
+
 
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"204","schema":{},"description":""}]} />
@@ -542,6 +588,8 @@ Remove a Safe for a FirebaseDevice
 
 Return Safes where the address provided is an owner
 
+
+
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"200","schema":{"required":["safes"],"type":"object","properties":{"safes":{"type":"array","items":{"type":"string"}}}},"description":""},{"code":"422","schema":{},"description":"Owner address checksum not valid"}]} />
   <Feedback asPath={'/api-reference#_v1_owners_\{address\}_safes__-_get'} label='Did this API route run successfully?' small />
@@ -563,6 +611,8 @@ Return Safes where the address provided is an owner
 
 Get status of the safe
 
+
+
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"200","schema":{"required":["address","nonce","threshold","owners","masterCopy","modules","fallbackHandler","guard","version"],"type":"object","properties":{"address":{"title":"Address","type":"string"},"nonce":{"title":"Nonce","type":"integer"},"threshold":{"title":"Threshold","type":"integer"},"owners":{"type":"array","items":{"type":"string"}},"masterCopy":{"title":"Master copy","type":"string"},"modules":{"type":"array","items":{"type":"string"}},"fallbackHandler":{"title":"Fallback handler","type":"string"},"guard":{"title":"Guard","type":"string"},"version":{"title":"Version","type":"string","minLength":1,"x-nullable":true}}},"description":""},{"code":"404","schema":{},"description":"Safe not found"},{"code":"422","schema":{},"description":"code = 1: Checksum address validation failed\ncode = 50: Cannot get Safe info"}]} />
   <Feedback asPath={'/api-reference#_v1_safes_\{address\}__-_get'} label='Did this API route run successfully?' small />
@@ -577,6 +627,8 @@ Get status of the safe
 
 <Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
+
+
 
 
 
@@ -601,6 +653,8 @@ Get status of the safe
 
 Get balance for Ether and ERC20 tokens
 
+
+
   <Parameters parameters={[{"name":"trusted","in":"query","description":"If `True` just trusted tokens will be returned","type":"boolean","default":false},{"name":"exclude_spam","in":"query","description":"If `True` spam tokens will not be returned","type":"boolean","default":false}]} />
   <Responses responses={[{"code":"200","schema":{"type":"array","items":{"required":["tokenAddress","token","balance"],"type":"object","properties":{"tokenAddress":{"title":"Token address","type":"string","minLength":1},"token":{"required":["name","symbol","decimals","logoUri"],"type":"object","properties":{"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","minLength":1}}},"balance":{"title":"Balance","type":"string","minLength":1}}}},"description":""},{"code":"404","schema":{},"description":"Safe not found"},{"code":"422","schema":{},"description":"Safe address checksum not valid"}]} />
   <Feedback asPath={'/api-reference#_v1_safes_\{address\}_balances__-_get'} label='Did this API route run successfully?' small />
@@ -620,6 +674,8 @@ Get balance for Ether and ERC20 tokens
 
 Get balance for Ether and ERC20 tokens with USD fiat conversion
 
+
+
   <Parameters parameters={[{"name":"trusted","in":"query","description":"If `True` just trusted tokens will be returned","type":"boolean","default":false},{"name":"exclude_spam","in":"query","description":"If `True` spam tokens will not be returned","type":"boolean","default":false}]} />
   <Responses responses={[{"code":"200","schema":{"type":"array","items":{"required":["tokenAddress","token","balance","ethValue","timestamp","fiatBalance","fiatConversion","fiatCode"],"type":"object","properties":{"tokenAddress":{"title":"Token address","type":"string","minLength":1},"token":{"required":["name","symbol","decimals","logoUri"],"type":"object","properties":{"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","minLength":1}}},"balance":{"title":"Balance","type":"string","minLength":1},"ethValue":{"title":"Eth value","type":"string","minLength":1},"timestamp":{"title":"Timestamp","type":"string","format":"date-time"},"fiatBalance":{"title":"Fiat balance","type":"string","minLength":1},"fiatConversion":{"title":"Fiat conversion","type":"string","minLength":1},"fiatCode":{"title":"Fiat code","type":"string","minLength":1}}}},"description":""},{"code":"404","schema":{},"description":"Safe not found"},{"code":"422","schema":{},"description":"Safe address checksum not valid"}]} />
   <Feedback asPath={'/api-reference#_v1_safes_\{address\}_balances_usd__-_get'} label='Did this API route run successfully?' small />
@@ -638,6 +694,8 @@ Get balance for Ether and ERC20 tokens with USD fiat conversion
 
 
 Get status of the safe
+
+
 
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"200","schema":{"required":["created","creator","transactionHash","factoryAddress","masterCopy","setupData"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"creator":{"title":"Creator","type":"string"},"transactionHash":{"title":"Transaction hash","type":"string"},"factoryAddress":{"title":"Factory address","type":"string"},"masterCopy":{"title":"Master copy","type":"string","x-nullable":true},"setupData":{"title":"Setup data","type":"string","x-nullable":true},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true}}},"description":""},{"code":"404","schema":{},"description":"Safe creation not found"},{"code":"422","schema":{},"description":"Owner address checksum not valid"},{"code":"503","schema":{},"description":"Problem connecting to Ethereum network"}]} />
@@ -659,6 +717,8 @@ Get status of the safe
 Delete a delegate for a Safe. Signature is built the same way that for adding a delegate.
 Check `POST /delegates/`
 
+
+
   <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["safe","delegate","signature"],"type":"object","properties":{"safe":{"title":"Safe","type":"string"},"delegate":{"title":"Delegate","type":"string"},"signature":{"title":"Signature","type":"string"}}}}]} />
   <Responses responses={[{"code":"204","schema":{},"description":"Deleted"},{"code":"400","schema":{},"description":"Malformed data"},{"code":"404","schema":{},"description":"Delegate not found"},{"code":"422","schema":{},"description":"Invalid Ethereum address/Error processing data"}]} />
   <Feedback asPath={'/api-reference#_v1_safes_\{address\}_delegates_\{delegate_address\}__-_delete'} label='Did this API route run successfully?' small />
@@ -678,6 +738,8 @@ Check `POST /delegates/`
 
 
 
+
+
   <Parameters parameters={[{"name":"_from","in":"query","description":"_from","required":false,"type":"string"},{"name":"block_number","in":"query","description":"block_number","required":false,"type":"string"},{"name":"block_number__gt","in":"query","description":"block_number__gt","required":false,"type":"string"},{"name":"block_number__lt","in":"query","description":"block_number__lt","required":false,"type":"string"},{"name":"execution_date__gte","in":"query","description":"execution_date__gte","required":false,"type":"string"},{"name":"execution_date__lte","in":"query","description":"execution_date__lte","required":false,"type":"string"},{"name":"execution_date__gt","in":"query","description":"execution_date__gt","required":false,"type":"string"},{"name":"execution_date__lt","in":"query","description":"execution_date__lt","required":false,"type":"string"},{"name":"to","in":"query","description":"to","required":false,"type":"string"},{"name":"token_address","in":"query","description":"token_address","required":false,"type":"string"},{"name":"transaction_hash","in":"query","description":"transaction_hash","required":false,"type":"string"},{"name":"value","in":"query","description":"value","required":false,"type":"string"},{"name":"value__gt","in":"query","description":"value__gt","required":false,"type":"string"},{"name":"value__lt","in":"query","description":"value__lt","required":false,"type":"string"},{"name":"erc20","in":"query","description":"erc20","required":false,"type":"string"},{"name":"erc721","in":"query","description":"erc721","required":false,"type":"string"},{"name":"ether","in":"query","description":"ether","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"}]} />
   <Responses responses={[{"code":"200","schema":{"type":"array","items":{"required":["executionDate","blockNumber","transactionHash","to","value","tokenId","tokenInfo","from"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"transactionHash":{"title":"Transaction hash","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1,"x-nullable":true},"tokenId":{"title":"Token id","type":"string","minLength":1,"x-nullable":true},"tokenAddress":{"title":"Token address","type":"string","x-nullable":true},"transferId":{"title":"Transfer id","description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`","type":"string","readOnly":true},"tokenInfo":{"required":["address","name","symbol","decimals","trusted"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"address":{"title":"Address","type":"string"},"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","readOnly":true},"trusted":{"title":"Trusted","type":"boolean"}}},"from":{"title":"From","type":"string"}}}},"description":""},{"code":"422","schema":{},"description":"Safe address checksum not valid"}]} />
   <Feedback asPath={'/api-reference#_v1_safes_\{address\}_incoming-transfers__-_get'} label='Did this API route run successfully?' small />
@@ -692,6 +754,8 @@ Check `POST /delegates/`
 
 <Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
+
+
 
 
 
@@ -721,6 +785,8 @@ Create a new signed message for a Safe. Message can be:
 Hash will be calculated from the provided ``message``. Sending a raw ``hash`` will not be accepted,
 service needs to derive it itself.
 
+
+
   <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["message","signature"],"type":"object","properties":{"message":{"title":"Message","type":"object"},"safeAppId":{"title":"Safe app id","type":"integer","minimum":0,"x-nullable":true},"signature":{"title":"Signature","type":"string"}}}}]} />
   <Responses responses={[{"code":"201","schema":{},"description":"Created"}]} />
   <Feedback asPath={'/api-reference#_v1_safes_\{address\}_messages__-_post'} label='Did this API route run successfully?' small />
@@ -739,6 +805,8 @@ service needs to derive it itself.
 
 
 Returns the module transaction of a Safe
+
+
 
   <Parameters parameters={[{"name":"safe","in":"query","description":"safe","required":false,"type":"string"},{"name":"module","in":"query","description":"module","required":false,"type":"string"},{"name":"to","in":"query","description":"to","required":false,"type":"string"},{"name":"operation","in":"query","description":"operation","required":false,"type":"string","enum":[0,1,2]},{"name":"failed","in":"query","description":"failed","required":false,"type":"string"},{"name":"block_number","in":"query","description":"block_number","required":false,"type":"string"},{"name":"block_number__gt","in":"query","description":"block_number__gt","required":false,"type":"string"},{"name":"block_number__lt","in":"query","description":"block_number__lt","required":false,"type":"string"},{"name":"transaction_hash","in":"query","description":"transaction_hash","required":false,"type":"string"},{"name":"ordering","in":"query","description":"Which field to use when ordering the results.","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"}]} />
   <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"required":["executionDate","safe","module","to","value","data","operation"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer","readOnly":true},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string","readOnly":true},"safe":{"title":"Safe","type":"string","minLength":1},"module":{"title":"Module","type":"string","minLength":1},"to":{"title":"To","type":"string","minLength":1},"value":{"title":"Value","type":"string","format":"decimal"},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","enum":[0,1,2]},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"moduleTransactionId":{"title":"Module transaction id","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`","type":"string","readOnly":true}}}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"},{"code":"422","schema":{},"description":"Invalid ethereum address"}]} />
@@ -760,6 +828,8 @@ Returns the module transaction of a Safe
 Returns a paginated list of Multisig Transactions for a Safe.
 By default only ``trusted`` multisig transactions are returned.
 
+
+
   <Parameters parameters={[{"name":"failed","in":"query","description":"failed","required":false,"type":"string"},{"name":"modified__lt","in":"query","description":"modified__lt","required":false,"type":"string"},{"name":"modified__gt","in":"query","description":"modified__gt","required":false,"type":"string"},{"name":"modified__lte","in":"query","description":"modified__lte","required":false,"type":"string"},{"name":"modified__gte","in":"query","description":"modified__gte","required":false,"type":"string"},{"name":"nonce__lt","in":"query","description":"nonce__lt","required":false,"type":"string"},{"name":"nonce__gt","in":"query","description":"nonce__gt","required":false,"type":"string"},{"name":"nonce__lte","in":"query","description":"nonce__lte","required":false,"type":"string"},{"name":"nonce__gte","in":"query","description":"nonce__gte","required":false,"type":"string"},{"name":"nonce","in":"query","description":"nonce","required":false,"type":"string"},{"name":"safe_tx_hash","in":"query","description":"safe_tx_hash","required":false,"type":"string"},{"name":"to","in":"query","description":"to","required":false,"type":"string"},{"name":"value__lt","in":"query","description":"value__lt","required":false,"type":"string"},{"name":"value__gt","in":"query","description":"value__gt","required":false,"type":"string"},{"name":"value","in":"query","description":"value","required":false,"type":"string"},{"name":"executed","in":"query","description":"executed","required":false,"type":"string"},{"name":"has_confirmations","in":"query","description":"has_confirmations","required":false,"type":"string"},{"name":"trusted","in":"query","description":"trusted","required":false,"type":"string"},{"name":"execution_date__gte","in":"query","description":"execution_date__gte","required":false,"type":"string"},{"name":"execution_date__lte","in":"query","description":"execution_date__lte","required":false,"type":"string"},{"name":"submission_date__gte","in":"query","description":"submission_date__gte","required":false,"type":"string"},{"name":"submission_date__lte","in":"query","description":"submission_date__lte","required":false,"type":"string"},{"name":"transaction_hash","in":"query","description":"transaction_hash","required":false,"type":"string"},{"name":"ordering","in":"query","description":"Which field to use when ordering the results.","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"}]} />
   <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"required":["safe","to","value","operation","safeTxGas","baseGas","gasPrice","nonce","executionDate","submissionDate","modified","transactionHash","safeTxHash","proposer","isExecuted","confirmationsRequired","trusted"],"type":"object","properties":{"safe":{"title":"Safe","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","minimum":0},"gasToken":{"title":"Gas token","type":"string","x-nullable":true},"safeTxGas":{"title":"Safe tx gas","type":"integer","minimum":0},"baseGas":{"title":"Base gas","type":"integer","minimum":0},"gasPrice":{"title":"Gas price","type":"string","minLength":1},"refundReceiver":{"title":"Refund receiver","type":"string","x-nullable":true},"nonce":{"title":"Nonce","type":"integer","minimum":0},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"submissionDate":{"title":"Submission date","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string"},"safeTxHash":{"title":"Safe tx hash","type":"string"},"proposer":{"title":"Proposer","type":"string"},"executor":{"title":"Executor","type":"string","readOnly":true},"isExecuted":{"title":"Is executed","type":"boolean"},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"ethGasPrice":{"title":"Eth gas price","type":"string","readOnly":true},"maxFeePerGas":{"title":"Max fee per gas","type":"string","readOnly":true},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"string","readOnly":true},"gasUsed":{"title":"Gas used","type":"integer","readOnly":true},"fee":{"title":"Fee","type":"integer","readOnly":true},"origin":{"title":"Origin","type":"string","readOnly":true},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"confirmationsRequired":{"title":"Confirmations required","type":"integer"},"confirmations":{"description":"\nFilters confirmations queryset\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n","required":["owner","submissionDate","signature"],"type":"object","properties":{"owner":{"title":"Owner","type":"string","minLength":1},"submissionDate":{"title":"Submission date","type":"string","format":"date-time"},"transactionHash":{"title":"Transaction hash","type":"string","readOnly":true},"signature":{"title":"Signature","type":"string"},"signatureType":{"title":"Signature type","type":"string","readOnly":true}}},"trusted":{"title":"Trusted","type":"boolean"},"signatures":{"title":"Signatures","type":"string","x-nullable":true}}}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"},{"code":"422","schema":{},"description":"Invalid ethereum address"}]} />
   <Feedback asPath={'/api-reference#_v1_safes_\{address\}_multisig-transactions__-_get'} label='Did this API route run successfully?' small />
@@ -778,6 +848,8 @@ By default only ``trusted`` multisig transactions are returned.
 
 
 Creates a Multisig Transaction with its confirmations and retrieves all the information related.
+
+
 
   <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["safe","to","value","operation","safeTxGas","baseGas","gasPrice","nonce","contractTransactionHash","sender"],"type":"object","properties":{"safe":{"title":"Safe","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"integer","minimum":0},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","minimum":0},"gasToken":{"title":"Gas token","type":"string","x-nullable":true},"safeTxGas":{"title":"Safe tx gas","type":"integer","minimum":0},"baseGas":{"title":"Base gas","type":"integer","minimum":0},"gasPrice":{"title":"Gas price","type":"integer","minimum":0},"refundReceiver":{"title":"Refund receiver","type":"string","x-nullable":true},"nonce":{"title":"Nonce","type":"integer","minimum":0},"contractTransactionHash":{"title":"Contract transaction hash","type":"string"},"sender":{"title":"Sender","type":"string"},"signature":{"title":"Signature","type":"string","x-nullable":true},"origin":{"title":"Origin","type":"string","maxLength":200,"minLength":1,"x-nullable":true}}}}]} />
   <Responses responses={[{"code":"201","schema":{},"description":"Created or signature updated"},{"code":"400","schema":{},"description":"Invalid data"},{"code":"422","schema":{},"description":"Invalid ethereum address/User is not an owner/Invalid safeTxHash/Invalid signature/Nonce already executed/Sender is not an owner"}]} />
@@ -798,6 +870,8 @@ Creates a Multisig Transaction with its confirmations and retrieves all the info
 
 Estimates `safeTxGas` for a Safe Multisig Transaction.
 
+
+
   <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["to","value","operation"],"type":"object","properties":{"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"integer","minimum":0},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","minimum":0}}}}]} />
   <Responses responses={[{"code":"200","schema":{"required":["safeTxGas"],"type":"object","properties":{"safeTxGas":{"title":"Safe tx gas","type":"string","minLength":1}}},"description":""},{"code":"400","schema":{},"description":"Data not valid"},{"code":"404","schema":{},"description":"Safe not found"},{"code":"422","schema":{},"description":"Tx not valid"}]} />
   <Feedback asPath={'/api-reference#_v1_safes_\{address\}_multisig-transactions_estimations__-_post'} label='Did this API route run successfully?' small />
@@ -816,6 +890,8 @@ Estimates `safeTxGas` for a Safe Multisig Transaction.
 
 
 Use `multisig-transactions` instead of `transactions`
+
+
 
   <Parameters parameters={[{"name":"failed","in":"query","description":"failed","required":false,"type":"string"},{"name":"modified__lt","in":"query","description":"modified__lt","required":false,"type":"string"},{"name":"modified__gt","in":"query","description":"modified__gt","required":false,"type":"string"},{"name":"modified__lte","in":"query","description":"modified__lte","required":false,"type":"string"},{"name":"modified__gte","in":"query","description":"modified__gte","required":false,"type":"string"},{"name":"nonce__lt","in":"query","description":"nonce__lt","required":false,"type":"string"},{"name":"nonce__gt","in":"query","description":"nonce__gt","required":false,"type":"string"},{"name":"nonce__lte","in":"query","description":"nonce__lte","required":false,"type":"string"},{"name":"nonce__gte","in":"query","description":"nonce__gte","required":false,"type":"string"},{"name":"nonce","in":"query","description":"nonce","required":false,"type":"string"},{"name":"safe_tx_hash","in":"query","description":"safe_tx_hash","required":false,"type":"string"},{"name":"to","in":"query","description":"to","required":false,"type":"string"},{"name":"value__lt","in":"query","description":"value__lt","required":false,"type":"string"},{"name":"value__gt","in":"query","description":"value__gt","required":false,"type":"string"},{"name":"value","in":"query","description":"value","required":false,"type":"string"},{"name":"executed","in":"query","description":"executed","required":false,"type":"string"},{"name":"has_confirmations","in":"query","description":"has_confirmations","required":false,"type":"string"},{"name":"trusted","in":"query","description":"trusted","required":false,"type":"string"},{"name":"execution_date__gte","in":"query","description":"execution_date__gte","required":false,"type":"string"},{"name":"execution_date__lte","in":"query","description":"execution_date__lte","required":false,"type":"string"},{"name":"submission_date__gte","in":"query","description":"submission_date__gte","required":false,"type":"string"},{"name":"submission_date__lte","in":"query","description":"submission_date__lte","required":false,"type":"string"},{"name":"transaction_hash","in":"query","description":"transaction_hash","required":false,"type":"string"},{"name":"ordering","in":"query","description":"Which field to use when ordering the results.","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"}]} />
   <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"required":["safe","to","value","operation","safeTxGas","baseGas","gasPrice","nonce","executionDate","submissionDate","modified","transactionHash","safeTxHash","proposer","isExecuted","confirmationsRequired","trusted"],"type":"object","properties":{"safe":{"title":"Safe","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","minimum":0},"gasToken":{"title":"Gas token","type":"string","x-nullable":true},"safeTxGas":{"title":"Safe tx gas","type":"integer","minimum":0},"baseGas":{"title":"Base gas","type":"integer","minimum":0},"gasPrice":{"title":"Gas price","type":"string","minLength":1},"refundReceiver":{"title":"Refund receiver","type":"string","x-nullable":true},"nonce":{"title":"Nonce","type":"integer","minimum":0},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"submissionDate":{"title":"Submission date","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string"},"safeTxHash":{"title":"Safe tx hash","type":"string"},"proposer":{"title":"Proposer","type":"string"},"executor":{"title":"Executor","type":"string","readOnly":true},"isExecuted":{"title":"Is executed","type":"boolean"},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"ethGasPrice":{"title":"Eth gas price","type":"string","readOnly":true},"maxFeePerGas":{"title":"Max fee per gas","type":"string","readOnly":true},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"string","readOnly":true},"gasUsed":{"title":"Gas used","type":"integer","readOnly":true},"fee":{"title":"Fee","type":"integer","readOnly":true},"origin":{"title":"Origin","type":"string","readOnly":true},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"confirmationsRequired":{"title":"Confirmations required","type":"integer"},"confirmations":{"description":"\nFilters confirmations queryset\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n","required":["owner","submissionDate","signature"],"type":"object","properties":{"owner":{"title":"Owner","type":"string","minLength":1},"submissionDate":{"title":"Submission date","type":"string","format":"date-time"},"transactionHash":{"title":"Transaction hash","type":"string","readOnly":true},"signature":{"title":"Signature","type":"string"},"signatureType":{"title":"Signature type","type":"string","readOnly":true}}},"trusted":{"title":"Trusted","type":"boolean"},"signatures":{"title":"Signatures","type":"string","x-nullable":true}}}}}},"description":""}]} />
@@ -836,6 +912,8 @@ Use `multisig-transactions` instead of `transactions`
 
 Use `multisig-transactions` instead of `transactions`
 
+
+
   <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["safe","to","value","operation","safeTxGas","baseGas","gasPrice","nonce","contractTransactionHash","sender"],"type":"object","properties":{"safe":{"title":"Safe","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"integer","minimum":0},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","minimum":0},"gasToken":{"title":"Gas token","type":"string","x-nullable":true},"safeTxGas":{"title":"Safe tx gas","type":"integer","minimum":0},"baseGas":{"title":"Base gas","type":"integer","minimum":0},"gasPrice":{"title":"Gas price","type":"integer","minimum":0},"refundReceiver":{"title":"Refund receiver","type":"string","x-nullable":true},"nonce":{"title":"Nonce","type":"integer","minimum":0},"contractTransactionHash":{"title":"Contract transaction hash","type":"string"},"sender":{"title":"Sender","type":"string"},"signature":{"title":"Signature","type":"string","x-nullable":true},"origin":{"title":"Origin","type":"string","maxLength":200,"minLength":1,"x-nullable":true}}}}]} />
   <Responses responses={[{"code":"201","schema":{"required":["safe","to","value","operation","safeTxGas","baseGas","gasPrice","nonce","contractTransactionHash","sender"],"type":"object","properties":{"safe":{"title":"Safe","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"integer","minimum":0},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","minimum":0},"gasToken":{"title":"Gas token","type":"string","x-nullable":true},"safeTxGas":{"title":"Safe tx gas","type":"integer","minimum":0},"baseGas":{"title":"Base gas","type":"integer","minimum":0},"gasPrice":{"title":"Gas price","type":"integer","minimum":0},"refundReceiver":{"title":"Refund receiver","type":"string","x-nullable":true},"nonce":{"title":"Nonce","type":"integer","minimum":0},"contractTransactionHash":{"title":"Contract transaction hash","type":"string"},"sender":{"title":"Sender","type":"string"},"signature":{"title":"Signature","type":"string","x-nullable":true},"origin":{"title":"Origin","type":"string","maxLength":200,"minLength":1,"x-nullable":true}}},"description":""}]} />
   <Feedback asPath={'/api-reference#_v1_safes_\{address\}_transactions__-_post'} label='Did this API route run successfully?' small />
@@ -850,6 +928,8 @@ Use `multisig-transactions` instead of `transactions`
 
 <Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
+
+
 
 
 
@@ -876,6 +956,8 @@ Use `multisig-transactions` instead of `transactions`
 
 
 
+
+
   <Parameters parameters={[{"name":"name","in":"query","description":"name","required":false,"type":"string"},{"name":"address","in":"query","description":"address","required":false,"type":"string"},{"name":"symbol","in":"query","description":"symbol","required":false,"type":"string"},{"name":"decimals__lt","in":"query","description":"decimals__lt","required":false,"type":"string"},{"name":"decimals__gt","in":"query","description":"decimals__gt","required":false,"type":"string"},{"name":"decimals","in":"query","description":"decimals","required":false,"type":"string"},{"name":"search","in":"query","description":"A search term.","required":false,"type":"string"},{"name":"ordering","in":"query","description":"Which field to use when ordering the results.","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"}]} />
   <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"required":["address","name","symbol","decimals","trusted"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"address":{"title":"Address","type":"string"},"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","readOnly":true},"trusted":{"title":"Trusted","type":"boolean"}}}}}},"description":""}]} />
   <Feedback asPath={'/api-reference#_v1_tokens__-_get'} label='Did this API route run successfully?' small />
@@ -890,6 +972,8 @@ Use `multisig-transactions` instead of `transactions`
 
 <Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
+
+
 
 
 
@@ -915,6 +999,8 @@ Use `multisig-transactions` instead of `transactions`
 
 
 Use `multisig-transactions` instead of `transactions`
+
+
 
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"200","schema":{},"description":"Ok"},{"code":"404","schema":{},"description":"Not found"}]} />
@@ -969,6 +1055,8 @@ An EOA is required to sign the following EIP712 data:
 `totp` parameter is calculated with `T0=0` and `Tx=3600`. `totp` is calculated by taking the
 Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)
 
+
+
   <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["safeTxHash","signature"],"type":"object","properties":{"safeTxHash":{"title":"Safe tx hash","type":"string"},"signature":{"title":"Signature","type":"string"}}}}]} />
   <Responses responses={[{"code":"204","schema":{},"description":"Deleted"},{"code":"400","schema":{},"description":"Error processing data"},{"code":"404","schema":{},"description":"Transaction not found"}]} />
   <Feedback asPath={'/api-reference#_v1_transactions_\{safe_tx_hash\}__-_delete'} label='Did this API route run successfully?' small />
@@ -989,6 +1077,8 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
 
 
 :return: transfer filtered by transfer_id
+
+
 
   <Parameters parameters={[]} />
   <Responses responses={[{"code":"200","schema":{"required":["executionDate","blockNumber","transactionHash","to","value","tokenId","tokenInfo","from"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"transactionHash":{"title":"Transaction hash","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1,"x-nullable":true},"tokenId":{"title":"Token id","type":"string","minLength":1,"x-nullable":true},"tokenAddress":{"title":"Token address","type":"string","x-nullable":true},"transferId":{"title":"Transfer id","description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`","type":"string","readOnly":true},"tokenInfo":{"required":["address","name","symbol","decimals","trusted"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"address":{"title":"Address","type":"string"},"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","readOnly":true},"trusted":{"title":"Trusted","type":"boolean"}}},"from":{"title":"From","type":"string"}}},"description":""},{"code":"400","schema":{},"description":"Invalid transferId"},{"code":"404","schema":{},"description":"Transfer does not exist"}]} />

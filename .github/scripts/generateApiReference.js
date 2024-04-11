@@ -86,6 +86,8 @@ ${_method.summary ?? ''}
 
 ${_method.description.replace(/{/g, '\\{').replace(/}/g, '\\}') ?? ''}
 
+${_method.additionalInfo ?? ''}
+
   <Parameters parameters={${JSON.stringify(_method.parameters ?? [])}} />
   <Responses responses={${JSON.stringify(responses)}} />
   <Feedback asPath={'/api-reference#${slugify(
