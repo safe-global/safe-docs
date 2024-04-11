@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
+import { CopyToClipboard } from 'nextra/components'
 
 import Method from './Method'
 import { NetworkContext } from './Network'
@@ -15,13 +16,17 @@ const Path: React.FC<{ path: string, method: string }> = ({ path, method }) => {
         borderRadius: '8px',
         pl: 1,
         fontSize: '14px',
-        overflow: 'scroll',
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis'
+        whiteSpace: 'nowrap'
       }}
     >
       <Method method={method} sx={{ m: 1 }} />
-      <Box sx={{ width: 'calc(100% - 68px)', mt: 0.8 }}>
+      <Box
+        sx={{
+          width: 'calc(100% - 92px)',
+          mt: 0.8,
+          overflow: 'scroll'
+        }}
+      >
         <Box
           component='span'
           sx={{ color: ({ palette }) => palette.grey[600] }}
@@ -29,6 +34,13 @@ const Path: React.FC<{ path: string, method: string }> = ({ path, method }) => {
           {network}
         </Box>
         {path.replace(/{/g, '\\{').replace(/}/g, '\\}')}
+      </Box>
+      <Box
+        sx={{
+          mt: 0.8
+        }}
+      >
+        <CopyToClipboard getValue={() => `${network}${path}`} />
       </Box>
     </Grid>
   )

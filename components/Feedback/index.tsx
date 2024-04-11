@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import {
   Button,
   Grid,
@@ -15,12 +15,14 @@ import ReactGA from 'react-ga4'
 import FeedbackGood from '../../assets/svg/feedback-good.svg'
 import FeedbackBad from '../../assets/svg/feedback-bad.svg'
 import Check from '../../assets/svg/check.svg'
+import { NetworkContext } from '../ApiReference/Network'
 
 const Feedback: React.FC<{
   label?: string
   asPath?: string
   small?: boolean
 }> = ({ label, asPath, small = false }) => {
+  const [network] = useContext(NetworkContext)
   const [isPositive, setIsPositive] = useState<boolean | null>(null)
   const [feedback, setFeedback] = useState('')
   const [loading, setLoading] = useState(false)
@@ -34,7 +36,9 @@ const Feedback: React.FC<{
   const handleSubmit = (): void => {
     setLoading(true)
     ReactGA.event('feedback', {
-      path: window.location.pathname,
+      path:
+        window.location.pathname +
+        (asPath?.includes('/api-reference') === true ? network : ''),
       positive: isPositive,
       feedback,
       steps,

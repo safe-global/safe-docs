@@ -9,11 +9,15 @@ import Link from 'next/link'
 import throttle from 'lodash/throttle'
 import { type SxProps } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
+import {
+  CopyToClipboard,
+  Code,
+  Pre,
+  Td,
+  Table,
+  Th,
+  Tr
+} from 'nextra/components'
 import MuiLink from '@mui/material/Link'
 
 import { type Heading } from '../components/ApiReference/TOC'
@@ -73,21 +77,6 @@ const getMarkdownHeaderComponent: (
       <Typography
         variant={`h${headingLevel}` as 'h1'}
         textTransform='none'
-        sx={{
-          mt: headingLevel === 1 ? 0 : 2,
-          fontSize:
-            headingLevel === 1
-              ? '40px'
-              : headingLevel === 2
-                ? '32px'
-                : headingLevel === 3
-                  ? '24px'
-                  : headingLevel === 4
-                    ? '20px'
-                    : headingLevel === 5
-                      ? '16px'
-                      : '14px'
-        }}
         id={slugify(children as string)}
       >
         {children as string}
@@ -227,7 +216,7 @@ export const MDXComponents = {
   li: CustomLi,
   ul: CustomUl,
   a: CustomLink,
-  code: CustomCode,
+  code: Code,
   h1: getMarkdownHeaderComponent(1),
   h2: getMarkdownHeaderComponent(2),
   h3: getMarkdownHeaderComponent(3),
@@ -235,8 +224,9 @@ export const MDXComponents = {
   h5: getMarkdownHeaderComponent(5),
   h6: getMarkdownHeaderComponent(6),
   table: Table,
-  thead: TableHead,
-  tbody: TableBody,
-  tr: TableRow,
-  td: TableCell
+  thead: Th,
+  tr: Tr,
+  td: Td,
+  pre: Pre,
+  CopyToClipboard
 }

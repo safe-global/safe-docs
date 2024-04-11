@@ -21,10 +21,9 @@ different endpoints:
 
   ## About
 
-  
   ### /v1/about/ - get
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -41,10 +40,9 @@ Returns information and configuration of the service
    </Grid>
 </Grid>
 
+### Ethereum RPC
 
-  ### Ethereum RPC
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -65,10 +63,9 @@ Get information about the Ethereum RPC node used by the service
    </Grid>
 </Grid>
 
+### /v1/about/ethereum-tracing-rpc/ - get
 
-  ### /v1/about/ethereum-tracing-rpc/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -85,10 +82,9 @@ Get information about the Ethereum Tracing RPC node used by the service (if any 
    </Grid>
 </Grid>
 
+### /v1/about/indexing/ - get
 
-  ### /v1/about/indexing/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -105,10 +101,9 @@ Get current indexing status for ERC20/721 events
    </Grid>
 </Grid>
 
+### /v1/about/master-copies/ - get
 
-  ### /v1/about/master-copies/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -125,10 +120,9 @@ Use `singletons` instead of `master-copies`
    </Grid>
 </Grid>
 
+### /v1/about/singletons/ - get
 
-  ### /v1/about/singletons/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -147,10 +141,9 @@ Use `singletons` instead of `master-copies`
 
 ## Contracts
 
-  
   ### /v1/contracts/ - get
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -167,10 +160,9 @@ Use `singletons` instead of `master-copies`
    </Grid>
 </Grid>
 
+### /v1/contracts/\{address\}/ - get
 
-  ### /v1/contracts/\{address\}/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -189,10 +181,9 @@ Use `singletons` instead of `master-copies`
 
 ## Data-decoder
 
-  
   ### /v1/data-decoder/ - post
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -214,10 +205,9 @@ as in case of ABI collision service will know which ABI to use.
 
 ## Delegates
 
-  
   ### /v1/delegates/ - get
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -234,10 +224,9 @@ Get list of delegates
    </Grid>
 </Grid>
 
+### /v1/delegates/ - post
 
-  ### /v1/delegates/ - post
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -262,10 +251,9 @@ For example:
    </Grid>
 </Grid>
 
+### /v1/delegates/\{delegate_address\}/ - delete
 
-  ### /v1/delegates/\{delegate_address\}/ - delete
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -286,10 +274,9 @@ Check `POST /delegates/`
 
 ## Messages
 
-  
   ### /v1/messages/\{message_hash\}/ - get
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -306,10 +293,9 @@ Check `POST /delegates/`
    </Grid>
 </Grid>
 
+### /v1/messages/\{message_hash\}/signatures/ - post
 
-  ### /v1/messages/\{message_hash\}/signatures/ - post
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -328,10 +314,9 @@ Check `POST /delegates/`
 
 ## Module-transaction
 
-  
   ### /v1/module-transaction/\{module_transaction_id\} - get
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -350,10 +335,9 @@ Check `POST /delegates/`
 
 ## Modules
 
-  
   ### /v1/modules/\{address\}/safes/ - get
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -372,10 +356,9 @@ Return Safes where the module address provided is enabled
 
 ## Multisig-transactions
 
-  
   ### /v1/multisig-transactions/\{safe_tx_hash\}/ - get
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -392,10 +375,9 @@ Return Safes where the module address provided is enabled
    </Grid>
 </Grid>
 
+### /v1/multisig-transactions/\{safe_tx_hash\}/ - delete
 
-  ### /v1/multisig-transactions/\{safe_tx_hash\}/ - delete
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -446,10 +428,9 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
    </Grid>
 </Grid>
 
+### /v1/multisig-transactions/\{safe_tx_hash\}/confirmations/ - get
 
-  ### /v1/multisig-transactions/\{safe_tx_hash\}/confirmations/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -466,10 +447,9 @@ Get the list of confirmations for a multisig transaction
    </Grid>
 </Grid>
 
+### /v1/multisig-transactions/\{safe_tx_hash\}/confirmations/ - post
 
-  ### /v1/multisig-transactions/\{safe_tx_hash\}/confirmations/ - post
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -489,10 +469,9 @@ the use of delegates to make a transaction trusted.
 
 ## Notifications
 
-  
   ### /v1/notifications/devices/ - post
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -504,8 +483,8 @@ Signature must sign `keccack256('gnosis-safe\{timestamp-epoch\}\{uuid\}\{cloud_m
     - `\{timestamp-epoch\}` must be an integer (no milliseconds)
     - `\{safes_sorted\}` must be checksummed safe addresses sorted and joined with no spaces
 
-  <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["safes","cloudMessagingToken","buildNumber","bundle","deviceType","version"],"type":"object","properties":{"uuid":{"title":"Uuid","type":"string","format":"uuid","default":"0f220e04-e69e-4483-aba5-d5864ae7f8e3"},"safes":{"type":"array","items":{"type":"string"}},"cloudMessagingToken":{"title":"Cloud messaging token","type":"string","maxLength":200,"minLength":100},"buildNumber":{"title":"Build number","type":"integer","minimum":0},"bundle":{"title":"Bundle","type":"string","maxLength":100,"minLength":1},"deviceType":{"title":"Device type","type":"string","enum":["ANDROID","IOS","WEB"]},"version":{"title":"Version","type":"string","maxLength":100,"minLength":1},"timestamp":{"title":"Timestamp","type":"integer"},"signatures":{"type":"array","items":{"type":"string"}}}}}]} />
-  <Responses responses={[{"code":"200","schema":{"required":["safes","cloudMessagingToken","buildNumber","bundle","deviceType","version","ownersRegistered","ownersNotRegistered"],"type":"object","properties":{"uuid":{"title":"Uuid","type":"string","format":"uuid","default":"98e514ad-b5e8-4227-a4bb-4051704f8a1f"},"safes":{"type":"array","items":{"type":"string"}},"cloudMessagingToken":{"title":"Cloud messaging token","type":"string","maxLength":200,"minLength":100},"buildNumber":{"title":"Build number","type":"integer","minimum":0},"bundle":{"title":"Bundle","type":"string","maxLength":100,"minLength":1},"deviceType":{"title":"Device type","type":"string","enum":["ANDROID","IOS","WEB"]},"version":{"title":"Version","type":"string","maxLength":100,"minLength":1},"timestamp":{"title":"Timestamp","type":"integer"},"signatures":{"type":"array","items":{"type":"string"}},"ownersRegistered":{"type":"array","items":{"type":"string"}},"ownersNotRegistered":{"type":"array","items":{"type":"string"}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"}]} />
+  <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["safes","cloudMessagingToken","buildNumber","bundle","deviceType","version"],"type":"object","properties":{"uuid":{"title":"Uuid","type":"string","format":"uuid","default":"cf4a06e2-ad0b-450a-96c6-1924a981e66f"},"safes":{"type":"array","items":{"type":"string"}},"cloudMessagingToken":{"title":"Cloud messaging token","type":"string","maxLength":200,"minLength":100},"buildNumber":{"title":"Build number","type":"integer","minimum":0},"bundle":{"title":"Bundle","type":"string","maxLength":100,"minLength":1},"deviceType":{"title":"Device type","type":"string","enum":["ANDROID","IOS","WEB"]},"version":{"title":"Version","type":"string","maxLength":100,"minLength":1},"timestamp":{"title":"Timestamp","type":"integer"},"signatures":{"type":"array","items":{"type":"string"}}}}}]} />
+  <Responses responses={[{"code":"200","schema":{"required":["safes","cloudMessagingToken","buildNumber","bundle","deviceType","version","ownersRegistered","ownersNotRegistered"],"type":"object","properties":{"uuid":{"title":"Uuid","type":"string","format":"uuid","default":"79f11af9-c54f-4efe-a600-bffc0c1991c0"},"safes":{"type":"array","items":{"type":"string"}},"cloudMessagingToken":{"title":"Cloud messaging token","type":"string","maxLength":200,"minLength":100},"buildNumber":{"title":"Build number","type":"integer","minimum":0},"bundle":{"title":"Bundle","type":"string","maxLength":100,"minLength":1},"deviceType":{"title":"Device type","type":"string","enum":["ANDROID","IOS","WEB"]},"version":{"title":"Version","type":"string","maxLength":100,"minLength":1},"timestamp":{"title":"Timestamp","type":"integer"},"signatures":{"type":"array","items":{"type":"string"}},"ownersRegistered":{"type":"array","items":{"type":"string"}},"ownersNotRegistered":{"type":"array","items":{"type":"string"}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"}]} />
   <Feedback asPath={'/api-reference#_v1_notifications_devices__-_post'} label='Did this API route run successfully?' small />
 </Grid>
   <Grid item xs={5.6}>
@@ -514,10 +493,9 @@ Signature must sign `keccack256('gnosis-safe\{timestamp-epoch\}\{uuid\}\{cloud_m
    </Grid>
 </Grid>
 
+### /v1/notifications/devices/\{uuid\}/ - delete
 
-  ### /v1/notifications/devices/\{uuid\}/ - delete
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -534,10 +512,9 @@ Remove a FirebaseDevice
    </Grid>
 </Grid>
 
+### /v1/notifications/devices/\{uuid\}/safes/\{address\}/ - delete
 
-  ### /v1/notifications/devices/\{uuid\}/safes/\{address\}/ - delete
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -556,10 +533,9 @@ Remove a Safe for a FirebaseDevice
 
 ## Owners
 
-  
   ### /v1/owners/\{address\}/safes/ - get
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -578,10 +554,9 @@ Return Safes where the address provided is an owner
 
 ## Safes
 
-  
   ### /v1/safes/\{address\}/ - get
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -598,10 +573,9 @@ Get status of the safe
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/all-transactions/ - get
 
-  ### /v1/safes/\{address\}/all-transactions/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -618,10 +592,9 @@ Get status of the safe
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/balances/ - get
 
-  ### /v1/safes/\{address\}/balances/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -638,10 +611,9 @@ Get balance for Ether and ERC20 tokens
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/balances/usd/ - get
 
-  ### /v1/safes/\{address\}/balances/usd/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -658,10 +630,9 @@ Get balance for Ether and ERC20 tokens with USD fiat conversion
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/creation/ - get
 
-  ### /v1/safes/\{address\}/creation/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -678,10 +649,9 @@ Get status of the safe
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/delegates/\{delegate_address\}/ - delete
 
-  ### /v1/safes/\{address\}/delegates/\{delegate_address\}/ - delete
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -699,10 +669,9 @@ Check `POST /delegates/`
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/incoming-transfers/ - get
 
-  ### /v1/safes/\{address\}/incoming-transfers/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -719,10 +688,9 @@ Check `POST /delegates/`
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/messages/ - get
 
-  ### /v1/safes/\{address\}/messages/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -739,10 +707,9 @@ Check `POST /delegates/`
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/messages/ - post
 
-  ### /v1/safes/\{address\}/messages/ - post
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -764,10 +731,9 @@ service needs to derive it itself.
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/module-transactions/ - get
 
-  ### /v1/safes/\{address\}/module-transactions/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -784,10 +750,9 @@ Returns the module transaction of a Safe
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/multisig-transactions/ - get
 
-  ### /v1/safes/\{address\}/multisig-transactions/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -805,10 +770,9 @@ By default only ``trusted`` multisig transactions are returned.
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/multisig-transactions/ - post
 
-  ### /v1/safes/\{address\}/multisig-transactions/ - post
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -825,10 +789,9 @@ Creates a Multisig Transaction with its confirmations and retrieves all the info
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/multisig-transactions/estimations/ - post
 
-  ### /v1/safes/\{address\}/multisig-transactions/estimations/ - post
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -845,10 +808,9 @@ Estimates `safeTxGas` for a Safe Multisig Transaction.
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/transactions/ - get
 
-  ### /v1/safes/\{address\}/transactions/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -865,10 +827,9 @@ Use `multisig-transactions` instead of `transactions`
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/transactions/ - post
 
-  ### /v1/safes/\{address\}/transactions/ - post
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -885,10 +846,9 @@ Use `multisig-transactions` instead of `transactions`
    </Grid>
 </Grid>
 
+### /v1/safes/\{address\}/transfers/ - get
 
-  ### /v1/safes/\{address\}/transfers/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -907,10 +867,9 @@ Use `multisig-transactions` instead of `transactions`
 
 ## Tokens
 
-  
   ### /v1/tokens/ - get
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -927,10 +886,9 @@ Use `multisig-transactions` instead of `transactions`
    </Grid>
 </Grid>
 
+### /v1/tokens/\{address\}/ - get
 
-  ### /v1/tokens/\{address\}/ - get
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -949,10 +907,9 @@ Use `multisig-transactions` instead of `transactions`
 
 ## Transactions
 
-  
   ### /v1/transactions/\{safe_tx_hash\}/ - get
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -969,10 +926,9 @@ Use `multisig-transactions` instead of `transactions`
    </Grid>
 </Grid>
 
+### /v1/transactions/\{safe_tx_hash\}/ - delete
 
-  ### /v1/transactions/\{safe_tx_hash\}/ - delete
-
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 
@@ -1025,10 +981,9 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
 
 ## Transfer
 
-  
   ### /v1/transfer/\{transfer_id\} - get
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 

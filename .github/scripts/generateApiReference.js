@@ -77,10 +77,9 @@ const generateMethodContent = (path, method) => {
     pathsMetadata[path]?.[method]?.title ??
     path.replace(/{/g, '\\{').replace(/}/g, '\\}') + ' - ' + method
 
-  return `
-  ### ${title}
+  return `### ${title}
 
-<Grid container justifyContent='space-between'>
+<Grid container justifyContent='space-between' mb={8}>
   <Grid item xs={5.6}>
 
 ${_method.summary ?? ''}
