@@ -1,6 +1,6 @@
 # Integration with Stripe
 
-The [Stripe Crypto Onramp service](https://stripe.com/docs/crypto/overview) allows individuals to securely purchase cryptocurrencies from your application. 
+The [Stripe Crypto Onramp service](https://stripe.com/docs/crypto/overview) allows individuals to securely purchase cryptocurrencies from your application.
 
 ## What are we going to learn?
 
@@ -101,27 +101,28 @@ stripePack.unsubscribe('onramp_session_updated', sessionUpdatedHandler)
 ```
 
 ## Testing my dapp containing the Stripe widget
+
 In production, each customer should pass an individual KYC process but probably you want to test your application before 😊. You can use the following test data for bypass the KYC process while in [test mode](https://stripe.com/docs/test-mode).
 
-| **Field**                   | **Value**                   | **Description**                                               |
-| --------------------------- | --------------------------- | ------------------------------------------------------------- |
-| **Email**                   | 8404.john.smith@example.com | Use any test or fake emails                                   |
-| **Phone Number**            | +18004444444                | Use +18004444444 for phone number                             |
-| **OTP Verification Code**   | 000000                      | Use 000000 for the OTP verification code                      |
-| **First Name**              | John                        | Use any first name                                            |
-| **Last Name**               | Verified                    | Use Verified for the last name                                |
-| **Birthday**                | 01/01/1901                  | Use 01/01/1901 for successful identity verification           |
-| **Identification Type**     | Social Security Number      | Select Social Security Number for identification type         |
-| **Identification Number**   | 000000000                   | Enter 000000000 to fill the identification number field       |
-| **Country**                 | United States               | Select United States for country                              |
-| **Address Line 1**          | address_full_match          | Use address_full_match for successful identity verification   |
-| **City**                    | Seattle                     | Use Seattle for city                                          |
-| **State**                   | Washington                  | Select Washington for state                                   |
-| **Zip Code**                | 12345                       | Use 12345 for zip code                                        |
-| **Test Credit Card Number** | 4242424242424242            | Use test credit card 4242424242424242                         |
-| **Expiration Date**         | 12/24                       | Use future expiration date 12/24                              |
-| **CVC**                     | 123                         | Use any CVC 123                                               |
-| **Billing Zip Code**        | 12345                       | Use any zip code 12345 for billing                            |
+| **Field**                   | **Value**                   | **Description**                                             |
+| --------------------------- | --------------------------- | ----------------------------------------------------------- |
+| **Email**                   | 8404.john.smith@example.com | Use any test or fake emails                                 |
+| **Phone Number**            | +18004444444                | Use +18004444444 for phone number                           |
+| **OTP Verification Code**   | 000000                      | Use 000000 for the OTP verification code                    |
+| **First Name**              | John                        | Use any first name                                          |
+| **Last Name**               | Verified                    | Use Verified for the last name                              |
+| **Birthday**                | 01/01/1901                  | Use 01/01/1901 for successful identity verification         |
+| **Identification Type**     | Social Security Number      | Select Social Security Number for identification type       |
+| **Identification Number**   | 000000000                   | Enter 000000000 to fill the identification number field     |
+| **Country**                 | United States               | Select United States for country                            |
+| **Address Line 1**          | address_full_match          | Use address_full_match for successful identity verification |
+| **City**                    | Seattle                     | Use Seattle for city                                        |
+| **State**                   | Washington                  | Select Washington for state                                 |
+| **Zip Code**                | 12345                       | Use 12345 for zip code                                      |
+| **Test Credit Card Number** | 4242424242424242            | Use test credit card 4242424242424242                       |
+| **Expiration Date**         | 12/24                       | Use future expiration date 12/24                            |
+| **CVC**                     | 123                         | Use any CVC 123                                             |
+| **Billing Zip Code**        | 12345                       | Use any zip code 12345 for billing                          |
 
 ## Onramp Kit KYC test data - Examples
 

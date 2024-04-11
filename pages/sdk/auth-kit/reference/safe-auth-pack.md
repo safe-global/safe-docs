@@ -20,9 +20,9 @@ The `SafeAuthPack` class makes SafeAuth modal and Safe accounts work together. C
 
 ```typescript
 const safeAuthPack = new SafeAuthPack({
-  txServiceUrl: 'https://safe-transaction-mainnet.safe.global',
-});
-await safeAuthPack.init(safeAuthInitOptions);
+  txServiceUrl: 'https://safe-transaction-mainnet.safe.global'
+})
+await safeAuthPack.init(safeAuthInitOptions)
 ```
 
 ### `new SafeAuthPack(safeAuthConfig)`
@@ -117,8 +117,8 @@ SafeAuthSignInOptions = {
 ```typescript
 safeAuthPack.signIn({
   loginProvider: 'google',
-  login_hint: 'my-mail@safe.global',
-});
+  login_hint: 'my-mail@safe.global'
+})
 ```
 
 **Returns**
@@ -203,18 +203,18 @@ Calling `init()` when your page loads or component renders is all it takes to us
 
 ```typescript
 // Instantiate and initialize the pack
-const safeAuthPack = new SafeAuthPack(safeAuthConfig);
-await safeAuthPack.init(safeAuthInitOptions);
+const safeAuthPack = new SafeAuthPack(safeAuthConfig)
+await safeAuthPack.init(safeAuthInitOptions)
 
-const { eoa, safes } = await safeAuthPack.signIn();
-const userInfo = await safeAuthPack.getUserInfo();
-const web3Provider = safeAuthPack.getProvider();
+const { eoa, safes } = await safeAuthPack.signIn()
+const userInfo = await safeAuthPack.getUserInfo()
+const web3Provider = safeAuthPack.getProvider()
 
 // Subscribe to events
-const handler = (event) => {};
-safeAuthPack.subscribe(packEvent, handler);
-safeAuthPack.unsubscribe(packEvent, handler);
+const handler = (event) => {}
+safeAuthPack.subscribe(packEvent, handler)
+safeAuthPack.unsubscribe(packEvent, handler)
 
 // Sign out
-await safeAuthPack.signOut();
+await safeAuthPack.signOut()
 ```

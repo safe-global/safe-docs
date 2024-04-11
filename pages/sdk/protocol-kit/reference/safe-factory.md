@@ -17,7 +17,10 @@ const safeFactory = await SafeFactory.create({ ethAdapter })
   By default, `Safe.sol` will only be used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force using the `Safe.sol` contract.
 
   ```typescript
-  const safeFactory = await SafeFactory.create({ ethAdapter, isL1SafeSingleton: true })
+  const safeFactory = await SafeFactory.create({
+    ethAdapter,
+    isL1SafeSingleton: true
+  })
   ```
 
 - The `contractNetworks` property
@@ -96,7 +99,10 @@ const safeAccountConfig: SafeAccountConfig = {
 
 const saltNonce = '<YOUR_CUSTOM_VALUE>'
 
-const protocolKit = await safeFactory.deploySafe({ safeAccountConfig, saltNonce })
+const protocolKit = await safeFactory.deploySafe({
+  safeAccountConfig,
+  saltNonce
+})
 ```
 
 Optionally, some properties can be passed as execution options:
@@ -124,7 +130,11 @@ const options: EthersTransactionOptions = {
 ```
 
 ```typescript
-const protocolKit = await safeFactory.deploySafe({ safeAccountConfig, safeDeploymentConfig, options })
+const protocolKit = await safeFactory.deploySafe({
+  safeAccountConfig,
+  safeDeploymentConfig,
+  options
+})
 ```
 
 It can also take an optional callback, which receives the `txHash` of the Safe deployment transaction before returning a new instance of the Protocol Kit:
@@ -134,5 +144,8 @@ const callback = (txHash: string): void => {
   console.log({ txHash })
 }
 
-const protocolKit = await safeFactory.deploySafe({ safeAccountConfig, callback })
+const protocolKit = await safeFactory.deploySafe({
+  safeAccountConfig,
+  callback
+})
 ```

@@ -1,4 +1,4 @@
-import { Grid, Container} from '@mui/material'
+import { Grid, Container } from '@mui/material'
 import CustomCard from '../components/CustomCard'
 
 import SafeWallet from '../assets/svg/lock.svg'
@@ -26,11 +26,25 @@ mt={3}
 </Grid>
 
 <Grid item xs={12} md={4}>
-  <CustomCard title={'Safe{Wallet}'} description={'For questions about the Safe{Wallet} - the web app and the mobile apps, please ask your questions at our Help Center.'} url={'https://help.safe.global/en/'} icon={<SafeWallet />} />
+  <CustomCard
+    title={'Safe{Wallet}'}
+    description={
+      'For questions about the Safe{Wallet} - the web app and the mobile apps, please ask your questions at our Help Center.'
+    }
+    url={'https://help.safe.global/en/'}
+    icon={<SafeWallet />}
+  />
 </Grid>
 
 <Grid item xs={12} md={4}>
-  <CustomCard title={'Report Bugs'} description={'Please file an issue in the associated GitHub repository for things not working as expected and for reporting bugs.'} url={'https://github.com/safe-global'} icon={<ReportBug />} />
+  <CustomCard
+    title={'Report Bugs'}
+    description={
+      'Please file an issue in the associated GitHub repository for things not working as expected and for reporting bugs.'
+    }
+    url={'https://github.com/safe-global'}
+    icon={<ReportBug />}
+  />
 </Grid>
 
 </Grid>

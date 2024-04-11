@@ -32,6 +32,7 @@ pnpm install viem permissionless
 ### Contracts
 
 In this guide, we will use some specific versions for the following contracts deployed on Gnosis Chain.
+
 - `v0.6.0` EntryPoint
 - `v1.4.1` Safe Smart Account
 - `v0.2.0` Safe4337Module
@@ -64,8 +65,21 @@ These are all the imports required in the script we are building for this guide,
 
 ```typescript
 import { bundlerActions, getAccountNonce } from 'permissionless'
-import { pimlicoBundlerActions, pimlicoPaymasterActions } from 'permissionless/actions/pimlico'
-import { Address, Client, Hash, Hex, PrivateKeyAccount, createClient, createPublicClient, encodeFunctionData, http } from 'viem'
+import {
+  pimlicoBundlerActions,
+  pimlicoPaymasterActions
+} from 'permissionless/actions/pimlico'
+import {
+  Address,
+  Client,
+  Hash,
+  Hex,
+  PrivateKeyAccount,
+  createClient,
+  createPublicClient,
+  encodeFunctionData,
+  http
+} from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 import { gnosis } from 'viem/chains'
 ```
@@ -177,7 +191,7 @@ This initialization also includes the option to execute a call by using the `to`
 
 To enable the module in the `enableModuleCallData` function, we will encode a call to the `AddModuleLib` contract by passing the address of the `Safe4337Module`.
 
-{ /* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
 <Tabs items={['script.ts', 'getAccountInitCode.ts', 'getInitializerCode.ts', 'enableModuleCallData.ts', 'encodeMultiSend.ts']}>
   <Tabs.Tab>
@@ -268,6 +282,7 @@ To enable the module in the `enableModuleCallData` function, we will encode a ca
       return concatHex([safeProxyFactoryAddress, initCodeCallData])
     }
     ```
+
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
@@ -369,6 +384,7 @@ To enable the module in the `enableModuleCallData` function, we will encode a ca
       })
     }
     ```
+
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
@@ -396,43 +412,45 @@ To enable the module in the `enableModuleCallData` function, we will encode a ca
     ```
   </Tabs.Tab>
   <Tabs.Tab>
-  ```typescript
-  const encodeMultiSend = (txs: InternalTx[]): `0x${string}` => {
-    const data: `0x${string}` = `0x${txs.map((tx) => encodeInternalTransaction(tx)).join('')}`
+    ```typescript
+    const encodeMultiSend = (txs: InternalTx[]): `0x${string}` => {
+      const data: `0x${string}` = `0x${txs.map((tx) => encodeInternalTransaction(tx)).join('')}`
 
-    return encodeFunctionData({
-      abi: [
-        {
-          inputs: [{ internalType: 'bytes', name: 'transactions', type: 'bytes' }],
-          name: 'multiSend',
-          outputs: [],
-          stateMutability: 'payable',
-          type: 'function'
-        }
-      ],
-      functionName: 'multiSend',
-      args: [data]
-    })
-  }
+      return encodeFunctionData({
+        abi: [
+          {
+            inputs: [{ internalType: 'bytes', name: 'transactions', type: 'bytes' }],
+            name: 'multiSend',
+            outputs: [],
+            stateMutability: 'payable',
+            type: 'function'
+          }
+        ],
+        functionName: 'multiSend',
+        args: [data]
+      })
+    }
 
-  const encodeInternalTransaction = (tx: InternalTx): string => {
-    const encoded = encodePacked(
-      ['uint8', 'address', 'uint256', 'uint256', 'bytes'],
-      [tx.operation, tx.to, tx.value, BigInt(tx.data.slice(2).length / 2), tx.data],
-    )
-    return encoded.slice(2)
-  }
-  ```
+    const encodeInternalTransaction = (tx: InternalTx): string => {
+      const encoded = encodePacked(
+        ['uint8', 'address', 'uint256', 'uint256', 'bytes'],
+        [tx.operation, tx.to, tx.value, BigInt(tx.data.slice(2).length / 2), tx.data],
+      )
+      return encoded.slice(2)
+    }
+    ```
+
   </Tabs.Tab>
 </Tabs>
 
-{ /* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
 In case of doing the token approval to the `EntryPoint` contract, check the list of [ERC-20 Pimlico paymasters and USDC tokens addresses](https://docs.pimlico.io/paymaster/erc20-paymaster/contract-addresses) to select the correct addresses for these contracts depending on the network.
 
 #### Get the Safe address
 
 We implemented the `getAccountAddress` utility function to calculate the' sender'. This function calls the viem `getContractAddress` function to get the address based on:
+
 - The `SAFE_PROXY_FACTORY_ADDRESS`
 - The bytecode of the deployed contract (the Safe Proxy)
 - The `saltNonce`
@@ -527,6 +545,7 @@ Notice that the `sender` address will depend on the value of the Safe configurat
       })
     }
     ```
+
   </Tabs.Tab>
 </Tabs>
 
@@ -554,55 +573,55 @@ Check the `encodeCallData` tab to see how the encoding is implemented.
 {/* <!-- vale off --> */}
 
 <Tabs items={['script.ts', 'encodeCallData.ts']}>
-  <Tabs.Tab>
-    ```typescript
-    const callData: `0x${string}` = encodeCallData({
-      to: sender,
-      data: '0x',
-      value: 0n
+<Tabs.Tab>
+  ```typescript
+  const callData: `0x${string}` = encodeCallData({
+    to: sender,
+    data: '0x',
+    value: 0n
+  })
+  ```
+</Tabs.Tab>
+<Tabs.Tab>
+  ```typescript
+  export const encodeCallData = (params: { to: Address; value: bigint; data: `0x${string}` }) => {
+    return encodeFunctionData({
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'to',
+              type: 'address'
+            },
+            {
+              internalType: 'uint256',
+              name: 'value',
+              type: 'uint256'
+            },
+            {
+              internalType: 'bytes',
+              name: 'data',
+              type: 'bytes'
+            },
+            {
+              internalType: 'uint8',
+              name: 'operation',
+              type: 'uint8'
+            }
+          ],
+          name: 'executeUserOp',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function'
+        }
+      ],
+      functionName: 'executeUserOp',
+      args: [params.to, params.value, params.data, 0]
     })
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```typescript
-    export const encodeCallData = (params: { to: Address; value: bigint; data: `0x${string}` }) => {
-      return encodeFunctionData({
-        abi: [
-          {
-            inputs: [
-              {
-                internalType: 'address',
-                name: 'to',
-                type: 'address'
-              },
-              {
-                internalType: 'uint256',
-                name: 'value',
-                type: 'uint256'
-              },
-              {
-                internalType: 'bytes',
-                name: 'data',
-                type: 'bytes'
-              },
-              {
-                internalType: 'uint8',
-                name: 'operation',
-                type: 'uint8'
-              }
-            ],
-            name: 'executeUserOp',
-            outputs: [],
-            stateMutability: 'nonpayable',
-            type: 'function'
-          }
-        ],
-        functionName: 'executeUserOp',
-        args: [params.to, params.value, params.data, 0]
-      })
-    }
-    ```
-  </Tabs.Tab>
+  }
+  ```
+</Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
@@ -624,7 +643,8 @@ sponsoredUserOperation.callGasLimit = gasEstimate.callGasLimit
 sponsoredUserOperation.verificationGasLimit = gasEstimate.verificationGasLimit
 sponsoredUserOperation.preVerificationGas = gasEstimate.preVerificationGas
 sponsoredUserOperation.maxFeePerGas = maxGasPriceResult.fast.maxFeePerGas
-sponsoredUserOperation.maxPriorityFeePerGas = maxGasPriceResult.fast.maxPriorityFeePerGas
+sponsoredUserOperation.maxPriorityFeePerGas =
+  maxGasPriceResult.fast.maxPriorityFeePerGas
 ```
 
 To use the Paymaster to pay for the fees, we need to provide a `SPONSORSHIP_POLICY_ID` that can be provided by a third party willing to sponsor our user operations, or it can be generated in the [Pimlico dashboard](https://dashboard.pimlico.io/sponsorship-policies). Sponsorship policies allow the definition of custom rules for sponsorships with various options to limit the total sponsored amount, per user, and per user operation.
@@ -640,7 +660,8 @@ if (usePaymaster) {
   })
 
   sponsoredUserOperation.callGasLimit = sponsorResult.callGasLimit
-  sponsoredUserOperation.verificationGasLimit = sponsorResult.verificationGasLimit
+  sponsoredUserOperation.verificationGasLimit =
+    sponsorResult.verificationGasLimit
   sponsoredUserOperation.preVerificationGas = sponsorResult.preVerificationGas
   sponsoredUserOperation.paymasterAndData = sponsorResult.paymasterAndData
 }
@@ -666,6 +687,7 @@ To sign the `sponsoredUserOperation`, we have created the `signUserOperation` ut
       SAFE_4337_MODULE_ADDRESS
     )
     ```
+
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
@@ -729,6 +751,7 @@ To sign the `sponsoredUserOperation`, we have created the `signUserOperation` ut
       return signatureBytes
     }
     ```
+
   </Tabs.Tab>
 </Tabs>
 
@@ -764,6 +787,7 @@ const transactionHash = receipt.receipt.transactionHash
 This guide covered how to sponsor the deployment of a new ERC-4337 Safe and its user operations with Pimlico infrastructure using a Paymaster.
 
 Feel free to try out other ideas and possibilities, as there are many more regarding:
+
 - The deployment and initial setup of ERC-4337 accounts.
 - The entity responsible for paying the transaction fees.
 - The tokens used to pay the transaction fees.

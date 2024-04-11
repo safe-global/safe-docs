@@ -24,7 +24,6 @@ For more detailed information, see the guide [Integrating the Protocol Kit and A
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 2. A Safe with several signers
 
-
 ## Install dependencies
 
 To add the API Kit to your project, run:
@@ -67,7 +66,6 @@ const apiKit = new SafeApiKit({
   chainId: 1n
 })
 
-
 // or using a custom service
 const apiKit = new SafeApiKit({
   chainId: 1n, // set the correct chainId
@@ -96,7 +94,9 @@ const safeTransactionData: MetaTransactionData = {
   operation: OperationType.Call
 }
 
-const safeTransaction = await protocolKit.createTransaction({ transactions: [safeTransactionData] })
+const safeTransaction = await protocolKit.createTransaction({
+  transactions: [safeTransactionData]
+})
 
 const senderAddress = await signer.getAddress()
 const safeTxHash = await protocolKit.getTransactionHash(safeTransaction)
@@ -117,7 +117,7 @@ await apiKit.proposeTransaction({
 Different methods in the API Kit are available to retrieve pending transactions depending on the situation. To retrieve a transaction given the Safe transaction hash use the method that's not commented.
 
 ```typescript
-const transaction = await service.getTransaction("<SAFE_TX_HASH>")
+const transaction = await service.getTransaction('<SAFE_TX_HASH>')
 // const transactions = await service.getPendingTransactions()
 // const transactions = await service.getIncomingTransactions()
 // const transactions = await service.getMultisigTransactions()
@@ -134,7 +134,10 @@ const safeTxHash = transaction.transactionHash
 const signature = await protocolKit.signHash(safeTxHash)
 
 // Confirm the Safe transaction
-const signatureResponse = await apiKit.confirmTransaction(safeTxHash, signature.data)
+const signatureResponse = await apiKit.confirmTransaction(
+  safeTxHash,
+  signature.data
+)
 ```
 
 The Safe transaction is now ready to be executed. This can be done using the Safe\{Wallet\} web interface, the Protocol Kit or any other tool that's available.

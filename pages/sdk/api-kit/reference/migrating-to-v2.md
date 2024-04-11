@@ -6,7 +6,7 @@ This guide references the major changes between v1 and v2 to help those migratin
 
 It won't be necessary to specify a `txServiceUrl` in environments where Safe has a Transaction Service running. Providing the chain ID will be enough. If you want to use your custom service or the kit in a chain not supported by a Safe Transaction Service, you can add the `txServiceUrl` parameter.
 
-```js
+```typescript
 // old:
 import SafeApiKit from '@safe-global/api-kit'
 
@@ -36,7 +36,7 @@ API Kit v1 forced any custom service to be hosted under the `/api` route of the 
 
 Note that if you use a custom service running under `/api`, you will now need to migrate as follows:
 
-```js
+```typescript
 // old:
 const txServiceUrl = 'https://your-transaction-service-domain/'
 const apiKit = new SafeApiKit({

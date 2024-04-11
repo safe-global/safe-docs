@@ -9,7 +9,8 @@ This guide references the major changes between v1 and v2 to help those migratin
 To avoid confusion between terms used as synonyms, we aligned all our code to use the word `singleton`.
 
 - Rename `isL1SafeMasterCopy` to `isL1SafeSingleton`
-```js
+
+```typescript
 // old:
 SafeFactory.create({ ethAdapter, isL1SafeMasterCopy: true })
 
@@ -25,7 +26,7 @@ From `protocolKit v2`, `EthersAdapter` will only be compatible with ethers.js v6
 
 In `protocolKit v1`, the `createTransaction()` method accepted either an object or an array as a parameter. To avoid confusion, we changed it to accept only an array. Here is a migration example:
 
-```js
+```typescript
 // old:
 const safeTransactionData = {
   to: '',

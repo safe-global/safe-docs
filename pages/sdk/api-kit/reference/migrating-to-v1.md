@@ -47,7 +47,8 @@ const delegateConfig: GetSafeDelegateProps = {
   limit, // Optional
   offset // Optional
 }
-const delegates: SafeDelegateListResponse = await apiKit.getSafeDelegates(delegateConfig)
+const delegates: SafeDelegateListResponse =
+  await apiKit.getSafeDelegates(delegateConfig)
 ```
 
 ## `addSafeDelegate()`

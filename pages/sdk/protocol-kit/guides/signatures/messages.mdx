@@ -97,6 +97,7 @@ Following our [setup](../signatures.md), we will sign a message with `safe3_4`, 
 This applies to `owner1` and `owner2` accounts, as both are EOAs.
 
 The `signMessage` method takes the `safeMessage` together with a `SigningMethod` and adds the new signature to the `signMessage.signatures` map. Depending on the type of message, the `SigningMethod` can take these values:
+
 - `SigningMethod.ETH_SIGN`
 - `SigningMethod.ETH_SIGN_TYPED_DATA_V4`
 
@@ -238,7 +239,9 @@ To store a new message, we need to call the `addMessage` from the API Kit, passi
 const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x'
 
 // Get the signature from owner1
-const signatureOwner1 = safeMessage.getSignature(signerAddress) as EthSafeSignature
+const signatureOwner1 = safeMessage.getSignature(
+  signerAddress
+) as EthSafeSignature
 
 // Instantiate the API Kit
 // Use the chainId where you have the Safe account deployed
@@ -265,7 +268,9 @@ const safeMessageHash = await protocolKit.getSafeMessageHash(
 
 // Get the signature from owner2
 const signerAddress = (await ethAdapter2.getSignerAddress()) || '0x'
-const signatureOwner2 = safeMessage.getSignature(signerAddress) as EthSafeSignature
+const signatureOwner2 = safeMessage.getSignature(
+  signerAddress
+) as EthSafeSignature
 
 // Add signature from owner2
 await apiKit.addMessageSignature(
@@ -321,7 +326,7 @@ const safeTransactionData: SafeTransactionDataPartial = {
   to: signMessageLibContract.address,
   value: '0',
   data: txData,
-  operation: OperationType.DelegateCall,
+  operation: OperationType.DelegateCall
 }
 
 const signMessageTx = await protocolKit.createTransaction({

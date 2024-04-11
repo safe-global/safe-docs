@@ -4,8 +4,9 @@ import { Callout } from 'nextra/components'
 
 Here's a reference for commands common to the `blockchain` and the `tx-service` modes.
 
-<Callout type='info' emoji='ℹ️'>
-  You must first load the sender's private key. When loading an owner, it will be set automatically.
+<Callout type="info" emoji="ℹ️">
+  You must first load the sender's private key. When loading an owner, it will
+  be set automatically.
 </Callout>
 
 ## Safe
@@ -36,7 +37,7 @@ Updates the Safe to the latest version (if you are on a known network like Mainn
 
 ```bash
 update
-``` 
+```
 
 ## Transactions
 
@@ -80,7 +81,7 @@ Adds a new owner `address` to the Safe.
 
 ```bash
 add_owner <address>
-``` 
+```
 
 ### Load owners
 
@@ -124,8 +125,9 @@ To unload an owner:
 
 #### From hardware wallets
 
-<Callout type='info' emoji='ℹ️'>
-  Before signing anything, ensure that the data on your hardware wallet device is the same as the Safe CLI data.
+<Callout type="info" emoji="ℹ️">
+  Before signing anything, ensure that the data on your hardware wallet device
+  is the same as the Safe CLI data.
 </Callout>
 
 If you want to use both Ledger and Trezor, you need to run the following command:
@@ -170,7 +172,6 @@ pip install "safe-cli[trezor]"
 
 - `load_trezor_cli_owners [--legacy-accounts] [--derivation-path <str>]`: shows a list of the first five accounts (`--legacy-accounts` search using legacy derivation) or loads an account from provided derivation path.
 
-
 ### Remove owner
 
 Removes an owner `address` from the Safe.
@@ -185,7 +186,7 @@ Changes the `threshold` of the Safe.
 
 ```bash
 change_threshold <integer>
-``` 
+```
 
 ## Modules
 
@@ -214,7 +215,8 @@ refresh
 ```
 
 <Callout type="warning" emoji="⚠️">
-  Only use the following operations if you are sure about what you are doing, as they can result in all your funds getting lost.
+  Only use the following operations if you are sure about what you are doing, as
+  they can result in all your funds getting lost.
 </Callout>
 
 ## Update fallback handler
@@ -239,12 +241,13 @@ Updates the master copy to be `address`. It's used to update the Safe.
 
 ```bash
 change_master_copy <address>
-``` 
+```
 
 ## Update to L2
 
 <Callout type="warning" emoji="⚠️">
-  A non-L2 Safe can only be migrated to L2 if the non-L2 Safe was not used before (nonce must be zero).
+  A non-L2 Safe can only be migrated to L2 if the non-L2 Safe was not used
+  before (nonce must be zero).
 </Callout>
 
 Updates a `v1.1.1`, `v1.3.0`, or `v1.4.1` non-L2 Safe to an L2 Safe supported by Safe \{Wallet\}.

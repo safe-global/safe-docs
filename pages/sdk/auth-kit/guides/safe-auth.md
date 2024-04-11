@@ -24,15 +24,16 @@ Create an instance of the [SafeAuthPack](https://github.com/safe-global/safe-cor
 >
 > - Production: Ethereum, Polygon, BSC, Avalanche, Optimism, Celo, Arbitrum, Gnosis chain
 > - Test: Sepolia, Polygon Mumbai, BSC Testnet, Avalanche Testnet, Arbitrum Testnet, Optimism Testnet
+
 ```typescript
 import {
   SafeAuthPack,
   SafeAuthConfig,
-  SafeAuthInitOptions,
+  SafeAuthInitOptions
 } from '@safe-global/auth-kit'
 
 const safeAuthConfig: SafeAuthConfig = {
-  txServiceUrl: 'https://safe-transaction-mainnet.safe.global',
+  txServiceUrl: 'https://safe-transaction-mainnet.safe.global'
 }
 const safeAuthInitOptions: SafeAuthInitOptions = {
   enableLogging: true,
@@ -40,7 +41,7 @@ const safeAuthInitOptions: SafeAuthInitOptions = {
   chainConfig: {
     chainId: '0x1',
     rpcTarget: `${rpcUrl}`
-  },
+  }
 }
 
 // You can also pass the SafeAuthConfig as a parameter to the SafeAuthPack constructor if you are using a custom txServiceUrl domain
@@ -118,24 +119,24 @@ const signer = provider.getSigner()
 // Create the Safe EthersAdapter
 const ethAdapter = new EthersAdapter({
   ethers,
-  signerOrProvider: signer || provider,
+  signerOrProvider: signer || provider
 })
 
 // Instantiate the protocolKit
 const protocolKit = await Safe.create({
   ethAdapter,
-  safeAddress,
+  safeAddress
 })
 
 // Create a Safe transaction with the provided parameters
 const safeTransactionData: MetaTransactionData = {
   to: `${ethAddress}`,
   data: '0x',
-  value: ethers.parseUnits('0.0001', 'ether').toString(),
+  value: ethers.parseUnits('0.0001', 'ether').toString()
 }
 
 const safeTransaction = await protocolKit.createTransaction({
-  transactions: [safeTransactionData],
+  transactions: [safeTransactionData]
 })
 
 // Sign the transaction if the Safe have several owners

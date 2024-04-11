@@ -77,19 +77,28 @@ For this tutorial, we will be creating a Safe on the Sepolia Testnet.
 
 ```tsx
 import { ethers } from 'ethers'
-import { EthersAdapter } from '@safe-global/protocol-kit'
+import { EthersAdapter } from '@safe-global/protocol-kit'
 import dotenv from 'dotenv'
 
 dotenv.config()
 
 // https://chainlist.org/?search=sepolia&testnets=true
-const RPC_URL='https://eth-sepolia.public.blastapi.io'
+const RPC_URL = 'https://eth-sepolia.public.blastapi.io'
 const provider = new ethers.JsonRpcProvider(RPC_URL)
 
 // Initialize signers
-const owner1Signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
-const owner2Signer = new ethers.Wallet(process.env.OWNER_2_PRIVATE_KEY!, provider)
-const owner3Signer = new ethers.Wallet(process.env.OWNER_3_PRIVATE_KEY!, provider)
+const owner1Signer = new ethers.Wallet(
+  process.env.OWNER_1_PRIVATE_KEY!,
+  provider
+)
+const owner2Signer = new ethers.Wallet(
+  process.env.OWNER_2_PRIVATE_KEY!,
+  provider
+)
+const owner3Signer = new ethers.Wallet(
+  process.env.OWNER_3_PRIVATE_KEY!,
+  provider
+)
 
 const ethAdapterOwner1 = new EthersAdapter({
   ethers,
@@ -109,7 +118,6 @@ import SafeApiKit from '@safe-global/api-kit'
 const apiKit = new SafeApiKit({
   chainId: 1n
 })
-
 
 // or using a custom service
 const apiKit = new SafeApiKit({
@@ -143,7 +151,7 @@ const safeAccountConfig: SafeAccountConfig = {
     await owner2Signer.getAddress(),
     await owner3Signer.getAddress()
   ],
-  threshold: 2,
+  threshold: 2
   // ... (Optional params)
 }
 
@@ -218,7 +226,9 @@ const safeTransactionData: MetaTransactionData = {
   value: amount
 }
 // Create a Safe transaction with the provided parameters
-const safeTransaction = await protocolKitOwner1.createTransaction({ transactions: [safeTransactionData] })
+const safeTransaction = await protocolKitOwner1.createTransaction({
+  transactions: [safeTransactionData]
+})
 ```
 
 ### Propose the transaction
@@ -239,7 +249,7 @@ await apiKit.proposeTransaction({
   safeTransactionData: safeTransaction.data,
   safeTxHash,
   senderAddress: await owner1Signer.getAddress(),
-  senderSignature: senderSignature.data,
+  senderSignature: senderSignature.data
 })
 ```
 
@@ -248,7 +258,8 @@ await apiKit.proposeTransaction({
 Recall that you created the `apiKit` in [Initialize the API Kit](./#initialize-the-safe-api-kit).
 
 ```tsx
-const pendingTransactions = await apiKit.getPendingTransactions(safeAddress).results
+const pendingTransactions =
+  await apiKit.getPendingTransactions(safeAddress).results
 ```
 
 ### Confirm the transaction: Second confirmation
@@ -294,7 +305,9 @@ You know that the transaction was executed if the balance in your Safe changes.
 ```tsx
 const afterBalance = await protocolKit.getBalance()
 
-console.log(`The final balance of the Safe: ${ethers.formatUnits(afterBalance, 'ether')} ETH`)
+console.log(
+  `The final balance of the Safe: ${ethers.formatUnits(afterBalance, 'ether')} ETH`
+)
 ```
 
 ```bash

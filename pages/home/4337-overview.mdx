@@ -7,7 +7,7 @@ import CustomCard from '../../components/CustomCard'
 
 Nodes in Ethereum can act as a Bundler, which picks up multiple `UserOperation`(s) and packs them into a single transaction known as a bundle transaction. The bundle transactions are then sent to a global smart contract on Ethereum (of which there is only one) called the `EntryPoint`.
 
-``` mermaid
+```mermaid
 ---
 title: Simplified ERC-4337 flow
 ---
@@ -17,7 +17,7 @@ flowchart TD
     Decentralized network of relayers to propagate UserOperations)
     B -->|Bundle Transactions| C(EntryPoint Contract
     Contract to ensure onchain authentication)
-    C -->|Invoke UserOperation| D(Smart Account 
+    C -->|Invoke UserOperation| D(Smart Account
     Smart contract validates and executes the individual UserOperations)
     style A stroke:#12ff80
     style B stroke:#12ff80
@@ -33,17 +33,13 @@ ERC-4337 is currently under development and still needs to be finalized, so deve
 
 ERC-4337 provides a bunch of benefits along with all the inherent advantages of utilizing smart accounts:
 
-<Grid
-  container
-  spacing={2}
-  display='flex'
-  alignContent='flex-start'
-  mt={3}
->
+<Grid container spacing={2} display="flex" alignContent="flex-start" mt={3}>
   <Grid item xs={12} md={4}>
     <CustomCard
       title={'Flexibility of payments'}
-      description={'Users can decide how to pay the gas fees. Use native tokens like ETH, ERC-20 tokens, or even sponsored transactions.'}
+      description={
+        'Users can decide how to pay the gas fees. Use native tokens like ETH, ERC-20 tokens, or even sponsored transactions.'
+      }
       url=""
       newTab={false}
     />
@@ -51,7 +47,9 @@ ERC-4337 provides a bunch of benefits along with all the inherent advantages of 
   <Grid item xs={12} md={4}>
     <CustomCard
       title={'Freedom of Authentication'}
-      description={'It enables the use of different authentication mechanisms, such as multi-signature, passkeys, and future quantum-proof cryptography.'}
+      description={
+        'It enables the use of different authentication mechanisms, such as multi-signature, passkeys, and future quantum-proof cryptography.'
+      }
       url=""
       newTab={false}
     />
@@ -59,13 +57,14 @@ ERC-4337 provides a bunch of benefits along with all the inherent advantages of 
   <Grid item xs={12} md={4}>
     <CustomCard
       title={'Decentralization'}
-      description={'It\'s supported by various providers, avoiding lock-in to a single-relayer technology, offering an anti-fragile approach with no single point of failure.'}
+      description={
+        "It's supported by various providers, avoiding lock-in to a single-relayer technology, offering an anti-fragile approach with no single point of failure."
+      }
       url=""
       newTab={false}
     />
   </Grid>
 </Grid>
-
 
 ## Further reading
 

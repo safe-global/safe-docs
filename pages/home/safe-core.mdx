@@ -12,34 +12,43 @@ import Community from '../../assets/svg/people.svg'
 
 [Safe\{Core\}](https://safe.global/core) is an open-source and modular account abstraction stack. It's the essential tooling and infrastructure for integrating the Safe Smart Account into any digital platform, ensuring a tested core with flexible and secure capabilities for innovative applications.
 
-
 ## Why build on Safe\{Core\}?
 
 Safe secures an extensive amount of assets. It has been thoroughly audited and tested since 2018, and it has become the default wallet of choice for many, including DAOs, web3 native companies, and individuals like Vitalik Buterin, who trust Safe with their own assets. In addition, over 200 projects are currently building on top of Safe, and it's expected that this number will only continue to grow.
 
 <Cards>
-  <Card icon={<Money />} title="$100B+ secured" href="https://dune.com/safe" target="_blank"/>
-  <Card icon={<Verify />} title="Formally verified" href="../advanced/smart-account-audits" />
-  <Card icon={<Community />} title="200+ projects" href="https://safe.global/ecosystem" target="_blank" />
+  <Card
+    icon={<Money />}
+    title="$100B+ secured"
+    href="https://dune.com/safe"
+    target="_blank"
+  />
+  <Card
+    icon={<Verify />}
+    title="Formally verified"
+    href="../advanced/smart-account-audits"
+  />
+  <Card
+    icon={<Community />}
+    title="200+ projects"
+    href="https://safe.global/ecosystem"
+    target="_blank"
+  />
 </Cards>
 
-With Safe\{Core\}, we are putting a modular stack in the hands of developers to build the next generation of account abstraction wallets and solutions. We have partnered with the best in the business to improve UX capabilities and compatibility with existing ecosystem tools. 
+With Safe\{Core\}, we are putting a modular stack in the hands of developers to build the next generation of account abstraction wallets and solutions. We have partnered with the best in the business to improve UX capabilities and compatibility with existing ecosystem tools.
 
 ## Our stack
 
 The Safe\{Core\} stack is categorized into three distinct groups:
 
-<Grid
-  container
-  spacing={2}
-  display='flex'
-  alignContent='flex-start'
-  mt={3}
->
+<Grid container spacing={2} display="flex" alignContent="flex-start" mt={3}>
   <Grid item xs={12} md={12}>
     <CustomCard
       title={'Safe{Core} SDK'}
-      description={'The SDK offers developers the ability to abstract the complexity that comes with operating a smart contract account. It also provides developer kits to help integrate Safe with external service providers.'}
+      description={
+        'The SDK offers developers the ability to abstract the complexity that comes with operating a smart contract account. It also provides developer kits to help integrate Safe with external service providers.'
+      }
       url={'../sdk/overview'}
       icon={<SafeCoreSDK />}
       newTab={false}
@@ -48,7 +57,9 @@ The Safe\{Core\} stack is categorized into three distinct groups:
   <Grid item xs={12} md={6}>
     <CustomCard
       title={'Safe{Core} API'}
-      description={'The Safe infrastructure needed to power interfaces with all Safe account related information. This includes the Safe Transaction Service, Safe Events Service, etc.'}
+      description={
+        'The Safe infrastructure needed to power interfaces with all Safe account related information. This includes the Safe Transaction Service, Safe Events Service, etc.'
+      }
       url={'../advanced/api-service-architecture'}
       icon={<SafeCoreAPI />}
       newTab={false}
@@ -57,11 +68,13 @@ The Safe\{Core\} stack is categorized into three distinct groups:
   <Grid item xs={12} md={6}>
     <CustomCard
       title={'Safe Smart Account'}
-      description={'The modular and extensible smart contract account, designed to serve as the standard core utilized in all smart contract-based wallets and applications.'}
+      description={
+        'The modular and extensible smart contract account, designed to serve as the standard core utilized in all smart contract-based wallets and applications.'
+      }
       url={'../advanced/smart-account-overview'}
       icon={<SafeSmartAccount />}
       newTab={false}
-      />
+    />
   </Grid>
 </Grid>
 

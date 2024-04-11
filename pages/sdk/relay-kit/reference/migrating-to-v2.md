@@ -6,7 +6,7 @@ This guide references the major changes between v1 and v2 to help those migratin
 
 - The `GelatoRelayPack` constructor now includes a mandatory `protocolKit` parameter. It's required for any new pack extending the `RelayKitBasePack`.
 
-```js
+```typescript
 constructor({ apiKey, protocolKit }: GelatoOptions)
 ```
 

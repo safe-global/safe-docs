@@ -2,10 +2,10 @@
 
 The Safe infrastructure consists of four services:
 
-* [Safe Transaction Service](https://github.com/safe-global/safe-transaction-service): Keeps track of transactions related to Safe contracts (Python). Also referred to as *Transaction Service*.
-* [Safe Events Service](https://github.com/safe-global/safe-events-service): Handles Safe indexing events from the Transaction Service and delivers them as HTTP webhooks.
-* [Safe Config Service](https://github.com/safe-global/safe-config-service): Keeps track of all supported networks and chain-specific variables (Python). Also referred to as *Config Service*.
-* [Safe Client Gateway](https://github.com/safe-global/safe-client-gateway-nest): Uses the config service to find the Transaction Service instance required for a given request (Node.js). Also referred to as *Client Gateway*.
+- [Safe Transaction Service](https://github.com/safe-global/safe-transaction-service): Keeps track of transactions related to Safe contracts (Python). Also referred to as _Transaction Service_.
+- [Safe Events Service](https://github.com/safe-global/safe-events-service): Handles Safe indexing events from the Transaction Service and delivers them as HTTP webhooks.
+- [Safe Config Service](https://github.com/safe-global/safe-config-service): Keeps track of all supported networks and chain-specific variables (Python). Also referred to as _Config Service_.
+- [Safe Client Gateway](https://github.com/safe-global/safe-client-gateway-nest): Uses the config service to find the Transaction Service instance required for a given request (Node.js). Also referred to as _Client Gateway_.
 
 Safe's production setup is a mixture of several instances of the Safe Transaction Service orchestrated by the Config Service, later consumed by the Client Gateway.
 

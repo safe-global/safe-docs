@@ -10,19 +10,19 @@ Smart contract security experts have carefully audited Safe's contracts. Please 
 
 Many of the [Ethereum Foundation's bug bounty program rules](https://bounty.ethereum.org) are also applicable to the Safe Bug Bounty program:
 
-* Issues already submitted by another user or known to the Safe team aren't eligible for bounty rewards.
-* Public disclosure of a vulnerability makes it ineligible for a bounty.
-* The Safe core development team, employees, and all other people paid by Safe, directly or indirectly (including the external auditors), aren't eligible for rewards.
-* The Safe Bounty program considers several variables in determining rewards. Determinations of eligibility, score, and all terms related to an award are at the sole and final discretion of the Safe Bug Bounty panel.
+- Issues already submitted by another user or known to the Safe team aren't eligible for bounty rewards.
+- Public disclosure of a vulnerability makes it ineligible for a bounty.
+- The Safe core development team, employees, and all other people paid by Safe, directly or indirectly (including the external auditors), aren't eligible for rewards.
+- The Safe Bounty program considers several variables in determining rewards. Determinations of eligibility, score, and all terms related to an award are at the sole and final discretion of the Safe Bug Bounty panel.
 
 ## Scope
 
 The scope of the bug bounty program includes the core contracts related to the following releases of the Safe contracts:
 
-* v1.4.1 ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.4.1), [README](https://github.com/safe-global/safe-contracts/blob/v1.4.1/README.md))
-* _v1.3.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.3.0), [README](https://github.com/safe-global/safe-contracts/blob/v1.3.0/README.md))
-* _v1.2.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.2.0), [README](https://github.com/safe-global/safe-contracts/blob/v1.2.0/README.md))
-* _v1.1.1_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.1.1), [README](https://github.com/safe-global/safe-contracts/blob/v1.1.1/README.md))
+- v1.4.1 ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.4.1), [README](https://github.com/safe-global/safe-contracts/blob/v1.4.1/README.md))
+- _v1.3.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.3.0), [README](https://github.com/safe-global/safe-contracts/blob/v1.3.0/README.md))
+- _v1.2.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.2.0), [README](https://github.com/safe-global/safe-contracts/blob/v1.2.0/README.md))
+- _v1.1.1_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.1.1), [README](https://github.com/safe-global/safe-contracts/blob/v1.1.1/README.md))
 
 The scope of the bug bounty also includes the [Allowance Module](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
 
@@ -30,44 +30,44 @@ The scope of the bug bounty also includes the [Allowance Module](https://github.
 
 **Safe core contracts (version 1.4.1)**
 
-* Safe.sol (formerly GnosisSafe.sol)
-* SafeL2.sol (formerly GnosisSafeL2.sol)
-* SafeProxyFactory.sol (formerly GnosisSafeProxyFactory.sol)
-* SafeProxy.sol (formerly GnosisSafeProxy.sol)
-* MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
-* TokenCallbackHandler.sol (formerly DefaultCallbackHandler.sol), CompatibilityFallbackHandler.sol, HandlerContext.sol
+- Safe.sol (formerly GnosisSafe.sol)
+- SafeL2.sol (formerly GnosisSafeL2.sol)
+- SafeProxyFactory.sol (formerly GnosisSafeProxyFactory.sol)
+- SafeProxy.sol (formerly GnosisSafeProxy.sol)
+- MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
+- TokenCallbackHandler.sol (formerly DefaultCallbackHandler.sol), CompatibilityFallbackHandler.sol, HandlerContext.sol
 
 You can find addresses for deployed instances of these contracts [here](./smart-account-supported-networks/v1.4.1.md) or in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
 
 **Gnosis Safe core contracts (up to version 1.3.0)**
 
-* GnosisSafe.sol
-* GnosisSafeL2.sol
-* GnosisSafeProxyFactory.sol (formerly ProxyFactory.sol)
-* GnosisSafeProxy.sol (formerly Proxy.sol)
-* CreateAndAddModules.sol, MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
-* DefaultCallbackHandler.sol, CompatibilityFallbackHandler.sol, HandlerContext.sol
+- GnosisSafe.sol
+- GnosisSafeL2.sol
+- GnosisSafeProxyFactory.sol (formerly ProxyFactory.sol)
+- GnosisSafeProxy.sol (formerly Proxy.sol)
+- CreateAndAddModules.sol, MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
+- DefaultCallbackHandler.sol, CompatibilityFallbackHandler.sol, HandlerContext.sol
 
 You can find addresses for deployed instances of these contracts [here](./smart-account-supported-networks/v1.3.0.md) in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
 
 **Safe Modules contracts**
 
-* AllowanceModule.sol
+- AllowanceModule.sol
 
 ### Examples of what's in scope
 
-* Being able to steal funds
-* Being able to freeze funds or render them inaccessible by their owners
-* Being able to perform replay attacks on the same chain
-* Being able to change Safe settings or module settings without the consent of owners
+- Being able to steal funds
+- Being able to freeze funds or render them inaccessible by their owners
+- Being able to perform replay attacks on the same chain
+- Being able to change Safe settings or module settings without the consent of owners
 
 ### Out of scope
 
-* Any files, Safe Modules, or libraries other than the ones mentioned above
-* More efficient gas solutions
-* Any points listed as an already known weaknesses
-* Any points listed in the audit or formal verification results reports
-* Any points fixed in a newer version
+- Any files, Safe Modules, or libraries other than the ones mentioned above
+- More efficient gas solutions
+- Any points listed as an already known weaknesses
+- Any points listed in the audit or formal verification results reports
+- Any points fixed in a newer version
 
 ## Intended behavior
 
@@ -95,7 +95,6 @@ _Safe will pay all bounties in ETH._
 
 Please note that the submission's quality will factor into the level of compensation. A high-quality submission should include an explanation of how somebody can reproduce the bug.
 
-
 ## Submission Process
 
 Please email your submissions to [bounty@safe.global](mailto:bounty@safe.global).
@@ -110,10 +109,10 @@ If you comply with the policies below when reporting a security issue to us, we 
 
 _We ask that:_
 
-* You give us reasonable time to investigate and mitigate an issue you report before making public any information about the report or sharing such information with others.
-* You make a good faith effort to avoid privacy violations and disruptions to others, including (but not limited to) data destruction and interruption or degradation of our services.
-* You don't exploit a security issue you discover for any reason. This includes demonstrating additional risk, such as an attempted compromise of sensitive company data or probing for additional issues.
-* You don't violate any other applicable laws or regulations.
+- You give us reasonable time to investigate and mitigate an issue you report before making public any information about the report or sharing such information with others.
+- You make a good faith effort to avoid privacy violations and disruptions to others, including (but not limited to) data destruction and interruption or degradation of our services.
+- You don't exploit a security issue you discover for any reason. This includes demonstrating additional risk, such as an attempted compromise of sensitive company data or probing for additional issues.
+- You don't violate any other applicable laws or regulations.
 
 Public disclosure of the bug or the indication of an intention to exploit it on Mainnet will make the report ineligible for a bounty. If in doubt about other aspects of the bounty, most of the [Ethereum Foundation bug bounty program rules](https://bounty.ethereum.org) will apply here.
 
@@ -123,6 +122,6 @@ _Happy hunting!_
 
 ## Note on Safe{Wallet}
 
-Generally, bugs and issues regarding Safe{Wallet} frontend or backend are _out of scope_. This refers to the [web app](https://app.safe.global), mobile apps, as well as the wallet backend services. For general bug reports, please consider submitting an issue on the respective repository such as [safe-wallet-web](https://github.com/safe-global/safe-wallet-web/issues). 
+Generally, bugs and issues regarding Safe{Wallet} frontend or backend are _out of scope_. This refers to the [web app](https://app.safe.global), mobile apps, as well as the wallet backend services. For general bug reports, please consider submitting an issue on the respective repository such as [safe-wallet-web](https://github.com/safe-global/safe-wallet-web/issues).
 
 Please send _severe security-related_ issues concerning Safe{Wallet} to [wallet-reports@safe.global](mailto:wallet-reports@safe.global). We will carefully check all submissions; however, rewards remain voluntarily at our sole discretion.

@@ -110,13 +110,13 @@ safeMoneriumClient.send({
   counterpart: {
     identifier: {
       standard: 'iban',
-      iban: 'The IBAN to send the money to',
+      iban: 'The IBAN to send the money to'
     },
     details: {
       firstName: 'John',
       lastName: 'Doe',
-      country: 'You ISO country code',
-    },
+      country: 'You ISO country code'
+    }
   },
   memo: 'Testing Safe-Monerium integration'
 })
@@ -134,7 +134,7 @@ Once the transaction is recorded on the blockchain, the token is burned and the 
 
 You probably want to know when the order is completed. For this you can listen to events using the [Monerium API web sockets](https://monerium.dev/api-docs#operation/profile-orders-notifications)
 
-Connecting to the socket is easy, just use the `moneriumPack` instance along with the `subscribe()` and `unsubscribe()` methods. 
+Connecting to the socket is easy, just use the `moneriumPack` instance along with the `subscribe()` and `unsubscribe()` methods.
 
 To subscribe, do this:
 
