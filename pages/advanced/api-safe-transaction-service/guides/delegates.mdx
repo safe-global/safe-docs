@@ -135,13 +135,13 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
         label: 'Label'
       }
 
-      // Add Owner B as delegate of Owner A for all Safes accounts (safeAddress = null)
+      // Add Owner B as a delegate of Owner A for all Safes accounts (safeAddress = null)
       const safeDelegateAddResponse = await apiKit.addSafeDelegate(delegateConfig)
       ```
     </Tabs.Tab>
     <Tabs.Tab>
       ```python
-      # Add Owner B as delegate of Owner A for all Safes accounts (safeAddress = null)
+      # Add Owner B as a delegate of Owner A for all Safes accounts (safeAddress = null)
       account_owner_a = Account.from_key(config.get("OWNER_A_PRIVATE_KEY"))
       account_owner_b = Account.from_key(config.get("OWNER_B_PRIVATE_KEY"))
       transaction_service_api.add_delegate(
@@ -169,7 +169,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
 
   {/* <!-- vale on --> */}
 
-  ### Delete delegate for delegator
+  ### Delete a delegate of a delegator
 
   {/* <!-- vale off --> */}
 
