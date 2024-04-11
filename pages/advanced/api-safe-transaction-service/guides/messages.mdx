@@ -1,0 +1,253 @@
+import { Tabs, Steps } from 'nextra/components'
+
+# Messages with off-chain signatures
+
+This guide shows how to interact with the Safe Transaction Service API to create and sign messages with a Safe account.
+
+The different steps are implemented using [Curl](https://github.com/curl/curl) requests, the [Safe\{Core\} SDK](https://github.com/safe-global/safe-core-sdk) TypeScript library and the [safe-eth-py](https://github.com/safe-global/safe-eth-py) Python library.
+
+## Prerequisites
+
+1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm) when using the Safe{Core} SDK.
+2. [Python](https://www.python.org/downloads/) >= 3.9 when using `safe-eth-py`.
+3. Have a Safe account configured with a threshold equal to 2, where two signatures are needed.
+
+## Steps
+
+<Steps>
+  ### Install dependencies
+
+  <Tabs items={['TypeScript', 'Python']}>
+    <Tabs.Tab>
+      ```bash
+      yarn add ethers @safe-global/api-kit @safe-global/protocol-kit @safe-global/safe-core-sdk-types
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      pip install safe-eth-py web3 hexbytes
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  ### Imports
+
+  <Tabs items={['TypeScript', 'Python']}>
+    <Tabs.Tab>
+      ```typescript
+      import { ethers } from 'ethers'
+      import SafeApiKit, { AddMessageProps } from '@safe-global/api-kit'
+      import Safe, { EthersAdapter, hashSafeMessage } from '@safe-global/protocol-kit'
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      from datetime import datetime
+      from eth_account import Account
+      from eth_account.messages import defunct_hash_message
+      from gnosis.eth import EthereumClient, EthereumNetwork
+      from gnosis.safe import Safe
+      from gnosis.safe.api.transaction_service_api import TransactionServiceApi
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  ### Create a Safe message
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      const ethProvider = new ethers.JsonRpcProvider(config.RPC_URL)
+
+      // Instantiate an EthAdapter with Owner A
+      const ownerA = new ethers.Wallet(config.OWNER_A_PRIVATE_KEY, ethProvider)
+      const ethAdapterOwnerA = new EthersAdapter({
+        ethers,
+        signerOrProvider: ownerA
+      })
+
+      // Initialize the Protocol Kit with Owner A
+      const protocolKitOwnerA = await Safe.create({
+        ethAdapter: ethAdapterOwnerA,
+        safeAddress: config.SAFE_ADDRESS
+      })
+
+      const rawMessage: string = 'A Safe Message - ' + Date.now()
+
+      // Create a Safe message
+      const safeMessage = protocolKitOwnerA.createMessage(rawMessage)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      # Instantiate a Safe
+      ethereum_client = EthereumClient(config.get("RPC_URL"))
+      safe = Safe(config.get("SAFE_ADDRESS"), ethereum_client)
+
+      # Create a Safe message and get the message hash EIP-191
+      raw_message = f"A Safe Message - {datetime.now()}"
+      message_hash = defunct_hash_message(text=raw_message)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      curl -X 'POST' \
+      'https://safe-transaction-sepolia.safe.global/api/v1/safes/0xc62C5cbB964459Fffffffffffffffffffff74b2E/messages/' \
+      -H 'accept: application/json' \
+      -H 'Content-Type: application/json' \
+      -d '{
+          "message": "A Safe Message",
+          "signature": "0xc8bff3e71314f8b79f6e31ae38c5efba1194e61e8ba6f35742f73af41d95c2fa4118bdfa5df2effffffffffffffffffffe87af26ca7d71e8f008e3bcfc25f1d31c"
+      }'
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  ### Sign the message
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      // Sign the message with Owner A
+      const signedMessageOwnerA = await protocolKitOwnerA.signMessage(safeMessage)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      # Get the Safe message hash
+      safe_message_hash = safe.get_message_hash(message_hash)
+
+      # Sign the message by Owner A
+      account_owner_a = Account.from_key(config.get("OWNER_A_PRIVATE_KEY"))
+      owner_a_signature = account_owner_a.signHash(safe_message_hash)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      We skip this step because the message we created in the Transaction Service using Curl already has the signature of the message creator. Check the [Create a Safe message](#create-a-safe-message) step.
+    </Tabs.Tab>
+  </Tabs>
+
+  ### Send the message to the service
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      // Initialize the API Kit
+      const apiKit = new SafeApiKit({
+        chainId: 11155111n
+      })
+
+      const messageProps: AddMessageProps = {
+        message: rawMessage,
+        signature: signedMessageOwnerA.encodedSignatures()
+      }
+
+      // Send the message to the Transaction Service with the signature from Owner A
+      apiKit.addMessage(config.SAFE_ADDRESS, messageProps)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      # Instantiate the Transaction Service API
+      transaction_service_api = TransactionServiceApi(
+          network=EthereumNetwork.SEPOLIA,
+          ethereum_client=ethereum_client)
+
+      # Send the message to the Transaction Service with the signature from Owner A
+      transaction_service_api.post_message(
+          config.get("SAFE_ADDRESS"),
+          raw_message,
+          owner_a_signature.signature)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      We skip this step because the message we created using Curl is already in the Transaction Service. Check the [Create a Safe message](#create-a-safe-message) step.
+    </Tabs.Tab>
+  </Tabs>
+
+  ### Collect the missing signatures
+
+  #### Get the pending message
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      // Instantiate an EthAdapter with Owner B
+      const ownerB = new ethers.Wallet(config.OWNER_B_PRIVATE_KEY, ethProvider)
+      const ethAdapterOwnerB = new EthersAdapter({
+        ethers,
+        signerOrProvider: ownerB
+      })
+
+      // Initialize the Protocol Kit with Owner B
+      const protocolKitOwnerB = await Safe.create({
+        ethAdapter: ethAdapterOwnerB,
+        safeAddress: config.SAFE_ADDRESS
+      })
+
+      // Get the Safe message hash
+      const safeMessageHash = await protocolKitOwnerB.getSafeMessageHash(
+        hashSafeMessage(rawMessage)
+      )
+
+      // Get the Safe message
+      const safeServiceMessage = await apiKit.getMessage(safeMessageHash)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      safe_message_from_tx_service = transaction_service_api.get_message(
+          safe_message_hash)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      curl -X 'GET' \
+      'https://safe-transaction-sepolia.safe.global/api/v1/messages/0xcf2e6b1e26e6930e14bebf120ffffffffffffffffffffb484a787137201ab0df/' \
+      -H 'accept: application/json' \
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  #### Add missing signatures
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      // Sign the message with Owner B
+      const signedMessageOwnerB = await protocolKitOwnerB.signMessage(safeServiceMessage)
+
+      const ownerBAddress = (await ethAdapterOwnerB.getSignerAddress()) || '0x'
+    
+      // Send the message to the Transaction Service with the signature from Owner B
+      await apiKit.addMessageSignature(
+        safeMessageHash,
+        signedMessageOwnerB.getSignature(ownerBAddress)?.data || '0x'
+      )
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      # Sign the message with Owner B
+      account_owner_b = Account.from_key(config.get("OWNER_B_PRIVATE_KEY"))
+      owner_b_signature = account_owner_b.signHash(safe_message_hash)
+
+      # Send the message to the Transaction Service with the signature from Owner B
+      transaction_service_api.post_message_signature(
+          safe_message_hash,
+          owner_b_signature.signature)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      curl -X 'POST' \
+      'https://safe-transaction-sepolia.safe.global/api/v1/messages/0xcf2e6b1e26e6930e14bebf120ffffffffffffffffffffb484a787137201ab0df/signatures/' \
+      -H 'accept: application/json' \
+      -H 'Content-Type: application/json' \
+      -d '{
+          "signature": "0xc8bff3e71314f8b79f6e31ae38c5efba1194e61e8ba6f35742f73af4ffffffffffffffffffffe5f84088ba29f51c44ddee87af26ca7d71e8f008e3bcfc25f1d31c"
+      }'
+      ```
+    </Tabs.Tab>
+  </Tabs>
+</Steps>

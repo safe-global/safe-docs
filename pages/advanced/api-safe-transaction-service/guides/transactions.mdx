@@ -1,0 +1,313 @@
+import { Tabs, Steps } from 'nextra/components'
+
+# Transactions with off-chain signatures
+
+This guide shows how to interact with the Safe Transaction Service API to create, sign and execute transactions with the owners of a Safe account.
+
+The different steps are implemented using [Curl](https://github.com/curl/curl) requests, the [Safe\{Core\} SDK](https://github.com/safe-global/safe-core-sdk) TypeScript library and the [safe-eth-py](https://github.com/safe-global/safe-eth-py) Python library.
+
+## Prerequisites
+
+1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm) when using the Safe{Core} SDK.
+2. [Python](https://www.python.org/downloads/) >= 3.9 when using `safe-eth-py`.
+3. Have a Safe account configured with a threshold equal to 2, where two signatures are needed to execute transactions.
+
+## Steps
+
+<Steps>
+  ### Install dependencies
+
+  <Tabs items={['TypeScript', 'Python']}>
+    <Tabs.Tab>
+      ```bash
+      yarn add ethers @safe-global/api-kit @safe-global/protocol-kit @safe-global/safe-core-sdk-types
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      pip install safe-eth-py web3 hexbytes
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  ### Imports
+
+  <Tabs items={['TypeScript', 'Python']}>
+    <Tabs.Tab>
+      ```typescript
+      import { ethers } from 'ethers'
+      import SafeApiKit from '@safe-global/api-kit'
+      import Safe, { EthersAdapter } from '@safe-global/protocol-kit'
+      import {
+        MetaTransactionData,
+        OperationType
+      } from '@safe-global/safe-core-sdk-types'
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      from gnosis.eth import EthereumClient, EthereumNetwork
+      from gnosis.safe.api.transaction_service_api import TransactionServiceApi
+      from gnosis.safe import Safe
+      from hexbytes import HexBytes
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  ### Create a Safe transaction
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      const ethProvider = new ethers.JsonRpcProvider(config.RPC_URL)
+
+      // Instantiate an EthAdapter with Owner A
+      const ownerA = new ethers.Wallet(config.OWNER_A_PRIVATE_KEY, ethProvider)
+      const ethAdapterOwnerA = new EthersAdapter({
+        ethers,
+        signerOrProvider: ownerA
+      })
+
+      // Initialize the Protocol Kit with Owner A
+      const protocolKitOwnerA = await Safe.create({
+        ethAdapter: ethAdapterOwnerA,
+        safeAddress: config.SAFE_ADDRESS
+      })
+
+      // Create a Safe transaction
+      const safeTransactionData: MetaTransactionData = {
+        to: config.TO,
+        value: config.VALUE,
+        data: '0x',
+        operation: OperationType.Call
+      }
+
+      const safeTransaction = await protocolKitOwnerA.createTransaction({
+        transactions: [safeTransactionData]
+      })
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      ethereum_client = EthereumClient(config.get("RPC_URL"))
+
+      # Instantiate a Safe
+      safe = Safe(config.get("SAFE_ADDRESS"), ethereum_client)
+
+      # Create a Safe transaction
+      safe_tx = safe.build_multisig_tx(
+          config.get("TO"),
+          config.get("VALUE"),
+          HexBytes(""))
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      curl -X 'POST' \
+      'https://safe-transaction-sepolia.safe.global/api/v1/safes/0xc62C5cbB964ffffffffff82f78A4d30713174b2E/multisig-transactions/' \
+      -H 'accept: application/json' \
+      -H 'Content-Type: application/json' \
+      -d '{
+          "safe": "0xc62C5cbB964459F3C984682f78A4d3ffffffffff",
+          "to": "0x795D6C88B4Ea3CCffffffffffCa8a11Bc0496228",
+          "value": 2000000000000000,
+          "data": null,
+          "operation": 0,
+          "gasToken": "0x0000000000000000000000000000000000000000",
+          "safeTxGas": 0,
+          "baseGas": 0,
+          "gasPrice": 0,
+          "refundReceiver": "0x0000000000000000000000000000000000000000",
+          "nonce": 15,
+          "contractTransactionHash": "0x56b2931d1053b6afffffffffff3ba29b5c2baafdf1a588850da72a62674941b6",
+          "sender": "0xAA86E576c084aCFa56fc4D0E17967ffffffffff8",
+          "signature": "0x6a2b57023af16241511619ea95f7cd03d00aa6b79d1ca80e21a0b89cd2c38ffffffffff9b738ffbd680c4d717b9b0c9eae568f3edebc40a0c004700bffffffffff"
+      }'
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  ### Sign the transaction
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      // Sign the transaction with Owner A
+      const safeTxHash = await protocolKitOwnerA.getTransactionHash(safeTransaction)
+      const signatureOwnerA = await protocolKitOwnerA.signHash(safeTxHash)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      # Sign the transaction with Owner A
+      safe_tx.sign(config.get("OWNER_A_PRIVATE_KEY"))
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      We skip this step because the transaction we created in the Transaction Service using Curl already has the signature of the transaction creator. Check the [Create a Safe transaction](#create-a-safe-transaction) step.
+    </Tabs.Tab>
+  </Tabs>
+
+  ### Send the transaction to the service
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      // Initialize the API Kit
+      const apiKit = new SafeApiKit({
+        chainId: 11155111n
+      })
+
+      const senderAddress = await ownerA.getAddress()
+
+      // Send the transaction to the Transaction Service with the signature from Owner A
+      await apiKit.proposeTransaction({
+        safeAddress: config.SAFE_ADDRESS,
+        safeTransactionData: safeTransaction.data,
+        safeTxHash,
+        senderAddress,
+        senderSignature: signatureOwnerA.data
+      })
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      # Instantiate the Transaction Service API
+      transaction_service_api = TransactionServiceApi(
+          network=EthereumNetwork.SEPOLIA,
+          ethereum_client=ethereum_client)
+
+      # Send the transaction to the Transaction Service with the signature from Owner A
+      transaction_service_api.post_transaction(safe_tx)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      We skip this step because the transaction we created using Curl is already in the Transaction Service. Check the [Create a Safe transaction](#create-a-safe-transaction) step.
+    </Tabs.Tab>
+  </Tabs>
+
+  ### Collect missing signatures
+
+  #### Get the pending transaction
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      const signedTransaction = await apiKit.getTransaction(safeTxHash)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      (safe_tx_from_tx_service, _) = transaction_service_api.get_safe_transaction(
+          safe_tx_hash)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      curl -X 'GET' \
+      'https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0xe4ceea4ffffffffff0c9ce0af82780ffffffffffd3096836fff2528cb90d156/' \
+      -H 'accept: application/json' \
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  #### Add missing signatures
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      // Instantiate an EthAdapter with Owner B
+      const ownerB = new ethers.Wallet(config.OWNER_B_PRIVATE_KEY, ethProvider)
+      const ethAdapterOwnerB = new EthersAdapter({
+        ethers,
+        signerOrProvider: ownerB
+      })
+
+      // Initialize the Protocol Kit with Owner B
+      const protocolKitOwnerB = await Safe.create({
+        ethAdapter: ethAdapterOwnerB,
+        safeAddress: config.SAFE_ADDRESS
+      })
+
+      // Sign the transaction with Owner B
+      const signatureOwnerB = await protocolKitOwnerB.signHash(safeTxHash)
+
+      // Send the transaction to the Transaction Service with the signature from Owner B
+      await apiKit.confirmTransaction(
+        safeTxHash,
+        signatureOwnerB.data
+      )
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      # Sign the transaction with Owner B
+      owner_b_signature = safe_tx_from_tx_service.sign(
+          config.get("OWNER_B_PRIVATE_KEY"))
+
+      # Send the transaction to the Transaction Service with the signature from Owner B
+      transaction_service_api.post_signatures(
+          safe_tx_from_tx_service.safe_tx_hash,
+          owner_b_signature)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      curl -X 'POST' \
+      'https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0x56b2931ffffffffff303bbaadf3ba29b5c2baafdf1a5ffffffffff62674941b6/confirmations/' \
+      -H 'accept: application/json' \
+      -H 'Content-Type: application/json' \
+      -d '{
+          "signature": "0x8c41aaa029db2942a1574c3ec9442b80764e953f21f994edb641d33ffffffffffa55ffffffffffefcaea5b3360bd4c789803fe289b2ad467fc9b3bedb479dad20"
+      }'
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  ### Execute the transaction
+
+  <Tabs items={['TypeScript', 'Python']}>
+    <Tabs.Tab>
+      ```typescript
+      const transactionResponse =
+        await protocolKitOwnerA.executeTransaction(signedTransaction)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      result = safe_tx_from_tx_service.execute(config.get("OWNER_A_PRIVATE_KEY"))
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  ### Get the executed transaction
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      const transactions = await apiKit.getMultisigTransactions(config.SAFE_ADDRESS)
+
+      if (transactions.results.length > 0) {
+        console.log('Last executed transaction', transactions.results[0])
+      }
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      transactions = transaction_service_api.get_transactions(
+          config.get("SAFE_ADDRESS"))
+      
+      last_executed_tx = next(
+          (x for x in transactions if x.get('isExecuted')),
+          None)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      curl -X 'GET' \
+      'https://safe-transaction-sepolia.safe.global/api/v1/safes/0xc62C5cbB96ffffffffffff2f78A4d3071317ffff/multisig-transactions/?executed=true&limit=1' \
+      -H 'accept: application/json' \
+      ```
+    </Tabs.Tab>
+  </Tabs>
+</Steps>
