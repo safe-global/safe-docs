@@ -1,4 +1,4 @@
-# Integration with Gelato
+# Integration with Gelato Relay
 
 The [Gelato relay](https://docs.gelato.network/developer-services/relay) allows developers to execute gasless transactions.
 
