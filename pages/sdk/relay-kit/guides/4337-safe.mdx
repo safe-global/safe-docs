@@ -1,0 +1,236 @@
+import { Tabs, Steps, Callout } from 'nextra/components'
+
+# Integrate ERC-4337 Safe accounts
+
+In this guide, you will learn how to create and use Safe accounts with the [Safe4337Module](../../../home/4337-safe) enabled via the Safe\{Core\} SDK.
+
+This guide showcases the creation of user operations and the underlying processes when a Safe is set up and deployed with the `Safe4337Module` enabled.
+
+The ERC-4337 support and compatibility resides within the [Relay Kit](../../relay-kit) package.
+[Pimlico](https://pimlico.io) is used as the service provider in this guide, however this is optional, and any other provider compatible with the ERC-4337 can be used instead.
+
+Read the [ERC-4337 reference](../../../home/4337-safe) to understand the `Safe4337Module` flow and benefits.
+
+## Prerequisites
+
+- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+- A [Pimlico account](https://dashboard.pimlico.io) and an API key.
+
+## Install dependencies
+
+```bash
+yarn add ethers @safe-global/protocol-kit @safe-global/relay-kit@alpha
+```
+
+## Steps
+
+<Steps>
+
+  ### Imports
+
+  Here are all the necessary imports for the script we are coding in this guide.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  import { ethers } from 'ethers'
+  import { EthersAdapter } from '@safe-global/protocol-kit'
+  import { Safe4337Pack } from '@safe-global/relay-kit'
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Create a signer
+
+  As a first step, we need a signer instance, which will become the owner of the Safe account after deployment. We use the `EthersAdapter` from the `protocol-kit` package to represent and create the signer from a private key. This `protocol-kit` instance is linked to the signer and used for signing user operations.
+
+  <Callout type="info" emoji="ℹ️">
+    We are using the private key here but you can use any other method to create a
+    [signer](https://docs.ethers.org/v6/api/providers/#Signer) instance.
+  </Callout>
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const PRIVATE_KEY = '0x...'
+
+  const provider = new ethers.JsonRpcProvider('https://rpc.ankr.com/eth_sepolia')
+  const signer = new ethers.Wallet(PRIVATE_KEY, provider)
+  const ethersAdapter = new EthersAdapter({
+    ethers,
+    signerOrProvider: signer
+  })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Initialize `Safe4337Pack`
+
+  To create an instance of the `Safe4337Pack`, use the static `init()` method. You can link an existing Safe account (with the `Safe4337Module` deployed) or set a custom configuration to deploy the Safe account concurrently with the transaction execution. When deploying a new Safe the `Safe4337Module` is enabled automatically as part of the deployment.
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['new-safe.ts', 'existing-safe.ts', 'new-safe-using-paymaster.ts', 'new-safe-using-paymaster-and-sponsoring.ts']}>
+    <Tabs.Tab>
+      ```typescript
+      // Deploy a new Safe account. Set up owners and threshold
+      const safe4337Pack = await Safe4337Pack.init({
+        ethersAdapter,
+        rpcUrl: 'https://rpc.ankr.com/eth_sepolia',
+        bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+        options: {
+          owners: [await signer.getAddress()],
+          threshold: 1
+        }
+      })
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```typescript
+      // Use an existing Safe account
+      const safe4337Pack = await Safe4337Pack.init({
+        ethersAdapter,
+        rpcUrl: 'https://rpc.ankr.com/eth_sepolia',
+        bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+        options: {
+          safeAddress: '0x...'
+        }
+      })
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```typescript
+      // Deploy a new Safe account and use a paymaster
+      // Remember you need to hold some paymasterTokenAddress tokens in your Safe account address to pay for the transaction fees
+      const safe4337Pack = await Safe4337Pack.init({
+        ethersAdapter,
+        rpcUrl: 'https://rpc.ankr.com/eth_sepolia',
+        bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+        paymasterOptions: {
+          paymasterTokenAddress: '0x...',
+          paymasterAddress: '0x...'
+          // amountToApprove?: bigint // optional value to set the paymaster approve amount on the deployment
+        },
+        options: {
+          owners: [await signer.getAddress()],
+          threshold: 1
+        }
+      })
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```typescript
+      // Deploy a new Safe account and sponsor with a paymaster
+      const safe4337Pack = await Safe4337Pack.init({
+        ethersAdapter,
+        rpcUrl: 'https://rpc.ankr.com/eth_sepolia',
+        bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+        paymasterOptions: {
+          isSponsored: true,
+          paymasterUrl: `https://api.pimlico.io/v2/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,,
+          paymasterAddress: '0x...',
+          // sponsorshipPolicyId // optional value to set the sponsorship policy id
+        },
+        options: {
+          owners: [await signer.getAddress()],
+          threshold: 1
+        }
+      })
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  ### Create the transaction
+
+  Generate a transaction using the `createTransaction()` method. This method takes an array of transaction objects, which will use the Safe multisend contract to encode a batch of transactions.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  // Create some transactions
+  const transaction1 = { to, data, value }
+  const transaction2 = { to, data, value }
+
+  const transactions = [transaction1, transaction2]
+
+  // Create the transaction batch bundled in a SafeOperation object
+  const safeOperation = await safe4337Pack.createTransaction({ transactions })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  Calling the `createTransaction()` method returns a `SafeOperation` object, which contains transaction batch data encoded by the Safe multisend contract. If the Safe account doesn't exist, the `initCode` field of the user operation will hold the Safe account creation bytecode ready to be sent to the bundler. As the bundler processes the user operation, this code is used to deploy the Safe account before executing the transaction batch.
+
+  ### Sign the SafeOperation
+
+  Before sending it to the bundler, it's essential to sign the `SafeOperation` with the signer associated to the `EthersAdapter` instance. This generates a signature that will authorize the execution of the transaction batch.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const signedSafeOperation = await safe4337Pack.signSafeOperation(safeOperation)
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Execute the transaction
+
+  Finally, once the `SafeOperation` is signed, you can forward the underlying user operation to the bundler.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const userOperationHash = await safe4337Pack.executeTransaction({
+    executable: signedSafeOperation
+  })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  The `executeTransaction()` method will return the hash of the user operation sent to the bundler. This allows you to monitor the transaction's status using a block explorer or the bundler's API.
+
+  ### Check the transaction execution status
+
+  To check the transaction status, you can use the `getTransactionReceipt()` method. This method returns the transaction receipt once the transaction is mined, allowing you to wait until the receipt object is present.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  let userOperationReceipt = null
+
+  while (!userOperationReceipt) {
+    // Wait 2 seconds before checking the status again
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+    userOperationReceipt = await safe4337Pack.getUserOperationReceipt(
+      userOperationHash
+    )
+  }
+  ```
+
+  {/* <!-- vale on --> */}
+
+  In addition, you can use the `getUserOperationByHash()` method with the returned hash to retrieve the user operation object you sent to the bundler.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const userOperationPayload = await safe4337Pack.getUserOperationByHash(
+    userOperationHash
+  )
+  ```
+
+  {/* <!-- vale on --> */}
+
+</Steps>
+
+## Recap and further reading
+
+This guide explains using the `Safe4337Pack` and how this simplifies the process of creating and executing transactions in a batch with non existing Safe accounts. The process includes creating a Safe account with the enabled `Safe4337Module` ready for relaying transactions to a chosen bundler provider.
+
+Learn more about the ERC-4337 standard and the `Safe4337Module` contract at these links:
+
+- [ERC-4337 Website](https://www.erc4337.io)
+- [EIP-4337 on Ethereum EIPS](https://eips.ethereum.org/EIPS/eip-4337)
+- [Safe 4337 Module on GitHub](https://github.com/safe-global/safe-modules/tree/main/modules/4337)
