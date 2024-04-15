@@ -21,6 +21,15 @@
   "api-service-architecture": "Service Architecture",
   "api-rpc-requirements": "RPC Requirements",
   "api-supported-networks": "Supported Networks",
+  "api-reference": {
+    "title": "Reference",
+    "href": "/api-reference",
+    "theme": {
+      "layout": "full",
+      "toc": false,
+      "sidebar": false
+    }
+  },
   "-- Safe CLI": {
     "type": "separator",
     "title": "Safe CLI"
