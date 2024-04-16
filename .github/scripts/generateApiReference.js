@@ -75,7 +75,7 @@ const generateMethodContent = (path, method) => {
   )
   const title =
     pathsMetadata[path]?.[method]?.title ??
-    path.replace(/{/g, '\\{').replace(/}/g, '\\}') + ' - ' + method
+    path.replace(/{/g, '\\{').replace(/}/g, '\\}') + ' - ' + method.toUpperCase()
 
   return `### ${title}
 

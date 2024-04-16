@@ -13,17 +13,14 @@ const ApiReference: React.FC = () => {
   const contentString = renderToString(renderedMdx)
   const headings = getHeadingsFromHtml(contentString)
   return (
-    <Container>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={3}>
-          <TOC headings={headings} />
-        </Grid>
-        <Grid item xs={12} md={9}>
-          <NetworkProvider>{renderedMdx}</NetworkProvider>
-        </Grid>
+    <Grid container justifyContent='space-between'>
+      <Grid item xs={12} md={2.7}>
+        <TOC headings={headings} />
       </Grid>
-      {/* A select menu to select networks: */}
-    </Container>
+      <Grid item xs={12} md={9.2} mr={1}>
+        <NetworkProvider>{renderedMdx}</NetworkProvider>
+      </Grid>
+    </Grid>
   )
 }
 

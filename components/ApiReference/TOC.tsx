@@ -15,7 +15,7 @@ export interface Heading {
   method?: string
 }
 
-export const tocWidthMd = 250
+export const tocWidthMd = 230
 export const tocWidthSm = 200
 export const navHeight = 94
 
@@ -34,113 +34,49 @@ const TableOfContents: React.FC<{ headings: Heading[] }> = ({ headings }) => {
         overflowX: 'hidden',
         overflowY: 'scroll',
         maxWidth: [tocWidthSm.toString() + 'px', tocWidthMd.toString() + 'px'],
-        borderRight: '1px solid #2e3035'
+        width: '100%',
+        ml: -1,
+        pr: 2
       }}
     >
-      <Grid item sx={{ height: '100%' }}>
-        {headings.map((heading, index) => (
-          <Grid
-            item
+      <Grid item sx={{ height: '100%', width: '100%' }}>
+        <AccordionDetails
+          sx={{
+            textAlign: 'justify',
+            borderRadius: '5px',
+            mr: 2,
+            mt: 2,
+            mb: 1.5,
+            p: 1,
+            pl: 1,
+            color: 'grey.500',
+            backgroundColor: 'transparent',
+            '&:hover': {
+              color: 'text.primary',
+              backgroundColor: 'rgba(224, 255, 240, 0.05)'
+            },
+            transition: '0.2s'
+          }}
+        >
+          <Link
+            href='/advanced/api-service-architecture'
+            color='grey.600'
             sx={{
-              width: [
-                tocWidthSm.toString() + 'px',
-                tocWidthMd.toString() + 'px'
-              ]
+              fontSize: '14px',
+              fontWeight: '400',
+              textDecoration: 'none',
+              transition: 'color 0.1s',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              color: 'inherit'
             }}
-            key={heading.text}
           >
-            <Accordion
-              disableGutters
-              expanded={
-                currentIndex === heading.link ||
-                heading.children?.some(child => currentIndex === child.link)
-              }
-              sx={{
-                '&.Mui-expanded': { margin: '0px' },
-                backgroundColor: 'transparent',
-                borderRadius: '5px',
-                boxShadow: 'none',
-                ':before': {
-                  backgroundColor: 'transparent'
-                }
-              }}
-              // disabled={accordion.disabled}
-            >
-              <AccordionSummary
-                sx={{
-                  color: 'text.primary',
-                  borderRadius: '5px',
-                  my: -1,
-                  backgroundColor:
-                    currentIndex === heading.link
-                      ? theme.palette.background.light
-                      : 'transparent'
-                }}
-                aria-controls={`panel${index}d-content`}
-                id={`panel${index}d-header`}
-              >
-                <Link
-                  href={heading.link}
-                  color={
-                    currentIndex === heading.link ? 'text.primary' : 'grey.400'
-                  }
-                  sx={{
-                    fontSize: '14px',
-                    fontWeight: '700',
-                    textDecoration: 'none',
-                    transition: 'color 0.1s',
-                    '&:hover': {
-                      color: 'primary.main'
-                    }
-                  }}
-                >
-                  {heading.text.length > 20
-                    ? heading.text.slice(0, 20) + '...'
-                    : heading.text}
-                </Link>
-              </AccordionSummary>
-              {heading.children?.map((child, index) => (
-                <AccordionDetails
-                  key={index}
-                  sx={{
-                    textAlign: 'justify',
-                    borderRadius: '5px',
-                    mr: 2,
-                    pb: 1,
-                    backgroundColor:
-                      currentIndex === child.link
-                        ? theme.palette.background.light
-                        : 'transparent'
-                  }}
-                >
-                  <Link
-                    href={child.link}
-                    color={
-                      currentIndex === child.link ? 'text.primary' : 'grey.600'
-                    }
-                    sx={{
-                      ml: 2,
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      textDecoration: 'none',
-                      transition: 'color 0.1s',
-                      '&:hover': {
-                        color: 'primary.main'
-                      },
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center'
-                    }}
-                  >
-                    {child.text.length > 20
-                      ? child.text.slice(0, 20) + '...'
-                      : child.text}
-                    <Method method={child.method} />
-                  </Link>
-                </AccordionDetails>
-              ))}
-            </Accordion>
-          </Grid>
+            ← Go to Advanced
+          </Link>
+        </AccordionDetails>
+        {headings.map((heading, index) => (
+          <TocMenuItem {...{ heading, currentIndex, index }} key={index} />
         ))}
       </Grid>
     </Grid>
@@ -148,3 +84,113 @@ const TableOfContents: React.FC<{ headings: Heading[] }> = ({ headings }) => {
 }
 
 export default TableOfContents
+
+const TocMenuItem: React.FC<{
+  heading: Heading
+  currentIndex: string
+  index: number
+}> = ({ heading, currentIndex, index }) => {
+  return (
+    <Grid item container key={heading.text}>
+      <Accordion
+        disableGutters
+        expanded={
+          currentIndex === heading.link ||
+          heading.children?.some(child => currentIndex === child.link)
+        }
+        sx={{
+          '&.Mui-expanded': { margin: '0px' },
+          backgroundColor: 'transparent',
+          borderRadius: '5px',
+          width: '100%',
+          boxShadow: 'none',
+          ':before': {
+            backgroundColor: 'transparent'
+          }
+        }}
+        // disabled={accordion.disabled}
+      >
+        <AccordionSummary
+          sx={{
+            color: currentIndex === heading.link ? 'text.primary' : 'grey.600',
+            borderRadius: '5px',
+            height: '62px',
+            my: -1,
+            mx: 0,
+            px: 0,
+            backgroundColor: 'transparent',
+            width: '100%'
+          }}
+          aria-controls={`panel${currentIndex}d-content`}
+          id={`panel${currentIndex}d-header`}
+        >
+          <Link
+            href={heading.link}
+            color='text.primary'
+            sx={{
+              ml: 1,
+              fontSize: '14px',
+              fontWeight: '700',
+              textDecoration: 'none',
+              transition: 'color 0.1s',
+              '&:hover': {
+                color: 'primary.main'
+              }
+            }}
+          >
+            {heading.text}
+          </Link>
+        </AccordionSummary>
+        {heading.children?.map((child, index) => (
+          <AccordionDetails
+            key={index}
+            sx={{
+              textAlign: 'justify',
+              borderRadius: '5px',
+              mr: 2,
+              mb: 0.5,
+              p: 1,
+              pl: 1,
+              width: '100%',
+              color: currentIndex === child.link ? 'primary.main' : 'grey.500',
+              backgroundColor:
+                currentIndex === child.link
+                  ? theme.palette.background.light
+                  : 'transparent',
+              '&:hover': {
+                color:
+                  currentIndex === child.link ? 'primary.main' : 'text.primary',
+                backgroundColor: 'rgba(224, 255, 240, 0.05)'
+              },
+              transition: '0.2s'
+            }}
+          >
+            <Link
+              href={child.link}
+              sx={{
+                fontSize: '14px',
+                fontWeight: currentIndex === child.link ? '700' : '400',
+                textDecoration: 'none',
+                transition: 'color 0.1s',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                color: 'inherit',
+                width: '100%'
+              }}
+            >
+              <Grid container justifyContent='space-between'>
+                <Grid item width='calc(100% - 55px)'>
+                  {child.text}
+                </Grid>
+                <Grid item container width='55px' justifyContent='flex-end'>
+                  <Method method={child.method} />
+                </Grid>
+              </Grid>
+            </Link>
+          </AccordionDetails>
+        ))}
+      </Accordion>
+    </Grid>
+  )
+}

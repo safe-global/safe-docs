@@ -8,8 +8,10 @@ import {
 } from 'react'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
+import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import { capitalize } from 'lodash'
+import { CopyToClipboard } from 'nextra/components'
 
 const transactionServiceUrls = [
   'https://safe-transaction-mainnet.safe.global',
@@ -44,32 +46,34 @@ const NetworkSwitcher: React.FC = () => {
   const [network, setNetwork] = useContext(NetworkContext)
   return (
     <>
-      <Select
-        value={network}
-        onChange={e => {
-          setNetwork(e.target.value)
-        }}
-        sx={{
-          mr: 1,
-          mt: 2,
-          border: ({ palette }) => `1px solid ${palette.grey[700]}`
-        }}
-        inputProps={{
-          sx: {
-            p: 0.5,
-            pl: 1
-          }
-        }}
-      >
-        {transactionServiceUrls.map(url => (
-          <MenuItem key={url} value={url}>
-            {capitalize(url.split('-')[2].split('.')[0])}
-          </MenuItem>
-        ))}
-      </Select>
-      <Typography variant='caption'>
-        <strong>Base URL:</strong> {network}
-      </Typography>
+      <Grid container mt={2} alignItems='center'>
+        <Select
+          value={network}
+          onChange={e => {
+            setNetwork(e.target.value)
+          }}
+          sx={{
+            mr: 1,
+            border: ({ palette }) => `1px solid ${palette.grey[700]}`
+          }}
+          inputProps={{
+            sx: {
+              p: 0.5,
+              pl: 1
+            }
+          }}
+        >
+          {transactionServiceUrls.map(url => (
+            <MenuItem key={url} value={url}>
+              {capitalize(url.split('-')[2].split('.')[0])}
+            </MenuItem>
+          ))}
+        </Select>
+        <Typography variant='caption' mx={1}>
+          <strong style={{ color: 'white' }}>Base URL:</strong> {network}{' '}
+        </Typography>
+        <CopyToClipboard getValue={() => `${network}`} />
+      </Grid>
     </>
   )
 }

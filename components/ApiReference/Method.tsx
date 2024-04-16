@@ -7,7 +7,7 @@ const MethodChip: React.FC<{ method?: string, sx?: SxProps }> = ({
 }) => (
   <Chip
     sx={{ borderRadius: 1, ...sx }}
-    label={method}
+    label={method?.toUpperCase()}
     color={chipColor(method) as 'primary'}
     variant='outlined'
     size='small'

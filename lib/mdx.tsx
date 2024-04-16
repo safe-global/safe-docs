@@ -35,7 +35,7 @@ export const getHeadingChildren: (heading: string) => Heading[] = heading => {
       const method = Object.keys(swagger.paths[path as '/v1/about/'])[0]
       const title =
         pathsMetadata?.[path as '/v1/about/ethereum-rpc/']?.[method as 'get']
-          ?.title ?? path + ' - ' + method
+          ?.title ?? path + ' - ' + method.toUpperCase()
       return {
         text: title,
         link: `#${slugify(title)}`,

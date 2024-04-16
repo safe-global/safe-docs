@@ -31,13 +31,13 @@ const Path: React.FC<{ path: string, method: string }> = ({ path, method }) => {
           component='span'
           sx={{ color: ({ palette }) => palette.grey[600] }}
         >
-          {network}
+          {'{BASE_PATH}'}
         </Box>
         {path.replace(/{/g, '\\{').replace(/}/g, '\\}')}
       </Box>
       <Box
         sx={{
-          mt: 0.8
+          mt: 0.6
         }}
       >
         <CopyToClipboard getValue={() => `${network}${path}`} />
