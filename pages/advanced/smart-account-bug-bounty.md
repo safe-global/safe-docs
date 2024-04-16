@@ -25,8 +25,8 @@ The scope of the bug bounty program includes the core contracts related to the f
 * _v1.1.1_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.1.1), [README](https://github.com/safe-global/safe-contracts/blob/v1.1.1/README.md))
 
 The scope of the bug bounty also includes officially supported Safe modules:
-* [Allowance Module](https://github.com/safe-global/safe-modules/tree/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances)
-* [Safe 4337 Module](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337)
+* _v1.0.0_ [Allowance Module](https://github.com/safe-global/safe-modules/tree/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances)
+* _v0.3.0_ [Safe 4337 Module](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337)
 
 ### In scope
 
