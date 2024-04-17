@@ -28,5 +28,5 @@
     ".eslintrc.js",
     "**/scripts/**/*"
   ],
-  "exclude": ["node_modules", "components/ApiReference/ApiReference.tsx"]
+  "exclude": ["node_modules"]
 }

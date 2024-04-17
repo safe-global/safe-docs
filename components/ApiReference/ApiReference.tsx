@@ -11,17 +11,15 @@ const renderedMdx = <Mdx components={MDXComponents} />
 const contentString = renderToString(renderedMdx)
 const headings = getHeadingsFromHtml(contentString)
 
-const ApiReference: React.FC = () => {
-  return (
-    <Grid container justifyContent='space-between'>
-      <Grid item xs={12} md={2.7}>
-        <TOC headings={headings} />
-      </Grid>
-      <Grid item xs={12} md={9.2} mr={1}>
-        <NetworkProvider>{renderedMdx}</NetworkProvider>
-      </Grid>
+const ApiReference: React.FC = () => (
+  <Grid container justifyContent='space-between'>
+    <Grid item xs={12} md={2.7}>
+      <TOC headings={headings} />
     </Grid>
-  )
-}
+    <Grid item xs={12} md={9.2} mr={1}>
+      <NetworkProvider>{renderedMdx}</NetworkProvider>
+    </Grid>
+  </Grid>
+)
 
 export default ApiReference
