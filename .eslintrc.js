@@ -14,7 +14,7 @@ module.exports = {
     'next.config.js',
     'next-env.d.ts',
     'out',
-    'components/ApiReference/index.tsx'
+    'components/ApiReference/ApiReference.tsx'
   ],
   rules: {
     '@typescript-eslint/key-spacing': 0,
