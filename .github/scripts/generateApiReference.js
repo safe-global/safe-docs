@@ -92,7 +92,7 @@ ${_method.additionalInfo ?? ''}
   <Responses responses={${JSON.stringify(responses)}} />
   <Feedback asPath={"/api-reference#${slugify(
       title
-    )}"} label='Was this section helpful?' small />
+    )}"} label='Did this API route run successfully?' small />
 </Grid>
   <Grid item xs={5.6}>
    <Path path="${path}" method="${method}" />

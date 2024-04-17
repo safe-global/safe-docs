@@ -211,9 +211,8 @@ const Feedback: React.FC<{
                     color={small ? 'text' : 'primary'}
                     variant='h5'
                     sx={{
-                      width: small ? '40%' : '',
                       mb: small ? 1 : 0,
-                      mr: small ? 0.5 : 3,
+                      mr: small ? 1 : 3,
                       mt: small ? 1 : 0,
                       fontSize: small ? '13px' : undefined
                     }}
