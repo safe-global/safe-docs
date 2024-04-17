@@ -157,8 +157,7 @@ export const CustomLink: React.FC<{
   <Link href={href} shallow={false}>
     <MuiLink
       component='span'
-      fontWeight='900'
-      sx={{ ':hover': { cursor: 'pointer' }, textDecoration: 'none', ...sx }}
+      sx={{ ':hover': { cursor: 'pointer' }, ...sx }}
       {...props}
     >
       {children as string}

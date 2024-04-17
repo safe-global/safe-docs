@@ -27,7 +27,28 @@ const Path: React.FC<{ path: string, method: string }> = ({ path, method }) => {
           overflow: 'scroll'
         }}
       >
-        /api/{path.replace(/{/g, '\\{').replace(/}/g, '\\}')}
+        /api
+        {path.split('/').map((p, i) => {
+          const isParam = p.startsWith('{')
+          return (
+            <>
+              <Box
+                key={i}
+                component='span'
+                sx={{
+                  color: isParam
+                    ? ({ palette }) => palette.warning.main
+                    : 'inherit',
+                  fontWeight: isParam ? 'bold' : 'inherit'
+                }}
+              >
+                {p}
+                {i < path.split('/').length - 1 && !isParam && <span>/</span>}
+              </Box>
+              {isParam && <span>/</span>}
+            </>
+          )
+        })}
       </Box>
       <Box
         sx={{

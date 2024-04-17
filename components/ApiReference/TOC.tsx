@@ -178,7 +178,11 @@ const TocMenuItem: React.FC<{
               }}
             >
               <Grid container justifyContent='space-between'>
-                <Grid item width='calc(100% - 55px)'>
+                <Grid
+                  item
+                  width='calc(100% - 55px)'
+                  sx={{ textAlign: 'left' }}
+                >
                   {child.text}
                 </Grid>
                 <Grid item container width='55px' justifyContent='flex-end'>

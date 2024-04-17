@@ -9,7 +9,7 @@ const withNextra = require('nextra')({
     remarkPlugins: [
       [
         codeHike.remarkCodeHike,
-        { showCopyButton: true, skipLanguages: ['mermaid'] }
+        { showCopyButton: true, skipLanguages: ['mermaid'], lineNumbers: true }
       ]
     ]
   }

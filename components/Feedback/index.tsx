@@ -17,6 +17,31 @@ import FeedbackBad from '../../assets/svg/feedback-bad.svg'
 import Check from '../../assets/svg/check.svg'
 import { NetworkContext } from '../ApiReference/Network'
 
+const ReportIssue: React.FC<{ small?: boolean }> = ({ small = false }) => (
+  <NextLink
+    target='_blank'
+    rel='noopener noreferrer'
+    href='https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=nextra-feedback&projects=&template=nextra-feedback.yml&title=%5BFeedback%5D+'
+  >
+    <Button
+      onClick={() => {
+        ReactGA.event('issue', {
+          path: window.location.pathname
+        })
+      }}
+      size={small ? 'small' : undefined}
+      sx={{
+        color: 'rgba(249,250,251,.7)',
+        backgroundColor: small
+          ? ({ palette }) => palette.grey[900]
+          : 'transparent'
+      }}
+    >
+      Report issue
+    </Button>
+  </NextLink>
+)
+
 const Feedback: React.FC<{
   label?: string
   asPath?: string
@@ -52,7 +77,7 @@ const Feedback: React.FC<{
   return (
     <Grid
       sx={{
-        p: 3,
+        p: small ? 1 : 3,
         mt: 3,
         borderRadius: '8px',
         border: label != null ? 'none' : '1px solid rgba(249,250,251,.1)'
@@ -181,12 +206,17 @@ const Feedback: React.FC<{
                 : { flexDirection: 'column', alignItems: 'center' })}
             >
               {label != null ? (
-                <>
+                <Grid container alignItems='center'>
                   <Typography
-                    color='primary'
+                    color={small ? 'text' : 'primary'}
                     variant='h5'
-                    mr={3}
-                    sx={{ width: small ? '100%' : '', mb: small ? 1 : 0 }}
+                    sx={{
+                      width: small ? '40%' : '',
+                      mb: small ? 1 : 0,
+                      mr: small ? 0.5 : 3,
+                      mt: small ? 1 : 0,
+                      fontSize: small ? '13px' : undefined
+                    }}
                   >
                     {label}
                   </Typography>
@@ -194,8 +224,10 @@ const Feedback: React.FC<{
                     sx={{
                       color: 'white',
                       backgroundColor: ({ palette }) => palette.grey[900],
-                      mr: 1
+                      mr: 0.5,
+                      minWidth: '48px'
                     }}
+                    size={small ? 'small' : undefined}
                     onClick={() => {
                       ReactGA.event('feedback', {
                         path: window.location.pathname,
@@ -211,8 +243,10 @@ const Feedback: React.FC<{
                     sx={{
                       color: 'white',
                       backgroundColor: ({ palette }) => palette.grey[900],
-                      mr: 1
+                      mr: 0.5,
+                      minWidth: '48px'
                     }}
+                    size={small ? 'small' : undefined}
                     onClick={() => {
                       ReactGA.event('feedback', {
                         path: window.location.pathname,
@@ -223,7 +257,8 @@ const Feedback: React.FC<{
                   >
                     No
                   </Button>
-                </>
+                  <ReportIssue small />
+                </Grid>
               ) : (
                 <>
                   <Typography textAlign='center' fontWeight='700' color='white'>
@@ -281,27 +316,7 @@ const Feedback: React.FC<{
                   </Grid>
                 </>
               )}
-              <NextLink
-                target='_blank'
-                rel='noopener noreferrer'
-                href='https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=nextra-feedback&projects=&template=nextra-feedback.yml&title=%5BFeedback%5D+'
-              >
-                <Button
-                  onClick={() => {
-                    ReactGA.event('issue', {
-                      path: window.location.pathname
-                    })
-                  }}
-                  sx={{
-                    color: 'rgba(249,250,251,.7)',
-                    backgroundColor: small
-                      ? ({ palette }) => palette.grey[900]
-                      : 'transparent'
-                  }}
-                >
-                  Report issue
-                </Button>
-              </NextLink>
+              {!small && <ReportIssue />}
             </Grid>
           )}
         </Grid>
