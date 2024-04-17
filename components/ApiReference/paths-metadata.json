@@ -5,5 +5,211 @@
       "additionalInfo": "This is an example of more detailed information about Ethereum RPC endpoint. This should support MDX.",
       "example": true
     }
+  },
+  "/v1/about/": {
+    "get": {
+      "title": "General Information"
+    }
+  },
+  "/v1/about/ethereum-tracing-rpc/": {
+    "get": {
+      "title": "Ethereum Tracing RPC"
+    }
+  },
+  "/v1/about/indexing/": {
+    "get": {
+      "title": "Indexing"
+    }
+  },
+  "/v1/about/master-copies/": {
+    "get": {
+      "title": "Master Copies"
+    }
+  },
+  "/v1/about/singletons/": {
+    "get": {
+      "title": "Singletons"
+    }
+  },
+  "/v1/contracts/": {
+    "get": {
+      "title": "List Contracts"
+    }
+  },
+  "/v1/contracts/{address}/": {
+    "get": {
+      "title": "Get Specific Contract"
+    }
+  },
+  "/v1/data-decoder/": {
+    "post": {
+      "title": "Get Decoded Data"
+    }
+  },
+  "/v1/delegates/": {
+    "get": {
+      "title": "List Delegates"
+    },
+    "post": {
+      "title": "Create Delegate"
+    }
+  },
+  "/v1/delegates/{delegate_address}/": {
+    "delete": {
+      "title": "Delete Delegate"
+    }
+  },
+  "/v1/messages/{message_hash}/": {
+    "get": {
+      "title": "Get Message"
+    }
+  },
+  "/v1/messages/{message_hash}/signatures/": {
+    "post": {
+      "title": "Sign Message"
+    }
+  },
+  "/v1/module-transaction/{module_transaction_id}": {
+    "get": {
+      "title": "Get Module Transaction"
+    }
+  },
+  "/v1/modules/{address}/safes/": {
+    "get": {
+      "title": "List Safes that use a Specific Module"
+    }
+  },
+  "/v1/multisig-transactions/{safe_tx_hash}/": {
+    "get": {
+      "title": "Get Multisig Transaction"
+    },
+    "delete": {
+      "title": "Delete Queued Multisig Transaction"
+    }
+  },
+  "/v1/multisig-transactions/{safe_tx_hash}/confirmations/": {
+    "get": {
+      "title": "List Multisig Confirmations"
+    },
+    "post": {
+      "title": "Confirm Multisig Transaction"
+    }
+  },
+  "/v1/notifications/devices/": {
+    "post": {
+      "title": "Create Device"
+    }
+  },
+  "/v1/notifications/devices/{uuid}/": {
+    "delete": {
+      "title": "Delete Device"
+    }
+  },
+  "/v1/notifications/devices/{uuid}/safes/{address}/": {
+    "delete": {
+      "title": "Remove a Safe from a Device"
+    }
+  },
+  "/v1/owners/{address}/safes/": {
+    "get": {
+      "title": "List Safes from a Specific Owner"
+    }
+  },
+  "/v1/safes/{address}/": {
+    "get": {
+      "title": "Get Safe Status"
+    }
+  },
+  "/v1/safes/{address}/all-transactions/": {
+    "get": {
+      "title": "List Transactions"
+    }
+  },
+  "/v1/safes/{address}/balances/": {
+    "get": {
+      "title": "List a Safe's Balances"
+    }
+  },
+  "/v1/safes/{address}/balances/usd/": {
+    "get": {
+      "title": "List a Safe's Balances in USD (Deprecated)"
+    }
+  },
+  "/v1/safes/{address}/creation/": {
+    "get": {
+      "title": "Get Safe Creation Status"
+    }
+  },
+  "/v1/safes/{address}/delegates/{delegate_address}/": {
+    "delete": {
+      "title": "Remove Delegate from Safe"
+    }
+  },
+  "/v1/safes/{address}/incoming-transfers/": {
+    "get": {
+      "title": "List Incoming Transfers"
+    }
+  },
+  "/v1/safes/{address}/messages/": {
+    "get": {
+      "title": "List Messages"
+    },
+    "post": {
+      "title": "Create Signed Message"
+    }
+  },
+  "/v1/safes/{address}/module-transactions/": {
+    "get": {
+      "title": "List a Safe's Module Transactions"
+    }
+  },
+  "/v1/safes/{address}/multisig-transactions/": {
+    "get": {
+      "title": "List a Safe's Multisig Transactions"
+    },
+    "post": {
+      "title": "Create Multisig Transaction"
+    }
+  },
+  "/v1/safes/{address}/multisig-transactions/estimations/": {
+    "post": {
+      "title": "Estimate Gas Costs for a Multisig Transaction"
+    }
+  },
+  "/v1/safes/{address}/transactions/": {
+    "get": {
+      "title": "List a Safe's Transactions (Deprecated)"
+    },
+    "post": {
+      "title": "Create Transaction (Deprecated)"
+    }
+  },
+  "/v1/safes/{address}/transfers/": {
+    "get": {
+      "title": "List Transfers"
+    }
+  },
+  "/v1/tokens/": {
+    "get": {
+      "title": "List Tokens"
+    }
+  },
+  "/v1/tokens/{address}/": {
+    "get": {
+      "title": "Get a Specific Token's Information"
+    }
+  },
+  "/v1/transactions/{safe_tx_hash}/": {
+    "get": {
+      "title": "Get Transaction (Deprecated)"
+    },
+    "delete": {
+      "title": "Delete Queued Transaction (Deprecated)"
+    }
+  },
+  "/v1/transfer/{transfer_id}": {
+    "get": {
+      "title": "Get Transfer"
+    }
   }
 }

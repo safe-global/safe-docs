@@ -46,7 +46,7 @@
           "v1"
         ],
         "path": "/v1/about/",
-        "title": "",
+        "title": "General Information",
         "additionalInfo": ""
       },
       "parameters": {
@@ -92,7 +92,7 @@
           "v1"
         ],
         "path": "/v1/about/ethereum-tracing-rpc/",
-        "title": "",
+        "title": "Ethereum Tracing RPC",
         "additionalInfo": ""
       },
       "parameters": {
@@ -121,7 +121,7 @@
           "v1"
         ],
         "path": "/v1/about/indexing/",
-        "title": "",
+        "title": "Indexing",
         "additionalInfo": ""
       },
       "parameters": {
@@ -145,7 +145,7 @@
         ],
         "deprecated": true,
         "path": "/v1/about/master-copies/",
-        "title": "",
+        "title": "Master Copies",
         "additionalInfo": ""
       },
       "parameters": {
@@ -174,7 +174,7 @@
           "v1"
         ],
         "path": "/v1/about/singletons/",
-        "title": "",
+        "title": "Singletons",
         "additionalInfo": ""
       },
       "parameters": {
@@ -247,7 +247,7 @@
           "v1"
         ],
         "path": "/v1/contracts/",
-        "title": "",
+        "title": "List Contracts",
         "additionalInfo": ""
       },
       "parameters": {
@@ -273,7 +273,7 @@
           "v1"
         ],
         "path": "/v1/contracts/{address}/",
-        "title": "",
+        "title": "Get Specific Contract",
         "additionalInfo": ""
       },
       "parameters": {
@@ -318,7 +318,7 @@
           "v1"
         ],
         "path": "/v1/data-decoder/",
-        "title": "",
+        "title": "Get Decoded Data",
         "additionalInfo": ""
       },
       "parameters": {
@@ -415,7 +415,7 @@
           "v1"
         ],
         "path": "/v1/delegates/",
-        "title": "",
+        "title": "List Delegates",
         "additionalInfo": ""
       },
       "post": {
@@ -443,7 +443,7 @@
           "v1"
         ],
         "path": "/v1/delegates/",
-        "title": "",
+        "title": "Create Delegate",
         "additionalInfo": ""
       },
       "parameters": {
@@ -484,7 +484,7 @@
           "v1"
         ],
         "path": "/v1/delegates/{delegate_address}/",
-        "title": "",
+        "title": "Delete Delegate",
         "additionalInfo": ""
       },
       "parameters": {
@@ -516,7 +516,7 @@
           "v1"
         ],
         "path": "/v1/messages/{message_hash}/",
-        "title": "",
+        "title": "Get Message",
         "additionalInfo": ""
       },
       "parameters": {
@@ -556,7 +556,7 @@
           "v1"
         ],
         "path": "/v1/messages/{message_hash}/signatures/",
-        "title": "",
+        "title": "Sign Message",
         "additionalInfo": ""
       },
       "parameters": {
@@ -594,7 +594,7 @@
           "v1"
         ],
         "path": "/v1/module-transaction/{module_transaction_id}",
-        "title": "",
+        "title": "Get Module Transaction",
         "additionalInfo": ""
       },
       "parameters": {
@@ -629,7 +629,7 @@
           "v1"
         ],
         "path": "/v1/modules/{address}/safes/",
-        "title": "",
+        "title": "List Safes that use a Specific Module",
         "additionalInfo": ""
       },
       "parameters": {
@@ -661,7 +661,7 @@
           "v1"
         ],
         "path": "/v1/multisig-transactions/{safe_tx_hash}/",
-        "title": "",
+        "title": "Get Multisig Transaction",
         "additionalInfo": ""
       },
       "delete": {
@@ -692,7 +692,7 @@
           "v1"
         ],
         "path": "/v1/multisig-transactions/{safe_tx_hash}/",
-        "title": "",
+        "title": "Delete Queued Multisig Transaction",
         "additionalInfo": ""
       },
       "parameters": {
@@ -767,7 +767,7 @@
           "v1"
         ],
         "path": "/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
-        "title": "",
+        "title": "List Multisig Confirmations",
         "additionalInfo": ""
       },
       "post": {
@@ -798,7 +798,7 @@
           "v1"
         ],
         "path": "/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
-        "title": "",
+        "title": "Confirm Multisig Transaction",
         "additionalInfo": ""
       },
       "parameters": {
@@ -842,7 +842,7 @@
           "v1"
         ],
         "path": "/v1/notifications/devices/",
-        "title": "",
+        "title": "Create Device",
         "additionalInfo": ""
       },
       "parameters": {
@@ -865,7 +865,7 @@
           "v1"
         ],
         "path": "/v1/notifications/devices/{uuid}/",
-        "title": "",
+        "title": "Delete Device",
         "additionalInfo": ""
       },
       "parameters": {
@@ -896,7 +896,7 @@
           "v1"
         ],
         "path": "/v1/notifications/devices/{uuid}/safes/{address}/",
-        "title": "",
+        "title": "Remove a Safe from a Device",
         "additionalInfo": ""
       },
       "parameters": {
@@ -939,7 +939,7 @@
           "v1"
         ],
         "path": "/v1/owners/{address}/safes/",
-        "title": "",
+        "title": "List Safes from a Specific Owner",
         "additionalInfo": ""
       },
       "parameters": {
@@ -977,7 +977,7 @@
           "v1"
         ],
         "path": "/v1/safes/{address}/",
-        "title": "",
+        "title": "Get Safe Status",
         "additionalInfo": ""
       },
       "parameters": {
@@ -1055,7 +1055,7 @@
           "v1"
         ],
         "path": "/v1/safes/{address}/all-transactions/",
-        "title": "",
+        "title": "List Transactions",
         "additionalInfo": ""
       },
       "parameters": {
@@ -1112,7 +1112,7 @@
         ],
         "deprecated": false,
         "path": "/v1/safes/{address}/balances/",
-        "title": "",
+        "title": "List a Safe's Balances",
         "additionalInfo": ""
       },
       "parameters": {
@@ -1169,7 +1169,7 @@
         ],
         "deprecated": false,
         "path": "/v1/safes/{address}/balances/usd/",
-        "title": "",
+        "title": "List a Safe's Balances in USD (Deprecated)",
         "additionalInfo": ""
       },
       "parameters": {
@@ -1210,7 +1210,7 @@
           "v1"
         ],
         "path": "/v1/safes/{address}/creation/",
-        "title": "",
+        "title": "Get Safe Creation Status",
         "additionalInfo": ""
       },
       "parameters": {
@@ -1257,7 +1257,7 @@
           "v1"
         ],
         "path": "/v1/safes/{address}/delegates/{delegate_address}/",
-        "title": "",
+        "title": "Remove Delegate from Safe",
         "additionalInfo": ""
       },
       "parameters": {
@@ -1435,7 +1435,7 @@
           "v1"
         ],
         "path": "/v1/safes/{address}/incoming-transfers/",
-        "title": "",
+        "title": "List Incoming Transfers",
         "additionalInfo": ""
       },
       "parameters": {
@@ -1514,7 +1514,7 @@
           "v1"
         ],
         "path": "/v1/safes/{address}/messages/",
-        "title": "",
+        "title": "List Messages",
         "additionalInfo": ""
       },
       "post": {
@@ -1539,7 +1539,7 @@
           "v1"
         ],
         "path": "/v1/safes/{address}/messages/",
-        "title": "",
+        "title": "Create Signed Message",
         "additionalInfo": ""
       },
       "parameters": {
@@ -1692,7 +1692,7 @@
           "v1"
         ],
         "path": "/v1/safes/{address}/module-transactions/",
-        "title": "",
+        "title": "List a Safe's Module Transactions",
         "additionalInfo": ""
       },
       "parameters": {
@@ -1938,7 +1938,7 @@
           "v1"
         ],
         "path": "/v1/safes/{address}/multisig-transactions/",
-        "title": "",
+        "title": "List a Safe's Multisig Transactions",
         "additionalInfo": ""
       },
       "post": {
@@ -1969,7 +1969,7 @@
           "v1"
         ],
         "path": "/v1/safes/{address}/multisig-transactions/",
-        "title": "",
+        "title": "Create Multisig Transaction",
         "additionalInfo": ""
       },
       "parameters": {
@@ -2019,7 +2019,7 @@
           "v1"
         ],
         "path": "/v1/safes/{address}/multisig-transactions/estimations/",
-        "title": "",
+        "title": "Estimate Gas Costs for a Multisig Transaction",
         "additionalInfo": ""
       },
       "parameters": {
@@ -2260,7 +2260,7 @@
         ],
         "deprecated": true,
         "path": "/v1/safes/{address}/transactions/",
-        "title": "",
+        "title": "List a Safe's Transactions (Deprecated)",
         "additionalInfo": ""
       },
       "post": {
@@ -2289,7 +2289,7 @@
         ],
         "deprecated": true,
         "path": "/v1/safes/{address}/transactions/",
-        "title": "",
+        "title": "Create Transaction (Deprecated)",
         "additionalInfo": ""
       },
       "parameters": {
@@ -2461,7 +2461,7 @@
           "v1"
         ],
         "path": "/v1/safes/{address}/transfers/",
-        "title": "",
+        "title": "List Transfers",
         "additionalInfo": ""
       },
       "parameters": {
@@ -2589,7 +2589,7 @@
           "v1"
         ],
         "path": "/v1/tokens/",
-        "title": "",
+        "title": "List Tokens",
         "additionalInfo": ""
       },
       "parameters": {
@@ -2615,7 +2615,7 @@
           "v1"
         ],
         "path": "/v1/tokens/{address}/",
-        "title": "",
+        "title": "Get a Specific Token's Information",
         "additionalInfo": ""
       },
       "parameters": {
@@ -2649,7 +2649,7 @@
         ],
         "deprecated": true,
         "path": "/v1/transactions/{safe_tx_hash}/",
-        "title": "",
+        "title": "Get Transaction (Deprecated)",
         "additionalInfo": ""
       },
       "delete": {
@@ -2680,7 +2680,7 @@
           "v1"
         ],
         "path": "/v1/transactions/{safe_tx_hash}/",
-        "title": "",
+        "title": "Delete Queued Transaction (Deprecated)",
         "additionalInfo": ""
       },
       "parameters": {
@@ -2718,7 +2718,7 @@
           "v1"
         ],
         "path": "/v1/transfer/{transfer_id}",
-        "title": "",
+        "title": "Get Transfer",
         "additionalInfo": ""
       },
       "parameters": {
@@ -3470,7 +3470,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "a1649519-d9cc-4bb0-817d-bc6a885f3a73"
+          "default": "af72f1ea-c891-4221-ad14-f670f8448f92"
         },
         "safes": {
           "type": "array",
@@ -3539,7 +3539,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "312e56b8-c322-4388-9e10-7e15f81c256a"
+          "default": "dabffaa9-dd2a-4940-8131-9a934299c7bd"
         },
         "safes": {
           "type": "array",

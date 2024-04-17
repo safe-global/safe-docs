@@ -90,9 +90,9 @@ ${_method.additionalInfo ?? ''}
 
   <Parameters parameters={${JSON.stringify(_method.parameters ?? [])}} />
   <Responses responses={${JSON.stringify(responses)}} />
-  <Feedback asPath={'/api-reference#${slugify(
+  <Feedback asPath={"/api-reference#${slugify(
       title
-    )}'} label='Did this API route run successfully?' small />
+    )}"} label='Was this section helpful?' small />
 </Grid>
   <Grid item xs={5.6}>
    <Path path="${path}" method="${method}" />
@@ -161,7 +161,7 @@ collection of endpoints that allow you to keep track of
 transactions sent via Safe smart contracts.
 
 The Transaction Service is available on [multiple networks](../../advanced/api-supported-networks), at
-different endpoints:
+different endpoints.
 
 <NetworkSwitcher />
 
