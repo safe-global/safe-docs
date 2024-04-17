@@ -6,7 +6,11 @@ const MethodChip: React.FC<{ method?: string, sx?: SxProps }> = ({
   ...props
 }) => (
   <Chip
-    sx={{ borderRadius: 1, ...sx }}
+    sx={{
+      borderRadius: 1,
+      backgroundColor: `${chipColor(method)}.darker`,
+      ...sx
+    }}
     label={method?.toUpperCase()}
     color={chipColor(method) as 'primary'}
     variant='outlined'
@@ -20,7 +24,7 @@ export default MethodChip
 const chipColor = (method?: string): string => {
   switch (method?.toUpperCase()) {
     case 'GET':
-      return 'primary'
+      return 'success'
     case 'POST':
       return 'info'
     case 'PUT':

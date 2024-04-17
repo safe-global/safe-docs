@@ -1,5 +1,6 @@
 import Typography from '@mui/material/Typography'
 import Property from './Property'
+import Hr from '../Hr'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Parameters: React.FC<{ parameters: any[] }> = ({ parameters }) => {
@@ -9,9 +10,12 @@ const Parameters: React.FC<{ parameters: any[] }> = ({ parameters }) => {
   return (
     <>
       {query.length > 0 && (
-        <Typography variant='h4' sx={{ mt: 2 }}>
-          Query Parameters
-        </Typography>
+        <>
+          <Typography variant='h4' sx={{ mt: 2 }}>
+            Query Parameters
+          </Typography>
+          <Hr />
+        </>
       )}
       {query.map(parameter => (
         <Property
@@ -24,9 +28,12 @@ const Parameters: React.FC<{ parameters: any[] }> = ({ parameters }) => {
         />
       ))}
       {body.length > 0 && (
-        <Typography variant='h4' sx={{ mt: 2 }}>
-          Request Body
-        </Typography>
+        <>
+          <Typography variant='h4' sx={{ mt: 2 }}>
+            Request Body
+          </Typography>
+          <Hr />
+        </>
       )}
       {body.map(parameter =>
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument

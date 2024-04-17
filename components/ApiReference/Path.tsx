@@ -22,25 +22,19 @@ const Path: React.FC<{ path: string, method: string }> = ({ path, method }) => {
       <Method method={method} sx={{ m: 1 }} />
       <Box
         sx={{
-          width: 'calc(100% - 92px)',
+          width: `calc(100% - ${method.length * 8}px - 70px)`,
           mt: 0.8,
           overflow: 'scroll'
         }}
       >
-        <Box
-          component='span'
-          sx={{ color: ({ palette }) => palette.grey[600] }}
-        >
-          {'{BASE_PATH}'}
-        </Box>
-        {path.replace(/{/g, '\\{').replace(/}/g, '\\}')}
+        /api/{path.replace(/{/g, '\\{').replace(/}/g, '\\}')}
       </Box>
       <Box
         sx={{
           mt: 0.6
         }}
       >
-        <CopyToClipboard getValue={() => `${network}${path}`} />
+        <CopyToClipboard getValue={() => `${network}/api${path}`} />
       </Box>
     </Grid>
   )

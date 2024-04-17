@@ -7,7 +7,10 @@ const withNextra = require('nextra')({
   defaultShowCopyCode: true,
   mdxOptions: {
     remarkPlugins: [
-      [codeHike.remarkCodeHike, { showCopyButton: true }]
+      [
+        codeHike.remarkCodeHike,
+        { showCopyButton: true, skipLanguages: ['mermaid'] }
+      ]
     ]
   }
 })

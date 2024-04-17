@@ -112,8 +112,20 @@ export const useCurrentTocIndex: (
         break
       }
     }
-    if (active != null) setCurrentIndex(active.link)
-  }, [headings])
+    if (active != null) {
+      const nextHeading = _headings[_headings.indexOf(active) + 1]
+      const nextHeadingNode = document.getElementById(
+        nextHeading?.link.slice(1) ?? ''
+      )
+      const isNextHeadingInView =
+        nextHeadingNode != null &&
+        nextHeadingNode.offsetTop - navHeight <
+          document.documentElement.scrollTop + window.innerHeight
+      setCurrentIndex(
+        isNextHeadingInView ? nextHeading?.link ?? '' : active?.link ?? ''
+      )
+    }
+  }, [headings, navHeight])
 
   const scrollListener = useMemo(
     () => throttle(findActiveIndex, delay),
@@ -158,19 +170,11 @@ export const CustomParagraph: React.FC<{
   children: ReactNode
   isLi?: boolean
 }> = ({ children, isLi }) => (
-  // <Grid
-  //   container
-  //   justifyContent='flex-start'
-  //   alignItems='flex-start'
-  //   flexDirection={'column'}
-  //   {...(isLi === true ? {} : { mt: 2, mb: 1 })}
-  // >
   <span>
     {isLi !== true && <br />}
     {Array.isArray(children) ? children?.map((child, i) => child) : children}
     {isLi !== true && <br />}
   </span>
-  // </Grid>
 )
 
 export const CustomLi: React.FC<{

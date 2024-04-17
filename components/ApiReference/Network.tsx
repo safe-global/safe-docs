@@ -6,6 +6,7 @@ import {
   type PropsWithChildren,
   useContext
 } from 'react'
+import Link from 'next/link'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import Grid from '@mui/material/Grid'
@@ -69,9 +70,11 @@ const NetworkSwitcher: React.FC = () => {
             </MenuItem>
           ))}
         </Select>
-        <Typography variant='caption' mx={1}>
-          <strong style={{ color: 'white' }}>Base URL:</strong> {network}{' '}
-        </Typography>
+        <Link href={network} target='_blank' rel='noopener noreferrer'>
+          <Typography variant='caption' mx={1}>
+            <strong style={{ color: 'white' }}>Base URL:</strong> {network}{' '}
+          </Typography>
+        </Link>
         <CopyToClipboard getValue={() => `${network}`} />
       </Grid>
     </>

@@ -76,7 +76,7 @@ const TableOfContents: React.FC<{ headings: Heading[] }> = ({ headings }) => {
           </Link>
         </AccordionDetails>
         {headings.map((heading, index) => (
-          <TocMenuItem {...{ heading, currentIndex, index }} key={index} />
+          <TocMenuItem {...{ heading, currentIndex }} key={index} />
         ))}
       </Grid>
     </Grid>
@@ -88,8 +88,7 @@ export default TableOfContents
 const TocMenuItem: React.FC<{
   heading: Heading
   currentIndex: string
-  index: number
-}> = ({ heading, currentIndex, index }) => {
+}> = ({ heading, currentIndex }) => {
   return (
     <Grid item container key={heading.text}>
       <Accordion
@@ -108,7 +107,6 @@ const TocMenuItem: React.FC<{
             backgroundColor: 'transparent'
           }
         }}
-        // disabled={accordion.disabled}
       >
         <AccordionSummary
           sx={{

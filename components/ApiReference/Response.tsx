@@ -6,6 +6,8 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 
 import Property from './Property'
+import Add from '@mui/icons-material/Add'
+import Hr from '../Hr'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Response: React.FC<{ response: any, index: number }> = ({
@@ -16,7 +18,7 @@ const Response: React.FC<{ response: any, index: number }> = ({
   const type = response.schema?.type
   const properties =
     type === undefined
-      ? null
+      ? []
       : Object.entries(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         type === 'object'
@@ -25,11 +27,9 @@ const Response: React.FC<{ response: any, index: number }> = ({
       ).map(([key, value]) => ({ name: key, value }))
 
   return (
-    <div>
+    <>
       <Accordion
-        disableGutters
         sx={{
-          '&.Mui-expanded': { margin: '0px' },
           backgroundColor: 'transparent',
           borderRadius: '5px',
           boxShadow: 'none',
@@ -38,31 +38,58 @@ const Response: React.FC<{ response: any, index: number }> = ({
           }
         }}
         defaultExpanded={index === 0}
-        // disabled={accordion.disabled}
+        expanded={properties.length === 0 ? false : undefined}
       >
         <AccordionSummary
           sx={{
             color: 'text.primary',
             borderRadius: '5px',
-            my: -1,
-            backgroundColor: 'transparent'
+            backgroundColor: 'transparent',
+            '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+              transform: 'rotate(45deg)'
+            },
+            mt: 1,
+            '& .Mui-expanded': {
+              margin: 0
+            }
           }}
           aria-controls={`panel${index}d-content`}
           id={`panel${index}d-header`}
+          expandIcon={properties?.length > 0 ? <Add /> : null}
         >
           <Grid container justifyContent='space-between'>
             <Grid item width='calc(100% - 80px)'>
-              {response.code}{' '}
-              {response.description?.length > 0 ? response?.description : 'OK'}
-              {type !== undefined && ' - ' + type}
+              <Grid item container justifyContent='space-between'>
+                {response.code}{' '}
+                {response.description?.length > 0
+                  ? response?.description
+                  : 'OK'}
+                {type !== undefined && ' - ' + type}
+                <Typography
+                  variant='body1'
+                  color='grey.500'
+                  ml={1}
+                  sx={{
+                    '@media (min-width:600px)': {
+                      fontSize: '14px'
+                    }
+                  }}
+                >
+                  application/json
+                </Typography>
+              </Grid>
             </Grid>
             <Grid item>
               <Chip
                 label={isSuccess ? 'Success' : 'Error'}
-                color={isSuccess ? 'primary' : 'error'}
+                color={isSuccess ? 'success' : 'error'}
                 variant='outlined'
                 size='small'
-                sx={{ borderRadius: 1 }}
+                sx={{
+                  borderRadius: 1,
+                  mr: 1,
+                  backgroundColor: isSuccess ? 'success.darker' : 'error.darker'
+                }}
               />
             </Grid>
           </Grid>
@@ -83,7 +110,7 @@ const Response: React.FC<{ response: any, index: number }> = ({
             )
             ?.map?.((property, index) => {
               return type === 'object' ? (
-                    <Property key={index} property={property} />
+                <Property key={index} property={property} />
               ) : (
                 Object.entries(property.value as Record<string, unknown>)
                   .map(([key, value]) => ({
@@ -91,13 +118,14 @@ const Response: React.FC<{ response: any, index: number }> = ({
                     value
                   }))
                   .map((property, index) => (
-                            <Property key={index} property={property} />
+                    <Property key={index} property={property} />
                   ))
               )
             })}{' '}
         </AccordionDetails>
       </Accordion>
-    </div>
+      <Hr />
+    </>
   )
 }
 
@@ -108,6 +136,7 @@ const Responses: React.FC<{ responses: any[] }> = ({ responses }) => {
       <Typography variant='h4' gutterBottom>
         Responses
       </Typography>
+      <Hr />
       {responses?.map?.((response, index) => (
         <Response key={index} index={index} response={response} />
       ))}
