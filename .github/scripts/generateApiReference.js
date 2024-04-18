@@ -4,6 +4,39 @@ const { capitalize } = require('lodash')
 const jsonFile = require('../../components/ApiReference/mainnet-swagger.json')
 const pathsMetadata = require('../../components/ApiReference/paths-metadata.json')
 
+const curlify = req =>
+  `curl -X ${req.method} ${req.url} \\
+    -H "Accept: application/json" \\
+    -H "content-type: application/json" \\
+    ${!req.body ? '' : `-d '${req.body}'`}`
+
+const sampleSafe = '0x5A93Fe8eBBf78738468c10894D7f36fA247b71C0'
+
+const generateSampleApiResponse = async (path, method, query) => {
+  const fetch = await import('node-fetch')
+
+  let response
+  const url = `https://safe-transaction-mainnet.safe.global/api${path}${
+    query ?? ''
+  }`
+  if (method === 'get' && !url.includes('{')) {
+    try {
+      response = await fetch.default(url).then(async res => await res.json())
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  if (response != null) {
+    if (Array.isArray(response)) response = response.slice(0, 2)
+    if (response.results)
+      response = { ...response, results: response.results.slice(0, 2) }
+    fs.writeFileSync(
+      `./components/ApiReference/examples/${slugify(path)}-${method}.json`,
+      JSON.stringify(response, null, 2)
+    )
+  }
+}
+
 const slugify = text => text?.replace?.(/ /g, '_').replace(/\//g, '_')
 const resolveRef = ref => jsonFile.definitions[ref.split('/').pop()]
 const resolveRefs = obj => {
@@ -75,7 +108,26 @@ const generateMethodContent = (path, method) => {
   )
   const title =
     pathsMetadata[path]?.[method]?.title ??
-    path.replace(/{/g, '\\{').replace(/}/g, '\\}') + ' - ' + method.toUpperCase()
+    path.replace(/{/g, '\\{').replace(/}/g, '\\}') +
+      ' - ' +
+      method.toUpperCase()
+
+  const hasExample = fs.existsSync(
+    `./components/ApiReference/examples/${slugify(path)}-${method}.ts`
+  )
+
+  const hasResponse = fs.existsSync(
+    `./components/ApiReference/examples/${slugify(path)}-${method}.json`
+  )
+
+  generateSampleApiResponse(
+    path,
+    method,
+    '?limit=2' +
+      (_method.parameters.map(p => p.name).includes('safe')
+        ? `&safe=${sampleSafe}`
+        : '')
+  )
 
   return `### ${title}
 
@@ -91,20 +143,40 @@ ${_method.additionalInfo ?? ''}
   <Parameters parameters={${JSON.stringify(_method.parameters ?? [])}} />
   <Responses responses={${JSON.stringify(responses)}} />
   <Feedback asPath={"/api-reference#${slugify(
-      title
-    )}"} label='Did this API route run successfully?' small />
+    title
+  )}"} label='Did this API route run successfully?' small />
 </Grid>
   <Grid item xs={5.6}>
    <Path path="${path}" method="${method}" />
-   ${
-     pathsMetadata[path]?.[method]?.example === true
-       ? `
-    \`\`\`js query.js
-      // from ./examples/${slugify(path)}.ts
-    \`\`\`
-  `
-       : ''
-   }
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    ${
+      hasExample
+        ? `
+      \`\`\`js query.js
+        // from ./examples/${slugify(path)}-${method}.ts
+      \`\`\`
+    `
+        : ''
+    }
+
+\`\`\`bash ${hasExample ? 'curl.sh' : ''}
+${curlify({ url: path, method: method.toUpperCase(), body: '' })}
+\`\`\`
+      </CH.Code>
+    </CH.Section>
+    ${
+      hasResponse
+        ? `#### Sample Response
+    \`\`\`json
+    ${fs.readFileSync(
+      `./components/ApiReference/examples/${slugify(path)}-${method}.json`,
+      'utf-8'
+    )}
+    \`\`\``
+        : ''
+    }
    </Grid>
 </Grid>
 `

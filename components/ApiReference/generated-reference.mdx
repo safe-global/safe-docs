@@ -38,7 +38,56 @@ Returns information and configuration of the service
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/about/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/about/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {
+  "name": "Safe Transaction Service",
+  "version": "4.37.2",
+  "api_version": "v1",
+  "secure": true,
+  "host": "safe-transaction-mainnet.safe.global",
+  "headers": [
+    "HTTP_X_FORWARDED_FOR",
+    "HTTP_X_FORWARDED_PROTO",
+    "HTTP_X_FORWARDED_PORT",
+    "HTTP_X_FORWARDED_SCHEME",
+    "HTTP_X_ORIGINAL_FORWARDED_FOR",
+    "HTTP_CLOUDFRONT_FORWARDED_PROTO"
+  ],
+  "settings": {
+    "AWS_CONFIGURED": true,
+    "AWS_S3_PUBLIC_URL": "https://safe-transaction-assets.safe.global",
+    "ETHEREUM_NODE_URL": "http://safe-mainnet-erigon-nodes.ethereum-nodes.svc.cluster.local:8545",
+    "ETHEREUM_TRACING_NODE_URL": "http://safe-mainnet-erigon-nodes.ethereum-nodes.svc.cluster.local:8545",
+    "ETH_EVENTS_BLOCK_PROCESS_LIMIT": 50,
+    "ETH_EVENTS_BLOCK_PROCESS_LIMIT_MAX": 0,
+    "ETH_EVENTS_QUERY_CHUNK_SIZE": 1000,
+    "ETH_EVENTS_UPDATED_BLOCK_BEHIND": 5760,
+    "ETH_INTERNAL_NO_FILTER": false,
+    "ETH_INTERNAL_TRACE_TXS_BATCH_SIZE": 0,
+    "ETH_INTERNAL_TXS_BLOCK_PROCESS_LIMIT": 10000,
+    "ETH_L2_NETWORK": false,
+    "ETH_REORG_BLOCKS": 10,
+    "NOTIFICATIONS_FIREBASE_CREDENTIALS_PATH": null,
+    "SSO_ENABLED": false,
+    "TOKENS_LOGO_BASE_URI": "https://tokens-logo.localhost/",
+    "TOKENS_LOGO_EXTENSION": ".png"
+  }
+}
+    ```
    </Grid>
 </Grid>
 
@@ -59,11 +108,33 @@ This is an example of more detailed information about Ethereum RPC endpoint. Thi
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/about/ethereum-rpc/" method="get" />
-   
-    ```js query.js
-      // from ./examples/_v1_about_ethereum-rpc_.ts
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+      ```js query.js
+        // from ./examples/_v1_about_ethereum-rpc_-get.ts
+      ```
+    
+
+```bash curl.sh
+curl -X GET /v1/about/ethereum-rpc/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {
+  "version": "erigon/2.59.3/linux-amd64/go1.21.5",
+  "block_number": 19683956,
+  "chain_id": 1,
+  "chain": "MAINNET",
+  "syncing": false
+}
     ```
-  
    </Grid>
 </Grid>
 
@@ -84,7 +155,29 @@ Get information about the Ethereum Tracing RPC node used by the service (if any 
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/about/ethereum-tracing-rpc/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/about/ethereum-tracing-rpc/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {
+  "version": "erigon/2.59.3/linux-amd64/go1.21.5",
+  "block_number": 19683956,
+  "chain_id": 1,
+  "chain": "MAINNET",
+  "syncing": false
+}
+    ```
    </Grid>
 </Grid>
 
@@ -105,7 +198,30 @@ Get current indexing status for ERC20/721 events
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/about/indexing/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/about/indexing/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {
+  "currentBlockNumber": 19683956,
+  "erc20BlockNumber": 19683955,
+  "erc20Synced": true,
+  "masterCopiesBlockNumber": 19683956,
+  "masterCopiesSynced": true,
+  "synced": true
+}
+    ```
    </Grid>
 </Grid>
 
@@ -126,7 +242,40 @@ Use `singletons` instead of `master-copies`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/about/master-copies/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/about/master-copies/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    [
+  {
+    "address": "0xaE32496491b53841efb51829d6f886387708F99B",
+    "version": "1.1.0",
+    "deployer": "Gnosis",
+    "deployedBlockNumber": 8915728,
+    "lastIndexedBlockNumber": 19683957,
+    "l2": false
+  },
+  {
+    "address": "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA",
+    "version": "1.3.0+L2",
+    "deployer": "Safe",
+    "deployedBlockNumber": 14981217,
+    "lastIndexedBlockNumber": 19683957,
+    "l2": true
+  }
+]
+    ```
    </Grid>
 </Grid>
 
@@ -147,7 +296,40 @@ Use `singletons` instead of `master-copies`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/about/singletons/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/about/singletons/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    [
+  {
+    "address": "0xaE32496491b53841efb51829d6f886387708F99B",
+    "version": "1.1.0",
+    "deployer": "Gnosis",
+    "deployedBlockNumber": 8915728,
+    "lastIndexedBlockNumber": 19683957,
+    "l2": false
+  },
+  {
+    "address": "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA",
+    "version": "1.3.0+L2",
+    "deployer": "Safe",
+    "deployedBlockNumber": 14981217,
+    "lastIndexedBlockNumber": 19683957,
+    "l2": true
+  }
+]
+    ```
    </Grid>
 </Grid>
 
@@ -170,7 +352,45 @@ Use `singletons` instead of `master-copies`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/contracts/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/contracts/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {
+  "count": 138001,
+  "next": "https://safe-transaction-mainnet.safe.global/api/v1/contracts/?limit=2&offset=2",
+  "previous": null,
+  "results": [
+    {
+      "address": "0x0000000000000000000000000000000000000000",
+      "name": "",
+      "displayName": "",
+      "logoUri": null,
+      "contractAbi": null,
+      "trustedForDelegateCall": false
+    },
+    {
+      "address": "0x0000000000000000000000000000000000000002",
+      "name": "",
+      "displayName": "",
+      "logoUri": null,
+      "contractAbi": null,
+      "trustedForDelegateCall": false
+    }
+  ]
+}
+    ```
    </Grid>
 </Grid>
 
@@ -191,7 +411,23 @@ Use `singletons` instead of `master-copies`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/contracts/{address}/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/contracts/{address}/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -217,7 +453,20 @@ as in case of ABI collision service will know which ABI to use.
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/data-decoder/" method="post" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X POST /v1/data-decoder/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -240,7 +489,28 @@ Get list of delegates
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/delegates/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/delegates/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {
+  "count": 0,
+  "next": null,
+  "previous": null,
+  "results": []
+}
+    ```
    </Grid>
 </Grid>
 
@@ -269,7 +539,20 @@ For example:
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/delegates/" method="post" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X POST /v1/delegates/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -292,7 +575,20 @@ Check `POST /delegates/`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/delegates/{delegate_address}/" method="delete" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X DELETE /v1/delegates/{delegate_address}/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -315,7 +611,23 @@ Check `POST /delegates/`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/messages/{message_hash}/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/messages/{message_hash}/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -336,7 +648,20 @@ Check `POST /delegates/`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/messages/{message_hash}/signatures/" method="post" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X POST /v1/messages/{message_hash}/signatures/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -359,7 +684,23 @@ Check `POST /delegates/`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/module-transaction/{module_transaction_id}" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/module-transaction/{module_transaction_id} \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -382,7 +723,23 @@ Return Safes where the module address provided is enabled
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/modules/{address}/safes/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/modules/{address}/safes/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -405,7 +762,23 @@ Return Safes where the module address provided is enabled
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/multisig-transactions/{safe_tx_hash}/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/multisig-transactions/{safe_tx_hash}/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -460,7 +833,20 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/multisig-transactions/{safe_tx_hash}/" method="delete" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X DELETE /v1/multisig-transactions/{safe_tx_hash}/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -481,7 +867,23 @@ Get the list of confirmations for a multisig transaction
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/multisig-transactions/{safe_tx_hash}/confirmations/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -503,7 +905,20 @@ the use of delegates to make a transaction trusted.
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="post" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X POST /v1/multisig-transactions/{safe_tx_hash}/confirmations/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -525,13 +940,26 @@ Signature must sign `keccack256('gnosis-safe\{timestamp-epoch\}\{uuid\}\{cloud_m
 
 
 
-  <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["safes","cloudMessagingToken","buildNumber","bundle","deviceType","version"],"type":"object","properties":{"uuid":{"title":"Uuid","type":"string","format":"uuid","default":"af72f1ea-c891-4221-ad14-f670f8448f92"},"safes":{"type":"array","items":{"type":"string"}},"cloudMessagingToken":{"title":"Cloud messaging token","type":"string","maxLength":200,"minLength":100},"buildNumber":{"title":"Build number","type":"integer","minimum":0},"bundle":{"title":"Bundle","type":"string","maxLength":100,"minLength":1},"deviceType":{"title":"Device type","type":"string","enum":["ANDROID","IOS","WEB"]},"version":{"title":"Version","type":"string","maxLength":100,"minLength":1},"timestamp":{"title":"Timestamp","type":"integer"},"signatures":{"type":"array","items":{"type":"string"}}}}}]} />
-  <Responses responses={[{"code":"200","schema":{"required":["safes","cloudMessagingToken","buildNumber","bundle","deviceType","version","ownersRegistered","ownersNotRegistered"],"type":"object","properties":{"uuid":{"title":"Uuid","type":"string","format":"uuid","default":"dabffaa9-dd2a-4940-8131-9a934299c7bd"},"safes":{"type":"array","items":{"type":"string"}},"cloudMessagingToken":{"title":"Cloud messaging token","type":"string","maxLength":200,"minLength":100},"buildNumber":{"title":"Build number","type":"integer","minimum":0},"bundle":{"title":"Bundle","type":"string","maxLength":100,"minLength":1},"deviceType":{"title":"Device type","type":"string","enum":["ANDROID","IOS","WEB"]},"version":{"title":"Version","type":"string","maxLength":100,"minLength":1},"timestamp":{"title":"Timestamp","type":"integer"},"signatures":{"type":"array","items":{"type":"string"}},"ownersRegistered":{"type":"array","items":{"type":"string"}},"ownersNotRegistered":{"type":"array","items":{"type":"string"}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"}]} />
+  <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"required":["safes","cloudMessagingToken","buildNumber","bundle","deviceType","version"],"type":"object","properties":{"uuid":{"title":"Uuid","type":"string","format":"uuid","default":"6a7a9fd9-95c3-4940-aeef-7b4217abf768"},"safes":{"type":"array","items":{"type":"string"}},"cloudMessagingToken":{"title":"Cloud messaging token","type":"string","maxLength":200,"minLength":100},"buildNumber":{"title":"Build number","type":"integer","minimum":0},"bundle":{"title":"Bundle","type":"string","maxLength":100,"minLength":1},"deviceType":{"title":"Device type","type":"string","enum":["ANDROID","IOS","WEB"]},"version":{"title":"Version","type":"string","maxLength":100,"minLength":1},"timestamp":{"title":"Timestamp","type":"integer"},"signatures":{"type":"array","items":{"type":"string"}}}}}]} />
+  <Responses responses={[{"code":"200","schema":{"required":["safes","cloudMessagingToken","buildNumber","bundle","deviceType","version","ownersRegistered","ownersNotRegistered"],"type":"object","properties":{"uuid":{"title":"Uuid","type":"string","format":"uuid","default":"4c730b44-b6c5-4ddf-b2ce-13a02b885fb9"},"safes":{"type":"array","items":{"type":"string"}},"cloudMessagingToken":{"title":"Cloud messaging token","type":"string","maxLength":200,"minLength":100},"buildNumber":{"title":"Build number","type":"integer","minimum":0},"bundle":{"title":"Bundle","type":"string","maxLength":100,"minLength":1},"deviceType":{"title":"Device type","type":"string","enum":["ANDROID","IOS","WEB"]},"version":{"title":"Version","type":"string","maxLength":100,"minLength":1},"timestamp":{"title":"Timestamp","type":"integer"},"signatures":{"type":"array","items":{"type":"string"}},"ownersRegistered":{"type":"array","items":{"type":"string"}},"ownersNotRegistered":{"type":"array","items":{"type":"string"}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"}]} />
   <Feedback asPath={"/api-reference#Create_Device"} label='Did this API route run successfully?' small />
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/notifications/devices/" method="post" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X POST /v1/notifications/devices/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -552,7 +980,20 @@ Remove a FirebaseDevice
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/notifications/devices/{uuid}/" method="delete" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X DELETE /v1/notifications/devices/{uuid}/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -573,7 +1014,20 @@ Remove a Safe for a FirebaseDevice
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/notifications/devices/{uuid}/safes/{address}/" method="delete" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X DELETE /v1/notifications/devices/{uuid}/safes/{address}/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -596,7 +1050,23 @@ Return Safes where the address provided is an owner
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/owners/{address}/safes/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/owners/{address}/safes/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -619,7 +1089,23 @@ Get status of the safe
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/safes/{address}/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -640,7 +1126,23 @@ Get status of the safe
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/all-transactions/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/safes/{address}/all-transactions/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -661,7 +1163,23 @@ Get balance for Ether and ERC20 tokens
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/balances/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/safes/{address}/balances/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -682,7 +1200,23 @@ Get balance for Ether and ERC20 tokens with USD fiat conversion
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/balances/usd/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/safes/{address}/balances/usd/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -703,7 +1237,23 @@ Get status of the safe
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/creation/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/safes/{address}/creation/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -725,7 +1275,20 @@ Check `POST /delegates/`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/delegates/{delegate_address}/" method="delete" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X DELETE /v1/safes/{address}/delegates/{delegate_address}/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -746,7 +1309,23 @@ Check `POST /delegates/`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/incoming-transfers/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/safes/{address}/incoming-transfers/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -767,7 +1346,23 @@ Check `POST /delegates/`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/messages/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/safes/{address}/messages/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -793,7 +1388,20 @@ service needs to derive it itself.
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/messages/" method="post" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X POST /v1/safes/{address}/messages/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -814,7 +1422,23 @@ Returns the module transaction of a Safe
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/module-transactions/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/safes/{address}/module-transactions/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -836,7 +1460,23 @@ By default only ``trusted`` multisig transactions are returned.
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/multisig-transactions/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/safes/{address}/multisig-transactions/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -857,7 +1497,20 @@ Creates a Multisig Transaction with its confirmations and retrieves all the info
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/multisig-transactions/" method="post" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X POST /v1/safes/{address}/multisig-transactions/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -878,7 +1531,20 @@ Estimates `safeTxGas` for a Safe Multisig Transaction.
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/multisig-transactions/estimations/" method="post" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X POST /v1/safes/{address}/multisig-transactions/estimations/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -899,7 +1565,23 @@ Use `multisig-transactions` instead of `transactions`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/transactions/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/safes/{address}/transactions/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -920,7 +1602,20 @@ Use `multisig-transactions` instead of `transactions`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/transactions/" method="post" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X POST /v1/safes/{address}/transactions/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -941,7 +1636,23 @@ Use `multisig-transactions` instead of `transactions`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/safes/{address}/transfers/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/safes/{address}/transfers/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -964,7 +1675,47 @@ Use `multisig-transactions` instead of `transactions`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/tokens/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/tokens/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {
+  "count": 39406,
+  "next": "https://safe-transaction-mainnet.safe.global/api/v1/tokens/?limit=2&offset=2",
+  "previous": null,
+  "results": [
+    {
+      "type": "ERC20",
+      "address": "0x85A7a676D610A95865E842d2754b1fd335E55767",
+      "name": "",
+      "symbol": "",
+      "decimals": 7,
+      "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x85A7a676D610A95865E842d2754b1fd335E55767.png",
+      "trusted": false
+    },
+    {
+      "type": "ERC20",
+      "address": "0x56EBDaE96d179549f279ea0cFEa3b3432B8Cd2bC",
+      "name": "",
+      "symbol": "",
+      "decimals": 18,
+      "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x56EBDaE96d179549f279ea0cFEa3b3432B8Cd2bC.png",
+      "trusted": false
+    }
+  ]
+}
+    ```
    </Grid>
 </Grid>
 
@@ -985,7 +1736,23 @@ Use `multisig-transactions` instead of `transactions`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/tokens/{address}/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/tokens/{address}/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -1008,7 +1775,23 @@ Use `multisig-transactions` instead of `transactions`
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/transactions/{safe_tx_hash}/" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/transactions/{safe_tx_hash}/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
@@ -1063,7 +1846,20 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/transactions/{safe_tx_hash}/" method="delete" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X DELETE /v1/transactions/{safe_tx_hash}/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    
    </Grid>
 </Grid>
 
@@ -1086,7 +1882,23 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
 </Grid>
   <Grid item xs={5.6}>
    <Path path="/v1/transfer/{transfer_id}" method="get" />
-   
+   #### Sample Request
+   <CH.Section>
+    <CH.Code>
+    
+
+```bash 
+curl -X GET /v1/transfer/{transfer_id} \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {}
+    ```
    </Grid>
 </Grid>
 
