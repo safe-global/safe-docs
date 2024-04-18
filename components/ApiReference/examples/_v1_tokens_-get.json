@@ -1,0 +1,25 @@
+{
+  "count": 39406,
+  "next": "https://safe-transaction-mainnet.safe.global/api/v1/tokens/?limit=2&offset=2",
+  "previous": null,
+  "results": [
+    {
+      "type": "ERC20",
+      "address": "0x85A7a676D610A95865E842d2754b1fd335E55767",
+      "name": "",
+      "symbol": "",
+      "decimals": 7,
+      "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x85A7a676D610A95865E842d2754b1fd335E55767.png",
+      "trusted": false
+    },
+    {
+      "type": "ERC20",
+      "address": "0x56EBDaE96d179549f279ea0cFEa3b3432B8Cd2bC",
+      "name": "",
+      "symbol": "",
+      "decimals": 18,
+      "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x56EBDaE96d179549f279ea0cFEa3b3432B8Cd2bC.png",
+      "trusted": false
+    }
+  ]
+}
