@@ -131,6 +131,7 @@ const TocMenuItem: React.FC<{
               fontWeight: '700',
               textDecoration: 'none',
               transition: 'color 0.1s',
+              width: '100%',
               '&:hover': {
                 color: 'primary.main'
               }

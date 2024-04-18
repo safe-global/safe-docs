@@ -15,6 +15,7 @@ const Path: React.FC<{ path: string, method: string }> = ({ path, method }) => {
         border: ({ palette }) => `1px solid ${palette.grey[800]}`,
         borderRadius: '8px',
         pl: 1,
+        mb: 2,
         fontSize: '14px',
         whiteSpace: 'nowrap'
       }}
@@ -31,9 +32,8 @@ const Path: React.FC<{ path: string, method: string }> = ({ path, method }) => {
         {path.split('/').map((p, i) => {
           const isParam = p.startsWith('{')
           return (
-            <>
+            <span key={i}>
               <Box
-                key={i}
                 component='span'
                 sx={{
                   color: isParam
@@ -46,7 +46,7 @@ const Path: React.FC<{ path: string, method: string }> = ({ path, method }) => {
                 {i < path.split('/').length - 1 && !isParam && <span>/</span>}
               </Box>
               {isParam && <span>/</span>}
-            </>
+            </span>
           )
         })}
       </Box>

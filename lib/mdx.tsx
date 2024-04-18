@@ -32,26 +32,31 @@ export const getHeadingChildren: (heading: string) => Heading[] = heading => {
   const children = Object.keys(swagger.paths)
     .filter(path => path.startsWith(headingPath))
     .map(path => {
-      const method = Object.keys(swagger.paths[path as '/v1/about/'])[0]
-      const title =
-        pathsMetadata?.[path as '/v1/about/ethereum-rpc/']?.[method as 'get']
-          ?.title ?? path + ' - ' + method.toUpperCase()
-      return {
-        text: title,
-        link: `#${slugify(title)}`,
-        method
-      }
+      const methods = Object.keys(swagger.paths[path as '/v1/about/']).filter(
+        p => p !== 'parameters'
+      )
+      return methods.map(method => {
+        const title =
+          pathsMetadata?.[path as '/v1/about/ethereum-rpc/']?.[method as 'get']
+            ?.title ?? path + ' - ' + method.toUpperCase()
+        return {
+          text: title,
+          link: `#${slugify(title)}`,
+          method
+        }
+      })
     })
+    .flat()
   return children
 }
 
 export const getHeadingsFromHtml: (
   stringifiedHtml: string
 ) => Heading[] = stringifiedHtml => {
-  const regex = /<h[2]\s[^>]*>(.*?)<\/h[2]>/g
-  if (stringifiedHtml.match(regex) != null) {
+  const headings = stringifiedHtml.match(/<h[2]\s[^>]*>(.*?)<\/h[2]>/g)
+  if (headings != null) {
     return (
-      stringifiedHtml.match(regex)?.map(heading => {
+      headings?.map(heading => {
         const headingText = heading
           .replace(/<[^>]*>/g, '')
           .replace(/&nbsp;/g, ' ')
