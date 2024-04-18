@@ -1,0 +1,300 @@
+import { Callout } from 'nextra/components'
+
+# Safe4337Pack
+
+The `Safe4337Pack` enables Safe accounts to interact with user operations through the implementation of the `RelayKitBasePack`. You can find more about ERC-4337 at [this link](https://eips.ethereum.org/EIPS/eip-4337).
+
+## Install dependencies
+
+To use `Safe4337Pack` in your project, start by installing the `relay-kit` package with this command:
+
+```bash
+yarn add @safe-global/relay-kit@alpha
+```
+
+## Reference
+
+The `Safe4337Pack` class make easy to use the [Safe 4337 Module](https://github.com/safe-global/safe-modules/tree/main/modules/4337/contracts/Safe4337Module.sol) with your Safe. It enables creating, signing, and executing transactions grouped in user operations using a selected provider. You can select your preferred [bundler](https://www.erc4337.io/docs/bundlers/introduction) and [paymaster](https://www.erc4337.io/docs/paymasters/introduction).
+
+```typescript
+const safe4337Pack = await Safe4337Pack.init({
+  ethersAdapter,
+  rpcUrl,
+  bundlerUrl,
+  safeModulesVersion,
+  customContracts,
+  options,
+  paymasterOptions
+})
+```
+
+### `init(safe4337InitOptions)`
+
+The static method `init()` generates an instance of `Safe4337Pack`. Use this method to create the initial instance instead of the regular constructor.
+
+**Parameters**
+
+The `Safe4337InitOptions` used in the `init()` method are:
+
+```typescript
+Safe4337InitOptions = {
+  ethersAdapter: EthersAdapter
+  bundlerUrl: string
+  rpcUrl: string
+  safeModulesVersion?: string
+  customContracts?: {
+    entryPointAddress?: string
+    safe4337ModuleAddress?: string
+    addModulesLibAddress?: string
+  }
+  options: ExistingSafeOptions | PredictedSafeOptions
+  paymasterOptions?: PaymasterOptions
+}
+
+ExistingSafeOptions = {
+  safeAddress: string
+}
+
+PredictedSafeOptions = {
+  owners: string[]
+  threshold: number
+  safeVersion?: SafeVersion
+  saltNonce?: string
+}
+
+PaymasterOptions = {
+  paymasterUrl?: string
+  isSponsored?: boolean
+  sponsorshipPolicyId?: string
+  paymasterAddress: string
+  paymasterTokenAddress?: string
+  amountToApprove?: bigint
+}
+```
+
+- **`ethersAdapter`** : An instance of the `EthersAdapter` class.
+- **`rpcUrl`** : The RPC for the selected chain.
+- **`bundlerUrl`** : The bundler's URL.
+- **`safeModulesVersion`** : The version of the [Safe Modules contract](https://github.com/safe-global/safe-modules-deployments/tree/main/src/assets/safe-4337-module).
+- **`customContracts`** : An object with custom contract addresses. This is optional, if no custom contracts are provided, default ones will be used.
+  - **`entryPointAddress`** : The address of the entry point. Defaults to the address returned by the `eth_supportedEntryPoints` method from the provider API.
+  - **`safe4337ModuleAddress`** : The address of the `Safe4337Module`. Defaults to `safe-modules-deployments` using the current version.
+  - **`addModulesLibAddress`** : The address of the `AddModulesLib` library. Defaults to `safe-modules-deployments` using the current version.
+- **`options`** : The Safe account options.
+  - **`safeAddress`** : The Safe address. You can only use this prop to specify an existing Safe account.
+  - **`owners`** : The array with Safe owners.
+  - **`threshold`** : The Safe threshold. This is the number of owners required to sign and execute a transaction.
+  - **`safeVersion`** : The version of the [Safe contract](https://github.com/safe-global/safe-deployments/tree/main/src/assets). Defaults to the current version.
+  - **`saltNonce`** : The Safe salt nonce. Changing this value enables the creation of different safe (predicted) addresses using the same configuration (`owners`, `threshold`, and `safeVersion`).
+- **`paymasterOptions`** : The paymaster options.
+  - **`paymasterUrl`** : The paymaster URL. You can obtain the URL from the management dashboard of the selected services provider. This URL will be used for gas estimations.
+  - **`isSponsored`** : A boolean flag to indicate if we want to use a paymaster to sponsor transactions.
+  - **`sponsorshipPolicyId`** : The sponsorship policy ID can be obtained from the management dashboard of the selected payment services provider.
+  - **`paymasterAddress`** : The address of the paymaster contract to use.
+  - **`paymasterTokenAddress`** : The paymaster token address for transaction fee payments.
+  - **`amountToApprove`** : The `paymasterTokenAddress` amount to approve.
+
+**Returns**
+A promise that resolves to an instance of the `Safe4337Pack`.
+
+**Caveats**
+
+- Use this method to create the initial instance instead of the standard constructor.
+- You can refer to [this link](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit/src/adapters/ethers) to create instances of `EthersAdapter`.
+- You should search for some API services URLs and contract addresses in the management dashboards of your selected provider. These include `bundlerUrl`, `paymasterUrl`, `paymasterAddress`, `paymasterTokenAddress`, `sponsorshipPolicyId`, and `rpcUrl` (In this case any valid RPC should be fine).
+- The SDK uses default versions when `safeModulesVersion` or `safeVersion` are not specified. You can find more details about the current versions [here](https://github.com/safe-global/safe-core-sdk/blob/924ae56ff707509e561c99296fb5e1fbc2050d28/packages/relay-kit/src/packs/safe-4337/Safe4337Pack.ts#L34-L35).
+- The `saltNonce` derives different Safe addresses by using the `protocol-kit` method `predictSafeAddress`. You can find more details about this process [here](https://github.com/safe-global/safe-core-sdk/blob/924ae56ff707509e561c99296fb5e1fbc2050d28/packages/protocol-kit/src/contracts/utils.ts#L245-L315).
+- We typically initialize the pack in two ways. One way is by using an existing account with the `safeAddress` prop. The other way is by using the `owners`, `threshold`, `saltNonce`, and `safeVersion` props to create a new Safe account. You can also apply the second method to existing addresses, as the output address will be the same if the inputs are identical.
+- The SDK queries `eth_supportedEntryPoints` for a default `entryPointAddress` if not given. It fetches `safe4337ModuleAddress` and `addModulesLibAddress` from the `safe-modules-deployments` repository if not provided. You can find them at: [safe-modules-deployments](https://github.com/safe-global/safe-modules-deployments/tree/main/src/assets/safe-4337-module).
+- To use a paymaster without sponsorship, you need to hold a certain amount of `paymasterTokenAddress` in the Safe account for fees. Make sure to provide the `paymasterAddress` as well.
+- You can choose to use a paymaster to sponsor transactions by setting the `isSponsored` prop. When sponsoring transactions, you need to provide the `paymasterUrl`, `paymasterAddress`, and optionally the `sponsorshipPolicyId`.
+- An approval for the concrete ERC-20 token is required to use the paymaster so remember to add the `paymasterTokenAddress` of the ERC-20 token that will pay the fees. The SDK will encode this approval internally and send it to the bundler with the rest of the user operation.
+- Specify the amount to approve for the `paymasterTokenAddress` using the `amountToApprove` prop. This is necessary when the Safe account is not deployed, and you need to approve the paymaster token for fee payments and Safe account setup.
+
+### `new Safe4337Pack({protocolKit, bundlerClient, publicClient, bundlerUrl, paymasterOptions, entryPointAddress, safe4337ModuleAddress})`
+
+The `Safe4337Pack` constructor method is used within the `init()` method and should not be directly accessed. The parameters are calculated or provided by the `init()` method.
+
+### `createTransaction(safe4337CreateTransactionProps)`
+
+Create a `SafeOperation` from a transaction batch. You can send multiple transactions to this method. The SDK internally bundles these transactions into a batch sent to the bundler as a `UserOperation`. If the transaction is only one then no batch is created a it's not necessary.
+
+**Parameters**
+
+The `Safe4337CreateTransactionProps`
+
+```typescript
+Safe4337CreateTransactionProps = {
+  transactions: MetaTransactionData[]
+  options?: {
+    amountToApprove?: bigint
+    validUntil?: number
+    validAfter?: number
+    feeEstimator?: IFeeEstimator
+  }
+}
+```
+
+- **`transactions`** : Array of `MetaTransactionData` to batch in a `SafeOperation` (using the multisend contract if more than one transaction is included).
+- **`options`** : Optional parameters.
+  - **`amountToApprove`** : The amount to approve to the `paymasterTokenAddress`.
+  - **`validUntil`** : The UserOperation will remain valid until this block's timestamp.
+  - **`validAfter`** : The UserOperation will be valid after this block's timestamp.
+  - **`feeEstimator`** : The fee estimator calculates gas requirements by implementing the `IFeeEstimator` interface.
+
+**Returns**
+A promise that resolves to the `SafeOperation`.
+
+**Caveats**
+
+- The `SafeOperation` is similar to the standard user operation but includes Safe-specific fields. Before sending it to the bundler, we convert the `SafeOperation` to a regular user operation. We need to sign the operation for the bundler to execute it using the `Safe4337Module`.
+- You can set the `amountToApprove` in this method to approve the `paymasterTokenAddress` for transaction payments, similar to how `amountToApprove` works in the `init()` method.
+- We use a similar API to `protocol-kit` for developers transitioning to `Safe4337Pack`. This API helps with creating and executing transactions, bundling user operations and sending them to the bundler.
+- Use `validUntil` and `validAfter` to set the block timestamp range for the user operation's validity. The operation will be rejected if the block timestamp falls outside this range.
+- The `feeEstimator` calculates gas needs for the UserOperation. We default to Pimlico's `feeEstimator`, but you can use a different one by providing your own. The IFeeEstimator interface requires an object with specific methods.
+
+```typescript
+IFeeEstimator {
+  setupEstimation?: EstimateFeeFunction
+  adjustEstimation?: EstimateFeeFunction
+  getPaymasterEstimation?: EstimateSponsoredFeeFunction
+}
+
+ EstimateFeeFunctionProps = {
+  userOperation: UserOperation
+  bundlerUrl: string
+  entryPoint: string
+}
+
+EstimateSponsoredFeeFunctionProps = {
+  userOperation: UserOperation
+  paymasterUrl: string
+  entryPoint: string
+  sponsorshipPolicyId?: string
+}
+```
+
+All methods are optional and will be called in the specified order if you provide any of them:
+
+1. `setupEstimation` : This method, called before using the bundler `eth_estimateUserOperationGas` in the pack code, allows you to adjust the user operation before the bundler estimates it, as each provider has its own recommendations.
+2. `adjustEstimation` : This method is used after calling `eth_estimateUserOperationGas` in the pack code to adjust the bundler estimation.
+3. `getPaymasterEstimation` : After using the bundler `eth_estimateUserOperationGas` from the package code, this method is used if the user operation is sponsored. It helps adjust the bundler's estimation when a paymaster sponsors the transaction that use to involve some specific fee estimations.
+
+### `signSafeOperation(safeOperation, signingMethod)`
+
+Signs a `SafeOperation`.
+
+**Parameters**
+
+- **`safeOperation`** : The `SafeOperation` to sign.
+- **`signingMethod`** : The method to use for signing the transaction. The default is `SigningMethod.ETH_SIGN_TYPED_DATA_V4`.
+
+**Returns**
+A promise that resolves to the signed `SafeOperation`.
+
+**Caveats**
+
+- Use this method after the `SafeOperation` is generated with the `createTransaction` method.
+- This method adds the signer's signature from the `EthersAdapter` to the signatures map of the `SafeOperation` object. Additional signatures can be included from multiple owners.
+- It works similar to `signTransaction` and `signMessage` methods in the `protocol-kit` but using `SafeOperation` instead of `SafeTransaction` or `SafeMessage`. For more information, refer to the Safe [docs](https://docs.safe.global/sdk/protocol-kit/guides/signatures).
+
+### `executeTransaction(safe4337ExecutableProps)`
+
+This method sends the user operation to the bundler.
+
+<Callout type="info" emoji="ℹ️">
+  If you are not using a paymaster and need to deploy a new Safe (counterfactual
+  deployment), you must hold in the predicted Safe address the amount of native
+  token required to cover the fees.
+</Callout>
+
+**Parameters**
+
+The `Safe4337ExecutableProps`
+
+```typescript
+Safe4337ExecutableProps = {
+  executable: SafeOperation
+}
+```
+
+- **`executable`** : The `SafeOperation` to execute.
+
+**Returns**
+A promise, resolves to the user operation hash.
+
+**Caveats**
+
+- The process converts the `SafeOperation` to a standard user operation, then forwards it to the bundler. The `SafeOperation` must be created and signed by the Safe owner using `EthersAdapter`.
+- You can use the user operation hash to browse the status (e.g `https://jiffyscan.xyz/userOpHash/{userOpHash}`)
+
+### `getUserOperationByHash(userOpHash)`
+
+Retrieve the user operation using its hash.
+
+**Parameters**
+
+- **`userOpHash`** : The user operation hash is returned by the `executeTransaction` method. The user operation can be executed or pending, and the method will return the payload data for the user operation.
+
+**Returns**
+A Promise that resolves to `UserOperationWithPayload`.
+
+```typescript
+UserOperationWithPayload = {
+  userOperation: UserOperation
+  entryPoint: string
+  transactionHash: string
+  blockHash: string
+  blockNumber: string
+}
+```
+
+**Caveats**
+
+- Use this method to request information about the user operation sent to the bundler, but do not use it for the execution status.
+
+### `getUserOperationReceipt(userOpHash)`
+
+Get `UserOperation` receipt by a hash.
+
+**Parameters**
+
+- **`userOpHash`** : Unique identifier for the `UserOperation`
+
+**Returns**
+A Promise that resolves to `UserOperationReceipt` after the user operation is executed.
+
+```typescript
+UserOperationReceipt = {
+  userOpHash: string
+  sender: string
+  nonce: string
+  actualGasUsed: string
+  actualGasCost: string
+  success: boolean
+  logs: Log[]
+  receipt: Receipt
+}
+```
+
+**Caveats**
+
+- Use this method to obtain the full execution trace and status.
+- You can use this method to check if the `UserOperation` was successful by calling it repeatedly until the receipt is available.
+
+### `getSupportedEntryPoints()`
+
+Retrieve all supported entry points.
+
+**Returns**
+A promise that resolves to an array of entry point addresses (strings) supported by the bundler.
+
+**Caveats**
+We use this method to obtain the default entry point if not provided in the `init()` method.
+
+### `getChainId()`
+
+Retrieve the EIP-155 Chain ID.
+
+**Returns**
+A promise that resolves to the EIP-155 Chain ID string.

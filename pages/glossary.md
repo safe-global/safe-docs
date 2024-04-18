@@ -15,7 +15,7 @@ Some Account Abstraction features are:
 
 See also:
 - [Account Abstraction](https://ethereum.org/en/roadmap/account-abstraction) on ethereum.org
-- [EIP-4337: Account Abstraction](https://www.erc4337.io) on erc4337.io
+- [ERC-4337: Account Abstraction](https://www.erc4337.io) on erc4337.io
 
 ## EIP-1271
 
