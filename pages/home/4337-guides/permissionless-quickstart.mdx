@@ -1,0 +1,216 @@
+import { Callout, Steps } from 'nextra/components'
+
+# Permissionless.js Quickstart Guide
+
+In this guide, you will learn how to sponsor the deployment of an ERC-4337 Safe account and its user operations using [Pimlico](https://pimlico.io) infrastructure and the [permissionless](https://npmjs.com/permissionless) library.
+
+This guide focuses high-level on deploying and using Safe accounts configured with the `Safe4337Module` enabled. For a more detailed guide that shows what happens under the hood, check the [Permissionless detailed guide](./permissionless-detailed).
+
+Pimlico is one of the most popular ERC-4337 account abstraction infrastructure platforms, which provides a suite of tools and services to help build, deploy, and manage smart accounts on EVM-compatible chains.
+
+`permissionless` is a TypeScript library focused on building with the ERC-4337 stack, including smart accounts, bundlers, paymasters, and user operations. Some of its core principles are providing a great developer experience and avoiding vendor lock-in by supporting different providers and ERC-4337 smart accounts, including Safe.
+
+<Callout type='info' emoji='ℹ️'>
+  If you are already building with the Safe\{Core\} SDK, you may want to follow the [Safe4337Pack guide](../../sdk/relay-kit/guides/safe4337pack.mdx) instead of integrating the `permissionless` library directly into your application.
+</Callout>
+
+## Prerequisites
+
+- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+- A [Pimlico account](https://dashboard.pimlico.io) and an API key.
+
+## Install dependencies
+
+Install [viem](https://npmjs.com/viem) and [permissionless](https://npmjs.com/permissionless) dependencies by running the following command:
+
+```bash
+pnpm install viem permissionless
+```
+
+## Steps
+
+<Steps>
+
+  ### Imports
+
+  These are all the imports required in the script we are building for this guide, which includes `permissionless` and `viem` packages.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  import 'dotenv/config'
+  import { ENTRYPOINT_ADDRESS_V06, createSmartAccountClient } from 'permissionless'
+  import { signerToSafeSmartAccount } from 'permissionless/accounts'
+  import {
+    createPimlicoBundlerClient,
+    createPimlicoPaymasterClient,
+  } from 'permissionless/clients/pimlico'
+  import { createPublicClient, http, Hex, encodeFunctionData, parseEther } from 'viem'
+  import { privateKeyToAccount } from 'viem/accounts'
+  import { gnosis } from 'viem/chains'
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Setup
+
+  These are the constants that will be used in this guide. We have selected Gnosis as the chain, but other [supported networks](../4337-supported-networks.md) can be used. We also need the Pimlico API key and a private key we will use for the owner of the Safe.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  // Network
+  const chain = gnosis
+  const chainName = 'gnosis'
+  const SPONSORSHIP_POLICY_ID = '<insert_pimlico_sponsorship_policy_id>'
+
+  // Keys
+  const PIMLICO_API_KEY = process.env.PIMLICO_API_KEY
+  const PRIVATE_KEY = process.env.PRIVATE_KEY as Hex
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Create the signer
+
+  First, we need a signer instance that will be the owner of the Safe account once it is deployed.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const signer = privateKeyToAccount(PRIVATE_KEY as Hash)
+  ```
+
+  { /* <!-- vale on --> */}
+
+  ### Initialize the clients
+
+  We need to create a few client instances to query the blockchain network and operate with Pimlico infrastructure.
+
+  Firstly, we instantiate a standard `publicClient` instance for regular Ethereum RPC calls. To do this, we must first define the corresponding RPC URL, depending on our network.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const publicClient = createPublicClient({
+    transport: http(`https://rpc.ankr.com/${chainName}`)
+  })
+  ```
+  
+  { /* <!-- vale on --> */}
+
+  Secondly, we instantiate the `bundlerClient` using the Pimlico API `v1`, which is dedicated to the Bundler methods. This API requires a `PIMLICO_API_KEY` that we can get from their [dashboard](https://dashboard.pimlico.io/apikeys).
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const bundlerClient = createPimlicoBundlerClient({
+    transport: http(`https://api.pimlico.io/v1/${chainName}/rpc?apikey=${PIMLICO_API_KEY}`),
+    entryPoint: ENTRYPOINT_ADDRESS_V06
+  })
+  ```
+
+  { /* <!-- vale on --> */}
+
+  Lastly, we instantiate the `paymasterClient` using the Pimlico API `v2`, which is dedicated to the Paymaster methods and responsible for interacting with Pimlico's Verifying Paymaster endpoint and requesting sponsorship.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const paymasterClient = createPimlicoPaymasterClient({
+    transport: http(`https://api.pimlico.io/v2/${chainName}/rpc?apikey=${PIMLICO_API_KEY}`),
+    entryPoint: ENTRYPOINT_ADDRESS_V06
+  })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Fetch the gas price
+
+  We fetch the current gas price values to add them later to our transaction.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const gasPrices = await bundlerClient.getUserOperationGasPrice()
+  ```
+
+  ### Create the Safe account
+
+  We can create a Safe account based on our `signer` address, the `entryPoint` address, an optional `saltNonce` that will affect the resulting address of the deployed Safe, and the `safeVersion` (that must be `1.4.1` or higher).
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const safeAccount = await signerToSafeSmartAccount(publicClient, {
+    entryPoint: ENTRYPOINT_ADDRESS_V06,
+    signer: signer,
+    saltNonce: 0n, // Optional
+    safeVersion: '1.4.1',
+    address: '0x...' // Optional. Only for existing Safe accounts.
+  })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  The optional `address` parameter is only used when we already have a Safe account and want to initialize it. Deployments of new Safe accounts should remove this parameter.
+
+  ### Create the Safe account client
+
+  We need to create the smart account client with the following parameters:
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const safeAccountClient = createSmartAccountClient({
+    account: safeAccount,
+    entryPoint: ENTRYPOINT_ADDRESS_V06,
+    chain: chain,
+    bundlerTransport: http(`https://api.pimlico.io/v1/${chainName}/rpc?apikey=${PIMLICO_API_KEY}`),
+    middleware: {
+      gasPrice: async () => (await bundlerClient.getUserOperationGasPrice()).fast,
+      sponsorUserOperation: paymasterClient.sponsorUserOperation
+    }
+  })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  In case we want to sponsor the transactions of this Safe using a Pimlico sponsorship id, we need to replace the `sponsorUserOperation` passed in the `middleware` property like this:
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  sponsorUserOperation: ({ userOperation }) => {
+    return paymasterClient.sponsorUserOperation({
+      userOperation,
+      sponsorshipPolicyId: SPONSORSHIP_POLICY_ID
+    })
+  }
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Submit a transaction
+
+  Finally, we call the `sendTransaction` method to submit our transaction.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const txHash = await safeAccountClient.sendTransaction({
+    to: safeAccount.address,
+    value: parseEther('0'),
+    data: encodeFunctionData({
+      abi: '',
+      functionName: '',
+      args: []
+    }),
+    maxFeePerGas: gasPrices.fast.maxFeePerGas,
+    maxPriorityFeePerGas: gasPrices.fast.maxPriorityFeePerGas
+  })
+  ```
+
+  {/* <!-- vale on --> */}
+
+</Steps>
