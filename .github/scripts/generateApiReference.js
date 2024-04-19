@@ -172,7 +172,7 @@ const generateMethodContent = (path, method) => {
       ? `&safe=${sampleSafe}`
       : '')
 
-  // generateSampleApiResponse(path, pathWithParams + query, method)
+  generateSampleApiResponse(path, pathWithParams + query, method)
 
   const codeBlockWithinDescription = _method.description.match(
     /```[a-z]*\n[\s\S]*?\n```/
