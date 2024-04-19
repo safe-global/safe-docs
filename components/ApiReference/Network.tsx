@@ -11,6 +11,8 @@ import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import GetAppIcon from '@mui/icons-material/GetApp'
 import { capitalize } from 'lodash'
 import { CopyToClipboard } from 'nextra/components'
 
@@ -47,7 +49,7 @@ const NetworkSwitcher: React.FC = () => {
   const [network, setNetwork] = useContext(NetworkContext)
   return (
     <>
-      <Grid container mt={2} alignItems='center'>
+      <Grid container mt={2} mb={[8, 0]} alignItems='center'>
         <Select
           value={network}
           onChange={e => {
@@ -55,6 +57,7 @@ const NetworkSwitcher: React.FC = () => {
           }}
           sx={{
             mr: 1,
+            width: ['100%', 'auto'],
             border: ({ palette }) => `1px solid ${palette.grey[700]}`
           }}
           inputProps={{
@@ -71,12 +74,28 @@ const NetworkSwitcher: React.FC = () => {
           ))}
         </Select>
         <Link href={network} target='_blank' rel='noopener noreferrer'>
-          <Typography variant='caption' mx={1}>
+          <Typography variant='caption' mx={1} my={2}>
             <strong style={{ color: 'white' }}>Base URL:</strong> {network}{' '}
           </Typography>
         </Link>
         <CopyToClipboard getValue={() => `${network}`} />
+        <Link
+          href={`${network}?format=openapi`}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <Button
+            variant='contained'
+            color='primary'
+            sx={{ ml: 3 }}
+            endIcon={<GetAppIcon />}
+          >
+            Download Specs
+          </Button>
+        </Link>
       </Grid>
+
+      <Grid container mt={2} alignItems='center'></Grid>
     </>
   )
 }

@@ -3,6 +3,7 @@ import Link from '@mui/material/Link'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
+import { type Theme, useMediaQuery } from '@mui/material'
 
 import { useCurrentTocIndex } from '../../lib/mdx'
 import { theme } from '../../styles/theme'
@@ -19,7 +20,10 @@ export const tocWidthMd = 230
 export const tocWidthSm = 200
 export const navHeight = 94
 
-const TableOfContents: React.FC<{ headings: Heading[] }> = ({ headings }) => {
+const TableOfContents: React.FC<{
+  headings: Heading[]
+  onClick?: () => void
+}> = ({ headings, onClick }) => {
   const currentIndex = useCurrentTocIndex(headings, navHeight)
 
   return (
@@ -33,9 +37,8 @@ const TableOfContents: React.FC<{ headings: Heading[] }> = ({ headings }) => {
         top: navHeight,
         overflowX: 'hidden',
         overflowY: 'scroll',
-        maxWidth: [tocWidthSm.toString() + 'px', tocWidthMd.toString() + 'px'],
         width: '100%',
-        ml: -1,
+        ml: [2, -1],
         pr: 2
       }}
     >
@@ -55,7 +58,8 @@ const TableOfContents: React.FC<{ headings: Heading[] }> = ({ headings }) => {
               color: 'text.primary',
               backgroundColor: 'rgba(224, 255, 240, 0.05)'
             },
-            transition: '0.2s'
+            transition: '0.2s',
+            display: ['none', 'block']
           }}
         >
           <Link
@@ -76,7 +80,7 @@ const TableOfContents: React.FC<{ headings: Heading[] }> = ({ headings }) => {
           </Link>
         </AccordionDetails>
         {headings.map((heading, index) => (
-          <TocMenuItem {...{ heading, currentIndex }} key={index} />
+          <TocMenuItem {...{ heading, currentIndex, onClick }} key={index} />
         ))}
       </Grid>
     </Grid>
@@ -88,15 +92,21 @@ export default TableOfContents
 const TocMenuItem: React.FC<{
   heading: Heading
   currentIndex: string
-}> = ({ heading, currentIndex }) => {
+  onClick?: () => void
+}> = ({ heading, currentIndex, onClick }) => {
+  const isMdOrBigger = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.up('md')
+  )
+
   return (
     <Grid item container key={heading.text}>
       <Accordion
         disableGutters
-        expanded={
-          currentIndex === heading.link ||
-          heading.children?.some(child => currentIndex === child.link)
-        }
+        {...(!isMdOrBigger && {
+          expanded:
+            currentIndex === heading.link ||
+            heading.children?.some(child => currentIndex === child.link)
+        })}
         sx={{
           '&.Mui-expanded': { margin: '0px' },
           backgroundColor: 'transparent',
@@ -163,6 +173,7 @@ const TocMenuItem: React.FC<{
               },
               transition: '0.2s'
             }}
+            {...(!isMdOrBigger && { onClick })}
           >
             <Link
               href={child.link}
@@ -179,11 +190,7 @@ const TocMenuItem: React.FC<{
               }}
             >
               <Grid container justifyContent='space-between'>
-                <Grid
-                  item
-                  width='calc(100% - 55px)'
-                  sx={{ textAlign: 'left' }}
-                >
+                <Grid item width='calc(100% - 55px)' sx={{ textAlign: 'left' }}>
                   {child.text}
                 </Grid>
                 <Grid item container width='55px' justifyContent='flex-end'>
