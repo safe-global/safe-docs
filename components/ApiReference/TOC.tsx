@@ -38,7 +38,8 @@ const TableOfContents: React.FC<{
         overflowX: 'hidden',
         overflowY: 'scroll',
         width: '100%',
-        ml: [2, -1],
+        ml: [0, -1],
+        pl: [2, 0],
         pr: 2
       }}
     >
@@ -94,15 +95,15 @@ const TocMenuItem: React.FC<{
   currentIndex: string
   onClick?: () => void
 }> = ({ heading, currentIndex, onClick }) => {
-  const isMdOrBigger = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.up('md')
+  const isSmOrBigger = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.up('sm')
   )
 
   return (
     <Grid item container key={heading.text}>
       <Accordion
         disableGutters
-        {...(!isMdOrBigger && {
+        {...(isSmOrBigger && {
           expanded:
             currentIndex === heading.link ||
             heading.children?.some(child => currentIndex === child.link)
@@ -112,6 +113,7 @@ const TocMenuItem: React.FC<{
           backgroundColor: 'transparent',
           borderRadius: '5px',
           width: '100%',
+          maxWidth: ['unset', 'unset', tocWidthMd.toString() + 'px'],
           boxShadow: 'none',
           ':before': {
             backgroundColor: 'transparent'
@@ -173,7 +175,7 @@ const TocMenuItem: React.FC<{
               },
               transition: '0.2s'
             }}
-            {...(!isMdOrBigger && { onClick })}
+            {...(!isSmOrBigger && { onClick })}
           >
             <Link
               href={child.link}
