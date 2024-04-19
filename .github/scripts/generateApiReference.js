@@ -5,26 +5,63 @@ const jsonFile = require('../../components/ApiReference/mainnet-swagger.json')
 const pathsMetadata = require('../../components/ApiReference/paths-metadata.json')
 
 const curlify = req =>
-  `curl -X ${req.method} ${req.url} \\
+  `curl -X ${req.method} https://safe-transaction-mainnet.safe.global/api${
+    req.url
+  } \\
     -H "Accept: application/json" \\
     -H "content-type: application/json" \\
     ${!req.body ? '' : `-d '${req.body}'`}`
 
 const sampleSafe = '0x5A93Fe8eBBf78738468c10894D7f36fA247b71C0'
+const sampleContract = '0x0000000000000000000000000000000000000002'
+const sampleMessageHash = '0x3b3b57b3'
+const sampleModuleTransactionId = '0x3b3b57b3'
+const sampleSafeTxHash = '0x3b3b57b3'
+const sampleUuid = '3b3b57b3'
+const sampleDelegateAddress = '0x5A93Fe8eBBf78738468c10894D7f36fA247b71C0'
+const sampleTransferId = '3b3b57b3'
 
-const generateSampleApiResponse = async (path, method, query) => {
+const getSampleValue = param => {
+  switch (param) {
+    case '{address}':
+      return sampleSafe
+    case '{contract}':
+      return sampleContract
+    case '{message_hash}':
+      return sampleMessageHash
+    case '{module_transaction_id}':
+      return sampleModuleTransactionId
+    case '{safe_tx_hash}':
+      return sampleSafeTxHash
+    case '{uuid}':
+      return sampleUuid
+    case '{delegate_address}':
+      return sampleDelegateAddress
+    case '{transfer_id}':
+      return sampleTransferId
+    default:
+      return ''
+  }
+}
+
+const generateSampleApiResponse = async (path, pathWithParams, method) => {
   const fetch = await import('node-fetch')
 
   let response
-  const url = `https://safe-transaction-mainnet.safe.global/api${path}${
-    query ?? ''
-  }`
-  if (method === 'get' && !url.includes('{')) {
-    try {
-      response = await fetch.default(url).then(async res => await res.json())
-    } catch (error) {
-      console.error(error)
-    }
+  const url = `https://safe-transaction-mainnet.safe.global/api${pathWithParams}`
+  if (method === 'get') {
+    response = await fetch.default(url).then(async res => {
+      if (res.status === 200) return await res?.json()
+      else {
+        console.error(
+          'Error generating response for',
+          path,
+          ':',
+          res.statusText
+        )
+        return {}
+      }
+    })
   }
   if (response != null) {
     if (Array.isArray(response)) response = response.slice(0, 2)
@@ -106,37 +143,54 @@ const generateMethodContent = (path, method) => {
       ...data
     })
   )
+  const pathParams = path.match(/{[^}]*}/g)
+  const pathWithParams =
+    pathParams?.reduce(
+      (acc, param) => acc.replace(param, getSampleValue(param)),
+      path
+    ) ?? path
+
   const title =
     pathsMetadata[path]?.[method]?.title ??
     path.replace(/{/g, '\\{').replace(/}/g, '\\}') +
       ' - ' +
       method.toUpperCase()
+  const filePath = `./components/ApiReference/examples/${slugify(
+    path
+  )}-${method}`
+  const examplePath = filePath + '.ts'
+  const sampleResponsePath = filePath + '.json'
+  const hasExample = fs.existsSync(examplePath)
+  const hasResponse = fs.existsSync(sampleResponsePath)
+  let example, sampleResponse
+  if (hasExample) example = fs.readFileSync(examplePath, 'utf-8')
+  if (hasResponse) sampleResponse = fs.readFileSync(sampleResponsePath, 'utf-8')
 
-  const hasExample = fs.existsSync(
-    `./components/ApiReference/examples/${slugify(path)}-${method}.ts`
-  )
-
-  const hasResponse = fs.existsSync(
-    `./components/ApiReference/examples/${slugify(path)}-${method}.json`
-  )
-
-  generateSampleApiResponse(
-    path,
-    method,
+  const query =
     '?limit=2' +
-      (_method.parameters.map(p => p.name).includes('safe')
-        ? `&safe=${sampleSafe}`
-        : '')
-  )
+    (_method.parameters.map(p => p.name).includes('safe')
+      ? `&safe=${sampleSafe}`
+      : '')
+
+  // generateSampleApiResponse(path, pathWithParams + query, method)
+
+  const codeBlockWithinDescription = _method.description.match(
+    /```[a-z]*\n[\s\S]*?\n```/
+  )?.[0]
+  const description = _method.description
+    .replace(codeBlockWithinDescription, '---insert code block---')
+    .replace(/{/g, '\\{')
+    .replace(/}/g, '\\}')
+    .replace('---insert code block---', codeBlockWithinDescription)
 
   return `### ${title}
 
 <Grid container justifyContent='space-between' mb={8}>
-  <Grid item xs={5.6}>
+  <Grid item xs={12} md={5.6}>
 
 ${_method.summary ?? ''}
 
-${_method.description.replace(/{/g, '\\{').replace(/}/g, '\\}') ?? ''}
+${description}
 
 ${_method.additionalInfo ?? ''}
 
@@ -146,13 +200,13 @@ ${_method.additionalInfo ?? ''}
     title
   )}"} label='Did this API route run successfully?' small />
 </Grid>
-  <Grid item xs={5.6}>
+  <Grid item xs={12} md={5.6}>
    <Path path="${path}" method="${method}" />
    #### Sample Request
    <CH.Section>
     <CH.Code>
     ${
-      hasExample
+      hasExample && example !== 'export {}\n'
         ? `
       \`\`\`js query.js
         // from ./examples/${slugify(path)}-${method}.ts
@@ -162,19 +216,16 @@ ${_method.additionalInfo ?? ''}
     }
 
 \`\`\`bash ${hasExample ? 'curl.sh' : ''}
-${curlify({ url: path, method: method.toUpperCase(), body: '' })}
+${curlify({ url: pathWithParams, method: method.toUpperCase(), body: '' })}
 \`\`\`
       </CH.Code>
     </CH.Section>
     ${
-      hasResponse
+      hasResponse && sampleResponse !== '{}'
         ? `#### Sample Response
-    \`\`\`json
-    ${fs.readFileSync(
-      `./components/ApiReference/examples/${slugify(path)}-${method}.json`,
-      'utf-8'
-    )}
-    \`\`\``
+\`\`\`json
+${sampleResponse}
+\`\`\``
         : ''
     }
    </Grid>
@@ -191,7 +242,14 @@ const generatePathContent = path =>
 const generateCategoryContent = category => {
   return `## ${capitalize(category.title)}
 
-  ${category.paths.map(path => generatePathContent(path)).join('\n')}`
+  ${category.paths
+    .filter(
+      path =>
+        path !== '/v1/safes/{address}/balances/' &&
+        path !== '/v1/safes/{address}/balances/usd/'
+    )
+    .map(path => generatePathContent(path))
+    .join('\n')}`
 }
 
 const getCategories = version =>
@@ -214,7 +272,9 @@ const getCategories = version =>
     )
 
 const generateMainContent = () => {
-  const categories = [...getCategories('v1')]
+  const categories = [...getCategories('v1')].filter(
+    c => c.title !== 'about' && c.title !== 'notifications'
+  )
 
   return `
 import Path from './Path'
@@ -237,7 +297,7 @@ different endpoints.
 
 <NetworkSwitcher />
 
-  ${categories.map(path => generateCategoryContent(path)).join('\n')}
+  ${categories.map(category => generateCategoryContent(category)).join('\n')}
 `
 }
 
