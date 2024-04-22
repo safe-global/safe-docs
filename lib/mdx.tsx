@@ -129,7 +129,7 @@ export const useCurrentTocIndex: (
       setCurrentIndex(
         isNextHeadingInView ? nextHeading?.link ?? '' : active?.link ?? ''
       )
-    }
+    } else setCurrentIndex('')
   }, [headings, navHeight])
 
   const scrollListener = useMemo(

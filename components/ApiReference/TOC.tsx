@@ -37,7 +37,6 @@ const TableOfContents: React.FC<{
         top: navHeight,
         overflowX: 'hidden',
         overflowY: 'scroll',
-        width: '100%',
         ml: [0, -1],
         pl: [2, 0],
         pr: 2
@@ -191,11 +190,11 @@ const TocMenuItem: React.FC<{
                 width: '100%'
               }}
             >
-              <Grid container justifyContent='space-between'>
-                <Grid item width='calc(100% - 55px)' sx={{ textAlign: 'left' }}>
+              <Grid container justifyContent='space-between' wrap='nowrap'>
+                <Grid item sx={{ textAlign: 'left' }}>
                   {child.text}
                 </Grid>
-                <Grid item container width='55px' justifyContent='flex-end'>
+                <Grid item justifyContent='flex-end'>
                   <Method method={child.method} />
                 </Grid>
               </Grid>
