@@ -12,8 +12,8 @@ const curlify = req =>
     -H "content-type: application/json" \\
     ${!req.body ? '' : `-d '${req.body}'`}`
 
-const sampleSafe = '0x5A93Fe8eBBf78738468c10894D7f36fA247b71C0'
-const sampleContract = '0x0000000000000000000000000000000000000002'
+const sampleSafe = '0xB88F61E6FbdA83fbfffAbE364112137480398018'
+const sampleContract = '0xB88F61E6FbdA83fbfffAbE364112137480398018'
 const sampleMessageHash = '0x3b3b57b3'
 const sampleModuleTransactionId = '0x3b3b57b3'
 const sampleSafeTxHash = '0x3b3b57b3'
@@ -62,16 +62,16 @@ const generateSampleApiResponse = async (path, pathWithParams, method) => {
         return {}
       }
     })
-  }
-  if (response != null) {
-    if (Array.isArray(response)) response = response.slice(0, 2)
-    if (response.results)
-      response = { ...response, results: response.results.slice(0, 2) }
-    fs.writeFileSync(
-      `./components/ApiReference/examples/${slugify(path)}-${method}.json`,
-      JSON.stringify(response, null, 2)
-    )
-  }
+  } else if (method === 'delete')
+    if (response != null) {
+      if (Array.isArray(response)) response = response.slice(0, 2)
+      if (response.results)
+        response = { ...response, results: response.results.slice(0, 2) }
+      fs.writeFileSync(
+        `./components/ApiReference/examples/${slugify(path)}-${method}.json`,
+        JSON.stringify(response, null, 2)
+      )
+    }
 }
 
 const slugify = text => text?.replace?.(/ /g, '_').replace(/\//g, '_')
@@ -185,7 +185,7 @@ const generateMethodContent = (path, method) => {
 
   return `### ${title}
 
-<Grid container justifyContent='space-between' mb={8}>
+<Grid container justifyContent='space-between'>
   <Grid item xs={12} md={5.6}>
 
 ${_method.summary ?? ''}
@@ -194,12 +194,12 @@ ${description}
 
 ${_method.additionalInfo ?? ''}
 
-  <Parameters parameters={${JSON.stringify(_method.parameters ?? [])}} />
-  <Responses responses={${JSON.stringify(responses)}} />
-  <Feedback asPath={"/api-reference#${slugify(
-    title
-  )}"} label='Did this API route run successfully?' small />
-</Grid>
+    <Parameters parameters={${JSON.stringify(_method.parameters ?? [])}} />
+    <Responses responses={${JSON.stringify(responses)}} />
+    <Feedback asPath={"/api-reference#${slugify(
+      title
+    )}"} label='Did this API route run successfully?' small />
+  </Grid>
   <Grid item xs={12} md={5.6}>
    <Path path="${path}" method="${method}" />
    #### Sample Request
@@ -228,8 +228,12 @@ ${sampleResponse}
 \`\`\``
         : ''
     }
-   </Grid>
+  </Grid>
 </Grid>
+<Hr style={{ 
+  marginTop: '140px',
+  marginBottom: '200px'
+}} />
 `
 }
 
@@ -240,7 +244,9 @@ const generatePathContent = path =>
     .join('\n')}`
 
 const generateCategoryContent = category => {
-  return `## ${capitalize(category.title)}
+  return `<Grid my={8} />
+## ${capitalize(category.title)}
+<Grid my={24} />
 
   ${category.paths
     .filter(
@@ -278,6 +284,7 @@ const generateMainContent = () => {
 
   return `
 import Path from './Path'
+import Hr from '../Hr'
 import Parameters from './Parameter'
 import NetworkSwitcher from './Network'
 import Responses from './Response'

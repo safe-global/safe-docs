@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Grid from '@mui/material/Grid'
 import Link from '@mui/material/Link'
 import Accordion from '@mui/material/Accordion'
@@ -97,16 +98,21 @@ const TocMenuItem: React.FC<{
   const isSmOrBigger = useMediaQuery((theme: Theme) =>
     theme.breakpoints.up('sm')
   )
+  const [isExpanded, setIsExpanded] = useState(false)
 
   return (
     <Grid item container key={heading.text}>
       <Accordion
         disableGutters
-        {...(isSmOrBigger && {
-          expanded:
-            currentIndex === heading.link ||
-            heading.children?.some(child => currentIndex === child.link)
-        })}
+        expanded={
+          isSmOrBigger
+            ? currentIndex === heading.link ||
+              heading.children?.some(child => currentIndex === child.link)
+            : isExpanded
+        }
+        onClick={() => {
+          if (!isSmOrBigger) setIsExpanded(!isExpanded)
+        }}
         sx={{
           '&.Mui-expanded': { margin: '0px' },
           backgroundColor: 'transparent',
