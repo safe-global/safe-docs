@@ -10,10 +10,8 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Menu from '@mui/icons-material/Menu'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import ChevronLeft from '@mui/icons-material/ChevronLeft'
 
 import TOC from './TOC'
-
 import {
   getHeadingsFromHtml,
   MDXComponents,
@@ -21,6 +19,8 @@ import {
 } from '../../lib/mdx'
 import Mdx from './generated-reference.mdx'
 import { NetworkProvider } from './Network'
+import { palette } from '../../styles/palette'
+import ScrollToTop from '../../assets/svg/scroll-to-top.svg'
 import css from './styles.module.css'
 
 const renderedMdx = <Mdx components={MDXComponents} />
@@ -65,6 +65,7 @@ const ApiReference: React.FC = () => {
                 right: 17,
                 zIndex: 1000,
                 backgroundColor: 'background.paper',
+                borderColor: 'text.primary',
                 color: 'text.primary',
                 display: ['block', 'none'],
                 '&:hover': {
@@ -79,30 +80,34 @@ const ApiReference: React.FC = () => {
             </Button>
             <Button
               variant='outlined'
+              disableRipple
               sx={{
-                borderRadius: '100px',
                 mt: 2,
-                width: '48px',
-                height: '48px',
-                minWidth: '48px',
                 px: 0.8,
                 position: 'fixed',
                 bottom: [120, 60],
-                right: 17,
+                right: 10,
                 zIndex: 1000,
-                backgroundColor: 'background.paper',
+                opacity: currentIndex !== '' ? 1 : 0,
+                transition: 'opacity 0.3s',
+                border: 'none',
                 color: 'text.primary',
                 '&:hover': {
-                  backgroundColor: 'background.paper'
-                },
-                opacity: currentIndex !== '' ? 1 : 0,
-                transition: 'opacity 0.3s'
+                  border: 'none',
+                  backgroundColor: 'transparent'
+                }
               }}
               onClick={() => {
                 window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
             >
-              <ChevronLeft sx={{ rotate: '90deg' }} />
+              <ScrollToTop
+                style={{
+                  width: '48px',
+                  height: '48px',
+                  background: palette.background.default
+                }}
+              />
             </Button>
             {renderedMdx}
           </NetworkProvider>
