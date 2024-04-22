@@ -1,0 +1,58 @@
+import { Steps } from 'nextra/components'
+
+# New Supported Networks
+
+Safe's vision is to make every web3 account a smart account. Therefore, we prioritize teams and chains building with smart accounts, especially if they push account abstraction (for example, ERC-4337/EIP-1271 adoption) with Safe (learn more [here](https://docs.safe.global/home/4337-safe)).
+
+To have the full Safe stack running on your chain network, you need to consider the following steps:
+
+## Steps
+
+<Steps>
+
+  ### Deploy Safe canonical contracts
+
+  #### Process
+
+    1. Follow the steps in the [safe-contracts](https://github.com/safe-global/safe-contracts#deploy) GitHub repository.
+    2. Create a GitHub issue using the [Add new chain](https://github.com/safe-global/safe-deployments/issues/new?assignees=&labels=%5Benhancement%5D&projects=&template=new_chain.yaml&title=%5BNew+chain%5D%3A+) template in the [safe-deployments](https://github.com/safe-global/safe-deployments) repository.
+    3. Create a Pull Request with the new Safe contract addresses in the [safe-deployments](https://github.com/safe-global/safe-deployments) repository.
+
+  #### Cost
+
+  The contracts are fully open source, but gas is needed in the native currency of the new chain for contract deployment.
+
+  #### Timeline
+
+  Pull Requests on Safe's GitHub are reviewed roughly on a two-week cadence.
+
+  #### EVM only
+
+  Safe's security is based on the contracts deployed in EVM-compatible networks. For the time being, we are not looking to extend beyond EVM.
+
+  ### Deploy and maintain Safe\{Wallet\} and Safe\{Core\} infrastructure
+
+  #### Process
+
+  1. Two possible options are available:
+      - Native integration in [Safe\{Wallet\}](https://app.safe.global): The Safe team runs all the infrastructure.
+        - Fill out [this form](https://noteforms.com/forms/request-safe-ui-and-infra-support-4weugt) with your request.
+        - The Safe team evaluates the chains that need Safe\{Wallet\} or Safe\{Core\} support every quarter based on a priority matrix.
+      - Forked integration: All the infrastructure is run by a dedicated team who can be the new supported chain itself or an ecosystem third party like [Protofire](https://protofire.io) or [Den](https://www.onchainden.com).
+  2. Enter into agreement with your chosen provider.
+
+  #### Cost
+
+  - Safe is fully open source but requires someone to run and maintain the [web interface](https://github.com/safe-global/safe-wallet-web) and [infrastructure](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_production.md).
+  - Cost is based on the individual agreement (if run by any third party, including Safe).
+  - Primary cost factors:
+    - Deployment costs.
+    - Indexing.
+    - Cloud storage and monitoring services.
+
+  #### Timeline
+
+  - Based on the individual agreement with Safe.
+  - Prioritisation for native integration ([app.safe.global](https://app.safe.global)) is primarily based on the network's smart account/account abstraction strategy (for example, is every user account a Safe under the hood beyond the usage of Safe as a multi-signature for treasury management?) and [additional metrics](https://noteforms.com/forms/request-safe-ui-and-infra-support-4weugt).
+
+</Steps>
