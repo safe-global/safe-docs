@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Hr: React.FC<{ style: any }> = props => (
+const Hr: React.FC<{ style?: any }> = props => (
   <hr
     {...props}
     style={{
