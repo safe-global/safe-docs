@@ -25,7 +25,7 @@ import swagger from '../components/ApiReference/mainnet-swagger.json'
 import pathsMetadata from '../components/ApiReference/paths-metadata.json'
 
 export const slugify: (text: string) => string = text =>
-  text?.replace?.(/ /g, '_').replace(/\//g, '_')
+  text?.replace?.(/ /g, '-').replace(/\//g, '-')
 
 export const getHeadingChildren: (heading: string) => Heading[] = heading => {
   const headingPath = '/v1/' + heading + '/'
@@ -47,7 +47,7 @@ export const getHeadingChildren: (heading: string) => Heading[] = heading => {
       })
     })
     .flat()
-  return children
+  return children.filter(child => !child.text.includes('Deprecated'))
 }
 
 export const getHeadingsFromHtml: (

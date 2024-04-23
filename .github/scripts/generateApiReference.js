@@ -10,43 +10,68 @@ const curlify = req =>
   } \\
     -H "Accept: application/json" \\
     -H "content-type: application/json" \\
-    ${!req.body ? '' : `-d '${req.body}'`}`
+    ${!req.body ? '' : `-d '${JSON.stringify(req.body, null, 2)}'`}`
 
 const sampleSafe = '0xB88F61E6FbdA83fbfffAbE364112137480398018'
+const sampleSafe2 = '0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75'
 const sampleContract = '0xB88F61E6FbdA83fbfffAbE364112137480398018'
 const sampleMessageHash = '0x3b3b57b3'
 const sampleModuleTransactionId = '0x3b3b57b3'
 const sampleSafeTxHash = '0x3b3b57b3'
 const sampleUuid = '3b3b57b3'
 const sampleDelegateAddress = '0x5A93Fe8eBBf78738468c10894D7f36fA247b71C0'
+const sampleOperation = 0
+const sampleValue = '0'
+const sampleEOA = '0xBEFA89D90c112A416139F42046Cc2d4A8a308815'
 const sampleTransferId = '3b3b57b3'
+const sampleLabel = '3b3b57b3'
 const sampleData =
   '0x8d80ff0a000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000004f6006b175474e89094c44da98b954eedeac495271d0f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044095ea7b30000000000000000000000001111111254fb6c44bac0bed2854e76f90643097d0000000000000000000000000000000000000000000c685fa11e01ec80000000001111111254fb6c44bac0bed2854e76f90643097d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004087c025200000000000000000000000000f2f400c138f9fb900576263af0bc7fcde2b1b8a8000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000001800000000000000000000000006b175474e89094c44da98b954eedeac495271d0f000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000f2f400c138f9fb900576263af0bc7fcde2b1b8a80000000000000000000000004f3a120e72c76c22ae802d129f599bfdbc31cb810000000000000000000000000000000000000000000c685fa11e01ec8000000000000000000000000000000000000000000000000000000000000da41c43c100000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000026000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000001408000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000064eb5625d90000000000000000000000006b175474e89094c44da98b954eedeac495271d0f00000000000000000000000089b78cfa322f6c5de0abceecab66aee45393cc5a0000000000000000000000000000000000000000000c685fa11e01ec800000000000000000000000000000000000000000000000000000000000000080000000000000000000000089b78cfa322f6c5de0abceecab66aee45393cc5a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000448d7ef9bb0000000000000000000000001111111254fb6c44bac0bed2854e76f90643097d00000000000000000000000000000000000000000000000000000da475abf0000000000000000000000000000000000000000000000000000000000065575cda00000000000000000000'
 
 const getSampleValue = param => {
   switch (param) {
-    case '{address}':
+    case 'safe':
       return sampleSafe
-    case '{contract}':
+    case 'address':
+      return sampleSafe2
+    case 'to':
+      return sampleEOA
+    case 'contract':
       return sampleContract
-    case '{message_hash}':
+    case 'data':
+    case 'signature':
+      return sampleData
+    case 'message_hash':
       return sampleMessageHash
-    case '{module_transaction_id}':
+    case 'module_transaction_id':
       return sampleModuleTransactionId
-    case '{safe_tx_hash}':
+    case 'safe_tx_hash':
       return sampleSafeTxHash
-    case '{uuid}':
+    case 'uuid':
       return sampleUuid
-    case '{delegate_address}':
+    case 'delegate':
+    case 'delegator':
+    case 'delegate_address':
       return sampleDelegateAddress
-    case '{transfer_id}':
+    case 'transfer_id':
       return sampleTransferId
+    case 'label':
+      return sampleLabel
+    case 'value':
+      return sampleValue
+    case 'operation':
+      return sampleOperation
     default:
       return ''
   }
 }
 
-const generateSampleApiResponse = async (path, pathWithParams, method) => {
+const generateSampleApiResponse = async (
+  path,
+  pathWithParams,
+  method,
+  requestBody
+) => {
   const fetch = await import('node-fetch')
 
   let response
@@ -61,22 +86,41 @@ const generateSampleApiResponse = async (path, pathWithParams, method) => {
           ':',
           res.statusText
         )
-        return {}
       }
     })
-  } else if (method === 'delete')
-    if (response != null) {
-      if (Array.isArray(response)) response = response.slice(0, 2)
-      if (response.results)
-        response = { ...response, results: response.results.slice(0, 2) }
-      fs.writeFileSync(
-        `./components/ApiReference/examples/${slugify(path)}-${method}.json`,
-        JSON.stringify(response, null, 2)
-      )
-    }
+  } else if (method === 'post') {
+    response = await fetch
+      .default(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+      })
+      .then(async res => {
+        if (res.status === 200) return await res?.json()
+        else {
+          console.error(
+            'Error generating response for',
+            path,
+            ':',
+            res.statusText
+          )
+        }
+      })
+  } else if (method === 'delete') response = 'Deleted'
+  if (response != null) {
+    if (Array.isArray(response)) response = response.slice(0, 2)
+    if (response.results)
+      response = { ...response, results: response.results.slice(0, 2) }
+    fs.writeFileSync(
+      `./components/ApiReference/examples/${slugify(path)}-${method}.json`,
+      JSON.stringify(response, null, 2)
+    )
+  }
 }
 
-const slugify = text => text?.replace?.(/ /g, '_').replace(/\//g, '_')
+const slugify = text => text?.replace?.(/ /g, '-').replace(/\//g, '-')
 const resolveRef = ref => jsonFile.definitions[ref.split('/').pop()]
 const resolveRefs = obj => {
   if (typeof obj === 'object') {
@@ -148,7 +192,8 @@ const generateMethodContent = (path, method) => {
   const pathParams = path.match(/{[^}]*}/g)
   const pathWithParams =
     pathParams?.reduce(
-      (acc, param) => acc.replace(param, getSampleValue(param)),
+      (acc, param) =>
+        acc.replace(param, getSampleValue(param.replace(/{|}/g, ''))),
       path
     ) ?? path
 
@@ -164,9 +209,21 @@ const generateMethodContent = (path, method) => {
   const sampleResponsePath = filePath + '.json'
   const hasExample = fs.existsSync(examplePath)
   const hasResponse = fs.existsSync(sampleResponsePath)
-  let example, sampleResponse
+  let example, sampleResponse, requestBody
   if (hasExample) example = fs.readFileSync(examplePath, 'utf-8')
   if (hasResponse) sampleResponse = fs.readFileSync(sampleResponsePath, 'utf-8')
+  requestBody =
+    method === 'get'
+      ? undefined
+      : _method.parameters
+          .filter(p => p.in === 'body')
+          .map(p => p.schema?.properties)
+          .reduce((acc, obj) => {
+            for (const key in obj) {
+              acc[key] = getSampleValue(key)
+            }
+            return acc
+          }, {})
 
   const query =
     '?limit=2' +
@@ -174,7 +231,7 @@ const generateMethodContent = (path, method) => {
       ? `&safe=${sampleSafe}`
       : '')
 
-  generateSampleApiResponse(path, pathWithParams + query, method)
+  generateSampleApiResponse(path, pathWithParams + query, method, requestBody)
 
   const codeBlockWithinDescription = _method.description.match(
     /```[a-z]*\n[\s\S]*?\n```/
@@ -218,7 +275,11 @@ ${_method.additionalInfo ?? ''}
     }
 
 \`\`\`bash ${hasExample ? 'curl.sh' : ''}
-${curlify({ url: pathWithParams, method: method.toUpperCase(), body: '' })}
+${curlify({
+  url: pathWithParams,
+  method: method.toUpperCase(),
+  body: requestBody
+})}
 \`\`\`
       </CH.Code>
     </CH.Section>
@@ -245,8 +306,7 @@ const generatePathContent = path =>
     .map(method => generateMethodContent(path, method))
     .join('\n')}`
 
-const generateCategoryContent = category => {
-  return `<Grid my={8} />
+const generateCategoryContent = category => `<Grid my={8} />
 ## ${capitalize(category.title)}
 <Grid my={24} />
 
@@ -254,11 +314,12 @@ const generateCategoryContent = category => {
     .filter(
       path =>
         path !== '/v1/safes/{address}/balances/' &&
-        path !== '/v1/safes/{address}/balances/usd/'
+        path !== '/v1/safes/{address}/balances/usd/' &&
+        path !== '/v1/safes/{address}/transactions/' &&
+        path !== '/v1/transactions/{safe_tx_hash}/'
     )
     .map(path => generatePathContent(path))
     .join('\n')}`
-}
 
 const getCategories = version =>
   Object.keys(mainnetApiJson.paths)
@@ -281,7 +342,10 @@ const getCategories = version =>
 
 const generateMainContent = () => {
   const categories = [...getCategories('v1')].filter(
-    c => c.title !== 'about' && c.title !== 'notifications'
+    c =>
+      c.title !== 'about' &&
+      c.title !== 'notifications' &&
+      c.title !== 'transactions'
   )
 
   return `
