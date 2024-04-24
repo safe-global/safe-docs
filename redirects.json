@@ -440,6 +440,11 @@
     "permanent": true
   },
   {
+    "source": "/advanced/api-supported-networks",
+    "destination": "/core-api/supported-networks",
+    "permanent": true
+  },
+  {
     "source": "/safe-core-aa-sdk/safe-apps",
     "destination": "https://github.com/safe-global/safe-apps-sdk",
     "permanent": true
