@@ -11,7 +11,7 @@ Pimlico is one of the most popular ERC-4337 account abstraction infrastructure p
 `permissionless` is a TypeScript library focused on building with the ERC-4337 stack, including smart accounts, bundlers, paymasters, and user operations. Some of its core principles are providing a great developer experience and avoiding vendor lock-in by supporting different providers and ERC-4337 smart accounts, including Safe.
 
 <Callout type='info' emoji='ℹ️'>
-  If you are already building with the Safe\{Core\} SDK, you may want to follow the [Safe4337Pack guide](../../sdk/relay-kit/guides/4337-safe.mdx) instead of integrating the `permissionless` library directly into your application.
+  If you are already building with the Safe\{Core\} SDK, you may want to follow the [Safe4337Pack guide](./safe-sdk.mdx) instead of integrating the `permissionless` library directly into your application.
 </Callout>
 
 ## Prerequisites
@@ -214,3 +214,14 @@ pnpm install viem permissionless
   {/* <!-- vale on --> */}
 
 </Steps>
+
+## Recap and further reading
+
+This guide covered how to sponsor the deployment of a new ERC-4337 Safe and its user operations with Pimlico infrastructure using a Paymaster.
+
+Feel free to try out other ideas and possibilities, as there are many more regarding:
+- The deployment and initial setup of ERC-4337 accounts.
+- The entity responsible for paying the transaction fees.
+- The tokens used to pay the transaction fees.
+
+Explore our [4337-gas-metering](https://github.com/safe-global/safe-modules/tree/main/examples/4337-gas-metering) repository on GitHub to see how most of these options work with Safe and notice the integrations with different providers like Alchemy, Gelato, and Pimlico.
