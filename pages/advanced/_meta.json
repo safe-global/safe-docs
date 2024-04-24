@@ -18,18 +18,11 @@
     "type": "separator",
     "title": "Safe{Core} API"
   },
-  "api-service-architecture": "Service Architecture",
+  "api-overview": "Overview",
+  "api-safe-transaction-service": "Safe Transaction Service",
   "api-rpc-requirements": "RPC Requirements",
   "api-supported-networks": "Supported Networks",
-  "api-reference": {
-    "title": "Reference",
-    "href": "/advanced/api-reference",
-    "theme": {
-      "layout": "full",
-      "toc": false,
-      "sidebar": false
-    }
-  },
+  "api-new-networks": "Add New Networks",
   "-- Safe CLI": {
     "type": "separator",
     "title": "Safe CLI"

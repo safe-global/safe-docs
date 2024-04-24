@@ -2,16 +2,6 @@
 
 This guide shows how Safe signatures work and how to generate them using the Protocol Kit.
 
-## Prerequisites
-
-- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-
-## Install dependencies
-
-```bash
-yarn install @safe-global/protocol-kit
-```
-
 ## Setup
 
 Safe accounts can be configured with different threshold values and types of owners. Safe owners can be any Ethereum address, such as:

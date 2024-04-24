@@ -1,0 +1,213 @@
+import { Tabs, Steps } from 'nextra/components'
+
+# Manage user delegates
+
+This guide shows how to interact with the Safe Transaction Service API to manage user delegates.
+
+The different steps are implemented using [Curl](https://github.com/curl/curl) requests, the [Safe\{Core\} SDK](https://github.com/safe-global/safe-core-sdk) TypeScript library and the [safe-eth-py](https://github.com/safe-global/safe-eth-py) Python library.
+
+## Prerequisites
+
+1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm) when using the Safe\{Core\} SDK.
+2. [Python](https://www.python.org/downloads/) >= 3.9 when using `safe-eth-py`.
+3. Have a Safe account.
+
+## Steps
+
+<Steps>
+  ### Install dependencies
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['TypeScript', 'Python']}>
+    <Tabs.Tab>
+      ```bash
+      yarn add ethers @safe-global/api-kit @safe-global/protocol-kit @safe-global/safe-core-sdk-types
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      pip install safe-eth-py web3 hexbytes
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  ### Imports
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['TypeScript', 'Python']}>
+    <Tabs.Tab>
+      ```typescript
+      import { ethers } from 'ethers'
+      import SafeApiKit, { AddSafeDelegateProps } from '@safe-global/api-kit'
+      import { EthersAdapter } from '@safe-global/protocol-kit'
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      from gnosis.eth import EthereumClient, EthereumNetwork
+      from gnosis.safe.api.transaction_service_api import TransactionServiceApi
+      from eth_account import Account
+      from eth_typing import ChecksumAddress
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  ### Get the delegates from a Safe
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      const ethProvider = new ethers.JsonRpcProvider(config.RPC_URL)
+
+      // Instantiate an EthAdapter with Owner A
+      const ownerA = new ethers.Wallet(config.OWNER_A_PRIVATE_KEY, ethProvider)
+      const ethAdapterOwnerA = new EthersAdapter({
+        ethers,
+        signerOrProvider: ownerA
+      })
+
+      // Initialize the API Kit
+      const apiKit = new SafeApiKit({
+        chainId: 11155111n
+      })
+
+      const ownerAAddress = await ethAdapterOwnerA.getSignerAddress()
+
+      // Get the Safe delegates
+      const delegates = await apiKit.getSafeDelegates({
+        delegatorAddress: config.SAFE_ADDRESS
+      })
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      # Instantiate the Transaction Service API
+      ethereum_client = EthereumClient(config.get("RPC_URL"))
+      transaction_service_api = TransactionServiceApi(
+          network=EthereumNetwork.SEPOLIA,
+          ethereum_client=ethereum_client)
+
+      # Get delegates from a Safe
+      delegates_for_safe = transaction_service_api.get_delegates(
+          config.get("SAFE_ADDRESS"))
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      curl -X 'GET' \
+      'https://safe-transaction-sepolia.safe.global/api/v1/delegates/?delegator=0xAA86E576c084aFFFFFFFFFFFF7967F10C467d318' \
+      -H 'accept: application/json'
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+{/* <!-- vale on --> */}
+
+  ### Add a delegate to a delegator
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      const ownerB = new ethers.Wallet(config.OWNER_B_PRIVATE_KEY, ethProvider)
+
+      // Instantiate an EthAdapter with Owner B
+      const ethAdapterOwnerB = new EthersAdapter({
+        ethers,
+        signerOrProvider: ownerB
+      })
+
+      const ownerBAddress = await ethAdapterOwnerB.getSignerAddress()
+
+      const delegateConfig: AddSafeDelegateProps = {
+        delegateAddress: ownerBAddress || '0x',
+        delegatorAddress: ownerAAddress || '0x',
+        signer: ownerA,
+        label: 'Label'
+      }
+
+      // Add Owner B as a delegate of Owner A for all Safes accounts (safeAddress = null)
+      const safeDelegateAddResponse = await apiKit.addSafeDelegate(delegateConfig)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      # Add Owner B as a delegate of Owner A for all Safes accounts (safeAddress = null)
+      account_owner_a = Account.from_key(config.get("OWNER_A_PRIVATE_KEY"))
+      account_owner_b = Account.from_key(config.get("OWNER_B_PRIVATE_KEY"))
+      transaction_service_api.add_delegate(
+          delegate_address=ChecksumAddress(account_owner_b.address),
+          delegator_address=ChecksumAddress(account_owner_a.address),
+          label="Label",
+          signer_account=account_owner_a)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      curl -X 'POST' \
+      'https://safe-transaction-sepolia.safe.global/api/v1/delegates/' \
+      -H 'accept: application/json' \
+      -H 'Content-Type: application/json' \
+      -d '{
+          "delegate": "0x634Ce7818a1Ca34d3D69FFFFFFFFFFFFFFFF0AC6",
+          "delegator": "0xAA86E576c084aFFFFFFFFFFFF7967F10C467d318",
+          "signature": "0xe026c189805d7d5026e8b33e03dfe1847a488a9c6846afefffffffffffff0a566af485b7b4a68189c69c2245fcb9321d718d829d6180245cfe56dc51a0c15b031b",
+          "label": "User delegator label"
+      }'
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  ### Delete a delegate of a delegator
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      const delegateConfig: DeleteSafeDelegateProps = {
+        delegateAddress: ownerBAddress || '0x',
+        delegatorAddress: ownerAAddress || '0x',
+        signer: ownerA,
+      }
+
+      // Remove Owner B as delegate of Owner A
+      await apiKit.removeSafeDelegate(delegateConfig)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      transaction_service_api.remove_delegate(
+          delegate_address=ChecksumAddress(account_owner_b.address),
+          delegator_address=ChecksumAddress(account_owner_a.address),
+          signer_account=account_owner_a)
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      curl -X 'DELETE' \
+      'https://safe-transaction-sepolia.safe.global/api/v1/delegates/0x634Ce7818a1Ca34d3D69FFFFFFFFFFFFFFFF0AC6/' \
+      -H 'accept: application/json' \
+      -H 'Content-Type: application/json' \
+      -d '{
+          "delegate": "0x634Ce7818a1Ca34d3D69FFFFFFFFFFFFFFFF0AC6",
+          "delegator": "0xAA86E576c084aFFFFFFFFFFFF7967F10C467d318",
+          "signature": "0xe026c189805d7d5026e8b33e03dfe1847a488a9c6846afefffffffffffff0a566af485b7b4a68189c69c2245fcb9321d718d829d6180245cfe56dc51a0c15b031b"
+      }'
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+</Steps>

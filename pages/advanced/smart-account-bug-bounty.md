@@ -24,7 +24,9 @@ The scope of the bug bounty program includes the core contracts related to the f
 * _v1.2.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.2.0), [README](https://github.com/safe-global/safe-contracts/blob/v1.2.0/README.md))
 * _v1.1.1_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.1.1), [README](https://github.com/safe-global/safe-contracts/blob/v1.1.1/README.md))
 
-The scope of the bug bounty also includes the [Allowance Module](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances).
+The scope of the bug bounty also includes officially supported Safe Modules:
+* _v1.0.0_ [Allowance Module](https://github.com/safe-global/safe-modules/tree/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances)
+* _v0.3.0_ [Safe 4337 Module](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337)
 
 ### In scope
 
@@ -53,6 +55,7 @@ You can find addresses for deployed instances of these contracts [here](./smart-
 **Safe Modules contracts**
 
 * AllowanceModule.sol
+* Safe4337Module.sol
 
 ### Examples of what's in scope
 

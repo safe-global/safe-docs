@@ -15,7 +15,7 @@ Some Account Abstraction features are:
 
 See also:
 - [Account Abstraction](https://ethereum.org/en/roadmap/account-abstraction) on ethereum.org
-- [EIP-4337: Account Abstraction](https://www.erc4337.io) on erc4337.io
+- [ERC-4337: Account Abstraction](https://www.erc4337.io) on erc4337.io
 
 ## EIP-1271
 
@@ -96,7 +96,7 @@ See also:
 SafeAuth is a Multi-Party Computation (MPC) based product developed by [Safe](https://safe.global) and [Web3Auth](https://web3auth.io). Compatible with [Safe{Wallet}](https://app.safe.global), SafeAuth allows developers to build portable smart account use cases. Users are empowered to plug and play their user accounts between different decentralized applications through their social login.
 
 See also:
-- [SafeAuth documentation](./sdk/auth-kit/guides/safe-auth.md) on docs.safe.global
+- [SafeAuth documentation](./sdk/auth-kit/guides/safe-auth.mdx) on docs.safe.global
 - [SafeAuth demo app](https://github.com/safe-global/safe-core-sdk/tree/main/packages/auth-kit/example) on github.com
 - [Safe + Web3Auth = SafeAuth: Portable Safe Accounts with social login](https://safe.mirror.xyz/WKxK5FENvkT8BjpowJQAhokYzb22438zUCG3wUSWvjc) on safe.mirror.xyz
 
