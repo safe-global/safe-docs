@@ -48,4 +48,4 @@ The function [`checkNSignatures`](https://github.com/safe-global/safe-contracts/
 
 The workaround is to set a strict `verificationGasLimit` for ERC-4337 user operations. This would set a strict upper bound on how much gas can be paid during signature verification and limit the potential additional fees.
 
-This bug was submitted by [adam-alchemy](https://github.com/adam-alchemy). It was regarded as a "Low Threat," and a bounty of 1,000 USD has been paid out.
+This bug was submitted by [Adam Egyed](https://github.com/adamegyed). It was regarded as a "Low Threat," and a bounty of 1,000 USD has been paid out.
