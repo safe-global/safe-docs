@@ -436,7 +436,12 @@
   },
   {
     "source": "/api-supported-networks",
-    "destination": "/advanced/api-supported-networks",
+    "destination": "/core-api/transaction-service-supported-networks",
+    "permanent": true
+  },
+  {
+    "source": "/advanced/api-supported-networks",
+    "destination": "/core-api/transaction-service-supported-networks",
     "permanent": true
   },
   {
