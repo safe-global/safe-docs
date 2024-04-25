@@ -1,9 +1,18 @@
 const redirections = require('./redirects.json')
+const codeHike = require('@code-hike/mdx')
 const withNextra = require('nextra')({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.tsx',
   latex: true,
-  defaultShowCopyCode: true
+  defaultShowCopyCode: true,
+  mdxOptions: {
+    remarkPlugins: [
+      [
+        codeHike.remarkCodeHike,
+        { showCopyButton: true, skipLanguages: ['mermaid'], lineNumbers: true }
+      ]
+    ]
+  }
 })
 
 /** @type {import('next').NextConfig} */

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import {
   Button,
   Grid,
@@ -11,14 +11,43 @@ import {
 import AddIcon from '@mui/icons-material/Add'
 import NextLink from 'next/link'
 import ReactGA from 'react-ga4'
-import { useRouter } from 'next/router'
 
 import FeedbackGood from '../../assets/svg/feedback-good.svg'
 import FeedbackBad from '../../assets/svg/feedback-bad.svg'
 import Check from '../../assets/svg/check.svg'
+import { NetworkContext } from '../ApiReference/Network'
 
-const Feedback: React.FC<{ label?: string }> = ({ label }) => {
-  const { asPath } = useRouter()
+const ReportIssue: React.FC<{ small?: boolean }> = ({ small = false }) => (
+  <NextLink
+    target='_blank'
+    rel='noopener noreferrer'
+    href='https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=nextra-feedback&projects=&template=nextra-feedback.yml&title=%5BFeedback%5D+'
+  >
+    <Button
+      onClick={() => {
+        ReactGA.event('issue', {
+          path: window.location.pathname
+        })
+      }}
+      size={small ? 'small' : undefined}
+      sx={{
+        color: 'rgba(249,250,251,.7)',
+        backgroundColor: small
+          ? ({ palette }) => palette.grey[900]
+          : 'transparent'
+      }}
+    >
+      Report issue
+    </Button>
+  </NextLink>
+)
+
+const Feedback: React.FC<{
+  label?: string
+  asPath?: string
+  small?: boolean
+}> = ({ label, asPath, small = false }) => {
+  const [network] = useContext(NetworkContext)
   const [isPositive, setIsPositive] = useState<boolean | null>(null)
   const [feedback, setFeedback] = useState('')
   const [loading, setLoading] = useState(false)
@@ -32,7 +61,9 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
   const handleSubmit = (): void => {
     setLoading(true)
     ReactGA.event('feedback', {
-      path: window.location.pathname,
+      path:
+        window.location.pathname +
+        (asPath?.includes('/api-reference') === true ? network : ''),
       positive: isPositive,
       feedback,
       steps,
@@ -46,7 +77,7 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
   return (
     <Grid
       sx={{
-        p: 3,
+        p: small ? 1 : 3,
         mt: 3,
         borderRadius: '8px',
         border: label != null ? 'none' : '1px solid rgba(249,250,251,.1)'
@@ -55,7 +86,7 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
       {submitted ? (
         <Grid
           container
-          flexDirection='column'
+          flexDirection={small ? 'row' : 'column'}
           justifyContent='center'
           alignItems='center'
         >
@@ -175,12 +206,27 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
                 : { flexDirection: 'column', alignItems: 'center' })}
             >
               {label != null ? (
-                <>
-                  <Typography variant='h5' mr={3}>
+                <Grid container alignItems='center'>
+                  <Typography
+                    color={small ? 'text' : 'primary'}
+                    variant='h5'
+                    sx={{
+                      mb: small ? 1 : 0,
+                      mr: small ? 1 : 3,
+                      mt: small ? 1 : 0,
+                      fontSize: small ? '13px' : undefined
+                    }}
+                  >
                     {label}
                   </Typography>
                   <Button
-                    sx={{ color: 'white' }}
+                    sx={{
+                      color: 'white',
+                      backgroundColor: ({ palette }) => palette.grey[900],
+                      mr: 0.5,
+                      minWidth: '48px'
+                    }}
+                    size={small ? 'small' : undefined}
                     onClick={() => {
                       ReactGA.event('feedback', {
                         path: window.location.pathname,
@@ -193,7 +239,13 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
                   </Button>
 
                   <Button
-                    sx={{ color: 'white' }}
+                    sx={{
+                      color: 'white',
+                      backgroundColor: ({ palette }) => palette.grey[900],
+                      mr: 0.5,
+                      minWidth: '48px'
+                    }}
+                    size={small ? 'small' : undefined}
                     onClick={() => {
                       ReactGA.event('feedback', {
                         path: window.location.pathname,
@@ -204,7 +256,8 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
                   >
                     No
                   </Button>
-                </>
+                  <ReportIssue small />
+                </Grid>
               ) : (
                 <>
                   <Typography textAlign='center' fontWeight='700' color='white'>
@@ -262,22 +315,7 @@ const Feedback: React.FC<{ label?: string }> = ({ label }) => {
                   </Grid>
                 </>
               )}
-              <NextLink
-                target='_blank'
-                rel='noopener noreferrer'
-                href='https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=nextra-feedback&projects=&template=nextra-feedback.yml&title=%5BFeedback%5D+'
-              >
-                <Button
-                  onClick={() => {
-                    ReactGA.event('issue', {
-                      path: window.location.pathname
-                    })
-                  }}
-                  sx={{ color: 'rgba(249,250,251,.7)' }}
-                >
-                  Report issue
-                </Button>
-              </NextLink>
+              {!small && <ReportIssue />}
             </Grid>
           )}
         </Grid>

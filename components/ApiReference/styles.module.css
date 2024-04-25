@@ -1,0 +1,44 @@
+
+
+/* Mobile filter */
+.appBar {
+  border-bottom: 1px solid var(--mui-palette-border-light);
+  font-size: 20px;
+  position: sticky;
+  background-color: var(--mui-palette-background-main);
+  color: var(--mui-palette-text-primary);
+}
+
+.backButton {
+  width: 64px;
+}
+
+.backButton:hover {
+  background-color: unset;
+}
+
+.filterWrapper {
+  padding: 60px 16px 20px;
+  background-color: var(--mui-palette-background-main);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.filterWrapper :global .MuiPaper-root {
+  box-shadow: unset;
+}
+
+.filterWrapper :global .MuiPaper-root:not(:last-child) {
+  border-bottom: 1px solid var(--mui-palette-border-light);
+}
+
+@media (min-width: 600px) {
+  .filterButton {
+    display: none;
+  }
+
+  .sidebar {
+    display: block;
+  }
+}

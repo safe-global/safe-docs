@@ -1,0 +1,29 @@
+{
+  "address": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75",
+  "name": "Proxy",
+  "displayName": "",
+  "logoUri": null,
+  "contractAbi": {
+    "abi": [
+      {
+        "type": "constructor",
+        "inputs": [
+          {
+            "name": "_masterCopy",
+            "type": "address"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable"
+      },
+      {
+        "type": "fallback",
+        "payable": true,
+        "stateMutability": "payable"
+      }
+    ],
+    "description": "Proxy",
+    "relevance": 100
+  },
+  "trustedForDelegateCall": false
+}

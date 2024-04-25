@@ -76,22 +76,29 @@ export const theme = createTheme({
     h2: {
       fontSize: '40px',
       lineHeight: '44px',
+      borderBottom: `1px solid ${palette.border.light}`,
+      fontWeight: 700,
 
       '@media (min-width:600px)': {
-        fontSize: '60px',
-        lineHeight: '64px'
+        marginTop: '32px',
+        fontSize: '30px',
+        lineHeight: '44px'
       }
     },
     h3: {
-      fontSize: '32px',
-      lineHeight: '36px'
+      fontSize: '24px',
+      lineHeight: '30px',
+      fontWeight: 700,
+      marginTop: '16px',
+      paddingBottom: '8px'
     },
     h4: {
       fontSize: '20px',
       lineHeight: '30px',
+      fontWeight: 700,
 
       '@media (min-width:600px)': {
-        fontSize: '24px',
+        fontSize: '20px',
         lineHeight: '32px'
       }
     },

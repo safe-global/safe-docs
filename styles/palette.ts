@@ -22,18 +22,21 @@ export const palette = {
     background: '#121312'
   },
   error: {
+    darker: 'rgb(76, 5, 25)',
     dark: '#AC2C3B',
     main: '#FF5F72',
     light: '#FFB4BD',
     background: '#2F2527'
   },
   success: {
+    darker: 'rgb(2, 44, 34)',
     dark: '#028D4C',
     main: '#00B460',
     light: '#81C784',
     background: '#1F2920'
   },
   info: {
+    darker: 'rgb(23, 37, 84)',
     dark: '#52BFDC',
     main: '#5FDDFF',
     light: '#B7F0FF',

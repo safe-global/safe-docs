@@ -1,0 +1,4541 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Safe Transaction Service API",
+    "description": "API to keep track of transactions sent via Safe smart contracts",
+    "license": {
+      "name": "MIT License"
+    },
+    "version": "v1"
+  },
+  "host": "safe-transaction-mainnet.safe.global",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/api",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    }
+  ],
+  "paths": {
+    "/v1/about/": {
+      "get": {
+        "operationId": "v1_about_list",
+        "description": "Returns information and configuration of the service",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/about/",
+        "title": "General Information",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "path": "/v1/about/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/about/ethereum-rpc/": {
+      "get": {
+        "operationId": "v1_about_ethereum-rpc_list",
+        "description": "Get information about the Ethereum RPC node used by the service",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/about/ethereum-rpc/",
+        "title": "Ethereum RPC",
+        "additionalInfo": "This is an example of more detailed information about Ethereum RPC endpoint. This should support MDX."
+      },
+      "parameters": {
+        "path": "/v1/about/ethereum-rpc/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/about/ethereum-tracing-rpc/": {
+      "get": {
+        "operationId": "v1_about_ethereum-tracing-rpc_list",
+        "description": "Get information about the Ethereum Tracing RPC node used by the service (if any configured)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/about/ethereum-tracing-rpc/",
+        "title": "Ethereum Tracing RPC",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "path": "/v1/about/ethereum-tracing-rpc/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/about/indexing/": {
+      "get": {
+        "operationId": "v1_about_indexing_list",
+        "description": "Get current indexing status for ERC20/721 events",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IndexingStatus"
+              }
+            }
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/about/indexing/",
+        "title": "Indexing",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "path": "/v1/about/indexing/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/about/master-copies/": {
+      "get": {
+        "operationId": "v1_about_master-copies_list",
+        "description": "Use `singletons` instead of `master-copies`",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "deprecated": true,
+        "path": "/v1/about/master-copies/",
+        "title": "Master Copies",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "path": "/v1/about/master-copies/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/about/singletons/": {
+      "get": {
+        "operationId": "v1_about_singletons_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MasterCopyResponse"
+              }
+            }
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/about/singletons/",
+        "title": "Singletons",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "path": "/v1/about/singletons/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/contracts/": {
+      "get": {
+        "operationId": "v1_contracts_list",
+        "description": "",
+        "parameters": [
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Contract"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/contracts/",
+        "title": "List Contracts",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "path": "/v1/contracts/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/contracts/{address}/": {
+      "get": {
+        "operationId": "v1_contracts_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Contract"
+            }
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/contracts/{address}/",
+        "title": "Get Specific Contract",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "description": "A unique value identifying this contract.",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/contracts/{address}/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/data-decoder/": {
+      "post": {
+        "operationId": "v1_data-decoder_create",
+        "description": "Returns decoded information using tx service internal ABI information given the tx\ndata as a `0x` prefixed hexadecimal string.\nIf address of the receiving contract is provided decoded data will be more accurate,\nas in case of ABI collision service will know which ABI to use.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DataDecoder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Decoded data"
+          },
+          "404": {
+            "description": "Cannot find function selector to decode data"
+          },
+          "422": {
+            "description": "Invalid data"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/data-decoder/",
+        "title": "Get Decoded Data",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "path": "/v1/data-decoder/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/delegates/": {
+      "get": {
+        "operationId": "v1_delegates_list",
+        "description": "Get list of delegates",
+        "parameters": [
+          {
+            "name": "safe",
+            "in": "query",
+            "description": "safe",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "delegate",
+            "in": "query",
+            "description": "delegate",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "delegator",
+            "in": "query",
+            "description": "delegator",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "description": "label",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SafeDelegateResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/delegates/",
+        "title": "List Delegates",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "v1_delegates_create",
+        "description": "Create a delegate for a Safe address with a custom label. Calls with same delegate but different label or\nsigner will update the label or delegator if different.\nFor the signature we are using TOTP with `T0=0` and `Tx=3600`. TOTP is calculated by taking the\nUnix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)\nFor signature this hash need to be signed: keccak(checksummed address + str(int(current_epoch // 3600)))\nFor example:\n     - We want to add the delegate `0x132512f995866CcE1b0092384A6118EDaF4508Ff` and `epoch=1586779140`.\n     - `TOTP = epoch // 3600 = 1586779140 // 3600 = 440771`\n     - The hash to sign by a Safe owner would be `keccak(\"0x132512f995866CcE1b0092384A6118EDaF4508Ff440771\")`",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Delegate"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "400": {
+            "description": "Malformed data"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/delegates/",
+        "title": "Create Delegate",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "path": "/v1/delegates/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/delegates/{delegate_address}/": {
+      "delete": {
+        "operationId": "v1_delegates_delete",
+        "description": "Delete every pair delegate/delegator found. Signature is built the same way as for adding a delegate,\nbut in this case the signer can be either the `delegator` (owner) or the `delegate` itself.\nCheck `POST /delegates/`",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DelegateDelete"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Malformed data"
+          },
+          "404": {
+            "description": "Delegate not found"
+          },
+          "422": {
+            "description": "Invalid Ethereum address/Error processing data"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/delegates/{delegate_address}/",
+        "title": "Delete Delegate",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "delegate_address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/delegates/{delegate_address}/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/messages/{message_hash}/": {
+      "get": {
+        "operationId": "v1_messages_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/SafeMessageResponse"
+            }
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/messages/{message_hash}/",
+        "title": "Get Message",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "message_hash",
+          "in": "path",
+          "description": "A unique value identifying this safe message.",
+          "required": true,
+          "type": "string",
+          "format": "binary"
+        },
+        "path": "/v1/messages/{message_hash}/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/messages/{message_hash}/signatures/": {
+      "post": {
+        "operationId": "v1_messages_signatures_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SafeMessageSignature"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/messages/{message_hash}/signatures/",
+        "title": "Sign Message",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "message_hash",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/messages/{message_hash}/signatures/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/module-transaction/{module_transaction_id}": {
+      "get": {
+        "operationId": "v1_module-transaction_read",
+        "description": ":return: module transaction filtered by module_transaction_id",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/SafeModuleTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid moduleTransactionId"
+          },
+          "404": {
+            "description": "ModuleTransaction does not exist"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/module-transaction/{module_transaction_id}",
+        "title": "Get Module Transaction",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "module_transaction_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/module-transaction/{module_transaction_id}",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/modules/{address}/safes/": {
+      "get": {
+        "operationId": "v1_modules_safes_list",
+        "description": "Return Safes where the module address provided is enabled",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ModulesResponse"
+            }
+          },
+          "422": {
+            "description": "Module address checksum not valid"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/modules/{address}/safes/",
+        "title": "List Safes that use a Specific Module",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/modules/{address}/safes/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/multisig-transactions/{safe_tx_hash}/": {
+      "get": {
+        "operationId": "v1_multisig-transactions_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/SafeMultisigTransactionResponse"
+            }
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/multisig-transactions/{safe_tx_hash}/",
+        "title": "Get Multisig Transaction",
+        "additionalInfo": ""
+      },
+      "delete": {
+        "operationId": "v1_multisig-transactions_delete",
+        "description": "Delete a queued but not executed multisig transaction. Only the proposer can delete the transaction.\nDelegates are not valid, if the transaction was proposed by a delegator the owner who delegated to\nthe delegate must be used.\nAn EOA is required to sign the following EIP712 data:\n\n```python\n {\n    \"types\": {\n        \"EIP712Domain\": [\n            {\"name\": \"name\", \"type\": \"string\"},\n            {\"name\": \"version\", \"type\": \"string\"},\n            {\"name\": \"chainId\", \"type\": \"uint256\"},\n            {\"name\": \"verifyingContract\", \"type\": \"address\"},\n        ],\n        \"DeleteRequest\": [\n            {\"name\": \"safeTxHash\", \"type\": \"bytes32\"},\n            {\"name\": \"totp\", \"type\": \"uint256\"},\n        ],\n    },\n    \"primaryType\": \"DeleteRequest\",\n    \"domain\": {\n        \"name\": \"Safe Transaction Service\",\n        \"version\": \"1.0\",\n        \"chainId\": chain_id,\n        \"verifyingContract\": safe_address,\n    },\n    \"message\": {\n        \"safeTxHash\": safe_tx_hash,\n        \"totp\": totp,\n    },\n}\n```\n\n`totp` parameter is calculated with `T0=0` and `Tx=3600`. `totp` is calculated by taking the\nUnix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SafeMultisigTransactionDelete"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Error processing data"
+          },
+          "404": {
+            "description": "Transaction not found"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/multisig-transactions/{safe_tx_hash}/",
+        "title": "Delete Queued Multisig Transaction",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "safe_tx_hash",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/multisig-transactions/{safe_tx_hash}/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/multisig-transactions/{safe_tx_hash}/confirmations/": {
+      "get": {
+        "operationId": "v1_multisig-transactions_confirmations_list",
+        "description": "Get the list of confirmations for a multisig transaction",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SafeMultisigConfirmationResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
+        "title": "List Multisig Confirmations",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "v1_multisig-transactions_confirmations_create",
+        "description": "Add a confirmation for a transaction. More than one signature can be used. This endpoint does not support\nthe use of delegates to make a transaction trusted.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SafeMultisigConfirmation"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Malformed data"
+          },
+          "422": {
+            "description": "Error processing data"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
+        "title": "Confirm Multisig Transaction",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "safe_tx_hash",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/notifications/devices/": {
+      "post": {
+        "operationId": "v1_notifications_devices_create",
+        "description": "Creates a new FirebaseDevice. If uuid is not provided a new device will be created.\nIf a uuid for an existing Safe is provided the FirebaseDevice will be updated with all the new data provided.\nSafes provided on the request are always added and never removed/replaced\nSignature must sign `keccack256('gnosis-safe{timestamp-epoch}{uuid}{cloud_messaging_token}{safes_sorted}':\n    - `{timestamp-epoch}` must be an integer (no milliseconds)\n    - `{safes_sorted}` must be checksummed safe addresses sorted and joined with no spaces",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FirebaseDevice"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FirebaseDeviceSerializerWithOwnersResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid data"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/notifications/devices/",
+        "title": "Create Device",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "path": "/v1/notifications/devices/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/notifications/devices/{uuid}/": {
+      "delete": {
+        "operationId": "v1_notifications_devices_delete",
+        "description": "Remove a FirebaseDevice",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/notifications/devices/{uuid}/",
+        "title": "Delete Device",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "uuid",
+          "in": "path",
+          "description": "A UUID string identifying this Firebase Device.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        },
+        "path": "/v1/notifications/devices/{uuid}/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/notifications/devices/{uuid}/safes/{address}/": {
+      "delete": {
+        "operationId": "v1_notifications_devices_safes_delete",
+        "description": "Remove a Safe for a FirebaseDevice",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/notifications/devices/{uuid}/safes/{address}/",
+        "title": "Remove a Safe from a Device",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "uuid",
+          "in": "path",
+          "description": "A UUID string identifying this Firebase Device.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        },
+        "1": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/notifications/devices/{uuid}/safes/{address}/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/owners/{address}/safes/": {
+      "get": {
+        "operationId": "v1_owners_safes_list",
+        "description": "Return Safes where the address provided is an owner",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OwnerResponse"
+            }
+          },
+          "422": {
+            "description": "Owner address checksum not valid"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/owners/{address}/safes/",
+        "title": "List Safes from a Specific Owner",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/owners/{address}/safes/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/": {
+      "get": {
+        "operationId": "v1_safes_read",
+        "description": "Get status of the safe",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/SafeInfoResponse"
+            }
+          },
+          "404": {
+            "description": "Safe not found"
+          },
+          "422": {
+            "description": "code = 1: Checksum address validation failed\ncode = 50: Cannot get Safe info"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/safes/{address}/",
+        "title": "Get Safe Status",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/all-transactions/": {
+      "get": {
+        "operationId": "v1_safes_all-transactions_list",
+        "description": "",
+        "parameters": [
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "executed",
+            "in": "query",
+            "description": "If `True` only executed transactions are returned",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "queued",
+            "in": "query",
+            "description": "If `True` transactions with `nonce >= Safe current nonce` are also returned",
+            "type": "boolean",
+            "default": true
+          },
+          {
+            "name": "trusted",
+            "in": "query",
+            "description": "If `True` just trusted transactions are shown (indexed, added by a delegate or with at least one confirmation)",
+            "type": "boolean",
+            "default": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list with every element with the structure of one of these transactiontypes",
+            "schema": {
+              "$ref": "#/definitions/AllTransactionsSchema"
+            }
+          },
+          "422": {
+            "description": "code = 1: Checksum address validation failed"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/safes/{address}/all-transactions/",
+        "title": "List Transactions",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/all-transactions/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/balances/": {
+      "get": {
+        "operationId": "v1_safes_balances_list",
+        "description": "Get balance for Ether and ERC20 tokens",
+        "parameters": [
+          {
+            "name": "trusted",
+            "in": "query",
+            "description": "If `True` just trusted tokens will be returned",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "exclude_spam",
+            "in": "query",
+            "description": "If `True` spam tokens will not be returned",
+            "type": "boolean",
+            "default": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SafeBalanceResponse"
+              }
+            }
+          },
+          "404": {
+            "description": "Safe not found"
+          },
+          "422": {
+            "description": "Safe address checksum not valid"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "deprecated": false,
+        "path": "/v1/safes/{address}/balances/",
+        "title": "List a Safe's Balances",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/balances/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/balances/usd/": {
+      "get": {
+        "operationId": "v1_safes_balances_usd_list",
+        "description": "Get balance for Ether and ERC20 tokens with USD fiat conversion",
+        "parameters": [
+          {
+            "name": "trusted",
+            "in": "query",
+            "description": "If `True` just trusted tokens will be returned",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "exclude_spam",
+            "in": "query",
+            "description": "If `True` spam tokens will not be returned",
+            "type": "boolean",
+            "default": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SafeBalanceUsdResponse"
+              }
+            }
+          },
+          "404": {
+            "description": "Safe not found"
+          },
+          "422": {
+            "description": "Safe address checksum not valid"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "deprecated": false,
+        "path": "/v1/safes/{address}/balances/usd/",
+        "title": "List a Safe's Balances in USD (Deprecated)",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/balances/usd/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/creation/": {
+      "get": {
+        "operationId": "v1_safes_creation_list",
+        "description": "Get status of the safe",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/SafeCreationInfoResponse"
+            }
+          },
+          "404": {
+            "description": "Safe creation not found"
+          },
+          "422": {
+            "description": "Owner address checksum not valid"
+          },
+          "503": {
+            "description": "Problem connecting to Ethereum network"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/safes/{address}/creation/",
+        "title": "Get Safe Creation Status",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/creation/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/delegates/{delegate_address}/": {
+      "delete": {
+        "operationId": "v1_safes_delegates_delete",
+        "description": "Delete a delegate for a Safe. Signature is built the same way that for adding a delegate.\nCheck `POST /delegates/`",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SafeDelegateDelete"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Malformed data"
+          },
+          "404": {
+            "description": "Delegate not found"
+          },
+          "422": {
+            "description": "Invalid Ethereum address/Error processing data"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/safes/{address}/delegates/{delegate_address}/",
+        "title": "Remove Delegate from Safe",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "1": {
+          "name": "delegate_address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/delegates/{delegate_address}/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/incoming-transfers/": {
+      "get": {
+        "operationId": "v1_safes_incoming-transfers_list",
+        "description": "",
+        "parameters": [
+          {
+            "name": "_from",
+            "in": "query",
+            "description": "_from",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "block_number",
+            "in": "query",
+            "description": "block_number",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "block_number__gt",
+            "in": "query",
+            "description": "block_number__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "block_number__lt",
+            "in": "query",
+            "description": "block_number__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "execution_date__gte",
+            "in": "query",
+            "description": "execution_date__gte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "execution_date__lte",
+            "in": "query",
+            "description": "execution_date__lte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "execution_date__gt",
+            "in": "query",
+            "description": "execution_date__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "execution_date__lt",
+            "in": "query",
+            "description": "execution_date__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "to",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "token_address",
+            "in": "query",
+            "description": "token_address",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transaction_hash",
+            "in": "query",
+            "description": "transaction_hash",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "description": "value",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "value__gt",
+            "in": "query",
+            "description": "value__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "value__lt",
+            "in": "query",
+            "description": "value__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "erc20",
+            "in": "query",
+            "description": "erc20",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "erc721",
+            "in": "query",
+            "description": "erc721",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ether",
+            "in": "query",
+            "description": "ether",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TransferWithTokenInfoResponse"
+              }
+            }
+          },
+          "422": {
+            "description": "Safe address checksum not valid"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/safes/{address}/incoming-transfers/",
+        "title": "List Incoming Transfers",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/incoming-transfers/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/messages/": {
+      "get": {
+        "operationId": "v1_safes_messages_list",
+        "description": "",
+        "parameters": [
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SafeMessageResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/safes/{address}/messages/",
+        "title": "List Messages",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "v1_safes_messages_create",
+        "description": "Create a new signed message for a Safe. Message can be:\n- A ``string``, so ``EIP191`` will be used to get the hash.\n- An ``EIP712`` ``object``.\n\nHash will be calculated from the provided ``message``. Sending a raw ``hash`` will not be accepted,\nservice needs to derive it itself.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SafeMessage"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/safes/{address}/messages/",
+        "title": "Create Signed Message",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/messages/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/module-transactions/": {
+      "get": {
+        "operationId": "v1_safes_module-transactions_list",
+        "description": "Returns the module transaction of a Safe",
+        "parameters": [
+          {
+            "name": "safe",
+            "in": "query",
+            "description": "safe",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "module",
+            "in": "query",
+            "description": "module",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "to",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "operation",
+            "in": "query",
+            "description": "operation",
+            "required": false,
+            "type": "string",
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "name": "failed",
+            "in": "query",
+            "description": "failed",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "block_number",
+            "in": "query",
+            "description": "block_number",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "block_number__gt",
+            "in": "query",
+            "description": "block_number__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "block_number__lt",
+            "in": "query",
+            "description": "block_number__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transaction_hash",
+            "in": "query",
+            "description": "transaction_hash",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SafeModuleTransactionResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "422": {
+            "description": "Invalid ethereum address"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/safes/{address}/module-transactions/",
+        "title": "List a Safe's Module Transactions",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/module-transactions/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/multisig-transactions/": {
+      "get": {
+        "operationId": "v1_safes_multisig-transactions_list",
+        "description": "Returns a paginated list of Multisig Transactions for a Safe.\nBy default only ``trusted`` multisig transactions are returned.",
+        "parameters": [
+          {
+            "name": "failed",
+            "in": "query",
+            "description": "failed",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "modified__lt",
+            "in": "query",
+            "description": "modified__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "modified__gt",
+            "in": "query",
+            "description": "modified__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "modified__lte",
+            "in": "query",
+            "description": "modified__lte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "modified__gte",
+            "in": "query",
+            "description": "modified__gte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nonce__lt",
+            "in": "query",
+            "description": "nonce__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nonce__gt",
+            "in": "query",
+            "description": "nonce__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nonce__lte",
+            "in": "query",
+            "description": "nonce__lte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nonce__gte",
+            "in": "query",
+            "description": "nonce__gte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nonce",
+            "in": "query",
+            "description": "nonce",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "safe_tx_hash",
+            "in": "query",
+            "description": "safe_tx_hash",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "to",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "value__lt",
+            "in": "query",
+            "description": "value__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "value__gt",
+            "in": "query",
+            "description": "value__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "description": "value",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "executed",
+            "in": "query",
+            "description": "executed",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "has_confirmations",
+            "in": "query",
+            "description": "has_confirmations",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "trusted",
+            "in": "query",
+            "description": "trusted",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "execution_date__gte",
+            "in": "query",
+            "description": "execution_date__gte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "execution_date__lte",
+            "in": "query",
+            "description": "execution_date__lte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "submission_date__gte",
+            "in": "query",
+            "description": "submission_date__gte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "submission_date__lte",
+            "in": "query",
+            "description": "submission_date__lte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transaction_hash",
+            "in": "query",
+            "description": "transaction_hash",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SafeMultisigTransactionResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "422": {
+            "description": "Invalid ethereum address"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/safes/{address}/multisig-transactions/",
+        "title": "List a Safe's Multisig Transactions",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "v1_safes_multisig-transactions_create",
+        "description": "Creates a Multisig Transaction with its confirmations and retrieves all the information related.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SafeMultisigTransaction"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created or signature updated"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "422": {
+            "description": "Invalid ethereum address/User is not an owner/Invalid safeTxHash/Invalid signature/Nonce already executed/Sender is not an owner"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/safes/{address}/multisig-transactions/",
+        "title": "Create Multisig Transaction",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/multisig-transactions/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/multisig-transactions/estimations/": {
+      "post": {
+        "operationId": "v1_safes_multisig-transactions_estimations_create",
+        "description": "Estimates `safeTxGas` for a Safe Multisig Transaction.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SafeMultisigTransactionEstimate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/SafeMultisigTransactionEstimateResponse"
+            }
+          },
+          "400": {
+            "description": "Data not valid"
+          },
+          "404": {
+            "description": "Safe not found"
+          },
+          "422": {
+            "description": "Tx not valid"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/safes/{address}/multisig-transactions/estimations/",
+        "title": "Estimate Gas Costs for a Multisig Transaction",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/multisig-transactions/estimations/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/transactions/": {
+      "get": {
+        "operationId": "v1_safes_transactions_list",
+        "description": "Use `multisig-transactions` instead of `transactions`",
+        "parameters": [
+          {
+            "name": "failed",
+            "in": "query",
+            "description": "failed",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "modified__lt",
+            "in": "query",
+            "description": "modified__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "modified__gt",
+            "in": "query",
+            "description": "modified__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "modified__lte",
+            "in": "query",
+            "description": "modified__lte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "modified__gte",
+            "in": "query",
+            "description": "modified__gte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nonce__lt",
+            "in": "query",
+            "description": "nonce__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nonce__gt",
+            "in": "query",
+            "description": "nonce__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nonce__lte",
+            "in": "query",
+            "description": "nonce__lte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nonce__gte",
+            "in": "query",
+            "description": "nonce__gte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nonce",
+            "in": "query",
+            "description": "nonce",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "safe_tx_hash",
+            "in": "query",
+            "description": "safe_tx_hash",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "to",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "value__lt",
+            "in": "query",
+            "description": "value__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "value__gt",
+            "in": "query",
+            "description": "value__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "description": "value",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "executed",
+            "in": "query",
+            "description": "executed",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "has_confirmations",
+            "in": "query",
+            "description": "has_confirmations",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "trusted",
+            "in": "query",
+            "description": "trusted",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "execution_date__gte",
+            "in": "query",
+            "description": "execution_date__gte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "execution_date__lte",
+            "in": "query",
+            "description": "execution_date__lte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "submission_date__gte",
+            "in": "query",
+            "description": "submission_date__gte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "submission_date__lte",
+            "in": "query",
+            "description": "submission_date__lte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transaction_hash",
+            "in": "query",
+            "description": "transaction_hash",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SafeMultisigTransactionResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "deprecated": true,
+        "path": "/v1/safes/{address}/transactions/",
+        "title": "List a Safe's Transactions (Deprecated)",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "v1_safes_transactions_create",
+        "description": "Use `multisig-transactions` instead of `transactions`",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SafeMultisigTransaction"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/SafeMultisigTransaction"
+            }
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "deprecated": true,
+        "path": "/v1/safes/{address}/transactions/",
+        "title": "Create Transaction (Deprecated)",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/transactions/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/transfers/": {
+      "get": {
+        "operationId": "v1_safes_transfers_list",
+        "description": "",
+        "parameters": [
+          {
+            "name": "_from",
+            "in": "query",
+            "description": "_from",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "block_number",
+            "in": "query",
+            "description": "block_number",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "block_number__gt",
+            "in": "query",
+            "description": "block_number__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "block_number__lt",
+            "in": "query",
+            "description": "block_number__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "execution_date__gte",
+            "in": "query",
+            "description": "execution_date__gte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "execution_date__lte",
+            "in": "query",
+            "description": "execution_date__lte",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "execution_date__gt",
+            "in": "query",
+            "description": "execution_date__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "execution_date__lt",
+            "in": "query",
+            "description": "execution_date__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "to",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "token_address",
+            "in": "query",
+            "description": "token_address",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transaction_hash",
+            "in": "query",
+            "description": "transaction_hash",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "description": "value",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "value__gt",
+            "in": "query",
+            "description": "value__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "value__lt",
+            "in": "query",
+            "description": "value__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "erc20",
+            "in": "query",
+            "description": "erc20",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "erc721",
+            "in": "query",
+            "description": "erc721",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ether",
+            "in": "query",
+            "description": "ether",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TransferWithTokenInfoResponse"
+              }
+            }
+          },
+          "422": {
+            "description": "Safe address checksum not valid"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/safes/{address}/transfers/",
+        "title": "List Transfers",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/transfers/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/tokens/": {
+      "get": {
+        "operationId": "v1_tokens_list",
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "description": "address",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "in": "query",
+            "description": "symbol",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "decimals__lt",
+            "in": "query",
+            "description": "decimals__lt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "decimals__gt",
+            "in": "query",
+            "description": "decimals__gt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "decimals",
+            "in": "query",
+            "description": "decimals",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "A search term.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/TokenInfoResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/tokens/",
+        "title": "List Tokens",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "path": "/v1/tokens/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/tokens/{address}/": {
+      "get": {
+        "operationId": "v1_tokens_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TokenInfoResponse"
+            }
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/tokens/{address}/",
+        "title": "Get a Specific Token's Information",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "description": "A unique value identifying this token.",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/tokens/{address}/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/transactions/{safe_tx_hash}/": {
+      "get": {
+        "operationId": "v1_transactions_read",
+        "description": "Use `multisig-transactions` instead of `transactions`",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "deprecated": true,
+        "path": "/v1/transactions/{safe_tx_hash}/",
+        "title": "Get Transaction (Deprecated)",
+        "additionalInfo": ""
+      },
+      "delete": {
+        "operationId": "v1_transactions_delete",
+        "description": "Delete a queued but not executed multisig transaction. Only the proposer can delete the transaction.\nDelegates are not valid, if the transaction was proposed by a delegator the owner who delegated to\nthe delegate must be used.\nAn EOA is required to sign the following EIP712 data:\n\n```python\n {\n    \"types\": {\n        \"EIP712Domain\": [\n            {\"name\": \"name\", \"type\": \"string\"},\n            {\"name\": \"version\", \"type\": \"string\"},\n            {\"name\": \"chainId\", \"type\": \"uint256\"},\n            {\"name\": \"verifyingContract\", \"type\": \"address\"},\n        ],\n        \"DeleteRequest\": [\n            {\"name\": \"safeTxHash\", \"type\": \"bytes32\"},\n            {\"name\": \"totp\", \"type\": \"uint256\"},\n        ],\n    },\n    \"primaryType\": \"DeleteRequest\",\n    \"domain\": {\n        \"name\": \"Safe Transaction Service\",\n        \"version\": \"1.0\",\n        \"chainId\": chain_id,\n        \"verifyingContract\": safe_address,\n    },\n    \"message\": {\n        \"safeTxHash\": safe_tx_hash,\n        \"totp\": totp,\n    },\n}\n```\n\n`totp` parameter is calculated with `T0=0` and `Tx=3600`. `totp` is calculated by taking the\nUnix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SafeMultisigTransactionDelete"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Error processing data"
+          },
+          "404": {
+            "description": "Transaction not found"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/transactions/{safe_tx_hash}/",
+        "title": "Delete Queued Transaction (Deprecated)",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "safe_tx_hash",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/transactions/{safe_tx_hash}/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/transfer/{transfer_id}": {
+      "get": {
+        "operationId": "v1_transfer_read",
+        "description": ":return: transfer filtered by transfer_id",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TransferWithTokenInfoResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid transferId"
+          },
+          "404": {
+            "description": "Transfer does not exist"
+          }
+        },
+        "tags": [
+          "v1"
+        ],
+        "path": "/v1/transfer/{transfer_id}",
+        "title": "Get Transfer",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "transfer_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/transfer/{transfer_id}",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v2/safes/{address}/collectibles/": {
+      "get": {
+        "operationId": "v2_safes_collectibles_list",
+        "description": "Get collectibles (ERC721 tokens) and information about them",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "trusted",
+            "in": "query",
+            "description": "If `True` just trusted tokens will be returned",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "exclude_spam",
+            "in": "query",
+            "description": "If `True` spam tokens will not be returned",
+            "type": "boolean",
+            "default": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SafeCollectibleResponse"
+              }
+            }
+          },
+          "404": {
+            "description": "Safe not found"
+          },
+          "422": {
+            "description": "Safe address checksum not valid"
+          }
+        },
+        "tags": [
+          "v2"
+        ],
+        "deprecated": false,
+        "path": "/v2/safes/{address}/collectibles/",
+        "title": "",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v2/safes/{address}/collectibles/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    }
+  },
+  "definitions": {
+    "IndexingStatus": {
+      "required": [
+        "currentBlockNumber",
+        "erc20BlockNumber",
+        "erc20Synced",
+        "masterCopiesBlockNumber",
+        "masterCopiesSynced",
+        "synced"
+      ],
+      "type": "object",
+      "properties": {
+        "currentBlockNumber": {
+          "title": "Current block number",
+          "type": "integer"
+        },
+        "erc20BlockNumber": {
+          "title": "Erc20 block number",
+          "type": "integer"
+        },
+        "erc20Synced": {
+          "title": "Erc20 synced",
+          "type": "boolean"
+        },
+        "masterCopiesBlockNumber": {
+          "title": "Master copies block number",
+          "type": "integer"
+        },
+        "masterCopiesSynced": {
+          "title": "Master copies synced",
+          "type": "boolean"
+        },
+        "synced": {
+          "title": "Synced",
+          "type": "boolean"
+        }
+      }
+    },
+    "MasterCopyResponse": {
+      "required": [
+        "address",
+        "version",
+        "deployer",
+        "deployedBlockNumber",
+        "lastIndexedBlockNumber",
+        "l2"
+      ],
+      "type": "object",
+      "properties": {
+        "address": {
+          "title": "Address",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string",
+          "minLength": 1
+        },
+        "deployer": {
+          "title": "Deployer",
+          "type": "string",
+          "minLength": 1
+        },
+        "deployedBlockNumber": {
+          "title": "Deployed block number",
+          "type": "integer"
+        },
+        "lastIndexedBlockNumber": {
+          "title": "Last indexed block number",
+          "type": "integer"
+        },
+        "l2": {
+          "title": "L2",
+          "type": "boolean"
+        }
+      }
+    },
+    "ContractAbi": {
+      "required": [
+        "abi",
+        "description",
+        "relevance"
+      ],
+      "type": "object",
+      "properties": {
+        "abi": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "x-nullable": true
+            }
+          }
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "minLength": 1
+        },
+        "relevance": {
+          "title": "Relevance",
+          "type": "integer"
+        }
+      }
+    },
+    "Contract": {
+      "required": [
+        "address",
+        "name",
+        "displayName",
+        "contractAbi",
+        "trustedForDelegateCall"
+      ],
+      "type": "object",
+      "properties": {
+        "address": {
+          "title": "Address",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string",
+          "minLength": 1
+        },
+        "displayName": {
+          "title": "Display name",
+          "type": "string",
+          "minLength": 1
+        },
+        "logoUri": {
+          "title": "Logo uri",
+          "type": "string",
+          "readOnly": true,
+          "format": "uri"
+        },
+        "contractAbi": {
+          "$ref": "#/definitions/ContractAbi"
+        },
+        "trustedForDelegateCall": {
+          "title": "Trusted for delegate call",
+          "type": "boolean"
+        }
+      }
+    },
+    "DataDecoder": {
+      "required": [
+        "data"
+      ],
+      "type": "object",
+      "properties": {
+        "data": {
+          "title": "Data",
+          "type": "string"
+        },
+        "to": {
+          "title": "To",
+          "type": "string",
+          "x-nullable": true
+        }
+      }
+    },
+    "SafeDelegateResponse": {
+      "required": [
+        "safe",
+        "delegate",
+        "delegator",
+        "label"
+      ],
+      "type": "object",
+      "properties": {
+        "safe": {
+          "title": "Safe",
+          "type": "string"
+        },
+        "delegate": {
+          "title": "Delegate",
+          "type": "string"
+        },
+        "delegator": {
+          "title": "Delegator",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1
+        }
+      }
+    },
+    "Delegate": {
+      "required": [
+        "delegate",
+        "delegator",
+        "signature",
+        "label"
+      ],
+      "type": "object",
+      "properties": {
+        "safe": {
+          "title": "Safe",
+          "type": "string",
+          "x-nullable": true
+        },
+        "delegate": {
+          "title": "Delegate",
+          "type": "string"
+        },
+        "delegator": {
+          "title": "Delegator",
+          "type": "string"
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1
+        }
+      }
+    },
+    "DelegateDelete": {
+      "required": [
+        "delegate",
+        "delegator",
+        "signature"
+      ],
+      "type": "object",
+      "properties": {
+        "delegate": {
+          "title": "Delegate",
+          "type": "string"
+        },
+        "delegator": {
+          "title": "Delegator",
+          "type": "string"
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        }
+      }
+    },
+    "SafeMessageResponse": {
+      "required": [
+        "created",
+        "modified",
+        "safe",
+        "messageHash",
+        "message",
+        "proposedBy",
+        "safeAppId"
+      ],
+      "type": "object",
+      "properties": {
+        "created": {
+          "title": "Created",
+          "type": "string",
+          "format": "date-time"
+        },
+        "modified": {
+          "title": "Modified",
+          "type": "string",
+          "format": "date-time"
+        },
+        "safe": {
+          "title": "Safe",
+          "type": "string"
+        },
+        "messageHash": {
+          "title": "Message hash",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "object"
+        },
+        "proposedBy": {
+          "title": "Proposed by",
+          "type": "string"
+        },
+        "safeAppId": {
+          "title": "Safe app id",
+          "type": "integer"
+        },
+        "confirmations": {
+          "title": "Confirmations",
+          "type": "string",
+          "readOnly": true
+        },
+        "preparedSignature": {
+          "title": "Prepared signature",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "SafeMessageSignature": {
+      "required": [
+        "signature"
+      ],
+      "type": "object",
+      "properties": {
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        }
+      }
+    },
+    "SafeModuleTransactionResponse": {
+      "required": [
+        "executionDate",
+        "safe",
+        "module",
+        "to",
+        "value",
+        "data",
+        "operation"
+      ],
+      "type": "object",
+      "properties": {
+        "created": {
+          "title": "Created",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "executionDate": {
+          "title": "Execution date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "blockNumber": {
+          "title": "Block number",
+          "type": "integer",
+          "readOnly": true
+        },
+        "isSuccessful": {
+          "title": "Is successful",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "transactionHash": {
+          "title": "Transaction hash",
+          "type": "string",
+          "readOnly": true
+        },
+        "safe": {
+          "title": "Safe",
+          "type": "string",
+          "minLength": 1
+        },
+        "module": {
+          "title": "Module",
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "title": "To",
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "title": "Value",
+          "type": "string",
+          "format": "decimal"
+        },
+        "data": {
+          "title": "Data",
+          "type": "string",
+          "x-nullable": true
+        },
+        "operation": {
+          "title": "Operation",
+          "type": "integer",
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "dataDecoded": {
+          "title": "Data decoded",
+          "type": "string",
+          "readOnly": true
+        },
+        "moduleTransactionId": {
+          "title": "Module transaction id",
+          "description": "Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "ModulesResponse": {
+      "required": [
+        "safes"
+      ],
+      "type": "object",
+      "properties": {
+        "safes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "SafeMultisigConfirmationResponse": {
+      "description": "\nFilters confirmations queryset\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n",
+      "required": [
+        "owner",
+        "submissionDate",
+        "signature"
+      ],
+      "type": "object",
+      "properties": {
+        "owner": {
+          "title": "Owner",
+          "type": "string",
+          "minLength": 1
+        },
+        "submissionDate": {
+          "title": "Submission date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "transactionHash": {
+          "title": "Transaction hash",
+          "type": "string",
+          "readOnly": true
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        },
+        "signatureType": {
+          "title": "Signature type",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "SafeMultisigTransactionResponse": {
+      "required": [
+        "safe",
+        "to",
+        "value",
+        "operation",
+        "safeTxGas",
+        "baseGas",
+        "gasPrice",
+        "nonce",
+        "executionDate",
+        "submissionDate",
+        "modified",
+        "transactionHash",
+        "safeTxHash",
+        "proposer",
+        "isExecuted",
+        "confirmationsRequired",
+        "trusted"
+      ],
+      "type": "object",
+      "properties": {
+        "safe": {
+          "title": "Safe",
+          "type": "string"
+        },
+        "to": {
+          "title": "To",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "string",
+          "minLength": 1
+        },
+        "data": {
+          "title": "Data",
+          "type": "string",
+          "x-nullable": true
+        },
+        "operation": {
+          "title": "Operation",
+          "type": "integer",
+          "minimum": 0
+        },
+        "gasToken": {
+          "title": "Gas token",
+          "type": "string",
+          "x-nullable": true
+        },
+        "safeTxGas": {
+          "title": "Safe tx gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "baseGas": {
+          "title": "Base gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "gasPrice": {
+          "title": "Gas price",
+          "type": "string",
+          "minLength": 1
+        },
+        "refundReceiver": {
+          "title": "Refund receiver",
+          "type": "string",
+          "x-nullable": true
+        },
+        "nonce": {
+          "title": "Nonce",
+          "type": "integer",
+          "minimum": 0
+        },
+        "executionDate": {
+          "title": "Execution date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "submissionDate": {
+          "title": "Submission date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "modified": {
+          "title": "Modified",
+          "type": "string",
+          "format": "date-time"
+        },
+        "blockNumber": {
+          "title": "Block number",
+          "type": "integer",
+          "readOnly": true
+        },
+        "transactionHash": {
+          "title": "Transaction hash",
+          "type": "string"
+        },
+        "safeTxHash": {
+          "title": "Safe tx hash",
+          "type": "string"
+        },
+        "proposer": {
+          "title": "Proposer",
+          "type": "string"
+        },
+        "executor": {
+          "title": "Executor",
+          "type": "string",
+          "readOnly": true
+        },
+        "isExecuted": {
+          "title": "Is executed",
+          "type": "boolean"
+        },
+        "isSuccessful": {
+          "title": "Is successful",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "ethGasPrice": {
+          "title": "Eth gas price",
+          "type": "string",
+          "readOnly": true
+        },
+        "maxFeePerGas": {
+          "title": "Max fee per gas",
+          "type": "string",
+          "readOnly": true
+        },
+        "maxPriorityFeePerGas": {
+          "title": "Max priority fee per gas",
+          "type": "string",
+          "readOnly": true
+        },
+        "gasUsed": {
+          "title": "Gas used",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fee": {
+          "title": "Fee",
+          "type": "integer",
+          "readOnly": true
+        },
+        "origin": {
+          "title": "Origin",
+          "type": "string",
+          "readOnly": true
+        },
+        "dataDecoded": {
+          "title": "Data decoded",
+          "type": "string",
+          "readOnly": true
+        },
+        "confirmationsRequired": {
+          "title": "Confirmations required",
+          "type": "integer"
+        },
+        "confirmations": {
+          "$ref": "#/definitions/SafeMultisigConfirmationResponse"
+        },
+        "trusted": {
+          "title": "Trusted",
+          "type": "boolean"
+        },
+        "signatures": {
+          "title": "Signatures",
+          "type": "string",
+          "x-nullable": true
+        }
+      }
+    },
+    "SafeMultisigTransactionDelete": {
+      "required": [
+        "safeTxHash",
+        "signature"
+      ],
+      "type": "object",
+      "properties": {
+        "safeTxHash": {
+          "title": "Safe tx hash",
+          "type": "string"
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        }
+      }
+    },
+    "SafeMultisigConfirmation": {
+      "required": [
+        "signature"
+      ],
+      "type": "object",
+      "properties": {
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        }
+      }
+    },
+    "FirebaseDevice": {
+      "required": [
+        "safes",
+        "cloudMessagingToken",
+        "buildNumber",
+        "bundle",
+        "deviceType",
+        "version"
+      ],
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "title": "Uuid",
+          "type": "string",
+          "format": "uuid",
+          "default": "474ffe4f-afa0-418a-8f0d-2fc73df943da"
+        },
+        "safes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cloudMessagingToken": {
+          "title": "Cloud messaging token",
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 100
+        },
+        "buildNumber": {
+          "title": "Build number",
+          "type": "integer",
+          "minimum": 0
+        },
+        "bundle": {
+          "title": "Bundle",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "deviceType": {
+          "title": "Device type",
+          "type": "string",
+          "enum": [
+            "ANDROID",
+            "IOS",
+            "WEB"
+          ]
+        },
+        "version": {
+          "title": "Version",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "timestamp": {
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "signatures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "FirebaseDeviceSerializerWithOwnersResponse": {
+      "required": [
+        "safes",
+        "cloudMessagingToken",
+        "buildNumber",
+        "bundle",
+        "deviceType",
+        "version",
+        "ownersRegistered",
+        "ownersNotRegistered"
+      ],
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "title": "Uuid",
+          "type": "string",
+          "format": "uuid",
+          "default": "8220bed2-fabb-42f6-9106-6998b56df13c"
+        },
+        "safes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cloudMessagingToken": {
+          "title": "Cloud messaging token",
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 100
+        },
+        "buildNumber": {
+          "title": "Build number",
+          "type": "integer",
+          "minimum": 0
+        },
+        "bundle": {
+          "title": "Bundle",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "deviceType": {
+          "title": "Device type",
+          "type": "string",
+          "enum": [
+            "ANDROID",
+            "IOS",
+            "WEB"
+          ]
+        },
+        "version": {
+          "title": "Version",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "timestamp": {
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "signatures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ownersRegistered": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ownersNotRegistered": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "OwnerResponse": {
+      "required": [
+        "safes"
+      ],
+      "type": "object",
+      "properties": {
+        "safes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "SafeInfoResponse": {
+      "required": [
+        "address",
+        "nonce",
+        "threshold",
+        "owners",
+        "masterCopy",
+        "modules",
+        "fallbackHandler",
+        "guard",
+        "version"
+      ],
+      "type": "object",
+      "properties": {
+        "address": {
+          "title": "Address",
+          "type": "string"
+        },
+        "nonce": {
+          "title": "Nonce",
+          "type": "integer"
+        },
+        "threshold": {
+          "title": "Threshold",
+          "type": "integer"
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "masterCopy": {
+          "title": "Master copy",
+          "type": "string"
+        },
+        "modules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fallbackHandler": {
+          "title": "Fallback handler",
+          "type": "string"
+        },
+        "guard": {
+          "title": "Guard",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string",
+          "minLength": 1,
+          "x-nullable": true
+        }
+      }
+    },
+    "TokenInfoResponse": {
+      "required": [
+        "address",
+        "name",
+        "symbol",
+        "decimals",
+        "trusted"
+      ],
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "readOnly": true
+        },
+        "address": {
+          "title": "Address",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string",
+          "minLength": 1
+        },
+        "symbol": {
+          "title": "Symbol",
+          "type": "string",
+          "minLength": 1
+        },
+        "decimals": {
+          "title": "Decimals",
+          "type": "integer"
+        },
+        "logoUri": {
+          "title": "Logo uri",
+          "type": "string",
+          "readOnly": true
+        },
+        "trusted": {
+          "title": "Trusted",
+          "type": "boolean"
+        }
+      }
+    },
+    "TransferWithTokenInfoResponse": {
+      "required": [
+        "executionDate",
+        "blockNumber",
+        "transactionHash",
+        "to",
+        "value",
+        "tokenId",
+        "tokenInfo",
+        "from"
+      ],
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "readOnly": true
+        },
+        "executionDate": {
+          "title": "Execution date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "blockNumber": {
+          "title": "Block number",
+          "type": "integer"
+        },
+        "transactionHash": {
+          "title": "Transaction hash",
+          "type": "string"
+        },
+        "to": {
+          "title": "To",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "string",
+          "minLength": 1,
+          "x-nullable": true
+        },
+        "tokenId": {
+          "title": "Token id",
+          "type": "string",
+          "minLength": 1,
+          "x-nullable": true
+        },
+        "tokenAddress": {
+          "title": "Token address",
+          "type": "string",
+          "x-nullable": true
+        },
+        "transferId": {
+          "title": "Transfer id",
+          "description": "Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`",
+          "type": "string",
+          "readOnly": true
+        },
+        "tokenInfo": {
+          "$ref": "#/definitions/TokenInfoResponse"
+        },
+        "from": {
+          "title": "From",
+          "type": "string"
+        }
+      }
+    },
+    "SafeModuleTransactionWithTransfersResponse": {
+      "required": [
+        "executionDate",
+        "safe",
+        "module",
+        "to",
+        "value",
+        "data",
+        "operation",
+        "transfers"
+      ],
+      "type": "object",
+      "properties": {
+        "created": {
+          "title": "Created",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "executionDate": {
+          "title": "Execution date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "blockNumber": {
+          "title": "Block number",
+          "type": "integer",
+          "readOnly": true
+        },
+        "isSuccessful": {
+          "title": "Is successful",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "transactionHash": {
+          "title": "Transaction hash",
+          "type": "string",
+          "readOnly": true
+        },
+        "safe": {
+          "title": "Safe",
+          "type": "string",
+          "minLength": 1
+        },
+        "module": {
+          "title": "Module",
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "title": "To",
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "title": "Value",
+          "type": "string",
+          "format": "decimal"
+        },
+        "data": {
+          "title": "Data",
+          "type": "string",
+          "x-nullable": true
+        },
+        "operation": {
+          "title": "Operation",
+          "type": "integer",
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "dataDecoded": {
+          "title": "Data decoded",
+          "type": "string",
+          "readOnly": true
+        },
+        "moduleTransactionId": {
+          "title": "Module transaction id",
+          "description": "Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`",
+          "type": "string",
+          "readOnly": true
+        },
+        "transfers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TransferWithTokenInfoResponse"
+          }
+        },
+        "txType": {
+          "title": "Tx type",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "SafeMultisigTransactionWithTransfersResponse": {
+      "required": [
+        "safe",
+        "to",
+        "value",
+        "operation",
+        "safeTxGas",
+        "baseGas",
+        "gasPrice",
+        "nonce",
+        "executionDate",
+        "submissionDate",
+        "modified",
+        "transactionHash",
+        "safeTxHash",
+        "proposer",
+        "isExecuted",
+        "confirmationsRequired",
+        "trusted",
+        "transfers"
+      ],
+      "type": "object",
+      "properties": {
+        "safe": {
+          "title": "Safe",
+          "type": "string"
+        },
+        "to": {
+          "title": "To",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "string",
+          "minLength": 1
+        },
+        "data": {
+          "title": "Data",
+          "type": "string",
+          "x-nullable": true
+        },
+        "operation": {
+          "title": "Operation",
+          "type": "integer",
+          "minimum": 0
+        },
+        "gasToken": {
+          "title": "Gas token",
+          "type": "string",
+          "x-nullable": true
+        },
+        "safeTxGas": {
+          "title": "Safe tx gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "baseGas": {
+          "title": "Base gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "gasPrice": {
+          "title": "Gas price",
+          "type": "string",
+          "minLength": 1
+        },
+        "refundReceiver": {
+          "title": "Refund receiver",
+          "type": "string",
+          "x-nullable": true
+        },
+        "nonce": {
+          "title": "Nonce",
+          "type": "integer",
+          "minimum": 0
+        },
+        "executionDate": {
+          "title": "Execution date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "submissionDate": {
+          "title": "Submission date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "modified": {
+          "title": "Modified",
+          "type": "string",
+          "format": "date-time"
+        },
+        "blockNumber": {
+          "title": "Block number",
+          "type": "integer",
+          "readOnly": true
+        },
+        "transactionHash": {
+          "title": "Transaction hash",
+          "type": "string"
+        },
+        "safeTxHash": {
+          "title": "Safe tx hash",
+          "type": "string"
+        },
+        "proposer": {
+          "title": "Proposer",
+          "type": "string"
+        },
+        "executor": {
+          "title": "Executor",
+          "type": "string",
+          "readOnly": true
+        },
+        "isExecuted": {
+          "title": "Is executed",
+          "type": "boolean"
+        },
+        "isSuccessful": {
+          "title": "Is successful",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "ethGasPrice": {
+          "title": "Eth gas price",
+          "type": "string",
+          "readOnly": true
+        },
+        "maxFeePerGas": {
+          "title": "Max fee per gas",
+          "type": "string",
+          "readOnly": true
+        },
+        "maxPriorityFeePerGas": {
+          "title": "Max priority fee per gas",
+          "type": "string",
+          "readOnly": true
+        },
+        "gasUsed": {
+          "title": "Gas used",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fee": {
+          "title": "Fee",
+          "type": "integer",
+          "readOnly": true
+        },
+        "origin": {
+          "title": "Origin",
+          "type": "string",
+          "readOnly": true
+        },
+        "dataDecoded": {
+          "title": "Data decoded",
+          "type": "string",
+          "readOnly": true
+        },
+        "confirmationsRequired": {
+          "title": "Confirmations required",
+          "type": "integer"
+        },
+        "confirmations": {
+          "$ref": "#/definitions/SafeMultisigConfirmationResponse"
+        },
+        "trusted": {
+          "title": "Trusted",
+          "type": "boolean"
+        },
+        "signatures": {
+          "title": "Signatures",
+          "type": "string",
+          "x-nullable": true
+        },
+        "transfers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TransferWithTokenInfoResponse"
+          }
+        },
+        "txType": {
+          "title": "Tx type",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "EthereumTxWithTransfersResponse": {
+      "required": [
+        "executionDate",
+        "to",
+        "data",
+        "txHash",
+        "transfers",
+        "from"
+      ],
+      "type": "object",
+      "properties": {
+        "executionDate": {
+          "title": "Execution date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "to": {
+          "title": "To",
+          "type": "string",
+          "x-nullable": true
+        },
+        "data": {
+          "title": "Data",
+          "type": "string"
+        },
+        "txHash": {
+          "title": "Tx hash",
+          "type": "string"
+        },
+        "blockNumber": {
+          "title": "Block number",
+          "type": "integer",
+          "readOnly": true
+        },
+        "transfers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TransferWithTokenInfoResponse"
+          }
+        },
+        "txType": {
+          "title": "Tx type",
+          "type": "string",
+          "readOnly": true
+        },
+        "from": {
+          "title": "From",
+          "type": "string"
+        }
+      }
+    },
+    "AllTransactionsSchema": {
+      "required": [
+        "txType1",
+        "txType2",
+        "txType3"
+      ],
+      "type": "object",
+      "properties": {
+        "txType1": {
+          "$ref": "#/definitions/SafeModuleTransactionWithTransfersResponse"
+        },
+        "txType2": {
+          "$ref": "#/definitions/SafeMultisigTransactionWithTransfersResponse"
+        },
+        "txType3": {
+          "$ref": "#/definitions/EthereumTxWithTransfersResponse"
+        }
+      }
+    },
+    "Erc20Info": {
+      "required": [
+        "name",
+        "symbol",
+        "decimals",
+        "logoUri"
+      ],
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string",
+          "minLength": 1
+        },
+        "symbol": {
+          "title": "Symbol",
+          "type": "string",
+          "minLength": 1
+        },
+        "decimals": {
+          "title": "Decimals",
+          "type": "integer"
+        },
+        "logoUri": {
+          "title": "Logo uri",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "SafeBalanceResponse": {
+      "required": [
+        "tokenAddress",
+        "token",
+        "balance"
+      ],
+      "type": "object",
+      "properties": {
+        "tokenAddress": {
+          "title": "Token address",
+          "type": "string",
+          "minLength": 1
+        },
+        "token": {
+          "$ref": "#/definitions/Erc20Info"
+        },
+        "balance": {
+          "title": "Balance",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "SafeBalanceUsdResponse": {
+      "required": [
+        "tokenAddress",
+        "token",
+        "balance",
+        "ethValue",
+        "timestamp",
+        "fiatBalance",
+        "fiatConversion",
+        "fiatCode"
+      ],
+      "type": "object",
+      "properties": {
+        "tokenAddress": {
+          "title": "Token address",
+          "type": "string",
+          "minLength": 1
+        },
+        "token": {
+          "$ref": "#/definitions/Erc20Info"
+        },
+        "balance": {
+          "title": "Balance",
+          "type": "string",
+          "minLength": 1
+        },
+        "ethValue": {
+          "title": "Eth value",
+          "type": "string",
+          "minLength": 1
+        },
+        "timestamp": {
+          "title": "Timestamp",
+          "type": "string",
+          "format": "date-time"
+        },
+        "fiatBalance": {
+          "title": "Fiat balance",
+          "type": "string",
+          "minLength": 1
+        },
+        "fiatConversion": {
+          "title": "Fiat conversion",
+          "type": "string",
+          "minLength": 1
+        },
+        "fiatCode": {
+          "title": "Fiat code",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "SafeCreationInfoResponse": {
+      "required": [
+        "created",
+        "creator",
+        "transactionHash",
+        "factoryAddress",
+        "masterCopy",
+        "setupData"
+      ],
+      "type": "object",
+      "properties": {
+        "created": {
+          "title": "Created",
+          "type": "string",
+          "format": "date-time"
+        },
+        "creator": {
+          "title": "Creator",
+          "type": "string"
+        },
+        "transactionHash": {
+          "title": "Transaction hash",
+          "type": "string"
+        },
+        "factoryAddress": {
+          "title": "Factory address",
+          "type": "string"
+        },
+        "masterCopy": {
+          "title": "Master copy",
+          "type": "string",
+          "x-nullable": true
+        },
+        "setupData": {
+          "title": "Setup data",
+          "type": "string",
+          "x-nullable": true
+        },
+        "dataDecoded": {
+          "title": "Data decoded",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "SafeDelegateDelete": {
+      "required": [
+        "safe",
+        "delegate",
+        "signature"
+      ],
+      "type": "object",
+      "properties": {
+        "safe": {
+          "title": "Safe",
+          "type": "string"
+        },
+        "delegate": {
+          "title": "Delegate",
+          "type": "string"
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        }
+      }
+    },
+    "SafeMessage": {
+      "required": [
+        "message",
+        "signature"
+      ],
+      "type": "object",
+      "properties": {
+        "message": {
+          "title": "Message",
+          "type": "object"
+        },
+        "safeAppId": {
+          "title": "Safe app id",
+          "type": "integer",
+          "minimum": 0,
+          "x-nullable": true
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        }
+      }
+    },
+    "SafeMultisigTransaction": {
+      "required": [
+        "safe",
+        "to",
+        "value",
+        "operation",
+        "safeTxGas",
+        "baseGas",
+        "gasPrice",
+        "nonce",
+        "contractTransactionHash",
+        "sender"
+      ],
+      "type": "object",
+      "properties": {
+        "safe": {
+          "title": "Safe",
+          "type": "string"
+        },
+        "to": {
+          "title": "To",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "integer",
+          "minimum": 0
+        },
+        "data": {
+          "title": "Data",
+          "type": "string",
+          "x-nullable": true
+        },
+        "operation": {
+          "title": "Operation",
+          "type": "integer",
+          "minimum": 0
+        },
+        "gasToken": {
+          "title": "Gas token",
+          "type": "string",
+          "x-nullable": true
+        },
+        "safeTxGas": {
+          "title": "Safe tx gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "baseGas": {
+          "title": "Base gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "gasPrice": {
+          "title": "Gas price",
+          "type": "integer",
+          "minimum": 0
+        },
+        "refundReceiver": {
+          "title": "Refund receiver",
+          "type": "string",
+          "x-nullable": true
+        },
+        "nonce": {
+          "title": "Nonce",
+          "type": "integer",
+          "minimum": 0
+        },
+        "contractTransactionHash": {
+          "title": "Contract transaction hash",
+          "type": "string"
+        },
+        "sender": {
+          "title": "Sender",
+          "type": "string"
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string",
+          "x-nullable": true
+        },
+        "origin": {
+          "title": "Origin",
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1,
+          "x-nullable": true
+        }
+      }
+    },
+    "SafeMultisigTransactionEstimate": {
+      "required": [
+        "to",
+        "value",
+        "operation"
+      ],
+      "type": "object",
+      "properties": {
+        "to": {
+          "title": "To",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "integer",
+          "minimum": 0
+        },
+        "data": {
+          "title": "Data",
+          "type": "string",
+          "x-nullable": true
+        },
+        "operation": {
+          "title": "Operation",
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "SafeMultisigTransactionEstimateResponse": {
+      "required": [
+        "safeTxGas"
+      ],
+      "type": "object",
+      "properties": {
+        "safeTxGas": {
+          "title": "Safe tx gas",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "SafeCollectibleResponse": {
+      "required": [
+        "address",
+        "tokenName",
+        "tokenSymbol",
+        "logoUri",
+        "id",
+        "uri",
+        "name",
+        "description",
+        "imageUri",
+        "metadata"
+      ],
+      "type": "object",
+      "properties": {
+        "address": {
+          "title": "Address",
+          "type": "string",
+          "minLength": 1
+        },
+        "tokenName": {
+          "title": "Token name",
+          "type": "string",
+          "minLength": 1
+        },
+        "tokenSymbol": {
+          "title": "Token symbol",
+          "type": "string",
+          "minLength": 1
+        },
+        "logoUri": {
+          "title": "Logo uri",
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "minLength": 1
+        },
+        "uri": {
+          "title": "Uri",
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "title": "Name",
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "minLength": 1
+        },
+        "imageUri": {
+          "title": "Image uri",
+          "type": "string",
+          "minLength": 1
+        },
+        "metadata": {
+          "title": "Metadata",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "x-nullable": true
+          }
+        }
+      }
+    }
+  }
+}

@@ -28,5 +28,5 @@
     ".eslintrc.js",
     "**/scripts/**/*"
   ],
-  "exclude": ["node_modules", "next.config.js"]
+  "exclude": ["node_modules"]
 }

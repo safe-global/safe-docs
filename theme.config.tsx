@@ -4,6 +4,17 @@ import type { DocsThemeConfig } from 'nextra-theme-docs'
 import SafeLogo from './assets/svg/safe-logo-white.svg'
 import Feedback from './components/Feedback'
 import Footer from './components/Footer'
+import type { PropsWithChildren } from 'react'
+
+const Main: React.FC<PropsWithChildren> = ({ children }) => {
+  const { asPath } = useRouter()
+  return (
+    <>
+      {children}
+      <Feedback asPath={asPath} />
+    </>
+  )
+}
 
 const config: DocsThemeConfig = {
   darkMode: false,
@@ -36,12 +47,7 @@ const config: DocsThemeConfig = {
       titleTemplate: asPath !== '/' ? '%s – Safe Docs' : 'Safe Docs'
     }
   },
-  main: ({ children }) => (
-    <>
-      {children}
-      <Feedback />
-    </>
-  )
+  main: Main
 }
 
 export default config
