@@ -64,7 +64,7 @@ const TableOfContents: React.FC<{
           }}
         >
           <Link
-            href='/advanced/api-service-architecture'
+            href='/core-api/transaction-service-overview'
             color='grey.600'
             sx={{
               fontSize: '14px',
