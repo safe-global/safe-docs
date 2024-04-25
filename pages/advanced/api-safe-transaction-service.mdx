@@ -118,18 +118,7 @@ sequenceDiagram
 `keccak256(0x19 || 0x1 || domainSeparator || safeTxHashStruct)`  
 where `safeTxHashStruct` is the `hashStruct` of a Safe transaction.
 
-The following example shows how to get a `safe_tx_hash` with [`safe-eth-py`](https://pypi.org/project/safe-eth-py/)
-```python
-from gnosis.safe.safe_tx import SafeTx
-from gnosis.eth.ethereum_client import EthereumClient
-eth_client = EthereumClient("https://sepolia.gateway.tenderly.co")
-safe_tx = SafeTx(eth_client, "0x4127839cdf4F73d9fC9a2C2861d8d1799e9DF40C", "0xc6b82bA149CFA113f8f48d5E3b1F78e933e16DfD",10000000000000000,"",0,0,0,0,"0x0000000000000000000000000000000000000000","0x0000000000000000000000000000000000000000", safe_nonce=206)
-print(safe_tx.safe_tx_hash.hex())
-```
-**Output**
-``` 
-0x34ae46cf7d884309a438a7e9a3161fa05dfc5068681ac3877a947971af845a18
-```
+The following [Guides](../core-api/transaction-service-guides/transactions.mdx) show how to create and execute Safe transactions from the Safe Transaction Service.
 
 ## Offchain messages 
 
@@ -155,56 +144,7 @@ sequenceDiagram
     B->>+SafeTransactionService: addConfirmation POST /v1/messages/{message_hash}/signatures/
     SafeTransactionService-->>-B: Http(200) 
 ```
-**Message string example**    
-**Python**  
-`safe-eth-py` is required for this example.
-
-```python
-from gnosis.eth.ethereum_client import EthereumClient
-from gnosis.safe.safe import Safe 
-from eth_account.messages import defunct_hash_message
-from eth_account import Account
-import requests
-
-alice = Account.from_key("Alice_key")
-
-# Message that we want to confirm 
-message = "Hello SafeMessages"
-# Hash EIP-191
-message_hash = defunct_hash_message(text=message)
-# get message hash from safe
-eth_client = EthereumClient("https://sepolia.gateway.tenderly.co")
-safe_address = "TheAliceAndBobSafeAddress"
-safe = Safe(safe_address, eth_client)
-safe_message_hash = safe.get_message_hash(message_hash)
-
-# Alice is going to create the message on safe Transaction Service
-# First sign the safe_message_hash
-signature_alice = alice.signHash(safe_message_hash)
-
-# Create the request
-body = {
-    "message": message,
-    "safeAppId": 0,
-    "signature": signature_alice.signature.hex()
-}
-requests.post(f'https://safe-transaction-sepolia.safe.global/api/v1/safes/{safe_address}/messages/',json=body)
-
-# Message was created, let's request by message hash
-response =  requests.get(f'https://safe-transaction-sepolia.safe.global/api/v1/messages/{safe_message_hash.hex()}/')
-print(response.json())
-
-# Adding Bob confirmation
-bob = Account.from_key("Bob_key")
-signature_bob = bob.signHash(safe_message_hash)
-
-# Create the request
-body = {
-    "signature": signature_bob.signature.hex()
-}
-requests.post(f'https://safe-transaction-sepolia.safe.global/api/v1/messages/{safe_message_hash.hex()}/signatures/',json=body)
-
-```
+The following [Guides](../core-api/transaction-service-guides/messages.mdx) show how to create and sign messages from the Safe Transaction Service.
 
 ## Transaction decoder
 
@@ -255,3 +195,10 @@ Output:
 ```
 
 This decoded data is also included as `dataDecoded` in `GET` of `multisig-transactions`, `module-transactions` and `all-transactions` endpoints. 
+
+
+## Running and Maintenance
+
+In the [Safe Transaction Service](https://github.com/safe-global/safe-transaction-service) repository under [Setup for production (event indexing)](https://github.com/safe-global/safe-transaction-service?tab=readme-ov-file#setup-for-production-event-indexing) and [Setup for production (tracing mode)](https://github.com/safe-global/safe-transaction-service?tab=readme-ov-file#setup-for-production-tracing-mode) show how to run the service and retrieve events from any supported network type. Note that the configuration must be adapted to the needs of a specific use case.
+
+In addition, [Service maintenance](https://github.com/safe-global/safe-transaction-service?tab=readme-ov-file#service-maintenance) shows how to deal with some common errors in the service operation.
