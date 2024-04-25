@@ -19,6 +19,7 @@ import {
 } from '../components/CookieBanner/CookieBannerContext'
 import { createEmotionCache } from '../styles/emotion'
 import '../styles/styles.css'
+import '@code-hike/mdx/dist/index.css'
 import { theme } from '../styles/theme'
 
 // Client-side cache, shared for the whole session of the user in the browser.

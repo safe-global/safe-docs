@@ -367,7 +367,6 @@ import Responses from './Response'
 import Feedback from '../Feedback'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import '@code-hike/mdx/dist/index.css'
 
 # Safe Transaction Service API Reference
 
@@ -375,7 +374,7 @@ This is the Safe Transaction Service API Reference. It is a
 collection of endpoints that allow you to keep track of
 transactions sent via Safe smart contracts.
 
-The Transaction Service is available on [multiple networks](../../advanced/api-supported-networks), at
+The Transaction Service is available on [multiple networks](../../core-api/transaction-service-supported-networks), at
 different endpoints.
 
 <NetworkSwitcher />
