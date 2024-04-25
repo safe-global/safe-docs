@@ -55,7 +55,7 @@ const getSampleValue = param => {
       return sampleModuleTransactionId
     case 'safe_tx_hash':
       return sampleSafeTxHash
-    case 'safeAppId': 
+    case 'safeAppId':
       return sampleSafeAppId
     case 'uuid':
       return sampleUuid
@@ -284,7 +284,7 @@ ${_method.additionalInfo ?? ''}
         : ''
     }
 
-\`\`\`bash ${hasExample ? 'curl.sh' : ''}
+\`\`\`bash ${hasExample && example !== 'export {}\n' ? 'curl.sh' : ''}
 ${curlify({
   url: pathWithParams,
   method: method.toUpperCase(),
@@ -304,8 +304,8 @@ ${sampleResponse}
   </Grid>
 </Grid>
 <Hr style={{ 
-  marginTop: '140px',
-  marginBottom: '200px'
+  marginTop: '112px',
+  marginBottom: '112px'
 }} />
 `
 }
