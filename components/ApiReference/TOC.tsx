@@ -77,7 +77,7 @@ const TableOfContents: React.FC<{
               color: 'inherit'
             }}
           >
-            ← Go to Advanced
+            ← Go to API
           </Link>
         </AccordionDetails>
         {headings.map((heading, index) => (

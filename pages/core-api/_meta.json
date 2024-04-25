@@ -9,5 +9,14 @@
   },
   "transaction-service-overview": "Overview",
   "transaction-service-supported-networks": "Supported Networks",
-  "transaction-service-guides": "Guides"
+  "transaction-service-guides": "Guides",
+  "transaction-service-reference": {
+    "title": "Reference",
+    "href": "/core-api/transaction-service-reference",
+    "theme": {
+      "layout": "full",
+      "toc": false,
+      "sidebar": false
+    }
+  }
 }
