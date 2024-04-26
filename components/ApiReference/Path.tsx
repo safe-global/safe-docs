@@ -14,7 +14,6 @@ const Path: React.FC<{ path: string, method: string }> = ({ path, method }) => {
       sx={{
         border: ({ palette }) => `1px solid ${palette.grey[800]}`,
         borderRadius: '8px',
-        pl: 1,
         mb: 2,
         fontSize: '14px',
         whiteSpace: 'nowrap'
