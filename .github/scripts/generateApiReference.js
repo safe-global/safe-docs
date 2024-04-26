@@ -257,11 +257,11 @@ const generateMethodContent = (path, method) => {
 <Grid container justifyContent='space-between'>
   <Grid item xs={12} md={5.6}>
 
-${_method.summary ?? ''}
+    ${_method.summary ?? ''}
 
-${description}
+    ${description}
 
-${_method.additionalInfo ?? ''}
+    ${_method.additionalInfo ?? ''}
 
     <Parameters parameters={${JSON.stringify(_method.parameters ?? [])}} />
     <Responses responses={${JSON.stringify(responses)}} />
@@ -270,20 +270,21 @@ ${_method.additionalInfo ?? ''}
     )}"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-   <Path path="${path}" method="${method}" />
-   #### Sample Request
-   <CH.Section>
-    <CH.Code>
-    ${
-      hasExample && example !== 'export {}\n'
-        ? `
-      \`\`\`js query.js
-        // from ./examples/${slugify(path)}-${method}.ts
-      \`\`\`
-    `
-        : ''
-    }
+    <Path path="${path}" method="${method}" />
 
+    #### Sample Request
+
+    <CH.Section>
+      <CH.Code>
+        ${
+          hasExample && example !== 'export {}\n'
+            ? `
+  \`\`\`js query.js
+    // from ./examples/${slugify(path)}-${method}.ts
+  \`\`\`
+  `
+            : ''
+        }
 \`\`\`bash ${hasExample && example !== 'export {}\n' ? 'curl.sh' : ''}
 ${curlify({
   url: pathWithParams,
@@ -293,14 +294,16 @@ ${curlify({
 \`\`\`
       </CH.Code>
     </CH.Section>
+
     ${
       hasResponse && sampleResponse !== '{}'
         ? `#### Sample Response
+
 \`\`\`json
 ${sampleResponse}
 \`\`\``
-        : ''
-    }
+          : ''
+      }
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -317,19 +320,21 @@ const generatePathContent = path =>
     .join('\n')}`
 
 const generateCategoryContent = category => `<Grid my={8} />
+
 ## ${capitalize(category.title)}
+
 <Grid my={6} />
 
-  ${category.paths
-    .filter(
-      path =>
-        path !== '/v1/safes/{address}/balances/' &&
-        path !== '/v1/safes/{address}/balances/usd/' &&
-        path !== '/v1/safes/{address}/transactions/' &&
-        path !== '/v1/transactions/{safe_tx_hash}/'
-    )
-    .map(path => generatePathContent(path))
-    .join('\n')}`
+${category.paths
+  .filter(
+    path =>
+      path !== '/v1/safes/{address}/balances/' &&
+      path !== '/v1/safes/{address}/balances/usd/' &&
+      path !== '/v1/safes/{address}/transactions/' &&
+      path !== '/v1/transactions/{safe_tx_hash}/'
+  )
+  .map(path => generatePathContent(path))
+  .join('\n')}`
 
 const getCategories = version =>
   Object.keys(mainnetApiJson.paths)
@@ -358,8 +363,7 @@ const generateMainContent = () => {
       c.title !== 'transactions'
   )
 
-  return `
-import Path from './Path'
+  return `import Path from './Path'
 import Hr from '../Hr'
 import Parameters from './Parameter'
 import NetworkSwitcher from './Network'
@@ -379,7 +383,7 @@ different endpoints.
 
 <NetworkSwitcher />
 
-  ${categories.map(category => generateCategoryContent(category)).join('\n')}
+${categories.map(category => generateCategoryContent(category)).join('\n')}
 `
 }
 
