@@ -302,8 +302,8 @@ ${curlify({
 \`\`\`json
 ${sampleResponse}
 \`\`\``
-          : ''
-      }
+        : ''
+    }
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -374,12 +374,9 @@ import Box from '@mui/material/Box'
 
 # Safe Transaction Service API Reference
 
-This is the Safe Transaction Service API Reference. It is a
-collection of endpoints that allow you to keep track of
-transactions sent via Safe smart contracts.
+The Safe Transaction Service API Reference is a collection of endpoints that allow to keep track of Safe transactions.
 
-The Transaction Service is available on [multiple networks](../../core-api/transaction-service-supported-networks), at
-different endpoints.
+This service is available on [multiple networks](../../core-api/transaction-service-supported-networks), at different endpoints.
 
 <NetworkSwitcher />
 
