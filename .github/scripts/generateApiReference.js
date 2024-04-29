@@ -261,11 +261,11 @@ const generateMethodContent = (path, method) => {
 <Grid container justifyContent='space-between'>
   <Grid item xs={12} md={5.6}>
 
-${_method.summary ?? ''}
+    ${_method.summary ?? ''}
 
-${description}
+    ${description}
 
-${_method.additionalInfo ?? ''}
+    ${_method.additionalInfo ?? ''}
 
     <Parameters parameters={${JSON.stringify(_method.parameters ?? [])}} />
     <Responses responses={${JSON.stringify(responses)}} />
@@ -274,20 +274,21 @@ ${_method.additionalInfo ?? ''}
     )}"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-   <Path path="${path}" method="${method}" />
-   #### Sample Request
-   <CH.Section>
-    <CH.Code>
-    ${
-      hasExample && example !== 'export {}\n'
-        ? `
-      \`\`\`js query.js
-        // from ./examples/${slugify(path)}-${method}.ts
-      \`\`\`
-    `
-        : ''
-    }
+    <Path path="${path}" method="${method}" />
 
+    #### Sample Request
+
+    <CH.Section>
+      <CH.Code>
+        ${
+          hasExample && example !== 'export {}\n'
+            ? `
+  \`\`\`js query.js
+    // from ./examples/${slugify(path)}-${method}.ts
+  \`\`\`
+  `
+            : ''
+        }
 \`\`\`bash ${hasExample && example !== 'export {}\n' ? 'curl.sh' : ''}
 ${curlify({
   url: pathWithParams,
@@ -297,9 +298,11 @@ ${curlify({
 \`\`\`
       </CH.Code>
     </CH.Section>
+
     ${
       hasResponse && sampleResponse !== '{}'
         ? `#### Sample Response
+
 \`\`\`json
 ${sampleResponse}
 \`\`\``
@@ -321,19 +324,21 @@ const generatePathContent = path =>
     .join('\n')}`
 
 const generateCategoryContent = category => `<Grid my={8} />
+
 ## ${capitalize(category.title)}
+
 <Grid my={6} />
 
-  ${category.paths
-    .filter(
-      path =>
-        path !== '/v1/safes/{address}/balances/' &&
-        path !== '/v1/safes/{address}/balances/usd/' &&
-        path !== '/v1/safes/{address}/transactions/' &&
-        path !== '/v1/transactions/{safe_tx_hash}/'
-    )
-    .map(path => generatePathContent(path))
-    .join('\n')}`
+${category.paths
+  .filter(
+    path =>
+      path !== '/v1/safes/{address}/balances/' &&
+      path !== '/v1/safes/{address}/balances/usd/' &&
+      path !== '/v1/safes/{address}/transactions/' &&
+      path !== '/v1/transactions/{safe_tx_hash}/'
+  )
+  .map(path => generatePathContent(path))
+  .join('\n')}`
 
 const getCategories = version =>
   Object.keys(mainnetApiJson.paths)
@@ -362,8 +367,7 @@ const generateMainContent = () => {
       c.title !== 'transactions'
   )
 
-  return `
-import Path from './Path'
+  return `import Path from './Path'
 import Hr from '../Hr'
 import Parameters from './Parameter'
 import NetworkSwitcher from './Network'
@@ -374,16 +378,13 @@ import Box from '@mui/material/Box'
 
 # Safe Transaction Service API Reference
 
-This is the Safe Transaction Service API Reference. It is a
-collection of endpoints that allow you to keep track of
-transactions sent via Safe smart contracts.
+The Safe Transaction Service API Reference is a collection of endpoints that allow to keep track of Safe transactions.
 
-The Transaction Service is available on [multiple networks](../../core-api/transaction-service-supported-networks), at
-different endpoints.
+This service is available on [multiple networks](../../core-api/transaction-service-supported-networks), at different endpoints.
 
 <NetworkSwitcher />
 
-  ${categories.map(category => generateCategoryContent(category)).join('\n')}
+${categories.map(category => generateCategoryContent(category)).join('\n')}
 `
 }
 

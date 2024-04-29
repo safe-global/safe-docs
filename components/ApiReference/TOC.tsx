@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useMediaQuery, type Theme } from '@mui/material'
+import Accordion from '@mui/material/Accordion'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
 import Grid from '@mui/material/Grid'
 import Link from '@mui/material/Link'
-import Accordion from '@mui/material/Accordion'
-import AccordionSummary from '@mui/material/AccordionSummary'
-import AccordionDetails from '@mui/material/AccordionDetails'
-import { type Theme, useMediaQuery } from '@mui/material'
+import { useState } from 'react'
 
 import { useCurrentTocIndex } from '../../lib/mdx'
 import { theme } from '../../styles/theme'
@@ -37,7 +37,7 @@ const TableOfContents: React.FC<{
         position: 'sticky',
         top: navHeight,
         overflowX: 'hidden',
-        overflowY: 'scroll',
+        overflowY: 'auto',
         ml: [0, -1],
         pl: [2, 0],
         pr: 2

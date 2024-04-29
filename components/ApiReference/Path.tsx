@@ -1,7 +1,7 @@
-import { useContext } from 'react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import { CopyToClipboard } from 'nextra/components'
+import { useContext } from 'react'
 
 import Method from './Method'
 import { NetworkContext } from './Network'
@@ -14,7 +14,6 @@ const Path: React.FC<{ path: string, method: string }> = ({ path, method }) => {
       sx={{
         border: ({ palette }) => `1px solid ${palette.grey[800]}`,
         borderRadius: '8px',
-        pl: 1,
         mb: 2,
         fontSize: '14px',
         whiteSpace: 'nowrap'
@@ -25,7 +24,7 @@ const Path: React.FC<{ path: string, method: string }> = ({ path, method }) => {
         sx={{
           width: `calc(100% - ${method.length * 8}px - 70px)`,
           mt: 0.8,
-          overflow: 'scroll'
+          overflow: 'auto'
         }}
       >
         /api
