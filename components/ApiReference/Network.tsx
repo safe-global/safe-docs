@@ -34,7 +34,7 @@ const transactionServiceUrls = [
 ]
 
 export const NetworkContext = createContext<
-[string, Dispatch<SetStateAction<string>>]
+  [string, Dispatch<SetStateAction<string>>]
 >([transactionServiceUrls[0], () => {}])
 
 export const NetworkProvider: React.FC<PropsWithChildren> = ({ children }) => {
@@ -49,7 +49,13 @@ const NetworkSwitcher: React.FC = () => {
   const [network, setNetwork] = useContext(NetworkContext)
   return (
     <>
-      <Grid container mt={2} mb={[8, 0]} alignItems='center'>
+      <Grid
+        container
+        mt={2}
+        mb={[8, 0]}
+        alignItems='center'
+        flexDirection={['column', 'row']}
+      >
         <Select
           value={network}
           onChange={e => {
@@ -73,26 +79,36 @@ const NetworkSwitcher: React.FC = () => {
             </MenuItem>
           ))}
         </Select>
-        <Link href={network} target='_blank' rel='noopener noreferrer'>
-          <Typography variant='caption' mx={1} my={2}>
-            <strong style={{ color: 'white' }}>Base URL:</strong> {network}{' '}
-          </Typography>
-        </Link>
-        <CopyToClipboard getValue={() => `${network}`} />
-        <Link
-          href={`${network}?format=openapi`}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <Button
-            variant='contained'
-            color='primary'
-            sx={{ ml: 3 }}
-            endIcon={<GetAppIcon />}
+        <Grid mr={[1, 3]} my={1} item wrap='nowrap'>
+          <Link href={network} target='_blank' rel='noopener noreferrer'>
+            <Typography
+              variant='caption'
+              mx={1}
+              my={2}
+              textOverflow='ellipsis'
+              noWrap
+            >
+              <strong style={{ color: 'white' }}>Base URL:</strong> {network}{' '}
+            </Typography>
+          </Link>
+          <CopyToClipboard getValue={() => `${network}`} />
+        </Grid>
+        <Grid sx={{ width: ['100%', 'auto'] }} item justifyContent='flex-end'>
+          <Link
+            href={`${network}?format=openapi`}
+            target='_blank'
+            rel='noopener noreferrer'
           >
-            Download Specs
-          </Button>
-        </Link>
+            <Button
+              variant='contained'
+              color='primary'
+              sx={{ width: ['100%', 'auto'] }}
+              endIcon={<GetAppIcon />}
+            >
+              Download Specs
+            </Button>
+          </Link>
+        </Grid>
       </Grid>
 
       <Grid container mt={2} alignItems='center'></Grid>
