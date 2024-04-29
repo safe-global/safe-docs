@@ -19,7 +19,7 @@ See also:
 
 ## Bundler
 
-Bundlers are nodes that participate in the [ERC-4337](#erc-4337) standard who bundle [UserOperations](#user-operation) from an alternative mempool and submit them to the blockchain, paying for the associated transaction fees in advance, which are later refunded by the user account who proposed the user operation or by a [Paymaster](#paymaster).
+Bundlers are nodes that participate in the [ERC-4337](#erc-4337) standard who bundle [user operations](#user-operation) from an alternative mempool and submit them to the blockchain. Bundlers pay for the associated transaction fees in advance, which are later refunded by the user account who proposed the user operation or by a [Paymaster](#paymaster).
 
 See also:
 - [Bundling](https://eips.ethereum.org/EIPS/eip-4337#bundling) process on ethereum.org
@@ -35,7 +35,7 @@ The [EIP-712](https://eips.ethereum.org/EIPS/eip-712) is an Ethereum Improvement
 
 ## EntryPoint
 
-According to the [ERC-4337](#erc-4337), the EntryPoint is the singleton smart contract that processes bundles of [UserOperations](#user-operation) sent by the [Bundlers](#bundler). It verifies and executes them by calling the target smart accounts according to predefined rules.
+According to the [ERC-4337](#erc-4337), the EntryPoint is the singleton smart contract that processes bundles of [UserOperation](#user-operation) objects sent by the [Bundlers](#bundler). It verifies and executes them by calling the target smart accounts according to predefined rules.
 
 See also:
 - [EntryPoint](https://eips.ethereum.org/EIPS/eip-4337#entrypoint-definition) on ethereum.org
@@ -79,7 +79,7 @@ See also:
 
 ## Paymaster
 
-Paymasters are smart contracts that allow an entity to pay for the gas fees of other users. This feature abstracts away the concept of gas fees by subsidizing them for users, allowing them to pay with ERC-20 tokens, and many other use cases.
+Paymasters are smart contracts that allow an account to pay for the gas fees of other users. This feature abstracts away the concept of gas fees by subsidizing them for users, allowing them to pay with ERC-20 tokens, and enables many other use cases.
 
 See also:
 - [Paymasters](https://eips.ethereum.org/EIPS/eip-4337#extension-paymasters) on ethereum.org
@@ -171,9 +171,9 @@ The threshold of a Safe account is a crucial configuration element that enables 
 See also:
 - [Get the threshold](./sdk/protocol-kit/reference.md#getthreshold) and [change the threshold](./sdk/protocol-kit/reference.md#createchangethresholdtx) of a Safe with the Safe{Core} SDK on docs.safe.global
 
-## User Operation
+## UserOperation
 
-UserOperations are pseudo-transaction objects introduced by the [ERC-4337](#erc-4337) that users send to the UserOperation mempool. They wrap the users' transactions, and are sent to the [EntryPoint](#entrypoint) by [Bundlers](#bundler).
+`UserOperation` objects are pseudo-transaction objects introduced by the [ERC-4337](#erc-4337) that users send to the `UserOperation` mempool. They wrap the users' transactions, and are sent to the [EntryPoint](#entrypoint) contract by [Bundlers](#bundler).
 
 See also:
 - [UserOperations](https://eips.ethereum.org/EIPS/eip-4337#useroperation) on ethereum.org
