@@ -24,7 +24,11 @@ const Response: React.FC<{ response: any, index: number }> = ({
         type === 'object'
           ? response.schema?.properties
           : response.schema?.items
-      ).map(([key, value]) => ({ name: key, value }))
+      ).map(([key, value]) => ({
+        name: key,
+        value,
+        required: response.schema?.required?.includes(key)
+      }))
 
   return (
     <>
@@ -102,26 +106,27 @@ const Response: React.FC<{ response: any, index: number }> = ({
         >
           {properties
             ?.filter(
-              property =>
-                !(
-                  type === 'array' &&
-                  (property.name === 'required' || property.name === 'type')
-                )
+              property => !(type === 'array' && property.name !== 'properties')
             )
-            ?.map?.((property, index) => {
-              return type === 'object' ? (
-                <Property key={index} property={property} />
+            ?.map?.((property, index) =>
+              type === 'object' ? (
+                <Property
+                  key={index}
+                  property={property}
+                  required={property.required}
+                />
               ) : (
                 Object.entries(property.value as Record<string, unknown>)
-                  .map(([key, value]) => ({
-                    name: key,
-                    value
-                  }))
-                  .map((property, index) => (
-                    <Property key={index} property={property} />
+                  .map(([name, value]) => ({ name, value }))
+                  .map((_property, index) => (
+                    <Property
+                      key={index}
+                      property={_property}
+                      required={property.required}
+                    />
                   ))
               )
-            })}{' '}
+            )}{' '}
         </AccordionDetails>
       </Accordion>
       <Hr />
