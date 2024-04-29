@@ -656,7 +656,7 @@ pnpm install viem permissionless
 
   ### Estimate the UserOperation gas
 
-  To estimate the gas limits for a `UserOperation`, we call the `estimateUserOperationGas` method from the bundler API, which receives the `userOperation` and `entryPoint` as parameters.
+  To estimate the gas limits for a user operation, we call the `estimateUserOperationGas` method from the bundler API, which receives the `userOperation` object and `entryPoint` as parameters.
 
   After that, we call the `getUserOperationGasPrice` method to get the maximum gas price and add all the returned values to the `sponsoredUserOperation`.
 
@@ -804,7 +804,7 @@ pnpm install viem permissionless
 
   { /* <!-- vale on --> */}
 
-  To get more details about the submitted `UserOperation` copy the value of the `userOperationHash` returned, visit the [UserOp Explorer](https://jiffyscan.xyz/?network=gnosis), and paste it into the search bar.
+  To get more details about the submitted `UserOperation` object copy the value of the `userOperationHash` returned, visit the [UserOp Explorer](https://jiffyscan.xyz/?network=gnosis), and paste it into the search bar.
 
   Lastly, to get more details about the transaction, we can get the receipt of the `sponsoredUserOperation`, get the `transactionHash`, and check the transaction details in the [Gnosis Chain block explorer](https://gnosisscan.io).
 

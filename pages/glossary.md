@@ -17,6 +17,14 @@ See also:
 - [Account Abstraction](https://ethereum.org/en/roadmap/account-abstraction) on ethereum.org
 - [ERC-4337: Account Abstraction](https://www.erc4337.io) on erc4337.io
 
+## Bundler
+
+Bundlers are nodes that participate in the [ERC-4337](#erc-4337) standard who bundle [user operations](#user-operation) from an alternative mempool and submit them to the blockchain. Bundlers pay for the associated transaction fees in advance, which are later refunded by the user account who proposed the user operation or by a [Paymaster](#paymaster).
+
+See also:
+- [Bundling](https://eips.ethereum.org/EIPS/eip-4337#bundling) process on ethereum.org
+- [Bundlers](https://erc4337.io/docs/bundlers/introduction) on erc4337.io
+
 ## EIP-1271
 
 The [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) is an [Ethereum Improvement Proposal](https://eips.ethereum.org) that proposes a standard way for any contract to verify whether a signature on behalf of a given contract is valid. This is possible via the implementation of a `isValidSignature(hash, signature)` function on the signing contract, which can be called to validate a signature.
@@ -25,9 +33,17 @@ The [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) is an [Ethereum Improvem
 
 The [EIP-712](https://eips.ethereum.org/EIPS/eip-712) is an Ethereum Improvement Proposal that proposes a standard for hashing and signing of typed structured data instead of just bytestrings.
 
+## EntryPoint
+
+According to the [ERC-4337](#erc-4337), the EntryPoint is the singleton smart contract that processes bundles of [UserOperation](#user-operation) objects sent by the [Bundlers](#bundler). It verifies and executes them by calling the target smart accounts according to predefined rules.
+
+See also:
+- [EntryPoint](https://eips.ethereum.org/EIPS/eip-4337#entrypoint-definition) on ethereum.org
+- [Bundlers](https://erc4337.io/docs/bundlers/introduction) on erc4337.io
+
 ## ERC-4337
 
-The [ERC-4337](https://eips.ethereum.org/EIPS/eip-4337) is an [Ethereum Request for Comments](https://eips.ethereum.org/erc) that introduces a higher-layer pseudo-transaction object called `UserOperation`. Users send `UserOperation` objects into a separate mempool. A special class of actor called bundlers package up a set of these objects into a transaction making a `handleOps` call to a special contract, and that transaction then gets included in a block.
+The [ERC-4337](https://eips.ethereum.org/EIPS/eip-4337) is an [Ethereum Request for Comments](https://eips.ethereum.org/erc) that introduces a higher-layer pseudo-transaction object called `UserOperation`. Users send `UserOperation` objects into a separate mempool. A special class of actor called [Bundlers](#bundler) package up a set of these objects into a transaction making a `handleOps` call to a special contract, and that transaction then gets included in a block.
 
 See also:
 - [ERC-4337 Documentation](https://www.erc4337.io) on erc4337.io
@@ -60,6 +76,14 @@ A Safe owner is one of the accounts that control a given Safe. Only owners can m
 
 See also:
 - [OwnerManager.sol](https://github.com/safe-global/safe-smart-account/blob/main/contracts/base/OwnerManager.sol) on github.com
+
+## Paymaster
+
+Paymasters are smart contracts that allow an account to pay for the gas fees of other users. This feature abstracts away the concept of gas fees by subsidizing them for users, allowing them to pay with ERC-20 tokens, and enables many other use cases.
+
+See also:
+- [Paymasters](https://eips.ethereum.org/EIPS/eip-4337#extension-paymasters) on ethereum.org
+- [Paymasters](https://www.erc4337.io/docs/paymasters/introduction) on erc4337.io
 
 ## Relayer
 
@@ -146,6 +170,14 @@ The threshold of a Safe account is a crucial configuration element that enables 
 
 See also:
 - [Get the threshold](./sdk/protocol-kit/reference.md#getthreshold) and [change the threshold](./sdk/protocol-kit/reference.md#createchangethresholdtx) of a Safe with the Safe{Core} SDK on docs.safe.global
+
+## UserOperation
+
+`UserOperation` objects are pseudo-transaction objects introduced by the [ERC-4337](#erc-4337) that users send to the `UserOperation` mempool. They wrap the users' transactions, and are sent to the [EntryPoint](#entrypoint) contract by [Bundlers](#bundler).
+
+See also:
+- [UserOperations](https://eips.ethereum.org/EIPS/eip-4337#useroperation) on ethereum.org
+- [UserOperation mempool](https://www.erc4337.io/docs/understanding-ERC-4337/user-operation#useroperation-mempool) on erc4337.io
 
 ## Wallet
 
