@@ -41,3 +41,15 @@ The method [getModuledPaginated](https://github.com/safe-global/safe-contracts/b
 The workaround is to append the `next` to the returned array of module addresses if it's not the zero or sentinel address. Alternatively, the last element of the returned array can be used as the `start` for the next page.
 
 This bug was submitted by [Renan Souza](https://github.com/RenanSouza2). It was regarded as a "Low Threat," and a bounty of 2,000 USD has been paid out.
+
+## Signature verification does not enforce a maximum size on the signature bytes
+
+The function [`checkNSignatures`](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol#L274) does not enforce a size limit on the signature bytes. This means that they can be padded with arbitrary data. This can be used by manipulating the `signatures` by padding them with additional data while remaining valid and, since the `signatures` bytes get copied from `calldata` into memory, increase the total gas consumption of the `checkNSignatures` function. This is an issue when the Safe is combined with the [ERC-4337 module](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337), where the account pays the gas costs for the ERC-4337 user operation. A malicious relayer can grief the account by padding the `signatures` bytes to include extra 0s, causing the account to pay more fees than it would have with optimally encoded `signatures` bytes.
+
+The workaround is to set a strict `verificationGasLimit` for ERC-4337 user operations. This would set a strict upper bound on how much gas can be paid during signature verification and limit the potential additional fees.
+
+<!-- vale off -->
+
+This bug was submitted by [Adam Egyed](https://github.com/adamegyed). It was regarded as a "Low Threat," and a bounty of 1,000 USD has been paid out.
+
+<!-- vale on -->
