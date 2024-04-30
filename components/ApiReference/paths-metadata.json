@@ -126,7 +126,7 @@
   },
   "/v1/safes/{address}/balances/": {
     "get": {
-      "title": "List a Safe's Balances"
+      "title": "List a Safe's Balances (Deprecated)"
     }
   },
   "/v1/safes/{address}/balances/usd/": {

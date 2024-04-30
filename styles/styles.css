@@ -7,6 +7,10 @@ html[class~='dark'] .dark\:nx-bg-dark.dark\:nx-bg-dark {
   background-color: #121312;
 }
 
+h1 {
+  line-height: 60px;
+}
+
 /* Navbar */
 #__next > div > div > div {
   backdrop-filter: blur(8px);

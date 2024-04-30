@@ -131,7 +131,11 @@ const generateSampleApiResponse = async (
 }
 
 const slugify = text => text?.replace?.(/ /g, '-').replace(/\//g, '-')
-const resolveRef = ref => jsonFile.definitions[ref.split('/').pop()]
+const resolveRef = ref => {
+  const refName = ref.split('/').pop()
+  return { refName, ...jsonFile.definitions[refName] }
+}
+
 const resolveRefs = obj => {
   if (typeof obj === 'object') {
     for (const key in obj) {
