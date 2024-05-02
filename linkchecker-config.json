@@ -8,6 +8,15 @@
     },
     {
       "pattern": "^https://dune.com"
+    },
+    {
+      "pattern": "^https://zodiac.wiki"
+    }
+  ],
+  "replacementPatterns": [
+    {
+      "pattern": "^#",
+      "replacement": "./#"
     }
   ]
 }

@@ -16,4 +16,4 @@ jobs:
         use-verbose-mode: 'yes'
         folder-path: './'
         base-branch: 'main'
-        check-modified-files-only: 'yes'
+        config-file: 'linkchecker-config.json'
