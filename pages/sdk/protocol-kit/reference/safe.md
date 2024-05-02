@@ -259,14 +259,14 @@ const options: SafeTransactionOptionalProps = {
 const safeTransaction = await protocolKit.createTransaction({ transactions, options })
 ```
 
-In addition, the optional `callsOnly` parameter, which is `false` by default, allows forcing the use of the `MultiSendCallOnly` instead of the `MultiSend` contract when sending a batch transaction:
+In addition, the optional `onlyCalls` parameter, which is `false` by default, allows forcing the use of the `MultiSendCallOnly` instead of the `MultiSend` contract when sending a batch transaction:
 
 ```typescript
-const callsOnly = true
+const onlyCalls = true
 const safeTransaction = await protocolKit.createTransaction({
   transactions,
   options,
-  callsOnly
+  onlyCalls
 })
 ```
 
