@@ -47,7 +47,7 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
   ```typescript
   import { ethers } from 'ethers'
   import { GelatoRelayPack } from '@safe-global/relay-kit'
-  import Safe, { EthersAdapter } from '@safe-global/protocol-kit'
+  import Safe from '@safe-global/protocol-kit'
   import {
     MetaTransactionData,
     MetaTransactionOptions
@@ -60,9 +60,8 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
 
   ```typescript
   // https://chainlist.org
-  const RPC_URL='https://endpoints.omniatech.io/v1/bsc/mainnet/public'
-  const provider = new ethers.JsonRpcProvider(RPC_URL)
-  const signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
+  const RPC_URL = 'https://endpoints.omniatech.io/v1/bsc/mainnet/public'
+  const OWNER_PRIVATE_KEY = process.env.OWNER_PRIVATE_KEY
   const safeAddress = '0x...' // Safe from which the transaction will be sent
 
   // Any address can be used for destination. In this example, we use vitalik.eth
@@ -88,13 +87,9 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
   ### Instantiate the Protocol Kit and Relay Kit
 
   ```typescript
-  const ethAdapter = new EthersAdapter({
-    ethers,
-    signerOrProvider: signer
-  })
-
   const protocolKit = await Safe.create({
-    ethAdapter,
+    provider: RPC_URL,
+    signer: OWNER_PRIVATE_KEY,
     safeAddress
   })
 
@@ -141,7 +136,7 @@ For the SyncFee quickstart tutorial, you will use the Gelato relayer to pay for 
   ```typescript
   import { ethers } from 'ethers'
   import { GelatoRelayPack } from '@safe-global/relay-kit'
-  import Safe, { EthersAdapter } from '@safe-global/protocol-kit'
+  import Safe from '@safe-global/protocol-kit'
   import { MetaTransactionData } from '@safe-global/safe-core-sdk-types'
   ```
 
@@ -151,9 +146,8 @@ For the SyncFee quickstart tutorial, you will use the Gelato relayer to pay for 
 
   ```typescript
   // https://chainlist.org
-  const RPC_URL='https://endpoints.omniatech.io/v1/bsc/mainnet/public'
-  const provider = new ethers.JsonRpcProvider(RPC_URL)
-  const signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
+  const RPC_URL = 'https://endpoints.omniatech.io/v1/bsc/mainnet/public'
+  const OWNER_PRIVATE_KEY = process.env.OWNER_PRIVATE_KEY
   const safeAddress = '0x...' // Safe from which the transaction will be sent
 
   // Any address can be used for destination. In this example, we use vitalik.eth
@@ -175,13 +169,9 @@ For the SyncFee quickstart tutorial, you will use the Gelato relayer to pay for 
   ### Instantiate the Protocol Kit and Relay Kit
 
   ```typescript
-  const ethAdapter = new EthersAdapter({
-    ethers,
-    signerOrProvider: signer
-  })
-
   const protocolKit = await Safe.create({
-    ethAdapter,
+    provider: RPC_URL,
+    signer: OWNER_PRIVATE_KEY,
     safeAddress
   })
 

@@ -18,7 +18,8 @@ The `Safe4337Pack` class make easy to use the [Safe 4337 Module](https://github.
 
 ```typescript
 const safe4337Pack = await Safe4337Pack.init({
-  ethersAdapter,
+  provider,
+  signer,
   rpcUrl,
   bundlerUrl,
   safeModulesVersion,
@@ -38,7 +39,8 @@ The `Safe4337InitOptions` used in the `init()` method are:
 
 ```typescript
 Safe4337InitOptions = {
-  ethersAdapter: EthersAdapter
+  provider: Eip1193Provider | HttpTransport | SocketTransport
+  signer?: HexAddress | PrivateKey
   bundlerUrl: string
   rpcUrl: string
   safeModulesVersion?: string
@@ -49,6 +51,20 @@ Safe4337InitOptions = {
   }
   options: ExistingSafeOptions | PredictedSafeOptions
   paymasterOptions?: PaymasterOptions
+}
+
+HexAddress = string
+PrivateKey = string
+HttpTransport = string
+SocketTransport = string
+
+Eip1193Provider = {
+  request: (args: RequestArguments) => Promise<unknown>
+}
+
+RequestArguments = {
+  method: string
+  params?: readonly unknown[] | object
 }
 
 ExistingSafeOptions = {
@@ -72,8 +88,9 @@ PaymasterOptions = {
 }
 ```
 
-- **`ethersAdapter`** : An instance of the `EthersAdapter` class.
-- **`rpcUrl`** : The RPC for the selected chain.
+- **`provider`** : The EIP-1193 compatible provider or RPC URL of the selected chain.
+- **`signer`** : The signer private address if the `provider` doesn't resolve to a signer account. If the `provider` resolves to multiple signer addresses, the `signer` property can be used to specify which account to connect, otherwise the first address returned will be used.
+- **`rpcUrl`** : The RPC URL of the selected chain.
 - **`bundlerUrl`** : The bundler's URL.
 - **`safeModulesVersion`** : The version of the [Safe Modules contract](https://github.com/safe-global/safe-modules-deployments/tree/main/src/assets/safe-4337-module).
 - **`customContracts`** : An object with custom contract addresses. This is optional, if no custom contracts are provided, default ones will be used.
@@ -100,7 +117,6 @@ A promise that resolves to an instance of the `Safe4337Pack`.
 **Caveats**
 
 - Use this method to create the initial instance instead of the standard constructor.
-- You can refer to [this link](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit/src/adapters/ethers) to create instances of `EthersAdapter`.
 - You should search for some API services URLs and contract addresses in the management dashboards of your selected provider. These include `bundlerUrl`, `paymasterUrl`, `paymasterAddress`, `paymasterTokenAddress`, `sponsorshipPolicyId`, and `rpcUrl` (In this case any valid RPC should be fine).
 - The SDK uses default versions when `safeModulesVersion` or `safeVersion` are not specified. You can find more details about the current versions [here](https://github.com/safe-global/safe-core-sdk/blob/924ae56ff707509e561c99296fb5e1fbc2050d28/packages/relay-kit/src/packs/safe-4337/Safe4337Pack.ts#L34-L35).
 - The `saltNonce` derives different Safe addresses by using the `protocol-kit` method `predictSafeAddress`. You can find more details about this process [here](https://github.com/safe-global/safe-core-sdk/blob/924ae56ff707509e561c99296fb5e1fbc2050d28/packages/protocol-kit/src/contracts/utils.ts#L245-L315).
@@ -195,7 +211,7 @@ A promise that resolves to the signed `SafeOperation`.
 **Caveats**
 
 - Use this method after the `SafeOperation` is generated with the `createTransaction` method.
-- This method adds the signer's signature from the `EthersAdapter` to the signatures map of the `SafeOperation` object. Additional signatures can be included from multiple owners.
+- This method adds the signer's signature to the signatures map of the `SafeOperation` object. Additional signatures can be included from multiple owners.
 - It works similar to `signTransaction` and `signMessage` methods in the `protocol-kit` but using `SafeOperation` instead of `SafeTransaction` or `SafeMessage`. For more information, refer to the Safe [docs](https://docs.safe.global/sdk/protocol-kit/guides/signatures).
 
 ### `executeTransaction(safe4337ExecutableProps)`
@@ -225,7 +241,7 @@ A promise, resolves to the user operation hash.
 
 **Caveats**
 
-- The process converts the `SafeOperation` to a standard user operation, then forwards it to the bundler. The `SafeOperation` must be created and signed by the Safe owner using `EthersAdapter`.
+- The process converts the `SafeOperation` to a standard user operation, then forwards it to the bundler. The `SafeOperation` must be created and signed by the Safe owner.
 - You can use the user operation hash to browse the status (e.g `https://jiffyscan.xyz/userOpHash/{userOpHash}`)
 
 ### `getUserOperationByHash(userOpHash)`

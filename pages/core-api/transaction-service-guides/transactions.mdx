@@ -43,7 +43,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       ```typescript
       import { ethers } from 'ethers'
       import SafeApiKit from '@safe-global/api-kit'
-      import Safe, { EthersAdapter } from '@safe-global/protocol-kit'
+      import Safe from '@safe-global/protocol-kit'
       import {
         MetaTransactionData,
         OperationType
@@ -69,18 +69,12 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
       ```typescript
-      const ethProvider = new ethers.JsonRpcProvider(config.RPC_URL)
-
-      // Instantiate an EthAdapter with Owner A
-      const ownerA = new ethers.Wallet(config.OWNER_A_PRIVATE_KEY, ethProvider)
-      const ethAdapterOwnerA = new EthersAdapter({
-        ethers,
-        signerOrProvider: ownerA
-      })
+      const provider = new ethers.JsonRpcProvider(config.RPC_URL)
 
       // Initialize the Protocol Kit with Owner A
       const protocolKitOwnerA = await Safe.create({
-        ethAdapter: ethAdapterOwnerA,
+        provider,
+        signer: config.OWNER_A_PRIVATE_KEY,
         safeAddress: config.SAFE_ADDRESS
       })
 
@@ -176,6 +170,8 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
         chainId: 11155111n
       })
 
+      // Get Owner A address
+      const ownerA = new ethers.Wallet(config.OWNER_A_PRIVATE_KEY, provider)
       const senderAddress = await ownerA.getAddress()
 
       // Send the transaction to the Transaction Service with the signature from Owner A
@@ -242,16 +238,10 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
       ```typescript
-      // Instantiate an EthAdapter with Owner B
-      const ownerB = new ethers.Wallet(config.OWNER_B_PRIVATE_KEY, ethProvider)
-      const ethAdapterOwnerB = new EthersAdapter({
-        ethers,
-        signerOrProvider: ownerB
-      })
-
       // Initialize the Protocol Kit with Owner B
       const protocolKitOwnerB = await Safe.create({
-        ethAdapter: ethAdapterOwnerB,
+        provider,
+        signer: config.OWNER_B_PRIVATE_KEY,
         safeAddress: config.SAFE_ADDRESS
       })
 

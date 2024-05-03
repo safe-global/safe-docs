@@ -21,15 +21,20 @@ In the following guides, there are different accounts involved that will be used
 | `owner4` | EOA and owner of `safe2_3` | 0xE11BA2b4D45Eaed5996Cd0823791E0C93114882d |
 | `owner5` | EOA and owner of `safe2_3` | 0xd03ea8624C8C5987235048901fB614fDcA89b117 |
 
-Each EOA owner described above is bound to an `EthAdapter` instance that should also be initialized.
+We need to instantiate all the signers based on the Safe owner accounts.
 
-| Adapter | Signer |
-| :--- | :--- |
-| `ethAdapter1` | `owner1` |
-| `ethAdapter2` | `owner2` |
-| `ethAdapter3` | `owner3` |
-| `ethAdapter4` | `owner4` |
-| `ethAdapter5` | `owner5` |
+```typescript
+// https://chainlist.org/?search=sepolia&testnets=true
+const RPC_URL = 'https://eth-sepolia.public.blastapi.io'
+const provider = new ethers.JsonRpcProvider(RPC_URL)
+
+// Initialize signers
+const signer1 = new ethers.Wallet(OWNER_1_PRIVATE_KEY, provider)
+const signer2 = new ethers.Wallet(OWNER_2_PRIVATE_KEY, provider)
+const signer3 = new ethers.Wallet(OWNER_3_PRIVATE_KEY, provider)
+const signer4 = new ethers.Wallet(OWNER_4_PRIVATE_KEY, provider)
+const signer5 = new ethers.Wallet(OWNER_5_PRIVATE_KEY, provider)
+```
 
 ## Guides
 

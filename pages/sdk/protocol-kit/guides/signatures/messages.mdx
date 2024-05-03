@@ -115,8 +115,11 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
   - `SigningMethod.ETH_SIGN_TYPED_DATA_V4`
 
   ```typescript
-  // Connect the EthAdapter from owner1
-  protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter1 })
+  // Connect owner1
+  protocolKit = await protocolKit.connect({
+    provider,
+    signer: signer1
+  })
 
   // Sign the safeMessage with owner1
   // After this, the safeMessage contains the signature from owner1
@@ -125,8 +128,11 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
     SigningMethod.ETH_SIGN_TYPED_DATA_V4
   )
 
-  // Connect the EthAdapter from owner2
-  protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter2 })
+  // Connect owner2
+  protocolKit = await protocolKit.connect({
+    provider,
+    signer: signer2
+  })
 
   // Sign the safeMessage with owner2
   // After this, the safeMessage contains the signature from owner1 and owner2
@@ -150,9 +156,10 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
   // Create a new message object
   let messageSafe1_1 = await createMessage(TYPED_MESSAGE)
 
-  // Connect the EthAdapter from owner3 and the address of safe1_1
+  // Connect signer3 and the address of safe1_1
   protocolKit = await protocolKit.connect({
-    ethAdapter: ethAdapter3,
+    provider,
+    signer: signer3,
     safeAddress: safe1_1
   })
 
@@ -187,9 +194,10 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
   // Create a new message object
   let messageSafe2_3 = await createMessage(TYPED_MESSAGE)
 
-  // Connect the EthAdapter from owner4 and the address of safe2_3
+  // Connect owner4 and the address of safe2_3
   protocolKit = await protocolKit.connect({
-    ethAdapter: ethAdapter4,
+    provider,
+    signer: signer4,
     safeAddress: safe2_3
   })
 
@@ -201,8 +209,11 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
     safe3_4 // Parent Safe address
   )
 
-  // Connect the EthAdapter from owner5
-  protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter5 })
+  // Connect owner5
+  protocolKit = await protocolKit.connect({
+    provider,
+    signer: signer5
+  })
 
   // Sign the messageSafe2_3 with owner5
   // After this, the messageSafe2_3 contains the signature from owner5
@@ -249,7 +260,7 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
   To store a new message, we need to call the `addMessage` from the API Kit, passing the Safe address, an object with the message, and a signature from one owner.
 
   ```typescript
-  const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x'
+  const signerAddress = (await signer1.getAddress()) || '0x'
 
   // Get the signature from owner1
   const signatureOwner1 = safeMessage.getSignature(signerAddress) as EthSafeSignature
@@ -278,7 +289,7 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
   )
 
   // Get the signature from owner2
-  const signerAddress = (await ethAdapter2.getSignerAddress()) || '0x'
+  const signerAddress = (await signer2.getAddress()) || '0x'
   const signatureOwner2 = safeMessage.getSignature(signerAddress) as EthSafeSignature
 
   // Add signature from owner2
@@ -320,7 +331,7 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
 
   ```typescript
   // Get the contract with the correct version
-  const signMessageLibContract = await ethAdapter1.getSignMessageLibContract({
+  const signMessageLibContract = await getSignMessageLibContract({
     safeVersion: '1.4.1'
   })
   ```

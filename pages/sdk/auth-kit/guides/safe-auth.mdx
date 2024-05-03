@@ -31,7 +31,6 @@ The `SafeAuthPack` is an authentication system that utilizes the [Web3Auth](http
     SafeAuthConfig,
     SafeAuthInitOptions,
   } from '@safe-global/auth-kit'
-  import { EthersAdapter } from '@safe-global/protocol-kit'
   ```
 
   ### Create a SafeAuthPack instance
@@ -118,24 +117,17 @@ The `SafeAuthPack` is an authentication system that utilizes the [Web3Auth](http
 
   ### Sign and execute transactions
 
-  The `SafeAuthPack` can be used with the [Protocol Kit](../../protocol-kit.mdx) to establish a connection to a Safe. This connection is made using the `provider` and `signer` associated with the authenticated account.
+  The `SafeAuthPack` can be used with the [Protocol Kit](../../protocol-kit.mdx) to establish a connection to a Safe using the `provider`. We don't need to pass the `signer` property in the `create()` method as it will be automatically taken from the passed `provider`.
 
   After connecting, you can use any of the methods provided in the [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
 
   ```typescript
   // Wrap EIP-1193 provider with ethers
   const provider = new ethers.BrowserProvider(safeAuthPack.getProvider())
-  const signer = provider.getSigner()
-
-  // Create the Safe EthersAdapter
-  const ethAdapter = new EthersAdapter({
-    ethers,
-    signerOrProvider: signer || provider,
-  })
 
   // Instantiate the Protocol Kit
   const protocolKit = await Safe.create({
-    ethAdapter,
+    provider,
     safeAddress,
   })
 

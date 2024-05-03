@@ -67,8 +67,11 @@ This guide explains how transactions are signed by the Safe owners using the Pro
   - `SigningMethod.ETH_SIGN_TYPED_DATA_V4`
 
   ```typescript
-  // Connect the EthAdapter from owner1
-  protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter1 })
+  // Connect owner1
+  protocolKit = await protocolKit.connect({
+    provider,
+    signer: signer1
+  })
 
   // Sign the safeTransaction with owner1
   // After this, the safeTransaction contains the signature from owner1
@@ -77,8 +80,11 @@ This guide explains how transactions are signed by the Safe owners using the Pro
     SigningMethod.ETH_SIGN
   )
 
-  // Connect the EthAdapter from owner2
-  protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter2 })
+  // Connect owner2
+  protocolKit = await protocolKit.connect({
+    provider,
+    signer: signer2
+  })
 
   // Sign the safeTransaction with owner2
   // After this, the safeTransaction contains the signature from owner1 and owner2
@@ -153,9 +159,10 @@ This guide explains how transactions are signed by the Safe owners using the Pro
     transactions: [safeTransactionData]
   })
 
-  // Connect the adapter from owner3 and the address of safe1_1
+  // Connect owner3 and the address of safe1_1
   protocolKit = await protocolKit.connect({
-    ethAdapter: ethAdapter3,
+    provider,
+    signer: signer3,
     safeAddress: safe1_1
   })
 
@@ -240,9 +247,10 @@ This guide explains how transactions are signed by the Safe owners using the Pro
     transactions: [safeTransactionData]
   })
 
-  // Connect the EthAdapter from owner4 and the address of safe2_3
+  // Connect owner4 and the address of safe2_3
   protocolKit = await protocolKit.connect({
-    ethAdapter: ethAdapter4,
+    provider,
+    signer: signer4,
     safeAddress: safe2_3
   })
 
@@ -254,8 +262,11 @@ This guide explains how transactions are signed by the Safe owners using the Pro
     safe3_4 // Parent Safe address
   )
 
-  // Connect the adapter for owner5
-  protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter5 })
+  // Connect owner5
+  protocolKit = await protocolKit.connect({
+    provider,
+    signer: signer5
+  })
 
   // Sign the transactionSafe2_3 with owner5
   // After this, the transactionSafe2_3 contains the signature from owner5
@@ -375,7 +386,7 @@ This guide explains how transactions are signed by the Safe owners using the Pro
   To store a new transaction, we need to call the `proposeTransaction` from the API Kit, passing the Safe address, an object with the transaction, and a signature from one owner.
 
   ```typescript
-  const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x'
+  const signerAddress = (await signer1.getAddress()) || '0x'
 
   // Get the signature from owner1
   const signatureOwner1 = safeTransaction.getSignature(signerAddress) as EthSafeSignature
@@ -406,7 +417,7 @@ This guide explains how transactions are signed by the Safe owners using the Pro
   Once a transaction is proposed, it becomes available on [Safe\{Wallet\}](https://app.safe.global). However, to execute the transaction, all the confirmations from the owners are needed.
 
   ```typescript
-  const signerAddress = (await ethAdapter2.getSignerAddress()) || '0x'
+  const signerAddress = (await signer2.getAddress()) || '0x'
 
   const signatureOwner2 = safeTransaction.getSignature(signerAddress) as EthSafeSignature
 
@@ -449,11 +460,12 @@ This guide explains how transactions are signed by the Safe owners using the Pro
 
   ### Execute the transaction
 
-  Connect the Safe and the adapter of an owner to the Protocol Kit. Ensure enough funds are available in the owner's account to execute the transaction and cover the gas costs. Once the Protocol Kit is initialized, the `executeTransaction` method receives and executes the transaction with the required signatures.
+  Connect the Safe and an a signer to the Protocol Kit. Ensure enough funds are available in the owner's account to execute the transaction and cover the gas costs. Once the Protocol Kit is initialized, the `executeTransaction` method receives and executes the transaction with the required signatures.
 
   ```typescript
   protocolKit = await protocolKit.connect({
-    ethAdapter: ethAdapter1,
+    provider,
+    signer: signer1,
     safeAddress: safe3_4
   })
 
