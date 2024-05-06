@@ -34,7 +34,7 @@ const transactionServiceUrls = [
 ]
 
 export const NetworkContext = createContext<
-  [string, Dispatch<SetStateAction<string>>]
+[string, Dispatch<SetStateAction<string>>]
 >([transactionServiceUrls[0], () => {}])
 
 export const NetworkProvider: React.FC<PropsWithChildren> = ({ children }) => {
