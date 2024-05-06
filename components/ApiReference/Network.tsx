@@ -34,7 +34,7 @@ const transactionServiceUrls = [
 ]
 
 export const NetworkContext = createContext<
-[string, Dispatch<SetStateAction<string>>]
+  [string, Dispatch<SetStateAction<string>>]
 >([transactionServiceUrls[0], () => {}])
 
 export const NetworkProvider: React.FC<PropsWithChildren> = ({ children }) => {
@@ -63,7 +63,7 @@ const NetworkSwitcher: React.FC = () => {
           }}
           sx={{
             mr: 1,
-            width: ['100%', 'auto'],
+            width: ['100%', '100%', 'auto'],
             border: ({ palette }) => `1px solid ${palette.grey[700]}`
           }}
           inputProps={{
@@ -79,21 +79,37 @@ const NetworkSwitcher: React.FC = () => {
             </MenuItem>
           ))}
         </Select>
-        <Grid mr={[1, 3]} my={1} item wrap='nowrap'>
+        <Grid
+          mr={1}
+          my={1}
+          sx={{ width: ['100%', '100%', 'auto'] }}
+          item
+          wrap='nowrap'
+        >
           <Link href={network} target='_blank' rel='noopener noreferrer'>
             <Typography
               variant='caption'
               mx={1}
-              my={2}
-              textOverflow='ellipsis'
               noWrap
+              sx={{
+                whiteSpace: 'nowrap',
+                overflow: 'scroll',
+                textOverflow: 'initial',
+                display: { xs: 'inline-block', md: 'inline' },
+                width: ['calc(100% - 48px)', 'calc(100% - 48px)', 'auto']
+              }}
             >
               <strong style={{ color: 'white' }}>Base URL:</strong> {network}{' '}
             </Typography>
           </Link>
           <CopyToClipboard getValue={() => `${network}`} />
         </Grid>
-        <Grid sx={{ width: ['100%', 'auto'] }} item justifyContent='flex-end'>
+        <Grid
+          sx={{ width: ['100%', '100%', 'auto'] }}
+          item
+          justifyContent='flex-end'
+          mr={1}
+        >
           <Link
             href={`${network}?format=openapi`}
             target='_blank'
@@ -102,7 +118,7 @@ const NetworkSwitcher: React.FC = () => {
             <Button
               variant='contained'
               color='primary'
-              sx={{ width: ['100%', 'auto'] }}
+              sx={{ width: ['100%', '100%', 'auto'] }}
               endIcon={<GetAppIcon />}
             >
               Download Specs
