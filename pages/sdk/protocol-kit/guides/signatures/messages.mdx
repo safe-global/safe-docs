@@ -104,32 +104,38 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
 
   Once the `safeMessage` object is created, we need to collect the signatures from the signers who will sign it.
 
-  Following our [setup](../signatures.md), we will sign a message with `safe3_4`, the main Safe account in this guide. To do that, we first need to sign the same message with its owners: `owner1`, `owner2`, `safe1_1`, and `safe2_3`.
+  Following our [setup](../signatures.md), we will sign a message with `SAFE_3_4_ADDRESS`, the main Safe account in this guide. To do that, we first need to sign the same message with its owners: `OWNER_1_ADDRESS`, `OWNER_2_ADDRESS`, `SAFE_1_1_ADDRESS`, and `SAFE_2_3_ADDRESS`.
 
   #### ECDSA signatures
 
-  This applies to `owner1` and `owner2` accounts, as both are EOAs.
+  This applies to `OWNER_1_ADDRESS` and `OWNER_2_ADDRESS` accounts, as both are EOAs.
 
   The `signMessage` method takes the `safeMessage` together with a `SigningMethod` and adds the new signature to the `signMessage.signatures` map. Depending on the type of message, the `SigningMethod` can take these values:
   - `SigningMethod.ETH_SIGN`
   - `SigningMethod.ETH_SIGN_TYPED_DATA_V4`
 
   ```typescript
-  // Connect the EthAdapter from owner1
-  protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter1 })
+  // Connect OWNER_1_ADDRESS
+  protocolKit = await protocolKit.connect({
+    provider: RPC_URL
+    signer: OWNER_1_PRIVATE_KEY
+  })
 
-  // Sign the safeMessage with owner1
-  // After this, the safeMessage contains the signature from owner1
+  // Sign the safeMessage with OWNER_1_ADDRESS
+  // After this, the safeMessage contains the signature from OWNER_1_ADDRESS
   safeMessage = await protocolKit.signMessage(
     safeMessage,
     SigningMethod.ETH_SIGN_TYPED_DATA_V4
   )
 
-  // Connect the EthAdapter from owner2
-  protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter2 })
+  // Connect OWNER_2_ADDRESS
+  protocolKit = await protocolKit.connect({
+    provider: RPC_URL
+    signer: OWNER_2_PRIVATE_KEY
+  })
 
-  // Sign the safeMessage with owner2
-  // After this, the safeMessage contains the signature from owner1 and owner2
+  // Sign the safeMessage with OWNER_2_ADDRESS
+  // After this, the safeMessage contains the signature from OWNER_1_ADDRESS and OWNER_2_ADDRESS
   safeMessage = await protocolKit.signMessage(
     safeMessage,
     SigningMethod.ETH_SIGN_TYPED_DATA_V4
@@ -142,36 +148,37 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
 
   ##### 1/1 Safe account
 
-  This applies to the `safe1_1` account, another owner of `safe3_4`.
+  This applies to the `SAFE_1_1_ADDRESS` account, another owner of `SAFE_3_4_ADDRESS`.
 
-  We need to connect the Protocol Kit to `safe1_1` and the `owner3` account (the only owner of `safe1_1`) and sign the message.
+  We need to connect the Protocol Kit to `SAFE_1_1_ADDRESS` and the `OWNER_3_ADDRESS` account (the only owner of `SAFE_1_1_ADDRESS`) and sign the message.
 
   ```typescript
   // Create a new message object
   let messageSafe1_1 = await createMessage(TYPED_MESSAGE)
 
-  // Connect the EthAdapter from owner3 and the address of safe1_1
+  // Connect OWNER_3_ADDRESS and SAFE_1_1_ADDRESS
   protocolKit = await protocolKit.connect({
-    ethAdapter: ethAdapter3,
-    safeAddress: safe1_1
+    provider: RPC_URL
+    signer: OWNER_3_PRIVATE_KEY,
+    safeAddress: SAFE_1_1_ADDRESS
   })
 
-  // Sign the messageSafe1_1 with owner3
-  // After this, the messageSafe1_1 contains the signature from owner3
+  // Sign the messageSafe1_1 with OWNER_3_ADDRESS
+  // After this, the messageSafe1_1 contains the signature from OWNER_3_ADDRESS
   messageSafe1_1 = await signMessage(
     messageSafe1_1,
     SigningMethod.SAFE_SIGNATURE,
-    safe3_4 // Parent Safe address
+    SAFE_3_4_ADDRESS // Parent Safe address
   )
 
-  // Build the contract signature of safe1_1
+  // Build the contract signature of SAFE_1_1_ADDRESS
   const signatureSafe1_1 = await buildContractSignature(
     Array.from(messageSafe1_1.signatures.values()),
-    safe1_1
+    SAFE_1_1_ADDRESS
   )
 
   // Add the signatureSafe1_1 to safeMessage
-  // After this, the safeMessage contains the signature from owner1, owner2 and safe1_1
+  // After this, the safeMessage contains the signature from OWNER_1_ADDRESS, OWNER_2_ADDRESS and SAFE_1_1_ADDRESS
   safeMessage.addSignature(signatureSafe1_1)
   ```
 
@@ -179,47 +186,51 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
 
   ##### 2/3 Safe account
 
-  This applies to the `safe2_3` account, another owner of `safe3_4`.
+  This applies to the `SAFE_2_3_ADDRESS` account, another owner of `SAFE_3_4_ADDRESS`.
 
-  We need to connect the Protocol Kit to `safe2_3` and the `owner4` and `owner5` accounts (owners of `safe2_3`) and sign the message.
+  We need to connect the Protocol Kit to `SAFE_2_3_ADDRESS` and the `OWNER_4_ADDRESS` and `OWNER_5_ADDRESS` accounts (owners of `SAFE_2_3_ADDRESS`) and sign the message.
 
   ```typescript
   // Create a new message object
   let messageSafe2_3 = await createMessage(TYPED_MESSAGE)
 
-  // Connect the EthAdapter from owner4 and the address of safe2_3
+  // Connect OWNER_4_ADDRESS and SAFE_2_3_ADDRESS
   protocolKit = await protocolKit.connect({
-    ethAdapter: ethAdapter4,
-    safeAddress: safe2_3
+    provider: RPC_URL,
+    signer: OWNER_4_PRIVATE_KEY,
+    safeAddress: SAFE_2_3_ADDRESS
   })
 
-  // Sign the messageSafe2_3 with owner4
-  // After this, the messageSafe2_3 contains the signature from owner4
+  // Sign the messageSafe2_3 with OWNER_4_ADDRESS
+  // After this, the messageSafe2_3 contains the signature from OWNER_4_ADDRESS
   messageSafe2_3 = await protocolKit.signMessage(
     messageSafe2_3,
     SigningMethod.SAFE_SIGNATURE,
-    safe3_4 // Parent Safe address
+    SAFE_3_4_ADDRESS // Parent Safe address
   )
 
-  // Connect the EthAdapter from owner5
-  protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter5 })
+  // Connect OWNER_5_ADDRESS
+  protocolKit = await protocolKit.connect({
+    provider: RPC_URL,
+    signer: OWNER_5_PRIVATE_KEY
+  })
 
-  // Sign the messageSafe2_3 with owner5
-  // After this, the messageSafe2_3 contains the signature from owner5
+  // Sign the messageSafe2_3 with OWNER_5_ADDRESS
+  // After this, the messageSafe2_3 contains the signature from OWNER_5_ADDRESS
   messageSafe2_3 = await protocolKit.signMessage(
     messageSafe2_3,
     SigningMethod.SAFE_SIGNATURE,
-    safe3_4 // Parent Safe address
+    SAFE_3_4_ADDRESS // Parent Safe address
   )
 
-  // Build the contract signature of safe2_3
+  // Build the contract signature of SAFE_2_3_ADDRESS
   const signatureSafe2_3 = await buildContractSignature(
     Array.from(messageSafe2_3.signatures.values()),
-    safe2_3
+    SAFE_2_3_ADDRESS
   )
 
   // Add the signatureSafe2_3 to safeMessage
-  // After this, the safeMessage contains the signature from owner1, owner2, safe1_1 and safe2_3
+  // After this, the safeMessage contains the signature from OWNER_1_ADDRESS, OWNER_2_ADDRESS, SAFE_1_1_ADDRESS and SAFE_2_3_ADDRESS
   safeMessage.addSignature(signatureSafe2_3)
   ```
 
@@ -249,17 +260,15 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
   To store a new message, we need to call the `addMessage` from the API Kit, passing the Safe address, an object with the message, and a signature from one owner.
 
   ```typescript
-  const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x'
-
-  // Get the signature from owner1
-  const signatureOwner1 = safeMessage.getSignature(signerAddress) as EthSafeSignature
+  // Get the signature from OWNER_1_ADDRESS
+  const signatureOwner1 = safeMessage.getSignature(OWNER_1_PRIVATE_KEY) as EthSafeSignature
 
   // Instantiate the API Kit
   // Use the chainId where you have the Safe account deployed
   const apiKit = new SafeApiKit({ chainId })
 
   // Propose the message
-  apiKit.addMessage(safe3_4, {
+  apiKit.addMessage(SAFE_3_4_ADDRESS, {
     message: TYPED_MESSAGE, // or STRING_MESSAGE
     signature: buildSignatureBytes([signatureOwner1])
   })
@@ -277,23 +286,22 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
     hashSafeMessage(TYPED_MESSAGE) // or STRING_MESSAGE
   )
 
-  // Get the signature from owner2
-  const signerAddress = (await ethAdapter2.getSignerAddress()) || '0x'
-  const signatureOwner2 = safeMessage.getSignature(signerAddress) as EthSafeSignature
+  // Get the signature from OWNER_2_ADDRESS
+  const signatureOwner2 = safeMessage.getSignature(OWNER_2_ADDRESS) as EthSafeSignature
 
-  // Add signature from owner2
+  // Add signature from OWNER_2_ADDRESS
   await apiKit.addMessageSignature(
     safeMessageHash,
     buildSignatureBytes([signatureOwner2])
   )
 
-  // Add signature from the owner safe1_1
+  // Add signature from the owner SAFE_1_1_ADDRESS
   await apiKit.addMessageSignature(
     safeMessageHash,
     buildSignatureBytes([signatureSafe1_1])
   )
 
-  // Add signature from the owner safe2_3
+  // Add signature from the owner SAFE_2_3_ADDRESS
   await apiKit.addMessageSignature(
     safeMessageHash,
     buildSignatureBytes([signatureSafe2_3])
@@ -320,7 +328,7 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
 
   ```typescript
   // Get the contract with the correct version
-  const signMessageLibContract = await ethAdapter1.getSignMessageLibContract({
+  const signMessageLibContract = await getSignMessageLibContract({
     safeVersion: '1.4.1'
   })
   ```

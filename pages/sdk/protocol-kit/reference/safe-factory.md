@@ -2,12 +2,17 @@
 
 ### `create`
 
-Returns an instance of the Safe Factory.
+It receives a provider and a signer as required parameters and returns an instance of the Safe Factory.
+
+The `provider` property can be an [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible provider or an RPC URL. The `signer` property can be the signer address or its private key.
 
 ```typescript
 import { SafeFactory } from '@safe-global/protocol-kit'
 
-const safeFactory = await SafeFactory.create({ ethAdapter })
+const safeFactory = await SafeFactory.create({
+  provider,
+  signer
+})
 ```
 
 - The `isL1SafeSingleton` flag
@@ -17,7 +22,11 @@ const safeFactory = await SafeFactory.create({ ethAdapter })
   By default, `Safe.sol` will only be used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force using the `Safe.sol` contract.
 
   ```typescript
-  const safeFactory = await SafeFactory.create({ ethAdapter, isL1SafeSingleton: true })
+  const safeFactory = await SafeFactory.create({
+    provider,
+    signer,
+    isL1SafeSingleton: true
+  })
   ```
 
 - The `contractNetworks` property
@@ -25,9 +34,14 @@ const safeFactory = await SafeFactory.create({ ethAdapter })
   If the Safe contracts aren't deployed to your current network, the `contractNetworks` property will be required to point to the addresses of the Safe contracts previously deployed by you.
 
   ```typescript
-  import { ContractNetworksConfig } from '@safe-global/protocol-kit'
+  import {
+    ContractNetworksConfig,
+    SafeProvider
+  } from '@safe-global/protocol-kit'
 
-  const chainId = await ethAdapter.getChainId()
+  const safeProvider = new SafeProvider({ provider, signer })
+  const chainId = await safeProvider.getChainId()
+
   const contractNetworks: ContractNetworksConfig = {
     [chainId]: {
       safeSingletonAddress: '<SINGLETON_ADDRESS>',
@@ -49,7 +63,11 @@ const safeFactory = await SafeFactory.create({ ethAdapter })
     }
   }
 
-  const safeFactory = await SafeFactory.create({ ethAdapter, contractNetworks })
+  const safeFactory = await SafeFactory.create({
+    provider,
+    signer,
+    contractNetworks
+  })
   ```
 
 - The `safeVersion` property
@@ -58,7 +76,11 @@ const safeFactory = await SafeFactory.create({ ethAdapter })
 
   ```typescript
   const safeVersion = 'X.Y.Z'
-  const safeFactory = await SafeFactory.create({ ethAdapter, safeVersion })
+  const safeFactory = await SafeFactory.create({
+    provider,
+    signer,
+    safeVersion
+  })
   ```
 
 ### `deploySafe`
@@ -102,18 +124,7 @@ const protocolKit = await safeFactory.deploySafe({ safeAccountConfig, saltNonce 
 Optionally, some properties can be passed as execution options:
 
 ```typescript
-const options: Web3TransactionOptions = {
-  from, // Optional
-  gas, // Optional
-  gasPrice, // Optional
-  maxFeePerGas, // Optional
-  maxPriorityFeePerGas // Optional
-  nonce // Optional
-}
-```
-
-```typescript
-const options: EthersTransactionOptions = {
+const options: TransactionOptions = {
   from, // Optional
   gasLimit, // Optional
   gasPrice, // Optional
