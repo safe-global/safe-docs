@@ -124,18 +124,7 @@ const protocolKit = await safeFactory.deploySafe({ safeAccountConfig, saltNonce 
 Optionally, some properties can be passed as execution options:
 
 ```typescript
-const options: Web3TransactionOptions = {
-  from, // Optional
-  gas, // Optional
-  gasPrice, // Optional
-  maxFeePerGas, // Optional
-  maxPriorityFeePerGas // Optional
-  nonce // Optional
-}
-```
-
-```typescript
-const options: EthersTransactionOptions = {
+const options: TransactionOptions = {
   from, // Optional
   gasLimit, // Optional
   gasPrice, // Optional
