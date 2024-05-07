@@ -81,21 +81,26 @@ const NetworkSwitcher: React.FC = () => {
         </Select>
         <Grid
           mr={1}
-          my={1}
+          my={2}
           sx={{ width: ['100%', '100%', 'auto'] }}
           item
           wrap='nowrap'
         >
-          <Link href={network} target='_blank' rel='noopener noreferrer'>
+          <Link
+            href={network}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
             <Typography
               variant='caption'
               mx={1}
               noWrap
               sx={{
                 whiteSpace: 'nowrap',
-                overflow: 'scroll',
+                overflowX: 'scroll',
                 textOverflow: 'initial',
                 display: { xs: 'inline-block', md: 'inline' },
+                height: '20px',
                 width: ['calc(100% - 48px)', 'calc(100% - 48px)', 'auto']
               }}
             >
