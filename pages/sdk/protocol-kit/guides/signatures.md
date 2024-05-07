@@ -12,14 +12,14 @@ In the following guides, there are different accounts involved that will be used
 
 | Who | Description | Address for this example |
 | :--- | :--- | :--- |
-| `safe3_4` | 3/4 Safe (3 signatures required out of 4 owners) | 0xb3b3862D8e38a1E965eb350B09f2167B2371D652 |
-| `owner1` | EOA and owner of `safe3_4` | 0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1 |
-| `owner2` | EOA and owner of `safe3_4` | 0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0 |
-| `safe1_1` | 1/1 Safe and owner of `safe3_4` | 0x215033cdE0619D60B7352348F4598316Cc39bC6E |
-| `owner3` | EOA and owner of `safe1_1` | 0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b |
-| `safe2_3` | 2/3 Safe and owner of `safe3_4` | 0xf75D61D6C27a7CC5788E633c1FC130f0F4a62D33 |
-| `owner4` | EOA and owner of `safe2_3` | 0xE11BA2b4D45Eaed5996Cd0823791E0C93114882d |
-| `owner5` | EOA and owner of `safe2_3` | 0xd03ea8624C8C5987235048901fB614fDcA89b117 |
+| `SAFE_3_4_ADDRESS` | 3/4 Safe (3 signatures required out of 4 owners) | 0xb3b3862D8e38a1E965eb350B09f2167B2371D652 |
+| `OWNER_1_ADDRESS` | EOA and owner of `SAFE_3_4_ADDRESS` | 0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1 |
+| `OWNER_2_ADDRESS` | EOA and owner of `SAFE_3_4_ADDRESS` | 0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0 |
+| `SAFE_1_1_ADDRESS` | 1/1 Safe and owner of `SAFE_3_4_ADDRESS` | 0x215033cdE0619D60B7352348F4598316Cc39bC6E |
+| `OWNER_3_ADDRESS` | EOA and owner of `SAFE_1_1_ADDRESS` | 0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b |
+| `SAFE_2_3_ADDRESS` | 2/3 Safe and owner of `SAFE_3_4_ADDRESS` | 0xf75D61D6C27a7CC5788E633c1FC130f0F4a62D33 |
+| `OWNER_4_ADDRESS` | EOA and owner of `SAFE_2_3_ADDRESS` | 0xE11BA2b4D45Eaed5996Cd0823791E0C93114882d |
+| `OWNER_5_ADDRESS` | EOA and owner of `SAFE_2_3_ADDRESS` | 0xd03ea8624C8C5987235048901fB614fDcA89b117 |
 
 We need to instantiate all the signers based on the Safe owner accounts.
 
@@ -29,11 +29,11 @@ const RPC_URL = 'https://eth-sepolia.public.blastapi.io'
 const provider = new ethers.JsonRpcProvider(RPC_URL)
 
 // Initialize signers
-const signer1 = new ethers.Wallet(OWNER_1_PRIVATE_KEY, provider)
-const signer2 = new ethers.Wallet(OWNER_2_PRIVATE_KEY, provider)
-const signer3 = new ethers.Wallet(OWNER_3_PRIVATE_KEY, provider)
-const signer4 = new ethers.Wallet(OWNER_4_PRIVATE_KEY, provider)
-const signer5 = new ethers.Wallet(OWNER_5_PRIVATE_KEY, provider)
+const OWNER_1_PRIVATE_KEY = '0x...'
+const OWNER_2_PRIVATE_KEY = '0x...'
+const OWNER_3_PRIVATE_KEY = '0x...'
+const OWNER_4_PRIVATE_KEY = '0x...'
+const OWNER_5_PRIVATE_KEY = '0x...'
 ```
 
 ## Guides
