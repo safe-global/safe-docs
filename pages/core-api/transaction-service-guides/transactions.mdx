@@ -22,7 +22,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
   <Tabs items={['TypeScript', 'Python']}>
     <Tabs.Tab>
       ```bash
-      yarn add ethers @safe-global/api-kit @safe-global/protocol-kit @safe-global/safe-core-sdk-types
+      yarn add @safe-global/api-kit @safe-global/protocol-kit @safe-global/safe-core-sdk-types
       ```
     </Tabs.Tab>
     <Tabs.Tab>
@@ -41,7 +41,6 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
   <Tabs items={['TypeScript', 'Python']}>
     <Tabs.Tab>
       ```typescript
-      import { ethers } from 'ethers'
       import SafeApiKit from '@safe-global/api-kit'
       import Safe from '@safe-global/protocol-kit'
       import {
@@ -69,11 +68,9 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
       ```typescript
-      const provider = new ethers.JsonRpcProvider(config.RPC_URL)
-
       // Initialize the Protocol Kit with Owner A
       const protocolKitOwnerA = await Safe.create({
-        provider,
+        provider: config.RPC_URL,
         signer: config.OWNER_A_PRIVATE_KEY,
         safeAddress: config.SAFE_ADDRESS
       })
@@ -170,16 +167,12 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
         chainId: 11155111n
       })
 
-      // Get Owner A address
-      const ownerA = new ethers.Wallet(config.OWNER_A_PRIVATE_KEY, provider)
-      const senderAddress = await ownerA.getAddress()
-
       // Send the transaction to the Transaction Service with the signature from Owner A
       await apiKit.proposeTransaction({
         safeAddress: config.SAFE_ADDRESS,
         safeTransactionData: safeTransaction.data,
         safeTxHash,
-        senderAddress,
+        senderAddress: config.OWNER_A_ADDRESS,
         senderSignature: signatureOwnerA.data
       })
       ```
@@ -240,7 +233,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       ```typescript
       // Initialize the Protocol Kit with Owner B
       const protocolKitOwnerB = await Safe.create({
-        provider,
+        provider: config.RPC_URL,
         signer: config.OWNER_B_PRIVATE_KEY,
         safeAddress: config.SAFE_ADDRESS
       })

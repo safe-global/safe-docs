@@ -53,7 +53,7 @@ The `SafeAuthPack` is an authentication system that utilizes the [Web3Auth](http
     showWidgetButton: false,
     chainConfig: {
       chainId: '0x1',
-      rpcTarget: `${rpcUrl}`
+      rpcTarget: RPC_URL
     }
   }
 
@@ -92,7 +92,7 @@ The `SafeAuthPack` is an authentication system that utilizes the [Web3Auth](http
   await safeAuthPack.signOut()
   ```
 
-  After the user is authenticated, call `getProvider()` to get the Ethereum provider instance. This is a [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible provider you can wrap using your favorite library (web3, ethers).
+  After the user is authenticated, call `getProvider()` to get an Ethereum [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible provider.
 
   ```typescript
   safeAuthPack.getProvider()
@@ -122,12 +122,9 @@ The `SafeAuthPack` is an authentication system that utilizes the [Web3Auth](http
   After connecting, you can use any of the methods provided in the [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
 
   ```typescript
-  // Wrap EIP-1193 provider with ethers
-  const provider = new ethers.BrowserProvider(safeAuthPack.getProvider())
-
   // Instantiate the Protocol Kit
   const protocolKit = await Safe.create({
-    provider,
+    provider: safeAuthPack.getProvider(),
     safeAddress,
   })
 

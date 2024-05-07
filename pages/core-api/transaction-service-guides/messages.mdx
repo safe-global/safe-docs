@@ -22,7 +22,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
   <Tabs items={['TypeScript', 'Python']}>
     <Tabs.Tab>
       ```bash
-      yarn add ethers @safe-global/api-kit @safe-global/protocol-kit @safe-global/safe-core-sdk-types
+      yarn add @safe-global/api-kit @safe-global/protocol-kit @safe-global/safe-core-sdk-types
       ```
     </Tabs.Tab>
     <Tabs.Tab>
@@ -41,7 +41,6 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
   <Tabs items={['TypeScript', 'Python']}>
     <Tabs.Tab>
       ```typescript
-      import { ethers } from 'ethers'
       import SafeApiKit, { AddMessageProps } from '@safe-global/api-kit'
       import Safe, { hashSafeMessage } from '@safe-global/protocol-kit'
       ```
@@ -67,11 +66,9 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
       ```typescript
-      const provider = new ethers.JsonRpcProvider(config.RPC_URL)
-
       // Initialize the Protocol Kit with Owner A
       const protocolKitOwnerA = await Safe.create({
-        provider,
+        provider: config.RPC_URL,
         signer: config.OWNER_A_PRIVATE_KEY,
         safeAddress: config.SAFE_ADDRESS
       })
@@ -190,7 +187,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       ```typescript
       // Initialize the Protocol Kit with Owner B
       const protocolKitOwnerB = await Safe.create({
-        provider,
+        provider: config.RPC_URL,
         signer: config.OWNER_B_PRIVATE_KEY,
         safeAddress: config.SAFE_ADDRESS
       })
@@ -232,8 +229,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       const signedMessageOwnerB = await protocolKitOwnerB.signMessage(safeServiceMessage)
 
       // Get Owner B address
-      const ownerB = new ethers.Wallet(config.OWNER_B_PRIVATE_KEY, provider)
-      const ownerBAddress = (await ownerB.getAddress()) || '0x'
+      const ownerBAddress = '0x...'
     
       // Send the message to the Transaction Service with the signature from Owner B
       await apiKit.addMessageSignature(

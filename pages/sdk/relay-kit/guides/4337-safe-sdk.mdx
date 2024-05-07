@@ -16,7 +16,7 @@ Read the [Safe4337Module documentation](../../../home/4337-safe) to understand i
 ## Install dependencies
 
 ```bash
-yarn add ethers @safe-global/relay-kit
+yarn add @safe-global/relay-kit
 ```
 
 ## Steps
@@ -30,7 +30,6 @@ yarn add ethers @safe-global/relay-kit
   {/* <!-- vale off --> */}
 
   ```typescript
-  import { ethers } from 'ethers'
   import { Safe4337Pack } from '@safe-global/relay-kit'
   ```
 
@@ -40,16 +39,14 @@ yarn add ethers @safe-global/relay-kit
 
   Firstly, we need to get a signer, which will be the owner of a Safe account after it's deployed.
 
-  In this example, we use a private key, but any method to get a [signer](https://docs.ethers.org/v6/api/providers/#Signer) can be used.
+  In this example, we use a private key, but any way to get an EIP-1193 compatible signer can be used.
 
   {/* <!-- vale off --> */}
 
   ```typescript
-  const PRIVATE_KEY = '0x...'
+  const SIGNER_ADDRESS = '0x...'
+  const SIGNER_PRIVATE_KEY = '0x...'
   const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
-  
-  const provider = new ethers.JsonRpcProvider(RPC_URL)
-  const signer = new ethers.Wallet(PRIVATE_KEY, provider)
   ```
 
   {/* <!-- vale on --> */}
@@ -68,12 +65,12 @@ yarn add ethers @safe-global/relay-kit
 
       ```typescript
       const safe4337Pack = await Safe4337Pack.init({
-        provider,
-        signer,
+        provider: RPC_URL,
+        signer: SIGNER_PRIVATE_KEY,
         rpcUrl: RPC_URL,
         bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
         options: {
-          owners: [await signer.getAddress()],
+          owners: [SIGNER_ADDRESS],
           threshold: 1
         },
         // ...
@@ -85,8 +82,8 @@ yarn add ethers @safe-global/relay-kit
 
       ```typescript
       const safe4337Pack = await Safe4337Pack.init({
-        provider,
-        signer,
+        provider: RPC_URL,
+        signer: SIGNER_PRIVATE_KEY,
         rpcUrl: RPC_URL,
         bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
         options: {
