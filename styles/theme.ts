@@ -67,10 +67,10 @@ export const theme = createTheme({
       fontSize: '56px',
       lineHeight: '60px',
       fontWeight: 700,
-
+      paddingTop: '16px',
       '@media (min-width:600px)': {
         fontSize: '36px',
-        lineHeight: '82px'
+        lineHeight: '48px'
       }
     },
     h2: {
