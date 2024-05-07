@@ -69,7 +69,6 @@ export const theme = createTheme({
       fontWeight: 700,
       paddingTop: '16px',
       '@media (min-width:600px)': {
-        paddingTop: 0,
         fontSize: '36px',
         lineHeight: '48px'
       }
