@@ -71,7 +71,7 @@ export const theme = createTheme({
       '@media (min-width:600px)': {
         paddingTop: 0,
         fontSize: '36px',
-        lineHeight: '82px'
+        lineHeight: '48px'
       }
     },
     h2: {
