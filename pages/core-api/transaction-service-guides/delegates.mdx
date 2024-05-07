@@ -43,7 +43,6 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       ```typescript
       import { ethers } from 'ethers'
       import SafeApiKit, { AddSafeDelegateProps } from '@safe-global/api-kit'
-      import { EthersAdapter } from '@safe-global/protocol-kit'
       ```
     </Tabs.Tab>
     <Tabs.Tab>
@@ -65,21 +64,10 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
       ```typescript
-      const ethProvider = new ethers.JsonRpcProvider(config.RPC_URL)
-
-      // Instantiate an EthAdapter with Owner A
-      const ownerA = new ethers.Wallet(config.OWNER_A_PRIVATE_KEY, ethProvider)
-      const ethAdapterOwnerA = new EthersAdapter({
-        ethers,
-        signerOrProvider: ownerA
-      })
-
       // Initialize the API Kit
       const apiKit = new SafeApiKit({
         chainId: 11155111n
       })
-
-      const ownerAAddress = await ethAdapterOwnerA.getSignerAddress()
 
       // Get the Safe delegates
       const delegates = await apiKit.getSafeDelegates({
@@ -118,15 +106,13 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
       ```typescript
-      const ownerB = new ethers.Wallet(config.OWNER_B_PRIVATE_KEY, ethProvider)
+      const provider = new ethers.JsonRpcProvider(config.RPC_URL)
 
-      // Instantiate an EthAdapter with Owner B
-      const ethAdapterOwnerB = new EthersAdapter({
-        ethers,
-        signerOrProvider: ownerB
-      })
+      const ownerA = new ethers.Wallet(config.OWNER_A_PRIVATE_KEY, provider)
+      const ownerAAddress = await ownerA.getAddress()
 
-      const ownerBAddress = await ethAdapterOwnerB.getSignerAddress()
+      const ownerB = new ethers.Wallet(config.OWNER_B_PRIVATE_KEY, provider)
+      const ownerBAddress = await ownerB.getAddress()
 
       const delegateConfig: AddSafeDelegateProps = {
         delegateAddress: ownerBAddress || '0x',

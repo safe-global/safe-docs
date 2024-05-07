@@ -56,32 +56,38 @@ This guide explains how transactions are signed by the Safe owners using the Pro
 
   Once the `safeTransaction` object is created, we need to collect the signatures from the signers who will sign it.
 
-  Following our [setup](../signatures.md), we will sign a Safe transaction from `safe3_4`, the main Safe account in this guide. To do that, we first need to sign the same transaction with its owners: `owner1`, `owner2`, `safe1_1`, and `safe2_3`.
+  Following our [setup](../signatures.md), we will sign a Safe transaction from `SAFE_3_4_ADDRESS`, the main Safe account in this guide. To do that, we first need to sign the same transaction with its owners: `OWNER_1_ADDRESS`, `OWNER_2_ADDRESS`, `SAFE_1_1_ADDRESS`, and `SAFE_2_3_ADDRESS`.
 
   #### ECDSA signature
 
-  This applies to `owner1` and `owner2` accounts, as both are EOAs.
+  This applies to `OWNER_1_ADDRESS` and `OWNER_2_ADDRESS` accounts, as both are EOAs.
 
   The `signTransaction` method takes the `safeTransaction` together with a `SigningMethod` and adds the new signature to the `safeTransaction.signatures` map. Depending on the type of message, the `SigningMethod` can take these values:
   - `SigningMethod.ETH_SIGN`
   - `SigningMethod.ETH_SIGN_TYPED_DATA_V4`
 
   ```typescript
-  // Connect the EthAdapter from owner1
-  protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter1 })
+  // Connect OWNER_1_ADDRESS
+  protocolKit = await protocolKit.connect({
+    provider: RPC_URL,
+    signer: OWNER_1_PRIVATE_KEY
+  })
 
-  // Sign the safeTransaction with owner1
-  // After this, the safeTransaction contains the signature from owner1
+  // Sign the safeTransaction with OWNER_1_ADDRESS
+  // After this, the safeTransaction contains the signature from OWNER_1_ADDRESS
   safeTransaction = await protocolKit.signTransaction(
     safeTransaction,
     SigningMethod.ETH_SIGN
   )
 
-  // Connect the EthAdapter from owner2
-  protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter2 })
+  // Connect OWNER_2_ADDRESS
+  protocolKit = await protocolKit.connect({
+    provider: RPC_URL,
+    signer: OWNER_2_PRIVATE_KEY
+  })
 
-  // Sign the safeTransaction with owner2
-  // After this, the safeTransaction contains the signature from owner1 and owner2
+  // Sign the safeTransaction with OWNER_2_ADDRESS
+  // After this, the safeTransaction contains the signature from OWNER_1_ADDRESS and OWNER_2_ADDRESS
   safeTransaction = await protocolKit.signTransaction(
     safeTransaction,
     SigningMethod.ETH_SIGN_TYPED_DATA_V4
@@ -143,9 +149,9 @@ This guide explains how transactions are signed by the Safe owners using the Pro
 
   ##### 1/1 Safe account
 
-  This applies to the `safe1_1` account, another owner of `safe3_4`.
+  This applies to the `SAFE_1_1_ADDRESS` account, another owner of `SAFE_3_4_ADDRESS`.
 
-  We need to connect the Protocol Kit to `safe1_1` and the `owner3` account (the only owner of `safe1_1`) and sign the transaction.
+  We need to connect the Protocol Kit to `SAFE_1_1_ADDRESS` and the `OWNER_3_ADDRESS` account (the only owner of `SAFE_1_1_ADDRESS`) and sign the transaction.
 
   ```typescript
   // Create a new transaction object
@@ -153,18 +159,19 @@ This guide explains how transactions are signed by the Safe owners using the Pro
     transactions: [safeTransactionData]
   })
 
-  // Connect the adapter from owner3 and the address of safe1_1
+  // Connect OWNER_3_ADDRESS and SAFE_1_1_ADDRESS
   protocolKit = await protocolKit.connect({
-    ethAdapter: ethAdapter3,
-    safeAddress: safe1_1
+    provider: RPC_URL,
+    signer: OWNER_3_PRIVATE_KEY,
+    safeAddress: SAFE_1_1_ADDRESS
   })
 
-  // Sign the transactionSafe1_1 with owner3
-  // After this, transactionSafe1_1 contains the signature from owner3
+  // Sign the transactionSafe1_1 with OWNER_3_ADDRESS
+  // After this, transactionSafe1_1 contains the signature from OWNER_3_ADDRESS
   transactionSafe1_1 = await protocolKit.signTransaction(
     transactionSafe1_1,
     SigningMethod.SAFE_SIGNATURE,
-    safe3_4 // Parent Safe address
+    SAFE_3_4_ADDRESS // Parent Safe address
   )
   ```
 
@@ -187,17 +194,17 @@ This guide explains how transactions are signed by the Safe owners using the Pro
 
   The `signatures.data` represents a specific signature. The `isContractSignature` flag set to `false` indicates that the signature isn't a smart contract signature but an ECDSA signature instead.
 
-  To generate a Safe compatible signature, we use the `buildContractSignature` method, which takes an array of signatures and returns another signature that can be used with Safe accounts. After that, we add the signature from `safe1_1` to our initial transaction.
+  To generate a Safe compatible signature, we use the `buildContractSignature` method, which takes an array of signatures and returns another signature that can be used with Safe accounts. After that, we add the signature from `SAFE_1_1_ADDRESS` to our initial transaction.
 
   ```typescript
-  // Build the contract signature of safe1_1
+  // Build the contract signature of SAFE_1_1_ADDRESS
   const signatureSafe1_1 = await buildContractSignature(
     Array.from(transactionSafe1_1.signatures.values()),
-    safe1_1
+    SAFE_1_1_ADDRESS
   )
 
   // Add the signatureSafe1_1 to safeTransaction
-  // After this, the safeTransaction contains the signature from owner1, owner2 and safe1_1
+  // After this, the safeTransaction contains the signature from OWNER_1_ADDRESS, OWNER_2_ADDRESS and SAFE_1_1_ADDRESS
   safeTransaction.addSignature(signatureSafe1_1)
   ```
 
@@ -211,7 +218,7 @@ This guide explains how transactions are signed by the Safe owners using the Pro
   }
   ```
 
-  The `isContractSignature` flag is now `true` because `signatureSafe1_1` is an EIP-1271 smart contract signature from the `safe1_1` account.
+  The `isContractSignature` flag is now `true` because `signatureSafe1_1` is an EIP-1271 smart contract signature from the `SAFE_1_1_ADDRESS` account.
 
   The `signatureSafe1_1.data` signature should look like this:
 
@@ -230,9 +237,9 @@ This guide explains how transactions are signed by the Safe owners using the Pro
 
   ##### 2/3 Safe account
 
-  This applies to the `safe2_3` account, another owner of `safe3_4`.
+  This applies to the `SAFE_2_3_ADDRESS` account, another owner of `SAFE_3_4_ADDRESS`.
 
-  We need to connect the Protocol Kit to `safe2_3` and the `owner4` and `owner5` accounts (owners of `safe2_3`) and sign the transaction.
+  We need to connect the Protocol Kit to `SAFE_2_3_ADDRESS` and the `OWNER_4_ADDRESS` and `OWNER_5_ADDRESS` accounts (owners of `SAFE_2_3_ADDRESS`) and sign the transaction.
 
   ```typescript
   // Create a new transaction object
@@ -240,29 +247,33 @@ This guide explains how transactions are signed by the Safe owners using the Pro
     transactions: [safeTransactionData]
   })
 
-  // Connect the EthAdapter from owner4 and the address of safe2_3
+  // Connect OWNER_4_ADDRESS and the address of SAFE_2_3_ADDRESS
   protocolKit = await protocolKit.connect({
-    ethAdapter: ethAdapter4,
-    safeAddress: safe2_3
+    provider: RPC_URL,
+    signer: OWNER_4_ADDRESS,
+    safeAddress: SAFE_2_3_ADDRESS
   })
 
-  // Sign the transactionSafe2_3 with owner4
-  // After this, the transactionSafe2_3 contains the signature from owner4
+  // Sign the transactionSafe2_3 with OWNER_4_ADDRESS
+  // After this, the transactionSafe2_3 contains the signature from OWNER_4_ADDRESS
   transactionSafe2_3 = await protocolKit.signTransaction(
     transactionSafe2_3,
     SigningMethod.SAFE_SIGNATURE,
-    safe3_4 // Parent Safe address
+    SAFE_3_4_ADDRESS // Parent Safe address
   )
 
-  // Connect the adapter for owner5
-  protocolKit = await protocolKit.connect({ ethAdapter: ethAdapter5 })
+  // Connect OWNER_5_ADDRESS
+  protocolKit = await protocolKit.connect({
+    provider: RPC_URL,
+    signer: OWNER_5_ADDRESS
+  })
 
-  // Sign the transactionSafe2_3 with owner5
-  // After this, the transactionSafe2_3 contains the signature from owner5
+  // Sign the transactionSafe2_3 with OWNER_5_ADDRESS
+  // After this, the transactionSafe2_3 contains the signature from OWNER_5_ADDRESS
   transactionSafe2_3 = await protocolKit.signTransaction(
     transactionSafe2_3,
     SigningMethod.SAFE_SIGNATURE,
-    safe3_4 // Parent Safe address
+    SAFE_3_4_ADDRESS // Parent Safe address
   )
   ```
 
@@ -286,21 +297,21 @@ This guide explains how transactions are signed by the Safe owners using the Pro
   }
   ```
 
-  We now have two signatures from the owners, `owner4` and `owner5`. Following the same process, we can create the contract signature and examine the result.
+  We now have two signatures from the owners, `OWNER_4_ADDRESS` and `OWNER_5_ADDRESS`. Following the same process, we can create the contract signature and examine the result.
 
   The `signatures.data` represents a specific signature. The `isContractSignature` flag set to `false` indicates that the signature isn't a smart contract signature but an ECDSA signature instead.
 
   To generate a Safe compatible signature, we use the `buildContractSignature` method, which takes an array of signatures and returns another signature that can be used with Safe accounts. After that, we add the signature from `safe1_1` to our initial transaction.
 
   ```typescript
-  // Build the contract signature of safe2_3
+  // Build the contract signature of SAFE_2_3_ADDRESS
   const signatureSafe2_3 = await buildContractSignature(
     Array.from(transactionSafe2_3.signatures.values()),
-    safe2_3
+    SAFE_2_3_ADDRESS
   )
 
   // Add the signatureSafe2_3 to safeTransaction
-  // After this, the safeTransaction contains the signature from owner1, owner2, safe1_1 and safe2_3
+  // After this, the safeTransaction contains the signature from OWNER_1_ADDRESS, OWNER_2_ADDRESS, SAFE_1_1_ADDRESS and SAFE_2_3_ADDRESS
   safeTransaction.addSignature(signatureSafe2_3)
   ```
 
@@ -375,10 +386,8 @@ This guide explains how transactions are signed by the Safe owners using the Pro
   To store a new transaction, we need to call the `proposeTransaction` from the API Kit, passing the Safe address, an object with the transaction, and a signature from one owner.
 
   ```typescript
-  const signerAddress = (await ethAdapter1.getSignerAddress()) || '0x'
-
-  // Get the signature from owner1
-  const signatureOwner1 = safeTransaction.getSignature(signerAddress) as EthSafeSignature
+  // Get the signature from OWNER_1_ADDRESS
+  const signatureOwner1 = safeTransaction.getSignature(OWNER_1_ADDRESS) as EthSafeSignature
 
   // Get the transaction hash of the safeTransaction
   const safeTransactionHash = await protocolKit.getTransactionHash(safeTransaction)
@@ -389,7 +398,7 @@ This guide explains how transactions are signed by the Safe owners using the Pro
 
   // Propose the transaction
   await apiKit.proposeTransaction({
-    safeAddress: safe3_4,
+    safeAddress: SAFE_3_4_ADDRESS,
     safeTransactionData: safeTransaction.data,
     safeTxHash: safeTransactionHash,
     senderAddress: signerAddress,
@@ -406,23 +415,21 @@ This guide explains how transactions are signed by the Safe owners using the Pro
   Once a transaction is proposed, it becomes available on [Safe\{Wallet\}](https://app.safe.global). However, to execute the transaction, all the confirmations from the owners are needed.
 
   ```typescript
-  const signerAddress = (await ethAdapter2.getSignerAddress()) || '0x'
+  const signatureOwner2 = safeTransaction.getSignature(OWNER_2_ADDRESS) as EthSafeSignature
 
-  const signatureOwner2 = safeTransaction.getSignature(signerAddress) as EthSafeSignature
-
-  // Confirm the transaction from owner2
+  // Confirm the transaction from OWNER_2_ADDRESS
   await apiKit.confirmTransaction(
     safeTransactionHash,
     buildSignatureBytes([signatureOwner2])
   )
 
-  // Confirm the transaction with the owner safe1_1
+  // Confirm the transaction with the owner SAFE_1_1_ADDRESS
   await apiKit.confirmTransaction(
     safeTransactionHash,
     buildSignatureBytes([signatureSafe1_1])
   )
 
-  // Add signature from the owner safe2_3
+  // Add signature from the owner SAFE_2_3_ADDRESS
   await apiKit.confirmTransaction(
     safeTransactionHash,
     buildSignatureBytes([signerSafeSig2_3])
@@ -449,12 +456,13 @@ This guide explains how transactions are signed by the Safe owners using the Pro
 
   ### Execute the transaction
 
-  Connect the Safe and the adapter of an owner to the Protocol Kit. Ensure enough funds are available in the owner's account to execute the transaction and cover the gas costs. Once the Protocol Kit is initialized, the `executeTransaction` method receives and executes the transaction with the required signatures.
+  Connect the Safe and an a signer to the Protocol Kit. Ensure enough funds are available in the owner's account to execute the transaction and cover the gas costs. Once the Protocol Kit is initialized, the `executeTransaction` method receives and executes the transaction with the required signatures.
 
   ```typescript
   protocolKit = await protocolKit.connect({
-    ethAdapter: ethAdapter1,
-    safeAddress: safe3_4
+    provider: RPC_URL,
+    signer: OWNER_1_PRIVATE_KEY,
+    safeAddress: SAFE_3_4_ADDRESS
   })
 
   // Execute the Safe transaction
@@ -479,14 +487,14 @@ This guide explains how transactions are signed by the Safe owners using the Pro
   | 1/1 Safe signer | Safe Address | 32 | 32 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>000000000000000000000000215033cdE0619D60B7352348F4598316Cc39bC6E</div> |
   | Data position for 1/1 Safe | 104 hex = Signature data for 1/1 Safe start at byte 260 | 32 | 64 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000104</div> |
   | Signature Type | Smart contract signature | 1 | 65 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>00</div> |
-  | Owner signature | `owner1` signature | 65 |  130 |<div style={{ maxWidth: "300px", textWrap: "wrap" }}>969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b1261f</div> |
+  | Owner signature | `OWNER_1_ADDRESS` signature | 65 |  130 |<div style={{ maxWidth: "300px", textWrap: "wrap" }}>969308e2abeda61a0c9c41b3c615012f50dd7456ca76ea39a18e3b975abeb67f275b07810dd59fc928f3f9103e52557c1578c7c5c171ffc983afa5306466b1261f</div> |
   | 2/3 Safe signer | Safe Address | 32 | 162 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>000000000000000000000000f75D61D6C27a7CC5788E633c1FC130f0F4a62D33</div> |
   | Data position for 2/3 Verifier | 165 hex = Signature data for 2/3 Safe start at byte 357 | 32 | 194 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000165</div> |
   | Signature | Type Smart contract signature | 1 | 195 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>00</div> |
-  | Owner signature | `owner2` signature | 65 | 260 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>4d63c79cf9d743782bc31ad58c1a316020b39839ab164caee7ecac9829f685cc44ec0d066a5dfe646b2ffeeb37575df131daf9c96ced41b8c7c4aea8dc5461801c</div> |
+  | Owner signature | `OWNER_2_ADDRESS` signature | 65 | 260 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>4d63c79cf9d743782bc31ad58c1a316020b39839ab164caee7ecac9829f685cc44ec0d066a5dfe646b2ffeeb37575df131daf9c96ced41b8c7c4aea8dc5461801c</div> |
   | 1/1 Safe Signature Length | Start of the 1/1 Safe Signature. 41 hex = 65 bytes | 32 | 292 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000041</div> |
-  | Signature | `owner3` signature | 65 | 357 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f</div> |
+  | Signature | `OWNER_3_ADDRESS` signature | 65 | 357 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>5edb6ffe67dd935d93d07c634970944ba0b096f767b92018ad635e8b28effeea5a1e512f1ad6f886690e0e30a3fae2c8c61d3f83d24d43276acdb3254b92ea5b1f</div> |
   | 2/3 Safe Signature length | Start of the 2/3 Safe Signature. 82 hex = 130 bytes | 32 | 389 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>0000000000000000000000000000000000000000000000000000000000000082</div> |
-  | Signature | `owner4` and `owner5` concatenated signatures | 130 | 519 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f</div> |
+  | Signature | `OWNER_4_ADDRESS` and `OWNER_5_ADDRESS` concatenated signatures | 130 | 519 | <div style={{ maxWidth: "300px", textWrap: "wrap" }}>023d1746ed548e90f387a6b8ddba26e6b80a78d5bfbc36e5bfcbfd63e136f8071db6e91c037fa36bde72159138bbb74fc359b35eb515e276a7c0547d5eaa042520d3e6565e5590641db447277243cf24711dce533cfcaaf3a64415dcb9fa309fbf2de1ae4709c6450752acc0d45e01b67b55379bdf4e3dc32b2d89ad0a60c231d61f</div> |
 
 </Steps>
