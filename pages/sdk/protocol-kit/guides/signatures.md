@@ -29,11 +29,11 @@ const RPC_URL = 'https://eth-sepolia.public.blastapi.io'
 const provider = new ethers.JsonRpcProvider(RPC_URL)
 
 // Initialize signers
-const OWNER_1_PRIVATE_KEY = '0x...'
-const OWNER_2_PRIVATE_KEY = '0x...'
-const OWNER_3_PRIVATE_KEY = '0x...'
-const OWNER_4_PRIVATE_KEY = '0x...'
-const OWNER_5_PRIVATE_KEY = '0x...'
+const OWNER_1_PRIVATE_KEY = // ...
+const OWNER_2_PRIVATE_KEY = // ...
+const OWNER_3_PRIVATE_KEY = // ...
+const OWNER_4_PRIVATE_KEY = // ...
+const OWNER_5_PRIVATE_KEY = // ...
 ```
 
 ## Guides
