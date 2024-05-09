@@ -1,4 +1,4 @@
-import { Steps } from 'nextra/components'
+import { Steps } from 'nextra/components'
 
 # Integration with Gelato
 
@@ -19,6 +19,7 @@ yarn add ethers @safe-global/relay-kit @safe-global/protocol-kit @safe-global/sa
 ## Relay Kit options
 
 Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs.gelato.network/developer-services/relay). The Gelato relay can be used in two ways:
+
 1. [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance)
 2. [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee)
 
@@ -30,96 +31,100 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
 
 <Steps>
 
-  ### Setup
+### Setup
 
-  1. Start with a [1/1 Safe on BNB Chain](https://app.safe.global/transactions/history?safe=bnb:0x6651FD6Abe0843f7B6CB9047b89655cc7Aa78221).
-  2. [Deposit Polygon USDC into Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/.1balance#how-can-i-use-1balance) ([transaction 0xa5f38](https://polygonscan.com/tx/0xa5f388c2d6e0d1bb32e940fccddf8eab182ad191644936665a54bf4bb1bac555)).
-  3. The Safe owner [0x6Dbd26Bca846BDa60A90890cfeF8fB47E7d0f22c](https://bscscan.com/address/0x6Dbd26Bca846BDa60A90890cfeF8fB47E7d0f22c) signs a transaction to send 0.0005 BNB and submits it to Gelato relay.
-  4. [Track the relay request](https://docs.gelato.network/developer-services/relay/quick-start/tracking-your-relay-request) of [Gelato Task ID 0x1bf7](https://relay.gelato.digital/tasks/status/0x1bf7664a1e176472f604bb3840d3d2a5bf56f98b60307961c3f8cee099f1eeb8).
-  5. [Transaction 0x814d3](https://bscscan.com/tx/0x814d385c0ec036be65663b5fbfb0d8d4e0d35af395d4d96b13f2cafaf43138f9) is executed on the blockchain.
+1. Start with a [1/1 Safe on BNB Chain](https://app.safe.global/transactions/history?safe=bnb:0x6651FD6Abe0843f7B6CB9047b89655cc7Aa78221).
+2. [Deposit Polygon USDC into Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/.1balance#how-can-i-use-1balance) ([transaction 0xa5f38](https://polygonscan.com/tx/0xa5f388c2d6e0d1bb32e940fccddf8eab182ad191644936665a54bf4bb1bac555)).
+3. The Safe owner [0x6Dbd26Bca846BDa60A90890cfeF8fB47E7d0f22c](https://bscscan.com/address/0x6Dbd26Bca846BDa60A90890cfeF8fB47E7d0f22c) signs a transaction to send 0.0005 BNB and submits it to Gelato relay.
+4. [Track the relay request](https://docs.gelato.network/developer-services/relay/quick-start/tracking-your-relay-request) of [Gelato Task ID 0x1bf7](https://relay.gelato.digital/tasks/status/0x1bf7664a1e176472f604bb3840d3d2a5bf56f98b60307961c3f8cee099f1eeb8).
+5. [Transaction 0x814d3](https://bscscan.com/tx/0x814d385c0ec036be65663b5fbfb0d8d4e0d35af395d4d96b13f2cafaf43138f9) is executed on the blockchain.
 
-  ### Use a Safe as the Relay
+### Use a Safe as the Relay
 
-  While using Gelato, you can specify that you only want the relay to allow transactions from specific smart contracts. If one of those smart contracts is a Safe smart contract, you will need to either verify the contract on a block explorer or get the ABI of the contract implementation (not the ABI of the smart contract address). This is because the Safe smart contracts use the [Proxy Pattern](https://medium.com/coinmonks/proxy-pattern-and-upgradeable-smart-contracts-45d68d6f15da), so the implementation logic for your smart contract exists on a different address.
+While using Gelato, you can specify that you only want the relay to allow transactions from specific smart contracts. If one of those smart contracts is a Safe smart contract, you will need to either verify the contract on a block explorer or get the ABI of the contract implementation (not the ABI of the smart contract address). This is because the Safe smart contracts use the [Proxy Pattern](https://medium.com/coinmonks/proxy-pattern-and-upgradeable-smart-contracts-45d68d6f15da), so the implementation logic for your smart contract exists on a different address.
 
-  ### Imports
+### Imports
 
-  ```typescript
-  import { ethers } from 'ethers'
-  import { GelatoRelayPack } from '@safe-global/relay-kit'
-  import Safe from '@safe-global/protocol-kit'
-  import {
-    MetaTransactionData,
-    MetaTransactionOptions
-  } from '@safe-global/safe-core-sdk-types'
-  ```
+```typescript
+import { ethers } from 'ethers'
+import { GelatoRelayPack } from '@safe-global/relay-kit'
+import Safe from '@safe-global/protocol-kit'
+import {
+  MetaTransactionData,
+  MetaTransactionOptions
+} from '@safe-global/safe-core-sdk-types'
+```
 
-  ### Initialize the transaction settings
+### Initialize the transaction settings
 
-  Modify the variables to customize to match your desired transaction settings.
+Modify the variables to customize to match your desired transaction settings.
 
-  ```typescript
-  // https://chainlist.org
-  const RPC_URL = 'https://endpoints.omniatech.io/v1/bsc/mainnet/public'
-  const OWNER_PRIVATE_KEY = process.env.OWNER_PRIVATE_KEY
-  const safeAddress = '0x...' // Safe from which the transaction will be sent
+```typescript
+// https://chainlist.org
+const RPC_URL = 'https://endpoints.omniatech.io/v1/bsc/mainnet/public'
+const OWNER_PRIVATE_KEY = process.env.OWNER_PRIVATE_KEY
+const safeAddress = '0x...' // Safe from which the transaction will be sent
 
-  // Any address can be used for destination. In this example, we use vitalik.eth
-  const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-  const withdrawAmount = ethers.parseUnits('0.005', 'ether').toString()
-  ```
+// Any address can be used for destination. In this example, we use vitalik.eth
+const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+const withdrawAmount = ethers.parseUnits('0.005', 'ether').toString()
+```
 
-  ### Create a transaction
+### Create a transaction
 
-  ```typescript
-  // Create a transactions array with one transaction object
-  const transactions: MetaTransactionData[] = [{
+```typescript
+// Create a transactions array with one transaction object
+const transactions: MetaTransactionData[] = [
+  {
     to: destinationAddress,
     data: '0x',
     value: withdrawAmount
-  }]
-
-  const options: MetaTransactionOptions = {
-    isSponsored: true
   }
-  ```
+]
 
-  ### Instantiate the Protocol Kit and Relay Kit
+const options: MetaTransactionOptions = {
+  isSponsored: true
+}
+```
 
-  ```typescript
-  const protocolKit = await Safe.create({
-    provider: RPC_URL,
-    signer: OWNER_PRIVATE_KEY,
-    safeAddress
-  })
+### Instantiate the Protocol Kit and Relay Kit
 
-  const relayKit = new GelatoRelayPack({
-    apiKey: process.env.GELATO_RELAY_API_KEY!,
-    protocolKit
-  })
-  ```
+```typescript
+const protocolKit = await Safe.init({
+  provider: RPC_URL,
+  signer: OWNER_PRIVATE_KEY,
+  safeAddress
+})
 
-  ### Prepare the transaction
+const relayKit = new GelatoRelayPack({
+  apiKey: process.env.GELATO_RELAY_API_KEY!,
+  protocolKit
+})
+```
 
-  ```typescript
-  const safeTransaction = await relayKit.createRelayedTransaction({
-    transactions,
-    options
-  })
+### Prepare the transaction
 
-  const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
-  ```
+```typescript
+const safeTransaction = await relayKit.createRelayedTransaction({
+  transactions,
+  options
+})
 
-  ### Send the transaction to the relay
+const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
+```
 
-  ```typescript
-  const response = await relayKit.executeRelayTransaction(
-    signedSafeTransaction,
-    options
-  )
+### Send the transaction to the relay
 
-  console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`)
-  ```
+```typescript
+const response = await relayKit.executeRelayTransaction(
+  signedSafeTransaction,
+  options
+)
+
+console.log(
+  `Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`
+)
+```
 
 </Steps>
 
@@ -131,67 +136,73 @@ For the SyncFee quickstart tutorial, you will use the Gelato relayer to pay for 
 
 <Steps>
 
-  ### Imports
+### Imports
 
-  ```typescript
-  import { ethers } from 'ethers'
-  import { GelatoRelayPack } from '@safe-global/relay-kit'
-  import Safe from '@safe-global/protocol-kit'
-  import { MetaTransactionData } from '@safe-global/safe-core-sdk-types'
-  ```
+```typescript
+import { ethers } from 'ethers'
+import { GelatoRelayPack } from '@safe-global/relay-kit'
+import Safe from '@safe-global/protocol-kit'
+import { MetaTransactionData } from '@safe-global/safe-core-sdk-types'
+```
 
-  ### Initialize the transaction settings
+### Initialize the transaction settings
 
-  Modify the variables to customize to match your desired transaction settings.
+Modify the variables to customize to match your desired transaction settings.
 
-  ```typescript
-  // https://chainlist.org
-  const RPC_URL = 'https://endpoints.omniatech.io/v1/bsc/mainnet/public'
-  const OWNER_PRIVATE_KEY = process.env.OWNER_PRIVATE_KEY
-  const safeAddress = '0x...' // Safe from which the transaction will be sent
+```typescript
+// https://chainlist.org
+const RPC_URL = 'https://endpoints.omniatech.io/v1/bsc/mainnet/public'
+const OWNER_PRIVATE_KEY = process.env.OWNER_PRIVATE_KEY
+const safeAddress = '0x...' // Safe from which the transaction will be sent
 
-  // Any address can be used for destination. In this example, we use vitalik.eth
-  const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-  const withdrawAmount = ethers.parseUnits('0.005', 'ether').toString()
-  ```
+// Any address can be used for destination. In this example, we use vitalik.eth
+const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+const withdrawAmount = ethers.parseUnits('0.005', 'ether').toString()
+```
 
-  ### Create a transaction
+### Create a transaction
 
-  ```typescript
-  // Create a transactions array with one transaction object
-  const transactions: MetaTransactionData[] = [{
+```typescript
+// Create a transactions array with one transaction object
+const transactions: MetaTransactionData[] = [
+  {
     to: destinationAddress,
     data: '0x',
     value: withdrawAmount
-  }]
-  ```
+  }
+]
+```
 
-  ### Instantiate the Protocol Kit and Relay Kit
+### Instantiate the Protocol Kit and Relay Kit
 
-  ```typescript
-  const protocolKit = await Safe.create({
-    provider: RPC_URL,
-    signer: OWNER_PRIVATE_KEY,
-    safeAddress
-  })
+```typescript
+const protocolKit = await Safe.init({
+  provider: RPC_URL,
+  signer: OWNER_PRIVATE_KEY,
+  safeAddress
+})
 
-  const relayKit = new GelatoRelayPack({ protocolKit })
-  ```
+const relayKit = new GelatoRelayPack({ protocolKit })
+```
 
-  ### Prepare the transaction
+### Prepare the transaction
 
-  ```typescript
-  const safeTransaction = await relayKit.createRelayedTransaction({ transactions })
+```typescript
+const safeTransaction = await relayKit.createRelayedTransaction({
+  transactions
+})
 
-  const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
-  ```
+const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
+```
 
-  ### Send the transaction to the relay
+### Send the transaction to the relay
 
-  ```typescript
-  const response = await relayKit.executeRelayTransaction(signedSafeTransaction)
+```typescript
+const response = await relayKit.executeRelayTransaction(signedSafeTransaction)
 
-  console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`)
-  ```
+console.log(
+  `Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`
+)
+```
 
 </Steps>

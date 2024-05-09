@@ -17,59 +17,48 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
 <Steps>
   ### Install dependencies
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
-  <Tabs items={['TypeScript', 'Python']}>
-    <Tabs.Tab>
-      ```bash
-      yarn add @safe-global/api-kit @safe-global/protocol-kit @safe-global/safe-core-sdk-types
-      ```
-    </Tabs.Tab>
-    <Tabs.Tab>
-      ```bash
-      pip install safe-eth-py web3 hexbytes
-      ```
-    </Tabs.Tab>
-  </Tabs>
+{' '}
+<Tabs items={['TypeScript', 'Python']}>
+  <Tabs.Tab>
+    ```bash yarn add @safe-global/api-kit @safe-global/protocol-kit
+    @safe-global/safe-core-sdk-types ```
+  </Tabs.Tab>
+  <Tabs.Tab>```bash pip install safe-eth-py web3 hexbytes ```</Tabs.Tab>
+</Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  ### Imports
+### Imports
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
-  <Tabs items={['TypeScript', 'Python']}>
-    <Tabs.Tab>
-      ```typescript
-      import SafeApiKit from '@safe-global/api-kit'
-      import Safe from '@safe-global/protocol-kit'
-      import {
-        MetaTransactionData,
-        OperationType
-      } from '@safe-global/safe-core-sdk-types'
-      ```
-    </Tabs.Tab>
-    <Tabs.Tab>
-      ```python
-      from gnosis.eth import EthereumClient, EthereumNetwork
-      from gnosis.safe.api.transaction_service_api import TransactionServiceApi
-      from gnosis.safe import Safe
-      from hexbytes import HexBytes
-      ```
-    </Tabs.Tab>
-  </Tabs>
+{' '}
+<Tabs items={['TypeScript', 'Python']}>
+  <Tabs.Tab>
+    ```typescript import SafeApiKit from '@safe-global/api-kit' import Safe from
+    '@safe-global/protocol-kit' import {(MetaTransactionData, OperationType)}{' '}
+    from '@safe-global/safe-core-sdk-types' ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```python from gnosis.eth import EthereumClient, EthereumNetwork from
+    gnosis.safe.api.transaction_service_api import TransactionServiceApi from
+    gnosis.safe import Safe from hexbytes import HexBytes ```
+  </Tabs.Tab>
+</Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  ### Create a Safe transaction
+### Create a Safe transaction
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
       ```typescript
       // Initialize the Protocol Kit with Owner A
-      const protocolKitOwnerA = await Safe.create({
+      const protocolKitOwnerA = await Safe.init({
         provider: config.RPC_URL,
         signer: config.OWNER_A_PRIVATE_KEY,
         safeAddress: config.SAFE_ADDRESS
@@ -126,38 +115,38 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       }'
       ```
     </Tabs.Tab>
+
   </Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  ### Sign the transaction
+### Sign the transaction
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
-  <Tabs items={['TypeScript', 'Python', 'Curl']}>
-    <Tabs.Tab>
-      ```typescript
-      // Sign the transaction with Owner A
-      const safeTxHash = await protocolKitOwnerA.getTransactionHash(safeTransaction)
-      const signatureOwnerA = await protocolKitOwnerA.signHash(safeTxHash)
-      ```
-    </Tabs.Tab>
-    <Tabs.Tab>
-      ```python
-      # Sign the transaction with Owner A
-      safe_tx.sign(config.get("OWNER_A_PRIVATE_KEY"))
-      ```
-    </Tabs.Tab>
-    <Tabs.Tab>
-      We skip this step because the transaction we created in the Transaction Service using Curl already has the signature of the transaction creator. Check the [Create a Safe transaction](#create-a-safe-transaction) step.
-    </Tabs.Tab>
-  </Tabs>
+{' '}
+<Tabs items={['TypeScript', 'Python', 'Curl']}>
+  <Tabs.Tab>
+    ```typescript // Sign the transaction with Owner A const safeTxHash = await
+    protocolKitOwnerA.getTransactionHash(safeTransaction) const signatureOwnerA
+    = await protocolKitOwnerA.signHash(safeTxHash) ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```python # Sign the transaction with Owner A
+    safe_tx.sign(config.get("OWNER_A_PRIVATE_KEY")) ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    We skip this step because the transaction we created in the Transaction
+    Service using Curl already has the signature of the transaction creator.
+    Check the [Create a Safe transaction](#create-a-safe-transaction) step.
+  </Tabs.Tab>
+</Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  ### Send the transaction to the service
+### Send the transaction to the service
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
@@ -191,48 +180,45 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       We skip this step because the transaction we created using Curl is already in the Transaction Service. Check the [Create a Safe transaction](#create-a-safe-transaction) step.
     </Tabs.Tab>
+
   </Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  ### Collect missing signatures
+### Collect missing signatures
 
-  #### Get the pending transaction
+#### Get the pending transaction
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
-  <Tabs items={['TypeScript', 'Python', 'Curl']}>
-    <Tabs.Tab>
-      ```typescript
-      const signedTransaction = await apiKit.getTransaction(safeTxHash)
-      ```
-    </Tabs.Tab>
-    <Tabs.Tab>
-      ```python
-      (safe_tx_from_tx_service, _) = transaction_service_api.get_safe_transaction(
-          safe_tx_hash)
-      ```
-    </Tabs.Tab>
-    <Tabs.Tab>
-      ```bash
-      curl -X 'GET' \
-      'https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0xe4ceea4ffffffffff0c9ce0af82780ffffffffffd3096836fff2528cb90d156/' \
-      -H 'accept: application/json' \
-      ```
-    </Tabs.Tab>
-  </Tabs>
+{' '}
+<Tabs items={['TypeScript', 'Python', 'Curl']}>
+  <Tabs.Tab>
+    ```typescript const signedTransaction = await
+    apiKit.getTransaction(safeTxHash) ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```python (safe_tx_from_tx_service, _) =
+    transaction_service_api.get_safe_transaction( safe_tx_hash) ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash curl -X 'GET' \
+    'https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0xe4ceea4ffffffffff0c9ce0af82780ffffffffffd3096836fff2528cb90d156/'
+    \ -H 'accept: application/json' \ ```
+  </Tabs.Tab>
+</Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  #### Add missing signatures
+#### Add missing signatures
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
       ```typescript
       // Initialize the Protocol Kit with Owner B
-      const protocolKitOwnerB = await Safe.create({
+      const protocolKitOwnerB = await Safe.init({
         provider: config.RPC_URL,
         signer: config.OWNER_B_PRIVATE_KEY,
         safeAddress: config.SAFE_ADDRESS
@@ -271,33 +257,32 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       }'
       ```
     </Tabs.Tab>
+
   </Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  ### Execute the transaction
+### Execute the transaction
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
-  <Tabs items={['TypeScript', 'Python']}>
-    <Tabs.Tab>
-      ```typescript
-      const transactionResponse =
-        await protocolKitOwnerA.executeTransaction(signedTransaction)
-      ```
-    </Tabs.Tab>
-    <Tabs.Tab>
-      ```python
-      result = safe_tx_from_tx_service.execute(config.get("OWNER_A_PRIVATE_KEY"))
-      ```
-    </Tabs.Tab>
-  </Tabs>
+{' '}
+<Tabs items={['TypeScript', 'Python']}>
+  <Tabs.Tab>
+    ```typescript const transactionResponse = await
+    protocolKitOwnerA.executeTransaction(signedTransaction) ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```python result =
+    safe_tx_from_tx_service.execute(config.get("OWNER_A_PRIVATE_KEY")) ```
+  </Tabs.Tab>
+</Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  ### Get the executed transaction
+### Get the executed transaction
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
@@ -313,7 +298,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       ```python
       transactions = transaction_service_api.get_transactions(
           config.get("SAFE_ADDRESS"))
-      
+
       last_executed_tx = next(
           (x for x in transactions if x.get('isExecuted')),
           None)
@@ -326,7 +311,9 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       -H 'accept: application/json' \
       ```
     </Tabs.Tab>
+
   </Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
+
 </Steps>

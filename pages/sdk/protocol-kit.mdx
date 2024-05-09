@@ -72,7 +72,6 @@ const apiKit = new SafeApiKit({
   chainId: 1n
 })
 
-
 // Or using a custom service
 const apiKit = new SafeApiKit({
   chainId: 1n, // set the correct chainId
@@ -87,7 +86,7 @@ The `SafeFactory` class allows the deployment of new Safe accounts while the `Sa
 ```tsx
 import { SafeFactory } from '@safe-global/protocol-kit'
 
-const safeFactory = await SafeFactory.create({
+const safeFactory = await SafeFactory.init({
   provider: RPC_URL,
   signer: OWNER_1_PRIVATE_KEY
 })
@@ -101,12 +100,8 @@ Calling the `deploySafe` method will deploy the desired Safe and return a Protoc
 import { SafeAccountConfig } from '@safe-global/protocol-kit'
 
 const safeAccountConfig: SafeAccountConfig = {
-  owners: [
-    await OWNER_1_ADDRESS,
-    await OWNER_2_ADDRESS,
-    await OWNER_3_ADDRESS
-  ],
-  threshold: 2,
+  owners: [await OWNER_1_ADDRESS, await OWNER_2_ADDRESS, await OWNER_3_ADDRESS],
+  threshold: 2
   // Optional params
 }
 
@@ -180,7 +175,9 @@ const safeTransactionData: MetaTransactionData = {
   value: amount
 }
 // Create a Safe transaction with the provided parameters
-const safeTransaction = await protocolKitOwner1.createTransaction({ transactions: [safeTransactionData] })
+const safeTransaction = await protocolKitOwner1.createTransaction({
+  transactions: [safeTransactionData]
+})
 ```
 
 ### Propose the transaction
@@ -201,7 +198,7 @@ await apiKit.proposeTransaction({
   safeTransactionData: safeTransaction.data,
   safeTxHash,
   senderAddress: OWNER_1_ADDRESS,
-  senderSignature: senderSignature.data,
+  senderSignature: senderSignature.data
 })
 ```
 
@@ -210,7 +207,8 @@ await apiKit.proposeTransaction({
 Recall that you created the `apiKit` in [Initialize the API Kit](./#initialize-the-safe-api-kit).
 
 ```tsx
-const pendingTransactions = await apiKit.getPendingTransactions(safeAddress).results
+const pendingTransactions = await apiKit.getPendingTransactions(safeAddress)
+  .results
 ```
 
 ### Confirm the transaction: Second confirmation
@@ -222,7 +220,7 @@ When owner 2 is connected to the application, the Protocol Kit should be initial
 const transaction = pendingTransactions[0]
 const safeTxHash = transaction.safeTxHash
 
-const protocolKitOwner2 = await Safe.create({
+const protocolKitOwner2 = await Safe.init({
   provider: RPC_URL,
   signer: OWNER_2_PRIVATE_KEY,
   safeAddress
@@ -252,7 +250,12 @@ You know that the transaction was executed if the balance in your Safe changes.
 ```tsx
 const afterBalance = await protocolKit.getBalance()
 
-console.log(`The final balance of the Safe: ${ethers.formatUnits(afterBalance, 'ether')} ETH`)
+console.log(
+  `The final balance of the Safe: ${ethers.formatUnits(
+    afterBalance,
+    'ether'
+  )} ETH`
+)
 ```
 
 ```bash
