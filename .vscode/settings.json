@@ -1,7 +1,4 @@
 {
-  "grammarly.files.include": ["**/*.md", "**/*.mdx"],
-  "vale.valeCLI.config": "${workspaceFolder}/.vale.ini",
-  "prettier.singleQuote": true,
-  "prettier.semi": false,
-  "prettier.trailingComma": "none"
+    "grammarly.files.include": ["**/*.md", "**/*.mdx"],
+    "vale.valeCLI.config": "${workspaceFolder}/.vale.ini"
 }

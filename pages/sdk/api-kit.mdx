@@ -29,140 +29,140 @@ For more detailed information, see the guide [Integrating the Protocol Kit and A
 
 <Steps>
 
-### Install dependencies
+  ### Install dependencies
 
-First, we need to install some dependencies.
+  First, we need to install some dependencies.
 
-```bash
-yarn add @safe-global/api-kit \
-  @safe-global/protocol-kit \
-  @safe-global/safe-core-sdk-types
-```
+  ```bash
+  yarn add @safe-global/api-kit \
+    @safe-global/protocol-kit \
+    @safe-global/safe-core-sdk-types
+  ```
 
-### Imports
+  ### Imports
 
-Here are all the necessary imports for this guide.
+  Here are all the necessary imports for this guide.
 
-```typescript
-import SafeApiKit from '@safe-global/api-kit'
-import Safe from '@safe-global/protocol-kit'
-import {
-  MetaTransactionData,
-  OperationType
-} from '@safe-global/safe-core-sdk-types'
-```
+  ```typescript
+  import SafeApiKit from '@safe-global/api-kit'
+  import Safe from '@safe-global/protocol-kit'
+  import {
+    MetaTransactionData,
+    OperationType
+  } from '@safe-global/safe-core-sdk-types'
+  ```
 
-### Setup
+  ### Setup
 
-We will use a Safe account setup with two or more signers, and threshold two, so at least multiple signatures will need to be collected when executing a transaction.
+  We will use a Safe account setup with two or more signers, and threshold two, so at least multiple signatures will need to be collected when executing a transaction.
 
-```typescript
-// https://chainlist.org/?search=sepolia&testnets=true
-const RPC_URL = 'https://eth-sepolia.public.blastapi.io'
+  ```typescript
+  // https://chainlist.org/?search=sepolia&testnets=true
+  const RPC_URL = 'https://eth-sepolia.public.blastapi.io'
 
-const SAFE_ADDRESS = // ...
+  const SAFE_ADDRESS = // ...
 
-const OWNER_1_ADDRESS = // ...
-const OWNER_1_PRIVATE_KEY = // ...
+  const OWNER_1_ADDRESS = // ...
+  const OWNER_1_PRIVATE_KEY = // ...
 
-const OWNER_2_PRIVATE_KEY = // ...
-```
+  const OWNER_2_PRIVATE_KEY = // ...
+  ```
 
-### Initialize the API Kit
+  ### Initialize the API Kit
 
-Firstly, we need to create an instance of the API Kit. In chains where the [Safe Transaction Service](../core-api/transaction-service-overview.mdx) is supported, it's enough to specify the `chainId` property.
+  Firstly, we need to create an instance of the API Kit. In chains where the [Safe Transaction Service](../core-api/transaction-service-overview.mdx) is supported, it's enough to specify the `chainId` property.
 
-```typescript
-const apiKit = new SafeApiKit({
-  chainId: 1n
-})
-```
+  ```typescript
+  const apiKit = new SafeApiKit({
+    chainId: 1n
+  })
+  ```
 
-Alternatively, we can use a custom service using the optional `txServiceUrl` property.
+  Alternatively, we can use a custom service using the optional `txServiceUrl` property.
 
-```typescript
-const apiKit = new SafeApiKit({
-  chainId: 1n, // set the correct chainId
-  txServiceUrl: 'https://url-to-your-custom-service'
-})
-```
+  ```typescript
+  const apiKit = new SafeApiKit({
+    chainId: 1n, // set the correct chainId
+    txServiceUrl: 'https://url-to-your-custom-service'
+  })
+  ```
 
-### Initialize the Protocol Kit
+  ### Initialize the Protocol Kit
 
-To handle transactions and signatures, we need to create an instance of the Protocol Kit with the `provider`, `signer` and `safeAddress`.
+  To handle transactions and signatures, we need to create an instance of the Protocol Kit with the `provider`, `signer` and `safeAddress`.
 
-```typescript
-const protocolKitOwner1 = await Safe.init({
-  provider: RPC_URL,
-  signer: OWNER_1_PRIVATE_KEY,
-  safeAddress: SAFE_ADDRESS
-})
-```
+  ```typescript
+  const protocolKitOwner1 = await Safe.create({
+    provider: RPC_URL,
+    signer: OWNER_1_PRIVATE_KEY,
+    safeAddress: SAFE_ADDRESS
+  })
+  ```
 
-### Propose a transaction to the service
+  ### Propose a transaction to the service
 
-Before a transaction can be executed, any of the Safe signers needs to initiate the process by creating a proposal of a transaction. We send this transaction to the service to make it accessible by the other owners so they can give their approval and sign the transaction as well.
+  Before a transaction can be executed, any of the Safe signers needs to initiate the process by creating a proposal of a transaction. We send this transaction to the service to make it accessible by the other owners so they can give their approval and sign the transaction as well.
 
-```typescript
-// Create transaction
-const safeTransactionData: MetaTransactionData = {
-  to: '0x',
-  value: '1', // 1 wei
-  data: '0x',
-  operation: OperationType.Call
-}
+  ```typescript
+  // Create transaction
+  const safeTransactionData: MetaTransactionData = {
+    to: '0x',
+    value: '1', // 1 wei
+    data: '0x',
+    operation: OperationType.Call
+  }
 
-const safeTransaction = await protocolKitOwner1.createTransaction({
-  transactions: [safeTransactionData]
-})
+  const safeTransaction = await protocolKitOwner1.createTransaction({
+    transactions: [safeTransactionData]
+  })
 
-const safeTxHash = await protocolKitOwner1.getTransactionHash(safeTransaction)
-const signature = await protocolKitOwner1.signHash(safeTxHash)
+  const safeTxHash = await protocolKitOwner1.getTransactionHash(safeTransaction)
+  const signature = await protocolKitOwner1.signHash(safeTxHash)
 
-// Propose transaction to the service
-await apiKit.proposeTransaction({
-  safeAddress: SAFE_ADDRESS,
-  safeTransactionData: safeTransaction.data,
-  safeTxHash,
-  senderAddress: OWNER_1_ADDRESS,
-  senderSignature: signature.data
-})
-```
+  // Propose transaction to the service
+  await apiKit.proposeTransaction({
+    safeAddress: SAFE_ADDRESS,
+    safeTransactionData: safeTransaction.data,
+    safeTxHash,
+    senderAddress: OWNER_1_ADDRESS,
+    senderSignature: signature.data
+  })
+  ```
 
-### Retrieve the pending transactions
+  ### Retrieve the pending transactions
 
-Different methods in the API Kit are available to retrieve pending transactions depending on the situation. To retrieve a transaction given the Safe transaction hash use the method that's not commented.
+  Different methods in the API Kit are available to retrieve pending transactions depending on the situation. To retrieve a transaction given the Safe transaction hash use the method that's not commented.
 
-```typescript
-const transaction = await service.getTransaction(safeTxHash)
-// const transactions = await service.getPendingTransactions()
-// const transactions = await service.getIncomingTransactions()
-// const transactions = await service.getMultisigTransactions()
-// const transactions = await service.getModuleTransactions()
-// const transactions = await service.getAllTransactions()
-```
+  ```typescript
+  const transaction = await service.getTransaction(safeTxHash)
+  // const transactions = await service.getPendingTransactions()
+  // const transactions = await service.getIncomingTransactions()
+  // const transactions = await service.getMultisigTransactions()
+  // const transactions = await service.getModuleTransactions()
+  // const transactions = await service.getAllTransactions()
+  ```
 
-### Confirm the transaction
+  ### Confirm the transaction
 
-In this step we need to sign the transaction with the Protocol Kit and submit the signature to the Safe Transaction Service using the `confirmTransaction` method.
+  In this step we need to sign the transaction with the Protocol Kit and submit the signature to the Safe Transaction Service using the `confirmTransaction` method.
 
-```typescript
-const protocolKitOwner2 = await Safe.init({
-  provider: RPC_URL,
-  signer: OWNER_2_PRIVATE_KEY,
-  safeAddress: SAFE_ADDRESS
-})
+  ```typescript
+  const protocolKitOwner2 = await Safe.create({
+    provider: RPC_URL,
+    signer: OWNER_2_PRIVATE_KEY,
+    safeAddress: SAFE_ADDRESS
+  })
 
-const safeTxHash = transaction.transactionHash
-const signature = await protocolKitOwner2.signHash(safeTxHash)
+  const safeTxHash = transaction.transactionHash
+  const signature = await protocolKitOwner2.signHash(safeTxHash)
 
-// Confirm the Safe transaction
-const signatureResponse = await apiKit.confirmTransaction(
-  safeTxHash,
-  signature.data
-)
-```
+  // Confirm the Safe transaction
+  const signatureResponse = await apiKit.confirmTransaction(
+    safeTxHash,
+    signature.data
+  )
+  ```
 
-The Safe transaction is now ready to be executed. This can be done using the Safe\{Wallet\} web interface, the Protocol Kit, the Safe CLI or any other tool that's available.
+  The Safe transaction is now ready to be executed. This can be done using the Safe\{Wallet\} web interface, the Protocol Kit, the Safe CLI or any other tool that's available.
 
 </Steps>

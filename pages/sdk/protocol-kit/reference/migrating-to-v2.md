@@ -9,13 +9,12 @@ This guide references the major changes between v1 and v2 to help those migratin
 To avoid confusion between terms used as synonyms, we aligned all our code to use the word `singleton`.
 
 - Rename `isL1SafeMasterCopy` to `isL1SafeSingleton`
-
 ```js
 // old:
-SafeFactory.init({ ethAdapter, isL1SafeMasterCopy: true })
+SafeFactory.create({ ethAdapter, isL1SafeMasterCopy: true })
 
 // new:
-SafeFactory.init({ ethAdapter, isL1SafeSingleton: true })
+SafeFactory.create({ ethAdapter, isL1SafeSingleton: true })
 ```
 
 ## Ethers v6
