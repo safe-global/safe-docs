@@ -69,7 +69,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```typescript
       // Initialize the Protocol Kit with Owner A
-      const protocolKitOwnerA = await Safe.create({
+      const protocolKitOwnerA = await Safe.init({
         provider: config.RPC_URL,
         signer: config.OWNER_A_PRIVATE_KEY,
         safeAddress: config.SAFE_ADDRESS
@@ -232,7 +232,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```typescript
       // Initialize the Protocol Kit with Owner B
-      const protocolKitOwnerB = await Safe.create({
+      const protocolKitOwnerB = await Safe.init({
         provider: config.RPC_URL,
         signer: config.OWNER_B_PRIVATE_KEY,
         safeAddress: config.SAFE_ADDRESS

@@ -87,7 +87,7 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
   ### Instantiate the Protocol Kit and Relay Kit
 
   ```typescript
-  const protocolKit = await Safe.create({
+  const protocolKit = await Safe.init({
     provider: RPC_URL,
     signer: OWNER_PRIVATE_KEY,
     safeAddress
@@ -169,7 +169,7 @@ For the SyncFee quickstart tutorial, you will use the Gelato relayer to pay for 
   ### Instantiate the Protocol Kit and Relay Kit
 
   ```typescript
-  const protocolKit = await Safe.create({
+  const protocolKit = await Safe.init({
     provider: RPC_URL,
     signer: OWNER_PRIVATE_KEY,
     safeAddress

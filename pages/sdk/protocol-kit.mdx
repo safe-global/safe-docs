@@ -87,7 +87,7 @@ The `SafeFactory` class allows the deployment of new Safe accounts while the `Sa
 ```tsx
 import { SafeFactory } from '@safe-global/protocol-kit'
 
-const safeFactory = await SafeFactory.create({
+const safeFactory = await SafeFactory.init({
   provider: RPC_URL,
   signer: OWNER_1_PRIVATE_KEY
 })
@@ -222,7 +222,7 @@ When owner 2 is connected to the application, the Protocol Kit should be initial
 const transaction = pendingTransactions[0]
 const safeTxHash = transaction.safeTxHash
 
-const protocolKitOwner2 = await Safe.create({
+const protocolKitOwner2 = await Safe.init({
   provider: RPC_URL,
   signer: OWNER_2_PRIVATE_KEY,
   safeAddress
