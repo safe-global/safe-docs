@@ -2,7 +2,7 @@
 
 ## Initialization
 
-### `create`
+### `init`
 
 Returns an instance of the Protocol Kit connected to a Safe.
 

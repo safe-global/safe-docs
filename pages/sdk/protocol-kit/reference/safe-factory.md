@@ -1,6 +1,6 @@
 # Safe Factory reference
 
-### `create`
+### `init`
 
 It receives a provider and a signer as required parameters and returns an instance of the Safe Factory.
 
