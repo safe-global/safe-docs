@@ -11,6 +11,11 @@ h1 {
   line-height: 60px;
 }
 
+/* Container */
+#__next > div > div.nx-mx-auto.nx-flex.nx-max-w-\[90rem\] {
+  max-width: 100%;
+}
+
 /* Navbar */
 #__next > div > div > div {
   backdrop-filter: blur(8px);
@@ -21,6 +26,11 @@ h1 {
 /* Navbar container */
 #__next > div > div.nextra-nav-container > nav {
   height: 94px;
+  max-width: 100%;
+}
+
+/* Content */
+#__next > div > div > .nextra-content {
 }
 
 /* Sidebar */
@@ -37,6 +47,7 @@ h1 {
   padding-left: 0;
   padding-top: 0;
   padding-bottom: 0;
+  max-width: 100%;
 }
 
 #__next > div > footer > div > div > div > div > ul {
@@ -67,9 +78,18 @@ h1 {
   /* Sidebar */
   #__next > div > div.nx-mx-auto.nx-flex.nx-max-w-\[90rem\] > aside {
     top: 5rem;
+    min-width: 15rem;
+    width: 25%;
+    max-width: 18rem;
   }
 
   /* TOC */
+  #__next > div > div.nx-mx-auto.nx-flex.nx-max-w-\[90rem\] > nav {
+    min-width: 20rem;
+    width: auto;
+    max-width: 25rem;
+  }
+
   #__next > div > div.nx-mx-auto.nx-flex.nx-max-w-\[90rem\] > nav > div {
     top: 5rem;
   }
