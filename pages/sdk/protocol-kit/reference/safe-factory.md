@@ -1,6 +1,6 @@
 # Safe Factory reference
 
-### `create`
+### `init`
 
 It receives a provider and a signer as required parameters and returns an instance of the Safe Factory.
 
@@ -9,7 +9,7 @@ The `provider` property can be an [EIP-1193](https://eips.ethereum.org/EIPS/eip-
 ```typescript
 import { SafeFactory } from '@safe-global/protocol-kit'
 
-const safeFactory = await SafeFactory.create({
+const safeFactory = await SafeFactory.init({
   provider,
   signer
 })
@@ -22,7 +22,7 @@ const safeFactory = await SafeFactory.create({
   By default, `Safe.sol` will only be used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force using the `Safe.sol` contract.
 
   ```typescript
-  const safeFactory = await SafeFactory.create({
+  const safeFactory = await SafeFactory.init({
     provider,
     signer,
     isL1SafeSingleton: true
@@ -63,7 +63,7 @@ const safeFactory = await SafeFactory.create({
     }
   }
 
-  const safeFactory = await SafeFactory.create({
+  const safeFactory = await SafeFactory.init({
     provider,
     signer,
     contractNetworks
@@ -76,7 +76,7 @@ const safeFactory = await SafeFactory.create({
 
   ```typescript
   const safeVersion = 'X.Y.Z'
-  const safeFactory = await SafeFactory.create({
+  const safeFactory = await SafeFactory.init({
     provider,
     signer,
     safeVersion

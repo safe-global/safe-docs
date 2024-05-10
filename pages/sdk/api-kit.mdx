@@ -92,7 +92,7 @@ For more detailed information, see the guide [Integrating the Protocol Kit and A
   To handle transactions and signatures, we need to create an instance of the Protocol Kit with the `provider`, `signer` and `safeAddress`.
 
   ```typescript
-  const protocolKitOwner1 = await Safe.create({
+  const protocolKitOwner1 = await Safe.init({
     provider: RPC_URL,
     signer: OWNER_1_PRIVATE_KEY,
     safeAddress: SAFE_ADDRESS
@@ -147,7 +147,7 @@ For more detailed information, see the guide [Integrating the Protocol Kit and A
   In this step we need to sign the transaction with the Protocol Kit and submit the signature to the Safe Transaction Service using the `confirmTransaction` method.
 
   ```typescript
-  const protocolKitOwner2 = await Safe.create({
+  const protocolKitOwner2 = await Safe.init({
     provider: RPC_URL,
     signer: OWNER_2_PRIVATE_KEY,
     safeAddress: SAFE_ADDRESS

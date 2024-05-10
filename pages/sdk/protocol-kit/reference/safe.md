@@ -2,7 +2,7 @@
 
 ## Initialization
 
-### `create`
+### `init`
 
 Returns an instance of the Protocol Kit connected to a Safe.
 
@@ -13,7 +13,7 @@ Initialization of a deployed Safe using the `safeAddress` property:
 ```typescript
 import Safe from '@safe-global/protocol-kit'
 
-const protocolKit = await Safe.create({
+const protocolKit = await Safe.init({
   provider,
   signer,
   safeAddress 
@@ -30,7 +30,7 @@ const predictedSafe: PredictedSafeProps = {
   safeDeploymentConfig
 }
 
-const protocolKit = await Safe.create({
+const protocolKit = await Safe.init({
   provider,
   signer,
   predictedSafe
@@ -44,7 +44,7 @@ const protocolKit = await Safe.create({
   By default `Safe.sol` will only be used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force using the `Safe.sol` contract.
 
   ```typescript
-  const protocolKit = await Safe.create({
+  const protocolKit = await Safe.init({
     provider,
     signer,
     safeAddress,
@@ -86,7 +86,7 @@ const protocolKit = await Safe.create({
     }
   }
 
-  const protocolKit = await Safe.create({
+  const protocolKit = await Safe.init({
     provider,
     signer,
     safeAddress,
@@ -103,7 +103,7 @@ The `provider` property can be an [EIP-1193](https://eips.ethereum.org/EIPS/eip-
 Connection of a deployed Safe using the `safeAddress` property:
 
 ```typescript
-let protocolKit = await Safe.create({
+let protocolKit = await Safe.init({
   provider,
   signer,
   safeAddress
@@ -125,7 +125,7 @@ const predictedSafe: PredictedSafeProps = {
   safeDeploymentConfig
 }
 
-let protocolKit = await Safe.create({
+let protocolKit = await Safe.init({
   provider,
   signer,
   safeAddress 
@@ -185,7 +185,7 @@ protocolKit = await protocolKit.connect({ predictedSafe })
     }
   }
 
-  let protocolKit = await Safe.create({
+  let protocolKit = await Safe.init({
     provider,
     signer,
     safeAddress
