@@ -69,7 +69,7 @@ jobs:
         if: github.event.number
         env:
           BUCKET: s3://${{ secrets.AWS_REVIEW_BUCKET_NAME }}/docs/${{ steps.extract_branch.outputs.branch }}
-        run: bash ./scripts/github/s3_upload.sh
+        run: bash ./.github/scripts/s3_upload.sh
 
       # Comment with the deployment link
       - name: Post an epic deployment link in the PR
