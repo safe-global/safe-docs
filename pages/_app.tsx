@@ -58,7 +58,11 @@ const GoogleAnalytics: React.FC = () => {
       location.reload()
     }
   }, [isAnalyticsEnabled])
-  return null
+  return isAnalyticsInitialized ? (
+    <GoogleTagManager
+      gtmId={String(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID)}
+    />
+  ) : null
 }
 
 const App = ({
@@ -68,27 +72,22 @@ const App = ({
   emotionCache = clientSideEmotionCache
 }: AppProps & {
   emotionCache?: EmotionCache
-}): ReactElement => {
-  return (
-    <>
-      <Head>
-        <MetaTags path={router.asPath} />
-      </Head>
-      <GoogleTagManager
-        gtmId={String(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID)}
-      />
-      <CacheProvider value={emotionCache}>
-        <CssVarsProvider theme={cssVarsTheme}>
-          <CookieBannerContextProvider>
-            <CssBaseline />
-            <GoogleAnalytics />
-            <Component {...pageProps} />
-            <CookieBanner />
-          </CookieBannerContextProvider>
-        </CssVarsProvider>
-      </CacheProvider>
-    </>
-  )
-}
+}): ReactElement => (
+  <>
+    <Head>
+      <MetaTags path={router.asPath} />
+    </Head>
+    <CacheProvider value={emotionCache}>
+      <CssVarsProvider theme={cssVarsTheme}>
+        <CookieBannerContextProvider>
+          <CssBaseline />
+          <GoogleAnalytics />
+          <Component {...pageProps} />
+          <CookieBanner />
+        </CookieBannerContextProvider>
+      </CssVarsProvider>
+    </CacheProvider>
+  </>
+)
 
 export default App
