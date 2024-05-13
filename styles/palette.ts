@@ -43,6 +43,7 @@ export const palette = {
     background: '#19252C'
   },
   warning: {
+    darker: '#2F2318',
     dark: '#CD674E',
     main: '#FF8061',
     light: '#FFB7A6',
@@ -50,7 +51,7 @@ export const palette = {
   },
   background: {
     default: '#121312',
-    dark: '#1C1C1C',
+    dark: '#3C3C3C',
     main: '#121312',
     paper: '#1C1C1C',
     light: '#1B2A22'

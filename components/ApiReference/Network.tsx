@@ -64,6 +64,7 @@ const NetworkSwitcher: React.FC = () => {
           sx={{
             mr: 1,
             width: ['100%', '100%', 'auto'],
+            color: 'white',
             border: ({ palette }) => `1px solid ${palette.grey[700]}`
           }}
           inputProps={{
@@ -86,11 +87,7 @@ const NetworkSwitcher: React.FC = () => {
           item
           wrap='nowrap'
         >
-          <Link
-            href={network}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
+          <Link href={network} target='_blank' rel='noopener noreferrer'>
             <Typography
               variant='caption'
               mx={1}
@@ -109,12 +106,7 @@ const NetworkSwitcher: React.FC = () => {
           </Link>
           <CopyToClipboard getValue={() => `${network}`} />
         </Grid>
-        <Grid
-          sx={{ width: ['100%', '100%', 'auto'] }}
-          item
-          justifyContent='flex-end'
-          mr={1}
-        >
+        <Grid sx={{ width: '100%' }} item mr={1}>
           <Link
             href={`${network}?format=openapi`}
             target='_blank'
