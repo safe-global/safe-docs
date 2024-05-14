@@ -5,9 +5,9 @@ The Safe{Core} infrastructure consists of the following services:
 * [Safe Transaction Service](https://github.com/safe-global/safe-transaction-service): Keeps track of transactions related to Safe contracts (Python).
 * [Safe Events Service](https://github.com/safe-global/safe-events-service): Handles Safe indexing events from the Transaction Service and delivers them as HTTP webhooks (NodeJS).
 
-Safe{Wallet} uses these services to offer functionality to end customers via the Web and Mobile Applications. [Safe Client Gateway](https://github.com/safe-global/safe-client-gateway-nest) acts as a facade between the end customer and the Safe{Core} services and [Safe Config Service](https://github.com/safe-global/safe-config-service) stores all supported networks and chain-specific variables.
+Safe{Wallet} uses these services to offer functionality to end customers via the web and mobile applications. The [Safe Client Gateway](https://github.com/safe-global/safe-client-gateway-nest) acts as a facade between the end customer and the Safe{Core} services and the [Safe Config Service](https://github.com/safe-global/safe-config-service) stores all supported networks and chain-specific variables.
 
-Safe's production setup is a mixture of several instances of the Transaction Service orchestrated by the Config Service, later consumed by the Safe Client Gateway. The Events Service notifies the Safe Client Gateway when new events are indexed, helping to improve the user experience.
+Safe's production setup consists of several instances of the Transaction Service orchestrated by the Config Service, which are later consumed by the Safe Client Gateway. The Events Service notifies the Safe Client Gateway when new events are indexed, helping to improve the user experience.
 
 ![Overview of the backend services and their components.](../../assets/diagram-services.png)
 
@@ -17,13 +17,14 @@ The Transaction Service uses tracing in Mainnet/Sepolia and Gnosis Chain and eve
 
 ## Safe Events Service
 
-The Events Service connects to the events queue processed by the Transaction Service. It handles Safe indexing events and delivers them as HTTP webhooks. The configuration of webhook destinations is stored in the service's database.
+The Events Service connects to the events queue processed by the Transaction Service. It handles Safe indexing events and delivers them as HTTP webhooks. The service's database stores the configuration of webhook destinations.
 
 ## Integration Flow Safe{Wallet} & Safe{Core}
 
-The Client Gateway leverages the Config Service to find the Transaction Service instance required for a specific request. The Client Gateway forwards the request to the specified Transaction Service instance for the supported networks (determined by the Config Service). The Client Gateway transforms, aggregates, and caches information from the Config and Transaction Services, optimizing data for Safe's web and mobile clients.
-
-The Event Service provides information to the Client Gateway when the Transaction Service indexes an event using webhooks. The Client Gateway is then responsible for providing this information to the end clients.
+- The Client Gateway leverages the Config Service to find the Transaction Service instance required for a specific request.
+- The Client Gateway forwards the request to the specified Transaction Service instance for the supported networks (determined by the Config Service).
+- The Client Gateway transforms, aggregates, and caches information from the Config and Transaction Services, optimizing data for Safe's web and mobile clients.
+- The Event Service provides information to the Client Gateway when the Transaction Service indexes an event using webhooks. The Client Gateway is then responsible for providing this information to the end clients.
 
 ``` mermaid
 sequenceDiagram
@@ -53,7 +54,7 @@ sequenceDiagram
     Client Gateway->>+External Request: Event notification
 ```
 
-Even though Config Service and Transaction Service instances are reachable by clients that aren't the Client Gateway, this may change in the future. The Client Gateway is the outermost component of the Safe infrastructure and should be the single point of communication with any frontend client.
+Even though the Config Service and Transaction Service instances are reachable by clients that aren't the Client Gateway, this may change in the future. The Client Gateway is the outermost component of the Safe infrastructure and should be the single point of communication with any front-end client.
 
 ## Running locally
 

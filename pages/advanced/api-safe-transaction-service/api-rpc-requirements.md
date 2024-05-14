@@ -43,7 +43,7 @@ The indexer tries to process a low number of blocks (currently 50), and dependin
 - If there is **an exception** when requesting the information (I/O error) number of blocks to process is reset to the minimum number of blocks (currently 1).
 - All this happens in every request to the node used for indexing (safe transactions, erc20/721 events...).
 
-Be careful, some nodes, like **Binance Smart Chain** public nodes, have a hardcoded limit of blocks they can process (_5000_ in the case of BSC). Set `ETH_EVENTS_BLOCK_PROCESS_LIMIT_MAX` to prevent the algorithm from trying to process more blocks and raise errors all the time
+Be careful, some nodes, like **Binance Smart Chain** public nodes, have a hard-coded limit of blocks they can process (_5000_ in the case of BSC). Set `ETH_EVENTS_BLOCK_PROCESS_LIMIT_MAX` to prevent the algorithm from trying to process more blocks and raise errors all the time
 
 ## **RPC Provider expectations**
 
