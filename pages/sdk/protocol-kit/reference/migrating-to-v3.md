@@ -1,4 +1,4 @@
-# Migrating to v3
+# Migrate to v3
 
 This guide references the major changes between v2 and v3 to help those migrating an existing app.
 
