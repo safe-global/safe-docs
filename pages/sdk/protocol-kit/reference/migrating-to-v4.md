@@ -4,9 +4,9 @@ This guide references the major changes between v3 and v4 to help those migratin
 
 **Note:** When upgrading to `protocol-kit` v4, it's necessary to upgrade to `safe-core-sdk-types` v5.
 
-## Renaming SafeFactory and Safe static `create` to `init`
+## Renaming SafeFactory and Safe static method `create` to `init`
 
-We renamed the `create` method to `init` to better reflect the method's purpose. The term `create` was misleading, as it suggested that a new Safe would be created and deployed. However, this method is only for initializing the Safe object, so `init` is a more accurate and descriptive name.
+We renamed the `create` method to `init` to better reflect the method's purpose. The term `create` was misleading, as it suggested that a new Safe account would be created and deployed. However, this method is only for initializing the Safe class, so `init` is a more accurate and descriptive name.
 
 ```js
 // old
@@ -20,7 +20,10 @@ const safeFactory = await SafeFactory.init({ ... })
 
 ## Removing adapters
 
-We have removed the concept of adapters from the `protocol-kit` to simplify the library. Instead of using specific library adapters, we will now use an internal `SafeProvider` object to interact with the Safe. This `SafeProvider` will be created using a `provider` and a `signer`.
+We have removed the concept of adapters from the `protocol-kit` to simplify the library. Instead of using specific library adapters, we will now use an internal `SafeProvider` object to interact with the Safe. This `SafeProvider` will be created using:
+
+- An Ethereum provider, an [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible provider, or an RPC URL
+- An optional signer that should be an address from the provider or a private key. If not provided, the first account of the provider (`eth_accounts`) will be used
 
 The `EthersAdapter` and `Web3Adapter` classes are no longer available. Similarly, `EthersAdapterConfig` and `Web3AdapterConfig` have been removed and `EthAdapter` interface is not available anymore.
 
@@ -37,7 +40,7 @@ await Safe.create({
 // new
 await Safe.init({
    provider: window.ethereum, // Or any compatible EIP-1193 provider
-   signer: "signerAddressOrPrivateKey", // Signer address or Signer private key. If not provider the first account of the provider will be used
+   signer: "signerAddressOrPrivateKey", // Signer address or private key
    safeAddress: '0xSafeAddress'
    ...
 })
@@ -51,15 +54,15 @@ await Safe.init({
 })
 ```
 
-## EthersTransactionOptions and Web3TransactionOptions types are now TransactionOptions
+## `EthersTransactionOptions` and `Web3TransactionOptions` types are now `TransactionOptions`
 
-As we remove the adapters concept we also remove the specific transaction options objects for each library. Now we have a single `TransactionOptions` type.
+As we remove the adapters concept, we also eliminate the specific transaction options objects for each library. Now, we have a single `TransactionOptions` type.
 
-We removed the `gas` property from the `TransactionOptions` object as it was some specific property for web3. Now you should use the `gasLimit` property.
+We removed the `gas` property from the `TransactionOptions` object as it was a specific property for web3. Now, you should use the `gasLimit` property instead.
 
-## EthersTransactionResult and Web3TransactionResult types are now TransactionResult
+## `EthersTransactionResult` and `Web3TransactionResult` types are now `TransactionResult`
 
-As we remove the adapters concept we also remove the specific transaction result objects for each library. Now we have a single `TransactionResult` type.
+As we remove the adapters concept, we also eliminate the specific transaction result objects for each library. Now, we have a single `TransactionResult` type.
 
 ## Contract classes suffixed with Ethers and Web3
 

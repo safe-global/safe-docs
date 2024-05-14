@@ -4,9 +4,12 @@ This guide references the major changes between v2 and v3 to help those migratin
 
 ## Removing adapters
 
-We have removed the concept of adapters from the `protocol-kit` to simplify the library. Instead of using specific library adapters, we will now use an internal `SafeProvider` object to interact with the Safe. This `SafeProvider` will be created using a `provider` and a `signer`.
+We have removed the concept of adapters from the `protocol-kit` to simplify the library. Instead of using specific library adapters, we will now use an internal `SafeProvider` object to interact with the Safe. This `SafeProvider` will be created using:
 
-These change affects the `Safe4337Pack` instance creation as it was previously using an `ethAdapter` object.
+- An Ethereum provider, an [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible provider, or an RPC URL
+- An optional signer that should be an address from the provider or a private key. If not provided, the first account of the provider (`eth_accounts`) will be used
+
+These changes affect the creation of the `Safe4337Pack` instance, as it was previously using an `ethAdapter` compatible object.
 
 ```typescript
 // old
@@ -20,7 +23,7 @@ const safe4337Pack = await Safe4337Pack.init({
 // new
 const safe4337Pack = await Safe4337Pack.init({
   provider: window.ethereum, // Or any compatible EIP-1193 provider,
-  signer: "signerAddressOrPrivateKey", // Signer address or Signer private key. If not provider the first account of the provider will be used
+  signer: "signerAddressOrPrivateKey", // Signer address or signer private key
   // ...
 });
 
