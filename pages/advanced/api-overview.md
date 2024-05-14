@@ -19,7 +19,7 @@ The Transaction Service uses tracing in Mainnet/Sepolia and Gnosis Chain and eve
 
 The Events Service connects to the events queue processed by the Transaction Service. It handles Safe indexing events and delivers them as HTTP webhooks. The service's database stores the configuration of webhook destinations.
 
-## Integration Flow Safe{Wallet} & Safe{Core}
+## Integration Flow for Safe{Wallet} and Safe{Core}
 
 - The Client Gateway leverages the Config Service to find the Transaction Service instance required for a specific request.
 - The Client Gateway forwards the request to the specified Transaction Service instance for the supported networks (determined by the Config Service).
