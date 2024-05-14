@@ -22,7 +22,7 @@ const safeFactory = await SafeFactory.init({ ... })
 
 We have removed the concept of adapters from the `protocol-kit` to simplify the library. Instead of using specific library adapters, we will now use an internal `SafeProvider` object to interact with the Safe. This `SafeProvider` will be created using a `provider` and a `signer`.
 
-The `EthersAdapter` and `Web3Adapter` classes are no longer available. Similarly, `EthersAdapterConfig` and `Web3AdapterConfig` have been removed.
+The `EthersAdapter` and `Web3Adapter` classes are no longer available. Similarly, `EthersAdapterConfig` and `Web3AdapterConfig` have been removed and `EthAdapter` interface is not available anymore.
 
 ```js
 // old
