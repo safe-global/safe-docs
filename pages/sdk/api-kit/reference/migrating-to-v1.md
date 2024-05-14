@@ -1,4 +1,4 @@
-# Migrating to v1
+# Migrate to v1
 
 This guide references the major changes between `safe-service-client` and `api-kit` v1 to help those migrating an existing application.
 
