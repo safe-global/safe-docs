@@ -1,4 +1,9 @@
 {
     "api-rpc-requirements": "RPC Requirements",
-    "faq": "FAQ"
+    "faq": {
+      "title": "FAQ",
+      "theme": {
+        "toc": false
+      }
+    }
   }
