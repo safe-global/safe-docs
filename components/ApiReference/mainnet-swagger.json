@@ -1112,7 +1112,7 @@
         ],
         "deprecated": false,
         "path": "/v1/safes/{address}/balances/",
-        "title": "List a Safe's Balances",
+        "title": "List a Safe's Balances (Deprecated)",
         "additionalInfo": ""
       },
       "parameters": {
@@ -3470,7 +3470,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "0287b78d-96ed-4a9c-b80b-1965c1753dc9"
+          "default": "bb1a4b6f-98b1-4379-bdc6-dab2ce1fb87a"
         },
         "safes": {
           "type": "array",
@@ -3539,7 +3539,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "8da0a387-58c9-4028-9c98-73857f3c5a3b"
+          "default": "92c9255f-1c80-42bf-80d9-a86a4ea1b1e1"
         },
         "safes": {
           "type": "array",

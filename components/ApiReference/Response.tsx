@@ -8,6 +8,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore'
 
 import Property from './Property'
 import Hr from '../Hr'
+import { MdxHeading } from '../../lib/mdx'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Response: React.FC<{ response: any, index: number }> = ({
@@ -90,7 +91,9 @@ const Response: React.FC<{ response: any, index: number }> = ({
                   borderRadius: 1,
                   border: 'none',
                   mr: 1,
-                  backgroundColor: isSuccess ? 'success.background' : 'error.background'
+                  backgroundColor: isSuccess
+                    ? 'success.background'
+                    : 'error.background'
                 }}
               />
             </Grid>
@@ -136,9 +139,7 @@ const Response: React.FC<{ response: any, index: number }> = ({
 const Responses: React.FC<{ responses: any[] }> = ({ responses }) => {
   return (
     <Grid sx={{ mt: 2 }}>
-      <Typography variant='h4' gutterBottom>
-        Responses
-      </Typography>
+      <MdxHeading headingLevel={4}>Responses</MdxHeading>
       <Hr />
       {responses?.map?.((response, index) => (
         <Response key={index} index={index} response={response} />
