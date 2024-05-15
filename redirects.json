@@ -421,12 +421,17 @@
   },
   {
     "source": "/safe-core-api/rpc-requirements",
-    "destination": "/advanced/api-rpc-requirements",
+    "destination": "/advanced/api-safe-transaction-service/rpc-requirements",
     "permanent": true
   },
   {
     "source": "/api-rpc-requirements",
-    "destination": "/advanced/api-rpc-requirements",
+    "destination": "/advanced/api-safe-transaction-service/rpc-requirements",
+    "permanent": true
+  },
+  {
+    "source": "/advanced/api-rpc-requirements",
+    "destination": "/advanced/api-safe-transaction-service/rpc-requirements",
     "permanent": true
   },
   {
