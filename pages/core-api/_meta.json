@@ -3,9 +3,16 @@
     "title": "← Go Home",
     "href": "/"
   },
-  "-- Safe Transaction Service API": {
+  "-- Safe{Core} Infrastructure": {
     "type": "separator",
-    "title": "Safe Transaction Service API"
+    "title": "Safe{Core} Infrastructure"
+  },
+  "api-overview": "Overview",
+  "api-safe-transaction-service": "Safe Transaction Service",
+  "api-new-networks": "Add New Networks",
+  "-- Safe Transaction Service": {
+    "type": "separator",
+    "title": "Safe Transaction Service"
   },
   "transaction-service-overview": "Overview",
   "transaction-service-supported-networks": "Supported Networks",
