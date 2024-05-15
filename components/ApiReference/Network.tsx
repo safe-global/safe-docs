@@ -85,7 +85,6 @@ const NetworkSwitcher: React.FC = () => {
           my={2}
           sx={{ width: ['100%', '100%', 'auto'] }}
           item
-          wrap='nowrap'
         >
           <Link href={network} target='_blank' rel='noopener noreferrer'>
             <Typography

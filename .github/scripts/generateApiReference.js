@@ -299,7 +299,7 @@ ${curlify({
       </CH.Code>
     </CH.Section>
 <Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
+  This snippet shows a sample request on mainnet. For other networks please use
   <Link
     href='/core-api/transaction-service-supported-networks'
     rel='noopener noreferrer'

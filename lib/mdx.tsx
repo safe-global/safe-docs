@@ -24,9 +24,10 @@ import MuiLink from '@mui/material/Link'
 import { type Heading } from '../components/ApiReference/TOC'
 import swagger from '../components/ApiReference/mainnet-swagger.json'
 import pathsMetadata from '../components/ApiReference/paths-metadata.json'
+import HashTag from '../assets/svg/hashtag.svg'
 
 export const slugify: (text: string) => string = text =>
-  text?.replace(' #', '')?.replace?.(/ /g, '-').replace(/\//g, '-')
+  text?.replace?.(/ /g, '-').replace(/\//g, '-')
 
 export const getHeadingChildren: (heading: string) => Heading[] = heading => {
   const headingPath = '/v1/' + heading + '/'
@@ -61,9 +62,10 @@ export const getHeadingsFromHtml: (
         const headingText = heading
           .replace(/<[^>]*>/g, '')
           .replace(/&nbsp;/g, ' ')
-          .replace(' #', '')
+          .split('.')[0]
           .trim()
-        const link = `#${slugify(headingText)}`
+        let link = `#${slugify(headingText)}`
+        if (link.slice(-1) === '-') link = link.slice(0, -1)
         return {
           text: headingText,
           link,
@@ -109,7 +111,7 @@ export const MdxHeading: React.FC<{
           }
         }}
       >
-        #
+        <HashTag width='15px' height='35px' />
       </Button>
     )}
   </Typography>

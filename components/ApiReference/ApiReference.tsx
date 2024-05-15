@@ -89,7 +89,7 @@ const ApiReference: React.FC = () => {
                 px: 0.8,
                 position: 'fixed',
                 bottom: [120, 60],
-                right: 10,
+                right: 16,
                 zIndex: 1000,
                 opacity: currentIndex !== '' ? 1 : 0,
                 transition: 'opacity 0.3s',
