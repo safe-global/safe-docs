@@ -14,11 +14,15 @@ const SampleRequestHeader: React.FC<{
     <Grid container justifyContent='space-between'>
       <MdxHeading headingLevel={4}>Sample Request</MdxHeading>
       <Button
-        variant='outlined'
+        variant='text'
         size='small'
         href={method === 'get' ? `${network}/api${pathWithParams}` : network}
         target='_blank'
         rel='noopener noreferrer'
+        sx={{
+          color: 'rgba(249,250,251,.7)',
+          backgroundColor: ({ palette }) => palette.grey[900]
+        }}
       >
         Try it on Swagger
       </Button>

@@ -7,7 +7,9 @@ import {
   useContext
 } from 'react'
 import Link from 'next/link'
+import MuiLink from '@mui/material/Link'
 import Select from '@mui/material/Select'
+import Box from '@mui/material/Box'
 import MenuItem from '@mui/material/MenuItem'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
@@ -80,12 +82,7 @@ const NetworkSwitcher: React.FC = () => {
             </MenuItem>
           ))}
         </Select>
-        <Grid
-          mr={1}
-          my={2}
-          sx={{ width: ['100%', '100%', 'auto'] }}
-          item
-        >
+        <Grid mr={1} my={2} sx={{ width: ['100%', '100%', 'auto'] }} item>
           <Link href={network} target='_blank' rel='noopener noreferrer'>
             <Typography
               variant='caption'
@@ -125,6 +122,26 @@ const NetworkSwitcher: React.FC = () => {
 
       <Grid container mt={2} alignItems='center'></Grid>
     </>
+  )
+}
+
+export const NetworkNotice: React.FC = () => {
+  const [network] = useContext(NetworkContext)
+  return (
+    network !== transactionServiceUrls[0] && (
+      <Box sx={{ fontSize: '12px', mt: -2, mb: 3 }}>
+        This snippet shows a sample request on mainnet. For other networks
+        please use{' '}
+        <MuiLink
+          href='/core-api/transaction-service-supported-networks'
+          rel='noopener noreferrer'
+          target='_blank'
+        >
+          the corresponding base URL
+        </MuiLink>
+        .
+      </Box>
+    )
   )
 }
 

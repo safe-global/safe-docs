@@ -2,7 +2,7 @@ import Path from './Path'
 import Hr from '../Hr'
 import SampleRequestHeader from './SampleRequestHeader'
 import Parameters from './Parameter'
-import NetworkSwitcher from './Network'
+import NetworkSwitcher, { NetworkNotice } from './Network'
 import Responses from './Response'
 import Feedback from '../Feedback'
 import Grid from '@mui/material/Grid'
@@ -55,20 +55,13 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/contracts/ \
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
 ```json
 {
-  "count": 143215,
+  "count": 143220,
   "next": "https://safe-transaction-mainnet.safe.global/api/v1/contracts/?limit=2&offset=2",
   "previous": null,
   "results": [
@@ -129,14 +122,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/contracts/0xcd2E
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -221,14 +207,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/data-decoder/ \
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -346,14 +325,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/delegates/ \
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -417,14 +389,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/delegates/ \
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     
   </Grid>
@@ -471,14 +436,7 @@ curl -X DELETE https://safe-transaction-mainnet.safe.global/api/v1/delegates/0x5
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -529,14 +487,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/messages/0x3b3b5
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     
   </Grid>
@@ -579,14 +530,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/messages/0x3b3b
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     
   </Grid>
@@ -633,14 +577,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/module-transacti
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     
   </Grid>
@@ -687,14 +624,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/modules/0xcd2E72
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -747,14 +677,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/multisig-transac
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     
   </Grid>
@@ -832,14 +755,7 @@ curl -X DELETE https://safe-transaction-mainnet.safe.global/api/v1/multisig-tran
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -884,14 +800,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/multisig-transac
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -944,14 +853,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/multisig-transa
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     
   </Grid>
@@ -998,14 +900,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/owners/0xcd2E72a
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1058,14 +953,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1123,14 +1011,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1344,14 +1225,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1450,14 +1324,7 @@ curl -X DELETE https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E7
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1502,14 +1369,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1602,14 +1462,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1668,14 +1521,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     
   </Grid>
@@ -1716,14 +1562,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1774,14 +1613,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1986,14 +1818,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     
   </Grid>
@@ -2039,14 +1864,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -2094,14 +1912,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -2200,20 +2011,13 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/tokens/ \
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     #### Sample Response
 
 ```json
 {
-  "count": 40188,
+  "count": 39652,
   "next": "https://safe-transaction-mainnet.safe.global/api/v1/tokens/?limit=2&offset=2",
   "previous": null,
   "results": [
@@ -2276,14 +2080,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/tokens/0xcd2E72a
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     
   </Grid>
@@ -2330,14 +2127,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/transfer/3b3b57b
 ```
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks you should use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     
   </Grid>

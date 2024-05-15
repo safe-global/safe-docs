@@ -298,14 +298,7 @@ ${curlify({
 \`\`\`
       </CH.Code>
     </CH.Section>
-<Box sx={{ fontSize: '12px', mt: -5, mb: 3 }}>
-  This snippet shows a sample request on mainnet. For other networks please use
-  <Link
-    href='/core-api/transaction-service-supported-networks'
-    rel='noopener noreferrer'
-    target='_blank'
-  >the corresponding base URL</Link>.
-</Box>
+    <NetworkNotice />
 
     ${
       hasResponse && sampleResponse !== '{}'
@@ -379,7 +372,7 @@ const generateMainContent = () => {
 import Hr from '../Hr'
 import SampleRequestHeader from './SampleRequestHeader'
 import Parameters from './Parameter'
-import NetworkSwitcher from './Network'
+import NetworkSwitcher, { NetworkNotice } from './Network'
 import Responses from './Response'
 import Feedback from '../Feedback'
 import Grid from '@mui/material/Grid'
