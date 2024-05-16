@@ -130,16 +130,17 @@ export const NetworkNotice: React.FC = () => {
   return (
     network !== transactionServiceUrls[0] && (
       <Box sx={{ fontSize: '12px', mt: -2, mb: 3 }}>
-        This snippet shows a sample request on mainnet. For other networks
-        please use{' '}
+        This snippet shows a sample request on mainnet. Please{' '}
         <MuiLink
-          href='/core-api/transaction-service-supported-networks'
-          rel='noopener noreferrer'
-          target='_blank'
+          sx={{ '&:hover': { cursor: 'pointer' } }}
+          onClick={() => {
+            void navigator.clipboard.writeText(network)
+          }}
         >
-          the corresponding base URL
-        </MuiLink>
-        .
+          click here
+        </MuiLink>{' '}
+        to copy the base URL for{' '}
+        {capitalize(network.split('-')[2].split('.')[0])} and update it in your request.
       </Box>
     )
   )

@@ -16,7 +16,7 @@ const SampleRequestHeader: React.FC<{
       <Button
         variant='text'
         size='small'
-        href={method === 'get' ? `${network}/api${pathWithParams}` : network}
+        href={network}
         target='_blank'
         rel='noopener noreferrer'
         sx={{
