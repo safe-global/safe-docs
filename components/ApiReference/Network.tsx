@@ -17,6 +17,7 @@ import Button from '@mui/material/Button'
 import GetAppIcon from '@mui/icons-material/GetApp'
 import { capitalize } from 'lodash'
 import { CopyToClipboard } from 'nextra/components'
+import Check from '@mui/icons-material/Check'
 
 const transactionServiceUrls = [
   'https://safe-transaction-mainnet.safe.global',
@@ -127,6 +128,7 @@ const NetworkSwitcher: React.FC = () => {
 
 export const NetworkNotice: React.FC = () => {
   const [network] = useContext(NetworkContext)
+  const [copied, setCopied] = useState(false)
   return (
     network !== transactionServiceUrls[0] && (
       <Box sx={{ fontSize: '12px', mt: -2, mb: 3 }}>
@@ -135,10 +137,12 @@ export const NetworkNotice: React.FC = () => {
           sx={{ '&:hover': { cursor: 'pointer' } }}
           onClick={() => {
             void navigator.clipboard.writeText(network)
+            setCopied(true)
           }}
         >
           click here
         </MuiLink>{' '}
+        {copied && <Check sx={{ fontSize: '12px' }} />}{' '}
         to copy the base URL for{' '}
         {capitalize(network.split('-')[2].split('.')[0])} and update it in your request.
       </Box>
