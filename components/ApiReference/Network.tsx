@@ -138,13 +138,25 @@ export const NetworkNotice: React.FC = () => {
           onClick={() => {
             void navigator.clipboard.writeText(network)
             setCopied(true)
+            setTimeout(() => {
+              setCopied(false)
+            }, 3000)
           }}
         >
           click here
         </MuiLink>{' '}
-        {copied && <Check sx={{ fontSize: '12px' }} />}{' '}
+        <Check
+          sx={{
+            fontSize: '12px',
+            width: copied ? '12px' : 0,
+            opacity: copied ? 1 : 0,
+            mr: copied ? 0.5 : 0,
+            transition: '0.4s'
+          }}
+        />
         to copy the base URL for{' '}
-        {capitalize(network.split('-')[2].split('.')[0])} and update it in your request.
+        {capitalize(network.split('-')[2].split('.')[0])} and update it in your
+        request.
       </Box>
     )
   )
