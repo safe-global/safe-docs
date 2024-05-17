@@ -466,7 +466,12 @@
   },
   {
     "source": "/advanced/api-new-networks",
-    "destination": "/core-api/api-new-networks",
+    "destination": "/core-api/api-support-new-chains",
+    "permanent": true
+  },
+  {
+    "source": "/core-api/api-new-networks",
+    "destination": "/core-api/api-support-new-chains",
     "permanent": true
   },
   {
