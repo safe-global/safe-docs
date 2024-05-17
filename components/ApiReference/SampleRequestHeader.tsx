@@ -11,7 +11,7 @@ const SampleRequestHeader: React.FC<{
   const [network] = useContext(NetworkContext)
 
   return (
-    <Grid container justifyContent='space-between'>
+    <Grid container justifyContent='space-between' alignItems='center'>
       <MdxHeading headingLevel={4}>Sample Request</MdxHeading>
       <Button
         variant='text'
@@ -20,6 +20,8 @@ const SampleRequestHeader: React.FC<{
         target='_blank'
         rel='noopener noreferrer'
         sx={{
+          mt: 1,
+          height: '36px',
           color: 'rgba(249,250,251,.7)',
           backgroundColor: ({ palette }) => palette.grey[900]
         }}
