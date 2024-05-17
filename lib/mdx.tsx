@@ -89,7 +89,7 @@ export const MdxHeading: React.FC<{
     textTransform='none'
     id={slugify(children as string)}
     sx={{
-      mt: 2,
+      mt: headingLevel > 3 ? 2 : 0,
       '&:hover .MuiButton-root': {
         opacity: '1'
       },
