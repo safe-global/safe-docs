@@ -356,8 +356,7 @@ const generateMainContent = () => {
   const categories = [...getCategories('v1')].filter(
     c =>
       c.title !== 'about' &&
-      c.title !== 'notifications' &&
-      c.title !== 'transactions'
+      c.title !== 'notifications'
   )
 
   return `import Path from './Path'
