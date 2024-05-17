@@ -30,6 +30,11 @@
       "title": "Singletons"
     }
   },
+  "/v1/about/deployments/": {
+    "get": {
+      "title": "List deployments"
+    }
+  },
   "/v1/contracts/": {
     "get": {
       "title": "List Contracts"
@@ -188,6 +193,24 @@
       "title": "List Transfers"
     }
   },
+  "/v1/safes/{address}/safe-operations/": {
+    "get": {
+      "title": "List Safe Operations"
+    },
+    "post": {
+      "title": "Create Safe Operation"
+    }
+  },
+  "/v1/safes/{address}/user-operations/": {
+    "get": {
+      "title": "List User Operations"
+    }
+  },
+  "/v1/safe-operations/{safe_operation_hash}/": {
+    "get": {
+      "title": "Get Safe Operation"
+    }
+  },
   "/v1/tokens/": {
     "get": {
       "title": "List Tokens"
@@ -209,6 +232,29 @@
   "/v1/transfer/{transfer_id}": {
     "get": {
       "title": "Get Transfer"
+    }
+  },
+  "/v1/user-operations/{user_operation_hash}/": {
+    "get": {
+      "title": "Get User Operation"
+    }
+  },
+  "/v2/delegates/": {
+    "get": {
+      "title": "List Delegates"
+    },
+    "post": {
+      "title": "Create Delegate"
+    }
+  },
+  "/v2/delegates/{delegate_address}/": {
+    "delete": {
+      "title": "Delete Delegate"
+    }
+  },
+  "/v2/safes/{address}/collectibles/": {
+    "get": {
+      "title": "List Collectibles"
     }
   }
 }

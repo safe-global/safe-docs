@@ -30,26 +30,29 @@ export const slugify: (text: string) => string = text =>
   text?.replace?.(/ /g, '-').replace(/\//g, '-')
 
 export const getHeadingChildren: (heading: string) => Heading[] = heading => {
-  const headingPath = '/v1/' + heading + '/'
-  const children = Object.keys(swagger.paths)
-    .filter(path => path.startsWith(headingPath))
-    .map(path => {
-      const methods = Object.keys(swagger.paths[path as '/v1/about/']).filter(
-        p => p !== 'parameters'
-      )
-      return methods.map(method => {
-        const title =
-          pathsMetadata?.[path as '/v1/about/ethereum-rpc/']?.[method as 'get']
-            ?.title ?? path + ' - ' + method.toUpperCase()
-        return {
-          text: title,
-          link: `#${slugify(title)}`,
-          method
-        }
-      })
+  const allMethods = Object.entries(swagger.paths)
+    .map(([k, v]) => Object.entries(v))
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .flat() as Array<[string, any]>
+
+  return allMethods
+    .filter(
+      ([, method]) =>
+        method.deprecated !== true &&
+        method.tags?.[0]?.toLowerCase() === heading
+    )
+    .map(([methodName, method]) => {
+      const title =
+        pathsMetadata?.[method.path as '/v1/about/ethereum-rpc/']?.[
+          methodName as 'get'
+        ]?.title ?? method.path + ' - ' + methodName?.toUpperCase()
+      return {
+        text: title,
+        link: `#${slugify(title)}`,
+        method: methodName
+      }
     })
-    .flat()
-  return children.filter(child => !child.text.includes('Deprecated'))
+    .filter(child => !child.text.includes('Deprecated'))
 }
 
 export const getHeadingsFromHtml: (
@@ -86,6 +89,7 @@ export const MdxHeading: React.FC<{
     textTransform='none'
     id={slugify(children as string)}
     sx={{
+      mt: headingLevel > 3 ? 2 : 0,
       '&:hover .MuiButton-root': {
         opacity: '1'
       },

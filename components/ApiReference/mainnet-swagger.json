@@ -43,7 +43,7 @@
           }
         },
         "tags": [
-          "v1"
+          "about"
         ],
         "path": "/v1/about/",
         "title": "General Information",
@@ -51,6 +51,51 @@
       },
       "parameters": {
         "path": "/v1/about/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/about/deployments/": {
+      "get": {
+        "operationId": "v1_about_deployments_list",
+        "description": "Returns a list of safe deployments by version.",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "description": "Filter by Safe version",
+            "type": "string"
+          },
+          {
+            "name": "contract",
+            "in": "query",
+            "description": "Filter by Safe contract name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SafeDeployment"
+              }
+            }
+          },
+          "404": {
+            "description": "Provided version does not exist"
+          }
+        },
+        "tags": [
+          "about"
+        ],
+        "path": "/v1/about/deployments/",
+        "title": "List deployments",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "path": "/v1/about/deployments/",
         "title": "",
         "additionalInfo": ""
       }
@@ -66,7 +111,7 @@
           }
         },
         "tags": [
-          "v1"
+          "about"
         ],
         "path": "/v1/about/ethereum-rpc/",
         "title": "Ethereum RPC",
@@ -89,7 +134,7 @@
           }
         },
         "tags": [
-          "v1"
+          "about"
         ],
         "path": "/v1/about/ethereum-tracing-rpc/",
         "title": "Ethereum Tracing RPC",
@@ -118,7 +163,7 @@
           }
         },
         "tags": [
-          "v1"
+          "about"
         ],
         "path": "/v1/about/indexing/",
         "title": "Indexing",
@@ -126,30 +171,6 @@
       },
       "parameters": {
         "path": "/v1/about/indexing/",
-        "title": "",
-        "additionalInfo": ""
-      }
-    },
-    "/v1/about/master-copies/": {
-      "get": {
-        "operationId": "v1_about_master-copies_list",
-        "description": "Use `singletons` instead of `master-copies`",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Ok"
-          }
-        },
-        "tags": [
-          "v1"
-        ],
-        "deprecated": true,
-        "path": "/v1/about/master-copies/",
-        "title": "Master Copies",
-        "additionalInfo": ""
-      },
-      "parameters": {
-        "path": "/v1/about/master-copies/",
         "title": "",
         "additionalInfo": ""
       }
@@ -171,7 +192,7 @@
           }
         },
         "tags": [
-          "v1"
+          "about"
         ],
         "path": "/v1/about/singletons/",
         "title": "Singletons",
@@ -244,7 +265,7 @@
           }
         },
         "tags": [
-          "v1"
+          "contracts"
         ],
         "path": "/v1/contracts/",
         "title": "List Contracts",
@@ -270,7 +291,7 @@
           }
         },
         "tags": [
-          "v1"
+          "contracts"
         ],
         "path": "/v1/contracts/{address}/",
         "title": "Get Specific Contract",
@@ -315,7 +336,7 @@
           }
         },
         "tags": [
-          "v1"
+          "data-decoder"
         ],
         "path": "/v1/data-decoder/",
         "title": "Get Decoded Data",
@@ -412,8 +433,9 @@
           }
         },
         "tags": [
-          "v1"
+          "delegates"
         ],
+        "deprecated": true,
         "path": "/v1/delegates/",
         "title": "List Delegates",
         "additionalInfo": ""
@@ -440,8 +462,9 @@
           }
         },
         "tags": [
-          "v1"
+          "delegates"
         ],
+        "deprecated": true,
         "path": "/v1/delegates/",
         "title": "Create Delegate",
         "additionalInfo": ""
@@ -481,8 +504,9 @@
           }
         },
         "tags": [
-          "v1"
+          "delegates"
         ],
+        "deprecated": true,
         "path": "/v1/delegates/{delegate_address}/",
         "title": "Delete Delegate",
         "additionalInfo": ""
@@ -513,7 +537,7 @@
           }
         },
         "tags": [
-          "v1"
+          "messages"
         ],
         "path": "/v1/messages/{message_hash}/",
         "title": "Get Message",
@@ -553,7 +577,7 @@
           }
         },
         "tags": [
-          "v1"
+          "messages"
         ],
         "path": "/v1/messages/{message_hash}/signatures/",
         "title": "Sign Message",
@@ -591,7 +615,7 @@
           }
         },
         "tags": [
-          "v1"
+          "transactions"
         ],
         "path": "/v1/module-transaction/{module_transaction_id}",
         "title": "Get Module Transaction",
@@ -626,7 +650,7 @@
           }
         },
         "tags": [
-          "v1"
+          "modules"
         ],
         "path": "/v1/modules/{address}/safes/",
         "title": "List Safes that use a Specific Module",
@@ -658,7 +682,7 @@
           }
         },
         "tags": [
-          "v1"
+          "transactions"
         ],
         "path": "/v1/multisig-transactions/{safe_tx_hash}/",
         "title": "Get Multisig Transaction",
@@ -689,7 +713,7 @@
           }
         },
         "tags": [
-          "v1"
+          "transactions"
         ],
         "path": "/v1/multisig-transactions/{safe_tx_hash}/",
         "title": "Delete Queued Multisig Transaction",
@@ -764,7 +788,7 @@
           }
         },
         "tags": [
-          "v1"
+          "transactions"
         ],
         "path": "/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
         "title": "List Multisig Confirmations",
@@ -795,7 +819,7 @@
           }
         },
         "tags": [
-          "v1"
+          "transactions"
         ],
         "path": "/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
         "title": "Confirm Multisig Transaction",
@@ -839,7 +863,7 @@
           }
         },
         "tags": [
-          "v1"
+          "notifications"
         ],
         "path": "/v1/notifications/devices/",
         "title": "Create Device",
@@ -862,7 +886,7 @@
           }
         },
         "tags": [
-          "v1"
+          "notifications"
         ],
         "path": "/v1/notifications/devices/{uuid}/",
         "title": "Delete Device",
@@ -893,7 +917,7 @@
           }
         },
         "tags": [
-          "v1"
+          "notifications"
         ],
         "path": "/v1/notifications/devices/{uuid}/safes/{address}/",
         "title": "Remove a Safe from a Device",
@@ -936,7 +960,7 @@
           }
         },
         "tags": [
-          "v1"
+          "owners"
         ],
         "path": "/v1/owners/{address}/safes/",
         "title": "List Safes from a Specific Owner",
@@ -950,6 +974,38 @@
           "type": "string"
         },
         "path": "/v1/owners/{address}/safes/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safe-operations/{safe_operation_hash}/": {
+      "get": {
+        "operationId": "v1_safe-operations_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/SafeOperationWithUserOperationResponse"
+            }
+          }
+        },
+        "tags": [
+          "4337"
+        ],
+        "path": "/v1/safe-operations/{safe_operation_hash}/",
+        "title": "Get Safe Operation",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "safe_operation_hash",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safe-operations/{safe_operation_hash}/",
         "title": "",
         "additionalInfo": ""
       }
@@ -974,7 +1030,7 @@
           }
         },
         "tags": [
-          "v1"
+          "safes"
         ],
         "path": "/v1/safes/{address}/",
         "title": "Get Safe Status",
@@ -1052,7 +1108,7 @@
           }
         },
         "tags": [
-          "v1"
+          "transactions"
         ],
         "path": "/v1/safes/{address}/all-transactions/",
         "title": "List Transactions",
@@ -1108,7 +1164,7 @@
           }
         },
         "tags": [
-          "v1"
+          "safes"
         ],
         "deprecated": false,
         "path": "/v1/safes/{address}/balances/",
@@ -1123,63 +1179,6 @@
           "type": "string"
         },
         "path": "/v1/safes/{address}/balances/",
-        "title": "",
-        "additionalInfo": ""
-      }
-    },
-    "/v1/safes/{address}/balances/usd/": {
-      "get": {
-        "operationId": "v1_safes_balances_usd_list",
-        "description": "Get balance for Ether and ERC20 tokens with USD fiat conversion",
-        "parameters": [
-          {
-            "name": "trusted",
-            "in": "query",
-            "description": "If `True` just trusted tokens will be returned",
-            "type": "boolean",
-            "default": false
-          },
-          {
-            "name": "exclude_spam",
-            "in": "query",
-            "description": "If `True` spam tokens will not be returned",
-            "type": "boolean",
-            "default": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/SafeBalanceUsdResponse"
-              }
-            }
-          },
-          "404": {
-            "description": "Safe not found"
-          },
-          "422": {
-            "description": "Safe address checksum not valid"
-          }
-        },
-        "tags": [
-          "v1"
-        ],
-        "deprecated": false,
-        "path": "/v1/safes/{address}/balances/usd/",
-        "title": "List a Safe's Balances in USD (Deprecated)",
-        "additionalInfo": ""
-      },
-      "parameters": {
-        "0": {
-          "name": "address",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        "path": "/v1/safes/{address}/balances/usd/",
         "title": "",
         "additionalInfo": ""
       }
@@ -1207,7 +1206,7 @@
           }
         },
         "tags": [
-          "v1"
+          "safes"
         ],
         "path": "/v1/safes/{address}/creation/",
         "title": "Get Safe Creation Status",
@@ -1254,8 +1253,9 @@
           }
         },
         "tags": [
-          "v1"
+          "safes"
         ],
+        "deprecated": true,
         "path": "/v1/safes/{address}/delegates/{delegate_address}/",
         "title": "Remove Delegate from Safe",
         "additionalInfo": ""
@@ -1432,7 +1432,7 @@
           }
         },
         "tags": [
-          "v1"
+          "transactions"
         ],
         "path": "/v1/safes/{address}/incoming-transfers/",
         "title": "List Incoming Transfers",
@@ -1511,7 +1511,7 @@
           }
         },
         "tags": [
-          "v1"
+          "messages"
         ],
         "path": "/v1/safes/{address}/messages/",
         "title": "List Messages",
@@ -1536,7 +1536,7 @@
           }
         },
         "tags": [
-          "v1"
+          "messages"
         ],
         "path": "/v1/safes/{address}/messages/",
         "title": "Create Signed Message",
@@ -1689,7 +1689,7 @@
           }
         },
         "tags": [
-          "v1"
+          "transactions"
         ],
         "path": "/v1/safes/{address}/module-transactions/",
         "title": "List a Safe's Module Transactions",
@@ -1935,7 +1935,7 @@
           }
         },
         "tags": [
-          "v1"
+          "transactions"
         ],
         "path": "/v1/safes/{address}/multisig-transactions/",
         "title": "List a Safe's Multisig Transactions",
@@ -1966,7 +1966,7 @@
           }
         },
         "tags": [
-          "v1"
+          "transactions"
         ],
         "path": "/v1/safes/{address}/multisig-transactions/",
         "title": "Create Multisig Transaction",
@@ -2016,7 +2016,7 @@
           }
         },
         "tags": [
-          "v1"
+          "transactions"
         ],
         "path": "/v1/safes/{address}/multisig-transactions/estimations/",
         "title": "Estimate Gas Costs for a Multisig Transaction",
@@ -2034,172 +2034,11 @@
         "additionalInfo": ""
       }
     },
-    "/v1/safes/{address}/transactions/": {
+    "/v1/safes/{address}/safe-operations/": {
       "get": {
-        "operationId": "v1_safes_transactions_list",
-        "description": "Use `multisig-transactions` instead of `transactions`",
+        "operationId": "v1_safes_safe-operations_list",
+        "description": "",
         "parameters": [
-          {
-            "name": "failed",
-            "in": "query",
-            "description": "failed",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "modified__lt",
-            "in": "query",
-            "description": "modified__lt",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "modified__gt",
-            "in": "query",
-            "description": "modified__gt",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "modified__lte",
-            "in": "query",
-            "description": "modified__lte",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "modified__gte",
-            "in": "query",
-            "description": "modified__gte",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "nonce__lt",
-            "in": "query",
-            "description": "nonce__lt",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "nonce__gt",
-            "in": "query",
-            "description": "nonce__gt",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "nonce__lte",
-            "in": "query",
-            "description": "nonce__lte",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "nonce__gte",
-            "in": "query",
-            "description": "nonce__gte",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "nonce",
-            "in": "query",
-            "description": "nonce",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "safe_tx_hash",
-            "in": "query",
-            "description": "safe_tx_hash",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "to",
-            "in": "query",
-            "description": "to",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "value__lt",
-            "in": "query",
-            "description": "value__lt",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "value__gt",
-            "in": "query",
-            "description": "value__gt",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "value",
-            "in": "query",
-            "description": "value",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "executed",
-            "in": "query",
-            "description": "executed",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "has_confirmations",
-            "in": "query",
-            "description": "has_confirmations",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "trusted",
-            "in": "query",
-            "description": "trusted",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "execution_date__gte",
-            "in": "query",
-            "description": "execution_date__gte",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "execution_date__lte",
-            "in": "query",
-            "description": "execution_date__lte",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "submission_date__gte",
-            "in": "query",
-            "description": "submission_date__gte",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "submission_date__lte",
-            "in": "query",
-            "description": "submission_date__lte",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "transaction_hash",
-            "in": "query",
-            "description": "transaction_hash",
-            "required": false,
-            "type": "string"
-          },
           {
             "name": "ordering",
             "in": "query",
@@ -2248,7 +2087,7 @@
                 "results": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/definitions/SafeMultisigTransactionResponse"
+                    "$ref": "#/definitions/SafeOperationWithUserOperationResponse"
                   }
                 }
               }
@@ -2256,40 +2095,36 @@
           }
         },
         "tags": [
-          "v1"
+          "4337"
         ],
-        "deprecated": true,
-        "path": "/v1/safes/{address}/transactions/",
-        "title": "List a Safe's Transactions (Deprecated)",
+        "path": "/v1/safes/{address}/safe-operations/",
+        "title": "List Safe Operations",
         "additionalInfo": ""
       },
       "post": {
-        "operationId": "v1_safes_transactions_create",
-        "description": "Use `multisig-transactions` instead of `transactions`",
+        "operationId": "v1_safes_safe-operations_create",
+        "summary": "Create a new 4337 ``SafeOperation`` for a Safe.",
+        "description": ":param request:\n:param address:\n:param args:\n:param kwargs:\n:return:",
         "parameters": [
           {
             "name": "data",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SafeMultisigTransaction"
+              "$ref": "#/definitions/SafeOperation"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/SafeMultisigTransaction"
-            }
+            "description": "Created"
           }
         },
         "tags": [
-          "v1"
+          "4337"
         ],
-        "deprecated": true,
-        "path": "/v1/safes/{address}/transactions/",
-        "title": "Create Transaction (Deprecated)",
+        "path": "/v1/safes/{address}/safe-operations/",
+        "title": "Create Safe Operation",
         "additionalInfo": ""
       },
       "parameters": {
@@ -2299,7 +2134,7 @@
           "required": true,
           "type": "string"
         },
-        "path": "/v1/safes/{address}/transactions/",
+        "path": "/v1/safes/{address}/safe-operations/",
         "title": "",
         "additionalInfo": ""
       }
@@ -2458,7 +2293,7 @@
           }
         },
         "tags": [
-          "v1"
+          "transactions"
         ],
         "path": "/v1/safes/{address}/transfers/",
         "title": "List Transfers",
@@ -2472,6 +2307,85 @@
           "type": "string"
         },
         "path": "/v1/safes/{address}/transfers/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/safes/{address}/user-operations/": {
+      "get": {
+        "operationId": "v1_safes_user-operations_list",
+        "description": "",
+        "parameters": [
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/UserOperationWithSafeOperationResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "4337"
+        ],
+        "path": "/v1/safes/{address}/user-operations/",
+        "title": "List User Operations",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safes/{address}/user-operations/",
         "title": "",
         "additionalInfo": ""
       }
@@ -2586,7 +2500,7 @@
           }
         },
         "tags": [
-          "v1"
+          "tokens"
         ],
         "path": "/v1/tokens/",
         "title": "List Tokens",
@@ -2612,7 +2526,7 @@
           }
         },
         "tags": [
-          "v1"
+          "tokens"
         ],
         "path": "/v1/tokens/{address}/",
         "title": "Get a Specific Token's Information",
@@ -2627,70 +2541,6 @@
           "type": "string"
         },
         "path": "/v1/tokens/{address}/",
-        "title": "",
-        "additionalInfo": ""
-      }
-    },
-    "/v1/transactions/{safe_tx_hash}/": {
-      "get": {
-        "operationId": "v1_transactions_read",
-        "description": "Use `multisig-transactions` instead of `transactions`",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Ok"
-          },
-          "404": {
-            "description": "Not found"
-          }
-        },
-        "tags": [
-          "v1"
-        ],
-        "deprecated": true,
-        "path": "/v1/transactions/{safe_tx_hash}/",
-        "title": "Get Transaction (Deprecated)",
-        "additionalInfo": ""
-      },
-      "delete": {
-        "operationId": "v1_transactions_delete",
-        "description": "Delete a queued but not executed multisig transaction. Only the proposer can delete the transaction.\nDelegates are not valid, if the transaction was proposed by a delegator the owner who delegated to\nthe delegate must be used.\nAn EOA is required to sign the following EIP712 data:\n\n```python\n {\n    \"types\": {\n        \"EIP712Domain\": [\n            {\"name\": \"name\", \"type\": \"string\"},\n            {\"name\": \"version\", \"type\": \"string\"},\n            {\"name\": \"chainId\", \"type\": \"uint256\"},\n            {\"name\": \"verifyingContract\", \"type\": \"address\"},\n        ],\n        \"DeleteRequest\": [\n            {\"name\": \"safeTxHash\", \"type\": \"bytes32\"},\n            {\"name\": \"totp\", \"type\": \"uint256\"},\n        ],\n    },\n    \"primaryType\": \"DeleteRequest\",\n    \"domain\": {\n        \"name\": \"Safe Transaction Service\",\n        \"version\": \"1.0\",\n        \"chainId\": chain_id,\n        \"verifyingContract\": safe_address,\n    },\n    \"message\": {\n        \"safeTxHash\": safe_tx_hash,\n        \"totp\": totp,\n    },\n}\n```\n\n`totp` parameter is calculated with `T0=0` and `Tx=3600`. `totp` is calculated by taking the\nUnix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)",
-        "parameters": [
-          {
-            "name": "data",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/SafeMultisigTransactionDelete"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Deleted"
-          },
-          "400": {
-            "description": "Error processing data"
-          },
-          "404": {
-            "description": "Transaction not found"
-          }
-        },
-        "tags": [
-          "v1"
-        ],
-        "path": "/v1/transactions/{safe_tx_hash}/",
-        "title": "Delete Queued Transaction (Deprecated)",
-        "additionalInfo": ""
-      },
-      "parameters": {
-        "0": {
-          "name": "safe_tx_hash",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        "path": "/v1/transactions/{safe_tx_hash}/",
         "title": "",
         "additionalInfo": ""
       }
@@ -2715,7 +2565,7 @@
           }
         },
         "tags": [
-          "v1"
+          "transfer"
         ],
         "path": "/v1/transfer/{transfer_id}",
         "title": "Get Transfer",
@@ -2729,6 +2579,210 @@
           "type": "string"
         },
         "path": "/v1/transfer/{transfer_id}",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v1/user-operations/{user_operation_hash}/": {
+      "get": {
+        "operationId": "v1_user-operations_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserOperationWithSafeOperationResponse"
+            }
+          }
+        },
+        "tags": [
+          "4337"
+        ],
+        "path": "/v1/user-operations/{user_operation_hash}/",
+        "title": "Get User Operation",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "user_operation_hash",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/user-operations/{user_operation_hash}/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v2/delegates/": {
+      "get": {
+        "operationId": "v2_delegates_list",
+        "description": "Get list of delegates",
+        "parameters": [
+          {
+            "name": "safe",
+            "in": "query",
+            "description": "safe",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "delegate",
+            "in": "query",
+            "description": "delegate",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "delegator",
+            "in": "query",
+            "description": "delegator",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "description": "label",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SafeDelegateResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data"
+          }
+        },
+        "tags": [
+          "delegates"
+        ],
+        "path": "/v2/delegates/",
+        "title": "List Delegates",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "v2_delegates_create",
+        "description": "Create a delegate for a Safe address with a custom label. Calls with same delegate but different label or\nsigner will update the label or delegator if different.\nAn EOA is required to sign the following EIP712 data:\n\n```python\n {\n    \"types\": {\n        \"EIP712Domain\": [\n            {\"name\": \"name\", \"type\": \"string\"},\n            {\"name\": \"version\", \"type\": \"string\"},\n            {\"name\": \"chainId\", \"type\": \"uint256\"},\n        ],\n        \"AddDelegate\": [\n            {\"name\": \"delegateAddress\", \"type\": \"bytes32\"},\n            {\"name\": \"totp\", \"type\": \"uint256\"},\n        ],\n    },\n    \"primaryType\": \"AddDelegate\",\n    \"domain\": {\n        \"name\": \"Safe Transaction Service\",\n        \"version\": \"1.0\",\n        \"chainId\": chain_id,\n    },\n    \"message\": {\n        \"delegateAddress\": delegate_address,\n        \"totp\": totp,\n    },\n}\n```\n\n`totp` parameter is calculated with `T0=0` and `Tx=3600`. `totp` is calculated by taking the\nUnix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DelegateSerializerV2"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "400": {
+            "description": "Malformed data"
+          }
+        },
+        "tags": [
+          "delegates"
+        ],
+        "path": "/v2/delegates/",
+        "title": "Create Delegate",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "path": "/v2/delegates/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/v2/delegates/{delegate_address}/": {
+      "delete": {
+        "operationId": "v2_delegates_delete",
+        "description": "Removes all delegate/delegator pairs found or combinations of safe/delegate/delegator/delegate. The signature\nis constructed in the same way as for adding a delegate, but in this case the signer can be either the\n`delegator` (owner) or the `delegate` itself. Check `POST /delegates/`.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DelegateDeleteSerializerV2"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Malformed data"
+          },
+          "404": {
+            "description": "Delegate not found"
+          },
+          "422": {
+            "description": "Invalid Ethereum address/Error processing data"
+          }
+        },
+        "tags": [
+          "delegates"
+        ],
+        "path": "/v2/delegates/{delegate_address}/",
+        "title": "Delete Delegate",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "delegate_address",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v2/delegates/{delegate_address}/",
         "title": "",
         "additionalInfo": ""
       }
@@ -2785,11 +2839,11 @@
           }
         },
         "tags": [
-          "v2"
+          "safes"
         ],
         "deprecated": false,
         "path": "/v2/safes/{address}/collectibles/",
-        "title": "",
+        "title": "List Collectibles",
         "additionalInfo": ""
       },
       "parameters": {
@@ -2806,6 +2860,46 @@
     }
   },
   "definitions": {
+    "SafeDeploymentContract": {
+      "required": [
+        "contractName",
+        "address"
+      ],
+      "type": "object",
+      "properties": {
+        "contractName": {
+          "title": "Contract name",
+          "type": "string",
+          "minLength": 1
+        },
+        "address": {
+          "title": "Address",
+          "type": "string",
+          "x-nullable": true
+        }
+      }
+    },
+    "SafeDeployment": {
+      "required": [
+        "version",
+        "contracts"
+      ],
+      "type": "object",
+      "properties": {
+        "version": {
+          "title": "Version",
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 1
+        },
+        "contracts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SafeDeploymentContract"
+          }
+        }
+      }
+    },
     "IndexingStatus": {
       "required": [
         "currentBlockNumber",
@@ -3470,7 +3564,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "bb1a4b6f-98b1-4379-bdc6-dab2ce1fb87a"
+          "default": "e7f6dea2-82e3-4b35-b76f-f02bdd35b969"
         },
         "safes": {
           "type": "array",
@@ -3539,7 +3633,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "92c9255f-1c80-42bf-80d9-a86a4ea1b1e1"
+          "default": "8de67837-e904-4ed5-954d-d8bf08a9f475"
         },
         "safes": {
           "type": "array",
@@ -3614,6 +3708,152 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "UserOperationResponse": {
+      "required": [
+        "ethereumTxHash",
+        "sender",
+        "userOperationHash",
+        "nonce",
+        "initCode",
+        "callData",
+        "callDataGasLimit",
+        "verificationGasLimit",
+        "preVerificationGas",
+        "maxFeePerGas",
+        "maxPriorityFeePerGas",
+        "paymaster",
+        "paymasterData",
+        "signature",
+        "entryPoint"
+      ],
+      "type": "object",
+      "properties": {
+        "ethereumTxHash": {
+          "title": "Ethereum tx hash",
+          "type": "string"
+        },
+        "sender": {
+          "title": "Sender",
+          "type": "string"
+        },
+        "userOperationHash": {
+          "title": "User operation hash",
+          "type": "string"
+        },
+        "nonce": {
+          "title": "Nonce",
+          "type": "integer",
+          "minimum": 0
+        },
+        "initCode": {
+          "title": "Init code",
+          "type": "string",
+          "x-nullable": true
+        },
+        "callData": {
+          "title": "Call data",
+          "type": "string",
+          "x-nullable": true
+        },
+        "callDataGasLimit": {
+          "title": "Call data gas limit",
+          "type": "integer",
+          "minimum": 0
+        },
+        "verificationGasLimit": {
+          "title": "Verification gas limit",
+          "type": "integer",
+          "minimum": 0
+        },
+        "preVerificationGas": {
+          "title": "Pre verification gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxFeePerGas": {
+          "title": "Max fee per gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxPriorityFeePerGas": {
+          "title": "Max priority fee per gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "paymaster": {
+          "title": "Paymaster",
+          "type": "string",
+          "x-nullable": true
+        },
+        "paymasterData": {
+          "title": "Paymaster data",
+          "type": "string",
+          "x-nullable": true
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        },
+        "entryPoint": {
+          "title": "Entry point",
+          "type": "string"
+        }
+      }
+    },
+    "SafeOperationWithUserOperationResponse": {
+      "required": [
+        "created",
+        "modified",
+        "safeOperationHash",
+        "validAfter",
+        "validUntil",
+        "moduleAddress"
+      ],
+      "type": "object",
+      "properties": {
+        "created": {
+          "title": "Created",
+          "type": "string",
+          "format": "date-time"
+        },
+        "modified": {
+          "title": "Modified",
+          "type": "string",
+          "format": "date-time"
+        },
+        "safeOperationHash": {
+          "title": "Safe operation hash",
+          "type": "string"
+        },
+        "validAfter": {
+          "title": "Valid after",
+          "type": "string",
+          "format": "date-time"
+        },
+        "validUntil": {
+          "title": "Valid until",
+          "type": "string",
+          "format": "date-time"
+        },
+        "moduleAddress": {
+          "title": "Module address",
+          "type": "string"
+        },
+        "confirmations": {
+          "title": "Confirmations",
+          "type": "string",
+          "readOnly": true
+        },
+        "preparedSignature": {
+          "title": "Prepared signature",
+          "type": "string",
+          "readOnly": true
+        },
+        "userOperation": {
+          "$ref": "#/definitions/UserOperationResponse"
         }
       }
     },
@@ -4192,58 +4432,153 @@
         }
       }
     },
-    "SafeBalanceUsdResponse": {
+    "SafeOperationResponse": {
       "required": [
-        "tokenAddress",
-        "token",
-        "balance",
-        "ethValue",
-        "timestamp",
-        "fiatBalance",
-        "fiatConversion",
-        "fiatCode"
+        "created",
+        "modified",
+        "safeOperationHash",
+        "validAfter",
+        "validUntil",
+        "moduleAddress"
       ],
       "type": "object",
       "properties": {
-        "tokenAddress": {
-          "title": "Token address",
-          "type": "string",
-          "minLength": 1
-        },
-        "token": {
-          "$ref": "#/definitions/Erc20Info"
-        },
-        "balance": {
-          "title": "Balance",
-          "type": "string",
-          "minLength": 1
-        },
-        "ethValue": {
-          "title": "Eth value",
-          "type": "string",
-          "minLength": 1
-        },
-        "timestamp": {
-          "title": "Timestamp",
+        "created": {
+          "title": "Created",
           "type": "string",
           "format": "date-time"
         },
-        "fiatBalance": {
-          "title": "Fiat balance",
+        "modified": {
+          "title": "Modified",
           "type": "string",
-          "minLength": 1
+          "format": "date-time"
         },
-        "fiatConversion": {
-          "title": "Fiat conversion",
-          "type": "string",
-          "minLength": 1
+        "safeOperationHash": {
+          "title": "Safe operation hash",
+          "type": "string"
         },
-        "fiatCode": {
-          "title": "Fiat code",
+        "validAfter": {
+          "title": "Valid after",
           "type": "string",
-          "minLength": 1
+          "format": "date-time"
+        },
+        "validUntil": {
+          "title": "Valid until",
+          "type": "string",
+          "format": "date-time"
+        },
+        "moduleAddress": {
+          "title": "Module address",
+          "type": "string"
+        },
+        "confirmations": {
+          "title": "Confirmations",
+          "type": "string",
+          "readOnly": true
+        },
+        "preparedSignature": {
+          "title": "Prepared signature",
+          "type": "string",
+          "readOnly": true
         }
-      }
+      },
+      "x-nullable": true
+    },
+    "UserOperationWithSafeOperationResponse": {
+      "required": [
+        "ethereumTxHash",
+        "sender",
+        "userOperationHash",
+        "nonce",
+        "initCode",
+        "callData",
+        "callDataGasLimit",
+        "verificationGasLimit",
+        "preVerificationGas",
+        "maxFeePerGas",
+        "maxPriorityFeePerGas",
+        "paymaster",
+        "paymasterData",
+        "signature",
+        "entryPoint"
+      ],
+      "type": "object",
+      "properties": {
+        "ethereumTxHash": {
+          "title": "Ethereum tx hash",
+          "type": "string"
+        },
+        "sender": {
+          "title": "Sender",
+          "type": "string"
+        },
+        "userOperationHash": {
+          "title": "User operation hash",
+          "type": "string"
+        },
+        "nonce": {
+          "title": "Nonce",
+          "type": "integer",
+          "minimum": 0
+        },
+        "initCode": {
+          "title": "Init code",
+          "type": "string",
+          "x-nullable": true
+        },
+        "callData": {
+          "title": "Call data",
+          "type": "string",
+          "x-nullable": true
+        },
+        "callDataGasLimit": {
+          "title": "Call data gas limit",
+          "type": "integer",
+          "minimum": 0
+        },
+        "verificationGasLimit": {
+          "title": "Verification gas limit",
+          "type": "integer",
+          "minimum": 0
+        },
+        "preVerificationGas": {
+          "title": "Pre verification gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxFeePerGas": {
+          "title": "Max fee per gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxPriorityFeePerGas": {
+          "title": "Max priority fee per gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "paymaster": {
+          "title": "Paymaster",
+          "type": "string",
+          "x-nullable": true
+        },
+        "paymasterData": {
+          "title": "Paymaster data",
+          "type": "string",
+          "x-nullable": true
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        },
+        "entryPoint": {
+          "title": "Entry point",
+          "type": "string"
+        },
+        "safeOperation": {
+          "$ref": "#/definitions/SafeOperationResponse"
+        }
+      },
+      "x-nullable": true
     },
     "SafeCreationInfoResponse": {
       "required": [
@@ -4252,7 +4587,8 @@
         "transactionHash",
         "factoryAddress",
         "masterCopy",
-        "setupData"
+        "setupData",
+        "userOperation"
       ],
       "type": "object",
       "properties": {
@@ -4287,6 +4623,9 @@
           "title": "Data decoded",
           "type": "string",
           "readOnly": true
+        },
+        "userOperation": {
+          "$ref": "#/definitions/UserOperationWithSafeOperationResponse"
         }
       }
     },
@@ -4464,6 +4803,152 @@
           "title": "Safe tx gas",
           "type": "string",
           "minLength": 1
+        }
+      }
+    },
+    "SafeOperation": {
+      "required": [
+        "nonce",
+        "initCode",
+        "callData",
+        "callDataGasLimit",
+        "verificationGasLimit",
+        "preVerificationGas",
+        "maxFeePerGas",
+        "maxPriorityFeePerGas",
+        "paymasterAndData",
+        "signature",
+        "entryPoint",
+        "validAfter",
+        "validUntil",
+        "moduleAddress"
+      ],
+      "type": "object",
+      "properties": {
+        "nonce": {
+          "title": "Nonce",
+          "type": "integer",
+          "minimum": 0
+        },
+        "initCode": {
+          "title": "Init code",
+          "type": "string",
+          "x-nullable": true
+        },
+        "callData": {
+          "title": "Call data",
+          "type": "string",
+          "x-nullable": true
+        },
+        "callDataGasLimit": {
+          "title": "Call data gas limit",
+          "type": "integer",
+          "minimum": 0
+        },
+        "verificationGasLimit": {
+          "title": "Verification gas limit",
+          "type": "integer",
+          "minimum": 0
+        },
+        "preVerificationGas": {
+          "title": "Pre verification gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxFeePerGas": {
+          "title": "Max fee per gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxPriorityFeePerGas": {
+          "title": "Max priority fee per gas",
+          "type": "integer",
+          "minimum": 0
+        },
+        "paymasterAndData": {
+          "title": "Paymaster and data",
+          "type": "string",
+          "x-nullable": true
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        },
+        "entryPoint": {
+          "title": "Entry point",
+          "type": "string"
+        },
+        "validAfter": {
+          "title": "Valid after",
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true
+        },
+        "validUntil": {
+          "title": "Valid until",
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true
+        },
+        "moduleAddress": {
+          "title": "Module address",
+          "type": "string"
+        }
+      }
+    },
+    "DelegateSerializerV2": {
+      "required": [
+        "delegate",
+        "delegator",
+        "signature",
+        "label"
+      ],
+      "type": "object",
+      "properties": {
+        "safe": {
+          "title": "Safe",
+          "type": "string",
+          "x-nullable": true
+        },
+        "delegate": {
+          "title": "Delegate",
+          "type": "string"
+        },
+        "delegator": {
+          "title": "Delegator",
+          "type": "string"
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1
+        }
+      }
+    },
+    "DelegateDeleteSerializerV2": {
+      "required": [
+        "delegator",
+        "signature"
+      ],
+      "type": "object",
+      "properties": {
+        "safe": {
+          "title": "Safe",
+          "type": "string",
+          "x-nullable": true
+        },
+        "delegator": {
+          "title": "Delegator",
+          "type": "string"
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
         }
       }
     },

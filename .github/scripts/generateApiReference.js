@@ -330,42 +330,33 @@ const generateCategoryContent = category => `<Grid my={8} />
 
 <Grid my={6} />
 
-${category.paths
-  .filter(
-    path =>
-      path !== '/v1/safes/{address}/balances/' &&
-      path !== '/v1/safes/{address}/balances/usd/' &&
-      path !== '/v1/safes/{address}/transactions/' &&
-      path !== '/v1/transactions/{safe_tx_hash}/'
-  )
-  .map(path => generatePathContent(path))
-  .join('\n')}`
+${category.paths.map(path => generatePathContent(path)).join('\n')}`
 
-const getCategories = version =>
-  Object.keys(mainnetApiJson.paths)
-    .filter(path => path.includes(version))
-    .map(path => {
-      const pathname = path.replace('/' + version + '/', '').slice(0, -1)
-      return {
-        title: pathname.split('/')[0],
-        paths: Object.entries(mainnetApiJson.paths)
-          .filter(([key]) => key.includes(path))
-          .flat()
-          .filter((value, index) => index % 2 === 0)
-      }
-    })
-    .filter(
-      (category, index, self) =>
-        index === self.findIndex(t => t.title === category.title) &&
-        category.title !== ''
+const getCategories = version => {
+  const allMethods = Object.entries(mainnetApiJson.paths)
+    .map(([k, v]) => Object.values(v))
+    .flat()
+  const allCategories = Array.from(
+    new Set(
+      allMethods
+        .map(method => method.tags)
+        .flat()
+        .filter(Boolean)
     )
+  )
+  return allCategories.map(title => ({
+    title,
+    paths: allMethods
+      .filter(method => method.tags?.includes(title) && !method.deprecated)
+      .map(m => m.path)
+  }))
+}
 
 const generateMainContent = () => {
   const categories = [...getCategories('v1')].filter(
     c =>
       c.title !== 'about' &&
-      c.title !== 'notifications' &&
-      c.title !== 'transactions'
+      c.title !== 'notifications'
   )
 
   return `import Path from './Path'

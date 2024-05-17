@@ -76,7 +76,6 @@ export const theme = createTheme({
     h2: {
       fontSize: '40px',
       lineHeight: '44px',
-      borderBottom: `1px solid ${palette.border.light}`,
       fontWeight: 700,
 
       '@media (min-width:600px)': {

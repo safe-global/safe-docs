@@ -1,5 +1,4 @@
 import Property from './Property'
-import Hr from '../Hr'
 import { MdxHeading } from '../../lib/mdx'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -10,10 +9,7 @@ const Parameters: React.FC<{ parameters: any[] }> = ({ parameters }) => {
   return (
     <>
       {query.length > 0 && (
-        <>
-          <MdxHeading headingLevel={4}>Query Parameters</MdxHeading>
-          <Hr />
-        </>
+        <MdxHeading headingLevel={4}>Query Parameters</MdxHeading>
       )}
       {query.map(parameter => (
         <Property
@@ -26,10 +22,7 @@ const Parameters: React.FC<{ parameters: any[] }> = ({ parameters }) => {
         />
       ))}
       {body.length > 0 && (
-        <>
-          <MdxHeading headingLevel={4}>Request Body</MdxHeading>
-          <Hr />
-        </>
+        <MdxHeading headingLevel={4}>Request Body</MdxHeading>
       )}
       {body.map(parameter =>
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
