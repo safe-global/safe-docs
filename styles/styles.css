@@ -70,6 +70,10 @@ button[title="Copy code"]:not(#\9) {
   border: none;
 }
 
+/* CodeBlocks */
+.ch-codeblock.not-prose {
+  box-shadow: none;
+}
 
 @media (min-width: 768px) {
   /* Sidebar */

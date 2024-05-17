@@ -140,7 +140,6 @@ const Responses: React.FC<{ responses: any[] }> = ({ responses }) => {
   return (
     <Grid sx={{ mt: 2 }}>
       <MdxHeading headingLevel={4}>Responses</MdxHeading>
-      <Hr />
       {responses?.map?.((response, index) => (
         <Response key={index} index={index} response={response} />
       ))}
