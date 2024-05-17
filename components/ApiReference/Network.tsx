@@ -7,7 +7,9 @@ import {
   useContext
 } from 'react'
 import Link from 'next/link'
+import MuiLink from '@mui/material/Link'
 import Select from '@mui/material/Select'
+import Box from '@mui/material/Box'
 import MenuItem from '@mui/material/MenuItem'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
@@ -15,6 +17,7 @@ import Button from '@mui/material/Button'
 import GetAppIcon from '@mui/icons-material/GetApp'
 import { capitalize } from 'lodash'
 import { CopyToClipboard } from 'nextra/components'
+import Check from '@mui/icons-material/Check'
 
 const transactionServiceUrls = [
   'https://safe-transaction-mainnet.safe.global',
@@ -64,6 +67,7 @@ const NetworkSwitcher: React.FC = () => {
           sx={{
             mr: 1,
             width: ['100%', '100%', 'auto'],
+            color: 'white',
             border: ({ palette }) => `1px solid ${palette.grey[700]}`
           }}
           inputProps={{
@@ -79,18 +83,8 @@ const NetworkSwitcher: React.FC = () => {
             </MenuItem>
           ))}
         </Select>
-        <Grid
-          mr={1}
-          my={2}
-          sx={{ width: ['100%', '100%', 'auto'] }}
-          item
-          wrap='nowrap'
-        >
-          <Link
-            href={network}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
+        <Grid mr={1} my={2} sx={{ width: ['100%', '100%', 'auto'] }} item>
+          <Link href={network} target='_blank' rel='noopener noreferrer'>
             <Typography
               variant='caption'
               mx={1}
@@ -109,12 +103,7 @@ const NetworkSwitcher: React.FC = () => {
           </Link>
           <CopyToClipboard getValue={() => `${network}`} />
         </Grid>
-        <Grid
-          sx={{ width: ['100%', '100%', 'auto'] }}
-          item
-          justifyContent='flex-end'
-          mr={1}
-        >
+        <Grid sx={{ width: '100%' }} item mr={1}>
           <Link
             href={`${network}?format=openapi`}
             target='_blank'
@@ -134,6 +123,42 @@ const NetworkSwitcher: React.FC = () => {
 
       <Grid container mt={2} alignItems='center'></Grid>
     </>
+  )
+}
+
+export const NetworkNotice: React.FC = () => {
+  const [network] = useContext(NetworkContext)
+  const [copied, setCopied] = useState(false)
+  return (
+    network !== transactionServiceUrls[0] && (
+      <Box sx={{ fontSize: '12px', mt: -2, mb: 3 }}>
+        This snippet shows a sample request on mainnet. Please{' '}
+        <MuiLink
+          sx={{ '&:hover': { cursor: 'pointer' } }}
+          onClick={() => {
+            void navigator.clipboard.writeText(network)
+            setCopied(true)
+            setTimeout(() => {
+              setCopied(false)
+            }, 3000)
+          }}
+        >
+          click here
+        </MuiLink>{' '}
+        <Check
+          sx={{
+            fontSize: '12px',
+            width: copied ? '12px' : 0,
+            opacity: copied ? 1 : 0,
+            mr: copied ? 0.5 : 0,
+            transition: '0.4s'
+          }}
+        />
+        to copy the base URL for{' '}
+        {capitalize(network.split('-')[2].split('.')[0])} and update it in your
+        request.
+      </Box>
+    )
   )
 }
 

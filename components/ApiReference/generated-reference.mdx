@@ -1,11 +1,14 @@
 import Path from './Path'
 import Hr from '../Hr'
+import SampleRequestHeader from './SampleRequestHeader'
 import Parameters from './Parameter'
-import NetworkSwitcher from './Network'
+import NetworkSwitcher, { NetworkNotice } from './Network'
 import Responses from './Response'
 import Feedback from '../Feedback'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
+import NextLink from 'next/link'
+import Link from '@mui/material/Link'
 
 # Safe Transaction Service API Reference
 
@@ -39,7 +42,7 @@ This service is available on [multiple networks](../../core-api/transaction-serv
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/contracts/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/contracts/" />
 
     <CH.Section>
       <CH.Code>
@@ -52,12 +55,13 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/contracts/ \
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
 ```json
 {
-  "count": 138990,
+  "count": 143220,
   "next": "https://safe-transaction-mainnet.safe.global/api/v1/contracts/?limit=2&offset=2",
   "previous": null,
   "results": [
@@ -105,7 +109,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/contracts/ \
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/contracts/{address}/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
 
     <CH.Section>
       <CH.Code>
@@ -118,6 +122,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/contracts/0xcd2E
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -186,7 +191,7 @@ as in case of ABI collision service will know which ABI to use.
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/data-decoder/" method="post" />
 
-    #### Sample Request
+    <SampleRequestHeader method="post" pathWithParams="/v1/data-decoder/" />
 
     <CH.Section>
       <CH.Code>
@@ -202,6 +207,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/data-decoder/ \
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -306,7 +312,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/data-decoder/ \
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/delegates/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/delegates/" />
 
     <CH.Section>
       <CH.Code>
@@ -319,6 +325,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/delegates/ \
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -363,7 +370,7 @@ For example:
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/delegates/" method="post" />
 
-    #### Sample Request
+    <SampleRequestHeader method="post" pathWithParams="/v1/delegates/" />
 
     <CH.Section>
       <CH.Code>
@@ -382,6 +389,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/delegates/ \
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     
   </Grid>
@@ -411,7 +419,7 @@ Check `POST /delegates/`
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/delegates/{delegate_address}/" method="delete" />
 
-    #### Sample Request
+    <SampleRequestHeader method="delete" pathWithParams="/v1/delegates/0x5A93Fe8eBBf78738468c10894D7f36fA247b71C0/" />
 
     <CH.Section>
       <CH.Code>
@@ -428,6 +436,7 @@ curl -X DELETE https://safe-transaction-mainnet.safe.global/api/v1/delegates/0x5
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -465,7 +474,7 @@ curl -X DELETE https://safe-transaction-mainnet.safe.global/api/v1/delegates/0x5
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/messages/{message_hash}/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/messages/0x3b3b57b3/" />
 
     <CH.Section>
       <CH.Code>
@@ -478,6 +487,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/messages/0x3b3b5
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     
   </Grid>
@@ -505,7 +515,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/messages/0x3b3b5
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/messages/{message_hash}/signatures/" method="post" />
 
-    #### Sample Request
+    <SampleRequestHeader method="post" pathWithParams="/v1/messages/0x3b3b57b3/signatures/" />
 
     <CH.Section>
       <CH.Code>
@@ -520,6 +530,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/messages/0x3b3b
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     
   </Grid>
@@ -553,7 +564,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/messages/0x3b3b
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/module-transaction/{module_transaction_id}" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/module-transaction/0x3b3b57b3" />
 
     <CH.Section>
       <CH.Code>
@@ -566,6 +577,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/module-transacti
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     
   </Grid>
@@ -599,7 +611,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/module-transacti
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/modules/{address}/safes/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/" />
 
     <CH.Section>
       <CH.Code>
@@ -612,6 +624,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/modules/0xcd2E72
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -651,7 +664,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/modules/0xcd2E72
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/multisig-transactions/{safe_tx_hash}/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/" />
 
     <CH.Section>
       <CH.Code>
@@ -664,6 +677,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/multisig-transac
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     
   </Grid>
@@ -725,7 +739,7 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/multisig-transactions/{safe_tx_hash}/" method="delete" />
 
-    #### Sample Request
+    <SampleRequestHeader method="delete" pathWithParams="/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/" />
 
     <CH.Section>
       <CH.Code>
@@ -741,6 +755,7 @@ curl -X DELETE https://safe-transaction-mainnet.safe.global/api/v1/multisig-tran
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -772,7 +787,7 @@ curl -X DELETE https://safe-transaction-mainnet.safe.global/api/v1/multisig-tran
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/" />
 
     <CH.Section>
       <CH.Code>
@@ -785,6 +800,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/multisig-transac
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -822,7 +838,7 @@ the use of delegates to make a transaction trusted.
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="post" />
 
-    #### Sample Request
+    <SampleRequestHeader method="post" pathWithParams="/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/" />
 
     <CH.Section>
       <CH.Code>
@@ -837,6 +853,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/multisig-transa
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     
   </Grid>
@@ -870,7 +887,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/multisig-transa
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/owners/{address}/safes/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/" />
 
     <CH.Section>
       <CH.Code>
@@ -883,6 +900,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/owners/0xcd2E72a
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -922,7 +940,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/owners/0xcd2E72a
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/safes/{address}/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
 
     <CH.Section>
       <CH.Code>
@@ -935,6 +953,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -979,7 +998,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/safes/{address}/all-transactions/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/" />
 
     <CH.Section>
       <CH.Code>
@@ -992,6 +1011,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1192,7 +1212,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/safes/{address}/creation/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/" />
 
     <CH.Section>
       <CH.Code>
@@ -1205,6 +1225,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1286,7 +1307,7 @@ Check `POST /delegates/`
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/safes/{address}/delegates/{delegate_address}/" method="delete" />
 
-    #### Sample Request
+    <SampleRequestHeader method="delete" pathWithParams="/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/delegates/0x5A93Fe8eBBf78738468c10894D7f36fA247b71C0/" />
 
     <CH.Section>
       <CH.Code>
@@ -1303,6 +1324,7 @@ curl -X DELETE https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E7
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1334,7 +1356,7 @@ curl -X DELETE https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E7
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/safes/{address}/incoming-transfers/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/" />
 
     <CH.Section>
       <CH.Code>
@@ -1347,6 +1369,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1426,7 +1449,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/safes/{address}/messages/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/" />
 
     <CH.Section>
       <CH.Code>
@@ -1439,6 +1462,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1480,7 +1504,7 @@ service needs to derive it itself.
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/safes/{address}/messages/" method="post" />
 
-    #### Sample Request
+    <SampleRequestHeader method="post" pathWithParams="/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/" />
 
     <CH.Section>
       <CH.Code>
@@ -1497,6 +1521,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     
   </Grid>
@@ -1524,7 +1549,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/safes/{address}/module-transactions/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/" />
 
     <CH.Section>
       <CH.Code>
@@ -1537,6 +1562,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1574,7 +1600,7 @@ By default only ``trusted`` multisig transactions are returned.
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/safes/{address}/multisig-transactions/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/" />
 
     <CH.Section>
       <CH.Code>
@@ -1587,6 +1613,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1762,7 +1789,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/safes/{address}/multisig-transactions/" method="post" />
 
-    #### Sample Request
+    <SampleRequestHeader method="post" pathWithParams="/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/" />
 
     <CH.Section>
       <CH.Code>
@@ -1791,6 +1818,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     
   </Grid>
@@ -1818,7 +1846,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/safes/{address}/multisig-transactions/estimations/" method="post" />
 
-    #### Sample Request
+    <SampleRequestHeader method="post" pathWithParams="/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/" />
 
     <CH.Section>
       <CH.Code>
@@ -1836,6 +1864,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1870,7 +1899,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/safes/{address}/transfers/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/" />
 
     <CH.Section>
       <CH.Code>
@@ -1883,6 +1912,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
@@ -1968,7 +1998,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/tokens/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/tokens/" />
 
     <CH.Section>
       <CH.Code>
@@ -1981,12 +2011,13 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/tokens/ \
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     #### Sample Response
 
 ```json
 {
-  "count": 39649,
+  "count": 39652,
   "next": "https://safe-transaction-mainnet.safe.global/api/v1/tokens/?limit=2&offset=2",
   "previous": null,
   "results": [
@@ -2036,7 +2067,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/tokens/ \
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/tokens/{address}/" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
 
     <CH.Section>
       <CH.Code>
@@ -2049,6 +2080,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/tokens/0xcd2E72a
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     
   </Grid>
@@ -2082,7 +2114,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/tokens/0xcd2E72a
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/transfer/{transfer_id}" method="get" />
 
-    #### Sample Request
+    <SampleRequestHeader method="get" pathWithParams="/v1/transfer/3b3b57b3" />
 
     <CH.Section>
       <CH.Code>
@@ -2095,6 +2127,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/transfer/3b3b57b
 ```
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     
   </Grid>

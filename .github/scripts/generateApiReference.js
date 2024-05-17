@@ -276,7 +276,7 @@ const generateMethodContent = (path, method) => {
   <Grid item xs={12} md={5.6}>
     <Path path="${path}" method="${method}" />
 
-    #### Sample Request
+    <SampleRequestHeader method="${method}" pathWithParams="${pathWithParams}" />
 
     <CH.Section>
       <CH.Code>
@@ -298,6 +298,7 @@ ${curlify({
 \`\`\`
       </CH.Code>
     </CH.Section>
+    <NetworkNotice />
 
     ${
       hasResponse && sampleResponse !== '{}'
@@ -369,12 +370,15 @@ const generateMainContent = () => {
 
   return `import Path from './Path'
 import Hr from '../Hr'
+import SampleRequestHeader from './SampleRequestHeader'
 import Parameters from './Parameter'
-import NetworkSwitcher from './Network'
+import NetworkSwitcher, { NetworkNotice } from './Network'
 import Responses from './Response'
 import Feedback from '../Feedback'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
+import NextLink from 'next/link'
+import Link from '@mui/material/Link'
 
 # Safe Transaction Service API Reference
 

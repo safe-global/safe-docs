@@ -4,10 +4,11 @@ import Grid from '@mui/material/Grid'
 import Chip from '@mui/material/Chip'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
+import ExpandMore from '@mui/icons-material/ExpandMore'
 
 import Property from './Property'
-import Add from '@mui/icons-material/Add'
 import Hr from '../Hr'
+import { MdxHeading } from '../../lib/mdx'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Response: React.FC<{ response: any, index: number }> = ({
@@ -49,9 +50,6 @@ const Response: React.FC<{ response: any, index: number }> = ({
             color: 'text.primary',
             borderRadius: '5px',
             backgroundColor: 'transparent',
-            '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
-              transform: 'rotate(45deg)'
-            },
             mt: 1,
             '& .Mui-expanded': {
               margin: 0
@@ -59,7 +57,7 @@ const Response: React.FC<{ response: any, index: number }> = ({
           }}
           aria-controls={`panel${index}d-content`}
           id={`panel${index}d-header`}
-          expandIcon={properties?.length > 0 ? <Add /> : null}
+          expandIcon={properties?.length > 0 ? <ExpandMore /> : null}
         >
           <Grid container justifyContent='space-between'>
             <Grid item width='calc(100% - 80px)'>
@@ -91,8 +89,11 @@ const Response: React.FC<{ response: any, index: number }> = ({
                 size='small'
                 sx={{
                   borderRadius: 1,
+                  border: 'none',
                   mr: 1,
-                  backgroundColor: isSuccess ? 'success.darker' : 'error.darker'
+                  backgroundColor: isSuccess
+                    ? 'success.background'
+                    : 'error.background'
                 }}
               />
             </Grid>
@@ -138,9 +139,7 @@ const Response: React.FC<{ response: any, index: number }> = ({
 const Responses: React.FC<{ responses: any[] }> = ({ responses }) => {
   return (
     <Grid sx={{ mt: 2 }}>
-      <Typography variant='h4' gutterBottom>
-        Responses
-      </Typography>
+      <MdxHeading headingLevel={4}>Responses</MdxHeading>
       <Hr />
       {responses?.map?.((response, index) => (
         <Response key={index} index={index} response={response} />

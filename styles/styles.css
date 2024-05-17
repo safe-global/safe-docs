@@ -63,6 +63,14 @@ h1 {
   position: absolute;
 }
 
+/* CopyButton */
+button[title="Copy code"]:not(#\9) {
+  margin-top: 2px;
+  background-color: #212121;
+  border: none;
+}
+
+
 @media (min-width: 768px) {
   /* Sidebar */
   #__next > div > div.nx-mx-auto.nx-flex.nx-max-w-\[90rem\] > aside {

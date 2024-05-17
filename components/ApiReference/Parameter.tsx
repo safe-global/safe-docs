@@ -1,6 +1,6 @@
-import Typography from '@mui/material/Typography'
 import Property from './Property'
 import Hr from '../Hr'
+import { MdxHeading } from '../../lib/mdx'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Parameters: React.FC<{ parameters: any[] }> = ({ parameters }) => {
@@ -11,9 +11,7 @@ const Parameters: React.FC<{ parameters: any[] }> = ({ parameters }) => {
     <>
       {query.length > 0 && (
         <>
-          <Typography variant='h4' sx={{ mt: 2 }}>
-            Query Parameters
-          </Typography>
+          <MdxHeading headingLevel={4}>Query Parameters</MdxHeading>
           <Hr />
         </>
       )}
@@ -29,9 +27,7 @@ const Parameters: React.FC<{ parameters: any[] }> = ({ parameters }) => {
       ))}
       {body.length > 0 && (
         <>
-          <Typography variant='h4' sx={{ mt: 2 }}>
-            Request Body
-          </Typography>
+          <MdxHeading headingLevel={4}>Request Body</MdxHeading>
           <Hr />
         </>
       )}

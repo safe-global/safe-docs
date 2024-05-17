@@ -9,6 +9,7 @@ import Link from 'next/link'
 import throttle from 'lodash/throttle'
 import { type SxProps } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
 import {
   CopyToClipboard,
   Code,
@@ -23,6 +24,7 @@ import MuiLink from '@mui/material/Link'
 import { type Heading } from '../components/ApiReference/TOC'
 import swagger from '../components/ApiReference/mainnet-swagger.json'
 import pathsMetadata from '../components/ApiReference/paths-metadata.json'
+import HashTag from '../assets/svg/hashtag.svg'
 
 export const slugify: (text: string) => string = text =>
   text?.replace?.(/ /g, '-').replace(/\//g, '-')
@@ -60,8 +62,10 @@ export const getHeadingsFromHtml: (
         const headingText = heading
           .replace(/<[^>]*>/g, '')
           .replace(/&nbsp;/g, ' ')
+          .split('.')[0]
           .trim()
-        const link = `#${slugify(headingText)}`
+        let link = `#${slugify(headingText)}`
+        if (link.slice(-1) === '-') link = link.slice(0, -1)
         return {
           text: headingText,
           link,
@@ -73,22 +77,52 @@ export const getHeadingsFromHtml: (
   return []
 }
 
+export const MdxHeading: React.FC<{
+  headingLevel: number
+  children: ReactNode
+}> = ({ headingLevel, children }) => (
+  <Typography
+    variant={`h${headingLevel}` as 'h1'}
+    textTransform='none'
+    id={slugify(children as string)}
+    sx={{
+      '&:hover .MuiButton-root': {
+        opacity: '1'
+      },
+      transition: '0.2s'
+    }}
+  >
+    {children as string}{' '}
+    {headingLevel > 1 && (
+      <Button
+        href={`#${slugify(children as string)}`}
+        disableRipple
+        sx={{
+          p: 0,
+          minWidth: 12,
+          minHeight: 24,
+          fontSize: 24,
+          backgroundColor: 'transparent',
+          color: 'grey.700',
+          opacity: '0',
+          transition: '0.2s',
+          '&:hover': {
+            backgroundColor: 'transparent'
+          }
+        }}
+      >
+        <HashTag width='15px' height='35px' />
+      </Button>
+    )}
+  </Typography>
+)
+
 const getMarkdownHeaderComponent: (
   headingLevel: number
 ) => React.FC<{ children: ReactNode }> =
   headingLevel =>
-    ({ children }) => {
-      const HeadingComponent: React.FC = () => (
-      <Typography
-        variant={`h${headingLevel}` as 'h1'}
-        textTransform='none'
-        id={slugify(children as string)}
-      >
-        {children as string}
-      </Typography>
-      )
-      return HeadingComponent({})
-    }
+    ({ children }) =>
+      MdxHeading({ headingLevel, children })
 
 export const useCurrentTocIndex: (
   headings: Heading[],
@@ -129,7 +163,7 @@ export const useCurrentTocIndex: (
       setCurrentIndex(
         isNextHeadingInView ? nextHeading?.link ?? '' : active?.link ?? ''
       )
-    } else setCurrentIndex('')
+    } else setCurrentIndex(_headings[0]?.children?.[0]?.link ?? '')
   }, [headings, navHeight])
 
   const scrollListener = useMemo(
