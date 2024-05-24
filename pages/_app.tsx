@@ -58,11 +58,7 @@ const GoogleAnalytics: React.FC = () => {
       location.reload()
     }
   }, [isAnalyticsEnabled])
-  return isAnalyticsInitialized ? (
-    <GoogleTagManager
-      gtmId={String(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID)}
-    />
-  ) : null
+  return null
 }
 
 const App = ({
@@ -77,6 +73,9 @@ const App = ({
     <Head>
       <MetaTags path={router.asPath} />
     </Head>
+    <GoogleTagManager
+        gtmId={String(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID)}
+      />
     <CacheProvider value={emotionCache}>
       <CssVarsProvider theme={cssVarsTheme}>
         <CookieBannerContextProvider>
