@@ -76,5 +76,10 @@
     "open-graph-scraper": "^6.5.0",
     "serve": "^14.2.1",
     "typescript": "^5.4.2"
+  },
+  "release-it": {
+    "github": {
+      "release": true
+    }
   }
 }
