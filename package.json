@@ -15,7 +15,7 @@
     "typecheck": "tsc --noEmit --incremental false",
     "prepush": "pnpm lint && pnpm typecheck && pnpm validate-resources",
     "prepare": "husky install",
-    "release": "release-it"
+    "release": "release-it --no-npm"
   },
   "repository": {
     "type": "git",
