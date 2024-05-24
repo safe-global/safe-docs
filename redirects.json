@@ -231,22 +231,32 @@
   },
   {
     "source": "/safe-core-aa-sdk/protocol-kit/reference/v1",
-    "destination": "/sdk/protocol-kit/reference/migrating-to-v1",
+    "destination": "/sdk/protocol-kit/reference/migrate-to-v1",
     "permanent": true
   },
   {
     "source": "/sdk-protocol-kit/reference/migrating-to-v1",
-    "destination": "/sdk/protocol-kit/reference/migrating-to-v1",
+    "destination": "/sdk/protocol-kit/reference/migrate-to-v1",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/protocol-kit/reference/migrating-to-v1",
+    "destination": "/sdk/protocol-kit/reference/migrate-to-v1",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/protocol-kit/reference/v2",
-    "destination": "/sdk/protocol-kit/reference/migrating-to-v2",
+    "destination": "/sdk/protocol-kit/reference/migrate-to-v2",
     "permanent": true
   },
   {
     "source": "/sdk-protocol-kit/reference/migrating-to-v2",
-    "destination": "/sdk/protocol-kit/reference/migrating-to-v2",
+    "destination": "/sdk/protocol-kit/reference/migrate-to-v2",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/protocol-kit/reference/migrating-to-v2",
+    "destination": "/sdk/protocol-kit/reference/migrate-to-v2",
     "permanent": true
   },
   {
@@ -341,12 +351,17 @@
   },
   {
     "source": "/safe-core-aa-sdk/relay-kit/reference/v2",
-    "destination": "/sdk/relay-kit/reference/migrating-to-v2",
+    "destination": "/sdk/relay-kit/reference/migrate-to-v2",
     "permanent": true
   },
   {
     "source": "/sdk-relay-kit/reference/migrating-to-v2",
-    "destination": "/sdk/relay-kit/reference/migrating-to-v2",
+    "destination": "/sdk/relay-kit/reference/migrate-to-v2",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/relay-kit/reference/migrating-to-v2",
+    "destination": "/sdk/relay-kit/reference/migrate-to-v2",
     "permanent": true
   },
   {
@@ -371,67 +386,92 @@
   },
   {
     "source": "/safe-core-aa-sdk/api-kit/reference/v1",
-    "destination": "/sdk/api-kit/reference/migrating-to-v1",
+    "destination": "/sdk/api-kit/reference/migrate-to-v1",
     "permanent": true
   },
   {
     "source": "/sdk-api-kit/reference/migrating-to-v1",
-    "destination": "/sdk/api-kit/reference/migrating-to-v1",
+    "destination": "/sdk/api-kit/reference/migrate-to-v1",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/api-kit/reference/migrating-to-v1",
+    "destination": "/sdk/api-kit/reference/migrate-to-v1",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/api-kit/reference/v2",
-    "destination": "/sdk/api-kit/reference/migrating-to-v2",
+    "destination": "/sdk/api-kit/reference/migrate-to-v2",
     "permanent": true
   },
   {
-    "source": "/sdk-api-kit/reference/migrating-to-v2",
-    "destination": "/sdk/api-kit/reference/migrating-to-v2",
+    "source": "/sdk/api-kit/reference/migrating-to-v2",
+    "destination": "/sdk/api-kit/reference/migrate-to-v2",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/api-kit/reference/migrating-to-v2",
+    "destination": "/sdk/api-kit/reference/migrate-to-v2",
     "permanent": true
   },
   {
     "source": "/safe-core-api",
-    "destination": "/advanced/api-service-architecture",
+    "destination": "/core-api/api-overview",
     "permanent": true
   },
   {
     "source": "/api-service-architecture",
-    "destination": "/advanced/api-service-architecture",
+    "destination": "/core-api/api-overview",
     "permanent": true
   },
   {
     "source": "/safe-core-api/service-architecture",
-    "destination": "/advanced/api-service-architecture",
+    "destination": "/core-api/api-overview",
     "permanent": true
   },
   {
     "source": "/api-service-architecture",
-    "destination": "/advanced/api-service-architecture",
+    "destination": "/core-api/api-overview",
+    "permanent": true
+  },
+  {
+    "source": "/advanced/api-service-architecture",
+    "destination": "/core-api/api-overview",
     "permanent": true
   },
   {
     "source": "/safe-core-api/service-architecture/safe-transaction-service",
-    "destination": "/advanced/api-service-architecture/safe-transaction-service",
+    "destination": "/core-api/api-safe-transaction-service",
     "permanent": true
   },
   {
     "source": "/api-service-architecture/safe-transaction-service",
-    "destination": "/advanced/api-service-architecture/safe-transaction-service",
+    "destination": "/core-api/api-safe-transaction-service",
+    "permanent": true
+  },
+  {
+    "source": "/advanced/api-service-architecture/safe-transaction-service",
+    "destination": "/core-api/api-safe-transaction-service",
     "permanent": true
   },
   {
     "source": "/safe-core-api/rpc-requirements",
-    "destination": "/advanced/api-safe-transaction-service/rpc-requirements",
+    "destination": "/core-api/api-safe-transaction-service/rpc-requirements",
     "permanent": true
   },
   {
     "source": "/api-rpc-requirements",
-    "destination": "/advanced/api-safe-transaction-service/rpc-requirements",
+    "destination": "/core-api/api-safe-transaction-service/rpc-requirements",
     "permanent": true
   },
   {
     "source": "/advanced/api-rpc-requirements",
-    "destination": "/advanced/api-safe-transaction-service/rpc-requirements",
+    "destination": "/core-api/api-safe-transaction-service/rpc-requirements",
+    "permanent": true
+  },
+  {
+    "source": "/advanced/api-safe-transaction-service/rpc-requirements",
+    "destination": "/core-api/api-safe-transaction-service/rpc-requirements",
     "permanent": true
   },
   {
@@ -447,6 +487,16 @@
   {
     "source": "/advanced/api-supported-networks",
     "destination": "/core-api/transaction-service-supported-networks",
+    "permanent": true
+  },
+  {
+    "source": "/advanced/api-new-networks",
+    "destination": "/core-api/api-support-new-chains",
+    "permanent": true
+  },
+  {
+    "source": "/core-api/api-new-networks",
+    "destination": "/core-api/api-support-new-chains",
     "permanent": true
   },
   {

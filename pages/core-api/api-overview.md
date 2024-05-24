@@ -1,23 +1,29 @@
-# Service architecture
+# Safe{Core} Infrastructure
 
-The Safe{Core} infrastructure consists of the following services:
+The Safe{Core} Infrastructure consists of the following services:
 
-* [Safe Transaction Service](https://github.com/safe-global/safe-transaction-service): Keeps track of transactions related to Safe contracts (Python).
-* [Safe Events Service](https://github.com/safe-global/safe-events-service): Handles Safe indexing events from the Transaction Service and delivers them as HTTP webhooks (NodeJS).
+## Safe Transaction Service
+
+The Safe Transaction Service tracks transactions related to Safe contracts using tracing on Mainnet, Sepolia, and Gnosis Chain. It uses event indexing for the other chains. For each [supported network](./transaction-service-supported-networks.md) there is one instance of the Transaction Service.
+
+- Learn about the [tech stack and how to run the service](./api-safe-transaction-service.mdx).
+- Learn about the [Safe Transaction Service API](./transaction-service-overview.mdx).
+- Check the [API Reference](./transaction-service-reference.mdx).
+- Check the [GitHub repository](https://github.com/safe-global/safe-transaction-service) (Python).
+
+## Safe Events Service
+
+The Events Service handles Safe indexing events and delivers them as HTTP webhooks, connection to the events queue processed by the Transaction Service. The service's database stores the configuration of webhook destinations.
+
+- Check the [GitHub repository](https://github.com/safe-global/safe-events-service) (NodeJS).
+
+## Architecture
 
 Safe{Wallet} uses these services to offer functionality to end customers via the web and mobile applications. The [Safe Client Gateway](https://github.com/safe-global/safe-client-gateway-nest) acts as a facade between the end customer and the Safe{Core} services and the [Safe Config Service](https://github.com/safe-global/safe-config-service) stores all supported networks and chain-specific variables.
 
 Safe's production setup consists of several instances of the Transaction Service orchestrated by the Config Service, which are later consumed by the Safe Client Gateway. The Events Service notifies the Safe Client Gateway when new events are indexed, helping to improve the user experience.
 
 ![Overview of the backend services and their components.](../../assets/diagram-services.png)
-
-## Safe Transaction Service
-
-The Transaction Service uses tracing in Mainnet/Sepolia and Gnosis Chain and event indexing in other chains to keep track of transactions related to Safe contracts. One instance of the Transaction Service runs per supported network (Mainnet, Sepolia, Gnosis Chain, Polygon, etc.).
-
-## Safe Events Service
-
-The Events Service connects to the events queue processed by the Transaction Service. It handles Safe indexing events and delivers them as HTTP webhooks. The service's database stores the configuration of webhook destinations.
 
 ## Integration Flow for Safe{Wallet} and Safe{Core}
 

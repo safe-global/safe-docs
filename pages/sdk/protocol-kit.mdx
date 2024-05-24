@@ -26,75 +26,37 @@ For a more detailed guide, including how to integrate with `web3.js` and more Sa
 
 ### Install dependencies
 
-First, we need to install some dependencies from `safe-core-sdk` and the `ethers` library.
-
-To interact with Ethereum and other EVM blockchains in Node, we can either use: web3.js or ethers.js. In this tutorial, we will use the ethers.js library. To use `web3js`, see [Instantiate an EthAdapter section in Guide: Integrating the Safe Core SDK](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
-
-The Protocol Kit is compatible only with **ethers.js v6**. Make sure you specify this version when installing the SDK.
-
-You can store your environment variables such as private keys in a `.env` file. To read easily from `.env` files, use the `dotenv` library.
+First, we need to install some dependencies.
 
 ```bash
-yarn add ethers @safe-global/protocol-kit \
+yarn add @safe-global/protocol-kit \
   @safe-global/api-kit \
-  @safe-global/safe-core-sdk-types \
-  dotenv
+  @safe-global/safe-core-sdk-types
 ```
 
-Create the `.env` file:
-
-```bash
-touch .env
-```
-
-Put your signing account private keys into the `.env` file you just created.
-
-```bash
-export OWNER_1_PRIVATE_KEY='<PRIVATE_KEY>'
-export OWNER_2_PRIVATE_KEY='<PRIVATE_KEY>'
-export OWNER_3_PRIVATE_KEY='<PRIVATE_KEY>'
-```
-
-Create an `index.ts` file that you will use to run the following code snippets.
-
-```bash
-touch index.ts
-```
-
-Tip: Use [ts-node](https://github.com/TypeStrong/ts-node) to run a Typescript file in Node.js.
-
-```bash
-npx ts-node examples/protocol-kit/index.ts
-```
-
-### Initialize Signers, Providers, and EthAdapter
+### Initialize Signers and Providers
 
 The signers trigger transactions to the Ethereum blockchain or off-chain transactions. The provider connects to the Ethereum blockchain.
 
 You can get a public RPC URL from [Chainlist](https://chainlist.org), however, public RPC URLs can be unreliable so you can also try a dedicated provider like Infura or Alchemy.
 
-For this tutorial, we will be creating a Safe on the Sepolia Testnet.
+For this guide, we will be creating a Safe on the Sepolia Testnet.
 
 ```tsx
-import { ethers } from 'ethers'
-import { EthersAdapter } from '@safe-global/protocol-kit'
-import dotenv from 'dotenv'
-
-dotenv.config()
-
 // https://chainlist.org/?search=sepolia&testnets=true
-const RPC_URL='https://eth-sepolia.public.blastapi.io'
-const provider = new ethers.JsonRpcProvider(RPC_URL)
+const RPC_URL = 'https://eth-sepolia.public.blastapi.io'
 
 // Initialize signers
-const owner1Signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
-const owner2Signer = new ethers.Wallet(process.env.OWNER_2_PRIVATE_KEY!, provider)
-const owner3Signer = new ethers.Wallet(process.env.OWNER_3_PRIVATE_KEY!, provider)
+const OWNER_1_ADDRESS = // ...
+const OWNER_1_PRIVATE_KEY = // ...
 
-const ethAdapterOwner1 = new EthersAdapter({
-  ethers,
-  signerOrProvider: owner1Signer
-})
+const OWNER_2_ADDRESS = // ...
+const OWNER_2_PRIVATE_KEY = // ...
+
+const OWNER_3_ADDRESS = // ...
+
+const provider = new ethers.JsonRpcProvider(RPC_URL)
+const owner1Signer = new ethers.Wallet(OWNER_1_PRIVATE_KEY, provider)
 ```
 
 ### Initialize the API Kit
@@ -111,7 +73,7 @@ const apiKit = new SafeApiKit({
 })
 
 
-// or using a custom service
+// Or using a custom service
 const apiKit = new SafeApiKit({
   chainId: 1n, // set the correct chainId
   txServiceUrl: 'https://url-to-your-custom-service'
@@ -120,14 +82,15 @@ const apiKit = new SafeApiKit({
 
 ### Initialize the Protocol Kit
 
-Sepolia is a supported network so you don't need to specify the contract addresses, however, to see how to create a safe on a local or unsupported network, see [Instantiate an EthAdapter](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#instantiate-an-ethadapter).
-
-Safe Factory is used to create Safes. While Safe class represents an instance of a specific Safe account.
+The `SafeFactory` class allows the deployment of new Safe accounts while the `Safe` class represents an instance of a specific Safe account.
 
 ```tsx
 import { SafeFactory } from '@safe-global/protocol-kit'
 
-const safeFactory = await SafeFactory.create({ ethAdapter: ethAdapterOwner1 })
+const safeFactory = await SafeFactory.init({
+  provider: RPC_URL,
+  signer: OWNER_1_PRIVATE_KEY
+})
 ```
 
 ### Deploy a Safe
@@ -139,16 +102,15 @@ import { SafeAccountConfig } from '@safe-global/protocol-kit'
 
 const safeAccountConfig: SafeAccountConfig = {
   owners: [
-    await owner1Signer.getAddress(),
-    await owner2Signer.getAddress(),
-    await owner3Signer.getAddress()
+    await OWNER_1_ADDRESS,
+    await OWNER_2_ADDRESS,
+    await OWNER_3_ADDRESS
   ],
   threshold: 2,
-  // ... (Optional params)
+  // Optional params
 }
 
-/* This Safe is tied to owner 1 because the factory was initialized with
-an adapter that had owner 1 as the signer. */
+/* This Safe is tied to owner 1 because the factory was initialized with the owner 1 as the signer. */
 const protocolKitOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
 
 const safeAddress = await protocolKitOwner1.getAddress()
@@ -238,7 +200,7 @@ await apiKit.proposeTransaction({
   safeAddress,
   safeTransactionData: safeTransaction.data,
   safeTxHash,
-  senderAddress: await owner1Signer.getAddress(),
+  senderAddress: OWNER_1_ADDRESS,
   senderSignature: senderSignature.data,
 })
 ```
@@ -260,13 +222,9 @@ When owner 2 is connected to the application, the Protocol Kit should be initial
 const transaction = pendingTransactions[0]
 const safeTxHash = transaction.safeTxHash
 
-const ethAdapterOwner2 = new EthersAdapter({
-  ethers,
-  signerOrProvider: owner2Signer
-})
-
-const protocolKitOwner2 = await Safe.create({
-  ethAdapter: ethAdapterOwner2,
+const protocolKitOwner2 = await Safe.init({
+  provider: RPC_URL,
+  signer: OWNER_2_PRIVATE_KEY,
   safeAddress
 })
 

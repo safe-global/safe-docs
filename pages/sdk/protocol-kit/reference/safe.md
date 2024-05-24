@@ -2,85 +2,22 @@
 
 ## Initialization
 
-### `connect`
+### `init`
 
-Returns a new instance of the Protocol Kit connected to a new Safe or a new Signer. The new connected signer can be passed via the `ethAdapter` property while the new connected Safe can be passed using a `safeAddress` or a `predictedSafe`.
+Returns an instance of the Protocol Kit connected to a Safe.
 
-Connection of a deployed Safe using the `safeAddress` property:
-
-```typescript
-let protocolKit = await Safe.create({ ethAdapter, safeAddress })
-protocolKit = await protocolKit.connect({ ethAdapter: anotherEthAdapter, safeAddress: anotherSafeAddress })
-```
-
-Connection of an undeployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to connect a Safe to the SDK with the Safe configuration:
-
-```typescript
-import { PredictedSafeProps } from '@safe-global/protocol-kit'
-
-const predictedSafe: PredictedSafeProps = {
-  safeAccountConfig,
-  safeDeploymentConfig
-}
-
-let protocolKit = await Safe.create({ ethAdapter, safeAddress })
-...
-protocolKit = await protocolKit.connect({ predictedSafe })
-```
-
-- The `isL1SafeSingleton` flag
-
-  Two versions of the Safe contracts are available: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that doesn't trigger events to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
-
-  By default `Safe.sol` will only be used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force using the `Safe.sol` contract.
-
-  ```typescript
-  protocolKit = await protocolKit.connect({ ethAdapter, safeAddress, isL1SafeSingleton: true })
-  ```
-
-- The `contractNetworks` property
-
-  If the Safe contracts aren't deployed to your current network, the `contractNetworks` property will be required to point to the addresses of the Safe contracts previously deployed by you.
-
-  ```typescript
-  import { ContractNetworksConfig } from '@safe-global/protocol-kit'
-
-  const chainId = await ethAdapter.getChainId()
-  const contractNetworks: ContractNetworksConfig = {
-    [chainId]: {
-      safeSingletonAddress: '<SINGLETON_ADDRESS>',
-      safeProxyFactoryAddress: '<PROXY_FACTORY_ADDRESS>',
-      multiSendAddress: '<MULTI_SEND_ADDRESS>',
-      multiSendCallOnlyAddress: '<MULTI_SEND_CALL_ONLY_ADDRESS>',
-      fallbackHandlerAddress: '<FALLBACK_HANDLER_ADDRESS>',
-      signMessageLibAddress: '<SIGN_MESSAGE_LIB_ADDRESS>',
-      createCallAddress: '<CREATE_CALL_ADDRESS>',
-      simulateTxAccessorAddress: '<SIMULATE_TX_ACCESSOR_ADDRESS>',
-      safeSingletonAbi: '<SINGLETON_ABI>', // Optional. Only needed with web3.js
-      safeProxyFactoryAbi: '<PROXY_FACTORY_ABI>', // Optional. Only needed with web3.js
-      multiSendAbi: '<MULTI_SEND_ABI>', // Optional. Only needed with web3.js
-      multiSendCallOnlyAbi: '<MULTI_SEND_CALL_ONLY_ABI>', // Optional. Only needed with web3.js
-      fallbackHandlerAbi: '<FALLBACK_HANDLER_ABI>', // Optional. Only needed with web3.js
-      signMessageLibAbi: '<SIGN_MESSAGE_LIB_ABI>', // Optional. Only needed with web3.js
-      createCallAbi: '<CREATE_CALL_ABI>', // Optional. Only needed with web3.js
-      simulateTxAccessorAbi: '<SIMULATE_TX_ACCESSOR_ABI>' // Optional. Only needed with web3.js
-    }
-  }
-  let protocolKit = await Safe.create({ ethAdapter, safeAddress })
-  ...
-  protocolKit = await protocolKit.connect({ contractNetworks })
-  ```
-
-### `create`
-
-Returns an instance of the Protocol Kit connected to a Safe. The provided Safe must be a `safeAddress` or a `predictedSafe`.
+The `provider` property can be an [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible provider or an RPC URL. The `signer` property can be the signer address or its private key. The provided Safe must be a `safeAddress` or a `predictedSafe`.
 
 Initialization of a deployed Safe using the `safeAddress` property:
 
 ```typescript
 import Safe from '@safe-global/protocol-kit'
 
-const protocolKit = await Safe.create({ ethAdapter, safeAddress })
+const protocolKit = await Safe.init({
+  provider,
+  signer,
+  safeAddress 
+})
 ```
 
 Initialization of an undeployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to initialize the SDK with the Safe configuration and use it to some extent before it's deployed:
@@ -93,7 +30,11 @@ const predictedSafe: PredictedSafeProps = {
   safeDeploymentConfig
 }
 
-const protocolKit = await Safe.create({ ethAdapter, predictedSafe })
+const protocolKit = await Safe.init({
+  provider,
+  signer,
+  predictedSafe
+})
 ```
 
 - The `isL1SafeSingleton` flag
@@ -103,7 +44,12 @@ const protocolKit = await Safe.create({ ethAdapter, predictedSafe })
   By default `Safe.sol` will only be used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force using the `Safe.sol` contract.
 
   ```typescript
-  const protocolKit = await Safe.create({ ethAdapter, safeAddress, isL1SafeSingleton: true })
+  const protocolKit = await Safe.init({
+    provider,
+    signer,
+    safeAddress,
+    isL1SafeSingleton: true
+  })
   ```
 
 - The `contractNetworks` property
@@ -111,9 +57,14 @@ const protocolKit = await Safe.create({ ethAdapter, predictedSafe })
   If the Safe contracts aren't deployed to your current network, the `contractNetworks` property will be required to point to the addresses of the Safe contracts previously deployed by you.
 
   ```typescript
-  import { ContractNetworksConfig } from '@safe-global/protocol-kit'
+  import {
+    ContractNetworksConfig,
+    SafeProvider
+  } from '@safe-global/protocol-kit'
 
-  const chainId = await ethAdapter.getChainId()
+  const safeProvider = new SafeProvider({ provider, signer })
+  const chainId = await safeProvider.getChainId()
+
   const contractNetworks: ContractNetworksConfig = {
     [chainId]: {
       safeSingletonAddress: '<SINGLETON_ADDRESS>',
@@ -135,7 +86,114 @@ const protocolKit = await Safe.create({ ethAdapter, predictedSafe })
     }
   }
 
-  const protocolKit = await Safe.create({ ethAdapter, safeAddress, contractNetworks })
+  const protocolKit = await Safe.init({
+    provider,
+    signer,
+    safeAddress,
+    contractNetworks
+  })
+  ```
+
+### `connect`
+
+Returns a new instance of the Protocol Kit connected to a new Safe or a new signer. The new connected signer can be passed via the `signer` property while the new connected Safe can be passed using a `safeAddress` or a `predictedSafe`.
+
+The `provider` property can be an [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible provider or an RPC URL. The `signer` property can be the signer address or its private key.
+
+Connection of a deployed Safe using the `safeAddress` property:
+
+```typescript
+let protocolKit = await Safe.init({
+  provider,
+  signer,
+  safeAddress
+})
+
+protocolKit = await protocolKit.connect({
+  signer: anotherSigner,
+  safeAddress: anotherSafeAddress
+})
+```
+
+Connection of an undeployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to connect a Safe to the SDK with the Safe configuration:
+
+```typescript
+import { PredictedSafeProps } from '@safe-global/protocol-kit'
+
+const predictedSafe: PredictedSafeProps = {
+  safeAccountConfig,
+  safeDeploymentConfig
+}
+
+let protocolKit = await Safe.init({
+  provider,
+  signer,
+  safeAddress 
+})
+
+// ...
+
+protocolKit = await protocolKit.connect({ predictedSafe })
+```
+
+- The `isL1SafeSingleton` flag
+
+  Two versions of the Safe contracts are available: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that doesn't trigger events to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
+
+  By default `Safe.sol` will only be used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract will be used unless you add the `isL1SafeSingleton` flag to force using the `Safe.sol` contract.
+
+  ```typescript
+  protocolKit = await protocolKit.connect({
+    provider,
+    signer,
+    safeAddress,
+    isL1SafeSingleton: true
+  })
+  ```
+
+- The `contractNetworks` property
+
+  If the Safe contracts aren't deployed to your current network, the `contractNetworks` property will be required to point to the addresses of the Safe contracts previously deployed by you.
+
+  ```typescript
+  import {
+    ContractNetworksConfig,
+    SafeProvider
+  } from '@safe-global/protocol-kit'
+
+  const safeProvider = new SafeProvider({ provider, signer })
+  const chainId = await safeProvider.getChainId()
+
+  const contractNetworks: ContractNetworksConfig = {
+    [chainId]: {
+      safeSingletonAddress: '<SINGLETON_ADDRESS>',
+      safeProxyFactoryAddress: '<PROXY_FACTORY_ADDRESS>',
+      multiSendAddress: '<MULTI_SEND_ADDRESS>',
+      multiSendCallOnlyAddress: '<MULTI_SEND_CALL_ONLY_ADDRESS>',
+      fallbackHandlerAddress: '<FALLBACK_HANDLER_ADDRESS>',
+      signMessageLibAddress: '<SIGN_MESSAGE_LIB_ADDRESS>',
+      createCallAddress: '<CREATE_CALL_ADDRESS>',
+      simulateTxAccessorAddress: '<SIMULATE_TX_ACCESSOR_ADDRESS>',
+      safeSingletonAbi: '<SINGLETON_ABI>', // Optional. Only needed with web3.js
+      safeProxyFactoryAbi: '<PROXY_FACTORY_ABI>', // Optional. Only needed with web3.js
+      multiSendAbi: '<MULTI_SEND_ABI>', // Optional. Only needed with web3.js
+      multiSendCallOnlyAbi: '<MULTI_SEND_CALL_ONLY_ABI>', // Optional. Only needed with web3.js
+      fallbackHandlerAbi: '<FALLBACK_HANDLER_ABI>', // Optional. Only needed with web3.js
+      signMessageLibAbi: '<SIGN_MESSAGE_LIB_ABI>', // Optional. Only needed with web3.js
+      createCallAbi: '<CREATE_CALL_ABI>', // Optional. Only needed with web3.js
+      simulateTxAccessorAbi: '<SIMULATE_TX_ACCESSOR_ABI>' // Optional. Only needed with web3.js
+    }
+  }
+
+  let protocolKit = await Safe.init({
+    provider,
+    signer,
+    safeAddress
+  })
+
+  // ...
+
+  protocolKit = await protocolKit.connect({ contractNetworks })
   ```
 
 ## Safe Info
@@ -296,18 +354,7 @@ await txResponse.transactionResponse?.wait()
 Optionally, some properties can be passed as execution options:
 
 ```typescript
-const options: Web3TransactionOptions = {
-  from, // Optional
-  gas, // Optional
-  gasPrice, // Optional
-  maxFeePerGas, // Optional
-  maxPriorityFeePerGas // Optional
-  nonce // Optional
-}
-```
-
-```typescript
-const options: EthersTransactionOptions = {
+const options: TransactionOptions = {
   from, // Optional
   gasLimit, // Optional
   gasPrice, // Optional
@@ -348,18 +395,7 @@ const isValidTx = await protocolKit.isValidTransaction(safeTransaction)
 Optionally, some properties can be passed as execution options:
 
 ```typescript
-const options: Web3TransactionOptions = {
-  from, // Optional
-  gas, // Optional
-  gasPrice, // Optional
-  maxFeePerGas, // Optional
-  maxPriorityFeePerGas // Optional
-  nonce // Optional
-}
-```
-
-```typescript
-const options: EthersTransactionOptions = {
+const options: TransactionOptions = {
   from, // Optional
   gasLimit, // Optional
   gasPrice, // Optional
@@ -392,18 +428,7 @@ await txResponse.transactionResponse?.wait()
 Optionally, some properties can be passed as execution options:
 
 ```typescript
-const options: Web3TransactionOptions = {
-  from, // Optional
-  gas, // Optional
-  gasPrice, // Optional
-  maxFeePerGas, // Optional
-  maxPriorityFeePerGas // Optional
-  nonce // Optional
-}
-```
-
-```typescript
-const options: EthersTransactionOptions = {
+const options: TransactionOptions = {
   from, // Optional
   gasLimit, // Optional
   gasPrice, // Optional
