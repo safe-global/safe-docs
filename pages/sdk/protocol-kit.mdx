@@ -210,7 +210,7 @@ await apiKit.proposeTransaction({
 Recall that you created the `apiKit` in [Initialize the API Kit](./#initialize-the-safe-api-kit).
 
 ```tsx
-const pendingTransactions = await apiKit.getPendingTransactions(safeAddress).results
+const pendingTransactions = (await apiKit.getPendingTransactions(safeAddress)).results
 ```
 
 ### Confirm the transaction: Second confirmation
