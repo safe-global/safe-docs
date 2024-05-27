@@ -1,7 +1,6 @@
 import { Grid } from '@mui/material'
 import SafeCoreSDK from '../../assets/svg/ic-sdk.svg'
 import SafeSmartAccount from '../../assets/svg/ic-smart-account.svg'
-import SafeCoreAPI from '../../assets/svg/ic-api.svg'
 import CustomCard from '../../components/CustomCard'
 
 # Safe Smart Account
@@ -17,21 +16,12 @@ The architectural design of Safe Smart Account keeps the following principles in
   alignContent='flex-start'
   mt={3}
 >
-  <Grid item xs={12} md={12}>
+  <Grid item xs={12} md={6}>
     <CustomCard
       title={'Secure default'}
       description={'Uses a multi-signature logic where a threshold of owners must confirm a transaction before execution to provide a secure default without trusting any additional contract. For example, a module, guard, or fallback handler (explained below).'}
       url={''}
       icon={<SafeCoreSDK />}
-      newTab={false}
-    />
-  </Grid>
-  <Grid item xs={12} md={6}>
-    <CustomCard
-      title={'Minimal gas costs'}
-      description={'Optimises gas costs by storing the transaction data that should be executed and the confirmations off-chain. Also uses a proxy pattern to reduce setup costs.'}
-      url={''}
-      icon={<SafeCoreAPI />}
       newTab={false}
     />
   </Grid>
