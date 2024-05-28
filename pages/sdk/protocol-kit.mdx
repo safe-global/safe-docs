@@ -95,7 +95,7 @@ const safeFactory = await SafeFactory.init({
 
 ### Deploy a Safe
 
-Calling the `deploySafe` method will deploy the desired Safe and return a Protocol Kit initialized instance ready to be used. Check the [method reference](./protocol-kt/reference/safe-factory#deploysafe) for more details on additional configuration parameters and callbacks.
+Calling the `deploySafe` method will deploy the desired Safe and return a Protocol Kit initialized instance ready to be used. Check the [method reference](./protocol-kit/reference/safe-factory#deploysafe) for more details on additional configuration parameters and callbacks.
 
 ```tsx
 import { SafeAccountConfig } from '@safe-global/protocol-kit'
@@ -165,7 +165,7 @@ The high-level overview of a multi-sig transaction is PCE: Propose. Confirm. Exe
 
 ### Create a transaction
 
-For more details on what to include in a transaction see [createTransaction](./protocol-kit/reference/safe#createtransaction) method.
+For more details on what to include in a transaction see [`createTransaction`](./protocol-kit/reference/safe#createtransaction) method.
 
 ```tsx
 import { MetaTransactionData } from '@safe-global/safe-core-sdk-types'
@@ -187,7 +187,7 @@ const safeTransaction = await protocolKitOwner1.createTransaction({ transactions
 
 To propose a transaction to the Safe Transaction Service we need to call the `proposeTransaction` method from the API Kit instance.
 
-For a full list and description of the properties see [proposeTransaction](./api-kit/reference#proposetransaction) in the API Kit reference.
+For a full list and description of the properties see [`proposeTransaction`](./api-kit/reference#proposetransaction) in the API Kit reference.
 
 ```tsx
 // Deterministic hash based on transaction parameters
@@ -207,7 +207,7 @@ await apiKit.proposeTransaction({
 
 ### Get pending transactions
 
-Recall that you created the `apiKit` in [Initialize the API Kit](./#initialize-the-safe-api-kit).
+Recall that you created the `apiKit` in [Initialize the API Kit](./protocol-kit/#initialize-the-safe-api-kit).
 
 ```tsx
 const pendingTransactions = (await apiKit.getPendingTransactions(safeAddress)).results

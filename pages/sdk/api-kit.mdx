@@ -103,7 +103,7 @@ For more detailed information, see the [API Kit Reference](./api-kit/reference.m
 
   Before a transaction can be executed, any of the Safe signers needs to initiate the process by creating a proposal of a transaction. We send this transaction to the service to make it accessible by the other owners so they can give their approval and sign the transaction as well.
 
-For a full list and description of the properties see [proposeTransaction](./api-kit/reference#proposetransaction) in the API Kit reference.
+For a full list and description of the properties see [`proposeTransaction`](./api-kit/reference#proposetransaction) in the API Kit reference.
 
   ```typescript
   // Create transaction
@@ -146,7 +146,7 @@ For a full list and description of the properties see [proposeTransaction](./api
 
   ### Confirm the transaction
 
-  In this step we need to sign the transaction with the Protocol Kit and submit the signature to the Safe Transaction Service using the [confirmTransaction](./api-kit/reference#confirmtransaction) method.
+  In this step we need to sign the transaction with the Protocol Kit and submit the signature to the Safe Transaction Service using the [`confirmTransaction`](./api-kit/reference#confirmtransaction) method.
 
   ```typescript
   const protocolKitOwner2 = await Safe.init({
