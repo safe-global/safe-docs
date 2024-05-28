@@ -1,6 +1,6 @@
 # Reference
 
-The [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit) facilitates the interaction with the [Safe contracts](https://github.com/safe-global/safe-contracts).
+The [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit) facilitates the interaction with [Safe Smart Accounts](https://github.com/safe-global/safe-smart-account).
 
 ## Install dependencies
 

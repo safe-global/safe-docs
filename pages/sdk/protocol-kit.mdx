@@ -3,7 +3,7 @@ import CustomCard from '../../components/CustomCard'
 
 # Protocol Kit
 
-The [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit) enables developers to interact with the [Safe contracts](https://github.com/safe-global/safe-contracts) using a TypeScript interface. This Kit can be used to create new Safe accounts, update the configuration of existing Safes, propose and execute transactions, among other features.
+The [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit) enables developers to interact with [Safe Smart Accounts](https://github.com/safe-global/safe-smart-account) using a TypeScript interface. This Kit can be used to create new Safe accounts, update the configuration of existing Safes, propose and execute transactions, among other features.
 
 <Grid item mt={3}>
   <CustomCard
@@ -17,7 +17,7 @@ The [Protocol Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packag
 
 In this quickstart guide, you will create a 2 of 3 multi-sig Safe and propose and execute a transaction to send some ETH out of this Safe.
 
-For a more detailed guide, including how to integrate with `web3.js` and more Safe transaction configuration options, see [Guide: Integrating the Protocol Kit and API Kit](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md) and [Protocol Kit Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#sdk-api).
+To find more details and configuration options for available methods, see the [Protocol Kit reference](./protocol-kit/reference).
 
 ### Prerequisites
 
@@ -82,7 +82,7 @@ const apiKit = new SafeApiKit({
 
 ### Initialize the Protocol Kit
 
-The `SafeFactory` class allows the deployment of new Safe accounts while the `Safe` class represents an instance of a specific Safe account.
+The `SafeFactory` class allows the deployment of new Safe accounts while the `Safe` class represents an instance of a specific Safe Smart Account.
 
 ```tsx
 import { SafeFactory } from '@safe-global/protocol-kit'
@@ -95,7 +95,7 @@ const safeFactory = await SafeFactory.init({
 
 ### Deploy a Safe
 
-Calling the `deploySafe` method will deploy the desired Safe and return a Protocol Kit initialized instance ready to be used. Check the [API Reference](https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#deploysafe) for more details on additional configuration parameters and callbacks.
+Calling the `deploySafe` method will deploy the desired Safe and return a Protocol Kit initialized instance ready to be used. Check the [method reference](./protocol-kt/reference/safe-factory#deploysafe) for more details on additional configuration parameters and callbacks.
 
 ```tsx
 import { SafeAccountConfig } from '@safe-global/protocol-kit'
@@ -165,7 +165,7 @@ The high-level overview of a multi-sig transaction is PCE: Propose. Confirm. Exe
 
 ### Create a transaction
 
-For more details on what to include in a transaction see [Create a Transaction in the Safe Core SDK Guide](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#4-create-a-transaction).
+For more details on what to include in a transaction see [createTransaction](./protocol-kit/reference/safe#createtransaction) method.
 
 ```tsx
 import { MetaTransactionData } from '@safe-global/safe-core-sdk-types'
@@ -187,7 +187,7 @@ const safeTransaction = await protocolKitOwner1.createTransaction({ transactions
 
 To propose a transaction to the Safe Transaction Service we need to call the `proposeTransaction` method from the API Kit instance.
 
-For a full list and description of the properties that `proposeTransaction` accepts, see [Propose the transaction to the service](https://github.com/safe-global/safe-core-sdk/blob/main/guides/integrating-the-safe-core-sdk.md#propose-transaction) in the Safe Core SDK guide.
+For a full list and description of the properties see [proposeTransaction](./api-kit/reference#proposetransaction) in the API Kit reference.
 
 ```tsx
 // Deterministic hash based on transaction parameters
@@ -267,4 +267,4 @@ The final balance of the Safe: 0.005 ETH
 
 ### Conclusion
 
-In this quickstart, you learned how to create and deploy a Safe and to propose and then execute a transaction for the Safe.
+In this quickstart, you learned how to create and deploy a Safe Smart Account and to propose and then execute a transaction from it.
