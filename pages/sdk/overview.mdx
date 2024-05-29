@@ -14,7 +14,7 @@ The Safe\{Core\} SDK groups its functionality into five different kits:
 
 ## Protocol Kit
 
-The [Protocol Kit](./protocol-kit.mdx) helps interact with the Safe Smart Account contracts. It enables the creation of new Safe accounts, updating their configuration, and signing and executing transactions, among other features.
+The [Protocol Kit](./protocol-kit.mdx) helps interact with Safe Smart Accounts. It enables the creation of new Safe accounts, updating their configuration, and signing and executing transactions, among other features.
 
 - Modular and customizable smart contract accounts
 - Battle-tested security
@@ -25,6 +25,37 @@ The [Protocol Kit](./protocol-kit.mdx) helps interact with the Safe Smart Accoun
     title={'Protocol Kit'}
     description={'Learn about the Protocol Kit and the Safe Smart Account contracts integration.'}
     url={'./protocol-kit'}
+    newTab={false}
+  />
+</Grid>
+
+## API Kit
+
+The [API Kit](./api-kit.mdx) helps interact with the Safe Transaction Service API. It helps share transactions among the signers and get information from a Safe account. For example, the configuration or transaction history.
+
+<Grid container mt={3}>
+  <CustomCard
+    title={'API Kit'}
+    description={'Learn about the API Kit and the integration with the Safe Transaction Service.'}
+    url={'./api-kit'}
+    newTab={false}
+  />
+</Grid>
+
+## Relay Kit
+
+The [Relay Kit](./relay-kit.mdx) enables ERC-4337 with Safe and allows users to pay for the transaction fees from their Safe account using the blockchain native token, ERC-20 tokens, or get their transactions sponsored.
+
+- Use ERC-4337 with Safe
+- Gas-less experiences using Gelato
+- Sponsored transaction
+- Pay fees in ERC-20 tokens
+
+<Grid container mt={3}>
+  <CustomCard
+    title={'Relay Kit'}
+    description={'Learn about the Relay Kit and the packs integrating ERC-4337 and Gelato.'}
+    url={'./relay-kit'}
     newTab={false}
   />
 </Grid>
@@ -46,23 +77,6 @@ The [Auth Kit](./auth-kit.mdx) creates externally owned accounts and authenticat
   />
 </Grid>
 
-## Relay Kit
-
-The [Relay Kit](./relay-kit.mdx) relays Safe transactions, allowing you to get them sponsored by a third party or paid with any supported ERC-20 token.
-
-- Gas-less experiences using Gelato
-- Sponsored transaction
-- Pay fees in ERC-20 tokens
-
-<Grid container mt={3}>
-  <CustomCard
-    title={'Relay Kit'}
-    description={'Learn about the Relay Kit and the pack integrating Gelato.'}
-    url={'./relay-kit'}
-    newTab={false}
-  />
-</Grid>
-
 ## Onramp Kit
 
 The [Onramp Kit](./onramp-kit.mdx) helps users buy cryptocurrencies with fiat money to fund a Safe account via a credit card or other payment method.
@@ -75,19 +89,6 @@ The [Onramp Kit](./onramp-kit.mdx) helps users buy cryptocurrencies with fiat mo
     title={'Onramp Kit'}
     description={'Learn about the Onramp Kit and the packs integrating Monerium and Stripe.'}
     url={'./onramp-kit'}
-    newTab={false}
-  />
-</Grid>
-
-## API Kit
-
-The [API Kit](./api-kit.mdx) helps interact with the Safe Transaction Service API. It helps share transactions among the signers and get information from a Safe account. For example, the configuration or transaction history.
-
-<Grid container mt={3}>
-  <CustomCard
-    title={'API Kit'}
-    description={'Learn about the API Kit and the integration with the Safe Transaction Service.'}
-    url={'./api-kit'}
     newTab={false}
   />
 </Grid>
