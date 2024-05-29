@@ -1,0 +1,82 @@
+import { Tabs, Steps } from 'nextra/components'
+
+# Transaction data decoder
+
+This guide shows how to interact with the Safe Transaction Service API to decode contract interactions data of a transaction.
+
+The different steps are implemented using [Curl](https://github.com/curl/curl) requests and the [Safe\{Core\} SDK](https://github.com/safe-global/safe-core-sdk) TypeScript library.
+
+## Prerequisites
+
+1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm) when using the Safe\{Core\} SDK.
+2. Have a Safe account configured with a threshold of 2, where two signatures are needed.
+
+## Steps
+
+<Steps>
+  ### Install dependencies
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['TypeScript']}>
+    <Tabs.Tab>
+      ```bash
+      yarn add @safe-global/api-kit
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  ### Imports
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['TypeScript']}>
+    <Tabs.Tab>
+      ```typescript
+      import SafeApiKit from '@safe-global/api-kit'
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  ### Decode transaction data
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['TypeScript', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      // Initialize the API Kit
+      const apiKit = new SafeApiKit({
+        chainId: 11155111n
+      })
+
+      const data = "0x095ea7b3000000000000000000000000e6fc577e87f7c977c4393300417dcc592d90acf8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      const dataDecoded = await apiKit.decodeData(data);
+
+      console.log("Transaction data decoded: %O", dataDecoded);
+
+      // This decoded data is also included as dataDecoded in the getMultisigTransactions, getModuleTransactions and getAllTransactions apiKit methods.
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      curl -X 'POST' \
+        'https://safe-transaction-sepolia.safe.global/api/v1/data-decoder/' \
+        -H 'accept: application/json' \
+        -H 'Content-Type: application/json' \
+        -H 'X-CSRFToken: Gx1aRa8kIJGIAfReLAWwr9Q6dHv22dFt7VprdipLryHcxpfhk9aV0UDAhNz8gGYz' \
+        -d '{
+            "data": "0x095ea7b3000000000000000000000000e6fc577e87f7c977c4393300417dcc592d90acf8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }'
+
+      # This decoded data is also included as dataDecoded in the GET /multisig-transactions, GET /module-transactions and GET /all-transactions endpoints.
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+   {/* <!-- vale on --> */}
+ </Steps>
