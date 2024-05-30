@@ -3564,7 +3564,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "e7f6dea2-82e3-4b35-b76f-f02bdd35b969"
+          "default": "f9288c31-2ceb-42ae-86fb-f5b316314421"
         },
         "safes": {
           "type": "array",
@@ -3633,7 +3633,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "8de67837-e904-4ed5-954d-d8bf08a9f475"
+          "default": "ba199065-f3e4-4ffd-a7a3-1fc7f4a1d2e2"
         },
         "safes": {
           "type": "array",
@@ -3719,7 +3719,7 @@
         "nonce",
         "initCode",
         "callData",
-        "callDataGasLimit",
+        "callGasLimit",
         "verificationGasLimit",
         "preVerificationGas",
         "maxFeePerGas",
@@ -3758,8 +3758,8 @@
           "type": "string",
           "x-nullable": true
         },
-        "callDataGasLimit": {
-          "title": "Call data gas limit",
+        "callGasLimit": {
+          "title": "Call gas limit",
           "type": "integer",
           "minimum": 0
         },
@@ -4492,7 +4492,7 @@
         "nonce",
         "initCode",
         "callData",
-        "callDataGasLimit",
+        "callGasLimit",
         "verificationGasLimit",
         "preVerificationGas",
         "maxFeePerGas",
@@ -4531,8 +4531,8 @@
           "type": "string",
           "x-nullable": true
         },
-        "callDataGasLimit": {
-          "title": "Call data gas limit",
+        "callGasLimit": {
+          "title": "Call gas limit",
           "type": "integer",
           "minimum": 0
         },
@@ -4811,7 +4811,7 @@
         "nonce",
         "initCode",
         "callData",
-        "callDataGasLimit",
+        "callGasLimit",
         "verificationGasLimit",
         "preVerificationGas",
         "maxFeePerGas",
@@ -4840,8 +4840,8 @@
           "type": "string",
           "x-nullable": true
         },
-        "callDataGasLimit": {
-          "title": "Call data gas limit",
+        "callGasLimit": {
+          "title": "Call gas limit",
           "type": "integer",
           "minimum": 0
         },
