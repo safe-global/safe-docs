@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import NextLink from 'next/link'
-import ReactGA from 'react-ga4'
+import { sendGTMEvent } from '@next/third-parties/google'
 
 import FeedbackGood from '../../assets/svg/feedback-good.svg'
 import FeedbackBad from '../../assets/svg/feedback-bad.svg'
@@ -25,9 +25,7 @@ const ReportIssue: React.FC<{ small?: boolean }> = ({ small = false }) => (
   >
     <Button
       onClick={() => {
-        ReactGA.event('issue', {
-          path: window.location.pathname
-        })
+        sendGTMEvent({ event: 'issue', value: window.location.pathname })
       }}
       size={small ? 'small' : undefined}
       sx={{
@@ -60,7 +58,8 @@ const Feedback: React.FC<{
 
   const handleSubmit = (): void => {
     setLoading(true)
-    ReactGA.event('feedback', {
+    sendGTMEvent({
+      event: 'feedback',
       path:
         window.location.pathname +
         (asPath?.includes('/api-reference') === true ? network : ''),
@@ -228,7 +227,8 @@ const Feedback: React.FC<{
                     }}
                     size={small ? 'small' : undefined}
                     onClick={() => {
-                      ReactGA.event('feedback', {
+                      sendGTMEvent({
+                        event: 'feedback',
                         path: window.location.pathname,
                         positive: true
                       })
@@ -247,7 +247,8 @@ const Feedback: React.FC<{
                     }}
                     size={small ? 'small' : undefined}
                     onClick={() => {
-                      ReactGA.event('feedback', {
+                      sendGTMEvent({
+                        event: 'feedback',
                         path: window.location.pathname,
                         positive: false
                       })
@@ -279,7 +280,8 @@ const Feedback: React.FC<{
                         }
                       }}
                       onClick={() => {
-                        ReactGA.event('feedback', {
+                        sendGTMEvent({
+                          event: 'feedback',
                           path: window.location.pathname,
                           positive: true
                         })
@@ -303,7 +305,8 @@ const Feedback: React.FC<{
                         }
                       }}
                       onClick={() => {
-                        ReactGA.event('feedback', {
+                        sendGTMEvent({
+                          event: 'feedback',
                           path: window.location.pathname,
                           positive: false
                         })
