@@ -61,20 +61,507 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/contracts/ \
 
 ```json
 {
-  "count": 143444,
-  "next": "https://safe-transaction-mainnet.safe.global/api/v1/contracts/?limit=2&offset=2",
+  "count": 13790,
+  "next": "https://safe-transaction-sepolia.staging.5afe.dev/api/v1/contracts/?limit=2&offset=2",
   "previous": null,
   "results": [
     {
       "address": "0x0000000000000000000000000000000000000000",
-      "name": "",
+      "name": "MetaMultiSigWallet",
       "displayName": "",
       "logoUri": null,
-      "contractAbi": null,
+      "contractAbi": {
+        "abi": [
+          {
+            "type": "constructor",
+            "inputs": [
+              {
+                "name": "_chainId",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "_owners",
+                "type": "address[]",
+                "internalType": "address[]"
+              },
+              {
+                "name": "_signaturesRequired",
+                "type": "uint256",
+                "internalType": "uint256"
+              }
+            ],
+            "stateMutability": "nonpayable"
+          },
+          {
+            "name": "CloseStream",
+            "type": "event",
+            "inputs": [
+              {
+                "name": "to",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+              }
+            ],
+            "anonymous": false
+          },
+          {
+            "name": "Deposit",
+            "type": "event",
+            "inputs": [
+              {
+                "name": "sender",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+              },
+              {
+                "name": "amount",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+              },
+              {
+                "name": "balance",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+              }
+            ],
+            "anonymous": false
+          },
+          {
+            "name": "ExecuteTransaction",
+            "type": "event",
+            "inputs": [
+              {
+                "name": "owner",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+              },
+              {
+                "name": "to",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address payable"
+              },
+              {
+                "name": "value",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+              },
+              {
+                "name": "data",
+                "type": "bytes",
+                "indexed": false,
+                "internalType": "bytes"
+              },
+              {
+                "name": "nonce",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+              },
+              {
+                "name": "hash",
+                "type": "bytes32",
+                "indexed": false,
+                "internalType": "bytes32"
+              },
+              {
+                "name": "result",
+                "type": "bytes",
+                "indexed": false,
+                "internalType": "bytes"
+              }
+            ],
+            "anonymous": false
+          },
+          {
+            "name": "OpenStream",
+            "type": "event",
+            "inputs": [
+              {
+                "name": "to",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+              },
+              {
+                "name": "amount",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+              },
+              {
+                "name": "frequency",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+              }
+            ],
+            "anonymous": false
+          },
+          {
+            "name": "Owner",
+            "type": "event",
+            "inputs": [
+              {
+                "name": "owner",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+              },
+              {
+                "name": "added",
+                "type": "bool",
+                "indexed": false,
+                "internalType": "bool"
+              }
+            ],
+            "anonymous": false
+          },
+          {
+            "name": "Withdraw",
+            "type": "event",
+            "inputs": [
+              {
+                "name": "to",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+              },
+              {
+                "name": "amount",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+              },
+              {
+                "name": "reason",
+                "type": "string",
+                "indexed": false,
+                "internalType": "string"
+              }
+            ],
+            "anonymous": false
+          },
+          {
+            "name": "addSigner",
+            "type": "function",
+            "inputs": [
+              {
+                "name": "newSigner",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "newSignaturesRequired",
+                "type": "uint256",
+                "internalType": "uint256"
+              }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+          },
+          {
+            "name": "chainId",
+            "type": "function",
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+              }
+            ],
+            "stateMutability": "view"
+          },
+          {
+            "name": "closeStream",
+            "type": "function",
+            "inputs": [
+              {
+                "name": "to",
+                "type": "address",
+                "internalType": "address payable"
+              }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+          },
+          {
+            "name": "executeTransaction",
+            "type": "function",
+            "inputs": [
+              {
+                "name": "to",
+                "type": "address",
+                "internalType": "address payable"
+              },
+              {
+                "name": "value",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "data",
+                "type": "bytes",
+                "internalType": "bytes"
+              },
+              {
+                "name": "signatures",
+                "type": "bytes[]",
+                "internalType": "bytes[]"
+              }
+            ],
+            "outputs": [
+              {
+                "name": "",
+                "type": "bytes",
+                "internalType": "bytes"
+              }
+            ],
+            "stateMutability": "nonpayable"
+          },
+          {
+            "name": "getTransactionHash",
+            "type": "function",
+            "inputs": [
+              {
+                "name": "_nonce",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "to",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "value",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "data",
+                "type": "bytes",
+                "internalType": "bytes"
+              }
+            ],
+            "outputs": [
+              {
+                "name": "",
+                "type": "bytes32",
+                "internalType": "bytes32"
+              }
+            ],
+            "stateMutability": "view"
+          },
+          {
+            "name": "isOwner",
+            "type": "function",
+            "inputs": [
+              {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+              }
+            ],
+            "outputs": [
+              {
+                "name": "",
+                "type": "bool",
+                "internalType": "bool"
+              }
+            ],
+            "stateMutability": "view"
+          },
+          {
+            "name": "nonce",
+            "type": "function",
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+              }
+            ],
+            "stateMutability": "view"
+          },
+          {
+            "name": "openStream",
+            "type": "function",
+            "inputs": [
+              {
+                "name": "to",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "amount",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "frequency",
+                "type": "uint256",
+                "internalType": "uint256"
+              }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+          },
+          {
+            "name": "recover",
+            "type": "function",
+            "inputs": [
+              {
+                "name": "_hash",
+                "type": "bytes32",
+                "internalType": "bytes32"
+              },
+              {
+                "name": "_signature",
+                "type": "bytes",
+                "internalType": "bytes"
+              }
+            ],
+            "outputs": [
+              {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+              }
+            ],
+            "stateMutability": "pure"
+          },
+          {
+            "name": "removeSigner",
+            "type": "function",
+            "inputs": [
+              {
+                "name": "oldSigner",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "newSignaturesRequired",
+                "type": "uint256",
+                "internalType": "uint256"
+              }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+          },
+          {
+            "name": "signaturesRequired",
+            "type": "function",
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+              }
+            ],
+            "stateMutability": "view"
+          },
+          {
+            "name": "streamBalance",
+            "type": "function",
+            "inputs": [
+              {
+                "name": "to",
+                "type": "address",
+                "internalType": "address"
+              }
+            ],
+            "outputs": [
+              {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+              }
+            ],
+            "stateMutability": "view"
+          },
+          {
+            "name": "streamWithdraw",
+            "type": "function",
+            "inputs": [
+              {
+                "name": "amount",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "reason",
+                "type": "string",
+                "internalType": "string"
+              }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+          },
+          {
+            "name": "streams",
+            "type": "function",
+            "inputs": [
+              {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+              }
+            ],
+            "outputs": [
+              {
+                "name": "amount",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "frequency",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "last",
+                "type": "uint256",
+                "internalType": "uint256"
+              }
+            ],
+            "stateMutability": "view"
+          },
+          {
+            "name": "updateSignaturesRequired",
+            "type": "function",
+            "inputs": [
+              {
+                "name": "newSignaturesRequired",
+                "type": "uint256",
+                "internalType": "uint256"
+              }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+          },
+          {
+            "type": "receive",
+            "stateMutability": "payable"
+          }
+        ],
+        "description": "MetaMultiSigWallet",
+        "relevance": 100
+      },
       "trustedForDelegateCall": false
     },
     {
-      "address": "0x0000000000000000000000000000000000000002",
+      "address": "0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC",
       "name": "",
       "displayName": "",
       "logoUri": null,
@@ -775,7 +1262,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
     -H "content-type: application/json" \
     -d '{
   "message": "0x1234",
-  "safeAppId": "safeAppId",
+  "safeAppId": 1,
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c"
 }'
 ```
@@ -875,7 +1362,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
     -H "content-type: application/json" \
     -d '{
   "message": "0x1234",
-  "safeAppId": "safeAppId",
+  "safeAppId": 1,
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c"
 }'
 ```
@@ -1409,172 +1896,233 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 
 ```json
 {
-  "count": 81,
-  "next": "https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/?limit=2&offset=2",
+  "count": 3,
+  "next": "https://safe-transaction-sepolia.staging.5afe.dev/api/v1/safes/0xF72b6C739E7889b89C888403a960a59935564405/all-transactions/?limit=2&offset=2",
   "previous": null,
   "results": [
     {
-      "safe": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75",
-      "to": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
-      "value": "0",
-      "data": "0x8d80ff0a000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000ce00cd2e72aebe2a203b84f46deec948e6465db51c75000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000247de7edef000000000000000000000000d9db270c1b5e3bd161e8c8503c55ceabee70955200cd2e72aebe2a203b84f46deec948e6465db51c7500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "operation": 1,
-      "gasToken": "0x0000000000000000000000000000000000000000",
-      "safeTxGas": 48700,
-      "baseGas": 0,
-      "gasPrice": "0",
-      "refundReceiver": "0x0000000000000000000000000000000000000000",
-      "nonce": 49,
-      "executionDate": "2024-04-23T02:38:11Z",
-      "submissionDate": "2024-04-23T02:38:01.015676Z",
-      "modified": "2024-04-23T02:38:11Z",
-      "blockNumber": 19715160,
-      "transactionHash": "0xceeacc3007949920a43a3785e650e0bb86bdd5c20ccb2f6704d25839c81bf306",
-      "safeTxHash": "0xba192fd48af510cf6065b4997a7c4e5f9f320c82bd6951cd32396d714da4b4cf",
-      "proposer": "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB",
-      "executor": "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB",
-      "isExecuted": true,
+      "created": "2024-05-02T14:55:00Z",
+      "executionDate": "2024-05-02T14:55:00Z",
+      "blockNumber": 5822171,
       "isSuccessful": true,
-      "ethGasPrice": "8709486175",
-      "maxFeePerGas": "9000000000",
-      "maxPriorityFeePerGas": "3086913705",
-      "gasUsed": 58769,
-      "fee": "511847793018575",
-      "origin": "{}",
+      "transactionHash": "0xf118b097fdf3751fc7d7e41c2f1542d045939dc56e4c739c65ce5106faa7ceec",
+      "safe": "0xF72b6C739E7889b89C888403a960a59935564405",
+      "module": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
+      "to": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+      "value": "0",
+      "data": "0x8d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a000000000000000000000000000000000000000000000000000000000",
+      "operation": 1,
       "dataDecoded": {
         "method": "multiSend",
         "parameters": [
           {
             "name": "transactions",
             "type": "bytes",
-            "value": "0x00cd2e72aebe2a203b84f46deec948e6465db51c75000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000247de7edef000000000000000000000000d9db270c1b5e3bd161e8c8503c55ceabee70955200cd2e72aebe2a203b84f46deec948e6465db51c7500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "value": "0x001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
             "valueDecoded": [
               {
                 "operation": 0,
-                "to": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75",
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
                 "value": "0",
-                "data": "0x7de7edef000000000000000000000000d9db270c1b5e3bd161e8c8503c55ceabee709552",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
                 "dataDecoded": {
-                  "method": "changeMasterCopy",
+                  "method": "transfer",
                   "parameters": [
                     {
-                      "name": "_masterCopy",
+                      "name": "to",
                       "type": "address",
-                      "value": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552"
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
                     }
                   ]
                 }
               },
               {
                 "operation": 0,
-                "to": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75",
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
                 "value": "0",
-                "data": null,
-                "dataDecoded": null
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              },
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              },
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
               }
             ]
           }
         ]
       },
-      "confirmationsRequired": 1,
-      "confirmations": [
-        {
-          "owner": "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB",
-          "submissionDate": "2024-04-23T02:38:11Z",
-          "transactionHash": null,
-          "signature": "0x000000000000000000000000a1b02d8c67b0fdcf4e379855868deb470e169cfb000000000000000000000000000000000000000000000000000000000000000001",
-          "signatureType": "APPROVED_HASH"
-        }
-      ],
-      "trusted": true,
-      "signatures": "0x000000000000000000000000a1b02d8c67b0fdcf4e379855868deb470e169cfb000000000000000000000000000000000000000000000000000000000000000001",
+      "moduleTransactionId": "if118b097fdf3751fc7d7e41c2f1542d045939dc56e4c739c65ce5106faa7ceec2,0,0,0,0,0",
       "transfers": [],
-      "txType": "MULTISIG_TRANSACTION"
+      "txType": "MODULE_TRANSACTION"
     },
     {
-      "safe": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75",
-      "to": "0xA0b937D5c8E32a80E3a8ed4227CD020221544ee6",
-      "value": "0",
-      "data": "0x0087b83f172fb115f1aa2601f3a45ccdc47cacc02ed0ffa48d07d22d201f548bf49fed23000000000000000000000000cd2e72aebe2a203b84f46deec948e6465db51c7500000000000000000000000000000000ffffffffffffffffffffffffffffffff",
-      "operation": 0,
-      "gasToken": "0x0000000000000000000000000000000000000000",
-      "safeTxGas": 133927,
-      "baseGas": 0,
-      "gasPrice": "0",
-      "refundReceiver": "0x0000000000000000000000000000000000000000",
-      "nonce": 48,
-      "executionDate": "2024-04-23T02:36:47Z",
-      "submissionDate": "2024-04-23T02:36:39.804393Z",
-      "modified": "2024-04-23T02:36:47Z",
-      "blockNumber": 19715153,
-      "transactionHash": "0x3e8d89540a749fc0cc81709004a9047e6199dcec7b4d99d2f660a1d26e6e089c",
-      "safeTxHash": "0xf6846a40fceb0650ed84f1fec8cea5fd18ca9fd14a6bcbf1a7c18c831f47e709",
-      "proposer": "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB",
-      "executor": "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB",
-      "isExecuted": true,
+      "created": "2024-05-02T14:51:24Z",
+      "executionDate": "2024-05-02T14:51:24Z",
+      "blockNumber": 5822155,
       "isSuccessful": true,
-      "ethGasPrice": "7000000000",
-      "maxFeePerGas": "7000000000",
-      "maxPriorityFeePerGas": "1398475847",
-      "gasUsed": 123205,
-      "fee": "862435000000000",
-      "origin": "{\"url\": \"https://governance.safe.global\", \"name\": \"Safe{DAO} Governance\"}",
+      "transactionHash": "0xc9e5778b5ea63d919acb71d3afbef00d1e9bdb6cc415330e4c2c7677d97b915f",
+      "safe": "0xF72b6C739E7889b89C888403a960a59935564405",
+      "module": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
+      "to": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+      "value": "0",
+      "data": "0x8d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a000000000000000000000000000000000000000000000000000000000",
+      "operation": 1,
       "dataDecoded": {
-        "method": "claimVestedTokensViaModule",
+        "method": "multiSend",
         "parameters": [
           {
-            "name": "vestingId",
-            "type": "bytes32",
-            "value": "0x172fb115f1aa2601f3a45ccdc47cacc02ed0ffa48d07d22d201f548bf49fed23"
-          },
-          {
-            "name": "beneficiary",
-            "type": "address",
-            "value": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75"
-          },
-          {
-            "name": "tokensToClaim",
-            "type": "uint128",
-            "value": "340282366920938463463374607431768211455"
+            "name": "transactions",
+            "type": "bytes",
+            "value": "0x001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+            "valueDecoded": [
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              },
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              },
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              },
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         ]
       },
-      "confirmationsRequired": 1,
-      "confirmations": [
-        {
-          "owner": "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB",
-          "submissionDate": "2024-04-23T02:36:47Z",
-          "transactionHash": null,
-          "signature": "0x000000000000000000000000a1b02d8c67b0fdcf4e379855868deb470e169cfb000000000000000000000000000000000000000000000000000000000000000001",
-          "signatureType": "APPROVED_HASH"
-        }
-      ],
-      "trusted": true,
-      "signatures": "0x000000000000000000000000a1b02d8c67b0fdcf4e379855868deb470e169cfb000000000000000000000000000000000000000000000000000000000000000001",
-      "transfers": [
-        {
-          "type": "ERC20_TRANSFER",
-          "executionDate": "2024-04-23T02:36:47Z",
-          "blockNumber": 19715153,
-          "transactionHash": "0x3e8d89540a749fc0cc81709004a9047e6199dcec7b4d99d2f660a1d26e6e089c",
-          "to": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75",
-          "value": "381767577609232226683",
-          "tokenId": null,
-          "tokenAddress": "0x5aFE3855358E112B5647B952709E6165e1c1eEEe",
-          "transferId": "e3e8d89540a749fc0cc81709004a9047e6199dcec7b4d99d2f660a1d26e6e089c108",
-          "tokenInfo": {
-            "type": "ERC20",
-            "address": "0x5aFE3855358E112B5647B952709E6165e1c1eEEe",
-            "name": "Safe Token",
-            "symbol": "SAFE",
-            "decimals": 18,
-            "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x5aFE3855358E112B5647B952709E6165e1c1eEEe.png",
-            "trusted": true
-          },
-          "from": "0xA0b937D5c8E32a80E3a8ed4227CD020221544ee6"
-        }
-      ],
-      "txType": "MULTISIG_TRANSACTION"
+      "moduleTransactionId": "ic9e5778b5ea63d919acb71d3afbef00d1e9bdb6cc415330e4c2c7677d97b915f2,0,0,0,0,0",
+      "transfers": [],
+      "txType": "MODULE_TRANSACTION"
     }
   ]
 }
@@ -1716,10 +2264,231 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 
 ```json
 {
-  "count": 0,
-  "next": null,
+  "count": 3,
+  "next": "https://safe-transaction-sepolia.staging.5afe.dev/api/v1/safes/0xF72b6C739E7889b89C888403a960a59935564405/module-transactions/?limit=2&offset=2&safe=0xF72b6C739E7889b89C888403a960a59935564405",
   "previous": null,
-  "results": []
+  "results": [
+    {
+      "created": "2024-05-02T14:55:00Z",
+      "executionDate": "2024-05-02T14:55:00Z",
+      "blockNumber": 5822171,
+      "isSuccessful": true,
+      "transactionHash": "0xf118b097fdf3751fc7d7e41c2f1542d045939dc56e4c739c65ce5106faa7ceec",
+      "safe": "0xF72b6C739E7889b89C888403a960a59935564405",
+      "module": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
+      "to": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+      "value": "0",
+      "data": "0x8d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a000000000000000000000000000000000000000000000000000000000",
+      "operation": 1,
+      "dataDecoded": {
+        "method": "multiSend",
+        "parameters": [
+          {
+            "name": "transactions",
+            "type": "bytes",
+            "value": "0x001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+            "valueDecoded": [
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              },
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              },
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              },
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "moduleTransactionId": "if118b097fdf3751fc7d7e41c2f1542d045939dc56e4c739c65ce5106faa7ceec2,0,0,0,0,0"
+    },
+    {
+      "created": "2024-05-02T14:51:24Z",
+      "executionDate": "2024-05-02T14:51:24Z",
+      "blockNumber": 5822155,
+      "isSuccessful": true,
+      "transactionHash": "0xc9e5778b5ea63d919acb71d3afbef00d1e9bdb6cc415330e4c2c7677d97b915f",
+      "safe": "0xF72b6C739E7889b89C888403a960a59935564405",
+      "module": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
+      "to": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+      "value": "0",
+      "data": "0x8d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a000000000000000000000000000000000000000000000000000000000",
+      "operation": 1,
+      "dataDecoded": {
+        "method": "multiSend",
+        "parameters": [
+          {
+            "name": "transactions",
+            "type": "bytes",
+            "value": "0x001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+            "valueDecoded": [
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              },
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              },
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              },
+              {
+                "operation": 0,
+                "to": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+                "value": "0",
+                "data": "0xa9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0",
+                "dataDecoded": {
+                  "method": "transfer",
+                  "parameters": [
+                    {
+                      "name": "to",
+                      "type": "address",
+                      "value": "0xF72b6C739E7889b89C888403a960a59935564405"
+                    },
+                    {
+                      "name": "value",
+                      "type": "uint256",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "moduleTransactionId": "ic9e5778b5ea63d919acb71d3afbef00d1e9bdb6cc415330e4c2c7677d97b915f2,0,0,0,0,0"
+    }
+  ]
 }
 ```
   </Grid>
@@ -1957,7 +2726,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
   "baseGas": "",
   "gasPrice": "",
   "refundReceiver": "",
-  "nonce": "",
+  "nonce": 10,
   "contractTransactionHash": "",
   "sender": "",
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c",
@@ -2204,7 +2973,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
   "baseGas": "",
   "gasPrice": "",
   "refundReceiver": "",
-  "nonce": "",
+  "nonce": 10,
   "contractTransactionHash": "",
   "sender": "",
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c",
@@ -2493,19 +3262,19 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/owners/0xcd2E72a
     
 
     <Parameters parameters={[]} />
-    <Responses responses={[{"code":"200","schema":{"refName":"SafeOperationWithUserOperationResponse","required":["created","modified","safeOperationHash","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"safeOperationHash":{"title":"Safe operation hash","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time"},"validUntil":{"title":"Valid until","type":"string","format":"date-time"},"moduleAddress":{"title":"Module address","type":"string"},"confirmations":{"title":"Confirmations","type":"string","readOnly":true},"preparedSignature":{"title":"Prepared signature","type":"string","readOnly":true},"userOperation":{"refName":"UserOperationResponse","required":["ethereumTxHash","sender","userOperationHash","nonce","initCode","callData","callDataGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymaster","paymasterData","signature","entryPoint"],"type":"object","properties":{"ethereumTxHash":{"title":"Ethereum tx hash","type":"string"},"sender":{"title":"Sender","type":"string"},"userOperationHash":{"title":"User operation hash","type":"string"},"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callDataGasLimit":{"title":"Call data gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymaster":{"title":"Paymaster","type":"string","x-nullable":true},"paymasterData":{"title":"Paymaster data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"}}}}},"description":""}]} />
+    <Responses responses={[{"code":"200","schema":{"refName":"SafeOperationWithUserOperationResponse","required":["created","modified","safeOperationHash","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"safeOperationHash":{"title":"Safe operation hash","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time"},"validUntil":{"title":"Valid until","type":"string","format":"date-time"},"moduleAddress":{"title":"Module address","type":"string"},"confirmations":{"title":"Confirmations","type":"string","readOnly":true},"preparedSignature":{"title":"Prepared signature","type":"string","readOnly":true},"userOperation":{"refName":"UserOperationResponse","required":["ethereumTxHash","sender","userOperationHash","nonce","initCode","callData","callGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymaster","paymasterData","signature","entryPoint"],"type":"object","properties":{"ethereumTxHash":{"title":"Ethereum tx hash","type":"string"},"sender":{"title":"Sender","type":"string"},"userOperationHash":{"title":"User operation hash","type":"string"},"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callGasLimit":{"title":"Call gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymaster":{"title":"Paymaster","type":"string","x-nullable":true},"paymasterData":{"title":"Paymaster data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"}}}}},"description":""}]} />
     <Feedback asPath={"/api-reference#Get-Safe-Operation"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/safe-operations/{safe_operation_hash}/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/v1/safe-operations//" />
+    <SampleRequestHeader method="get" pathWithParams="/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/" />
 
     <CH.Section>
       <CH.Code>
         
 ```bash 
-curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safe-operations// \
+curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     
@@ -2514,7 +3283,45 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safe-operations/
     </CH.Section>
     <NetworkNotice />
 
-    
+    #### Sample Response
+
+```json
+{
+  "created": "2024-04-10T13:05:14.645339Z",
+  "modified": "2024-04-10T13:05:14.645339Z",
+  "safeOperationHash": "0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b",
+  "validAfter": "2024-02-01T02:14:48Z",
+  "validUntil": "2024-06-18T23:34:48Z",
+  "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
+  "confirmations": [
+    {
+      "created": "2024-04-10T13:05:14.701603Z",
+      "modified": "2024-04-10T13:05:14.701603Z",
+      "owner": "0xc6b82bA149CFA113f8f48d5E3b1F78e933e16DfD",
+      "signature": "0xc0a67c542100ac5f23baaeb724be06df09362a83da4a03ec757d9722f3ced1c3641037d94d0f8fcc9eb150559ecac01c920d7795ff64b6296c7394b7a23930f31b",
+      "signatureType": "EOA"
+    }
+  ],
+  "preparedSignature": "0xc0a67c542100ac5f23baaeb724be06df09362a83da4a03ec757d9722f3ced1c3641037d94d0f8fcc9eb150559ecac01c920d7795ff64b6296c7394b7a23930f31b",
+  "userOperation": {
+    "ethereumTxHash": null,
+    "sender": "0x6347C7679292b82872022a6FC9426222d9B04559",
+    "userOperationHash": "0xca68947a06631fe478f89d3d428d5f5e7337757d4640b34857c3fce13a3291a7",
+    "nonce": 2,
+    "initCode": "0x",
+    "callData": "0x7bb3742800000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b52600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000002c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb0000000000000000000000006347c7679292b82872022a6fc9426222d9b0455900000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb0000000000000000000000006347c7679292b82872022a6fc9426222d9b0455900000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb0000000000000000000000006347c7679292b82872022a6fc9426222d9b0455900000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb0000000000000000000000006347c7679292b82872022a6fc9426222d9b0455900000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "callGasLimit": 142240,
+    "verificationGasLimit": 90217,
+    "preVerificationGas": 61410,
+    "maxFeePerGas": 1380942583,
+    "maxPriorityFeePerGas": 1380000000,
+    "paymaster": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d",
+    "paymasterData": "0xdff7fa1077bce740a6a212b3995990682c0ba66d",
+    "signature": "0xc0a67c542100ac5f23baaeb724be06df09362a83da4a03ec757d9722f3ced1c3641037d94d0f8fcc9eb150559ecac01c920d7795ff64b6296c7394b7a23930f31b",
+    "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789"
+  }
+}
+```
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -2534,7 +3341,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safe-operations/
     
 
     <Parameters parameters={[{"name":"ordering","in":"query","description":"Which field to use when ordering the results.","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"}]} />
-    <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"refName":"SafeOperationWithUserOperationResponse","required":["created","modified","safeOperationHash","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"safeOperationHash":{"title":"Safe operation hash","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time"},"validUntil":{"title":"Valid until","type":"string","format":"date-time"},"moduleAddress":{"title":"Module address","type":"string"},"confirmations":{"title":"Confirmations","type":"string","readOnly":true},"preparedSignature":{"title":"Prepared signature","type":"string","readOnly":true},"userOperation":{"refName":"UserOperationResponse","required":["ethereumTxHash","sender","userOperationHash","nonce","initCode","callData","callDataGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymaster","paymasterData","signature","entryPoint"],"type":"object","properties":{"ethereumTxHash":{"title":"Ethereum tx hash","type":"string"},"sender":{"title":"Sender","type":"string"},"userOperationHash":{"title":"User operation hash","type":"string"},"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callDataGasLimit":{"title":"Call data gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymaster":{"title":"Paymaster","type":"string","x-nullable":true},"paymasterData":{"title":"Paymaster data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"}}}}}}}},"description":""}]} />
+    <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"refName":"SafeOperationWithUserOperationResponse","required":["created","modified","safeOperationHash","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"safeOperationHash":{"title":"Safe operation hash","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time"},"validUntil":{"title":"Valid until","type":"string","format":"date-time"},"moduleAddress":{"title":"Module address","type":"string"},"confirmations":{"title":"Confirmations","type":"string","readOnly":true},"preparedSignature":{"title":"Prepared signature","type":"string","readOnly":true},"userOperation":{"refName":"UserOperationResponse","required":["ethereumTxHash","sender","userOperationHash","nonce","initCode","callData","callGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymaster","paymasterData","signature","entryPoint"],"type":"object","properties":{"ethereumTxHash":{"title":"Ethereum tx hash","type":"string"},"sender":{"title":"Sender","type":"string"},"userOperationHash":{"title":"User operation hash","type":"string"},"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callGasLimit":{"title":"Call gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymaster":{"title":"Paymaster","type":"string","x-nullable":true},"paymasterData":{"title":"Paymaster data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"}}}}}}}},"description":""}]} />
     <Feedback asPath={"/api-reference#List-Safe-Operations"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -2559,10 +3366,81 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 
 ```json
 {
-  "count": 0,
-  "next": null,
+  "count": 6,
+  "next": "https://safe-transaction-sepolia.staging.5afe.dev/api/v1/safes/0xF72b6C739E7889b89C888403a960a59935564405/safe-operations/?limit=2&offset=2",
   "previous": null,
-  "results": []
+  "results": [
+    {
+      "created": "2024-05-07T14:23:29.967297Z",
+      "modified": "2024-05-07T14:23:29.967297Z",
+      "safeOperationHash": "0xb26c1fd4b26f5c2060b26164ed81a62f67807c6fb482cb86c962ac7c95f9c3e0",
+      "validAfter": "2024-02-23T04:14:48Z",
+      "validUntil": "2024-07-11T01:34:48Z",
+      "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
+      "confirmations": [
+        {
+          "created": "2024-05-07T14:23:29.979926Z",
+          "modified": "2024-05-07T14:23:29.979926Z",
+          "owner": "0xc6b82bA149CFA113f8f48d5E3b1F78e933e16DfD",
+          "signature": "0x60f7911cd88236e0521b840f4585ae1e829b39bdf3dfb7df2d3f69df02ee2ffb703e2103c82fd08a52b98fe0fec50dd567dece501eb90fe03b805036f3a9090f1b",
+          "signatureType": "EOA"
+        }
+      ],
+      "preparedSignature": "0x60f7911cd88236e0521b840f4585ae1e829b39bdf3dfb7df2d3f69df02ee2ffb703e2103c82fd08a52b98fe0fec50dd567dece501eb90fe03b805036f3a9090f1b",
+      "userOperation": {
+        "ethereumTxHash": "0xf118b097fdf3751fc7d7e41c2f1542d045939dc56e4c739c65ce5106faa7ceec",
+        "sender": "0xF72b6C739E7889b89C888403a960a59935564405",
+        "userOperationHash": "0x2d428121be450383068196e00c03f6af4968dd1eb08c4d3f1906677e760aed78",
+        "nonce": 2,
+        "initCode": "0x",
+        "callData": "0x7bb3742800000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b52600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000002c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "callGasLimit": 142240,
+        "verificationGasLimit": 90217,
+        "preVerificationGas": 61410,
+        "maxFeePerGas": 49578755932,
+        "maxPriorityFeePerGas": 1380000000,
+        "paymaster": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d",
+        "paymasterData": "0xdff7fa1077bce740a6a212b3995990682c0ba66d",
+        "signature": "0x000065d81bb80000668f36b860f7911cd88236e0521b840f4585ae1e829b39bdf3dfb7df2d3f69df02ee2ffb703e2103c82fd08a52b98fe0fec50dd567dece501eb90fe03b805036f3a9090f1b",
+        "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789"
+      }
+    },
+    {
+      "created": "2024-05-07T14:23:28.868276Z",
+      "modified": "2024-05-07T14:23:28.868276Z",
+      "safeOperationHash": "0xf72e2f8c93bec7578a6e7db2a3724f842e36aa90a4d9ad34f8a038e0d57fffed",
+      "validAfter": "2024-02-23T04:11:00Z",
+      "validUntil": "2024-07-11T01:31:00Z",
+      "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
+      "confirmations": [
+        {
+          "created": "2024-05-07T14:23:28.880682Z",
+          "modified": "2024-05-07T14:23:28.880682Z",
+          "owner": "0xc6b82bA149CFA113f8f48d5E3b1F78e933e16DfD",
+          "signature": "0x146b615da5b9806fd53ed02242a13ec4d6e653aa87801cecfd3b3ca3656f34a664866b5cc2916620a55719ff9446ff884378651b2f970b4778df13e475e3c2e41c",
+          "signatureType": "EOA"
+        }
+      ],
+      "preparedSignature": "0x146b615da5b9806fd53ed02242a13ec4d6e653aa87801cecfd3b3ca3656f34a664866b5cc2916620a55719ff9446ff884378651b2f970b4778df13e475e3c2e41c",
+      "userOperation": {
+        "ethereumTxHash": "0xc9e5778b5ea63d919acb71d3afbef00d1e9bdb6cc415330e4c2c7677d97b915f",
+        "sender": "0xF72b6C739E7889b89C888403a960a59935564405",
+        "userOperationHash": "0x1517a6aab3f2c7b696ed0883da6358e8179ef70efb7a2e5f62e410ceb6d72038",
+        "nonce": 1,
+        "initCode": "0x",
+        "callData": "0x7bb3742800000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b52600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000002c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "callGasLimit": 142240,
+        "verificationGasLimit": 90217,
+        "preVerificationGas": 61410,
+        "maxFeePerGas": 45460716789,
+        "maxPriorityFeePerGas": 1380000000,
+        "paymaster": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d",
+        "paymasterData": "0xdff7fa1077bce740a6a212b3995990682c0ba66d",
+        "signature": "0x000065d81ad40000668f35d4146b615da5b9806fd53ed02242a13ec4d6e653aa87801cecfd3b3ca3656f34a664866b5cc2916620a55719ff9446ff884378651b2f970b4778df13e475e3c2e41c",
+        "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789"
+      }
+    }
+  ]
 }
 ```
   </Grid>
@@ -2587,7 +3465,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 
     
 
-    <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"refName":"SafeOperation","required":["nonce","initCode","callData","callDataGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymasterAndData","signature","entryPoint","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callDataGasLimit":{"title":"Call data gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymasterAndData":{"title":"Paymaster and data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time","x-nullable":true},"validUntil":{"title":"Valid until","type":"string","format":"date-time","x-nullable":true},"moduleAddress":{"title":"Module address","type":"string"}}}}]} />
+    <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"refName":"SafeOperation","required":["nonce","initCode","callData","callGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymasterAndData","signature","entryPoint","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callGasLimit":{"title":"Call gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymasterAndData":{"title":"Paymaster and data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time","x-nullable":true},"validUntil":{"title":"Valid until","type":"string","format":"date-time","x-nullable":true},"moduleAddress":{"title":"Module address","type":"string"}}}}]} />
     <Responses responses={[{"code":"201","schema":{},"description":"Created"}]} />
     <Feedback asPath={"/api-reference#Create-Safe-Operation"} label='Did this API route run successfully?' small />
   </Grid>
@@ -2604,20 +3482,20 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{
-  "nonce": "",
-  "initCode": "",
-  "callData": "",
-  "callDataGasLimit": "",
-  "verificationGasLimit": "",
-  "preVerificationGas": "",
-  "maxFeePerGas": "",
-  "maxPriorityFeePerGas": "",
-  "paymasterAndData": "",
+  "nonce": 10,
+  "initCode": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec671688f0b900000000000000000000000029fcb43b46531bca003ddc8fcb67ffe91900c7620000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000a97000000000000000000000000000000000000000000000000000000000000001e4b63e800d000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000010000000000000000000000008ecd4ec46d4d2a6b64fe960b3d64e8b94b2234eb0000000000000000000000000000000000000000000000000000000000000140000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b40370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000c6b82ba149cfa113f8f48d5e3b1f78e933e16dfd00000000000000000000000000000000000000000000000000000000000000648d0dc49f00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b40370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "callData": "0x7bb3742800000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b52600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000002c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000b531870897eb944799239fa5485792ba495a741100000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000b531870897eb944799239fa5485792ba495a741100000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000b531870897eb944799239fa5485792ba495a741100000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000b531870897eb944799239fa5485792ba495a741100000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "callGasLimit": 140240,
+  "verificationGasLimit": 542895,
+  "preVerificationGas": 66374,
+  "maxFeePerGas": 51026511147,
+  "maxPriorityFeePerGas": 1380000000,
+  "paymasterAndData": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d000000000000000000000000000000000000000000000000000000006633b1a7000000000000000000000000000000000000000000000000000000000000000066a61c76c14b64bbe67a7c45c5bdc30c890bfde5b9cb66bfdca69d404f9aeb7a0e9a6e6391030f9cce5e64cab2e1f733c63c5a6c88867bde4bbd01be03cf6fa41b",
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c",
-  "entryPoint": "",
-  "validAfter": "",
-  "validUntil": "",
-  "moduleAddress": ""
+  "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
+  "validAfter": "2024-02-23T04:40:36.000Z",
+  "validUntil": "2024-07-11T02:00:36.000Z",
+  "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037"
 }'
 ```
       </CH.Code>
@@ -2644,7 +3522,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
     
 
     <Parameters parameters={[{"name":"ordering","in":"query","description":"Which field to use when ordering the results.","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"}]} />
-    <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"refName":"SafeOperationWithUserOperationResponse","required":["created","modified","safeOperationHash","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"safeOperationHash":{"title":"Safe operation hash","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time"},"validUntil":{"title":"Valid until","type":"string","format":"date-time"},"moduleAddress":{"title":"Module address","type":"string"},"confirmations":{"title":"Confirmations","type":"string","readOnly":true},"preparedSignature":{"title":"Prepared signature","type":"string","readOnly":true},"userOperation":{"refName":"UserOperationResponse","required":["ethereumTxHash","sender","userOperationHash","nonce","initCode","callData","callDataGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymaster","paymasterData","signature","entryPoint"],"type":"object","properties":{"ethereumTxHash":{"title":"Ethereum tx hash","type":"string"},"sender":{"title":"Sender","type":"string"},"userOperationHash":{"title":"User operation hash","type":"string"},"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callDataGasLimit":{"title":"Call data gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymaster":{"title":"Paymaster","type":"string","x-nullable":true},"paymasterData":{"title":"Paymaster data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"}}}}}}}},"description":""}]} />
+    <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"refName":"SafeOperationWithUserOperationResponse","required":["created","modified","safeOperationHash","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"safeOperationHash":{"title":"Safe operation hash","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time"},"validUntil":{"title":"Valid until","type":"string","format":"date-time"},"moduleAddress":{"title":"Module address","type":"string"},"confirmations":{"title":"Confirmations","type":"string","readOnly":true},"preparedSignature":{"title":"Prepared signature","type":"string","readOnly":true},"userOperation":{"refName":"UserOperationResponse","required":["ethereumTxHash","sender","userOperationHash","nonce","initCode","callData","callGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymaster","paymasterData","signature","entryPoint"],"type":"object","properties":{"ethereumTxHash":{"title":"Ethereum tx hash","type":"string"},"sender":{"title":"Sender","type":"string"},"userOperationHash":{"title":"User operation hash","type":"string"},"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callGasLimit":{"title":"Call gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymaster":{"title":"Paymaster","type":"string","x-nullable":true},"paymasterData":{"title":"Paymaster data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"}}}}}}}},"description":""}]} />
     <Feedback asPath={"/api-reference#List-Safe-Operations"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -2669,10 +3547,81 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 
 ```json
 {
-  "count": 0,
-  "next": null,
+  "count": 6,
+  "next": "https://safe-transaction-sepolia.staging.5afe.dev/api/v1/safes/0xF72b6C739E7889b89C888403a960a59935564405/safe-operations/?limit=2&offset=2",
   "previous": null,
-  "results": []
+  "results": [
+    {
+      "created": "2024-05-07T14:23:29.967297Z",
+      "modified": "2024-05-07T14:23:29.967297Z",
+      "safeOperationHash": "0xb26c1fd4b26f5c2060b26164ed81a62f67807c6fb482cb86c962ac7c95f9c3e0",
+      "validAfter": "2024-02-23T04:14:48Z",
+      "validUntil": "2024-07-11T01:34:48Z",
+      "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
+      "confirmations": [
+        {
+          "created": "2024-05-07T14:23:29.979926Z",
+          "modified": "2024-05-07T14:23:29.979926Z",
+          "owner": "0xc6b82bA149CFA113f8f48d5E3b1F78e933e16DfD",
+          "signature": "0x60f7911cd88236e0521b840f4585ae1e829b39bdf3dfb7df2d3f69df02ee2ffb703e2103c82fd08a52b98fe0fec50dd567dece501eb90fe03b805036f3a9090f1b",
+          "signatureType": "EOA"
+        }
+      ],
+      "preparedSignature": "0x60f7911cd88236e0521b840f4585ae1e829b39bdf3dfb7df2d3f69df02ee2ffb703e2103c82fd08a52b98fe0fec50dd567dece501eb90fe03b805036f3a9090f1b",
+      "userOperation": {
+        "ethereumTxHash": "0xf118b097fdf3751fc7d7e41c2f1542d045939dc56e4c739c65ce5106faa7ceec",
+        "sender": "0xF72b6C739E7889b89C888403a960a59935564405",
+        "userOperationHash": "0x2d428121be450383068196e00c03f6af4968dd1eb08c4d3f1906677e760aed78",
+        "nonce": 2,
+        "initCode": "0x",
+        "callData": "0x7bb3742800000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b52600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000002c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "callGasLimit": 142240,
+        "verificationGasLimit": 90217,
+        "preVerificationGas": 61410,
+        "maxFeePerGas": 49578755932,
+        "maxPriorityFeePerGas": 1380000000,
+        "paymaster": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d",
+        "paymasterData": "0xdff7fa1077bce740a6a212b3995990682c0ba66d",
+        "signature": "0x000065d81bb80000668f36b860f7911cd88236e0521b840f4585ae1e829b39bdf3dfb7df2d3f69df02ee2ffb703e2103c82fd08a52b98fe0fec50dd567dece501eb90fe03b805036f3a9090f1b",
+        "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789"
+      }
+    },
+    {
+      "created": "2024-05-07T14:23:28.868276Z",
+      "modified": "2024-05-07T14:23:28.868276Z",
+      "safeOperationHash": "0xf72e2f8c93bec7578a6e7db2a3724f842e36aa90a4d9ad34f8a038e0d57fffed",
+      "validAfter": "2024-02-23T04:11:00Z",
+      "validUntil": "2024-07-11T01:31:00Z",
+      "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
+      "confirmations": [
+        {
+          "created": "2024-05-07T14:23:28.880682Z",
+          "modified": "2024-05-07T14:23:28.880682Z",
+          "owner": "0xc6b82bA149CFA113f8f48d5E3b1F78e933e16DfD",
+          "signature": "0x146b615da5b9806fd53ed02242a13ec4d6e653aa87801cecfd3b3ca3656f34a664866b5cc2916620a55719ff9446ff884378651b2f970b4778df13e475e3c2e41c",
+          "signatureType": "EOA"
+        }
+      ],
+      "preparedSignature": "0x146b615da5b9806fd53ed02242a13ec4d6e653aa87801cecfd3b3ca3656f34a664866b5cc2916620a55719ff9446ff884378651b2f970b4778df13e475e3c2e41c",
+      "userOperation": {
+        "ethereumTxHash": "0xc9e5778b5ea63d919acb71d3afbef00d1e9bdb6cc415330e4c2c7677d97b915f",
+        "sender": "0xF72b6C739E7889b89C888403a960a59935564405",
+        "userOperationHash": "0x1517a6aab3f2c7b696ed0883da6358e8179ef70efb7a2e5f62e410ceb6d72038",
+        "nonce": 1,
+        "initCode": "0x",
+        "callData": "0x7bb3742800000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b52600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000002c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "callGasLimit": 142240,
+        "verificationGasLimit": 90217,
+        "preVerificationGas": 61410,
+        "maxFeePerGas": 45460716789,
+        "maxPriorityFeePerGas": 1380000000,
+        "paymaster": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d",
+        "paymasterData": "0xdff7fa1077bce740a6a212b3995990682c0ba66d",
+        "signature": "0x000065d81ad40000668f35d4146b615da5b9806fd53ed02242a13ec4d6e653aa87801cecfd3b3ca3656f34a664866b5cc2916620a55719ff9446ff884378651b2f970b4778df13e475e3c2e41c",
+        "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789"
+      }
+    }
+  ]
 }
 ```
   </Grid>
@@ -2697,7 +3646,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 
     
 
-    <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"refName":"SafeOperation","required":["nonce","initCode","callData","callDataGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymasterAndData","signature","entryPoint","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callDataGasLimit":{"title":"Call data gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymasterAndData":{"title":"Paymaster and data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time","x-nullable":true},"validUntil":{"title":"Valid until","type":"string","format":"date-time","x-nullable":true},"moduleAddress":{"title":"Module address","type":"string"}}}}]} />
+    <Parameters parameters={[{"name":"data","in":"body","required":true,"schema":{"refName":"SafeOperation","required":["nonce","initCode","callData","callGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymasterAndData","signature","entryPoint","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callGasLimit":{"title":"Call gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymasterAndData":{"title":"Paymaster and data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time","x-nullable":true},"validUntil":{"title":"Valid until","type":"string","format":"date-time","x-nullable":true},"moduleAddress":{"title":"Module address","type":"string"}}}}]} />
     <Responses responses={[{"code":"201","schema":{},"description":"Created"}]} />
     <Feedback asPath={"/api-reference#Create-Safe-Operation"} label='Did this API route run successfully?' small />
   </Grid>
@@ -2714,20 +3663,20 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{
-  "nonce": "",
-  "initCode": "",
-  "callData": "",
-  "callDataGasLimit": "",
-  "verificationGasLimit": "",
-  "preVerificationGas": "",
-  "maxFeePerGas": "",
-  "maxPriorityFeePerGas": "",
-  "paymasterAndData": "",
+  "nonce": 10,
+  "initCode": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec671688f0b900000000000000000000000029fcb43b46531bca003ddc8fcb67ffe91900c7620000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000a97000000000000000000000000000000000000000000000000000000000000001e4b63e800d000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000010000000000000000000000008ecd4ec46d4d2a6b64fe960b3d64e8b94b2234eb0000000000000000000000000000000000000000000000000000000000000140000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b40370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000c6b82ba149cfa113f8f48d5e3b1f78e933e16dfd00000000000000000000000000000000000000000000000000000000000000648d0dc49f00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b40370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "callData": "0x7bb3742800000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b52600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000002c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000b531870897eb944799239fa5485792ba495a741100000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000b531870897eb944799239fa5485792ba495a741100000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000b531870897eb944799239fa5485792ba495a741100000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000b531870897eb944799239fa5485792ba495a741100000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "callGasLimit": 140240,
+  "verificationGasLimit": 542895,
+  "preVerificationGas": 66374,
+  "maxFeePerGas": 51026511147,
+  "maxPriorityFeePerGas": 1380000000,
+  "paymasterAndData": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d000000000000000000000000000000000000000000000000000000006633b1a7000000000000000000000000000000000000000000000000000000000000000066a61c76c14b64bbe67a7c45c5bdc30c890bfde5b9cb66bfdca69d404f9aeb7a0e9a6e6391030f9cce5e64cab2e1f733c63c5a6c88867bde4bbd01be03cf6fa41b",
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c",
-  "entryPoint": "",
-  "validAfter": "",
-  "validUntil": "",
-  "moduleAddress": ""
+  "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
+  "validAfter": "2024-02-23T04:40:36.000Z",
+  "validUntil": "2024-07-11T02:00:36.000Z",
+  "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037"
 }'
 ```
       </CH.Code>
@@ -2754,7 +3703,7 @@ curl -X POST https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72a
     
 
     <Parameters parameters={[{"name":"ordering","in":"query","description":"Which field to use when ordering the results.","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"}]} />
-    <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"refName":"UserOperationWithSafeOperationResponse","required":["ethereumTxHash","sender","userOperationHash","nonce","initCode","callData","callDataGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymaster","paymasterData","signature","entryPoint"],"type":"object","properties":{"ethereumTxHash":{"title":"Ethereum tx hash","type":"string"},"sender":{"title":"Sender","type":"string"},"userOperationHash":{"title":"User operation hash","type":"string"},"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callDataGasLimit":{"title":"Call data gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymaster":{"title":"Paymaster","type":"string","x-nullable":true},"paymasterData":{"title":"Paymaster data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"},"safeOperation":{"refName":"SafeOperationResponse","required":["created","modified","safeOperationHash","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"safeOperationHash":{"title":"Safe operation hash","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time"},"validUntil":{"title":"Valid until","type":"string","format":"date-time"},"moduleAddress":{"title":"Module address","type":"string"},"confirmations":{"title":"Confirmations","type":"string","readOnly":true},"preparedSignature":{"title":"Prepared signature","type":"string","readOnly":true}},"x-nullable":true}},"x-nullable":true}}}},"description":""}]} />
+    <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"refName":"UserOperationWithSafeOperationResponse","required":["ethereumTxHash","sender","userOperationHash","nonce","initCode","callData","callGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymaster","paymasterData","signature","entryPoint"],"type":"object","properties":{"ethereumTxHash":{"title":"Ethereum tx hash","type":"string"},"sender":{"title":"Sender","type":"string"},"userOperationHash":{"title":"User operation hash","type":"string"},"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callGasLimit":{"title":"Call gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymaster":{"title":"Paymaster","type":"string","x-nullable":true},"paymasterData":{"title":"Paymaster data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"},"safeOperation":{"refName":"SafeOperationResponse","required":["created","modified","safeOperationHash","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"safeOperationHash":{"title":"Safe operation hash","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time"},"validUntil":{"title":"Valid until","type":"string","format":"date-time"},"moduleAddress":{"title":"Module address","type":"string"},"confirmations":{"title":"Confirmations","type":"string","readOnly":true},"preparedSignature":{"title":"Prepared signature","type":"string","readOnly":true}},"x-nullable":true}},"x-nullable":true}}}},"description":""}]} />
     <Feedback asPath={"/api-reference#List-User-Operations"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -2779,10 +3728,81 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 
 ```json
 {
-  "count": 0,
-  "next": null,
+  "count": 6,
+  "next": "https://safe-transaction-sepolia.staging.5afe.dev/api/v1/safes/0xF72b6C739E7889b89C888403a960a59935564405/user-operations/?limit=2&offset=2",
   "previous": null,
-  "results": []
+  "results": [
+    {
+      "ethereumTxHash": "0xf118b097fdf3751fc7d7e41c2f1542d045939dc56e4c739c65ce5106faa7ceec",
+      "sender": "0xF72b6C739E7889b89C888403a960a59935564405",
+      "userOperationHash": "0x2d428121be450383068196e00c03f6af4968dd1eb08c4d3f1906677e760aed78",
+      "nonce": 2,
+      "initCode": "0x",
+      "callData": "0x7bb3742800000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b52600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000002c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "callGasLimit": 142240,
+      "verificationGasLimit": 90217,
+      "preVerificationGas": 61410,
+      "maxFeePerGas": 49578755932,
+      "maxPriorityFeePerGas": 1380000000,
+      "paymaster": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d",
+      "paymasterData": "0xdff7fa1077bce740a6a212b3995990682c0ba66d",
+      "signature": "0x000065d81bb80000668f36b860f7911cd88236e0521b840f4585ae1e829b39bdf3dfb7df2d3f69df02ee2ffb703e2103c82fd08a52b98fe0fec50dd567dece501eb90fe03b805036f3a9090f1b",
+      "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
+      "safeOperation": {
+        "created": "2024-05-07T14:23:29.967297Z",
+        "modified": "2024-05-07T14:23:29.967297Z",
+        "safeOperationHash": "0xb26c1fd4b26f5c2060b26164ed81a62f67807c6fb482cb86c962ac7c95f9c3e0",
+        "validAfter": "2024-02-23T04:14:48Z",
+        "validUntil": "2024-07-11T01:34:48Z",
+        "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
+        "confirmations": [
+          {
+            "created": "2024-05-07T14:23:29.979926Z",
+            "modified": "2024-05-07T14:23:29.979926Z",
+            "owner": "0xc6b82bA149CFA113f8f48d5E3b1F78e933e16DfD",
+            "signature": "0x60f7911cd88236e0521b840f4585ae1e829b39bdf3dfb7df2d3f69df02ee2ffb703e2103c82fd08a52b98fe0fec50dd567dece501eb90fe03b805036f3a9090f1b",
+            "signatureType": "EOA"
+          }
+        ],
+        "preparedSignature": "0x60f7911cd88236e0521b840f4585ae1e829b39bdf3dfb7df2d3f69df02ee2ffb703e2103c82fd08a52b98fe0fec50dd567dece501eb90fe03b805036f3a9090f1b"
+      }
+    },
+    {
+      "ethereumTxHash": "0xc9e5778b5ea63d919acb71d3afbef00d1e9bdb6cc415330e4c2c7677d97b915f",
+      "sender": "0xF72b6C739E7889b89C888403a960a59935564405",
+      "userOperationHash": "0x1517a6aab3f2c7b696ed0883da6358e8179ef70efb7a2e5f62e410ceb6d72038",
+      "nonce": 1,
+      "initCode": "0x",
+      "callData": "0x7bb3742800000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b52600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000002c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "callGasLimit": 142240,
+      "verificationGasLimit": 90217,
+      "preVerificationGas": 61410,
+      "maxFeePerGas": 45460716789,
+      "maxPriorityFeePerGas": 1380000000,
+      "paymaster": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d",
+      "paymasterData": "0xdff7fa1077bce740a6a212b3995990682c0ba66d",
+      "signature": "0x000065d81ad40000668f35d4146b615da5b9806fd53ed02242a13ec4d6e653aa87801cecfd3b3ca3656f34a664866b5cc2916620a55719ff9446ff884378651b2f970b4778df13e475e3c2e41c",
+      "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
+      "safeOperation": {
+        "created": "2024-05-07T14:23:28.868276Z",
+        "modified": "2024-05-07T14:23:28.868276Z",
+        "safeOperationHash": "0xf72e2f8c93bec7578a6e7db2a3724f842e36aa90a4d9ad34f8a038e0d57fffed",
+        "validAfter": "2024-02-23T04:11:00Z",
+        "validUntil": "2024-07-11T01:31:00Z",
+        "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
+        "confirmations": [
+          {
+            "created": "2024-05-07T14:23:28.880682Z",
+            "modified": "2024-05-07T14:23:28.880682Z",
+            "owner": "0xc6b82bA149CFA113f8f48d5E3b1F78e933e16DfD",
+            "signature": "0x146b615da5b9806fd53ed02242a13ec4d6e653aa87801cecfd3b3ca3656f34a664866b5cc2916620a55719ff9446ff884378651b2f970b4778df13e475e3c2e41c",
+            "signatureType": "EOA"
+          }
+        ],
+        "preparedSignature": "0x146b615da5b9806fd53ed02242a13ec4d6e653aa87801cecfd3b3ca3656f34a664866b5cc2916620a55719ff9446ff884378651b2f970b4778df13e475e3c2e41c"
+      }
+    }
+  ]
 }
 ```
   </Grid>
@@ -2804,19 +3824,19 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
     
 
     <Parameters parameters={[]} />
-    <Responses responses={[{"code":"200","schema":{"refName":"UserOperationWithSafeOperationResponse","required":["ethereumTxHash","sender","userOperationHash","nonce","initCode","callData","callDataGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymaster","paymasterData","signature","entryPoint"],"type":"object","properties":{"ethereumTxHash":{"title":"Ethereum tx hash","type":"string"},"sender":{"title":"Sender","type":"string"},"userOperationHash":{"title":"User operation hash","type":"string"},"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callDataGasLimit":{"title":"Call data gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymaster":{"title":"Paymaster","type":"string","x-nullable":true},"paymasterData":{"title":"Paymaster data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"},"safeOperation":{"refName":"SafeOperationResponse","required":["created","modified","safeOperationHash","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"safeOperationHash":{"title":"Safe operation hash","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time"},"validUntil":{"title":"Valid until","type":"string","format":"date-time"},"moduleAddress":{"title":"Module address","type":"string"},"confirmations":{"title":"Confirmations","type":"string","readOnly":true},"preparedSignature":{"title":"Prepared signature","type":"string","readOnly":true}},"x-nullable":true}},"x-nullable":true},"description":""}]} />
+    <Responses responses={[{"code":"200","schema":{"refName":"UserOperationWithSafeOperationResponse","required":["ethereumTxHash","sender","userOperationHash","nonce","initCode","callData","callGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymaster","paymasterData","signature","entryPoint"],"type":"object","properties":{"ethereumTxHash":{"title":"Ethereum tx hash","type":"string"},"sender":{"title":"Sender","type":"string"},"userOperationHash":{"title":"User operation hash","type":"string"},"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callGasLimit":{"title":"Call gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymaster":{"title":"Paymaster","type":"string","x-nullable":true},"paymasterData":{"title":"Paymaster data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"},"safeOperation":{"refName":"SafeOperationResponse","required":["created","modified","safeOperationHash","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"safeOperationHash":{"title":"Safe operation hash","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time"},"validUntil":{"title":"Valid until","type":"string","format":"date-time"},"moduleAddress":{"title":"Module address","type":"string"},"confirmations":{"title":"Confirmations","type":"string","readOnly":true},"preparedSignature":{"title":"Prepared signature","type":"string","readOnly":true}},"x-nullable":true}},"x-nullable":true},"description":""}]} />
     <Feedback asPath={"/api-reference#Get-User-Operation"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
     <Path path="/v1/user-operations/{user_operation_hash}/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/v1/user-operations//" />
+    <SampleRequestHeader method="get" pathWithParams="/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/" />
 
     <CH.Section>
       <CH.Code>
         
 ```bash 
-curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/user-operations// \
+curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     
@@ -2825,7 +3845,28 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/user-operations/
     </CH.Section>
     <NetworkNotice />
 
-    
+    #### Sample Response
+
+```json
+{
+  "ethereumTxHash": "0xdb69ebbcd6530beaa153d908681320e673efcca47a78ccfc6bbceacda034c1c1",
+  "sender": "0xFc434a578F935205F459768d8756C000419c6007",
+  "userOperationHash": "0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e",
+  "nonce": 6,
+  "initCode": "0x",
+  "callData": "0x7bb3742800000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b52600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000002c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000fc434a578f935205f459768d8756c000419c600700000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000fc434a578f935205f459768d8756c000419c600700000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000fc434a578f935205f459768d8756c000419c600700000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000fc434a578f935205f459768d8756c000419c600700000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "callGasLimit": 114723,
+  "verificationGasLimit": 90217,
+  "preVerificationGas": 61344,
+  "maxFeePerGas": 89666861988,
+  "maxPriorityFeePerGas": 1380000000,
+  "paymaster": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d",
+  "paymasterData": "0xdff7fa1077bce740a6a212b3995990682c0ba66d",
+  "signature": "0x000065e7ab340000669ec634267399ea27125335de1871f048c70dd737d3517a34b975ef5b75aae8ea4891b33d2e7a7e0f86278ece338d79826f13331260a92d9659ee9884455c95e5c1ce701c",
+  "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
+  "safeOperation": null
+}
+```
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -2876,18 +3917,19 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 
 ```json
 {
-  "address": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75",
-  "nonce": 50,
+  "address": "0xF72b6C739E7889b89C888403a960a59935564405",
+  "nonce": 0,
   "threshold": 1,
   "owners": [
-    "0x56519083C3cfeAE833B93a93c843C993bE1D74EA",
-    "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB"
+    "0xc6b82bA149CFA113f8f48d5E3b1F78e933e16DfD"
   ],
-  "masterCopy": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
-  "modules": [],
-  "fallbackHandler": "0x0000000000000000000000000000000000000000",
+  "masterCopy": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+  "modules": [
+    "0xa581c4A4DB7175302464fF3C06380BC3270b4037"
+  ],
+  "fallbackHandler": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
   "guard": "0x0000000000000000000000000000000000000000",
-  "version": "1.3.0"
+  "version": "1.4.1+L2"
 }
 ```
   </Grid>
@@ -2970,7 +4012,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
     
 
     <Parameters parameters={[]} />
-    <Responses responses={[{"code":"200","schema":{"refName":"SafeCreationInfoResponse","required":["created","creator","transactionHash","factoryAddress","masterCopy","setupData","userOperation"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"creator":{"title":"Creator","type":"string"},"transactionHash":{"title":"Transaction hash","type":"string"},"factoryAddress":{"title":"Factory address","type":"string"},"masterCopy":{"title":"Master copy","type":"string","x-nullable":true},"setupData":{"title":"Setup data","type":"string","x-nullable":true},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"userOperation":{"refName":"UserOperationWithSafeOperationResponse","required":["ethereumTxHash","sender","userOperationHash","nonce","initCode","callData","callDataGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymaster","paymasterData","signature","entryPoint"],"type":"object","properties":{"ethereumTxHash":{"title":"Ethereum tx hash","type":"string"},"sender":{"title":"Sender","type":"string"},"userOperationHash":{"title":"User operation hash","type":"string"},"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callDataGasLimit":{"title":"Call data gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymaster":{"title":"Paymaster","type":"string","x-nullable":true},"paymasterData":{"title":"Paymaster data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"},"safeOperation":{"refName":"SafeOperationResponse","required":["created","modified","safeOperationHash","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"safeOperationHash":{"title":"Safe operation hash","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time"},"validUntil":{"title":"Valid until","type":"string","format":"date-time"},"moduleAddress":{"title":"Module address","type":"string"},"confirmations":{"title":"Confirmations","type":"string","readOnly":true},"preparedSignature":{"title":"Prepared signature","type":"string","readOnly":true}},"x-nullable":true}},"x-nullable":true}}},"description":""},{"code":"404","schema":{},"description":"Safe creation not found"},{"code":"422","schema":{},"description":"Owner address checksum not valid"},{"code":"503","schema":{},"description":"Problem connecting to Ethereum network"}]} />
+    <Responses responses={[{"code":"200","schema":{"refName":"SafeCreationInfoResponse","required":["created","creator","transactionHash","factoryAddress","masterCopy","setupData","userOperation"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"creator":{"title":"Creator","type":"string"},"transactionHash":{"title":"Transaction hash","type":"string"},"factoryAddress":{"title":"Factory address","type":"string"},"masterCopy":{"title":"Master copy","type":"string","x-nullable":true},"setupData":{"title":"Setup data","type":"string","x-nullable":true},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"userOperation":{"refName":"UserOperationWithSafeOperationResponse","required":["ethereumTxHash","sender","userOperationHash","nonce","initCode","callData","callGasLimit","verificationGasLimit","preVerificationGas","maxFeePerGas","maxPriorityFeePerGas","paymaster","paymasterData","signature","entryPoint"],"type":"object","properties":{"ethereumTxHash":{"title":"Ethereum tx hash","type":"string"},"sender":{"title":"Sender","type":"string"},"userOperationHash":{"title":"User operation hash","type":"string"},"nonce":{"title":"Nonce","type":"integer","minimum":0},"initCode":{"title":"Init code","type":"string","x-nullable":true},"callData":{"title":"Call data","type":"string","x-nullable":true},"callGasLimit":{"title":"Call gas limit","type":"integer","minimum":0},"verificationGasLimit":{"title":"Verification gas limit","type":"integer","minimum":0},"preVerificationGas":{"title":"Pre verification gas","type":"integer","minimum":0},"maxFeePerGas":{"title":"Max fee per gas","type":"integer","minimum":0},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"integer","minimum":0},"paymaster":{"title":"Paymaster","type":"string","x-nullable":true},"paymasterData":{"title":"Paymaster data","type":"string","x-nullable":true},"signature":{"title":"Signature","type":"string"},"entryPoint":{"title":"Entry point","type":"string"},"safeOperation":{"refName":"SafeOperationResponse","required":["created","modified","safeOperationHash","validAfter","validUntil","moduleAddress"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"safeOperationHash":{"title":"Safe operation hash","type":"string"},"validAfter":{"title":"Valid after","type":"string","format":"date-time"},"validUntil":{"title":"Valid until","type":"string","format":"date-time"},"moduleAddress":{"title":"Module address","type":"string"},"confirmations":{"title":"Confirmations","type":"string","readOnly":true},"preparedSignature":{"title":"Prepared signature","type":"string","readOnly":true}},"x-nullable":true}},"x-nullable":true}}},"description":""},{"code":"404","schema":{},"description":"Safe creation not found"},{"code":"422","schema":{},"description":"Owner address checksum not valid"},{"code":"503","schema":{},"description":"Problem connecting to Ethereum network"}]} />
     <Feedback asPath={"/api-reference#Get-Safe-Creation-Status"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -2995,12 +4037,12 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
 
 ```json
 {
-  "created": "2019-11-27T15:01:45Z",
-  "creator": "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB",
-  "transactionHash": "0x9c65d416867d9e13732fee8b85dd44c4d774b9bad31b3cd44e78eeefc33ce97f",
-  "factoryAddress": "0x12302fE9c02ff50939BaAaaf415fc226C078613C",
-  "masterCopy": "0xb6029EA3B2c51D09a50B53CA8012FeEB05bDa35A",
-  "setupData": "0xa97ab18a00000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000a1b02d8c67b0fdcf4e379855868deb470e169cfb0000000000000000000000000000000000000000000000000000000000000000",
+  "created": "2024-05-02T09:21:48Z",
+  "creator": "0x7fc98430eAEdbb6070B35B39D798725049088348",
+  "transactionHash": "0xb385f65ad802423028550f20a94f2433671a16874e2544827bbf146bbb08d96c",
+  "factoryAddress": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+  "masterCopy": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+  "setupData": "0xb63e800d000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000010000000000000000000000008ecd4ec46d4d2a6b64fe960b3d64e8b94b2234eb0000000000000000000000000000000000000000000000000000000000000140000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b40370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000c6b82ba149cfa113f8f48d5e3b1f78e933e16dfd00000000000000000000000000000000000000000000000000000000000000648d0dc49f00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b403700000000000000000000000000000000000000000000000000000000",
   "dataDecoded": {
     "method": "setup",
     "parameters": [
@@ -3008,7 +4050,7 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
         "name": "_owners",
         "type": "address[]",
         "value": [
-          "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB"
+          "0xc6b82bA149CFA113f8f48d5E3b1F78e933e16DfD"
         ]
       },
       {
@@ -3019,12 +4061,17 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
       {
         "name": "to",
         "type": "address",
-        "value": "0x0000000000000000000000000000000000000000"
+        "value": "0x8EcD4ec46D4D2a6B64fE960B3D64e8B94B2234eb"
       },
       {
         "name": "data",
         "type": "bytes",
-        "value": "0x"
+        "value": "0x8d0dc49f00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b4037"
+      },
+      {
+        "name": "fallbackHandler",
+        "type": "address",
+        "value": "0xa581c4A4DB7175302464fF3C06380BC3270b4037"
       },
       {
         "name": "paymentToken",
@@ -3043,7 +4090,41 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aE
       }
     ]
   },
-  "userOperation": null
+  "userOperation": {
+    "ethereumTxHash": "0xb385f65ad802423028550f20a94f2433671a16874e2544827bbf146bbb08d96c",
+    "sender": "0xF72b6C739E7889b89C888403a960a59935564405",
+    "userOperationHash": "0xd9e377ffd06eb4babfc3b52d70894d94ff57f51c8803b70f178ef74e50b38905",
+    "nonce": 0,
+    "initCode": "0x4e1dcf7ad4e460cfd30791ccc4f9c8a4f820ec671688f0b900000000000000000000000029fcb43b46531bca003ddc8fcb67ffe91900c7620000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000a96c00000000000000000000000000000000000000000000000000000000000001e4b63e800d000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000010000000000000000000000008ecd4ec46d4d2a6b64fe960b3d64e8b94b2234eb0000000000000000000000000000000000000000000000000000000000000140000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b40370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000c6b82ba149cfa113f8f48d5e3b1f78e933e16dfd00000000000000000000000000000000000000000000000000000000000000648d0dc49f00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b40370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "callData": "0x7bb3742800000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b52600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000002c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000264001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a0001c7d4b196cb0c7b01d743fbc6116a902379c723800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044a9059cbb000000000000000000000000f72b6c739e7889b89c888403a960a5993556440500000000000000000000000000000000000000000000000000000000000186a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "callGasLimit": 140240,
+    "verificationGasLimit": 542895,
+    "preVerificationGas": 66374,
+    "maxFeePerGas": 16535642691,
+    "maxPriorityFeePerGas": 1380000000,
+    "paymaster": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d",
+    "paymasterData": "0xdff7fa1077bce740a6a212b3995990682c0ba66d",
+    "signature": "0x000065d7cd940000668ee894c0dd9fd0ef8958eb8ee8245efdc9e1074380c9682e0bb2c0958dfc2aabf4d34e425b00f872ac761bb2cfdf43968fc76d6a892a65b8b270d1ad289fb151e65d5a1b",
+    "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
+    "safeOperation": {
+      "created": "2024-05-07T14:23:27.988241Z",
+      "modified": "2024-05-07T14:23:27.988241Z",
+      "safeOperationHash": "0xf531b1c7481e14be90e721d422325a597b9e0134ca0aebdc8134fab2e16fb343",
+      "validAfter": "2024-02-22T22:41:24Z",
+      "validUntil": "2024-07-10T20:01:24Z",
+      "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
+      "confirmations": [
+        {
+          "created": "2024-05-07T14:23:28.003273Z",
+          "modified": "2024-05-07T14:23:28.003273Z",
+          "owner": "0xc6b82bA149CFA113f8f48d5E3b1F78e933e16DfD",
+          "signature": "0xc0dd9fd0ef8958eb8ee8245efdc9e1074380c9682e0bb2c0958dfc2aabf4d34e425b00f872ac761bb2cfdf43968fc76d6a892a65b8b270d1ad289fb151e65d5a1b",
+          "signatureType": "EOA"
+        }
+      ],
+      "preparedSignature": "0xc0dd9fd0ef8958eb8ee8245efdc9e1074380c9682e0bb2c0958dfc2aabf4d34e425b00f872ac761bb2cfdf43968fc76d6a892a65b8b270d1ad289fb151e65d5a1b"
+    }
+  }
 }
 ```
   </Grid>
@@ -3159,26 +4240,26 @@ curl -X GET https://safe-transaction-mainnet.safe.global/api/v1/tokens/ \
 
 ```json
 {
-  "count": 40289,
-  "next": "https://safe-transaction-mainnet.safe.global/api/v1/tokens/?limit=2&offset=2",
+  "count": 88,
+  "next": "https://safe-transaction-sepolia.staging.5afe.dev/api/v1/tokens/?limit=2&offset=2",
   "previous": null,
   "results": [
     {
       "type": "ERC20",
-      "address": "0x56EBDaE96d179549f279ea0cFEa3b3432B8Cd2bC",
-      "name": "",
-      "symbol": "",
+      "address": "0x687e43D0aB3248bDfebFE3E8f9F1AB2B9FcE982d",
+      "name": "0x5555.com",
+      "symbol": "0x5555.com",
       "decimals": 18,
-      "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x56EBDaE96d179549f279ea0cFEa3b3432B8Cd2bC.png",
+      "logoUri": "https://safe-transaction-assets.staging.5afe.dev/tokens/logos/0x687e43D0aB3248bDfebFE3E8f9F1AB2B9FcE982d.png",
       "trusted": false
     },
     {
       "type": "ERC20",
-      "address": "0x85A7a676D610A95865E842d2754b1fd335E55767",
-      "name": "",
-      "symbol": "",
-      "decimals": 7,
-      "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x85A7a676D610A95865E842d2754b1fd335E55767.png",
+      "address": "0xf9aBBc6E64f3Cb3cb237EbcAB95A252365BBd0D0",
+      "name": "AAVE",
+      "symbol": "AAVE",
+      "decimals": 18,
+      "logoUri": "https://safe-transaction-assets.staging.5afe.dev/tokens/logos/0xf9aBBc6E64f3Cb3cb237EbcAB95A252365BBd0D0.png",
       "trusted": false
     }
   ]
