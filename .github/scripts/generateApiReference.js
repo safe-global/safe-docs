@@ -392,10 +392,9 @@ const generateCategoryContent = category => `<Grid my={8} />
 
 ${category.paths.map(path => generatePathContent(path)).join('\n')}`
 
-const getCategories = version => {
+const getCategories = () => {
   const allMethods = Object.entries(mainnetApiJson.paths)
     .map(([k, v]) => Object.values(v))
-    .filter((value, index) => index % 2 === 0)
     .flat()
   const allCategories = Array.from(
     new Set(
@@ -410,11 +409,12 @@ const getCategories = version => {
     paths: allMethods
       .filter(method => method.tags?.includes(title) && !method.deprecated)
       .map(m => m.path)
+      .filter((path, i, arr) => arr.indexOf(path) === i)
   }))
 }
 
 const generateMainContent = () => {
-  const categories = [...getCategories('v1')].filter(
+  const categories = getCategories().filter(
     c => c.title !== 'about' && c.title !== 'notifications'
   )
 
