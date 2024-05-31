@@ -18,10 +18,15 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
 
   {/* <!-- vale off --> */}
 
-  <Tabs items={['TypeScript']}>
+  <Tabs items={['TypeScript', 'Python']}>
     <Tabs.Tab>
       ```bash
       yarn add @safe-global/api-kit
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      pip install safe-eth-py web3
       ```
     </Tabs.Tab>
   </Tabs>
@@ -32,10 +37,17 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
 
   {/* <!-- vale off --> */}
 
-  <Tabs items={['TypeScript']}>
+  <Tabs items={['TypeScript', 'Python']}>
     <Tabs.Tab>
       ```typescript
       import SafeApiKit from '@safe-global/api-kit'
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      from eth_typing import HexStr
+      from gnosis.eth import EthereumClient, EthereumNetwork
+      from gnosis.safe.api.transaction_service_api import TransactionServiceApi
       ```
     </Tabs.Tab>
   </Tabs>
@@ -46,7 +58,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
 
   {/* <!-- vale off --> */}
 
-  <Tabs items={['TypeScript', 'Curl']}>
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
       ```typescript
       // Initialize the API Kit
@@ -57,9 +69,24 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       const data = "0x095ea7b3000000000000000000000000e6fc577e87f7c977c4393300417dcc592d90acf8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
       const dataDecoded = await apiKit.decodeData(data);
 
-      console.log("Transaction data decoded: %O", dataDecoded);
+      // This decoded data is also included as dataDecoded in the response of the getMultisigTransactions, getModuleTransactions and getAllTransactions methods of the apiKit.
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      # Instantiate the Transaction Service API
+      ethereum_client = EthereumClient(config.get("RPC_URL"))
+      transaction_service_api = TransactionServiceApi(
+            EthereumNetwork.SEPOLIA,
+            ethereum_client=ethereum_client
+        )
 
-      // This decoded data is also included as dataDecoded in the getMultisigTransactions, getModuleTransactions and getAllTransactions apiKit methods.
+      # Get decoded data
+      data = HexStr("0x095ea7b3000000000000000000000000e6fc577e87f7c977c4393300417dcc592d90acf8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
+      to = "0x4127839cdf4F73d9fC9a2C2861d8d1799e9DF40C" # Optional
+      data_decoded = transaction_service_api.decode_data(data, to)
+
+      # This decoded data is also included as dataDecoded in the response of the get_safe_transaction and get_transactions methods of the TransactionServiceApi.
       ```
     </Tabs.Tab>
     <Tabs.Tab>
