@@ -1,0 +1,44 @@
+[
+  {
+    "version": "1.0.0",
+    "contracts": [
+      {
+        "contractName": "GnosisSafe",
+        "address": null
+      },
+      {
+        "contractName": "ProxyFactory",
+        "address": null
+      }
+    ]
+  },
+  {
+    "version": "1.1.1",
+    "contracts": [
+      {
+        "contractName": "CreateAndAddModules",
+        "address": null
+      },
+      {
+        "contractName": "CreateCall",
+        "address": null
+      },
+      {
+        "contractName": "DefaultCallbackHandler",
+        "address": null
+      },
+      {
+        "contractName": "GnosisSafe",
+        "address": null
+      },
+      {
+        "contractName": "MultiSend",
+        "address": null
+      },
+      {
+        "contractName": "ProxyFactory",
+        "address": null
+      }
+    ]
+  }
+]
