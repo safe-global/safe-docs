@@ -25,7 +25,7 @@ const ReportIssue: React.FC<{ small?: boolean }> = ({ small = false }) => (
   >
     <Button
       onClick={() => {
-        sendGTMEvent({ event: 'issue', value: window.location.pathname })
+        sendGTMEvent({ event: 'issue', path: window.location.pathname })
       }}
       size={small ? 'small' : undefined}
       sx={{
