@@ -1,24 +1,24 @@
 {
-  "count": 40276,
-  "next": "https://safe-transaction-mainnet.safe.global/api/v1/tokens/?limit=2&offset=2",
+  "count": 88,
+  "next": "https://safe-transaction-sepolia.staging.5afe.dev/api/v1/tokens/?limit=2&offset=2",
   "previous": null,
   "results": [
     {
       "type": "ERC20",
-      "address": "0x56EBDaE96d179549f279ea0cFEa3b3432B8Cd2bC",
-      "name": "",
-      "symbol": "",
+      "address": "0x687e43D0aB3248bDfebFE3E8f9F1AB2B9FcE982d",
+      "name": "0x5555.com",
+      "symbol": "0x5555.com",
       "decimals": 18,
-      "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x56EBDaE96d179549f279ea0cFEa3b3432B8Cd2bC.png",
+      "logoUri": "https://safe-transaction-assets.staging.5afe.dev/tokens/logos/0x687e43D0aB3248bDfebFE3E8f9F1AB2B9FcE982d.png",
       "trusted": false
     },
     {
       "type": "ERC20",
-      "address": "0x85A7a676D610A95865E842d2754b1fd335E55767",
-      "name": "",
-      "symbol": "",
-      "decimals": 7,
-      "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x85A7a676D610A95865E842d2754b1fd335E55767.png",
+      "address": "0xf9aBBc6E64f3Cb3cb237EbcAB95A252365BBd0D0",
+      "name": "AAVE",
+      "symbol": "AAVE",
+      "decimals": 18,
+      "logoUri": "https://safe-transaction-assets.staging.5afe.dev/tokens/logos/0xf9aBBc6E64f3Cb3cb237EbcAB95A252365BBd0D0.png",
       "trusted": false
     }
   ]
