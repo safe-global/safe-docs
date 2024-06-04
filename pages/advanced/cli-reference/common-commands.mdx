@@ -36,7 +36,7 @@ Updates the Safe to the latest version (if you are on a known network like Mainn
 
 ```bash
 update
-``` 
+```
 
 ## Transactions
 
@@ -80,7 +80,7 @@ Adds a new owner `address` to the Safe.
 
 ```bash
 add_owner <address>
-``` 
+```
 
 ### Load owners
 
@@ -185,7 +185,7 @@ Changes the `threshold` of the Safe.
 
 ```bash
 change_threshold <integer>
-``` 
+```
 
 ## Modules
 
@@ -239,7 +239,7 @@ Updates the master copy to be `address`. It's used to update the Safe.
 
 ```bash
 change_master_copy <address>
-``` 
+```
 
 ## Update to L2
 
@@ -253,5 +253,6 @@ It can be found [here](https://github.com/safe-global/safe-contracts/blob/main/c
 The nonce for the Safe must be 0, and supported versions are `v1.1.1`, `v1.3.0`, and `v1.4.1`.
 
 ```bash
-update_to_l2 <address>
+update_version_to_l2 <address>
 ```
+where `address` is the address of the update contract.
