@@ -1,0 +1,109 @@
+import { Tabs, Steps } from 'nextra/components'
+
+# Transaction data decoder
+
+This guide shows how to use the Safe Transaction Service API to decode transaction data for contract interactions.
+
+The different steps are implemented using [Curl](https://github.com/curl/curl) requests and the [Safe\{Core\} SDK](https://github.com/safe-global/safe-core-sdk) TypeScript library.
+
+## Prerequisites
+
+1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm) when using the Safe\{Core\} SDK.
+2. Have a Safe account.
+
+## Steps
+
+<Steps>
+  ### Install dependencies
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['TypeScript', 'Python']}>
+    <Tabs.Tab>
+      ```bash
+      yarn add @safe-global/api-kit
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      pip install safe-eth-py web3
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  ### Imports
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['TypeScript', 'Python']}>
+    <Tabs.Tab>
+      ```typescript
+      import SafeApiKit from '@safe-global/api-kit'
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      from eth_typing import HexStr
+      from gnosis.eth import EthereumClient, EthereumNetwork
+      from gnosis.safe.api.transaction_service_api import TransactionServiceApi
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  ### Decode transaction data
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['TypeScript', 'Python', 'Curl']}>
+    <Tabs.Tab>
+      ```typescript
+      // Initialize the API Kit
+      const apiKit = new SafeApiKit({
+        chainId: 11155111n
+      })
+
+      const data = "0x095ea7b3000000000000000000000000e6fc577e87f7c977c4393300417dcc592d90acf8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      const dataDecoded = await apiKit.decodeData(data);
+
+      // This decoded data is also included as dataDecoded in the response of the apiKit's getMultisigTransactions, getModuleTransactions, and getAllTransactions methods.
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```python
+      # Instantiate the Transaction Service API
+      ethereum_client = EthereumClient(config.get("RPC_URL"))
+      transaction_service_api = TransactionServiceApi(
+            EthereumNetwork.SEPOLIA,
+            ethereum_client=ethereum_client
+        )
+
+      # Get decoded data
+      data = HexStr("0x095ea7b3000000000000000000000000e6fc577e87f7c977c4393300417dcc592d90acf8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
+      to = "0x4127839cdf4F73d9fC9a2C2861d8d1799e9DF40C" # Optional
+      data_decoded = transaction_service_api.decode_data(data, to)
+
+      # This decoded data is also included as dataDecoded in the response of the get_safe_transaction and get_transactions methods of the TransactionServiceApi.
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```bash
+      curl -X 'POST' \
+        'https://safe-transaction-sepolia.safe.global/api/v1/data-decoder/' \
+        -H 'accept: application/json' \
+        -H 'Content-Type: application/json' \
+        -H 'X-CSRFToken: Gx1aRa8kIJGIAfReLAWwr9Q6dHv22dFt7VprdipLryHcxpfhk9aV0UDAhNz8gGYz' \
+        -d '{
+            "data": "0x095ea7b3000000000000000000000000e6fc577e87f7c977c4393300417dcc592d90acf8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }'
+
+      # This decoded data is also included as dataDecoded in the GET /multisig-transactions, GET /module-transactions, and GET /all-transactions endpoints.
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+   {/* <!-- vale on --> */}
+ </Steps>
