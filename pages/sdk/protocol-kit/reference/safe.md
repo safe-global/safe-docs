@@ -631,7 +631,7 @@ Checks if a specific address is an owner of the current Safe.
 const isOwner = await protocolKit.isOwner(address)
 ```
 
-A Passkey can be used to check if it is an owner of the current Safe.
+A passkey can also be used to check if the signer account is an owner of the current Safe.
 
 ```typescript
 const passkey: PasskeyArgType = {
