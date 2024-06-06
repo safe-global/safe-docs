@@ -16,4 +16,5 @@
 | Polygon                      | [https://safe-transaction-polygon.safe.global](https://safe-transaction-polygon.safe.global/)            |
 | Polygon zkEVM                | [https://safe-transaction-zkevm.safe.global](https://safe-transaction-zkevm.safe.global/)                |
 | Sepolia                      | [https://safe-transaction-sepolia.safe.global](https://safe-transaction-sepolia.safe.global/)            |
+| Scroll                       | [https://safe-transaction-scroll.safe.global](https://safe-transaction-scroll.safe.global/)              |
 | zkSync Era Mainnet           | [https://safe-transaction-zksync.safe.global](https://safe-transaction-zksync.safe.global/)              |
