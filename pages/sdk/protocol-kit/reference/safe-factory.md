@@ -15,9 +15,9 @@ const safeFactory = await SafeFactory.init({
 })
 ```
 
-#### Using passkeys
+- The `signer` property
 
-A Passkey can be used as a signer to create an instance of the Safe Factory.
+  A passkey object can be passed as a signer to initialize an instance of the Safe Factory.
 
 ```typescript
 import { SafeFactory, PasskeyArgType } from '@safe-global/protocol-kit'
