@@ -37,9 +37,9 @@ const protocolKit = await Safe.init({
 })
 ```
 
-#### Using passkeys
+- The `signer` property
 
-A Passkey can be used as a signer to create an instance of the Protocol Kit.
+  A passkey object can be passed as a signer to initialize an instance of the Protocol Kit.
 
 ```typescript
 import Safe from '@safe-global/protocol-kit'
