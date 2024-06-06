@@ -537,7 +537,7 @@ const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
-This method can be used with Passkeys:
+Instead of using an address, this method also supports the use of a passkey to set the address of the new owner:
 
 ```typescript
 const passkey: PasskeyArgType = {
