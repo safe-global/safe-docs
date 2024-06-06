@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import NextLink from 'next/link'
-import { sendGTMEvent } from '@next/third-parties/google'
+import ReactGA from 'react-ga4'
 
 import FeedbackGood from '../../assets/svg/feedback-good.svg'
 import FeedbackBad from '../../assets/svg/feedback-bad.svg'
@@ -25,7 +25,11 @@ const ReportIssue: React.FC<{ small?: boolean }> = ({ small = false }) => (
   >
     <Button
       onClick={() => {
-        sendGTMEvent({ event: 'issue', path: window.location.pathname })
+        ReactGA.event({
+          category: 'feedback',
+          action: 'issue',
+          label: window.location.pathname
+        })
       }}
       size={small ? 'small' : undefined}
       sx={{
@@ -58,16 +62,11 @@ const Feedback: React.FC<{
 
   const handleSubmit = (): void => {
     setLoading(true)
-    sendGTMEvent({
-      event: 'feedback',
-      path:
-        window.location.pathname +
-        (asPath?.includes('/api-reference') === true ? network : ''),
-      positive: isPositive,
-      feedback,
-      steps,
-      version,
-      errorFix
+    ReactGA.event({
+      category: 'feedback',
+      action: 'feedback_form_submitted',
+      label: window.location.pathname + '?network=' + network,
+      value: isPositive === true ? 1 : 0
     })
     setLoading(false)
     setSubmitted(true)
@@ -227,10 +226,11 @@ const Feedback: React.FC<{
                     }}
                     size={small ? 'small' : undefined}
                     onClick={() => {
-                      sendGTMEvent({
-                        event: 'feedback',
-                        path: window.location.pathname,
-                        positive: true
+                      ReactGA.event({
+                        category: 'feedback',
+                        action: 'feedback_widget',
+                        label: window.location.pathname,
+                        value: 1
                       })
                       setIsPositive(true)
                     }}
@@ -247,10 +247,11 @@ const Feedback: React.FC<{
                     }}
                     size={small ? 'small' : undefined}
                     onClick={() => {
-                      sendGTMEvent({
-                        event: 'feedback',
-                        path: window.location.pathname,
-                        positive: false
+                      ReactGA.event({
+                        category: 'feedback',
+                        action: 'feedback_widget',
+                        label: window.location.pathname,
+                        value: 0
                       })
                       setIsPositive(false)
                     }}
@@ -280,10 +281,11 @@ const Feedback: React.FC<{
                         }
                       }}
                       onClick={() => {
-                        sendGTMEvent({
-                          event: 'feedback',
-                          path: window.location.pathname,
-                          positive: true
+                        ReactGA.event({
+                          category: 'feedback',
+                          action: 'feedback_widget',
+                          label: window.location.pathname,
+                          value: 1
                         })
                         setIsPositive(true)
                       }}
@@ -305,10 +307,11 @@ const Feedback: React.FC<{
                         }
                       }}
                       onClick={() => {
-                        sendGTMEvent({
-                          event: 'feedback',
-                          path: window.location.pathname,
-                          positive: false
+                        ReactGA.event({
+                          category: 'feedback',
+                          action: 'feedback_widget',
+                          label: window.location.pathname,
+                          value: 0
                         })
                         setIsPositive(false)
                       }}
