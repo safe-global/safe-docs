@@ -10,7 +10,6 @@ import type { AppProps } from 'next/app'
 import { useEffect, type ReactElement } from 'react'
 import Head from 'next/head'
 import ReactGA from 'react-ga4'
-import { GoogleTagManager } from '@next/third-parties/google'
 
 import MetaTags from '../components/MetaTags'
 import { CookieBanner } from '../components/CookieBanner'
@@ -73,9 +72,6 @@ const App = ({
     <Head>
       <MetaTags path={router.asPath} />
     </Head>
-    <GoogleTagManager
-      gtmId={String(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID)}
-    />
     <CacheProvider value={emotionCache}>
       <CssVarsProvider theme={cssVarsTheme}>
         <CookieBannerContextProvider>
