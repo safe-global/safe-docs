@@ -1,0 +1,54 @@
+import { Grid } from '@mui/material'
+import CustomCard from '../../components/CustomCard'
+
+# What are passkeys?
+
+Passkeys are a standard authentication method designed to avoid using traditional passwords, providing a more secure and user-friendly experience.
+
+Passkeys are based on public and private key pairs to secure user authentication. The public key is stored on the server side, while the private key is secured in the user's device. The user is authenticated by proving ownership of the private key, usually with biometric sensors, without extracting it from the device at any time. This method ensures that sensitive information remains protected and reduces the risk of credential theft.
+
+## Why do we need passkeys?
+
+Passkeys offer significant security improvements over traditional passwords. In the context of web3, where secure key management is paramount, passkeys provide an efficient alternative to seed phrases, which are often considered both a security liability and a subpar user experience.
+
+<Grid
+  container
+  spacing={2}
+  display='flex'
+  alignContent='flex-start'
+  mt={3}
+>
+  <Grid item xs={12} md={4}>
+    <CustomCard
+      title={'Key Management'}
+      description={'Seed phrases were already an improvement compared to storing plain-text private keys. It must be stored securely - offline or on a secure device - which can be challenging for most users. Passkeys, conversely, eliminate the need for users to remember complex seed phrases. They ensure the user \'s private key remains secure even if a server is compromised.'}
+      url=""
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={4}>
+    <CustomCard
+      title={'User Experience'}
+      description={'Passkeys allow users to sign in to accounts with a biometric sensor, PIN, or gesture, streamlining the authentication process. Since users don\'t have to type anything - neither passwords nor usernames - the authentication flow becomes seamless, with little to no interruption in the user journey, often leading to better conversion and increased usage of the service implementing it.'}
+      url=""
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={4}>
+    <CustomCard
+      title={'Resilience'}
+      description={'Passkeys are stored in a device secure element, which ensures that the data they store can not be easily accessible to the internet or the rest of the outside world. However, since passkeys can be synced across multiple devices, the security and access to a given service are not tied to a specific smartphone or computer.'}
+      url=""
+      newTab={false}
+    />
+  </Grid>
+</Grid>
+
+Safe offers the capability to sign into your wallet using passkeys by implementing a dedicated module that verifies the integrity of the key provided.
+
+## Further reading
+
+- [Passkeys.io demo](https://www.passkeys.io)
+- [The official W3C standard](https://www.w3.org/TR/webauthn)
+- [WebAuthn API specification](https://webauthn.wtf/how-it-works/basics)
+- [Passkeys 101 by FIDO Alliance](https://fidoalliance.org/passkeys) (the original authors of the specification)
