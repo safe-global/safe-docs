@@ -1,41 +1,21 @@
-import { Grid } from '@mui/material'
-import { Steps } from 'nextra/components'
+import { Callout, Steps } from 'nextra/components'
 import CustomCard from '../../../components/CustomCard'
 
 # Safe and ERC-7579
+
+<Callout emoji="⚠️">
+  The Safe7579 Adapter is under audit, with an estimated completion date of June xx, 2024.
+</Callout>
 
 The Safe7579 Adapter is a smart contract developed by Rhinestone and Safe to make Safe Smart Accounts compliant with ERC-7579. Through this, [14 audited modules](https://github.com/rhinestonewtf/modulekit/tree/examples/audit-ready/examples/src) developed by Rhinestone will be available for builders building with the Safe7579 Adapter, such as a dead man switch, flash-loan, social recovery, etc.
 
 ## How does the Safe7579 Adapter work?
 
 As ERC-7579 is a superset of ERC-4337, the Safe7579 Adapter ensures full compliance with ERC-4337. The Safe7579 Adapter is both a Safe Module and a Fallback Handler. 
+- **Safe Module:** It extends the functionality of a Safe account, allowing it to utilize ERC-7579 modules.
+- **Fallback Handler:** It is a fallback handler because certain functions, such as validateUserOp in ERC-7579, are not natively supported by Safe.
 
 Additionally, a launchpad contract facilitates the setup of new Safes with Safe7579 Adapter.
-
-<Grid
-  container
-  spacing={2}
-  display='flex'
-  alignContent='flex-start'
-  mt={3}
->
-  <Grid item xs={12} md={6}>
-    <CustomCard
-      title={'Safe Module'}
-      description={'It extends the functionality of a Safe account, allowing it to utilize ERC-7579 modules.'}
-      url=""
-      newTab={false}
-    />
-  </Grid>
-  <Grid item xs={12} md={6}>
-    <CustomCard
-      title={'Fallback Handler'}
-      description={'It is a fallback handler because certain functions, such as validateUserOp in ERC-7579, are not natively supported by Safe.'}
-      url=""
-      newTab={false}
-    />
-  </Grid>
-</Grid>
 
 ## Creation of new Safes compatible with ERC-7579
 
