@@ -56,17 +56,8 @@ bytes memory signature = abi.encode(authenticatorData, clientDataFields, r, s);
 
 This setup allows the library to support networks where the precompile is not yet available. It seamlessly transitions to the precompile when it becomes active while relying on a fallback contract address in the meantime.
 
-## Setup and execution flow
-
-ERC-4337 outlines specific storage access rules for the validation phase, limiting the deployment of SafeProxy for use with the passkey flow. To navigate this restriction, in the `initCode` of UserOp, a `SafeProxy` is deployed with `SafeSignerLaunchpad` as a singleton. The `SafeSignerLaunchpad` is used to validate the signature of the UserOp. 
-
-The `SafeSignerLaunchpad` forwards the signature validation to the `SafeWebAuthnSignerSingleton`, which forwards the signature validation to the `WebAuthn` library. `WebAuthn` forwards the call to the `P256Verifier`, which is used to validate the signature. In the validation phase, the launchpad stores the Safe's setup hash (owners, threshold, modules, etc.), which is then verified during the execution phase.
-
-During the execution phase, the implementation of the `SafeProxy` is set to the Safe Singleton along with the owner as the signer contract deployed by SafeSignerLaunchpad.
-
-
 ## Further reading
 
 - [Passkeys module](https://github.com/safe-global/safe-modules/blob/466a9b8ef169003c5df856c6ecd295e6ecb9e99d/modules/passkey/README.md)
 - [Safe and Passkeys demo application](https://github.com/safe-global/safe-modules/tree/main/examples/4337-passkeys)
-- [4337 support for passkeys](https://github.com/safe-global/safe-modules/blob/fca988e3c40b6d759e2dbce2b88c96cd57be3ebd/modules/passkey/contracts/4337/experimental/README.md)
+- [4337 support for passkeys](https://github.com/safe-global/safe-modules/tree/main/modules/passkey/contracts/4337)
