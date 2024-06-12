@@ -9,9 +9,11 @@ import CustomCard from '../../../components/CustomCard'
 
 The Safe7579 Adapter is a smart contract developed by Rhinestone and Safe to make Safe Smart Accounts compliant with ERC-7579. Through this, [14 audited modules](https://github.com/rhinestonewtf/modulekit/tree/examples/audit-ready/examples/src) developed by Rhinestone will be available for builders building with the Safe7579 Adapter, such as a dead man switch, flash-loan, social recovery, etc.
 
+Additionally, the Rhinestone registry provides per-transaction security checks on modules, so modules with security compromises are automatically disabled for your account.
+
 ![diagram-safe-7579](../../../assets/diagram-safe-7579.png)
 
-## How does the Safe7579 Adapter work?
+## Safe7579 Adapter
 
 As ERC-7579 is a superset of ERC-4337, the Safe7579 Adapter ensures full compliance with ERC-4337. The Safe7579 Adapter is both a Safe Module and a Fallback Handler. 
 - **Safe Module:** It extends the functionality of a Safe account, allowing it to utilize ERC-7579 modules.
