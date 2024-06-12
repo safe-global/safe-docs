@@ -466,9 +466,6 @@ function Create4337SafeAccount () {
           width: '50%'
         }}
       >
-        <h1>Passkeys tutorial</h1>
-
-        <div>Create a new 4337 compatible Safe Account using passkeys</div>
         {selectedPasskey && (
           <>
             <h2>Passkey Selected</h2>
@@ -644,6 +641,11 @@ export default function RootLayout ({
             </a>
           </div>
         </nav>
+        <div style={{ width: '100%', textAlign: 'center' }}>
+          <h1>Passkeys tutorial</h1>
+
+          <div>Create a new 4337 compatible Safe Account using passkeys</div>
+        </div>
         <div
           style={{
             display: 'flex',
@@ -701,7 +703,8 @@ Once confirmed, select this passkey by clicking **Select** next to it. This will
 
 ![safe-passkeys-app-2.png](../../../assets/safe-passkeys-app-2.png)
 
-At this stage, the app will have created a safe object awaiting deployment. Send some USDC to your future safe by clicking the link to Circle's USDC faucet for Sepolia and entering the Safe's address. By clicking **Sign transaction with passkey**, the deployment of this safe will then be embedded in a batch transaction, along with the transfer of USDC. You can open the console and check the progress of your transaction and the state of the User Op via the provided link to Jiffy scan.
+At this stage, the app will have created a safe object awaiting deployment. Send some USDC to your future safe by clicking the link to [Circle's USDC faucet](https://faucet.circle.com/) for Sepolia and entering the Safe's address. By clicking **Sign transaction with passkey**, the deployment of this safe will then be embedded in a batch transaction, along with the transfer of USDC.
+Open the console to see the UserOp that was sent or click the link provided to Jiffy scan for more complete information.
 
 ![safe-passkeys-app-3.png](../../../assets/safe-passkeys-app-3.png)
 
