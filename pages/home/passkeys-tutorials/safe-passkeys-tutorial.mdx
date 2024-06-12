@@ -5,11 +5,11 @@ Being able to unlock a Safe Smart Account with your fingerprints or Face ID, sen
 Today, we'll learn how to make this a reality using [Safe\{Core\} SDK](../../sdk/overview.mdx), [Pimlico](https://www.pimlico.io/), and [Next.js](https://nextjs.org/docs).
 
 This tutorial will demonstrate creating a web app for using [passkeys](../passkeys-overview.mdx) in your Safe. This app will allow you to:
-- Create a new passkey secured by the user’s device.
+- Create a new passkey secured by the user's device.
 - Deploy a new Safe on Ethereum Sepolia for free.
 - Sign a transaction to send USDC using the previously created passkey.
 
-## **What you’ll need**
+## **What you'll need**
 
 **Prerequisite knowledge:** You will need some basic experience with [React](https://react.dev/learn), Next.js, and [ERC-4337](https://docs.safe.global/home/4337-overview).
 
@@ -35,7 +35,7 @@ When prompted by the CLI:
 
 ### Install dependencies
 
-For this project, we’ll use the [Relay Kit from the Safe\{Core\} SDK](../../sdk/relay-kit.mdx) to set up a Safe, sponsor a USDC transaction, and use `viem` and `buffer` for some helper functions.
+For this project, we'll use the [Relay Kit from the Safe\{Core\} SDK](../../sdk/relay-kit.mdx) to set up a Safe, sponsor a USDC transaction, and use `viem` and `buffer` for some helper functions.
 
 Run the following command to add all these dependencies to the project:
 
@@ -121,10 +121,10 @@ touch passkeys.ts
 
 This file will contain all the logic required to operate passkey:
 
-- Create and recover them using the user’s device.
+- Create and recover them using the user's device.
 - Store and retrieve them from/to the local storage.
 
-**Note:** You can also store the passkeys on a remote database or the user’s device.
+**Note:** You can also store the passkeys on a remote database or the user's device.
 
 ```tsx
 import { PasskeyArgType } from '@safe-global/protocol-kit'
@@ -244,14 +244,14 @@ export async function getPasskeyFromRawId(
 In this file, we have four functions:
 
 - `createPasskey`, which helps create a new passkey.
-- `storePasskeyInLocalStorage`, which helps store it in the browser’s local storage.
+- `storePasskeyInLocalStorage`, which helps store it in the browser's local storage.
 - `loadPasskeysFromLocalStorage`, which helps load a passkey from local storage.
-- `getPublicKeyFromLocalStorage`, which helps find a passkey in the local storage corresponding to a given `rawId` and returns this passkey’s public key.
+- `getPublicKeyFromLocalStorage`, which helps find a passkey in the local storage corresponding to a given `rawId` and returns this passkey's public key.
 - `getPasskeyFromRawId`, which helps reconstruct a full passkey from a `rawId` and a public key stored in local storage.
 
 ## 4. Add USDC transaction functionality
 
-Create a `usdc.ts` file in the `lib` folder to add functions to prepare and send a transaction transferring USDC from our yet-to-come safe.
+Create a `usdc.ts` file in the `lib` folder to add functions to prepare and send a transaction transferring USDC from our yet-to-come Safe.
 
 ```tsx
 touch usdc.ts
@@ -343,7 +343,7 @@ With this configuration, a new Safe will be created (but not yet deployed) when 
 
 ## 5. Add UI components
 
-Let’s add a user interface to create and store a passkey on the user’s device, deploy a safe, and sign the USDC transaction.
+Let's add a user interface to create and store a passkey on the user's device, deploy a safe, and sign the USDC transaction.
 
 Create a `components` folder at the project root with a file named `PasskeyList.tsx`:
 
@@ -573,7 +573,7 @@ This UI will put everything we built in the previous steps into a coherent appli
 
 ## 6. (Optional) Add styling to the app
 
-Because a web app is nothing without good styling, let’s add some Safe design to our project 💅.
+Because a web app is nothing without good styling, let's add some Safe design to our project 💅.
 
 Still within the `app` folder, replace the existing content of the file `layout.ts`with this code:
 
@@ -661,7 +661,6 @@ export default function RootLayout ({
     </html>
   )
 }
-
 ```
 
 In the same folder, add some margin to the titles, by adding this code at the end of the `globals.css` file:
@@ -685,19 +684,15 @@ button {
 }
 ```
 
-Finally, in the `public` folder, add these three icons. You can find them in the project’s GitHub repository:
-
-- [`safe.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/safe.svg)
-- [`github.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/github.svg/)
-- [`external-link.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/external-link.svg)
+Finally, in the `public` folder, add these three icons. You can find them in the project's GitHub repository: [`safe.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/safe.svg), [`github.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/github.svg/), and [`external-link.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/external-link.svg).
 
 ## Testing your Safe passkeys app
 
-That’s it! You can find the source code for the example created in this tutorial [on GitHub](https://github.com/5afe/safe-passkeys-tutorial). You can now return to your browser and see the app displayed 🎉.
+That's it! You can find the source code for the example created in this tutorial [on GitHub](https://github.com/5afe/safe-passkeys-tutorial). You can now return to your browser and see the app displayed 🎉.
 
 ![safe-passkeys-app-1.png](../../../assets/safe-passkeys-app-1.png)
 
-Click the **Add New Passkey** button to prompt a browser pop-up asking you to confirm the creation of a new passkey. This passkey will be stored in your browser’s local storage and displayed in the list above the button.
+Click the **Add New Passkey** button to prompt a browser pop-up asking you to confirm the creation of a new passkey. This passkey will be stored in your browser's local storage and displayed in the list above the button.
 
 Once confirmed, select this passkey by clicking **Select** next to it. This will prompt another pop-up window, this time asking to confirm the use of the previously created passkey.
 
