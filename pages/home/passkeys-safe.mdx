@@ -22,7 +22,7 @@ A proxy contract is uniquely deployed for each `Passkey` signer. The signer info
 
 `SafeWebAuthnSignerProxy` provides gas savings compared to the whole contract deployment for each signer creation. 
 
-`SafeWebAuthnSignerProxy` and `SafeWebAuthnSignerSingleton` use no storage slots to avoid storage access violations defined in ERC-4337. Check [this PR](https://github.com/safe-global/safe-modules/pull/370) for details on gas savings. This non-standard proxy contract appends signer information, i.e., public key coordinates and verifier data, to the call data before forwarding the calls to the singleton contract.
+`SafeWebAuthnSignerProxy` and `SafeWebAuthnSignerSingleton` use no storage slots to avoid storage access violations defined in ERC-4337. Check [this PR](https://github.com/safe-global/safe-modules/pull/370) for details on gas savings. This non-standard proxy contract appends signer information, like public key coordinates and verifier data, to the call data before forwarding the calls to the singleton contract.
 
 ### `SafeWebAuthnSignerSingleton`
 
@@ -58,11 +58,11 @@ This setup allows the library to support networks where the precompile is not ye
 
 ### Setup and execution flow
 
-ERC-4337 outlines specific storage access rules for the validation phase, limiting the deployment of SafeProxy for use with the passkey flow. To navigate this restriction, in the initCode of UserOp, a SafeProxy is deployed with SafeSignerLaunchpad as a singleton. The SafeSignerLaunchpad is used to validate the signature of the UserOp. 
+ERC-4337 outlines specific storage access rules for the validation phase, limiting the deployment of SafeProxy for use with the passkey flow. To navigate this restriction, in the `initCode` of UserOp, a `SafeProxy` is deployed with `SafeSignerLaunchpad` as a singleton. The `SafeSignerLaunchpad` is used to validate the signature of the UserOp. 
 
-The SafeSignerLaunchpad forwards the signature validation to the SafeWebAuthnSignerSingleton, which forwards the signature validation to the WebAuthn library. WebAuthn forwards the call to the P256Verifier, which is used to validate the signature. In the validation phase, the launchpad stores the Safe's setup hash (owners, threshold, modules, etc.), which is then verified during the execution phase.
+The `SafeSignerLaunchpad` forwards the signature validation to the `SafeWebAuthnSignerSingleton`, which forwards the signature validation to the `WebAuthn` library. `WebAuthn` forwards the call to the `P256Verifier`, which is used to validate the signature. In the validation phase, the launchpad stores the Safe's setup hash (owners, threshold, modules, etc.), which is then verified during the execution phase.
 
-During the execution phase, the implementation of the SafeProxy is set to the Safe Singleton along with the owner as the signer contract deployed by SafeSignerLaunchpad.
+During the execution phase, the implementation of the `SafeProxy` is set to the Safe Singleton along with the owner as the signer contract deployed by SafeSignerLaunchpad.
 
 
 ## Further reading
