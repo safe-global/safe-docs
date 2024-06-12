@@ -9,9 +9,11 @@ This tutorial will demonstrate creating a web app for using [passkeys](../passke
 - Deploy a new Safe on Ethereum Sepolia for free.
 - Sign a transaction to send USDC using the previously created passkey.
 
+![safe-passkeys-app-2.png](../../../assets/safe-passkeys-app-2.png)
+
 ## **What you'll need**
 
-**Prerequisite knowledge:** You will need some basic experience with [React](https://react.dev/learn), Next.js, and [ERC-4337](https://docs.safe.global/home/4337-overview).
+**Prerequisite knowledge:** You will need some basic experience with [React](https://react.dev/learn), Next.js, and [ERC-4337](../4337-overview).
 
 Before progressing with the tutorial, please make sure you have:
 
@@ -35,7 +37,7 @@ When prompted by the CLI:
 
 ### Install dependencies
 
-For this project, we'll use the [Relay Kit from the Safe\{Core\} SDK](../../sdk/relay-kit.mdx) to set up a Safe, sponsor a USDC transaction, and use `viem` and `buffer` for some helper functions.
+For this project, we'll use the [Relay Kit from the Safe\{Core\} SDK](../../sdk/relay-kit.mdx) to set up a Safe, sponsor a USDC transaction, and use [viem](https://www.npmjs.com/package/viem) and [buffer](https://www.npmjs.com/package/buffer) for some helper functions.
 
 Run the following command to add all these dependencies to the project:
 
@@ -705,6 +707,6 @@ Open the console to see the UserOp that was sent or click the link provided to J
 
 Today, we learned how to use passkeys (create them, store them, and use them securely) and how they can interact with a Safe (deploy it and send transactions). We hope you enjoyed this tutorial and that the combination of passkeys and 4337 will unlock new forms of ownership for your project and users.
 
-You can now integrate passkeys with more transactions and functionalities of the Safe ecosystem. You can read more about passkeys in our [overview](https://docs.safe.global/home/passkeys-overview) or in the [WebAuthn API documentation on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API).
+You can now integrate passkeys with more transactions and functionalities of the Safe ecosystem. You can read more about passkeys in our [overview](../passkeys-overview) or in the [WebAuthn API documentation](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API).
 
-Did you encounter any problems? Any difficulties? Let us know by opening [an issue](https://github.com/5afe/tutorial-passkeys/issues/new) or asking a question on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the safe-core tag.
+Did you encounter any difficulties? Let us know by opening [an issue](https://github.com/5afe/tutorial-passkeys/issues/new) or asking a question on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the `safe-core` tag.
