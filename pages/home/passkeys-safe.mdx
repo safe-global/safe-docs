@@ -56,7 +56,7 @@ bytes memory signature = abi.encode(authenticatorData, clientDataFields, r, s);
 
 This setup allows the library to support networks where the precompile is not yet available. It seamlessly transitions to the precompile when it becomes active while relying on a fallback contract address in the meantime.
 
-### Setup and execution flow
+## Setup and execution flow
 
 ERC-4337 outlines specific storage access rules for the validation phase, limiting the deployment of SafeProxy for use with the passkey flow. To navigate this restriction, in the `initCode` of UserOp, a `SafeProxy` is deployed with `SafeSignerLaunchpad` as a singleton. The `SafeSignerLaunchpad` is used to validate the signature of the UserOp. 
 
