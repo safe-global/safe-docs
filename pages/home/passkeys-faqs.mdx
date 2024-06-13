@@ -1,1 +1,26 @@
-# FAQs
+# Passkeys FAQs
+
+## Which devices support passkeys?
+
+Apple and Android devices both support passkeys and syncing. If a device uses [Cross-device authentication (CDA)](https://passkeys.dev/docs/reference/terms/#cross-device-authentication-cda), its passkeys will be portable to other devices. You can read more about device support [here](https://passkeys.dev/device-support/#matrix). 
+
+## How can I sync a passkey across devices?
+
+Passkeys can be synced across devices through secure cloud services provided by device manufacturers and operating system vendors. Most platforms support passkey syncing natively and automatically, meaning that a passkey used to authenticate a user on one device will also be available on this user’s other devices, for example, via Apple ID or Google Account.
+
+Only device-bound passkeys (a specific type of passkeys) created on Windows will be available solely on the device they were created on. 
+
+## How can I recover an account with passkeys?
+
+Account recovery with passkeys typically involves using your synced devices or recovery methods provided by the cloud service where the passkeys are stored. The device manufacturer usually does this automatically, but services like password managers can also be used to store and access passkeys securely, independently from the manufacturer.
+
+## Do passkeys and web3 use the same encryption schemes?
+
+Passkeys and web3 share common principles of encryption but may use different schemes depending on the specific implementation. Generally, passkeys use public key cryptography, which is also a foundational element in many web3 protocols:
+
+- Ethereum primarily uses the `secp256k1` elliptic curve to generate public-private key pairs. This curve was chosen for its properties that offer a good balance of security and performance in blockchain applications.
+- Passkeys can support `secp256r1` (also known as `P-256`). `P-256` is commonly used for its strong security properties and compatibility with web technologies.
+
+## Can I use passkeys with ERC-4337?
+
+Passkeys can be integrated with ERC-4337, providing enhanced security and user experience in managing web3 accounts. See [our tutorial to build your own implementation](https://docs.safe.global/home/passkeys-tutorials/safe-passkeys-tutorial), or look at the notice from our [4337 support contract for passkeys](https://github.com/safe-global/safe-modules/tree/main/modules/passkey/contracts/4337) for more context.
