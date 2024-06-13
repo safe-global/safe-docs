@@ -8,7 +8,19 @@ Safe Modules add custom features to Safe contracts. They are smart contracts tha
 
 Safe Modules can include daily spending allowances, amounts that can be spent without the approval of other owners, recurring transactions modules, and standing orders performed on a recurring date. For example, paying your rent or social recovery modules may allow you to recover a Safe if you lose access to owner accounts.
 
+<Callout type='error' emoji='‼️'>
+  Safe Modules can be a security risk since they can execute arbitrary
+  transactions. Only add trusted and audited modules to a Safe. A malicious
+  module can take over a Safe.
+</Callout>
+
 ![diagram-safe-modules](../../assets/diagram-safe-modules.png)
+
+## Official Safe Modules
+
+These are audited Safe Modules built and maintained by the Safe team. The [safe-modules](https://github.com/safe-global/safe-modules) repository contains the collection of the Official Safe Modules. 
+
+For example, the 4337 module, the allowance module, and the passkeys module.
 
 ## How to create a Safe Module
 
@@ -16,14 +28,6 @@ A great way to understand how Safe Modules work is by creating one. An excellent
 
 <YouTube embedId='nmDYc9PlAic' />
 
-## Examples
+## Other examples
 
-1. [Safe Modules](https://github.com/safe-global/safe-modules)
-2. [Zodiac-compliant modules](https://zodiac.wiki/index.php%3Ftitle=Introduction:_Zodiac_Protocol.html#Modules)
-3. [Pimlico](https://docs.pimlico.io/permissionless/how-to/accounts/use-safe-account)
-
-<Callout type='error' emoji='‼️'>
-  Safe Modules can be a security risk since they can execute arbitrary
-  transactions. Only add trusted and audited modules to a Safe. A malicious
-  module can take over a Safe.
-</Callout>
+1. [Zodiac-compliant modules](https://zodiac.wiki/index.php%3Ftitle=Introduction:_Zodiac_Protocol.html#Modules)
