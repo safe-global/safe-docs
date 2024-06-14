@@ -47,6 +47,19 @@ const config: DocsThemeConfig = {
       titleTemplate: asPath !== '/' ? '%s – Safe Docs' : 'Safe Docs'
     }
   },
+  banner: {
+    key: 'ethglobal-brussels-2024',
+    text: (
+      <a
+        href='https://ethglobal.com/events/brussels/prizes/safe'
+        target='_blank'
+      >
+        👋 Are you hacking at ETHGlobal Brussels? Check our bounties for
+        ERC-7579, passkeys, and more →
+      </a>
+    ),
+    dismissible: true
+  },
   main: Main
 }
 
