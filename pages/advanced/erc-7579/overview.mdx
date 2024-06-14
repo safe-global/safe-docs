@@ -1,0 +1,52 @@
+import { Grid } from '@mui/material'
+import CustomCard from '../../../components/CustomCard'
+
+# What is ERC-7579?
+
+[ERC-7579](https://erc7579.com/) outlines the minimally required interfaces and behavior for modular smart accounts and modules to ensure interoperability across implementations.
+
+ERC-7579 is a standard for accounts but does not specify how accounts work internally. Instead, it defines the account interface so developers can implement modules for all smart accounts that follow this standard. The primary consumers of ERC-7579 are module developers, not account implementers. However, the account implementers implement ERC-7579 so that module developers can support all account implementations that implement this standard. That being said, a module for Safe will work with the Biconomy wallet, ZeroDev wallet, etc.
+
+![diagram-7579](../../../assets/diagram-7579.png)
+
+## Why ERC-7579?
+
+Without ERC-7579, smart account implementations were fragmented as different implementations required unique adaptations. Different assumptions can lead to security bugs under one account implementation, creating barriers for developers and limiting the user experience. ERC-7579 offers a universal standard that ensures all modules can work across all smart account implementations supporting ERC-7579.
+
+<Grid
+  container
+  spacing={2}
+  display='flex'
+  alignContent='flex-start'
+  mt={3}
+>
+  <Grid item xs={12} md={4}>
+    <CustomCard
+      title={'Compatibility'}
+      description={'It enables modules to work across different smart accounts.'}
+      url=""
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={4}>
+    <CustomCard
+      title={'User experience'}
+      description={'It ensures smart accounts can be used with various wallet applications and SDKs.'}
+      url=""
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={4}>
+    <CustomCard
+      title={'Ecosystem'}
+      description={'It helps prevent vendor lock-in for smart account users and application developers.'}
+      url=""
+      newTab={false}
+    />
+  </Grid>
+</Grid>
+
+## Further reading
+
+- [Official documentation](https://erc7579.com/)
+- [EIP document](https://eips.ethereum.org/EIPS/eip-7579)
