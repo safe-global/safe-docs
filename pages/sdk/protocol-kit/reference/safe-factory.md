@@ -15,25 +15,6 @@ const safeFactory = await SafeFactory.init({
 })
 ```
 
-- The `signer` property
-
-  A passkey object can be passed as a signer to initialize an instance of the Safe Factory.
-
-```typescript
-import { SafeFactory, PasskeyArgType } from '@safe-global/protocol-kit'
-
-const passkey: PasskeyArgType = {
-  rawId,
-  publicKey,
-}
-
-const safeFactory = await SafeFactory.init({
-  provider,
-  signer: passkey
-})
-```
-
-
 - The `isL1SafeSingleton` flag
 
   Two versions of the Safe contracts are available: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that doesn't trigger events to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
@@ -71,7 +52,6 @@ const safeFactory = await SafeFactory.init({
       signMessageLibAddress: '<SIGN_MESSAGE_LIB_ADDRESS>',
       createCallAddress: '<CREATE_CALL_ADDRESS>',
       simulateTxAccessorAddress: '<SIMULATE_TX_ACCESSOR_ADDRESS>',
-      safeWebAuthnSignerFactoryAddress:'<SAFE_WEB_AUTHN_SIGNER_FACTORY_ADDRESS>',
       safeSingletonAbi: '<SINGLETON_ABI>', // Optional. Only needed with web3.js
       safeProxyFactoryAbi: '<PROXY_FACTORY_ABI>', // Optional. Only needed with web3.js
       multiSendAbi: '<MULTI_SEND_ABI>', // Optional. Only needed with web3.js
@@ -80,7 +60,6 @@ const safeFactory = await SafeFactory.init({
       signMessageLibAbi: '<SIGN_MESSAGE_LIB_ABI>', // Optional. Only needed with web3.js
       createCallAbi: '<CREATE_CALL_ABI>', // Optional. Only needed with web3.js
       simulateTxAccessorAbi: '<SIMULATE_TX_ACCESSOR_ABI>' // Optional. Only needed with web3.js
-      safeWebAuthnSignerFactoryAbi: '<SAFE_WEB_AUTHN_SIGNER_FACTORY_ABI>' // Optional. Only needed with web3.js
     }
   }
 
