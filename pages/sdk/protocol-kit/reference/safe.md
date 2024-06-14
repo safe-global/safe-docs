@@ -37,6 +37,26 @@ const protocolKit = await Safe.init({
 })
 ```
 
+- The `signer` property
+
+  A passkey object can be passed as a signer to initialize an instance of the Protocol Kit.
+
+```typescript
+import Safe from '@safe-global/protocol-kit'
+
+const passkey: PasskeyArgType = {
+  rawId,
+  publicKey,
+}
+
+const protocolKit = await Safe.init({
+  provider,
+  signer: passkey,
+  // safeAddress or predictedSafe
+})
+```
+
+
 - The `isL1SafeSingleton` flag
 
   Two versions of the Safe contracts are available: [Safe.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/Safe.sol) that doesn't trigger events to save gas and [SafeL2.sol](https://github.com/safe-global/safe-contracts/blob/v1.4.1/contracts/SafeL2.sol) that does, which is more appropriate for L2 networks.
@@ -75,6 +95,7 @@ const protocolKit = await Safe.init({
       signMessageLibAddress: '<SIGN_MESSAGE_LIB_ADDRESS>',
       createCallAddress: '<CREATE_CALL_ADDRESS>',
       simulateTxAccessorAddress: '<SIMULATE_TX_ACCESSOR_ADDRESS>',
+      safeWebAuthnSignerFactoryAddress:'<SAFE_WEB_AUTHN_SIGNER_FACTORY_ADDRESS>',
       safeSingletonAbi: '<SINGLETON_ABI>', // Optional. Only needed with web3.js
       safeProxyFactoryAbi: '<PROXY_FACTORY_ABI>', // Optional. Only needed with web3.js
       multiSendAbi: '<MULTI_SEND_ABI>', // Optional. Only needed with web3.js
@@ -83,6 +104,7 @@ const protocolKit = await Safe.init({
       signMessageLibAbi: '<SIGN_MESSAGE_LIB_ABI>', // Optional. Only needed with web3.js
       createCallAbi: '<CREATE_CALL_ABI>', // Optional. Only needed with web3.js
       simulateTxAccessorAbi: '<SIMULATE_TX_ACCESSOR_ABI>' // Optional. Only needed with web3.js
+      safeWebAuthnSignerFactoryAbi: '<SAFE_WEB_AUTHN_SIGNER_FACTORY_ABI>' // Optional. Only needed with web3.js
     }
   }
 
@@ -174,6 +196,7 @@ protocolKit = await protocolKit.connect({ predictedSafe })
       signMessageLibAddress: '<SIGN_MESSAGE_LIB_ADDRESS>',
       createCallAddress: '<CREATE_CALL_ADDRESS>',
       simulateTxAccessorAddress: '<SIMULATE_TX_ACCESSOR_ADDRESS>',
+      safeWebAuthnSignerFactoryAddress:'<SAFE_WEB_AUTHN_SIGNER_FACTORY_ADDRESS>',
       safeSingletonAbi: '<SINGLETON_ABI>', // Optional. Only needed with web3.js
       safeProxyFactoryAbi: '<PROXY_FACTORY_ABI>', // Optional. Only needed with web3.js
       multiSendAbi: '<MULTI_SEND_ABI>', // Optional. Only needed with web3.js
@@ -182,6 +205,7 @@ protocolKit = await protocolKit.connect({ predictedSafe })
       signMessageLibAbi: '<SIGN_MESSAGE_LIB_ABI>', // Optional. Only needed with web3.js
       createCallAbi: '<CREATE_CALL_ABI>', // Optional. Only needed with web3.js
       simulateTxAccessorAbi: '<SIMULATE_TX_ACCESSOR_ABI>' // Optional. Only needed with web3.js
+      safeWebAuthnSignerFactoryAbi: '<SAFE_WEB_AUTHN_SIGNER_FACTORY_ABI>' // Optional. Only needed with web3.js
     }
   }
 
@@ -513,6 +537,22 @@ const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
+Instead of using an address, this method also supports the use of a passkey to set the address of the new owner:
+
+```typescript
+const passkey: PasskeyArgType = {
+  rawId,
+  publicKey,
+}
+const params: AddPasskeyOwnerTxParams = {
+  passkey,
+  threshold // Optional. If `threshold` isn't provided the current threshold won't change.
+}
+const safeTransaction = await protocolKit.createAddOwnerTx(params)
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
+await txResponse.transactionResponse?.wait()
+```
+
 This method can optionally receive the `options` parameter:
 
 ```typescript
@@ -589,6 +629,17 @@ Checks if a specific address is an owner of the current Safe.
 
 ```typescript
 const isOwner = await protocolKit.isOwner(address)
+```
+
+A passkey can also be used to check if the signer account is an owner of the current Safe.
+
+```typescript
+const passkey: PasskeyArgType = {
+  rawId,
+  publicKey,
+}
+
+const isOwner = await protocolKit.isOwner(passkey)
 ```
 
 ## Threshold
