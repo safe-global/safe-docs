@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import NextLink from 'next/link'
-import ReactGA from 'react-ga4'
+import { sendGAEvent } from '@next/third-parties/google'
 
 import FeedbackGood from '../../assets/svg/feedback-good.svg'
 import FeedbackBad from '../../assets/svg/feedback-bad.svg'
@@ -25,7 +25,8 @@ const ReportIssue: React.FC<{ small?: boolean }> = ({ small = false }) => (
   >
     <Button
       onClick={() => {
-        ReactGA.event({
+        sendGAEvent({
+          event: 'feedback',
           category: 'feedback',
           action: 'issue',
           label: window.location.pathname
@@ -62,7 +63,7 @@ const Feedback: React.FC<{
 
   const handleSubmit = (): void => {
     setLoading(true)
-    ReactGA.event({
+    sendGAEvent({
       category: 'feedback',
       action: 'feedback_form_submitted',
       label: window.location.pathname + '?network=' + network,
@@ -226,7 +227,7 @@ const Feedback: React.FC<{
                     }}
                     size={small ? 'small' : undefined}
                     onClick={() => {
-                      ReactGA.event({
+                      sendGAEvent({
                         category: 'feedback',
                         action: 'feedback_widget',
                         label: window.location.pathname,
@@ -247,7 +248,7 @@ const Feedback: React.FC<{
                     }}
                     size={small ? 'small' : undefined}
                     onClick={() => {
-                      ReactGA.event({
+                      sendGAEvent({
                         category: 'feedback',
                         action: 'feedback_widget',
                         label: window.location.pathname,
@@ -281,7 +282,7 @@ const Feedback: React.FC<{
                         }
                       }}
                       onClick={() => {
-                        ReactGA.event({
+                        sendGAEvent({
                           category: 'feedback',
                           action: 'feedback_widget',
                           label: window.location.pathname,
@@ -307,7 +308,7 @@ const Feedback: React.FC<{
                         }
                       }}
                       onClick={() => {
-                        ReactGA.event({
+                        sendGAEvent({
                           category: 'feedback',
                           action: 'feedback_widget',
                           label: window.location.pathname,
