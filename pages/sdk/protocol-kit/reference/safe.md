@@ -574,6 +574,22 @@ const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
+Instead of using an address, this method also supports the use of a passkey to remove an owner:
+
+```typescript
+const passkey: PasskeyArgType = {
+  rawId,
+  publicKey,
+}
+const params: AddPasskeyOwnerTxParams = {
+  passkey,
+  threshold // Optional. If `newThreshold` isn't provided, the current threshold will be decreased by one.
+}
+const safeTransaction = await protocolKit.createRemoveOwnerTx(params)
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
+await txResponse.transactionResponse?.wait()
+```
+
 This method can optionally receive the `options` parameter:
 
 ```typescript
@@ -589,6 +605,22 @@ Returns the Safe transaction to replace an owner of the Safe with a new one.
 const params: SwapOwnerTxParams = {
   oldOwnerAddress,
   newOwnerAddress
+}
+const safeTransaction = await protocolKit.createSwapOwnerTx(params)
+const txResponse = await protocolKit.executeTransaction(safeTransaction)
+await txResponse.transactionResponse?.wait()
+```
+
+Instead of using an address, this method also supports any combination of passkey and address:
+
+```typescript
+const newOwnerPasskey: PasskeyArgType = {
+  rawId,
+  publicKey,
+}
+const params: SwapOwnerTxParams = {
+  oldOwnerAddress,
+  newOwnerPasskey
 }
 const safeTransaction = await protocolKit.createSwapOwnerTx(params)
 const txResponse = await protocolKit.executeTransaction(safeTransaction)
