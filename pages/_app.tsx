@@ -40,9 +40,11 @@ const App = ({
       <CssVarsProvider theme={cssVarsTheme}>
         <CookieBannerContextProvider>
           <CssBaseline />
-          <GoogleAnalytics
-            gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID ?? ''}
-          />
+          {process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true' && (
+            <GoogleAnalytics
+              gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID ?? ''}
+            />
+          )}
           <Component {...pageProps} />
           <CookieBanner />
         </CookieBannerContextProvider>
