@@ -76,13 +76,7 @@ touch constants.ts
 Add the following code to the `constants.ts` file:
 
 ```tsx
-export const STORAGE_PASSKEY_LIST_KEY = 'passkeyList' // Variable name that passkeys will be stored under in local storage
-export const RPC_URL = 'https://ethereum-sepolia-rpc.publicnode.com'
-export const CHAIN_NAME = 'sepolia'
-export const usdcTokenAddress = '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238' // SEPOLIA
-export const paymasterAddress = '0x0000000000325602a77416A16136FDafd04b299f' // SEPOLIA
-export const BUNDLER_URL = `https://api.pimlico.io/v1/${CHAIN_NAME}/rpc?apikey=${process.env.NEXT_PUBLIC_PIMLICO_API_KEY}`
-export const PAYMASTER_URL = `https://api.pimlico.io/v2/${CHAIN_NAME}/rpc?apikey=${process.env.NEXT_PUBLIC_PIMLICO_API_KEY}`
+// from ./examples/lib/constants.ts
 ```
 
 In the same `lib` folder, create a `utils.ts` file:
@@ -94,18 +88,7 @@ touch utils.ts
 Add the following code to the `utils.ts` file:
 
 ```tsx
-import { Buffer } from 'buffer'
-
-export const bufferToString = (buffer: ArrayBuffer): string =>
-  Buffer.from(buffer).toString('hex')
-
-export function hexStringToUint8Array(hexString: string): Uint8Array {
-  const arr = []
-  for (let i = 0; i < hexString.length; i += 2) {
-    arr.push(parseInt(hexString.substr(i, 2), 16))
-  }
-  return new Uint8Array(arr)
-}
+// from ./examples/lib/utils.ts
 ```
 
 This file contains two utilities for manipulating passkey objects from the native [`navigator.credentials`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/credentials) API:
@@ -129,118 +112,7 @@ This file will contain all the logic required to operate passkey:
 **Note:** You can also store the passkeys on a remote database or the user's device.
 
 ```tsx
-import { PasskeyArgType } from '@safe-global/protocol-kit'
-
-import { STORAGE_PASSKEY_LIST_KEY } from './constants'
-import { bufferToString, hexStringToUint8Array } from './utils'
-
-export type PasskeyItemType = { rawId: string; publicKey: string }
-
-export async function createPasskey(): Promise<PasskeyArgType> {
-  const label = 'Safe Owner' // This can be customized to match, for example, a user name.
-  // Generate a passkey credential using WebAuthn API
-  const passkeyCredential = await navigator.credentials.create({
-    publicKey: {
-      pubKeyCredParams: [
-        {
-          // ECDSA w/ SHA-256: https://datatracker.ietf.org/doc/html/rfc8152#section-8.1
-          alg: -7,
-          type: 'public-key'
-        }
-      ],
-      challenge: crypto.getRandomValues(new Uint8Array(32)),
-      rp: {
-        name: 'Safe SmartAccount'
-      },
-      user: {
-        displayName: label,
-        id: crypto.getRandomValues(new Uint8Array(32)),
-        name: label
-      },
-      timeout: 60_000,
-      attestation: 'none'
-    }
-  })
-
-  if (!passkeyCredential) {
-    throw Error('Passkey creation failed: No credential was returned.')
-  }
-
-  console.log('passkeyCredential: ', passkeyCredential)
-
-  const passkey = passkeyCredential as PublicKeyCredential
-  const attestationResponse =
-    passkey.response as AuthenticatorAttestationResponse
-
-  const rawId = passkey.rawId
-  const publicKey = attestationResponse.getPublicKey()
-
-  if (!publicKey) {
-    throw new Error('getPublicKey error')
-  }
-
-  return {
-    rawId,
-    publicKey
-  }
-}
-
-export function storePasskey(passkey: PasskeyArgType) {
-  const passkeys = loadPasskeys()
-
-  const newPasskeyItem = {
-    rawId: bufferToString(passkey.rawId),
-    publicKey: bufferToString(passkey.publicKey)
-  }
-
-  passkeys.push(newPasskeyItem)
-
-  localStorage.setItem(STORAGE_PASSKEY_LIST_KEY, JSON.stringify(passkeys))
-}
-
-export function loadPasskeys(): PasskeyItemType[] {
-  const passkeysStored = localStorage.getItem(STORAGE_PASSKEY_LIST_KEY)
-
-  const passkeyIds = passkeysStored ? JSON.parse(passkeysStored) : []
-
-  return passkeyIds
-}
-
-function getPublicKeyFromLocalStorage(passkeyRawId: string): ArrayBuffer {
-  const passkeys = loadPasskeys()
-
-  const { publicKey } = passkeys.find(
-    (passkey: PasskeyItemType) => passkey.rawId === passkeyRawId
-  )!
-
-  return hexStringToUint8Array(publicKey)
-}
-
-export async function getPasskeyFromRawId(
-  passkeyRawId: string
-): Promise<PasskeyArgType> {
-  const passkeyCredentials = (await navigator.credentials.get({
-    publicKey: {
-      allowCredentials: [
-        {
-          id: hexStringToUint8Array(passkeyRawId),
-          type: 'public-key'
-        }
-      ],
-      challenge: crypto.getRandomValues(new Uint8Array(32)),
-      userVerification: 'required'
-    }
-  })) as PublicKeyCredential
-
-  const publicKey = getPublicKeyFromLocalStorage(passkeyRawId)
-
-  const passkey = {
-    rawId: passkeyCredentials.rawId,
-    publicKey
-  }
-
-  return passkey
-}
+// from ./examples/lib/passkeys.ts
 ```
 
 In this file, we have four functions:
@@ -262,81 +134,7 @@ touch usdc.ts
 Add the following code to the `usdc.ts` file:
 
 ```tsx
-import { encodeFunctionData, parseAbi } from 'viem'
-import { Safe4337Pack } from '@safe-global/relay-kit'
-import { PasskeyArgType } from '@safe-global/protocol-kit'
-
-import {
-  BUNDLER_URL,
-  CHAIN_NAME,
-  PAYMASTER_URL,
-  RPC_URL,
-  paymasterAddress,
-  usdcTokenAddress
-} from '../constants'
-
-const paymasterOptions = {
-  isSponsored: true,
-  paymasterAddress,
-  paymasterUrl: PAYMASTER_URL
-}
-
-const generateTransferCallData = (to: `0x${string}`, value: bigint) => {
-	const abi = parseAbi([”function transfer(address _to, address _from) returns (bool)”])
-  return encodeFunctionData({
-    abi,
-    functionName: 'transfer',
-    args: [to, value]
-  })
-}
-
-export const executeUSDCTransfer = async ({
-  signer,
-  safeAddress
-}: {
-  signer: PasskeyArgType
-  safeAddress: string
-}) => {
-  const safe4337Pack = await Safe4337Pack.init({
-    provider: RPC_URL,
-    rpcUrl: RPC_URL,
-    signer,
-    bundlerUrl: BUNDLER_URL,
-    paymasterOptions,
-    options: {
-      owners: [
-        /* Other owners... */
-      ],
-      threshold: 1
-    }
-  })
-
-  const usdcAmount = 100_000n // 0.1 USDC
-
-  const transferUSDC = {
-    to: usdcTokenAddress,
-    data: generateTransferCallData(safeAddress!, usdcAmount),
-    value: '0'
-  }
-
-  const safeOperation = await safe4337Pack.createTransaction({
-    transactions: [transferUSDC]
-  })
-
-  const signedSafeOperation = await safe4337Pack.signSafeOperation(
-    safeOperation
-  )
-
-  console.log('SafeOperation', signedSafeOperation)
-
-  const userOperationHash = await safe4337Pack.executeTransaction({
-    executable: signedSafeOperation
-  })
-
-  console.log(
-    `https://jiffyscan.xyz/userOpHash/${userOperationHash}?network=${CHAIN_NAME}`
-  )
-}
+// from ./examples/lib/usdc.ts
 ```
 
 With this configuration, a new Safe will be created (but not yet deployed) when a passkey is selected. This Safe will be deployed when its first transaction is executed.
@@ -359,63 +157,7 @@ touch PasskeyList.tsx
 Add the following code to the `PasskeyList.tsx` file:
 
 ```tsx
-import { useEffect, useState } from 'react'
-
-import {
-  createPasskey,
-  loadPasskeysFromLocalStorage,
-  storePasskeyInLocalStorage,
-  type PasskeyItemType
-} from '../lib/passkeys'
-
-type Props = {
-  selectPasskeySigner: (rawId: string) => void
-}
-
-function PasskeyList ({ selectPasskeySigner }: Props) {
-  const [passkeyList, setPasskeyList] = useState<PasskeyItemType[]>([])
-
-  async function handleSubmit () {
-    const passkey = await createPasskey()
-    storePasskeyInLocalStorage(passkey)
-    refreshPasskeyList()
-  }
-
-  function refreshPasskeyList () {
-    const passkeys = loadPasskeysFromLocalStorage()
-    setPasskeyList(passkeys)
-  }
-
-  useEffect(() => {
-    refreshPasskeyList()
-  }, [])
-
-  return (
-    <>
-      <h3>Create new Passkey</h3>
-      <button onClick={handleSubmit}>Add New Passkey</button>{' '}
-      {passkeyList.length > 0 && (
-        <>
-          <h2>Passkey List</h2>
-          {passkeyList.map(passkey => (
-            <div
-              style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
-              key={passkey.rawId}
-            >
-              Id: {passkey.rawId}{' '}
-              <button onClick={() => selectPasskeySigner(passkey.rawId)}>
-                Select
-              </button>
-            </div>
-          ))}
-        </>
-      )}
-    </>
-  )
-}
-
-export default PasskeyList
-
+// from ./examples/components/PasskeyList.tsx
 ```
 
 This component displays a list of previously created passkeys and a button for creating new ones.
@@ -423,156 +165,7 @@ This component displays a list of previously created passkeys and a button for c
 Lastly, replace the content of the `page.tsx` file, within the `app` folder, with this code:
 
 ```tsx
-'use client'
-
-import { useState } from 'react'
-import { Safe4337Pack } from '@safe-global/relay-kit'
-import Img from 'next/image'
-
-import PasskeyList from '../components/PasskeyList'
-import { executeUSDCTransfer } from '../lib/usdc'
-import { getPasskeyFromRawId, type PasskeyArgType } from '../lib/passkeys'
-import { BUNDLER_URL, CHAIN_NAME, RPC_URL } from '../lib/constants'
-import { bufferToString } from '../lib/utils'
-
-function Create4337SafeAccount () {
-  const [selectedPasskey, setSelectedPasskey] = useState<PasskeyArgType>()
-  const [safeAddress, setSafeAddress] = useState<string>()
-  const [isSafeDeployed, setIsSafeDeployed] = useState<boolean>()
-  const [userOp, setUserOp] = useState<string>()
-
-  const selectPasskeySigner = async (rawId: string) => {
-    console.log('selected passkey signer: ', rawId)
-
-    const passkey = await getPasskeyFromRawId(rawId)
-
-    const safe4337Pack = await Safe4337Pack.init({
-      provider: RPC_URL,
-      rpcUrl: RPC_URL,
-      signer: passkey,
-      bundlerUrl: BUNDLER_URL,
-      options: {
-        owners: [],
-        threshold: 1
-      }
-    })
-
-    const safeAddress = await safe4337Pack.protocolKit.getAddress()
-    const isSafeDeployed = await safe4337Pack.protocolKit.isSafeDeployed()
-
-    setSelectedPasskey(passkey)
-    setSafeAddress(safeAddress)
-    setIsSafeDeployed(isSafeDeployed)
-  }
-
-  return (
-    <>
-      <div
-        style={{
-          width: '50%'
-        }}
-      >
-        {selectedPasskey && (
-          <>
-            <h2>Passkey Selected</h2>
-
-            <div style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {bufferToString(selectedPasskey.rawId)}
-            </div>
-          </>
-        )}
-        <PasskeyList selectPasskeySigner={selectPasskeySigner} />
-      </div>
-      {safeAddress && (
-        <div
-          style={{
-            width: '50%'
-          }}
-        >
-          <h2>Safe Account</h2>
-
-          <div style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            Address: {safeAddress}
-          </div>
-          <div>
-            Is deployed?:{' '}
-            {isSafeDeployed ? (
-              <a
-                href={`https://app.safe.global/transactions/history?safe=sep:${safeAddress}`}
-                target='_blank'
-                rel='noreferrer'
-              >
-                Yes{' '}
-                <Img
-                  src='/external-link.svg'
-                  alt='External link'
-                  width={14}
-                  height={14}
-                />
-              </a>
-            ) : (
-              'No'
-            )}
-          </div>
-          <div>
-            {' '}
-            <a
-              href='https://faucet.circle.com/'
-              target='_blank'
-              rel='noreferrer'
-            >
-              Get some test USDC for your Safe{' '}
-              <Img
-                src='/external-link.svg'
-                alt='External link'
-                width={14}
-                height={14}
-              />
-            </a>
-          </div>
-          {selectedPasskey && (
-            <button
-              onClick={async () =>
-                await executeUSDCTransfer({
-                  signer: selectedPasskey,
-                  safeAddress
-                }).then(userOpHash => {
-                  setUserOp(userOpHash)
-                  setIsSafeDeployed(true)
-                })
-              }
-            >
-              Sign transaction with passkey
-            </button>
-          )}
-          {userOp && isSafeDeployed && (
-            <>
-              <div>
-                Done! Check the transaction status on{' '}
-                <a
-                  href={`https://jiffyscan.xyz/userOpHash/${userOp}?network=${CHAIN_NAME}`}
-                  target='_blank'
-                  rel='noreferrer'
-                >
-                  Jiffy Scan{' '}
-                  <Img
-                    src='/external-link.svg'
-                    alt='External link'
-                    width={14}
-                    height={14}
-                  />
-                </a>
-              </div>
-            </>
-          )}
-        </div>
-      )}
-    </>
-  )
-}
-
-export default Create4337SafeAccount
-
+// from ./examples/app/page.tsx
 ```
 
 This UI will put everything we built in the previous steps into a coherent application with all the functionality required to let you create a passkey, select it, and use it to sign a transaction.
@@ -581,93 +174,10 @@ This UI will put everything we built in the previous steps into a coherent appli
 
 Because a web app is nothing without good styling, let's add some Safe design to our project 💅.
 
-Still within the `app` folder, replace the existing content of the file `layout.ts`with this code:
+Still within the `app` folder, replace the existing content of the file `layout.tsx` with this code:
 
 ```tsx
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import Img from 'next/image'
-import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-  title: 'Safe Tutorial: Passkeys',
-  description: 'Generated by create next app'
-}
-
-export default function RootLayout ({
-  children
-}: Readonly<{
-  children: React.ReactNode
-}>) {
-  return (
-    <html lang='en'>
-      <body className={inter.className}>
-        <nav
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            padding: '1rem'
-          }}
-        >
-          <a href='https://safe.global'>
-            <Img width={95} height={36} alt='safe-logo' src='/safe.svg' />
-          </a>
-          <div style={{ display: 'flex' }}>
-            <a
-              href='https://docs.safe.global/home/passkeys-tutorials/safe-passkeys-tutorial'
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginRight: '1rem'
-              }}
-            >
-              Read tutorial{' '}
-              <Img
-                width={20}
-                height={20}
-                alt='link-icon'
-                src='/external-link.svg'
-                style={{ marginLeft: '0.5rem' }}
-              />
-            </a>
-            <a
-              href='https://github.com/5afe/safe-passkeys-tutorial'
-              style={{ display: 'flex', alignItems: 'center' }}
-            >
-              View on GitHub{' '}
-              <Img
-                width={24}
-                height={24}
-                alt='github-icon'
-                src='/github.svg'
-                style={{ marginLeft: '0.5rem' }}
-              />
-            </a>
-          </div>
-        </nav>
-        <div style={{ width: '100%', textAlign: 'center' }}>
-          <h1>Passkeys tutorial</h1>
-
-          <div>Create a new 4337 compatible Safe Account using passkeys</div>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'flex-start',
-            justifyContent: 'space-between',
-            marginLeft: '40px',
-            marginRight: '40px'
-          }}
-        >
-          {children}
-        </div>
-      </body>
-    </html>
-  )
-}
-
+// from ./examples/app/layout.tsx
 ```
 
 In the same folder, add some margin to the titles, by adding this code at the end of the `globals.css` file:
