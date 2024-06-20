@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import {
   Button,
   Grid,
@@ -55,6 +55,15 @@ const Feedback: React.FC<{
   const [steps, setSteps] = useState('')
   const [version, setVersion] = useState('')
   const [errorFix, setErrorFix] = useState('')
+
+  useEffect(() => {
+    setIsPositive(null)
+    setFeedback('')
+    setSteps('')
+    setVersion('')
+    setErrorFix('')
+    setSubmitted(false)
+  }, [asPath])
 
   if (asPath === '/support') return null
 
