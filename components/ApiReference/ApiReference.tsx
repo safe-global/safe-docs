@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { renderToString } from 'react-dom/server'
+import { useData } from 'nextra/ssg'
 import Grid from '@mui/material/Grid'
 import Dialog from '@mui/material/Dialog'
 import AppBar from '@mui/material/AppBar'
@@ -12,23 +12,18 @@ import Menu from '@mui/icons-material/Menu'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 
-import TOC from './TOC'
-import {
-  getHeadingsFromHtml,
-  MDXComponents,
-  useCurrentTocIndex
-} from '../../lib/mdx'
+import TOC, { type Heading } from './TOC'
+import { MDXComponents, useCurrentTocIndex } from '../../lib/mdx'
 import Mdx from './generated-reference.mdx'
 import { NetworkProvider } from './Network'
 import css from './styles.module.css'
 
 const renderedMdx = <Mdx components={MDXComponents} />
-const contentString = renderToString(renderedMdx)
-const headings = getHeadingsFromHtml(contentString)
 
 const ApiReference: React.FC = () => {
+  const { headings } = useData()
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false)
-  const currentIndex = useCurrentTocIndex(headings, 100)
+  const currentIndex = useCurrentTocIndex(headings as Heading[], 100)
 
   return (
     <>
