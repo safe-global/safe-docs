@@ -67,7 +67,6 @@ yarn add @safe-global/relay-kit
       const safe4337Pack = await Safe4337Pack.init({
         provider: RPC_URL,
         signer: SIGNER_PRIVATE_KEY,
-        rpcUrl: RPC_URL,
         bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
         options: {
           owners: [SIGNER_ADDRESS],
@@ -84,7 +83,6 @@ yarn add @safe-global/relay-kit
       const safe4337Pack = await Safe4337Pack.init({
         provider: RPC_URL,
         signer: SIGNER_PRIVATE_KEY,
-        rpcUrl: RPC_URL,
         bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
         options: {
           safeAddress: '0x...'

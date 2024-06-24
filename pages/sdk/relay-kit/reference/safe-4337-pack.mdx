@@ -20,7 +20,6 @@ The `Safe4337Pack` class make easy to use the [Safe 4337 Module](https://github.
 const safe4337Pack = await Safe4337Pack.init({
   provider,
   signer,
-  rpcUrl,
   bundlerUrl,
   safeModulesVersion,
   customContracts,
@@ -42,7 +41,6 @@ Safe4337InitOptions = {
   provider: Eip1193Provider | HttpTransport | SocketTransport
   signer?: HexAddress | PrivateKey
   bundlerUrl: string
-  rpcUrl: string
   safeModulesVersion?: string
   customContracts?: {
     entryPointAddress?: string
@@ -90,7 +88,6 @@ PaymasterOptions = {
 
 - **`provider`** : The EIP-1193 compatible provider or RPC URL of the selected chain.
 - **`signer`** : The signer private address if the `provider` doesn't resolve to a signer account. If the `provider` resolves to multiple signer addresses, the `signer` property can be used to specify which account to connect, otherwise the first address returned will be used.
-- **`rpcUrl`** : The RPC URL of the selected chain.
 - **`bundlerUrl`** : The bundler's URL.
 - **`safeModulesVersion`** : The version of the [Safe Modules contract](https://github.com/safe-global/safe-modules-deployments/tree/main/src/assets/safe-4337-module).
 - **`customContracts`** : An object with custom contract addresses. This is optional, if no custom contracts are provided, default ones will be used.
