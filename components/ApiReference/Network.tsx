@@ -38,10 +38,10 @@ const transactionServiceUrls = [
 
 export const NetworkContext = createContext<
 [string, Dispatch<SetStateAction<string>>]
->([transactionServiceUrls[0], () => {}])
+>([transactionServiceUrls[12], () => {}])
 
 export const NetworkProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const state = useState(transactionServiceUrls[0])
+  const state = useState(transactionServiceUrls[12])
 
   return (
     <NetworkContext.Provider value={state}>{children}</NetworkContext.Provider>
@@ -130,9 +130,9 @@ export const NetworkNotice: React.FC = () => {
   const [network] = useContext(NetworkContext)
   const [copied, setCopied] = useState(false)
   return (
-    network !== transactionServiceUrls[0] && (
+    network !== transactionServiceUrls[12] && (
       <Box sx={{ fontSize: '12px', mt: -2, mb: 3 }}>
-        This snippet shows a sample request on mainnet. Please{' '}
+        This snippet shows a sample request on Ethereum Sepolia. Please{' '}
         <MuiLink
           sx={{ '&:hover': { cursor: 'pointer' } }}
           onClick={() => {
