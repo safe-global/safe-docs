@@ -11,6 +11,7 @@ import {
 import AddIcon from '@mui/icons-material/Add'
 import NextLink from 'next/link'
 import { sendGAEvent } from '@next/third-parties/google'
+import cuid from 'cuid'
 
 import FeedbackGood from '../../assets/svg/feedback-good.svg'
 import FeedbackBad from '../../assets/svg/feedback-bad.svg'
@@ -67,7 +68,8 @@ const Feedback: React.FC<{
 
   if (asPath === '/support') return null
 
-  const handleSubmit = (): void => {
+  const handleSubmit = async (): Promise<void> => {
+    const feedbackId = cuid()
     setLoading(true)
     sendGAEvent('event', 'feedback', {
       path:
@@ -77,8 +79,27 @@ const Feedback: React.FC<{
       feedback,
       steps,
       version,
-      errorFix
+      errorFix,
+      feedbackId
     })
+    if (
+      process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL != null &&
+      process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true'
+    ) {
+      await fetch(process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          date: new Date().getTime(),
+          feedbackId,
+          asPath,
+          isPositive,
+          feedback,
+          steps,
+          version,
+          errorFix
+        })
+      })
+    }
     setLoading(false)
     setSubmitted(true)
   }
@@ -200,7 +221,9 @@ const Feedback: React.FC<{
                 <Button
                   variant='outlined'
                   sx={{ mt: 2 }}
-                  onClick={handleSubmit}
+                  onClick={() => {
+                    void handleSubmit()
+                  }}
                   disabled={loading || feedback === ''}
                 >
                   {loading ? 'Submitting...' : 'Submit'}
