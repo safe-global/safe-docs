@@ -19,6 +19,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 import type { NextRouter } from 'next/router'
+import { sendGAEvent } from '@next/third-parties/google'
 import AddIcon from '@mui/icons-material/Add'
 
 import SearchIcon from '../../assets/svg/search.svg'
@@ -217,6 +218,10 @@ export const Resources: React.FC = () => {
       (property: string, checked: boolean) => {
         if (checked) {
           setSelectedFilter(prev.concat(property), filterName)
+          sendGAEvent('event', 'resource_hub_filter', {
+            event_label: property,
+            filter_name: filterName
+          })
         } else {
           setSelectedFilter(
             prev.filter(item => item !== property),
