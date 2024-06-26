@@ -1,18 +1,82 @@
 {
-  "count": 143350,
+  "count": 13790,
   "next": "https://safe-transaction-mainnet.safe.global/api/v1/contracts/?limit=2&offset=2",
   "previous": null,
   "results": [
     {
       "address": "0x0000000000000000000000000000000000000000",
-      "name": "",
+      "name": "MetaMultiSigWallet",
       "displayName": "",
       "logoUri": null,
-      "contractAbi": null,
+      "contractAbi": {
+        "abi": [
+          {
+            "type": "constructor",
+            "inputs": [
+              {
+                "name": "_chainId",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "_owners",
+                "type": "address[]",
+                "internalType": "address[]"
+              },
+              {
+                "name": "_signaturesRequired",
+                "type": "uint256",
+                "internalType": "uint256"
+              }
+            ],
+            "stateMutability": "nonpayable"
+          },
+          {
+            "name": "CloseStream",
+            "type": "event",
+            "inputs": [
+              {
+                "name": "to",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+              }
+            ],
+            "anonymous": false
+          },
+          {
+            "name": "Deposit",
+            "type": "event",
+            "inputs": [
+              {
+                "name": "sender",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+              },
+              {
+                "name": "amount",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+              },
+              {
+                "name": "balance",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+              }
+            ],
+            "anonymous": false
+          }
+        ],
+        "description": "MetaMultiSigWallet",
+        "relevance": 100
+      },
       "trustedForDelegateCall": false
     },
     {
-      "address": "0x0000000000000000000000000000000000000002",
+      "address": "0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC",
       "name": "",
       "displayName": "",
       "logoUri": null,
