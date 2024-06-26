@@ -18,7 +18,11 @@ import FeedbackBad from '../../assets/svg/feedback-bad.svg'
 import Check from '../../assets/svg/check.svg'
 import { NetworkContext } from '../ApiReference/Network'
 
-const ReportIssue: React.FC<{ small?: boolean }> = ({ small = false }) => (
+const ReportIssue: React.FC<{
+  small?: boolean
+  asPath?: string
+  network?: string
+}> = ({ small = false, asPath, network }) => (
   <NextLink
     target='_blank'
     rel='noopener noreferrer'
@@ -27,7 +31,10 @@ const ReportIssue: React.FC<{ small?: boolean }> = ({ small = false }) => (
     <Button
       onClick={() => {
         sendGAEvent('event', 'issue', {
-          path: window.location.pathname
+          asPath,
+          ...(asPath?.includes('transaction-service-reference') === true
+            ? { network }
+            : {})
         })
       }}
       size={small ? 'small' : undefined}
@@ -71,16 +78,13 @@ const Feedback: React.FC<{
   const handleSubmit = async (): Promise<void> => {
     const feedbackId = cuid()
     setLoading(true)
-    sendGAEvent('event', 'feedback', {
-      path:
-        window.location.pathname +
-        (asPath?.includes('/api-reference') === true ? network : ''),
+    sendGAEvent('event', 'feedback_comments', {
       positive: isPositive === true ? 1 : 0,
-      feedback,
-      steps,
-      version,
-      errorFix,
-      feedbackId
+      asPath,
+      feedbackId,
+      ...(asPath?.includes('transaction-service-reference') === true
+        ? { network }
+        : {})
     })
     if (
       process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL != null &&
@@ -96,7 +100,10 @@ const Feedback: React.FC<{
           feedback,
           steps,
           version,
-          errorFix
+          errorFix,
+          ...(asPath?.includes('transaction-service-reference') === true
+            ? { network }
+            : {})
         })
       })
     }
@@ -261,8 +268,13 @@ const Feedback: React.FC<{
                     size={small ? 'small' : undefined}
                     onClick={() => {
                       sendGAEvent('event', 'feedback', {
-                        path: window.location.pathname,
-                        positive: 1
+                        asPath,
+                        positive: 1,
+                        ...(asPath?.includes(
+                          'transaction-service-reference'
+                        ) === true
+                          ? { network }
+                          : {})
                       })
                       setIsPositive(true)
                     }}
@@ -280,15 +292,20 @@ const Feedback: React.FC<{
                     size={small ? 'small' : undefined}
                     onClick={() => {
                       sendGAEvent('event', 'feedback', {
-                        path: window.location.pathname,
-                        positive: 0
+                        asPath,
+                        positive: 0,
+                        ...(asPath?.includes(
+                          'transaction-service-reference'
+                        ) === true
+                          ? { network }
+                          : {})
                       })
                       setIsPositive(false)
                     }}
                   >
                     No
                   </Button>
-                  <ReportIssue small />
+                  <ReportIssue {...{ asPath, network }} small />
                 </Grid>
               ) : (
                 <>
@@ -312,8 +329,13 @@ const Feedback: React.FC<{
                       }}
                       onClick={() => {
                         sendGAEvent('event', 'feedback', {
-                          path: window.location.pathname,
-                          positive: 1
+                          asPath,
+                          positive: 1,
+                          ...(asPath?.includes(
+                            'transaction-service-reference'
+                          ) === true
+                            ? { network }
+                            : {})
                         })
                         setIsPositive(true)
                       }}
@@ -336,8 +358,13 @@ const Feedback: React.FC<{
                       }}
                       onClick={() => {
                         sendGAEvent('event', 'feedback', {
-                          path: window.location.pathname,
-                          positive: 0
+                          asPath,
+                          positive: 0,
+                          ...(asPath?.includes(
+                            'transaction-service-reference'
+                          ) === true
+                            ? { network }
+                            : {})
                         })
                         setIsPositive(false)
                       }}
