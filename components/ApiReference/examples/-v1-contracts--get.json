@@ -1,82 +1,30 @@
 {
-  "count": 13790,
-  "next": "https://safe-transaction-mainnet.safe.global/api/v1/contracts/?limit=2&offset=2",
-  "previous": null,
+  "count": 55156,
+  "next": "https://safe-transaction-arbitrum.safe.global/api/v1/contracts/?limit=3&offset=13",
+  "previous": "https://safe-transaction-arbitrum.safe.global/api/v1/contracts/?limit=3&offset=7",
   "results": [
     {
-      "address": "0x0000000000000000000000000000000000000000",
-      "name": "MetaMultiSigWallet",
+      "address": "0x0000000000000dEA230e8078FB8512969d02F886",
+      "name": "NEETH",
       "displayName": "",
       "logoUri": null,
       "contractAbi": {
-        "abi": [
-          {
-            "type": "constructor",
-            "inputs": [
-              {
-                "name": "_chainId",
-                "type": "uint256",
-                "internalType": "uint256"
-              },
-              {
-                "name": "_owners",
-                "type": "address[]",
-                "internalType": "address[]"
-              },
-              {
-                "name": "_signaturesRequired",
-                "type": "uint256",
-                "internalType": "uint256"
-              }
-            ],
-            "stateMutability": "nonpayable"
-          },
-          {
-            "name": "CloseStream",
-            "type": "event",
-            "inputs": [
-              {
-                "name": "to",
-                "type": "address",
-                "indexed": true,
-                "internalType": "address"
-              }
-            ],
-            "anonymous": false
-          },
-          {
-            "name": "Deposit",
-            "type": "event",
-            "inputs": [
-              {
-                "name": "sender",
-                "type": "address",
-                "indexed": true,
-                "internalType": "address"
-              },
-              {
-                "name": "amount",
-                "type": "uint256",
-                "indexed": false,
-                "internalType": "uint256"
-              },
-              {
-                "name": "balance",
-                "type": "uint256",
-                "indexed": false,
-                "internalType": "uint256"
-              }
-            ],
-            "anonymous": false
-          }
-        ],
-        "description": "MetaMultiSigWallet",
+        "abi": [],
+        "description": "NEETH",
         "relevance": 100
       },
       "trustedForDelegateCall": false
     },
     {
-      "address": "0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC",
+      "address": "0x0000000000006396FF2a80c067f99B3d2Ab4Df24",
+      "name": "",
+      "displayName": "",
+      "logoUri": null,
+      "contractAbi": null,
+      "trustedForDelegateCall": false
+    },
+    {
+      "address": "0x0000000000006414958abd60027FA26ACc7D6Ab2",
       "name": "",
       "displayName": "",
       "logoUri": null,
