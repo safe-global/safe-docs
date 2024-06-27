@@ -1,34 +1,30 @@
 {
-  "count": 55156,
-  "next": "https://safe-transaction-arbitrum.safe.global/api/v1/contracts/?limit=3&offset=13",
-  "previous": "https://safe-transaction-arbitrum.safe.global/api/v1/contracts/?limit=3&offset=7",
+  "count": 16233,
+  "next": "https://safe-transaction-sepolia.safe.global/api/v1/contracts/?limit=2&offset=3",
+  "previous": null,
   "results": [
     {
-      "address": "0x0000000000000dEA230e8078FB8512969d02F886",
-      "name": "NEETH",
+      "address": "0x0000000000000000000000000000000000000000",
+      "name": "MetaMultiSigWallet",
       "displayName": "",
       "logoUri": null,
       "contractAbi": {
         "abi": [],
-        "description": "NEETH",
+        "description": "MetaMultiSigWallet",
         "relevance": 100
       },
       "trustedForDelegateCall": false
     },
     {
-      "address": "0x0000000000006396FF2a80c067f99B3d2Ab4Df24",
-      "name": "",
+      "address": "0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC",
+      "name": "Seaport",
       "displayName": "",
       "logoUri": null,
-      "contractAbi": null,
-      "trustedForDelegateCall": false
-    },
-    {
-      "address": "0x0000000000006414958abd60027FA26ACc7D6Ab2",
-      "name": "",
-      "displayName": "",
-      "logoUri": null,
-      "contractAbi": null,
+      "contractAbi": {
+        "abi": [],
+        "description": "Seaport",
+        "relevance": 100
+      },
       "trustedForDelegateCall": false
     }
   ]
