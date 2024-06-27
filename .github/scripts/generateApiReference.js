@@ -4,7 +4,7 @@ const { capitalize } = require("lodash");
 const jsonFile = require("../../components/ApiReference/mainnet-swagger.json");
 const pathsMetadata = require("../../components/ApiReference/paths-metadata.json");
 
-const baseUrl = "https://safe-transaction-sepolia.staging.5afe.dev/api";
+const baseUrl = "https://safe-transaction-sepolia.safe.global";
 
 const curlify = (req) =>
   `curl -X ${req.method} https://safe-transaction-mainnet.safe.global/api${
