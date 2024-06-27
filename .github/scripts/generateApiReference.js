@@ -7,7 +7,7 @@ const pathsMetadata = require("../../components/ApiReference/paths-metadata.json
 const baseUrl = "https://safe-transaction-sepolia.safe.global";
 
 const curlify = (req) =>
-  `curl -X ${req.method} https://safe-transaction-mainnet.safe.global/api${
+  `curl -X ${req.method} https://safe-transaction-sepolia.safe.global/api${
     req.url
   } \\
     -H "Accept: application/json" \\
