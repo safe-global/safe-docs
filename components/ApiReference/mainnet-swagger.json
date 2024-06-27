@@ -1010,6 +1010,112 @@
         "additionalInfo": ""
       }
     },
+    "/v1/safe-operations/{safe_operation_hash}/confirmations/": {
+      "get": {
+        "operationId": "v1_safe-operations_confirmations_list",
+        "description": "Get the list of confirmations for a multisig transaction",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SafeOperationConfirmationResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data"
+          }
+        },
+        "tags": [
+          "4337"
+        ],
+        "path": "/v1/safe-operations/{safe_operation_hash}/confirmations/",
+        "title": "",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "v1_safe-operations_confirmations_create",
+        "description": "Add a confirmation for a transaction. More than one signature can be used. This endpoint does not support\nthe use of delegates to make a transaction trusted.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SafeOperationConfirmation"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Malformed data"
+          },
+          "422": {
+            "description": "Error processing data"
+          }
+        },
+        "tags": [
+          "4337"
+        ],
+        "path": "/v1/safe-operations/{safe_operation_hash}/confirmations/",
+        "title": "",
+        "additionalInfo": ""
+      },
+      "parameters": {
+        "0": {
+          "name": "safe_operation_hash",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        "path": "/v1/safe-operations/{safe_operation_hash}/confirmations/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
     "/v1/safes/{address}/": {
       "get": {
         "operationId": "v1_safes_read",
@@ -2565,7 +2671,7 @@
           }
         },
         "tags": [
-          "transfer"
+          "transactions"
         ],
         "path": "/v1/transfer/{transfer_id}",
         "title": "Get Transfer",
@@ -2708,7 +2814,7 @@
       },
       "post": {
         "operationId": "v2_delegates_create",
-        "description": "Create a delegate for a Safe address with a custom label. Calls with same delegate but different label or\nsigner will update the label or delegator if different.\nAn EOA is required to sign the following EIP712 data:\n\n```python\n {\n    \"types\": {\n        \"EIP712Domain\": [\n            {\"name\": \"name\", \"type\": \"string\"},\n            {\"name\": \"version\", \"type\": \"string\"},\n            {\"name\": \"chainId\", \"type\": \"uint256\"},\n        ],\n        \"AddDelegate\": [\n            {\"name\": \"delegateAddress\", \"type\": \"bytes32\"},\n            {\"name\": \"totp\", \"type\": \"uint256\"},\n        ],\n    },\n    \"primaryType\": \"AddDelegate\",\n    \"domain\": {\n        \"name\": \"Safe Transaction Service\",\n        \"version\": \"1.0\",\n        \"chainId\": chain_id,\n    },\n    \"message\": {\n        \"delegateAddress\": delegate_address,\n        \"totp\": totp,\n    },\n}\n```\n\n`totp` parameter is calculated with `T0=0` and `Tx=3600`. `totp` is calculated by taking the\nUnix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)",
+        "description": "Create a delegate for a Safe address with a custom label. Calls with same delegate but different label or\nsigner will update the label or delegator if different.\nAn EOA is required to sign the following EIP712 data:\n\n```python\n {\n    \"types\": {\n        \"EIP712Domain\": [\n            {\"name\": \"name\", \"type\": \"string\"},\n            {\"name\": \"version\", \"type\": \"string\"},\n            {\"name\": \"chainId\", \"type\": \"uint256\"},\n        ],\n        \"Delegate\": [\n            {\"name\": \"delegateAddress\", \"type\": \"address\"},\n            {\"name\": \"totp\", \"type\": \"uint256\"},\n        ],\n    },\n    \"primaryType\": \"Delegate\",\n    \"domain\": {\n        \"name\": \"Safe Transaction Service\",\n        \"version\": \"1.0\",\n        \"chainId\": chain_id,\n    },\n    \"message\": {\n        \"delegateAddress\": delegate_address,\n        \"totp\": totp,\n    },\n}\n```\n\n`totp` parameter is calculated with `T0=0` and `Tx=3600`. `totp` is calculated by taking the\nUnix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)",
         "parameters": [
           {
             "name": "data",
@@ -3564,7 +3670,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "f9288c31-2ceb-42ae-86fb-f5b316314421"
+          "default": "621d0d91-1f90-4b2b-b5e4-9b24264fa29a"
         },
         "safes": {
           "type": "array",
@@ -3633,7 +3739,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "ba199065-f3e4-4ffd-a7a3-1fc7f4a1d2e2"
+          "default": "04000236-cdf1-4f25-9892-4aa19abf3c56"
         },
         "safes": {
           "type": "array",
@@ -3854,6 +3960,52 @@
         },
         "userOperation": {
           "$ref": "#/definitions/UserOperationResponse"
+        }
+      }
+    },
+    "SafeOperationConfirmationResponse": {
+      "required": [
+        "created",
+        "modified",
+        "owner",
+        "signature"
+      ],
+      "type": "object",
+      "properties": {
+        "created": {
+          "title": "Created",
+          "type": "string",
+          "format": "date-time"
+        },
+        "modified": {
+          "title": "Modified",
+          "type": "string",
+          "format": "date-time"
+        },
+        "owner": {
+          "title": "Owner",
+          "type": "string"
+        },
+        "signature": {
+          "title": "Signature",
+          "type": "string"
+        },
+        "signatureType": {
+          "title": "Signature type",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "SafeOperationConfirmation": {
+      "required": [
+        "signature"
+      ],
+      "type": "object",
+      "properties": {
+        "signature": {
+          "title": "Signature",
+          "type": "string"
         }
       }
     },
