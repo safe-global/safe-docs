@@ -14,12 +14,12 @@ const curlify = (req) =>
     -H "content-type: application/json" \\
     ${!req.body ? "" : `-d '${JSON.stringify(req.body, null, 2)}'`}`;
 
-const sampleSafe = "0xB88F61E6FbdA83fbfffAbE364112137480398018";
+const sampleSafe = "0x5298A93734C3D979eF1f23F78eBB871879A21F22";
 const sampleSafe2 = "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75";
 const sampleSafeWithSafeOp = "0xF72b6C739E7889b89C888403a960a59935564405";
 const sampleTargetSafe = "0xb531870897EB944799239FA5485792bA495a7411";
 const sampleSafeWithUserOp = "0xFc434a578F935205F459768d8756C000419c6007";
-const sampleContract = "0xB88F61E6FbdA83fbfffAbE364112137480398018";
+const sampleContract = "0x5298A93734C3D979eF1f23F78eBB871879A21F22";
 const sampleMessageHash = "0x3b3b57b3";
 const sampleSafeOperationHash =
   "0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b";
@@ -30,10 +30,13 @@ const sampleModuleTransactionId = "0x3b3b57b3";
 const sampleSafeTxHash =
   "0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2";
 const sampleUuid = "3b3b57b3";
-const sampleDelegateAddress = "0x5A93Fe8eBBf78738468c10894D7f36fA247b71C0";
+const sampleDelegator = "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2";
+const sampleDelegateAddress = "0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739";
 const sampleOperation = 0;
 const sampleValue = "0";
 const sampleEOA = "0xBEFA89D90c112A416139F42046Cc2d4A8a308815";
+const sampleAddDelegateSignature =
+  "0xabd010065bc8f5c48ebe7eca0e3c9016c2378826b779f0d51aa804808a68fceb1da9785004df85cd1945b1fba47ca181bdb13bff7b71f9ebd460a94a0830f2141b";
 const sampleTransferId = "3b3b57b3";
 const sampleLabel = "3b3b57b3";
 const sampleSafeAppId = 1;
@@ -91,8 +94,9 @@ const getSampleValue = (param) => {
       return sampleSafeAppId;
     case "uuid":
       return sampleUuid;
-    case "delegate":
     case "delegator":
+      return sampleDelegator;
+    case "delegate":
     case "delegate_address":
       return sampleDelegateAddress;
     case "transfer_id":
