@@ -30,6 +30,15 @@
       "layout": "raw"
     }
   },
+  "incoming-event": {
+    "title": "Events",
+    "display": "hidden",
+    "theme": {
+      "layout": "raw",
+      "toc": false,
+      "sidebar": false
+    }
+  },
   "help": {
     "title": "Help",
     "type": "menu",
