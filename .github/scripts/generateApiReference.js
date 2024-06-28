@@ -34,7 +34,7 @@ const sampleDelegator = "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2";
 const sampleDelegateAddress = "0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739";
 const sampleOperation = 0;
 const sampleValue = "0";
-const sampleEOA = "0xBEFA89D90c112A416139F42046Cc2d4A8a308815";
+const sampleEOA = "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2";
 const sampleAddDelegateSignature =
   "0xabd010065bc8f5c48ebe7eca0e3c9016c2378826b779f0d51aa804808a68fceb1da9785004df85cd1945b1fba47ca181bdb13bff7b71f9ebd460a94a0830f2141b";
 const sampleTransferId = "3b3b57b3";
@@ -133,6 +133,9 @@ const getSampleValue = (param) => {
       return validUntil;
     case "moduleAddress":
       return moduleAddress;
+    case "sender":
+    case "origin":
+      return sampleEOA;
     default:
       return "";
   }
