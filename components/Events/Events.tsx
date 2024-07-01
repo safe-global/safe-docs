@@ -1,9 +1,16 @@
+import { useState } from 'react'
 import Link from 'next/link'
 import Img from 'next/image'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import Accordion from '@mui/material/Accordion'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import Add from '@mui/icons-material/Add'
+import Minimize from '@mui/icons-material/Minimize'
 
 import Bounty from './Bounty'
 import Workshop from './Workshop'
@@ -13,14 +20,35 @@ import Gift from '../../assets/svg/gift.svg'
 import Building from '../../assets/svg/building.svg'
 import Layers from '../../assets/svg/layers.svg'
 import DevStar from '../../assets/diamond-bg.png'
+import DevDiamond from '../../assets/diamond-dev.png'
+
 import German from '../../assets/german.png'
 import Louis from '../../assets/louis.jpeg'
 import Valle from '../../assets/valle.jpg'
+import TrophyIcon from '../../assets/svg/trophy.svg'
+import Teach from '../../assets/svg/teach.svg'
+import Discord from '../../assets/svg/discord.svg'
+import StackExchange from '../../assets/svg/stack-exchange.svg'
+import Ellipse1 from '../../assets/svg/ellipse-1.svg'
+import Ellipse2 from '../../assets/svg/ellipse-2.svg'
+import Ellipse3 from '../../assets/svg/ellipse-3.svg'
+import Ellipse4 from '../../assets/svg/ellipse-4.svg'
 import type { TeamMemberType } from './types'
 
 const EventsPage: React.FC = () => {
+  const [expanded, setExpanded] = useState<number | null>(0)
+
+  const handleChange =
+    (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : null)
+    }
+
   return (
     <>
+      <Grid container justifyContent='space-between'>
+        <Ellipse1 />
+        <Ellipse2 />
+      </Grid>
       <Grid
         container
         sx={{
@@ -30,7 +58,10 @@ const EventsPage: React.FC = () => {
           height: '100vh',
           display: 'flex',
           justifyContent: 'center',
-          mb: '200px'
+          mb: '200px',
+          position: 'fixed',
+          top: 0,
+          zIndex: -1
         }}
       >
         <Grid
@@ -285,11 +316,11 @@ const EventsPage: React.FC = () => {
       </Grid>
       <Grid container alignItems='center' flexDirection='column' mt='100px'>
         <Grid container sx={{ maxWidth: '1440px', px: '30px' }}>
-          <Grid container>
+          <Grid container justifyContent='space-between'>
             <Grid
               item
               container
-              width='calc(100% - 450px)'
+              width='calc(100% - 650px)'
               flexDirection='column'
               justifyContent='center'
             >
@@ -319,7 +350,12 @@ const EventsPage: React.FC = () => {
                 Hands-on insights directly from our engineers
               </Typography>
             </Grid>
-            <Img src={DevStar} width={400} alt='dev-star' />
+            <Img
+              src={DevStar}
+              width={600}
+              alt='dev-star'
+              style={{ marginRight: '-80px' }}
+            />
           </Grid>
           <Grid container alignContent='flex-end' flexDirection='column'>
             <Grid container width='70%'>
@@ -370,7 +406,7 @@ const EventsPage: React.FC = () => {
             <Typography
               variant='caption'
               sx={{
-                mt: '200px',
+                mt: '300px',
                 '@media (min-width: 600px)': {
                   fontSize: '14px',
                   fontWeight: 600
@@ -401,8 +437,389 @@ const EventsPage: React.FC = () => {
                 }
               }}
             >
-              Text details (???)
+              Start building on a robust and extensively documented line of
+              products.
             </Typography>
+          </Grid>
+          <Grid
+            container
+            mt='80px'
+            alignItems='flex-start'
+            justifyContent='space-between'
+          >
+            <Grid
+              item
+              container
+              flexDirection='column'
+              sx={{
+                width: 'calc(33.3% - 48px)',
+                height: '100%',
+                p: 6,
+                border: 'solid 1px',
+                borderColor: ({ palette }) => palette.primary.main,
+                borderRadius: '8px'
+              }}
+            >
+              <Box height='50%'>
+                <TrophyIcon style={{ width: '50px', height: '50px' }} />
+              </Box>
+              <Typography
+                sx={{
+                  '@media (min-width: 600px)': {
+                    fontSize: '32px',
+                    fontWeight: 400
+                  }
+                }}
+              >
+                Safe Hackathon Success Guide
+              </Typography>
+              <Typography
+                sx={{
+                  my: '40px',
+                  '@media (min-width: 600px)': {
+                    fontSize: '20px',
+                    fontWeight: 300
+                  }
+                }}
+              >
+                Learning materials, Previous Hackathon Winner and Ideas.
+              </Typography>
+              <Link
+                href={eventData.url}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <Typography
+                  sx={{
+                    mt: '20px',
+                    '@media (min-width: 600px)': {
+                      fontSize: '18px',
+                      fontWeight: 600
+                    }
+                  }}
+                >
+                  Read guide {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
+                </Typography>
+              </Link>
+            </Grid>
+            <Grid
+              item
+              container
+              flexDirection='column'
+              width='66.6%'
+              height='100%'
+            >
+              <Grid item container justifyContent='space-between'>
+                <Grid
+                  container
+                  flexDirection='column'
+                  sx={{
+                    mb: '80px',
+                    width: 'calc(50% - 20px)',
+                    p: 6,
+                    border: 'solid 1px',
+                    borderColor: ({ palette }) => palette.border.light,
+                    borderRadius: '8px'
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      mb: '160px',
+                      '@media (min-width: 600px)': {
+                        fontSize: '32px',
+                        fontWeight: 400
+                      }
+                    }}
+                  >
+                    7579 Quickstart with Permissionless.js
+                  </Typography>
+                  <Link
+                    href={eventData.url}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <Typography
+                      sx={{
+                        mt: '20px',
+                        '@media (min-width: 600px)': {
+                          fontSize: '18px',
+                          fontWeight: 600
+                        }
+                      }}
+                    >
+                      Read guide{' '}
+                      {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
+                    </Typography>
+                  </Link>
+                </Grid>
+                <Grid
+                  container
+                  flexDirection='column'
+                  sx={{
+                    mb: '80px',
+                    width: 'calc(50% - 20px)',
+                    p: 6,
+                    border: 'solid 1px',
+                    borderColor: ({ palette }) => palette.border.light,
+                    borderRadius: '8px'
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      mb: '160px',
+                      '@media (min-width: 600px)': {
+                        fontSize: '32px',
+                        fontWeight: 400
+                      }
+                    }}
+                  >
+                    Build a full-stack app with Safe and Passkeys
+                  </Typography>
+                  <Link
+                    href={eventData.url}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <Typography
+                      sx={{
+                        mt: '20px',
+                        '@media (min-width: 600px)': {
+                          fontSize: '18px',
+                          fontWeight: 600
+                        }
+                      }}
+                    >
+                      Read guide{' '}
+                      {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
+                    </Typography>
+                  </Link>
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                flexDirection='column'
+                sx={{
+                  p: 6,
+                  border: 'solid 1px',
+                  borderColor: ({ palette }) => palette.border.light,
+                  borderRadius: '8px'
+                }}
+              >
+                <Typography
+                  sx={{
+                    '@media (min-width: 600px)': {
+                      fontSize: '32px',
+                      fontWeight: 400
+                    }
+                  }}
+                >
+                  Getting started with ERC-4337 and Safe
+                </Typography>
+                <Link
+                  href={eventData.url}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <Typography
+                    sx={{
+                      mt: '20px',
+                      '@media (min-width: 600px)': {
+                        fontSize: '18px',
+                        fontWeight: 600
+                      }
+                    }}
+                  >
+                    Read guide {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
+                  </Typography>
+                </Link>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid container flexDirection='column' my='300px'>
+            <Grid
+              container
+              alignItems='center'
+              flexDirection='column'
+              justifyContent='center'
+            >
+              <Typography
+                variant='caption'
+                sx={{
+                  '@media (min-width: 600px)': {
+                    fontSize: '14px',
+                    fontWeight: 600
+                  }
+                }}
+              >
+                Contact Us
+              </Typography>
+              <Typography
+                variant='h1'
+                sx={{
+                  textAlign: 'center',
+                  maxWidth: '800px',
+                  '@media (min-width: 600px)': {
+                    fontSize: '60px',
+                    fontWeight: 400,
+                    lineHeight: '64px'
+                  }
+                }}
+              >
+                Need some help with your submission?
+              </Typography>
+            </Grid>
+            <Grid container justifyContent='space-between' mt='50px'>
+              {contactChannels.map((contactChannel, index) => (
+                <Bounty
+                  width={`calc(${
+                    (1 / eventData.bounties.length) * 100
+                  }% - 20px)`}
+                  icon={contactChannel.icon}
+                  name={contactChannel.name}
+                  description={contactChannel.description}
+                  link={contactChannel.link}
+                  linkLabel='Open Link'
+                  key={index}
+                />
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          justifyContent='space-between'
+          alignItems='center'
+          mt='-300px'
+          mb='-1100px'
+        >
+          <Ellipse3 style={{ marginTop: '-400px' }} />
+          <Ellipse4 />
+        </Grid>
+        <Grid container sx={{ maxWidth: '1440px', px: '30px' }}>
+          <Grid container justifyContent='space-between'>
+            <Grid item width='33.3%'>
+              <Typography
+                variant='h1'
+                sx={{
+                  '@media (min-width: 600px)': {
+                    fontSize: '60px',
+                    fontWeight: 400,
+                    lineHeight: '64px'
+                  }
+                }}
+              >
+                FAQ
+              </Typography>
+            </Grid>
+            <Grid item container flexDirection='column' width='63%'>
+              {faqs.map((faq, index) => (
+                <Accordion
+                  key={index}
+                  disableGutters
+                  expanded={expanded === index}
+                  onChange={handleChange(index)}
+                  sx={{
+                    background: 'transparent',
+                    boxShadow: 'none',
+                    borderBottom: 'solid 1px white',
+                    ':last-of-type': {
+                      borderBottomRightRadius: 0,
+                      borderBottomLeftRadius: 0
+                    }
+                  }}
+                >
+                  <AccordionSummary
+                    expandIcon={
+                      expanded === index ? (
+                        <Minimize style={{ marginTop: '-12px' }} />
+                      ) : (
+                        <Add style={{ width: '24px', height: '24px' }} />
+                      )
+                    }
+                    sx={{ my: 4 }}
+                  >
+                    <Typography
+                      sx={{
+                        '@media (min-width: 600px)': {
+                          fontSize: '24px',
+                          fontWeight: 400
+                        }
+                      }}
+                    >
+                      {faq.question}
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography
+                      color='text.dark'
+                      sx={{
+                        mb: '40px',
+                        '@media (min-width: 600px)': {
+                          fontSize: '20px',
+                          fontWeight: 300
+                        }
+                      }}
+                    >
+                      {faq.answer}
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+              ))}
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            justifyContent='space-between'
+            alignItems='center'
+            mt='160px'
+            mb='100px'
+          >
+            <Grid item width={1 / 2}>
+              <Img src={DevDiamond} width={600} alt='dev-diamond' />
+            </Grid>
+            <Grid item width={1 / 2}>
+              <Grid container flexDirection='column'>
+                <Typography
+                  sx={{
+                    '@media (min-width: 600px)': {
+                      fontSize: '32px',
+                      fontWeight: 400
+                    }
+                  }}
+                >
+                  Share your thoughts!
+                </Typography>
+                <Typography
+                  sx={{
+                    my: '40px',
+                    '@media (min-width: 600px)': {
+                      fontSize: '20px',
+                      fontWeight: 300
+                    }
+                  }}
+                >
+                  Take a moment to fill out our survey and let us know about
+                  your experience with Safe Documentation.
+                </Typography>
+                <Link
+                  href={eventData.url}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <Typography
+                    sx={{
+                      mt: '20px',
+                      '@media (min-width: 600px)': {
+                        fontSize: '18px',
+                        fontWeight: 600
+                      }
+                    }}
+                  >
+                    Take survey {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
+                  </Typography>
+                </Link>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
@@ -428,5 +845,55 @@ const team = [
     name: 'Valentin Seehausen',
     position: 'Developer Experience Engineer',
     image: Valle
+  }
+]
+
+const contactChannels = [
+  {
+    name: 'Find our booth',
+    description: eventData.venue.booth,
+    icon: <Teach />
+  },
+  {
+    name: 'Discord',
+    description:
+      'Join our Discord server by clicking the link below. The channel ' +
+      eventData.discord +
+      ' is dedicated to ' +
+      eventData.name +
+      '.',
+    icon: <Discord />,
+    link: '???'
+  },
+  {
+    name: 'Stack Exchange',
+    description:
+      'Get support from our team by asking questions to Stack Exchange, with the tags "safe-core".',
+    icon: <StackExchange />,
+    link: 'https://ethereum.stackexchange.com/questions/tagged/safe-core'
+  }
+]
+
+const faqs = [
+  {
+    question: 'What is a Safe Smart Account?',
+    answer:
+      'Compared to an externally owned account (EOA) which requires a seed phrase, a Safe Smart Account does not. It is a type of account that is programmable and much easier to manage. This allows you to customise your account with features such as multiple owners and transaction guards, to keep your crypto even more '
+  },
+  {
+    question: 'Hey ABCD',
+    answer: 'aze is blabla'
+  },
+  {
+    question: 'aze is ABCD',
+    answer: 'ABCD is blabla'
+  },
+  {
+    question: 'dfdfg is ABCD',
+    answer: 'ABCD is blabla'
+  },
+  {
+    question: 'zrex is ABCD',
+    answer: 'ABCD is blabla'
   }
 ]
