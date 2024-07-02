@@ -24,7 +24,7 @@ import { SafeFactory, PasskeyArgType } from '@safe-global/protocol-kit'
 
 const passkey: PasskeyArgType = {
   rawId,
-  publicKey,
+  coordinates,
 }
 
 const safeFactory = await SafeFactory.init({
