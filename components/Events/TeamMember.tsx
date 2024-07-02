@@ -1,6 +1,8 @@
 import Img from 'next/image'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
+
+import css from './styles.module.css'
 import type { TeamMemberType } from './types'
 
 const TeamMember: React.FC<{ member: TeamMemberType, width: string }> = ({
@@ -28,12 +30,9 @@ const TeamMember: React.FC<{ member: TeamMemberType, width: string }> = ({
     <Typography
       sx={{
         mt: 3,
-        textAlign: 'center',
-        '@media (min-width: 600px)': {
-          fontSize: '24px',
-          fontWeight: 400
-        }
+        textAlign: 'center'
       }}
+      className={css.heading3}
     >
       {member.name}
     </Typography>
@@ -41,12 +40,9 @@ const TeamMember: React.FC<{ member: TeamMemberType, width: string }> = ({
       color='text.dark'
       sx={{
         textAlign: 'center',
-        mt: 1,
-        '@media (min-width: 600px)': {
-          fontSize: '20px',
-          fontWeight: 300
-        }
+        mt: 1
       }}
+      className={css.body}
     >
       {member.position}
     </Typography>

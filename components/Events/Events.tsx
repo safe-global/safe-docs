@@ -21,7 +21,6 @@ import Building from '../../assets/svg/building.svg'
 import Layers from '../../assets/svg/layers.svg'
 import DevStar from '../../assets/diamond-bg.png'
 import DevDiamond from '../../assets/diamond-dev.png'
-
 import German from '../../assets/german.png'
 import Louis from '../../assets/louis.jpeg'
 import Valle from '../../assets/valle.jpg'
@@ -34,6 +33,7 @@ import Ellipse2 from '../../assets/svg/ellipse-2.svg'
 import Ellipse3 from '../../assets/svg/ellipse-3.svg'
 import Ellipse4 from '../../assets/svg/ellipse-4.svg'
 import type { TeamMemberType } from './types'
+import css from './styles.module.css'
 
 const EventsPage: React.FC = () => {
   const [expanded, setExpanded] = useState<number | null>(0)
@@ -69,40 +69,13 @@ const EventsPage: React.FC = () => {
           flexDirection='column'
           sx={{ maxWidth: '1440px', px: '30px' }}
         >
-          <Typography
-            variant='h1'
-            sx={{
-              mt: '100px',
-              '@media (min-width: 600px)': {
-                fontSize: '90px',
-                fontWeight: 400,
-                lineHeight: '100px'
-              }
-            }}
-          >
+          <Typography variant='h1' className={css.title} sx={{ mt: '100px' }}>
             Safe at
           </Typography>
-          <Typography
-            variant='h1'
-            sx={{
-              '@media (min-width: 600px)': {
-                fontSize: '90px',
-                fontWeight: 400,
-                lineHeight: '100px'
-              }
-            }}
-          >
+          <Typography variant='h1' className={css.title}>
             {eventData.name}
           </Typography>
-          <Typography
-            sx={{
-              mt: '50px',
-              '@media (min-width: 600px)': {
-                fontSize: '20px',
-                fontWeight: 300
-              }
-            }}
-          >
+          <Typography className={css.body} sx={{ mt: '50px' }}>
             We proudly support this event by sponsoring{' '}
             {eventData.bounties.length} submission tracks for a total of{' '}
             {eventData.bounties.reduce(
@@ -123,25 +96,12 @@ const EventsPage: React.FC = () => {
               <div>
                 <Typography
                   color='text.dark'
-                  sx={{
-                    mt: '50px',
-                    '@media (min-width: 600px)': {
-                      fontSize: '20px',
-                      fontWeight: 300
-                    }
-                  }}
+                  sx={{ mt: '50px' }}
+                  className={css.body}
                 >
                   Date
                 </Typography>
-                <Typography
-                  sx={{
-                    mt: '10px',
-                    '@media (min-width: 600px)': {
-                      fontSize: '20px',
-                      fontWeight: 300
-                    }
-                  }}
-                >
+                <Typography sx={{ mt: '10px' }} className={css.body}>
                   {new Date(eventData.start).toDateString()} -{' '}
                   {new Date(eventData.end).toDateString()}
                 </Typography>
@@ -151,15 +111,7 @@ const EventsPage: React.FC = () => {
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <Typography
-                  sx={{
-                    mt: '20px',
-                    '@media (min-width: 600px)': {
-                      fontSize: '18px',
-                      fontWeight: 600
-                    }
-                  }}
-                >
+                <Typography className={css.link}>
                   Visit event page{' '}
                   {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
                 </Typography>
@@ -176,25 +128,12 @@ const EventsPage: React.FC = () => {
               <div>
                 <Typography
                   color='text.dark'
-                  sx={{
-                    mt: '50px',
-                    '@media (min-width: 600px)': {
-                      fontSize: '20px',
-                      fontWeight: 300
-                    }
-                  }}
+                  sx={{ mt: '50px' }}
+                  className={css.body}
                 >
                   Venue
                 </Typography>
-                <Typography
-                  sx={{
-                    mt: '10px',
-                    '@media (min-width: 600px)': {
-                      fontSize: '20px',
-                      fontWeight: 300
-                    }
-                  }}
-                >
+                <Typography sx={{ mt: '10px' }} className={css.body}>
                   {eventData.venue.name}
                   <br />
                   {eventData.venue.address}
@@ -205,15 +144,7 @@ const EventsPage: React.FC = () => {
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <Typography
-                  sx={{
-                    mt: '20px',
-                    '@media (min-width: 600px)': {
-                      fontSize: '18px',
-                      fontWeight: 600
-                    }
-                  }}
-                >
+                <Typography className={css.link}>
                   Get directions{' '}
                   {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
                 </Typography>
@@ -225,23 +156,14 @@ const EventsPage: React.FC = () => {
             alignItems='center'
             flexDirection='column'
             justifyContent='center'
+            sx={{ mt: '200px' }}
           >
             <Link
               href={eventData.url}
               target='_blank'
               rel='noopener noreferrer'
             >
-              <Typography
-                sx={{
-                  mt: '200px',
-                  '@media (min-width: 600px)': {
-                    fontSize: '18px',
-                    fontWeight: 600
-                  }
-                }}
-              >
-                Tracks and prizes
-              </Typography>
+              <Typography className={css.link}>Tracks and prizes</Typography>
             </Link>
             <ExpandMoreIcon sx={{ width: '16px' }} />
           </Grid>
@@ -254,29 +176,10 @@ const EventsPage: React.FC = () => {
           flexDirection='column'
           justifyContent='center'
         >
-          <Typography
-            variant='h1'
-            sx={{
-              textAlign: 'center',
-              maxWidth: '800px',
-              '@media (min-width: 600px)': {
-                fontSize: '60px',
-                fontWeight: 400,
-                lineHeight: '64px'
-              }
-            }}
-          >
+          <Typography variant='h2' textAlign='center' className={css.heading}>
             Get rewarded by contributing to the ecosystem
           </Typography>
-          <Typography
-            sx={{
-              mt: '20px',
-              '@media (min-width: 600px)': {
-                fontSize: '20px',
-                fontWeight: 300
-              }
-            }}
-          >
+          <Typography sx={{ mt: '20px' }} className={css.body}>
             Tracks you can work on at this event:
           </Typography>
         </Grid>
@@ -286,6 +189,7 @@ const EventsPage: React.FC = () => {
             sx={{ maxWidth: '1440px', px: '30px' }}
             justifyContent='space-between'
             mt='50px'
+            mb='80px'
           >
             {eventData.bounties.map((bounty, index) => (
               <Bounty
@@ -299,15 +203,7 @@ const EventsPage: React.FC = () => {
             ))}
           </Grid>
           <Link href={eventData.url} target='_blank' rel='noopener noreferrer'>
-            <Typography
-              sx={{
-                mt: '80px',
-                '@media (min-width: 600px)': {
-                  fontSize: '18px',
-                  fontWeight: 600
-                }
-              }}
-            >
+            <Typography className={css.link}>
               Learn more at bounty&apos;s page{' '}
               {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
             </Typography>
@@ -326,27 +222,12 @@ const EventsPage: React.FC = () => {
             >
               <Typography
                 variant='caption'
-                sx={{
-                  mt: '100px',
-                  '@media (min-width: 600px)': {
-                    fontSize: '14px',
-                    fontWeight: 600
-                  }
-                }}
+                sx={{ mt: '100px' }}
+                className={css.caption}
               >
                 Workshops
               </Typography>
-              <Typography
-                variant='h1'
-                sx={{
-                  maxWidth: '800px',
-                  '@media (min-width: 600px)': {
-                    fontSize: '60px',
-                    fontWeight: 400,
-                    lineHeight: '64px'
-                  }
-                }}
-              >
+              <Typography variant='h2' className={css.heading}>
                 Hands-on insights directly from our engineers
               </Typography>
             </Grid>
@@ -370,15 +251,7 @@ const EventsPage: React.FC = () => {
                   }
                 />
               ))}
-              <Typography
-                sx={{
-                  mt: '120px',
-                  '@media (min-width: 600px)': {
-                    fontSize: '32px',
-                    fontWeight: 400
-                  }
-                }}
-              >
+              <Typography sx={{ mt: '120px' }} className={css.heading2}>
                 Meet the team at the event
               </Typography>
               <Grid container justifyContent='space-between' mt={4}>
@@ -405,38 +278,15 @@ const EventsPage: React.FC = () => {
           >
             <Typography
               variant='caption'
-              sx={{
-                mt: '300px',
-                '@media (min-width: 600px)': {
-                  fontSize: '14px',
-                  fontWeight: 600
-                }
-              }}
+              sx={{ mt: '300px' }}
+              className={css.caption}
             >
               Safe Docs
             </Typography>
-            <Typography
-              variant='h1'
-              sx={{
-                maxWidth: '800px',
-                '@media (min-width: 600px)': {
-                  fontSize: '60px',
-                  fontWeight: 400,
-                  lineHeight: '64px'
-                }
-              }}
-            >
+            <Typography variant='h1' className={css.heading}>
               Ready to build with Safe?
             </Typography>
-            <Typography
-              sx={{
-                mt: '20px',
-                '@media (min-width: 600px)': {
-                  fontSize: '20px',
-                  fontWeight: 300
-                }
-              }}
-            >
+            <Typography sx={{ mt: '20px' }} className={css.body}>
               Start building on a robust and extensively documented line of
               products.
             </Typography>
@@ -463,25 +313,10 @@ const EventsPage: React.FC = () => {
               <Box height='50%'>
                 <TrophyIcon style={{ width: '50px', height: '50px' }} />
               </Box>
-              <Typography
-                sx={{
-                  '@media (min-width: 600px)': {
-                    fontSize: '32px',
-                    fontWeight: 400
-                  }
-                }}
-              >
+              <Typography className={css.heading2}>
                 Safe Hackathon Success Guide
               </Typography>
-              <Typography
-                sx={{
-                  my: '40px',
-                  '@media (min-width: 600px)': {
-                    fontSize: '20px',
-                    fontWeight: 300
-                  }
-                }}
-              >
+              <Typography sx={{ my: '40px' }} className={css.body}>
                 Learning materials, Previous Hackathon Winner and Ideas.
               </Typography>
               <Link
@@ -489,15 +324,7 @@ const EventsPage: React.FC = () => {
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <Typography
-                  sx={{
-                    mt: '20px',
-                    '@media (min-width: 600px)': {
-                      fontSize: '18px',
-                      fontWeight: 600
-                    }
-                  }}
-                >
+                <Typography className={css.link}>
                   Read guide {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
                 </Typography>
               </Link>
@@ -522,15 +349,7 @@ const EventsPage: React.FC = () => {
                     borderRadius: '8px'
                   }}
                 >
-                  <Typography
-                    sx={{
-                      mb: '160px',
-                      '@media (min-width: 600px)': {
-                        fontSize: '32px',
-                        fontWeight: 400
-                      }
-                    }}
-                  >
+                  <Typography sx={{ mb: '160px' }} className={css.heading2}>
                     7579 Quickstart with Permissionless.js
                   </Typography>
                   <Link
@@ -538,15 +357,7 @@ const EventsPage: React.FC = () => {
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    <Typography
-                      sx={{
-                        mt: '20px',
-                        '@media (min-width: 600px)': {
-                          fontSize: '18px',
-                          fontWeight: 600
-                        }
-                      }}
-                    >
+                    <Typography className={css.link}>
                       Read guide{' '}
                       {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
                     </Typography>
@@ -564,15 +375,7 @@ const EventsPage: React.FC = () => {
                     borderRadius: '8px'
                   }}
                 >
-                  <Typography
-                    sx={{
-                      mb: '160px',
-                      '@media (min-width: 600px)': {
-                        fontSize: '32px',
-                        fontWeight: 400
-                      }
-                    }}
-                  >
+                  <Typography sx={{ mb: '160px' }} className={css.heading2}>
                     Build a full-stack app with Safe and Passkeys
                   </Typography>
                   <Link
@@ -580,15 +383,7 @@ const EventsPage: React.FC = () => {
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    <Typography
-                      sx={{
-                        mt: '20px',
-                        '@media (min-width: 600px)': {
-                          fontSize: '18px',
-                          fontWeight: 600
-                        }
-                      }}
-                    >
+                    <Typography className={css.link}>
                       Read guide{' '}
                       {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
                     </Typography>
@@ -605,14 +400,7 @@ const EventsPage: React.FC = () => {
                   borderRadius: '8px'
                 }}
               >
-                <Typography
-                  sx={{
-                    '@media (min-width: 600px)': {
-                      fontSize: '32px',
-                      fontWeight: 400
-                    }
-                  }}
-                >
+                <Typography className={css.heading2}>
                   Getting started with ERC-4337 and Safe
                 </Typography>
                 <Link
@@ -620,15 +408,7 @@ const EventsPage: React.FC = () => {
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  <Typography
-                    sx={{
-                      mt: '20px',
-                      '@media (min-width: 600px)': {
-                        fontSize: '18px',
-                        fontWeight: 600
-                      }
-                    }}
-                  >
+                  <Typography className={css.link}>
                     Read guide {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
                   </Typography>
                 </Link>
@@ -642,28 +422,13 @@ const EventsPage: React.FC = () => {
               flexDirection='column'
               justifyContent='center'
             >
-              <Typography
-                variant='caption'
-                sx={{
-                  '@media (min-width: 600px)': {
-                    fontSize: '14px',
-                    fontWeight: 600
-                  }
-                }}
-              >
+              <Typography variant='caption' className={css.caption}>
                 Contact Us
               </Typography>
               <Typography
-                variant='h1'
-                sx={{
-                  textAlign: 'center',
-                  maxWidth: '800px',
-                  '@media (min-width: 600px)': {
-                    fontSize: '60px',
-                    fontWeight: 400,
-                    lineHeight: '64px'
-                  }
-                }}
+                variant='h2'
+                sx={{ textAlign: 'center' }}
+                className={css.heading}
               >
                 Need some help with your submission?
               </Typography>
@@ -698,16 +463,7 @@ const EventsPage: React.FC = () => {
         <Grid container sx={{ maxWidth: '1440px', px: '30px' }}>
           <Grid container justifyContent='space-between'>
             <Grid item width='33.3%'>
-              <Typography
-                variant='h1'
-                sx={{
-                  '@media (min-width: 600px)': {
-                    fontSize: '60px',
-                    fontWeight: 400,
-                    lineHeight: '64px'
-                  }
-                }}
-              >
+              <Typography variant='h2' className={css.heading}>
                 FAQ
               </Typography>
             </Grid>
@@ -738,27 +494,15 @@ const EventsPage: React.FC = () => {
                     }
                     sx={{ my: 4 }}
                   >
-                    <Typography
-                      sx={{
-                        '@media (min-width: 600px)': {
-                          fontSize: '24px',
-                          fontWeight: 400
-                        }
-                      }}
-                    >
+                    <Typography variant='h3' className={css.heading3}>
                       {faq.question}
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <Typography
                       color='text.dark'
-                      sx={{
-                        mb: '40px',
-                        '@media (min-width: 600px)': {
-                          fontSize: '20px',
-                          fontWeight: 300
-                        }
-                      }}
+                      sx={{ mb: '40px' }}
+                      className={css.body}
                     >
                       {faq.answer}
                     </Typography>
@@ -771,7 +515,7 @@ const EventsPage: React.FC = () => {
             container
             justifyContent='space-between'
             alignItems='center'
-            mt='160px'
+            mt='200px'
             mb='100px'
           >
             <Grid item width={1 / 2}>
@@ -779,25 +523,10 @@ const EventsPage: React.FC = () => {
             </Grid>
             <Grid item width={1 / 2}>
               <Grid container flexDirection='column'>
-                <Typography
-                  sx={{
-                    '@media (min-width: 600px)': {
-                      fontSize: '32px',
-                      fontWeight: 400
-                    }
-                  }}
-                >
+                <Typography variant='h2' className={css.heading}>
                   Share your thoughts!
                 </Typography>
-                <Typography
-                  sx={{
-                    my: '40px',
-                    '@media (min-width: 600px)': {
-                      fontSize: '20px',
-                      fontWeight: 300
-                    }
-                  }}
-                >
+                <Typography sx={{ my: '40px' }} className={css.body}>
                   Take a moment to fill out our survey and let us know about
                   your experience with Safe Documentation.
                 </Typography>
@@ -806,15 +535,7 @@ const EventsPage: React.FC = () => {
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  <Typography
-                    sx={{
-                      mt: '20px',
-                      '@media (min-width: 600px)': {
-                        fontSize: '18px',
-                        fontWeight: 600
-                      }
-                    }}
-                  >
+                  <Typography className={css.link}>
                     Take survey {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
                   </Typography>
                 </Link>

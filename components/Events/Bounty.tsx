@@ -3,6 +3,8 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
+import css from './styles.module.css'
+
 const Bounty: React.FC<{
   width: string
   icon: JSX.Element
@@ -24,50 +26,16 @@ const Bounty: React.FC<{
     }}
   >
     {icon}
-    <Typography
-      sx={{
-        mt: '30px',
-        '@media (min-width: 600px)': {
-          fontSize: '24px',
-          fontWeight: 400
-        }
-      }}
-    >
+    <Typography sx={{ mt: '30px' }} className={css.heading3}>
       {name}
     </Typography>
-    <Typography
-      color='text.dark'
-      sx={{
-        my: '40px',
-        '@media (min-width: 600px)': {
-          fontSize: '20px',
-          fontWeight: 300
-        }
-      }}
-    >
+    <Typography color='text.dark' sx={{ my: '40px' }} className={css.body}>
       {description}
     </Typography>
-    <Typography
-      sx={{
-        '@media (min-width: 600px)': {
-          fontSize: '24px',
-          fontWeight: 400
-        }
-      }}
-    >
-      {prize}
-    </Typography>{' '}
+    <Typography className={css.heading3}>{prize}</Typography>{' '}
     {link != null && (
       <Link href={link} target='_blank' rel='noopener noreferrer'>
-        <Typography
-          sx={{
-            mt: '20px',
-            '@media (min-width: 600px)': {
-              fontSize: '18px',
-              fontWeight: 600
-            }
-          }}
-        >
+        <Typography className={css.link} sx={{ mt: '20px' }}>
           {linkLabel} {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
         </Typography>
       </Link>
