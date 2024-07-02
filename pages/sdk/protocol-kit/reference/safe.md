@@ -46,7 +46,7 @@ import Safe from '@safe-global/protocol-kit'
 
 const passkey: PasskeyArgType = {
   rawId,
-  publicKey,
+  coordinates,
 }
 
 const protocolKit = await Safe.init({
@@ -542,7 +542,7 @@ Instead of using an address, this method also supports the use of a passkey to s
 ```typescript
 const passkey: PasskeyArgType = {
   rawId,
-  publicKey,
+  coordinates,
 }
 const params: AddPasskeyOwnerTxParams = {
   passkey,
@@ -579,7 +579,7 @@ Instead of using an address, this method also supports the use of a passkey to r
 ```typescript
 const passkey: PasskeyArgType = {
   rawId,
-  publicKey,
+  coordinates,
 }
 const params: AddPasskeyOwnerTxParams = {
   passkey,
@@ -616,7 +616,7 @@ Instead of using an address, this method also supports any combination of passke
 ```typescript
 const newOwnerPasskey: PasskeyArgType = {
   rawId,
-  publicKey,
+  coordinates,
 }
 const params: SwapOwnerTxParams = {
   oldOwnerAddress,
@@ -668,7 +668,7 @@ A passkey can also be used to check if the signer account is an owner of the cur
 ```typescript
 const passkey: PasskeyArgType = {
   rawId,
-  publicKey,
+  coordinates,
 }
 
 const isOwner = await protocolKit.isOwner(passkey)
