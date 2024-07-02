@@ -76,22 +76,16 @@ yarn add @safe-global/protocol-kit
 
   {/* <!-- vale on --> */}
 
-  After generating the `passkeyCredential` object, we need to create a new object with the `PasskeyArgType` type that will contain the `rawId` and the `publicKey` information.
+  After generating the `passkeyCredential` object, we need to create a new object with the `PasskeyArgType` type that will contain the `rawId` and the `coordinates` information.
 
   {/* <!-- vale off --> */}
 
   ```typescript
-  const passkeyObject = passkeyCredential as PublicKeyCredential
-  const attestationResponse =
-    passkeyObject.response as AuthenticatorAttestationResponse
-
-  const rawId = passkeyObject.rawId
-  const publicKey = attestationResponse.getPublicKey()
-
-  const passkey: PasskeyArgType = {
-    rawId,
-    publicKey
+  if (!passkeyCredential) {
+    throw Error("Passkey creation failed: No credential was returned.");
   }
+
+  const passkey = await extractPasskeyData(passkeyCredential);
   ```
 
   {/* <!-- vale on --> */}
