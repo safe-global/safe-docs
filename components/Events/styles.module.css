@@ -1,7 +1,31 @@
+body .title {
+  font-weight: 400;
+  font-size: 56px;
+  line-height: 60px;
+}
+
+body .heading {
+  max-width: 800px;
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 52px;
+}
+
+body .body {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 300;
+}
+
+body .heading2 {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 36px;
+}
+
 @media (min-width: 600px) {
   body .title {
     font-size: 90px;
-    font-weight: 400;
     line-height: 100px;
   }
   body .body {
@@ -14,15 +38,8 @@
     font-weight: 600;
   }
   body .heading {
-    max-width: 800px;
     font-size: 60px;
-    font-weight: 400;
     line-height: 64px;
-  }
-  body .heading2 {
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 36px;
   }
   body .heading3 {
     font-size: 24px;

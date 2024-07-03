@@ -6,7 +6,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import css from './styles.module.css'
 
 const Bounty: React.FC<{
-  width: string
+  width: string | string[]
   icon: JSX.Element
   name: string
   description: string
@@ -22,7 +22,8 @@ const Bounty: React.FC<{
       width,
       border: 'solid 1px',
       borderColor: ({ palette }) => palette.border.light,
-      borderRadius: '8px'
+      borderRadius: '8px',
+      mt: ['30px', '0px']
     }}
   >
     {icon}

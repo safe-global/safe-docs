@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 
 import type { TeamMemberType, WorkshopType } from './types'
+import css from './styles.module.css'
 
 const Workshop: React.FC<{
   workshop: WorkshopType
@@ -36,26 +37,10 @@ const Workshop: React.FC<{
       {new Date(workshop.start).toLocaleTimeString().slice(0, -3)} -{' '}
       {new Date(workshop.end).toLocaleTimeString().slice(0, -3)}
     </Button>
-    <Typography
-      sx={{
-        my: 4,
-        '@media (min-width: 600px)': {
-          fontSize: '32px',
-          fontWeight: 400
-        }
-      }}
-    >
+    <Typography sx={{ my: 4 }} className={css.heading2}>
       {workshop.title}
     </Typography>
-    <Typography
-      color='text.dark'
-      sx={{
-        '@media (min-width: 600px)': {
-          fontSize: '20px',
-          fontWeight: 300
-        }
-      }}
-    >
+    <Typography color='text.dark' className={css.body}>
       {workshop.location}
     </Typography>
     <Grid container mt={3}>
@@ -72,26 +57,8 @@ const Workshop: React.FC<{
         ml={2}
         width='calc(100% - 100px)'
       >
-        <Typography
-          sx={{
-            '@media (min-width: 600px)': {
-              fontSize: '24px',
-              fontWeight: 400
-            }
-          }}
-        >
-          {speaker.name}
-        </Typography>
-        <Typography
-          color='text.dark'
-          sx={{
-            mt: 1,
-            '@media (min-width: 600px)': {
-              fontSize: '20px',
-              fontWeight: 300
-            }
-          }}
-        >
+        <Typography className={css.heading3}>{speaker.name}</Typography>
+        <Typography color='text.dark' sx={{ mt: 1 }} className={css.body}>
           {speaker.position}
         </Typography>
       </Grid>

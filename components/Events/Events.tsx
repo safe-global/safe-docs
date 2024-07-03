@@ -34,8 +34,12 @@ import Ellipse3 from '../../assets/svg/ellipse-3.svg'
 import Ellipse4 from '../../assets/svg/ellipse-4.svg'
 import type { TeamMemberType } from './types'
 import css from './styles.module.css'
+import { type Theme, useMediaQuery } from '@mui/material'
 
 const EventsPage: React.FC = () => {
+  const isSmOrBigger = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.up('sm')
+  )
   const [expanded, setExpanded] = useState<number | null>(0)
 
   const handleChange =
@@ -45,23 +49,23 @@ const EventsPage: React.FC = () => {
 
   return (
     <>
-      <Grid container justifyContent='space-between'>
+      <Grid container justifyContent='space-between' display={['none', 'flex']}>
         <Ellipse1 />
         <Ellipse2 />
       </Grid>
       <Grid
         container
         sx={{
-          background: 'url(./event-background.png)',
+          background: ['unset', 'url(./event-background.png)'],
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          height: '100vh',
+          height: ['auto', '100vh'],
           display: 'flex',
           justifyContent: 'center',
           mb: '200px',
-          position: 'fixed',
+          position: ['relative', 'fixed'],
           top: 0,
-          zIndex: -1
+          zIndex: [0, -1]
         }}
       >
         <Grid
@@ -84,14 +88,14 @@ const EventsPage: React.FC = () => {
             )}
             {eventData.bounties[0].prize.currency}.
           </Typography>
-          <Grid container>
+          <Grid container flexDirection={['column', 'row']}>
             <Grid
               item
               height='220px'
               container
               flexDirection='column'
               justifyContent='space-between'
-              sx={{ width: '35%' }}
+              sx={{ width: ['100%', '35%'] }}
             >
               <div>
                 <Typography
@@ -123,7 +127,7 @@ const EventsPage: React.FC = () => {
               container
               flexDirection='column'
               justifyContent='space-between'
-              sx={{ width: '35%' }}
+              sx={{ width: ['100%', '35%'] }}
             >
               <div>
                 <Typography
@@ -156,7 +160,7 @@ const EventsPage: React.FC = () => {
             alignItems='center'
             flexDirection='column'
             justifyContent='center'
-            sx={{ mt: '200px' }}
+            sx={{ mt: ['60px', '200px'] }}
           >
             <Link
               href={eventData.url}
@@ -190,10 +194,14 @@ const EventsPage: React.FC = () => {
             justifyContent='space-between'
             mt='50px'
             mb='80px'
+            flexDirection={['column', 'row']}
           >
             {eventData.bounties.map((bounty, index) => (
               <Bounty
-                width={`calc(${(1 / eventData.bounties.length) * 100}% - 20px)`}
+                width={[
+                  '100%',
+                  `calc(${(1 / eventData.bounties.length) * 100}% - 20px)`
+                ]}
                 icon={icons[index]}
                 name={bounty.name}
                 description={bounty.description}
@@ -212,17 +220,21 @@ const EventsPage: React.FC = () => {
       </Grid>
       <Grid container alignItems='center' flexDirection='column' mt='100px'>
         <Grid container sx={{ maxWidth: '1440px', px: '30px' }}>
-          <Grid container justifyContent='space-between'>
+          <Grid
+            container
+            justifyContent='space-between'
+            flexDirection={['column-reverse', 'row']}
+          >
             <Grid
               item
               container
-              width='calc(100% - 650px)'
+              width={['100%', 'calc(100% - 650px)']}
               flexDirection='column'
               justifyContent='center'
             >
               <Typography
                 variant='caption'
-                sx={{ mt: '100px' }}
+                sx={{ mt: [0, '100px'] }}
                 className={css.caption}
               >
                 Workshops
@@ -231,15 +243,23 @@ const EventsPage: React.FC = () => {
                 Hands-on insights directly from our engineers
               </Typography>
             </Grid>
-            <Img
-              src={DevStar}
-              width={600}
-              alt='dev-star'
-              style={{ marginRight: '-80px' }}
-            />
+            {isSmOrBigger ? (
+              <Img
+                width={600}
+                src={DevStar}
+                alt='dev-star'
+                style={{ marginRight: '-80px' }}
+              />
+            ) : (
+              <Box sx={{ width: '100%', overflow: 'hidden', my: '-100px' }}>
+                <Box sx={{ width: '1000px' }}>
+                  <Img objectFit='contain' src={DevStar} alt='dev-star' />
+                </Box>
+              </Box>
+            )}
           </Grid>
           <Grid container alignContent='flex-end' flexDirection='column'>
-            <Grid container width='70%'>
+            <Grid container width={['100%', '70%']}>
               {eventData.workshops.map((workshop, index) => (
                 <Workshop
                   key={index}
@@ -254,7 +274,12 @@ const EventsPage: React.FC = () => {
               <Typography sx={{ mt: '120px' }} className={css.heading2}>
                 Meet the team at the event
               </Typography>
-              <Grid container justifyContent='space-between' mt={4}>
+              <Grid
+                container
+                justifyContent='space-between'
+                flexDirection={['column', 'row']}
+                mt={4}
+              >
                 {eventData.team.map((member, index) => (
                   <TeamMember
                     key={index}
@@ -263,7 +288,10 @@ const EventsPage: React.FC = () => {
                         teamMember => teamMember.name === member
                       ) as TeamMemberType
                     }
-                    width={`calc(${(1 / eventData.team.length) * 100}% - 20px)`}
+                    width={[
+                      '100%',
+                      `calc(${(1 / eventData.team.length) * 100}% - 20px)`
+                    ]}
                   />
                 ))}
               </Grid>
@@ -272,13 +300,13 @@ const EventsPage: React.FC = () => {
           <Grid
             item
             container
-            width='calc(100% - 450px)'
+            width={['100%', 'calc(100% - 450px)']}
             flexDirection='column'
             justifyContent='center'
           >
             <Typography
               variant='caption'
-              sx={{ mt: '300px' }}
+              sx={{ mt: ['100px', '300px'] }}
               className={css.caption}
             >
               Safe Docs
@@ -302,8 +330,8 @@ const EventsPage: React.FC = () => {
               container
               flexDirection='column'
               sx={{
-                width: 'calc(33.3% - 48px)',
-                height: '100%',
+                width: ['100%', 'calc(33.3% - 48px)'],
+                height: ['auto', '100%'],
                 p: 6,
                 border: 'solid 1px',
                 borderColor: ({ palette }) => palette.primary.main,
@@ -333,7 +361,7 @@ const EventsPage: React.FC = () => {
               item
               container
               flexDirection='column'
-              width='66.6%'
+              width={['100%', '66.6%']}
               height='100%'
             >
               <Grid item container justifyContent='space-between'>
@@ -342,7 +370,7 @@ const EventsPage: React.FC = () => {
                   flexDirection='column'
                   sx={{
                     mb: '80px',
-                    width: 'calc(50% - 20px)',
+                    width: ['100%', 'calc(50% - 20px)'],
                     p: 6,
                     border: 'solid 1px',
                     borderColor: ({ palette }) => palette.border.light,
@@ -368,7 +396,7 @@ const EventsPage: React.FC = () => {
                   flexDirection='column'
                   sx={{
                     mb: '80px',
-                    width: 'calc(50% - 20px)',
+                    width: ['100%', 'calc(50% - 20px)'],
                     p: 6,
                     border: 'solid 1px',
                     borderColor: ({ palette }) => palette.border.light,
@@ -415,7 +443,7 @@ const EventsPage: React.FC = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid container flexDirection='column' my='300px'>
+          <Grid container flexDirection='column' my={['150px', '300px']}>
             <Grid
               container
               alignItems='center'
@@ -433,12 +461,18 @@ const EventsPage: React.FC = () => {
                 Need some help with your submission?
               </Typography>
             </Grid>
-            <Grid container justifyContent='space-between' mt='50px'>
+            <Grid
+              container
+              justifyContent='space-between'
+              mt='50px'
+              flexDirection={['column', 'row']}
+            >
               {contactChannels.map((contactChannel, index) => (
                 <Bounty
-                  width={`calc(${
-                    (1 / eventData.bounties.length) * 100
-                  }% - 20px)`}
+                  width={[
+                    '100%',
+                    `calc(${(1 / eventData.bounties.length) * 100}% - 20px)`
+                  ]}
                   icon={contactChannel.icon}
                   name={contactChannel.name}
                   description={contactChannel.description}
@@ -456,18 +490,19 @@ const EventsPage: React.FC = () => {
           alignItems='center'
           mt='-300px'
           mb='-1100px'
+          display={['none', 'flex']}
         >
           <Ellipse3 style={{ marginTop: '-400px' }} />
           <Ellipse4 />
         </Grid>
         <Grid container sx={{ maxWidth: '1440px', px: '30px' }}>
           <Grid container justifyContent='space-between'>
-            <Grid item width='33.3%'>
+            <Grid item width={['100%', '33.3%']}>
               <Typography variant='h2' className={css.heading}>
                 FAQ
               </Typography>
             </Grid>
-            <Grid item container flexDirection='column' width='63%'>
+            <Grid item container flexDirection='column' width={['100%', '63%']}>
               {faqs.map((faq, index) => (
                 <Accordion
                   key={index}
@@ -518,10 +553,10 @@ const EventsPage: React.FC = () => {
             mt='200px'
             mb='100px'
           >
-            <Grid item width={1 / 2}>
+            <Grid item width={1 / 2} display={['none', 'flex']}>
               <Img src={DevDiamond} width={600} alt='dev-diamond' />
             </Grid>
-            <Grid item width={1 / 2}>
+            <Grid item width={[1, 1 / 2]}>
               <Grid container flexDirection='column'>
                 <Typography variant='h2' className={css.heading}>
                   Share your thoughts!

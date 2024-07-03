@@ -5,10 +5,10 @@ import Typography from '@mui/material/Typography'
 import css from './styles.module.css'
 import type { TeamMemberType } from './types'
 
-const TeamMember: React.FC<{ member: TeamMemberType, width: string }> = ({
-  member,
-  width
-}) => (
+const TeamMember: React.FC<{
+  member: TeamMemberType
+  width: string | string[]
+}> = ({ member, width }) => (
   <Grid
     container
     flexDirection='column'
@@ -18,7 +18,8 @@ const TeamMember: React.FC<{ member: TeamMemberType, width: string }> = ({
       p: 4,
       border: 'solid 1px',
       borderColor: ({ palette }) => palette.border.light,
-      borderRadius: '8px'
+      borderRadius: '8px',
+      mt: ['30px', '0px']
     }}
   >
     <Img
