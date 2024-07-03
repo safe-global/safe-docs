@@ -36,7 +36,7 @@ const ScheduledTransferForm: React.FC<{ safe: SafeSmartAccountClient }> = ({
 
   return (
     <>
-      <div style={{ marginTop: '40px' }}>Your safe: {safe.account.address}</div>{' '}
+      <div style={{ marginTop: '40px' }}>Your Safe: {safe.account.address}</div>{' '}
       <div style={{ marginTop: '10px' }}>
         ERC-7579 module installed:{' '}
         {is7579Installed

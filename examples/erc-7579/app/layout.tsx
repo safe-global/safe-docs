@@ -30,7 +30,7 @@ export default function RootLayout ({
           </a>
           <div style={{ display: 'flex' }}>
             <a
-              href='https://docs.safe.global/advanced/erc-7579/tutorial'
+              href='https://docs.safe.global/advanced/erc-7579/tutorials/7579-tutorial'
               style={{
                 display: 'flex',
                 alignItems: 'center',

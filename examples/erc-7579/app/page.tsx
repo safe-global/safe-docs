@@ -21,7 +21,7 @@ export default function Home () {
       {safe == null ? (
         <>
           <button onClick={handleLoadSafe} style={{ marginTop: '40px' }}>
-            Load Smart Account Client
+            Create Safe
           </button>
         </>
       ) : (
