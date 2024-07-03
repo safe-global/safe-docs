@@ -79,7 +79,7 @@ touch permissionless.ts
 Add the code necessary to create Pimlico’s `smartAccountClient` by adding this content to `permissionless.ts` :
 
 ```typescript
-// from ./examples/lib/permissionless.ts
+// from ../../../examples/erc-7579/lib/permissionless.ts
 ```
 
 It will load a `PRIVATE_KEY` from `.env.local` (or generate one if it doesn’t exist) and then create the `publicClient`, `paymasterClient` and `bundlerClient` necessary to initialize the `permissionless` library. It then creates a 7579-enabled Safe Smart Account from the generated private key, before passing it to `createSmartAccountClient` to generate a Permissionless client.
@@ -94,7 +94,7 @@ touch scheduledTransfers.ts
 
 Add the code necessary to create a scheduled transfer using Rhinestone’s `ScheduledTransfers` module:
 ```typescript
-// from ./examples/lib/ScheduledTransfers.ts
+// from ../../../examples/erc-7579/lib/ScheduledTransfers.ts
 ```
 
 This file contains two functions:
@@ -115,7 +115,7 @@ touch ScheduledTransferForm.tsx
 Add the following code to `ScheduledTransferForm.tsx`:
 
 ```tsx
-// from ./examples/components/ScheduledTransferForm.tsx
+// from ../../../examples/erc-7579/components/ScheduledTransferForm.tsx
 ```
 
 This component will detect whether the Safe has the module installed, and allow the user to input the amount, receiver address, and date and time for the scheduled transfer.
@@ -123,7 +123,7 @@ This component will detect whether the Safe has the module installed, and allow 
 Now, edit `app/page.tsx` to include the `ScheduledTransferForm` component:
 
 ```tsx
-// from ./examples/app/page.tsx
+// from ../../../examples/erc-7579/app/page.tsx
 ```
 
 ## 5. Add styling (optional)
@@ -131,7 +131,7 @@ Now, edit `app/page.tsx` to include the `ScheduledTransferForm` component:
 We can add some styling to our app by editing the contents of `layout.tsx` in `app` folder:
 
 ```tsx
-// from ./examples/app/layout.tsx
+// from ../../../examples/erc-7579/app/layout.tsx
 ```
 
 This will add some basic styling to the app, including a header. You can also add some custom CSS to `globals.css` in the same folder:
