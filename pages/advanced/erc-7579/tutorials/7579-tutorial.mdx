@@ -105,9 +105,13 @@ Add the code necessary to create a scheduled transfer using Rhinestone's `Schedu
 
 This file contains two functions:
 - `install7579Module` will install the module to a Safe and schedule its first transfer; 
-- `scheduleTransfer` to schedule transfers in a Safe where the module has been previously installed.
+- `scheduleTransfer` to schedule subsequent transfers in a Safe where the module has been previously installed.
 
-## 4. Add simple UI
+In the UI, we can then detect whether the Safe has the module installed when a user tries to schedule a transfer. If not, it will run `install7579Module`; and if it does, it will run `scheduleTransfer`.
+
+For brevity, we are only covering a simple use case of the `ScheduledTransfers` module. You can find more information about the module's functionalities in the [Rhinestone documentation](https://docs.rhinestone.wtf/module-sdk/modules/scheduled-transfers), such as the capacity to schedule recurring transfers, with a pre-determined number of repeats.
+
+## 4. Add UI components
 
 Now that we have the logic necessary to set up a safe and schedule a transfer, let's create a simple UI to interact with it. Create a new file `ScheduledTransferForm.tsx` in the `components` folder:
 
@@ -124,7 +128,7 @@ Add the following code to `ScheduledTransferForm.tsx`:
 // from ../../../../examples/erc-7579/components/ScheduledTransferForm.tsx
 ```
 
-This component will detect whether the Safe has the module installed and allow the user to input the amount, receiver address, and date and time for the scheduled transfer.
+This component will detect whether the Safe has the module installed, and then allow the user to input the amount, receiver address, and date and time for the scheduled transfer.
 
 Now, edit `app/page.tsx` to include the `ScheduledTransferForm` component:
 
