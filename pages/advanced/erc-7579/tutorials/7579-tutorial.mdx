@@ -1,22 +1,24 @@
-# **How to build an app with Safe and 7579**
+import { Callout } from 'nextra/components'
+
+# **How to build an app with Safe and ERC-7579**
 
 The smart account ecosystem was fragmented, with each provider building its own modules often incompatible with other smart account implementations. Developers had to build new modules compatible with their smart accounts or miss out on essential application features.
 
-[ERC-7579](https://docs.safe.global/advanced/erc-7579/overview) aims to ensure interoperability across implementations. It defines the account interface so developers can implement modules for all smart accounts that follow this standard. The Safe7579 Adapter makes your Safe compatible with any 7579 modules. As a developer building with Safe, you get access to a rich ecosystem of modules to make your application feature-rich.
+[ERC-7579](https://docs.safe.global/advanced/erc-7579/overview) aims to ensure interoperability across implementations. It defines the account interface so developers can implement modules for all smart accounts that follow this standard. The Safe7579 Adapter makes your Safe compatible with any ERC-7579 modules. As a developer building with Safe, you get access to a rich ecosystem of modules to make your application feature-rich.
 
-Let's say you want to build an app to enable scheduling transfers for monthly salaries to a team of contributors. However, Safe does not offer a native module for scheduling transfers. With the 7579 compatibility, you can use Rhinestone's [Scheduled Transfer module](https://github.com/rhinestonewtf/core-modules/blob/main/src/ScheduledTransfers/ScheduledTransfers.sol) with Safe to build an app to schedule transfers ahead of time.
+Let's say you want to build an app to enable scheduling transfers for monthly salaries to a team of contributors. However, Safe does not offer a native module for scheduling transfers. With the ERC-7579 compatibility, you can use Rhinestone's [Scheduled Transfer module](https://docs.rhinestone.wtf/module-sdk/modules/scheduled-transfers) with Safe to build an app to schedule transfers ahead of time.
 
 This tutorial will teach you to build an app that can:
 
-- Deploy a 7579-enabled Safe.
+- Deploy an ERC-7579-compatible Safe Smart Account.
 - Create a scheduled transaction.
 - Execute it at the requested date and time.
 
 ![screenshot](../../../../assets/7579-tutorial.png)
 
-## What you’ll need
+## Prerequisites
 
-**Prerequisite knowledge:** You will need some basic experience with [React](https://react.dev/learn), [Next.js](https://nextjs.org/docs), [ERC-4337](https://docs.safe.global/home/4337-overview) and ERC-7579.
+**Prerequisite knowledge:** You will need some basic experience with [React](https://react.dev/learn), [Next.js](https://nextjs.org/docs), [ERC-4337](https://docs.safe.global/home/4337-overview) and [ERC-7579](https://docs.safe.global/advanced/erc-7579/overview).
 
 Before progressing with the tutorial, please make sure you have:
 
@@ -40,7 +42,11 @@ When prompted by the CLI:
 
 ### **Install dependencies**
 
-For this project, we'll use Pimlico's [Permissionless.js](https://docs.pimlico.io/permissionless) to set up a Safe, Rhinestone's [Module SDK](https://docs.rhinestone.wtf/module-sdk) for ERC-7579 functionalities, and [viem](https://www.npmjs.com/package/viem) for some helper functions.
+For this project, we'll use Pimlico's [Permissionless.js](https://docs.pimlico.io/permissionless) to set up a Safe and interact with it, Rhinestone's [Module SDK](https://docs.rhinestone.wtf/module-sdk) to install and use core modules, and [viem](https://www.npmjs.com/package/viem) for some helper functions.
+
+<Callout type='warning' emoji='⚠️'>
+  As of now, `permissionless.js` can only be used to deploy single-signer Safe accounts. Multi-signature ERC-7579 Safes will be coming soon.
+</Callout>
 
 Run the following command to add all these dependencies to the project:
 
@@ -68,7 +74,7 @@ Go to `http://localhost:3000` in your browser to see the default Next.js applica
 
 ## 2. Initialize `permissionless` client
 
-Create a `lib` folder at project root, and add a file `permissionless.ts`:
+Create a `lib` folder at the project root, and add a file `permissionless.ts`:
 
 ```shell
 mkdir lib
@@ -76,13 +82,13 @@ cd lib
 touch permissionless.ts
 ```
 
-Add the code necessary to create Pimlico’s `smartAccountClient` by adding this content to `permissionless.ts` :
+Add the code necessary to create Pimlico's `smartAccountClient` by adding this content to `permissionless.ts` :
 
 ```typescript
 // from ../../../../examples/erc-7579/lib/permissionless.ts
 ```
 
-It will load a `PRIVATE_KEY` from `.env.local` (or generate one if it doesn’t exist) and then create the `publicClient`, `paymasterClient` and `bundlerClient` necessary to initialize the `permissionless` library. It then creates a 7579-enabled Safe Smart Account from the generated private key, before passing it to `createSmartAccountClient` to generate a Permissionless client.
+It will load a `PRIVATE_KEY` from `.env.local` (or generate one if it doesn't exist) and then create the `publicClient`, `paymasterClient` and `bundlerClient` necessary to initialize the `permissionless` library. It then creates an ERC-7579-compatible Safe Smart Account from the generated private key before passing it to `createSmartAccountClient` to generate a Permissionless client.
 
 ## 3. Add Rhinestone module functionality
 
@@ -92,7 +98,7 @@ Create a new file `scheduledTransfers.ts` in the `lib` folder:
 touch scheduledTransfers.ts
 ```
 
-Add the code necessary to create a scheduled transfer using Rhinestone’s `ScheduledTransfers` module:
+Add the code necessary to create a scheduled transfer using Rhinestone's `ScheduledTransfers` module:
 ```typescript
 // from ../../../../examples/erc-7579/lib/scheduledTransfers.ts
 ```
@@ -118,7 +124,7 @@ Add the following code to `ScheduledTransferForm.tsx`:
 // from ../../../../examples/erc-7579/components/ScheduledTransferForm.tsx
 ```
 
-This component will detect whether the Safe has the module installed, and allow the user to input the amount, receiver address, and date and time for the scheduled transfer.
+This component will detect whether the Safe has the module installed and allow the user to input the amount, receiver address, and date and time for the scheduled transfer.
 
 Now, edit `app/page.tsx` to include the `ScheduledTransferForm` component:
 
@@ -167,28 +173,28 @@ button:disabled {
 }
 ```
 
-## **Testing your Safe 7579 app**
+## **Testing your app**
 
-That's it! You can find the source code for the example created in this tutorial [on GitHub](https://github.com/5afe/safe-7559-tutorial). You can now return to your browser and see the app displayed 🎉.
+That's it! You can find the source code for the example created in this tutorial [on GitHub](https://github.com/5afe/safe-7559-tutorial). You can now return to your browser and see the app displayed.
 
 ![screenshot-finalized](../../../../assets/7579-tutorial-2.png)
 
-Click the **Create Safe** button to initialize Permissionless' client with the private key you stored on `.env.local`. It will deploy an ERC-7579-enabled Safe on its first transaction.
+Click the **Create Safe** button to initialize the Permissionless client with the private key you stored on `.env.local`. It will deploy an ERC-7579-compatible Safe Smart Account on its first transaction.
 
 ![screenshot](../../../../assets/7579-tutorial.png)
 
-Once loaded, you will be able to chose an amount to send, a receiver address and select a date and time for your scheduled payment. Click **Schedule Transfer** to send the transaction. The first time you do this, it will deploy the Safe to Sepolia test network and install the ERC-7579 compatible ScheduledTransfers module.
+Once loaded, you will be able to choose an amount to send, a receiver address and select a date and time for your scheduled payment. Click **Schedule Transfer** to send the transaction. The first time you do this, it will deploy the Safe to Sepolia test network and install the ScheduledTransfers module.
 
-## **Do more with Safe and 7579**
+## **Do more with Safe and ERC-7579**
 
-Today, we learned how to deploy a 7579-enabled Safe and use a 7579-compatible module, the Scheduled Transfer from Rhinestone. We hope you enjoyed this tutorial and that the combination of Safe and 7579 will allow you to tap into new functionalities for your decentralized apps.
+We learned how to deploy an ERC-7579-compatible Safe Smart Account and use an ERC-7579-compatible module, the Scheduled Transfer from Rhinestone. We hope you enjoyed this tutorial and that the combination of Safe and 7579 will allow you to tap into new functionalities for your decentralized apps.
 
-As a next step, you can add more functionalities to your app using other [7579-compatible modules](https://docs.rhinestone.wtf/module-sdk/modules/ownable-validator). Here are some ideas:
+As a next step, you can add more functionalities to your app using other [ERC-7579-compatible modules](https://docs.rhinestone.wtf/module-sdk/modules/ownable-validator). Here are some ideas:
 
 - [Create a dead man switch](https://docs.rhinestone.wtf/module-sdk/modules/deadman-switch) in case your account becomes inactive after a certain amount of time.
 - Add [multi-factor validation](https://docs.rhinestone.wtf/module-sdk/modules/mfa-validator) to your Smart Account.
-- [Designate an owner](https://docs.rhinestone.wtf/module-sdk/modules/ownable-executor) that can act on your behalf for executing transactions and pay for gas.
+- [Designate an owner](https://docs.rhinestone.wtf/module-sdk/modules/ownable-executor) that can act on your behalf for executing transactions and paying for gas.
 
-You can also find more inspiration on this list of [awesome 7579 modules](https://github.com/rhinestonewtf/awesome-modular-accounts?tab=readme-ov-file#modules). You can also read more about this ERC in our [overview](https://docs.safe.global/advanced/erc-7579/overview) or in the [official documentation](https://erc7579.com/).
+You can also find more inspiration on this list of [ERC-7579 modules](https://erc7579.com/modules). You can also read more about this ERC in our [overview](https://docs.safe.global/advanced/erc-7579/overview) or in the [official documentation](https://erc7579.com/).
 
 Did you encounter any difficulties? Let us know by opening [an issue](https://github.com/5afe/safe-7559-tutorial/issues/new) or asking a question on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the `safe-core` tag.
