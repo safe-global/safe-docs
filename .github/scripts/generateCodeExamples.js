@@ -4,7 +4,7 @@ const repos = [
   {
     organization: '5afe',
     repo: 'safe-passkeys-tutorial',
-    destination: './pages/home/passkeys-tutorials/examples',
+    destination: './examples/passkeys',
     branch: 'main',
     files: [
       '/lib/constants.ts',

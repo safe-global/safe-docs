@@ -76,7 +76,7 @@ touch constants.ts
 Add the following code to the `constants.ts` file:
 
 ```tsx
-// from ./examples/lib/constants.ts
+// from ../../../examples/passkeys/lib/constants.ts
 ```
 
 In the same `lib` folder, create a `utils.ts` file:
@@ -88,7 +88,7 @@ touch utils.ts
 Add the following code to the `utils.ts` file:
 
 ```tsx
-// from ./examples/lib/utils.ts
+// from ../../../examples/passkeys/lib/utils.ts
 ```
 
 This file contains two utilities for manipulating passkey objects from the native [`navigator.credentials`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/credentials) API:
@@ -112,7 +112,7 @@ This file will contain all the logic required to operate passkey:
 **Note:** You can also store the passkeys on a remote database or the user's device.
 
 ```tsx
-// from ./examples/lib/passkeys.ts
+// from ../../../examples/passkeys/lib/passkeys.ts
 ```
 
 In this file, we have four functions:
@@ -134,7 +134,7 @@ touch usdc.ts
 Add the following code to the `usdc.ts` file:
 
 ```tsx
-// from ./examples/lib/usdc.ts
+// from ../../../examples/passkeys/lib/usdc.ts
 ```
 
 With this configuration, a new Safe will be created (but not yet deployed) when a passkey is selected. This Safe will be deployed when its first transaction is executed.
@@ -157,7 +157,7 @@ touch PasskeyList.tsx
 Add the following code to the `PasskeyList.tsx` file:
 
 ```tsx
-// from ./examples/components/PasskeyList.tsx
+// from ../../../examples/passkeys/components/PasskeyList.tsx
 ```
 
 This component displays a list of previously created passkeys and a button for creating new ones.
@@ -165,7 +165,7 @@ This component displays a list of previously created passkeys and a button for c
 Lastly, replace the content of the `page.tsx` file, within the `app` folder, with this code:
 
 ```tsx
-// from ./examples/app/page.tsx
+// from ../../../examples/passkeys/app/page.tsx
 ```
 
 This UI will put everything we built in the previous steps into a coherent application with all the functionality required to let you create a passkey, select it, and use it to sign a transaction.
@@ -177,7 +177,7 @@ Because a web app is nothing without good styling, let's add some Safe design to
 Still within the `app` folder, replace the existing content of the file `layout.tsx` with this code:
 
 ```tsx
-// from ./examples/app/layout.tsx
+// from ../../../examples/passkeys/app/layout.tsx
 ```
 
 In the same folder, add some margin to the titles, by adding this code at the end of the `globals.css` file:
