@@ -353,14 +353,14 @@ const EventsPage: React.FC = () => {
               flexDirection='column'
               sx={{
                 width: ['100%', '100%', 'calc(33.3% - 48px)'],
-                height: ['auto', 'auto', '100%'],
+                height: '100%',
                 p: 6,
                 border: 'solid 1px',
                 borderColor: ({ palette }) => palette.primary.main,
                 borderRadius: '8px'
               }}
             >
-              <Box height='50%'>
+              <Box height={['100px', '100px', '300px']}>
                 <TrophyIcon style={{ width: '50px', height: '50px' }} />
               </Box>
               <Typography className={css.heading2} mt={[12, 12, 0]}>
@@ -399,6 +399,7 @@ const EventsPage: React.FC = () => {
                     borderColor: ({ palette }) => palette.border.light,
                     borderRadius: '8px'
                   }}
+                  justifyContent='space-between'
                 >
                   <Typography sx={{ mb: '160px' }} className={css.heading2}>
                     7579 Quickstart with Permissionless.js

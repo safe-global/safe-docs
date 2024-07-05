@@ -25,21 +25,26 @@ const Bounty: React.FC<{
       borderRadius: '8px',
       mt: ['30px', '0px']
     }}
+    justifyContent='space-between'
   >
-    {icon}
-    <Typography sx={{ mt: '30px' }} className={css.heading3}>
-      {name}
-    </Typography>
-    <Typography color='text.dark' sx={{ my: '40px' }} className={css.body}>
-      {description}
-    </Typography>
+    <Grid item>
+      {icon}
+      <Typography sx={{ mt: '30px' }} className={css.heading3}>
+        {name}
+      </Typography>
+      <Typography color='text.dark' sx={{ my: '40px' }} className={css.body}>
+        {description}
+      </Typography>
+    </Grid>
     <Typography className={css.heading3}>{prize}</Typography>{' '}
     {link != null && (
-      <Link href={link} target='_blank' rel='noopener noreferrer'>
-        <Typography className={css.link} sx={{ mt: '20px' }}>
-          {linkLabel} {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
-        </Typography>
-      </Link>
+      <Grid item alignItems='flex-end'>
+        <Link href={link} target='_blank' rel='noopener noreferrer'>
+          <Typography className={css.link} sx={{ mt: '20px' }}>
+            {linkLabel} {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
+          </Typography>
+        </Link>
+      </Grid>
     )}
   </Grid>
 )
