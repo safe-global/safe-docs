@@ -65,7 +65,7 @@ export default function RootLayout ({
           <h1>Schedule Transfers</h1>
 
           <div>
-            Create a new 7579 compatible Safe Account and use it to schedule
+            Create a new ERC-7579-compatible Safe Smart Account and use it to schedule
             transactions.
           </div>
         </div>

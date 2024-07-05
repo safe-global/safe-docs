@@ -15,6 +15,19 @@ const repos = [
       '/app/page.tsx',
       '/app/layout.tsx'
     ]
+  },
+  {
+    organization: '5afe',
+    repo: 'safe-7579-tutorial',
+    destination: './examples/erc-7579',
+    branch: 'main',
+    files: [
+      '/lib/permissionless.ts',
+      '/lib/scheduledTransfers.ts',
+      '/components/ScheduledTransferForm.tsx',
+      '/app/page.tsx',
+      '/app/layout.tsx'
+    ]
   }
 ]
 
@@ -27,7 +40,7 @@ const generateCodeExamples = async ({
 }) => {
   const fetch = await import('node-fetch')
   files.forEach(async filePath => {
-    const url = `https://raw.githubusercontent.com/${organization}/${repo}/${branch}${filePath}`
+    const url = `https://raw.githubusercontent.com/${organization}/${repo}/${branch}${filePath}?token=$(date +%s)`
     await fetch
       .default(url)
       .then(async res => {

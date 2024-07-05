@@ -1,7 +1,10 @@
 import {
   getScheduledTransactionData,
+  getInstallScheduledTransfersExecutor,
   getCreateScheduledTransferAction
 } from '@rhinestone/module-sdk'
+
+import { SafeSmartAccountClient } from './permissionless'
 
 export interface ScheduledTransferDataInput {
   startDate: number
@@ -16,7 +19,7 @@ export const scheduledTransfersModuleAddress =
 const sepoliaUSDCTokenAddress = '0x94a9d9ac8a22534e3faca9f4e7f2e2cf85d5e4c8'
 
 export const install7579Module = async (
-  safe: any,
+  safe: SafeSmartAccountClient,
   scheduledTransferInput: ScheduledTransferDataInput
 ) => {
   const { startDate, repeatEvery, numberOfRepeats, amount, recipient } =
@@ -33,23 +36,33 @@ export const install7579Module = async (
     recipient
   }
 
-  const scheduledTransactionData = getScheduledTransactionData({
+  const executionData = getScheduledTransactionData({
     scheduledTransaction
   })
+
+  const scheduledTransfersModule = getInstallScheduledTransfersExecutor({
+    executeInterval: repeatEvery,
+    numberOfExecutions: numberOfRepeats,
+    startDate,
+    executionData
+  })
+
   const txHash = await safe.installModule({
     type: 'executor',
     address: scheduledTransfersModuleAddress,
-    context: scheduledTransactionData
+    context: scheduledTransfersModule.data as `0x${string}`
   })
 
   console.log(
     'Scheduled transfers module is being installed: https://sepolia.etherscan.io/tx/' +
       txHash
   )
+
+  return txHash
 }
 
 export const scheduleTransfer = async (
-  safe: any,
+  safe: SafeSmartAccountClient,
   scheduledTransferInput: ScheduledTransferDataInput
 ) => {
   const { startDate, repeatEvery, numberOfRepeats, amount, recipient } =
