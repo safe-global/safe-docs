@@ -88,7 +88,13 @@ Add the code necessary to create Pimlico's `smartAccountClient` by adding this c
 // from ../../../../examples/erc-7579/lib/permissionless.ts
 ```
 
-It will load a `PRIVATE_KEY` from `.env.local` (or generate one if it doesn't exist) and then create the `publicClient`, `paymasterClient` and `bundlerClient` necessary to initialize the `permissionless` library. It then creates an ERC-7579-compatible Safe Smart Account from the generated private key before passing it to `createSmartAccountClient` to generate a Permissionless client.
+It will:
+- Load a `PRIVATE_KEY` from `.env.local` (or generate one if it doesn't exist);
+- Ceate the `publicClient`, `paymasterClient` and `bundlerClient` necessary to initialize the `permissionless` library;
+- Create an ERC-7579-compatible Safe Smart Account from the generated private key 
+- Pass the Safe Smart Account object to `createSmartAccountClient` to generate a Permissionless client.
+
+We can then call `getSmartAccountClient()` wherever we need to interact with the Safe via Pimlico.
 
 ## 3. Add Rhinestone module functionality
 
@@ -128,7 +134,7 @@ Add the following code to `ScheduledTransferForm.tsx`:
 // from ../../../../examples/erc-7579/components/ScheduledTransferForm.tsx
 ```
 
-This component will detect whether the Safe has the module installed, and then allow the user to input the amount, receiver address, and date and time for the scheduled transfer.
+This component will provide a form to allow the user to input the amount, receiver address, and date and time for the scheduled transfer. It will detect whether the Safe has the module installed, and then call either `install7579Module` or `scheduleTransfer` from the `scheduledTransfers.ts` file.
 
 Now, edit `app/page.tsx` to include the `ScheduledTransferForm` component:
 
@@ -185,7 +191,7 @@ That's it! You can find the source code for the example created in this tutorial
 
 Click the **Create Safe** button to initialize the Permissionless client with the private key you stored on `.env.local`. It will deploy an ERC-7579-compatible Safe Smart Account on its first transaction.
 
-![screenshot](../../../../assets/7579-tutorial.png)
+![screenshot](../../../../assets/7579-tutorial-3.png)
 
 Once loaded, you will be able to choose an amount to send, a receiver address and select a date and time for your scheduled payment. Click **Schedule Transfer** to send the transaction. The first time you do this, it will deploy the Safe to Sepolia test network and install the ScheduledTransfers module.
 
