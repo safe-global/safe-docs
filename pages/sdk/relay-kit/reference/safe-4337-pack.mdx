@@ -20,7 +20,6 @@ The `Safe4337Pack` class make easy to use the [Safe 4337 Module](https://github.
 const safe4337Pack = await Safe4337Pack.init({
   provider,
   signer,
-  rpcUrl,
   bundlerUrl,
   safeModulesVersion,
   customContracts,
@@ -42,7 +41,6 @@ Safe4337InitOptions = {
   provider: Eip1193Provider | HttpTransport | SocketTransport
   signer?: HexAddress | PrivateKey | PasskeyArgType
   bundlerUrl: string
-  rpcUrl: string
   safeModulesVersion?: string
   customContracts?: {
     entryPointAddress?: string
