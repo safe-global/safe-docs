@@ -64,12 +64,13 @@ const ScheduledTransferForm: React.FC<{ safe: SafeSmartAccountClient }> = ({
           />
         </div>
         <div>
-          <label htmlFor='amount'>Amount:</label>
+          <label htmlFor='amount'>Amount (integer):</label>
           <input
             style={{ marginLeft: '20px' }}
             id='amount'
             type='number'
             placeholder='1'
+            min='0'
             onChange={e => setAmount(Number(e.target.value))}
             value={amount}
           />
