@@ -1,46 +1,45 @@
 {
   "name": "ETHGlobal Brussels",
-  "start": "2019-03-29T00:00:00Z",
-  "end": "2019-03-31T00:00:00Z",
+  "start": "2024-07-12T00:00:00Z",
+  "end": "2024-07-14T00:00:00Z",
   "venue": {
     "name": "The Egg",
     "address": "Rue Bara 175, 1070 Anderlecht, Belgium",
     "booth": "You can ask the exact location of our booth at the entrance of the event."
   },
-  "url": "https://ethglobal.co/brussels",
-  "description": "ETHGlobal is coming to Brussels! Join us for a weekend of building and learning about the decentralized web.",
+  "url": "https://ethglobal.com/events/brussels",
   "bounties": [
     {
-      "name": "ERC-4337",
-      "description": "Build a decentralized application that uses the ERC-4337 standard.",
+      "name": "🚀 Best app integrating ERC-7579 Safe Smart Accounts",
+      "description": "Build an application that supports Safe accounts v1.4.1, integrates Pimlico's permissionless.js, Rhinestone's ModuleKit, and uses the Safe7579Adapter.",
       "prize": {
-        "value": 1000,
+        "value": 4000,
         "currency": "$"
       }
     },
     {
-      "name": "Passkeys",
-      "description": "Build a decentralized application that uses the Passkeys standard",
+      "name": "🔑 Best app integrating Passkeys with the Safe Smart Account",
+      "description": "Build an application that integrates Passkeys using the Safe{Core} SDK.",
       "prize": {
-        "value": 500,
+        "value": 4000,
         "currency": "$"
       }
     },
     {
-      "name": "ERC-7579",
-      "description": "Build a decentralized application that uses the ERC-7579 standard.",
+      "name": "🃏 Best app integrating Safe (wildcard)",
+      "description": "Build any useful application with Safe users in mind. There are no limitations on the idea or technologies used.",
       "prize": {
-        "value": 1000,
+        "value": 2000,
         "currency": "$"
       }
     }
   ],
   "workshops": [
     {
-      "title": "Introduction to Ethereum",
-      "location": "Workshop Room 1",
-      "start": "2019-03-29T10:00:00Z",
-      "end": "2019-03-29T11:00:00Z",
+      "title": "Integrating Passkeys with the Safe Smart Account",
+      "location": "Workshop Room 4",
+      "start": "2024-07-12T12:40:00Z",
+      "end": "2024-07-12T13:10:00Z",
       "speaker": "Germán Martinez"
     }
   ],
