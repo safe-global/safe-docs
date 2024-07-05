@@ -19,7 +19,7 @@ const TeamMember: React.FC<{
       border: 'solid 1px',
       borderColor: ({ palette }) => palette.border.light,
       borderRadius: '8px',
-      mt: ['30px', '0px']
+      mt: ['30px', '30px', '0px']
     }}
   >
     <Img

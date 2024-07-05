@@ -37,8 +37,12 @@ import css from './styles.module.css'
 import { type Theme, useMediaQuery } from '@mui/material'
 
 const EventsPage: React.FC = () => {
-  const isSmOrBigger = useMediaQuery((theme: Theme) =>
+  const isBiggerThanXs = useMediaQuery((theme: Theme) =>
     theme.breakpoints.up('sm')
+  )
+
+  const isBiggerThanMd = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.up('lg')
   )
   const [expanded, setExpanded] = useState<number | null>(0)
 
@@ -48,24 +52,24 @@ const EventsPage: React.FC = () => {
     }
 
   return (
-    <>
-      <Grid container justifyContent='space-between' display={['none', 'flex']}>
+    <Box width='100%' overflow='hidden'>
+      <Grid container justifyContent='space-between'>
         <Ellipse1 />
-        <Ellipse2 />
+        <Ellipse2 style={{ position: 'absolute', right: 0 }} />
       </Grid>
       <Grid
         container
         sx={{
-          background: ['unset', 'url(./event-background.png)'],
+          background: 'url(./event-background.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          height: ['auto', '100vh'],
+          height: '100vh',
           display: 'flex',
           justifyContent: 'center',
           mb: '200px',
-          position: ['relative', 'fixed'],
+          position: 'fixed',
           top: 0,
-          zIndex: [0, -1]
+          zIndex: [-1]
         }}
       >
         <Grid
@@ -218,46 +222,63 @@ const EventsPage: React.FC = () => {
           </Link>
         </Grid>
       </Grid>
-      <Grid container alignItems='center' flexDirection='column' mt='100px'>
-        <Grid container sx={{ maxWidth: '1440px', px: '30px' }}>
+      <Grid container alignItems='center' flexDirection='column' mt='200px'>
+        <Grid
+          container
+          alignItems='flex-start'
+          justifyContent='space-between'
+          position='relative'
+          sx={{ maxWidth: ['100%', '1440px'], px: '30px', mb: 10 }}
+        >
           <Grid
             container
-            justifyContent='space-between'
-            flexDirection={['column-reverse', 'row']}
+            flexDirection='column'
+            width={['100%', '400px', '800px']}
+            overflow='hidden'
           >
+            <Typography
+              variant='caption'
+              sx={{ mt: [0, '100px'] }}
+              className={css.caption}
+            >
+              Workshops
+            </Typography>
+            <Typography variant='h2' className={css.heading}>
+              Hands-on insights directly from our engineers
+            </Typography>
+          </Grid>
+          {isBiggerThanXs && (
             <Grid
               item
               container
-              width={['100%', 'calc(100% - 650px)']}
-              flexDirection='column'
-              justifyContent='center'
+              sx={{
+                width: [0, '500px', '600px'],
+                overflow: 'hidden',
+                position: 'absolute',
+                top: [0, -50, -100, -150],
+                right: [0, -150, -230, -50]
+              }}
             >
-              <Typography
-                variant='caption'
-                sx={{ mt: [0, '100px'] }}
-                className={css.caption}
-              >
-                Workshops
-              </Typography>
-              <Typography variant='h2' className={css.heading}>
-                Hands-on insights directly from our engineers
-              </Typography>
-            </Grid>
-            {isSmOrBigger ? (
               <Img
-                width={600}
+                width={isBiggerThanMd ? 600 : 500}
                 src={DevStar}
                 alt='dev-star'
-                style={{ marginRight: '-80px' }}
               />
-            ) : (
-              <Box sx={{ width: '100%', overflow: 'hidden', my: '-100px' }}>
-                <Box sx={{ width: '1000px' }}>
-                  <Img objectFit='contain' src={DevStar} alt='dev-star' />
-                </Box>
+            </Grid>
+          )}
+          {!isBiggerThanXs && (
+            <Grid
+              container
+              justifyContent='flex-end'
+              sx={{ width: '100%', overflow: 'hidden', my: '-100px' }}
+            >
+              <Box sx={{ width: '200%', mr: -10 }}>
+                <Img objectFit='contain' src={DevStar} alt='dev-star' />
               </Box>
-            )}
-          </Grid>
+            </Grid>
+          )}
+        </Grid>
+        <Grid container sx={{ maxWidth: '1440px', px: '30px' }}>
           <Grid container alignContent='flex-end' flexDirection='column'>
             <Grid container width={['100%', '70%']}>
               {eventData.workshops.map((workshop, index) => (
@@ -277,7 +298,7 @@ const EventsPage: React.FC = () => {
               <Grid
                 container
                 justifyContent='space-between'
-                flexDirection={['column', 'row']}
+                flexDirection={['column', 'column', 'row']}
                 mt={4}
               >
                 {eventData.team.map((member, index) => (
@@ -290,6 +311,7 @@ const EventsPage: React.FC = () => {
                     }
                     width={[
                       '100%',
+                      '100%',
                       `calc(${(1 / eventData.team.length) * 100}% - 20px)`
                     ]}
                   />
@@ -300,7 +322,7 @@ const EventsPage: React.FC = () => {
           <Grid
             item
             container
-            width={['100%', 'calc(100% - 450px)']}
+            width={['100%', '100%', 'calc(100% - 450px)']}
             flexDirection='column'
             justifyContent='center'
           >
@@ -330,8 +352,8 @@ const EventsPage: React.FC = () => {
               container
               flexDirection='column'
               sx={{
-                width: ['100%', 'calc(33.3% - 48px)'],
-                height: ['auto', '100%'],
+                width: ['100%', '100%', 'calc(33.3% - 48px)'],
+                height: ['auto', 'auto', '100%'],
                 p: 6,
                 border: 'solid 1px',
                 borderColor: ({ palette }) => palette.primary.main,
@@ -341,7 +363,7 @@ const EventsPage: React.FC = () => {
               <Box height='50%'>
                 <TrophyIcon style={{ width: '50px', height: '50px' }} />
               </Box>
-              <Typography className={css.heading2}>
+              <Typography className={css.heading2} mt={[12, 12, 0]}>
                 Safe Hackathon Success Guide
               </Typography>
               <Typography sx={{ my: '40px' }} className={css.body}>
@@ -361,7 +383,8 @@ const EventsPage: React.FC = () => {
               item
               container
               flexDirection='column'
-              width={['100%', '66.6%']}
+              mt={[10, 6, 0]}
+              width={['100%', '100%', '66.6%']}
               height='100%'
             >
               <Grid item container justifyContent='space-between'>
@@ -428,7 +451,7 @@ const EventsPage: React.FC = () => {
                   borderRadius: '8px'
                 }}
               >
-                <Typography className={css.heading2}>
+                <Typography className={css.heading2} mb={[20, 0]}>
                   Getting started with ERC-4337 and Safe
                 </Typography>
                 <Link
@@ -488,12 +511,10 @@ const EventsPage: React.FC = () => {
           container
           justifyContent='space-between'
           alignItems='center'
-          mt='-300px'
-          mb='-1100px'
-          display={['none', 'flex']}
+          position='relative'
         >
-          <Ellipse3 style={{ marginTop: '-400px' }} />
-          <Ellipse4 />
+          <Ellipse3 style={{ position: 'absolute' }} />
+          <Ellipse4 style={{ position: 'absolute', right: 0, top: 100 }} />
         </Grid>
         <Grid container sx={{ maxWidth: '1440px', px: '30px' }}>
           <Grid container justifyContent='space-between'>
@@ -579,7 +600,7 @@ const EventsPage: React.FC = () => {
           </Grid>
         </Grid>
       </Grid>
-    </>
+    </Box>
   )
 }
 
