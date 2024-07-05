@@ -127,14 +127,18 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     </Tabs.Tab>
     <Tabs.Tab>
       ```python
-      # Add Owner B as a delegate of Owner A for all Safes accounts (safeAddress = null)
+      # Add Owner B as a delegate of Owner A for all Safes accounts (safe_address = null)
       account_owner_a = Account.from_key(config.get("OWNER_A_PRIVATE_KEY"))
       account_owner_b = Account.from_key(config.get("OWNER_B_PRIVATE_KEY"))
+      
+      hash_to_sign = transaction_service_api.create_delegate_message_hash(delegate_address=account_owner_b.address)
+      signature = account_owner_a.signHash(hash_to_sign)
+      
       transaction_service_api.add_delegate(
           delegate_address=ChecksumAddress(account_owner_b.address),
           delegator_address=ChecksumAddress(account_owner_a.address),
           label="Label",
-          signer_account=account_owner_a)
+          signature=signature.signature)
       ```
     </Tabs.Tab>
     <Tabs.Tab>
@@ -177,10 +181,13 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     </Tabs.Tab>
     <Tabs.Tab>
       ```python
+      hash_to_sign = transaction_service_api.create_delegate_message_hash(delegate_address=account_owner_b.address)
+      signature = account_owner_a.signHash(hash_to_sign)
+
       transaction_service_api.remove_delegate(
           delegate_address=ChecksumAddress(account_owner_b.address),
           delegator_address=ChecksumAddress(account_owner_a.address),
-          signer_account=account_owner_a)
+          signature=signature.signature)
       ```
     </Tabs.Tab>
     <Tabs.Tab>
