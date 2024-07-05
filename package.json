@@ -1,10 +1,11 @@
 {
-  "version": "4.8.6",
+  "version": "4.8.7",
   "description": "Safe docs",
   "scripts": {
     "build": "next build",
     "dev": "next dev",
     "generate-api-reference": "node .github/scripts/generateApiReference.js",
+    "generate-code-examples": "node .github/scripts/generateCodeExamples.js",
     "generate-supported-networks": "node .github/scripts/generateSupportedNetworks.js",
     "get-resources-og": "node .github/scripts/getResourcesOg.js",
     "validate-resources": "node .github/scripts/validateResources.js",
