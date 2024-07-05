@@ -9,7 +9,7 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.json'
   },
-  ignorePatterns: ['.eslintrc.js', 'next.config.js', 'next-env.d.ts', 'out'],
+  ignorePatterns: ['.eslintrc.js', 'next.config.js', 'next-env.d.ts', 'out', '**/examples/**'],
   rules: {
     '@typescript-eslint/key-spacing': 0,
     'multiline-ternary': 0,
