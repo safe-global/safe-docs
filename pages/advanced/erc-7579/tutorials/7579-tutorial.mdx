@@ -2,6 +2,10 @@ import { Callout } from 'nextra/components'
 
 # **How to build an app with Safe and ERC-7579**
 
+<Callout type='warning' emoji='⚠️'>
+  ERC-7579 support is still under development and should not be used in production environments. Please consider this tutorial and all the code examples in it a developer preview. 
+</Callout>
+
 The smart account ecosystem was fragmented, with each provider building its own modules often incompatible with other smart account implementations. Developers had to build new modules compatible with their smart accounts or miss out on essential application features.
 
 [ERC-7579](https://docs.safe.global/advanced/erc-7579/overview) aims to ensure interoperability across implementations. It defines the account interface so developers can implement modules for all smart accounts that follow this standard. The Safe7579 Adapter makes your Safe compatible with any ERC-7579 modules. As a developer building with Safe, you get access to a rich ecosystem of modules to make your application feature-rich.
