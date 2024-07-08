@@ -95,11 +95,12 @@ yarn add @safe-global/relay-kit
 
   {/* <!-- vale on --> */}
 
-  By default, the transaction fees will be paid in the native token and extracted from the Safe account, so there must be enough funds in the Safe address. However, depending on how we want the transactions to be paid, there are two other ways we can initialize the `Safe4337Pack`. 
+  By default, the transaction fees will be paid in the native token and extracted from the Safe account, so there must be enough funds in the Safe address. 
+  You can use also a paymaster to handle the fees, If you choose to use a paymaster, there are two other ways we can initialize the `Safe4337Pack`.
 
   {/* <!-- vale off --> */}
 
-  <Tabs items={['With an ERC-20 Paymaster', 'Sponsored by an ERC-20 Paymaster']}>
+  <Tabs items={['Using ERC-20 Paymaster', 'Using an verifying Paymaster (Sponsoring)']}>
     <Tabs.Tab>
       A paymaster will execute the transactions and get reimbursed from the Safe account, which must have enough funds in the Safe address in advance. 
       
