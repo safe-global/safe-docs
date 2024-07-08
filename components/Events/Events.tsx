@@ -64,13 +64,18 @@ const EventsPage: React.FC = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
           mb: '200px',
           position: 'fixed',
           top: 0,
-          zIndex: [-1]
+          zIndex: -1
         }}
+      />
+      <Grid
+        container
+        flexDirection='column'
+        alignItems='center'
+        position='fixed'
+        top={0}
       >
         <Grid
           container
@@ -148,7 +153,10 @@ const EventsPage: React.FC = () => {
                 </Typography>
               </div>
               <Link
-                href={eventData.url}
+                href={`https://google.com/maps/place/${eventData.venue.address.replace(
+                  ' ',
+                  '+'
+                )}`}
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -164,15 +172,15 @@ const EventsPage: React.FC = () => {
             alignItems='center'
             flexDirection='column'
             justifyContent='center'
-            sx={{ mt: ['60px', '200px'] }}
+            sx={{ mt: ['60px', '200px'], cursor: 'pointer' }}
+            onClick={() => {
+              window.scrollTo({
+                top: window.innerHeight + 100,
+                behavior: 'smooth'
+              })
+            }}
           >
-            <Link
-              href={eventData.url}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <Typography className={css.link}>Tracks and prizes</Typography>
-            </Link>
+            <Typography className={css.link}>Tracks and prizes</Typography>
             <ExpandMoreIcon sx={{ width: '16px' }} />
           </Grid>
         </Grid>
@@ -353,7 +361,7 @@ const EventsPage: React.FC = () => {
               flexDirection='column'
               sx={{
                 width: ['100%', '100%', 'calc(33.3% - 48px)'],
-                height: '100%',
+                height: ['auto', 'auto', '100%'],
                 p: 6,
                 border: 'solid 1px',
                 borderColor: ({ palette }) => palette.primary.main,
@@ -370,7 +378,7 @@ const EventsPage: React.FC = () => {
                 Learning materials, Previous Hackathon Winner and Ideas.
               </Typography>
               <Link
-                href={eventData.url}
+                href='https://safe-global.notion.site/Safe-Hackathon-Success-Guide-26ccbd7263ab44808d8f00106f35c2d7?pvs=74'
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -405,7 +413,7 @@ const EventsPage: React.FC = () => {
                     7579 Quickstart with Permissionless.js
                   </Typography>
                   <Link
-                    href={eventData.url}
+                    href='https://docs.safe.global/advanced/erc-7579/tutorials/7579-tutorial'
                     target='_blank'
                     rel='noopener noreferrer'
                   >
@@ -431,7 +439,7 @@ const EventsPage: React.FC = () => {
                     Build a full-stack app with Safe and Passkeys
                   </Typography>
                   <Link
-                    href={eventData.url}
+                    href='https://docs.safe.global/home/passkeys-tutorials/safe-passkeys-tutorial'
                     target='_blank'
                     rel='noopener noreferrer'
                   >
@@ -456,7 +464,7 @@ const EventsPage: React.FC = () => {
                   Getting started with ERC-4337 and Safe
                 </Typography>
                 <Link
-                  href={eventData.url}
+                  href='https://docs.safe.global/home/4337-safe'
                   target='_blank'
                   rel='noopener noreferrer'
                 >
@@ -513,6 +521,7 @@ const EventsPage: React.FC = () => {
           justifyContent='space-between'
           alignItems='center'
           position='relative'
+          zIndex={-1}
         >
           <Ellipse3 style={{ position: 'absolute' }} />
           <Ellipse4 style={{ position: 'absolute', right: 0, top: 100 }} />
@@ -641,7 +650,7 @@ const contactChannels = [
       eventData.name +
       '.',
     icon: <Discord />,
-    link: '???'
+    link: 'https://discord.com/invite/nrQVY2566v'
   },
   {
     name: 'Stack Exchange',
@@ -654,24 +663,24 @@ const contactChannels = [
 
 const faqs = [
   {
-    question: 'What is a Safe Smart Account?',
+    question: 'Who can participate?',
     answer:
-      'Compared to an externally owned account (EOA) which requires a seed phrase, a Safe Smart Account does not. It is a type of account that is programmable and much easier to manage. This allows you to customise your account with features such as multiple owners and transaction guards, to keep your crypto even more '
+      'Anyone with an interest in web3 technologies, blockchain, and decentralized applications can participate. This includes developers, designers, business strategists, and students from all around the world.'
   },
   {
-    question: 'Hey ABCD',
-    answer: 'aze is blabla'
+    question: 'How do I register?',
+    answer: 'You can register through the official website linked above. Simply fill out the registration form and join our community channels for updates.'
   },
   {
-    question: 'aze is ABCD',
-    answer: 'ABCD is blabla'
+    question: 'Is there an entry fee to participate?',
+    answer: 'No, participation is completely free of charge.'
   },
   {
-    question: 'dfdfg is ABCD',
-    answer: 'ABCD is blabla'
+    question: 'Do I need to have a team to participate?',
+    answer: 'You can participate either as an individual or as part of a team. If you don’t have a team, you can find team members through our community channels and team formation events.'
   },
   {
-    question: 'zrex is ABCD',
-    answer: 'ABCD is blabla'
+    question: 'Who can I contact for more information?',
+    answer: 'For any additional questions, please contact us on Discord or directly at our booth during the event. We are here to help!'
   }
 ]
