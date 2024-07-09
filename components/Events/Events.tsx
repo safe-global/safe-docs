@@ -1,26 +1,23 @@
-import { useState } from 'react'
 import Link from 'next/link'
 import Img from 'next/image'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import Accordion from '@mui/material/Accordion'
-import AccordionSummary from '@mui/material/AccordionSummary'
-import AccordionDetails from '@mui/material/AccordionDetails'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Add from '@mui/icons-material/Add'
-import Minimize from '@mui/icons-material/Minimize'
+import { type Theme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 import Bounty from './Bounty'
 import Workshop from './Workshop'
 import TeamMember from './TeamMember'
+// import FAQ from './FAQ'
+// import Survey from './Survey'
 import eventData from './event-data.json'
 import Gift from '../../assets/svg/gift.svg'
 import Building from '../../assets/svg/building.svg'
 import Layers from '../../assets/svg/layers.svg'
 import DevStar from '../../assets/diamond-bg.png'
-import DevDiamond from '../../assets/diamond-dev.png'
 import German from '../../assets/german.png'
 import Louis from '../../assets/louis.jpeg'
 import Valle from '../../assets/valle.jpg'
@@ -30,11 +27,8 @@ import Discord from '../../assets/svg/discord.svg'
 import StackExchange from '../../assets/svg/stack-exchange.svg'
 import Ellipse1 from '../../assets/svg/ellipse-1.svg'
 import Ellipse2 from '../../assets/svg/ellipse-2.svg'
-import Ellipse3 from '../../assets/svg/ellipse-3.svg'
-import Ellipse4 from '../../assets/svg/ellipse-4.svg'
 import type { TeamMemberType } from './types'
 import css from './styles.module.css'
-import { type Theme, useMediaQuery } from '@mui/material'
 
 const EventsPage: React.FC = () => {
   const isBiggerThanXs = useMediaQuery((theme: Theme) =>
@@ -44,12 +38,6 @@ const EventsPage: React.FC = () => {
   const isBiggerThanMd = useMediaQuery((theme: Theme) =>
     theme.breakpoints.up('lg')
   )
-  const [expanded, setExpanded] = useState<number | null>(0)
-
-  const handleChange =
-    (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : null)
-    }
 
   return (
     <Box width='100%' overflow='hidden'>
@@ -91,11 +79,11 @@ const EventsPage: React.FC = () => {
           <Typography className={css.body} sx={{ mt: '50px' }}>
             We proudly support this event by sponsoring{' '}
             {eventData.bounties.length} submission tracks for a total of{' '}
-            {eventData.bounties.reduce(
-              (acc, curr) => acc + curr.prize.value,
-              0
-            )}
-            {eventData.bounties[0].prize.currency}.
+            {eventData.bounties[0].prize.currency}
+            {eventData.bounties
+              .reduce((acc, curr) => acc + curr.prize.value, 0)
+              .toLocaleString()}
+            .
           </Typography>
           <Grid container flexDirection={['column', 'row']}>
             <Grid
@@ -217,7 +205,9 @@ const EventsPage: React.FC = () => {
                 icon={icons[index]}
                 name={bounty.name}
                 description={bounty.description}
-                prize={bounty.prize.value + bounty.prize.currency}
+                prize={
+                  bounty.prize.currency + bounty.prize.value.toLocaleString()
+                }
                 key={index}
               />
             ))}
@@ -516,99 +506,8 @@ const EventsPage: React.FC = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid
-          container
-          justifyContent='space-between'
-          alignItems='center'
-          position='relative'
-          zIndex={-1}
-        >
-          <Ellipse3 style={{ position: 'absolute' }} />
-          <Ellipse4 style={{ position: 'absolute', right: 0, top: 100 }} />
-        </Grid>
-        <Grid container sx={{ maxWidth: '1440px', px: '30px' }}>
-          <Grid container justifyContent='space-between'>
-            <Grid item width={['100%', '33.3%']}>
-              <Typography variant='h2' className={css.heading}>
-                FAQ
-              </Typography>
-            </Grid>
-            <Grid item container flexDirection='column' width={['100%', '63%']}>
-              {faqs.map((faq, index) => (
-                <Accordion
-                  key={index}
-                  disableGutters
-                  expanded={expanded === index}
-                  onChange={handleChange(index)}
-                  sx={{
-                    background: 'transparent',
-                    boxShadow: 'none',
-                    borderBottom: 'solid 1px white',
-                    ':last-of-type': {
-                      borderBottomRightRadius: 0,
-                      borderBottomLeftRadius: 0
-                    }
-                  }}
-                >
-                  <AccordionSummary
-                    expandIcon={
-                      expanded === index ? (
-                        <Minimize style={{ marginTop: '-12px' }} />
-                      ) : (
-                        <Add style={{ width: '24px', height: '24px' }} />
-                      )
-                    }
-                    sx={{ my: 4 }}
-                  >
-                    <Typography variant='h3' className={css.heading3}>
-                      {faq.question}
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography
-                      color='text.dark'
-                      sx={{ mb: '40px' }}
-                      className={css.body}
-                    >
-                      {faq.answer}
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-              ))}
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            justifyContent='space-between'
-            alignItems='center'
-            mt='200px'
-            mb='100px'
-          >
-            <Grid item width={1 / 2} display={['none', 'flex']}>
-              <Img src={DevDiamond} width={600} alt='dev-diamond' />
-            </Grid>
-            <Grid item width={[1, 1 / 2]}>
-              <Grid container flexDirection='column'>
-                <Typography variant='h2' className={css.heading}>
-                  Share your thoughts!
-                </Typography>
-                <Typography sx={{ my: '40px' }} className={css.body}>
-                  Take a moment to fill out our survey and let us know about
-                  your experience with Safe Documentation.
-                </Typography>
-                <Link
-                  href={eventData.url}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <Typography className={css.link}>
-                    Take survey {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
-                  </Typography>
-                </Link>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+        {/* <FAQ />
+        <Survey /> */}
       </Grid>
     </Box>
   )
@@ -658,29 +557,5 @@ const contactChannels = [
       'Get support from our team by asking questions to Stack Exchange, with the tags "safe-core".',
     icon: <StackExchange />,
     link: 'https://ethereum.stackexchange.com/questions/tagged/safe-core'
-  }
-]
-
-const faqs = [
-  {
-    question: 'Who can participate?',
-    answer:
-      'Anyone with an interest in web3 technologies, blockchain, and decentralized applications can participate. This includes developers, designers, business strategists, and students from all around the world.'
-  },
-  {
-    question: 'How do I register?',
-    answer: 'You can register through the official website linked above. Simply fill out the registration form and join our community channels for updates.'
-  },
-  {
-    question: 'Is there an entry fee to participate?',
-    answer: 'No, participation is completely free of charge.'
-  },
-  {
-    question: 'Do I need to have a team to participate?',
-    answer: 'You can participate either as an individual or as part of a team. If you don’t have a team, you can find team members through our community channels and team formation events.'
-  },
-  {
-    question: 'Who can I contact for more information?',
-    answer: 'For any additional questions, please contact us on Discord or directly at our booth during the event. We are here to help!'
   }
 ]
