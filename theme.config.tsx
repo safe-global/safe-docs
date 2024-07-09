@@ -43,17 +43,20 @@ const config: DocsThemeConfig = {
   head: <link rel='icon' type='image/png' sizes='32x32' href='/favicon.png' />,
   useNextSeoProps: () => {
     const { asPath } = useRouter()
+    const titleTemplate =
+      (asPath === '/'
+        ? ''
+        : asPath === '/ethglobal-brussels'
+          ? 'ETHGlobal Brussels - '
+          : '%s – ') + 'Safe Docs'
     return {
-      titleTemplate: asPath !== '/' ? '%s – Safe Docs' : 'Safe Docs'
+      titleTemplate
     }
   },
   banner: {
-    key: 'ethglobal-brussels-2024',
+    key: 'EthGlobal-Brussels-2024',
     text: (
-      <a
-        href='https://ethglobal.com/events/brussels/prizes/safe'
-        target='_blank'
-      >
+      <a href={process.env.NEXT_PUBLIC_HOST_URL + '/ethglobal-brussels'}>
         👋 Are you hacking at ETHGlobal Brussels? Check our bounties for
         ERC-7579, passkeys, and more →
       </a>

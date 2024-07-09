@@ -1,0 +1,52 @@
+body .title {
+  font-weight: 400;
+  font-size: 56px;
+  line-height: 60px;
+}
+
+body .heading {
+  max-width: 800px;
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 52px;
+}
+
+body .body {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 300;
+}
+
+body .heading2 {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 36px;
+}
+
+@media (min-width: 600px) {
+  body .title {
+    font-size: 90px;
+    line-height: 100px;
+  }
+  body .body {
+    font-size: 20px;
+    font-weight: 300;
+  }
+  body .link {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  body .heading {
+    font-size: 60px;
+    line-height: 64px;
+  }
+  body .heading3 {
+    font-size: 24px;
+    font-weight: 400;
+  }
+  body .caption {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
