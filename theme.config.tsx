@@ -56,7 +56,7 @@ const config: DocsThemeConfig = {
   banner: {
     key: 'EthGlobal-Brussels-2024',
     text: (
-      <a href={process.env.NEXT_PUBLIC_HOST_URL + '/ethglobal-brussels'}>
+      <a href='/ethglobal-brussels'>
         👋 Are you hacking at ETHGlobal Brussels? Check our bounties for
         ERC-7579, passkeys, and more →
       </a>
