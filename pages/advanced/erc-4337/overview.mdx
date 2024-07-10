@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material'
-import CustomCard from '../../components/CustomCard'
+import CustomCard from '../../../components/CustomCard'
 
 # What is ERC-4337?
 
-[ERC-4337](../glossary.md#erc-4337) addresses the challenges associated with account abstraction without requiring changes to the consensus-layer protocol. It serves as a transaction relayer for smart accounts like Safe. It does so by introducing a pseudo-transaction object called a `UserOperation`, which sends a transaction on behalf of the user.
+[ERC-4337](../../glossary.md#erc-4337) addresses the challenges associated with account abstraction without requiring changes to the consensus-layer protocol. It serves as a transaction relayer for smart accounts like Safe. It does so by introducing a pseudo-transaction object called a `UserOperation`, which sends a transaction on behalf of the user.
 
 Nodes in Ethereum can act as a Bundler, which picks up multiple user operations and packs them into a single transaction known as a bundle transaction. The bundle transactions are then sent to a global smart contract on Ethereum (of which there is only one) called the `EntryPoint`.
 
