@@ -1,3 +1,5 @@
+import { Callout } from 'nextra/components'
+
 # Safe Factory reference
 
 ### `init`
@@ -14,6 +16,10 @@ const safeFactory = await SafeFactory.init({
   signer
 })
 ```
+
+<Callout type='warning' emoji='⚠️'>
+  Compatibility with passkeys only available when using `@safe-global/protocol-kit@4.1.0-alpha.1` in Sepolia.
+</Callout>
 
 - The `signer` property
 

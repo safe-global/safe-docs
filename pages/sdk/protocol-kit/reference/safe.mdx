@@ -1,3 +1,5 @@
+import { Callout } from 'nextra/components'
+
 # Safe reference
 
 ## Initialization
@@ -36,6 +38,10 @@ const protocolKit = await Safe.init({
   predictedSafe
 })
 ```
+
+<Callout type='warning' emoji='⚠️'>
+  Compatibility with passkeys only available when using `@safe-global/protocol-kit@4.1.0-alpha.1` in Sepolia.
+</Callout>
 
 - The `signer` property
 
@@ -537,6 +543,10 @@ const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
+<Callout type='warning' emoji='⚠️'>
+  Compatibility with passkeys only available when using `@safe-global/protocol-kit@4.1.0-alpha.1` in Sepolia.
+</Callout>
+
 Instead of using an address, this method also supports the use of a passkey to set the address of the new owner:
 
 ```typescript
@@ -574,6 +584,10 @@ const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
+<Callout type='warning' emoji='⚠️'>
+  Compatibility with passkeys only available when using `@safe-global/protocol-kit@4.1.0-alpha.1` in Sepolia.
+</Callout>
+
 Instead of using an address, this method also supports the use of a passkey to remove an owner:
 
 ```typescript
@@ -610,6 +624,10 @@ const safeTransaction = await protocolKit.createSwapOwnerTx(params)
 const txResponse = await protocolKit.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
+
+<Callout type='warning' emoji='⚠️'>
+  Compatibility with passkeys only available when using `@safe-global/protocol-kit@4.1.0-alpha.1` in Sepolia.
+</Callout>
 
 Instead of using an address, this method also supports any combination of passkey and address:
 
@@ -662,6 +680,10 @@ Checks if a specific address is an owner of the current Safe.
 ```typescript
 const isOwner = await protocolKit.isOwner(address)
 ```
+
+<Callout type='warning' emoji='⚠️'>
+  Compatibility with passkeys only available when using `@safe-global/protocol-kit@4.1.0-alpha.1` in Sepolia.
+</Callout>
 
 A passkey can also be used to check if the signer account is an owner of the current Safe.
 
