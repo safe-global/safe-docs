@@ -1,14 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { PasskeyArgType } from '@safe-global/protocol-kit'
 import { Safe4337Pack } from '@safe-global/relay-kit'
 import Img from 'next/image'
-
+import { useState } from 'react'
 import PasskeyList from '../components/PasskeyList'
-import { executeUSDCTransfer } from '../lib/usdc'
-import { getPasskeyFromRawId, type PasskeyArgType } from '../lib/passkeys'
 import { BUNDLER_URL, CHAIN_NAME, RPC_URL } from '../lib/constants'
-import { bufferToString } from '../lib/utils'
+import { getPasskeyFromRawId } from '../lib/passkeys'
+import { executeUSDCTransfer } from '../lib/usdc'
 
 function Create4337SafeAccount () {
   const [selectedPasskey, setSelectedPasskey] = useState<PasskeyArgType>()
@@ -19,11 +18,10 @@ function Create4337SafeAccount () {
   const selectPasskeySigner = async (rawId: string) => {
     console.log('selected passkey signer: ', rawId)
 
-    const passkey = await getPasskeyFromRawId(rawId)
+    const passkey = getPasskeyFromRawId(rawId)
 
     const safe4337Pack = await Safe4337Pack.init({
       provider: RPC_URL,
-      rpcUrl: RPC_URL,
       signer: passkey,
       bundlerUrl: BUNDLER_URL,
       options: {
@@ -52,7 +50,7 @@ function Create4337SafeAccount () {
             <h2>Passkey Selected</h2>
 
             <div style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {bufferToString(selectedPasskey.rawId)}
+              {selectedPasskey.rawId}
             </div>
           </>
         )}
