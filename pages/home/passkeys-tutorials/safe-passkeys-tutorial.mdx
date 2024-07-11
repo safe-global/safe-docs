@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # How to build an app with Safe and passkeys
 
 <Callout type='warning' emoji='⚠️'>
-  Passkeys support is still under audit and should not be used in production environments. Please consider this tutorial and all the code examples in it a developer preview. 
+  Passkeys support is still under audit and should not be used in production environments. Please consider this tutorial and all the code examples in it a developer preview. Compatibility with passkeys is only available when using `@safe-global/protocol-kit@4.1.0-alpha.1` and `@safe-global/relay-kit@3.1.0-alpha.1` in Sepolia.
 </Callout>
 
 An increasing number of applications rely on passkeys to authenticate users securely and with little friction. Security and user-friendliness are crucial to making web3 a reality for the next billion users.
@@ -43,12 +43,12 @@ When prompted by the CLI:
 
 ### Install dependencies
 
-For this project, we'll use the [Relay Kit from the Safe\{Core\} SDK](../../sdk/relay-kit.mdx) to set up a Safe, sponsor a USDC transaction, and use [viem](https://www.npmjs.com/package/viem) and [buffer](https://www.npmjs.com/package/buffer) for some helper functions.
+For this project, we'll use the [Relay Kit](../../sdk/relay-kit.mdx) and [Protocol Kit](../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem).
 
 Run the following command to add all these dependencies to the project:
 
 ```bash
-pnpm add @safe-global/relay-kit@3.1.0-alpha.1 buffer viem
+pnpm add @safe-global/protocol-kit@4.1.0-alpha.1 @safe-global/relay-kit@3.1.0-alpha.1 viem
 ```
 
 Now, create a file named `.env.local` at the root of your project, and add your Pimlico API key to it:
