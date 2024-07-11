@@ -1,8 +1,5 @@
-import { extractPasskeyData, PasskeyArgType } from '@safe-global/protocol-kit';
-import { STORAGE_PASSKEY_LIST_KEY } from './constants';
-import { bufferToString, hexStringToUint8Array } from './utils';
-
-export type PasskeyItemType = { rawId: string; publicKey: string }
+import { PasskeyArgType, extractPasskeyData } from '@safe-global/protocol-kit'
+import { STORAGE_PASSKEY_LIST_KEY } from './constants'
 
 /**
  * Create a passkey using WebAuthn API.
@@ -53,21 +50,16 @@ export async function createPasskey (): Promise<PasskeyArgType> {
 export function storePasskeyInLocalStorage (passkey: PasskeyArgType) {
   const passkeys = loadPasskeysFromLocalStorage()
 
-  const newPasskeyItem = {
-    rawId: bufferToString(passkey.rawId),
-    publicKey: bufferToString(passkey.publicKey)
-  }
-
-  passkeys.push(newPasskeyItem)
+  passkeys.push(passkey)
 
   localStorage.setItem(STORAGE_PASSKEY_LIST_KEY, JSON.stringify(passkeys))
 }
 
 /**
  * Load passkeys from local storage.
- * @returns {PasskeyItemType[]} List of passkeys.
+ * @returns {PasskeyArgType[]} List of passkeys.
  */
-export function loadPasskeysFromLocalStorage (): PasskeyItemType[] {
+export function loadPasskeysFromLocalStorage (): PasskeyArgType[] {
   const passkeysStored = localStorage.getItem(STORAGE_PASSKEY_LIST_KEY)
 
   const passkeyIds = passkeysStored ? JSON.parse(passkeysStored) : []
@@ -76,47 +68,16 @@ export function loadPasskeysFromLocalStorage (): PasskeyItemType[] {
 }
 
 /**
- * Get public key from local storage.
+ * Get passkey object from local storage.
  * @param {string} passkeyRawId - Raw ID of the passkey.
- * @returns {ArrayBuffer} Public key.
+ * @returns {PasskeyArgType} Passkey object.
  */
-function getPublicKeyFromLocalStorage (passkeyRawId: string): ArrayBuffer {
+export function getPasskeyFromRawId(passkeyRawId: string): PasskeyArgType {
   const passkeys = loadPasskeysFromLocalStorage()
 
-  const { publicKey } = passkeys.find(
-    (passkey: PasskeyItemType) => passkey.rawId === passkeyRawId
+  const passkey = passkeys.find(
+    (passkey) => passkey.rawId === passkeyRawId
   )!
-
-  return hexStringToUint8Array(publicKey)
-}
-
-/**
- * Get passkey from raw ID.
- * @param {string} passkeyRawId - Raw ID of the passkey.
- * @returns {Promise<PasskeyArgType>} Passkey object with rawId and publicKey.
- */
-export async function getPasskeyFromRawId (
-  passkeyRawId: string
-): Promise<PasskeyArgType> {
-  const passkeyCredentials = (await navigator.credentials.get({
-    publicKey: {
-      allowCredentials: [
-        {
-          id: hexStringToUint8Array(passkeyRawId),
-          type: 'public-key'
-        }
-      ],
-      challenge: crypto.getRandomValues(new Uint8Array(32)),
-      userVerification: 'required'
-    }
-  })) as PublicKeyCredential
-
-  const publicKey = getPublicKeyFromLocalStorage(passkeyRawId)
-
-  const passkey = {
-    rawId: passkeyCredentials.rawId,
-    publicKey
-  }
 
   return passkey
 }

@@ -85,26 +85,9 @@ Add the following code to the `constants.ts` file:
 // from ../../../examples/passkeys/lib/constants.ts
 ```
 
-In the same `lib` folder, create a `utils.ts` file:
-
-```bash
-touch utils.ts
-```
-
-Add the following code to the `utils.ts` file:
-
-```tsx
-// from ../../../examples/passkeys/lib/utils.ts
-```
-
-This file contains two utilities for manipulating passkey objects from the native [`navigator.credentials`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/credentials) API:
-
-- `bufferToString`: Helps us read the passkeys properties (returned by the browser) as strings.
-- `hexStringToUint8Array`: Helps us pass string arguments to the `credentials` API.
-
 ## 3. Add passkeys functionality
 
-In the `lib` folder, create a file called `passkeys.ts` :
+In the `lib` folder, create a file called `passkeys.ts`:
 
 ```bash
 touch passkeys.ts

@@ -1,10 +1,8 @@
-import { encodeFunctionData, parseAbi } from 'viem'
+import { PasskeyArgType } from '@safe-global/protocol-kit'
 import { Safe4337Pack } from '@safe-global/relay-kit'
-
-import { type PasskeyArgType } from './passkeys'
+import { encodeFunctionData, parseAbi } from 'viem'
 import {
   BUNDLER_URL,
-  CHAIN_NAME,
   PAYMASTER_URL,
   RPC_URL,
   paymasterAddress,
@@ -50,7 +48,6 @@ export const executeUSDCTransfer = async ({
 }) => {
   const safe4337Pack = await Safe4337Pack.init({
     provider: RPC_URL,
-    rpcUrl: RPC_URL,
     signer,
     bundlerUrl: BUNDLER_URL,
     paymasterOptions,
