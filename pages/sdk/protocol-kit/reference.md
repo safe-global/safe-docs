@@ -12,5 +12,5 @@ yarn add @safe-global/protocol-kit
 
 Depending on the use case, the right class needs to be installed:
 
-- [Safe Factory](./reference/safe-factory.md)
-- [Safe](./reference/safe.md)
+- [Safe Factory](./reference/safe-factory.mdx)
+- [Safe](./reference/safe.mdx)
