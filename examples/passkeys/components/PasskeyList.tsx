@@ -1,10 +1,9 @@
+import { PasskeyArgType } from '@safe-global/protocol-kit'
 import { useEffect, useState } from 'react'
-
 import {
   createPasskey,
   loadPasskeysFromLocalStorage,
-  storePasskeyInLocalStorage,
-  type PasskeyItemType
+  storePasskeyInLocalStorage
 } from '../lib/passkeys'
 
 type Props = {
@@ -12,7 +11,7 @@ type Props = {
 }
 
 function PasskeyList ({ selectPasskeySigner }: Props) {
-  const [passkeyList, setPasskeyList] = useState<PasskeyItemType[]>([])
+  const [passkeyList, setPasskeyList] = useState<PasskeyArgType[]>([])
 
   async function handleSubmit () {
     const passkey = await createPasskey()
