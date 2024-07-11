@@ -1,10 +1,7 @@
-import { STORAGE_PASSKEY_LIST_KEY } from './constants'
-import { bufferToString, hexStringToUint8Array } from './utils'
+import { extractPasskeyData, PasskeyArgType } from '@safe-global/protocol-kit';
+import { STORAGE_PASSKEY_LIST_KEY } from './constants';
+import { bufferToString, hexStringToUint8Array } from './utils';
 
-export type PasskeyArgType = {
-  rawId: ArrayBuffer
-  publicKey: ArrayBuffer
-}
 export type PasskeyItemType = { rawId: string; publicKey: string }
 
 /**
@@ -41,24 +38,12 @@ export async function createPasskey (): Promise<PasskeyArgType> {
   if (!passkeyCredential) {
     throw Error('Passkey creation failed: No credential was returned.')
   }
-
   console.log('passkeyCredential: ', passkeyCredential)
 
-  const passkey = passkeyCredential as PublicKeyCredential
-  const attestationResponse =
-    passkey.response as AuthenticatorAttestationResponse
+  const passkey = await extractPasskeyData(passkeyCredential)
+  console.log("Created Passkey: ", passkey)
 
-  const rawId = passkey.rawId
-  const publicKey = attestationResponse.getPublicKey()
-
-  if (!publicKey) {
-    throw new Error('getPublicKey error')
-  }
-
-  return {
-    rawId,
-    publicKey
-  }
+  return passkey
 }
 
 /**
