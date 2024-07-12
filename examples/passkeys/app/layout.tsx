@@ -62,9 +62,9 @@ export default function RootLayout ({
           </div>
         </nav>
         <div style={{ width: '100%', textAlign: 'center' }}>
-          <h1>Passkeys tutorial</h1>
+          <h1>Passkeys Tutorial</h1>
 
-          <div>Create a new 4337 compatible Safe Account using passkeys</div>
+          <div>Create an ERC-4337-compatible Safe Smart Account using passkeys</div>
         </div>
         <div
           style={{

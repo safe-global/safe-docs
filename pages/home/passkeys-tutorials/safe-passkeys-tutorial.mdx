@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # How to build an app with Safe and passkeys
 
 <Callout type='warning' emoji='⚠️'>
-  Passkeys support is still under audit and should not be used in production environments. Please consider this tutorial and all the code examples in it a developer preview. 
+  Passkeys support is still under audit and should not be used in production environments. Please consider this tutorial and all the code examples in it a developer preview. Compatibility with passkeys is only available when using `@safe-global/protocol-kit@4.1.0-alpha.1` and `@safe-global/relay-kit@3.1.0-alpha.1` in Sepolia.
 </Callout>
 
 An increasing number of applications rely on passkeys to authenticate users securely and with little friction. Security and user-friendliness are crucial to making web3 a reality for the next billion users.
@@ -13,7 +13,7 @@ Today, we'll learn how to make this a reality using [Safe\{Core\} SDK](../../sdk
 This tutorial will demonstrate creating a web app for using [passkeys](../passkeys-overview.mdx) in your Safe. This app will allow you to:
 - Create a new passkey secured by the user's device.
 - Deploy a new Safe on Ethereum Sepolia for free.
-- Sign a transaction to send USDC using the previously created passkey.
+- Sign a transaction to mint an NFT using the previously created passkey.
 
 ![safe-passkeys-app-2.png](../../../assets/safe-passkeys-app-2.png)
 
@@ -43,12 +43,12 @@ When prompted by the CLI:
 
 ### Install dependencies
 
-For this project, we'll use the [Relay Kit from the Safe\{Core\} SDK](../../sdk/relay-kit.mdx) to set up a Safe, sponsor a USDC transaction, and use [viem](https://www.npmjs.com/package/viem) and [buffer](https://www.npmjs.com/package/buffer) for some helper functions.
+For this project, we'll use the [Relay Kit](../../sdk/relay-kit.mdx) and [Protocol Kit](../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem).
 
 Run the following command to add all these dependencies to the project:
 
 ```bash
-pnpm add @safe-global/relay-kit@3.1.0-alpha.0 buffer viem
+pnpm add @safe-global/protocol-kit@4.1.0-alpha.1 @safe-global/relay-kit@3.1.0-alpha.1 viem
 ```
 
 Now, create a file named `.env.local` at the root of your project, and add your Pimlico API key to it:
@@ -85,26 +85,9 @@ Add the following code to the `constants.ts` file:
 // from ../../../examples/passkeys/lib/constants.ts
 ```
 
-In the same `lib` folder, create a `utils.ts` file:
-
-```bash
-touch utils.ts
-```
-
-Add the following code to the `utils.ts` file:
-
-```tsx
-// from ../../../examples/passkeys/lib/utils.ts
-```
-
-This file contains two utilities for manipulating passkey objects from the native [`navigator.credentials`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/credentials) API:
-
-- `bufferToString`: Helps us read the passkeys properties (returned by the browser) as strings.
-- `hexStringToUint8Array`: Helps us pass string arguments to the `credentials` API.
-
 ## 3. Add passkeys functionality
 
-In the `lib` folder, create a file called `passkeys.ts` :
+In the `lib` folder, create a file called `passkeys.ts`:
 
 ```bash
 touch passkeys.ts
@@ -129,27 +112,27 @@ In this file, we have four functions:
 - `getPublicKeyFromLocalStorage`, which helps find a passkey in the local storage corresponding to a given `rawId` and returns this passkey's public key.
 - `getPasskeyFromRawId`, which helps reconstruct a full passkey from a `rawId` and a public key stored in local storage.
 
-## 4. Add USDC transaction functionality
+## 4. Add mint NFT functionality
 
-Create a `usdc.ts` file in the `lib` folder to add functions to prepare and send a transaction transferring USDC from our yet-to-come Safe.
+Create a `mintNFT.ts` file in the `lib` folder to add functions to prepare and send a transaction minting an NFT from our yet-to-come Safe.
 
 ```tsx
-touch usdc.ts
+touch mintNFT.ts
 ```
 
-Add the following code to the `usdc.ts` file:
+Add the following code to the `mintNFT.ts` file:
 
 ```tsx
-// from ../../../examples/passkeys/lib/usdc.ts
+// from ../../../examples/passkeys/lib/mintNFT.ts
 ```
 
 With this configuration, a new Safe will be created (but not yet deployed) when a passkey is selected. This Safe will be deployed when its first transaction is executed.
 
-**Note:** Transferring USDC was chosen here just as an example, and any other transaction would have the same effect.
+**Note:** Minting an NFT was chosen here just as an example, and any other transaction would have the same effect.
 
 ## 5. Add UI components
 
-Let's add a user interface to create and store a passkey on the user's device, deploy a safe, and sign the USDC transaction.
+Let's add a user interface to create and store a passkey on the user's device, deploy a safe, and sign the NFT transaction.
 
 Create a `components` folder at the project root with a file named `PasskeyList.tsx`:
 
@@ -221,12 +204,12 @@ Once confirmed, select this passkey by clicking **Select** next to it. This will
 
 ![safe-passkeys-app-2.png](../../../assets/safe-passkeys-app-2.png)
 
-At this stage, the app will have created a safe object awaiting deployment. Send some USDC to your future safe by clicking the link to [Circle's USDC faucet](https://faucet.circle.com/) for Sepolia and entering the Safe's address. By clicking **Sign transaction with passkey**, the deployment of this safe will then be embedded in a batch transaction, along with the transfer of USDC.
+At this stage, the app will have created a safe object awaiting deployment. By clicking **Sign transaction with passkey**, the deployment of this Safe will then be embedded in a batch transaction, along with the minting of the NFT.
 Open the console to see the UserOp that was sent or click the link provided to Jiffy scan for more complete information.
 
 ## Do more with Safe and passkeys
 
-Today, we learned how to use passkeys (create them, store them, and use them securely) and how they can interact with a Safe (deploy it and send transactions). We hope you enjoyed this tutorial and that the combination of passkeys and 4337 will unlock new forms of ownership for your project and users.
+We learned how to use passkeys (create them, store them, and use them securely) and how they can interact with a Safe (deploy it and send transactions). We hope you enjoyed this tutorial and that the combination of passkeys and the ERC-4337 will unlock new forms of ownership for your project and users.
 
 You can now integrate passkeys with more transactions and functionalities of the Safe ecosystem. You can read more about passkeys in our [overview](../passkeys-overview) or in the [WebAuthn API documentation](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API).
 

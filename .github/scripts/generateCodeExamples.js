@@ -8,7 +8,6 @@ const repos = [
     branch: 'main',
     files: [
       '/lib/constants.ts',
-      '/lib/utils.ts',
       '/lib/passkeys.ts',
       '/lib/usdc.ts',
       '/components/PasskeyList.tsx',

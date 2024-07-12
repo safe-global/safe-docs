@@ -1,14 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { PasskeyArgType } from '@safe-global/protocol-kit'
 import { Safe4337Pack } from '@safe-global/relay-kit'
 import Img from 'next/image'
-
+import { useState } from 'react'
 import PasskeyList from '../components/PasskeyList'
-import { executeUSDCTransfer } from '../lib/usdc'
-import { getPasskeyFromRawId, type PasskeyArgType } from '../lib/passkeys'
 import { BUNDLER_URL, CHAIN_NAME, RPC_URL } from '../lib/constants'
-import { bufferToString } from '../lib/utils'
+import { mintNFT } from '../lib/mintNFT'
+import { getPasskeyFromRawId } from '../lib/passkeys'
 
 function Create4337SafeAccount () {
   const [selectedPasskey, setSelectedPasskey] = useState<PasskeyArgType>()
@@ -19,11 +18,10 @@ function Create4337SafeAccount () {
   const selectPasskeySigner = async (rawId: string) => {
     console.log('selected passkey signer: ', rawId)
 
-    const passkey = await getPasskeyFromRawId(rawId)
+    const passkey = getPasskeyFromRawId(rawId)
 
     const safe4337Pack = await Safe4337Pack.init({
       provider: RPC_URL,
-      rpcUrl: RPC_URL,
       signer: passkey,
       bundlerUrl: BUNDLER_URL,
       options: {
@@ -49,10 +47,10 @@ function Create4337SafeAccount () {
       >
         {selectedPasskey && (
           <>
-            <h2>Passkey Selected</h2>
+            <h2>Selected passkey</h2>
 
             <div style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {bufferToString(selectedPasskey.rawId)}
+              {selectedPasskey.rawId}
             </div>
           </>
         )}
@@ -70,7 +68,7 @@ function Create4337SafeAccount () {
             Address: {safeAddress}
           </div>
           <div>
-            Is deployed?:{' '}
+            Is the account deployed?: {' '}
             {isSafeDeployed ? (
               <a
                 href={`https://app.safe.global/transactions/history?safe=sep:${safeAddress}`}
@@ -89,26 +87,10 @@ function Create4337SafeAccount () {
               'No'
             )}
           </div>
-          <div>
-            {' '}
-            <a
-              href='https://faucet.circle.com/'
-              target='_blank'
-              rel='noreferrer'
-            >
-              Get some test USDC for your Safe{' '}
-              <Img
-                src='/external-link.svg'
-                alt='External link'
-                width={14}
-                height={14}
-              />
-            </a>
-          </div>
           {selectedPasskey && (
             <button
               onClick={async () =>
-                await executeUSDCTransfer({
+                await mintNFT({
                   signer: selectedPasskey,
                   safeAddress
                 }).then(userOpHash => {
@@ -117,7 +99,7 @@ function Create4337SafeAccount () {
                 })
               }
             >
-              Sign transaction with passkey
+              Mint an NFT
             </button>
           )}
           {userOp && isSafeDeployed && (
