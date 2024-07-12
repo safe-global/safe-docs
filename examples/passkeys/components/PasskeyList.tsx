@@ -30,7 +30,7 @@ function PasskeyList ({ selectPasskeySigner }: Props) {
 
   return (
     <>
-      <h3>Create new Passkey</h3>
+      <h3>Create new passkey</h3>
       <button onClick={handleSubmit}>Add New Passkey</button>{' '}
       {passkeyList.length > 0 && (
         <>

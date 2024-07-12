@@ -3,7 +3,7 @@ import { STORAGE_PASSKEY_LIST_KEY } from './constants'
 
 /**
  * Create a passkey using WebAuthn API.
- * @returns {Promise<PasskeyArgType>} Passkey object with rawId and publicKey.
+ * @returns {Promise<PasskeyArgType>} Passkey object with rawId and coordinates.
  * @throws {Error} If passkey creation fails.
  */
 export async function createPasskey (): Promise<PasskeyArgType> {
@@ -45,7 +45,7 @@ export async function createPasskey (): Promise<PasskeyArgType> {
 
 /**
  * Store passkey in local storage.
- * @param {PasskeyArgType} passkey - Passkey object with rawId and publicKey.
+ * @param {PasskeyArgType} passkey - Passkey object with rawId and coordinates.
  */
 export function storePasskeyInLocalStorage (passkey: PasskeyArgType) {
   const passkeys = loadPasskeysFromLocalStorage()

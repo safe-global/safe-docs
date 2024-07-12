@@ -6,8 +6,8 @@ import Img from 'next/image'
 import { useState } from 'react'
 import PasskeyList from '../components/PasskeyList'
 import { BUNDLER_URL, CHAIN_NAME, RPC_URL } from '../lib/constants'
+import { mintNFT } from '../lib/mintNFT'
 import { getPasskeyFromRawId } from '../lib/passkeys'
-import { executeUSDCTransfer } from '../lib/usdc'
 
 function Create4337SafeAccount () {
   const [selectedPasskey, setSelectedPasskey] = useState<PasskeyArgType>()
@@ -47,7 +47,7 @@ function Create4337SafeAccount () {
       >
         {selectedPasskey && (
           <>
-            <h2>Passkey Selected</h2>
+            <h2>Selected passkey</h2>
 
             <div style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {selectedPasskey.rawId}
@@ -68,7 +68,7 @@ function Create4337SafeAccount () {
             Address: {safeAddress}
           </div>
           <div>
-            Is deployed?:{' '}
+            Is the account deployed?: {' '}
             {isSafeDeployed ? (
               <a
                 href={`https://app.safe.global/transactions/history?safe=sep:${safeAddress}`}
@@ -87,26 +87,10 @@ function Create4337SafeAccount () {
               'No'
             )}
           </div>
-          <div>
-            {' '}
-            <a
-              href='https://faucet.circle.com/'
-              target='_blank'
-              rel='noreferrer'
-            >
-              Get some test USDC for your Safe{' '}
-              <Img
-                src='/external-link.svg'
-                alt='External link'
-                width={14}
-                height={14}
-              />
-            </a>
-          </div>
           {selectedPasskey && (
             <button
               onClick={async () =>
-                await executeUSDCTransfer({
+                await mintNFT({
                   signer: selectedPasskey,
                   safeAddress
                 }).then(userOpHash => {
@@ -115,7 +99,7 @@ function Create4337SafeAccount () {
                 })
               }
             >
-              Sign transaction with passkey
+              Mint an NFT
             </button>
           )}
           {userOp && isSafeDeployed && (
