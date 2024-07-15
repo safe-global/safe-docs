@@ -9,7 +9,7 @@ const repos = [
     files: [
       '/lib/constants.ts',
       '/lib/passkeys.ts',
-      '/lib/usdc.ts',
+      '/lib/mintNFT.ts',
       '/components/PasskeyList.tsx',
       '/app/page.tsx',
       '/app/layout.tsx'
