@@ -47,21 +47,11 @@ const config: DocsThemeConfig = {
       (asPath === '/'
         ? ''
         : asPath === '/ethglobal-brussels'
-          ? 'ETHGlobal Brussels - '
-          : '%s – ') + 'Safe Docs'
+        ? 'ETHGlobal Brussels - '
+        : '%s – ') + 'Safe Docs'
     return {
       titleTemplate
     }
-  },
-  banner: {
-    key: 'EthGlobal-Brussels-2024',
-    text: (
-      <a href='/ethglobal-brussels'>
-        👋 Are you hacking at ETHGlobal Brussels? Check our bounties for
-        ERC-7579, passkeys, and more →
-      </a>
-    ),
-    dismissible: true
   },
   main: Main
 }
