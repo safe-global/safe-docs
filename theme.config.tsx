@@ -47,8 +47,8 @@ const config: DocsThemeConfig = {
       (asPath === '/'
         ? ''
         : asPath === '/ethglobal-brussels'
-        ? 'ETHGlobal Brussels - '
-        : '%s – ') + 'Safe Docs'
+          ? 'ETHGlobal Brussels - '
+          : '%s – ') + 'Safe Docs'
     return {
       titleTemplate
     }
