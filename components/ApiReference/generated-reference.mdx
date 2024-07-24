@@ -31,7 +31,7 @@ This service is available on [multiple networks](../../core-api/transaction-serv
 
     
 
-    
+    Returns the list of known smart contracts with their ABI’s
 
     
 
@@ -107,7 +107,7 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/contracts/ \
 
     
 
-    
+    Returns the relevant information of a known smart contract
 
     
 
@@ -170,10 +170,10 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/contracts/0xcd2E
 
     
 
-    Returns decoded information using tx service internal ABI information given the tx
-data as a `0x` prefixed hexadecimal string.
-If address of the receiving contract is provided decoded data will be more accurate,
-as in case of ABI collision service will know which ABI to use.
+    Returns the decoded data using the Safe Transaction Service internal ABI information given
+the transaction data as a `0x` prefixed hexadecimal string.
+If the address of the receiving contract is provided, the decoded data will be more accurate,
+as in case of an ABI collision the Safe Transaction Service would know which ABI to use.
 
     
 
@@ -267,7 +267,7 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/data-decoder/ \
 
     
 
-    Get list of delegates
+    Returns a list with all the delegates
 
     
 
@@ -317,9 +317,9 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v2/delegates/ \
 
     
 
-    Create a delegate for a Safe address with a custom label. Calls with same delegate but different label or
-signer will update the label or delegator if different.
-An EOA is required to sign the following EIP712 data:
+    Adds a new Safe delegate with a custom label. Calls with same delegate but different label or
+signer will update the label or delegator if a different one is provided.
+To generate the signature, the following EIP712 data hash needs to be signed:
 
 ```python
  {
@@ -347,8 +347,8 @@ An EOA is required to sign the following EIP712 data:
 }
 ```
 
-`totp` parameter is calculated with `T0=0` and `Tx=3600`. `totp` is calculated by taking the
-Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)
+For the signature we use `TOTP` with `T0=0` and `Tx=3600`. `TOTP` is calculated by taking the
+Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals).
 
     
 
@@ -395,9 +395,9 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v2/delegates/ \
 
     
 
-    Removes all delegate/delegator pairs found or combinations of safe/delegate/delegator/delegate. The signature
-is constructed in the same way as for adding a delegate, but in this case the signer can be either the
-`delegator` (owner) or the `delegate` itself. Check `POST /delegates/`.
+    Removes every delegate/delegator pair found associated with a given delegate address. The
+signature is built the same way as for adding a delegate, but in this case the signer can be
+either the `delegator` (owner) or the `delegate` itself. Check `POST /delegates/` to learn more.
 
     
 
@@ -452,7 +452,7 @@ curl -X DELETE https://safe-transaction-sepolia.safe.global/api/v2/delegates/0xe
 
     
 
-    
+    Returns detailed information on a message associated with a given message hash
 
     
 
@@ -493,7 +493,7 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/messages/0x3b3b5
 
     
 
-    
+    Adds the signature of a message given its message hash
 
     
 
@@ -536,7 +536,7 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/messages/0x3b3b
 
     
 
-    
+    Returns the list of messages for a given Safe account
 
     
 
@@ -586,7 +586,8 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aE
 
     
 
-    Create a new signed message for a Safe. Message can be:
+    Adds a new message for a given Safe account.
+Message can be:
 - A ``string``, so ``EIP191`` will be used to get the hash.
 - An ``EIP712`` ``object``.
 
@@ -642,12 +643,12 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72a
 
     
 
-    :return: module transaction filtered by module_transaction_id
+    Returns a transaction executed from a module given its associated module transaction ID
 
     
 
     <Parameters parameters={[]} />
-    <Responses responses={[{"code":"200","schema":{"refName":"SafeModuleTransactionResponse","required":["executionDate","safe","module","to","value","data","operation"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer","readOnly":true},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string","readOnly":true},"safe":{"title":"Safe","type":"string","minLength":1},"module":{"title":"Module","type":"string","minLength":1},"to":{"title":"To","type":"string","minLength":1},"value":{"title":"Value","type":"string","format":"decimal"},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","enum":[0,1,2]},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"moduleTransactionId":{"title":"Module transaction id","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`","type":"string","readOnly":true}}},"description":""},{"code":"400","schema":{},"description":"Invalid moduleTransactionId"},{"code":"404","schema":{},"description":"ModuleTransaction does not exist"}]} />
+    <Responses responses={[{"code":"200","schema":{"refName":"SafeModuleTransactionResponse","required":["executionDate","blockNumber","transactionHash","safe","module","to","value","data","operation","moduleTransactionId"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string"},"safe":{"title":"Safe","type":"string","minLength":1},"module":{"title":"Module","type":"string","minLength":1},"to":{"title":"To","type":"string","minLength":1},"value":{"title":"Value","type":"string","format":"decimal"},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","enum":[0,1,2]},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"moduleTransactionId":{"title":"Module transaction id","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`","type":"string","minLength":1}}},"description":""},{"code":"400","schema":{},"description":"Invalid moduleTransactionId"},{"code":"404","schema":{},"description":"ModuleTransaction does not exist"}]} />
     <Feedback asPath={"/api-reference#Get-Module-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -668,7 +669,26 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/module-transacti
     </CH.Section>
     <NetworkNotice />
 
-    
+    #### Sample Response
+
+```json
+{
+  "created": "2024-07-24T20:54:48Z",
+  "executionDate": "2024-07-24T20:54:48Z",
+  "blockNumber": 6369595,
+  "isSuccessful": true,
+  "transactionHash": "0x4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e",
+  "safe": "0x5298A93734C3D979eF1f23F78eBB871879A21F22",
+  "module": "0x9085149079b87E32178669097bc82D341CB65678",
+  "to": "0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d",
+  "value": "10000000000",
+  "data": "0x00",
+  "operation": 0,
+  "dataDecoded": null,
+  "moduleTransactionId": "i4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e0,0"
+}
+
+```
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -683,7 +703,7 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/module-transacti
 
     
 
-    
+    Returns a multi-signature transaction given its Safe transaction hash
 
     
 
@@ -777,10 +797,10 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/multisig-transac
 
     
 
-    Delete a queued but not executed multisig transaction. Only the proposer can delete the transaction.
-Delegates are not valid, if the transaction was proposed by a delegator the owner who delegated to
-the delegate must be used.
-An EOA is required to sign the following EIP712 data:
+    Removes the queued but not executed multi-signature transaction associated with the given Safe tansaction hash.
+Only the proposer can delete the transaction.
+If the transaction was proposed by a delegate, the Safe owner who delegated to the delegate must be used.
+An EOA is required to sign the following EIP-712 data:
 
 ```python
  {
@@ -859,7 +879,8 @@ curl -X DELETE https://safe-transaction-sepolia.safe.global/api/v1/multisig-tran
 
     
 
-    Get the list of confirmations for a multisig transaction
+    Returns the list of confirmations for the multi-signature transaction associated with
+the given Safe transaction hash
 
     
 
@@ -918,8 +939,9 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/multisig-transac
 
     
 
-    Add a confirmation for a transaction. More than one signature can be used. This endpoint does not support
-the use of delegates to make a transaction trusted.
+    Adds a new confirmation to the pending multi-signature transaction associated with the
+given Safe transaction hash. Multiple signatures can be submitted at once. This endpoint
+does not support the use of delegates to make transactions trusted.
 
     
 
@@ -969,12 +991,20 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/multisig-transa
 
     
 
-    
+    Returns all the transactions for a given Safe address. The list has different structures depending on the
+transaction type:
+- Multisig Transactions for a Safe. `tx_type=MULTISIG_TRANSACTION`. If the query parameter `queued=False` is
+set only the transactions with `safe nonce < current Safe nonce` will be displayed. By default, only the
+`trusted` transactions will be displayed (transactions indexed, with at least one confirmation or proposed
+by a delegate). If you need that behaviour to be disabled set the query parameter `trusted=False`
+- Module Transactions for a Safe. `tx_type=MODULE_TRANSACTION`
+- Incoming Transfers of Ether/ERC20 Tokens/ERC721 Tokens. `tx_type=ETHEREUM_TRANSACTION`
+  Only 1000 newest transfers will be returned.
 
     
 
     <Parameters parameters={[{"name":"ordering","in":"query","description":"Which field to use when ordering the results.","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"},{"name":"executed","in":"query","description":"If `True` only executed transactions are returned","type":"boolean","default":false},{"name":"queued","in":"query","description":"If `True` transactions with `nonce >= Safe current nonce` are also returned","type":"boolean","default":true},{"name":"trusted","in":"query","description":"If `True` just trusted transactions are shown (indexed, added by a delegate or with at least one confirmation)","type":"boolean","default":true}]} />
-    <Responses responses={[{"code":"200","schema":{"refName":"AllTransactionsSchema","required":["txType1","txType2","txType3"],"type":"object","properties":{"txType1":{"refName":"SafeModuleTransactionWithTransfersResponse","required":["executionDate","safe","module","to","value","data","operation","transfers"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer","readOnly":true},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string","readOnly":true},"safe":{"title":"Safe","type":"string","minLength":1},"module":{"title":"Module","type":"string","minLength":1},"to":{"title":"To","type":"string","minLength":1},"value":{"title":"Value","type":"string","format":"decimal"},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","enum":[0,1,2]},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"moduleTransactionId":{"title":"Module transaction id","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`","type":"string","readOnly":true},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","required":["executionDate","blockNumber","transactionHash","to","value","tokenId","tokenInfo","from"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"transactionHash":{"title":"Transaction hash","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1,"x-nullable":true},"tokenId":{"title":"Token id","type":"string","minLength":1,"x-nullable":true},"tokenAddress":{"title":"Token address","type":"string","x-nullable":true},"transferId":{"title":"Transfer id","description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`","type":"string","readOnly":true},"tokenInfo":{"refName":"TokenInfoResponse","required":["address","name","symbol","decimals","trusted"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"address":{"title":"Address","type":"string"},"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","readOnly":true},"trusted":{"title":"Trusted","type":"boolean"}}},"from":{"title":"From","type":"string"}}}},"txType":{"title":"Tx type","type":"string","readOnly":true}}},"txType2":{"refName":"SafeMultisigTransactionWithTransfersResponse","required":["safe","to","value","operation","safeTxGas","baseGas","gasPrice","nonce","executionDate","submissionDate","modified","transactionHash","safeTxHash","proposer","isExecuted","confirmationsRequired","trusted","transfers"],"type":"object","properties":{"safe":{"title":"Safe","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","minimum":0},"gasToken":{"title":"Gas token","type":"string","x-nullable":true},"safeTxGas":{"title":"Safe tx gas","type":"integer","minimum":0},"baseGas":{"title":"Base gas","type":"integer","minimum":0},"gasPrice":{"title":"Gas price","type":"string","minLength":1},"refundReceiver":{"title":"Refund receiver","type":"string","x-nullable":true},"nonce":{"title":"Nonce","type":"integer","minimum":0},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"submissionDate":{"title":"Submission date","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string"},"safeTxHash":{"title":"Safe tx hash","type":"string"},"proposer":{"title":"Proposer","type":"string"},"executor":{"title":"Executor","type":"string","readOnly":true},"isExecuted":{"title":"Is executed","type":"boolean"},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"ethGasPrice":{"title":"Eth gas price","type":"string","readOnly":true},"maxFeePerGas":{"title":"Max fee per gas","type":"string","readOnly":true},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"string","readOnly":true},"gasUsed":{"title":"Gas used","type":"integer","readOnly":true},"fee":{"title":"Fee","type":"integer","readOnly":true},"origin":{"title":"Origin","type":"string","readOnly":true},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"confirmationsRequired":{"title":"Confirmations required","type":"integer"},"confirmations":{"refName":"SafeMultisigConfirmationResponse","description":"\nFilters confirmations queryset\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n","required":["owner","submissionDate","signature"],"type":"object","properties":{"owner":{"title":"Owner","type":"string","minLength":1},"submissionDate":{"title":"Submission date","type":"string","format":"date-time"},"transactionHash":{"title":"Transaction hash","type":"string","readOnly":true},"signature":{"title":"Signature","type":"string"},"signatureType":{"title":"Signature type","type":"string","readOnly":true}}},"trusted":{"title":"Trusted","type":"boolean"},"signatures":{"title":"Signatures","type":"string","x-nullable":true},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","required":["executionDate","blockNumber","transactionHash","to","value","tokenId","tokenInfo","from"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"transactionHash":{"title":"Transaction hash","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1,"x-nullable":true},"tokenId":{"title":"Token id","type":"string","minLength":1,"x-nullable":true},"tokenAddress":{"title":"Token address","type":"string","x-nullable":true},"transferId":{"title":"Transfer id","description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`","type":"string","readOnly":true},"tokenInfo":{"refName":"TokenInfoResponse","required":["address","name","symbol","decimals","trusted"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"address":{"title":"Address","type":"string"},"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","readOnly":true},"trusted":{"title":"Trusted","type":"boolean"}}},"from":{"title":"From","type":"string"}}}},"txType":{"title":"Tx type","type":"string","readOnly":true}}},"txType3":{"refName":"EthereumTxWithTransfersResponse","required":["executionDate","to","data","txHash","transfers","from"],"type":"object","properties":{"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"to":{"title":"To","type":"string","x-nullable":true},"data":{"title":"Data","type":"string"},"txHash":{"title":"Tx hash","type":"string"},"blockNumber":{"title":"Block number","type":"integer","readOnly":true},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","required":["executionDate","blockNumber","transactionHash","to","value","tokenId","tokenInfo","from"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"transactionHash":{"title":"Transaction hash","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1,"x-nullable":true},"tokenId":{"title":"Token id","type":"string","minLength":1,"x-nullable":true},"tokenAddress":{"title":"Token address","type":"string","x-nullable":true},"transferId":{"title":"Transfer id","description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`","type":"string","readOnly":true},"tokenInfo":{"refName":"TokenInfoResponse","required":["address","name","symbol","decimals","trusted"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"address":{"title":"Address","type":"string"},"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","readOnly":true},"trusted":{"title":"Trusted","type":"boolean"}}},"from":{"title":"From","type":"string"}}}},"txType":{"title":"Tx type","type":"string","readOnly":true},"from":{"title":"From","type":"string"}}}}},"description":"A list with every element with the structure of one of these transactiontypes"},{"code":"422","schema":{},"description":"code = 1: Checksum address validation failed"}]} />
+    <Responses responses={[{"code":"200","schema":{"refName":"AllTransactionsSchema","required":["txType1","txType2","txType3"],"type":"object","properties":{"txType1":{"refName":"SafeModuleTransactionWithTransfersResponse","required":["executionDate","blockNumber","transactionHash","safe","module","to","value","data","operation","moduleTransactionId","transfers"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string"},"safe":{"title":"Safe","type":"string","minLength":1},"module":{"title":"Module","type":"string","minLength":1},"to":{"title":"To","type":"string","minLength":1},"value":{"title":"Value","type":"string","format":"decimal"},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","enum":[0,1,2]},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"moduleTransactionId":{"title":"Module transaction id","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`","type":"string","minLength":1},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","required":["executionDate","blockNumber","transactionHash","to","value","tokenId","tokenInfo","from"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"transactionHash":{"title":"Transaction hash","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1,"x-nullable":true},"tokenId":{"title":"Token id","type":"string","minLength":1,"x-nullable":true},"tokenAddress":{"title":"Token address","type":"string","x-nullable":true},"transferId":{"title":"Transfer id","description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`","type":"string","readOnly":true},"tokenInfo":{"refName":"TokenInfoResponse","required":["address","name","symbol","decimals","trusted"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"address":{"title":"Address","type":"string"},"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","readOnly":true},"trusted":{"title":"Trusted","type":"boolean"}}},"from":{"title":"From","type":"string"}}}},"txType":{"title":"Tx type","type":"string","readOnly":true}}},"txType2":{"refName":"SafeMultisigTransactionWithTransfersResponse","required":["safe","to","value","operation","safeTxGas","baseGas","gasPrice","nonce","executionDate","submissionDate","modified","transactionHash","safeTxHash","proposer","isExecuted","confirmationsRequired","trusted","transfers"],"type":"object","properties":{"safe":{"title":"Safe","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","minimum":0},"gasToken":{"title":"Gas token","type":"string","x-nullable":true},"safeTxGas":{"title":"Safe tx gas","type":"integer","minimum":0},"baseGas":{"title":"Base gas","type":"integer","minimum":0},"gasPrice":{"title":"Gas price","type":"string","minLength":1},"refundReceiver":{"title":"Refund receiver","type":"string","x-nullable":true},"nonce":{"title":"Nonce","type":"integer","minimum":0},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"submissionDate":{"title":"Submission date","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string"},"safeTxHash":{"title":"Safe tx hash","type":"string"},"proposer":{"title":"Proposer","type":"string"},"executor":{"title":"Executor","type":"string","readOnly":true},"isExecuted":{"title":"Is executed","type":"boolean"},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"ethGasPrice":{"title":"Eth gas price","type":"string","readOnly":true},"maxFeePerGas":{"title":"Max fee per gas","type":"string","readOnly":true},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"string","readOnly":true},"gasUsed":{"title":"Gas used","type":"integer","readOnly":true},"fee":{"title":"Fee","type":"integer","readOnly":true},"origin":{"title":"Origin","type":"string","readOnly":true},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"confirmationsRequired":{"title":"Confirmations required","type":"integer"},"confirmations":{"refName":"SafeMultisigConfirmationResponse","description":"\nFilters confirmations queryset\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n","required":["owner","submissionDate","signature"],"type":"object","properties":{"owner":{"title":"Owner","type":"string","minLength":1},"submissionDate":{"title":"Submission date","type":"string","format":"date-time"},"transactionHash":{"title":"Transaction hash","type":"string","readOnly":true},"signature":{"title":"Signature","type":"string"},"signatureType":{"title":"Signature type","type":"string","readOnly":true}}},"trusted":{"title":"Trusted","type":"boolean"},"signatures":{"title":"Signatures","type":"string","x-nullable":true},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","required":["executionDate","blockNumber","transactionHash","to","value","tokenId","tokenInfo","from"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"transactionHash":{"title":"Transaction hash","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1,"x-nullable":true},"tokenId":{"title":"Token id","type":"string","minLength":1,"x-nullable":true},"tokenAddress":{"title":"Token address","type":"string","x-nullable":true},"transferId":{"title":"Transfer id","description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`","type":"string","readOnly":true},"tokenInfo":{"refName":"TokenInfoResponse","required":["address","name","symbol","decimals","trusted"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"address":{"title":"Address","type":"string"},"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","readOnly":true},"trusted":{"title":"Trusted","type":"boolean"}}},"from":{"title":"From","type":"string"}}}},"txType":{"title":"Tx type","type":"string","readOnly":true}}},"txType3":{"refName":"EthereumTxWithTransfersResponse","required":["executionDate","to","data","txHash","transfers","from"],"type":"object","properties":{"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"to":{"title":"To","type":"string","x-nullable":true},"data":{"title":"Data","type":"string"},"txHash":{"title":"Tx hash","type":"string"},"blockNumber":{"title":"Block number","type":"integer","readOnly":true},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","required":["executionDate","blockNumber","transactionHash","to","value","tokenId","tokenInfo","from"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"transactionHash":{"title":"Transaction hash","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1,"x-nullable":true},"tokenId":{"title":"Token id","type":"string","minLength":1,"x-nullable":true},"tokenAddress":{"title":"Token address","type":"string","x-nullable":true},"transferId":{"title":"Transfer id","description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`","type":"string","readOnly":true},"tokenInfo":{"refName":"TokenInfoResponse","required":["address","name","symbol","decimals","trusted"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"address":{"title":"Address","type":"string"},"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","readOnly":true},"trusted":{"title":"Trusted","type":"boolean"}}},"from":{"title":"From","type":"string"}}}},"txType":{"title":"Tx type","type":"string","readOnly":true},"from":{"title":"From","type":"string"}}}}},"description":"A list with every element with the structure of one of these transactiontypes"},{"code":"422","schema":{},"description":"code = 1: Checksum address validation failed"}]} />
     <Feedback asPath={"/api-reference#List-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -1086,7 +1116,8 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aE
 
     
 
-    
+    Returns incoming ether/tokens transfers for a Safe.
+Only 1000 newest transfers will be returned.
 
     
 
@@ -1151,12 +1182,12 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aE
 
     
 
-    Returns the module transaction of a Safe
+    Returns all the transactions executed from modules given a Safe address
 
     
 
     <Parameters parameters={[{"name":"safe","in":"query","description":"safe","required":false,"type":"string"},{"name":"module","in":"query","description":"module","required":false,"type":"string"},{"name":"to","in":"query","description":"to","required":false,"type":"string"},{"name":"operation","in":"query","description":"operation","required":false,"type":"string","enum":[0,1,2]},{"name":"failed","in":"query","description":"failed","required":false,"type":"string"},{"name":"block_number","in":"query","description":"block_number","required":false,"type":"string"},{"name":"block_number__gt","in":"query","description":"block_number__gt","required":false,"type":"string"},{"name":"block_number__lt","in":"query","description":"block_number__lt","required":false,"type":"string"},{"name":"transaction_hash","in":"query","description":"transaction_hash","required":false,"type":"string"},{"name":"ordering","in":"query","description":"Which field to use when ordering the results.","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"}]} />
-    <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"refName":"SafeModuleTransactionResponse","required":["executionDate","safe","module","to","value","data","operation"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer","readOnly":true},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string","readOnly":true},"safe":{"title":"Safe","type":"string","minLength":1},"module":{"title":"Module","type":"string","minLength":1},"to":{"title":"To","type":"string","minLength":1},"value":{"title":"Value","type":"string","format":"decimal"},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","enum":[0,1,2]},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"moduleTransactionId":{"title":"Module transaction id","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`","type":"string","readOnly":true}}}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"},{"code":"422","schema":{},"description":"Invalid ethereum address"}]} />
+    <Responses responses={[{"code":"200","schema":{"required":["count","results"],"type":"object","properties":{"count":{"type":"integer"},"next":{"type":"string","format":"uri","x-nullable":true},"previous":{"type":"string","format":"uri","x-nullable":true},"results":{"type":"array","items":{"refName":"SafeModuleTransactionResponse","required":["executionDate","blockNumber","transactionHash","safe","module","to","value","data","operation","moduleTransactionId"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string"},"safe":{"title":"Safe","type":"string","minLength":1},"module":{"title":"Module","type":"string","minLength":1},"to":{"title":"To","type":"string","minLength":1},"value":{"title":"Value","type":"string","format":"decimal"},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","enum":[0,1,2]},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"moduleTransactionId":{"title":"Module transaction id","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`","type":"string","minLength":1}}}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"},{"code":"422","schema":{},"description":"Invalid ethereum address"}]} />
     <Feedback asPath={"/api-reference#List-a-Safe's-Module-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -1222,8 +1253,8 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aE
 
     
 
-    Returns a paginated list of Multisig Transactions for a Safe.
-By default only ``trusted`` multisig transactions are returned.
+    Returns all the multi-signature transactions for a given Safe address.
+By default, only ``trusted`` multisig transactions are returned.
 
     
 
@@ -1325,7 +1356,8 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aE
 
     
 
-    Creates a Multisig Transaction with its confirmations and retrieves all the information related.
+    Creates a multi-signature transaction for a given Safe account with its confirmations and
+retrieves all the information related.
 
     
 
@@ -1382,7 +1414,7 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72a
 
     
 
-    Estimates `safeTxGas` for a Safe Multisig Transaction.
+    Returns the estimated `safeTxGas` for a given Safe address and multi-signature transaction
 
     
 
@@ -1435,7 +1467,8 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72a
 
     
 
-    
+    Returns the list of token transfers for a given Safe address.
+Only 1000 newest transfers will be returned.
 
     
 
@@ -1528,7 +1561,7 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aE
 
     
 
-    :return: transfer filtered by transfer_id
+    Returns a token transfer associated with the given transfer ID
 
     
 
@@ -1575,7 +1608,7 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/transfer/3b3b57b
 
     
 
-    Return Safes where the module address provided is enabled
+    Returns the list of Safe modules enabled for a given Safe account
 
     
 
@@ -1628,7 +1661,7 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/modules/0xcd2E72
 
     
 
-    Return Safes where the address provided is an owner
+    Returns the list of Safe accounts that have the given address as their owner
 
     
 
@@ -1681,7 +1714,7 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/owners/0xcd2E72a
 
     
 
-    
+    Returns a SafeOperation given its Safe operation hash
 
     
 
@@ -1845,7 +1878,7 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safe-operations
 
     
 
-    
+    Returns the list of SafeOperations for a given Safe account
 
     
 
@@ -1964,13 +1997,9 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aE
 <Grid container justifyContent='space-between'>
   <Grid item xs={12} md={5.6}>
 
-    Create a new 4337 ``SafeOperation`` for a Safe.
+    
 
-    :param request:
-:param address:
-:param args:
-:param kwargs:
-:return:
+    Adds a new SafeOperation for a given Safe account
 
     
 
@@ -2026,7 +2055,7 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72a
 
     
 
-    
+    Returns the list of UserOperations for a given Safe account
 
     
 
@@ -2147,7 +2176,7 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aE
 
     
 
-    
+    Returns a UserOperation given its user operation hash
 
     
 
@@ -2215,7 +2244,7 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/user-operations/
 
     
 
-    Get status of the safe
+    Returns detailed information of a given Safe account
 
     
 
@@ -2274,7 +2303,7 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aE
 
     
 
-    Get balance for Ether and ERC20 tokens
+    Get balance for Ether and ERC20 tokens of a given Safe account
 
     
 
@@ -2335,7 +2364,7 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aE
 
     
 
-    Get status of the safe
+    Returns detailed information on the Safe creation transaction of a given Safe account
 
     
 
@@ -2462,6 +2491,48 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aE
   marginBottom: '112px'
 }} />
 
+### /v2/safes/\{address\}/balances/ - GET
+
+<Grid container justifyContent='space-between'>
+  <Grid item xs={12} md={5.6}>
+
+    
+
+    Get paginated balances for Ether and ERC20 tokens.
+The maximum limit allowed is 200.
+
+    
+
+    <Parameters parameters={[{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"},{"name":"trusted","in":"query","description":"If `True` just trusted tokens will be returned","type":"boolean","default":false},{"name":"exclude_spam","in":"query","description":"If `True` spam tokens will not be returned","type":"boolean","default":false}]} />
+    <Responses responses={[{"code":"200","schema":{"type":"array","items":{"refName":"SafeBalanceResponse","required":["tokenAddress","token","balance"],"type":"object","properties":{"tokenAddress":{"title":"Token address","type":"string","minLength":1},"token":{"refName":"Erc20Info","required":["name","symbol","decimals","logoUri"],"type":"object","properties":{"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","minLength":1}}},"balance":{"title":"Balance","type":"string","minLength":1}}}},"description":""},{"code":"404","schema":{},"description":"Safe not found"},{"code":"422","schema":{},"description":"Safe address checksum not valid"}]} />
+    <Feedback asPath={"/api-reference#-v2-safes-\{address\}-balances----GET"} label='Did this API route run successfully?' small />
+  </Grid>
+  <Grid item xs={12} md={5.6}>
+    <Path path="/v2/safes/{address}/balances/" method="get" />
+
+    <SampleRequestHeader method="get" pathWithParams="/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/" />
+
+    <CH.Section>
+      <CH.Code>
+        
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    
+```
+      </CH.Code>
+    </CH.Section>
+    <NetworkNotice />
+
+    
+  </Grid>
+</Grid>
+<Hr style={{ 
+  marginTop: '112px',
+  marginBottom: '112px'
+}} />
+
 ### List Collectibles
 
 <Grid container justifyContent='space-between'>
@@ -2469,7 +2540,8 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aE
 
     
 
-    Get collectibles (ERC721 tokens) and information about them
+    Get paginated collectibles (ERC721 tokens) and information about them of a given Safe account.
+The maximum limit allowed is 10.
 
     
 
@@ -2538,7 +2610,7 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v2/safes/0xcd2E72aE
 
     
 
-    
+    Returns the list of tokens supported in the Safe Transaction Service
 
     
 
@@ -2607,7 +2679,7 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/tokens/ \
 
     
 
-    
+    Returns detailed information on a given token supported in the Safe Transaction Service
 
     
 
