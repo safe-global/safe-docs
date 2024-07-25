@@ -2688,7 +2688,11 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/tokens/ \
     <CH.Section>
       <CH.Code>
         
-```bash 
+  ```js query.js
+    // from ./examples/-v1-tokens-{address}--get.ts
+  ```
+  
+```bash curl.sh
 curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -2698,7 +2702,20 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/tokens/0xcd2E72a
     </CH.Section>
     <NetworkNotice />
 
-    
+    #### Sample Response
+
+```json
+{
+  "type": "ERC20",
+  "address": "0x687e43D0aB3248bDfebFE3E8f9F1AB2B9FcE982d",
+  "name": "0x5555.com",
+  "symbol": "0x5555.com",
+  "decimals": 18,
+  "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x687e43D0aB3248bDfebFE3E8f9F1AB2B9FcE982d.png",
+  "trusted": false
+}
+
+```
   </Grid>
 </Grid>
 <Hr style={{ 
