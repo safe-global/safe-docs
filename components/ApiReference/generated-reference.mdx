@@ -1373,7 +1373,11 @@ retrieves all the information related.
     <CH.Section>
       <CH.Code>
         
-```bash 
+  ```js query.js
+    // from ./examples/-v1-safes-{address}-multisig-transactions--post.ts
+  ```
+  
+```bash curl.sh
 curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -1399,7 +1403,14 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72a
     </CH.Section>
     <NetworkNotice />
 
-    
+    #### Sample Response
+
+```json
+{
+  "safeTxGas": "45683"
+}
+
+```
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -1666,7 +1677,11 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/modules/0xcd2E72
     <CH.Section>
       <CH.Code>
         
-```bash 
+  ```js query.js
+    // from ./examples/-v1-owners-{address}-safes--get.ts
+  ```
+  
+```bash curl.sh
 curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -1680,8 +1695,19 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/owners/0xcd2E72a
 
 ```json
 {
-  "safes": []
+  "safes": [
+    "0xd0540ECBB3010E5f8d780B62Af3aB936fB6C0c75",
+    "0x44eBdc9aCE42d6742a3df2813CB437834e6F05B0",
+    "0x25D641a9eE275CE94b64bE1227e610b77e776522",
+    "0xeFEe5E6394a02eE0ba61731Da014eE8aE8BcDe83",
+    "0xCfF743C4445eAd58105a793B34eB02125e830dB0",
+    "0x27000f745b020bD386D7712A4ca32AF7a2E3A7Fe",
+    "0xb53a6B6f67847cfF94fDb94B90345cB45a2c7301",
+    "0x1f01FC62f168099493705bDF7A05b539946832bc",
+    "0x5298A93734C3D979eF1f23F78eBB871879A21F22"
+  ]
 }
+
 ```
   </Grid>
 </Grid>
