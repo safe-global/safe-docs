@@ -1,0 +1,19 @@
+[
+  // Native coin (Sepolia ETH):
+  {
+    "tokenAddress": null,
+    "token": null,
+    "balance": "9899990000000000"
+  },
+  // ERC20 token:
+  {
+    "tokenAddress": "0x0D5b70467E61125b242E70831aEd15D7C12E3F0D",
+    "token": {
+      "name": "SampleToken",
+      "symbol": "ST",
+      "decimals": 18,
+      "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x0D5b70467E61125b242E70831aEd15D7C12E3F0D.png"
+    },
+    "balance": "10000000000000000000"
+  }
+]
