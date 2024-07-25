@@ -12,7 +12,6 @@ const repos = [
       '/lib/mintNFT.ts',
       '/components/LoginWithPasskey.tsx',
       '/components/SafeAccountDetails.tsx',
-      '/components/SafeThemeProvider.tsx',
       '/app/page.tsx',
       '/app/layout.tsx'
     ]
