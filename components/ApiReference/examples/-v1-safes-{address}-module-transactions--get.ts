@@ -1,1 +1,1 @@
-const moduleTxs = await apiKit.getModuleTransactions(safeAddress);
+const moduleTxs = await apiKit.getModuleTransactions(safeAddress)
