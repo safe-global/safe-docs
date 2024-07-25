@@ -10,7 +10,9 @@ const repos = [
       '/lib/constants.ts',
       '/lib/passkeys.ts',
       '/lib/mintNFT.ts',
-      '/components/PasskeyList.tsx',
+      '/components/LoginWithPasskey.tsx',
+      '/components/SafeAccountDetails.tsx',
+      '/components/SafeThemeProvider.tsx',
       '/app/page.tsx',
       '/app/layout.tsx'
     ]

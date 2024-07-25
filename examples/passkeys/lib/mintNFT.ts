@@ -22,16 +22,10 @@ const paymasterOptions = {
  * @returns {Promise<void>}
  * @throws {Error} If the operation fails.
  */
-export const mintNFT = async ({
-  signer,
-  safeAddress
-}: {
-  signer: PasskeyArgType
-  safeAddress: string
-}) => {
+export const mintNFT = async (passkey: PasskeyArgType, safeAddress: string) => {
   const safe4337Pack = await Safe4337Pack.init({
     provider: RPC_URL,
-    signer,
+    signer: passkey,
     bundlerUrl: BUNDLER_URL,
     paymasterOptions,
     options: {
