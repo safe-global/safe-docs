@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": [
-      "ESNext",
-      "DOM",
-      "DOM.Iterable",
-      "ES2021.String"
-    ],
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "ES2021.String"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -24,9 +19,7 @@
     "incremental": true,
     "sourceMap": true,
     "outDir": "dist",
-    "types": [
-      "cypress"
-    ]
+    "types": ["cypress"]
   },
   "include": [
     "next-env.d.ts",
@@ -35,8 +28,5 @@
     ".eslintrc.js",
     "**/scripts/**/*"
   ],
-  "exclude": [
-    "node_modules",
-    "**/examples/**"
-  ]
+  "exclude": ["node_modules", "**/examples/**"]
 }
