@@ -31,7 +31,6 @@ const ReportIssue: React.FC<{
     <Button
       onClick={() => {
         sendGAEvent('event', 'issue', {
-          asPath,
           ...(asPath?.includes('transaction-service-reference') === true
             ? { network }
             : {})
@@ -80,15 +79,14 @@ const Feedback: React.FC<{
     setLoading(true)
     sendGAEvent('event', 'feedback_comments', {
       positive: isPositive === true ? 1 : 0,
-      asPath,
       feedbackId,
       ...(asPath?.includes('transaction-service-reference') === true
         ? { network }
         : {})
     })
     if (
-      process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL != null &&
-      process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true'
+      process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL != null
+      && process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true'
     ) {
       await fetch(process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL, {
         method: 'POST',
@@ -96,7 +94,7 @@ const Feedback: React.FC<{
           date: new Date().getTime(),
           feedbackId,
           asPath,
-          isPositive,
+          positive: isPositive === true ? 1 : 0,
           feedback,
           steps,
           version,
@@ -105,7 +103,7 @@ const Feedback: React.FC<{
             ? { network }
             : {})
         })
-      })
+      }).catch(console.error)
     }
     setLoading(false)
     setSubmitted(true)
@@ -268,7 +266,6 @@ const Feedback: React.FC<{
                     size={small ? 'small' : undefined}
                     onClick={() => {
                       sendGAEvent('event', 'feedback', {
-                        asPath,
                         positive: 1,
                         ...(asPath?.includes(
                           'transaction-service-reference'
@@ -329,7 +326,6 @@ const Feedback: React.FC<{
                       }}
                       onClick={() => {
                         sendGAEvent('event', 'feedback', {
-                          asPath,
                           positive: 1,
                           ...(asPath?.includes(
                             'transaction-service-reference'
@@ -358,7 +354,6 @@ const Feedback: React.FC<{
                       }}
                       onClick={() => {
                         sendGAEvent('event', 'feedback', {
-                          asPath,
                           positive: 0,
                           ...(asPath?.includes(
                             'transaction-service-reference'
