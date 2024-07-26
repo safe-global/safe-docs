@@ -269,7 +269,7 @@ const generateMethodContent = (path, method) => {
 
     <Parameters parameters={${JSON.stringify(_method.parameters ?? [])}} />
     <Responses responses={${JSON.stringify(responses)}} />
-    <Feedback asPath={"/api-reference#${slugify(
+    <Feedback asPath={"/core-api/transaction-service-reference#${slugify(
       title
     )}"} label='Did this API route run successfully?' small />
   </Grid>
