@@ -1044,7 +1044,11 @@ by a delegate). If you need that behaviour to be disabled set the query paramete
     <CH.Section>
       <CH.Code>
         
-```bash 
+  ```js query.js
+    // from ./examples/-v1-safes-{address}-all-transactions--get.ts
+  ```
+  
+```bash curl.sh
 curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -1299,7 +1303,11 @@ By default, only ``trusted`` multisig transactions are returned.
     <CH.Section>
       <CH.Code>
         
-```bash 
+  ```js query.js
+    // from ./examples/-v1-safes-{address}-multisig-transactions--get.ts
+  ```
+  
+```bash curl.sh
 curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
