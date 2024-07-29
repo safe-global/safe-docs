@@ -636,7 +636,7 @@
     "/v1/modules/{address}/safes/": {
       "get": {
         "operationId": "v1_modules_safes_list",
-        "description": "Returns the list of Safe modules enabled for a given Safe account",
+        "description": "Returns the list of Safes that have the provided module enabled",
         "parameters": [],
         "responses": {
           "200": {
@@ -3741,7 +3741,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "51d50f00-2a81-4611-99d0-21d93cff92c9"
+          "default": "70eb75f9-0245-4de5-ab66-8634507b34c7"
         },
         "safes": {
           "type": "array",
@@ -3810,7 +3810,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "e43650e5-22d7-4758-b3b7-ae2d4a745d77"
+          "default": "89b0abf4-eb96-440c-a56d-06179d43bab8"
         },
         "safes": {
           "type": "array",
