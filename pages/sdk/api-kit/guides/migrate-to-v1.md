@@ -4,7 +4,7 @@ This guide references the major changes between `safe-service-client` and `api-k
 
 **Note:** Follow this guide before migrating to `api-kit` v2.
 
-After completing this guide, you can remove `@safe-global/safe-service-client` from your package.json`.
+After completing this guide, you can remove `@safe-global/safe-service-client` from your `package.json`.
 
 ## Adding the new dependency
 

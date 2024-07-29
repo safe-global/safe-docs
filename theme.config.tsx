@@ -43,8 +43,14 @@ const config: DocsThemeConfig = {
   head: <link rel='icon' type='image/png' sizes='32x32' href='/favicon.png' />,
   useNextSeoProps: () => {
     const { asPath } = useRouter()
+    const titleTemplate =
+      (asPath === '/'
+        ? ''
+        : asPath === '/ethglobal-brussels'
+          ? 'ETHGlobal Brussels - '
+          : '%s – ') + 'Safe Docs'
     return {
-      titleTemplate: asPath !== '/' ? '%s – Safe Docs' : 'Safe Docs'
+      titleTemplate
     }
   },
   main: Main

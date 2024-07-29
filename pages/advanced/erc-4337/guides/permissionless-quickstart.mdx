@@ -54,7 +54,7 @@ pnpm install viem permissionless
 
   ### Setup
 
-  These are the constants that will be used in this guide. We have selected Gnosis as the chain, but other [supported networks](../4337-supported-networks.md) can be used. We also need the Pimlico API key and a private key we will use for the owner of the Safe.
+  These are the constants that will be used in this guide. We have selected Gnosis as the chain, but other [supported networks](../supported-networks.md) can be used. We also need the Pimlico API key and a private key we will use for the owner of the Safe.
 
   {/* <!-- vale off --> */}
 
@@ -81,7 +81,7 @@ pnpm install viem permissionless
   const signer = privateKeyToAccount(PRIVATE_KEY as Hash)
   ```
 
-  { /* <!-- vale on --> */}
+  {/* <!-- vale on --> */}
 
   ### Initialize the clients
 
@@ -97,7 +97,7 @@ pnpm install viem permissionless
   })
   ```
   
-  { /* <!-- vale on --> */}
+  {/* <!-- vale on --> */}
 
   Secondly, we instantiate the `bundlerClient` using the Pimlico API `v1`, which is dedicated to the Bundler methods. This API requires a `PIMLICO_API_KEY` that we can get from their [dashboard](https://dashboard.pimlico.io/apikeys).
 
@@ -110,7 +110,7 @@ pnpm install viem permissionless
   })
   ```
 
-  { /* <!-- vale on --> */}
+  {/* <!-- vale on --> */}
 
   Lastly, we instantiate the `paymasterClient` using the Pimlico API `v2`, which is dedicated to the Paymaster methods and responsible for interacting with Pimlico's Verifying Paymaster endpoint and requesting sponsorship.
 

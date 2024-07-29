@@ -7,9 +7,8 @@ import {
   experimental_extendTheme as extendMuiTheme
 } from '@mui/material/styles'
 import type { AppProps } from 'next/app'
-import { type ReactElement } from 'react'
 import Head from 'next/head'
-import { GoogleTagManager } from '@next/third-parties/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 import MetaTags from '../components/MetaTags'
 import { CookieBanner } from '../components/CookieBanner'
@@ -32,18 +31,20 @@ const App = ({
   emotionCache = clientSideEmotionCache
 }: AppProps & {
   emotionCache?: EmotionCache
-}): ReactElement => (
+}): React.ReactElement => (
   <>
     <Head>
       <MetaTags path={router.asPath} />
     </Head>
-    <GoogleTagManager
-      gtmId={String(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID)}
-    />
     <CacheProvider value={emotionCache}>
       <CssVarsProvider theme={cssVarsTheme}>
         <CookieBannerContextProvider>
           <CssBaseline />
+          {process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true' && (
+            <GoogleAnalytics
+              gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID ?? ''}
+            />
+          )}
           <Component {...pageProps} />
           <CookieBanner />
         </CookieBannerContextProvider>

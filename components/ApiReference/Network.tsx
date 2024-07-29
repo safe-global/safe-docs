@@ -32,6 +32,7 @@ const transactionServiceUrls = [
   'https://safe-transaction-optimism.safe.global',
   'https://safe-transaction-polygon.safe.global',
   'https://safe-transaction-zkevm.safe.global',
+  'https://safe-transaction-scroll.safe.global',
   'https://safe-transaction-sepolia.safe.global',
   'https://safe-transaction-zksync.safe.global'
 ]

@@ -1,3 +1,5 @@
+import { Callout } from 'nextra/components'
+
 # Safe Factory reference
 
 ### `init`
@@ -14,6 +16,29 @@ const safeFactory = await SafeFactory.init({
   signer
 })
 ```
+
+<Callout type='warning' emoji='⚠️'>
+  Compatibility with passkeys only available when using `@safe-global/protocol-kit@4.1.0-alpha.1` in Sepolia.
+</Callout>
+
+- The `signer` property
+
+  A passkey object can be passed as a signer to initialize an instance of the Safe Factory.
+
+```typescript
+import { SafeFactory, PasskeyArgType } from '@safe-global/protocol-kit'
+
+const passkey: PasskeyArgType = {
+  rawId,
+  coordinates,
+}
+
+const safeFactory = await SafeFactory.init({
+  provider,
+  signer: passkey
+})
+```
+
 
 - The `isL1SafeSingleton` flag
 
@@ -52,6 +77,7 @@ const safeFactory = await SafeFactory.init({
       signMessageLibAddress: '<SIGN_MESSAGE_LIB_ADDRESS>',
       createCallAddress: '<CREATE_CALL_ADDRESS>',
       simulateTxAccessorAddress: '<SIMULATE_TX_ACCESSOR_ADDRESS>',
+      safeWebAuthnSignerFactoryAddress:'<SAFE_WEB_AUTHN_SIGNER_FACTORY_ADDRESS>',
       safeSingletonAbi: '<SINGLETON_ABI>', // Optional. Only needed with web3.js
       safeProxyFactoryAbi: '<PROXY_FACTORY_ABI>', // Optional. Only needed with web3.js
       multiSendAbi: '<MULTI_SEND_ABI>', // Optional. Only needed with web3.js
@@ -60,6 +86,7 @@ const safeFactory = await SafeFactory.init({
       signMessageLibAbi: '<SIGN_MESSAGE_LIB_ABI>', // Optional. Only needed with web3.js
       createCallAbi: '<CREATE_CALL_ABI>', // Optional. Only needed with web3.js
       simulateTxAccessorAbi: '<SIMULATE_TX_ACCESSOR_ABI>' // Optional. Only needed with web3.js
+      safeWebAuthnSignerFactoryAbi: '<SAFE_WEB_AUTHN_SIGNER_FACTORY_ABI>' // Optional. Only needed with web3.js
     }
   }
 

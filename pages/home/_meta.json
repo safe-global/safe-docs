@@ -5,12 +5,19 @@
   },
   "what-is-safe": "What is Safe?",
   "safe-core": "Safe{Core}",
-  "-- ERC-4337": {
+  "-- Passkeys": {
     "type": "separator",
-    "title": "ERC-4337"
+    "title": "Passkeys"
   },
-  "4337-overview": "Overview",
-  "4337-safe": "Safe and ERC-4337",
-  "4337-supported-networks": "Supported Networks",
-  "4337-guides": "Guides"
+  "passkeys-overview": "Overview",
+  "passkeys-safe": "Safe and Passkeys",
+  "passkeys-supported-networks": "Supported Networks",
+  "passkeys-guides": "Guides",
+  "passkeys-tutorials": "Tutorials",
+  "passkeys-faqs": {
+    "title": "FAQs",
+    "theme": {
+      "toc": false
+    }
+  }
 }

@@ -2,11 +2,11 @@ import { Tabs, Steps, Callout } from 'nextra/components'
 
 # Safe accounts with the Safe4337Module
 
-In this guide, you will learn how to create and execute multiple Safe transactions grouped in a batch from a Safe account that is not yet deployed and where the executor may or may not have funds to pay for the transaction fees. This can be achieved by supporting the [ERC-4337](../../../glossary.md#erc-4337) execution flow, which is supported by the [Safe4337Module](../../../home/4337-safe.mdx) and exposed via the Relay Kit from the Safe\{Core\} SDK.
+In this guide, you will learn how to create and execute multiple Safe transactions grouped in a batch from a Safe account that is not yet deployed and where the executor may or may not have funds to pay for the transaction fees. This can be achieved by supporting the [ERC-4337](../../../glossary.md#erc-4337) execution flow, which is supported by the [Safe4337Module](../../../advanced/erc-4337/guides/safe-sdk.mdx) and exposed via the Relay Kit from the Safe\{Core\} SDK.
 
 [Pimlico](https://pimlico.io) is used in this guide as the service provider, but any other provider compatible with the ERC-4337 can be used.
 
-Read the [Safe4337Module documentation](../../../home/4337-safe.mdx) to understand its benefits and flows better.
+Read the [Safe4337Module documentation](../../../advanced/erc-4337/guides/safe-sdk.mdx) to understand its benefits and flows better.
 
 ## Prerequisites
 
@@ -67,7 +67,6 @@ yarn add @safe-global/relay-kit
       const safe4337Pack = await Safe4337Pack.init({
         provider: RPC_URL,
         signer: SIGNER_PRIVATE_KEY,
-        rpcUrl: RPC_URL,
         bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
         options: {
           owners: [SIGNER_ADDRESS],
@@ -84,7 +83,6 @@ yarn add @safe-global/relay-kit
       const safe4337Pack = await Safe4337Pack.init({
         provider: RPC_URL,
         signer: SIGNER_PRIVATE_KEY,
-        rpcUrl: RPC_URL,
         bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
         options: {
           safeAddress: '0x...'
@@ -97,11 +95,13 @@ yarn add @safe-global/relay-kit
 
   {/* <!-- vale on --> */}
 
-  By default, the transaction fees will be paid in the native token and extracted from the Safe account, so there must be enough funds in the Safe address. However, depending on how we want the transactions to be paid, there are two other ways we can initialize the `Safe4337Pack`. 
+  By default, the transaction fees will be paid in the native token and extracted from the Safe account, so there must be enough funds in the Safe address. 
+
+  You can also use a paymaster to handle the fees. If you choose to use a paymaster, there are two other ways to initialize the `Safe4337Pack`.
 
   {/* <!-- vale off --> */}
 
-  <Tabs items={['With an ERC-20 Paymaster', 'Sponsored by an ERC-20 Paymaster']}>
+  <Tabs items={['Using an ERC-20 Paymaster', 'Using a verifying Paymaster (Sponsored)']}>
     <Tabs.Tab>
       A paymaster will execute the transactions and get reimbursed from the Safe account, which must have enough funds in the Safe address in advance. 
       
@@ -111,7 +111,7 @@ yarn add @safe-global/relay-kit
       const safe4337Pack = await Safe4337Pack.init({
         // ...
         paymasterOptions: {
-          paymasterAddress: '0x...'
+          paymasterAddress: '0x...',
           paymasterTokenAddress: '0x...',
           amountToApprove // Optional
         }

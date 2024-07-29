@@ -4,7 +4,7 @@ import { Callout } from 'nextra/components'
 
 Safe has adopted a modular and flexible approach to integrating the ERC-4337, allowing users to turn their Safe account into an ERC-4337 smart account.
 
-Safe ERC-4337 compatibility is provided via [Safe Modules](../glossary.md#safe-module) and the Fallback Handler. This means the functionality is not implemented directly in the Safe Smart Account, but in the [Safe4337Module](https://github.com/safe-global/safe-modules/blob/main/modules/4337/contracts/Safe4337Module.sol) contract, which can be enabled in any Safe account at the Safe deployment time or afterward.
+Safe ERC-4337 compatibility is provided via [Safe Modules](../../glossary.md#safe-module) and the Fallback Handler. This means the functionality is not implemented directly in the Safe Smart Account, but in the [Safe4337Module](https://github.com/safe-global/safe-modules/blob/main/modules/4337/contracts/Safe4337Module.sol) contract, which can be enabled in any Safe account at the Safe deployment time or afterward.
 
 ## Safe4337Module
 
@@ -20,10 +20,10 @@ It implements the ERC-4337 interface, including the functions to validate and ex
 
 The Safe Proxy contract receives a call to the `validateUserOp` function from the `EntryPoint` and forwards it to the `Safe4337Module`. The module validates the `UserOperation` object by checking that the Safe owner(s) signed the `UserOperation` hash and returns the result. It also executes a module transaction to pay the fees back.
 
-![diagram validate userop](../../assets/diagram-4337-validate.png)
+![diagram validate userop](../../../assets/diagram-4337-validate.png)
 
 ### UserOperation execution
 
 After successful validation, the `EntryPoint` calls the `executeUserOp` function, forwarding it again to the module, which executes a module transaction with the target and data specified in the `UserOperation` object.
 
-![diagram execute userop](../../assets/diagram-4337-execute.png)
+![diagram execute userop](../../../assets/diagram-4337-execute.png)

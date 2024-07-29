@@ -1,0 +1,138 @@
+import { Steps } from 'nextra/components'
+import CustomCard from '../../../components/CustomCard'
+
+# Safe and ERC-7579
+
+The Safe7579 Adapter is a smart contract developed by Rhinestone and Safe to make Safe Smart Accounts compliant with ERC-7579. Through this, [14 audited modules](https://github.com/rhinestonewtf/core-modules/tree/main/src) developed by Rhinestone will be available for builders building with the Safe7579 Adapter, such as a dead man switch, flash-loan, social recovery, etc.
+
+Additionally, the Rhinestone registry provides per-transaction security checks on modules, so modules with security compromises are automatically disabled for your account.
+
+![diagram-safe-7579](../../../assets/diagram-safe-7579.png)
+
+## Safe7579 Adapter
+
+As ERC-7579 is a superset of ERC-4337, the Safe7579 Adapter ensures full compliance with ERC-4337. The Safe7579 Adapter is both a Safe Module and a Fallback Handler. 
+- **Safe Module:** It extends the functionality of a Safe account, allowing it to utilize ERC-7579 modules.
+- **Fallback Handler:** It is a fallback handler because certain functions, such as validateUserOp in ERC-7579, are not natively supported by Safe.
+
+Additionally, a launchpad contract facilitates the setup of new Safes with Safe7579 Adapter.
+
+## Creation of new Safes compatible with ERC-7579
+
+The launchpad contract works around the 4337 limitations, which allows the deployment of exactly one contract whose address matches the sender of the user operation.
+
+The creation of new Safes occurs in the following three high-level steps.
+
+<Steps>
+    ### Creation by Factory
+    -  Bundler informs `Entrypoint` to `handleUserOps`.
+    -  Entrypoint calls `SenderCreator` to call `SafeProxyFactory`.
+    - `SenderCreator` requests `safeProxy` creation from `SafeProxyFactory` using `createProxyWithNonce`.
+    - `SafeProxyFactory` creates a new `SafeProxy` using `create2`.
+    - `SafeProxy` is created with a singleton address set to `Launchpad` .
+    - `initHash` is stored in the `SafeProxy` storage.
+    
+    ### Validation Phase
+    - `Entrypoint` validates user operations in `SafeProxy` via `validateUserOp`.
+    - `SafeProxy` delegates validation to `Launchpad`.
+    - `Launchpad` ensures the presence of `initHash` from phase one and calls `Safe7579.launchpadValidators`.
+    - `ValidatorModule` gets installed by `Launchpad`.
+    - `ValidatorModule` validates user operations and returns `packedValidationData`.
+    - `Launchpad` returns packedValidationData to `SafeProxy`, `SafeProxy` returns to `Entrypoint`.
+    
+    ### Execution Phase
+    - `Entrypoint` triggers `launchpad.setupSafe()` in `SafeProxy`.
+    - `SafeProxy` delegates the setup to `Launchpad`.
+    - `LaunchPad` upgrades `SafeStorage.singleton` to `SafeSingleton`.
+    - `LaunchPad` calls `SafeProxy.setup()` to initialize `SafeSingleton`.
+    - Setup function in `SafeProxy.setup()` delegatecalls to `lauchpad.initSafe7579`.
+    - `initSafe7579()` initializes `Safe7579` with executors, fallbacks, hooks, `IERC7484` registry.
+</Steps>
+
+The following detailed sequence outlines the creation, validation, and execution phases in the system's operation.
+
+{/* <!-- vale off --> */}
+
+``` mermaid
+sequenceDiagram
+participant Bundler
+participant Entrypoint
+participant SenderCreator
+participant SafeProxyFactory
+participant SafeProxy
+participant SafeSingleton
+participant Launchpad
+participant Safe7579
+participant Registry
+participant EventEmitter
+participant ValidatorModule
+participant Executor
+
+alt Creation by Factory
+Bundler->>Entrypoint: handleUserOps
+Entrypoint->>SenderCreator: create this initcode
+SenderCreator->>+SafeProxyFactory: createProxyWithNonce(launchpad, intializer, salt)
+SafeProxyFactory-->>SafeProxy: create2
+SafeProxy-->Launchpad: singleton = launchpad
+SafeProxyFactory->>+SafeProxy: preValidationSetup (initHash, to, preInit)
+SafeProxy-->>+Launchpad: preValidationSetup (initHash, to, preInit) [delegatecall]
+Note over Launchpad: sstore initHash
+SafeProxy-->>SafeProxyFactory: created
+SafeProxyFactory-->>Entrypoint: created sender
+end
+
+alt Validation Phase
+Entrypoint->>+SafeProxy: validateUserOp
+SafeProxy-->>Launchpad: validateUserOp [delegatecall]
+Note right of Launchpad: only initializeThenUserOp.selector
+Note over Launchpad: require inithash (sload)
+Launchpad->>Safe7579: launchpadValidators() [call]
+Note over Safe7579: write validator(s) to storage
+
+loop
+Launchpad ->> ValidatorModule: onInstall()
+Note over Launchpad: emit ModuleInstalled (as SafeProxy)
+
+end
+Note over Launchpad: get validator module selection from userOp.nonce
+Launchpad ->> ValidatorModule: validateUserOp(userOp, userOpHash)
+ValidatorModule ->> Launchpad: packedValidationData
+Launchpad-->>SafeProxy: packedValidationData
+SafeProxy->>-Entrypoint: packedValidationData
+end
+
+alt Execution Phase
+Entrypoint->>+SafeProxy: setupSafe
+SafeProxy-->>Launchpad: setupSafe [delegatecall]
+Note over SafeProxy, Launchpad: sstore safe.singleton == SafeSingleton
+Launchpad->>SafeProxy: safe.setup() [call]
+SafeProxy->>SafeSingleton: safe.setup() [delegatecall]
+Note over SafeSingleton: setup function in Safe has a delegatecall
+SafeSingleton-->>Launchpad: initSafe7579WithRegistry [delegatecall]
+Launchpad->>SafeProxy: this.enableModule(safe7579)
+SafeProxy-->>SafeSingleton: enableModule (safe7579) [delegatecall]
+SafeSingleton->>Safe7579: initializeAccountWithRegistry
+Note over Safe7579: msg.sender: SafeProxy
+alt SetupRegistry
+Safe7579-->SafeProxy: exec set attesters on registry
+SafeProxy-->>SafeSingleton: exec set attesters on registry
+SafeSingleton->>Registry: set attesters (attesters[], threshold)
+end
+loop installation of modules
+Safe7579->>Registry: checkForAccount(SafeProxy, moduleaddr, moduleType)
+Safe7579->>SafeProxy: exec call onInstall on module
+SafeProxy-->>SafeSingleton: exec call onInstall on Module [delegatecall]
+SafeSingleton->>Executor: onInstall() [call]
+Safe7579->>SafeProxy: exec EventEmitter
+SafeProxy-->>SafeSingleton: exec EventEmitter [delegatecall]
+SafeSingleton-->>EventEmitter: emit ModuleInstalled() [delegatecall]
+Note over EventEmitter: emit ModuleInstalled() as SafeProxy
+end
+Safe7579->>SafeProxy: exec done
+SafeProxy->-Entrypoint: exec done
+end
+```
+{/* <!-- vale on --> */}
+
+## Further reading
+- [Safe7579 on GitHub](https://github.com/rhinestonewtf/safe7579)

@@ -1,0 +1,52 @@
+{
+  "name": "ETHGlobal Brussels",
+  "start": "2024-07-12T00:00:00Z",
+  "end": "2024-07-14T00:00:00Z",
+  "venue": {
+    "name": "The Egg",
+    "address": "Rue Bara 175, 1070 Anderlecht, Belgium",
+    "booth": "Our booth is located in the main hall. Come say hi!"
+  },
+  "url": "https://ethglobal.com/events/brussels",
+  "bounties": [
+    {
+      "name": "🚀 Best app integrating ERC-7579 Safe Smart Accounts",
+      "description": "Build an application that supports Safe accounts v1.4.1, integrates Pimlico's permissionless.js, Rhinestone's ModuleKit, and uses the Safe7579Adapter.",
+      "prize": {
+        "value": 4000,
+        "currency": "$"
+      }
+    },
+    {
+      "name": "🔑 Best app integrating Passkeys with the Safe Smart Account",
+      "description": "Build an application that integrates Passkeys using the Safe{Core} SDK.",
+      "prize": {
+        "value": 4000,
+        "currency": "$"
+      }
+    },
+    {
+      "name": "🃏 Best app integrating Safe (wildcard)",
+      "description": "Build any useful application with Safe users in mind. There are no limitations on the idea or technologies used.",
+      "prize": {
+        "value": 2000,
+        "currency": "$"
+      }
+    }
+  ],
+  "workshops": [
+    {
+      "title": "Integrating Passkeys with the Safe Smart Account",
+      "location": "Workshop Room 4",
+      "start": "2024-07-12T12:40:00Z",
+      "end": "2024-07-12T13:10:00Z",
+      "speaker": "Germán Martinez"
+    }
+  ],
+  "team": [
+    "Germán Martinez",
+    "Louis Margot-Duclot",
+    "Valentin Seehausen"
+  ],
+  "discord": "ETHCC2024"
+}

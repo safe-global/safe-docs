@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import {
   Button,
   Grid,
@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import NextLink from 'next/link'
-import { sendGTMEvent } from '@next/third-parties/google'
+import { sendGAEvent } from '@next/third-parties/google'
 
 import FeedbackGood from '../../assets/svg/feedback-good.svg'
 import FeedbackBad from '../../assets/svg/feedback-bad.svg'
@@ -25,7 +25,9 @@ const ReportIssue: React.FC<{ small?: boolean }> = ({ small = false }) => (
   >
     <Button
       onClick={() => {
-        sendGTMEvent({ event: 'issue', path: window.location.pathname })
+        sendGAEvent('event', 'issue', {
+          path: window.location.pathname
+        })
       }}
       size={small ? 'small' : undefined}
       sx={{
@@ -54,16 +56,24 @@ const Feedback: React.FC<{
   const [version, setVersion] = useState('')
   const [errorFix, setErrorFix] = useState('')
 
+  useEffect(() => {
+    setIsPositive(null)
+    setFeedback('')
+    setSteps('')
+    setVersion('')
+    setErrorFix('')
+    setSubmitted(false)
+  }, [asPath])
+
   if (asPath === '/support') return null
 
   const handleSubmit = (): void => {
     setLoading(true)
-    sendGTMEvent({
-      event: 'feedback',
+    sendGAEvent('event', 'feedback', {
       path:
         window.location.pathname +
         (asPath?.includes('/api-reference') === true ? network : ''),
-      positive: isPositive,
+      positive: isPositive === true ? 1 : 0,
       feedback,
       steps,
       version,
@@ -227,10 +237,9 @@ const Feedback: React.FC<{
                     }}
                     size={small ? 'small' : undefined}
                     onClick={() => {
-                      sendGTMEvent({
-                        event: 'feedback',
+                      sendGAEvent('event', 'feedback', {
                         path: window.location.pathname,
-                        positive: true
+                        positive: 1
                       })
                       setIsPositive(true)
                     }}
@@ -247,10 +256,9 @@ const Feedback: React.FC<{
                     }}
                     size={small ? 'small' : undefined}
                     onClick={() => {
-                      sendGTMEvent({
-                        event: 'feedback',
+                      sendGAEvent('event', 'feedback', {
                         path: window.location.pathname,
-                        positive: false
+                        positive: 0
                       })
                       setIsPositive(false)
                     }}
@@ -280,10 +288,9 @@ const Feedback: React.FC<{
                         }
                       }}
                       onClick={() => {
-                        sendGTMEvent({
-                          event: 'feedback',
+                        sendGAEvent('event', 'feedback', {
                           path: window.location.pathname,
-                          positive: true
+                          positive: 1
                         })
                         setIsPositive(true)
                       }}
@@ -305,10 +312,9 @@ const Feedback: React.FC<{
                         }
                       }}
                       onClick={() => {
-                        sendGTMEvent({
-                          event: 'feedback',
+                        sendGAEvent('event', 'feedback', {
                           path: window.location.pathname,
-                          positive: false
+                          positive: 0
                         })
                         setIsPositive(false)
                       }}
