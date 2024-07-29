@@ -283,7 +283,11 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/data-decoder/ \
     <CH.Section>
       <CH.Code>
         
-```bash 
+  ```js query.js
+    // from ./examples/-v2-delegates--get.ts
+  ```
+  
+```bash curl.sh
 curl -X GET https://safe-transaction-sepolia.safe.global/api/v2/delegates/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -340,7 +344,11 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
     <CH.Section>
       <CH.Code>
         
-```bash 
+  ```js query.js
+    // from ./examples/-v2-delegates--post.ts
+  ```
+  
+```bash curl.sh
 curl -X POST https://safe-transaction-sepolia.safe.global/api/v2/delegates/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
