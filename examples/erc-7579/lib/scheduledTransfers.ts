@@ -1,10 +1,12 @@
 import {
-  getScheduledTransactionData,
-  getInstallScheduledTransfersExecutor,
-  getCreateScheduledTransferAction
+  getScheduledTransferData,
+  getScheduledTransfersExecutor,
+  getCreateScheduledTransferAction,
+  getExecuteScheduledTransferAction
 } from '@rhinestone/module-sdk'
 
 import { SafeSmartAccountClient } from './permissionless'
+import abi from '../abi/ScheduleTransfersModule.json'
 
 export interface ScheduledTransferDataInput {
   startDate: number
@@ -24,7 +26,7 @@ export const install7579Module = async (
 ) => {
   const { startDate, repeatEvery, numberOfRepeats, amount, recipient } =
     scheduledTransferInput
-  const scheduledTransaction = {
+  const scheduledTransfer = {
     startDate,
     repeatEvery,
     numberOfRepeats,
@@ -36,11 +38,11 @@ export const install7579Module = async (
     recipient
   }
 
-  const executionData = getScheduledTransactionData({
-    scheduledTransaction
+  const executionData = getScheduledTransferData({
+    scheduledTransfer
   })
 
-  const scheduledTransfersModule = getInstallScheduledTransfersExecutor({
+  const scheduledTransfersModule = getScheduledTransfersExecutor({
     executeInterval: repeatEvery,
     numberOfExecutions: numberOfRepeats,
     startDate,
@@ -50,7 +52,7 @@ export const install7579Module = async (
   const txHash = await safe.installModule({
     type: 'executor',
     address: scheduledTransfersModuleAddress,
-    context: scheduledTransfersModule.data as `0x${string}`
+    context: scheduledTransfersModule.initData as `0x${string}`
   })
 
   console.log(
@@ -67,7 +69,7 @@ export const scheduleTransfer = async (
 ) => {
   const { startDate, repeatEvery, numberOfRepeats, amount, recipient } =
     scheduledTransferInput
-  const scheduledTransaction = {
+  const scheduledTransfer = {
     startDate,
     repeatEvery,
     numberOfRepeats,
@@ -79,14 +81,23 @@ export const scheduleTransfer = async (
     recipient
   }
 
-  const scheduledTransactionData = getCreateScheduledTransferAction({
-    scheduledTransaction
+  const scheduledTransferData = getCreateScheduledTransferAction({
+    scheduledTransfer
   })
   const txHash = await safe.sendTransaction({
-    to: scheduledTransactionData.target,
-    value: scheduledTransactionData.value as bigint,
-    data: scheduledTransactionData.callData
+    to: scheduledTransferData.target,
+    value: scheduledTransferData.value as bigint,
+    data: scheduledTransferData.callData
   })
 
+  console.log(
+    'Transfer is being scheduled: https://sepolia.etherscan.io/tx/' + txHash
+  )
   return txHash
+}
+
+export const executeOrder = async (jobId: number) => {
+  const executeTransfer = getExecuteScheduledTransferAction({ jobId })
+  console.log(executeTransfer)
+  return executeTransfer
 }

@@ -25,7 +25,7 @@ function LoginWithPasskey({ handleCreatePasskey, handleSelectPasskey }: props) {
           marginTop={8}
           variant='h4'
         >
-          Create a new Safe using Passkeys
+          Create a new Safe using passkeys
         </Typography>
 
         <Button
@@ -34,7 +34,7 @@ function LoginWithPasskey({ handleCreatePasskey, handleSelectPasskey }: props) {
           variant='outlined'
           sx={{ marginBottom: '24px' }}
         >
-          Create a new Passkey
+          Create a new passkey
         </Button>
 
         <Divider sx={{ marginTop: '32px' }}>
@@ -49,7 +49,7 @@ function LoginWithPasskey({ handleCreatePasskey, handleSelectPasskey }: props) {
           marginTop={8}
           variant='h4'
         >
-          Connect existing Safe using an existing PassKey
+          Connect existing Safe using an existing passkey
         </Typography>
 
         <Button
@@ -62,7 +62,7 @@ function LoginWithPasskey({ handleCreatePasskey, handleSelectPasskey }: props) {
             handleSelectPasskey(passkeys[0])
           }}
         >
-          Use an existing Passkey
+          Use an existing passkey
         </Button>
       </Stack>
     </Paper>

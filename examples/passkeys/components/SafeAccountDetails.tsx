@@ -76,8 +76,8 @@ function SafeAccountDetails({ passkey }: props) {
           <CircularProgress sx={{ margin: '24px 0' }} />
         ) : (
           <>
-            <Typography textAlign={'center'} color={'primary'}>
-              <Link href={safeLink} target='_blank' underline='hover'>
+            <Typography textAlign={'center'}>
+              <Link href={safeLink} target='_blank' underline='hover' color='white'>
                 <Tooltip title={safeAddress}>
                   <Stack
                     component={'span'}
@@ -111,8 +111,8 @@ function SafeAccountDetails({ passkey }: props) {
             </Button>
 
             {userOp && (
-              <Typography textAlign={'center'} color={'primary'}>
-                <Link href={jiffscanLink} target='_blank' underline='hover'>
+              <Typography textAlign={'center'} >
+                <Link href={jiffscanLink} target='_blank' underline='hover' color='white'>
                   <Stack
                     component={'span'}
                     padding={4}

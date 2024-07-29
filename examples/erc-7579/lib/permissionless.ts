@@ -39,7 +39,7 @@ const privateKey =
 
 const signer = privateKeyToAccount(privateKey)
 
-const publicClient = createPublicClient({
+export const publicClient = createPublicClient({
   transport: http('https://rpc.ankr.com/eth_sepolia')
 })
 
