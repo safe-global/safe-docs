@@ -72,7 +72,7 @@ const Feedback: React.FC<{
     setSubmitted(false)
   }, [asPath])
 
-  if (asPath === '/support') return null
+  if (asPath === '/support' || asPath === '/resource-hub') return null
 
   const handleSubmit = async (): Promise<void> => {
     const feedbackId = cuid()
