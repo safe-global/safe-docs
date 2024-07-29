@@ -542,11 +542,32 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aE
 
 ```json
 {
-  "count": 0,
+  "count": 1,
   "next": null,
   "previous": null,
-  "results": []
+  "results": [
+    {
+      "created": "2024-07-29T16:59:00.807652Z",
+      "modified": "2024-07-29T16:59:00.807652Z",
+      "safe": "0x5298A93734C3D979eF1f23F78eBB871879A21F22",
+      "messageHash": "0x950cfe6090e742b709ab5f662c10c8b4e06d403a2f8c4654d86af45d93fa3777",
+      "message": "string message",
+      "proposedBy": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
+      "safeAppId": null,
+      "confirmations": [
+        {
+          "created": "2024-07-29T16:59:00.843249Z",
+          "modified": "2024-07-29T16:59:00.843249Z",
+          "owner": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
+          "signature": "0x5f12f647a876c1966cfbb785d78add0e504cdd0b56b9e21ac93a566d883f80af0192226678ffbe04b35efd23265f1b516a0b0920c679b13d9a5290af0c4b87931f",
+          "signatureType": "ETH_SIGN"
+        }
+      ],
+      "preparedSignature": "0x5f12f647a876c1966cfbb785d78add0e504cdd0b56b9e21ac93a566d883f80af0192226678ffbe04b35efd23265f1b516a0b0920c679b13d9a5290af0c4b87931f"
+    }
+  ]
 }
+
 ```
   </Grid>
 </Grid>
@@ -586,7 +607,11 @@ service needs to derive it itself.
     <CH.Section>
       <CH.Code>
         
-```bash 
+  ```js query.js
+    // from ./examples/-v1-safes-{address}-messages--post.ts
+  ```
+  
+```bash curl.sh
 curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -600,7 +625,12 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72a
     </CH.Section>
     <NetworkNotice />
 
-    
+    #### Sample Response
+
+```json
+{}
+
+```
   </Grid>
 </Grid>
 <Hr style={{ 
