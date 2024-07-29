@@ -72,7 +72,7 @@ const Feedback: React.FC<{
     setSubmitted(false)
   }, [asPath])
 
-  if (asPath === '/support') return null
+  if (asPath === '/support' || asPath === '/resource-hub') return null
 
   const handleSubmit = async (): Promise<void> => {
     const feedbackId = cuid()
@@ -85,10 +85,10 @@ const Feedback: React.FC<{
         : {})
     })
     if (
-      process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL != null
+      process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL != null
       && process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true'
     ) {
-      await fetch(process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL, {
+      await fetch(process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL, {
         method: 'POST',
         body: JSON.stringify({
           date: new Date().getTime(),
@@ -162,7 +162,8 @@ const Feedback: React.FC<{
                     multiline
                     rows={4}
                     sx={{
-                      backgroundColor: 'rgba(249,250,251,.1)'
+                      backgroundColor: 'rgba(249,250,251,.1)',
+                      p: 1
                     }}
                     onChange={e => {
                       setFeedback(e.target.value)
