@@ -85,10 +85,10 @@ const Feedback: React.FC<{
         : {})
     })
     if (
-      process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL != null
+      process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL != null
       && process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true'
     ) {
-      await fetch(process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL, {
+      await fetch(process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL, {
         method: 'POST',
         body: JSON.stringify({
           date: new Date().getTime(),
