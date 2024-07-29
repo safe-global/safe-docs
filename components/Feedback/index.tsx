@@ -162,7 +162,8 @@ const Feedback: React.FC<{
                     multiline
                     rows={4}
                     sx={{
-                      backgroundColor: 'rgba(249,250,251,.1)'
+                      backgroundColor: 'rgba(249,250,251,.1)',
+                      p: 1
                     }}
                     onChange={e => {
                       setFeedback(e.target.value)
