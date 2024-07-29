@@ -528,7 +528,11 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/messages/0x3b3b
     <CH.Section>
       <CH.Code>
         
-```bash 
+  ```js query.js
+    // from ./examples/-v1-safes-{address}-messages--get.ts
+  ```
+  
+```bash curl.sh
 curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
