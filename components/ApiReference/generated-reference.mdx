@@ -389,7 +389,11 @@ either the `delegator` (owner) or the `delegate` itself. Check `POST /delegates/
     <CH.Section>
       <CH.Code>
         
-```bash 
+  ```js query.js
+    // from ./examples/-v2-delegates-{delegate_address}--delete.ts
+  ```
+  
+```bash curl.sh
 curl -X DELETE https://safe-transaction-sepolia.safe.global/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
