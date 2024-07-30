@@ -353,13 +353,13 @@ const generateMethodContent = (path, method) => {
         ${
           hasExample && example !== 'export {}\n'
             ? `
-  \`\`\`js query.js
+  \`\`\`js TypeScript
     // from ./examples/${slugify(path)}-${method}.ts
   \`\`\`
   `
             : ''
         }
-\`\`\`bash ${hasExample && example !== 'export {}\n' ? 'curl.sh' : ''}
+\`\`\`bash ${hasExample && example !== 'export {}\n' ? 'curl' : ''}
 ${curlify({
   url: pathWithParams,
   method: method.toUpperCase(),
