@@ -1,4 +1,4 @@
-import { Callout, Steps } from 'nextra/components'
+import { Callout, Steps, Tabs } from 'nextra/components'
 
 # Safe\{Stack\} installation guide
 
@@ -30,43 +30,53 @@ Open a [pull request](https://github.com/ethereum-lists/chains) to add your chai
  You do not need to perform these tasks if your network is based on a rollup framework with Safe contracts already deployed (for example, OP Stack).
 </Callout>
 
-1. Clone the [safe-smart-account](https://github.com/safe-global/safe-smart-account) repository, by running the following command:
+1. Clone the [safe-smart-account](https://github.com/safe-global/safe-smart-account) repository by running the following command:
     ```
     git clone --branch v1.3.0-libs.0 https://github.com/safe-global/safe-smart-account.git
     ```
-2. If [Infura](https://www.infura.io/) supports your network, configure the following environment variables in a `.env` file:
+    
+2. Get the latest version of [@safe-global/safe-singleton-factory](https://www.npmjs.com/package/@safe-global/safe-singleton-factory), by running the following command:
 
-    ```
-    MNEMONIC=<funded account on this network>
-    INFURA_KEY=<your Infura Project API key>
-    ```
-
-    If Infura does not support your network, configure the following environment variables in a `.env` file:
-
-    ```
-    MNEMONIC=<funded account on this network>
-    NODE_URL=<RPC endpoint for this network>
-    ```
-
-3. Get the latest version of [@safe-global/safe-singleton-factory](https://www.npmjs.com/package/@safe-global/safe-singleton-factory), by running the following command:
-
-    ```
+    ```bash
     npm i --save-dev @safe-global/safe-singleton-factory
     ```
 
-    Make sure the latest version includes your `safe-singleton-factory` deployment from the previous section.
+    Ensure the latest version includes your `safe-singleton-factory` deployment from the earlier section.
 
-4. If Infura supports your network, run the following command: 
-    ```
-    npm run deploy-all <network>
-    ```
+3. Deploy Contracts.
     
-    If Infura does not support your network, execute `npm run deploy-all custom` 
+    <Tabs items={["Infura supports your chain", "Infura does not support your chain"]}>
+        <Tabs.Tab>
+            Create a `.env` file in the root of the repository with the following content:
+            ```bash
+            MNEMONIC=funded_account_on_this_network
+            INFURA_KEY=your_Infura_project_API_key
+            ```
 
-3. The script should deploy all the singleton contracts (9 contracts in total)
+            Deploy the contracts by running this command:
+            ```bash
+            npm run deploy-all your_chain_id
+            ```
+        </Tabs.Tab>
+        <Tabs.Tab>
+            Create a `.env` file in the root of the repository with the following content:
+            ```bash
+            MNEMONIC=funded_account_on_this_network
+            NODE_URL=RPC_endpoint_for_your_network
+            ```
+
+            Deploy the contracts by running this command:
+
+            ```bash
+            npm run deploy-all custom
+            ```
+        </Tabs.Tab>
+    </Tabs>
+
+4. The script should deploy all the singleton contracts (nine contracts in total).
 
     Write down each address (example addresses for v1.3.0 could look like):
-    ```
+    ```js
     compatibility_fallback_handler: `0x017062a1dE2FE6b99BE3d9d37841FeD19F573804`
     create_call: `0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d`
     gnosis_safe: `0x69f4D1788e39c87893C980c06EdF4b7f686e2938`
@@ -81,36 +91,36 @@ Open a [pull request](https://github.com/ethereum-lists/chains) to add your chai
 
 ### Record your contracts in the official registry
 
-You need to share your singleton contract deployment addresses in the official public registry.
+You must share your singleton contract deployment addresses in the official public registry.
 1. Fork [safe-deployments](https://github.com/safe-global/safe-deployments).
-2. Go to `src/assets/<version>`, edit each JSON file according to their name (e.g `gnosis_safe.json`) with your network chain ID and the corresponding singleton address from the previous step.
-3. Open a Pull Request.
+2. Add your chain ID to each of the nine JSON files in `src/assets/<version>`. If you deployed with the singleton deployment from above, you have to mark your chain's deployment as "canonical".
+For example, add this line to `gnosis_safe.json` to indicate the gnosis safe has the canonical address on your chain:
+    ```json
+    "<your_chain_id>": "canonical"
+    ```
 
-```json
-   "<chain_id>": "canonical"
-```
+3. Open a pull request.
 
-
- Your pull request should follow the form of this [example pull request](https://github.com/safe-global/safe-deployments/pull/679).
+Your pull request should follow this [example pull request](https://github.com/safe-global/safe-deployments/pull/679).
 
 </Steps>
 
 ## Safe\{Infrastructure\} Deployment
 
-Once you deployed the Safe\{Core\} contracts, you have to deploy the off-chain components of the Safe\{Core\} Stack including Backend and Frontend services. 
+Once you have deployed the Safe\{Core\} contracts, you must deploy the off-chain components of the Safe\{Core\} Stack, including Backend and Frontend services. 
 
-You three options for deploying Safe\{Stack\}, depending on your needs.
+You have three options for deploying Safe\{Stack\}, depending on your needs.
 
 ### Option 1: Safe Core Contributor Platform-as-a-Service
 
-We roll out new networks quarterly, depending on our internal capacity and only for medium to large chains based on a strict scoring framework. 
+We roll out new networks quarterly, depending on our internal capacity, and only for medium to large chains based on a strict scoring framework. 
 
-Fill out the following [form](https://noteforms.com/forms/request-safe-ui-and-infra-support-4weugt) if you want to hand in your chain for an assesment in next quarter.
+If you want to submit your chain for assessment in the next quarter, please fill out this [form](https://noteforms.com/forms/request-safe-ui-and-infra-support-4weugt).
 
 #### Hard requirements
 
-- EVM compatible chain
-- ≥ 2 dedicated RPC node providers, with preference for at least one Tier 1 provider of Infura, Alchemy, Quicknode. You can find more on RPC nodes [here](https://docs.safe.global/core-api/api-safe-transaction-service/rpc-requirements).
+- EVM-compatible chain.
+- At least two dedicated RPC node providers, with preference for at least one Tier 1 provider of Infura, Alchemy, Quicknode. You can find more on RPC nodes [here](https://docs.safe.global/core-api/api-safe-transaction-service/rpc-requirements).
 
 ### Option 2: Third-party integrators
 
@@ -126,9 +136,7 @@ List of official integrators:
 
 If you have engineering and Cloud resources, you can also deploy the different components of the Stack by following one of the procedures below. 
 
-You can encodeFunctionData docker images for a majority of platforms. 
-
-<Steps>
+You can find docker images for a majority of platforms. 
 
 #### Requirements
 
@@ -139,29 +147,22 @@ These are the hardware requirements to run the different services required.
 
 | Network | Transaction Service | Client Gateway | Config Service | Database |
 | --- | --- | --- | --- | --- |
-| Small | CPU: 2 vCPU RAM: 8GiB | CPU: 2 vCPU RAM: 8 GiB | CPU: 2 vCPU RAM: 8 GiB | CPU: 1 cores/ 2 vCPU RAM: 8GiB |
+| Small (new chain with low traffic) | CPU: 2 vCPU RAM: 8GiB | CPU: 2 vCPU RAM: 8 GiB | CPU: 2 vCPU RAM: 8 GiB | CPU: 1 cores/ 2 vCPU RAM: 8GiB |
 | Standard | CPU: 4 vCPU RAM: 16GiB | CPU: 2 vCPU RAM: 8 GiB | CPU: 2 vCPU RAM: 8 GiB | CPU: 2 cores/ 4 vCPU RAM: 16GiB |
-| Large | CPU: 8 vCPU RAM: 32GiB | CPU: 2 vCPU RAM: 8 GiB | CPU: 2 vCPU RAM: 8 GiB | CPU: 8 cores/ 16 vCPU RAM: 64GiB |
-
-
-Small: enough to get started for a brand new chain with low traffic
-
-Standard: default setup
-
-Large: required for large chains with high traffic
+| Large (large chain with high-traffic) | CPU: 8 vCPU RAM: 32GiB | CPU: 2 vCPU RAM: 8 GiB | CPU: 2 vCPU RAM: 8 GiB | CPU: 8 cores/ 16 vCPU RAM: 64GiB |
 
 
 **RPC**
 
-For support, please refer to the [RPC Requirements](https://docs.safe.global/core-api/api-safe-transaction-service/rpc-requirements#what-are-the-rpc-requirements). Safe (L1) requires tracing, while Safe (L2) supports events/logs subscription.
+For support, please refer to the [RPC requirements](https://docs.safe.global/core-api/api-safe-transaction-service/rpc-requirements#what-are-the-rpc-requirements). Safe (L1) requires tracing for indexing, while Safe (L2) supports events/logs.
 
 #### Docker-compose deployment
 
-Please see [https://github.com/safe-global/safe-infrastructure](https://github.com/safe-global/safe-infrastructure) for all required information.
+Please see the [safe-infrastructure](https://github.com/safe-global/safe-infrastructure) repository for all required information.
 
 ```bash
-$ git clone git@github.com:safe-global/safe-infrastructure.git
-$ cd safe-infrastructure
+git clone git@github.com:safe-global/safe-infrastructure.git
+cd safe-infrastructure
 ```
 
 **Prerequisites**
@@ -173,8 +174,8 @@ $ cd safe-infrastructure
 **Configuration**
 
 ```bash
-$ cp .env.sample .env
-$ vi .env
+cp .env.sample .env
+vi .env
 REVERSE_PROXY_PORT=8000
 CFG_VERSION=latest
 CGW_VERSION=latest
@@ -186,17 +187,7 @@ RPC_NODE_URL=<REPLACE BY YOUR RPC ENDPOINT>
 
 **Run**
 
-```bash
-$ sh scripts/run_locally.sh
-# will ask to set up username/password for config-service and txs-service
-```
-
-<Callout type="info" emoji="📌">
-Link to [docker-compose.yml](https://github.com/gjeanmart/safe-infrastructure/blob/main/docker-compose.yml) file
-
-</Callout>
-
-This command runs 17 Docker containers:
+This command runs 17 Docker containers from the [docker-compose.yml](https://github.com/gjeanmart/safe-infrastructure/blob/main/docker-compose.yml):
 
 - Nginx reverse proxy
 - Postgres 14.x database (x3 for Txs Service, Config Service, and Events Service)
@@ -209,12 +200,17 @@ This command runs 17 Docker containers:
 - Events service (events) web
 - Wallet (ui) web
 
+```bash
+sh scripts/run_locally.sh
+# will ask to set up username/password for config-service and transactions-service
+```
+
 **Local Ganache node**
 
-You can optionally use a local Ganache node (including Safe’s singleton contracts) for testing purposes:
+You can optionally use a local Ganache node (including Safe's singleton contracts) for testing purposes:
 
 ```bash
-$ vi .env
+vi .env
 REVERSE_PROXY_PORT=8000
 CFG_VERSION=latest
 CGW_VERSION=latest
@@ -225,64 +221,34 @@ CHAIN_ID=1337 # we recommend using 1337 to ensure compatibility with official de
 RPC_NODE_URL=http://node:8545
 MNEMONIC="test test test test test test test test test test test junk" # used to deploy singleton contracts
 
-$ sh ./scripts/run_locally.sh -f docker-compose.local.yml
+sh ./scripts/run_locally.sh -f docker-compose.local.yml
 ```
 
 #### Kubernetes deployment
 
-<Callout type="info" emoji="🚧">
-*Section under construction…*
-</Callout>
-
-There is an official helm chart that creates all the necessary manifests, including the service account and RBAC entities necessary for service discovery.
+An official helm chart creates all the necessary manifests, including the service account and RBAC entities needed for service discovery.
 
 ```bash
-$ helm repo add safe https://safe/safe/safe
-$ helm repo update
-$ helm install <RELEASE_NAME> safe/stack -f values.yaml [-n <NAMESPACE>]
+helm repo add safe https://safe/safe/safe
+helm repo update
+helm install <RELEASE_NAME> safe/stack -f values.yaml [-n <NAMESPACE>]
 ```
 
-The helm chart allows to inline all the configurations directly in your `values.yaml`:
+The helm chart allows you to inline all the configurations directly in your `values.yaml`:
 
 ```bash
 TO BE COMPLETED
 ```
 
-#### Configuration
-
-**Transaction Service**
-
-By default, the Transaction Service will automatically setup `MasterCopies` and `Proxy Factories` for [a list of known networks](https://github.com/safe-global/safe-eth-py/blob/main/gnosis/safe/addresses.py). 
-
-If your network is not supported you have to add the addresses manually in [http://localhost:8000/txs/admin/](http://localhost:8000/txs/admin/) in Proxy Factories and Safe master copies section
-
-TODO: ADD SCREENRECORDING INSTEAD OF SCREENSHOT
-
-![Untitled](../../assets/safe-transaction-service.png)
-
-**Config Service**
-
-Open [http://localhost:8000/cfg/admin](http://localhost:8000/cfg/admin) to configure your chain(s):
-
-- Transaction service uri: Use `http://nginx:8000/txs`
-- Vpc transaction service uri: Use `http://nginx:8000/txs`
-
-![Untitled](../../assets/add-chain-ui.png)
-
-**Events Service**
-
-To Be Done
 
 #### Troubleshoot
 
 - **Frontend endpoint returns `502 Bad Gateway`**
-    - NextJS can take up to 5-10min to generate all the pages, check the UI logs to ensure the process is properly finished with the log
+    NextJS can take up to 5-10 minutes to generate all the pages and check the UI logs to ensure the process finished successfully.
     
     ```bash
     INFO  Accepting connections at [http://localhost:8080](http://localhost:8080/)
     ```
-  
-</Steps>
 
 ## FAQ
 
