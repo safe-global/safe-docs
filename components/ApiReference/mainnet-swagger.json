@@ -1070,7 +1070,7 @@
           "4337"
         ],
         "path": "/v1/safe-operations/{safe_operation_hash}/confirmations/",
-        "title": "",
+        "title": "Get the list of confirmations for a multisig transaction",
         "additionalInfo": ""
       },
       "post": {
@@ -1101,7 +1101,7 @@
           "4337"
         ],
         "path": "/v1/safe-operations/{safe_operation_hash}/confirmations/",
-        "title": "",
+        "title": "Add a confirmation for a transaction",
         "additionalInfo": ""
       },
       "parameters": {
@@ -2948,7 +2948,7 @@
         ],
         "deprecated": false,
         "path": "/v2/safes/{address}/balances/",
-        "title": "",
+        "title": "Get Safe Balances",
         "additionalInfo": ""
       },
       "parameters": {
@@ -3741,7 +3741,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "f5bce08d-a505-498c-a392-62f9d49cf1e8"
+          "default": "b0c8ab7b-2e82-4462-967c-076418af18ab"
         },
         "safes": {
           "type": "array",
@@ -3810,7 +3810,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "57911d7b-ad71-4117-85b9-fd2747dd9ead"
+          "default": "993cc0d0-1054-4366-a183-5f1189ff7944"
         },
         "safes": {
           "type": "array",

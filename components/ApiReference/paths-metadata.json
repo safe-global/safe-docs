@@ -119,6 +119,14 @@
       "title": "List Safes from a Specific Owner"
     }
   },
+  "/v1/safe-operations/{safe_operation_hash}/confirmations/": {
+    "get": {
+      "title": "Get the list of confirmations for a multisig transaction"
+    },
+    "post": {
+      "title": "Add a confirmation for a transaction"
+    }
+  },
   "/v1/safes/{address}/": {
     "get": {
       "title": "Get Safe Status"
@@ -142,6 +150,11 @@
   "/v1/safes/{address}/creation/": {
     "get": {
       "title": "Get Safe Creation Status"
+    }
+  },
+  "/v2/safes/{address}/balances/": {
+    "get": {
+      "title": "Get Safe Balances"
     }
   },
   "/v1/safes/{address}/delegates/{delegate_address}/": {
