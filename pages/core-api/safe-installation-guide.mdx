@@ -1,42 +1,40 @@
-import { Callout , Steps} from 'nextra/components'
+import { Callout, Steps } from 'nextra/components'
 
-# Safe\{Stack\} Installation guide
+# Safe\{Stack\} installation guide
 
 ## Safe\{Core\} contracts deployment
 
-In the first step you will deploy the Safe\{Core\} contracts on your chain.
+In the first step, you will deploy the Safe\{Core\} contracts on your chain.
 
-All Safe contract deployments on any network follow the same procedure to ensure a deterministic address for all singleton contracts (proxy-factory, mastercopy, etc.) and to verify the deployment.
-
+All Safe contract deployments on any network follow the same procedure to ensure a deterministic address for all singleton contracts (proxy-factory, mastercopy, etc.) and verify the deployment.
 <Steps>
 
 ### Prerequisites
 
-1. Make sure to add your chain on [chainlist.org](https://chainlist.org/) by opening a [pull request](https://github.com/ethereum-lists/chains).
+Open a [pull request](https://github.com/ethereum-lists/chains) to add your chain to [chainlist.org](https://chainlist.org/).
 
-### Singleton-Factory contract deployment
+### Singleton factory contract deployment
 
-1. Create a new issue on [safe-singleton-factory](https://github.com/safe-global/safe-singleton-factory/issues/new?assignees=&labels=&projects=&template=new_chain.yml&title=%5BNew+chain%5D%3A+). Add the required information (incl. Chain name, RPC endpoint, and BlockExplorer URL).
-2. After the creation of the Github issue, a bot will reply to the issue with the deployer address (`0x914...3d7`) and the amount of native token you need to send to this address.
-3. Once funded, mark the checkbox on the issue ✅.
-4. The review of the issues happens every two weeks on a consistent basis. Our team performs the deterministic deployment of the singleton-factory contract, and publishes a new npm release of [@safe-global/safe-singleton-factory](https://www.npmjs.com/package/@safe-global/safe-singleton-factory).
+<Callout type="info" emoji="ℹ️">
+ You do not need to perform these tasks if your network is based on a rollup framework with Safe contracts already deployed (for example, OP Stack).
+</Callout>
 
-If your network is based on a rollup framework including Safe pre-installed (for example OP Stack), you do not need to perform these tasks.
-
+1. Create a new issue in the [safe-singleton-factory](https://github.com/safe-global/safe-singleton-factory/issues/new?assignees=&labels=&projects=&template=new_chain.yml&title=%5BNew+chain%5D%3A+) repository.
+2. A bot will reply to the issue with the deployer address (`0x914...3d7`) and the amount of native token you need to send to this address.
+3. Once funded, mark the checkbox on the GitHub issue.
+4. The review of the issues happens every two weeks. Our team will perform the deterministic deployment of the `safe-singleton-factory` contract and publish a new npm release of [@safe-global/safe-singleton-factory](https://www.npmjs.com/package/@safe-global/safe-singleton-factory).
 
 ### Singleton contracts deployment 
 
 <Callout type="info" emoji="ℹ️">
- If your network is based on a Rollup framework including Safe pre-installed (e.g. OP Stack), you do not need to perform these tasks.
+ You do not need to perform these tasks if your network is based on a rollup framework with Safe contracts already deployed (for example, OP Stack).
 </Callout>
 
-Follow these steps, also described on [safe-smart-account](https://github.com/safe-global/safe-smart-account/tree/v1.3.0-libs.0?tab=readme-ov-file#deploy):
-
-1. Clone the repository `https://github.com/safe-global/safe-smart-account@v1.3.0-libs.0`.
-        
-2. Configure the script:
-
-    If [Infura](https://www.infura.io/) supports your network, configure the following environment variables in a `.env` file:
+1. Clone the [safe-smart-account](https://github.com/safe-global/safe-smart-account) repository, by running the following command:
+    ```
+    git clone --branch v1.3.0-libs.0 https://github.com/safe-global/safe-smart-account.git
+    ```
+2. If [Infura](https://www.infura.io/) supports your network, configure the following environment variables in a `.env` file:
 
     ```
     MNEMONIC=<funded account on this network>
@@ -50,15 +48,18 @@ Follow these steps, also described on [safe-smart-account](https://github.com/sa
     NODE_URL=<RPC endpoint for this network>
     ```
 
-3. Get the latest version of [@safe-global/safe-singleton-factory](https://www.npmjs.com/package/@safe-global/safe-singleton-factory):
+3. Get the latest version of [@safe-global/safe-singleton-factory](https://www.npmjs.com/package/@safe-global/safe-singleton-factory), by running the following command:
 
-    `npm i --save-dev @safe-global/safe-singleton-factory`
+    ```
+    npm i --save-dev @safe-global/safe-singleton-factory
+    ```
 
-    Make sure the latest version includes your safe-singleton-factory deployment from the previous part.
+    Make sure the latest version includes your `safe-singleton-factory` deployment from the previous section.
 
-4. Execute the script:
-
-    If Infura supports your network, execute `npm run deploy-all <network>`
+4. If Infura supports your network, run the following command: 
+    ```
+    npm run deploy-all <network>
+    ```
     
     If Infura does not support your network, execute `npm run deploy-all custom` 
 
