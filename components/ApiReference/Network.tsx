@@ -131,7 +131,7 @@ export const NetworkNotice: React.FC = () => {
   const [network] = useContext(NetworkContext)
   const [copied, setCopied] = useState(false)
   return (
-    network !== transactionServiceUrls[12] && (
+    network !== transactionServiceUrls[13] && (
       <Box sx={{ fontSize: '12px', mt: -2, mb: 3 }}>
         This snippet shows a sample request on Ethereum Sepolia. Please{' '}
         <MuiLink
