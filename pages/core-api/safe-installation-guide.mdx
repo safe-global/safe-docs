@@ -1,17 +1,20 @@
 import { Callout, Steps, Tabs } from 'nextra/components'
 
-# Safe\{Stack\} installation guide
+# Safe stack installation guide
 
 ## Safe\{Core\} contracts deployment
 
 In the first step, you will deploy the Safe\{Core\} contracts on your chain.
 
 All Safe contract deployments on any network follow the same procedure to ensure a deterministic address for all singleton contracts (proxy-factory, mastercopy, etc.) and verify the deployment.
-<Steps>
 
 ### Prerequisites
 
 Open a [pull request](https://github.com/ethereum-lists/chains) to add your chain to [chainlist.org](https://chainlist.org/).
+
+### Steps
+
+<Steps>
 
 ### Singleton factory contract deployment
 
@@ -92,24 +95,22 @@ Open a [pull request](https://github.com/ethereum-lists/chains) to add your chai
 ### Record your contracts in the official registry
 
 You must share your singleton contract deployment addresses in the official public registry.
-1. Fork [safe-deployments](https://github.com/safe-global/safe-deployments).
+1. Fork the [safe-deployments](https://github.com/safe-global/safe-deployments) GitHub repository.
 2. Add your chain ID to each of the nine JSON files in `src/assets/<version>`. If you deployed with the singleton deployment from above, you have to mark your chain's deployment as "canonical".
 For example, add this line to `gnosis_safe.json` to indicate the gnosis safe has the canonical address on your chain:
     ```json
     "<your_chain_id>": "canonical"
     ```
 
-3. Open a pull request.
-
-Your pull request should follow this [example pull request](https://github.com/safe-global/safe-deployments/pull/679).
+3. Open a pull request. Your pull request should follow this [example pull request](https://github.com/safe-global/safe-deployments/pull/679).
 
 </Steps>
 
-## Safe\{Infrastructure\} Deployment
+## Safe\{Core\} Infrastructure deployment
 
-Once you have deployed the Safe\{Core\} contracts, you must deploy the off-chain components of the Safe\{Core\} Stack, including Backend and Frontend services. 
+Once you have deployed the Safe\{Core\} contracts, you must deploy the off-chain components of the Safe\{Core\} Stack, including backend and frontend services. 
 
-You have three options for deploying Safe\{Stack\}, depending on your needs.
+You have three options for deploying the Safe stack, depending on your needs.
 
 ### Option 1: Safe Core Contributor Platform-as-a-Service
 
@@ -187,14 +188,13 @@ RPC_NODE_URL=<REPLACE BY YOUR RPC ENDPOINT>
 
 **Run**
 
-This command runs 17 Docker containers from the [docker-compose.yml](https://github.com/gjeanmart/safe-infrastructure/blob/main/docker-compose.yml):
-
+This command runs seventeen Docker containers from the [docker-compose.yml](https://github.com/gjeanmart/safe-infrastructure/blob/main/docker-compose.yml):
 - Nginx reverse proxy
-- Postgres 14.x database (x3 for Txs Service, Config Service, and Events Service)
-- Redis database (x2 for Txs Service and Client Gateway)
-- RabbitMQ message queue (x2 for Txs Service and General)
-- Txs Service (txs) workers & scheduler (x4)
-- Txs Service (txs) web
+- Postgres 14.x database (x3 for Transaction Service, Config Service, and Events Service)
+- Redis database (x2 for Transaction Service and Client Gateway)
+- RabbitMQ message queue (x2 for Transaction Service and General)
+- Transaction Service (txs) workers & scheduler (x4)
+- Transaction Service (txs) web
 - Config Service (cfg) web
 - Client Gateway (cgx) web
 - Events service (events) web
@@ -243,17 +243,8 @@ TO BE COMPLETED
 
 #### Troubleshoot
 
-- **Frontend endpoint returns `502 Bad Gateway`**
-    NextJS can take up to 5-10 minutes to generate all the pages and check the UI logs to ensure the process finished successfully.
+- **Frontend endpoint returns `502 Bad Gateway`**: NextJS can take from five to ten minutes to generate all the pages and check the UI logs to ensure the process finished successfully.
     
     ```bash
     INFO  Accepting connections at [http://localhost:8080](http://localhost:8080/)
     ```
-
-## FAQ
-
-- To Be Done
-
-## Release notes
-
-- To Be Done
