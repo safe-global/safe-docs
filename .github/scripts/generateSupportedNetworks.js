@@ -31,7 +31,8 @@ const deduplicate = (acc, curr) => {
   return [...acc, curr]
 }
 
-const supportedNetworksPath = './pages/advanced/smart-account-supported-networks'
+const supportedNetworksPath =
+  './pages/advanced/smart-account-supported-networks'
 
 const generateSupportedNetworks = async () => {
   const deploymentRepoUrl = 'https://github.com/safe-global/safe-deployments/'
@@ -51,15 +52,39 @@ const generateSupportedNetworks = async () => {
     const file = fs.readFileSync(`deployments/src/assets/${p}`, 'utf8')
     const json = JSON.parse(file)
 
-    return Object.entries(json.networkAddresses).map(([chainId, address]) => ({
-      name: p.split('/')[1].split('.')[0],
-      version: p.split('/')[0],
-      address,
-      chainId,
-      chainName: allNetworks.find(n => n.chainId === parseInt(chainId))?.name,
-      blockExplorerUrl: allNetworks.find(n => n.chainId === parseInt(chainId))
-        ?.explorers?.[0]?.url
-    }))
+    return Object.entries(json.networkAddresses).map(
+      ([chainId, addressName]) => {
+        const blockExplorerUrl = allNetworks.find(
+          n => n.chainId === parseInt(chainId)
+        )?.explorers?.[0]?.url
+        return {
+          name: p.split('/')[1].split('.')[0],
+          version: p.split('/')[0],
+          address:
+            typeof addressName === 'string'
+              ? curatedBlockExplorers.includes(blockExplorerUrl)
+                ? `[${json.deployments[addressName]?.address}](${blockExplorerUrl}/address/${json.deployments[addressName]?.address})`
+                : json.deployments[addressName]?.address
+              : '\n    - ' +
+                addressName
+                  .map(a =>
+                    curatedBlockExplorers.includes(blockExplorerUrl)
+                      ? addressNameLabels[a] +
+                        ': ' +
+                        `[${json.deployments[a]?.address}](${blockExplorerUrl}/address/${json.deployments[a]?.address})`
+                      : addressNameLabels[a] +
+                        ': ' +
+                        json.deployments[a]?.address
+                  )
+                  .join('\n    - ') +
+                '\n',
+          chainId,
+          chainName: allNetworks.find(n => n.chainId === parseInt(chainId))
+            ?.name,
+          blockExplorerUrl
+        }
+      }
+    )
   })
 
   const versions = contracts
@@ -101,14 +126,7 @@ This network's chain ID is ${chainId}.
 
 ${_contracts
   .filter(c => c.chainId === chainId)
-  .map(
-    c =>
-      `- \`${c.name}.sol\`: ${
-        curatedBlockExplorers.includes(c.blockExplorerUrl)
-          ? `[${c.address}](${c.blockExplorerUrl}/address/${c.address})`
-          : c.address
-      }`
-  )
+  .map(c => `- \`${c.name}.sol\`: ${c.address}`)
   .join('\n')}
 `
   })
@@ -133,6 +151,12 @@ ${_contracts
 
 generateSupportedNetworks()
 
+const addressNameLabels = {
+  canonical: 'Canonical contracts',
+  eip155: 'EIP-155 contracts',
+  zkSync: 'zkSync contracts'
+}
+
 const curatedBlockExplorers = [
   'https://etherscan.io',
   'https://goerli.etherscan.io/',
@@ -145,5 +169,5 @@ const curatedBlockExplorers = [
   'https://zkevm.polygonscan.com/',
   'https://explorer.zksync.io/',
   'https://basescan.org/',
-  'https://sepolia.basescan.org/',
+  'https://sepolia.basescan.org/'
 ]
