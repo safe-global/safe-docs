@@ -350,20 +350,20 @@ const generateMethodContent = (path, method) => {
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        \`\`\`bash ${hasExample && example !== 'export {}\n' ? 'curl' : ''}
-          ${curlify({
-            url: pathWithParams,
-            method: method.toUpperCase(),
-            body: requestBody
-          })} 
-        \`\`\`
+\`\`\`bash ${hasExample && example !== 'export {}\n' ? 'curl' : ''}
+${curlify({
+  url: pathWithParams,
+  method: method.toUpperCase(),
+  body: requestBody
+})} 
+\`\`\`
 
         ${
           hasExample && example !== 'export {}\n'
             ? `
-              \`\`\`js TypeScript
-                // from ./examples/${slugify(path)}-${method}.ts
-              \`\`\`
+\`\`\`js TypeScript
+// from ./examples/${slugify(path)}-${method}.ts
+\`\`\`
             `
             : ''
         }

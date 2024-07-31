@@ -46,12 +46,12 @@ This service is available on [multiple networks](../../core-api/transaction-serv
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/contracts/ \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/contracts/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -123,12 +123,12 @@ This service is available on [multiple networks](../../core-api/transaction-serv
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -190,20 +190,20 @@ as in case of an ABI collision the Safe Transaction Service would know which ABI
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/data-decoder/ \
+```bash curl
+curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/data-decoder/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{
   "data": "0x8d80ff0a000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000004f6006b175474e89094c44da98b954eedeac495271d0f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044095ea7b30000000000000000000000001111111254fb6c44bac0bed2854e76f90643097d0000000000000000000000000000000000000000000c685fa11e01ec80000000001111111254fb6c44bac0bed2854e76f90643097d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004087c025200000000000000000000000000f2f400c138f9fb900576263af0bc7fcde2b1b8a8000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000001800000000000000000000000006b175474e89094c44da98b954eedeac495271d0f000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000f2f400c138f9fb900576263af0bc7fcde2b1b8a80000000000000000000000004f3a120e72c76c22ae802d129f599bfdbc31cb810000000000000000000000000000000000000000000c685fa11e01ec8000000000000000000000000000000000000000000000000000000000000da41c43c100000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000026000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000001408000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000064eb5625d90000000000000000000000006b175474e89094c44da98b954eedeac495271d0f00000000000000000000000089b78cfa322f6c5de0abceecab66aee45393cc5a0000000000000000000000000000000000000000000c685fa11e01ec800000000000000000000000000000000000000000000000000000000000000080000000000000000000000089b78cfa322f6c5de0abceecab66aee45393cc5a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000448d7ef9bb0000000000000000000000001111111254fb6c44bac0bed2854e76f90643097d00000000000000000000000000000000000000000000000000000da475abf0000000000000000000000000000000000000000000000000000000000065575cda00000000000000000000",
   "to": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2"
 }' 
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-data-decoder--post.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-data-decoder--post.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -264,17 +264,17 @@ as in case of an ABI collision the Safe Transaction Service would know which ABI
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v2/delegates/ \
+```bash curl
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v2/delegates/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v2-delegates--get.ts
-              ```
+```js TypeScript
+// from ./examples/-v2-delegates--get.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -326,8 +326,8 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X POST https://safe-transaction-sepolia.safe.global/api/v2/delegates/ \
+```bash curl
+curl -X POST https://safe-transaction-sepolia.safe.global/api/v2/delegates/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{
@@ -337,12 +337,12 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c",
   "label": "3b3b57b3"
 }' 
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v2-delegates--post.ts
-              ```
+```js TypeScript
+// from ./examples/-v2-delegates--post.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -385,8 +385,8 @@ either the `delegator` (owner) or the `delegate` itself. Check `POST /delegates/
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X DELETE https://safe-transaction-sepolia.safe.global/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/ \
+```bash curl
+curl -X DELETE https://safe-transaction-sepolia.safe.global/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{
@@ -394,12 +394,12 @@ either the `delegator` (owner) or the `delegate` itself. Check `POST /delegates/
   "delegator": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c"
 }' 
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v2-delegates-{delegate_address}--delete.ts
-              ```
+```js TypeScript
+// from ./examples/-v2-delegates-{delegate_address}--delete.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -446,17 +446,17 @@ Empty Response
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/messages/0x3b3b57b3/ \
+```bash curl
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/messages/0x3b3b57b3/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-messages-{message_hash}--get.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-messages-{message_hash}--get.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -515,19 +515,19 @@ Empty Response
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/messages/0x3b3b57b3/signatures/ \
+```bash curl
+curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/messages/0x3b3b57b3/signatures/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c"
 }' 
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-messages-{message_hash}-signatures--post.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-messages-{message_hash}-signatures--post.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -568,17 +568,17 @@ Empty Response
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
+```bash curl
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-safes-{address}-messages--get.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-safes-{address}-messages--get.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -652,8 +652,8 @@ service needs to derive it itself.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
+```bash curl
+curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{
@@ -661,12 +661,12 @@ service needs to derive it itself.
   "safeAppId": 1,
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c"
 }' 
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-safes-{address}-messages--post.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-safes-{address}-messages--post.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -713,12 +713,12 @@ Empty Response
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/module-transaction/0x3b3b57b3 \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/module-transaction/0x3b3b57b3 \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -774,12 +774,12 @@ Empty Response
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -877,15 +877,15 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X DELETE https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
+```bash 
+curl -X DELETE https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{
   "safeTxHash": "",
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c"
 }' 
-        ```
+```
 
         
       </CH.Code>
@@ -928,12 +928,12 @@ the given Safe transaction hash
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -990,14 +990,14 @@ does not support the use of delegates to make transactions trusted.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
+```bash 
+curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c"
 }' 
-        ```
+```
 
         
       </CH.Code>
@@ -1052,17 +1052,17 @@ by a delegate). If you need that behaviour to be disabled set the query paramete
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/ \
+```bash curl
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-safes-{address}-all-transactions--get.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-safes-{address}-all-transactions--get.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -1175,12 +1175,12 @@ Only 1000 newest transfers will be returned.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/ \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -1241,17 +1241,17 @@ Only 1000 newest transfers will be returned.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/ \
+```bash curl
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-safes-{address}-module-transactions--get.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-safes-{address}-module-transactions--get.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -1314,17 +1314,17 @@ By default, only ``trusted`` multisig transactions are returned.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
+```bash curl
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-safes-{address}-multisig-transactions--get.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-safes-{address}-multisig-transactions--get.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -1422,8 +1422,8 @@ retrieves all the information related.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
+```bash curl
+curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{
@@ -1443,12 +1443,12 @@ retrieves all the information related.
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c",
   "origin": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2"
 }' 
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-safes-{address}-multisig-transactions--post.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-safes-{address}-multisig-transactions--post.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -1491,8 +1491,8 @@ retrieves all the information related.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/ \
+```bash 
+curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{
@@ -1501,7 +1501,7 @@ retrieves all the information related.
   "data": "0x8d80ff0a000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000004f6006b175474e89094c44da98b954eedeac495271d0f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044095ea7b30000000000000000000000001111111254fb6c44bac0bed2854e76f90643097d0000000000000000000000000000000000000000000c685fa11e01ec80000000001111111254fb6c44bac0bed2854e76f90643097d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004087c025200000000000000000000000000f2f400c138f9fb900576263af0bc7fcde2b1b8a8000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000001800000000000000000000000006b175474e89094c44da98b954eedeac495271d0f000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000f2f400c138f9fb900576263af0bc7fcde2b1b8a80000000000000000000000004f3a120e72c76c22ae802d129f599bfdbc31cb810000000000000000000000000000000000000000000c685fa11e01ec8000000000000000000000000000000000000000000000000000000000000da41c43c100000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000026000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000001408000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000064eb5625d90000000000000000000000006b175474e89094c44da98b954eedeac495271d0f00000000000000000000000089b78cfa322f6c5de0abceecab66aee45393cc5a0000000000000000000000000000000000000000000c685fa11e01ec800000000000000000000000000000000000000000000000000000000000000080000000000000000000000089b78cfa322f6c5de0abceecab66aee45393cc5a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000448d7ef9bb0000000000000000000000001111111254fb6c44bac0bed2854e76f90643097d00000000000000000000000000000000000000000000000000000da475abf0000000000000000000000000000000000000000000000000000000000065575cda00000000000000000000",
   "operation": 0
 }' 
-        ```
+```
 
         
       </CH.Code>
@@ -1546,12 +1546,12 @@ Only 1000 newest transfers will be returned.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/ \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -1612,12 +1612,12 @@ Only 1000 newest transfers will be returned.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/transfer/3b3b57b3 \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/transfer/3b3b57b3 \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -1677,17 +1677,17 @@ Only 1000 newest transfers will be returned.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
+```bash curl
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-modules-{address}-safes--get.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-modules-{address}-safes--get.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -1736,17 +1736,17 @@ Only 1000 newest transfers will be returned.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
+```bash curl
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-owners-{address}-safes--get.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-owners-{address}-safes--get.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -1805,12 +1805,12 @@ Only 1000 newest transfers will be returned.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/ \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -1886,12 +1886,12 @@ Only 1000 newest transfers will be returned.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -1947,14 +1947,14 @@ the use of delegates to make a transaction trusted.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
+```bash 
+curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{
   "signature": "0xae31da115daa589fa3cee016c756d191d4140fc0eb30c1565cdddcad35068300669abda9c56e1c5886d72c599e1af29fc70eedd16be72109aa593699661482121c"
 }' 
-        ```
+```
 
         
       </CH.Code>
@@ -1991,12 +1991,12 @@ the use of delegates to make a transaction trusted.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -2079,8 +2079,8 @@ the use of delegates to make a transaction trusted.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
+```bash 
+curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{
@@ -2099,7 +2099,7 @@ the use of delegates to make a transaction trusted.
   "validUntil": "2024-07-11T02:00:36.000Z",
   "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037"
 }' 
-        ```
+```
 
         
       </CH.Code>
@@ -2136,12 +2136,12 @@ the use of delegates to make a transaction trusted.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/user-operations/ \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/user-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -2224,17 +2224,17 @@ the use of delegates to make a transaction trusted.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/ \
+```bash curl
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-user-operations-{user_operation_hash}--get.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-user-operations-{user_operation_hash}--get.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -2315,17 +2315,17 @@ the use of delegates to make a transaction trusted.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
+```bash curl
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-safes-{address}--get.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-safes-{address}--get.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -2383,12 +2383,12 @@ the use of delegates to make a transaction trusted.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -2448,17 +2448,17 @@ the use of delegates to make a transaction trusted.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/ \
+```bash curl
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-safes-{address}-creation--get.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-safes-{address}-creation--get.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -2556,12 +2556,12 @@ The maximum limit allowed is 200.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -2622,12 +2622,12 @@ The maximum limit allowed is 10.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash 
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/collectibles/ \
+```bash 
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/collectibles/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
       </CH.Code>
@@ -2693,17 +2693,17 @@ The maximum limit allowed is 10.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/tokens/ \
+```bash curl
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/tokens/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-tokens--get.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-tokens--get.ts
+```
             
       </CH.Code>
     </CH.Section>
@@ -2760,17 +2760,17 @@ The maximum limit allowed is 10.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
-        ```bash curl
-          curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
+```bash curl
+curl -X GET https://safe-transaction-sepolia.safe.global/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
-        ```
+```
 
         
-              ```js TypeScript
-                // from ./examples/-v1-tokens-{address}--get.ts
-              ```
+```js TypeScript
+// from ./examples/-v1-tokens-{address}--get.ts
+```
             
       </CH.Code>
     </CH.Section>
