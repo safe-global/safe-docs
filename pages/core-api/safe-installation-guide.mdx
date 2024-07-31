@@ -204,25 +204,20 @@ This command runs seventeen Docker containers from the [docker-compose.yml](http
 
 #### Kubernetes deployment
 
+<Callout type="info" emoji="⚠️">
+    Our [Helm Charts](https://github.com/5afe/safe-helm-charts) are currently in alpha version, use them at your own risk and do not hesitate to share feedback.
+</Callout>
+
 An official helm chart creates all the necessary manifests, including the service account and RBAC entities needed for service discovery.
 
 ```bash
-helm repo add safe https://safe/safe/safe
+helm repo add safe https://5afe.github.io/safe-helm-charts/charts/packages
 helm repo update
-helm install <RELEASE_NAME> safe/stack -f values.yaml [-n <NAMESPACE>]
+helm install [RELEASE_NAME] safe/safe-stack -f your_values.yaml [-n NAMESPACE]
 ```
 
 The helm chart allows you to inline all the configurations directly in your `values.yaml`:
 
 ```bash
-TO BE COMPLETED
+helm show values safe/safe-stack
 ```
-
-
-#### Troubleshooting
-
-- **Frontend endpoint returns `502 Bad Gateway`**: NextJS can take from five to ten minutes to generate all the pages and check the UI logs to ensure the process finished successfully.
-    
-    ```bash
-    INFO  Accepting connections at [http://localhost:8080](http://localhost:8080/)
-    ```
