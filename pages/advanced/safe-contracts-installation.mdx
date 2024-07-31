@@ -1,22 +1,20 @@
 import { Callout, Steps, Tabs, Tab } from 'nextra/components'
 
-# Safe stack installation guide
-
-## Safe\{Core\} contracts deployment
+# Safe\{Core\} contracts deployment
 
 In this section, you will deploy the Safe\{Core\} contracts on your chain.
 
 All Safe contract deployments on any network follow the same procedure to ensure a deterministic address for all singleton contracts (proxy-factory, mastercopy, etc.) and verify the deployment.
 
-### Prerequisites
+## Prerequisites
 
 Open a [pull request](https://github.com/ethereum-lists/chains) to add your chain to [chainlist.org](https://chainlist.org/).
 
-### Steps
+## Steps
 
 <Steps>
 
-### Singleton factory contract deployment
+## Singleton factory contract deployment
 
 <Callout type="info" emoji="ℹ️">
  You do not need to perform these tasks if your network is based on a rollup framework with Safe contracts already deployed (for example, OP Stack).
@@ -27,7 +25,7 @@ Open a [pull request](https://github.com/ethereum-lists/chains) to add your chai
 3. Once funded, mark the checkbox on the GitHub issue.
 4. The review of the issues happens every two weeks. Our team will perform the deterministic deployment of the `safe-singleton-factory` contract and publish a new npm release of [@safe-global/safe-singleton-factory](https://www.npmjs.com/package/@safe-global/safe-singleton-factory).
 
-### Singleton contracts deployment 
+## Singleton contracts deployment 
 
 <Callout type="info" emoji="ℹ️">
  You do not need to perform these tasks if your network is based on a rollup framework with Safe contracts already deployed (for example, OP Stack).
@@ -94,7 +92,7 @@ Open a [pull request](https://github.com/ethereum-lists/chains) to add your chai
     ```
 
 
-### Record your contracts in the official registry
+## Record your contracts in the official registry
 
 You must share your singleton contract deployment addresses in the official public registry.
 1. Fork the [safe-deployments](https://github.com/safe-global/safe-deployments) GitHub repository.
