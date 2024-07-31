@@ -284,11 +284,19 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v2/delegates/ \
 
 ```json
 {
-  "count": 0,
+  "count": 1,
   "next": null,
   "previous": null,
-  "results": []
+  "results": [
+    {
+      "safe": "0x5298A93734C3D979eF1f23F78eBB871879A21F22",
+      "delegate": "0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739",
+      "delegator": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
+      "label": "Sample Delegator 2"
+    }
+  ]
 }
+
 ```
   </Grid>
 </Grid>
