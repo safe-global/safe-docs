@@ -132,7 +132,7 @@ const getPage = (query: NextRouter['query']): number => {
 
 const getFilters = (query: NextRouter['query'], filter: string): string[] => {
   const filters = Array.isArray(query[filter])
-    ? (query[filter] as string[])
+    ? query[filter]
     : ([query[filter] ?? ''] as string[])
 
   return (
