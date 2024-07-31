@@ -1,4 +1,4 @@
-import { Callout, Steps, Tabs } from 'nextra/components'
+import { Callout, Steps, Tabs, Tab } from 'nextra/components'
 
 # Safe stack installation guide
 
@@ -48,6 +48,7 @@ Open a [pull request](https://github.com/ethereum-lists/chains) to add your chai
 
 3. Deploy Contracts.
     
+    {/* <!-- vale off --> */}
     <Tabs items={["Infura supports your chain", "Infura does not support your chain"]}>
         <Tabs.Tab>
             Create a `.env` file in the root of the repository with the following content:
@@ -75,6 +76,7 @@ Open a [pull request](https://github.com/ethereum-lists/chains) to add your chai
             ```
         </Tabs.Tab>
     </Tabs>
+    {/* <!-- vale on --> */}
 
 4. The script should deploy all the singleton contracts (nine contracts in total).
 
