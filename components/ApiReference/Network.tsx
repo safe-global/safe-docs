@@ -48,7 +48,7 @@ const indexOfDefaultNetwork = transactionServiceUrls.indexOf(
 )
 
 export const NetworkContext = createContext<
-  [string, Dispatch<SetStateAction<string>>]
+[string, Dispatch<SetStateAction<string>>]
 >([transactionServiceUrls[indexOfDefaultNetwork], () => {}])
 
 export const NetworkProvider: React.FC<PropsWithChildren> = ({ children }) => {

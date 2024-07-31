@@ -125,8 +125,8 @@ const getMarkdownHeaderComponent: (
   headingLevel: number
 ) => React.FC<{ children: ReactNode }> =
   headingLevel =>
-    ({ children }) =>
-      MdxHeading({ headingLevel, children })
+    async ({ children }) =>
+      await MdxHeading({ headingLevel, children })
 
 export const useCurrentTocIndex: (
   headings: Heading[],
