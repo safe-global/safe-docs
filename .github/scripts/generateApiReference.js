@@ -349,7 +349,7 @@ const generateMethodContent = (path, method) => {
     <SampleRequestHeader method="${method}" pathWithParams="${pathWithParams}" />
 
     <CH.Section>
-      <CH.Code>
+      <CH.Code style={{boxShadow: 'none'}}>
         \`\`\`bash ${hasExample && example !== 'export {}\n' ? 'curl' : ''}
           ${curlify({
             url: pathWithParams,
