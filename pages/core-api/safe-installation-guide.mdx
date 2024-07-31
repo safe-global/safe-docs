@@ -44,7 +44,7 @@ Open a [pull request](https://github.com/ethereum-lists/chains) to add your chai
     npm i --save-dev @safe-global/safe-singleton-factory
     ```
 
-    Ensure the latest version includes your `safe-singleton-factory` deployment from the earlier section.
+    Ensure the latest version includes your [safe-singleton-factory deployment](#singleton-factory-contract-deployment) from before.
 
 3. Deploy Contracts.
     
@@ -188,26 +188,27 @@ RPC_NODE_URL=<REPLACE BY YOUR RPC ENDPOINT>
 
 **Run**
 
-This command runs seventeen Docker containers from the [docker-compose.yml](https://github.com/gjeanmart/safe-infrastructure/blob/main/docker-compose.yml):
-- Nginx reverse proxy
-- Postgres 14.x database (x3 for Transaction Service, Config Service, and Events Service)
-- Redis database (x2 for Transaction Service and Client Gateway)
-- RabbitMQ message queue (x2 for Transaction Service and General)
-- Transaction Service (txs) workers & scheduler (x4)
-- Transaction Service (txs) web
-- Config Service (cfg) web
-- Client Gateway (cgx) web
-- Events service (events) web
-- Wallet (ui) web
-
 ```bash
 sh scripts/run_locally.sh
 # will ask to set up username/password for config-service and transactions-service
 ```
 
+This command runs seventeen Docker containers from the [docker-compose.yml](https://github.com/gjeanmart/safe-infrastructure/blob/main/docker-compose.yml):
+
+- Nginx reverse proxy
+- Postgres 14.x database (x3 for Transaction Service, Config Service, and Events Service)
+- Redis database (x2 for Transaction Service and Client Gateway)
+- RabbitMQ message queue (x2 for Transaction Service and General)
+- Transaction Service workers & scheduler (x4)
+- Transaction Service web
+- Config Service web
+- Client Gateway web
+- Events service (events) web
+- Wallet web
+
 **Local Ganache node**
 
-You can optionally use a local Ganache node (including Safe's singleton contracts) for testing purposes:
+You can optionally use a local [Ganache](https://github.com/trufflesuite/ganache/tree/develop/packages/ganache#readme) node (including Safe's singleton contracts) for testing purposes:
 
 ```bash
 vi .env
