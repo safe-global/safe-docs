@@ -79,6 +79,11 @@ button[title="Copy code"]:not(#\9) {
   box-shadow: none;
 }
 
+li > ul.nx-mt-6 {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
 @media (min-width: 768px) {
   /* Sidebar */
   #__next > div > div.nx-mx-auto.nx-flex.nx-max-w-\[90rem\] > aside {
