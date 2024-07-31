@@ -35,7 +35,6 @@ export async function createPasskey (): Promise<PasskeyArgType> {
   if (!passkeyCredential) {
     throw Error('Passkey creation failed: No credential was returned.')
   }
-  console.log('passkeyCredential: ', passkeyCredential)
 
   const passkey = await extractPasskeyData(passkeyCredential)
   console.log("Created Passkey: ", passkey)
@@ -47,7 +46,7 @@ export async function createPasskey (): Promise<PasskeyArgType> {
  * Store passkey in local storage.
  * @param {PasskeyArgType} passkey - Passkey object with rawId and coordinates.
  */
-export function storePasskeyInLocalStorage (passkey: PasskeyArgType) {
+export function storePasskeyInLocalStorage(passkey: PasskeyArgType) {
   const passkeys = loadPasskeysFromLocalStorage()
 
   passkeys.push(passkey)
@@ -59,7 +58,7 @@ export function storePasskeyInLocalStorage (passkey: PasskeyArgType) {
  * Load passkeys from local storage.
  * @returns {PasskeyArgType[]} List of passkeys.
  */
-export function loadPasskeysFromLocalStorage (): PasskeyArgType[] {
+export function loadPasskeysFromLocalStorage(): PasskeyArgType[] {
   const passkeysStored = localStorage.getItem(STORAGE_PASSKEY_LIST_KEY)
 
   const passkeyIds = passkeysStored ? JSON.parse(passkeysStored) : []

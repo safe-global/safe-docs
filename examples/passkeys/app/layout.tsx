@@ -61,11 +61,6 @@ export default function RootLayout ({
             </a>
           </div>
         </nav>
-        <div style={{ width: '100%', textAlign: 'center' }}>
-          <h1>Passkeys Tutorial</h1>
-
-          <div>Create an ERC-4337-compatible Safe Smart Account using passkeys</div>
-        </div>
         <div
           style={{
             display: 'flex',
@@ -75,7 +70,7 @@ export default function RootLayout ({
             marginRight: '40px'
           }}
         >
-          {children}
+            {children}
         </div>
       </body>
     </html>
