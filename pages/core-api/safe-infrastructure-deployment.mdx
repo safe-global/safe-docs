@@ -113,3 +113,23 @@ The helm chart allows you to inline all the configurations directly in your `val
 ```bash
 helm show values safe/safe-stack
 ```
+
+### Configuration
+
+After all the components are up and running, you need to configure the Transaction Service and config service to start indexing data and connect to your chain from Safe\{Wallet\}.
+
+**Transaction Service**
+
+By default, Transaction Service will automatically setup `MasterCopies` and `Proxy Factories` for [a list of known networks](https://github.com/safe-global/safe-eth-py/blob/main/gnosis/safe/addresses.py). 
+
+If your network is not supported you have to add the addresses manually in `http://YOUR_TRANSACTION_SERVICE_DOMAIN/admin/` in **Proxy Factories** and also in **Safe master copies** section.
+
+![safe-infrastructure-installation-configuration.png](../../assets/safe-infrastructure-installation-configuration.png)
+
+**Config Service**
+
+Open `http://YOUR_CONFIG_SERVICE_DOMAIN/admin` to configure your chain(s):
+
+![safe-infrastructure-installation-config-service.png](../../assets/safe-infrastructure-installation-config-service.png)
+
+Well done! You now have the Safe Contracts deployed on your chain and the Safe infrastructure up and running.
