@@ -1,0 +1,50 @@
+import { Steps } from 'nextra/components'
+
+# Install Safe on your chain
+
+Safe's vision is to make every web3 account a smart account. Therefore, we prioritize teams and chains building with smart accounts, especially if they push account abstraction (for example, [ERC-4337](https://docs.safe.global/home/4337-safe) or EIP-1271 adoption) with Safe.
+
+Safe's security is based on the contracts deployed in EVM-compatible networks. For the time being, we are not looking to extend beyond EVM.
+
+To have the full Safe stack running on your chain network, you need to consider the following steps:
+
+
+## Deploy Safe canonical contracts
+
+**Process**
+
+You can find detailed instructions under [Contracts Deployment](./safe-contracts-deployment.mdx).
+
+**Cost**
+
+The contracts are fully open source, but you have to pay gas in the new chain's native currency for contract deployment.
+
+**Timeline**
+
+Safe reviews registrations of canonical deployments on a two-week cadence.
+
+## Deploy and maintain Safe\{Wallet\} and Safe\{Core\} infrastructure
+
+**Process**
+
+You have three options available:
+
+1. Use the Platform-as-a-Service run by Safe Core Contributors.
+2. Use the Platform-as-a-Service run by third-party integrators.
+3. Self-host the infrastructure.
+
+You can find detailed instructions under [Infrastructure Deployment](./safe-infrastructure-deployment.mdx). 
+
+**Cost**
+
+- Safe is fully open source but requires someone to run and maintain the [web interface](https://github.com/safe-global/safe-wallet-web) and [infrastructure](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_production.md).
+- Cost is based on the individual agreement (if run by any third party, including Safe).
+- Primary cost factors:
+  - Deployment costs.
+  - Indexing.
+  - Cloud storage and monitoring services.
+
+**Timeline**
+
+- Based on the individual agreement with Safe or third-party integrators.
+- Prioritisation for native integration ([app.safe.global](https://app.safe.global)) is primarily based on the network's smart account/account abstraction strategy (for example, is every user account a Safe under the hood beyond the usage of Safe as a multi-signature for treasury management?) and [additional metrics](https://noteforms.com/forms/request-safe-ui-and-infra-support-4weugt).
