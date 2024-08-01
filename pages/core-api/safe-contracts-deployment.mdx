@@ -1,0 +1,108 @@
+import { Callout, Steps, Tabs, Tab } from 'nextra/components'
+
+# Safe\{Core\} contracts deployment
+
+In this section, you will deploy the Safe\{Core\} contracts on your chain. All Safe contract deployments on any network follow the same procedure to ensure a deterministic address for all singleton contracts (proxy-factory, mastercopy, etc.) and verify the deployment.
+
+## Prerequisites
+
+Open a [pull request](https://github.com/ethereum-lists/chains) to add your chain to [chainlist.org](https://chainlist.org/).
+
+## Steps
+
+<Steps>
+
+### Singleton factory contract deployment
+
+<Callout type="info" emoji="ℹ️">
+ You do not need to perform these tasks if your network is based on a rollup framework with Safe contracts already deployed (for example, OP Stack).
+</Callout>
+
+1. Create a new issue in the [safe-singleton-factory](https://github.com/safe-global/safe-singleton-factory/issues/new?assignees=&labels=&projects=&template=new_chain.yml&title=%5BNew+chain%5D%3A+) repository.
+2. A bot will reply to the issue with the deployer address (`0x914...3d7`) and the amount of native token you need to send to this address.
+3. Once funded, mark the checkbox on the GitHub issue.
+4. The review of the issues happens every two weeks. Our team will perform the deterministic deployment of the `safe-singleton-factory` contract and publish a new npm release of [@safe-global/safe-singleton-factory](https://www.npmjs.com/package/@safe-global/safe-singleton-factory).
+
+### Singleton contracts deployment 
+
+<Callout type="info" emoji="ℹ️">
+ You do not need to perform these tasks if your network is based on a rollup framework with Safe contracts already deployed (for example, OP Stack).
+</Callout>
+
+1. Clone the [safe-smart-account](https://github.com/safe-global/safe-smart-account) repository by running the following command:
+    ```
+    git clone --branch v1.3.0-libs.0 https://github.com/safe-global/safe-smart-account.git
+    cd safe-smart-account
+    ```
+    
+2. Get the latest version of [@safe-global/safe-singleton-factory](https://www.npmjs.com/package/@safe-global/safe-singleton-factory), by running the following command:
+
+    ```bash
+    npm i --save-dev @safe-global/safe-singleton-factory
+    ```
+
+    Ensure the latest version includes your [safe-singleton-factory deployment](#singleton-factory-contract-deployment) from before.
+
+3. Deploy Contracts.
+    
+    {/* <!-- vale off --> */}
+    <Tabs items={["Infura supports your chain", "Infura does not support your chain"]}>
+        <Tabs.Tab>
+            Create a `.env` file in the root of the repository with the following content:
+            ```bash
+            MNEMONIC=funded_account_on_this_network
+            INFURA_KEY=your_Infura_project_API_key
+            ```
+
+            Deploy the contracts by running this command:
+            ```bash
+            npm run deploy-all your_chain_id
+            ```
+        </Tabs.Tab>
+        <Tabs.Tab>
+            Create a `.env` file in the root of the repository with the following content:
+            ```bash
+            MNEMONIC=funded_account_on_this_network
+            NODE_URL=RPC_endpoint_for_your_network
+            ```
+
+            Deploy the contracts by running this command:
+
+            ```bash
+            npm run deploy-all custom
+            ```
+        </Tabs.Tab>
+    </Tabs>
+    {/* <!-- vale on --> */}
+
+4. The script should deploy all the singleton contracts (nine contracts in total). Write down each address (example addresses for v1.3.0 could look like):
+    ```js
+    compatibility_fallback_handler: `0x017062a1dE2FE6b99BE3d9d37841FeD19F573804`
+    create_call: `0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d`
+    gnosis_safe: `0x69f4D1788e39c87893C980c06EdF4b7f686e2938`
+    gnosis_safe_l2: `0xfb1bffC9d739B8D520DaF37dF666da4C687191EA`
+    multi_send: `0x998739BFdAAdde7C933B942a68053933098f9EDa`
+    multi_send_call_only: `0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B`
+    proxy_factory: `0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC`
+    sign_message_lib: `0x98FFBBF51bb33A056B08ddf711f289936AafF717`
+    simulate_tx_accessor: `0x727a77a074D1E6c4530e814F89E618a3298FC044`
+    ```
+
+
+### Record your contracts in the official registry
+
+You must share your singleton contract deployment addresses in the official public registry.
+1. Fork the [safe-deployments](https://github.com/safe-global/safe-deployments) GitHub repository.
+2. Add your chain ID to each of the nine JSON files in `src/assets/<version>`. If you deployed with the singleton deployment from above, you have to mark your chain's deployment as "canonical".
+For example, add this line to `gnosis_safe.json` to indicate the gnosis safe has the canonical address on your chain:
+    ```json
+    "<your_chain_id>": "canonical"
+    ```
+
+3. Open a pull request. Your pull request should follow this [example pull request](https://github.com/safe-global/safe-deployments/pull/679).
+
+</Steps>
+
+Now, you have deployed the Safe\{Core\} contracts on your chain. 
+
+In the next step, you have to install the [Safe\{Core\} Infrastructure](./safe-infrastructure-deployment.mdx).
