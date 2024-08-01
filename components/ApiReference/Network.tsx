@@ -29,20 +29,30 @@ const transactionServiceUrls = [
   'https://safe-transaction-bsc.safe.global',
   'https://safe-transaction-celo.safe.global',
   'https://safe-transaction-gnosis-chain.safe.global',
+  'https://safe-transaction-linea.safe.global',
   'https://safe-transaction-optimism.safe.global',
   'https://safe-transaction-polygon.safe.global',
   'https://safe-transaction-zkevm.safe.global',
   'https://safe-transaction-scroll.safe.global',
   'https://safe-transaction-sepolia.safe.global',
+  'https://safe-transaction-xlayer.safe.global',
   'https://safe-transaction-zksync.safe.global'
 ]
 
+/**
+ * Finds the index of the default network for the NetworkContext.
+ * Currently, Sepolia is the default network.
+ */
+const indexOfDefaultNetwork = transactionServiceUrls.indexOf(
+  'https://safe-transaction-sepolia.safe.global'
+)
+
 export const NetworkContext = createContext<
 [string, Dispatch<SetStateAction<string>>]
->([transactionServiceUrls[0], () => {}])
+>([transactionServiceUrls[indexOfDefaultNetwork], () => {}])
 
 export const NetworkProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const state = useState(transactionServiceUrls[0])
+  const state = useState(transactionServiceUrls[indexOfDefaultNetwork])
 
   return (
     <NetworkContext.Provider value={state}>{children}</NetworkContext.Provider>
@@ -131,9 +141,9 @@ export const NetworkNotice: React.FC = () => {
   const [network] = useContext(NetworkContext)
   const [copied, setCopied] = useState(false)
   return (
-    network !== transactionServiceUrls[0] && (
+    network !== transactionServiceUrls[indexOfDefaultNetwork] && (
       <Box sx={{ fontSize: '12px', mt: -2, mb: 3 }}>
-        This snippet shows a sample request on mainnet. Please{' '}
+        This snippet shows a sample request on Ethereum Sepolia. Please{' '}
         <MuiLink
           sx={{ '&:hover': { cursor: 'pointer' } }}
           onClick={() => {

@@ -125,7 +125,7 @@ const getMarkdownHeaderComponent: (
   headingLevel: number
 ) => React.FC<{ children: ReactNode }> =
   headingLevel =>
-  // eslint-disable-next-line @typescript-eslint/promise-function-async
+    // eslint-disable-next-line @typescript-eslint/promise-function-async
     ({ children }) =>
       MdxHeading({ headingLevel, children })
 

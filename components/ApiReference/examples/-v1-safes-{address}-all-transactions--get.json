@@ -1,167 +1,69 @@
 {
-  "count": 81,
-  "next": "https://safe-transaction-mainnet.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/?limit=2&offset=2",
+  "count": 1,
+  "next": null,
   "previous": null,
   "results": [
     {
-      "safe": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75",
-      "to": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
-      "value": "0",
-      "data": "0x8d80ff0a000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000ce00cd2e72aebe2a203b84f46deec948e6465db51c75000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000247de7edef000000000000000000000000d9db270c1b5e3bd161e8c8503c55ceabee70955200cd2e72aebe2a203b84f46deec948e6465db51c7500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "operation": 1,
-      "gasToken": "0x0000000000000000000000000000000000000000",
-      "safeTxGas": 48700,
-      "baseGas": 0,
-      "gasPrice": "0",
-      "refundReceiver": "0x0000000000000000000000000000000000000000",
-      "nonce": 49,
-      "executionDate": "2024-04-23T02:38:11Z",
-      "submissionDate": "2024-04-23T02:38:01.015676Z",
-      "modified": "2024-04-23T02:38:11Z",
-      "blockNumber": 19715160,
-      "transactionHash": "0xceeacc3007949920a43a3785e650e0bb86bdd5c20ccb2f6704d25839c81bf306",
-      "safeTxHash": "0xba192fd48af510cf6065b4997a7c4e5f9f320c82bd6951cd32396d714da4b4cf",
-      "proposer": "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB",
-      "executor": "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB",
-      "isExecuted": true,
-      "isSuccessful": true,
-      "ethGasPrice": "8709486175",
-      "maxFeePerGas": "9000000000",
-      "maxPriorityFeePerGas": "3086913705",
-      "gasUsed": 58769,
-      "fee": "511847793018575",
-      "origin": "{}",
-      "dataDecoded": {
-        "method": "multiSend",
-        "parameters": [
-          {
-            "name": "transactions",
-            "type": "bytes",
-            "value": "0x00cd2e72aebe2a203b84f46deec948e6465db51c75000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000247de7edef000000000000000000000000d9db270c1b5e3bd161e8c8503c55ceabee70955200cd2e72aebe2a203b84f46deec948e6465db51c7500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-            "valueDecoded": [
-              {
-                "operation": 0,
-                "to": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75",
-                "value": "0",
-                "data": "0x7de7edef000000000000000000000000d9db270c1b5e3bd161e8c8503c55ceabee709552",
-                "dataDecoded": {
-                  "method": "changeMasterCopy",
-                  "parameters": [
-                    {
-                      "name": "_masterCopy",
-                      "type": "address",
-                      "value": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552"
-                    }
-                  ]
-                }
-              },
-              {
-                "operation": 0,
-                "to": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75",
-                "value": "0",
-                "data": null,
-                "dataDecoded": null
-              }
-            ]
-          }
-        ]
-      },
-      "confirmationsRequired": 1,
-      "confirmations": [
-        {
-          "owner": "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB",
-          "submissionDate": "2024-04-23T02:38:11Z",
-          "transactionHash": null,
-          "signature": "0x000000000000000000000000a1b02d8c67b0fdcf4e379855868deb470e169cfb000000000000000000000000000000000000000000000000000000000000000001",
-          "signatureType": "APPROVED_HASH"
-        }
-      ],
-      "trusted": true,
-      "signatures": "0x000000000000000000000000a1b02d8c67b0fdcf4e379855868deb470e169cfb000000000000000000000000000000000000000000000000000000000000000001",
-      "transfers": [],
-      "txType": "MULTISIG_TRANSACTION"
-    },
-    {
-      "safe": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75",
-      "to": "0xA0b937D5c8E32a80E3a8ed4227CD020221544ee6",
-      "value": "0",
-      "data": "0x0087b83f172fb115f1aa2601f3a45ccdc47cacc02ed0ffa48d07d22d201f548bf49fed23000000000000000000000000cd2e72aebe2a203b84f46deec948e6465db51c7500000000000000000000000000000000ffffffffffffffffffffffffffffffff",
+      "safe": "0x5298A93734C3D979eF1f23F78eBB871879A21F22",
+      "to": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+      "value": "50000000000000",
+      "data": null,
       "operation": 0,
       "gasToken": "0x0000000000000000000000000000000000000000",
-      "safeTxGas": 133927,
+      "safeTxGas": 0,
       "baseGas": 0,
       "gasPrice": "0",
       "refundReceiver": "0x0000000000000000000000000000000000000000",
-      "nonce": 48,
-      "executionDate": "2024-04-23T02:36:47Z",
-      "submissionDate": "2024-04-23T02:36:39.804393Z",
-      "modified": "2024-04-23T02:36:47Z",
-      "blockNumber": 19715153,
-      "transactionHash": "0x3e8d89540a749fc0cc81709004a9047e6199dcec7b4d99d2f660a1d26e6e089c",
-      "safeTxHash": "0xf6846a40fceb0650ed84f1fec8cea5fd18ca9fd14a6bcbf1a7c18c831f47e709",
-      "proposer": "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB",
-      "executor": "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB",
+      "nonce": 0,
+      "executionDate": "2024-06-26T15:41:48Z",
+      "submissionDate": "2024-06-26T15:18:33.817634Z",
+      "modified": "2024-06-26T15:41:49.400858Z",
+      "blockNumber": 6191662,
+      "transactionHash": "0x2ecba24115d057bb74c1885b2a16a38b3929992fd52ed69dc8d0df24f765da96",
+      "safeTxHash": "0xfc01da65f3a1dea769f4ad9067d41c5477a2ec5316d6b54165de212cd1681992",
+      "proposer": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
+      "executor": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
       "isExecuted": true,
       "isSuccessful": true,
-      "ethGasPrice": "7000000000",
-      "maxFeePerGas": "7000000000",
-      "maxPriorityFeePerGas": "1398475847",
-      "gasUsed": 123205,
-      "fee": "862435000000000",
-      "origin": "{\"url\": \"https://governance.safe.global\", \"name\": \"Safe{DAO} Governance\"}",
-      "dataDecoded": {
-        "method": "claimVestedTokensViaModule",
-        "parameters": [
-          {
-            "name": "vestingId",
-            "type": "bytes32",
-            "value": "0x172fb115f1aa2601f3a45ccdc47cacc02ed0ffa48d07d22d201f548bf49fed23"
-          },
-          {
-            "name": "beneficiary",
-            "type": "address",
-            "value": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75"
-          },
-          {
-            "name": "tokensToClaim",
-            "type": "uint128",
-            "value": "340282366920938463463374607431768211455"
-          }
-        ]
-      },
-      "confirmationsRequired": 1,
+      "ethGasPrice": "61733665357",
+      "maxFeePerGas": "131260008170",
+      "maxPriorityFeePerGas": "1000000000",
+      "gasUsed": 91398,
+      "fee": "5642333546299086",
+      "origin": "{}",
+      "dataDecoded": null,
+      "confirmationsRequired": 2,
       "confirmations": [
         {
-          "owner": "0xA1b02d8c67b0FDCF4E379855868DeB470E169cfB",
-          "submissionDate": "2024-04-23T02:36:47Z",
+          "owner": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
+          "submissionDate": "2024-06-26T15:18:33.901378Z",
           "transactionHash": null,
-          "signature": "0x000000000000000000000000a1b02d8c67b0fdcf4e379855868deb470e169cfb000000000000000000000000000000000000000000000000000000000000000001",
-          "signatureType": "APPROVED_HASH"
+          "signature": "0x331d8584f5514c1cf1cfe1edd873228e428dafc0c78c5480c34c9868e9075d9622d8334d052037b1566241c8d0ecfbdb02c99b59a9e06d97974e1eaa55f502811f",
+          "signatureType": "ETH_SIGN"
+        },
+        {
+          "owner": "0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d",
+          "submissionDate": "2024-06-26T15:27:29.512252Z",
+          "transactionHash": null,
+          "signature": "0xd26842f2bd17eeed83a0f9fb010efc1716ed982e62cc05fe61a314827c226d534ddab07482795521b20c32d764ddc4d3fc602c3113b4c540c420e72b923b92c91f",
+          "signatureType": "ETH_SIGN"
         }
       ],
       "trusted": true,
-      "signatures": "0x000000000000000000000000a1b02d8c67b0fdcf4e379855868deb470e169cfb000000000000000000000000000000000000000000000000000000000000000001",
+      "signatures": "0xd26842f2bd17eeed83a0f9fb010efc1716ed982e62cc05fe61a314827c226d534ddab07482795521b20c32d764ddc4d3fc602c3113b4c540c420e72b923b92c91f331d8584f5514c1cf1cfe1edd873228e428dafc0c78c5480c34c9868e9075d9622d8334d052037b1566241c8d0ecfbdb02c99b59a9e06d97974e1eaa55f502811f",
       "transfers": [
         {
-          "type": "ERC20_TRANSFER",
-          "executionDate": "2024-04-23T02:36:47Z",
-          "blockNumber": 19715153,
-          "transactionHash": "0x3e8d89540a749fc0cc81709004a9047e6199dcec7b4d99d2f660a1d26e6e089c",
-          "to": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75",
-          "value": "381767577609232226683",
+          "type": "ETHER_TRANSFER",
+          "executionDate": "2024-06-26T15:41:48Z",
+          "blockNumber": 6191662,
+          "transactionHash": "0x2ecba24115d057bb74c1885b2a16a38b3929992fd52ed69dc8d0df24f765da96",
+          "to": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+          "value": "50000000000000",
           "tokenId": null,
-          "tokenAddress": "0x5aFE3855358E112B5647B952709E6165e1c1eEEe",
-          "transferId": "e3e8d89540a749fc0cc81709004a9047e6199dcec7b4d99d2f660a1d26e6e089c108",
-          "tokenInfo": {
-            "type": "ERC20",
-            "address": "0x5aFE3855358E112B5647B952709E6165e1c1eEEe",
-            "name": "Safe Token",
-            "symbol": "SAFE",
-            "decimals": 18,
-            "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x5aFE3855358E112B5647B952709E6165e1c1eEEe.png",
-            "trusted": true
-          },
-          "from": "0xA0b937D5c8E32a80E3a8ed4227CD020221544ee6"
+          "tokenAddress": null,
+          "transferId": "i2ecba24115d057bb74c1885b2a16a38b3929992fd52ed69dc8d0df24f765da960,0",
+          "tokenInfo": null,
+          "from": "0x5298A93734C3D979eF1f23F78eBB871879A21F22"
         }
       ],
       "txType": "MULTISIG_TRANSACTION"

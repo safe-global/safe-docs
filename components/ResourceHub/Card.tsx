@@ -1,4 +1,5 @@
 import { Typography, Chip, Box } from '@mui/material'
+import { sendGAEvent } from '@next/third-parties/google'
 
 import css from './styles.module.css'
 import { type KnowledgeResource } from './Resources'
@@ -36,6 +37,15 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
         height: '100%'
       }}
       className={css.card}
+      onClick={
+        () => {
+          sendGAEvent('event', 'resource_hub_link', {
+            resource_url: resource.url,
+            resource_type: resource.type,
+            resource_name: resource.name
+          })
+        }
+      }
     >
       <a
         href={resource.url}

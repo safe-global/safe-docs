@@ -3,7 +3,11 @@ import { Callout } from 'nextra/components'
 # How to build an app with Safe and passkeys
 
 <Callout type='warning' emoji='⚠️'>
-  Passkeys support is still under audit and should not be used in production environments. Please consider this tutorial and all the code examples in it a developer preview. Compatibility with passkeys is only available when using `@safe-global/protocol-kit@4.1.0-alpha.1` and `@safe-global/relay-kit@3.1.0-alpha.1` in Sepolia.
+  Passkeys support is still under audit and should not be used in production
+  environments. Please consider this tutorial and all the code examples in it a
+  developer preview. Compatibility with passkeys is only available when using
+  `@safe-global/protocol-kit@4.1.0-alpha.1` and
+  `@safe-global/relay-kit@3.1.0-alpha.1` in Sepolia.
 </Callout>
 
 An increasing number of applications rely on passkeys to authenticate users securely and with little friction. Security and user-friendliness are crucial to making web3 a reality for the next billion users.
@@ -11,6 +15,7 @@ Being able to unlock a Safe Smart Account with your fingerprints or Face ID, sen
 Today, we'll learn how to make this a reality using [Safe\{Core\} SDK](../../sdk/overview.mdx), [Pimlico](https://www.pimlico.io/), and [Next.js](https://nextjs.org/docs).
 
 This tutorial will demonstrate creating a web app for using [passkeys](../passkeys-overview.mdx) in your Safe. This app will allow you to:
+
 - Create a new passkey secured by the user's device.
 - Deploy a new Safe on Ethereum Sepolia for free.
 - Sign a transaction to mint an NFT using the previously created passkey.
@@ -43,12 +48,12 @@ When prompted by the CLI:
 
 ### Install dependencies
 
-For this project, we'll use the [Relay Kit](../../sdk/relay-kit.mdx) and [Protocol Kit](../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem).
+For this project, we'll use the [Relay Kit](../../sdk/relay-kit.mdx) and [Protocol Kit](../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem) for a helper function to encode the dummy transaction. We will also use [`@mui/material`](https://mui.com/material-ui/) for styling.
 
 Run the following command to add all these dependencies to the project:
 
 ```bash
-pnpm add @safe-global/protocol-kit@4.1.0-alpha.1 @safe-global/relay-kit@3.1.0-alpha.1 viem
+pnpm add @safe-global/protocol-kit@4.1.0-alpha.1 @safe-global/relay-kit@3.1.0-alpha.1 viem @emotion/react @emotion/styled @mui/material @mui/icons-material
 ```
 
 Now, create a file named `.env.local` at the root of your project, and add your Pimlico API key to it:
@@ -134,22 +139,36 @@ With this configuration, a new Safe will be created (but not yet deployed) when 
 
 Let's add a user interface to create and store a passkey on the user's device, deploy a safe, and sign the NFT transaction.
 
-Create a `components` folder at the project root with a file named `PasskeyList.tsx`:
+Create a `components` folder at the project root with a file named `LoginWithPasskey.tsx`:
 
 ```bash
 cd ..
 mkdir components
 cd components
-touch PasskeyList.tsx
+touch LoginWithPasskey.tsx
 ```
 
-Add the following code to the `PasskeyList.tsx` file:
+Add the following code to the `LoginWithPasskey.tsx` file:
 
 ```tsx
-// from ../../../examples/passkeys/components/PasskeyList.tsx
+// from ../../../examples/passkeys/components/LoginWithPasskey.tsx
 ```
 
-This component displays a list of previously created passkeys and a button for creating new ones.
+This component is an authentication modal allowing users to either signing in by creating a new passkey, or logging in with an existing one.
+
+Next, create a `SafeAccountDetails.tsx` file in the same folder:
+
+```bash
+touch SafeAccountDetails.tsx
+```
+
+Add the following code to the `SafeAccountDetails.tsx` file:
+
+```tsx
+// from ../../../examples/passkeys/components/SafeAccountDetails.tsx
+```
+
+This component displays the details of the Safe account, including the Safe address, whether it is deployed, and a button to mint the NFT.
 
 Lastly, replace the content of the `page.tsx` file, within the `app` folder, with this code:
 
@@ -159,7 +178,7 @@ Lastly, replace the content of the `page.tsx` file, within the `app` folder, wit
 
 This UI will put everything we built in the previous steps into a coherent application with all the functionality required to let you create a passkey, select it, and use it to sign a transaction.
 
-## 6. (Optional) Add styling to the app
+## 6. Add styling
 
 Because a web app is nothing without good styling, let's add some Safe design to our project 💅.
 
@@ -182,7 +201,7 @@ h3 {
 button {
   cursor: pointer;
   border: none;
-  background: #00E673;
+  background: #00e673;
   color: black;
   padding: 10px 20px;
   border-radius: 5px;
@@ -190,7 +209,7 @@ button {
 }
 ```
 
-Finally, in the `public` folder, add these three icons. You can find them in the project's GitHub repository: [`safe.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/safe.svg), [`github.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/github.svg/), and [`external-link.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/external-link.svg).
+Download [this file](https://github.com/5afe/safe-passkeys-tutorial/blob/main/components/SafeThemeProvider.tsx) and save it in `./components` as `SafeThemeProvider.tsx`. We are not displaying it here for brevity; it is simply a wrapper for the MUI theme provider, which will allow us to use Safe's design system. Finally, in the `public` folder, add three icons. You can also find them in the project's GitHub repository: [`safe.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/safe.svg), [`github.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/github.svg/), and [`external-link.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/external-link.svg).
 
 ## Testing your Safe passkeys app
 
@@ -198,14 +217,19 @@ That's it! You can find the source code for the example created in this tutorial
 
 ![safe-passkeys-app-1.png](../../../assets/safe-passkeys-app-1.png)
 
-Click the **Add New Passkey** button to prompt a browser pop-up asking you to confirm the creation of a new passkey. This passkey will be stored in your browser's local storage and displayed in the list above the button.
+Click the **Create a new passkey** button to prompt a browser pop-up asking you to confirm the creation of a new passkey. This passkey will be stored in your browser's local storage and displayed in the list above the button.
 
-Once confirmed, select this passkey by clicking **Select** next to it. This will prompt another pop-up window, this time asking to confirm the use of the previously created passkey.
+This will create a new Safe object in the background, which will be deployed when you click the **Mint NFT** button. This will also mint an NFT using the passkey you created.
 
-![safe-passkeys-app-2.png](../../../assets/safe-passkeys-app-2.png)
+![safe-passkeys-app-3.png](../../../assets/safe-passkeys-app-3.png)
 
-At this stage, the app will have created a safe object awaiting deployment. By clicking **Sign transaction with passkey**, the deployment of this Safe will then be embedded in a batch transaction, along with the minting of the NFT.
-Open the console to see the UserOp that was sent or click the link provided to Jiffy scan for more complete information.
+Click the link to Jiffy Scan to see the UserOp that was sent and more complete information.
+
+## Best practices
+
+Please be mindful of certain security considerations when dealing with passkeys. We recommend using passkeys only in a development environment till all the associated contracts are audited.
+
+For the tutorial's simplicity, we created a 1/1 Safe with a passkey as the sole signer. This is not recommended for production setups, as passkeys are tied to a domain name, and they can also be tied to hardware manufacturers. For that reason, they might become inaccessible if not configured or saved properly. Please always use a combination of passkeys and other authentication methods to ensure the security of your users' assets.
 
 ## Do more with Safe and passkeys
 
