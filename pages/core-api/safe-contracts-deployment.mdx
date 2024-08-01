@@ -2,9 +2,7 @@ import { Callout, Steps, Tabs, Tab } from 'nextra/components'
 
 # Safe\{Core\} contracts deployment
 
-In this section, you will deploy the Safe\{Core\} contracts on your chain.
-
-All Safe contract deployments on any network follow the same procedure to ensure a deterministic address for all singleton contracts (proxy-factory, mastercopy, etc.) and verify the deployment.
+In this section, you will deploy the Safe\{Core\} contracts on your chain. All Safe contract deployments on any network follow the same procedure to ensure a deterministic address for all singleton contracts (proxy-factory, mastercopy, etc.) and verify the deployment.
 
 ## Prerequisites
 
@@ -77,9 +75,7 @@ Open a [pull request](https://github.com/ethereum-lists/chains) to add your chai
     </Tabs>
     {/* <!-- vale on --> */}
 
-4. The script should deploy all the singleton contracts (nine contracts in total).
-
-    Write down each address (example addresses for v1.3.0 could look like):
+4. The script should deploy all the singleton contracts (nine contracts in total). Write down each address (example addresses for v1.3.0 could look like):
     ```js
     compatibility_fallback_handler: `0x017062a1dE2FE6b99BE3d9d37841FeD19F573804`
     create_call: `0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d`
@@ -109,4 +105,4 @@ For example, add this line to `gnosis_safe.json` to indicate the gnosis safe has
 
 Now, you have deployed the Safe\{Core\} contracts on your chain. 
 
-In the next step, you have to install the Safe\{Core\} infrastructure.
+In the next step, you have to install the [Safe\{Core\} Infrastructure](./safe-infrastructure-deployment.mdx).

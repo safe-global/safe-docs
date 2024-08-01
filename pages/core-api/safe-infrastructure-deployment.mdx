@@ -2,7 +2,7 @@ import { Callout, Steps, Tabs, Tab } from 'nextra/components'
 
 # Safe\{Core\} Infrastructure deployment
 
-Once you have deployed the Safe\{Core\} contracts, you must deploy the off-chain components of the Safe\{Core\} Stack, including backend and frontend services. 
+Once you have deployed the [Safe\{Core\} contracts](./safe-contracts-deployment.mdx), you must deploy the off-chain components of the Safe\{Core\} Stack, including backend and frontend services. 
 
 You have three options for deploying the Safe stack, depending on your needs.
 
@@ -29,7 +29,7 @@ You can find [docker images for a majority of platforms](https://hub.docker.com/
 
 ### Requirements
 
-**Hardware**
+#### Hardware
 
 These are the hardware requirements to run the different services required.
 
@@ -41,7 +41,7 @@ These are the hardware requirements to run the different services required.
 | Large (large chain with high-traffic) | CPU: 8 vCPU RAM: 32GiB | CPU: 2 vCPU RAM: 8 GiB | CPU: 2 vCPU RAM: 8 GiB | CPU: 16 vCPU RAM: 64GiB |
 
 
-**RPC**
+#### RPC
 
 For support, please refer to the [RPC requirements](./api-safe-transaction-service/rpc-requirements.md#what-are-the-rpc-requirements). Safe (L1) requires tracing for indexing, while Safe (L2) supports events/logs.
 
@@ -54,13 +54,13 @@ git clone git@github.com:safe-global/safe-infrastructure.git
 cd safe-infrastructure
 ```
 
-**Prerequisites**
+#### Prerequisites
 
 - [Docker](https://docs.docker.com/guides/) v20.10+
 - [Docker-compose](https://docs.docker.com/compose/) 2.x.x+
 - Running [Ethereum JSON RPC client](https://ethereum.org/en/developers/docs/apis/json-rpc/)
 
-**Configuration**
+#### Configuration
 
 ```bash
 cp .env.sample .env
@@ -74,7 +74,7 @@ EVENTS_VERSION=latest
 RPC_NODE_URL=<REPLACE BY YOUR RPC ENDPOINT>
 ```
 
-**Run**
+#### Run
 
 ```bash
 sh scripts/run_locally.sh
@@ -91,7 +91,7 @@ This command runs seventeen Docker containers from the [docker-compose.yml](http
 - Transaction Service web
 - Config Service web
 - Client Gateway web
-- Events service (events) web
+- Events service web
 - Wallet web
 
 ### Kubernetes deployment
@@ -118,7 +118,7 @@ helm show values safe/safe-stack
 
 After all the components are up and running, you need to configure the Transaction Service and config service to start indexing data and connect to your chain from Safe\{Wallet\}.
 
-**Transaction Service**
+#### Transaction Service
 
 By default, Transaction Service will automatically setup `MasterCopies` and `Proxy Factories` for [a list of known networks](https://github.com/safe-global/safe-eth-py/blob/main/gnosis/safe/addresses.py). 
 
@@ -126,7 +126,7 @@ If your network is not supported you have to add the addresses manually in `http
 
 ![safe-infrastructure-installation-configuration.png](../../assets/safe-infrastructure-installation-configuration.png)
 
-**Config Service**
+#### Config Service
 
 Open `http://YOUR_CONFIG_SERVICE_DOMAIN/admin` to configure your chain(s):
 
