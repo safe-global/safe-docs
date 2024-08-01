@@ -1,28 +1,11 @@
 {
-  "address": "0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75",
-  "name": "Proxy",
+  "address": "0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC",
+  "name": "Seaport",
   "displayName": "",
   "logoUri": null,
   "contractAbi": {
-    "abi": [
-      {
-        "type": "constructor",
-        "inputs": [
-          {
-            "name": "_masterCopy",
-            "type": "address"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable"
-      },
-      {
-        "type": "fallback",
-        "payable": true,
-        "stateMutability": "payable"
-      }
-    ],
-    "description": "Proxy",
+    "abi": [],
+    "description": "Seaport",
     "relevance": 100
   },
   "trustedForDelegateCall": false

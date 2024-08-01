@@ -12,9 +12,11 @@
 | Celo                         | [https://safe-transaction-celo.safe.global](https://safe-transaction-celo.safe.global/)                  |
 | Ethereum Mainnet             | [https://safe-transaction-mainnet.safe.global](https://safe-transaction-mainnet.safe.global/)            |
 | Gnosis Chain                 | [https://safe-transaction-gnosis-chain.safe.global](https://safe-transaction-gnosis-chain.safe.global/)  |
+| Linea                        | [https://safe-transaction-linea.safe.global](https://safe-transaction-linea.safe.global/)                |
 | Optimism                     | [https://safe-transaction-optimism.safe.global](https://safe-transaction-optimism.safe.global/)          |
 | Polygon                      | [https://safe-transaction-polygon.safe.global](https://safe-transaction-polygon.safe.global/)            |
 | Polygon zkEVM                | [https://safe-transaction-zkevm.safe.global](https://safe-transaction-zkevm.safe.global/)                |
 | Scroll                       | [https://safe-transaction-scroll.safe.global](https://safe-transaction-scroll.safe.global/)              |
 | Sepolia                      | [https://safe-transaction-sepolia.safe.global](https://safe-transaction-sepolia.safe.global/)            |
+| X Layer                      | [https://safe-transaction-xlayer.safe.global](https://safe-transaction-xlayer.safe.global/)              |
 | zkSync Era Mainnet           | [https://safe-transaction-zksync.safe.global](https://safe-transaction-zksync.safe.global/)              |
