@@ -1,34 +1,31 @@
-import Link from 'next/link'
-import Img from 'next/image'
-import Typography from '@mui/material/Typography'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
 import { type Theme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import Img from 'next/image'
+import Link from 'next/link'
 
 import Bounty from './Bounty'
-import Workshop from './Workshop'
 import TeamMember from './TeamMember'
+import Workshop from './Workshop'
 // import FAQ from './FAQ'
 // import Survey from './Survey'
-import eventData from './event-data.json'
-import Gift from '../../assets/svg/gift.svg'
-import Building from '../../assets/svg/building.svg'
-import Layers from '../../assets/svg/layers.svg'
 import DevStar from '../../assets/diamond-bg.png'
 import German from '../../assets/german.png'
 import Louis from '../../assets/louis.jpeg'
-import Valle from '../../assets/valle.jpg'
-import TrophyIcon from '../../assets/svg/trophy.svg'
-import Teach from '../../assets/svg/teach.svg'
-import Discord from '../../assets/svg/discord.svg'
-import StackExchange from '../../assets/svg/stack-exchange.svg'
 import Ellipse1 from '../../assets/svg/ellipse-1.svg'
 import Ellipse2 from '../../assets/svg/ellipse-2.svg'
-import type { TeamMemberType } from './types'
+import StackExchange from '../../assets/svg/stack-exchange.svg'
+import TrophyIcon from '../../assets/svg/trophy.svg'
+import Tanay from '../../assets/tanay.png'
+import Valle from '../../assets/valle.jpg'
+import eventData from './event-data.json'
 import css from './styles.module.css'
+import type { TeamMemberType } from './types'
 
 const EventsPage: React.FC = () => {
   const isBiggerThanXs = useMediaQuery((theme: Theme) =>
@@ -78,11 +75,13 @@ const EventsPage: React.FC = () => {
           </Typography>
           <Typography className={css.body} sx={{ mt: '50px' }}>
             We proudly support this event by sponsoring{' '}
-            {eventData.bounties.length} submission tracks for a total of{' '}
+            {eventData.bounties.length} submission tracks for a total of{' '}$10,000
+            {/*
             {eventData.bounties[0].prize.currency}
             {eventData.bounties
               .reduce((acc, curr) => acc + curr.prize.value, 0)
               .toLocaleString()}
+            */}
             .
           </Typography>
           <Grid container flexDirection={['column', 'row']}>
@@ -118,42 +117,44 @@ const EventsPage: React.FC = () => {
                 </Typography>
               </Link>
             </Grid>
-            <Grid
-              item
-              height='220px'
-              container
-              flexDirection='column'
-              justifyContent='space-between'
-              sx={{ width: ['100%', '35%'] }}
-            >
-              <div>
-                <Typography
-                  color='text.dark'
-                  sx={{ mt: '50px' }}
-                  className={css.body}
-                >
-                  Venue
-                </Typography>
-                <Typography sx={{ mt: '10px' }} className={css.body}>
-                  {eventData.venue.name}
-                  <br />
-                  {eventData.venue.address}
-                </Typography>
-              </div>
-              <Link
-                href={`https://google.com/maps/place/${eventData.venue.address.replace(
-                  ' ',
-                  '+'
-                )}`}
-                target='_blank'
-                rel='noopener noreferrer'
+            {eventData.venue.name !== null && (
+              <Grid
+                item
+                height='220px'
+                container
+                flexDirection='column'
+                justifyContent='space-between'
+                sx={{ width: ['100%', '35%'] }}
               >
-                <Typography className={css.link}>
-                  Get directions{' '}
-                  {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
-                </Typography>
-              </Link>
-            </Grid>
+                <div>
+                  <Typography
+                    color='text.dark'
+                    sx={{ mt: '50px' }}
+                    className={css.body}
+                  >
+                    Venue
+                  </Typography>
+                  <Typography sx={{ mt: '10px' }} className={css.body}>
+                    {eventData.venue.name}
+                    <br />
+                    {eventData.venue.address}
+                  </Typography>
+                </div>
+                <Link
+                  href={`https://google.com/maps/place/${eventData.venue.address?.replace(
+                    ' ',
+                    '+'
+                  )}`}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <Typography className={css.link}>
+                    Get directions{' '}
+                    {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
+                  </Typography>
+                </Link>
+              </Grid>
+            )}
           </Grid>
           <Grid
             container
@@ -212,7 +213,7 @@ const EventsPage: React.FC = () => {
               />
             ))}
           </Grid>
-          <Link href={eventData.url} target='_blank' rel='noopener noreferrer'>
+          <Link href={eventData.bountyUrl} target='_blank' rel='noopener noreferrer'>
             <Typography className={css.link}>
               Learn more at bounty&apos;s page{' '}
               {<ArrowForwardIosIcon sx={{ width: '16px' }} />}
@@ -515,10 +516,20 @@ const EventsPage: React.FC = () => {
 
 export default EventsPage
 
-const icons = [<Gift key={0} />, <Layers key={1} />, <Building key={2} />]
+const icons = [
+  <EmojiEventsIcon key={0} />,
+  <EmojiEventsIcon key={1} />,
+  <EmojiEventsIcon key={2} />,
+  <EmojiEventsIcon key={3} />
+]
 const team = [
   {
-    name: 'Germán Martinez',
+    name: 'Tanay Pant',
+    position: 'Head of Developer Experience',
+    image: Tanay
+  },
+  {
+    name: 'Germán Martínez',
     position: 'Developer Relations',
     image: German
   },
@@ -535,7 +546,7 @@ const team = [
 ]
 
 const contactChannels = [
-  {
+  /* {
     name: 'Find our booth',
     description: eventData.venue.booth,
     icon: <Teach />
@@ -550,7 +561,7 @@ const contactChannels = [
       '.',
     icon: <Discord />,
     link: 'https://discord.com/invite/nrQVY2566v'
-  },
+  }, */
   {
     name: 'Stack Exchange',
     description:

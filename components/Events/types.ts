@@ -7,7 +7,7 @@ export interface TeamMemberType {
 }
 export interface WorkshopType {
   title: string
-  location: string
+  location: string | null
   start: string
   end: string
   speaker: string
