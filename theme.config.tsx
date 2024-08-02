@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router'
 import type { DocsThemeConfig } from 'nextra-theme-docs'
 
+import type { PropsWithChildren } from 'react'
 import SafeLogo from './assets/svg/safe-logo-white.svg'
 import Feedback from './components/Feedback'
 import Footer from './components/Footer'
-import type { PropsWithChildren } from 'react'
 
 const Main: React.FC<PropsWithChildren> = ({ children }) => {
   const { asPath } = useRouter()
@@ -46,14 +46,21 @@ const config: DocsThemeConfig = {
     const titleTemplate =
       (asPath === '/'
         ? ''
-        : asPath === '/ethglobal-brussels'
-          ? 'ETHGlobal Brussels - '
+        : asPath === '/build-the-new-internet'
+          ? 'Build the New Internet - '
           : '%s – ') + 'Safe Docs'
     return {
       titleTemplate
     }
   },
-  main: Main
+  main: Main,
+  banner: {
+    key: 'build-the-new-internet',
+    text: <a href="/build-the-new-internet" target="_blank">
+    💰 Are you hacking at Build The New Internet? Check our bounties →
+    </a>,
+    dismissible: true
+  }
 }
 
 export default config
