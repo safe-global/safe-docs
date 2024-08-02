@@ -3,9 +3,7 @@ import { Callout } from 'nextra/components'
 # How to build an app with Safe and passkeys
 
 <Callout type='warning' emoji='⚠️'>
-  Passkeys support is still under audit and should not be used in production
-  environments. Please consider this tutorial and all the code examples in it a
-  developer preview. Compatibility with passkeys is only available when using
+  Compatibility with passkeys is only available when using
   `@safe-global/protocol-kit@4.1.0-alpha.1` and
   `@safe-global/relay-kit@3.1.0-alpha.1` in Sepolia.
 </Callout>
@@ -227,9 +225,9 @@ Click the link to Jiffy Scan to see the UserOp that was sent and more complete i
 
 ## Best practices
 
-Please be mindful of certain security considerations when dealing with passkeys. We recommend using passkeys only in a development environment till all the associated contracts are audited.
+Please be mindful of certain security considerations when dealing with passkeys. For the tutorial's simplicity, we created a 1/1 Safe with a passkey as the sole signer. This is not recommended for production setups, as passkeys are tied to a domain name, and they can also be tied to hardware manufacturers. For that reason, they might become inaccessible if not configured or saved properly. 
 
-For the tutorial's simplicity, we created a 1/1 Safe with a passkey as the sole signer. This is not recommended for production setups, as passkeys are tied to a domain name, and they can also be tied to hardware manufacturers. For that reason, they might become inaccessible if not configured or saved properly. Please always use a combination of passkeys and other authentication methods to ensure the security of your users' assets.
+**Note:** Please always use a combination of passkeys and other authentication methods to ensure the security of your users' assets.
 
 ## Do more with Safe and passkeys
 
