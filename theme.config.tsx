@@ -58,8 +58,8 @@ const config: DocsThemeConfig = {
     key: 'build-the-new-internet',
     text: <a href="/build-the-new-internet" target="_blank">
     💰 Are you hacking at Build The New Internet? Check our bounties →
-  </a>,
-  dismissible: true
+    </a>,
+    dismissible: true
   }
 }
 

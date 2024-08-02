@@ -17,6 +17,7 @@ import Workshop from './Workshop'
 import DevStar from '../../assets/diamond-bg.png'
 import German from '../../assets/german.png'
 import Louis from '../../assets/louis.jpeg'
+import Discord from '../../assets/svg/discord.svg'
 import Ellipse1 from '../../assets/svg/ellipse-1.svg'
 import Ellipse2 from '../../assets/svg/ellipse-2.svg'
 import StackExchange from '../../assets/svg/stack-exchange.svg'
@@ -494,7 +495,7 @@ const EventsPage: React.FC = () => {
                 <Bounty
                   width={[
                     '100%',
-                    `calc(${(1 / eventData.bounties.length) * 100}% - 20px)`
+                    `calc(${(1 / contactChannels.length) * 100}% - 20px)`
                   ]}
                   icon={contactChannel.icon}
                   name={contactChannel.name}
@@ -522,6 +523,7 @@ const icons = [
   <EmojiEventsIcon key={2} />,
   <EmojiEventsIcon key={3} />
 ]
+
 const team = [
   {
     name: 'Tanay Pant',
@@ -550,7 +552,7 @@ const contactChannels = [
     name: 'Find our booth',
     description: eventData.venue.booth,
     icon: <Teach />
-  },
+  }, */
   {
     name: 'Discord',
     description:
@@ -561,7 +563,7 @@ const contactChannels = [
       '.',
     icon: <Discord />,
     link: 'https://discord.com/invite/nrQVY2566v'
-  }, */
+  },
   {
     name: 'Stack Exchange',
     description:
