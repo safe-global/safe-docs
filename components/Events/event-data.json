@@ -1,52 +1,62 @@
 {
-  "name": "ETHGlobal Brussels",
-  "start": "2024-07-12T00:00:00Z",
-  "end": "2024-07-14T00:00:00Z",
+  "name": "Build the New Internet",
+  "start": "2024-08-02T00:00:00Z",
+  "end": "2024-08-18T00:00:00Z",
+  "url": "https://build-the-new-internet.devfolio.co",
   "venue": {
-    "name": "The Egg",
-    "address": "Rue Bara 175, 1070 Anderlecht, Belgium",
-    "booth": "Our booth is located in the main hall. Come say hi!"
+    "name": null,
+    "address": "",
+    "booth": null
   },
-  "url": "https://ethglobal.com/events/brussels",
+  "bountyUrl": "https://build-the-new-internet.devfolio.co/prizes?partner=Safe+and+Magic",
   "bounties": [
     {
-      "name": "🚀 Best app integrating ERC-7579 Safe Smart Accounts",
-      "description": "Build an application that supports Safe accounts v1.4.1, integrates Pimlico's permissionless.js, Rhinestone's ModuleKit, and uses the Safe7579Adapter.",
+      "name": "First Place: Safe and Magic",
+      "description": "This prize will be awarded to the most creative implementation of Social and Email Login, leveraging Universal Wallets (Smart Account functionality).",
       "prize": {
-        "value": 4000,
+        "value": 7000,
         "currency": "$"
       }
     },
     {
-      "name": "🔑 Best app integrating Passkeys with the Safe Smart Account",
-      "description": "Build an application that integrates Passkeys using the Safe{Core} SDK.",
+      "name": "Second Place: Safe and Magic",
+      "description": "This prize will be awarded to the second most creative implementation of Social and Email Login, leveraging Universal Wallets (Smart Account functionality).",
       "prize": {
-        "value": 4000,
+        "value": 5000,
         "currency": "$"
       }
     },
     {
-      "name": "🃏 Best app integrating Safe (wildcard)",
-      "description": "Build any useful application with Safe users in mind. There are no limitations on the idea or technologies used.",
+      "name": "Third Place: Safe and Magic",
+      "description": "This prize will be awarded to the third most creative implementation of Social and Email Login, leveraging Universal Wallets (Smart Account functionality).",
       "prize": {
-        "value": 2000,
+        "value": 3000,
+        "currency": "$"
+      }
+    },
+    {
+      "name": "Honorable Mentions: Safe and Magic",
+      "description": "This prize will be awarded to 5 participants who submit a project integrating Email/Social Login and Smart Account functionality.",
+      "prize": {
+        "value": "1,000 x 5",
         "currency": "$"
       }
     }
   ],
   "workshops": [
     {
-      "title": "Integrating Passkeys with the Safe Smart Account",
-      "location": "Workshop Room 4",
-      "start": "2024-07-12T12:40:00Z",
-      "end": "2024-07-12T13:10:00Z",
-      "speaker": "Germán Martinez"
+      "title": "ERC-7579 Safe Smart Accounts using the AppKit",
+      "location": null,
+      "start": "2024-08-06T16:00:00Z",
+      "end": "2024-08-06T17:00:00Z",
+      "speaker": "Germán Martínez"
     }
   ],
   "team": [
-    "Germán Martinez",
+    "Tanay Pant",
+    "Germán Martínez",
     "Louis Margot-Duclot",
     "Valentin Seehausen"
   ],
-  "discord": "ETHCC2024"
+  "discord": null
 }
