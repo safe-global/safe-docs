@@ -30,7 +30,7 @@ const links = [
             label="Button"
             variant="link"
             color="white"
-            to="https://github.com/5afe/safe-passkeys-tutorial-vue"
+            to="https://docs.safe.global/home/passkeys-tutorials/safe-passkeys-nuxt"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -43,7 +43,7 @@ const links = [
             label="Button"
             variant="link"
             color="white"
-            to="https://github.com/5afe/safe-passkeys-tutorial-vue"
+            to="https://github.com/5afe/safe-passkeys-nuxt"
             target="_blank"
             rel="noopener noreferrer"
           >
