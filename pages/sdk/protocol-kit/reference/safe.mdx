@@ -876,7 +876,7 @@ const safeTransaction = await protocolKit.createEnableFallbackHandlerTx(fallback
 Returns a SafeMessage ready to be signed by the owners.
 
 ```typescript
-const rayMessage: string | EIP712TypedData = "I am the owner of this Safe"
+const rawMessage: string | EIP712TypedData = "I am the owner of this Safe"
 const message = protocolKit.createMessage(rawMessage)
 ```
 
