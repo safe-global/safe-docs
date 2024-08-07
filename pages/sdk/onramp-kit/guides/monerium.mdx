@@ -1,178 +1,274 @@
 import { Steps } from 'nextra/components'
+import Image from 'next/image'
+import MoneriumAddMoney from '../../../../assets/monerium-sandbox-add-money.png'
 
 # Integration with Monerium
 
-The [`MoneriumPack`](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/src/packs/monerium) enables Safe users to make direct transfers of e-money tokens from their Safe accounts to an IBAN via the SEPA network. This allows them to use Monerium and Safe services together.
+The [Monerium SDK](https://www.npmjs.com/package/@monerium/sdk) enables Safe users to make direct transfers of e-money tokens from their Safe accounts to an IBAN via the SEPA network. This allows them to use Monerium and Safe services together.
 
 More info about Monerium:
 
 - [Monerium](https://monerium.com)
 - [Monerium Developers](https://monerium.dev)
 
-This guide demonstrates how to use the `MoneriumPack` as part of the [`OnRampKit`](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit) and incorporate it into your web application.
-
-Monerium offers several authentication methods for web apps. The `MoneriumPack` implements the [Authorization code flow with proof key for code exchange (PKCE)](https://monerium.dev/docs/api#authentication).
+This guide demonstrates how use the Monerium SDK and the Safe SDK together to enable direct transfers from Safe accounts to an IBAN via the SEPA network.
 
 ## Prerequisites
 
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 2. [Monerium account and application](https://monerium.dev/docs/getting-started/create-app)
-3. A web application using your favorite CLI and language. For example [Vite for React projects](https://vitejs.dev/guide/#scaffolding-your-first-vite-project), [Vue CLI](https://cli.vuejs.org/guide/creating-a-project.html#vue-create) or [Angular CLI](https://angular.io/cli/new).
+3. A web application using your favorite CLI and language. For example [React with NextJS](https://nextjs.org/docs), [Vue with Nuxt](https://nuxt.com/) or [Svelte with SvelteKit](https://kit.svelte.dev/).
+4. Your user should already have a [deployed Safe](../../../sdk/protocol-kit.mdx).
 
-## Steps
+## Overview
 
-Creating a _Login with Monerium_ integration for the Safe requires a multi-step process that should be implemented in your web app. The following steps are required.
+The main steps of this tutorial can be summarized:
+
+1. Authentication with Monerium and Safe. This required signing a message with the Safe and using the Monerium Authentication flow.
+2. Sending an order from the Safe to an IBAN. This requires sending an order to Monerium and signing the order with the Safe.
+
+Let's go!
+
+## Authenticate with Monerium and Safe
+
+To authenticate with Monerium and link the Safe, your user has to sign a message with the Safe to proof ownership of the Safe. 
+Then, the user can authenticate with Monerium.
 
 <Steps>
+### Sign the link message with the Safe
 
-  ### Install dependencies
+First, your user has to sign a message with the Safe to proof that she is the owner of the Safe. 
+Monerium will scan the signed Messages in the Safe to verify the ownership of the Safe.
+To sign a message with the owners and send the transaction on chain, you can use the Safe SDK. 
 
-  ```bash
-  yarn add @safe-global/onramp-kit @safe-global/protocol-kit @monerium/sdk
-  ```
+In this example. we will sign a message programmatically with two owners, considering for example a two out of three Safe.
+In the real world, one owner will propose this transaction, and the other owner (or passkey) will confirm it in the Safe Wallet UI.
 
-  ### Initialize the `MoneriumPack`
+```typescript
+import Safe, {
+  getSignMessageLibContract,
+  SafeProvider,
+  hashSafeMessage
+} from '@safe-global/protocol-kit'
+import { constants } from '@monerium/sdk'
 
-  ```typescript
-  import { MoneriumPack } from '@safe-global/onramp-kit'
+// Initialize the Safe SDK and link it to an existing Safe
+const protocolKit = await Safe.init({
+  provider: RPC_URL, // set a valid RPC URL
+  signer: OWNER_1_PRIVATE_KEY, // set the private key of the first Safe owner
+  safeAddress
+})
 
-  const moneriumPack = new MoneriumPack({
-    clientId: { YOUR_CLIENT_ID }, // Get your client id from Monerium
-    redirectUrl: 'https://your-site-redirect-url' // return URL after authenticating in Monerium
-    environment: 'sandbox' // Use the proper Monerium environment ('sandbox' | 'production')})
-  })
+// Create a signed message by creating a transaction to the signMessage contract
+const signMessageContract = await getSignMessageLibContract({
+  safeProvider: protocolKit.getSafeProvider(),
+  safeVersion: await protocolKit.getContractVersion()
+})
 
-  await moneriumPack.init({ protocolKit })
-  ```
+// Let the contract encode the message's hash to get the transaction data
+const txData = signMessageContract.encode('signMessage', [
+  // constants.LINK_MESSAGE is 'I hereby declare that I am the address owner.'
+  hashSafeMessage(constants.LINK_MESSAGE)
+])
 
-  The `protocolKit` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. For more information on how to instantiate the `protocol-kit` refer to the [Protocol Kit Quickstart section](../../protocol-kit.mdx).
+// assemble a transaction object
+const safeTransactionData = {
+  to: await signMessageContract.getAddress(),
+  value: '0',
+  data: txData,
+  operation: OperationType.DelegateCall
+}
 
-  The `MoneriumPack` will use the Safe account address configured in the `protocolKit` to link to your Monerium account.
+// create a transaction
+const signMessageTx = await protocolKit.createTransaction({
+  transactions: [safeTransactionData]
+})
 
-  ### Login with Monerium
-  
-  Start the _Login with Monerium_ flow by creating a button or link in your application. Use your favorite UI library to add a handler and start the login flow. In the button handler you should start the flow by calling the `open` method:
+// sign the transaction with the first owner
+const signedTx = await protocolKit.signTransaction(signMessageTx)
 
-  ```typescript
-  await moneriumPack.open({ initiateAuthFlow: true })
-  ```
+// now connect the protocol kit to the second owner
+const protocolKitOfOwner2 = await protocolKit.connect({
+  signer: OWNER_2_PRIVATE_KEY
+})
 
-  This action will open the Monerium web page to begin the authentication process and get the permissions to gain access to your information.
+// and sign and execute the transaction as the second owner
+const transactionResult = await protocolKitOfOwner2.executeTransaction(
+  signedTx
+)
 
-  Take a look to the Monerium web page URL. You will see that the query string includes parameters such as these, among others:
+// now you can check the transaction hash to see if the transaction settled
+console.log('transactionResult', transactionResult)
+```
 
-  - `address`: The Safe address you want to bind to your Monerium account.
-  - `signature`: Always "0x." It means the origin wallet is a multisig, just like the Safe. Monerium will then verify for onchain signatures in your Safe contract.
-  - `chain`: The Monerium selected chain. The value is automatically calculated using the `protocolKit` instance.
-  - `network`: The Monerium selected network. The value is automatically calculated using the `protocolKit` instance.
-  - `redirect_uri`: The `redirectUrl` you sent in the `MoneriumPack` constructor. Once authenticated Monerium dashboard will redirect to that URL.
+The `protocolKit` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. For more information on how to instantiate the `protocol-kit` refer to the [Protocol Kit Quickstart section](../../protocol-kit.mdx).
 
-  It's important to be aware of what's happening during this initial interaction. A `signMessage` transaction accepting the [required Monerium message](https://monerium.dev/api-docs#operation/auth) will be proposed to your Safe the first time you try to link your Safe address. To confirm and execute it, you must also add the remaining signatures in the Safe UI and execute the transaction.
 
-  Once you are in the Monerium web page, you should login or create a new account if you don't have one already.
+### Initialize the Monerium Client and send user to Monerium
 
-  After that, the Monerium UI, will wait until it detects the Safe address has signed the message as explained above and the transaction is executed. You may need to reload the Monerium UI page once you know the transaction was executed in order to continue with the flow. Alternatively, you can start the process again and Monerium will detect the transaction confirmation immediately.
+Once the message is signed and the transaction is executed, the user can authenticate with Monerium.
 
-  Note. If you use the `sandbox` environment, you can test this flow without KYC in `Goerli`. To use the mainnets for `Ethereum`, `Gnosis` or `Polygon` in production, you need to create an account in the Monerium dashboard and complete KYC. The `production` environment involves real money, whereas the `sandbox` environment uses fake money and test tokens.
+For this, you send the user to the Monerium login page first.
 
-  ### Accept access permission
-  
-  Once you authenticate through the Monerium UI, a window will appear asking for permission to access your information. If you accept, control will be returned to the `redirectUrl` you specified in the `MoneriumPack` constructor.
+```typescript
+import { MoneriumClient } from '@monerium/sdk'
 
-  ### Authentication
-  
-  Once we reach the `redirectUrl` we can call open again, now without using arguments.
+// Initialize the Monerium Client
+const monerium = new MoneriumClient({
+  clientId: 'a1b2c3-x7y8y9', // Get your client id from Monerium
+  environment: 'sandbox' // Use the proper Monerium environment ('sandbox' | 'production')})
+})
 
-  ```typescript
-  const safeMoneriumClient = await moneriumPack.open()
-  ```
+// Start the Monerium authentication flow and send the user to Monerium
+await monerium.authorize({
+  address: safeAddress, // The address of the user's Safe
+  signature: '0x', // '0x' for Safe authentication lets Monerium look for the signature on chain
+  redirectUrl: 'http://localhost:3000/return', // An URL of you where Monerium will redirect the user after authenticating
+  chainId: 11155111 // Chain ID of Sepolia in this example
+})
+```
 
-  If the process was successful, you will be now authenticated with Monerium and your Safe will be linked. You can start using the `safeMoneriumClient` instance to interact with your Monerium account. This instance is an enhanced version of the Monerium SDK, with some additional Safe features.
+This will redirect the user to the Monerium login page. 
 
-  To learn more about the methods you can use with the `safeMoneriumClient` instance, check the [Monerium SDK documentation](https://monerium.dev/docs/sdk).
+### Authenticate with Monerium
 
-  Here are some examples:
+At Monerium, the user has to log in, or create an account with Monerium.
+After the user logs in, Monerium will check the signed message in the Safe to verify the ownership of the Safe.
+Monerium will then create an IBAN and link it to the Safe.
+After this, Monerium will redirect the user back to the `redirectUrl` you specified and add a query parameter `code` to the URL.
 
-  ```typescript
-  const authContext = await moneriumClient.getAuthContext()
-  const profile = await moneriumClient.getProfile(authContext.defaultProfile)
-  const balances = await moneriumClient.getBalances()
-  const orders = await moneriumClient.getOrders()
-  ```
+### Finish the authentication
 
-  When you reload a page, you usually want to stay authenticated as long as the tokens are valid. To do this, just call the `open()` method without arguments.
+Once the user landed back on your page, you can finish the authentication process.
 
-  ### Place an order
-  
-  In the `production` environment, real funds will be transferred. In the `sandbox` environment, fake money will be used. If you add funds using the `sandbox` or create a transfer from your bank account to your Monerium IBAN in the `production` environment, you'll receive the corresponding tokens in your Safe. For example, if your Monerium IBAN is associated with the EURe token of your Safe, and you transfer 10 euros, the EURe balance of your Safe will be 10 after the SEPA system completes the transfer.
+```typescript
+// Returns true if the user is authorized
+const isAuthorized = await monerium.getAccess()
+```
 
-  Add tokens to your Safe using the `sandbox`. They should be available almost instantly. You can check the balance of your assets [here](https://app.safe.global/balances) afterwards.
+Congratulations, your user is now authenticated with Monerium, and the Safe is linked to the Monerium account.
 
-  Once you have tokens, you can create a [`redeem` order](https://monerium.dev/api-docs#operation/post-orders) to burn them and convert them to fiat. Include a text box for an IBAN and a button to place the order. Add a handler for the button and do the following:
+You can get more information from Monerium with these functions:
 
-  ```typescript
-  safeMoneriumClient.send({
-    amount: '10',
-    counterpart: {
-      identifier: {
-        standard: 'iban',
-        iban: 'The IBAN to send the money to',
-      },
-      details: {
-        firstName: 'John',
-        lastName: 'Doe',
-        country: 'You ISO country code',
-      },
-    },
-    memo: 'Testing Safe-Monerium integration'
-  })
-  ```
-
-  Once you place your order, it will be sent to the destination account. Two things will occur:
-
-  - A `signMessage` transaction will be proposed to the Safe services indicating in the message the amount of tokens to burn and the destination IBAN. To verify the message to be signed, refer to [the API docs](https://monerium.dev/api-docs#operation/post-orders).
-    You should confirm and execute it using the Safe UI or an alternative method as the transaction data is returned in the `send()` call.
-  - An order is placed in the Monerium system, it listens for the `signMessage` transaction above to be confirmed and executed.
-
-  Once the transaction is recorded on the blockchain, the token is burned and the transfer of real money begins, completing the order 🚀.
-
-  ### Listen to Monerium events
-  
-  Listening to events is important for understanding what's happening around. It helps us to create a proper UI in our web page.
-
-  You probably want to know when the order is completed. For this you can listen to events using the [Monerium API web sockets](https://monerium.dev/api-docs#operation/profile-orders-notifications)
-
-  Connecting to the socket is easy, just use the `moneriumPack` instance along with the `subscribe()` and `unsubscribe()` methods. 
-
-  To subscribe, do this:
-
-  ```typescript
-  const handler = (notification) => {
-    console.log(notification)
-  }
-
-  moneriumPack.subscribe(OrderState.processed, handler)
-  ```
-
-  The potential states are this ones:
-
-  ```typescript
-  OrderState {
-    placed = 'placed',
-    pending = 'pending',
-    processed = 'processed',
-    rejected = 'rejected'
-  }
-  ```
-
-  If you wish to unsubscribe, you can do:
-
-  ```typescript
-  moneriumPack.unsubscribe(OrderState.processed, handler)
-  ```
+```typescript
+const authContext = await moneriumClient.getAuthContext()
+const profile = await moneriumClient.getProfile(
+  authContext.defaultProfile
+)
+const balances = await moneriumClient.getBalances()
+const orders = await moneriumClient.getOrders()
+```
 
 </Steps>
 
-## MoneriumPack complete React example
+## Place an order
 
-Check a complete [example](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client) in the `safe-core-sdk` repository. Follow the steps in the [`README.md`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/README.md) to run the example and configure the environment variables for the pack following the [`.env.sample`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/onramp-kit/example/client/.env.sample).
+Now where you authenticated the user with Monerium, you can place an order to transfer tokens from the Safe to an IBAN.
+
+<Steps>
+
+### Get some tokens
+
+First, your user has to get some EURe test tokens on Sepolia.
+* For this, the user has to log into the account on the [Monerium Sandbox](https://sandbox.monerium.dev/accounts).
+* The the user has to click on the button `Add money`. 
+* The user can then create a test IBAN transfer onto his account.
+* The tokens from this test transfer will be available in the Safe.
+
+<Image src={MoneriumAddMoney} width={300} height={500}  />
+
+### Send an order to Monerium
+
+To send tokens from the Safe to an IBAN, two things have to happen:
+
+1. The user has to sign a message with the Safe to proof that she wants to send the tokens.
+2. The user has to send the order to Monerium.
+
+You can trigger both things at the same time. So Monerium will receive the order request first, and then wait for the signed message from the Safe.
+
+This is how you can send an order to Monerium:
+
+```typescript
+import { placeOrderMessage } from '@monerium/sdk'
+
+const amount = '10' // Specify the amount in Euro
+const iban = 'AL47212110090000000235698741' // The target IBAN
+
+// Monerium offers this method to create a message for this order
+// The message look like:
+// Send EUR 10 to AL47212110090000000235698741 at Fri, 17 May 2024 20:55:29Z
+const orderMessage = placeOrderMessage(amount, 'eur', iban)
+
+// Now we send the order to the Monerium backend
+const order = await moneriumClient.placeOrder({
+  amount,
+  signature: '0x',
+  currency: 'eur',
+  address: safeAddress, // the Safe address
+  counterpart: {
+    identifier: {
+      standard: 'iban',
+      iban
+    },
+    details: {
+      firstName: 'User',
+      lastName: 'Userson',
+      county: 'AL'
+    }
+  },
+  message: orderMessage,
+  memo: 'Powered by Monerium SDK',
+  chain: 'ethereum',
+  network: 'sepolia'
+})
+```
+
+Monerium received the order now and will listen to sign message events from the Safe.
+
+### Sign the order with the Safe
+
+Now the Safe has to sign the order.
+Again, we will send a sign message transaction to the chain.
+In the real world, one owner may propose this transaction via the Safe Transaction Service, and the other owner may 
+confirm the message and send a transaction to the chain on the Safe Wallet UI.
+
+
+```typescript
+// hash and encode the order message
+const txData = signMessageContract.encode('signMessage', [
+  hashSafeMessage(orderMessage)
+])
+
+// assemble a transaction object
+const safeTransactionData = {
+  to: await signMessageContract.getAddress(),
+  value: '0',
+  data: txData,
+  operation: OperationType.DelegateCall
+}
+
+// create a transaction with the Safe SDK
+const signMessageTx = await protocolKit.createTransaction({
+  transactions: [safeTransactionData]
+})
+
+// Sign the transaction with the first owner
+const signedTx = await protocolKit.signTransaction(signMessageTx)
+
+// Sign and execute the transaction with the second owner
+const transactionResult = await protocolKitOfOwner2.executeTransaction(
+  signedTx
+)
+
+// Again, you can check the transaction hash to verify on chain settlement
+console.log('transactionResult', transactionResult)
+```
+
+Monerium will listen to the transaction on the chain and will execute the order once the transaction is settled.
+
+</Steps>
+
+Well done, you have linked your users Safes to an IBAN. With this you closed the gap between blockchain and traditional
+payment rails.
+
+In the next steps, you could use [event listeners](https://monerium.github.io/js-sdk/#subscribe-to-order-events) to make your app more interactive.
