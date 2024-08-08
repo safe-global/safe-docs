@@ -12,6 +12,7 @@ import { encodeFunctionData } from 'viem'
 export const mintNFT = async (passkey: PasskeyArgType, safeAddress: string) => {
   const runtimeConfig = useRuntimeConfig()
 
+  // 1) Initialize Safe4337Pack
   const paymasterOptions = {
     isSponsored: true,
     paymasterAddress: PAYMASTER_ADDRESS,
@@ -31,6 +32,7 @@ export const mintNFT = async (passkey: PasskeyArgType, safeAddress: string) => {
     }
   })
 
+  // 2) Create SafeOperation
   const mintNFTTransaction = {
     to: NFT_ADDRESS,
     data: encodeSafeMintData(safeAddress),
@@ -41,6 +43,7 @@ export const mintNFT = async (passkey: PasskeyArgType, safeAddress: string) => {
     transactions: [mintNFTTransaction]
   })
 
+  // 3) Sign SafeOperation
   const signedSafeOperation = await safe4337Pack.signSafeOperation(
     safeOperation
   )
