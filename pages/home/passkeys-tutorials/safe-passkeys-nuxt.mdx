@@ -3,16 +3,14 @@ import { Callout } from 'nextra/components'
 # How to build a Vue app with Safe and passkeys
 
 <Callout type='warning' emoji='⚠️'>
-  Passkeys support is still under audit and should not be used in production
-  environments. Please consider this tutorial and all the code examples in it a
-  developer preview. Compatibility with passkeys is only available when using
+  Compatibility with passkeys is only available when using
   `@safe-global/protocol-kit@4.1.0-alpha.1` and
   `@safe-global/relay-kit@3.1.0-alpha.1` in Sepolia.
 </Callout>
 
 An increasing number of applications rely on passkeys to authenticate users securely and with little friction. Security and user-friendliness are crucial to making web3 a reality for the next billion users.
 Being able to unlock a Safe Smart Account with your fingerprints or Face ID, sending transactions without worrying about third-party wallet interfaces, phishing attempts, or securing seed phrases will bring new forms of ownership to the connected world.
-Today, we'll learn how to make this a reality using [Safe\{Core\} SDK](../../sdk/overview.mdx), [Pimlico](https://www.pimlico.io/), and [Nuxt](https://nextjs.org/docs).
+Today, we'll learn how to make this a reality using [Safe\{Core\} SDK](../../sdk/overview.mdx), [Pimlico](https://www.pimlico.io/), and [Nuxt](https://nuxt.com/docs/getting-started/introduction).
 
 This tutorial will demonstrate creating a web app for using [passkeys](../passkeys-overview.mdx) in your Safe. This app will allow you to:
 
@@ -45,24 +43,24 @@ When prompted by the CLI, select `pnpm` and `yes` to initialize a Git repository
 
 ### Install dependencies
 
-For this project, we'll use the [Relay Kit](../../sdk/relay-kit.mdx) and [Protocol Kit](../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem) for a helper function to encode the dummy transaction. We will also use [`@pinia/nuxt`](https://pinia.vuejs.org/) for state management.
+For this project, we'll use the [Relay Kit](../../sdk/relay-kit.mdx) and [Protocol Kit](../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem) for a helper function to encode the dummy transaction. We will also use [`@pinia/nuxt`](https://pinia.vuejs.org/) for state management and node polyfills from [Vite](https://www.npmjs.com/package/vite-plugin-node-polyfillFs).
 
 Run the following command to add all these dependencies to the project:
 
 ```bash
-pnpm add @safe-global/protocol-kit@4.1.0-alpha.1 @safe-global/relay-kit@3.1.0-alpha.1 viem @pinia/nuxt
+pnpm add @safe-global/protocol-kit@4.1.0-alpha.1 @safe-global/relay-kit@3.1.0-alpha.1 viem @pinia/nuxt vite-plugin-node-polyfills
 ```
 
 Replace the content of `nuxt.config.ts` with the following code:
 
-```js
+```ts
 // from ../../../examples/passkeys-vue/nuxt.config.ts
 ```
 
 Now, create a file named `.env` at the root of your project, and add your Pimlico API key to it:
 
 ```bash
-echo "NEXT_PUBLIC_PIMLICO_API_KEY='your_pimlico_api_key_goes_here'" > .env
+echo "NUXT_PUBLIC_PIMLICO_API_KEY='your_pimlico_api_key_goes_here'" > .env
 ```
 
 ### Run the development server
@@ -140,6 +138,8 @@ With this configuration, a new Safe will be created (but not yet deployed) when 
 
 ## 5. Add state stores
 
+We will use Pinia to manage the state of our app. Pinia allows to gracefully handle state changes across wider applications, which is why we'll be using it for this tutorial.
+
 Create a `stores` folder at the project root and add a file `safe.ts`:
 
 ```bash
@@ -206,7 +206,7 @@ Create a `layouts` folder, and inside it create a new file `default.vue` with th
 // from ../../../examples/passkeys-vue/layouts/default.vue
 ```
 
-Download [this file](https://github.com/5afe/safe-passkeys-nuxt/blob/main/components/SafeThemeProvider.vue) and save it in `./components` as `SafeThemeProvider.vue`. We are not displaying it here for brevity; it is simply a wrapper for the MUI theme provider, which will allow us to use Safe's design system. Finally, in the `public` folder, add three icons. You can also find them in the project's GitHub repository: [`safe.svg`](https://github.com/5afe/safe-passkeys-nuxt/blob/main/public/safe.svg), [`github.svg`](https://github.com/5afe/safe-passkeys-nuxt/blob/main/public/github.svg/), and [`external-link.svg`](https://github.com/5afe/safe-passkeys-nuxt/blob/main/public/external-link.svg).
+Finally, in the `public` folder, add three icons. You can also find them in the project's GitHub repository: [`safe.svg`](https://github.com/5afe/safe-passkeys-nuxt/blob/main/public/safe.svg), [`github.svg`](https://github.com/5afe/safe-passkeys-nuxt/blob/main/public/github.svg/), and [`external-link.svg`](https://github.com/5afe/safe-passkeys-nuxt/blob/main/public/external-link.svg).
 
 ## Testing your Safe passkeys app
 
@@ -224,9 +224,9 @@ Click the link to Jiffy Scan to see the UserOp that was sent and more complete i
 
 ## Best practices
 
-Please be mindful of certain security considerations when dealing with passkeys. We recommend using passkeys only in a development environment till all the associated contracts are audited.
+Please be mindful of certain security considerations when dealing with passkeys. For the tutorial's simplicity, we created a 1/1 Safe with a passkey as the sole signer. This is not recommended for production setups, as passkeys are tied to a domain name, and they can also be tied to hardware manufacturers. For that reason, they might become inaccessible if not configured or saved properly. 
 
-For the tutorial's simplicity, we created a 1/1 Safe with a passkey as the sole signer. This is not recommended for production setups, as passkeys are tied to a domain name, and they can also be tied to hardware manufacturers. For that reason, they might become inaccessible if not configured or saved properly. Please always use a combination of passkeys and other authentication methods to ensure the security of your users' assets.
+**Note:** Please always use a combination of passkeys and other authentication methods to ensure the security of your users' assets.
 
 ## Do more with Safe and passkeys
 
