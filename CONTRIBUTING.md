@@ -19,7 +19,8 @@ Please open an [issue](https://github.com/safe-global/safe-docs/issues/new?assig
         "date": "2023-10-09",
         "tags": [
         "Tutorial"
-        ]
+        ],
+        "lastChecked": "2023-10-09"
     }
     ```
 - Run `pnpm get-resources-og` to fetch open graph metadata for the new resource automatically.
