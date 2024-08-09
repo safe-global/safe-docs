@@ -320,11 +320,11 @@ const generateMethodContent = (path, method) => {
     /```[a-z]*\n[\s\S]*?\n```/
   )?.[0]
   const description = _method.description
-    .replace(codeBlockWithinDescription, '$$$insert code block$$$')
+    .replace(codeBlockWithinDescription, '___insert code block___')
     .replace(/{/g, '\\{')
     .replace(/}/g, '\\}')
     .replace(/(?<=\n)-/g, '\n\\-')
-    .replace('$$$insert code block$$$', codeBlockWithinDescription)
+    .replace('___insert code block___', codeBlockWithinDescription)
 
   return `### ${title}
 
