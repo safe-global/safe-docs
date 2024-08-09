@@ -1,21 +1,21 @@
-import { useContext, useState, useEffect } from 'react'
+import AddIcon from '@mui/icons-material/Add'
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Button,
   Grid,
   Input,
-  Typography,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails
+  Typography
 } from '@mui/material'
-import AddIcon from '@mui/icons-material/Add'
-import NextLink from 'next/link'
 import { sendGAEvent } from '@next/third-parties/google'
 import cuid from 'cuid'
+import NextLink from 'next/link'
+import { useContext, useEffect, useState } from 'react'
 
-import FeedbackGood from '../../assets/svg/feedback-good.svg'
-import FeedbackBad from '../../assets/svg/feedback-bad.svg'
 import Check from '../../assets/svg/check.svg'
+import FeedbackBad from '../../assets/svg/feedback-bad.svg'
+import FeedbackGood from '../../assets/svg/feedback-good.svg'
 import { NetworkContext } from '../ApiReference/Network'
 
 const ReportIssue: React.FC<{
@@ -202,7 +202,7 @@ const Feedback: React.FC<{
                         error, please provide a version.
                       </Typography>
                       <TextArea
-                        placeholder='@safe-global/auth-kit v2.0.1'
+                        placeholder='@safe-global/protocol-kit v4.0.3'
                         onChange={e => {
                           setVersion(e.target.value)
                         }}

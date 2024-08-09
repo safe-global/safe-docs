@@ -161,52 +161,77 @@
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit",
-    "destination": "/sdk/auth-kit",
+    "destination": "/",
     "permanent": true
   },
   {
     "source": "/sdk-auth-kit",
-    "destination": "/sdk/auth-kit",
+    "destination": "/",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/auth-kit",
+    "destination": "/",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit/guides/safe-auth",
-    "destination": "/sdk/auth-kit/guides/safe-auth",
+    "destination": "/",
     "permanent": true
   },
   {
     "source": "/sdk-auth-kit/guides/safe-auth",
-    "destination": "/sdk/auth-kit/guides/safe-auth",
+    "destination": "/",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/auth-kit/guides/safe-auth",
+    "destination": "/",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit/reference",
-    "destination": "/sdk/auth-kit/reference",
+    "destination": "/",
     "permanent": true
   },
   {
     "source": "/sdk-auth-kit/reference",
-    "destination": "/sdk/auth-kit/reference",
+    "destination": "/",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/auth-kit/reference",
+    "destination": "/",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit/reference/authkitbasepack",
-    "destination": "/sdk/auth-kit/reference/auth-kit-base-pack",
+    "destination": "/",
     "permanent": true
   },
   {
     "source": "/sdk-auth-kit/reference/auth-kit-base-pack",
-    "destination": "/sdk/auth-kit/reference/auth-kit-base-pack",
+    "destination": "/",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/auth-kit/reference/auth-kit-base-pack",
+    "destination": "/",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit/reference/safeauthpack",
-    "destination": "/sdk/auth-kit/reference/safe-auth-pack",
+    "destination": "/",
     "permanent": true
   },
   {
     "source": "/sdk-auth-kit/reference/safe-auth-pack",
-    "destination": "/sdk/auth-kit/reference/safe-auth-pack",
+    "destination": "/",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/auth-kit/reference/safe-auth-pack",
+    "destination": "/",
     "permanent": true
   },
   {
