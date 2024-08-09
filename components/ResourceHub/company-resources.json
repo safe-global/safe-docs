@@ -1,78 +1,5 @@
 [
   {
-    "name": "Starting with the Safe Core SDK",
-    "url": "https://www.youtube.com/watch?v=t2LzhAFBxkI",
-    "type": "Video",
-    "date": "2022-04-28",
-    "description": "Join us for a workshop titled \"Starting with the Safe Core SDK\". Learn how to interact with the Safe contracts using TypeScript to...",
-    "tags": [
-      "Introduction",
-      "Safe Core SDK"
-    ],
-    "image": "https://i.ytimg.com/vi/t2LzhAFBxkI/maxresdefault.jpg"
-  },
-  {
-    "name": "Safe modding 101: Create your own Safe module",
-    "url": "https://www.youtube.com/watch?v=nmDYc9PlAic",
-    "type": "Video",
-    "date": "2022-07-04",
-    "description": "Join us for a workshop titled, \"Safe modding 101: Create your own Safe module.\" This workshop is part of ETHNewYork 2022, a three...",
-    "tags": [
-      "Introduction",
-      "Modules"
-    ],
-    "image": "https://i.ytimg.com/vi/nmDYc9PlAic/maxresdefault.jpg"
-  },
-  {
-    "name": "Safe modding 101: Create your own Safe module",
-    "url": "https://www.youtube.com/watch?v=QdOfuxxXVBA",
-    "type": "Video",
-    "date": "2022-05-09",
-    "description": "Join us for a workshop titled, \"Safe modding 101: Create your own Safe module.\" This workshop is part of HackMoney 2022, a three-...",
-    "tags": [
-      "Introduction",
-      "Modules"
-    ],
-    "image": "https://i.ytimg.com/vi/QdOfuxxXVBA/hqdefault.jpg"
-  },
-  {
-    "name": "Managing modules and transaction guards | Safe Core SDK",
-    "url": "https://www.youtube.com/watch?v=Y4PwNkU8OVM",
-    "type": "Video",
-    "date": "2023-02-27",
-    "description": "This workshop sheds light on modules, architecture and transaction flow on Safe Core SDK.",
-    "tags": [
-      "Deep Dive",
-      "Modules",
-      "Guards"
-    ],
-    "image": "https://i.ytimg.com/vi/Y4PwNkU8OVM/maxresdefault.jpg"
-  },
-  {
-    "name": "Safe Core SDK 🛠 Managing modules and transaction guards",
-    "url": "https://www.youtube.com/watch?v=ppwE9GXC5MA",
-    "type": "Video",
-    "date": "2022-12-08",
-    "description": "Join us for a workshop titled \"Managing modules and transaction guards\".And that wraps up 2022! ETHIndia 2022, the biggest Ethereum hac...",
-    "tags": [
-      "Deep Dive",
-      "Modules",
-      "Guards"
-    ],
-    "image": "https://i.ytimg.com/vi/ppwE9GXC5MA/maxresdefault.jpg"
-  },
-  {
-    "name": "Building with the Safe{Core} SDK",
-    "url": "https://www.youtube.com/watch?v=seQNBoUnwEI",
-    "type": "Video",
-    "date": "2023-08-01",
-    "description": "Join us for a workshop titled \"Building with the Safe{Core} SDK\". This talk covers the difference between Safe{Wallet} and Safe{Core}. ...",
-    "tags": [
-      "Safe Core SDK"
-    ],
-    "image": "https://i.ytimg.com/vi/seQNBoUnwEI/maxresdefault.jpg"
-  },
-  {
     "name": "Web3 Native - Navigation the Future of Account Abstraction with Lukas Schor",
     "url": "https://soundcloud.com/longhashventures_podcast/navigating-the-future-of-account-abstraction-with-safe-web3-native-podcast-safe-lukas-schor",
     "type": "Podcast",
@@ -82,7 +9,8 @@
       "Perspectives",
       "Account Abstraction"
     ],
-    "image": "https://i1.sndcdn.com/artworks-zY2xFG93XGx669QX-X1pgWw-t500x500.jpg"
+    "image": "https://i1.sndcdn.com/artworks-zY2xFG93XGx669QX-X1pgWw-t500x500.jpg",
+    "lastChecked": "2024-08-09"
   },
   {
     "name": "Defi Drip - Safe and Account Abstraction with Johannes Moormann",
@@ -94,7 +22,8 @@
       "Perspectives",
       "Account Abstraction"
     ],
-    "image": "https://i.ytimg.com/vi/G50rE0129zI/maxresdefault.jpg"
+    "image": "https://i.ytimg.com/vi/G50rE0129zI/maxresdefault.jpg",
+    "lastChecked": "2024-08-09"
   },
   {
     "name": "On the brink - Account Abstraction Adoption and Barriers with Richard Meissner",
@@ -106,79 +35,8 @@
       "Perspectives",
       "Account Abstraction"
     ],
-    "image": "https://onthebrink-podcast.com/wp-content/uploads/safe_otb.png"
-  },
-  {
-    "name": "Get the most secure web3 account in <30 seconds",
-    "url": "https://safe.global/blog/get-the-most-secure-web3-account-in-less-than-30-seconds",
-    "type": "Blog Post",
-    "date": "2023-11-13",
-    "description": "Introducing self-custody for everyone. From today, you can secure your crypto fast and free with Safe{Wallet} on Gnosis Chain using just your Google Account.",
-    "tags": [
-      "Tutorial",
-      "Account Abstraction"
-    ],
-    "image": "https://images.ctfassets.net/1i5gc724wjeu/4my478TXYdYPQd6oEuh5uY/739dfaef6f2c8b7b663f43f876bc5242/cover-get-the-most-secure-web3-account-in-30-seconds.png"
-  },
-  {
-    "name": "The new AI agent economy will run on smart accounts",
-    "url": "https://safe.global/blog/the-new-ai-agent-economy-will-run-on-smart-accounts",
-    "type": "Blog Post",
-    "date": "2023-10-25",
-    "description": "Web3's first billion users may not only be humans, but AI agents.",
-    "tags": [
-      "Perspectives",
-      "Account Abstraction"
-    ],
-    "image": "https://images.ctfassets.net/1i5gc724wjeu/36oTG1QP1gGwD5IC33InSf/36eb52c9c1772a2e8769e7007d24bc1b/cover-the-new-ai-agent-economy-will-run-on-smart-accounts.png"
-  },
-  {
-    "name": "Enhancing Blockchain Security with ERC-7512: A Standard for representing smart contract audits onchain",
-    "url": "https://safe.global/blog/enhancing-blockchain-security-with-erc-7512-a-standard-for-representing",
-    "type": "Blog Post",
-    "date": "2023-09-21",
-    "description": "In a significant stride towards fortifying blockchain security, we at Safe, along with top security experts have introduced ERC-7512, a standard for onchain audit report representations.",
-    "tags": [
-      "Safe Smart Account",
-      "Security"
-    ],
-    "image": "https://images.ctfassets.net/1i5gc724wjeu/29E7EwzAxcr8rONnTgJSyS/c389b3abaabcd51d52a7389504a739c0/cover-enhancing-blockchain-security-with-erc-7512-a-standard-for-representing.png"
-  },
-  {
-    "name": "Safe Modular Smart Account Architecture - Explained",
-    "url": "https://safe.global/blog/safe-modular-smart-account-architecture-explained",
-    "type": "Blog Post",
-    "date": "2023-07-10",
-    "description": "Safe is at the forefront of modular smart account infrastructure, paving the way for developers to create a diverse range of applications and wallets.",
-    "tags": [
-      "Deep Dive",
-      "Account Abstraction",
-      "Safe Smart Account"
-    ],
-    "image": "https://images.ctfassets.net/1i5gc724wjeu/4OzV678C097bxt3DfLxF78/62299e96822720d071b776120d3a41d9/cover-safe-modular-smart-account-architecture-explained.jpg"
-  },
-  {
-    "name": "Launching Monerium on Safe{Core}: Connecting Safes to Euro IBAN accounts",
-    "url": "https://safe.global/blog/launching-monerium-on-safe-core-connecting-safes-to-euro-iban-accounts",
-    "type": "Blog Post",
-    "date": "2023-07-06",
-    "description": "Today, the Safe{Core} Account Abstraction SDK added a shiny new tool to its toolbox.",
-    "tags": [
-      "Introduction"
-    ],
-    "image": "https://images.ctfassets.net/1i5gc724wjeu/2v19HE5UcMJsTcxNHw6DDi/66f51b33b536f66888c97707c89ec616/cover-launching-monerium-on-safecore-connecting-safes-to-euro-iban.png"
-  },
-  {
-    "name": "Redefine security with new Safe{Wallet} transaction risk scanner",
-    "url": "https://safe.global/blog/redefine-security-with-new-safe-wallet-transaction-risk-scanner",
-    "type": "Blog Post",
-    "date": "2023-07-26",
-    "description": "We're excited to bring you news of an important enhancement to your transactional security.",
-    "tags": [
-      "Security",
-      "Safe Wallet"
-    ],
-    "image": "https://images.ctfassets.net/1i5gc724wjeu/C5omzZUPw6xHpUqomo3dN/576cbccdd1171bff450c4ab8fe36ade9/cover-redefine-security-with-new-safewallet-transaction-risk-scanner.png"
+    "image": "https://onthebrink-podcast.com/wp-content/uploads/safe_otb.png",
+    "lastChecked": "2024-08-09"
   },
   {
     "name": "Safe Smart Accounts & Diamond Proxies",
@@ -191,186 +49,8 @@
       "Safe Smart Account",
       "Account Abstraction"
     ],
-    "image": "https://images.ctfassets.net/1i5gc724wjeu/4jQL0u5YlOx8z2owaE7hSH/fcfb1b7004adf087bd91ecd9c9666bcb/cover-safe-smart-accounts-diamond-proxies.png"
-  },
-  {
-    "name": "Account Abstraction in a Multichain Landscape - Part 1: Addresses",
-    "url": "https://safe.global/blog/account-abstraction-in-a-multichain-landscape-part-1-addresses",
-    "type": "Blog Post",
-    "date": "2023-03-22",
-    "description": "This is the first article in a series of posts exploring account abstraction in a multichain landscape.",
-    "tags": [
-      "Deep Dive",
-      "Account Abstraction"
-    ],
-    "image": "https://images.ctfassets.net/1i5gc724wjeu/1OretCIMqH5ywTaFvglQS0/6f22ca9ba059eb0788e91183b68c5d2c/cover-account-abstraction-in-a-multichain-landscape-part-1-addresses.png"
-  },
-  {
-    "name": "Launching Safe{Core} Account Abstraction Stack with Stripe, Gelato and Web3Auth",
-    "url": "https://safe.global/blog/launching-safe-core-account-abstraction-stack-with-stripe-gelato-and",
-    "type": "Blog Post",
-    "date": "2023-03-01",
-    "description": "Safe is launching Safe{Core}, a modular AA stack with Stripe, Gelato, and Web3Auth as launch partners.",
-    "tags": [
-      "Introduction",
-      "Account Abstraction"
-    ],
-    "image": "https://images.ctfassets.net/1i5gc724wjeu/2tTVVJDUi8efWXrmrzZsPU/6fac66b05bddeaa5279577199e69349d/cover-launching-safecore-account-abstraction-stack-with-stripe.png"
-  },
-  {
-    "name": "Take Back Ownership Manifesto",
-    "url": "https://safe.global/blog/take-back-ownership-manifesto",
-    "type": "Blog Post",
-    "date": "2023-01-18",
-    "description": "Not your keys, not your coins.",
-    "tags": [
-      "Perspectives",
-      "Account Abstraction"
-    ],
-    "image": "https://images.ctfassets.net/1i5gc724wjeu/7FyYgDLb7NFOTsYlJTKRMm/eefcf95af684e558cebf4a70282b2c1e/cover-take-back-ownership.png"
-  },
-  {
-    "name": "Safe Community Call #1 with Castle NFT Platform",
-    "url": "https://www.youtube.com/watch?v=PCtjRs0BpHE",
-    "type": "Video",
-    "date": "2022-11-17",
-    "description": "Safe Community Call #1 features updates from the Safe Ecosystem including: Safe Governance updates from Theodor Beutel...",
-    "tags": [
-      "Community Call"
-    ],
-    "image": "https://i.ytimg.com/vi/PCtjRs0BpHE/hqdefault.jpg"
-  },
-  {
-    "name": "Safe Community Call #2 with Onchain Den",
-    "url": "https://www.youtube.com/watch?v=o18qA1bvNXI",
-    "type": "Video",
-    "date": "2022-11-17",
-    "description": "Safe Community Call #2 features updates from the Safe Ecosystem including: Safe Governance updates from Theodor Beutel...",
-    "tags": [
-      "Community Call"
-    ],
-    "image": "https://i.ytimg.com/vi/o18qA1bvNXI/hqdefault.jpg"
-  },
-  {
-    "name": "Safe Community Call #3 announcing Safe Grants and Liminal updates",
-    "url": "https://www.youtube.com/watch?v=nzT9HAb9lVw",
-    "type": "Video",
-    "date": "2022-11-22",
-    "description": "Safe Community Call #3 features updates from the Safe Ecosystem including: $1M in Safe Grants announcement from Lukas Schor, Co-founder at Safe...",
-    "tags": [
-      "Community Call"
-    ],
-    "image": "https://i.ytimg.com/vi/nzT9HAb9lVw/hqdefault.jpg"
-  },
-  {
-    "name": "Safe Community Call #4 with NinDAO",
-    "url": "https://www.youtube.com/watch?v=eosjuOocH1Y",
-    "type": "Video",
-    "date": "2022-12-05",
-    "description": "Safe Community Call #4 features updates from the Safe Ecosystem including: ETHIndia Recap and Safe Governance updates from Theodor Beutel...",
-    "tags": [
-      "Community Call"
-    ],
-    "image": "https://i.ytimg.com/vi/eosjuOocH1Y/hqdefault.jpg"
-  },
-  {
-    "name": "Safe Community Call #5 with Richard Meissner",
-    "url": "https://www.youtube.com/watch?v=9XUXkfwDixA",
-    "type": "Video",
-    "date": "2023-01-10",
-    "description": "Safe Community Call #5 features updates from the Safe Ecosystem including: Safe Governance updates from Theodor Beutel...",
-    "tags": [
-      "Community Call"
-    ],
-    "image": "https://i.ytimg.com/vi/9XUXkfwDixA/hqdefault.jpg"
-  },
-  {
-    "name": "Safe Community Call #6 with Tribes Co-Wallet",
-    "url": "https://www.youtube.com/watch?v=j44PnR-aGL8",
-    "type": "Video",
-    "date": "2023-02-07",
-    "description": "Safe Community Call #6 features updates from the Safe Ecosystem including: Safe Governance updates from Theodor Beutel...",
-    "tags": [
-      "Community Call"
-    ],
-    "image": "https://i.ytimg.com/vi/j44PnR-aGL8/hqdefault.jpg"
-  },
-  {
-    "name": "Safe Community Call #7 announcing Safe Core and Account Abstraction Hackathon",
-    "url": "https://www.youtube.com/watch?v=XOkVwtJOHSI",
-    "type": "Video",
-    "date": "2023-03-07",
-    "description": "Safe Community Call #7 features updates from the Safe Ecosystem including: Safe{Core} March for Account Abstraction Hackathon, SafeDAO and Safe Governan...",
-    "tags": [
-      "Community Call"
-    ],
-    "image": "https://i.ytimg.com/vi/XOkVwtJOHSI/hqdefault.jpg"
-  },
-  {
-    "name": "Safe Community Call #8 with Podarchy Explorer demo from Metropolis",
-    "url": "https://www.youtube.com/watch?v=l6jKLPp-ZbQ",
-    "type": "Video",
-    "date": "2023-05-05",
-    "description": "Safe Community Call #8 features updates from the Safe Ecosystem including: SafeDAO and Safe Governance updates including [SEP#6] Safe Grants Program, Safe A...",
-    "tags": [
-      "Community Call"
-    ],
-    "image": "https://i.ytimg.com/vi/l6jKLPp-ZbQ/hqdefault.jpg"
-  },
-  {
-    "name": "Safe Community Call #9 with Brahma Fi Console",
-    "url": "https://www.youtube.com/watch?v=vt0F0MnIB9I",
-    "type": "Video",
-    "date": "2023-06-19",
-    "description": "Safe Community Call #9 features updates from the Safe Ecosystem including: Grants Council Election Updates, SafeDAO Governance, Ecosystem Spotlight: BrahmaL...",
-    "tags": [
-      "Community Call"
-    ],
-    "image": "https://i.ytimg.com/vi/vt0F0MnIB9I/hqdefault.jpg"
-  },
-  {
-    "name": "Safe Community Call #10 with Redefine and Coinshift",
-    "url": "https://www.youtube.com/watch?v=-M0xBi3lH1s",
-    "type": "Video",
-    "date": "2023-07-13",
-    "description": "Agenda includes:- Community Updates- Grants- Safe{Wallet} x Redefine Demo- SafeDAO Governance- Ecosystem Spotlight: Coinshift...",
-    "tags": [
-      "Community Call"
-    ],
-    "image": "https://i.ytimg.com/vi/-M0xBi3lH1s/hqdefault.jpg"
-  },
-  {
-    "name": "Safe Community Call #11 on Safe{Core} Protocol, Safe{Con}, Safe Grants Program and more",
-    "url": "https://www.youtube.com/watch?v=8_5H0Y1THEo",
-    "type": "Video",
-    "date": "2023-08-16",
-    "description": "Safe Community Call #11 features updates from the Safe Ecosystem including: Grants Program Launch‣ Safe{Wallet} + Demo, Safe{Protocol}, SafeDAO Governance‣...",
-    "tags": [
-      "Community Call"
-    ],
-    "image": "https://i.ytimg.com/vi/8_5H0Y1THEo/hqdefault.jpg"
-  },
-  {
-    "name": "Community Call #12: Grants Council and Safe DAO updates, ZK integrations & DAAta and AI Hackathon",
-    "url": "https://www.youtube.com/watch?v=_WbnF_qyjeQ",
-    "type": "Video",
-    "date": "2023-09-21",
-    "description": "Safe Community Call #12 features updates from the Safe Ecosystem including: Grants Council Update, Community Updates, Safe{Wallet} News: ZK Integrations ...",
-    "tags": [
-      "Community Call"
-    ],
-    "image": "https://i.ytimg.com/vi/_WbnF_qyjeQ/maxresdefault.jpg"
-  },
-  {
-    "name": "Safe Community Call #13",
-    "url": "https://www.youtube.com/watch?v=5UaCdug2LPA",
-    "type": "Video",
-    "date": "2023-10-12",
-    "description": "Safe Community Call #139Updates on the Safe Grants Program, Safe DAO Governance, Safe{Wallet}, upcoming Community Events, and an Ecosystem Spotlight from HOPR.",
-    "tags": [
-      "Community Call"
-    ],
-    "image": "https://i.ytimg.com/vi/5UaCdug2LPA/maxresdefault.jpg"
+    "image": "https://images.ctfassets.net/1i5gc724wjeu/4jQL0u5YlOx8z2owaE7hSH/fcfb1b7004adf087bd91ecd9c9666bcb/cover-safe-smart-accounts-diamond-proxies.png",
+    "lastChecked": "2024-08-09"
   },
   {
     "name": "Permissionless Smart Account Innovation with Rhinestone and Safe7579 Adapter",
@@ -382,6 +62,20 @@
       "Safe Smart Account",
       "7579"
     ],
-    "image": "https://i.ytimg.com/vi/d-wGezfH6nM/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGE8gUShlMA8=&rs=AOn4CLCENcg7N7HKxVrN2crekt04CWlkvg"
+    "image": "https://i.ytimg.com/vi/d-wGezfH6nM/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGE8gUShlMA8=&rs=AOn4CLCENcg7N7HKxVrN2crekt04CWlkvg",
+    "lastChecked": "2024-08-09"
+  },
+  {
+    "name": "Universal Wallets with Safe",
+    "url": "https://www.youtube.com/watch?v=h40Gy3fsRJg",
+    "type": "Video",
+    "date": "2024-08-08",
+    "description": "A workshop on Universal Wallets with Safe.",
+    "tags": [
+      "Safe Smart Account",
+      "Tutorial"
+    ],
+    "image": "https://i.ytimg.com/vi/h40Gy3fsRJg/hqdefault.jpg",
+    "lastChecked": "2024-08-09"
   }
 ]
