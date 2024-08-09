@@ -15,3 +15,5 @@ const estimateTx = await apiKit.estimateSafeTransaction(
   safeAddress,
   safeTransaction
 )
+
+console.log(estimateTx)
