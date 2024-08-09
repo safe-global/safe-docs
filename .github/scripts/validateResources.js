@@ -41,6 +41,10 @@ const validateResource = (resource, index, resources) => {
     console.log(`Invalid YouTube URL`)
     return false
   }
+  if (!resource.lastChecked) {
+    console.log(`The last checked property is missing. If adding a new resource, please add today's date`)
+    return false
+  }
   return true
 }
 
