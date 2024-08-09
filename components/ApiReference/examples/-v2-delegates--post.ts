@@ -1,6 +1,5 @@
-import Safe from '@safe-global/protocol-kit'
 import SafeApiKit from '@safe-global/api-kit'
-import { ethers } from 'ethers'
+import { ethers } from 'ethers' // Ethers v6
 
 const apiKit = new SafeApiKit({
   chainId: 11155111n

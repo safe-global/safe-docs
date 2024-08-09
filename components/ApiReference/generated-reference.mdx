@@ -316,7 +316,31 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/v2/delegates/ \
 signer will update the label or delegator if a different one is provided.
 To generate the signature, the following EIP712 data hash needs to be signed:
 
-$$insert code block$$
+```python
+ {
+    "types": {
+        "EIP712Domain": [
+            {"name": "name", "type": "string"},
+            {"name": "version", "type": "string"},
+            {"name": "chainId", "type": "uint256"},
+        ],
+        "Delegate": [
+            {"name": "delegateAddress", "type": "address"},
+            {"name": "totp", "type": "uint256"},
+        ],
+    },
+    "primaryType": "Delegate",
+    "domain": {
+        "name": "Safe Transaction Service",
+        "version": "1.0",
+        "chainId": chain_id,
+    },
+    "message": {
+        "delegateAddress": delegate_address,
+        "totp": totp,
+    },
+}
+```
 
 For the signature we use `TOTP` with `T0=0` and `Tx=3600`. `TOTP` is calculated by taking the
 Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals).
@@ -867,7 +891,33 @@ Only the proposer can delete the transaction.
 If the transaction was proposed by a delegate, the Safe owner who delegated to the delegate must be used.
 An EOA is required to sign the following EIP-712 data:
 
-$$insert code block$$
+```python
+ {
+    "types": {
+        "EIP712Domain": [
+            {"name": "name", "type": "string"},
+            {"name": "version", "type": "string"},
+            {"name": "chainId", "type": "uint256"},
+            {"name": "verifyingContract", "type": "address"},
+        ],
+        "DeleteRequest": [
+            {"name": "safeTxHash", "type": "bytes32"},
+            {"name": "totp", "type": "uint256"},
+        ],
+    },
+    "primaryType": "DeleteRequest",
+    "domain": {
+        "name": "Safe Transaction Service",
+        "version": "1.0",
+        "chainId": chain_id,
+        "verifyingContract": safe_address,
+    },
+    "message": {
+        "safeTxHash": safe_tx_hash,
+        "totp": totp,
+    },
+}
+```
 
 `totp` parameter is calculated with `T0=0` and `Tx=3600`. `totp` is calculated by taking the
 Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)
@@ -1034,22 +1084,18 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/multisig-transa
 
     
 
-    Returns all the transactions for a given Safe address. The list has different structures depending on the
-transaction type:
+    Returns all the *executed* transactions for a given Safe address.
+The list has different structures depending on the transaction type:
 
-\- Multisig Transactions for a Safe. `tx_type=MULTISIG_TRANSACTION`. If the query parameter `queued=False` is
-set only the transactions with `safe nonce < current Safe nonce` will be displayed. By default, only the
-`trusted` transactions will be displayed (transactions indexed, with at least one confirmation or proposed
-by a delegate). If you need that behaviour to be disabled set the query parameter `trusted=False`
+\- Multisig Transactions for a Safe. `tx_type=MULTISIG_TRANSACTION`.
 
 \- Module Transactions for a Safe. `tx_type=MODULE_TRANSACTION`
 
 \- Incoming Transfers of Ether/ERC20 Tokens/ERC721 Tokens. `tx_type=ETHEREUM_TRANSACTION`
-  Only 1000 newest transfers will be returned.
 
     
 
-    <Parameters parameters={[{"name":"ordering","in":"query","description":"Which field to use when ordering the results.","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"},{"name":"executed","in":"query","description":"If `True` only executed transactions are returned","type":"boolean","default":false},{"name":"queued","in":"query","description":"If `True` transactions with `nonce >= Safe current nonce` are also returned","type":"boolean","default":true},{"name":"trusted","in":"query","description":"If `True` just trusted transactions are shown (indexed, added by a delegate or with at least one confirmation)","type":"boolean","default":true}]} />
+    <Parameters parameters={[{"name":"ordering","in":"query","description":"Which field to use when ordering the results.","required":false,"type":"string"},{"name":"limit","in":"query","description":"Number of results to return per page.","required":false,"type":"integer"},{"name":"offset","in":"query","description":"The initial index from which to return the results.","required":false,"type":"integer"}]} />
     <Responses responses={[{"code":"200","schema":{"refName":"AllTransactionsSchema","required":["txType1","txType2","txType3"],"type":"object","properties":{"txType1":{"refName":"SafeModuleTransactionWithTransfersResponse","required":["executionDate","blockNumber","transactionHash","safe","module","to","value","data","operation","moduleTransactionId","transfers"],"type":"object","properties":{"created":{"title":"Created","type":"string","format":"date-time","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string"},"safe":{"title":"Safe","type":"string","minLength":1},"module":{"title":"Module","type":"string","minLength":1},"to":{"title":"To","type":"string","minLength":1},"value":{"title":"Value","type":"string","format":"decimal"},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","enum":[0,1,2]},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"moduleTransactionId":{"title":"Module transaction id","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`","type":"string","minLength":1},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","required":["executionDate","blockNumber","transactionHash","to","value","tokenId","tokenInfo","from"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"transactionHash":{"title":"Transaction hash","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1,"x-nullable":true},"tokenId":{"title":"Token id","type":"string","minLength":1,"x-nullable":true},"tokenAddress":{"title":"Token address","type":"string","x-nullable":true},"transferId":{"title":"Transfer id","description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`","type":"string","readOnly":true},"tokenInfo":{"refName":"TokenInfoResponse","required":["address","name","symbol","decimals","trusted"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"address":{"title":"Address","type":"string"},"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","readOnly":true},"trusted":{"title":"Trusted","type":"boolean"}}},"from":{"title":"From","type":"string"}}}},"txType":{"title":"Tx type","type":"string","readOnly":true}}},"txType2":{"refName":"SafeMultisigTransactionWithTransfersResponse","required":["safe","to","value","operation","safeTxGas","baseGas","gasPrice","nonce","executionDate","submissionDate","modified","transactionHash","safeTxHash","proposer","isExecuted","confirmationsRequired","trusted","transfers"],"type":"object","properties":{"safe":{"title":"Safe","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1},"data":{"title":"Data","type":"string","x-nullable":true},"operation":{"title":"Operation","type":"integer","minimum":0},"gasToken":{"title":"Gas token","type":"string","x-nullable":true},"safeTxGas":{"title":"Safe tx gas","type":"integer","minimum":0},"baseGas":{"title":"Base gas","type":"integer","minimum":0},"gasPrice":{"title":"Gas price","type":"string","minLength":1},"refundReceiver":{"title":"Refund receiver","type":"string","x-nullable":true},"nonce":{"title":"Nonce","type":"integer","minimum":0},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"submissionDate":{"title":"Submission date","type":"string","format":"date-time"},"modified":{"title":"Modified","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer","readOnly":true},"transactionHash":{"title":"Transaction hash","type":"string"},"safeTxHash":{"title":"Safe tx hash","type":"string"},"proposer":{"title":"Proposer","type":"string"},"executor":{"title":"Executor","type":"string","readOnly":true},"isExecuted":{"title":"Is executed","type":"boolean"},"isSuccessful":{"title":"Is successful","type":"boolean","readOnly":true},"ethGasPrice":{"title":"Eth gas price","type":"string","readOnly":true},"maxFeePerGas":{"title":"Max fee per gas","type":"string","readOnly":true},"maxPriorityFeePerGas":{"title":"Max priority fee per gas","type":"string","readOnly":true},"gasUsed":{"title":"Gas used","type":"integer","readOnly":true},"fee":{"title":"Fee","type":"integer","readOnly":true},"origin":{"title":"Origin","type":"string","readOnly":true},"dataDecoded":{"title":"Data decoded","type":"string","readOnly":true},"confirmationsRequired":{"title":"Confirmations required","type":"integer"},"confirmations":{"refName":"SafeMultisigConfirmationResponse","description":"\nFilters confirmations queryset\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n","required":["owner","submissionDate","signature"],"type":"object","properties":{"owner":{"title":"Owner","type":"string","minLength":1},"submissionDate":{"title":"Submission date","type":"string","format":"date-time"},"transactionHash":{"title":"Transaction hash","type":"string","readOnly":true},"signature":{"title":"Signature","type":"string"},"signatureType":{"title":"Signature type","type":"string","readOnly":true}}},"trusted":{"title":"Trusted","type":"boolean"},"signatures":{"title":"Signatures","type":"string","x-nullable":true},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","required":["executionDate","blockNumber","transactionHash","to","value","tokenId","tokenInfo","from"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"transactionHash":{"title":"Transaction hash","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1,"x-nullable":true},"tokenId":{"title":"Token id","type":"string","minLength":1,"x-nullable":true},"tokenAddress":{"title":"Token address","type":"string","x-nullable":true},"transferId":{"title":"Transfer id","description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`","type":"string","readOnly":true},"tokenInfo":{"refName":"TokenInfoResponse","required":["address","name","symbol","decimals","trusted"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"address":{"title":"Address","type":"string"},"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","readOnly":true},"trusted":{"title":"Trusted","type":"boolean"}}},"from":{"title":"From","type":"string"}}}},"txType":{"title":"Tx type","type":"string","readOnly":true}}},"txType3":{"refName":"EthereumTxWithTransfersResponse","required":["executionDate","to","data","txHash","transfers","from"],"type":"object","properties":{"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"to":{"title":"To","type":"string","x-nullable":true},"data":{"title":"Data","type":"string"},"txHash":{"title":"Tx hash","type":"string"},"blockNumber":{"title":"Block number","type":"integer","readOnly":true},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","required":["executionDate","blockNumber","transactionHash","to","value","tokenId","tokenInfo","from"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"executionDate":{"title":"Execution date","type":"string","format":"date-time"},"blockNumber":{"title":"Block number","type":"integer"},"transactionHash":{"title":"Transaction hash","type":"string"},"to":{"title":"To","type":"string"},"value":{"title":"Value","type":"string","minLength":1,"x-nullable":true},"tokenId":{"title":"Token id","type":"string","minLength":1,"x-nullable":true},"tokenAddress":{"title":"Token address","type":"string","x-nullable":true},"transferId":{"title":"Transfer id","description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`","type":"string","readOnly":true},"tokenInfo":{"refName":"TokenInfoResponse","required":["address","name","symbol","decimals","trusted"],"type":"object","properties":{"type":{"title":"Type","type":"string","readOnly":true},"address":{"title":"Address","type":"string"},"name":{"title":"Name","type":"string","minLength":1},"symbol":{"title":"Symbol","type":"string","minLength":1},"decimals":{"title":"Decimals","type":"integer"},"logoUri":{"title":"Logo uri","type":"string","readOnly":true},"trusted":{"title":"Trusted","type":"boolean"}}},"from":{"title":"From","type":"string"}}}},"txType":{"title":"Tx type","type":"string","readOnly":true},"from":{"title":"From","type":"string"}}}}},"description":"A list with every element with the structure of one of these transactiontypes"},{"code":"422","schema":{},"description":"code = 1: Checksum address validation failed"}]} />
     <Feedback asPath={"/core-api/transaction-service-reference#List-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
@@ -1969,7 +2015,12 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safe-operations
     </CH.Section>
     <NetworkNotice />
 
-    
+    #### Sample Response
+
+```json
+Empty Response
+
+```
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -2114,7 +2165,12 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/v1/safes/0xcd2E72a
     </CH.Section>
     <NetworkNotice />
 
-    
+    #### Sample Response
+
+```json
+Empty Response
+
+```
   </Grid>
 </Grid>
 <Hr style={{ 
