@@ -18,6 +18,23 @@ const repos = [
   },
   {
     organization: '5afe',
+    repo: 'safe-passkeys-nuxt',
+    destination: './examples/passkeys-vue',
+    branch: 'main',
+    files: [
+      '/utils/constants.ts',
+      '/utils/passkeys.ts',
+      '/utils/mintNFT.ts',
+      '/components/LoginWithPasskey.vue',
+      '/components/SafeAccountDetails.vue',
+      '/stores/safe.ts',
+      '/app.vue',
+      '/layouts/default.vue',
+      '/nuxt.config.ts'
+    ]
+  },
+  {
+    organization: '5afe',
     repo: 'safe-7579-tutorial',
     destination: './examples/erc-7579',
     branch: 'main',
