@@ -1,19 +1,6 @@
-import { PasskeyArgType } from '@safe-global/protocol-kit'
+import type { PasskeyArgType } from '@safe-global/protocol-kit'
 import { Safe4337Pack } from '@safe-global/relay-kit'
 import { encodeFunctionData } from 'viem'
-import {
-  BUNDLER_URL,
-  NFT_ADDRESS,
-  PAYMASTER_ADDRESS,
-  PAYMASTER_URL,
-  RPC_URL
-} from './constants'
-
-const paymasterOptions = {
-  isSponsored: true,
-  paymasterAddress: PAYMASTER_ADDRESS,
-  paymasterUrl: PAYMASTER_URL
-}
 
 /**
  * Mint an NFT.
@@ -23,11 +10,19 @@ const paymasterOptions = {
  * @throws {Error} If the operation fails.
  */
 export const mintNFT = async (passkey: PasskeyArgType, safeAddress: string) => {
+  const runtimeConfig = useRuntimeConfig()
+
   // 1) Initialize Safe4337Pack
+  const paymasterOptions = {
+    isSponsored: true,
+    paymasterAddress: PAYMASTER_ADDRESS,
+    paymasterUrl: PAYMASTER_URL + runtimeConfig.public.NUXT_PUBLIC_PIMLICO_API_KEY
+  }
+
   const safe4337Pack = await Safe4337Pack.init({
     provider: RPC_URL,
     signer: passkey,
-    bundlerUrl: BUNDLER_URL,
+    bundlerUrl: BUNDLER_URL + runtimeConfig.public.NUXT_PUBLIC_PIMLICO_API_KEY,
     paymasterOptions,
     options: {
       owners: [

@@ -28,7 +28,8 @@ const updateResourceOg = async () => {
         date: resource.date,
         description: description.length > 197 ? description.slice(0, 197)  + '...' : description,
         tags: resource.tags,
-        image: og.ogImage[0]?.url
+        image: og.ogImage[0]?.url,
+        lastChecked: resource.lastChecked
       }
     })
   )
@@ -46,7 +47,8 @@ const updateResourceOg = async () => {
         tags: resource.tags,
         ...(!(parseInt(og.ogImage[0].height) < 60) && {
           image: og.ogImage[0].url
-        })
+        }),
+        lastChecked: resource.lastChecked
       }
     })
   )

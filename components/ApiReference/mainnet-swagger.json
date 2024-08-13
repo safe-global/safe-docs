@@ -1157,7 +1157,7 @@
     "/v1/safes/{address}/all-transactions/": {
       "get": {
         "operationId": "v1_safes_all-transactions_list",
-        "description": "Returns all the transactions for a given Safe address. The list has different structures depending on the\ntransaction type:\n- Multisig Transactions for a Safe. `tx_type=MULTISIG_TRANSACTION`. If the query parameter `queued=False` is\nset only the transactions with `safe nonce < current Safe nonce` will be displayed. By default, only the\n`trusted` transactions will be displayed (transactions indexed, with at least one confirmation or proposed\nby a delegate). If you need that behaviour to be disabled set the query parameter `trusted=False`\n- Module Transactions for a Safe. `tx_type=MODULE_TRANSACTION`\n- Incoming Transfers of Ether/ERC20 Tokens/ERC721 Tokens. `tx_type=ETHEREUM_TRANSACTION`\n  Only 1000 newest transfers will be returned.",
+        "description": "Returns all the *executed* transactions for a given Safe address.\nThe list has different structures depending on the transaction type:\n- Multisig Transactions for a Safe. `tx_type=MULTISIG_TRANSACTION`.\n- Module Transactions for a Safe. `tx_type=MODULE_TRANSACTION`\n- Incoming Transfers of Ether/ERC20 Tokens/ERC721 Tokens. `tx_type=ETHEREUM_TRANSACTION`",
         "parameters": [
           {
             "name": "ordering",
@@ -1179,27 +1179,6 @@
             "description": "The initial index from which to return the results.",
             "required": false,
             "type": "integer"
-          },
-          {
-            "name": "executed",
-            "in": "query",
-            "description": "If `True` only executed transactions are returned",
-            "type": "boolean",
-            "default": false
-          },
-          {
-            "name": "queued",
-            "in": "query",
-            "description": "If `True` transactions with `nonce >= Safe current nonce` are also returned",
-            "type": "boolean",
-            "default": true
-          },
-          {
-            "name": "trusted",
-            "in": "query",
-            "description": "If `True` just trusted transactions are shown (indexed, added by a delegate or with at least one confirmation)",
-            "type": "boolean",
-            "default": true
           }
         ],
         "responses": {
@@ -3741,7 +3720,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "3c01410c-9e54-4894-a536-c5d02753627b"
+          "default": "cc12694c-78bc-4e34-bb73-9ac19a455709"
         },
         "safes": {
           "type": "array",
@@ -3810,7 +3789,7 @@
           "title": "Uuid",
           "type": "string",
           "format": "uuid",
-          "default": "42fe258f-b327-42ec-ac6c-f00d49959ab9"
+          "default": "7e7b1cd5-0f6f-4d92-a2d7-b1489ea7962a"
         },
         "safes": {
           "type": "array",
