@@ -44,6 +44,7 @@
 [Oo]ffchain
 [Oo]nboarding
 [Oo]nchain
+[Oo]nramp
 [Pp]ermissionless
 [Pp]olygon
 [Pp]ostgres
@@ -167,7 +168,6 @@ Nova
 Nuxt
 OAuth
 OP
-Onramp
 Onramp Kit
 PGN
 Pimlico
@@ -250,6 +250,7 @@ auth_code
 boolean
 bytestrings
 checksummed
+const
 deployer
 eSpace
 execTransaction

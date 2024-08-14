@@ -1,4 +1,5 @@
 import { Steps, Callout } from 'nextra/components'
+import Image from 'next/image'
 
 # Integration with Stripe
 
@@ -6,13 +7,181 @@ import { Steps, Callout } from 'nextra/components'
 With the deprecation of the Onramp SDK, developers are now directed to integrate directly with Stripe’s Crypto Onramp service.
 </Callout>
 
-This guide provides instructions for seamlessly transitioning to [Stripe’s Crypto Onramp]((https://stripe.com/docs/crypto/overview)), allowing users to securely purchase cryptocurrencies within your application.
+## Integrate the Stripe Crypto Onramp Widget
 
-To use the Stripe Crypto Onramp service, follow these steps:
+<Steps>
 
-1. Apply for the [Stripe Crypto Onramp service](https://docs.stripe.com/crypto).
-2. Obtain your public and private keys from the Stripe dashboard.
-3. Deploy a backend to provide Stripe access keys to your frontend. You can use the [Safe example Stripe](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/example/server) server as a starting point.
-4. Integrate the [Stripe Crypto Onramp SDK](https://docs.stripe.com/crypto/integrate-the-onramp) into your frontend.
+### Obtain your public and private keys
 
-If you have any questions or encounter any issues, [Stripe support](https://support.stripe.com/) is responsive and helpful.
+To use the Stripe Crypto Onramp service, you need to obtain your [public and private keys](https://docs.stripe.com/keys).
+You have to apply for the crypto onramp service and add at least your business address and information to your Stripe account.
+When your application is approved, you will find your public and private keys in your [Stripe Developer Dashboard](https://dashboard.stripe.com/test/apikeys).
+
+### Install the SDK and client library
+
+You can install the Stripe SDK as a script or as a package. 
+
+<CH.Section>
+  <CH.Code style={{boxShadow: 'none'}}>
+
+    ```html script
+    <head>
+      <title>Onramp</title>
+      <script src="https://js.stripe.com/v3/"></script>
+      <script src="https://crypto-js.stripe.com/crypto-onramp-outer.js"></script>
+    </head>
+    ```
+
+    ```bash package
+    npm install --save @stripe/stripe-js @stripe/crypto
+    ```
+  </CH.Code>
+</CH.Section>
+
+### Generate a crypto onramp session
+
+You need to generate a crypto onramp session using your stripe private key.
+You have to make an API request to the [Stripe API](https://docs.stripe.com/api/crypto/onramp_sessions) to create a new session.
+The new session will have a unique `client_secret` that you can use to initialize the Stripe widget for your user.
+
+As you use your private key, the request must be made from your backend.
+The backend can then send the `client_secret` to your frontend.
+You can use the [Safe example Stripe](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/example/server) server as a starting point for your backend.
+
+Here is how you generate a crypto onramp session using your private key:
+
+<CH.Section>
+  <CH.Code style={{boxShadow: 'none'}}>
+    ```typescript typescript
+      const stripeSessionResponse = await fetch(
+        'https://api.stripe.com/v1/crypto/onramp_sessions',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization:
+              'Bearer sk_test_51...Eg7o' // your private key for stripe
+          },
+          body: 'wallet_addresses[ethereum]=0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d'
+        }
+      )
+
+    const decodedResponse = await stripeSessionResponse.json()
+    const clientSecret = decodedResponse['client_secret']
+    ```
+
+    ```bash curl
+      curl -X POST https://api.stripe.com/v1/crypto/onramp_sessions \
+        # your private key for stripe
+        -u sk_test_51...Eg7o: \
+        # optional parameters, for example a wallet address
+        -d "wallet_addresses[ethereum]"="0xB00F0759DbeeF5E543Cc3E3B07A6442F5f3928a2"
+    ```
+  </CH.Code>
+</CH.Section>
+
+### Initialize the Stripe widget
+
+The stripe widget is a secure iframe that allows users to purchase cryptocurrencies.
+
+You can initialize the Stripe widget using the `client_secret` you obtained from the previous step:
+
+
+<CH.Section>
+  <CH.Code style={{boxShadow: 'none'}}>
+    ```typescript typescript
+      // StripeOnramp is imported with the scripts from step one  
+      const stripeOnramp = StripeOnramp(
+        'pk_test_51PkLqwRvqtcdqsBC22vvbPYbKC5nStaz6ezijBKle8oCzbSVm6luhXfeMqm7nJzckauM1t6pLV5xjEJFikrVKoqC00x5HGGgYH'
+      )
+
+      // Use the client secret from the previous step
+      const onrampSession = stripeOnramp.createSession({ clientSecret })
+      onrampSession.mount('#onramp-element')
+    ```
+
+    ```html html
+      <!-- Make sure to include a corresponding HTML element -->
+      <div id='onramp-element' />
+    ```
+  </CH.Code>
+</CH.Section>
+
+### Listen to Stripe events
+
+You can listen to the [frontend events](https://docs.stripe.com/crypto/using-the-api#frontend-events) from the Stripe widget to update your UI or handle errors.
+
+```typescript typescript
+  // Listen to events using the onrampSession object from one of the previous step
+  onrampSession.addEventListener('onramp_ui_loaded', event => {
+    console.log('Onramp UI loaded:', event)
+  })
+
+  onrampSession.addEventListener('onramp_session_updated', event => {
+    console.log('Onramp session updated:', event)
+  })
+
+  // For modal overlay render mode only
+  onrampSession.addEventListener('onramp_ui_modal_opened', event => {
+    console.log('Onramp UI modal opened:', event)
+  })
+
+  onrampSession.addEventListener('onramp_ui_modal_closed', event => {
+    console.log('Onramp UI modal closed:', event)
+  })
+```
+
+</Steps>
+
+Now Stripe will render the widget in the `onramp-element` div, allowing users to purchase cryptocurrencies securely.
+
+![The Stripe widget](https://b.stripecdn.com/docs-statics-srv/assets/crypto-onramp-overview.c4c0682697f2cd4c1c2769c3c5e08506.png)
+
+## Test the Stripe widget
+
+  In production, each customer should pass an individual KYC process but probably you want to test your application before 😊. 
+  You can use the following test data for bypass the KYC process while in [test mode](https://stripe.com/docs/test-mode).
+  Also, you have to select USD as the currency to buy crypto currency.
+
+
+  | **Field**                   | **Value**                   | **Description**                                               |
+  | --------------------------- | --------------------------- | ------------------------------------------------------------- |
+  | **Email**                   | your-email@example.com      | Use any test or fake emails                                   |
+  | **Phone Number**            | +18004444444                | Use +18004444444 for phone number                             |
+  | **OTP Verification Code**   | 000000                      | Use 000000 for the OTP verification code                      |
+  | **First Name**              | John                        | Use any first name                                            |
+  | **Last Name**               | Verified                    | Use Verified for the last name                                |
+  | **Birthday**                | 01/01/1901                  | Use 01/01/1901 for successful identity verification           |
+  | **Identification Type**     | Social Security Number      | Select Social Security Number for identification type         |
+  | **Identification Number**   | 000000000                   | Enter 000000000 to fill the identification number field       |
+  | **Country**                 | United States               | Select United States for country                              |
+  | **Address Line 1**          | address_full_match          | Use address_full_match for successful identity verification   |
+  | **City**                    | Seattle                     | Use Seattle for city                                          |
+  | **State**                   | Washington                  | Select Washington for state                                   |
+  | **Zip Code**                | 12345                       | Use 12345 for zip code                                        |
+  | **Test Credit Card Number** | 4242424242424242            | Use test credit card 4242424242424242                         |
+  | **Expiration Date**         | 12/24                       | Use future expiration date 12/24                              |
+  | **CVC**                     | 123                         | Use any CVC 123                                               |
+  | **Billing Zip Code**        | 12345                       | Use any zip code 12345 for billing               
+
+
+In the following images you can find examples of the KYC process and the payment method:
+
+Personal Info:
+
+<Image src="https://user-images.githubusercontent.com/9806858/228418052-30b2239a-ca19-4639-9858-4344d3ba7d45.png" width={300} height={500} alt="KYC Personal info example" />
+
+Address:
+<Image src="https://user-images.githubusercontent.com/9806858/228418056-48cfa6a6-fde9-4504-a8be-ce91b03c960f.png" width={300} height={500} alt="KYC Address Example" />
+
+Payment Method:
+<Image src="https://user-images.githubusercontent.com/9806858/228418059-b83b6357-a6b0-4f09-a4b2-3b89767cb4f0.png" width={300} height={500} alt="Payment Method" />
+
+These date will allow you to test the Stripe widget without passing the KYC process.
+
+## Conclusion
+
+Well done, you have successfully integrated the Stripe Crypto Onramp service into your application.
+Your users can now purchase cryptocurrencies securely within your app.
+
+If you have any questions or encounter any issues, the [Stripe support](https://support.stripe.com/) is responsive and helpful.
