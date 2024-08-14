@@ -36,6 +36,8 @@ export default function RootLayout ({
                 alignItems: 'center',
                 marginRight: '1rem'
               }}
+              target='_blank'
+              rel='noopener noreferrer'
             >
               Read tutorial{' '}
               <Img
@@ -47,8 +49,10 @@ export default function RootLayout ({
               />
             </a>
             <a
-              href='https://github.com/5afe/safe-tutorial-7579'
+              href='https://github.com/5afe/safe-7579-tutorial'
               style={{ display: 'flex', alignItems: 'center' }}
+              target='_blank'
+              rel='noopener noreferrer'
             >
               View on GitHub{' '}
               <Img
@@ -62,11 +66,25 @@ export default function RootLayout ({
           </div>
         </nav>
         <div style={{ width: '100%', textAlign: 'center' }}>
-          <h1>Schedule Transfers</h1>
+          <h1>Social Recovery 🛟</h1>
 
           <div>
-            Create a new ERC-7579-compatible Safe Smart Account and use it to schedule
-            transactions.
+            Create an ERC-7579-compatible Safe Smart Account and use{' '}
+            <a
+              href='https://docs.rhinestone.wtf/module-sdk/modules/social-recovery'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              Rhinestone&apos;s Social Recovery module{' '}
+              <Img
+                width={20}
+                height={20}
+                alt='link-icon'
+                src='/external-link.svg'
+                style={{ marginBottom: '-4px' }}
+              />
+            </a>{' '}
+            to recover it.
           </div>
         </div>
         <div

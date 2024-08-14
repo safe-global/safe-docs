@@ -16,8 +16,9 @@ import {
   createPimlicoPaymasterClient
 } from 'permissionless/clients/pimlico'
 import { EntryPoint } from 'permissionless/types'
+import { rpcUrl } from './safe'
 
-export type SafeSmartAccountClient = SmartAccountClient<
+export type PermissionlessClient = SmartAccountClient<
   EntryPoint,
   Transport,
   Chain,
@@ -40,7 +41,7 @@ const privateKey =
 const signer = privateKeyToAccount(privateKey)
 
 export const publicClient = createPublicClient({
-  transport: http('https://rpc.ankr.com/eth_sepolia')
+  transport: http(rpcUrl)
 })
 
 const paymasterClient = createPimlicoPaymasterClient({
@@ -48,13 +49,13 @@ const paymasterClient = createPimlicoPaymasterClient({
   entryPoint: ENTRYPOINT_ADDRESS_V07
 })
 
-const bundlerClient = createPimlicoBundlerClient({
+export const bundlerClient = createPimlicoBundlerClient({
   transport: http(pimlicoUrl),
   entryPoint: ENTRYPOINT_ADDRESS_V07
 })
 
-export const getSmartAccountClient = async () => {
-  const account = await signerToSafeSmartAccount(publicClient, {
+export const getPermissionlessAccount = async () =>
+  await signerToSafeSmartAccount(publicClient, {
     entryPoint: ENTRYPOINT_ADDRESS_V07,
     signer,
     safeVersion: '1.4.1',
@@ -63,7 +64,10 @@ export const getSmartAccountClient = async () => {
     erc7569LaunchpadAddress
   })
 
-  const smartAccountClient = createSmartAccountClient({
+export const getPermissionlessClient = async () => {
+  const account = await getPermissionlessAccount()
+
+  const permissionlessClient = createSmartAccountClient({
     chain: sepolia,
     account,
     bundlerTransport: http(pimlicoUrl),
@@ -74,5 +78,5 @@ export const getSmartAccountClient = async () => {
     }
   }).extend(erc7579Actions({ entryPoint: ENTRYPOINT_ADDRESS_V07 }))
 
-  return smartAccountClient as SafeSmartAccountClient
+  return permissionlessClient as PermissionlessClient
 }

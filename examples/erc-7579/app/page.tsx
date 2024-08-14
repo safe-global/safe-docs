@@ -1,69 +1,61 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
+import { useState } from 'react'
+import CircularProgress from '@mui/material/CircularProgress'
 import {
-  getSmartAccountClient,
-  publicClient,
-  type SafeSmartAccountClient
-} from '../lib/permissionless'
-
-import ScheduledTransferForm from '../components/ScheduledTransferForm'
-import abi from '../abi/ScheduleTransfersModule.json'
-import { scheduledTransfersModuleAddress } from '@/lib/scheduledTransfers'
-import ScheduledTransfers from '@/components/ScheduledTransfers'
-import ProcessedTransfers from '@/components/ProcessedTransfers'
+  getPermissionlessClient,
+  type PermissionlessClient
+} from '@/lib/permissionless'
+import { deploySafe, getSafeData } from '@/lib/safe'
+import SafeAccountDetails from '@/components/SafeAccountDetails'
+import SocialRecovery from '@/components/SocialRecovery'
 
 export default function Home () {
-  const [safe, setSafe] = useState<SafeSmartAccountClient | undefined>()
-  const [logs, setLogs] = useState<any[]>([])
+  const [permissionlessClient, setPermissionlessClient] = useState<
+    PermissionlessClient | undefined
+  >()
+
+  const [loading, setLoading] = useState(false)
+  const [safeOwners, setSafeOwners] = useState<`0x${string}`[]>()
 
   const handleLoadSafe = async () => {
-    const safe = await getSmartAccountClient()
-    setSafe(safe)
+    setLoading(true)
+    const permissionlessClient = await getPermissionlessClient()
+    const safeData = await getSafeData(permissionlessClient.account.address)
+    if (safeData.isDeployed === false) {
+      const txHash = await deploySafe(permissionlessClient)
+      console.log(
+        'Safe is being deployed: https://sepolia.etherscan.io/tx/' + txHash
+      )
+    }
+    setPermissionlessClient(permissionlessClient)
+    setSafeOwners(safeData.owners as `0x${string}`[])
+    setLoading(false)
   }
-
-  useEffect(() => {
-    const unwatch = publicClient.watchContractEvent({
-      address: scheduledTransfersModuleAddress,
-      abi,
-      // eventName: 'ExecutionAdded', // Optional
-      // args: { smartAccount: safe?.account.address }, // Optional
-      onLogs: logs => {
-        setLogs(_logs => [
-          ..._logs,
-          ...logs.filter(
-            log =>
-              !_logs.map(l => l.transactionHash).includes(log.transactionHash)
-          )
-        ])
-      }
-    })
-    return () => unwatch()
-    // }, [safe]) // Optional
-  }, [])
 
   return (
     <>
-      {safe == null ? (
+      {permissionlessClient == null ? (
         <>
-          <button onClick={handleLoadSafe} style={{ marginTop: '40px' }}>
-            Create Safe
+          <button
+            disabled={loading}
+            onClick={handleLoadSafe}
+            style={{ marginTop: '40px' }}
+          >
+            {loading ? (
+              <>
+                Loading...{' '}
+                <CircularProgress size='10px' sx={{ color: 'black' }} />
+              </>
+            ) : (
+              'Create Safe'
+            )}
           </button>
         </>
       ) : (
         <>
-          <ScheduledTransferForm safe={safe} />
-          <div
-            style={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center'
-            }}
-          >
-            <ScheduledTransfers transfers={logs} />
-            <ProcessedTransfers transfers={logs} />
-          </div>
+          <SafeAccountDetails {...{ permissionlessClient, safeOwners }} />
+          <SocialRecovery {...{ permissionlessClient, setSafeOwners }} />
         </>
       )}
     </>

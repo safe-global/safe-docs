@@ -40,8 +40,13 @@ const repos = [
     branch: 'main',
     files: [
       '/lib/permissionless.ts',
-      '/lib/scheduledTransfers.ts',
-      '/components/ScheduledTransferForm.tsx',
+      '/lib/safe.ts',
+      '/lib/socialRecovery.ts',
+      '/lib/userOp.ts',
+      '/lib/utils.ts',
+      '/components/Guardian.tsx',
+      '/components/SafeAccountDetails.tsx',
+      '/components/SocialRecovery.tsx',
       '/app/page.tsx',
       '/app/layout.tsx'
     ]
@@ -55,6 +60,7 @@ const generateCodeExamples = async ({
   destination,
   files
 }) => {
+  fs.rmSync(destination, { recursive: true, force: true })
   const fetch = await import('node-fetch')
   files.forEach(async filePath => {
     const url = `https://raw.githubusercontent.com/${organization}/${repo}/${branch}${filePath}?token=$(date +%s)`
@@ -70,7 +76,7 @@ const generateCodeExamples = async ({
         }
         fs.writeFileSync(destination + filePath, text)
       })
-      .catch((res) => {
+      .catch(res => {
         console.error('Error fetching file for', filePath, ':', res.statusText)
       })
   })
