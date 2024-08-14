@@ -1,19 +1,18 @@
 import { Callout } from 'nextra/components'
 
-
 # **How to build an app with Safe and ERC-7579**
 
 The smart account ecosystem was fragmented, with each provider building its own modules often incompatible with other smart account implementations. Developers had to build new modules compatible with their smart accounts or miss out on essential application features.
 
 [ERC-7579](https://docs.safe.global/advanced/erc-7579/overview) aims to ensure interoperability across implementations. It defines the account interface so developers can implement modules for all smart accounts that follow this standard. The Safe7579 Adapter makes your Safe compatible with any ERC-7579 modules. As a developer building with Safe, you get access to a rich ecosystem of modules to make your application feature-rich.
 
-Let's say you want to build an app to enable scheduling transfers for monthly salaries to a team of contributors. However, Safe does not offer a native module for scheduling transfers. With the ERC-7579 compatibility, you can use Rhinestone's [Scheduled Transfer module](https://docs.rhinestone.wtf/module-sdk/modules/scheduled-transfers) with Safe to build an app to schedule transfers ahead of time.
+Let's say you want to build an app to enable scheduling transfers for monthly salaries to a team of contributors. However, Safe does not offer a native module for scheduling transfers. With the ERC-7579 compatibility, you can use Rhinestone's [Social Recovery module](https://docs.rhinestone.wtf/module-sdk/modules/social-recovery) with Safe to build an app to recover your Safe in case you lose access to it.
 
 This tutorial will teach you to build an app that can:
 
 - Deploy an ERC-7579-compatible Safe Smart Account.
-- Create a scheduled transaction.
-- Execute it at the requested date and time.
+- Install the Social Recovery module and add guardians.
+- Recover your Safe by adding a guardian as a new owner.
 
 ![screenshot](../../../../assets/7579-tutorial.png)
 
@@ -25,6 +24,7 @@ Before progressing with the tutorial, please make sure you have:
 
 - Downloaded and installed [Node.js](https://nodejs.org/en/download/package-manager) and [pnpm](https://pnpm.io/installation).
 - Created an API key from [Pimlico](https://www.pimlico.io/).
+- Downloaded and installed [Metamask](https://metamask.io/download.html) or any other Ethereum wallet.
 
 **Note:** If you wish to follow along using the completed project, you can [check out the GitHub repository](https://github.com/5afe/safe-7579-tutorial) for this tutorial.
 
@@ -43,16 +43,17 @@ When prompted by the CLI:
 
 ### **Install dependencies**
 
-For this project, we'll use Pimlico's [Permissionless.js](https://docs.pimlico.io/permissionless) to set up a Safe and interact with it, Rhinestone's [Module SDK](https://docs.rhinestone.wtf/module-sdk) to install and use core modules, and [viem](https://www.npmjs.com/package/viem) for some helper functions.
+For this project, we'll use Pimlico's [Permissionless.js](https://docs.pimlico.io/permissionless) to set up a Safe and interact with it, Rhinestone's [Module SDK](https://docs.rhinestone.wtf/module-sdk) to install and use core modules, and the [Protocol Kit](../../../sdk/protocol-kit) to get our Safe data. We will also use [viem](https://www.npmjs.com/package/viem) for some helper functions, and [Material UI](https://mui.com) to style our app.
 
 <Callout type='warning' emoji='⚠️'>
-  As of now, `permissionless.js` can only be used to deploy single-signer Safe accounts. Multi-signature ERC-7579 Safes will be coming soon.
+  As of now, `permissionless.js` can only be used to deploy single-signer Safe
+  accounts. Multi-signature ERC-7579 Safes will be coming soon.
 </Callout>
 
 Run the following command to add all these dependencies to the project:
 
 ```shell
-pnpm add permissionless viem @rhinestone/module-sdk@0.1.4
+pnpm add permissionless viem @rhinestone/module-sdk@0.1.4 @safe-global/protocol-kit @mui/material @emotion/styled @emotion/react
 ```
 
 Now, create a file named `.env.local` at the root of your project, and add your Pimlico API key to it:
@@ -83,61 +84,112 @@ cd lib
 touch permissionless.ts
 ```
 
-Add the code necessary to create Pimlico's `smartAccountClient` by adding this content to `permissionless.ts` :
+Add the code necessary to create Pimlico's client by adding this content to `permissionless.ts` :
 
 ```typescript
 // from ../../../../examples/erc-7579/lib/permissionless.ts
 ```
 
 It will:
+
 - Load a `PRIVATE_KEY` from `.env.local` (or generate one if it doesn't exist);
 - Create the `publicClient`, `paymasterClient` and `bundlerClient` necessary to initialize the `permissionless` library;
-- Create an ERC-7579-compatible Safe Smart Account from the generated private key 
-- Pass the Safe Smart Account object to `createSmartAccountClient` to generate a Permissionless client.
+- Create an ERC-7579-compatible Safe Smart Account from the generated private key
+- Pass the Safe Smart Account object to `getPermissionlessAccount` to generate a Permissionless client.
 
-We can then call `getSmartAccountClient()` wherever we need to interact with the Safe via Pimlico.
+We can then call `getPermissionlessClient()` wherever we need to interact with the Safe via Pimlico.
 
 ## 3. Add Rhinestone module functionality
 
-Create a new file `scheduledTransfers.ts` in the `lib` folder:
+Create a new file `socialRecovery.ts` in the `lib` folder:
 
 ```shell
-touch scheduledTransfers.ts
+touch socialRecovery.ts
 ```
 
-Add the code necessary to create a scheduled transfer using Rhinestone's `ScheduledTransfers` module:
+Add the code necessary to recover your Safe using Rhinestone's `SocialRecovery` module:
+
 ```typescript
-// from ../../../../examples/erc-7579/lib/scheduledTransfers.ts
+// from ../../../../examples/erc-7579/lib/socialRecovery.ts
+```
+
+This file contains four functions:
+
+- `install7579Module` will install the module to a Safe;
+- `addGuardian` will add a guardian to the Safe.
+- `getGuardians` to get all the guardians added in a Safe where the module has been previously installed.
+- `recoverSafe` to recover the Safe by adding a guardian as a new owner.
+
+In the UI, we can then detect whether the Safe has the module installed. If not, it will let the user add guardians before installing it.
+
+## 4. Get Safe data
+
+Create a new file `safe.ts` in the `lib` folder:
+
+```shell
+touch safe.ts
+```
+
+This file will contain functions to get useful Safe data via the Protocol Kit:
+
+```typescript
+// from ../../../../examples/erc-7579/lib/safe.ts
+```
+
+It contains two functions:
+
+- `getSafeData` will get Safe information from the Protocol Kit, namely whether it is deployed, and its owners.
+- `deploySafe` will deploy a Safe (if it is not already deployed), here simply by making the Permissionless client send a dummy transaction.
+
+We will also add a file `utils.ts` in the `lib` folder, to contain a formatting function that will be used to display addresses in a more readable format.:
+
+```shell
+touch utils.ts
+```
+
+```typescript
+// from ../../../../examples/erc-7579/lib/utils.ts
+```
+
+Finally, we will add a file `userOp.ts` in the `lib` folder, which will be used to prepare the UserOperation to recover the Safe:
+
+```shell
+touch userOp.ts
+```
+
+```typescript
+// from ../../../../examples/erc-7579/lib/userOp.ts
 ```
 
 This file contains two functions:
-- `install7579Module` will install the module to a Safe and schedule its first transfer; 
-- `scheduleTransfer` to schedule subsequent transfers in a Safe where the module has been previously installed.
 
-In the UI, we can then detect whether the Safe has the module installed when a user tries to schedule a transfer. If not, it will run `install7579Module`; and if it does, it will run `scheduleTransfer`.
+- `getUserOp` will prepare the UserOperation to recover the Safe, in this case by adding the first guardian as a new owner.
+- `getUserOpHash` will create a hash from the UserOperation, which can be signed by the guardians and included in the recovery transaction.
 
-For brevity, we are only covering a simple use case of the `ScheduledTransfers` module. You can find more information about the module's functionalities in the [Rhinestone documentation](https://docs.rhinestone.wtf/module-sdk/modules/scheduled-transfers), such as the capacity to schedule recurring transfers, with a pre-determined number of repeats.
+## 5. Add UI components
 
-## 4. Add UI components
-
-Now that we have the logic necessary to set up a safe and schedule a transfer, let's create a simple UI to interact with it. Create a new file `ScheduledTransferForm.tsx` in the `components` folder:
+Now that we have the logic necessary to create and recover a Safe, let's create a simple UI to interact with it. Create a new file `SafeAccountDetails.tsx` in the `components` folder:
 
 ```shell
 cd ..
 mkdir components
 cd components
-touch ScheduledTransferForm.tsx
+touch SafeAccountDetails.tsx
 ```
 
-Add the following code to `ScheduledTransferForm.tsx`:
+Add the following code to `SafeAccountDetails.tsx`:
 
 ```tsx
-// from ../../../../examples/erc-7579/components/ScheduledTransferForm.tsx
+// from ../../../../examples/erc-7579/components/SafeAccountDetails.tsx
 ```
 
-This component will provide a form to allow the user to input the amount, receiver address, and date and time for the scheduled transfer. It will detect whether the Safe has the module installed, and then call either `install7579Module` or `scheduleTransfer` from the `scheduledTransfers.ts` file.
+This component will provide a form to allow the user to input the address of `n` guardians, where `n` is a threshold that can be modified in the code. The component will detect whether the Safe has the module installed, and then call `install7579Module`.
 
-Now, edit `app/page.tsx` to include the `ScheduledTransferForm` component:
+If the module is installed, this component will create the [`UserOperation`](/glossary#useroperation) to recover the Safe. The component will allow all the guardians to sign a hash of this `UserOperation`. It will request access to the user wallet (such as Metamask for example), and prepare the message to sign.
+
+If the threshold is reached and all the signatures are gathered, then the user is prompted to execute the `UserOperation`, and the safe is recovered.
+
+Now, edit `app/page.tsx` to include all our components:
 
 ```tsx
 // from ../../../../examples/erc-7579/app/page.tsx
@@ -190,11 +242,21 @@ That's it! You can find the source code for the example created in this tutorial
 
 ![screenshot-finalized](../../../../assets/7579-tutorial-2.png)
 
-Click the **Create Safe** button to initialize the Permissionless client with the private key you stored on `.env.local`. It will deploy an ERC-7579-compatible Safe Smart Account on its first transaction.
+Click the **Create Safe** button to initialize the Permissionless client with the private key you stored on `.env.local`. It will deploy an ERC-7579-compatible Safe Smart Account.
 
 ![screenshot](../../../../assets/7579-tutorial-3.png)
 
-Once loaded, you will be able to choose an amount to send, a receiver address and select a date and time for your scheduled payment. Click **Schedule Transfer** to send the transaction. The first time you do this, it will deploy the Safe to Sepolia test network and install the ScheduledTransfers module.
+Once loaded, you will be able to choose guardians and enable the Social Recovery module. Click **Enable Social Recovery** to install the module and add these addresses as your Safe's guardians. Try adding a few addresses from your Metamask wallet.
+
+You can then recover your Safe by signing all the messages necessary to reach the threshold. The app will request access to your wallet to sign the messages; please connect it to all the accounts you added as guardians, so you can sign the corresponding messages with each account. The app will automatically route the correct message to the correct connected account and signature.
+
+Once all the signatures are gathered, the app will let you execute the UserOperation. Click **Execute Recovery** to recover your Safe. Once complete, you should see `Guardian #1` as a new owner of the Safe, along with the address corresponding to the private key in your `.env.local`.
+
+<Callout severity='info'>
+  Some `UserOperations` may take some time to execute. If you encounter any
+  issues, check the console for any timeout errors and refresh the page if
+  needed.
+</Callout>
 
 ## **Do more with Safe and ERC-7579**
 
