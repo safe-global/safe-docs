@@ -1,5 +1,8 @@
 import { Steps, Callout } from 'nextra/components'
 import Image from 'next/image'
+import StripeKycPersonalInfoImage from '../../../../assets/stripe-kyc-personal-info.png'
+import KycAddress from '../../../../assets/stripe-kyc-address.png'
+import PaymentMethod from '../../../../assets/stripe-kyc-payment-method.png'
 
 # Onramping with Stripe
 
@@ -21,12 +24,12 @@ When your application is approved, you will find your public and private keys in
 
 ### Install the SDK and client library
 
-You can install the Stripe SDK as a script or as a package. 
+You can add the Stripe SDK as a script or install it as an npm package. 
 
 <CH.Section>
   <CH.Code style={{boxShadow: 'none'}}>
 
-    ```html script
+    ```html Script
     <head>
       <title>Onramp</title>
       <script src="https://js.stripe.com/v3/"></script>
@@ -34,7 +37,7 @@ You can install the Stripe SDK as a script or as a package.
     </head>
     ```
 
-    ```bash package
+    ```bash npm
     npm install --save @stripe/stripe-js @stripe/crypto
     ```
   </CH.Code>
@@ -54,7 +57,7 @@ Here is how you generate a crypto onramp session using your private key:
 
 <CH.Section>
   <CH.Code style={{boxShadow: 'none'}}>
-    ```typescript typescript
+    ```typescript TypeScript
       const stripeSessionResponse = await fetch(
         'https://api.stripe.com/v1/crypto/onramp_sessions',
         {
@@ -141,7 +144,7 @@ Now Stripe will render the widget in the `onramp-element` div, allowing users to
 
 ## Test the Stripe widget
 
-  In production, each customer should pass an individual KYC process but probably you want to test your application before 😊. 
+  In production, each customer should pass an individual KYC process but probably you want to test your application before. 
   You can use the following test data for bypass the KYC process while in [test mode](https://stripe.com/docs/test-mode).
   Also, you have to select USD as the currency to buy crypto currency.
 
@@ -167,17 +170,17 @@ Now Stripe will render the widget in the `onramp-element` div, allowing users to
   | **Billing Zip Code**        | 12345                       | Use any zip code 12345 for billing               
 
 
-In the following images you can find examples of the KYC process and the payment method:
+In the following images you can find examples of the KYC process and the payment method.
 
 Personal Info:
 
-<Image src="https://user-images.githubusercontent.com/9806858/228418052-30b2239a-ca19-4639-9858-4344d3ba7d45.png" width={300} height={500} alt="KYC Personal info example" />
+<Image src={StripeKycPersonalInfoImage} width={300} height={500} alt="KYC Personal info example" />
 
 Address:
-<Image src="https://user-images.githubusercontent.com/9806858/228418056-48cfa6a6-fde9-4504-a8be-ce91b03c960f.png" width={300} height={500} alt="KYC Address Example" />
+<Image src={KycAddress} width={300} height={500} alt="KYC Address Example" />
 
 Payment Method:
-<Image src="https://user-images.githubusercontent.com/9806858/228418059-b83b6357-a6b0-4f09-a4b2-3b89767cb4f0.png" width={300} height={500} alt="Payment Method" />
+<Image src={PaymentMethod} width={300} height={500} alt="Payment Method" />
 
 These date will allow you to test the Stripe widget without passing the KYC process.
 
