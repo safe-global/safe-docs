@@ -7,7 +7,7 @@ import PaymentMethod from '../../../../assets/stripe-kyc-payment-method.png'
 # Onramping with Stripe
 
 <Callout type="info" emoji="ℹ️">
-With the deprecation of the Onramp SDK, developers are now directed to integrate directly with Stripe’s Crypto Onramp service.
+  With the Onramp SDK deprecated, developers are now directed to integrate directly with Stripe’s Crypto Onramp service.
 </Callout>
 
 ## Integrate the Stripe Crypto Onramp Widget
@@ -46,12 +46,12 @@ You can add the Stripe SDK as a script or install it as an npm package.
 ### Generate a new `client_secret`
 
 For each session of your user, you need to generate a `client_secret` to initialize the Stripe widget.
-For this, you need to generate a crypto onramp session using your Stripe private key.
-You have to make an API request to the [Stripe API](https://docs.stripe.com/api/crypto/onramp_sessions) to create a new session.
+You must generate a crypto onramp session using your Stripe private key to do this.
+To create a new session, you must make an API request to the [Stripe API](https://docs.stripe.com/api/crypto/onramp_sessions).
 The new session will have a unique `client_secret` that you can use to initialize the Stripe widget for your user.
 
-As you use your private key, the request must be made from your backend.
-The backend can then send the `client_secret` to your frontend.
+Using your private key, you want to ensure your backend makes the request.
+The backend can then send the `client_secret` to your front end.
 You can use the [Safe example Stripe](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/example/server) server as a starting point for your backend.
 
 Here is how you generate a crypto onramp session using your private key:
@@ -139,7 +139,7 @@ You can listen to the [frontend events](https://docs.stripe.com/crypto/using-the
 
 </Steps>
 
-Now Stripe will render the widget in the `onramp-element` div, allowing users to purchase cryptocurrencies securely.
+Now, Stripe will render the widget in the `onramp-element` div, allowing users to purchase cryptocurrencies securely.
 
 ![The Stripe widget](https://b.stripecdn.com/docs-statics-srv/assets/crypto-onramp-overview.c4c0682697f2cd4c1c2769c3c5e08506.png)
 
@@ -147,9 +147,9 @@ Now Stripe will render the widget in the `onramp-element` div, allowing users to
 
 ### Test customer data
 
-  In production, each customer should pass an individual KYC process but probably you want to test your application before. 
-  You can use the following test data for bypass the KYC process while in [test mode](https://stripe.com/docs/test-mode).
-  Also, you have to select USD as the currency to buy crypto currency.
+  In production, each customer should pass an individual KYC process, but you should probably test your application before that. 
+  You can use the following test data to bypass the KYC process while in [test mode](https://stripe.com/docs/test-mode).
+  Also, you have to select USD as the currency to buy cryptocurrency.
 
 
   | **Field**                   | **Value**                   | **Description**                                               |
@@ -175,7 +175,7 @@ Now Stripe will render the widget in the `onramp-element` div, allowing users to
 
 ### Example input for KYC and payment method
 
-In the following images you can find examples of the KYC process and the payment method.
+In the following images, you will find examples of the KYC process and payment method.
 
 Personal Info:
 
@@ -187,11 +187,11 @@ Address:
 Payment Method:
 <Image src={PaymentMethod} width={300} height={500} alt="Payment Method" />
 
-These date will allow you to test the Stripe widget without passing the KYC process.
+These data will allow you to test the Stripe widget without passing the KYC process.
 
 ## Conclusion
 
 Well done, you have successfully integrated the Stripe Crypto Onramp service into your application.
 Your users can now purchase cryptocurrencies securely within your app.
 
-If you have any questions or encounter any issues, reach out to [Stripe support](https://support.stripe.com/) team.
+If you have any questions or encounter any issues, contact the [Stripe support](https://support.stripe.com/) team.
