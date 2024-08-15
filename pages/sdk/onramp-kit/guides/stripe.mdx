@@ -43,9 +43,10 @@ You can add the Stripe SDK as a script or install it as an npm package.
   </CH.Code>
 </CH.Section>
 
-### Generate a crypto onramp session
+### Generate a new `client_secret`
 
-You need to generate a crypto onramp session using your stripe private key.
+For each session of your user, you need to generate a `client_secret` to initialize the Stripe widget.
+For this, you need to generate a crypto onramp session using your Stripe private key.
 You have to make an API request to the [Stripe API](https://docs.stripe.com/api/crypto/onramp_sessions) to create a new session.
 The new session will have a unique `client_secret` that you can use to initialize the Stripe widget for your user.
 
@@ -65,7 +66,7 @@ Here is how you generate a crypto onramp session using your private key:
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             Authorization:
-              'Bearer sk_test_51...Eg7o' // your private key for stripe
+              'Bearer sk_test_51...Eg7o' // your private key for Stripe
           },
           body: 'wallet_addresses[ethereum]=0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d'
         }
@@ -77,7 +78,7 @@ Here is how you generate a crypto onramp session using your private key:
 
     ```bash curl
       curl -X POST https://api.stripe.com/v1/crypto/onramp_sessions \
-        # your private key for stripe
+        # your private key for Stripe
         -u sk_test_51...Eg7o: \
         # optional parameters, for example a wallet address
         -d "wallet_addresses[ethereum]"="0xB00F0759DbeeF5E543Cc3E3B07A6442F5f3928a2"
@@ -87,7 +88,7 @@ Here is how you generate a crypto onramp session using your private key:
 
 ### Initialize the Stripe widget
 
-The stripe widget is a secure iframe that allows users to purchase cryptocurrencies.
+The Stripe widget is a secure iframe that allows users to purchase cryptocurrencies.
 
 You can initialize the Stripe widget using the `client_secret` you obtained from the previous step:
 
