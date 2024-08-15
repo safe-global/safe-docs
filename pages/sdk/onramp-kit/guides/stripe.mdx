@@ -94,7 +94,7 @@ You can initialize the Stripe widget using the `client_secret` you obtained from
 
 <CH.Section>
   <CH.Code style={{boxShadow: 'none'}}>
-    ```typescript typescript
+    ```typescript TypeScript
       // StripeOnramp is imported with the scripts from step one  
       const stripeOnramp = StripeOnramp(
         'pk_test_51PkLqwRvqtcdqsBC22vvbPYbKC5nStaz6ezijBKle8oCzbSVm6luhXfeMqm7nJzckauM1t6pLV5xjEJFikrVKoqC00x5HGGgYH'
@@ -116,7 +116,7 @@ You can initialize the Stripe widget using the `client_secret` you obtained from
 
 You can listen to the [frontend events](https://docs.stripe.com/crypto/using-the-api#frontend-events) from the Stripe widget to update your UI or handle errors.
 
-```typescript typescript
+```typescript TypeScript
   // Listen to events using the onrampSession object from one of the previous step
   onrampSession.addEventListener('onramp_ui_loaded', event => {
     console.log('Onramp UI loaded:', event)
