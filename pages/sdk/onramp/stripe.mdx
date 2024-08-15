@@ -59,7 +59,7 @@ The new session will have a unique `client_secret` that you can use to initializ
 
 Using your private key, you want to ensure your backend makes the request.
 The backend can then send the `client_secret` to your front end.
-You can use the [Safe example Stripe](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/example/server) server as a starting point for your backend.
+You can use the [example Stripe server](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/example/server) as a starting point for your backend.
 
 Here is how you generate a crypto onramp session using your private key:
 
@@ -75,6 +75,7 @@ Here is how you generate a crypto onramp session using your private key:
             Authorization:
               'Bearer sk_test_51...Eg7o' // your private key for Stripe
           },
+          // optional parameters, for example the wallet address of the user's Safe
           body: 'wallet_addresses[ethereum]=0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d'
         }
       )
@@ -156,7 +157,7 @@ Now, Stripe will render the widget in the `onramp-element` div, allowing users t
 
   In production, each customer should pass an individual KYC process, but you should probably test your application before that. 
   You can use the following test data to bypass the KYC process while in [test mode](https://stripe.com/docs/test-mode).
-  Also, you have to select USD as the currency to buy cryptocurrency.
+  Make sure to select USD as the currency to buy cryptocurrency with.
 
 
   | **Field**                   | **Value**                   | **Description**                                               |
@@ -180,9 +181,9 @@ Now, Stripe will render the widget in the `onramp-element` div, allowing users t
   | **Billing Zip Code**        | 12345                       | Use any zip code 12345 for billing               
 
 
-### Example input for KYC and payment method
+### Example images for KYC and payment method
 
-In the following images, you will find examples of the KYC process and payment method.
+In the following images, you'll find examples of how to complete the KYC process and setup the payment method for a successful test purchase.
 
 Personal Info:
 
