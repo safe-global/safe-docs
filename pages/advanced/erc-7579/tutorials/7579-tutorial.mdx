@@ -183,9 +183,37 @@ Add the following code to `SafeAccountDetails.tsx`:
 // from ../../../../examples/erc-7579/components/SafeAccountDetails.tsx
 ```
 
+This component will display the Safe's details, such as the address, owners, and whether the Social Recovery module is installed.
+
+Now, create a new file `SocialRecovery.tsx` in the same folder:
+
+```shell
+touch SocialRecovery.tsx
+```
+
+Add the following code to `SocialRecovery.tsx`:
+
+```tsx
+// from ../../../../examples/erc-7579/components/SocialRecovery.tsx
+```
+
 This component will provide a form to allow the user to input the address of `n` guardians, where `n` is a threshold that can be modified in the code. The component will detect whether the Safe has the module installed, and then call `install7579Module`.
 
-If the module is installed, this component will create the [`UserOperation`](/glossary#useroperation) to recover the Safe. The component will allow all the guardians to sign a hash of this `UserOperation`. It will request access to the user wallet (such as Metamask for example), and prepare the message to sign.
+If the module is installed, this component will create the [`UserOperation`](/glossary#useroperation) to recover the Safe.
+
+Then, create a new file `Guardian.tsx` in the `components` folder:
+
+```shell
+touch Guardian.tsx
+```
+
+Add the following code to `Guardian.tsx`:
+
+```tsx
+// from ../../../../examples/erc-7579/components/Guardian.tsx
+```
+
+This component will provide state for each guardian that will be added, and will allow them to sign a hash of this `UserOperation`. It will request access to the user wallet (such as Metamask for example), and prepare the message to sign.
 
 If the threshold is reached and all the signatures are gathered, then the user is prompted to execute the `UserOperation`, and the safe is recovered.
 
