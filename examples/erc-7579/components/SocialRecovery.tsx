@@ -82,7 +82,7 @@ const SocialRecovery: React.FC<{
         Social Recovery module installed:{' '}
         {is7579Installed
           ? 'Yes ✅'
-          : 'No, add at least two guardians to install it!'}
+          : `No, add at least ${threshold} guardians to install it!`}
       </div>
       <div>
         {txHash ? (
