@@ -43,7 +43,7 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   ### Imports
 
-  Here are all the necessary imports for this guide.
+  Here are the necessary imports for this guide. 
 
   {/* <!-- vale off --> */}
 
@@ -55,11 +55,13 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   {/* <!-- vale on --> */}
 
+  In addition, you will need to import a web3 library of your choice to use in the "Get the provider and signer" section. In this guide, we are using `viem`.
+
   ### Get the Client ID
 
   Check Web3Auth documentation on how to create a new project in their [dashboard](https://dashboard.web3auth.io) and [get the client ID](https://web3auth.io/docs/dashboard-setup/projects-and-analytics#client-id).
 
-  Once you have it, we need to initialize the `CLIENT_ID` variable with it.
+  Once you have it, you need to initialize the `CLIENT_ID` variable with it.
 
   {/* <!-- vale off --> */}
 
@@ -71,11 +73,11 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   ### Initialize Web3Auth
 
-  Web3Auth initialization is done by instantiating the `Web3Auth` class with a `clientId`, a `privateKeyProvider` and some other configuration parameters like `web3AuthNetwork`, depending on if we are using it in a development or production environment. The full list of parameters can be checked in the [Instantiating Web3Auth guide](https://web3auth.io/docs/sdk/pnp/web/modal/initialize#instantiating-web3auth) from Web3Auth.
+  Web3Auth initialization is done by instantiating the `Web3Auth` class with a `clientId`, a `privateKeyProvider` and some other configuration parameters like `web3AuthNetwork`, depending on if you are using it in a development or production environment. The full list of parameters can be checked in the [Instantiating Web3Auth guide](https://web3auth.io/docs/sdk/pnp/web/modal/initialize#instantiating-web3auth) from Web3Auth.
 
   To instantiate the `privateKeyProvider` you need to define the configuration of the selected chain for the signer with several properties like the ones listed below as an example for Sepolia testnet.
 
-  After initializing the `web3auth` instance, we need to call the `initModal()` method.
+  After initializing the `web3auth` instance, you need to call the `initModal()` method.
 
   {/* <!-- vale off --> */}
 
@@ -120,13 +122,13 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   ### Get the provider and signer
 
-  Once the user is logged in, we can get the `provider` and `signerAddress`, which is the externally-owned account of the user that was derived from its credentials.
+  Once the user is logged in, you can get the `provider` and `signerAddress`, which is the externally-owned account of the user that was derived from its credentials.
 
   {/* <!-- vale off --> */}
 
   <Tabs items={['viem']}>
     <Tabs.Tab>
-      We can instantiate the provider using `viem` and the following imports:
+      You can instantiate the provider using `viem` and the following imports:
 
       ```typescript
       import { createWalletClient, custom } from 'viem'
@@ -146,12 +148,12 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   {/* <!-- vale on --> */}
 
-  With the `provider` and `signerAddress` you are ready to instantiate any of the kits from the Safe\{Core\} SDK and setup or use this signer as a Safe owner.
+  With the `provider` and `signerAddress` you are ready to instantiate any of the kits from the Safe\{Core\} SDK and set up or use this signer as a Safe owner.
 
   ### Logout
 
-  Finally, to logout the user you just need to call the following method.
-  
+  Finally, to logout the user, call the `logout()` method.
+
   {/* <!-- vale off --> */}
 
   ```typescript
@@ -164,7 +166,7 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
 ## Recap and further reading
 
-After following this guide, we are able to create a Safe signer using Web3Auth and get the `provider` and `signerAddress` required to initialize the kits from the Safe\{Core\} SDK.
+After following this guide, you are able to create a Safe signer using Web3Auth and get the `provider` and `signerAddress` required to initialize the kits from the Safe\{Core\} SDK.
 
 Learn more about Web3Auth by checking the following resources:
 

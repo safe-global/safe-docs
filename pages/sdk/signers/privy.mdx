@@ -43,7 +43,7 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   ### Imports
 
-  Here are all the necessary imports for this guide.
+  Here are the necessary imports for this guide.
 
   {/* <!-- vale off --> */}
 
@@ -53,11 +53,13 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   {/* <!-- vale on --> */}
 
+  In addition, you will need to import a web3 library of your choice to use in the "Get the provider and signer" section. In this guide, we are using `viem`.
+
   ### Get the App ID
 
   Check Privy documentation on how to create a new project in their [dashboard](https://dashboard.privy.io) and [get the client ID](https://docs.privy.io/guide/react/configuration/app-clients#app-clients).
 
-  Once you have it, we need to initialize the `APP_ID` variable with it.
+  Once you have it, you need to initialize the `APP_ID` variable with it.
 
   {/* <!-- vale off --> */}
 
@@ -90,7 +92,7 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   {/* <!-- vale on --> */}
 
-  In this guide we will use the following variables and methods from the `usePrivy()` and `useWallets()` React hooks.
+  In this guide you will use the following variables and methods from the `usePrivy()` and `useWallets()` React hooks.
   
   {/* <!-- vale off --> */}
 
@@ -115,15 +117,15 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   ### Get the provider and signer
 
-  Once the user is logged in, we can get the `provider` and `signerAddress`, which is the externally-owned account of the user that was derived from its credentials.
+  Once the user is logged in, you can get the `provider` and `signerAddress`, which is the externally-owned account of the user that was derived from its credentials.
   
-  To do that we have a `useEffect()` that is executed when any of the `ready`, `authenticated`, `readyWallets` and `wallets` variables have its value updated. Once they all are `true` and `wallets` has a length greater than zero, we have access to the `wallets` first element, which is the user's connected signer.
+  To do that there is a `useEffect()` that is executed when any of the `ready`, `authenticated`, `readyWallets` and `wallets` variables have its value updated. Once they all are `true` and `wallets` has a length greater than zero, you have access to the `wallets` first element, which is the user's connected signer.
 
   {/* <!-- vale off --> */}
 
   <Tabs items={['viem']}>
     <Tabs.Tab>
-      We can instantiate the provider using `viem` and the following imports:
+      You can instantiate the provider using `viem` and the following imports:
 
       ```typescript
       import { createWalletClient, custom } from 'viem'
@@ -152,12 +154,12 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
   
   {/* <!-- vale on --> */}
 
-  With the `provider` and `signerAddress` you are ready to instantiate any of the kits from the Safe\{Core\} SDK and setup or use this signer as a Safe owner.
+  With the `provider` and `signerAddress` you are ready to instantiate any of the kits from the Safe\{Core\} SDK and set up or use this signer as a Safe owner.
 
   ### Logout
 
-  Finally, to logout the user you just need to call the following method.
-  
+  Finally, to logout the user, call the `logout()` method.
+
   {/* <!-- vale off --> */}
 
   ```typescript
@@ -170,7 +172,7 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
 ## Recap and further reading
 
-After following this guide, we are able to create a Safe signer using Privy and get the `provider` and `signerAddress` required to initialize the kits from the Safe\{Core\} SDK.
+After following this guide, you are able to create a Safe signer using Privy and get the `provider` and `signerAddress` required to initialize the kits from the Safe\{Core\} SDK.
 
 Learn more about Privy by checking the following resources:
 
