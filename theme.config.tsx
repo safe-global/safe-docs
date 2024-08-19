@@ -53,16 +53,7 @@ const config: DocsThemeConfig = {
       titleTemplate
     }
   },
-  main: Main,
-  banner: {
-    key: 'build-the-new-internet',
-    text: (
-      <a href='/build-the-new-internet' target='_blank'>
-        💰 Are you hacking at Build The New Internet? Check our bounties →
-      </a>
-    ),
-    dismissible: true
-  }
+  main: Main
 }
 
 export default config
