@@ -11,7 +11,7 @@ More info about Monerium:
 - [Monerium](https://monerium.com)
 - [Monerium Developers](https://monerium.dev)
 
-This guide demonstrates how to use the Monerium SDK and the Safe SDK together to enable direct transfers from Safe accounts to an IBAN via the SEPA network.
+This guide demonstrates how to use the Monerium SDK and the Safe\{Core\} SDK together to enable direct transfers from Safe accounts to an IBAN via the SEPA network.
 
 ## Prerequisites
 
@@ -38,7 +38,7 @@ Then, the user can authenticate with Monerium.
 First, your user has to sign a message with the Safe to prove ownership of the Safe. 
 Monerium will scan the signed messages in the Safe to verify ownership.
 
-Use the Safe SDK, as shown below, to sign a message with multiple owners (for example, a two-out-of-three Safe). 
+Use the Safe\{Core\} SDK, as shown below, to sign a message with multiple owners (for example, a two-out-of-three Safe). 
 This example programmatically signs a message with two owners. 
 In practice, one owner proposes the transaction, and another owner (or passkey) confirms it using the Safe Wallet UI.
 
@@ -49,7 +49,7 @@ import Safe, {
 } from '@safe-global/protocol-kit'
 import { constants } from '@monerium/sdk'
 
-// Initialize the Safe SDK and link it to an existing Safe
+// Initialize the Safe\{Core\} SDK and link it to an existing Safe
 const protocolKit = await Safe.init({
   provider: RPC_URL, // set a valid RPC URL
   signer: OWNER_1_PRIVATE_KEY, // set the private key of the first Safe owner
@@ -97,8 +97,8 @@ const transactionResult = await protocolKitOfOwner2.executeTransaction(
 console.log('transactionResult', transactionResult)
 ```
 
-The `protocolKit` is an instance of the [`Safe`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/Safe.ts) class. 
-For more information on instantiating the `protocol-kit,` refer to the [Protocol Kit Quickstart section](../../protocol-kit.mdx).
+The `protocolKit` is an instance of the [`Safe`](../protocol-kit/reference/safe.mdx) class. 
+For more information on instantiating the `protocol-kit,` refer to the [Protocol Kit Quickstart section](../protocol-kit.mdx).
 
 ### Initialize the Monerium client and authenticate the user
 
@@ -154,7 +154,7 @@ Now that the user is authenticated with Monerium, you can place an order to tran
 First, your user needs to obtain some EURe test tokens on Sepolia:
 
 * Log into the [Monerium Sandbox](https://sandbox.monerium.dev/accounts) account.
-* Click on the `Add Money` button.
+* Click on the `ADD MONEY` button.
 * Create a test IBAN transfer onto the account. The tokens from this test transfer will be available in the Safe.
 
 <Image src={MoneriumAddMoney} width={300} height={500}  />
@@ -219,7 +219,7 @@ const safeTransactionData = {
   operation: OperationType.DelegateCall
 }
 
-// Create a transaction with the Safe SDK
+// Create a transaction with the Safe\{Core\} SDK
 const signMessageTx = await protocolKit.createTransaction({
   transactions: [safeTransactionData]
 })
@@ -243,3 +243,7 @@ Well done! You have linked your user's Safes to an IBAN, bridging the gap betwee
 In the next steps, you could use [event listeners](https://monerium.github.io/js-sdk/#subscribe-to-order-events) to make your app more interactive.
 
 Also, make sure to check out the [Monerium Developer Portal](https://monerium.dev/docs/welcome) and the [SDK Documentation](https://monerium.github.io/js-sdk/) for more information on how to use the SDK.
+
+## Further reading
+
+* [Monerium SDK](https://www.npmjs.com/package/@monerium/sdk)

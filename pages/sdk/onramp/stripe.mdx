@@ -10,7 +10,7 @@ import PaymentMethod from '../../../assets/stripe-kyc-payment-method.png'
   With the Onramp SDK deprecated, developers are now directed to integrate directly with Stripe’s Crypto Onramp service.
 </Callout>
 
-The Stripe Crypto Onramp service allows you to integrate a secure widget into your application that enables users to purchase cryptocurrencies using their credit card or bank account.
+The Stripe fiat-to-crypto onramp service allows you to integrate a secure widget into your application that enables users to purchase cryptocurrencies using their credit card or bank account.
 
 ## Prerequisites
 
@@ -19,19 +19,19 @@ The Stripe Crypto Onramp service allows you to integrate a secure widget into yo
 3. A web application using your favorite CLI and language. For example [React with NextJS](https://nextjs.org/docs), [Vue with Nuxt](https://nuxt.com/) or [Svelte with SvelteKit](https://kit.svelte.dev/).
 4. A [deployed Safe](../../../sdk/protocol-kit.mdx) for your user.
 
-## Integrate the Stripe Crypto Onramp Widget
+## Integrate the Stripe fiat-to-crypto onramp widget
 
 <Steps>
 
 ### Obtain your public and private keys
 
-To use the Stripe Crypto Onramp service, you need to obtain your [public and private keys](https://docs.stripe.com/keys).
+To use the Stripe fiat-to-crypto onramp service, you need to obtain your [public and private keys](https://docs.stripe.com/keys).
 You have to apply for the crypto onramp service and add at least your business address and information to your Stripe account.
 When your application is approved, you will find your public and private keys in your [Stripe Developer Dashboard](https://dashboard.stripe.com/test/apikeys).
 
-### Install the SDK and client library
+### Install the client library
 
-You can add the Stripe SDK as a script or install it as an npm package. 
+You can add Stripe's client library as a script or install it as an npm package. 
 
 <CH.Section>
   <CH.Code style={{boxShadow: 'none'}}>
@@ -185,21 +185,23 @@ Now, Stripe will render the widget in the `onramp-element` div, allowing users t
 
 In the following images, you'll find examples of how to complete the KYC process and setup the payment method for a successful test purchase.
 
-Personal Info:
+#### Personal Info
 
 <Image src={StripeKycPersonalInfoImage} width={300} height={500} alt="KYC Personal info example" />
 
-Address:
+#### Address
+
 <Image src={KycAddress} width={300} height={500} alt="KYC Address Example" />
 
-Payment Method:
+#### Payment Method
+
 <Image src={PaymentMethod} width={300} height={500} alt="Payment Method" />
 
 These data will allow you to test the Stripe widget without passing the KYC process.
 
 ## Conclusion
 
-Well done, you have successfully integrated the Stripe Crypto Onramp service into your application.
+Well done, you have successfully integrated the Stripe fiat-to-crypto onramp service into your application.
 Your users can now purchase cryptocurrencies securely within your app.
 
 If you have any questions or encounter any issues, contact the [Stripe support](https://support.stripe.com/) team.
