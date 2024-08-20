@@ -294,7 +294,7 @@ const SubFooter: React.FC = () => {
           })}
         </ul>
       </Grid>
-      <Grid item my={2}>
+      <Grid item>
         <Typography color='primary.light' variant='body2' fontSize='16px'>
           ©2023-{new Date().getFullYear()} Safe Ecosystem Foundation
         </Typography>
