@@ -1,5 +1,5 @@
 html.dark.dark body {
-  font-family: 'Citerne', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   background-color: #121312;
 }
 
@@ -96,8 +96,8 @@ li > ul.nx-mt-6 {
   }
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Citerne';
   font-display: swap;
   src: url('/fonts/Citerne-Light.woff') format('woff');
-}
+} */
