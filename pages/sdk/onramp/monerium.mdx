@@ -40,7 +40,7 @@ Monerium will scan the signed messages in the Safe to verify ownership.
 
 Use the Safe\{Core\} SDK, as shown below, to sign a message with multiple owners (for example, a two-out-of-three Safe). 
 This example programmatically signs a message with two owners. 
-In practice, one owner proposes the transaction, and another owner (or passkey) confirms it using the Safe Wallet UI.
+In practice, one owner proposes the transaction, and another owner (or passkey) confirms it using the [Safe\{Wallet\}](https://app.safe.global/) UI.
 
 ```typescript
 import Safe, {
@@ -203,7 +203,7 @@ Monerium will listen for the sign message transaction of the following step on t
 
 Now, the Safe needs to sign the order. 
 To do this, send a sign message transaction to the blockchain. 
-In practice, one owner might propose this transaction using the Safe Transaction Service. The other owner confirms the message and sends the transaction through the Safe Wallet UI.
+In practice, one owner might propose this transaction using the Safe Transaction Service. The other owner confirms the message and sends the transaction through the [Safe\{Wallet\}](https://app.safe.global/) UI.
 
 ```typescript
 // Hash and encode the order message
