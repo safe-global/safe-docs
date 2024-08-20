@@ -1,0 +1,150 @@
+
+
+import { Tabs, Steps, Callout } from 'nextra/components'
+
+# Magic Signer
+
+In this guide, you will learn how to create a [Magic](https://magic.link/) signer that can be added as a Safe owner and used to initialize any of the kits from the Safe\{Core\} SDK.
+
+Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on GitHub to follow along this guide with the completed code.
+
+## Prerequisites
+
+- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+- A [Magic account](https://dashboard.magic.link) and an API key.
+
+## Install dependencies
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['npm', 'yarn', 'pnpm']}>
+  <Tabs.Tab>
+    ```bash
+    npm install magic-sdk
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    yarn add magic-sdk
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    pnpm add magic-sdk
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Steps
+
+<Steps>
+
+  ### Imports
+
+  Here are the necessary imports for this guide.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  import { Magic } from 'magic-sdk'
+  ```
+
+  {/* <!-- vale on --> */}
+
+  In addition, you will need to import a web3 library of your choice to use in the "Get the provider and signer" section. In this guide, we are using `viem`.
+
+  ### Get the API Key
+
+  Check Magic documentation on how to create a new project in their [dashboard](https://dashboard.magic.link) and [get the API key.](https://magic.link/docs/home/quickstart/cli#add-your-api-key)
+
+  Once you have it, you need to initialize the `MAGIC_API_KEY` variable with it.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const MAGIC_API_KEY = // ...
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Initialize Magic
+
+  Magic initialization is done by instantiating the `Magic` class with an `MAGIC_API_KEY`. Optionally, it also accepts some configuration parameters that can be checked in the [Magic Web API Reference](https://magic.link/docs/api/client-side-sdks/web).
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const magic = new Magic(MAGIC_API_KEY)
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Login
+
+  To login with an email address or social account you need to call the following method, that will open the popup and request the user to submit the login form.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  await magic.wallet.connectWithUI()
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Get the provider and signer
+
+  Once the user is logged in, you can get the `provider` and `signerAddress`, which is the externally-owned account of the user that was derived from its credentials.
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['viem']}>
+    <Tabs.Tab>
+      You can instantiate the provider using `viem` and the following imports:
+
+      ```typescript
+      import { createWalletClient, custom } from 'viem'
+      import { sepolia } from 'viem/chains'
+      ```
+
+      ```typescript
+      const provider = createWalletClient({
+        chain: sepolia,
+        transport: custom(magic.rpcProvider)
+      })
+
+      const metadata = await magic.user.getInfo()
+      const signerAddress = metadata.publicAddress
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  With the `provider` and `signerAddress` you are ready to instantiate any of the kits from the Safe\{Core\} SDK and set up or use this signer as a Safe owner.
+
+
+  ### Logout
+
+  Finally, to logout the user, call the `logout()` method.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  await magic.user.logout()
+  ```
+
+  {/* <!-- vale on --> */}
+
+</Steps>
+
+## Recap and further reading
+
+After following this guide, you are able to create a Safe signer using Magic and get the `provider` and `signerAddress` required to initialize the kits from the Safe\{Core\} SDK.
+
+Learn more about Magic by checking the following resources:
+
+- [Magic website](https://magic.link)
+- [Magic documentation](https://magic.link/docs)
+- [Magic quickstart guide](https://magic.link/docs/home/quickstart/cli)
