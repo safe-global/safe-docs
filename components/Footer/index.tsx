@@ -102,7 +102,7 @@ const communityItems: FooterLink[] = [
     rel: 'noreferrer'
   },
   {
-    label: 'Safe{Pass',
+    label: 'Safe{Pass}',
     href: SAFEPASS_LINK,
     target: '_blank',
     rel: 'noreferrer'
