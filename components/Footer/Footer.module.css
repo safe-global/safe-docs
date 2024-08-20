@@ -6,6 +6,11 @@
   gap: 16px;
 }
 
+body .listTitle {
+  font-size: 14px;
+  font-weight: 900;
+}
+
 .listItem {
   font-size: 16px;
   line-height: 20px;

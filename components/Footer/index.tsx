@@ -201,7 +201,11 @@ const LinksColumn: React.FC<{
   positions?: OpenPositionsResponse
 }> = ({ title, items, positions }) => (
   <Grid item sm={6} md={1.5}>
-    <Typography variant='caption' color='text.primary' fontWeight={900}>
+    <Typography
+      className={css.listTitle}
+      variant='caption'
+      color='text.primary'
+    >
       {title}
     </Typography>
     <ul className={css.list}>
@@ -233,7 +237,11 @@ const LinksColumn: React.FC<{
 const Socials: React.FC = () => (
   <Grid container item xs={12} md={2} mt={{ xs: 6, sm: 0 }}>
     <div>
-      <Typography variant='caption' color='text.primary' fontWeight={900}>
+      <Typography
+        className={css.listTitle}
+        variant='caption'
+        color='text.primary'
+      >
         Follow us
       </Typography>
       <div className={css.socials}>
