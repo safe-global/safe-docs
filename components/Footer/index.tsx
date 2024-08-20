@@ -1,35 +1,40 @@
-import { ButtonBase, Container, Divider, Grid, Typography } from '@mui/material'
+import { Badge, ButtonBase, Divider, Grid, Typography } from '@mui/material'
 import Link from 'next/link'
 import type { ComponentType, SyntheticEvent } from 'react'
 import DiscordIcon from '../../assets/svg/discord-icon.svg'
 import DiscourseIcon from '../../assets/svg/discourse-icon.svg'
 import GithubIcon from '../../assets/svg/github-icon.svg'
-import MirrorIcon from '../../assets/svg/mirror-icon.svg'
 import Logo from '../../assets/svg/safe-logo-white.svg'
 import XIcon from '../../assets/svg/x-icon.svg'
 import YoutubeIcon from '../../assets/svg/youtube-icon.svg'
 import css from './Footer.module.css'
 import { useCookieBannerContext } from '../CookieBanner/CookieBannerContext'
+import {
+  type OpenPositionsResponse,
+  useOpenPositions
+} from './useOpenPositions'
 
 const SAFE_LINK = 'https://safe.global'
 
 // Safe
-const CORE_LINK = 'https://core.safe.global'
+const CORE_LINK = 'https://safe.global/core'
+
+// Ecosystem
+const EXPLORE_LINK = 'https://safe.global/ecosystem'
+const GRANTS_LINK = 'https://safe.global/grants'
 
 // Community
 const GOVERNANCE_LINK = 'https://safe.global/governance' // Do not use: https://governance.safe.global
-const ECOSYSTEM_LINK = 'https://ecosystem.safe.global'
-const GRANTS_LINK = 'https://grants.safe.global'
 const SAFECON_LINK = 'https://conf.safe.global'
-const DUNE_LINK = 'https://dune.com/safe'
+const SAFEPASS_LINK = 'https://safe.global/pass'
+const TOKEN_LINK = 'https://safe.global/token'
 
 // Resources
 const HELP_LINK = 'https://help.safe.global'
+const PRESS_LINK = 'https://safe.global/press'
 const CAREERS_LINK = 'https://safe.global/careers'
-const BRAND_LINK = 'https://press.safe.global'
-const STACKEXCHANGE_LINK =
-  'https://ethereum.stackexchange.com/questions/tagged/safe-core'
-const EXPERIMENTAL_LINK = 'https://github.com/5afe'
+const BRAND_LINK =
+  'https://safe-global.notion.site/Safe-Media-Kit-35ce7ffc829c4bedbbf828464a1b7c00'
 
 // Sub-Footer
 const TERMS_LINK = 'https://safe.global/terms'
@@ -44,7 +49,6 @@ const X_LINK = 'https://x.com/safe'
 const FORUM_LINK = 'https://forum.safe.global'
 const DISCORD_LINK = 'https://chat.safe.global'
 const YOUTUBE_LINK = 'https://www.youtube.com/@safeglobal'
-const MIRROR_LINK = 'https://safe.mirror.xyz'
 const GITHUB_LINK = 'https://github.com/safe-global'
 
 interface FooterLink {
@@ -60,6 +64,27 @@ const safeItems: FooterLink[] = [
     href: CORE_LINK,
     target: '_blank',
     rel: 'noreferrer'
+  },
+  {
+    label: 'Docs',
+    href: 'https://docs.safe.global',
+    target: '_blank',
+    rel: 'noreferrer'
+  }
+]
+
+const ecosystemItems: FooterLink[] = [
+  {
+    label: 'Explore',
+    href: EXPLORE_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
+  },
+  {
+    label: 'Grants',
+    href: GRANTS_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
   }
 ]
 
@@ -71,26 +96,20 @@ const communityItems: FooterLink[] = [
     rel: 'noreferrer'
   },
   {
-    label: 'Ecosystem',
-    href: ECOSYSTEM_LINK,
+    label: 'Token',
+    href: TOKEN_LINK,
     target: '_blank',
     rel: 'noreferrer'
   },
   {
-    label: 'Grants',
-    href: GRANTS_LINK,
+    label: 'Safe{Pass',
+    href: SAFEPASS_LINK,
     target: '_blank',
     rel: 'noreferrer'
   },
   {
     label: 'Safe{Con}',
     href: SAFECON_LINK,
-    target: '_blank',
-    rel: 'noreferrer'
-  },
-  {
-    label: 'Safe Analytics',
-    href: DUNE_LINK,
     target: '_blank',
     rel: 'noreferrer'
   }
@@ -104,6 +123,12 @@ const resourcesItems: FooterLink[] = [
     rel: 'noreferrer'
   },
   {
+    label: 'Press Room',
+    href: PRESS_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
+  },
+  {
     label: 'Careers',
     href: CAREERS_LINK,
     target: '_blank',
@@ -112,18 +137,6 @@ const resourcesItems: FooterLink[] = [
   {
     label: 'Brand Kit',
     href: BRAND_LINK,
-    target: '_blank',
-    rel: 'noreferrer'
-  },
-  {
-    label: 'Developer Support',
-    href: STACKEXCHANGE_LINK,
-    target: '_blank',
-    rel: 'noreferrer'
-  },
-  {
-    label: 'Experimental Tools',
-    href: EXPERIMENTAL_LINK,
     target: '_blank',
     rel: 'noreferrer'
   }
@@ -168,19 +181,34 @@ const subFooterItems: FooterLink[] = [
   }
 ]
 
-const LinksColumn: React.FC<{ title: string, items: FooterLink[] }> = ({
-  title,
-  items
-}) => (
-  <Grid item sm={6} md={2}>
-    <Typography variant='caption' color='text.primary'>
+const LinksColumn: React.FC<{
+  title: string
+  items: FooterLink[]
+  positions?: OpenPositionsResponse
+}> = ({ title, items, positions }) => (
+  <Grid item sm={6} md={1.3}>
+    <Typography variant='caption' color='text.primary' fontWeight={900}>
       {title}
     </Typography>
     <ul className={css.list}>
       {items.map(item => (
         <li className={css.listItem} key={item.href}>
           <Link href={item.href} target={item.target} rel={item.rel}>
-            {item.label}
+            <Badge
+              badgeContent={
+                item.href === CAREERS_LINK ? positions?.data?.length : undefined
+              }
+              color='primary'
+              className={css.badge}
+              slotProps={{
+                badge: {
+                  // @ts-expect-error - disable badge in search results
+                  'data-nosnippet': true
+                }
+              }}
+            >
+              {item.label}
+            </Badge>
           </Link>
         </li>
       ))}
@@ -207,7 +235,6 @@ const Socials: React.FC = () => (
         YOUTUBE_LINK,
         YoutubeIcon as React.FC
       )}
-      {createFooterButton('Mirror blog', MIRROR_LINK, MirrorIcon as React.FC)}
       {createFooterButton(
         'Github organization',
         GITHUB_LINK,
@@ -231,7 +258,8 @@ const SubFooter: React.FC = () => {
       <Grid item>
         <ul className={css.subList}>
           {subFooterItems.map(item => {
-            const isCookiePreferencesLink = item.href === COOKIE_PREFERENCES_LINK
+            const isCookiePreferencesLink =
+              item.href === COOKIE_PREFERENCES_LINK
             return (
               <li className={css.subListItem} key={item.href}>
                 <Link
@@ -248,7 +276,7 @@ const SubFooter: React.FC = () => {
         </ul>
       </Grid>
       <Grid item my={2}>
-        <Typography color='primary.light' fontSize='16px'>
+        <Typography color='primary.light' fontSize='14px'>
           ©{new Date().getFullYear()} Safe Ecosystem Foundation
         </Typography>
       </Grid>
@@ -273,22 +301,34 @@ const createFooterButton = (
   )
 }
 
-const Footer: React.FC = () => (
-  <Container className={css.wrapper}>
-    <Grid container flexDirection={{ xs: 'column', sm: 'row' }}>
-      <Grid item xs={12} md={3} mb={{ xs: 4, md: 0 }}>
-        <Link href={SAFE_LINK} target='_blank' rel='noreferrer'>
-          <Logo className={css.logo} />
-        </Link>
+const Footer: React.FC = () => {
+  const openPositions = useOpenPositions()
+  return (
+    <Grid mt={10} mx={2} ml={{ xs: 4 }} sx={{ width: '100%' }}>
+      <Grid
+        container
+        flexDirection={{ xs: 'column', sm: 'row' }}
+        justifyContent='space-between'
+      >
+        <Grid item xs={12} md={3} mb={{ xs: 4, md: 0 }}>
+          <Link href={SAFE_LINK} target='_blank' rel='noreferrer'>
+            <Logo className={css.logo} />
+          </Link>
+        </Grid>
+        <LinksColumn title='Developers' items={safeItems} />
+        <LinksColumn title='Ecosystem' items={ecosystemItems} />
+        <LinksColumn title='Community' items={communityItems} />
+        <LinksColumn
+          title='Resources'
+          items={resourcesItems}
+          positions={openPositions}
+        />
+        <Socials />
       </Grid>
-      <LinksColumn title='Developers' items={safeItems} />
-      <LinksColumn title='Community' items={communityItems} />
-      <LinksColumn title='Resources' items={resourcesItems} />
-      <Socials />
+      <Divider sx={{ mt: 5, mb: { xs: 3, md: 0 } }} />
+      <SubFooter />
     </Grid>
-    <Divider sx={{ mt: 5, mb: { xs: 3, md: 0 } }} />
-    <SubFooter />
-  </Container>
-)
+  )
+}
 
 export default Footer
