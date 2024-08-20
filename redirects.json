@@ -15,8 +15,38 @@
     "permanent": true
   },
   {
+    "source": "/home/4337-overview",
+    "destination": "/advanced/erc-4337/overview",
+    "permanent": true
+  },
+  {
+    "source": "/home/4337-safe",
+    "destination": "/advanced/erc-4337/4337-safe",
+    "permanent": true
+  },
+  {
+    "source": "/home/4337-supported-networks",
+    "destination": "/advanced/erc-4337/supported-networks",
+    "permanent": true
+  },
+  {
+    "source": "/home/4337-guides/safe-sdk",
+    "destination": "/advanced/erc-4337/guides/safe-sdk",
+    "permanent": true
+  },
+  {
+    "source": "/home/4337-guides/permissionless-quickstart",
+    "destination": "/advanced/erc-4337/guides/permissionless-quickstart",
+    "permanent": true
+  },
+  {
     "source": "/home/4337-guides/pimlico-sponsor-account",
-    "destination": "/home/4337-guides/permissionless-detailed",
+    "destination": "/advanced/erc-4337/guides/permissionless-detailed",
+    "permanent": true
+  },
+  {
+    "source": "/home/4337-guides/permissionless-detailed",
+    "destination": "/advanced/erc-4337/guides/permissionless-detailed",
     "permanent": true
   },
   {
@@ -325,6 +355,11 @@
     "permanent": true
   },
   {
+    "source": "/sdk/onramp-kit",
+    "destination": "/sdk/onramp",
+    "permanent": true
+  },
+  {
     "source": "/safe-core-aa-sdk/onramp-kit/guides/stripe",
     "destination": "/sdk/onramp-kit/guides/stripe",
     "permanent": true
@@ -335,6 +370,11 @@
     "permanent": true
   },
   {
+    "source": "/sdk/onramp-kit/guides/stripe",
+    "destination": "/",
+    "permanent": true
+  },
+  {
     "source": "/safe-core-aa-sdk/onramp-kit/guides/monerium",
     "destination": "/sdk/onramp-kit/guides/monerium",
     "permanent": true
@@ -342,6 +382,11 @@
   {
     "source": "/sdk-onramp-kit/guides/monerium",
     "destination": "/sdk/onramp-kit/guides/monerium",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/onramp-kit/guides/monerium",
+    "destination": "/",
     "permanent": true
   },
   {
@@ -365,6 +410,11 @@
     "permanent": true
   },
   {
+    "source": "/sdk/onramp-kit/reference/stripe-pack",
+    "destination": "/sdk/onramp",
+    "permanent": true
+  },
+  {
     "source": "/safe-core-aa-sdk/onramp-kit/reference/onrampkitbasepack",
     "destination": "/sdk/onramp-kit/reference/onramp-kit-base-pack",
     "permanent": true
@@ -375,6 +425,11 @@
     "permanent": true
   },
   {
+    "source": "/sdk/onramp-kit/reference/onramp-kit-base-pack",
+    "destination": "/sdk/onramp",
+    "permanent": true
+  },
+  {
     "source": "/safe-core-aa-sdk/onramp-kit/reference/moneriumpack",
     "destination": "/sdk/onramp-kit/reference/monerium-pack",
     "permanent": true
@@ -382,6 +437,11 @@
   {
     "source": "/sdk-onramp-kit/reference/monerium-pack",
     "destination": "/sdk/onramp-kit/reference/monerium-pack",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/onramp-kit/reference/monerium-pack",
+    "destination": "/sdk/onramp",
     "permanent": true
   },
   {
@@ -591,12 +651,17 @@
   },
   {
     "source": "/advanced/api-new-networks",
-    "destination": "/core-api/api-support-new-chains",
+    "destination": "/core-api/safe-installation-overview",
     "permanent": true
   },
   {
     "source": "/core-api/api-new-networks",
-    "destination": "/core-api/api-support-new-chains",
+    "destination": "/core-api/safe-installation-overview",
+    "permanent": true
+  },
+  {
+    "source": "/core-api/api-support-new-chains",
+    "destination": "/core-api/safe-installation-overview",
     "permanent": true
   },
   {
@@ -692,71 +757,6 @@
   {
     "source": "/safe-core-protocol/security/security-audits",
     "destination": "https://github.com/5afe/safe-core-protocol",
-    "permanent": true
-  },
-  {
-    "source": "/home/4337-overview",
-    "destination": "/advanced/erc-4337/overview",
-    "permanent": true
-  },
-  {
-    "source": "/home/4337-safe",
-    "destination": "/advanced/erc-4337/4337-safe",
-    "permanent": true
-  },
-  {
-    "source": "/home/4337-supported-networks",
-    "destination": "/advanced/erc-4337/supported-networks",
-    "permanent": true
-  },
-  {
-    "source": "/home/4337-guides/safe-sdk",
-    "destination": "/advanced/erc-4337/guides/safe-sdk",
-    "permanent": true
-  },
-  {
-    "source": "/home/4337-guides/permissionless-quickstart",
-    "destination": "/advanced/erc-4337/guides/permissionless-quickstart",
-    "permanent": true
-  },
-  {
-    "source": "/home/4337-guides/permissionless-detailed",
-    "destination": "/advanced/erc-4337/guides/permissionless-detailed",
-    "permanent": true
-  },
-  {
-    "source": "/core-api/api-support-new-chains",
-    "destination": "/core-api/safe-installation-overview",
-    "permanent": true
-  },
-  {
-    "source": "/sdk/onramp-kit/guides/monerium",
-    "destination": "/",
-    "permanent": true
-  },
-  {
-    "source": "/sdk/onramp-kit/guides/stripe",
-    "destination": "/",
-    "permanent": true
-  },
-  {
-    "source": "/sdk/onramp-kit/reference/onramp-kit-base-pack",
-    "destination": "/sdk/onramp",
-    "permanent": true
-  },
-  {
-    "source": "/sdk/onramp-kit/reference/stripe-pack",
-    "destination": "/sdk/onramp",
-    "permanent": true
-  },
-  {
-    "source": "/sdk/onramp-kit/reference/monerium-pack",
-    "destination": "/sdk/onramp",
-    "permanent": true
-  },
-  {
-    "source": "/sdk/onramp-kit",
-    "destination": "/sdk/onramp",
     "permanent": true
   }
 ]
