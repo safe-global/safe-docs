@@ -126,7 +126,7 @@ Calling `authorize` will redirect the users to the Monerium login page.
 At Monerium, the users need to log in or create an account. 
 Once logged in, Monerium will verify the ownership of the Safe by checking the signed message. 
 After successful verification, Monerium will create an IBAN and link it to the Safe. 
-The users will then be redirected to the specified `redirectUrl` with an added `code` query parameter.
+The users will then be redirected to the specified `redirectUrl` with the new session id as a GET parameter.
 
 ### Finish the authentication
 
