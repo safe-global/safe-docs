@@ -168,9 +168,9 @@ You can trigger both actions simultaneously.
 import { placeOrderMessage } from '@monerium/sdk'
 
 const amount = '10' // Specify the amount in Euro
-const iban = 'AL47212110090000000235698741' // The target IBAN
+const iban = 'DK4878805291075472' // The target IBAN
 
-// 'Send EUR 10 to AL47212110090000000235698741 at Fri, 17 May 2024 20:55:29Z'
+// 'Send EUR 10 to DK4878805291075472 at Fri, 17 May 2024 20:55:29Z'
 const orderMessage = placeOrderMessage(amount, 'eur', iban)
 
 // Send the order to the Monerium backend
