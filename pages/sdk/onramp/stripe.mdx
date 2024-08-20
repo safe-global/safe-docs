@@ -29,7 +29,7 @@ To use the Stripe fiat-to-crypto onramp service, you need to obtain your [public
 You have to apply for the crypto onramp service and add at least your business address and information to your Stripe account.
 When your application is approved, you will find your public and private keys in your [Stripe Developer Dashboard](https://dashboard.stripe.com/test/apikeys).
 
-### Install the client library
+### Install dependencies
 
 You can add Stripe's client library as a script or install it as an npm package. 
 
@@ -46,6 +46,14 @@ You can add Stripe's client library as a script or install it as an npm package.
 
     ```bash npm
     npm install --save @stripe/stripe-js @stripe/crypto
+    ```
+
+    ``` bash yarn
+    yarn add @stripe/stripe-js @stripe/crypto
+    ```
+
+    ```bash pnpm
+    pnpm add @stripe/stripe-js @stripe/crypto
     ```
   </CH.Code>
 </CH.Section>
