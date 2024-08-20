@@ -43,6 +43,8 @@ const LICENSES_LINK = 'https://app.safe.global/licenses'
 const COOKIE_LINK = 'https://safe.global/cookie'
 const COOKIE_PREFERENCES_LINK = '#cookies'
 const IMPRINT_LINK = 'https://safe.global/imprint'
+const TRADEMARK_LINK = 'https://safe.global/trademark'
+const DISCLAIMER_LINK = 'https://safe.global/disclaimer'
 
 // Socials
 const X_LINK = 'https://x.com/safe'
@@ -178,6 +180,18 @@ const subFooterItems: FooterLink[] = [
     href: IMPRINT_LINK,
     target: '_blank',
     rel: 'noreferrer'
+  },
+  {
+    label: 'Trademark',
+    href: TRADEMARK_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
+  },
+  {
+    label: 'Disclaimer',
+    href: DISCLAIMER_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
   }
 ]
 
@@ -186,7 +200,7 @@ const LinksColumn: React.FC<{
   items: FooterLink[]
   positions?: OpenPositionsResponse
 }> = ({ title, items, positions }) => (
-  <Grid item sm={6} md={1.3}>
+  <Grid item sm={6} md={1.5}>
     <Typography variant='caption' color='text.primary' fontWeight={900}>
       {title}
     </Typography>
@@ -217,29 +231,34 @@ const LinksColumn: React.FC<{
 )
 
 const Socials: React.FC = () => (
-  <Grid item xs={12} md={3} mt={{ xs: 6, md: 0 }}>
-    <div className={css.socials}>
-      {createFooterButton('X page', X_LINK, XIcon as React.FC)}
-      {createFooterButton(
-        'Discourse forum',
-        FORUM_LINK,
-        DiscourseIcon as React.FC
-      )}
-      {createFooterButton(
-        'Discord server',
-        DISCORD_LINK,
-        DiscordIcon as React.FC
-      )}
-      {createFooterButton(
-        'Youtube channel',
-        YOUTUBE_LINK,
-        YoutubeIcon as React.FC
-      )}
-      {createFooterButton(
-        'Github organization',
-        GITHUB_LINK,
-        GithubIcon as React.FC
-      )}
+  <Grid container item xs={12} md={2} mt={{ xs: 6, sm: 0 }}>
+    <div>
+      <Typography variant='caption' color='text.primary' fontWeight={900}>
+        Follow us
+      </Typography>
+      <div className={css.socials}>
+        {createFooterButton('X page', X_LINK, XIcon as React.FC)}
+        {createFooterButton(
+          'Discourse forum',
+          FORUM_LINK,
+          DiscourseIcon as React.FC
+        )}
+        {createFooterButton(
+          'Discord server',
+          DISCORD_LINK,
+          DiscordIcon as React.FC
+        )}
+        {createFooterButton(
+          'Youtube channel',
+          YOUTUBE_LINK,
+          YoutubeIcon as React.FC
+        )}
+        {createFooterButton(
+          'Github organization',
+          GITHUB_LINK,
+          GithubIcon as React.FC
+        )}
+      </div>
     </div>
   </Grid>
 )
@@ -276,8 +295,8 @@ const SubFooter: React.FC = () => {
         </ul>
       </Grid>
       <Grid item my={2}>
-        <Typography color='primary.light' fontSize='14px'>
-          ©{new Date().getFullYear()} Safe Ecosystem Foundation
+        <Typography color='primary.light' variant='body2' fontSize='16px'>
+          ©2023-{new Date().getFullYear()} Safe Ecosystem Foundation
         </Typography>
       </Grid>
     </Grid>
@@ -310,7 +329,7 @@ const Footer: React.FC = () => {
         flexDirection={{ xs: 'column', sm: 'row' }}
         justifyContent='space-between'
       >
-        <Grid item xs={12} md={3} mb={{ xs: 4, md: 0 }}>
+        <Grid item xs={12} md={2} mb={{ xs: 4, md: 0 }}>
           <Link href={SAFE_LINK} target='_blank' rel='noreferrer'>
             <Logo className={css.logo} />
           </Link>

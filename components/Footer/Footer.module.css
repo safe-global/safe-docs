@@ -31,7 +31,7 @@
 }
 
 .subListItem {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 100;
   line-height: 24px;
   color: var(--mui-palette-primary-light);
@@ -44,8 +44,8 @@
 }
 
 .socials svg {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
 }
 
 .logo {
@@ -66,5 +66,9 @@
 
   .subListItem {
     line-height: 56px;
+  }
+
+  .socials {
+    margin-top: 16px;
   }
 }
