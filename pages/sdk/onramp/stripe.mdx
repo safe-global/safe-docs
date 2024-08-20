@@ -27,19 +27,10 @@ When your application is approved, you will find your public and private keys in
 
 ### Install dependencies
 
-You can add Stripe's client library as a script or install it as an npm package. 
+First, install Stripe's client library.
 
 <CH.Section>
   <CH.Code style={{boxShadow: 'none'}}>
-
-    ```html Script
-    <head>
-      <title>Onramp</title>
-      <script src="https://js.stripe.com/v3/"></script>
-      <script src="https://crypto-js.stripe.com/crypto-onramp-outer.js"></script>
-    </head>
-    ```
-
     ```bash npm
     npm install --save @stripe/stripe-js @stripe/crypto
     ```
@@ -105,14 +96,16 @@ You can initialize the Stripe widget using the `client_secret` you obtained from
 <CH.Section>
   <CH.Code style={{boxShadow: 'none'}}>
     ```typescript TypeScript
-      // StripeOnramp is imported with the scripts from step one  
-      const stripeOnramp = StripeOnramp(
-        'pk_test_51...GgYH'
-      )
+    import { loadStripeOnramp } from '@stripe/crypto'
 
-      // Use the client secret from the previous step
-      const onrampSession = stripeOnramp.createSession({ clientSecret })
-      onrampSession.mount('#onramp-element')
+    // StripeOnramp is imported with the scripts from step one  
+    const stripeOnramp = await loadStripeOnramp(
+      'pk_test_51...GgYH'
+    )
+
+    // Use the client secret from the previous step
+    const onrampSession = stripeOnramp.createSession({ clientSecret })
+    onrampSession.mount('#onramp-element')
     ```
 
     ```html HTML
