@@ -60,30 +60,30 @@ Here is how you generate a crypto onramp session using your private key:
 <CH.Section>
   <CH.Code style={{boxShadow: 'none'}}>
     ```typescript TypeScript
-      const stripeSessionResponse = await fetch(
-        'https://api.stripe.com/v1/crypto/onramp_sessions',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization:
-              'Bearer sk_test_51...Eg7o' // your private key for Stripe
-          },
-          // optional parameters, for example the users' Safe address
-          body: 'wallet_addresses[ethereum]=0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d'
-        }
-      )
+    const stripeSessionResponse = await fetch(
+      'https://api.stripe.com/v1/crypto/onramp_sessions',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization:
+            'Bearer sk_test_51...Eg7o' // your private key for Stripe
+        },
+        // optional parameters, for example the users' Safe address
+        body: 'wallet_addresses[ethereum]=0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d'
+      }
+    )
 
     const decodedResponse = await stripeSessionResponse.json()
     const clientSecret = decodedResponse['client_secret']
     ```
 
     ```bash curl
-      curl -X POST https://api.stripe.com/v1/crypto/onramp_sessions \
-        # your private key for Stripe
-        -u sk_test_51...Eg7o: \
-        # optional parameters, for example a wallet address
-        -d "wallet_addresses[ethereum]"="0xB00F0759DbeeF5E543Cc3E3B07A6442F5f3928a2"
+    curl -X POST https://api.stripe.com/v1/crypto/onramp_sessions \
+      # your private key for Stripe
+      -u sk_test_51...Eg7o: \
+      # optional parameters, for example a wallet address
+      -d "wallet_addresses[ethereum]"="0xB00F0759DbeeF5E543Cc3E3B07A6442F5f3928a2"
     ```
   </CH.Code>
 </CH.Section>
@@ -109,8 +109,8 @@ You can initialize the Stripe widget using the `client_secret` you obtained from
     ```
 
     ```html HTML
-      <!-- Make sure to include a corresponding HTML element -->
-      <div id='onramp-element' />
+    <!-- Make sure to include a corresponding HTML element -->
+    <div id='onramp-element' />
     ```
   </CH.Code>
 </CH.Section>
@@ -120,23 +120,23 @@ You can initialize the Stripe widget using the `client_secret` you obtained from
 You can listen to the [frontend events](https://docs.stripe.com/crypto/using-the-api#frontend-events) from the Stripe widget to update your UI or handle errors.
 
 ```typescript TypeScript
-  // Listen to events using the onrampSession object from one of the previous step
-  onrampSession.addEventListener('onramp_ui_loaded', event => {
-    console.log('Onramp UI loaded:', event)
-  })
+// Listen to events using the onrampSession object from one of the previous step
+onrampSession.addEventListener('onramp_ui_loaded', event => {
+  console.log('Onramp UI loaded:', event)
+})
 
-  onrampSession.addEventListener('onramp_session_updated', event => {
-    console.log('Onramp session updated:', event)
-  })
+onrampSession.addEventListener('onramp_session_updated', event => {
+  console.log('Onramp session updated:', event)
+})
 
-  // For modal overlay render mode only
-  onrampSession.addEventListener('onramp_ui_modal_opened', event => {
-    console.log('Onramp UI modal opened:', event)
-  })
+// For modal overlay render mode only
+onrampSession.addEventListener('onramp_ui_modal_opened', event => {
+  console.log('Onramp UI modal opened:', event)
+})
 
-  onrampSession.addEventListener('onramp_ui_modal_closed', event => {
-    console.log('Onramp UI modal closed:', event)
-  })
+onrampSession.addEventListener('onramp_ui_modal_closed', event => {
+  console.log('Onramp UI modal closed:', event)
+})
 ```
 
 </Steps>
