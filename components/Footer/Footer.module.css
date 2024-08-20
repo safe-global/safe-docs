@@ -1,67 +1,79 @@
-.wrapper {
-    margin-top: 80px;
-  }
-  
-  .list {
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .listItem {
-    font-size: 16px;
-    line-height: 20px;
-    color: var(--mui-palette-primary-light);
-  }
-  
-  .listItem a,
-  .subListItem a {
-    display: block;
-  }
-  
-  .listItem:hover a,
-  .subListItem:hover a {
-    color: white;
-  }
-  
+.list {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+body .listTitle {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.listItem {
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--mui-palette-primary-light);
+}
+
+.listItem a,
+.subListItem a {
+  display: block;
+}
+
+.listItem:hover a,
+.subListItem:hover a {
+  color: white;
+}
+
+.subList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.subListItem {
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 24px;
+  color: var(--mui-palette-primary-light);
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.socials svg {
+  width: 24px;
+  height: 24px;
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+}
+
+.badge :global .MuiBadge-badge {
+  font-size: 14px;
+  top: 4px;
+  right: -12px;
+}
+
+@media (min-width: 600px) {
   .subList {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+    gap: 32px;
   }
-  
+
   .subListItem {
-    font-size: 16px;
-    line-height: 24px;
-    color: var(--mui-palette-primary-light);
+    line-height: 56px;
   }
-  
+
   .socials {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
+    margin-top: 16px;
   }
-  
-  .socials svg {
-    width: 28px;
-    height: 28px;
-  }
-  
-  .logo {
-    width: 150px;
-    height: auto;
-  }
-  
-  @media (min-width: 600px) {
-    .subList {
-      gap: 32px;
-    }
-  
-    .subListItem {
-      line-height: 56px;
-    }
-  }
+}

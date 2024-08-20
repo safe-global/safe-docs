@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+// import localFont from 'next/font/local'
 import type { DocsThemeConfig } from 'nextra-theme-docs'
 
 import type { PropsWithChildren } from 'react'
@@ -6,13 +7,16 @@ import SafeLogo from './assets/svg/safe-logo-white.svg'
 import Feedback from './components/Feedback'
 import Footer from './components/Footer'
 
+// const citerne = localFont({ src: './public/fonts/Citerne-Light.woff' })
+
 const Main: React.FC<PropsWithChildren> = ({ children }) => {
   const { asPath } = useRouter()
   return (
-    <>
+    // <div className={citerne.className}>
+    <div>
       {children}
       <Feedback asPath={asPath} />
-    </>
+    </div>
   )
 }
 

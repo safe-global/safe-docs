@@ -68,7 +68,7 @@ h2 {
 }
 
 /* CopyButton */
-button[title="Copy code"]:not(#\9) {
+button[title='Copy code']:not(#\9) {
   margin-top: 2px;
   background-color: #212121;
   border: none;
@@ -95,3 +95,9 @@ li > ul.nx-mt-6 {
     top: 5rem;
   }
 }
+
+/* @font-face {
+  font-family: 'Citerne';
+  font-display: swap;
+  src: url('/fonts/Citerne-Light.woff') format('woff');
+} */
