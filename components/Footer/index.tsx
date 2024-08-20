@@ -331,7 +331,7 @@ const createFooterButton = (
 const Footer: React.FC = () => {
   const openPositions = useOpenPositions()
   return (
-    <Grid mt={10} mx={2} ml={{ xs: 4 }} sx={{ width: '100%' }}>
+    <Grid mt={10} mx={4} sx={{ width: '100%' }}>
       <Grid
         container
         flexDirection={{ xs: 'column', sm: 'row' }}
