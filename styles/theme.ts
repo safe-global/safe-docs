@@ -62,7 +62,7 @@ export const theme = createTheme({
     ...Array(23).fill('none')
   ] as Shadows,
   typography: {
-    fontFamily: 'DM Sans, sans-serif',
+    fontFamily: 'Citerne, sans-serif',
     h1: {
       fontSize: '56px',
       lineHeight: '60px',

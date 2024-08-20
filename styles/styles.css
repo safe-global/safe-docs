@@ -1,5 +1,5 @@
 html.dark.dark body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Citerne', sans-serif;
   background-color: #121312;
 }
 
@@ -68,7 +68,7 @@ h2 {
 }
 
 /* CopyButton */
-button[title="Copy code"]:not(#\9) {
+button[title='Copy code']:not(#\9) {
   margin-top: 2px;
   background-color: #212121;
   border: none;
@@ -94,4 +94,10 @@ li > ul.nx-mt-6 {
   #__next > div > div.nx-mx-auto.nx-flex.nx-max-w-\[90rem\] > nav > div {
     top: 5rem;
   }
+}
+
+@font-face {
+  font-family: 'Citerne';
+  font-display: swap;
+  src: url('/fonts/Citerne-Light.woff') format('woff');
 }
