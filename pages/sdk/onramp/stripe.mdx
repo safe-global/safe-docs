@@ -52,12 +52,11 @@ You can add Stripe's client library as a script or install it as an npm package.
 
 ### Generate a new `client_secret`
 
-For each session of your user, you need to generate a `client_secret` to initialize the Stripe widget.
-You must generate a crypto onramp session using your Stripe private key to do this.
-To create a new session, you must make an API request to the [Stripe API](https://docs.stripe.com/api/crypto/onramp_sessions).
-The new session will have a unique `client_secret` that you can use to initialize the Stripe widget for your user.
+To authenticate your users, you need to generate a `client_secret` to initialize the Stripe widget.
+For this, you must make an API request to the [Stripe API](https://docs.stripe.com/api/crypto/onramp_sessions) using your Stripe private key.
+It will return a unique `client_secret` that you can use to initialize the Stripe widget for your users.
 
-To ensure you don't leak your private key, your backend makes the request.
+To ensure you don't leak your private key, you should make the request from your backend.
 The backend can then send the `client_secret` to your front end.
 You can use the [example Stripe server](https://github.com/safe-global/safe-core-sdk/tree/main/packages/onramp-kit/example/server) as a starting point for your backend.
 
