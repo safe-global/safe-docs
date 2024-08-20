@@ -59,24 +59,24 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   Check Magic documentation on how to create a new project in their [dashboard](https://dashboard.magic.link) and [get the API key.](https://magic.link/docs/home/quickstart/cli#add-your-api-key)
 
-  Once you have it, you need to initialize the `API_KEY` variable with it.
+  Once you have it, you need to initialize the `MAGIC_API_KEY` variable with it.
 
   {/* <!-- vale off --> */}
 
   ```typescript
-  const API_KEY = // ...
+  const MAGIC_API_KEY = // ...
   ```
 
   {/* <!-- vale on --> */}
 
   ### Initialize Magic
 
-  Magic initialization is done by instantiating the `Magic` class with an `API_KEY`. Optionally, it also accepts some configuration parameters that can be checked in the [Magic Web API Reference](https://magic.link/docs/api/client-side-sdks/web).
+  Magic initialization is done by instantiating the `Magic` class with an `MAGIC_API_KEY`. Optionally, it also accepts some configuration parameters that can be checked in the [Magic Web API Reference](https://magic.link/docs/api/client-side-sdks/web).
 
   {/* <!-- vale off --> */}
 
   ```typescript
-  const magic = new Magic(API_KEY)
+  const magic = new Magic(MAGIC_API_KEY)
   ```
 
   {/* <!-- vale on --> */}

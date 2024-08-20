@@ -59,12 +59,12 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   Check Privy documentation on how to create a new project in their [dashboard](https://dashboard.privy.io) and [get the client ID](https://docs.privy.io/guide/react/configuration/app-clients#app-clients).
 
-  Once you have it, you need to initialize the `APP_ID` variable with it.
+  Once you have it, you need to initialize the `PRIVY_APP_ID` variable with it.
 
   {/* <!-- vale off --> */}
 
   ```typescript
-  const APP_ID = // ...
+  const PRIVY_APP_ID = // ...
   ```
 
   {/* <!-- vale on --> */}
@@ -79,7 +79,7 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   ```typescript
   <PrivyProvider
-    appId={APP_ID}
+    appId={PRIVY_APP_ID}
     config={{
       embeddedWallets: { 
         createOnLogin: 'users-without-wallets' // defaults to 'off'

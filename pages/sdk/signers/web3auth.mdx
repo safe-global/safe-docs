@@ -61,12 +61,12 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   Check Web3Auth documentation on how to create a new project in their [dashboard](https://dashboard.web3auth.io) and [get the client ID](https://web3auth.io/docs/dashboard-setup/projects-and-analytics#client-id).
 
-  Once you have it, you need to initialize the `CLIENT_ID` variable with it.
+  Once you have it, you need to initialize the `WEB3AUTH_CLIENT_ID` variable with it.
 
   {/* <!-- vale off --> */}
 
   ```typescript
-  const CLIENT_ID = // ...
+  const WEB3AUTH_CLIENT_ID = // ...
   ```
 
   {/* <!-- vale on --> */}
@@ -98,7 +98,7 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
   })
 
   const web3auth = new Web3Auth({
-    clientId: CLIENT_ID,
+    clientId: WEB3AUTH_CLIENT_ID,
     privateKeyProvider,
     web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_MAINNET
   })
