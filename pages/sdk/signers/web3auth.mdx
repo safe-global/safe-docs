@@ -1,0 +1,175 @@
+
+
+import { Tabs, Steps, Callout } from 'nextra/components'
+
+# Web3Auth Signer
+
+In this guide, you will learn how to create a [Web3Auth](https://web3auth.io) signer that can be added as a Safe owner and used to initialize any of the kits from the Safe\{Core\} SDK.
+
+Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on GitHub to follow along this guide with the completed code.
+
+## Prerequisites
+
+- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+- A [Web3Auth account](https://dashboard.web3auth.io) and a Client ID.
+
+## Install dependencies
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['npm', 'yarn', 'pnpm']}>
+  <Tabs.Tab>
+    ```bash
+    npm install @web3auth/modal @web3auth/base @web3auth/ethereum-provider
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    yarn add @web3auth/modal @web3auth/base @web3auth/ethereum-provider
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    pnpm add @web3auth/modal @web3auth/base @web3auth/ethereum-provider
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Steps
+
+<Steps>
+
+  ### Imports
+
+  Here are the necessary imports for this guide. 
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  import { CHAIN_NAMESPACES, WEB3AUTH_NETWORK } from '@web3auth/base'
+  import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
+  import { Web3Auth } from '@web3auth/modal'
+  ```
+
+  {/* <!-- vale on --> */}
+
+  In addition, you will need to import a web3 library of your choice to use in the "Get the provider and signer" section. In this guide, we are using `viem`.
+
+  ### Get the Client ID
+
+  Check Web3Auth documentation on how to create a new project in their [dashboard](https://dashboard.web3auth.io) and [get the client ID](https://web3auth.io/docs/dashboard-setup/projects-and-analytics#client-id).
+
+  Once you have it, you need to initialize the `WEB3AUTH_CLIENT_ID` variable with it.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const WEB3AUTH_CLIENT_ID = // ...
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Initialize Web3Auth
+
+  Web3Auth initialization is done by instantiating the `Web3Auth` class with a `clientId`, a `privateKeyProvider` and some other configuration parameters like `web3AuthNetwork`, depending on if you are using it in a development or production environment. The full list of parameters can be checked in the [Instantiating Web3Auth guide](https://web3auth.io/docs/sdk/pnp/web/modal/initialize#instantiating-web3auth) from Web3Auth.
+
+  To instantiate the `privateKeyProvider` you need to define the configuration of the selected chain for the signer with several properties like the ones listed below as an example for Sepolia testnet.
+
+  After initializing the `web3auth` instance, you need to call the `initModal()` method.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+   const chainConfig = {
+    chainNamespace: CHAIN_NAMESPACES.EIP155,
+    chainId: '0xaa36a7',
+    rpcTarget: 'https://ethereum-sepolia-rpc.publicnode.com',
+    displayName: 'Ethereum Sepolia Testnet',
+    blockExplorerUrl: 'https://sepolia.etherscan.io',
+    ticker: 'ETH',
+    tickerName: 'Ethereum',
+    logo: 'https://cryptologos.cc/logos/ethereum-eth-logo.png'
+  }
+
+  const privateKeyProvider = new EthereumPrivateKeyProvider({
+    config: { chainConfig }
+  })
+
+  const web3auth = new Web3Auth({
+    clientId: WEB3AUTH_CLIENT_ID,
+    privateKeyProvider,
+    web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_MAINNET
+  })
+
+  await web3auth.initModal()
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Login
+
+  To login with an email address or social account you need to call the following method, that will open the popup and request the user to submit the login form.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const web3authProvider = await web3auth.connect()
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Get the provider and signer
+
+  Once the user is logged in, you can get the `provider` and `signerAddress`, which is the externally-owned account of the user that was derived from its credentials.
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['viem']}>
+    <Tabs.Tab>
+      You can instantiate the provider using `viem` and the following imports:
+
+      ```typescript
+      import { createWalletClient, custom } from 'viem'
+      import { sepolia } from 'viem/chains'
+      ```
+
+      ```typescript
+      const provider = createWalletClient({
+        chain: sepolia,
+        transport: custom(web3authProvider)
+      })
+
+      const signerAddress = await provider.getAddresses())[0]
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  With the `provider` and `signerAddress` you are ready to instantiate any of the kits from the Safe\{Core\} SDK and set up or use this signer as a Safe owner.
+
+  ### Logout
+
+  Finally, to logout the user, call the `logout()` method.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  await web3auth.logout()
+  ```
+
+  {/* <!-- vale on --> */}
+
+</Steps>
+
+## Recap and further reading
+
+After following this guide, you are able to create a Safe signer using Web3Auth and get the `provider` and `signerAddress` required to initialize the kits from the Safe\{Core\} SDK.
+
+Learn more about Web3Auth by checking the following resources:
+
+- [Web3Auth website](https://web3auth.io)
+- [Web3Auth documentation](https://web3auth.io/docs)
+- [Web3Auth quickstart guide](https://web3auth.io/docs/quick-start?product=PNP&sdk=PNP_MODAL&framework=REACT&stepIndex=0&stepIndex=1)
