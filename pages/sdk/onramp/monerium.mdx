@@ -1,6 +1,9 @@
 import { Steps } from 'nextra/components'
 import Image from 'next/image'
 import MoneriumAddMoney from '../../../assets/monerium-sandbox-add-money.png'
+import RemovedContentCallout from '../../../components/RemovedContentCallout'
+
+<RemovedContentCallout description="The Onramp Kit in the Safe{Core} SDK is no longer supported; with that, neither is the MoneriumPack. We recommend integrating Monerium directly into your application by following this guide." />
 
 # Onramp with Monerium
 
@@ -24,6 +27,7 @@ The main steps of this tutorial are:
 ## Step 1: Authenticate with Monerium and Safe
 
 <Steps>
+
 ### Sign the link message with the Safe
 
 First, your users have to sign a message with the Safe to prove ownership of the Safe. 
@@ -132,6 +136,7 @@ const isAuthorized = await monerium.getAccess()
 ```
 
 Congratulations, you authenticated your users with Monerium and linked the Safe to the Monerium account.
+
 </Steps>
 
 ## Step 2: Place an Order
@@ -223,6 +228,7 @@ const transactionResult = await protocolKitOfOwner2.executeTransaction(signedTx)
 // Verify on-chain settlement
 console.log('transactionResult', transactionResult)
 ```
+
 Monerium will execute the order once the transaction settles.
 
 </Steps>
