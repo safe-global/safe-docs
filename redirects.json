@@ -728,5 +728,35 @@
     "source": "/core-api/api-support-new-chains",
     "destination": "/core-api/safe-installation-overview",
     "permanent": true
+  },
+  {
+    "source": "/sdk/onramp-kit/guides/monerium",
+    "destination": "/",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/onramp-kit/guides/stripe",
+    "destination": "/",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/onramp-kit/reference/onramp-kit-base-pack",
+    "destination": "/sdk/onramp",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/onramp-kit/reference/stripe-pack",
+    "destination": "/sdk/onramp",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/onramp-kit/reference/monerium-pack",
+    "destination": "/sdk/onramp",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/onramp-kit",
+    "destination": "/sdk/onramp",
+    "permanent": true
   }
 ]
