@@ -191,77 +191,77 @@
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk-auth-kit",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk/auth-kit",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit/guides/safe-auth",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk-auth-kit/guides/safe-auth",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk/auth-kit/guides/safe-auth",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit/reference",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk-auth-kit/reference",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk/auth-kit/reference",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit/reference/authkitbasepack",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk-auth-kit/reference/auth-kit-base-pack",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk/auth-kit/reference/auth-kit-base-pack",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/auth-kit/reference/safeauthpack",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk-auth-kit/reference/safe-auth-pack",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk/auth-kit/reference/safe-auth-pack",
-    "destination": "/",
+    "destination": "/sdk/signers?removed=true",
     "permanent": true
   },
   {
@@ -346,102 +346,102 @@
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit",
-    "destination": "/sdk/onramp-kit",
+    "destination": "/sdk/onramp?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk-onramp-kit",
-    "destination": "/sdk/onramp-kit",
+    "destination": "/sdk/onramp?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk/onramp-kit",
-    "destination": "/sdk/onramp",
+    "destination": "/sdk/onramp?removed=true",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit/guides/stripe",
-    "destination": "/sdk/onramp-kit/guides/stripe",
+    "destination": "/sdk/onramp/stripe?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk-onramp-kit/guides/stripe",
-    "destination": "/sdk/onramp-kit/guides/stripe",
+    "destination": "/sdk/onramp/stripe?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk/onramp-kit/guides/stripe",
-    "destination": "/",
+    "destination": "/sdk/onramp/stripe?removed=true",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit/guides/monerium",
-    "destination": "/sdk/onramp-kit/guides/monerium",
+    "destination": "/sdk/onramp/monerium?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk-onramp-kit/guides/monerium",
-    "destination": "/sdk/onramp-kit/guides/monerium",
+    "destination": "/sdk/onramp/monerium?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk/onramp-kit/guides/monerium",
-    "destination": "/",
+    "destination": "/sdk/onramp/monerium?removed=true",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit/reference",
-    "destination": "/sdk/onramp-kit/reference",
+    "destination": "/sdk/onramp?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk-onramp-kit/reference",
-    "destination": "/sdk/onramp-kit/reference",
+    "destination": "/sdk/onramp?removed=true",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit/reference/stripepack",
-    "destination": "/sdk/onramp-kit/reference/stripe-pack",
+    "destination": "/sdk/onramp/stripe?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk-onramp-kit/reference/stripe-pack",
-    "destination": "/sdk/onramp-kit/reference/stripe-pack",
+    "destination": "/sdk/onramp/stripe?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk/onramp-kit/reference/stripe-pack",
-    "destination": "/sdk/onramp",
+    "destination": "/sdk/onramp/stripe?removed=true",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit/reference/onrampkitbasepack",
-    "destination": "/sdk/onramp-kit/reference/onramp-kit-base-pack",
+    "destination": "/sdk/onramp?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk-onramp-kit/reference/onramp-kit-base-pack",
-    "destination": "/sdk/onramp-kit/reference/onramp-kit-base-pack",
+    "destination": "/sdk/onramp?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk/onramp-kit/reference/onramp-kit-base-pack",
-    "destination": "/sdk/onramp",
+    "destination": "/sdk/onramp?removed=true",
     "permanent": true
   },
   {
     "source": "/safe-core-aa-sdk/onramp-kit/reference/moneriumpack",
-    "destination": "/sdk/onramp-kit/reference/monerium-pack",
+    "destination": "/sdk/onramp/monerium?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk-onramp-kit/reference/monerium-pack",
-    "destination": "/sdk/onramp-kit/reference/monerium-pack",
+    "destination": "/sdk/onramp/monerium?removed=true",
     "permanent": true
   },
   {
     "source": "/sdk/onramp-kit/reference/monerium-pack",
-    "destination": "/sdk/onramp",
+    "destination": "/sdk/onramp/monerium?removed=true",
     "permanent": true
   },
   {
