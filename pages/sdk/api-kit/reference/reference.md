@@ -287,3 +287,42 @@ Adds a signature to an existing message.
 await apiKit.addMessageSignature(safeMessageHash, signature)
 ```
 
+### `getSafeOperationsByAddress`
+
+Get the SafeOperations that were sent from a particular Safe address. By default, the result set is ordered by nonce and not the order in which they were added to the Transaction Service.
+
+```typescript
+const safeOperationsList: GetSafeOperationListResponse = await apiKit.getSafeOperationsByAddress({ safeAddress, ordering, limit, offset })
+```
+
+### `getSafeOperation`
+
+Get a SafeOperation by its hash.
+
+```typescript
+const safeOperationResponse: SafeOperationResponse = await apiKit.getSafeOperation(safeOperationHash)
+```
+
+### `addSafeOperation`
+
+Adds a new SafeOperation for a given Safe account. A SafeOperation can be created by using [Safe4337Pack#createTransaction](../../relay-kit/reference/safe-4337-pack.mdx#createtransactionsafe4337createtransactionprops).
+
+```typescript
+await apiKit.addSafeOperation(safeOperation)
+```
+
+### `getSafeOperationConfirmations`
+
+Returns the list of confirmations for a given a SafeOperation.
+
+```typescript
+await apiKit.getSafeOperationConfirmations(safeOperationHash, { limit, offset })
+```
+
+### `confirmSafeOperation`
+
+Adds a confirmation for a SafeOperation. After enough confirmations, the operation still needs to be executed with [Safe4337Pack#executeTransaction](../../relay-kit/reference/safe-4337-pack.mdx#createtransactionsafe4337createtransactionprops).
+
+```typescript
+await apiKit.confirmSafeOperation(safeOperationHash, signature)
+```
