@@ -3,7 +3,6 @@ import { PrepareUserOperationRequestReturnType } from 'permissionless/actions/sm
 import { ENTRYPOINT_ADDRESS_V07_TYPE } from 'permissionless/types'
 import {
   getSocialRecoveryValidator,
-  getAddSocialRecoveryGuardianAction,
   getSocialRecoveryGuardians,
   getAccount,
   SOCIAL_RECOVERY_ADDRESS

@@ -67,6 +67,7 @@ const SocialRecovery: React.FC<{
         setIs7579Installed(true)
         const _guardians = await getGuardians(permissionlessClient)
         setGuardians(_guardians)
+        setThreshold(_guardians.length)
       }
     }
     initSocialRecoveryModule()
@@ -85,7 +86,7 @@ const SocialRecovery: React.FC<{
       }
     }
     initRecovery()
-  }, [permissionlessClient, guardians])
+  }, [permissionlessClient, guardians, is7579Installed, safeOwners])
 
   const handleEnableModule = async () => {
     setLoading(true)
