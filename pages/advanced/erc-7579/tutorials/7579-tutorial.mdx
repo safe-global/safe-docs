@@ -227,7 +227,7 @@ Now, edit `app/page.tsx` to include all our components:
 
 This main component contains the logic to connect the user's wallet, and display the rest of the app. It contains state that is shared by the other components, such as the Safe data, the guardians, and the accounts connected.
 
-## 5. Add styling (optional)
+## 6. Add styling
 
 We can add some styling to our app by editing the contents of `layout.tsx` in `app` folder:
 
@@ -238,34 +238,13 @@ We can add some styling to our app by editing the contents of `layout.tsx` in `a
 This will add some basic styling to the app, including a header. You can also add some custom CSS to `globals.css` in the same folder:
 
 ```css
-h1,
-h2,
-h3 {
-  margin-top: 40px;
-  margin-bottom: 10px;
-}
+// from ../../../../examples/erc-7579/app/globals.css
+```
 
-button {
-  cursor: pointer;
-  border: none;
-  background: #00e673;
-  color: black;
-  padding: 10px 20px;
-  border-radius: 5px;
-  margin: 10px 0;
-}
+To add some icons to the app, we will need to edit the `next.config.mjs` file at the root of the project to load SVG files:
 
-input {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin: 10px 0;
-}
-
-button:disabled {
-  background: #ccc;
-  color: #666;
-}
+```js
+// from ../../../../examples/erc-7579/next.config.mjs
 ```
 
 Finally, in the `public` folder, add three icons. You can find them in the project's GitHub repository: [`safe.svg`](https://github.com/5afe/safe-passkeys-nuxt/blob/main/public/safe.svg), [`github.svg`](https://github.com/5afe/safe-passkeys-nuxt/blob/main/public/github.svg/), and [`external-link.svg`](https://github.com/5afe/safe-passkeys-nuxt/blob/main/public/external-link.svg).
