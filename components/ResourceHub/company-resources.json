@@ -73,7 +73,7 @@
     "description": "A workshop on Universal Wallets with Safe featuring AppKit from WalletConnect.",
     "tags": [
       "Safe Smart Account",
-      "Tutorial"
+      "WalletConnect"
     ],
     "image": "https://i.ytimg.com/vi/h40Gy3fsRJg/hqdefault.jpg",
     "lastChecked": "2024-08-09"
@@ -91,5 +91,49 @@
     ],
     "image": "https://i.ytimg.com/vi/VInxAVoYYkE/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgYigpMA8=&rs=AOn4CLAGApQPYMx_Ltk7TNEyqar5fFk9TQ",
     "lastChecked": "2024-08-14"
+  },
+  {
+    "name": "How to build a React app with Safe and passkeys – Safe Docs",
+    "url": "https://docs.safe.global/home/passkeys-tutorials/safe-passkeys-tutorial",
+    "type": "Blog Post",
+    "date": "2024-08-22",
+    "description": "This tutorial will teach you to create a React app for using passkeys in your Safe. You will learn how to use passkeys (create, store, and use them securely) and how they can interact with a Safe (deploy it and send transactions).",
+    "tags": [
+      "Tutorial",
+      "Safe Core SDK",
+      "Passkeys",
+      "React"
+    ],
+    "image": "https://docs.safe.global/og_image.png",
+    "lastChecked": "2024-08-22"
+  },
+  {
+    "name": "How to build a Vue app with Safe and passkeys – Safe Docs",
+    "url": "https://docs.safe.global/home/passkeys-tutorials/safe-passkeys-nuxt",
+    "type": "Blog Post",
+    "date": "2024-08-22",
+    "description": "This tutorial will teach you to create a Vue app for using passkeys in your Safe. You will learn how to use passkeys (create, store, and use them securely) and how they can interact with a Safe (deploy it and send transactions). ",
+    "tags": [
+      "Tutorial",
+      "Safe Core SDK",
+      "Passkeys",
+      "Vue"
+    ],
+    "image": "https://docs.safe.global/og_image.png",
+    "lastChecked": "2024-08-22"
+  },
+  {
+    "name": "How to build an app with Safe and ERC-7579 – Safe Docs",
+    "url": "https://docs.safe.global/advanced/erc-7579/tutorials/7579-tutorial",
+    "type": "Blog Post",
+    "date": "2024-08-22",
+    "description": "This tutorial will teach you how to deploy an ERC-7579-compatible Safe Smart Account and use an ERC-7579-compatible module, the Scheduled Transfer from Rhinestone.",
+    "tags": [
+      "Tutorial",
+      "Permissionless",
+      "7579"
+    ],
+    "image": "https://docs.safe.global/og_image.png",
+    "lastChecked": "2024-08-22"
   }
 ]
