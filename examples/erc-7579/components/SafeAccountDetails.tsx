@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import Img from 'next/image'
 
 import { splitAddress } from '@/lib/utils'
 import { PermissionlessClient } from '@/lib/permissionless'
 import { deploySafe, getSafeData } from '@/lib/safe'
+import ExternalLink from '../public/external-link.svg'
 
 /**
  * This component displays information about the user's safe address and its current owners. It also allows the user to deploy a safe if they don't have one yet.
@@ -49,11 +49,9 @@ const SafeAccountDetails: React.FC<{
           rel='noopener noreferrer'
         >
           {splitAddress(permissionlessClient.account.address)}{' '}
-          <Img
+          <ExternalLink
             width={20}
             height={20}
-            alt='link-icon'
-            src='/external-link.svg'
             style={{ marginLeft: '0.5rem' }}
           />
         </a>
@@ -86,11 +84,9 @@ const SafeAccountDetails: React.FC<{
                   rel='noopener noreferrer'
                 >
                   {splitAddress(ownerAddress)}{' '}
-                  <Img
+                  <ExternalLink
                     width={20}
                     height={20}
-                    alt='link-icon'
-                    src='/external-link.svg'
                     style={{ marginLeft: '0.5rem' }}
                   />
                 </a>

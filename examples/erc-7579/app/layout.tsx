@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Img from 'next/image'
+
+import ExternalLink from '../public/external-link.svg'
+import Github from '../public/github.svg'
+import Safe from '../public/safe.svg'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -26,7 +29,7 @@ export default function RootLayout ({
           }}
         >
           <a href='https://safe.global'>
-            <Img width={95} height={36} alt='safe-logo' src='/safe.svg' />
+            <Safe width={95} height={36} />
           </a>
           <div style={{ display: 'flex' }}>
             <a
@@ -39,14 +42,7 @@ export default function RootLayout ({
               target='_blank'
               rel='noopener noreferrer'
             >
-              Read tutorial{' '}
-              <Img
-                width={20}
-                height={20}
-                alt='link-icon'
-                src='/external-link.svg'
-                style={{ marginLeft: '0.5rem' }}
-              />
+              Read tutorial <ExternalLink style={{ marginLeft: '0.5rem' }} />
             </a>
             <a
               href='https://github.com/5afe/safe-7579-tutorial'
@@ -55,13 +51,7 @@ export default function RootLayout ({
               rel='noopener noreferrer'
             >
               View on GitHub{' '}
-              <Img
-                width={24}
-                height={24}
-                alt='github-icon'
-                src='/github.svg'
-                style={{ marginLeft: '0.5rem' }}
-              />
+              <Github width={24} height={24} style={{ marginLeft: '0.5rem' }} />
             </a>
           </div>
         </nav>
@@ -71,16 +61,14 @@ export default function RootLayout ({
           <div>
             Create an ERC-7579-compatible Safe Smart Account and use{' '}
             <a
-              href='https://docs.rhinestone.wtf/module-sdk/modules/social-recovery'
+              href='https://docs.rhinestone.wtf/module-sdk/using-modules/social-recovery'
               target='_blank'
               rel='noopener noreferrer'
             >
               Rhinestone&apos;s Social Recovery module{' '}
-              <Img
+              <ExternalLink
                 width={20}
                 height={20}
-                alt='link-icon'
-                src='/external-link.svg'
                 style={{ marginBottom: '-4px' }}
               />
             </a>{' '}

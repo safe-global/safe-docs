@@ -48,7 +48,9 @@ const repos = [
       '/components/SafeAccountDetails.tsx',
       '/components/SocialRecovery.tsx',
       '/app/page.tsx',
-      '/app/layout.tsx'
+      '/app/layout.tsx',
+      '/app/globals.css',
+      '/next.config.mjs'
     ]
   }
 ]
