@@ -24,6 +24,7 @@ export type UserOpRequest = Omit<
   'initCode' | 'paymasterAndData'
 >
 
+// Installs the Social Recovery module on the safe
 export const install7579Module = async (
   safe: PermissionlessClient,
   socialRecoveryInput: SocialRecoveryDataInput
@@ -43,11 +44,13 @@ export const install7579Module = async (
   )
 
   const receipt = await bundlerClient.waitForUserOperationReceipt({
-    hash: txHash
+    hash: txHash,
+    timeout: 120000
   })
   return receipt
 }
 
+// Gets the guardians of the safe
 export const getGuardians = async (safe: PermissionlessClient) => {
   const account = getAccount({ address: safe.account.address, type: 'safe' })
   const guardians = (await getSocialRecoveryGuardians({
@@ -57,27 +60,7 @@ export const getGuardians = async (safe: PermissionlessClient) => {
   return guardians
 }
 
-export const addGuardian = async (
-  safe: PermissionlessClient,
-  guardian: `0x${string}`
-) => {
-  const addGuardianData = getAddSocialRecoveryGuardianAction({ guardian })
-  const txHash = await safe.sendTransaction({
-    to: addGuardianData.target,
-    value: addGuardianData.value as bigint,
-    data: addGuardianData.callData
-  })
-
-  console.log(
-    'Guardian is being added: https://sepolia.etherscan.io/tx/' + txHash
-  )
-
-  const receipt = await bundlerClient.waitForUserOperationReceipt({
-    hash: txHash
-  })
-  return receipt
-}
-
+// Recovers the safe by adding the first guardian as a new owner of the safe
 export const recoverSafe = async (
   safe: PermissionlessClient,
   userOp: UserOpRequest,
@@ -93,7 +76,8 @@ export const recoverSafe = async (
     'Safe is being recovered: https://jiffyscan.xyz/userOpHash/' + txHash
   )
   const receipt = await bundlerClient.waitForUserOperationReceipt({
-    hash: txHash
+    hash: txHash,
+    timeout: 120000
   })
   return receipt
 }

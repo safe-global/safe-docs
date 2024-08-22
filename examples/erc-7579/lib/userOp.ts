@@ -5,11 +5,7 @@ import {
   keccak256
 } from 'viem'
 
-import {
-  bundlerClient,
-  getPermissionlessAccount,
-  PermissionlessClient
-} from './permissionless'
+import { bundlerClient, PermissionlessClient } from './permissionless'
 import { sepolia } from 'viem/chains'
 import { ENTRYPOINT_ADDRESS_V07 } from 'permissionless'
 import { PrepareUserOperationRequestReturnType } from 'permissionless/actions/smartAccount'
@@ -25,13 +21,12 @@ export type UserOpRequest = Omit<
   'initCode' | 'paymasterAndData'
 >
 
+// Creates a user operation to add a new owner to the safe
 export const getUserOp = async (
   permissionlessClient: PermissionlessClient,
   newOwner: `0x${string}`
 ) => {
-  const permissionlessAccount = await getPermissionlessAccount()
-
-  const callData = await permissionlessAccount.encodeCallData({
+  const callData = await permissionlessClient.account.encodeCallData({
     to: permissionlessClient.account.address,
     data: encodeFunctionData({
       abi: [
@@ -57,6 +52,7 @@ export const getUserOp = async (
   })
 }
 
+// Get the hash of the user operation so it can be signed by all the guardians
 export const getUserOpHash = (userOp: UserOpRequest) => {
   const packedData = encodeAbiParameters(
     [

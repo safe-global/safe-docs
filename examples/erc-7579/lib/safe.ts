@@ -1,19 +1,19 @@
 import Safe from '@safe-global/protocol-kit'
 import { parseEther, encodeFunctionData } from 'viem'
-import { bundlerClient, PermissionlessClient } from './permissionless'
 
-export const rpcUrl = 'https://rpc.ankr.com/eth_sepolia'
+import { rpcUrl, bundlerClient, PermissionlessClient } from './permissionless'
 
+// Fetches onchain data about the safe (owners and whether it was deployed)
 export const getSafeData = async (
-  safeAddress: string
+  safeAddress: string,
 ): Promise<{ isDeployed: boolean; owners: string[] }> => {
   const protocolKit = await Safe.init({
-    // @ts-ignore
     provider: rpcUrl,
-    signer: process.env.NEXT_PUBLIC_PRIVATE_KEY,
+    // @ts-ignore
+    signer: window.ethereum.account,
     safeAddress
   }).catch(err => {
-    console.error(err)
+    console.warn(err)
   })
 
   if (!protocolKit) return { isDeployed: false, owners: [] }
@@ -24,6 +24,7 @@ export const getSafeData = async (
 
 const NFT_ADDRESS = '0xBb9ebb7b8Ee75CDBf64e5cE124731A89c2BC4A07'
 
+// Deploys a Safe by sending a dummy transaction
 export const deploySafe = async (
   permissionlessClient: PermissionlessClient
 ) => {
@@ -68,10 +69,12 @@ export const deploySafe = async (
     'Safe is being deployed: https://jiffyscan.xyz/userOpHash/' + txHash
   )
   return await bundlerClient.waitForUserOperationReceipt({
-    hash: txHash
+    hash: txHash,
+    timeout: 120000
   })
 }
 
+// Generates a random number to be used as an NFT token ID
 function getRandomUint256 (): bigint {
   const dest = new Uint8Array(32) // Create a typed array capable of storing 32 bytes or 256 bits
 

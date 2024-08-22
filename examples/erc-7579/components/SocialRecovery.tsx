@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { SOCIAL_RECOVERY_ADDRESS } from '@rhinestone/module-sdk'
-import CircularProgress from '@mui/material/CircularProgress'
-import { createWalletClient, custom, WalletClient } from 'viem'
-import { sepolia } from 'viem/chains'
 
 import Guardian from '@/components/Guardian'
-import { type PermissionlessClient } from '@/lib/permissionless'
+import {
+  WalletClientWithTransport,
+  type PermissionlessClient
+} from '@/lib/permissionless'
 import {
   recoverSafe,
   UserOpRequest,
@@ -15,17 +15,32 @@ import {
 import { getSafeData } from '@/lib/safe'
 import { getUserOp, getUserOpHash } from '@/lib/userOp'
 
+/**
+ * Social Recovery component
+ * This component allows the user to enable social recovery and recover their safe
+ * @returns React component that allows the user to enable social recovery and recover their safe
+ */
 const SocialRecovery: React.FC<{
   permissionlessClient: PermissionlessClient
+  walletClient: WalletClientWithTransport
   setSafeOwners: React.Dispatch<
     React.SetStateAction<`0x${string}`[] | undefined>
   >
-}> = ({ permissionlessClient, setSafeOwners }) => {
+  accounts: string[]
+  safeOwners: `0x${string}`[] | undefined
+}> = ({
+  permissionlessClient,
+  walletClient,
+  safeOwners,
+  setSafeOwners,
+  accounts
+}) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const [txHash, setTxHash] = useState('')
-  const [guardians, setGuardians] = useState<`0x${string}`[]>([])
-  const [walletClient, setWalletClient] = useState<WalletClient | null>(null)
+  const [guardians, setGuardians] = useState<`0x${string}`[]>(
+    accounts.slice(1) as `0x${string}`[]
+  )
   const [userOp, setUserOp] = useState<UserOpRequest | null>(null)
   const [userOpHash, setUserOpHash] = useState<`0x${string}` | null>(null)
   const [signatures, setSignatures] = useState<
@@ -45,7 +60,7 @@ const SocialRecovery: React.FC<{
           context: '0x'
         })
         .catch(err => {
-          console.error(err)
+          console.warn(err)
           return false
         })
       if (isSocialRecoveryInstalled) {
@@ -59,30 +74,91 @@ const SocialRecovery: React.FC<{
 
   useEffect(() => {
     const initRecovery = async () => {
-      if (permissionlessClient != null && guardians.length > 0) {
+      if (
+        guardians[0] != null &&
+        is7579Installed &&
+        !safeOwners?.includes(guardians[0])
+      ) {
         const userOp = await getUserOp(permissionlessClient, guardians[0])
-        const walletClient = createWalletClient({
-          chain: sepolia,
-          // @ts-ignore
-          transport: custom(window.ethereum)
-        })
-
-        await walletClient.requestAddresses()
-
         setUserOp(userOp)
         setUserOpHash(getUserOpHash(userOp))
-        setWalletClient(walletClient)
       }
     }
     initRecovery()
   }, [permissionlessClient, guardians])
+
+  const handleEnableModule = async () => {
+    setLoading(true)
+    setError(false)
+    await install7579Module(permissionlessClient, {
+      guardians: guardians.slice(0, threshold),
+      threshold
+    })
+      .then(receipt => {
+        setTxHash(receipt.receipt.transactionHash)
+        setIs7579Installed(true)
+      })
+      .catch(err => {
+        console.error(err)
+        setError(true)
+      })
+    setLoading(false)
+  }
+
+  const handleExecuteRecovery = async () => {
+    setLoading(true)
+    setError(false)
+    await recoverSafe(
+      permissionlessClient,
+      userOp as UserOpRequest,
+      ...Object.values(signatures)
+    )
+      .then(async receipt => {
+        // refresh safe data
+        const safeData = await getSafeData(permissionlessClient.account.address)
+        setSafeOwners(safeData.owners as `0x${string}`[])
+
+        // reset state
+        setUserOp(null)
+        setUserOpHash(null)
+        setSignatures({})
+        setSuccess(true)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+
+    setLoading(false)
+  }
+
   return (
     <>
       <div style={{ marginTop: '10px' }}>
-        Social Recovery module installed:{' '}
-        {is7579Installed
-          ? 'Yes ✅'
-          : `No, add at least ${threshold} guardians to install it!`}
+        {is7579Installed ? (
+          'Social Recovery module is installed ✅'
+        ) : (
+          <>
+            Social Recovery module is not installed, add at least{' '}
+            <button
+              onClick={() =>
+                setThreshold(threshold =>
+                  threshold > 1 ? threshold - 1 : threshold
+                )
+              }
+              style={{ padding: '0px 6px', margin: '0 4px 0 8px' }}
+            >
+              -
+            </button>
+            {threshold}
+            <button
+              onClick={() => setThreshold(threshold + 1)}
+              style={{ padding: '0px 4px', margin: '0 8px 0 4px' }}
+            >
+              +
+            </button>{' '}
+            guardians to install it!
+          </>
+        )}
       </div>
       <div>
         {txHash ? (
@@ -132,33 +208,11 @@ const SocialRecovery: React.FC<{
       </div>
       {!is7579Installed ? (
         <button
-          disabled={guardians.length < threshold || loading}
+          disabled={threshold === 0 || guardians.length < threshold || loading}
           style={{ marginLeft: '10px' }}
-          onClick={async () => {
-            setLoading(true)
-            setError(false)
-            await install7579Module(permissionlessClient, {
-              guardians,
-              threshold
-            })
-              .then(receipt => {
-                setTxHash(receipt.receipt.transactionHash)
-                setIs7579Installed(true)
-              })
-              .catch(err => {
-                console.error(err)
-                setError(true)
-              })
-            setLoading(false)
-          }}
+          onClick={handleEnableModule}
         >
-          Enable Social Recovery
-          {loading ? (
-            <CircularProgress
-              size='8px'
-              sx={{ marginLeft: '4px', color: 'black' }}
-            />
-          ) : null}
+          {loading ? 'Enabling Social Recovery...' : 'Enable Social Recovery'}
         </button>
       ) : (
         <div style={{ display: 'flex' }}>
@@ -167,41 +221,9 @@ const SocialRecovery: React.FC<{
               Object.keys(signatures).length < threshold || !userOp || loading
             }
             style={{ marginLeft: '10px' }}
-            onClick={async () => {
-              setLoading(true)
-              setError(false)
-              await recoverSafe(
-                permissionlessClient,
-                userOp as UserOpRequest,
-                ...Object.values(signatures)
-              )
-                .then(async receipt => {
-                  // refresh safe data
-                  const safeData = await getSafeData(
-                    permissionlessClient.account.address
-                  )
-                  setSafeOwners(safeData.owners as `0x${string}`[])
-
-                  // reset state
-                  setUserOp(null)
-                  setUserOpHash(null)
-                  setSignatures({})
-                  setSuccess(true)
-                })
-                .catch(err => {
-                  console.error(err)
-                })
-
-              setLoading(false)
-            }}
+            onClick={handleExecuteRecovery}
           >
-            Execute Recovery
-            {loading ? (
-              <CircularProgress
-                size='8px'
-                sx={{ marginLeft: '4px', color: 'black' }}
-              />
-            ) : null}
+            {loading ? 'Recovering Safe...' : 'Execute Recovery'}
           </button>
         </div>
       )}

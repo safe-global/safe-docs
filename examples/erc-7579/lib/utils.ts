@@ -1,3 +1,4 @@
+// Display the first and last 6 characters of an address
 export const splitAddress = (
   address: string,
   charDisplayed: number = 6

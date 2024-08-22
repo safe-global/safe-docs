@@ -1,7 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import type { WalletClient } from 'viem'
-import { CircularProgress } from '@mui/material'
 
+/**
+ * Guardian component
+ * This component allows the user to add guardians and sign a message with their wallet
+ * @returns React Functional Component
+ */
 const Guardian: React.FC<{
   index: number
   guardians: `0x${string}`[] | null
@@ -49,7 +53,7 @@ const Guardian: React.FC<{
           <>
             {' '}
             {guardians[index]}
-            {is7579Installed && (
+            {is7579Installed ? (
               <div>
                 {signatures[guardians?.[index]] ? (
                   <p>Signed ✅</p>
@@ -70,13 +74,7 @@ const Guardian: React.FC<{
                     }}
                   >
                     {loading ? (
-                      <>
-                        Waiting for signature...
-                        <CircularProgress
-                          size='10px'
-                          sx={{ marginLeft: '4px', color: 'black' }}
-                        />
-                      </>
+                      <>Waiting for signature...</>
                     ) : userOpHash ? (
                       'Sign Message'
                     ) : (
@@ -85,6 +83,18 @@ const Guardian: React.FC<{
                   </button>
                 )}
               </div>
+            ) : (
+              <button
+                onClick={() =>
+                  setGuardians(prevGuardians => {
+                    const _guardians = [...prevGuardians]
+                    _guardians.splice(index, 1)
+                    return _guardians
+                  })
+                }
+              >
+                Remove
+              </button>
             )}
           </>
         ) : (
