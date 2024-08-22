@@ -47,7 +47,8 @@ For this project, we'll use Pimlico's [Permissionless.js](https://docs.pimlico.i
 
 <Callout type='warning' emoji='⚠️'>
   As of now, `permissionless.js` can only be used to deploy single-signer Safe
-  accounts, which is generally considered insecure. Multi-signature ERC-7579 Safes will come soon.
+  accounts, which is generally considered insecure. Multi-signature ERC-7579
+  Safes will come soon.
 </Callout>
 
 Run the following command to add all these dependencies to the project:
@@ -84,20 +85,19 @@ cd lib
 touch permissionless.ts
 ```
 
-Add the code necessary to create Pimlico's client by adding this content to `permissionless.ts` :
+This file will enable us to create Pimlico's client. It will:
+
+- Create a viem `publicClient`, a `paymasterClient` and `bundlerClient` necessary to initialize the `permissionless` library;
+- Create an ERC-7579-compatible Safe Smart Account from the user's connect wallet
+- Generate a Permissionless client.
+
+We can then call `getPermissionlessClient()` wherever we need to interact with the Safe via Pimlico.
+
+Add the following code to `permissionless.ts` to allow this functionality:
 
 ```typescript
 // from ../../../../examples/erc-7579/lib/permissionless.ts
 ```
-
-It will:
-
-- Load a `PRIVATE_KEY` from `.env.local` (or generate one if it doesn't exist);
-- Create the `publicClient`, `paymasterClient` and `bundlerClient` necessary to initialize the `permissionless` library;
-- Create an ERC-7579-compatible Safe Smart Account from the generated private key
-- Pass the Safe Smart Account object to `getPermissionlessAccount` to generate a Permissionless client.
-
-We can then call `getPermissionlessClient()` wherever we need to interact with the Safe via Pimlico.
 
 ## 3. Add Rhinestone module functionality
 
@@ -116,11 +116,10 @@ Add the code necessary to recover your Safe using Rhinestone's `SocialRecovery` 
 This file contains four functions:
 
 - `install7579Module` will install the module to a Safe;
-- `addGuardian` will add a guardian to the Safe.
-- `getGuardians` to get all the guardians added in a Safe where the module has been previously installed.
+- `getGuardians` to get all the onchain guardians for a given Safe (if this Safe was deployed and the module has been previously installed);
 - `recoverSafe` to recover the Safe by adding a guardian as a new owner.
 
-In the UI, we can then detect whether the Safe has the module installed. If not, it will let the user add guardians before installing it.
+In the UI, we can then detect whether the Safe has the module installed. If not, it will let the user choose guardians and install it.
 
 ## 4. Get Safe data
 
@@ -130,18 +129,19 @@ Create a new file `safe.ts` in the `lib` folder:
 touch safe.ts
 ```
 
-This file will contain functions to get useful Safe data via the Protocol Kit:
+This file will contain functions to get useful Safe data (namely, who are the owners and whether this Safe is already deployed) via the Protocol Kit:
 
 ```typescript
 // from ../../../../examples/erc-7579/lib/safe.ts
 ```
 
-It contains two functions:
+It contains three functions:
 
 - `getSafeData` will get Safe information from the Protocol Kit, namely whether it is deployed, and its owners.
-- `deploySafe` will deploy a Safe (if it is not already deployed), here simply by making the Permissionless client send a dummy transaction.
+- `deploySafe` will deploy a Safe (if it is not already deployed), here by simply send a dummy transaction (claim an NFT).
+- `getRandomUint256` will generate a random number to use as a NFT token ID for the Safe deployment.
 
-We will also add a file `utils.ts` in the `lib` folder, to contain a formatting function that will be used to display addresses in a more readable format.:
+We will also add a file `utils.ts` in the `lib` folder, to contain one formatting function that will be used to display addresses in a more readable format.:
 
 ```shell
 touch utils.ts
@@ -197,11 +197,13 @@ Add the following code to `SocialRecovery.tsx`:
 // from ../../../../examples/erc-7579/components/SocialRecovery.tsx
 ```
 
-This component will provide a form to allow the user to input the address of `n` guardians, where `n` is a threshold that can be modified in the code. The component will detect whether the Safe has the module installed, and then call `install7579Module`.
+This component will provide a form to allow the user to input the address of `n` guardians, where `n` is a threshold that can be modified in the UI. The component will detect whether the Safe has the module installed, and then let the user select guardians.
 
-If the module is installed, this component will create the [`UserOperation`](/glossary#useroperation) to recover the Safe.
+By default, the initial guardians are the other accounts that are connected to the app. But this can be changed in the UI. Once all set, we can call `install7579Module` by clicking the **Enable Social Recovery** button.
 
-Then, create a new file `Guardian.tsx` in the `components` folder:
+Once the module installed, this component will create the [`UserOperation`](/glossary#useroperation) to recover the Safe, which will be signed by the guardians.
+
+Create a new file `Guardian.tsx` in the `components` folder to enable that functionality:
 
 ```shell
 touch Guardian.tsx
@@ -213,7 +215,7 @@ Add the following code to `Guardian.tsx`:
 // from ../../../../examples/erc-7579/components/Guardian.tsx
 ```
 
-This component will provide state for each guardian that will be added, and will allow them to sign a hash of this `UserOperation`. It will request access to the user wallet (such as Metamask for example), and prepare the message to sign.
+This component provides state for each guardian that will be added, and will allow them to sign a hash of this `UserOperation`. It will request access to the user wallet (such as Metamask for example), and prepare the message to sign.
 
 If the threshold is reached and all the signatures are gathered, then the user is prompted to execute the `UserOperation`, and the safe is recovered.
 
@@ -222,6 +224,8 @@ Now, edit `app/page.tsx` to include all our components:
 ```tsx
 // from ../../../../examples/erc-7579/app/page.tsx
 ```
+
+This main component contains the logic to connect the user's wallet, and display the rest of the app. It contains state that is shared by the other components, such as the Safe data, the guardians, and the accounts connected.
 
 ## 5. Add styling (optional)
 
