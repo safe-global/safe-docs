@@ -6,7 +6,7 @@ The smart account ecosystem was fragmented, with each provider building its own 
 
 [ERC-7579](https://docs.safe.global/advanced/erc-7579/overview) aims to ensure interoperability across implementations. It defines the account interface so developers can implement modules for all smart accounts that follow this standard. The Safe7579 Adapter makes your Safe compatible with any ERC-7579 modules. As a developer building with Safe, you get access to a huge ecosystem of modules to make your application feature-rich.
 
-Let's say you want to build an app where users can add their friends and family as a backup for your Safe. With the ERC-7579 compatibility, you can use Rhinestone's [Social Recovery module](https://docs.rhinestone.wtf/module-sdk/modules/social-recovery) to recover your Safe in case you lose access to it.
+Let's say you want to build an app where users can add their friends and family as a backup for your Safe. With the ERC-7579 compatibility, you can use Rhinestone's [Social Recovery module](https://docs.rhinestone.wtf/module-sdk/using-modules/social-recovery) to recover your Safe in case you lose access to it.
 
 This tutorial will teach you to build an app that can:
 
@@ -296,11 +296,11 @@ Once all the signatures are gathered, the app will let you execute the UserOpera
 
 We learned how to deploy an ERC-7579-compatible Safe Smart Account and use an ERC-7579-compatible module, the Social Recovery module from Rhinestone. We hope you enjoyed this tutorial and that the combination of Safe and 7579 will allow you to tap into new functionalities for your decentralized apps.
 
-As a next step, you can add more functionalities to your app using other [ERC-7579-compatible modules](https://docs.rhinestone.wtf/module-sdk/modules/ownable-validator). Here are some ideas:
+As a next step, you can add more functionalities to your app using other [ERC-7579-compatible modules](https://docs.rhinestone.wtf/module-sdk). Here are some ideas:
 
-- [Create a dead man switch](https://docs.rhinestone.wtf/module-sdk/modules/deadman-switch) in case your account becomes inactive after a certain amount of time.
-- Add [multi-factor validation](https://docs.rhinestone.wtf/module-sdk/modules/multi-factor) to your Smart Account.
-- [Designate an owner](https://docs.rhinestone.wtf/module-sdk/modules/ownable-executor) that can act on your behalf for executing transactions and paying for gas.
+- Create a dead man switch in case your account becomes inactive after a certain amount of time.
+- Add multi-factor validation to your Smart Account.
+- Designate an owner that can act on your behalf for executing transactions and paying for gas.
 
 You can also find more inspiration on this list of [ERC-7579 modules](https://erc7579.com/modules). You can also read more about this ERC in our [overview](https://docs.safe.global/advanced/erc-7579/overview) or in the [official documentation](https://erc7579.com/).
 
