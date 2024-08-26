@@ -1,0 +1,83 @@
+import { Tabs } from 'nextra/components'
+
+# `removeSafeDelegate`
+
+Removes a delegate for a given Safe address.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { DeleteSafeDelegateProps } from '@safe-global/api-kit'
+    import { apiKit } from './setup.ts'
+
+    const delegateConfig: DeleteSafeDelegateProps = {
+      delegateAddress: '0x...',
+      delegatorAddress: '0x...',
+      signer
+    }
+
+    await apiKit.removeSafeDelegate(delegateConfig)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `delegateAddress`
+
+- **Type:** `string`
+
+The address of the delegate that will be removed.
+
+```typescript focus=2
+await apiKit.removeSafeDelegate({
+  delegateAddress: '0x...',
+  delegatorAddress: '0x...',
+  signer
+})
+
+```
+
+### `delegatorAddress`
+
+- **Type:** `string`
+
+The delegator address.
+
+```typescript focus=3
+await apiKit.removeSafeDelegate({
+  delegateAddress: '0x...',
+  delegatorAddress: '0x...',
+  signer
+})
+
+```
+
+### `signer`
+
+- **Type:** `Signer`
+
+The signer.
+
+```typescript focus=4
+await apiKit.removeSafeDelegate({
+  delegateAddress: '0x...',
+  delegatorAddress: '0x...',
+  signer
+})
+```

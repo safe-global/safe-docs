@@ -1,0 +1,54 @@
+import { Tabs } from 'nextra/components'
+
+# `getSafeCreationInfo`
+
+Returns the creation information of a Safe.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const safeAddress = '0x...'
+    
+    const safeCreationInfo = await apiKit.getSafeCreationInfo(
+      safeAddress
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeCreationInfoResponse>`
+
+The creation information of a Safe account.
+
+## Parameters
+
+### `safeAddress`
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+const safeCreationInfo = await apiKit.getSafeCreationInfo(
+  '0x...'
+)
+```

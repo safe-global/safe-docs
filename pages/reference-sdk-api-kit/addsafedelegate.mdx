@@ -1,0 +1,123 @@
+import { Tabs } from 'nextra/components'
+
+# `addSafeDelegate`
+
+Adds a new delegate for a given Safe address.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { AddSafeDelegateProps } from '@safe-global/api-kit'
+    import { apiKit } from './setup.ts'
+
+    const delegateConfig: AddSafeDelegateProps = {
+      safeAddress: '0x...', // Optional
+      delegateAddress: '0x...',
+      delegatorAddress: '0x...',
+      label: 'abc',
+      signer
+    }
+
+    const config = await apiKit.addSafeDelegate(delegateConfig)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeDelegateResponse>`
+
+The configuration of the new Safe delegate.
+
+## Parameters
+
+### `safeAddress` (Optional)
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+const config = await apiKit.addSafeDelegate({
+  safeAddress: '0x...',
+  delegateAddress: '0x...',
+  delegatorAddress: '0x...',
+  label: 'abc',
+  signer
+})
+```
+
+### `delegateAddress`
+
+- **Type:** `string`
+
+The delegate address that will be added.
+
+```typescript focus=2
+const config = await apiKit.addSafeDelegate({
+  delegateAddress: '0x...',
+  delegatorAddress: '0x...',
+  label: 'abc',
+  signer
+})
+```
+
+### `delegatorAddress`
+
+- **Type:** `string`
+
+The delegator address.
+
+```typescript focus=3
+const config = await apiKit.addSafeDelegate({
+  delegateAddress: '0x...',
+  delegatorAddress: '0x...',
+  label: 'abc',
+  signer
+})
+```
+
+### `label`
+
+- **Type:** `string`
+
+The custom label.
+
+```typescript focus=4
+const config = await apiKit.addSafeDelegate({
+  delegateAddress: '0x...',
+  delegatorAddress: '0x...',
+  label: 'abc',
+  signer
+})
+```
+
+### `signer`
+
+- **Type:** `Signer`
+
+The signer.
+
+```typescript focus=5
+const config = await apiKit.addSafeDelegate({
+  delegateAddress: '0x...',
+  delegatorAddress: '0x...',
+  label: 'abc',
+  signer
+})
+```

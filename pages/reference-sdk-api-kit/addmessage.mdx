@@ -1,0 +1,105 @@
+import { Tabs } from 'nextra/components'
+
+# `addMessage`
+
+Creates a new message with an initial signature.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { AddMessageProps } from '@safe-global/api-kit'
+    import { apiKit } from './setup.ts'
+
+    const safeAddress = '0x...'
+    const options: AddMessageProps = {
+      message: '0x...',
+      signature: '0x...',
+      safeAppId: 1 // Optional
+    }
+
+    await apiKit.addMessage(safeAddress, options)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `safeAddress`
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+await apiKit.addMessage(
+  '0x...',
+  {
+    message: '0x...',
+    signature: '0x...'
+  }
+)
+```
+
+### `message`
+
+- **Type:** `string | EIP712TypedData`
+
+The raw message.
+
+```typescript focus=4
+await apiKit.addMessage(
+  '0x...',
+  {
+    message: '0x...',
+    signature: '0x...'
+  }
+)
+```
+
+### `signature`
+
+- **Type:** `string`
+
+The message signature.
+
+```typescript focus=5
+await apiKit.addMessage(
+  '0x...',
+  {
+    message: '0x...',
+    signature: '0x...'
+  }
+)
+```
+
+### `safeAppId` (Optional)
+
+- **Type:** `number`
+
+The Safe App ID.
+
+```typescript focus=6
+await apiKit.addMessage(
+  '0x...',
+  {
+    message: '0x...',
+    signature: '0x...',
+    safeAppId: 1
+  }
+)
+```

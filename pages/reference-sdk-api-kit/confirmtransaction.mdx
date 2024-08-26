@@ -1,0 +1,67 @@
+import { Tabs } from 'nextra/components'
+
+# `confirmTransaction`
+
+Adds a confirmation for a Safe transaction.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const safeTxHash = '0x...'
+    const signature = '0x...'
+
+    const signature = await apiKit.confirmTransaction(safeTxHash, signature)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SignatureResponse>`
+
+The signature.
+
+## Parameters
+
+### `safeTxHash`
+
+- **Type:** `string`
+
+The hash of the Safe transaction that will be confirmed.
+
+```typescript focus=2
+const signature = await apiKit.confirmTransaction(
+  '0x...',
+  '0x...'
+)
+```
+
+### `signature`
+
+- **Type:** `string`
+
+The signature of the transaction.
+
+```typescript focus=3
+const signature = await apiKit.confirmTransaction(
+  '0x...',
+  '0x...'
+)
+```
