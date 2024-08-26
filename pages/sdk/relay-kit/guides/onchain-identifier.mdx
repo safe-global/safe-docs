@@ -1,0 +1,197 @@
+import { Tabs, Steps, Callout } from 'nextra/components'
+
+# Track ERC-4337 transactions with an onchain identifier
+
+In this guide, you will learn how to get an identifier and track all your ERC-4337 Safe transactions onchain by attaching it to the user operation's `callData`.
+
+This guide summarizes all the steps included in the [Safe accounts with the Safe4337Module guide](./4337-safe-sdk.mdx), with an additional step to add the `onchainIdentifier` to your Safe transactions. If you already have the Relay Kit integrated, continue reading to learn how to get your onchain identifier, and feel free to jump straight to [step number five](#add-the-onchainidentifier-to-the-calldata) to learn how to use it afterward.
+
+## Prerequisites
+
+- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+- A [Pimlico account](https://dashboard.pimlico.io) and an API key.
+
+## Install dependencies
+
+{/* <!-- vale off --> */}
+
+<CH.Section>
+  <CH.Code style={{ boxShadow: 'none' }}>
+    ```bash pnpm
+    pnpm add @safe-global/relay-kit viem
+    ```
+
+    ```bash npm
+    npm install @safe-global/relay-kit viem
+    ```
+
+    ```bash yarn
+    yarn add @safe-global/relay-kit viem
+    ```
+  </CH.Code>
+</CH.Section>
+
+{/* <!-- vale on --> */}
+
+## Steps
+
+<Steps>
+
+  ### Imports
+
+  Here are all the necessary imports for this guide.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  import { Safe4337Pack } from '@safe-global/relay-kit'
+  import { concat, toHex } from 'viem'
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Get your on-chain identifier
+
+  This identifier is unique for every project and has a length of 16 bytes. You can create a random one or derive it from a text string, maybe from your project name:
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const onchainIdentifier = toHex(
+    'TEXT_TO_DERIVE_THE_IDENTIFIER', // Could be your project name
+    { size: 16 }
+  )
+  ```
+
+  {/* <!-- vale on --> */}
+
+  If you are applying to the [Safe\{Core\} Gas Station Program](https://safe.global/gas-station), make sure to provide the value of `onchainIdentifier` in the [Gas Station form](ttps://wn2n6ocviur.typeform.com/gasstationapp) when asked.
+
+  ### Initialize the `Safe4337Pack`
+
+  Feel free to skip this step if you have the `Safe4337Pack` already integrated into your application.
+
+  Check the [Safe4337Module guide](./4337-safe-sdk.mdx#initialize-the-safe4337pack) to get all the details on the different ways of initializing the `Safe4337Pack`, whether there is a new Safe to deploy or an existing one to use, as well as several possible configurations for the Paymaster.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const safe4337Pack = await Safe4337Pack.init({
+    provider,
+    signer,
+    bundlerUrl,
+    options: {
+      safeAddress
+    },
+    paymasterOptions: {
+      isSponsored,
+      paymasterUrl,
+      paymasterAddres,
+      paymasterTokenAddress,
+      sponsorshipPolicyId // Don't forget about your sponsorship policy id
+    }
+  })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Create a user operation
+
+  To create a Safe user operation, use the `createTransaction()` method. This method takes the array of transactions to execute and returns a `SafeOperation` object.
+  
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  // Define the transactions to execute
+  const transaction1 = { to, data, value }
+  const transaction2 = { to, data, value }
+
+  // Build the transaction array
+  const transactions = [transaction1, transaction2]
+
+  // Create the SafeOperation with all the transactions
+  const safeOperation = await safe4337Pack.createTransaction({ transactions })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  The `safeOperation` object has the `data` and `signatures` properties, which contain all the information about the transaction batch and the signatures of the Safe owners, respectively.
+
+  ### Add the `onchainIdentifier` to the `callData`
+
+  Once the `safeOperation` is ready, you need to add the `onchainIdentifier` at the end of the ERC-4337 user operation `callData`.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  safeOperation.data.callData = concat([
+    safeOperation.data.callData as `0x{string}`,
+    onchainIdentifier
+  ]).toString()
+
+  const identifiedSafeOperation = await safe4337Pack.getEstimateFee({
+    safeOperation
+  })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  Once added, the Safe owners can sign the `identifiedSafeOperation`.
+
+  ### Sign the user operation
+
+  Before sending the user operation to the bundler, the `safeOperation` object must be signed with the connected signer. The `signSafeOperation()` method, which receives a `SafeOperation` object, generates a signature that will be checked when the `Safe4337Module` validates the user operation.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const signedSafeOperation = await safe4337Pack.signSafeOperation(safeOperation)
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Submit the user operation
+
+  Once the `safeOperation` object is signed, we can call the `executeTransaction()` method to submit the user operation to the bundler.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const userOperationHash = await safe4337Pack.executeTransaction({
+    executable: signedSafeOperation
+  })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  Once the transaction is executed, you will see the `onchainIdentifier` included at the end of the user operation `callData`. 
+
+  ### Check the transaction status
+
+  To check the transaction status, we can use the `getTransactionReceipt()` method, which returns the transaction receipt after execution.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  let userOperationReceipt = null
+
+  while (!userOperationReceipt) {
+    // Wait 2 seconds before checking the status again
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+    userOperationReceipt = await safe4337Pack.getUserOperationReceipt(
+      userOperationHash
+    )
+  }
+  ```
+
+  {/* <!-- vale on --> */}
+
+  Now, tracking all your transactions is possible by performing onchain queries looking for your identifier at the end of the `callData` field.
+
+</Steps>
+
+## Recap and further reading
+
+If you are not using the Safe\{Core\} SDK to submit transactions, the following GitHub repository may be helpful:
+
+- The [safe-onchain-identifiers](https://github.com/5afe/safe-onchain-identifiers) repository showcases where and how to add the identifier at the end of your Safe transactions data without using the Relay Kit and with a low-level detail. Check also the [specific code](https://github.com/5afe/safe-onchain-identifiers/blob/main/test/OnchainIdentifier.ts#L197-L217) where the identifier is concatenated to the `callData`.
