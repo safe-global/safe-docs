@@ -2,12 +2,6 @@ import { Callout } from 'nextra/components'
 
 # How to build a React app with Safe and passkeys
 
-<Callout type='warning' emoji='⚠️'>
-  Compatibility with passkeys is only available when using
-  `@safe-global/protocol-kit@4.1.0-alpha.1` and
-  `@safe-global/relay-kit@3.1.0-alpha.1` in Sepolia.
-</Callout>
-
 An increasing number of applications rely on passkeys to authenticate users securely and with little friction. Security and user-friendliness are crucial to making web3 a reality for the next billion users.
 Being able to unlock a Safe Smart Account with your fingerprints or Face ID, sending transactions without worrying about third-party wallet interfaces, phishing attempts, or securing seed phrases will bring new forms of ownership to the connected world.
 Today, we'll learn how to make this a reality using [Safe\{Core\} SDK](../../sdk/overview.mdx), [Pimlico](https://www.pimlico.io/), and [Next.js](https://nextjs.org/docs).
@@ -51,7 +45,7 @@ For this project, we'll use the [Relay Kit](../../sdk/relay-kit.mdx) and [Protoc
 Run the following command to add all these dependencies to the project:
 
 ```bash
-pnpm add @safe-global/protocol-kit@4.1.0-alpha.1 @safe-global/relay-kit@3.1.0-alpha.1 viem @emotion/react @emotion/styled @mui/material @mui/icons-material
+pnpm add @safe-global/protocol-kit @safe-global/relay-kit viem @emotion/react @emotion/styled @mui/material @mui/icons-material
 ```
 
 Now, create a file named `.env.local` at the root of your project, and add your Pimlico API key to it:
