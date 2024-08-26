@@ -1,0 +1,39 @@
+{
+  "home": {
+    "title": "← Go Back",
+    "href": "/sdk/api-kit"
+  },
+  "overview": "Overview",
+  "-- API Kit Reference": {
+    "type": "separator",
+    "title": "API Kit Reference"
+  },
+  "constructor": "constructor",
+  "getserviceinfo": "getServiceInfo",
+  "getservicesingletonsinfo": "getServiceSingletonsInfo",
+  "decodeddata": "decodedData",
+  "getsafesbyowner": "getSafesByOwner",
+  "getsafesbymodule": "getSafesByModule",
+  "gettransaction": "getTransaction",
+  "gettransactionconfirmations": "getTransactionConfirmations",
+  "confirmtransaction": "confirmTransaction",
+  "getsafeinfo": "getSafeInfo",
+  "getsafedelegates": "getSafeDelegates",
+  "addsafedelegate": "addSafeDelegate",
+  "removesafedelegate": "removeSafeDelegate",
+  "getsafecreationinfo": "getSafeCreationInfo",
+  "estimatesafetransaction": "estimateSafeTransaction",
+  "proposetransaction": "proposeTransaction",
+  "getincomingtransactions": "getIncomingTransactions",
+  "getmoduletransactions": "getModuleTransactions",
+  "getmultisigtransactions": "getMultisigTransactions",
+  "getpendingtransactions": "getPendingTransactions",
+  "getalltransactions": "getAllTransactions",
+  "getnextnonce": "getNextNonce",
+  "gettokenlist": "getTokenList",
+  "gettoken": "getToken",
+  "getmessage": "getMessage",
+  "getmessages": "getMessages",
+  "addmessage": "addMessage",
+  "addmessagesignature": "addMessageSignature"
+}

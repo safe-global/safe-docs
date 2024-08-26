@@ -1,0 +1,120 @@
+import { Tabs } from 'nextra/components'
+
+# `getSafeDelegates`
+
+Returns the list of delegates for a given Safe address.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { GetSafeDelegateProps } from '@safe-global/api-kit'
+    import { apiKit } from './setup.ts'
+
+    const delegateConfig: GetSafeDelegateProps = {
+      safeAddress: '0x...', // Optional
+      delegateAddress: '0x...', // Optional
+      delegatorAddress: '0x...', // Optional
+      label: 'abc', // Optional
+      limit: '10', // Optional
+      offset: '50' // Optional
+    }
+
+    const delegates = await apiKit.getSafeDelegates(delegateConfig)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeDelegateListResponse>`
+
+The list of delegates.
+
+## Parameters
+
+### `safeAddress` (Optional)
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+const delegates = await apiKit.getSafeDelegates({
+  safeAddress: '0x...'
+})
+```
+
+### `delegateAddress` (Optional)
+
+- **Type:** `string`
+
+The delegate address.
+
+```typescript focus=2
+const delegates = await apiKit.getSafeDelegates({
+  delegateAddress: '0x...'
+})
+```
+
+### `delegatorAddress` (Optional)
+
+- **Type:** `string`
+
+The delegator address.
+
+```typescript focus=2
+const delegates = await apiKit.getSafeDelegates({
+  delegatorAddress: '0x...'
+})
+```
+
+### `label` (Optional)
+
+- **Type:** `string`
+
+The custom label.
+
+```typescript focus=2
+const delegates = await apiKit.getSafeDelegates({
+  label: 'abc'
+})
+```
+
+### `limit` (Optional)
+
+- **Type:** `string`
+
+The number of results returned per page.
+
+```typescript focus=2
+const delegates = await apiKit.getSafeDelegates({
+  limit: '10'
+})
+```
+
+### `offset` (Optional)
+
+- **Type:** `string`
+
+The initial index from which to return the results.
+
+```typescript focus=2
+const delegates = await apiKit.getSafeDelegates({
+  offset: '50'
+})
+```

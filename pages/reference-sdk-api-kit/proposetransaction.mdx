@@ -1,0 +1,342 @@
+import { Tabs } from 'nextra/components'
+
+# `proposeTransaction`
+
+Creates a new multi-signature transaction with its confirmations and stores it in the Safe Transaction Service.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { ProposeTransactionProps } from '@safe-global/api-kit'
+    import { OperationType, SafeTransactionData } from '@safe-global/safe-core-sdk-types'
+    import { apiKit } from './setup.ts'
+
+    const safeTransactionData: SafeTransactionData = {
+      operation: OperationType.Call,
+      safeTxGas: '0x...',
+      baseGas: '123',
+      gasPrice: '123',
+      gasToken: '0x...',
+      refundReceiver: '0x...',
+      nonce: '10'
+    }
+
+    const transactionConfig: ProposeTransactionProps = {
+      safeAddress: '0x...',
+      safeTxHash: '0x...',
+      safeTransactionData,
+      senderAddress: '0x...',
+      senderSignature: '0x...',
+      origin: 'App name' // Optional
+    }
+
+    await apiKit.proposeTransaction(transactionConfig)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `safeAddress`
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+await apiKit.proposeTransaction({
+  safeAddress: '0x...',
+  safeTxHash: '0x...',
+  safeTransactionData: {
+    operation: OperationType.Call,
+    safeTxGas: '0x...',
+    baseGas: '123',
+    gasPrice: '123',
+    gasToken: '0x...',
+    refundReceiver: '0x...',
+    nonce: '10'
+  },
+  senderAddress: '0x...',
+  senderSignature: '0x...'
+})
+```
+
+### `safeTxHash`
+
+- **Type:** `string`
+
+The Safe transaction hash of the proposed transaction.
+
+```typescript focus=3
+await apiKit.proposeTransaction({
+  safeAddress: '0x...',
+  safeTxHash: '0x...',
+  safeTransactionData: {
+    operation: OperationType.Call,
+    safeTxGas: '0x...',
+    baseGas: '123',
+    gasPrice: '123',
+    gasToken: '0x...',
+    refundReceiver: '0x...',
+    nonce: '10'
+  },
+  senderAddress: '0x...',
+  senderSignature: '0x...'
+})
+```
+
+### `operation`
+
+- **Type:** `OperationType`
+
+The operation of the proposed transaction.
+
+```typescript focus=5
+await apiKit.proposeTransaction({
+  safeAddress: '0x...',
+  safeTxHash: '0x...',
+  safeTransactionData: {
+    operation: OperationType.Call,
+    safeTxGas: '0x...',
+    baseGas: '123',
+    gasPrice: '123',
+    gasToken: '0x...',
+    refundReceiver: '0x...',
+    nonce: '10'
+  },
+  senderAddress: '0x...',
+  senderSignature: '0x...'
+})
+```
+
+### `safeTxGas`
+
+- **Type:** `string`
+
+The Safe transaction hash of the proposed transaction.
+
+```typescript focus=6
+await apiKit.proposeTransaction({
+  safeAddress: '0x...',
+  safeTxHash: '0x...',
+  safeTransactionData: {
+    operation: OperationType.Call,
+    safeTxGas: '0x...',
+    baseGas: '123',
+    gasPrice: '123',
+    gasToken: '0x...',
+    refundReceiver: '0x...',
+    nonce: '10'
+  },
+  senderAddress: '0x...',
+  senderSignature: '0x...'
+})
+```
+
+### `baseGas`
+
+- **Type:** `string`
+
+The base gas of the proposed transaction.
+
+```typescript focus=7
+await apiKit.proposeTransaction({
+  safeAddress: '0x...',
+  safeTxHash: '0x...',
+  safeTransactionData: {
+    operation: OperationType.Call,
+    safeTxGas: '0x...',
+    baseGas: '123',
+    gasPrice: '123',
+    gasToken: '0x...',
+    refundReceiver: '0x...',
+    nonce: '10'
+  },
+  senderAddress: '0x...',
+  senderSignature: '0x...'
+})
+```
+
+### `gasPrice`
+
+- **Type:** `string`
+
+The gas price of the proposed transaction.
+
+```typescript focus=8
+await apiKit.proposeTransaction({
+  safeAddress: '0x...',
+  safeTxHash: '0x...',
+  safeTransactionData: {
+    operation: OperationType.Call,
+    safeTxGas: '0x...',
+    baseGas: '123',
+    gasPrice: '123',
+    gasToken: '0x...',
+    refundReceiver: '0x...',
+    nonce: '10'
+  },
+  senderAddress: '0x...',
+  senderSignature: '0x...'
+})
+```
+
+### `gasToken`
+
+- **Type:** `string`
+
+The address of the ERC-20 token sent to the refund receiver.
+
+```typescript focus=9
+await apiKit.proposeTransaction({
+  safeAddress: '0x...',
+  safeTxHash: '0x...',
+  safeTransactionData: {
+    operation: OperationType.Call,
+    safeTxGas: '0x...',
+    baseGas: '123',
+    gasPrice: '123',
+    gasToken: '0x...',
+    refundReceiver: '0x...',
+    nonce: '10'
+  },
+  senderAddress: '0x...',
+  senderSignature: '0x...'
+})
+```
+
+### `refundReceiver`
+
+- **Type:** `string`
+
+The address of the refund receiver of the proposed transaction.
+
+```typescript focus=10
+await apiKit.proposeTransaction({
+  safeAddress: '0x...',
+  safeTxHash: '0x...',
+  safeTransactionData: {
+    operation: OperationType.Call,
+    safeTxGas: '0x...',
+    baseGas: '123',
+    gasPrice: '123',
+    gasToken: '0x...',
+    refundReceiver: '0x...',
+    nonce: '10'
+  },
+  senderAddress: '0x...',
+  senderSignature: '0x...'
+})
+```
+
+### `nonce`
+
+- **Type:** `string`
+
+The nonce of the proposed transaction.
+
+```typescript focus=11
+await apiKit.proposeTransaction({
+  safeAddress: '0x...',
+  safeTxHash: '0x...',
+  safeTransactionData: {
+    operation: OperationType.Call,
+    safeTxGas: '0x...',
+    baseGas: '123',
+    gasPrice: '123',
+    gasToken: '0x...',
+    refundReceiver: '0x...',
+    nonce: '10'
+  },
+  senderAddress: '0x...',
+  senderSignature: '0x...'
+})
+```
+
+### `senderAddress`
+
+- **Type:** `string`
+
+The address of the signer account that proposes the transaction.
+
+```typescript focus=13
+await apiKit.proposeTransaction({
+  safeAddress: '0x...',
+  safeTxHash: '0x...',
+  safeTransactionData: {
+    operation: OperationType.Call,
+    safeTxGas: '0x...',
+    baseGas: '123',
+    gasPrice: '123',
+    gasToken: '0x...',
+    refundReceiver: '0x...',
+    nonce: '10'
+  },
+  senderAddress: '0x...',
+  senderSignature: '0x...'
+})
+```
+
+### `senderSignature`
+
+- **Type:** `string`
+
+The signature of the sender, the signer account that proposes the transaction.
+
+```typescript focus=14
+await apiKit.proposeTransaction({
+  safeAddress: '0x...',
+  safeTxHash: '0x...',
+  safeTransactionData: {
+    operation: OperationType.Call,
+    safeTxGas: '0x...',
+    baseGas: '123',
+    gasPrice: '123',
+    gasToken: '0x...',
+    refundReceiver: '0x...',
+    nonce: '10'
+  },
+  senderAddress: '0x...',
+  senderSignature: '0x...'
+})
+```
+
+### `origin` (Optional)
+
+- **Type:** `string`
+
+The name of the application that proposes the transaction.
+
+```typescript focus=15
+await apiKit.proposeTransaction({
+  safeAddress: '0x...',
+  safeTxHash: '0x...',
+  safeTransactionData: {
+    operation: OperationType.Call,
+    safeTxGas: '0x...',
+    baseGas: '123',
+    gasPrice: '123',
+    gasToken: '0x...',
+    refundReceiver: '0x...',
+    nonce: '10'
+  },
+  senderAddress: '0x...',
+  senderSignature: '0x...',
+  origin: 'App name'
+})
+```

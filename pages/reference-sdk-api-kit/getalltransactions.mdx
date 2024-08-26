@@ -1,0 +1,106 @@
+import { Tabs } from 'nextra/components'
+
+# `getAllTransactions`
+
+Returns a list of transactions for a given Safe account, with a different structure depending on the transaction type.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { AllTransactionsOptions } from '@safe-global/api-kit'
+    import { apiKit } from './setup.ts'
+
+    const safeAddress = '0x...'
+    const allTxsOptions: AllTransactionsOptions = {
+      executed: true, // Optional
+      queued: true, // Optional
+      trusted: true // Optional
+    }
+
+    const allTxs = await apiKit.getAllTransactions(
+      safeAddress,
+      allTxsOptions // Optional
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<AllTransactionsListResponse>`
+
+The list of transactions.
+
+## Parameters
+
+### `safeAddress`
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+const allTxs = await apiKit.getAllTransactions(
+  safeAddress
+)
+```
+
+### `executed` (Optional)
+
+- **Type:** `boolean`
+
+If true, only executed transactions are returned.
+
+```typescript focus=4
+const allTxs = await apiKit.getAllTransactions(
+  safeAddress,
+  {
+    executed: true
+  }
+)
+```
+
+### `queued` (Optional)
+
+- **Type:** `boolean`
+
+If true, transactions with nonce higher or equal than the current nonce are returned.
+
+```typescript focus=4
+const allTxs = await apiKit.getAllTransactions(
+  safeAddress,
+  {
+    queued: true
+  }
+)
+```
+
+### `trusted` (Optional)
+
+- **Type:** `boolean`
+
+If true, just trusted transactions are returned (indexed, added by a delegate or with at least one confirmation).
+
+```typescript focus=4
+const allTxs = await apiKit.getAllTransactions(
+  safeAddress,
+  {
+    trusted: true
+  }
+)
+```
