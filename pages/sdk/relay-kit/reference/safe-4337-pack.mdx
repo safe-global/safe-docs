@@ -200,7 +200,7 @@ Signs a `SafeOperation`.
 
 **Parameters**
 
-- **`safeOperation`** : The `SafeOperation` to sign.
+- **`safeOperation`** : The `EthSafeOperation | SafeOperationResponse` to sign. Can either be created by the `Safe4337Pack` or fetched via `api-kit`.
 - **`signingMethod`** : The method to use for signing the transaction. The default is `SigningMethod.ETH_SIGN_TYPED_DATA_V4`.
 
 **Returns**
@@ -228,11 +228,11 @@ The `Safe4337ExecutableProps`
 
 ```typescript
 Safe4337ExecutableProps = {
-  executable: SafeOperation
+  executable: EthSafeOperation | SafeOperationResponse
 }
 ```
 
-- **`executable`** : The `SafeOperation` to execute.
+- **`executable`** : The `SafeOperation` to execute. Can either be created by the `Safe4337Pack` or fetched via `api-kit`.
 
 **Returns**
 A promise, resolves to the user operation hash.
