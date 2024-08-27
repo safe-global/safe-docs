@@ -39,20 +39,6 @@
       "sidebar": false
     }
   },
-  "help": {
-    "title": "Help",
-    "type": "menu",
-    "items": {
-      "glossary": {
-        "title": "Glossary",
-        "href": "/glossary"
-      },
-      "support": {
-        "title": "Support",
-        "href": "/support"
-      }
-    }
-  },
   "glossary": {
     "title": "Glossary",
     "display": "hidden",
@@ -64,7 +50,6 @@
   "support": {
     "title": "Support",
     "type": "page",
-    "display": "hidden",
     "theme": {
       "layout": "full"
     }
