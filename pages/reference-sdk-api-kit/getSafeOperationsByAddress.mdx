@@ -1,8 +1,8 @@
 import { Tabs } from 'nextra/components'
 
-# `getMessages`
+# `getSafeOperationsByAddress`
 
-Returns the list of messages associated to a Safe account.
+Returns the list of SafeOperations associated to a Safe account.
 
 ## Usage
 
@@ -11,17 +11,17 @@ Returns the list of messages associated to a Safe account.
 <Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
-    import { GetSafeMessageListProps } from '@safe-global/api-kit'
+    import { GetSafeOperationListProps } from '@safe-global/api-kit'
     import { apiKit } from './setup.ts'
 
-    const safeAddress = '0x...'
-    const config: GetSafeMessageListProps = {
+    const config: GetSafeOperationListProps = {
+      safeAddress: '0x...',
       ordering: 'created', // Optional
       limit: '10', // Optional
       offset: '50' // Optional
     }
 
-    const messagesResponse = await apiKit.getMessages(safeAddress, config)
+    const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(config)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -39,9 +39,9 @@ Returns the list of messages associated to a Safe account.
 
 ## Returns
 
-`Promise<SafeMessageListResponse>`
+`Promise<GetSafeOperationListResponse>`
 
-The paginated list of messages.
+The paginated list of operations with `results` containing the `SafeOperationResponse` list.
 
 ## Parameters
 
@@ -52,21 +52,21 @@ The paginated list of messages.
 The Safe address.
 
 ```typescript focus=2
-const messagesResponse = await apiKit.getMessages(
-  '0x...'
-)
+const safeOperationsResponse = await apiKit.getSafeOperationsByAddress({
+  safeAddress: '0x...'
+})
 ```
 
 ### `ordering` (Optional)
 
 - **Type:** `string`
 
-The field used when ordering the results.
+The field used when ordering the results. Can be one of: `user_operation__nonce`, `created`, `-user_operation__nonce`, `-created`. Default: `-user_operation__nonce`.
 
 ```typescript focus=4
-const messagesResponse = await apiKit.getMessages(
-  '0x...',
+const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
   {
+    safeAddress: '0x...',
     ordering: 'created'
   }
 )
@@ -79,9 +79,9 @@ const messagesResponse = await apiKit.getMessages(
 The number of results to return per page.
 
 ```typescript focus=4
-const messagesResponse = await apiKit.getMessages(
-  '0x...',
+const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
   {
+    safeAddress: '0x...',
     limit: 10
   }
 )
@@ -94,9 +94,9 @@ const messagesResponse = await apiKit.getMessages(
 The initial index from which to return the results.
 
 ```typescript focus=4
-const messagesResponse = await apiKit.getMessages(
-  '0x...',
+const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
   {
+    safeAddress: '0x...',
     offset: 50
   }
 )
