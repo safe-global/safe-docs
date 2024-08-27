@@ -35,5 +35,10 @@
   "getmessage": "getMessage",
   "getmessages": "getMessages",
   "addmessage": "addMessage",
-  "addmessagesignature": "addMessageSignature"
+  "addmessagesignature": "addMessageSignature",
+  "getSafeOperationsByAddress": "getSafeOperationsByAddress",
+  "getSafeOperation": "getSafeOperation",
+  "addSafeOperation": "addSafeOperation",
+  "getSafeOperationConfirmations": "getSafeOperationConfirmations",
+  "confirmSafeOperation": "confirmSafeOperation"
 }
