@@ -2,10 +2,6 @@ import { Callout, Steps, Tabs } from 'nextra/components'
 
 # Passkeys with the Safe\{Core\} SDK
 
-<Callout type='warning' emoji='⚠️'>
-  Compatibility with passkeys is only available when using `@safe-global/protocol-kit@4.1.0-alpha.1` and `@safe-global/relay-kit@3.1.0-alpha.1` in Sepolia.
-</Callout>
-
 This guide will teach you how to create and execute multiple Safe transactions grouped in a batch from a Safe Smart Account that uses a passkey as an owner. To have a good user experience, we will use an [ERC-4337 compatible Safe](../../advanced/erc-4337/guides/safe-sdk.mdx) with sponsored transactions using Pimlico infrastructure. During this guide, we will create a new passkey, add it to the Safe as an owner, and use it to sign the user operations.
 
 This guide uses [Pimlico](https://pimlico.io) as the service provider, but any other provider compatible with the ERC-4337 can be used.
@@ -23,8 +19,8 @@ This guide uses [Pimlico](https://pimlico.io) as the service provider, but any o
 {/* <!-- vale off --> */}
 
 ```bash
-yarn add @safe-global/relay-kit@3.1.0-alpha.1
-yarn add @safe-global/protocol-kit@4.1.0-alpha.1
+yarn add @safe-global/relay-kit
+yarn add @safe-global/protocol-kit
 ```
 
 {/* <!-- vale on --> */}
