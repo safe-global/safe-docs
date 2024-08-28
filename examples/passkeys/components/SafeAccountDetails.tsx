@@ -21,7 +21,7 @@ type props = {
   passkey: PasskeyArgType
 }
 
-function SafeAccountDetails({ passkey }: props) {
+function SafeAccountDetails ({ passkey }: props) {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [safeAddress, setSafeAddress] = useState<string>()
   const [isSafeDeployed, setIsSafeDeployed] = useState<boolean>()
@@ -52,7 +52,7 @@ function SafeAccountDetails({ passkey }: props) {
     showSafeInfo()
   }, [showSafeInfo])
 
-  async function handleMintNFT() {
+  async function handleMintNFT () {
     setIsLoading(true)
 
     const userOp = await mintNFT(passkey, safeAddress!)
@@ -77,7 +77,12 @@ function SafeAccountDetails({ passkey }: props) {
         ) : (
           <>
             <Typography textAlign={'center'}>
-              <Link href={safeLink} target='_blank' underline='hover' color='white'>
+              <Link
+                href={safeLink}
+                target='_blank'
+                underline='hover'
+                color='white'
+              >
                 <Tooltip title={safeAddress}>
                   <Stack
                     component={'span'}
@@ -111,8 +116,13 @@ function SafeAccountDetails({ passkey }: props) {
             </Button>
 
             {userOp && (
-              <Typography textAlign={'center'} >
-                <Link href={jiffscanLink} target='_blank' underline='hover' color='white'>
+              <Typography textAlign={'center'}>
+                <Link
+                  href={jiffscanLink}
+                  target='_blank'
+                  underline='hover'
+                  color='white'
+                >
                   <Stack
                     component={'span'}
                     padding={4}
@@ -136,7 +146,7 @@ export default SafeAccountDetails
 
 const DEFAULT_CHAR_DISPLAYED = 6
 
-function splitAddress(
+function splitAddress (
   address: string,
   charDisplayed: number = DEFAULT_CHAR_DISPLAYED
 ): string {
@@ -146,7 +156,7 @@ function splitAddress(
   return `${firstPart}...${lastPart}`
 }
 
-function PendingDeploymentLabel() {
+function PendingDeploymentLabel () {
   return (
     <div style={{ margin: '12px auto' }}>
       <span
@@ -157,10 +167,10 @@ function PendingDeploymentLabel() {
           border: '1px solid rgb(255, 255, 255)',
           whiteSpace: 'nowrap',
           backgroundColor: 'rgb(240, 185, 11)',
-          color: 'rgb(0, 20, 40)',
+          color: 'rgb(0, 20, 40)'
         }}
       >
-        Deployment pending
+        Deployment pending (Mint NFT to deploy Safe)
       </span>
     </div>
   )
