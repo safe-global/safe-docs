@@ -58,7 +58,7 @@ const jiffscanLink = `https://jiffyscan.xyz/userOpHash/${store.userOp}?network=$
         v-if="store.safeAddress && !store.isSafeDeployed"
         color="yellow"
         variant="solid"
-        >Deployment pending
+        >Deployment pending (mint NFT to deploy)
       </UBadge>
       <UButton
         variant="outline"
