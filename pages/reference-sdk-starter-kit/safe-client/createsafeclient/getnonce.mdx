@@ -1,0 +1,34 @@
+import { Tabs } from "nextra/components";
+
+# `getNonce`
+
+This method retrieves the current Safe nonce. The nonce is a number that represents the number of transactions sent from the Safe account.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={["send.ts", "setup.ts"]}>
+  <Tabs.Tab>
+    ```typescript 
+      const nonce = await safeClient.getNonce()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript 
+      const safeClient = await createSafeClient({
+        provider,  
+        signer,
+        safeAddress
+      })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<number>`
+
+The nonce.

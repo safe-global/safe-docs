@@ -1,0 +1,43 @@
+import { Tabs } from 'nextra/components'
+
+# `getOwnersWhoApprovedTx`
+
+Given a safe transaction hash (safeTxHash), this method retrieves the list of owners who have approved the transaction.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['one.ts', 'two.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    const safeTxHash = "0x..."
+    const owners = safeClient.getOwnersWhoApprovedTx(safeTxHash)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+      const safeClient = await createSafeClient({
+        provider,  
+        signer,
+        safeAddress
+      })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<string[]>`
+
+The list of owners who approved the concrete safeTxHash
+
+## Parameters
+
+### `safeTxHash`
+
+- **Type:** `string`
+
+The target `safeTxHash` to check

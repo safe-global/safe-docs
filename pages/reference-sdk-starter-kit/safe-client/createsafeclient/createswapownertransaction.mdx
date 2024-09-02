@@ -1,0 +1,54 @@
+import { Tabs } from 'nextra/components'
+
+# `createSwapOwnerTransaction`
+
+Creates a transaction (to, value, data) to swap an owner of the Safe account.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['createSwapOwnerTransaction.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    const transaction = await safeClient.createSwapOwnerTransaction({
+      oldOwnerAddress,
+      newOwnerAddress
+    })
+
+    const txResult = await safeClient.send({ transactions: [transaction] })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+      const safeClient = await createSafeClient({
+        provider,  
+        signer,
+        safeAddress
+      })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<TransactionBase>`
+
+Returns a `TransactionBase` transaction that can be used/included in a batch with the `send` method
+
+## Parameters
+
+### `oldOwnerAddress`
+
+- **Type:** `string`
+
+The ethereum address to remove as an owner.
+
+### `newOwnerAddress` (optional)
+
+- **Type:** `string`
+
+The new ethereum address to add as an owner.
+

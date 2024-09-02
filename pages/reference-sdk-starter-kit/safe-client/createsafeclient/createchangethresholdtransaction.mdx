@@ -1,0 +1,47 @@
+import { Tabs } from 'nextra/components'
+
+# `createChangeThresholdTransaction`
+
+Creates a transaction (to, value, data) to change the Safe account threshold.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['one.ts', 'two.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    const transaction = await safeClient.createChangeThresholdTransaction({
+      threshold
+    })
+
+    const txResult = await safeClient.send({ transactions: [transaction] })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+      const safeClient = await createSafeClient({
+        provider,  
+        signer,
+        safeAddress
+      })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<TransactionBase>`
+
+Returns a `TransactionBase` transaction that can be used/included in a batch with the `send` method
+
+## Parameters
+
+### `threshold`
+
+- **Type:** `string`
+
+The new threshold for the Safe account.
+

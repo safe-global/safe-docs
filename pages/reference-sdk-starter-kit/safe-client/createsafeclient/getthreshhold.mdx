@@ -1,0 +1,34 @@
+import { Tabs } from 'nextra/components'
+
+# `getThreshold`
+
+Get the Safe account threshold.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['getThreshold.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    const threshold = await safeClient.getThreshold()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    const safeClient = await createSafeClient({
+      provider,  
+      signer,
+      safeAddress
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<number>`
+
+The Safe account threshold.

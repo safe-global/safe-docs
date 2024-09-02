@@ -1,0 +1,34 @@
+import { Tabs } from "nextra/components";
+
+# `getPendingOffChainMessages`
+
+This method returns the list of pending transactions that need to be confirmed using the `confirm()` method to be executed in the blockchain.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={["getPendingTransactions.ts", "setup.ts"]}>
+  <Tabs.Tab>
+  ```typescript 
+    const pendingTransactions = await safeClient.getPendingTransactions()
+  ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ```typescript 
+    const safeClient = await createSafeClient({
+      provider,  
+      signer,
+      safeAddress
+    })
+  ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`SafeMultisigConfirmationListResponse`
+
+A paginated list of the pending transactions
