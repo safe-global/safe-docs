@@ -1,6 +1,6 @@
 # Commands available in unattended mode
 
-In addition to the use cases referenced in the sections [Common commands for both modes](./common-commands) and [Commands specific to the tx-service mode](./tx-service-commands) it is possible to execute some commands without using the interactive prompt. This facilitates the use of `safe-cli` in the generation of scripts or automated processes.
+In addition to the use cases referenced in the sections [Common commands for both modes](./common-commands) and [Commands specific to the tx-service mode](./tx-service-commands) it is possible to execute some commands without using the interactive prompt. This facilitates the use of `safe-cli` in generating scripts or automated processes.
 
 The commands available for direct execution without the use of the interactive prompt are:
 
@@ -21,8 +21,8 @@ safe-cli command [OPTIONS] ARG1 ARG2 ARGN
 
 All commands available without using the interactive prompt share the following common arguments:
 
-- `--private-key`: The list of private keys that are necessary for each operation. The `--private-key` option must be added as many times keys are necessary. It is possible to specify the key value directly after the `--private-key`, or the value can be stored in an environment variable, and the name of the variable can be provided following the `--private-key`.
-- `--interactive / --non-interactive`: Indicates if the execution of the command requires user interaction, such as a confirmation before executing a transaction. By default, it has the value `--interactive`, but it is possible to avoid any confirmation by using `--non-interactive`. This is useful for scripting and automation where no user intervention is required.
+- `--private-key`: The list of private keys necessary for each operation. The `--private-key` option must be added as keys are often necessary. It is possible to specify the key value directly after the `--private-key`, or to pass the name of an environment variable containing the private key.
+- `--interactive / --non-interactive`: Indicates if the execution of the command requires user interaction, such as a confirmation before executing a transaction. By default, it has the value `--interactive`, but it is possible to avoid any confirmation by using `--non-interactive`. This is useful for scripting and automation, where no user intervention is required.
 
 
 ## Transactions
@@ -45,7 +45,7 @@ safe-cli send-custom [OPTIONS] SAFE_ADDRESS NODE_URL TO VALUE DATA
 │ --private-key                         TEXT     List of private keys of signers.                              │
 │ --safe-nonce                          INTEGER  Force nonce for tx_sender                                     │
 │ --delegate       --no-delegate                 Use DELEGATE_CALL. By default use CALL [default: no-delegate] │
-│ --interactive    --non-interactive             Enable / disable interactive mode.                            │
+│ --interactive    --non-interactive             Enable/disable interactive mode.                            │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
@@ -65,7 +65,7 @@ safe-cli send-ether [OPTIONS] SAFE_ADDRESS NODE_URL TO VALUE
 ╭─ Options ──────────────────────────────────────────────────────────────────────────╮
 │ --private-key                         TEXT     List of private keys of signers.    │
 │ --safe-nonce                          INTEGER  Force nonce for tx_sender           │
-│ --interactive    --non-interactive             Enable / disable interactive mode.  │
+│ --interactive    --non-interactive             Enable/disable interactive mode.  │
 ╰────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
@@ -86,7 +86,7 @@ safe-cli send-erc20 [OPTIONS] SAFE_ADDRESS NODE_URL TO TOKEN_ADDRESS AMOUNT
 ╭─ Options ──────────────────────────────────────────────────────────────────────────────────╮
 │ --private-key                         TEXT     List of private keys of signers.            │
 │ --safe-nonce                          INTEGER  Force nonce for tx_sender                   │
-│ --interactive    --non-interactive             Enable / disable interactive mode.          │
+│ --interactive    --non-interactive             Enable/disable interactive mode.          │
 ╰────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
@@ -107,7 +107,7 @@ safe-cli send-erc721 [OPTIONS] SAFE_ADDRESS NODE_URL TO TOKEN_ADDRESS TOKEN_ID
 ╭─ Options ─────────────────────────────────────────────────────────────────────────╮
 │ --private-key                         TEXT     List of private keys of signers.   │
 │ --safe-nonce                          INTEGER  Force nonce for tx_sender          │
-│ --interactive    --non-interactive             Enable / disable interactive mode. │
+│ --interactive    --non-interactive             Enable/disable interactive mode. │
 ╰───────────────────────────────────────────────────────────────────────────────────╯
 ```
 
@@ -127,6 +127,6 @@ safe-cli tx-builder [OPTIONS] SAFE_ADDRESS NODE_URL FILE_PATH
 ╰────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ Options ──────────────────────────────────────────────────────────────────────────╮
 │ --private-key                         TEXT     List of private keys of signers.    │
-│ --interactive    --non-interactive             Enable / disable interactive mode.  │
+│ --interactive    --non-interactive             Enable/disable interactive mode.  │
 ╰────────────────────────────────────────────────────────────────────────────────────╯
 ```
