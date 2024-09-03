@@ -2,15 +2,17 @@ import { Tabs } from "nextra/components";
 
 # `sendOffChainMessage`
 
-The `sendOffChainMessage` method is used to create off-chain messages in your Safe account. Safe Wallet current default is off-chain messages so this method will help with the Safe creation and message storage by leveraging the Transaction service.
+The `sendOffChainMessage` method is used to create off-chain messages in your Safe account. Safe Wallet current default is off-chain messages so this method will help with the Safe creation and message storage by leveraging the Transaction Service.
 
 If the Safe account is already deployed (You are using `safeAddress` or the `safeOptions` counterfactual address prediction derives in an existing Safe account)
-  - The message will be stored using the Transaction service. 
-  - In the case the Safe is a multisig one (threshold > 1) then more signatures (confirmations) will be required. For that you will use the `confirmOffChainMessage` method.
+
+- The message will be stored using the Transaction Service.
+- In the case the Safe is a multisig one (threshold > 1) then more signatures (confirmations) will be required. For that you will use the `confirmOffChainMessage` method.
 
 If the Safe account is not deployed yet (You are using `safeOptions` and the counterfactual address prediction derives in a non-existing Safe account):
-  - In the case the Safe is a multisig account, The `sendOffChainMessage` method will add the message, same as in the previous case but the Safe account will be as well deployed using the funds in the current `signer` account.
-  - In the case the Safe is a single owner account, the message is automatically confirmed and valid.
+
+- In the case the Safe is a multisig account, The `sendOffChainMessage` method will add the message, same as in the previous case but the Safe account will be as well deployed using the funds in the current `signer` account.
+- In the case the Safe is a single owner account, the message is automatically confirmed and valid.
 
 ## Usage
 
@@ -23,6 +25,7 @@ If the Safe account is not deployed yet (You are using `safeOptions` and the cou
 
       const messageResult = await safeMessageClient.sendOffChainMessage({ message })
     ```
+
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript      
@@ -34,6 +37,7 @@ If the Safe account is not deployed yet (You are using `safeOptions` and the cou
 
       const safeMessageClient = safeClient.extend(offChainMessages())
     ```
+
   </Tabs.Tab>
 </Tabs>
 
@@ -51,4 +55,4 @@ An object with the result of the sendOffChainMessage operation.
 
 - **Type:** `string | EIP712TypedData`
 
-The message can be a raw string or an [EIP-712](https://eips.ethereum.org/EIPS/eip-712) compotible data object.
+The message can be a raw string or an [EIP-712](https://eips.ethereum.org/EIPS/eip-712) compatible data object.

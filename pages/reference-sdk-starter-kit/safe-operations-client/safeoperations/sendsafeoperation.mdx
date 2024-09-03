@@ -4,7 +4,7 @@ import { Tabs } from "nextra/components";
 
 This method allow to send SafeOperations from a group of transactions and will convert your transactions in a batch:
 
-- If the threshold > 1 it will save for later the SafeOperation using the Transaction service. You must confirmSafeOperation() with other owners
+- If the threshold > 1 it will save for later the SafeOperation using the Transaction Service. You must confirmSafeOperation() with other owners
 - If the threshold = 1 the SafeOperation can be submitted to the bundler so it will execute it immediately
 
 In any case, if the Safe account is not deployed yet, sending it to the bundler will deploy it before executing the transactions. You need to ensure you have enough funds in the Safe address (or counterfactual) or if you are sponsoring it in the paymaster contract.
@@ -85,13 +85,13 @@ The amount to approve for the SafeOperation
 
 - **Type:** `number`
 
-The validUntil timestamp for the SafeOperation
+The `validUntil` timestamp for the SafeOperation
 
 ### `validAfter` (optional)
 
 - **Type:** `number`
 
-The validAfter timestamp for the SafeOperation
+The `validAfter` timestamp for the SafeOperation
 
 ### `feeEstimator` (optional)
 
@@ -108,6 +108,7 @@ IFeeEstimator {
 ```
 
 This methods are going to be called as hooks at different stages of the SafeOperation gas estimation:
-- setupEstimation: Called before calling the standard `eth_estimateUserOperationGas`
-- adjustEstimation: Called after calling the standard `eth_estimateUserOperationGas`
-- getPaymasterEstimation: Called if the operation it's being sponsored to adjust the `paymasterAndData` property 
+
+- `setupEstimation`: Called before calling the standard `eth_estimateUserOperationGas`
+- `adjustEstimation`: Called after calling the standard `eth_estimateUserOperationGas`
+- `getPaymasterEstimation`: Called if the operation it's being sponsored to adjust the `paymasterAndData` property

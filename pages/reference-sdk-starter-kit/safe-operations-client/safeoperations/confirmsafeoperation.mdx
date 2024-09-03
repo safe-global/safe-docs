@@ -35,8 +35,9 @@ When enough signatures are collected the operation will be sent to the bundler t
           paymasterUrl
         }
       }))
-  ```
-  </Tabs.Tab>
+
+````
+</Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
@@ -53,19 +54,19 @@ An object with the result of the send operation.
 
 - **Type:** `string`
 
-The safe transaction hash. This is not the same as the ethereum hash as the transaction is not executed yet. You need to use this hash that is computed and stored in out Transaction service.
+The safe transaction hash. This is not the same as the ethereum hash as the transaction is not executed yet. You need to use this hash that is computed and stored in out Transaction Service.
 
-To get the hash an application that tries to confirm transactions can use the `getPendingTransactions()` method to obtain the differente pending transactions and its hashes.
+To get the hash an application that tries to confirm transactions can use the `getPendingTransactions()` method to obtain the different pending transactions and its hashes.
 
 ```typescript
-  const safeTxHashToSearch = '0x...'
-  const pendingTransactions = await safeClient.getPendingTransactions()
+const safeTxHashToSearch = '0x...'
+const pendingTransactions = await safeClient.getPendingTransactions()
 
-  for (const transaction of pendingTransactions.results) {
-    if (transaction.safeTxHash !== safeTxHashToSearch) {
-      return
-    }
-
-    const txResult = await safeClient.confirm({ safeTxHash: transaction.safeTxHash })
+for (const transaction of pendingTransactions.results) {
+  if (transaction.safeTxHash !== safeTxHashToSearch) {
+    return
   }
-```
+
+  const txResult = await safeClient.confirm({ safeTxHash: transaction.safeTxHash })
+}
+````

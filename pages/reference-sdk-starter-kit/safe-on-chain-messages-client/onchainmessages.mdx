@@ -43,6 +43,6 @@ It returns the SafeClient with some additional methods enabling the on-chain mes
 
 ## Caveats
 
-There are other extensions that adds the confirmXXX or getPendingXXX methods as well as in the case of the on-chain messages or Safe operations. This is not the case because generating the on-chain is creating a regular transaction. 
+We have other extensions that adds the confirmXXX or getPendingXXX methods as well as in the case of the on-chain messages or Safe operations. This is not the case because generating the on-chain is creating a regular transaction. 
   - To confirm the message you need to use the `confirm({ safeTxHash })` method from the SafeClient
   - To get the pending messages you need to use the `getPendingTransactions()` method from the SafeClient

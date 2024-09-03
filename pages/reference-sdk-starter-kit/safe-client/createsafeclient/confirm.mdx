@@ -2,11 +2,11 @@ import { Tabs } from "nextra/components";
 
 # `confirm`
 
-The `confirm` method is used to confirm a transaction that was proposed to the Transaction service. This method is only used in the case the Safe account is a multisig account (more than one owner and threshold greater than 1).
+The `confirm` method is used to confirm a transaction that was proposed to the Transaction Service. This method is only used in the case the Safe account is a multisig account (more than one owner and threshold greater than 1).
 
-This method is intented to be used in conjunction with the `send()` one. When sending a transaction that is stored in the Transaction service you should `confirm()` it with other owners in order to make it valid.
+This method is intended to be used in conjunction with the `send()` one. When sending a transaction that is stored in the Transaction Service you should `confirm()` it with other owners in order to make it valid.
 
-An important thing to take into acount is that when you `confirm()` the transaction, if the threshold is reached by checking the required number of signatures vs the signatures currently stored in the Transaction service, then the transaction is automatically sent to the blockchain to be executed and confirmed.
+An important thing to take into acount is that when you `confirm()` the transaction, if the threshold is reached by checking the required number of signatures vs the signatures currently stored in the Transaction Service, then the transaction is automatically sent to the blockchain to be executed and confirmed.
 
 ## Usage
 
@@ -14,20 +14,11 @@ An important thing to take into acount is that when you `confirm()` the transact
 
 <Tabs items={["send.ts", "setup.ts"]}>
   <Tabs.Tab>
-  ```typescript 
-    const txResult = await safeClient.confirm({ 
-      safeTxHash
-    })
-  ```
+    ```typescript const txResult = await safeClient.confirm({safeTxHash}) ```
   </Tabs.Tab>
   <Tabs.Tab>
-  ```typescript 
-    const safeClient = await createSafeClient({
-      provider,  
-      signer,
-      safeAddress
-    })
-  ```
+    ```typescript const safeClient = await createSafeClient(
+    {(provider, signer, safeAddress)}) ```
   </Tabs.Tab>
 </Tabs>
 
@@ -45,19 +36,21 @@ An object with the result of the send operation.
 
 - **Type:** `string`
 
-The safe transaction hash. This is not the same as the ethereum hash as the transaction is not executed yet. You need to use this hash that is computed and stored in out Transaction service.
+The safe transaction hash. This is not the same as the ethereum hash as the transaction is not executed yet. You need to use this hash that is computed and stored in out Transaction Service.
 
-To get the hash an application that tries to confirm transactions can use the `getPendingTransactions()` method to obtain the differente pending transactions and its hashes.
+To get the hash an application that tries to confirm transactions can use the `getPendingTransactions()` method to obtain the different pending transactions and its hashes.
 
 ```typescript
-  const safeTxHashToSearch = '0x...'
-  const pendingTransactions = await safeClient.getPendingTransactions()
+const safeTxHashToSearch = "0x...";
+const pendingTransactions = await safeClient.getPendingTransactions();
 
-  for (const transaction of pendingTransactions.results) {
-    if (transaction.safeTxHash !== safeTxHashToSearch) {
-      return
-    }
-
-    const txResult = await safeClient.confirm({ safeTxHash: transaction.safeTxHash })
+for (const transaction of pendingTransactions.results) {
+  if (transaction.safeTxHash !== safeTxHashToSearch) {
+    return;
   }
+
+  const txResult = await safeClient.confirm({
+    safeTxHash: transaction.safeTxHash,
+  });
+}
 ```

@@ -2,9 +2,9 @@ import { Tabs } from "nextra/components";
 
 # `confirmOffChainMessage`
 
-The `confirmOffChainMessage` method is used to confirm an off-chain message that was added to the Transaction service. This method is only used in the case the Safe account is a multisig account (more than one owner and threshold greater than 1).
+The `confirmOffChainMessage` method is used to confirm an off-chain message that was added to the Transaction Service. This method is only used in the case the Safe account is a multisig account (more than one owner and threshold greater than 1).
 
-While the threshold is not reached the message is not valid yet. This method is intented to be used in conjunction with the `sendOffChainMessage()` one. When sending a message that become stored in our Safe services (Transaction service) you should `confirmOffChainMessage()` with other owners in order to make it valid.
+While the threshold is not reached the message is not valid yet. This method is intended to be used in conjunction with the `sendOffChainMessage()` one. When sending a message that become stored in our Safe services (Transaction Service) you should `confirmOffChainMessage()` with other owners in order to make it valid.
 
 ## Usage
 
@@ -27,8 +27,9 @@ While the threshold is not reached the message is not valid yet. This method is 
     })
 
     const safeMessageClient = safeClient.extend(offChainMessages())
-  ```
-  </Tabs.Tab>
+
+````
+</Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
@@ -45,21 +46,21 @@ An object with the result of the confirmOffChainMessage operation.
 
 - **Type:** `string`
 
-The safe message hash. You can get this hash once you use `sendOffChainMessage`. 
+The safe message hash. You can get this hash once you use `sendOffChainMessage`.
 
-To get the message hash, an application that tries to confirm off-chain messages can use the `getPendingOffChainMessage()` method to obtain the messages that are still not valir (missing signatures) and its message hashes.
+To get the message hash, an application that tries to confirm off-chain messages can use the `getPendingOffChainMessage()` method to obtain the messages that are still not valid (missing signatures) and its message hashes.
 
 ```typescript
-  const messageHashToSearch = '0x...'
-  const pendingMessages = await safeMessageClient.getPendingOffChainMessages()
+const messageHashToSearch = '0x...'
+const pendingMessages = await safeMessageClient.getPendingOffChainMessages()
 
-  for (const message of pendingMessages.results) {
-    if (message.messageHash !== messageHashToSearch) {
-      return
-    }
-
-    const txResult = await safeMessageClient.confirmOffChainMessage({
-      messageHash: message.messageHash
-    })
+for (const message of pendingMessages.results) {
+  if (message.messageHash !== messageHashToSearch) {
+    return
   }
-```
+
+  const txResult = await safeMessageClient.confirmOffChainMessage({
+    messageHash: message.messageHash
+  })
+}
+````
