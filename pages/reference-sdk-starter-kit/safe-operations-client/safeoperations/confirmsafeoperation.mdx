@@ -2,31 +2,39 @@ import { Tabs } from "nextra/components";
 
 # `confirmSafeOperation`
 
-The `confirm` method is used to confirm a transaction that was proposed to the Transaction service. This method is only used in the case the Safe account is a multisig account (more than one owner and threshold greater than 1).
+Confirms the stored safeOperation. Remember when using `sendSafeOperation` if the number of signatures is not enough then the operations it's being stored using Safe services so you need to confirm it with other Safe owners.
 
-This method is intented to be used in conjunction with the `send()` one. When sending a transaction that is stored in the Transaction service you should `confirm()` it with other owners in order to make it valid.
-
-An important thing to take into acount is that when you `confirm()` the transaction, if the threshold is reached by checking the required number of signatures vs the signatures currently stored in the Transaction service, then the transaction is automatically sent to the blockchain to be executed and confirmed.
+When enough signatures are collected the operation will be sent to the bundler to be executed.
 
 ## Usage
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["send.ts", "setup.ts"]}>
+<Tabs items={["confirm-safe-operation.ts", "setup.ts"]}>
   <Tabs.Tab>
   ```typescript 
-    const txResult = await safeClient.confirm({ 
-      safeTxHash
+    const safeOperationHash = '0x...'    
+    const safeOperationResult = await safeClient.confirmSafeOperation({ 
+      safeOperationHash
     })
   ```
   </Tabs.Tab>
   <Tabs.Tab>
   ```typescript 
-    const safeClient = await createSafeClient({
-      provider,  
-      signer,
-      safeAddress
-    })
+      const safeClient = await createSafeClient({
+        provider,  
+        signer,
+        safeAddress
+      })
+
+      const safeOperationsClient = await safeClient.extend(safeOperations({
+          bundlerUrl
+        },
+        {
+          isSponsored,
+          paymasterUrl
+        }
+      }))
   ```
   </Tabs.Tab>
 </Tabs>

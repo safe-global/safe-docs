@@ -2,15 +2,9 @@ import { Tabs } from "nextra/components";
 
 # `confirmOffChainMessage`
 
-The `send` method is used to send transactions from your Safe account. It covers several flows that you normally should implement on your own in case your are using another more advanced kit as the `protocol-kit` in conjunction with the `api-kit`.
+The `confirmOffChainMessage` method is used to confirm an off-chain message that was added to the Transaction service. This method is only used in the case the Safe account is a multisig account (more than one owner and threshold greater than 1).
 
-If the Safe account is already deployed (You are using `safeAddress` or the `safeOptions` counterfactual address prediction derives in an existing Safe account):
-  - In the case the Safe is a multisig account (more than one owner and threshold greater than 1), the `send` method will propose the transaction to our Transaction service. The transaction is not being sent to the blockchain already and it is stored in our services. The reason is you need more signatures as when you use the sned method only the signature for the `signer` you used to create the client is being added.
-  - In the case the Safe is a single owner account (threshold equal to 1), the transaction is sent directly to the blockchain without being stored in our services as it is not really necessary.
-
-If the Safe account is not deployed yet (You are using `safeOptions` and the counterfactual address prediction derives in a non-existing Safe account):
-  - In the case the Safe is a multisig account, The `send` method will propose the transaction to our Transaction service, same as in the previous case but the Safe account will be deployed using the funds in the current `signer` account.
-  - In the case the Safe is a single owner account, the transaction is sent directly to the blockchain without being stored in our services and the Safe account will be deployed using the funds in the current `signer` account.
+While the threshold is not reached the message is not valid yet. This method is intented to be used in conjunction with the `sendOffChainMessage()` one. When sending a message that become stored in our Safe services (Transaction service) you should `confirmOffChainMessage()` with other owners in order to make it valid.
 
 ## Usage
 
@@ -18,36 +12,22 @@ If the Safe account is not deployed yet (You are using `safeOptions` and the cou
 
 <Tabs items={["send.ts", "setup.ts"]}>
   <Tabs.Tab>
-    ```typescript 
-      const transactions = [{
-        to: '0x...',
-        data: '0x...',
-        value: '0'
-      }, {
-        to: '0x...',
-        data: '0x...',
-        value: '0'
-      }]
-
-      const txResult = await safeClient.send({ 
-        transactions, 
-        from, 
-        gasLimit, 
-        gasPrice, 
-        maxFeePerGas, 
-        maxPriorityFeePerGas, 
-        nonce 
-      })
-    ```
+  ```typescript 
+    const messageResult = await safeMessageClient.confirmOffChainMessage({ 
+      messageHash
+    })
+  ```
   </Tabs.Tab>
   <Tabs.Tab>
-    ```typescript 
-      const safeClient = await createSafeClient({
-        provider,  
-        signer,
-        safeAddress
-      })
-    ```
+  ```typescript 
+    const safeClient = await createSafeClient({
+      provider,  
+      signer,
+      safeAddress
+    })
+
+    const safeMessageClient = safeClient.extend(offChainMessages())
+  ```
   </Tabs.Tab>
 </Tabs>
 
@@ -57,52 +37,29 @@ If the Safe account is not deployed yet (You are using `safeOptions` and the cou
 
 `SafeClientResult`
 
-An object with the result of the send operation.
+An object with the result of the confirmOffChainMessage operation.
 
 ## Parameters
 
-### `transactions`
-
-- **Type:** `TransactionBase[]`
-
-An array of transactions to be sent. If more than one the transactions will be sent in the same batch. Each transaction is represented by an to, value, data object as any regular Ethereum transaction.
-
-	1.	`to`: This is the address of the recipient of the transaction.
-	2.	`value`: This specifies the amount of ether (in wei) being transferred from the sender to the recipient. If you are invoking a smart contract without sending any ether, this value can be zero.
-	3.	`data`: This field contains extra information sent along with the transaction. For standard ether transfers between addresses, this field is typically empty. However, when interacting with smart contracts, this field carries the encoded function call and parameters.
-
-### `from` (optional)
+### `messageHash`
 
 - **Type:** `string`
 
-The address of the sender of the transaction.
+The safe message hash. You can get this hash once you use `sendOffChainMessage`. 
 
-### `gasLimit` (optional)
+To get the message hash, an application that tries to confirm off-chain messages can use the `getPendingOffChainMessage()` method to obtain the messages that are still not valir (missing signatures) and its message hashes.
 
-- **Type:** `stringnumber | string | bigint`
+```typescript
+  const messageHashToSearch = '0x...'
+  const pendingMessages = await safeMessageClient.getPendingOffChainMessages()
 
-The maximum amount of gas that the transaction is allowed to use. If the transaction requires more gas than the gas limit, the transaction will fail.
+  for (const message of pendingMessages.results) {
+    if (message.messageHash !== messageHashToSearch) {
+      return
+    }
 
-### `gasPrice` (optional)
-
-- **Type:** `number | string`
-
-The price of gas in wei that the sender is willing to pay for each unit of gas.
-
-### `maxFeePerGas` (optional)
-
-- **Type:** `number | string`
-
-The maximum fee per gas the sender is willing to pay.
-
-### `maxPriorityFeePerGas` (optional)
-
-- **Type:** `number | string`
-
-The maximum priority fee per gas the sender is willing to pay.
-
-### `nonce` (optional)
-
-- **Type:** `number | string`
-
-The nonce of the transaction.
+    const txResult = await safeMessageClient.confirmOffChainMessage({
+      messageHash: message.messageHash
+    })
+  }
+```

@@ -2,15 +2,45 @@ import { Tabs } from "nextra/components";
 
 # `safeOperations`
 
-This method is the entrypoint to work with the SDK Starter Kit. You normally create a Safe client to start working with this package.
+This methos enables to extend the SafeClient with the ability to use a bundler and a paymaster and to perform [EIP-4337](https://eips.ethereum.org/EIPS/eip-4337) User Operations
 
 ## Usage
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["existing-safe.ts", "new-safe-one-owner.ts", "new-safe-multiple-owner.ts"]}>
+<Tabs items={["send-safe-operation.ts", "setup.ts"]}>
   <Tabs.Tab>
   ```typescript 
+      const trasactions = [{
+        to: '0x...',
+        value: '0',
+        data '0x...',
+      }, {
+        to: '0x...',
+        value: '0',
+        data '0x...',
+      }]
+      
+      const safeOperationsClient = await safeClient.extend(safeOperations({ 
+          bundlerUrl 
+        }, 
+        { 
+          isSponsored, 
+          paymasterUrl 
+        }
+      }))
+
+      const safeOperationResult = await safeClientWithSafeOperation.sendSafeOperation({
+        transactions,
+        validAfter: Number(timestamp - 60_000n),
+        validUntil: Number(timestamp + 60_000n)
+      })
+  ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ```typescript 
+    import { createSafeClient, safeOperations } from '@safe-global/sdk-starter-kit'
+
     const safeClient = await createSafeClient({
       provider,
       signer,
@@ -18,87 +48,56 @@ This method is the entrypoint to work with the SDK Starter Kit. You normally cre
     })
   ```
   </Tabs.Tab>
-  <Tabs.Tab>
-  ```typescript 
-    const safeClient = await createSafeClient({
-      provider,
-      signer,
-      safeOptions: {
-        owners,
-        threshold,
-        saltNonce
-      }
-    })
-  ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-  ```typescript 
-    import { privateKeyToAddress } from 'viem/accounts'
-    
-    const owner1 = privateKeyToAddress(OWNER_1_PRIVATE_KEY)
-    const owner2 = privateKeyToAddress(OWNER_2_PRIVATE_KEY)
-    const owner3 = privateKeyToAddress(OWNER_3_PRIVATE_KEY)
-
-    const safeClient = await createSafeClient({
-      provider: RPC_URL,
-      signer: OWNER_1_PRIVATE_KEY,
-      safeOptions: {
-        owners: [owner1, owner2, owner3],
-        threshold: THRESHOLD,
-        saltNonce: SALT_NONCE
-      }
-    })
-
-```
-</Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
 
 ## Returns
 
-`Promise<SafeClient>`
+`Promise<SafeClient & & { sendSafeOperation, confirmSafeOperation, getPendingSafeOperation }>`
 
-A SafeClient instance with several methods enabling the creations and execution of ethereum transactions with the Safe account and changing the Safe account configuration.
+A SafeClient instance with several methods enabling the creations and execution of User Operations by using a Safe account (Safe Operations).
 
 ## Parameters
 
-### `provider`
-
-- **Type:** `Eip1193Provider | HttpTransport | SocketTransport`
-
-The provider to use to interact with the blockchain. It can be an EIP-1193 compatibe provider object (e.g window.ethereum), an HTTP url, or a WebSocket url.
-
-### `signer`
-
-- **Type:** `HexAddress | PrivateKey | PasskeyClient`
-
-The signer to use to sign transactions. It can be a hex address, a private key, or a PasskeyClient instance.
-When using an Hex address, the SafeClient will use that address in the `provider` to sign the transactions.
-When using a PrivateKey, the SafeClient will sign the transactions using th derived address from the private key.
-When using a PasskeyClient, the SafeClient will use the PasskeyClient to sign the transactions.
-
-### `safeAddress`
-
-- **Type:** `HexAddress`
-
-When usign the `safeAddress` parameter, the SafeClient will use an existing Safe account. You cannot use `safeAddress` and `safeOptions` at once.
-
-### `owners`
-
-- **Type:** `string[]`
-
-The list of owners of the Safe account. It must be an array of hex addresses.
-
-### `threshold`
-
-- **Type:** `number`
-
-The threshold of the Safe account. It must be a number between 1 and the number of owners and in order for a transactions to be valid, the number of collected signatures must be equal or greater than the threshold.
-
-### `saltNonce`
+### `bundlerUrl`
 
 - **Type:** `string`
 
-The salt nonce of the Safe account. It is a parameter in the Safe account address prediction algorithm so if you change this, differente Safe addresses will be generated.
-```
+The URL of the bundler in the chosen provider to bundle User Operations (e.g Pimlico, Alchemy)
+
+### `isSponsored` (optional)
+
+- **Type:** `boolean`
+
+If the User Operation is sponsored or not
+
+### `paymasterUrl`
+
+- **Type:** `string`
+
+The URL of the paymaster in the chosen provider to pay for the User Operations
+
+### `sponsorshipPolicyId`
+
+- **Type:** `string` (optional)
+
+The sponsorship policy id to be used in the User Operation. You can create one and get it from the chosen paymaster provider.
+
+### `paymasterAddress`
+
+- **Type:** `string` (optional)
+
+The address of the paymaster contract in the chosen provider 
+
+### `paymasterTokenAddress`
+
+- **Type:** `string` (optional)
+
+The address of the token to be used to pay for the User Operations in the paymasterAddress.
+
+### `amountToApprove` (optional)
+
+- **Type:** `bigint`
+
+The amount of tokens to approve to the paymaster contract to pay for the User Operations.

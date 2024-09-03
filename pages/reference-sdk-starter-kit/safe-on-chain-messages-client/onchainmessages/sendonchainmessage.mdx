@@ -2,15 +2,9 @@ import { Tabs } from "nextra/components";
 
 # `sendOnChainMessage`
 
-The `send` method is used to send transactions from your Safe account. It covers several flows that you normally should implement on your own in case your are using another more advanced kit as the `protocol-kit` in conjunction with the `api-kit`.
+Creates and sends a message as a regular transaction using the SignMessageLib contract. The message can be a string or an EIP712TypedData object.
 
-If the Safe account is already deployed (You are using `safeAddress` or the `safeOptions` counterfactual address prediction derives in an existing Safe account):
-  - In the case the Safe is a multisig account (more than one owner and threshold greater than 1), the `send` method will propose the transaction to our Transaction service. The transaction is not being sent to the blockchain already and it is stored in our services. The reason is you need more signatures as when you use the sned method only the signature for the `signer` you used to create the client is being added.
-  - In the case the Safe is a single owner account (threshold equal to 1), the transaction is sent directly to the blockchain without being stored in our services as it is not really necessary.
-
-If the Safe account is not deployed yet (You are using `safeOptions` and the counterfactual address prediction derives in a non-existing Safe account):
-  - In the case the Safe is a multisig account, The `send` method will propose the transaction to our Transaction service, same as in the previous case but the Safe account will be deployed using the funds in the current `signer` account.
-  - In the case the Safe is a single owner account, the transaction is sent directly to the blockchain without being stored in our services and the Safe account will be deployed using the funds in the current `signer` account.
+As this method creates a new transaction you can confirm it using the safeTxHash and the confirm() method and retrieve the pending transactions using the getPendingTransactions() method from the general client
 
 ## Usage
 
@@ -19,34 +13,22 @@ If the Safe account is not deployed yet (You are using `safeOptions` and the cou
 <Tabs items={["send.ts", "setup.ts"]}>
   <Tabs.Tab>
     ```typescript 
-      const transactions = [{
-        to: '0x...',
-        data: '0x...',
-        value: '0'
-      }, {
-        to: '0x...',
-        data: '0x...',
-        value: '0'
-      }]
+      const message = "I am the owner of this Safe"
 
-      const txResult = await safeClient.send({ 
-        transactions, 
-        from, 
-        gasLimit, 
-        gasPrice, 
-        maxFeePerGas, 
-        maxPriorityFeePerGas, 
-        nonce 
-      })
+      const messageResult = await safeMessageClient.sendOnChainMessage({ message })
     ```
   </Tabs.Tab>
-  <Tabs.Tab>
+  <Tabs.Tab>  
     ```typescript 
+      import { onChainMessages } from '@safe-global/sdk-starter-kit'
+      
       const safeClient = await createSafeClient({
         provider,  
         signer,
         safeAddress
       })
+
+        const safeMessageClient = safeClient.extend(onChainMessages())
     ```
   </Tabs.Tab>
 </Tabs>

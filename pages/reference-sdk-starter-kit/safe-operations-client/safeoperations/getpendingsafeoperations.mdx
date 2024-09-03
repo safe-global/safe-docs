@@ -3,7 +3,7 @@ import { Tabs } from "nextra/components";
 
 # `getPendingSafeOperations`
 
-This method returns the list of pending transactions that need to be confirmed using the `confirm()` method to be executed in the blockchain.
+Retrieves the pending Safe operations for the current Safe account
 
 ## Usage
 
@@ -12,16 +12,25 @@ This method returns the list of pending transactions that need to be confirmed u
 <Tabs items={["getPendingTransactions.ts", "setup.ts"]}>
   <Tabs.Tab>
   ```typescript 
-    const pendingTransactions = await safeClient.getPendingTransactions()
+    const pendingSafeOperations = await safeClientWithSafeOperation.getPendingSafeOperations()
   ```
   </Tabs.Tab>
   <Tabs.Tab>
   ```typescript 
-    const safeClient = await createSafeClient({
-      provider,  
-      signer,
-      safeAddress
-    })
+      const safeClient = await createSafeClient({
+        provider,  
+        signer,
+        safeAddress
+      })
+
+      const safeOperationsClient = await safeClient.extend(safeOperations({
+          bundlerUrl
+        },
+        {
+          isSponsored,
+          paymasterUrl
+        }
+      }))
   ```
   </Tabs.Tab>
 </Tabs>
@@ -30,6 +39,6 @@ This method returns the list of pending transactions that need to be confirmed u
 
 ## Returns
 
-`SafeMultisigConfirmationListResponse`
+`GetSafeOperationListResponse`
 
-A paginated list of the pending transactions
+A paginated list of the pending SafeOperations for the current Safe account.
