@@ -8,7 +8,7 @@ Creates a transaction (to, value, data) to change the Safe account threshold.
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['one.ts', 'two.ts']}>
+<Tabs items={['create-change-threshold-transaction.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
     const transaction = await safeClient.createChangeThresholdTransaction({
@@ -20,6 +20,8 @@ Creates a transaction (to, value, data) to change the Safe account threshold.
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
+      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+          
       const safeClient = await createSafeClient({
         provider,  
         signer,

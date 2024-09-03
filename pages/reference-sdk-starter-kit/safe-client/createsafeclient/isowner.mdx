@@ -2,21 +2,23 @@ import { Tabs } from "nextra/components";
 
 # `isOwner`
 
-This method checks if the provided address is an owner of the Safe.
+Checks if a specific address is an owner of the current Safe.
 
 ## Usage
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["send.ts", "setup.ts"]}>
+<Tabs items={["is-owner.ts", "setup.ts"]}>
   <Tabs.Tab>
     ```typescript 
       const ethereumAddress = '0x...'
-      const nonce = await safeClient.isOwner(ethereumAddress)
+      const isOwner = await safeClient.isOwner(ethereumAddress)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript 
+      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
       const safeClient = await createSafeClient({
         provider,  
         signer,

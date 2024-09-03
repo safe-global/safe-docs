@@ -8,7 +8,7 @@ Creates a transaction (to, value, data) to remove an owner to the Safe.
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['one.ts', 'two.ts']}>
+<Tabs items={['create-remove-owner-transaction.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
     const transaction = await safeClient.createRemoveOwnerTransaction({
@@ -21,6 +21,8 @@ Creates a transaction (to, value, data) to remove an owner to the Safe.
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
+      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+          
       const safeClient = await createSafeClient({
         provider,  
         signer,

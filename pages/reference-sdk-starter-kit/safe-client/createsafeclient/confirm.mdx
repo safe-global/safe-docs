@@ -12,13 +12,22 @@ An important thing to take into account is that when you `confirm()` the transac
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["send.ts", "setup.ts"]}>
+<Tabs items={["confirm.ts", "setup.ts"]}>
   <Tabs.Tab>
-    ```typescript const txResult = await safeClient.confirm({safeTxHash}) ```
+    ```typescript 
+    const txResult = await safeClient.confirm({safeTxHash}) 
+    ```
   </Tabs.Tab>
   <Tabs.Tab>
-    ```typescript const safeClient = await createSafeClient(
-    {(provider, signer, safeAddress)}) ```
+    ```typescript
+      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+          
+      const safeClient = await createSafeClient({
+        provider,  
+        signer,
+        safeAddress
+      })
+    ```
   </Tabs.Tab>
 </Tabs>
 

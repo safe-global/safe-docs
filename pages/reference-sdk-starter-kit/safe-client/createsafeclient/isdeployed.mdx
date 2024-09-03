@@ -8,7 +8,7 @@ This method checks if the Safe is deployed.
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["send.ts", "setup.ts"]}>
+<Tabs items={["is-deployed.ts", "setup.ts"]}>
   <Tabs.Tab>
     ```typescript 
       const isSafeDeployed = await safeClient.isDeployed()
@@ -16,6 +16,8 @@ This method checks if the Safe is deployed.
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript 
+      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+          
       const safeClient = await createSafeClient({
         provider,  
         signer,

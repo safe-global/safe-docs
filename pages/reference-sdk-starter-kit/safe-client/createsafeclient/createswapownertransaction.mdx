@@ -8,7 +8,7 @@ Creates a transaction (to, value, data) to swap an owner of the Safe account.
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['createSwapOwnerTransaction.ts', 'setup.ts']}>
+<Tabs items={['create-swap-owner-transaction.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
     const transaction = await safeClient.createSwapOwnerTransaction({
@@ -21,6 +21,8 @@ Creates a transaction (to, value, data) to swap an owner of the Safe account.
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
+      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+          
       const safeClient = await createSafeClient({
         provider,  
         signer,

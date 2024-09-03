@@ -8,7 +8,7 @@ This method retrieves the current Safe address.
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["send.ts", "setup.ts"]}>
+<Tabs items={["get-address.ts", "setup.ts"]}>
   <Tabs.Tab>
     ```typescript 
       const nonce = await safeClient.getAddress()
@@ -16,6 +16,8 @@ This method retrieves the current Safe address.
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript 
+      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
       const safeClient = await createSafeClient({
         provider,  
         signer,

@@ -8,7 +8,7 @@ This method returns the list of pending transactions that need to be confirmed u
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["getPendingTransactions.ts", "setup.ts"]}>
+<Tabs items={["get-pending-transactions.ts", "setup.ts"]}>
   <Tabs.Tab>
   ```typescript 
     const pendingTransactions = await safeClient.getPendingTransactions()
@@ -16,6 +16,8 @@ This method returns the list of pending transactions that need to be confirmed u
   </Tabs.Tab>
   <Tabs.Tab>
   ```typescript 
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'  
+
     const safeClient = await createSafeClient({
       provider,  
       signer,

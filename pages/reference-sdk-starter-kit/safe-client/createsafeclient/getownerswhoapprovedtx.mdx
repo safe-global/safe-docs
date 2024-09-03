@@ -8,7 +8,7 @@ Given a safe transaction hash (safeTxHash), this method retrieves the list of ow
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['one.ts', 'two.ts']}>
+<Tabs items={['get-owners-who-approved-tx.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
     const safeTxHash = "0x..."
@@ -17,6 +17,8 @@ Given a safe transaction hash (safeTxHash), this method retrieves the list of ow
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
+      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
       const safeClient = await createSafeClient({
         provider,  
         signer,
