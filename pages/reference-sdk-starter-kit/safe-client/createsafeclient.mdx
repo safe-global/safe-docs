@@ -67,7 +67,7 @@ A SafeClient instance with several methods enabling the creations and execution 
 
 - **Type:** `Eip1193Provider | HttpTransport | SocketTransport`
 
-The provider to use to interact with the blockchain. It can be an EIP-1193 compatibe provider object (e.g window.ethereum), an HTTP url, or a WebSocket url.
+The provider to use to interact with the blockchain. It can be an EIP-1193 compatible provider object (e.g window.ethereum), an HTTP URL, or a WebSocket URL.
 
 ### `signer`
 
@@ -75,7 +75,7 @@ The provider to use to interact with the blockchain. It can be an EIP-1193 compa
 
 The signer to use to sign transactions. It can be a hex address, a private key, or a PasskeyClient instance.
 When using an Hex address, the SafeClient will use that address in the `provider` to sign the transactions.
-When using a PrivateKey, the SafeClient will sign the transactions using th derived address from the private key.
+When using a PrivateKey, the SafeClient will sign the transactions using the derived address from the private key.
 When using a PasskeyClient, the SafeClient will use the PasskeyClient to sign the transactions.
 
 ### `safeAddress`
