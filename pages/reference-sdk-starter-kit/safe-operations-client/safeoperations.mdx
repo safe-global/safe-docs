@@ -2,7 +2,7 @@ import { Tabs } from "nextra/components";
 
 # `safeOperations`
 
-This methos enables to extend the SafeClient with the ability to use a bundler and a paymaster and to perform [EIP-4337](https://eips.ethereum.org/EIPS/eip-4337) User Operations
+This extension method enables extending the SafeClient with the ability to use a bundler and a paymaster, and to perform [EIP-4337](https://eips.ethereum.org/EIPS/eip-4337) User Operations.
 
 ## Usage
 
@@ -11,7 +11,9 @@ This methos enables to extend the SafeClient with the ability to use a bundler a
 <Tabs items={["send-safe-operation.ts", "setup.ts"]}>
   <Tabs.Tab>
   ```typescript 
-      const trasactions = [{
+      import { safeOperations } from '@safe-global/sdk-starter-kit'
+
+      const transactions = [{
         to: '0x...',
         value: '0',
         data '0x...',
@@ -19,16 +21,11 @@ This methos enables to extend the SafeClient with the ability to use a bundler a
         to: '0x...',
         value: '0',
         data '0x...',
-      }]
-      
-      const safeOperationsClient = await safeClient.extend(safeOperations({ 
-          bundlerUrl 
-        }, 
-        { 
-          isSponsored, 
-          paymasterUrl 
-        }
-      }))
+      }]    
+    
+      const safeOperationsClient = await safeClient.extend(
+        safeOperations({ bundlerUrl }, { isSponsored, paymasterUrl })
+      )
 
       const safeOperationResult = await safeClientWithSafeOperation.sendSafeOperation({
         transactions,
@@ -39,7 +36,7 @@ This methos enables to extend the SafeClient with the ability to use a bundler a
   </Tabs.Tab>
   <Tabs.Tab>
   ```typescript 
-    import { createSafeClient, safeOperations } from '@safe-global/sdk-starter-kit'
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
 
     const safeClient = await createSafeClient({
       provider,
@@ -64,19 +61,19 @@ A SafeClient instance with several methods enabling the creations and execution 
 
 - **Type:** `string`
 
-The URL of the bundler in the chosen provider to bundle User Operations (e.g Pimlico, Alchemy)
+The URL of the bundler in the chosen provider to bundle User Operations (for example, Pimlico, Alchemy).
 
 ### `isSponsored` (optional)
 
 - **Type:** `boolean`
 
-If the User Operation is sponsored or not
+If the User Operation is sponsored or not.
 
 ### `paymasterUrl`
 
 - **Type:** `string`
 
-The URL of the paymaster in the chosen provider to pay for the User Operations
+The URL of the paymaster in the chosen provider to pay for the User Operations.
 
 ### `sponsorshipPolicyId`
 
@@ -88,7 +85,7 @@ The sponsorship policy id to be used in the User Operation. You can create one a
 
 - **Type:** `string` (optional)
 
-The address of the paymaster contract in the chosen provider 
+The address of the paymaster contract in the chosen provider.
 
 ### `paymasterTokenAddress`
 

@@ -76,9 +76,9 @@ Here is the improved text:
 
 An array of transactions to be sent. If there are multiple transactions, they will be sent in the same batch. Each transaction is represented by an object containing the recipient address (to), the value (value) to be sent, and any additional data (data) as in a regular Ethereum transaction.
 
-    1.	`to`: The address of the recipient of the transaction.
-    2.	`value`: The amount of ether (in wei) being transferred from the sender to the recipient. If you are invoking a smart contract without sending any ether, this value can be zero.
-    3.	`data`: This field carries additional information sent with the transaction. For standard ether transfers between addresses, this field is usually empty. However, when interacting with smart contracts, this field contains the encoded function call and parameters.
+  1.	`to`: The address of the recipient of the transaction.
+  2.	`value`: The amount of ether (in wei) being transferred from the sender to the recipient. If you are invoking a smart contract without sending any ether, this value can be zero.
+  3.	`data`: This field carries additional information sent with the transaction. For standard ether transfers between addresses, this field is usually empty. However, when interacting with smart contracts, this field contains the encoded function call and parameters.
 
 ### `from` (optional)
 

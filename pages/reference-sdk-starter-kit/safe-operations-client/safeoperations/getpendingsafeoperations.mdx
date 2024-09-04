@@ -3,7 +3,7 @@ import { Tabs } from "nextra/components";
 
 # `getPendingSafeOperations`
 
-Retrieves the pending Safe operations for the current Safe account
+Retrieves the pending Safe operations for the current Safe account.
 
 ## Usage
 
@@ -12,25 +12,24 @@ Retrieves the pending Safe operations for the current Safe account
 <Tabs items={["getPendingTransactions.ts", "setup.ts"]}>
   <Tabs.Tab>
   ```typescript 
+    import { safeOperations } from '@safe-global/sdk-starter-kit'
+    
+    const safeOperationsClient = await safeClient.extend(
+      safeOperations({ bundlerUrl }, { isSponsored, paymasterUrl })
+    )
+
     const pendingSafeOperations = await safeClientWithSafeOperation.getPendingSafeOperations()
   ```
   </Tabs.Tab>
   <Tabs.Tab>
   ```typescript 
+      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
       const safeClient = await createSafeClient({
         provider,  
         signer,
         safeAddress
       })
-
-      const safeOperationsClient = await safeClient.extend(safeOperations({
-          bundlerUrl
-        },
-        {
-          isSponsored,
-          paymasterUrl
-        }
-      }))
   ```
   </Tabs.Tab>
 </Tabs>

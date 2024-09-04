@@ -2,9 +2,9 @@ import { Tabs } from "nextra/components";
 
 # `confirmOffChainMessage`
 
-The `confirmOffChainMessage` method is used to confirm an off-chain message that was added to the Transaction Service. This method is only used in the case the Safe account is a multisig account (more than one owner and threshold greater than 1).
+The `confirmOffChainMessage` method is used to confirm an off-chain message that was added to the Transaction Service. This method is only used if the Safe account is a multisig account (with more than one owner and a threshold greater than 1).
 
-While the threshold is not reached the message is not valid yet. This method is intended to be used in conjunction with the `sendOffChainMessage()` one. When sending a message that become stored in our Safe services (Transaction Service) you should `confirmOffChainMessage()` with other owners in order to make it valid.
+Until the threshold is reached, the message is not yet valid. This method is intended to be used in conjunction with the `sendOffChainMessage()` method. When sending a message that is stored in our Safe services (Transaction Service), you should `confirmOffChainMessage()` with other owners to make it valid.
 
 ## Usage
 
@@ -13,6 +13,12 @@ While the threshold is not reached the message is not valid yet. This method is 
 <Tabs items={["send.ts", "setup.ts"]}>
   <Tabs.Tab>
   ```typescript 
+    import { safeOperations } from '@safe-global/sdk-starter-kit'
+    
+    const safeOperationsClient = await safeClient.extend(
+      safeOperations({ bundlerUrl }, { isSponsored, paymasterUrl })
+    )
+
     const messageResult = await safeMessageClient.confirmOffChainMessage({ 
       messageHash
     })
@@ -20,15 +26,14 @@ While the threshold is not reached the message is not valid yet. This method is 
   </Tabs.Tab>
   <Tabs.Tab>
   ```typescript 
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
     const safeClient = await createSafeClient({
       provider,  
       signer,
       safeAddress
     })
-
-    const safeMessageClient = safeClient.extend(offChainMessages())
-
-````
+  ```
 </Tabs.Tab>
 </Tabs>
 
@@ -38,7 +43,7 @@ While the threshold is not reached the message is not valid yet. This method is 
 
 `SafeClientResult`
 
-An object with the result of the confirmOffChainMessage operation.
+An object with the result of the confirmation operation.
 
 ## Parameters
 
@@ -46,9 +51,9 @@ An object with the result of the confirmOffChainMessage operation.
 
 - **Type:** `string`
 
-The safe message hash. You can get this hash once you use `sendOffChainMessage`.
+The Safe message hash. You can obtain this hash once you use the `sendOffChainMessage` method.
 
-To get the message hash, an application that tries to confirm off-chain messages can use the `getPendingOffChainMessage()` method to obtain the messages that are still not valid (missing signatures) and its message hashes.
+To obtain the message hash, an application that aims to confirm off-chain messages can use the `getPendingOffChainMessage()` method to retrieve the messages that are still not valid (lacking signatures) and their corresponding message hashes.
 
 ```typescript
 const messageHashToSearch = '0x...'

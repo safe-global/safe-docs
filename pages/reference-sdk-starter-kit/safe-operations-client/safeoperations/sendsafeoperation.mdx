@@ -2,12 +2,14 @@ import { Tabs } from "nextra/components";
 
 # `sendSafeOperation`
 
-This method allow to send SafeOperations from a group of transactions and will convert your transactions in a batch:
+This method allows you to send SafeOperations (User Operations with some additional Safe parameters) from a group of transactions and will convert your transactions into a batch.
 
-- If the threshold > 1 it will save for later the SafeOperation using the Transaction Service. You must confirmSafeOperation() with other owners
-- If the threshold = 1 the SafeOperation can be submitted to the bundler so it will execute it immediately
+Notice the usage of `transactions` instead of User Operations. The `sendSafeOperation` method internally converts those transactions into a batch and creates the User Operation with the Safe `initCode` to be deployed if necessary.
 
-In any case, if the Safe account is not deployed yet, sending it to the bundler will deploy it before executing the transactions. You need to ensure you have enough funds in the Safe address (or counterfactual) or if you are sponsoring it in the paymaster contract.
+- If the Safe account threshold > 1, it will save the SafeOperation for later using the Transaction Service. You must confirm the SafeOperation with other owners.
+- If the Safe account threshold is 1, the SafeOperation can be submitted to the bundler so it will execute immediately.
+
+In any case, if the Safe account is not deployed yet, sending it to the bundler will deploy it before executing the transactions. You need to ensure you have enough funds in the Safe address (deployed or counterfactual) or if you are sponsoring it in the paymaster contract.
 
 ## Usage
 
@@ -16,6 +18,12 @@ In any case, if the Safe account is not deployed yet, sending it to the bundler 
 <Tabs items={["send-safe-operation.ts", "setup.ts"]}>
   <Tabs.Tab>
     ```typescript 
+      import { safeOperations } from '@safe-global/sdk-starter-kit'
+    
+      const safeOperationsClient = await safeClient.extend(
+        safeOperations({ bundlerUrl }, { isSponsored, paymasterUrl })
+      )
+      
       const transactions = [{
         to: '0x...',
         value: '0',
@@ -36,20 +44,13 @@ In any case, if the Safe account is not deployed yet, sending it to the bundler 
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript 
+      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
       const safeClient = await createSafeClient({
         provider,  
         signer,
         safeAddress
       })
-
-      const safeOperationsClient = await safeClient.extend(safeOperations({
-          bundlerUrl
-        },
-        {
-          isSponsored,
-          paymasterUrl
-        }
-      }))
     ```
 
   </Tabs.Tab>

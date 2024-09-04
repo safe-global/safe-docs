@@ -2,33 +2,33 @@ import { Tabs } from "nextra/components";
 
 # `sendOnChainMessage`
 
-Creates and sends a message as a regular transaction using the SignMessageLib contract. The message can be a string or an EIP712TypedData object.
+Creates and sends a message as a regular transaction using the [SignMessageLib](https://github.com/safe-global/safe-smart-account/blob/main/contracts/libraries/SignMessageLib.sol) contract. The message can be a string or an [`EIP712TypedData`](https://eips.ethereum.org/EIPS/eip-712) object.
 
-As this method creates a new transaction you can confirm it using the safeTxHash and the confirm() method and retrieve the pending transactions using the getPendingTransactions() method from the general client
+Since this method creates a new transaction, you can add more signatures by using the safeTxHash and the `confirm` method. You can also retrieve the pending transactions using the `getPendingTransactions` method from the SafeClient.
 
 ## Usage
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["send.ts", "setup.ts"]}>
+<Tabs items={["send-on-chain-message.ts", "setup.ts"]}>
   <Tabs.Tab>
     ```typescript 
-      const message = "I am the owner of this Safe"
-
+      import { onChainMessages } from '@safe-global/sdk-starter-kit'
+      
+      const message = "I am the owner of this Safe 💪🏻"
+      const safeMessageClient = safeClient.extend(onChainMessages())
       const messageResult = await safeMessageClient.sendOnChainMessage({ message })
     ```
   </Tabs.Tab>
   <Tabs.Tab>  
     ```typescript 
-      import { onChainMessages } from '@safe-global/sdk-starter-kit'
+      import { createSafeClient } from '@safe-global/sdk-starter-kit'
       
       const safeClient = await createSafeClient({
         provider,  
         signer,
         safeAddress
-      })
-
-        const safeMessageClient = safeClient.extend(onChainMessages())
+      })        
     ```
   </Tabs.Tab>
 </Tabs>
@@ -39,37 +39,33 @@ As this method creates a new transaction you can confirm it using the safeTxHash
 
 `SafeClientResult`
 
-An object with the result of the send operation.
+An object with the result of the operation.
 
 ## Parameters
 
-### `transactions`
+### `message`
 
-- **Type:** `TransactionBase[]`
+- **Type:** `string | EIP712TypedData`
 
-An array of transactions to be sent. If more than one the transactions will be sent in the same batch. Each transaction is represented by an to, value, data object as any regular Ethereum transaction.
-
-	1.	`to`: This is the address of the recipient of the transaction.
-	2.	`value`: This specifies the amount of ether (in wei) being transferred from the sender to the recipient. If you are invoking a smart contract without sending any ether, this value can be zero.
-	3.	`data`: This field contains extra information sent along with the transaction. For standard ether transfers between addresses, this field is typically empty. However, when interacting with smart contracts, this field carries the encoded function call and parameters.
+The message can be a raw string or an [EIP-712](https://eips.ethereum.org/EIPS/eip-712) compatible data object.
 
 ### `from` (optional)
 
 - **Type:** `string`
 
-The address of the sender of the transaction.
+The sender's address for the transaction.
 
 ### `gasLimit` (optional)
 
 - **Type:** `stringnumber | string | bigint`
 
-The maximum amount of gas that the transaction is allowed to use. If the transaction requires more gas than the gas limit, the transaction will fail.
+The maximum amount of gas the transaction can use. If the transaction requires more gas than the limit, it will fail.
 
 ### `gasPrice` (optional)
 
 - **Type:** `number | string`
 
-The price of gas in wei that the sender is willing to pay for each unit of gas.
+The price in wei that the sender is willing to pay for each unit of gas.
 
 ### `maxFeePerGas` (optional)
 
@@ -87,4 +83,4 @@ The maximum priority fee per gas the sender is willing to pay.
 
 - **Type:** `number | string`
 
-The nonce of the transaction.
+The `nonce` refers to a unique number used in a transaction to prevent the same transaction from being processed more than once.

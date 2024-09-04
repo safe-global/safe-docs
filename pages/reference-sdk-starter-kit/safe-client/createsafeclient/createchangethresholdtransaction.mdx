@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `createChangeThresholdTransaction`
 
-Creates a transaction (to, value, data) to change the Safe account threshold.
+Creates a transaction (to, value, data) to change the Safe account threshold. The transaction can be included individually or in a batch within the `send` method.
 
 ## Usage
 
@@ -37,7 +37,7 @@ Creates a transaction (to, value, data) to change the Safe account threshold.
 
 `Promise<TransactionBase>`
 
-Returns a `TransactionBase` transaction that can be used/included in a batch with the `send` method
+Returns a `TransactionBase` transaction that you can use or include in a batch using the `send` method.
 
 ## Parameters
 

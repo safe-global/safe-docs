@@ -2,7 +2,7 @@ import { Tabs } from "nextra/components";
 
 # `getPendingTransactions`
 
-This method returns the list of pending transactions that need to be confirmed using the `confirm()` method to be executed in the blockchain.
+This method returns the list of pending transactions that require confirmation using the `confirm()` method to execute them on the blockchain.
 
 ## Usage
 
@@ -21,7 +21,7 @@ This method returns the list of pending transactions that need to be confirmed u
     const safeClient = await createSafeClient({
       provider,  
       signer,
-      safeAddress
+      safeAddresss
     })
   ```
   </Tabs.Tab>
@@ -33,4 +33,4 @@ This method returns the list of pending transactions that need to be confirmed u
 
 `SafeMultisigConfirmationListResponse`
 
-A paginated list of the pending transactions
+A paginated list of the pending transactions.

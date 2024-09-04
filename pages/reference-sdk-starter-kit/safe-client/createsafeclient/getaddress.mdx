@@ -11,7 +11,7 @@ This method retrieves the current Safe address.
 <Tabs items={["get-address.ts", "setup.ts"]}>
   <Tabs.Tab>
     ```typescript 
-      const nonce = await safeClient.getAddress()
+      const safeAddress = await safeClient.getAddress()
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -33,4 +33,4 @@ This method retrieves the current Safe address.
 
 `Promise<string>`
 
-The address. It can be the predicted address in case the safe is not deployed yet and you use the `safeOptions` to instantiate the SafeClient.
+The Safe address or the predicted one, in case it has not yet been deployed. You can use the `safeOptions` to instantiate the SafeClient and to produce a deterministic address based on the different options.

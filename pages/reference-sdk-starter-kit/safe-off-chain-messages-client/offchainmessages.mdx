@@ -2,7 +2,9 @@ import { Tabs } from "nextra/components";
 
 # `offChainMessages`
 
-The `offChainMesssages` is an extension method that enables the SafeClient to work with off-chain messages.
+The `offChainMesssages` is an extension method that enables the SafeClient to work with on-chain messages.
+
+Off-chain messages are the default used by the Safe account (Can be configured using the Safe Wallet web).
 
 ## Usage
 
@@ -20,6 +22,8 @@ The `offChainMesssages` is an extension method that enables the SafeClient to wo
   </Tabs.Tab>
   <Tabs.Tab>
   ```typescript 
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
     const safeClient = await createSafeClient({
       provider,
       signer,
@@ -36,3 +40,7 @@ The `offChainMesssages` is an extension method that enables the SafeClient to wo
 `Promise<SafeClient & { sendOffChainMessage, confirmOffChainMessage, getPendingOffChainMessages }>`
 
 It returns the SafeClient with some additional methods enabling the off-chain messages usage.
+
+## Links
+
+- [What are messages?](https://help.safe.global/en/articles/40783-what-are-signed-messages)

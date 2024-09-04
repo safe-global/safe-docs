@@ -4,9 +4,9 @@ import { Tabs } from "nextra/components";
 
 The `onChainMesssages` is an extension method that enables the SafeClient to work with on-chain messages. 
 
-The on-chain messages are regular transactions created using the SignMessageLib so after sendOnChainMessage() you can confirm the transaction using the safeTxHash and the confirm() method of the SafeClient.
+The on-chain messages are regular transactions created using the [SignMessageLib](https://github.com/safe-global/safe-smart-account/blob/main/contracts/libraries/SignMessageLib.sol). After using the `sendOnChainMessage` function, you can add signatures to the transaction by using the `safeTxHash` and the `confirm` method of the SafeClient.
 
-It adds the `sendOnChainMessage` method to the SafeClient. This method will create a message (string or EIP-712) using the Safe account SignMessageLib. This library allows to sign messages on-chain by writing the signed message hashes on-chain.
+The `sendOnChainMessage` method is added to the SafeClient. This method creates a message (string or EIP-712) using the Safe account SignMessageLib. This library enables on-chain signing of messages by writing the signed message hashes on-chain.
 
 ## Usage
 
@@ -17,13 +17,15 @@ It adds the `sendOnChainMessage` method to the SafeClient. This method will crea
   ```typescript 
     import { onChainMessages } from '@safe-global/sdk-starter-kit'
 
-    const safeClientWithMessages = safeClient.extend(onChainMessages())
+    const safeMessageClient = safeClient.extend(onChainMessages())
 
-    const txResult = await safeClientWithMessages.sendOnChainMessage({ message })    
+    const txResult = safeMessageClient.sendOnChainMessage({ message })    
   ```
   </Tabs.Tab>
   <Tabs.Tab>
   ```typescript 
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
     const safeClient = await createSafeClient({
       provider,
       signer,
@@ -37,12 +39,34 @@ It adds the `sendOnChainMessage` method to the SafeClient. This method will crea
 
 ## Returns
 
-`Promise<SafeClient> & { sendOnChainMessage }`
+`SafeClient & { sendOnChainMessage }`
 
 It returns the SafeClient with some additional methods enabling the on-chain messages usage.
 
 ## Caveats
 
-We have other extensions that adds the confirmXXX or getPendingXXX methods as well as in the case of the on-chain messages or Safe operations. This is not the case because generating the on-chain is creating a regular transaction. 
+We have other extensions that add the `confirmXXX` or `getPendingXXX` methods, as well as in the case of on-chain messages or Safe operations. This is not the case because generating the on-chain transaction is a regular transaction. No need for specific methods
   - To confirm the message you need to use the `confirm({ safeTxHash })` method from the SafeClient
   - To get the pending messages you need to use the `getPendingTransactions()` method from the SafeClient
+
+```typescript
+import { createSafeClient, onChainMessages } from '@safe-global/sdk-starter-kit'
+
+const safeClient = await createSafeClient({
+  provider: RPC_URL,
+  signer: pk,
+  safeAddress
+})
+
+const safeMessageClient = safeClient.extend(onChainMessages())
+
+const pendingTransactions = await safeMessageClient.getPendingTransactions()
+
+for (const transaction of pendingTransactions.results) {
+  await safeMessageClient.confirm({ safeTxHash: transaction.safeTxHash })
+}
+```
+
+## Links
+
+- [What are messages?](https://help.safe.global/en/articles/40783-what-are-signed-messages)

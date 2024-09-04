@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `getOwnersWhoApprovedTx`
 
-Given a safe transaction hash (safeTxHash), this method retrieves the list of owners who have approved the transaction.
+Returns a list of owners who have approved a specific Safe transaction.
 
 ## Usage
 
@@ -34,7 +34,7 @@ Given a safe transaction hash (safeTxHash), this method retrieves the list of ow
 
 `Promise<string[]>`
 
-The list of owners who approved the concrete safeTxHash
+The list of owners who approved the concrete `safeTxHash`.
 
 ## Parameters
 
@@ -42,4 +42,4 @@ The list of owners who approved the concrete safeTxHash
 
 - **Type:** `string`
 
-The target `safeTxHash` to check
+The Safe transaction hash to check.

@@ -2,29 +2,33 @@ import { Tabs } from 'nextra/components'
 
 # `extend`
 
-The extend function plays a central role in the extensibility of the SafeClient. 
+The `extend` function plays a central role in the extensibility of the `SafeClient`. 
 
-You can add any functionality you need to the SafeClient on your own or by using some of the SDK implemented extensions.
+You can add any functionality you need to the `SafeClient` on your own or by using some of the SDK-implemented extensions (`onChainMessages`, `offChainMessages`, `safeOperations`).
 
 ## Usage
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['extend-with-messages.ts', 'extend-with-safe-operations.ts','add-some-functionality.ts', 'setup.ts']}>
+<Tabs items={['extend-with-messages.ts', 'extend-with-safe-operations.ts','add-some-feature.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
-    const safeClientWithMessages = safeClient.extend(offChainMessages())
-    
-    await safeClient.sendOffChainMessage({ message })
+    import { offChainMessages } from '@safe-global/sdk-starter-kit'
+
+    const safeMessageClient = safeClient.extend(offChainMessages())    
+
+    await safeMessageClient.sendOffChainMessage({ message })
     ```
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-    const safeClientWithSafeOperation = await safeClient.extend(
+    import { safeOperations } from '@safe-global/sdk-starter-kit'
+
+    const safeOperationClient = await safeClient.extend(
       safeOperations({ bundlerUrl }, { isSponsored, paymasterUrl })
     )
 
-    await safeClient.sendSafeOperation({ transactions })
+    await safeOperationClient.sendSafeOperation({ transactions })
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -40,6 +44,8 @@ You can add any functionality you need to the SafeClient on your own or by using
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
+      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
       const safeClient = await createSafeClient({
         provider,  
         signer,
@@ -55,7 +61,7 @@ You can add any functionality you need to the SafeClient on your own or by using
 
 `Promise<SafeClient & T> | SafeClient & T`
 
-It returns the SafeClient with the new `T` functionality. IT can be used as a Promise as well
+The SafeClient now includes the new functionality. It supports both asynchronous and synchronous usage.
 
 ## Parameters
 
@@ -63,4 +69,4 @@ It returns the SafeClient with the new `T` functionality. IT can be used as a Pr
 
 - **Type:** `function`
 
-The extension function will receive the current SafeClient and will merge it with the new returned functionality.
+The extension function will receive the current SafeClient and merge it with the new returned functionality.
