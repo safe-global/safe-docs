@@ -1,0 +1,123 @@
+# SafeClientResult
+
+The `createSafeClient` and its extension system provide a series of methods that enable developers to interact with Safe accounts using Transactions, Messages, or Safe operations (User Operations).
+
+We expose several methods to initiate the interaction and add more signatures, such as:
+
+- Transactions: `send`, `confirm`
+- On-chain messages: `sendOnChainMessage`, `confirm` (as it is a transaction)
+- Off-chain messages: `sendOffChainMessage`, `confirmOffChainMessage`
+- Safe operations: `sendSafeOperation`, `confirmSafeOperation`
+
+Each of these methods returns a `SafeClientResult` object that contains the result of the operation and the next steps to follow. We will describe the different results it can produce.
+
+This is the `SafeClientResult` type
+
+```typescript
+SafeClientResult {
+  safeAddress: string
+  description: string
+  status: SafeClientTxStatus
+  transactions?: {
+    safeTxHash?: string
+    ethereumTxHash?: string
+  }
+  messages?: {
+    messageHash?: string
+  }
+  safeOperations?: {
+    userOperationHash?: string
+    safeOperationHash?: string
+  }
+  safeAccountDeployment?: {
+    ethereumTxHash?: string
+  }
+}
+```
+
+## Properties
+
+### `safeAddress`
+
+- **Type:** `string`
+
+This is going to be the `safeAddress`, it can be the one you used to instantiate the `SafeClient` or the one you deployed (predicted address).
+
+### `description`
+
+- **Type:** `string`
+
+A human-readable description of the result. We are going to use clear messages here trying to explain the developer what happened and the next steps.
+
+More information about the different descriptions can be found [here](https://github.com/safe-global/safe-core-sdk/blob/main/packages/sdk-starter-kit/src/constants.ts).
+
+### `status`
+
+- **Type:** `SafeClientTxStatus`
+
+This is the status of the operation. It can be one of the following and depending on the status the `description` field will be composed differently:
+
+| Status                                  | Type            | Description                                                                                                                                                  |
+|-----------------------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| DEPLOYED_AND_EXECUTED                   | Transaction     | When using `send` or `sendOnChainMessage` with the required number of signatures. This is when the Safe threshold is 1 |
+| DEPLOYED_AND_PENDING_SIGNATURES         | Transaction     | When using `send`, `sendOnChainMessage` or `confirm` with not enough signatures. The Safe is deployed but the transaction is not being sent to the blockchain yet |
+| EXECUTED                                | Transaction     | When using `send`, `sendOnChainMessage` or `confirm` and the transaction is executed in an already deployed Safe |
+| PENDING_SIGNATURES                      | Transaction     | When using `send`, `sendOnChainMessage` or `confirm` and the transaction has not enough signatures in an already deployed Safe |
+| MESSAGE_PENDING_SIGNATURES              | Message         | When using `sendOffChainMessage` or `confirmOffChainMessage` in an already deployed Safe, so they are stored in Safe services but not valid yet |
+| MESSAGE_CONFIRMED                       | Message         | When using `sendOffChainMessage` or `confirmOffChainMessage` in an already deployed Safe, so they are stored using Safe services and the message is valid |
+| DEPLOYED_AND_MESSAGE_PENDING_SIGNATURES | Message         | When using `sendOffChainMessage` with not enough signatures. The message is stored in Safe services but not valid yet |
+| DEPLOYED_AND_MESSAGE_CONFIRMED          | Message         | When using `sendOffChainMessage` or `confirmOffChainMessage` with not enough signatures. The message is stored in Safe services but not valid yet |
+| SAFE_OPERATION_EXECUTED                 | Safe Operation  | When using `sendSafeOperation` or `confirmSafeOperation` this status is returned when the operation is executed |
+| SAFE_OPERATION_PENDING_SIGNATURE        | Safe Operation  | When using `sendSafeOperation` or `confirmSafeOperation`, this status is returned when the operation is not executed yet |
+
+### `transactions`
+
+This property will be populated when processing transactions or on-chain messages.
+
+#### `safeTxHash` (optional)
+
+- **Type:** `string`
+
+The transaction's unique identifier. This is the hash, or digital fingerprint, of the transaction stored in Safe services. It will be used to confirm the transaction if the required number of approvals is not reached.
+
+#### `ethereumTxHash` (optional)
+
+- **Type:** `string`
+
+The Ethereum transaction hash is the unique identifier of the executed and mined transaction on the blockchain. This information will be available once the transaction is successfully processed, as the number of required signatures matches the safe account threshold.
+
+### `messages`
+
+This property will be populated when handling off-chain messages.
+
+#### `messageHash` (optional)
+
+- **Type:** `string`
+
+The message hash is the hash of the message stored in Safe services. It will be used to confirm the message if the threshold is not reached.
+
+### `safeOperations`
+
+This property will be populated when handling Safe operations.
+
+#### `userOperationHash` (optional)
+
+- **Type:** `string`
+
+The user's operation hash. This is the hash of the operation sent to the bundler, which will only be filled when there are enough signatures to be added to the bundler and executed.
+
+#### `safeOperationHash` (optional)
+
+- **Type:** `string`
+
+The Safe operation hash is the hash of the operation stored in Safe services. It will be used to confirm the operation if the threshold is not reached.
+
+### `safeAccountDeployment`
+
+This property will be populated when deploying a Safe account.
+
+#### `ethereumTxHash` (optional)
+
+- **Type:** `string`
+
+The Ethereum transaction hash is the hash of the transaction that deployed the Safe. This field will only be filled if a Safe is deployed during the operation.
