@@ -40,12 +40,12 @@ When prompted by the CLI:
 
 ### Install dependencies
 
-For this project, we'll use the [Relay Kit](../../sdk/relay-kit.mdx) and [Protocol Kit](../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem) for a helper function to encode the dummy transaction. We will also use [`@mui/material`](https://mui.com/material-ui/) for styling.
+For this project, we'll use the [Relay Kit](../../sdk/relay-kit.mdx) and [Protocol Kit](../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem) for a helper function to encode the dummy transaction. We will also use [`@mui/material`](https://mui.com/material-ui/) for styling and [@svgr/webpack](https://www.npmjs.com/package/@svgr/webpack) to load SVG files.
 
 Run the following command to add all these dependencies to the project:
 
 ```bash
-pnpm add @safe-global/protocol-kit @safe-global/relay-kit viem @emotion/react @emotion/styled @mui/material @mui/icons-material
+pnpm add @safe-global/protocol-kit @safe-global/relay-kit viem @emotion/react @emotion/styled @mui/material @mui/icons-material @svgr/webpack
 ```
 
 Now, create a file named `.env.local` at the root of your project, and add your Pimlico API key to it:
@@ -183,22 +183,13 @@ Still within the `app` folder, replace the existing content of the file `layout.
 In the same folder, add some margin to the titles, by adding this code at the end of the `globals.css` file:
 
 ```css
-h1,
-h2,
-h3 {
-  margin-top: 40px;
-  margin-bottom: 10px;
-}
+// from ../../../examples/passkeys/app/globals.css
+```
 
-button {
-  cursor: pointer;
-  border: none;
-  background: #00e673;
-  color: black;
-  padding: 10px 20px;
-  border-radius: 5px;
-  margin: 10px 0;
-}
+To add some icons to the app, we will need to edit the `next.config.mjs` file at the root of the project to load SVG files:
+
+```js
+// from ../../../../examples/passkeys/next.config.mjs
 ```
 
 Download [this file](https://github.com/5afe/safe-passkeys-tutorial/blob/main/components/SafeThemeProvider.tsx) and save it in `./components` as `SafeThemeProvider.tsx`. We are not displaying it here for brevity; it is simply a wrapper for the MUI theme provider, which will allow us to use Safe's design system. Finally, in the `public` folder, add three icons. You can also find them in the project's GitHub repository: [`safe.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/safe.svg), [`github.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/github.svg/), and [`external-link.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/external-link.svg).
