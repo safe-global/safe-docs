@@ -32,13 +32,12 @@ const jiffscanLink = `https://jiffyscan.xyz/userOpHash/${store.userOp}?network=$
 <template>
   <div
     v-if="Object.keys(store.selectedPasskey).length !== 0"
-    class="mt-20 bg-stone-800 p-8 rounded w-fit flex flex-col items-center"
+    class="mt-20 dark:bg-stone-800 bg-stone-50 p-8 rounded w-fit flex flex-col items-center"
   >
     <h1 class="text-4xl text-[#12FF80]">Your Safe Accout</h1>
     <UIcon
-      v-if="store.isLoading"
       name="line-md:loading-loop"
-      class="mt-4 w-12 h-12 bg-[#12FF80]"
+      class="mt-4 w-12 h-12"
     />
     <div v-if="!store.isLoading" class="flex flex-col items-center">
       <UButton
@@ -50,9 +49,11 @@ const jiffscanLink = `https://jiffyscan.xyz/userOpHash/${store.userOp}?network=$
         target="_blank"
         rel="noopener noreferrer"
       >
-        <template #leading><img src="/safeLogo.png" class="w-8 h-8" /> </template
+        <template #leading><UIcon name="token:safe" class="h-8 w-8" /> </template
         >{{ splitAddress(store.safeAddress) }}
-        <template #trailing><img src="/external-link.svg" class="w-5 h-5" /> </template>
+        <template #trailing
+          ><UIcon name="tabler:external-link" class="w-5 h-5" />
+        </template>
       </UButton>
       <UBadge
         v-if="store.safeAddress && !store.isSafeDeployed"
@@ -78,7 +79,8 @@ const jiffscanLink = `https://jiffyscan.xyz/userOpHash/${store.userOp}?network=$
         target="_blank"
         rel="noopener noreferrer"
         >{{ store.userOp }}
-        <template #trailing><img src="/external-link.svg" class="w-5 h-5" /> </template
+        <template #trailing>
+          <UIcon name="tabler:external-link" class="w-5 h-5" /> </template
       ></UButton>
     </div>
   </div>

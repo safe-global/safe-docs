@@ -23,7 +23,7 @@ const links = [
     <header>
       <div class="flex items-center justify-between">
         <div class="flex items-center">
-          <img src="/safe.svg" class="w-24 h-9" />
+          <UIcon name="SafeIcon" class="dark:white black h-9 w-24" />
         </div>
         <div class="flex items-center">
           <UButton
@@ -36,7 +36,7 @@ const links = [
           >
             Read tutorial
             <template #trailing>
-              <img src="/external-link.svg" class="w-5 h-5" />
+              <UIcon name="tabler:external-link" class="dark:white black h-6 w-6"/>
             </template>
           </UButton>
           <UButton
@@ -49,7 +49,7 @@ const links = [
           >
             View on GitHub
             <template #trailing>
-              <img src="/github.svg" class="w-7 h-7" />
+              <UIcon name="uil:github" class="dark:white black h-6 w-6" />
             </template>
           </UButton>
         </div>

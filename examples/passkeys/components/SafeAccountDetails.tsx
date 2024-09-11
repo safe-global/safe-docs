@@ -77,7 +77,7 @@ function SafeAccountDetails({ passkey }: props) {
         ) : (
           <>
             <Typography textAlign={'center'}>
-              <Link href={safeLink} target='_blank' underline='hover' color='white'>
+              <Link href={safeLink} target='_blank' underline='hover' color='text'>
                 <Tooltip title={safeAddress}>
                   <Stack
                     component={'span'}
@@ -112,7 +112,7 @@ function SafeAccountDetails({ passkey }: props) {
 
             {userOp && (
               <Typography textAlign={'center'} >
-                <Link href={jiffscanLink} target='_blank' underline='hover' color='white'>
+                <Link href={jiffscanLink} target='_blank' underline='hover' color='text'>
                   <Stack
                     component={'span'}
                     padding={4}
