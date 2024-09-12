@@ -25,8 +25,10 @@ The scope of the bug bounty program includes the core contracts related to the f
 * _v1.1.1_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.1.1), [README](https://github.com/safe-global/safe-contracts/blob/v1.1.1/README.md))
 
 The scope of the bug bounty also includes officially supported Safe Modules:
-* _v1.0.0_ [Allowance Module](https://github.com/safe-global/safe-modules/tree/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances)
+* _v0.1.0_ [Allowance Module](https://github.com/safe-global/safe-modules/tree/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances)
+* _v0.1.1_ [Allowance Module](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances)
 * _v0.3.0_ [Safe 4337 Module](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337)
+* _v0.2.1_ [Safe Passkey](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey)
 
 ### In scope
 
@@ -56,6 +58,7 @@ You can find addresses for deployed instances of these contracts [here](./smart-
 
 * AllowanceModule.sol
 * Safe4337Module.sol
+* SafeWebAuthnSignerFactory.sol, SafeWebAuthnSignerProxy.sol, SafeWebAuthnSignerSingleton.sol, SafeWebAuthnSharedSigner.sol, WebAuthn.sol, P256.sol
 
 ### Examples of what's in scope
 
@@ -74,9 +77,12 @@ You can find addresses for deployed instances of these contracts [here](./smart-
 
 ## Intended behavior
 
-Please refer to the [README file](https://github.com/safe-global/safe-contracts/blob/v1.3.0/README.md) and the [release details](https://github.com/safe-global/safe-contracts/releases) of the respective contract version on GitHub as well as our [developer docs](https://docs.safe.global) for an extensive overview of the intended behavior of the smart contracts.
+Please refer to the [README file](https://github.com/safe-global/safe-contracts/blob/v1.4.1/README.md) and the [release details](https://github.com/safe-global/safe-contracts/releases) of the respective contract version on GitHub as well as our [developer docs](https://docs.safe.global) for an extensive overview of the intended behavior of the smart contracts.
 
-For the allowance module, please refer to the corresponding [README file](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/README.md).
+For the modules, please refer to their corresponding READMEs:
+* [Allowance Module](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances/README.md).
+* [Safe 4337 Module](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337/README.md).
+* [Safe Passkey](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/README.md).
 
 ## Compensation
 
