@@ -243,7 +243,7 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
   Safe messages can be stored on-chain and off-chain:
 
   - **Off-chain**: Messages are stored in the Safe Transaction Service. This is the default option and doesn't require any on-chain interaction.
-  - **On-chain**: Messages are [stored](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L68-L69) in the Safe contract.
+  - **On-chain**: Messages are [stored](https://github.com/safe-global/safe-smart-account/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/Safe.sol#L68-L69) in the Safe contract.
 
   Safe supports signing [EIP-191](https://eips.ethereum.org/EIPS/eip-191) messages and [EIP-712](https://eips.ethereum.org/EIPS/eip-712) typed data messages all together with off-chain [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) validation for signatures.
 
@@ -378,7 +378,7 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
 
   #### Off-chain
 
-  When a message is stored off-chain, the `isValidSignature` method in the Protocol Kit must be called with the `messageHash` and the `encodedSignatures` parameters. The method will check the `isValidSignature` function defined in the `CompatibilityFallbackHandler` [contract](https://github.com/safe-global/safe-contracts/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/handler/CompatibilityFallbackHandler.sol#L51-L68) to validate the signature.
+  When a message is stored off-chain, the `isValidSignature` method in the Protocol Kit must be called with the `messageHash` and the `encodedSignatures` parameters. The method will check the `isValidSignature` function defined in the `CompatibilityFallbackHandler` [contract](https://github.com/safe-global/safe-smart-account/blob/f03dfae65fd1d085224b00a10755c509a4eaacfe/contracts/handler/CompatibilityFallbackHandler.sol#L51-L68) to validate the signature.
 
   ```typescript
   const encodedSignatures = safeMessage.encodedSignatures()
