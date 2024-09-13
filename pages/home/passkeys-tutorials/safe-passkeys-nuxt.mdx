@@ -2,6 +2,10 @@ import { Callout } from 'nextra/components'
 
 # How to build a Vue app with Safe and passkeys
 
+<Callout type='warning' emoji='⚠️'>
+  Because of known compatibility issues with Mozilla Firefox's implementation of passkeys, we recommend using Google Chrome or Chromium to follow this tutorial.
+</Callout>
+
 An increasing number of applications rely on passkeys to authenticate users securely and with little friction. Security and user-friendliness are crucial to making web3 a reality for the next billion users.
 Being able to unlock a Safe Smart Account with your fingerprints or Face ID, sending transactions without worrying about third-party wallet interfaces, phishing attempts, or securing seed phrases will bring new forms of ownership to the connected world.
 Today, we'll learn how to make this a reality using [Safe\{Core\} SDK](../../sdk/overview.mdx), [Pimlico](https://www.pimlico.io/), and [Nuxt](https://nuxt.com/docs/getting-started/introduction).
@@ -153,9 +157,10 @@ Add the following code to the `safe.ts` file:
 
 Let's add a user interface to create and store a passkey on the user's device, deploy a safe, and sign the NFT transaction.
 
-In the `components` folder at the project root, create a file named `LoginWithPasskey.vue`:
+Create a `components` folder at the project root, and create a file named `LoginWithPasskey.vue`:
 
 ```bash
+mkdir ../components
 cd ../components
 touch LoginWithPasskey.vue
 ```

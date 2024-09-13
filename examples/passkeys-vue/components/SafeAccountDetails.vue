@@ -35,10 +35,7 @@ const jiffscanLink = `https://jiffyscan.xyz/userOpHash/${store.userOp}?network=$
     class="mt-20 dark:bg-stone-800 bg-stone-50 p-8 rounded w-fit flex flex-col items-center"
   >
     <h1 class="text-4xl text-[#12FF80]">Your Safe Accout</h1>
-    <UIcon
-      name="line-md:loading-loop"
-      class="mt-4 w-12 h-12"
-    />
+    <UIcon v-if="store.isLoading" name="line-md:loading-loop" class="mt-4 w-12 h-12" />
     <div v-if="!store.isLoading" class="flex flex-col items-center">
       <UButton
         variant="link"
