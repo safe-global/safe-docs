@@ -19,10 +19,10 @@ Many of the [Ethereum Foundation's bug bounty program rules](https://bounty.ethe
 
 The scope of the bug bounty program includes the core contracts related to the following releases of the Safe contracts:
 
-* v1.4.1 ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.4.1), [README](https://github.com/safe-global/safe-contracts/blob/v1.4.1/README.md))
-* _v1.3.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.3.0), [README](https://github.com/safe-global/safe-contracts/blob/v1.3.0/README.md))
-* _v1.2.0_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.2.0), [README](https://github.com/safe-global/safe-contracts/blob/v1.2.0/README.md))
-* _v1.1.1_ ([Release details](https://github.com/safe-global/safe-contracts/releases/tag/v1.1.1), [README](https://github.com/safe-global/safe-contracts/blob/v1.1.1/README.md))
+* v1.4.1 ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.4.1), [README](https://github.com/safe-global/safe-smart-account/blob/v1.4.1/README.md))
+* _v1.3.0_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.3.0), [README](https://github.com/safe-global/safe-smart-account/blob/v1.3.0/README.md))
+* _v1.2.0_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.2.0), [README](https://github.com/safe-global/safe-smart-account/blob/v1.2.0/README.md))
+* _v1.1.1_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.1.1), [README](https://github.com/safe-global/safe-smart-account/blob/v1.1.1/README.md))
 
 The scope of the bug bounty also includes officially supported Safe Modules:
 * _v0.1.0_ [Allowance Module](https://github.com/safe-global/safe-modules/tree/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances)
@@ -77,7 +77,7 @@ You can find addresses for deployed instances of these contracts [here](./smart-
 
 ## Intended behavior
 
-Please refer to the [README file](https://github.com/safe-global/safe-contracts/blob/v1.4.1/README.md) and the [release details](https://github.com/safe-global/safe-contracts/releases) of the respective contract version on GitHub as well as our [developer docs](https://docs.safe.global) for an extensive overview of the intended behavior of the smart contracts.
+Please refer to the [README file](https://github.com/safe-global/safe-smart-account/blob/v1.4.1/README.md) and the [release details](https://github.com/safe-global/safe-smart-account/releases) of the respective contract version on GitHub as well as our [developer docs](https://docs.safe.global) for an extensive overview of the intended behavior of the smart contracts.
 
 For the modules, please refer to their corresponding READMEs:
 * [Allowance Module](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances/README.md).
