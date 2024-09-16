@@ -50,6 +50,11 @@
     "permanent": true
   },
   {
+    "source": "/glossary",
+    "destination": "/home/glossary",
+    "permanent": true
+  },
+  {
     "source": "/safe-smart-account/safe-smart-account",
     "destination": "/advanced/smart-account-overview",
     "permanent": true

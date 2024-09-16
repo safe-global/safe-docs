@@ -61,7 +61,7 @@ See also:
 Gasless transactions (also known as meta-transactions) are Ethereum transactions that are executed by a third party called [relayer](#relayer) on behalf of a [smart account](#smart-account) to abstract the use of gas. Users must sign a message (instead of the transaction itself) with information about the transaction they want to execute. A relayer will create the Ethereum transaction, sign and execute it, and pay for the gas costs. The main benefit is that users can interact with the blockchain without holding the native token in their account.
 
 See also:
-- [Relay Kit documentation](./sdk/relay-kit) on docs.safe.global
+- [Relay Kit documentation](../sdk/relay-kit) on docs.safe.global
 
 ## Network
 
@@ -120,19 +120,19 @@ See also:
 A Safe Guard is a smart contract that adds restrictions on top of the n-out-of-m scheme that Safe accounts offer. They make checks before and after the execution of a Safe transaction.
 
 See also:
-- [Safe Guards documentation](./advanced/smart-account-guards.mdx) on docs.safe.global
+- [Safe Guards documentation](../advanced/smart-account-guards.mdx) on docs.safe.global
 - [Zodiac Guards](https://zodiac.wiki/index.php%3Ftitle=Introduction:_Zodiac_Protocol.html#Guards) on zodiac.wiki
-- [Get the enabled Safe Guard](./sdk/protocol-kit/reference.md#getguard) and [enable a Safe Guard](./sdk/protocol-kit/reference.md#createenableguardtx) with the Safe{Core} SDK on docs.safe.global
+- [Get the enabled Safe Guard](../sdk/protocol-kit/reference.md#getguard) and [enable a Safe Guard](../sdk/protocol-kit/reference.md#createenableguardtx) with the Safe{Core} SDK on docs.safe.global
 
 ## Safe Module
 
 A Safe Module is a smart contract that adds functionality to Safe while separating module logic from Safe core contracts.
 
 See also:
-- [Safe Modules documentation](./advanced/smart-account-modules.mdx) on docs.safe.global
+- [Safe Modules documentation](../advanced/smart-account-modules.mdx) on docs.safe.global
 - [Safe Modules repository](https://github.com/safe-global/safe-modules) on github.com
 - [Zodiac Modules](https://zodiac.wiki/index.php%3Ftitle=Introduction:_Zodiac_Protocol.html#Modules) on zodiac.wiki
-- [Get the enabled Safe Modules](./sdk/protocol-kit/reference.md#getmodules) and [enable a Safe Module](./sdk/protocol-kit/reference.md#createenablemoduletx) with the Safe{Core} SDK on docs.safe.global
+- [Get the enabled Safe Modules](../sdk/protocol-kit/reference.md#getmodules) and [enable a Safe Module](../sdk/protocol-kit/reference.md#createenablemoduletx) with the Safe{Core} SDK on docs.safe.global
 
 ## Smart Account
 
@@ -160,7 +160,7 @@ See also:
 The threshold of a Safe account is a crucial configuration element that enables using Safe as a multi-signature smart account. It defines the number of required confirmations from the Safe owners a (Safe) transaction must have to be executable.
 
 See also:
-- [Get the threshold](./sdk/protocol-kit/reference.md#getthreshold) and [change the threshold](./sdk/protocol-kit/reference.md#createchangethresholdtx) of a Safe with the Safe{Core} SDK on docs.safe.global
+- [Get the threshold](../sdk/protocol-kit/reference.md#getthreshold) and [change the threshold](../sdk/protocol-kit/reference.md#createchangethresholdtx) of a Safe with the Safe{Core} SDK on docs.safe.global
 
 ## UserOperation
 
