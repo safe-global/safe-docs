@@ -13,6 +13,8 @@ In this tutorial, we will build an app that can:
 - Send a transaction via the 7579 module (Send a dummy transaction as the new owner via `executeOnOwnedAccount`)
 - Interact with the 7579 directly to add a new owner to the module
 
+You can find the full code for this tutorial in the [Safe7579 module tutorial repository](https://github.com/5afe/safe-7579-module-tutorial).
+
 ## Prerequisites
 
 **Prerequisite knowledge:** You will need some basic experience with [React](https://react.dev/learn), [Next.js](https://nextjs.org/docs), [ERC-4337](https://docs.safe.global/home/4337-overview) and [ERC-7579](https://docs.safe.global/advanced/erc-7579/overview).
@@ -21,6 +23,7 @@ Before progressing with the tutorial, please make sure you have the following:
 
 - Downloaded and installed [Node.js](https://nodejs.org/en/download/package-manager) and [pnpm](https://pnpm.io/installation).
 - Created an API key from [Pimlico](https://www.pimlico.io/).
+- Two private keys for testing purposes. The second key will need some funds to pay for gas.
 
 ## **1. Setup a Next.js application**
 
@@ -129,22 +132,17 @@ We replace the content of `app/page.tsx` with the following code. It includes al
 ```tsx
 'use client'
 
-import Image from 'next/image'
-import styles from './page.module.css'
-
-import { owner, owner2 } from '../lib/owner'
 import { createSmartAccountClient } from 'permissionless'
 import { sepolia } from 'viem/chains'
 import { encodePacked, http, encodeFunctionData, parseAbi } from 'viem'
 import { erc7579Actions } from 'permissionless/actions/erc7579'
 import { createPublicClient, createWalletClient } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
 import { createPimlicoClient } from 'permissionless/clients/pimlico'
-import { entryPoint07Address } from 'viem/account-abstraction'
 import { toSafeSmartAccount } from 'permissionless/accounts'
 import { useEffect, useState } from 'react'
 
 export default function Home () {
-  const [publicClient, setPublicClient] = useState(null)
   const [safeAccount, setSafeAccount] = useState(null)
   const [pimlicoClient, setPimlicoClient] = useState(null)
   const [smartAccountClient, setSmartAccountClient] = useState(null)
@@ -161,12 +159,13 @@ export default function Home () {
   // owner is the account that owns the smart account and will install the module.
   // owner2 is the account that will be added as an owner to the smart account via the module.
   // Both accounts are created from private keys. Make sure to replace them with your own private keys.
+  // These are the private keys of anvil, don't use them in production, don't send any real funds to these accounts.
   const owner = privateKeyToAccount(
-    '0xPRIVATE_KEY_OF_OWNER'
+    '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'
   )
 
   const owner2 = privateKeyToAccount(
-    '0xPRIVATE_KEY_OF_OWNER2'
+    '0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d'
   )
 
   // These functions will be filled with code in the following steps:
@@ -178,20 +177,26 @@ export default function Home () {
 
   const installModule = async () => {}
 
-  const addOwner = async () => {}
-
   const executeOnOwnedAccount = async () => {}
+
+  const addOwner = async () => {}
 
   return (
     <div className='card'>
       <div className='title'>Safe 7579 Module</div>
       <button onClick={installModule}>Install Module</button>
-      <button onClick={executeOnOwnedAccount}>Execute as Owner</button>
+      <button onClick={executeOnOwnedAccount}>Execute on owned account</button>
       <button onClick={addOwner}>Add Owner</button>
     </div>
   )
 }
 ```
+
+Make sure to add your Pimlico API key to the `pimlicoUrl` variable. You can find your API key in the Pimlico dashboard.
+
+Also, replace the private keys in the `owner` and `owner2` variables with your own private keys for testing purposes. 
+
+You can now run the development server with `pnpm dev` and open the app in your browser at `http://localhost:3000`. You should see a simple UI with three buttons. 
 
 ## Initialize the clients
 
@@ -221,9 +226,7 @@ useEffect(() => {
 
     // The Pimlico client is used as a paymaster:
     const pimlicoClient = createPimlicoClient({
-      transport: http(
-        'https://api.pimlico.io/v2/sepolia/rpc?apikey=pim_nP3hDrTjXZjYyK34ZgugCk'
-      ),
+      transport: http(pimlicoUrl),
       chain: sepolia
     })
 
@@ -231,9 +234,7 @@ useEffect(() => {
     const smartAccountClient = createSmartAccountClient({
       account: safeAccount,
       chain: sepolia,
-      bundlerTransport: http(
-        'https://api.pimlico.io/v2/sepolia/rpc?apikey=pim_nP3hDrTjXZjYyK34ZgugCk'
-      ),
+      bundlerTransport: http(pimlicoUrl),
       paymaster: pimlicoClient,
       userOperation: {
         estimateFeesPerGas: async () => {
@@ -257,7 +258,7 @@ useEffect(() => {
 
 If you run your app with `pnpm dev`, the console will log ‘setup done’ when everything works correctly.
 
-## Enable the 7579 module
+## Install the 7579 module
 
 Now, we add the call that will add the `OwnableExecutor` module to our smart account.
 
@@ -277,7 +278,7 @@ const installModule = async () => {
     context: encodePacked(['address'], [owner2.address])
   })
 
-  console.log('User operation hash:', userOpHash)
+  console.log('User operation hash:', userOpHash, '\nwaiting for receipt...')
 
   // After we sent the user operation, we wait for the transaction to be settled:
   const transactionReceipt = await pimlicoClient.waitForUserOperationReceipt({
@@ -304,7 +305,7 @@ Please replace the `executeOnOwnedAccount` function with this code:
 
 ```tsx
 const executeOnOwnedAccount = async () => {
-  console.log('Executing as owner...')
+  console.log('Executing on owned account...')
 
   // We create a wallet client for the owner2 account. This client is used to send transactions on behalf of the
   // owner2. This transaction is sent as a regular transaction, so it is not free. Make sure owner2 owns enough funds
@@ -328,8 +329,7 @@ const executeOnOwnedAccount = async () => {
   )
 
   // Now, we call the `executeOnOwnedAccount` function of the `ownableExecutorModule` with the address of the safe
-  // account and the data we want to execute as owner. This will make our smart account send the transaction that is
-  // encoded above.
+  // account and the data we want to execute. This will make our smart account send the transaction that is encoded above.
   const hash = await walletClient.writeContract({
     abi: parseAbi(['function executeOnOwnedAccount(address, bytes)']),
     functionName: 'executeOnOwnedAccount',
@@ -337,11 +337,11 @@ const executeOnOwnedAccount = async () => {
     address: ownableExecutorModule
   })
 
-  console.log('Executed as owner, transaction hash:', hash)
+  console.log('Executed on owned account, transaction hash:', hash)
 }
 ```
 
-Now, when we open the UI and click the button “Execute as Owner,” our console should log the transaction. We can inspect the transaction with Tenderly to follow the call stack from the module over the Safe 7579 adapter, to our Safe, and to the final receiver of the transaction.
+Now, when we open the UI and click the “Execute on owned account” button, our console should log the transaction. We can inspect the transaction with Tenderly to follow the call stack from the module over the Safe 7579 adapter, to our Safe, and to the final receiver of the transaction.
 
 We also learned which data format is used to send a 7579 transaction from a module to a Safe. It is exactly the data we packed for our transaction in `executeOnOwnedAccountData`. Every other 7579 module uses the same data type to send transactions to a Safe. But with most other modules, we don’t have to pack the data ourselves; we just call a function on the module, and the module sends the dedicated transaction to the smart account.
 
@@ -366,7 +366,7 @@ const addOwner = async () => {
   const addOwnerData = encodeFunctionData({
     abi: parseAbi(['function addOwner(address)']),
     functionName: 'addOwner',
-    args: [owner2.address]
+    args: ['0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC']
   })
 
   // We use the smart account client to send the user operation: In this call, our smart account calls the `addOwner`
@@ -375,14 +375,14 @@ const addOwner = async () => {
     calls: [{ to: ownableExecutorModule, value: 0, data: addOwnerData }]
   })
 
-  console.log('User operation:', userOp)
+  console.log('User operation:', userOp, '\nwaiting for tx receipt...')
 
   // Again, we wait for the transaction to be settled:
   const receipt = await pimlicoClient.waitForUserOperationReceipt({
     hash: userOp
   })
 
-  console.log('Owner added', receipt)
+  console.log('Owner added, tx receipt:', receipt)
 }
 ```
 
