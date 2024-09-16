@@ -39,32 +39,10 @@
       "sidebar": false
     }
   },
-  "help": {
-    "title": "Help",
-    "type": "menu",
-    "items": {
-      "glossary": {
-        "title": "Glossary",
-        "href": "/glossary"
-      },
-      "support": {
-        "title": "Support",
-        "href": "/support"
-      }
-    }
-  },
-  "glossary": {
-    "title": "Glossary",
-    "display": "hidden",
-    "theme": {
-      "toc": true,
-      "sidebar": false
-    }
-  },
   "support": {
     "title": "Support",
-    "type": "page",
     "display": "hidden",
+    "type": "page",
     "theme": {
       "layout": "full"
     }

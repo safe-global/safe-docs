@@ -64,6 +64,14 @@ Sends an ERC-20 token from the Safe account to a different one.
 send_erc20 <address> <token-address> <value-wei> [--safe-nonce <int>]
 ```
 
+### Send ERC-721 tokens
+
+Sends an ERC-721 token from the Safe account to a different one.
+
+```bash
+send_erc721 <address> <token-address> <token-id> [--safe-nonce <int>]
+```
+
 ### Approve Safe transaction hash
 
 Approves a `safe-tx-hash` for the provided sender address.
@@ -249,7 +257,7 @@ change_master_copy <address>
 
 Updates a `v1.1.1`, `v1.3.0`, or `v1.4.1` non-L2 Safe to an L2 Safe supported by Safe \{Wallet\}.
 The migration contract address needs to be provided.
-It can be found [here](https://github.com/safe-global/safe-contracts/blob/main/contracts/libraries/SafeToL2Migration.sol).
+It can be found [here](https://github.com/safe-global/safe-smart-account/blob/main/contracts/libraries/SafeToL2Migration.sol).
 The nonce for the Safe must be 0, and supported versions are `v1.1.1`, `v1.3.0`, and `v1.4.1`.
 
 ```bash

@@ -68,8 +68,8 @@ const safeItems: FooterLink[] = [
     rel: 'noreferrer'
   },
   {
-    label: 'Docs',
-    href: 'https://docs.safe.global',
+    label: 'Support',
+    href: 'https://docs.safe.global/support',
     target: '_blank',
     rel: 'noreferrer'
   }

@@ -79,6 +79,10 @@ sequenceDiagram
 
 Even though the Config Service and Transaction Service instances are reachable by clients that aren't the Client Gateway, this may change in the future. The Client Gateway is the outermost component of the Safe infrastructure and should be the single point of communication with any front-end client.
 
+## Rate limits
+
+All Safe\{Core\} Infrastructure services have a rate limit of 5 requests per second.
+
 ## Running locally
 
 [Safe Infrastructure](https://github.com/safe-global/safe-infrastructure) repository and the [running services locally](https://github.com/safe-global/safe-infrastructure/blob/main/docs/running_locally.md) guide show how to run Safe's infrastructure ([Safe\{Wallet\}](https://app.safe.global) and Safe\{Core\}). Note that these documents are examples of how these services run, and the configuration should adapt to the needs of a specific use case.

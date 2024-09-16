@@ -36,6 +36,7 @@
 [Ll]ogics
 [Mm]ainnet
 [Mm]iddleware
+[Mm]onerium
 [Mm]ultisig
 [Mm]ultisend
 [Nn]extra
@@ -43,6 +44,7 @@
 [Oo]ffchain
 [Oo]nboarding
 [Oo]nchain
+[Oo]nramp
 [Pp]ermissionless
 [Pp]olygon
 [Pp]ostgres
@@ -70,7 +72,6 @@ Arianee
 Arthera
 Artio
 Astar
-Auth Kit
 Autobahn
 Autonomys
 Auroria
@@ -134,6 +135,7 @@ Hekla
 Holesky
 Horizen
 Hypra
+IBAN
 IPFS
 Infura
 IoTeX
@@ -157,7 +159,6 @@ Metadium
 Metamask
 Metis
 Milkomeda
-Monerium
 Moonbase
 Moonbeam
 Moonriver
@@ -166,11 +167,11 @@ Nova
 Nuxt
 OAuth
 OP
-Onramp
 Onramp Kit
 PGN
 Pimlico
 Pinia
+PKCE
 Polis
 Protocol Kit
 Protofire
@@ -200,6 +201,7 @@ Safe Transaction Service
 Safe{Core} Account Abstraction SDK
 Safe{DAO}
 Sei
+SEPA
 Shibarium
 Shiden
 ShimmerEVM
@@ -225,6 +227,7 @@ Transaction Service
 U2U
 UI Kit
 Ultron
+USD
 Velas
 Venidium
 Viction
@@ -247,6 +250,7 @@ auth_code
 boolean
 bytestrings
 checksummed
+const
 deployer
 eSpace
 execTransaction
@@ -263,6 +267,7 @@ pluggable
 polyfills
 precompile(?s)
 saltNonce
+stablecoin
 superset
 textWrap
 trace_block

@@ -1,0 +1,181 @@
+
+
+import { Tabs, Steps, Callout } from 'nextra/components'
+
+# Privy Signer
+
+In this guide, you will learn how to create a [Privy](https://privy.io) signer that can be added as a Safe owner and used to initialize any of the kits from the Safe\{Core\} SDK.
+
+Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on GitHub to follow along this guide with the completed code.
+
+## Prerequisites
+
+- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+- A [Privy account](https://dashboard.privy.io) and an App ID.
+
+## Install dependencies
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['npm', 'yarn', 'pnpm']}>
+  <Tabs.Tab>
+    ```bash
+    npm install @privy-io/react-auth
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    yarn add @privy-io/react-auth
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    pnpm add @privy-io/react-auth
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Steps
+
+<Steps>
+
+  ### Imports
+
+  Here are the necessary imports for this guide.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  import { PrivyProvider, usePrivy, useWallets } from '@privy-io/react-auth'
+  ```
+
+  {/* <!-- vale on --> */}
+
+  In addition, you will need to import a web3 library of your choice to use in the "Get the provider and signer" section. In this guide, we are using `viem`.
+
+  ### Get the App ID
+
+  Check Privy documentation on how to create a new project in their [dashboard](https://dashboard.privy.io) and [get the client ID](https://docs.privy.io/guide/react/configuration/app-clients#app-clients).
+
+  Once you have it, you need to initialize the `PRIVY_APP_ID` variable with it.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const PRIVY_APP_ID = // ...
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Initialize Privy
+
+  Privy works with React hooks. This means you can wrap your app with the `PrivyProvider` and have access to several react hooks like `usePrivy()` and `useWallets()` that will provide all the functionality.
+
+  `ProvyProvider` receives an `appId` and a `config` object with different properties. Check [Using the Privy React SDK](https://docs.privy.io/guide/react/concepts/use-privy#the-privyprovider-component) from Privy documentation to learn more about all the different configuration options, appearance, login methods, etc.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  <PrivyProvider
+    appId={PRIVY_APP_ID}
+    config={{
+      embeddedWallets: { 
+        createOnLogin: 'users-without-wallets' // defaults to 'off'
+      }
+    }}
+  >
+    <App />
+  </PrivyProvider>
+  ```
+
+  {/* <!-- vale on --> */}
+
+  In this guide you will use the following variables and methods from the `usePrivy()` and `useWallets()` React hooks.
+  
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const { login, logout, ready, authenticated } = usePrivy()
+  const { ready: readyWallets, wallets } = useWallets()
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Login
+
+  To login with an email address or social account you need to call the following method, that will open the popup and request the user to submit the login form.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  login()
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Get the provider and signer
+
+  Once the user is logged in, you can get the `provider` and `signerAddress`, which is the externally-owned account of the user that was derived from its credentials.
+  
+  To do that there is a `useEffect()` that is executed when any of the `ready`, `authenticated`, `readyWallets` and `wallets` variables have its value updated. Once they all are `true` and `wallets` has a length greater than zero, you have access to the `wallets` first element, which is the user's connected signer.
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['viem']}>
+    <Tabs.Tab>
+      You can instantiate the provider using `viem` and the following imports:
+
+      ```typescript
+      import { createWalletClient, custom } from 'viem'
+      import { sepolia } from 'viem/chains'
+      ```
+
+      ```typescript
+      useEffect(() => {
+        const init = async () => {
+          if (ready && authenticated && readyWallets && wallets.length > 0 ) {
+            const ethereumProvider = await wallets[0].getEthereumProvider()
+
+            const provider = createWalletClient({
+              chain: sepolia,
+              transport: custom(ethereumProvider)
+            })
+      
+            const signerAddress = wallets[0].address
+          }
+        }
+        init()
+      }, [ready, authenticated, readyWallets, wallets])
+      ```
+    </Tabs.Tab>
+  </Tabs>
+  
+  {/* <!-- vale on --> */}
+
+  With the `provider` and `signerAddress` you are ready to instantiate any of the kits from the Safe\{Core\} SDK and set up or use this signer as a Safe owner.
+
+  ### Logout
+
+  Finally, to logout the user, call the `logout()` method.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  logout()
+  ```
+
+  {/* <!-- vale on --> */}
+
+</Steps>
+
+## Recap and further reading
+
+After following this guide, you are able to create a Safe signer using Privy and get the `provider` and `signerAddress` required to initialize the kits from the Safe\{Core\} SDK.
+
+Learn more about Privy by checking the following resources:
+
+- [Privy website](https://privy.io)
+- [Privy documentation](https://docs.privy.io)
+- [Privy quickstart guide](https://docs.privy.io/guide/react/quickstart)
