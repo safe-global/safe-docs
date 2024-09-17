@@ -10,7 +10,7 @@ Safe ERC-4337 compatibility is provided via [Safe Modules](../../home/glossary.m
 
 This module is an extension to the Safe Smart Account that acts both as a Fallback Handler, meaning that the Safe Proxy contract will fallback to this contract when its functions are called in the proxy, and a Safe Module, having the right to execute Safe transactions once it's enabled in a Safe account.
 
-It implements the ERC-4337 interface, including the functions to validate and execute the `UseOperation`(s), and it's limited to the `EntryPoint` address.
+It implements the ERC-4337 interface, including the functions to validate and execute the `UseOperation`s, and it's limited to the `EntryPoint` address.
 
 <Callout type='info' emoji='ℹ️'>
   This module must only be used with Safe [v1.4.1](https://github.com/safe-global/safe-smart-account/blob/v1.4.1/CHANGELOG.md) or newer.
@@ -18,7 +18,7 @@ It implements the ERC-4337 interface, including the functions to validate and ex
 
 ### UserOperation validation
 
-The Safe Proxy contract receives a call to the `validateUserOp` function from the `EntryPoint` and forwards it to the `Safe4337Module`. The module validates the `UserOperation` object by checking that the Safe owner(s) signed the `UserOperation` hash and returns the result. It also executes a module transaction to pay the fees back.
+The Safe Proxy contract receives a call to the `validateUserOp` function from the `EntryPoint` and forwards it to the `Safe4337Module`. The module validates the `UserOperation` object by checking that the Safe owners signed the `UserOperation` hash and returns the result. It also executes a module transaction to pay the fees back.
 
 ![diagram validate userop](../../../assets/diagram-4337-validate.png)
 
