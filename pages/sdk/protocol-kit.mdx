@@ -31,7 +31,7 @@ First, we need to install some dependencies.
 ```bash
 yarn add @safe-global/protocol-kit \
   @safe-global/api-kit \
-  @safe-global/safe-core-sdk-types
+  @safe-global/types-kit
 ```
 
 ### Initialize Signers and Providers
@@ -168,7 +168,7 @@ The high-level overview of a multi-sig transaction is PCE: Propose. Confirm. Exe
 For more details on what to include in a transaction see [`createTransaction`](./protocol-kit/reference/safe.mdx#createtransaction) method.
 
 ```tsx
-import { MetaTransactionData } from '@safe-global/safe-core-sdk-types'
+import { MetaTransactionData } from '@safe-global/types-kit'
 
 // Any address can be used. In this example you will use vitalik.eth
 const destination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
