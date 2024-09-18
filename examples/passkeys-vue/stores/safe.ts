@@ -7,7 +7,9 @@ export const useSafeStore = defineStore('safe', {
       safeAddress: <string>(''),
       isSafeDeployed: <boolean>(false),
       isLoading: <boolean>(false),
-      userOp: <string>('')
+      userOp: <string>(''),
+      jiffyLink: <string>(''),
+      safeLink: <string>(''),
     }),
     actions: {
       setPasskeys(data: PasskeyArgType[]) {
@@ -27,6 +29,12 @@ export const useSafeStore = defineStore('safe', {
       },
       setUserOp(data: string) {
         this.userOp = data
+      },
+      setSafeLink(data: string) {
+        this.safeLink = data
+      },
+      setJiffyLink(data: string) {
+        this.jiffyLink = data
       }
     }
   })

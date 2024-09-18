@@ -43,7 +43,7 @@ When prompted by the CLI:
 
 ### **Install dependencies**
 
-For this project, we'll use Pimlico's [Permissionless.js](https://docs.pimlico.io/permissionless) to set up a Safe and interact with it, Rhinestone's [Module SDK](https://docs.rhinestone.wtf/module-sdk) to install and use core modules, and [viem](https://www.npmjs.com/package/viem) for some helper functions.
+For this project, we'll use Pimlico's [Permissionless.js](https://docs.pimlico.io/permissionless) to set up a Safe and interact with it, Rhinestone's [Module SDK](https://docs.rhinestone.wtf/module-sdk) to install and use core modules, and the [Protocol Kit](../../../sdk/protocol-kit) to get our Safe data. We will also use [viem](https://www.npmjs.com/package/viem) for some helper functions and [@svgr/webpack](https://www.npmjs.com/package/@svgr/webpack) to load SVG files.
 
 <Callout type='warning' emoji='⚠️'>
   As of now, `permissionless.js` can only be used to deploy single-signer Safe accounts. Multi-signature ERC-7579 Safes will be coming soon.
@@ -52,7 +52,7 @@ For this project, we'll use Pimlico's [Permissionless.js](https://docs.pimlico.i
 Run the following command to add all these dependencies to the project:
 
 ```shell
-pnpm add permissionless viem @rhinestone/module-sdk@0.1.4
+pnpm add permissionless viem @rhinestone/module-sdk @safe-global/protocol-kit @svgr/webpack
 ```
 
 Now, create a file named `.env.local` at the root of your project, and add your Pimlico API key to it:
@@ -154,35 +154,16 @@ We can add some styling to our app by editing the contents of `layout.tsx` in `a
 This will add some basic styling to the app, including a header. You can also add some custom CSS to `globals.css` in the same folder:
 
 ```css
-h1,
-h2,
-h3 {
-  margin-top: 40px;
-  margin-bottom: 10px;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  background: #00e673;
-  color: black;
-  padding: 10px 20px;
-  border-radius: 5px;
-  margin: 10px 0;
-}
-
-input {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin: 10px 0;
-}
-
-button:disabled {
-  background: #ccc;
-  color: #666;
-}
+// from ../../../../examples/erc-7579/app/globals.css
 ```
+
+To add some icons to the app, we will need to edit the `next.config.mjs` file at the root of the project to load SVG files:
+
+```js
+// from ../../../../examples/erc-7579/next.config.mjs
+```
+
+Finally, in the `public` folder, add three icons. You can find them in the project's GitHub repository: [`safe.svg`](https://github.com/5afe/safe-7579-tutorial/blob/main/public/safe.svg), [`github.svg`](https://github.com/5afe/safe-7579-tutorial/blob/main/public/github.svg/), and [`external-link.svg`](https://github.com/5afe/safe-7579-tutorial/blob/main/public/external-link.svg).
 
 ## **Testing your app**
 
