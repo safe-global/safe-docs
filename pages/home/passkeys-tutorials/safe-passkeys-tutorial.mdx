@@ -196,7 +196,19 @@ To add some icons to the app, we will need to edit the `next.config.mjs` file at
 // from ../../../examples/passkeys/next.config.mjs
 ```
 
-Download [this file](https://github.com/5afe/safe-passkeys-tutorial/blob/main/components/SafeThemeProvider.tsx) and save it in `./components` as `SafeThemeProvider.tsx`. We are not displaying it here for brevity; it is simply a wrapper for the MUI theme provider, which will allow us to use Safe's design system. Finally, create a `public` folder, with four icons: [`safe.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/safe.svg), [`github.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/github.svg/), [`external-link.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/external-link.svg), [`safeLogo.png`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/safeLogo.png)
+In `components`, create a file `SafeThemeProvider.tsx`. This file will provide the Safe theme to the app using Material UI:
+
+```bash
+touch SafeThemeProvider.tsx
+```
+
+Add the following code to the `SafeThemeProvider.tsx` file:
+
+```tsx
+// from ../../../examples/passkeys/components/SafeThemeProvider.tsx
+```
+
+Finally, create a `public` folder, with four icons: [`safe.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/safe.svg), [`github.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/github.svg/), [`external-link.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/external-link.svg), [`safeLogo.png`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/safeLogo.png)
 
 ## Testing your Safe passkeys app
 

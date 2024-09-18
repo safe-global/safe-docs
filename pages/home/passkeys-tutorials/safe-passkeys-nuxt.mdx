@@ -46,7 +46,7 @@ For this project, we'll use the [Relay Kit](../../sdk/relay-kit.mdx) and [Protoc
 Run the following command to add all these dependencies to the project:
 
 ```bash
-pnpm add @safe-global/protocol-kit @safe-global/relay-kit viem @pinia/nuxt vite-plugin-node-polyfills
+pnpm add @safe-global/protocol-kit@4.1.0 @safe-global/relay-kit@3.1.0 viem @pinia/nuxt vite-plugin-node-polyfills
 ```
 
 Replace the content of `nuxt.config.ts` with the following code:
@@ -199,7 +199,15 @@ This UI will put everything we built in the previous steps into a coherent appli
 
 Because a web app is nothing without good styling, let's add some Safe design to our project 💅.
 
-Create a `layouts` folder, and inside it create a new file `default.vue` with this code:
+Create a `layouts` folder, and inside it create a new file `default.vue`:
+
+```bash
+mkdir ../layouts
+cd ../layouts
+touch default.vue
+```
+
+Add this code to the `default.vue` file:
 
 ```tsx
 // from ../../../examples/passkeys-vue/layouts/default.vue
