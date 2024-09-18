@@ -5,13 +5,14 @@ const repos = [
     organization: '5afe',
     repo: 'safe-passkeys-tutorial',
     destination: './examples/passkeys',
-    branch: 'main',
+    branch: 'fix-light-theme',
     files: [
       '/lib/constants.ts',
       '/lib/passkeys.ts',
       '/lib/mintNFT.ts',
       '/components/LoginWithPasskey.tsx',
       '/components/SafeAccountDetails.tsx',
+      '/components/SafeThemeProvider.tsx',
       '/app/page.tsx',
       '/app/layout.tsx',
       '/app/globals.css',
@@ -22,7 +23,7 @@ const repos = [
     organization: '5afe',
     repo: 'safe-passkeys-nuxt',
     destination: './examples/passkeys-vue',
-    branch: 'main',
+    branch: 'fix-light-theme',
     files: [
       '/utils/constants.ts',
       '/utils/passkeys.ts',
@@ -39,7 +40,7 @@ const repos = [
     organization: '5afe',
     repo: 'safe-7579-tutorial',
     destination: './examples/erc-7579',
-    branch: 'main',
+    branch: 'fix-light-theme',
     files: [
       '/lib/permissionless.ts',
       '/lib/scheduledTransfers.ts',
