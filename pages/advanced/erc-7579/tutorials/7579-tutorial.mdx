@@ -352,7 +352,7 @@ The call flow is:
 
 1. Sign a user operation with your smart account client and send it to the bundler.
 2. The bundler bundles the user operation into a regular transaction and sends it to the meme pool.
-3. The transaction executes a call from your smart account call the module with the defined data.
+3. The transaction executes a call from your smart account to the module with the defined data.
 4. The module recognizes your smart account as an authorized sender. It stores the new owner of your smart account in its storage.
 
 Replace `addOwner` with this function:
