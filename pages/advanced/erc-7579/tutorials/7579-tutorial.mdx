@@ -1,7 +1,7 @@
 import { Callout } from 'nextra/components'
 
 
-# **How to build an app with Safe and ERC-7579**
+# How to build an app with Safe and ERC-7579
 
 The smart account ecosystem needed to be more cohesive, with each provider building its modules, often incompatible with other smart account implementations. Developers had to build new modules compatible with their smart accounts or miss out on essential application features.
 
@@ -25,7 +25,7 @@ Before progressing with the tutorial, please make sure you have the following:
 - Created an API key from [Pimlico](https://www.pimlico.io/).
 - Two private keys for testing purposes. The second key will need some funds to pay for gas.
 
-## **1. Setup a Next.js application**
+## 1. Setup a Next.js application
 
 Initialize a new Next.js app using pnpm with the following command:
 
@@ -38,7 +38,7 @@ When prompted by the CLI:
 - Select `yes` to TypeScript, ESLint, and App router.
 - Select `no` to all other questions (Tailwind, `src` directory, and import aliases).
 
-### **Install dependencies**
+### Install dependencies
 
 For this project, you will use Pimlico's [Permissionless.js](https://docs.pimlico.io/permissionless) to set up a Safe and interact with it and [viem](https://www.npmjs.com/package/viem) for some helper functions.
 
@@ -52,7 +52,7 @@ Run the following command to add all these dependencies to the project:
 pnpm add permissionless@0.2.0 viem@2
 ```
 
-## Setup project
+## 2. Setup project
 
 First, set up the project and add some UI and styles so you can focus on the 7579-related code for the rest of the tutorial.
 
@@ -198,7 +198,7 @@ Also, replace the private keys in the `owner` and `owner2` variables with your o
 
 You can now run the development server with `pnpm dev` and open the app in your browser at `http://localhost:3000`. You should see a simple UI with three buttons. 
 
-## Initialize the clients
+## 3. Initialize the clients
 
 In the first step, you create the clients that allow you to interact with the smart account. As permissionless.js is just a tiny wrapper around viem, you will use many of viem's functions in this tutorial. 
 
@@ -257,7 +257,7 @@ useEffect(() => {
 
 If you run your app with `pnpm dev`, the console will log ‘setup done’ when everything works.
 
-## Install the 7579 module
+## 4. Install the 7579 module
 
 Now, add the call that will add the `OwnableExecutor` module to your smart account.
 
@@ -290,7 +290,7 @@ const installModule = async () => {
 
 When you open the UI now and click the “Install Module” button, the console should log the module installation process. You can use [jiffyscan.xyz](https://jiffyscan.xyz/) to inspect the user operation hash. From there, you can copy the transaction hash and inspect the transaction with [Etherscan](https://sepolia.etherscan.io/), [Tenderly](https://tenderly.co/), or other block explorers.
 
-## Send a transaction via the 7579 module
+## 5. Send a transaction via the 7579 module
 
 In the following function, you will use the `OwnableExecutor` module. The module allows owners to execute transactions from the smart account without collecting signatures. For this example, you will send a dummy transaction that sends zero eth to owner1. 
 
@@ -344,7 +344,7 @@ Now, when you open the UI and click the “Execute on owned account” button, y
 
 You also learned which data format is used to send a 7579 transaction from a module to a Safe. It is exactly the data you packed for the transaction in `executeOnOwnedAccountData`. Every other 7579 module uses the same data type to send transactions to a Safe. But with most other modules, you don’t have to pack the data yourself; you just call a function on the module, and the module sends the dedicated transaction to the smart account.
 
-## Interact with the 7579 module directly
+## 6. Interact with the 7579 module directly
 
 Some modules can be configured directly. The `OwnableExecutor` module allows you to add additional owners and remove existing owners. This example outlines how you interact with the module directly to add a new owner.
 
@@ -390,7 +390,7 @@ When you open the UI and click the “Add Owner” button, your console should l
 That’s it! You have successfully built an app that can interact with a Safe Smart Account using the ERC-7579 standard. You can now deploy and test your app with your Safes and modules.
 
 
-## **Do more with Safe and ERC-7579**
+## Do more with Safe and ERC-7579
 
 You learned how to deploy an ERC-7579-compatible Safe Smart Account and use an ERC-7579-compatible module, the OwnableExecutor from Rhinestone. We hope you enjoyed this tutorial and that the combination of Safe and 7579 will allow you to tap into new functionalities for your decentralized apps.
 
