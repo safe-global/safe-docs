@@ -16,6 +16,8 @@ Note that this guide will focus on supporting `Ethereum`/`EVM` wallets. Simply e
 
 ## Install dependencies
 
+{/* <!-- vale off --> */}
+
 <Tabs items={['npm', 'yarn', 'pnpm']}>
   <Tabs.Tab>
     ```bash
@@ -34,6 +36,8 @@ Note that this guide will focus on supporting `Ethereum`/`EVM` wallets. Simply e
   </Tabs.Tab>
 </Tabs>
 
+{/* <!-- vale on --> */}
+
 ## Steps
 
 <Steps>
@@ -42,16 +46,22 @@ Note that this guide will focus on supporting `Ethereum`/`EVM` wallets. Simply e
 
   Here are the necessary imports for this guide.
 
+  {/* <!-- vale off --> */}
+
   ```typescript
   import { DynamicContextProvider, useDynamicContext, useIsLoggedIn } from '@dynamic-labs/sdk-react-core'
   import { EthereumWalletConnectors, isEthereumWallet } from '@dynamic-labs/ethereum'
   ```
+
+  {/* <!-- vale on --> */}
 
   ### Initialize Dynamic
 
   Dynamic works with React hooks. This means you can wrap your app with the `DynamicContextProvider` and have access to several react hooks like `useDynamicContext()` that will provide all the functionality.
 
   `DynamicContextProvider` receives an `environmentId` and other configuration options. Check [Dynamic React SDK documentation](https://docs.dynamic.xyz/sdks/react-sdk/providers/dynamiccontextprovider) to learn more about all the different configuration options.
+
+{/* <!-- vale off --> */}
 
   ```typescript
   <DynamicContextProvider
@@ -65,7 +75,9 @@ Note that this guide will focus on supporting `Ethereum`/`EVM` wallets. Simply e
   </DynamicContextProvider>
   ```
 
-  In this guide you will use the primaryWallet from the `useDynamicContext()` hook, and the `useIsLoggedIn()` hook.
+  {/* <!-- vale on --> */}
+
+  In this guide you will use the `primaryWallet` from the `useDynamicContext()` hook, and the `useIsLoggedIn()` hook.
   
   ```typescript
   const { primaryWallet } = useDynamicContext()
@@ -75,6 +87,8 @@ Note that this guide will focus on supporting `Ethereum`/`EVM` wallets. Simply e
   ### Login
 
   In the App component, add [the DynamicWidget component](https://docs.dynamic.xyz/sdks/react-sdk/components/dynamicwidget) that will handle all the login and authentication logic for you in a best in class UI.
+
+{/* <!-- vale off --> */}
 
   ```typescript
   import { DynamicWidget } from '@dynamic-labs/sdk-react-core'
@@ -89,11 +103,15 @@ Note that this guide will focus on supporting `Ethereum`/`EVM` wallets. Simply e
   }
   ```
 
+  {/* <!-- vale on --> */}
+
   ### Get the provider and signer
 
   Once the user is logged in through the DynamicWidget, you can get the `provider` and `signerAddress`, which is the externally-owned account of the user that was derived from its credentials.
   
   To do that there is a `useEffect()` that is executed when any of the `isLoggedIn` and `primaryWallet` variables have their values updated. Once they all are truthy, you have access to the user's connected signer. Note that we are also checking that the wallet is an Ethereum wallet using the `isEthereumWallet()` function.
+
+{/* <!-- vale off --> */}
 
   <Tabs items={['viem']}>
     <Tabs.Tab>
@@ -113,6 +131,8 @@ Note that this guide will focus on supporting `Ethereum`/`EVM` wallets. Simply e
       ```
     </Tabs.Tab>
   </Tabs>
+
+  {/* <!-- vale on --> */}
   
   With the `provider` and `signerAddress` you are ready to instantiate any of the kits from the Safe\{Core\} SDK and set up or use this signer as a Safe owner.
 
