@@ -62,15 +62,7 @@ The Safe address.
 await apiKit.proposeTransaction({
   safeAddress: '0x...',
   safeTxHash: '0x...',
-  safeTransactionData: {
-    operation: OperationType.Call,
-    safeTxGas: '0x...',
-    baseGas: '123',
-    gasPrice: '123',
-    gasToken: '0x...',
-    refundReceiver: '0x...',
-    nonce: '10'
-  },
+  safeTransactionData,
   senderAddress: '0x...',
   senderSignature: '0x...'
 })
@@ -86,15 +78,7 @@ The Safe transaction hash of the proposed transaction.
 await apiKit.proposeTransaction({
   safeAddress: '0x...',
   safeTxHash: '0x...',
-  safeTransactionData: {
-    operation: OperationType.Call,
-    safeTxGas: '0x...',
-    baseGas: '123',
-    gasPrice: '123',
-    gasToken: '0x...',
-    refundReceiver: '0x...',
-    nonce: '10'
-  },
+  safeTransactionData,
   senderAddress: '0x...',
   senderSignature: '0x...'
 })
@@ -274,19 +258,11 @@ await apiKit.proposeTransaction({
 
 The address of the signer account that proposes the transaction.
 
-```typescript focus=13
+```typescript focus=5
 await apiKit.proposeTransaction({
   safeAddress: '0x...',
   safeTxHash: '0x...',
-  safeTransactionData: {
-    operation: OperationType.Call,
-    safeTxGas: '0x...',
-    baseGas: '123',
-    gasPrice: '123',
-    gasToken: '0x...',
-    refundReceiver: '0x...',
-    nonce: '10'
-  },
+  safeTransactionData,
   senderAddress: '0x...',
   senderSignature: '0x...'
 })
@@ -298,19 +274,11 @@ await apiKit.proposeTransaction({
 
 The signature of the sender, the signer account that proposes the transaction.
 
-```typescript focus=14
+```typescript focus=6
 await apiKit.proposeTransaction({
   safeAddress: '0x...',
   safeTxHash: '0x...',
-  safeTransactionData: {
-    operation: OperationType.Call,
-    safeTxGas: '0x...',
-    baseGas: '123',
-    gasPrice: '123',
-    gasToken: '0x...',
-    refundReceiver: '0x...',
-    nonce: '10'
-  },
+  safeTransactionData,
   senderAddress: '0x...',
   senderSignature: '0x...'
 })
@@ -322,19 +290,11 @@ await apiKit.proposeTransaction({
 
 The name of the application that proposes the transaction.
 
-```typescript focus=15
+```typescript focus=7
 await apiKit.proposeTransaction({
   safeAddress: '0x...',
   safeTxHash: '0x...',
-  safeTransactionData: {
-    operation: OperationType.Call,
-    safeTxGas: '0x...',
-    baseGas: '123',
-    gasPrice: '123',
-    gasToken: '0x...',
-    refundReceiver: '0x...',
-    nonce: '10'
-  },
+  safeTransactionData,
   senderAddress: '0x...',
   senderSignature: '0x...',
   origin: 'App name'

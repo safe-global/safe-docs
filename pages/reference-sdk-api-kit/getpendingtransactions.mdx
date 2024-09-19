@@ -14,6 +14,7 @@ Returns the list of multi-signature transactions that are waiting for the confir
     import { apiKit } from './setup.ts'
 
     const safeAddress = '0x...'
+    
     const currentNonce = 10
 
     const pendingTxs = await apiKit.getPendingTransactions(

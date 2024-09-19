@@ -14,6 +14,7 @@ Adds a confirmation for a Safe operation. Once enough confirmations are collecte
     import { apiKit } from './setup.ts'
 
     const safeOperationHash = '0x...'
+    
     const signature = '0x...'
 
     await apiKit.confirmSafeOperation(safeOperationHash, signature)

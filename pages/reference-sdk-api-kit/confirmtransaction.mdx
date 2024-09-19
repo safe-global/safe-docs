@@ -14,6 +14,7 @@ Adds a confirmation for a Safe transaction.
     import { apiKit } from './setup.ts'
 
     const safeTxHash = '0x...'
+    
     const signature = '0x...'
 
     const signature = await apiKit.confirmTransaction(safeTxHash, signature)
