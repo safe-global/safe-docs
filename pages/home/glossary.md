@@ -86,9 +86,9 @@ A multi-signature account is a [smart account](#smart-account) that allows you t
 - **Enhanced Security**: Reduces the risk associated with single points of failure, protecting your assets even if a key is lost or compromised.
 - **Customizable**: Tailor each smart account to fit your specific needs, allowing you to set up configurations that work best for your particular use case.
 - **Interoperable**: Flexibly assign a variety of signers as owners, including:
-  - Hardware wallets such as Leger or Trezor.
-  - Software wallets such as Trust or Metamask.
-  - MPC wallets such as Fireblocks or Zengo.
+  - Hardware wallets such as [Leger](https://www.ledger.com) or [Trezor](https://trezor.io/).
+  - Software wallets such as [Trust](https://trustwallet.com) or [Metamask](https://metamask.io).
+  - MPC wallets such as [Fireblocks](https://www.fireblocks.com) or [Zengo](https://zengo.com).
   - Another smart contract account, such as Safe.
   - Wallets generated via Social Logins or Passkeys.
 - **Upgradable**: Easily adjust the number of owners and the signing threshold for your account whenever
