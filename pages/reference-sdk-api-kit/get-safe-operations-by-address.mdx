@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `getSafeOperationsByAddress`
 
-Returns the list of SafeOperations associated to a Safe account.
+Returns the list of Safe operations associated to a Safe account.
 
 ## Usage
 
@@ -41,7 +41,7 @@ Returns the list of SafeOperations associated to a Safe account.
 
 `Promise<GetSafeOperationListResponse>`
 
-The paginated list of operations with `results` containing the `SafeOperationResponse` list.
+The paginated list of Safe operations.
 
 ## Parameters
 
@@ -60,8 +60,11 @@ const safeOperationsResponse = await apiKit.getSafeOperationsByAddress({
 ### `config.ordering` (Optional)
 
 - **Type:** `string`
+- **Default:** `-user_operation__nonce`
 
-The field used when ordering the results. Can be one of: `user_operation__nonce`, `created`, `-user_operation__nonce`, `-created`. Default: `-user_operation__nonce`.
+The field used when ordering the results.
+
+Can be one of: `-user_operation__nonce`, `user_operation__nonce`, `-created`, `created`.
 
 ```typescript focus=4
 const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(

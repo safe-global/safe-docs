@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `confirmSafeOperation`
 
-Adds a confirmation for a SafeOperation. After enough confirmations, the operation still needs to be executed with `executeTransaction` of `Safe4337Pack`.
+Adds a confirmation for a Safe operation. Once enough confirmations are collected, the Safe operation needs to be executed via the `executeTransaction` method from the `Safe4337Pack`.
 
 ## Usage
 
@@ -38,7 +38,7 @@ Adds a confirmation for a SafeOperation. After enough confirmations, the operati
 
 - **Type:** `string`
 
-The hash of the `SafeOperation` that will be confirmed.
+The hash of the Safe operation that will be confirmed.
 
 ```typescript focus=2
 await apiKit.confirmSafeOperation(
@@ -51,7 +51,9 @@ await apiKit.confirmSafeOperation(
 
 - **Type:** `string`
 
-The signature of the `SafeOperation`. Can be obtained by invoking `getSignature` passing the desired `signerAddress`.
+The signature of the Safe operation.
+
+It can be obtained by calling the `getSignature` method from the `SafeOperation` object.
 
 ```typescript focus=3
 await apiKit.confirmSafeOperation(

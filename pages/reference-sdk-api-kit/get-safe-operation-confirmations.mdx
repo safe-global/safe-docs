@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `getSafeOperationConfirmations`
 
-Returns the list of confirmations for a given a SafeOperation.
+Returns the list of confirmations for a given a Safe operation.
 
 ## Usage
 
@@ -15,12 +15,16 @@ Returns the list of confirmations for a given a SafeOperation.
     import { apiKit } from './setup.ts'
 
     const safeOperationHash = '0x...'
-    const listOptions: ListOptions = {
+
+    const config: ListOptions = {
       limit: '3', // Optional
       offset: '2' // Optional
     }
 
-    const confirmationsResponse = await apiKit.getSafeOperationConfirmations(safeOperationHash, { limit, offset })
+    const confirmationsResponse = await apiKit.getSafeOperationConfirmations(
+      safeOperationHash,
+      config
+    )
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -28,7 +32,7 @@ Returns the list of confirmations for a given a SafeOperation.
     import SafeApiKit from '@safe-global/api-kit'
 
     export const apiKit = new SafeApiKit({
-      chainId: 1n, // Mainnet
+      chainId: 1n // Mainnet
     })
     ```
   </Tabs.Tab>
@@ -40,7 +44,7 @@ Returns the list of confirmations for a given a SafeOperation.
 
 `Promise<SafeOperationConfirmationListResponse>`
 
-The paginated list of confirmations with `results` containing the `SafeOperationConfirmation` list.
+The paginated list of confirmations.
 
 ## Parameters
 
@@ -48,7 +52,7 @@ The paginated list of confirmations with `results` containing the `SafeOperation
 
 - **Type:** `string`
 
-The hash of the SafeOperation to get confirmations for.
+The hash of the Safe operation to get confirmations for.
 
 ```typescript focus=2
 const confirmationsResponse = await apiKit.getSafeOperationConfirmations(
@@ -56,7 +60,7 @@ const confirmationsResponse = await apiKit.getSafeOperationConfirmations(
 )
 ```
 
-### `limit` (Optional)
+### `config.limit` (Optional)
 
 - **Type:** `number`
 
@@ -71,7 +75,7 @@ const confirmationsResponse = await apiKit.getSafeOperationConfirmations(
 )
 ```
 
-### `offset` (Optional)
+### `config.offset` (Optional)
 
 - **Type:** `number`
 

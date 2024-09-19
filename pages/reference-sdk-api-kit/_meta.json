@@ -36,9 +36,9 @@
   "getmessages": "getMessages",
   "addmessage": "addMessage",
   "addmessagesignature": "addMessageSignature",
-  "getSafeOperationsByAddress": "getSafeOperationsByAddress",
-  "getSafeOperation": "getSafeOperation",
-  "addSafeOperation": "addSafeOperation",
-  "getSafeOperationConfirmations": "getSafeOperationConfirmations",
-  "confirmSafeOperation": "confirmSafeOperation"
+  "get-safe-operations-by-address": "getSafeOperationsByAddress",
+  "get-safe-operation": "getSafeOperation",
+  "add-safe-operation": "addSafeOperation",
+  "get-safe-operation-confirmations": "getSafeOperationConfirmations",
+  "confirm-safe-operation": "confirmSafeOperation"
 }
