@@ -8,7 +8,7 @@ import { Callout } from 'nextra/components'
 
 An increasing number of applications rely on passkeys to authenticate users securely and with little friction. Security and user-friendliness are crucial to making web3 a reality for the next billion users.
 Being able to unlock a Safe Smart Account with your fingerprints or Face ID, sending transactions without worrying about third-party wallet interfaces, phishing attempts, or securing seed phrases will bring new forms of ownership to the connected world.
-Today, we'll learn how to make this a reality using [Safe\{Core\} SDK](../../sdk/overview.mdx), [Pimlico](https://www.pimlico.io/), and [Nuxt](https://nuxt.com/docs/getting-started/introduction).
+Today, we'll learn how to make this a reality using [Safe\{Core\} SDK](../../../sdk/overview.mdx), [Pimlico](https://www.pimlico.io/), and [Nuxt](https://nuxt.com/docs/getting-started/introduction).
 
 This tutorial will demonstrate creating a web app for using [passkeys](../passkeys-overview.mdx) in your Safe. This app will allow you to:
 
@@ -16,11 +16,11 @@ This tutorial will demonstrate creating a web app for using [passkeys](../passke
 - Deploy a new Safe on Ethereum Sepolia for free.
 - Sign a transaction to mint an NFT using the previously created passkey.
 
-![safe-passkeys-app-1.png](../../../assets/safe-passkeys-app-1.png)
+![safe-passkeys-app-1.png](../../../../assets/safe-passkeys-app-1.png)
 
 ## **What you'll need**
 
-**Prerequisite knowledge:** You will need some basic experience with [Vue](https://vuejs.org/guide/introduction.html), Nuxt, and [ERC-4337](../../advanced/erc-4337/overview.mdx).
+**Prerequisite knowledge:** You will need some basic experience with [Vue](https://vuejs.org/guide/introduction.html), Nuxt, and [ERC-4337](../../../advanced/erc-4337/overview.mdx).
 
 Before progressing with the tutorial, please make sure you have:
 
@@ -41,7 +41,7 @@ When prompted by the CLI, select `pnpm` and `yes` to initialize a Git repository
 
 ### Install dependencies
 
-For this project, we'll use the [Relay Kit](../../sdk/relay-kit.mdx) and [Protocol Kit](../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem) for a helper function to encode the dummy transaction. We will also use [`@pinia/nuxt`](https://pinia.vuejs.org/) for state management and node polyfills from [Vite](https://www.npmjs.com/package/vite-plugin-node-polyfillFs).
+For this project, we'll use the [Relay Kit](../../../sdk/relay-kit.mdx) and [Protocol Kit](../../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem) for a helper function to encode the dummy transaction. We will also use [`@pinia/nuxt`](https://pinia.vuejs.org/) for state management and node polyfills from [Vite](https://www.npmjs.com/package/vite-plugin-node-polyfillFs).
 
 Run the following command to add all these dependencies to the project:
 
@@ -52,7 +52,7 @@ pnpm add @safe-global/protocol-kit@4.1.0 @safe-global/relay-kit@3.1.0 viem @pini
 Replace the content of `nuxt.config.ts` with the following code:
 
 ```ts
-// from ../../../examples/passkeys-vue/nuxt.config.ts
+// from ../../../../examples/passkeys-vue/nuxt.config.ts
 ```
 
 Now, create a file named `.env` at the root of your project, and add your Pimlico API key to it:
@@ -71,7 +71,7 @@ pnpm dev
 
 Go to `http://localhost:3000` in your browser to see the default Nuxt application.
 
-![next.png](../../../assets/nuxt.png)
+![next.png](../../../../assets/nuxt.png)
 
 ## 2. Add project constants and utilities
 
@@ -86,7 +86,7 @@ touch constants.ts
 Add the following code to the `constants.ts` file:
 
 ```tsx
-// from ../../../examples/passkeys-vue/utils/constants.ts
+// from ../../../../examples/passkeys-vue/utils/constants.ts
 ```
 
 ## 3. Add passkeys functionality
@@ -105,7 +105,7 @@ This file will contain all the logic required to operate passkey:
 **Note:** You can also store the passkeys on a remote database or the user's device.
 
 ```tsx
-// from ../../../examples/passkeys-vue/utils/passkeys.ts
+// from ../../../../examples/passkeys-vue/utils/passkeys.ts
 ```
 
 In this file, we have four functions:
@@ -127,7 +127,7 @@ touch mintNFT.ts
 Add the following code to the `mintNFT.ts` file:
 
 ```tsx
-// from ../../../examples/passkeys-vue/utils/mintNFT.ts
+// from ../../../../examples/passkeys-vue/utils/mintNFT.ts
 ```
 
 With this configuration, a new Safe will be created (but not yet deployed) when a passkey is selected. This Safe will be deployed when its first transaction is executed.
@@ -150,7 +150,7 @@ touch safe.ts
 Add the following code to the `safe.ts` file:
 
 ```tsx
-// from ../../../examples/passkeys-vue/stores/safe.ts
+// from ../../../../examples/passkeys-vue/stores/safe.ts
 ```
 
 ## 6. Add UI components
@@ -168,7 +168,7 @@ touch LoginWithPasskey.vue
 Add the following code to the `LoginWithPasskey.vue` file:
 
 ```tsx
-// from ../../../examples/passkeys-vue/components/LoginWithPasskey.vue
+// from ../../../../examples/passkeys-vue/components/LoginWithPasskey.vue
 ```
 
 This component is an authentication modal allowing users to either signing in by creating a new passkey, or logging in with an existing one.
@@ -182,7 +182,7 @@ touch SafeAccountDetails.vue
 Add the following code to the `SafeAccountDetails.vue` file:
 
 ```tsx
-// from ../../../examples/passkeys-vue/components/SafeAccountDetails.vue
+// from ../../../../examples/passkeys-vue/components/SafeAccountDetails.vue
 ```
 
 This component displays the details of the Safe account, including the Safe address, whether it is deployed, and a button to mint the NFT.
@@ -190,7 +190,7 @@ This component displays the details of the Safe account, including the Safe addr
 Lastly, replace the content of the `app.vue` file at the project root with this code:
 
 ```tsx
-// from ../../../examples/passkeys-vue/app.vue
+// from ../../../../examples/passkeys-vue/app.vue
 ```
 
 This UI will put everything we built in the previous steps into a coherent application with all the functionality required to let you create a passkey, select it, and use it to sign a transaction.
@@ -210,20 +210,20 @@ touch default.vue
 Add this code to the `default.vue` file:
 
 ```tsx
-// from ../../../examples/passkeys-vue/layouts/default.vue
+// from ../../../../examples/passkeys-vue/layouts/default.vue
 ```
 
 ## Testing your Safe passkeys app
 
 That's it! You can find the source code for the example created in this tutorial [on GitHub](https://github.com/5afe/safe-passkeys-nuxt). You can now return to your browser and see the app displayed 🎉.
 
-![safe-passkeys-app-1.png](../../../assets/safe-passkeys-app-1.png)
+![safe-passkeys-app-1.png](../../../../assets/safe-passkeys-app-1.png)
 
 Click the **Create a new passkey** button to prompt a browser pop-up asking you to confirm the creation of a new passkey. This passkey will be stored in your browser's local storage and displayed in the list above the button.
 
 This will create a new Safe object in the background, which will be deployed when you click the **Mint NFT** button. This will also mint an NFT using the passkey you created.
 
-![safe-passkeys-app-3.png](../../../assets/safe-passkeys-app-3.png)
+![safe-passkeys-app-3.png](../../../../assets/safe-passkeys-app-3.png)
 
 Click the link to Jiffy Scan to see the UserOp that was sent and more complete information.
 

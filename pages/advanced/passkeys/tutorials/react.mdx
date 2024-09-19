@@ -8,7 +8,7 @@ import { Callout } from 'nextra/components'
 
 An increasing number of applications rely on passkeys to authenticate users securely and with little friction. Security and user-friendliness are crucial to making web3 a reality for the next billion users.
 Being able to unlock a Safe Smart Account with your fingerprints or Face ID, sending transactions without worrying about third-party wallet interfaces, phishing attempts, or securing seed phrases will bring new forms of ownership to the connected world.
-Today, we'll learn how to make this a reality using [Safe\{Core\} SDK](../../sdk/overview.mdx), [Pimlico](https://www.pimlico.io/), and [Next.js](https://nextjs.org/docs).
+Today, we'll learn how to make this a reality using [Safe\{Core\} SDK](../../../sdk/overview.mdx), [Pimlico](https://www.pimlico.io/), and [Next.js](https://nextjs.org/docs).
 
 This tutorial will demonstrate creating a web app for using [passkeys](../passkeys-overview.mdx) in your Safe. This app will allow you to:
 
@@ -16,11 +16,11 @@ This tutorial will demonstrate creating a web app for using [passkeys](../passke
 - Deploy a new Safe on Ethereum Sepolia for free.
 - Sign a transaction to mint an NFT using the previously created passkey.
 
-![safe-passkeys-app-1.png](../../../assets/safe-passkeys-app-1.png)
+![safe-passkeys-app-1.png](../../../../assets/safe-passkeys-app-1.png)
 
 ## **What you'll need**
 
-**Prerequisite knowledge:** You will need some basic experience with [React](https://react.dev/learn), Next.js, and [ERC-4337](../../advanced/erc-4337/overview.mdx).
+**Prerequisite knowledge:** You will need some basic experience with [React](https://react.dev/learn), Next.js, and [ERC-4337](../../../advanced/erc-4337/overview.mdx).
 
 Before progressing with the tutorial, please make sure you have:
 
@@ -44,7 +44,7 @@ When prompted by the CLI:
 
 ### Install dependencies
 
-For this project, we'll use the [Relay Kit](../../sdk/relay-kit.mdx) and [Protocol Kit](../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem) for a helper function to encode the dummy transaction. We will also use [`@mui/material`](https://mui.com/material-ui/) for styling and [@svgr/webpack](https://www.npmjs.com/package/@svgr/webpack) to load SVG files.
+For this project, we'll use the [Relay Kit](../../../sdk/relay-kit.mdx) and [Protocol Kit](../../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem) for a helper function to encode the dummy transaction. We will also use [`@mui/material`](https://mui.com/material-ui/) for styling and [@svgr/webpack](https://www.npmjs.com/package/@svgr/webpack) to load SVG files.
 
 Run the following command to add all these dependencies to the project:
 
@@ -68,7 +68,7 @@ pnpm dev
 
 Go to `http://localhost:3000` in your browser to see the default Next.js application.
 
-![next.png](../../../assets/next.png)
+![next.png](../../../../assets/next.png)
 
 ## 2. Add project constants and utilities
 
@@ -83,7 +83,7 @@ touch constants.ts
 Add the following code to the `constants.ts` file:
 
 ```tsx
-// from ../../../examples/passkeys/lib/constants.ts
+// from ../../../../examples/passkeys/lib/constants.ts
 ```
 
 ## 3. Add passkeys functionality
@@ -102,7 +102,7 @@ This file will contain all the logic required to operate passkey:
 **Note:** You can also store the passkeys on a remote database or the user's device.
 
 ```tsx
-// from ../../../examples/passkeys/lib/passkeys.ts
+// from ../../../../examples/passkeys/lib/passkeys.ts
 ```
 
 In this file, we have four functions:
@@ -124,7 +124,7 @@ touch mintNFT.ts
 Add the following code to the `mintNFT.ts` file:
 
 ```tsx
-// from ../../../examples/passkeys/lib/mintNFT.ts
+// from ../../../../examples/passkeys/lib/mintNFT.ts
 ```
 
 With this configuration, a new Safe will be created (but not yet deployed) when a passkey is selected. This Safe will be deployed when its first transaction is executed.
@@ -147,7 +147,7 @@ touch LoginWithPasskey.tsx
 Add the following code to the `LoginWithPasskey.tsx` file:
 
 ```tsx
-// from ../../../examples/passkeys/components/LoginWithPasskey.tsx
+// from ../../../../examples/passkeys/components/LoginWithPasskey.tsx
 ```
 
 This component is an authentication modal allowing users to either signing in by creating a new passkey, or logging in with an existing one.
@@ -161,7 +161,7 @@ touch SafeAccountDetails.tsx
 Add the following code to the `SafeAccountDetails.tsx` file:
 
 ```tsx
-// from ../../../examples/passkeys/components/SafeAccountDetails.tsx
+// from ../../../../examples/passkeys/components/SafeAccountDetails.tsx
 ```
 
 This component displays the details of the Safe account, including the Safe address, whether it is deployed, and a button to mint the NFT.
@@ -169,7 +169,7 @@ This component displays the details of the Safe account, including the Safe addr
 Lastly, replace the content of the `page.tsx` file, within the `app` folder, with this code:
 
 ```tsx
-// from ../../../examples/passkeys/app/page.tsx
+// from ../../../../examples/passkeys/app/page.tsx
 ```
 
 This UI will put everything we built in the previous steps into a coherent application with all the functionality required to let you create a passkey, select it, and use it to sign a transaction.
@@ -181,19 +181,19 @@ Because a web app is nothing without good styling, let's add some Safe design to
 Still within the `app` folder, replace the existing content of the file `layout.tsx` with this code:
 
 ```tsx
-// from ../../../examples/passkeys/app/layout.tsx
+// from ../../../../examples/passkeys/app/layout.tsx
 ```
 
 In the same folder, replace the `globals.css` file with this code:
 
 ```css
-// from ../../../examples/passkeys/app/globals.css
+// from ../../../../examples/passkeys/app/globals.css
 ```
 
 To add some icons to the app, we will need to edit the `next.config.mjs` file at the root of the project to load SVG files:
 
 ```js
-// from ../../../examples/passkeys/next.config.mjs
+// from ../../../../examples/passkeys/next.config.mjs
 ```
 
 In `components`, create a file `SafeThemeProvider.tsx`. This file will provide the Safe theme to the app using Material UI:
@@ -205,7 +205,7 @@ touch SafeThemeProvider.tsx
 Add the following code to the `SafeThemeProvider.tsx` file:
 
 ```tsx
-// from ../../../examples/passkeys/components/SafeThemeProvider.tsx
+// from ../../../../examples/passkeys/components/SafeThemeProvider.tsx
 ```
 
 Finally, create a `public` folder, with four icons: [`safe.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/safe.svg), [`github.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/github.svg/), [`external-link.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/external-link.svg), [`safeLogo.png`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/safeLogo.png)
@@ -214,13 +214,13 @@ Finally, create a `public` folder, with four icons: [`safe.svg`](https://github.
 
 That's it! You can find the source code for the example created in this tutorial [on GitHub](https://github.com/5afe/safe-passkeys-tutorial). You can now return to your browser and see the app displayed 🎉.
 
-![safe-passkeys-app-1.png](../../../assets/safe-passkeys-app-1.png)
+![safe-passkeys-app-1.png](../../../../assets/safe-passkeys-app-1.png)
 
 Click the **Create a new passkey** button to prompt a browser pop-up asking you to confirm the creation of a new passkey. This passkey will be stored in your browser's local storage and displayed in the list above the button.
 
 This will create a new Safe object in the background, which will be deployed when you click the **Mint NFT** button. This will also mint an NFT using the passkey you created.
 
-![safe-passkeys-app-3.png](../../../assets/safe-passkeys-app-3.png)
+![safe-passkeys-app-3.png](../../../../assets/safe-passkeys-app-3.png)
 
 Click the link to Jiffy Scan to see the UserOp that was sent and more complete information.
 
