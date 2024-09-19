@@ -1,0 +1,36 @@
+import { Tabs } from 'nextra/components'
+
+# `getTokenList`
+
+Returns the list of all the ERC-20 tokens handled by the Safe.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const tokens = await apiKit.getTokenList()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<TokenInfoListResponse>`
+
+The list of ERC-20 tokens.

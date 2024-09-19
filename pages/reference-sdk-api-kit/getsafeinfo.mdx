@@ -1,0 +1,52 @@
+import { Tabs } from 'nextra/components'
+
+# `getSafeInfo`
+
+Returns the information and configuration of the provided Safe address.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const safeAddress = '0x...'
+
+    const safeInfo = await apiKit.getSafeInfo(safeAddress)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeInfoResponse>`
+
+The information and configuration of the provided Safe address.
+
+## Parameters
+
+### `safeAddress`
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+const safeInfo = await apiKit.getSafeInfo(
+  '0x...'
+)
+```

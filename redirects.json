@@ -546,12 +546,17 @@
   },
   {
     "source": "/safe-core-aa-sdk/api-kit/reference",
-    "destination": "/sdk/api-kit/reference",
+    "destination": "/reference-sdk-api-kit/overview",
     "permanent": true
   },
   {
     "source": "/sdk-api-kit/reference",
-    "destination": "/sdk/api-kit/reference",
+    "destination": "/reference-sdk-api-kit/overview",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/api-kit/reference",
+    "destination": "/reference-sdk-api-kit/overview",
     "permanent": true
   },
   {

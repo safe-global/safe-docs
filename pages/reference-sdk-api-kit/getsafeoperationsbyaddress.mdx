@@ -1,0 +1,106 @@
+import { Tabs } from 'nextra/components'
+
+# `getSafeOperationsByAddress`
+
+Returns the list of Safe operations associated to a Safe account.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { GetSafeOperationListProps } from '@safe-global/api-kit'
+    import { apiKit } from './setup.ts'
+
+    const config: GetSafeOperationListProps = {
+      safeAddress: '0x...',
+      ordering: 'created', // Optional
+      limit: '10', // Optional
+      offset: '50' // Optional
+    }
+
+    const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(config)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<GetSafeOperationListResponse>`
+
+The paginated list of Safe operations.
+
+## Parameters
+
+### `config.safeAddress`
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+const safeOperationsResponse = await apiKit.getSafeOperationsByAddress({
+  safeAddress: '0x...'
+})
+```
+
+### `config.ordering` (Optional)
+
+- **Type:** `string`
+- **Default:** `-user_operation__nonce`
+
+The field used when ordering the results.
+
+Can be one of: `-user_operation__nonce`, `user_operation__nonce`, `-created`, `created`.
+
+```typescript focus=4
+const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
+  {
+    safeAddress: '0x...',
+    ordering: 'created'
+  }
+)
+```
+
+### `config.limit` (Optional)
+
+- **Type:** `number`
+
+The number of results to return per page.
+
+```typescript focus=4
+const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
+  {
+    safeAddress: '0x...',
+    limit: 10
+  }
+)
+```
+
+### `config.offset` (Optional)
+
+- **Type:** `number`
+
+The initial index from which to return the results.
+
+```typescript focus=4
+const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
+  {
+    safeAddress: '0x...',
+    offset: 50
+  }
+)
+```

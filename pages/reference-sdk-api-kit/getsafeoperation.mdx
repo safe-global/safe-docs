@@ -1,0 +1,52 @@
+import { Tabs } from 'nextra/components'
+
+# `getSafeOperation`
+
+Returns a Safe operation by its hash.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+    
+    const safeOperationHash = '0x...'
+
+    const safeOperation = await apiKit.getSafeOperation(safeOperationHash)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeOperationResponse>`
+
+The Safe operation.
+
+## Parameters
+
+### `safeOperationHash`
+
+- **Type:** `string`
+
+The Safe operation hash.
+
+```typescript focus=2
+const safeOperation = await apiKit.getSafeOperation(
+  '0x...'
+)
+```
