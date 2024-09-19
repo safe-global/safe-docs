@@ -14,7 +14,7 @@ Adds a new delegate for a given Safe address.
     import { AddSafeDelegateProps } from '@safe-global/api-kit'
     import { apiKit } from './setup.ts'
 
-    const delegateConfig: AddSafeDelegateProps = {
+    const config: AddSafeDelegateProps = {
       safeAddress: '0x...', // Optional
       delegateAddress: '0x...',
       delegatorAddress: '0x...',
@@ -22,7 +22,7 @@ Adds a new delegate for a given Safe address.
       signer
     }
 
-    const config = await apiKit.addSafeDelegate(delegateConfig)
+    const config = await apiKit.addSafeDelegate(config)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -46,7 +46,7 @@ The configuration of the new Safe delegate.
 
 ## Parameters
 
-### `safeAddress` (Optional)
+### `config.safeAddress` (Optional)
 
 - **Type:** `string`
 
@@ -62,7 +62,7 @@ const config = await apiKit.addSafeDelegate({
 })
 ```
 
-### `delegateAddress`
+### `config.delegateAddress`
 
 - **Type:** `string`
 
@@ -77,7 +77,7 @@ const config = await apiKit.addSafeDelegate({
 })
 ```
 
-### `delegatorAddress`
+### `config.delegatorAddress`
 
 - **Type:** `string`
 
@@ -92,7 +92,7 @@ const config = await apiKit.addSafeDelegate({
 })
 ```
 
-### `label`
+### `config.label`
 
 - **Type:** `string`
 
@@ -107,7 +107,7 @@ const config = await apiKit.addSafeDelegate({
 })
 ```
 
-### `signer`
+### `config.signer`
 
 - **Type:** `Signer`
 

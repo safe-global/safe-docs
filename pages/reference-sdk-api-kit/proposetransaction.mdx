@@ -25,7 +25,7 @@ Creates a new multi-signature transaction with its confirmations and stores it i
       nonce: '10'
     }
 
-    const transactionConfig: ProposeTransactionProps = {
+    const config: ProposeTransactionProps = {
       safeAddress: '0x...',
       safeTxHash: '0x...',
       safeTransactionData,
@@ -34,7 +34,7 @@ Creates a new multi-signature transaction with its confirmations and stores it i
       origin: 'App name' // Optional
     }
 
-    await apiKit.proposeTransaction(transactionConfig)
+    await apiKit.proposeTransaction(config)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -52,7 +52,7 @@ Creates a new multi-signature transaction with its confirmations and stores it i
 
 ## Parameters
 
-### `safeAddress`
+### `config.safeAddress`
 
 - **Type:** `string`
 
@@ -76,7 +76,7 @@ await apiKit.proposeTransaction({
 })
 ```
 
-### `safeTxHash`
+### `config.safeTxHash`
 
 - **Type:** `string`
 
@@ -100,7 +100,7 @@ await apiKit.proposeTransaction({
 })
 ```
 
-### `operation`
+### `config.safeTransactionData.operation`
 
 - **Type:** `OperationType`
 
@@ -124,7 +124,7 @@ await apiKit.proposeTransaction({
 })
 ```
 
-### `safeTxGas`
+### `config.safeTransactionData.safeTxGas`
 
 - **Type:** `string`
 
@@ -148,7 +148,7 @@ await apiKit.proposeTransaction({
 })
 ```
 
-### `baseGas`
+### `config.safeTransactionData.baseGas`
 
 - **Type:** `string`
 
@@ -172,7 +172,7 @@ await apiKit.proposeTransaction({
 })
 ```
 
-### `gasPrice`
+### `config.safeTransactionData.gasPrice`
 
 - **Type:** `string`
 
@@ -196,7 +196,7 @@ await apiKit.proposeTransaction({
 })
 ```
 
-### `gasToken`
+### `config.safeTransactionData.gasToken`
 
 - **Type:** `string`
 
@@ -220,7 +220,7 @@ await apiKit.proposeTransaction({
 })
 ```
 
-### `refundReceiver`
+### `config.safeTransactionData.refundReceiver`
 
 - **Type:** `string`
 
@@ -244,7 +244,7 @@ await apiKit.proposeTransaction({
 })
 ```
 
-### `nonce`
+### `config.safeTransactionData.nonce`
 
 - **Type:** `string`
 
@@ -268,7 +268,7 @@ await apiKit.proposeTransaction({
 })
 ```
 
-### `senderAddress`
+### `config.senderAddress`
 
 - **Type:** `string`
 
@@ -292,7 +292,7 @@ await apiKit.proposeTransaction({
 })
 ```
 
-### `senderSignature`
+### `config.senderSignature`
 
 - **Type:** `string`
 
@@ -316,7 +316,7 @@ await apiKit.proposeTransaction({
 })
 ```
 
-### `origin` (Optional)
+### `config.origin` (Optional)
 
 - **Type:** `string`
 

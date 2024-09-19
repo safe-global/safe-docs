@@ -15,13 +15,13 @@ Creates a new message with an initial signature.
     import { apiKit } from './setup.ts'
 
     const safeAddress = '0x...'
-    const options: AddMessageProps = {
+    const config: AddMessageProps = {
       message: '0x...',
       signature: '0x...',
       safeAppId: 1 // Optional
     }
 
-    await apiKit.addMessage(safeAddress, options)
+    await apiKit.addMessage(safeAddress, config)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -55,7 +55,7 @@ await apiKit.addMessage(
 )
 ```
 
-### `message`
+### `config.message`
 
 - **Type:** `string | EIP712TypedData`
 
@@ -71,7 +71,7 @@ await apiKit.addMessage(
 )
 ```
 
-### `signature`
+### `config.signature`
 
 - **Type:** `string`
 
@@ -87,7 +87,7 @@ await apiKit.addMessage(
 )
 ```
 
-### `safeAppId` (Optional)
+### `config.safeAppId` (Optional)
 
 - **Type:** `number`
 

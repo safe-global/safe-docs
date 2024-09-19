@@ -15,7 +15,7 @@ Returns a list of transactions for a given Safe account, with a different struct
     import { apiKit } from './setup.ts'
 
     const safeAddress = '0x...'
-    const allTxsOptions: AllTransactionsOptions = {
+    const config: AllTransactionsOptions = {
       executed: true, // Optional
       queued: true, // Optional
       trusted: true // Optional
@@ -23,7 +23,7 @@ Returns a list of transactions for a given Safe account, with a different struct
 
     const allTxs = await apiKit.getAllTransactions(
       safeAddress,
-      allTxsOptions // Optional
+      config // Optional
     )
     ```
   </Tabs.Tab>
@@ -60,7 +60,7 @@ const allTxs = await apiKit.getAllTransactions(
 )
 ```
 
-### `executed` (Optional)
+### `config.executed` (Optional)
 
 - **Type:** `boolean`
 
@@ -75,7 +75,7 @@ const allTxs = await apiKit.getAllTransactions(
 )
 ```
 
-### `queued` (Optional)
+### `config.queued` (Optional)
 
 - **Type:** `boolean`
 
@@ -90,7 +90,7 @@ const allTxs = await apiKit.getAllTransactions(
 )
 ```
 
-### `trusted` (Optional)
+### `config.trusted` (Optional)
 
 - **Type:** `boolean`
 

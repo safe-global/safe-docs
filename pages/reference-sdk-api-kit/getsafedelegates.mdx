@@ -14,7 +14,7 @@ Returns the list of delegates for a given Safe address.
     import { GetSafeDelegateProps } from '@safe-global/api-kit'
     import { apiKit } from './setup.ts'
 
-    const delegateConfig: GetSafeDelegateProps = {
+    const config: GetSafeDelegateProps = {
       safeAddress: '0x...', // Optional
       delegateAddress: '0x...', // Optional
       delegatorAddress: '0x...', // Optional
@@ -23,7 +23,7 @@ Returns the list of delegates for a given Safe address.
       offset: '50' // Optional
     }
 
-    const delegates = await apiKit.getSafeDelegates(delegateConfig)
+    const delegates = await apiKit.getSafeDelegates(config)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -47,7 +47,7 @@ The list of delegates.
 
 ## Parameters
 
-### `safeAddress` (Optional)
+### `config.safeAddress` (Optional)
 
 - **Type:** `string`
 
@@ -59,7 +59,7 @@ const delegates = await apiKit.getSafeDelegates({
 })
 ```
 
-### `delegateAddress` (Optional)
+### `config.delegateAddress` (Optional)
 
 - **Type:** `string`
 
@@ -71,7 +71,7 @@ const delegates = await apiKit.getSafeDelegates({
 })
 ```
 
-### `delegatorAddress` (Optional)
+### `config.delegatorAddress` (Optional)
 
 - **Type:** `string`
 
@@ -83,7 +83,7 @@ const delegates = await apiKit.getSafeDelegates({
 })
 ```
 
-### `label` (Optional)
+### `config.label` (Optional)
 
 - **Type:** `string`
 
@@ -95,7 +95,7 @@ const delegates = await apiKit.getSafeDelegates({
 })
 ```
 
-### `limit` (Optional)
+### `config.limit` (Optional)
 
 - **Type:** `string`
 
@@ -107,7 +107,7 @@ const delegates = await apiKit.getSafeDelegates({
 })
 ```
 
-### `offset` (Optional)
+### `config.offset` (Optional)
 
 - **Type:** `string`
 

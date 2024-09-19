@@ -13,6 +13,8 @@ Returns the right nonce to propose a new transaction right after the last pendin
     ```typescript
     import { apiKit } from './setup.ts'
 
+    const safeAddress = '0x...'
+
     const nextNonce = await apiKit.getNextNonce(safeAddress)
     ```
   </Tabs.Tab>

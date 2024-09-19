@@ -14,13 +14,13 @@ Removes a delegate for a given Safe address.
     import { DeleteSafeDelegateProps } from '@safe-global/api-kit'
     import { apiKit } from './setup.ts'
 
-    const delegateConfig: DeleteSafeDelegateProps = {
+    const config: DeleteSafeDelegateProps = {
       delegateAddress: '0x...',
       delegatorAddress: '0x...',
       signer
     }
 
-    await apiKit.removeSafeDelegate(delegateConfig)
+    await apiKit.removeSafeDelegate(config)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -38,7 +38,7 @@ Removes a delegate for a given Safe address.
 
 ## Parameters
 
-### `delegateAddress`
+### `config.delegateAddress`
 
 - **Type:** `string`
 
@@ -53,7 +53,7 @@ await apiKit.removeSafeDelegate({
 
 ```
 
-### `delegatorAddress`
+### `config.delegatorAddress`
 
 - **Type:** `string`
 
@@ -68,7 +68,7 @@ await apiKit.removeSafeDelegate({
 
 ```
 
-### `signer`
+### `config.signer`
 
 - **Type:** `Signer`
 
