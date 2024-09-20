@@ -1,0 +1,58 @@
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  svg {
+    fill: white;
+  }
+}
+
+h1,
+h2,
+h3 {
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: #00e673;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+button:disabled {
+  background: #ccc;
+  color: #666;
+}

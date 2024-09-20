@@ -7,6 +7,11 @@
     "title": "SDK",
     "type": "page"
   },
+  "reference-sdk-api-kit": {
+    "title": "API Kit Reference",
+    "type": "page",
+    "display": "hidden"
+  },
   "core-api": {
     "title": "API",
     "type": "page"
@@ -36,14 +41,6 @@
     "theme": {
       "layout": "raw",
       "toc": false,
-      "sidebar": false
-    }
-  },
-  "glossary": {
-    "title": "Glossary",
-    "display": "hidden",
-    "theme": {
-      "toc": true,
       "sidebar": false
     }
   },

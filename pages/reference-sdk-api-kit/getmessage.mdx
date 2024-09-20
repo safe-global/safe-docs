@@ -1,0 +1,52 @@
+import { Tabs } from 'nextra/components'
+
+# `getMessage`
+
+Returns a message from its hash.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+    
+    const messageHash = '0x...'
+
+    const message = await apiKit.getMessage(messageHash)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeMessage>`
+
+The message.
+
+## Parameters
+
+### `messageHash`
+
+- **Type:** `string`
+
+The Safe message hash.
+
+```typescript focus=2
+const message = await apiKit.getMessage(
+  '0x...'
+)
+```

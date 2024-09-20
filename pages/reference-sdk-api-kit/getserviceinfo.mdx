@@ -1,0 +1,36 @@
+import { Tabs } from 'nextra/components'
+
+# `getServiceInfo`
+
+Returns the information and configuration of the service.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const serviceInfo = await apiKit.getServiceInfo()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+    
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeServiceInfoResponse>`
+
+The information and configuration of the service.

@@ -12,8 +12,11 @@ const repos = [
       '/lib/mintNFT.ts',
       '/components/LoginWithPasskey.tsx',
       '/components/SafeAccountDetails.tsx',
+      '/components/SafeThemeProvider.tsx',
       '/app/page.tsx',
-      '/app/layout.tsx'
+      '/app/layout.tsx',
+      '/app/globals.css',
+      '/next.config.mjs'
     ]
   },
   {
@@ -43,7 +46,9 @@ const repos = [
       '/lib/scheduledTransfers.ts',
       '/components/ScheduledTransferForm.tsx',
       '/app/page.tsx',
-      '/app/layout.tsx'
+      '/app/layout.tsx',
+      '/app/globals.css',
+      '/next.config.mjs'
     ]
   }
 ]
@@ -70,7 +75,7 @@ const generateCodeExamples = async ({
         }
         fs.writeFileSync(destination + filePath, text)
       })
-      .catch((res) => {
+      .catch(res => {
         console.error('Error fetching file for', filePath, ':', res.statusText)
       })
   })

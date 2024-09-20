@@ -1,0 +1,54 @@
+import { Tabs } from 'nextra/components'
+
+# `getMultisigTransactions`
+
+Returns the history of multi-signature transactions of a Safe account.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const safeAddress = '0x...'
+
+    const multisigTxs = await apiKit.getMultisigTransactions(
+      safeAddress
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeMultisigTransactionListResponse>`
+
+The history of multi-signature transactions.
+
+## Parameters
+
+### `safeAddress`
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+const multisigTxs = await apiKit.getMultisigTransactions(
+  '0x...'
+)
+```

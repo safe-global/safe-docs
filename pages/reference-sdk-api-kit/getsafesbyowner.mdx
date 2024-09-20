@@ -1,0 +1,52 @@
+import { Tabs } from 'nextra/components'
+
+# `getSafesByOwner`
+
+Returns the list of Safes where the address provided is an owner.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const ownerAddress = '0x...'
+
+    const decodedData = await apiKit.getSafesByOwner(ownerAddress)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<OwnerResponse>`
+
+The list of Safes where the address provided is an owner.
+
+## Parameters
+
+### `ownerAddress`
+
+- **Type:** `string`
+
+The owner address.
+
+```typescript focus=2
+const decodedData = await apiKit.getSafesByOwner(
+  '0x...'
+)
+```

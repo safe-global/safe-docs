@@ -1,0 +1,55 @@
+# `constructor`
+
+Returns an instance of the API Kit.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+```typescript
+import SafeApiKit from '@safe-global/api-kit'
+
+const chainId = 1n
+
+const txServiceUrl = 'https://...'
+
+const apiKit = new SafeApiKit({
+  chainId,
+  txServiceUrl // Optional
+})
+```
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`SafeApiKit`
+
+A new instance of the API Kit.
+
+## Parameters
+
+### `chainId`
+
+- **Type:** `bigint`
+
+The chain ID.
+
+```typescript focus=2
+const apiKit = new SafeApiKit({
+  chainId: 1n
+})
+```
+
+### `txServiceUrl` (Optional)
+
+- **Type:** `string`
+
+A custom Safe Transaction Service URL that is not supported by default.
+
+```typescript focus=3
+const apiKit = new SafeApiKit({
+  chainId: 1n,
+  txServiceUrl: 'https://...'
+})
+```

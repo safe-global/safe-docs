@@ -1,0 +1,52 @@
+import { Tabs } from 'nextra/components'
+
+# `getTransactionConfirmations`
+
+Returns the list of confirmations for a given a Safe transaction.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const safeTxHash = '0x...'
+
+    const confirmations = await apiKit.getTransactionConfirmations(safeTxHash)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeMultisigConfirmationListResponse>`
+
+The list of confirmations.
+
+## Parameters
+
+### `safeTxHash`
+
+- **Type:** `string`
+
+The hash of the Safe transaction.
+
+```typescript focus=2
+const confirmations = await apiKit.getTransactionConfirmations(
+  '0x...'
+)
+```
