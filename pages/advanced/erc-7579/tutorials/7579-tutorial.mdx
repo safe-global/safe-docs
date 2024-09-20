@@ -49,7 +49,7 @@ For this project, you will use Pimlico's [Permissionless.js](https://docs.pimlic
 Run the following command to add all these dependencies to the project:
 
 ```shell
-pnpm add permissionless@0.2.0 viem@2
+pnpm add permissionless@0.2.0 viem@2 truncate-eth-address
 ```
 
 ## 2. Setup project
@@ -62,29 +62,17 @@ Replace the content of `app/globals.css` with the following:
 
 ```css
 :root {
-  background-color: #121312; 
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-}
+    background-color: #121312; 
+    font-family: Citerne, 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+  }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   color: #fff;
-}
-
-button {
-  background-color: #12ff80;
-  border: none;
-  border-radius: 6px;
-  color: rgba(0, 0, 0, 0.87);
-  cursor: pointer;
-  font-weight: bold;
-  padding: 8px 24px;
-  margin-top: 24px;
-  margin-bottom: 24px;
-  display: block;
 }
 
 body {
@@ -103,16 +91,72 @@ body {
   padding: 24px;
   text-align: left;
   width: 100%;
-  align-items: center;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 0 100px rgba(18, 255, 128, 0.2);
 }
 
 .title {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 35px;
   font-size: large;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 50px;
+}
+
+button {
+  background-color: #12ff80;
+  border: none;
+  border-radius: 6px;
+  color: rgba(0, 0, 0, 0.87);
+  border: 1px solid #12ff80;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 8px 24px;
+  position: relative;
+}
+button.skip {
+  background-color: transparent;
+  border: 1px solid #12ff80;
+  color: #12ff80;
+}
+
+.button--loading {
+  color: transparent;
+  background-color: transparent;
+}
+
+.button--loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 4px solid transparent;
+  border-top-color: #12ff80;
+  border-radius: 50%;
+  animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
 }
 
 pre {
@@ -134,46 +178,81 @@ Now, replace the content of `app/page.tsx` with the following code. It includes 
 
 import { createSmartAccountClient } from 'permissionless'
 import { sepolia } from 'viem/chains'
-import { encodePacked, http, encodeFunctionData, parseAbi } from 'viem'
+import {
+  encodePacked,
+  http,
+  encodeFunctionData,
+  parseAbi,
+  createWalletClient,
+  createPublicClient,
+  custom,
+  encodeAbiParameters,
+  parseAbiParameters
+} from 'viem'
 import { erc7579Actions } from 'permissionless/actions/erc7579'
-import { createPublicClient, createWalletClient } from 'viem'
-import { privateKeyToAccount } from 'viem/accounts'
 import { createPimlicoClient } from 'permissionless/clients/pimlico'
 import { toSafeSmartAccount } from 'permissionless/accounts'
 import { useEffect, useState } from 'react'
+import truncateEthAddress from 'truncate-eth-address'
 
 export default function Home () {
   const [safeAccount, setSafeAccount] = useState(null)
-  const [pimlicoClient, setPimlicoClient] = useState(null)
   const [smartAccountClient, setSmartAccountClient] = useState(null)
+  const [ownerAddress, setOwnerAddress] = useState<string | null>(null)
+  const [publicClient, setPublicClient] = useState<>(null)
+  const [executorAddress, setExecutorAddress] = useState<string | null>(null)
+  const [safeAddress, setSafeAddress] = useState<string | null>(null)
+  const [safeIsDeployed, setSafeIsDeployed] = useState(false)
+  const [moduleIsInstalled, setModuleIsInstalled] = useState(false)
+  const [executorTransactionIsSent, setExecutorTransactionIsSent] =
+    useState(false)
+  const [ownerIsAdded, setOwnerIsAdded] = useState(false)
+  const [moduleIsUninstalled, setModuleIsUninstalled] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  // The module is deployed as a smart contract on Sepolia:
+  // The module we will use is deployed as a smart contract on Sepolia:
   const ownableExecutorModule = '0xc98B026383885F41d9a995f85FC480E9bb8bB891'
 
-  //  Make sure to add your own API key to the Pimlico URL:
+  // We create a wallet client to connect to MetaMask:
+  const walletClient = createWalletClient({
+    chain: sepolia,
+    transport: custom(window.ethereum!)
+  })
+
+  //  TODO: Make sure to add your own API key to the Pimlico URL:
   const pimlicoUrl =
     'https://api.pimlico.io/v2/sepolia/rpc?apikey=YOUR_PIMLICO_API_KEY'
-    
 
-  // You will use two accounts for this example:
-  // owner is the account that owns the smart account and will install the module.
-  // owner2 is the account that will be added as an owner to the smart account via the module.
-  // Both accounts are created from private keys. Make sure to replace them with your own private keys.
-  // These are the private keys of anvil, don't use them in production, don't send any real funds to these accounts.
-  const owner = privateKeyToAccount(
-    '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'
-  )
+  // The Pimlico client is used as a paymaster:
+  const pimlicoClient = createPimlicoClient({
+    transport: http(pimlicoUrl),
+    chain: sepolia
+  })
 
-  const owner2 = privateKeyToAccount(
-    '0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d'
-  )
-
-  // These functions will be filled with code in the following steps:
-
+  // Check for connected accounts on page load:
   useEffect(() => {
-    const init = async () => {}
-    init()
+    checkAddresses()
   }, [])
+
+  // Check whether the user has connected two accounts, without MetaMask popping up:
+  const checkAddresses = async () => {
+    const addresses = await walletClient.getAddresses()
+    setOwnerAddress(addresses[0])
+    setExecutorAddress(addresses[1])
+    if (addresses.length >= 2) {
+      init()
+    }
+  }
+
+  const connectWallets = async () => {
+    // Only at the request address call, MetaMask will pop up and ask the user to connect:
+    await walletClient.requestAddresses()
+    checkAddresses()
+  }
+
+  // The following functions will be filled with code in the following steps:
+
+  const init = async () => {}
 
   const installModule = async () => {}
 
@@ -181,15 +260,149 @@ export default function Home () {
 
   const addOwner = async () => {}
 
+  const uninstallModule = async () => {}
+
+  // Depending on the state of the tutorial, different cards are displayed:
+  // Step 1: Connect Wallets
+  if (!ownerAddress || !executorAddress) {
+    return (
+      <div className='card'>
+        <div className='title'>Connect Wallets</div>
+        <div>
+          Please ensure to connect with two accounts to this site. The second
+          account needs to have some Sepolia Eth for gas.
+        </div>
+        <div className='actions'>
+          <button onClick={connectWallets}>Connect Wallet</button>
+        </div>
+      </div>
+    )
+  }
+
+  // Step 2: Install Module
+  if (!moduleIsInstalled) {
+    return (
+      <div className='card'>
+        <div className='title'>Install Module</div>
+        <div>
+          Your Safe has the address{' '}
+          {safeAddress && truncateEthAddress(safeAddress)} and is{' '}
+          {safeIsDeployed ? 'deployed' : 'not yet deployed'}.
+          {!safeIsDeployed &&
+            'It will be deployed with your first transaction, when you install the module.'}
+        </div>
+        <div>
+          You can now install the module. MetaMask will ask you to sign a
+          message after clicking the button.
+        </div>
+        <div className='actions'>
+          <button
+            onClick={installModule}
+            className={loading && 'button--loading'}
+          >
+            Install Module
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // Step 3: Execute on Owned Account
+  if (!executorTransactionIsSent) {
+    return (
+      <div className='card'>
+        <div className='title'>Execute on owned account</div>
+        <div>
+          You can now execute a transaction on the owned account as the
+          executor. In this case, you will send a dummy transaction. But you
+          could also claim the ownership of the account. Please notice, that the
+          app requests a transaction from the second account.
+        </div>
+        <div className='actions'>
+          <button
+            className='skip'
+            onClick={() => {
+              setExecutorTransactionIsSent(true)
+              setLoading(false)
+            }}
+          >
+            Skip
+          </button>
+          <button
+            onClick={executeOnOwnedAccount}
+            className={loading && 'button--loading'}
+          >
+            Execute on owned account
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // Step 4: Add Owner
+  if (!ownerIsAdded) {
+    return (
+      <div className='card'>
+        <div className='title'>Add Owner</div>
+        <div>
+          Now, you will interact with the 7579 module directly. You can add an
+          owner to the Safe. The new owner will be able to execute transactions
+          on the Safe.
+        </div>
+        <div>
+          <div className='actions'>
+            <button
+              className='skip'
+              onClick={() => {
+                setOwnerIsAdded(true)
+                setLoading(false)
+              }}
+            >
+              Skip
+            </button>
+            <button onClick={addOwner} className={loading && 'button--loading'}>
+              Add Owner
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Step 5: Uninstall Module
+  if (!moduleIsUninstalled) {
+    return (
+      <div className='card'>
+        <div className='title'>Uninstall Module</div>
+        <div>
+          To finish the lifecycle of the module, you can now uninstall the
+          module. MetaMask will ask you to sign a message after clicking the
+          button.
+        </div>
+        <div className='actions'>
+          <button
+            onClick={uninstallModule}
+            className={loading && 'button--loading'}
+          >
+            Uninstall Module
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // Step 6: Finish
   return (
     <div className='card'>
-      <div className='title'>Safe 7579 Module</div>
-      <button onClick={installModule}>Install Module</button>
-      <button onClick={executeOnOwnedAccount}>Execute on owned account</button>
-      <button onClick={addOwner}>Add Owner</button>
+      <div className='title'>Well done</div>
+      <div>
+        You have successfully installed, executed on, interacted with, and
+        uninstalled the module. This tutorial is now complete.
+      </div>
     </div>
   )
 }
+
 ```
 
 Make sure to add your Pimlico API key to the `pimlicoUrl` variable. You can find your API key in the Pimlico dashboard.
@@ -202,56 +415,59 @@ You can now run the development server with `pnpm dev` and open the app in your 
 
 In the first step, you create the clients that allow you to interact with the smart account. As permissionless.js is just a tiny wrapper around viem, you will use many of viem's functions in this tutorial. 
 
-To add this code, overwrite the `useEffect` function with this one:
+To add this code, overwrite the `init` function with this one:
 
 ```tsx
-useEffect(() => {
-  const init = async () => {
-    // The public client by viem is used as a transport layer:
-    const publicClient = createPublicClient({
-      transport: http('https://rpc.ankr.com/eth_sepolia'),
-      chain: sepolia
-    })
+const init = async () => {
+  // The public client is required for the safe account creation:
+  const publicClient = createPublicClient({
+    transport: http('https://rpc.ankr.com/eth_sepolia'),
+    chain: sepolia
+  })
 
-    // The safe account is created using the public client:
-    const safeAccount = await toSafeSmartAccount({
-      client: publicClient,
-      owners: [owner],
-      version: '1.4.1',
-      // These modules are required for the 7579 functionality:
-      safe4337ModuleAddress: '0x3Fdb5BC686e861480ef99A6E3FaAe03c0b9F32e2', // These are not meant to be used in production as of now.
-      erc7579LaunchpadAddress: '0xEBe001b3D534B9B6E2500FB78E67a1A137f561CE' // These are not meant to be used in production as of now.
-    })
+  // The safe account is created using the public client:
+  const safeAccount = await toSafeSmartAccount({
+    client: publicClient,
+    owners: [walletClient],
+    version: '1.4.1',
+    chain: sepolia,
+    // These modules are required for the 7579 functionality:
+    safe4337ModuleAddress: '0x3Fdb5BC686e861480ef99A6E3FaAe03c0b9F32e2', // These are not meant to be used in production as of now.
+    erc7579LaunchpadAddress: '0xEBe001b3D534B9B6E2500FB78E67a1A137f561CE' // These are not meant to be used in production as of now.
+  })
 
-    // The Pimlico client is used as a paymaster:
-    const pimlicoClient = createPimlicoClient({
-      transport: http(pimlicoUrl),
-      chain: sepolia
-    })
+  setSafeAddress(safeAccount.address)
+  setSafeIsDeployed(await safeAccount.isDeployed())
 
-    // Finally, create the smart account client, which provides functionality to interact with the smart account:
-    const smartAccountClient = createSmartAccountClient({
-      account: safeAccount,
-      chain: sepolia,
-      bundlerTransport: http(pimlicoUrl),
-      paymaster: pimlicoClient,
-      userOperation: {
-        estimateFeesPerGas: async () => {
-          return (await pimlicoClient.getUserOperationGasPrice()).fast
-        }
+  // Finally, we create the smart account client, which provides functionality to interact with the smart account:
+  const smartAccountClient = createSmartAccountClient({
+    account: safeAccount,
+    chain: sepolia,
+    bundlerTransport: http(pimlicoUrl),
+    paymaster: pimlicoClient,
+    userOperation: {
+      estimateFeesPerGas: async () => {
+        return (await pimlicoClient.getUserOperationGasPrice()).fast
       }
-    }).extend(erc7579Actions())
+    }
+  }).extend(erc7579Actions())
 
-    // Store the clients in the state to use them in the following steps:
-    setSafeAccount(safeAccount)
-    setPimlicoClient(pimlicoClient)
-    setSmartAccountClient(smartAccountClient)
+  // Check whether the module has been installed already:
+  const isModuleInstalled = await smartAccountClient.isModuleInstalled({
+    address: ownableExecutorModule,
+    type: 'executor',
+    context: '0x'
+  })
 
-    console.log('setup done')
-  }
+  setModuleIsInstalled(isModuleInstalled)
 
-  init()
-}, [])
+  // We store the clients in the state to use them in the following steps:
+  setSafeAccount(safeAccount)
+  setSmartAccountClient(smartAccountClient)
+  setPublicClient(publicClient)
+
+  console.log('setup done')
+}
 ```
 
 If you run your app with `pnpm dev`, the console will log ‘setup done’ when everything works.
@@ -264,6 +480,7 @@ Overwrite the `installModule` function with this one.
 
 ```tsx
 const installModule = async () => {
+  setLoading(true)
   console.log('Installing module...')
 
   // The smart accounts client operates on 4337. It does not send transactions directly but instead creates user
@@ -273,17 +490,21 @@ const installModule = async () => {
   const userOpHash = await smartAccountClient.installModule({
     type: 'executor',
     address: ownableExecutorModule,
-    context: encodePacked(['address'], [owner2.address])
+    context: encodePacked(['address'], [executorAddress])
   })
 
   console.log('User operation hash:', userOpHash, '\nwaiting for receipt...')
 
-  // After sending the user operation, wait for the transaction to be settled:
+  // After we sent the user operation, we wait for the transaction to be settled:
   const transactionReceipt = await pimlicoClient.waitForUserOperationReceipt({
     hash: userOpHash
   })
 
   console.log('Module installed:', transactionReceipt)
+
+  setModuleIsInstalled(true)
+  setSafeIsDeployed(await safeAccount?.isDeployed())
+  setLoading(false)
 }
 ```
 
@@ -303,20 +524,10 @@ Replace the `executeOnOwnedAccount` function with this code:
 
 ```tsx
 const executeOnOwnedAccount = async () => {
+  setLoading(true)
   console.log('Executing on owned account...')
 
-  // Create a wallet client for the owner2 account. This client is used to send transactions on behalf of the
-  // owner2. This transaction is sent as a regular transaction, so it is not free. Make sure owner2 owns enough funds
-  // to pay for gas.
-  const walletClient = createWalletClient({
-    account: owner2,
-    transport: http('https://rpc.ankr.com/eth_sepolia'),
-    chain: sepolia
-  })
-
-  console.log('wallet client', walletClient)
-
-  // Encode the transaction you want the smart account to send. The fields are:
+  // We encode the transaction we want the smart account to send. The fields are:
   // - to (address)
   // - value (uint256)
   // - data (bytes)
@@ -326,16 +537,22 @@ const executeOnOwnedAccount = async () => {
     ['0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2', 0n, '0x']
   )
 
-  // Now, call the `executeOnOwnedAccount` function of the `ownableExecutorModule` with the address of the safe
-  // account and the data you want to execute. This will make the smart account send the transaction that is encoded above.
+  // Now, we call the `executeOnOwnedAccount` function of the `ownableExecutorModule` with the address of the safe
+  // account and the data we want to execute. This will make our smart account send the transaction that is encoded above.
   const hash = await walletClient.writeContract({
+    account: executorAddress,
     abi: parseAbi(['function executeOnOwnedAccount(address, bytes)']),
     functionName: 'executeOnOwnedAccount',
-    args: [safeAccount?.address, executeOnOwnedAccountData],
+    args: [safeAddress, executeOnOwnedAccountData],
     address: ownableExecutorModule
   })
 
   console.log('Executed on owned account, transaction hash:', hash)
+
+  await publicClient.waitForTransactionReceipt({ hash })
+
+  setExecutorTransactionIsSent(true)
+  setLoading(false)
 }
 ```
 
@@ -358,16 +575,17 @@ Replace `addOwner` with this function:
 
 ```tsx
 const addOwner = async () => {
+  setLoading(true)
   console.log('Adding owner...')
 
-  // The addOwner function is part of the OwnableExecutorModule. Encode the function data using the viem library:
+  // The addOwner function is part of the OwnableExecutorModule. We encode the function data using the viem library:
   const addOwnerData = encodeFunctionData({
     abi: parseAbi(['function addOwner(address)']),
     functionName: 'addOwner',
-    args: ['0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC']
+    args: ['0x0000000000000000000000000000000000000002'] // We add 0x2 as the new owner just as an example.
   })
 
-  // Use the smart account client to send the user operation: In this call, the smart account calls the `addOwner`
+  // We use the smart account client to send the user operation: In this call, our smart account calls the `addOwner`
   // function at the `ownableExecutorModule` with the new owner's address.
   const userOp = await smartAccountClient.sendUserOperation({
     calls: [{ to: ownableExecutorModule, value: 0, data: addOwnerData }]
@@ -375,12 +593,14 @@ const addOwner = async () => {
 
   console.log('User operation:', userOp, '\nwaiting for tx receipt...')
 
-  // Wait for the transaction to be settled:
+  // Again, we wait for the transaction to be settled:
   const receipt = await pimlicoClient.waitForUserOperationReceipt({
     hash: userOp
   })
 
   console.log('Owner added, tx receipt:', receipt)
+  setOwnerIsAdded(true)
+  setLoading(false)
 }
 ```
 
