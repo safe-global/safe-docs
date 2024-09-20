@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 
 # How to build an app with Safe and ERC-7579
 
-The smart account ecosystem needed to be more cohesive, with each provider building its modules, often incompatible with other smart account implementations. Developers had to build new modules compatible with their smart accounts or miss out on essential application features.
+The smart account ecosystem needed to be more cohesive. Each provider built its modules, which were often incompatible with other smart account implementations. Developers had to build new modules compatible with their smart accounts or miss out on essential application features.
 
 [ERC-7579](https://docs.safe.global/advanced/erc-7579/overview) aims to ensure interoperability across implementations. It defines the account interface so developers can implement modules for all smart accounts that follow this standard. The Safe7579 Adapter makes your Safe compatible with any ERC-7579 modules. As a developer building with Safe, you can access a rich ecosystem of modules to add features to your application.
 
@@ -13,7 +13,7 @@ In this tutorial, you will build an app that can:
 - Send a transaction via the 7579 module (Send a dummy transaction as the new owner via `executeOnOwnedAccount`)
 - Interact with the 7579 directly to add a new owner to the module
 
-You can find the full code for this tutorial in the [Safe7579 module tutorial repository](https://github.com/5afe/safe-7579-tutorial).
+The full code for this tutorial is in the [Safe7579 module tutorial repository](https://github.com/5afe/safe-7579-tutorial).
 
 ## Prerequisites
 
@@ -23,7 +23,8 @@ Before progressing with the tutorial, please make sure you have the following:
 
 - Downloaded and installed [Node.js](https://nodejs.org/en/download/package-manager) and [pnpm](https://pnpm.io/installation).
 - Created an API key from [Pimlico](https://www.pimlico.io/).
-- Two private keys for testing purposes. The second key will need some funds to pay for gas.
+- Metamask installed in your browser and connected to the Sepolia network.
+- Two test accounts in Metamask, the second with some Sepolia Eth for gas.
 
 ## 1. Setup a Next.js application
 
@@ -171,7 +172,7 @@ pre {
 
 ### Add a scaffold React component
 
-Now, replace the content of `app/page.tsx` with the following code. It includes all necessary imports, the React component and the UI, and empty functions that you will fill with code in the following steps. From now on, you will only work on this file.
+Now, replace the content of `app/page.tsx` with the following code. It includes all necessary imports, the React component and the UI, and empty functions you will fill with code in the following steps. From now on, you will only work on this file.
 
 ```tsx
 'use client'
@@ -267,7 +268,7 @@ export default function Home () {
   if (!ownerAddress || !executorAddress) {
     return (
       <div className='card'>
-        <div className='title'>Connect Wallets</div>
+        <div className='title'>Connect two accounts</div>
         <div>
           Please ensure to connect with two accounts to this site. The second
           account needs to have some Sepolia Eth for gas.
@@ -293,7 +294,7 @@ export default function Home () {
         </div>
         <div>
           You can now install the module. MetaMask will ask you to sign a
-          message after clicking the button.
+          message with the first account after clicking the button.
         </div>
         <div className='actions'>
           <button
@@ -315,8 +316,11 @@ export default function Home () {
         <div>
           You can now execute a transaction on the owned account as the
           executor. In this case, you will send a dummy transaction. But you
-          could also claim the ownership of the account. Please notice, that the
-          app requests a transaction from the second account.
+          could also claim ownership of the account.
+        </div>
+        <div>
+          When you click the button, Metamask will request a transaction from
+          the second account.
         </div>
         <div className='actions'>
           <button
@@ -347,7 +351,7 @@ export default function Home () {
         <div>
           Now, you will interact with the 7579 module directly. You can add an
           owner to the Safe. The new owner will be able to execute transactions
-          on the Safe.
+          on the Safe. Metamask will request a signature from the first owner.
         </div>
         <div>
           <div className='actions'>
@@ -375,7 +379,7 @@ export default function Home () {
       <div className='card'>
         <div className='title'>Uninstall Module</div>
         <div>
-          To finish the lifecycle of the module, you can now uninstall the
+          To finish the module&apos;s lifecycle, you can now uninstall the
           module. MetaMask will ask you to sign a message after clicking the
           button.
         </div>
@@ -396,8 +400,9 @@ export default function Home () {
     <div className='card'>
       <div className='title'>Well done</div>
       <div>
-        You have successfully installed, executed on, interacted with, and
-        uninstalled the module. This tutorial is now complete.
+        Congratulations! You&apos;ve successfully installed, executed,
+        interacted with, and uninstalled the module. This tutorial is now
+        complete. Great job! Keep exploring!
       </div>
     </div>
   )
@@ -405,11 +410,9 @@ export default function Home () {
 
 ```
 
-Make sure to add your Pimlico API key to the `pimlicoUrl` variable. You can find your API key in the Pimlico dashboard.
+Add your Pimlico API key to the `pimlicoUrl` variable. You can find your API key in the Pimlico dashboard.
 
-Also, replace the private keys in the `owner` and `owner2` variables with your own private keys for testing purposes. 
-
-You can now run the development server with `pnpm dev` and open the app in your browser at `http://localhost:3000`. You should see a simple UI with three buttons. 
+You can now run the development server with `pnpm dev` and open the app in your browser at `http://localhost:3000`. You should see a card that asks you to connect two wallets. Connect two wallets to proceed with the tutorial. 
 
 ## 3. Initialize the clients
 
@@ -470,7 +473,7 @@ const init = async () => {
 }
 ```
 
-If you run your app with `pnpm dev`, the console will log ‘setup done’ when everything works.
+You must refresh your page after adding this code, as the initial site load will trigger the `init` function and set up the Safe account and the Smart account client. You can check the console to see if the setup was successful.
 
 ## 4. Install the 7579 module
 
@@ -556,9 +559,9 @@ const executeOnOwnedAccount = async () => {
 }
 ```
 
-Now, when you open the UI and click the “Execute on owned account” button, your console should log the transaction. You can inspect the transaction with Tenderly to follow the call stack from the module over the Safe 7579 adapter, to your Safe, and to the final receiver of the transaction.
+When you open the UI and click the “Execute on owned account” button, your console should log the transaction. You can inspect the transaction with Tenderly to follow the call stack from the module over the Safe 7579 adapter to your Safe and the transaction's final receiver.
 
-You also learned which data format is used to send a 7579 transaction from a module to a Safe. It is exactly the data you packed for the transaction in `executeOnOwnedAccountData`. Every other 7579 module uses the same data type to send transactions to a Safe. But with most other modules, you don’t have to pack the data yourself; you just call a function on the module, and the module sends the dedicated transaction to the smart account.
+You also learned the required data format to send a 7579 transaction from a module to a Safe. It is precisely the data you packed for the transaction in `executeOnOwnedAccountData`. Every other 7579 module uses the same data type to send transactions to a Safe. However, with most other modules, you don’t have to pack the data yourself; you call a function on the module, and the module sends the dedicated transaction to the smart account.
 
 ## 6. Interact with the 7579 module directly
 
@@ -605,6 +608,49 @@ const addOwner = async () => {
 ```
 
 When you open the UI and click the “Add Owner” button, your console should log the user operation that adds a new owner. Make sure to inspect the final transaction (you can get the transaction hash from jiffyscan.xyz) to understand the call stack from the smart account to the module.
+
+## 7. Uninstall the 7579 module
+
+The last step is to uninstall the module. If the module is no longer needed, you can remove it from the smart account.
+
+Replace the `uninstallModule` function with this code:
+
+```tsx
+ const uninstallModule = async () => {
+  setLoading(true)
+  console.log('Uninstalling module...')
+
+  // To uninstall the module, use the `uninstallModule`.
+  // You have to pack the abi parameter yourself:
+  // - previousEntry (address): The address of the previous entry in the module sentinel list.
+  // - deInitData (bytes): The data that is passed to the deInit function of the module.
+  // As this is the only module, the previous entry is the sentinel address 0x1. The deInitData is empty for the
+  // OwnableExecutor.
+  const userOp = await smartAccountClient.uninstallModule({
+    type: 'executor',
+    address: ownableExecutorModule,
+    context: encodeAbiParameters(
+      parseAbiParameters('address prevEntry, bytes memory deInitData'),
+      ['0x0000000000000000000000000000000000000001', '0x']
+    )
+  })
+
+  console.log('User operation:', userOp, '\nwaiting for tx receipt...')
+
+  // We wait for the transaction to be settled:
+  const receipt = await pimlicoClient.waitForUserOperationReceipt({
+    hash: userOp
+  })
+
+  console.log('Module uninstalled, tx receipt:', receipt)
+  setModuleIsUninstalled(true)
+  setLoading(false)
+}
+```
+
+In the last step of the UI, you can now click the “Uninstall Module” button to remove the module from the smart account. Notice that depending on the type of the 7579 module, the method required different `deInitData`. 
+
+Also, you have to pass the correct previous entry address to the `uninstallModule` function. If you have only one module installed, the previous entry is the [sentinel address](https://github.com/rhinestonewtf/sentinellist/blob/main/src/SentinelList.sol#L5) `0x1`.
 
 That’s it! You have successfully built an app that can interact with a Safe Smart Account using the ERC-7579 standard. You can now deploy and test your app with your Safes and modules.
 
