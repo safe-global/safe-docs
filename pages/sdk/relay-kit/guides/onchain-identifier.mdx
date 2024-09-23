@@ -1,10 +1,10 @@
 import { Tabs, Steps, Callout } from 'nextra/components'
 
-# Track ERC-4337 transactions with an onchain identifier
+# Track ERC-4337 transactions with an on-chain identifier
 
-In this guide, you will learn how to get an identifier and track all your ERC-4337 Safe transactions onchain by attaching it to the user operation's `callData`.
+In this guide, you will learn how to get an identifier and track all your ERC-4337 Safe transactions on-chain by attaching it to the user operation's `callData`.
 
-This guide summarizes all the steps included in the [Safe accounts with the Safe4337Module guide](./4337-safe-sdk.mdx), with an additional step to add the `onchainIdentifier` to your Safe transactions. If you already have the Relay Kit integrated, continue reading to learn how to get your onchain identifier, and feel free to jump straight to [step number five](#add-the-onchainidentifier-to-the-calldata) to learn how to use it afterward.
+This guide summarizes all the steps included in the [Safe accounts with the Safe4337Module guide](./4337-safe-sdk.mdx), with an additional step to add the `onchainIdentifier` to your Safe transactions. If you already have the Relay Kit integrated, continue reading to learn how to get your on-chain identifier, and feel free to jump straight to [step number five](#add-the-onchainidentifier-to-the-calldata) to learn how to use it afterward.
 
 ## Prerequisites
 
@@ -52,20 +52,20 @@ This guide summarizes all the steps included in the [Safe accounts with the Safe
 
   ### Get your on-chain identifier
 
-  This identifier is unique for every project and has a length of 16 bytes. You can create a random one or derive it from a text string, maybe from your project name:
+  This identifier must be unique for every project and has a length of 16 bytes. You can create a random one or derive it from a text string, maybe from your project name:
 
   {/* <!-- vale off --> */}
 
   ```typescript
   const onchainIdentifier = toHex(
-    'TEXT_TO_DERIVE_THE_IDENTIFIER', // Could be your project name
+    'TEXT_TO_DERIVE_THE_IDENTIFIER', // It could be your project name
     { size: 16 }
   )
   ```
 
   {/* <!-- vale on --> */}
 
-  If you are applying to the [Safe\{Core\} Gas Station Program](https://safe.global/gas-station), make sure to provide the value of `onchainIdentifier` in the [Gas Station form](https://wn2n6ocviur.typeform.com/gasstationapp) when asked.
+  Once generated, fill the [Ecosystem On-chain Tracking Form](https://docs.google.com/forms/d/e/1FAIpQLSfHWSPbSQwmo0mbtuFFewfLvDEOvTxfuvEl7AHOyrFE_dqpwQ/viewform) and provide the value of your `onchainIdentifier`.
 
   ### Initialize the `Safe4337Pack`
 
@@ -186,7 +186,7 @@ This guide summarizes all the steps included in the [Safe accounts with the Safe
 
   {/* <!-- vale on --> */}
 
-  Now, tracking all your transactions is possible by performing onchain queries looking for your identifier at the end of the `callData` field.
+  Now, tracking all your transactions is possible by performing on-chain queries looking for your identifier at the end of the `callData` field.
 
 </Steps>
 
