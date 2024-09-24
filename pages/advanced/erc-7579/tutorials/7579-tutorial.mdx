@@ -191,13 +191,11 @@ import {
   parseAbiParameters,
   Transport,
   HttpTransport,
-  Client
+  Client,
+  parseEther
 } from 'viem'
 import { Erc7579Actions, erc7579Actions } from 'permissionless/actions/erc7579'
-import {
-  createPimlicoClient,
-  PimlicoClient
-} from 'permissionless/clients/pimlico'
+import { createPimlicoClient } from 'permissionless/clients/pimlico'
 import {
   toSafeSmartAccount,
   ToSafeSmartAccountReturnType
@@ -210,11 +208,7 @@ export default function Home () {
   const [safeAccount, setSafeAccount] =
     useState<ToSafeSmartAccountReturnType<'0.7'> | null>(null)
   const [smartAccountClient, setSmartAccountClient] = useState<
-    | (Client<
-        HttpTransport,
-        typeof sepolia,
-        ToSafeSmartAccountReturnType<'0.7'>
-      > &
+    | (Client<HttpTransport, typeof sepolia> &
         Erc7579Actions<ToSafeSmartAccountReturnType<'0.7'>> & {
           sendUserOperation: (
             params: SendUserOperationParameters
@@ -244,7 +238,7 @@ export default function Home () {
   >({
     chain: sepolia,
     // @ts-expect-error MetaMask is a requirement for this tutorial
-    transport: custom(window.ethereum!)
+    transport: custom(typeof window !== 'undefined' ? window.ethereum! : null)
   })
 
   //  TODO: Make sure to add your own API key to the Pimlico URL:
@@ -252,11 +246,7 @@ export default function Home () {
     'https://api.pimlico.io/v2/sepolia/rpc?apikey=YOUR_PIMLICO_API_KEY'
 
   // The Pimlico client is used as a paymaster:
-  const pimlicoClient = createPimlicoClient<
-    '0.7',
-    HttpTransport,
-    typeof sepolia
-  >({
+  const pimlicoClient = createPimlicoClient({
     transport: http(pimlicoUrl),
     chain: sepolia
   })
@@ -479,12 +469,7 @@ const init = async () => {
   setSafeIsDeployed(await safeAccount.isDeployed())
 
   // Finally, we create the smart account client, which provides functionality to interact with the smart account:
-  const smartAccountClient = createSmartAccountClient<
-    HttpTransport,
-    typeof sepolia,
-    ToSafeSmartAccountReturnType<'0.7'>,
-    PimlicoClient<'0.7', HttpTransport, typeof sepolia>
-  >({
+  const smartAccountClient = createSmartAccountClient({
     account: safeAccount,
     chain: sepolia,
     bundlerTransport: http(pimlicoUrl),
@@ -577,7 +562,7 @@ const executeOnOwnedAccount = async () => {
   // In this example case, it is a dummy transaction with zero data.
   const executeOnOwnedAccountData = encodePacked(
     ['address', 'uint256', 'bytes'],
-    ['0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2', 0n, '0x']
+    ['0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2', parseEther('0'), '0x']
   )
 
   // Now, we call the `executeOnOwnedAccount` function of the `ownableExecutorModule` with the address of the safe
@@ -631,7 +616,13 @@ const addOwner = async () => {
   // We use the smart account client to send the user operation: In this call, our smart account calls the `addOwner`
   // function at the `ownableExecutorModule` with the new owner's address.
   const userOp = await smartAccountClient?.sendUserOperation({
-    calls: [{ to: ownableExecutorModule, value: 0n, data: addOwnerData }]
+    calls: [
+      {
+        to: ownableExecutorModule,
+        value: parseEther('0'),
+        data: addOwnerData
+      }
+    ]
   })
 
   console.log('User operation:', userOp, '\nwaiting for tx receipt...')
@@ -656,7 +647,7 @@ The last step is to uninstall the module. If the module is no longer needed, you
 Replace the `uninstallModule` function with this code:
 
 ```tsx
- const uninstallModule = async () => {
+const uninstallModule = async () => {
   setLoading(true)
   console.log('Uninstalling module...')
 
