@@ -123,7 +123,7 @@ Note that this guide will focus on supporting Ethereum and EVM-compatible wallet
           if (isLoggedIn && primaryWallet && isEthereumWallet(primaryWallet)) {
             const provider = await primaryWallet.getWalletClient()
 
-            const signerAddress = primaryWallet.address
+            const signer = primaryWallet.address
           }
         }
         init()
