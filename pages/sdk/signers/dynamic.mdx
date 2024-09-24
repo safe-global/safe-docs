@@ -75,7 +75,7 @@ Note that this guide will focus on supporting Ethereum and EVM-compatible wallet
 
   `DynamicContextProvider` receives an `environmentId` and other configuration options. Check [Dynamic React SDK documentation](https://docs.dynamic.xyz/sdks/react-sdk/providers/dynamiccontextprovider) to learn more about all the different configuration options.
 
-{/* <!-- vale off --> */}
+  {/* <!-- vale off --> */}
 
   ```typescript
   <DynamicContextProvider
@@ -102,7 +102,7 @@ Note that this guide will focus on supporting Ethereum and EVM-compatible wallet
 
   In the `App` component, add [the DynamicWidget component](https://docs.dynamic.xyz/sdks/react-sdk/components/dynamicwidget) that will handle all the login and authentication logic for you.
 
-{/* <!-- vale off --> */}
+  {/* <!-- vale off --> */}
 
   ```typescript
   import { DynamicWidget } from '@dynamic-labs/sdk-react-core'
@@ -125,26 +125,22 @@ Note that this guide will focus on supporting Ethereum and EVM-compatible wallet
   
   To do that there is a `useEffect()` that executes when any of the `isLoggedIn` and `primaryWallet` variables have their values updated. Once they are all `true`, you have access to the user's connected signer. Note that you should also check that the wallet is an Ethereum wallet using the `isEthereumWallet()` function.
 
-{/* <!-- vale off --> */}
+  {/* <!-- vale off --> */}
 
-  <Tabs items={['viem']}>
-    <Tabs.Tab>
-      You can instantiate the provider using `viem` and the following imports:
+  You can instantiate the provider and signer like so:
 
-      ```typescript
-      useEffect(() => {
-        const init = async () => {
-          if (isLoggedIn && primaryWallet && isEthereumWallet(primaryWallet)) {
-            const provider = await primaryWallet.getWalletClient()
+  ```typescript
+  useEffect(() => {
+    const init = async () => {
+      if (isLoggedIn && primaryWallet && isEthereumWallet(primaryWallet)) {
+        const provider = await primaryWallet.getWalletClient()
 
-            const signer = primaryWallet.address
-          }
-        }
-        init()
-      }, [isLoggedIn, primaryWallet])
-      ```
-    </Tabs.Tab>
-  </Tabs>
+        const signer = primaryWallet.address
+      }
+    }
+    init()
+  }, [isLoggedIn, primaryWallet])
+  ```
 
   {/* <!-- vale on --> */}
   
