@@ -122,7 +122,7 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
   ### Get the provider and signer
 
-  Once the user is logged in, you can get the `provider` and `signerAddress`, which is the externally-owned account of the user that was derived from its credentials.
+  Once the user is logged in, you can get the `provider` and `signer`, which is the externally-owned account of the user that was derived from its credentials.
 
   {/* <!-- vale off --> */}
 
@@ -141,14 +141,14 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
         transport: custom(web3authProvider)
       })
 
-      const signerAddress = await provider.getAddresses())[0]
+      const signer = await provider.getAddresses())[0]
       ```
     </Tabs.Tab>
   </Tabs>
 
   {/* <!-- vale on --> */}
 
-  With the `provider` and `signerAddress` you are ready to instantiate any of the kits from the Safe\{Core\} SDK and set up or use this signer as a Safe owner.
+  With the `provider` and `signer` you are ready to instantiate any of the kits from the Safe\{Core\} SDK and set up or use this signer as a Safe owner.
 
   ### Logout
 
@@ -166,7 +166,7 @@ Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on G
 
 ## Recap and further reading
 
-After following this guide, you are able to create a Safe signer using Web3Auth and get the `provider` and `signerAddress` required to initialize the kits from the Safe\{Core\} SDK.
+After following this guide, you are able to create a Safe signer using Web3Auth and get the `provider` and `signer` required to initialize the kits from the Safe\{Core\} SDK.
 
 Learn more about Web3Auth by checking the following resources:
 

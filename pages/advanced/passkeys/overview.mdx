@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material'
-import CustomCard from '../../components/CustomCard'
+import CustomCard from '../../../components/CustomCard'
 
 # What are passkeys?
 
@@ -45,6 +45,12 @@ Passkeys offer significant security improvements over traditional passwords. In 
 </Grid>
 
 Safe offers the capability to sign into your wallet using passkeys by implementing a dedicated module that verifies the integrity of the key provided.
+
+## Passkeys Support
+
+Passkeys and syncing are supported by Apple and Android devices. If a device uses [Cross-device authentication (CDA)](https://passkeys.dev/docs/reference/terms/#cross-device-authentication-cda), its passkeys will be portable to other devices. You can read more about device support [here](https://passkeys.dev/device-support/#matrix). 
+
+Passkeys can also be integrated with ERC-4337, providing enhanced user experience in managing web3 accounts. See our tutorials to build your own implementation, or check out [ERC-4337 support contract for passkeys](https://github.com/safe-global/safe-modules/tree/main/modules/passkey/contracts/4337) for more information.
 
 ## Further reading
 

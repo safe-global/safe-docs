@@ -1,0 +1,54 @@
+import { Tabs } from 'nextra/components'
+
+# `getModuleTransactions`
+
+Returns the history of module transactions of a Safe account.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const safeAddress = '0x...'
+
+    const moduleTxs = await apiKit.getModuleTransactions(
+      safeAddress
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeModuleTransactionListResponse>`
+
+The history of Safe transactions triggered by a module.
+
+## Parameters
+
+### `safeAddress`
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+const moduleTxs = await apiKit.getModuleTransactions(
+  '0x...'
+)
+```

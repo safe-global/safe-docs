@@ -1,0 +1,443 @@
+import { Tabs } from 'nextra/components'
+
+# `addSafeOperation`
+
+Adds a new ERC-4337 Safe operation for a given Safe account.
+
+## Usage
+
+A Safe operation can be created by using the [createTransaction](../sdk/relay-kit/reference/safe-4337-pack.mdx#createtransactionsafe4337createtransactionprops) method from the `Safe4337Pack`.
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'exampleWith4337Pack.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { AddSafeOperationProps } from '@safe-global/api-kit'
+    import { apiKit } from './setup.ts'
+
+    const userOperation = {
+      sender: '0x...',
+      nonce: '10',
+      initCode: '0x...',
+      callData: '0x...',
+      callGasLimit: 123n,
+      verificationGasLimit: 123n,
+      preVerificationGas: 123n,
+      maxFeePerGas: 123n,
+      maxPriorityFeePerGas: 123n,
+      paymasterAndData: '0x...',
+      signature: '0x...'
+    }
+
+    const config: AddSafeOperationProps = {
+      entryPoint: '0x...',
+      moduleAddress: '0x...',
+      safeAddress: '0x...',
+      userOperation,
+      options: { // Optional
+        validAfter: currentTimestamp - 60_000, // Optional
+        validUntil: currentTimestamp + 60_000 // Optional
+      }
+    }
+
+    await apiKit.addSafeOperation(config)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { addSafeOperationProps } from '@safe-global/api-kit'
+    import { MetaTransactionData } from '@safe-global/relay-kit'
+    import { apiKit, safe4337Pack } from './setup.ts'
+
+    const transactionData: MetaTransactionData = {
+      to: '0x...',
+      value: '0',
+      data: '0x...',
+      operation: 0 // Optional
+    }
+    const safeOperation = await safe4337Pack.createTransaction({
+      transactions: [transaction]
+    })
+    const signedSafeOperation = await safe4337Pack.signSafeOperation(
+      safeOperation
+    )
+
+    await apiKit.addSafeOperation(signedSafeOperation)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+    import Safe4337Pack from '@safe-global/relay-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n // Mainnet
+    })
+
+    export const safe4337Pack = await Safe4337Pack.init({
+      // options
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `entryPoint`
+
+- **Type:** `string`
+
+Address of the `EntryPoint` contract.
+
+```typescript focus=2
+await apiKit.addSafeOperation({
+    entryPoint: '0x...',
+    moduleAddress: '0x...',
+    safeAddress: '0x...',
+    userOperation
+  })
+```
+
+### `moduleAddress`
+
+- **Type:** `string`
+
+Address of the `Safe4337Module` contract.
+
+```typescript focus=3
+await apiKit.addSafeOperation({
+    entryPoint: '0x...',
+    moduleAddress: '0x...',
+    safeAddress: '0x...',
+    userOperation
+  })
+```
+
+### `safeAddress`
+
+- **Type:** `string`
+
+Address of the Safe to add a Safe operation for.
+
+```typescript focus=4
+await apiKit.addSafeOperation({
+    entryPoint: '0x...',
+    moduleAddress: '0x...',
+    safeAddress: '0x...',
+    userOperation
+  })
+```
+
+### `safeOperation.sender`
+
+- **Type:** `string`
+
+```typescript focus=6
+await apiKit.addSafeOperation({
+  entryPoint: '0x...',
+  moduleAddress: '0x...',
+  safeAddress: '0x...',
+  userOperation: {
+    sender: '0x...',
+    nonce: '10',
+    initCode: '0x...',
+    callData: '0x...',
+    callGasLimit: 123n,
+    verificationGasLimit: 123n,
+    preVerificationGas: 123n,
+    maxFeePerGas: 123n,
+    maxPriorityFeePerGas: 123n,
+    paymasterAndData: '0x...',
+    signature: '0x...'
+  }
+})
+```
+
+### `safeOperation.nonce`
+
+- **Type:** `string`
+
+```typescript focus=7
+await apiKit.addSafeOperation({
+  entryPoint: '0x...',
+  moduleAddress: '0x...',
+  safeAddress: '0x...',
+  userOperation: {
+    sender: '0x...',
+    nonce: '10',
+    initCode: '0x...',
+    callData: '0x...',
+    callGasLimit: 123n,
+    verificationGasLimit: 123n,
+    preVerificationGas: 123n,
+    maxFeePerGas: 123n,
+    maxPriorityFeePerGas: 123n,
+    paymasterAndData: '0x...',
+    signature: '0x...'
+  }
+})
+```
+
+### `safeOperation.initCode`
+
+- **Type:** `string`
+
+```typescript focus=8
+await apiKit.addSafeOperation({
+  entryPoint: '0x...',
+  moduleAddress: '0x...',
+  safeAddress: '0x...',
+  userOperation: {
+    sender: '0x...',
+    nonce: '10',
+    initCode: '0x...',
+    callData: '0x...',
+    callGasLimit: 123n,
+    verificationGasLimit: 123n,
+    preVerificationGas: 123n,
+    maxFeePerGas: 123n,
+    maxPriorityFeePerGas: 123n,
+    paymasterAndData: '0x...',
+    signature: '0x...'
+  }
+})
+```
+
+### `safeOperation.callData`
+
+- **Type:** `string`
+
+```typescript focus=9
+await apiKit.addSafeOperation({
+  entryPoint: '0x...',
+  moduleAddress: '0x...',
+  safeAddress: '0x...',
+  userOperation: {
+    sender: '0x...',
+    nonce: '10',
+    initCode: '0x...',
+    callData: '0x...',
+    callGasLimit: 123n,
+    verificationGasLimit: 123n,
+    preVerificationGas: 123n,
+    maxFeePerGas: 123n,
+    maxPriorityFeePerGas: 123n,
+    paymasterAndData: '0x...',
+    signature: '0x...'
+  }
+})
+```
+
+### `safeOperation.callGasLimit`
+
+- **Type:** `bigint`
+
+```typescript focus=10
+await apiKit.addSafeOperation({
+  entryPoint: '0x...',
+  moduleAddress: '0x...',
+  safeAddress: '0x...',
+  userOperation: {
+    sender: '0x...',
+    nonce: '10',
+    initCode: '0x...',
+    callData: '0x...',
+    callGasLimit: 123n,
+    verificationGasLimit: 123n,
+    preVerificationGas: 123n,
+    maxFeePerGas: 123n,
+    maxPriorityFeePerGas: 123n,
+    paymasterAndData: '0x...',
+    signature: '0x...'
+  }
+})
+```
+
+### `safeOperation.verificationGasLimit`
+
+- **Type:** `bigint`
+
+```typescript focus=11
+await apiKit.addSafeOperation({
+  entryPoint: '0x...',
+  moduleAddress: '0x...',
+  safeAddress: '0x...',
+  userOperation: {
+    sender: '0x...',
+    nonce: '10',
+    initCode: '0x...',
+    callData: '0x...',
+    callGasLimit: 123n,
+    verificationGasLimit: 123n,
+    preVerificationGas: 123n,
+    maxFeePerGas: 123n,
+    maxPriorityFeePerGas: 123n,
+    paymasterAndData: '0x...',
+    signature: '0x...'
+  }
+})
+```
+
+### `safeOperation.preVerificationGas`
+
+- **Type:** `bigint`
+
+```typescript focus=12
+await apiKit.addSafeOperation({
+  entryPoint: '0x...',
+  moduleAddress: '0x...',
+  safeAddress: '0x...',
+  userOperation: {
+    sender: '0x...',
+    nonce: '10',
+    initCode: '0x...',
+    callData: '0x...',
+    callGasLimit: 123n,
+    verificationGasLimit: 123n,
+    preVerificationGas: 123n,
+    maxFeePerGas: 123n,
+    maxPriorityFeePerGas: 123n,
+    paymasterAndData: '0x...',
+    signature: '0x...'
+  }
+})
+```
+
+### `safeOperation.maxFeePerGas`
+
+- **Type:** `bigint`
+
+```typescript focus=13
+await apiKit.addSafeOperation({
+  entryPoint: '0x...',
+  moduleAddress: '0x...',
+  safeAddress: '0x...',
+  userOperation: {
+    sender: '0x...',
+    nonce: '10',
+    initCode: '0x...',
+    callData: '0x...',
+    callGasLimit: 123n,
+    verificationGasLimit: 123n,
+    preVerificationGas: 123n,
+    maxFeePerGas: 123n,
+    maxPriorityFeePerGas: 123n,
+    paymasterAndData: '0x...',
+    signature: '0x...'
+  }
+})
+```
+
+### `safeOperation.maxPriorityFeePerGas`
+
+- **Type:** `bigint`
+
+```typescript focus=14
+await apiKit.addSafeOperation({
+  entryPoint: '0x...',
+  moduleAddress: '0x...',
+  safeAddress: '0x...',
+  userOperation: {
+    sender: '0x...',
+    nonce: '10',
+    initCode: '0x...',
+    callData: '0x...',
+    callGasLimit: 123n,
+    verificationGasLimit: 123n,
+    preVerificationGas: 123n,
+    maxFeePerGas: 123n,
+    maxPriorityFeePerGas: 123n,
+    paymasterAndData: '0x...',
+    signature: '0x...'
+  }
+})
+```
+
+### `safeOperation.paymasterAndData`
+
+- **Type:** `string`
+
+```typescript focus=15
+await apiKit.addSafeOperation({
+  entryPoint: '0x...',
+  moduleAddress: '0x...',
+  safeAddress: '0x...',
+  userOperation: {
+    sender: '0x...',
+    nonce: '10',
+    initCode: '0x...',
+    callData: '0x...',
+    callGasLimit: 123n,
+    verificationGasLimit: 123n,
+    preVerificationGas: 123n,
+    maxFeePerGas: 123n,
+    maxPriorityFeePerGas: 123n,
+    paymasterAndData: '0x...',
+    signature: '0x...'
+  }
+})
+```
+
+### `safeOperation.signature`
+
+- **Type:** `string`
+
+```typescript focus=16
+await apiKit.addSafeOperation({
+  entryPoint: '0x...',
+  moduleAddress: '0x...',
+  safeAddress: '0x...',
+  userOperation: {
+    sender: '0x...',
+    nonce: '10',
+    initCode: '0x...',
+    callData: '0x...',
+    callGasLimit: 123n,
+    verificationGasLimit: 123n,
+    preVerificationGas: 123n,
+    maxFeePerGas: 123n,
+    maxPriorityFeePerGas: 123n,
+    paymasterAndData: '0x...',
+    signature: '0x...'
+  }
+})
+```
+
+### `options.validAfter` (Optional)
+
+- **Type:** `number`
+
+The user operation will be valid after this block's timestamp.
+
+```typescript focus=7
+await apiKit.addSafeOperation({
+  entryPoint: '0x...',
+  moduleAddress: '0x...',
+  safeAddress: '0x...',
+  userOperation,
+  options: {
+    validAfter: currentTimestamp - 60_000
+  }
+})
+```
+
+### `options.validUntil` (Optional)
+
+- **Type:** `number`
+
+The user operation will remain valid until this block's timestamp.
+
+```typescript focus=7
+await apiKit.addSafeOperation({
+  entryPoint: '0x...',
+  moduleAddress: '0x...',
+  safeAddress: '0x...',
+  userOperation,
+  options: {
+    validUntil: currentTimestamp + 60_000
+  }
+})
+```

@@ -45,7 +45,7 @@ async function showSafeInfo(passkey: PasskeyArgType) {
 <template>
   <div
     v-if="Object.keys(store.selectedPasskey).length === 0"
-    class="mt-20 bg-stone-800 p-8 rounded w-fit flex flex-col items-center"
+    class="mt-20 dark:bg-stone-800 bg-stone-50 p-8 rounded w-fit flex flex-col items-center"
   >
     <h1 class="text-4xl text-[#12FF80]">Use Safe Account via Passkeys</h1>
     <h2 class="my-12">Create a new Safe using Passkeys</h2>
