@@ -55,6 +55,20 @@ Note that this guide will focus on supporting Ethereum and EVM-compatible wallet
 
   {/* <!-- vale on --> */}
 
+  ### Get the Environment ID
+
+  Once you create a new Dynamic project in [the dashboard](https://app.dynamic.xyz), you will find your environment ID in [the SDK & API Keys page](https://app.dynamic.xyz/dashboard/developer/api).
+
+  Once you have it, you need to initialize the `DYNAMIC_ENVIRONMENT_ID` variable with it.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const DYNAMIC_ENVIRONMENT_ID = // ...
+  ```
+
+  {/* <!-- vale on --> */}
+
   ### Initialize Dynamic
 
   Dynamic works with React hooks. This means you can wrap your app with the `DynamicContextProvider` and have access to several react hooks like `useDynamicContext()` that will provide all the functionality.
