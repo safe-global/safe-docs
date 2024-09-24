@@ -109,7 +109,7 @@ Note that this guide will focus on supporting Ethereum and EVM-compatible wallet
 
   Once the user is logged in through the DynamicWidget, you can get the `provider` and `signerAddress`, which is the externally owned account of the user that was derived from its credentials.
   
-  To do that there is a `useEffect()` that executes when any of the `isLoggedIn` and `primaryWallet` variables have their values updated. Once they are all true, you have access to the user's connected signer. Note that we are also checking that the wallet is an Ethereum wallet using the `isEthereumWallet()` function.
+  To do that there is a `useEffect()` that executes when any of the `isLoggedIn` and `primaryWallet` variables have their values updated. Once they are all `true`, you have access to the user's connected signer. Note that you should also check that the wallet is an Ethereum wallet using the `isEthereumWallet()` function.
 
 {/* <!-- vale off --> */}
 
