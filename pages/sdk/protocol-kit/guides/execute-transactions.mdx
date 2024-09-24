@@ -167,6 +167,38 @@ const safeTransactionData: MetaTransactionData = {
 const safeTransaction = await protocolKitOwner1.createTransaction({ transactions: [safeTransactionData] })
 ```
 
+### Track the Safe transaction
+
+Optionally, you can track all your Safe transactions on-chain by attaching an on-chain identifier to the `data` property.
+
+This identifier must be unique for every project and has a length of 16 bytes. You can create a random one or derive it from a text string, maybe from your project name:
+
+{/* <!-- vale off --> */}
+
+```typescript
+const onchainIdentifier = toHex(
+  'TEXT_TO_DERIVE_THE_IDENTIFIER', // It could be your project name
+  { size: 16 }
+)
+```
+
+{/* <!-- vale on --> */}
+
+Once generated, fill the [Ecosystem On-chain Tracking Form](https://docs.google.com/forms/d/e/1FAIpQLSfHWSPbSQwmo0mbtuFFewfLvDEOvTxfuvEl7AHOyrFE_dqpwQ/viewform) and provide the value of your `onchainIdentifier`.
+
+Add the `onchainIdentifier` at the end of the Safe transaction `data`.
+
+{/* <!-- vale off --> */}
+
+```typescript
+safeTransaction.data.data = concat([
+  safeOperation.data.data as `0x{string}`,
+  onchainIdentifier
+]).toString()
+```
+
+{/* <!-- vale on --> */}
+
 ### Propose the transaction
 
 To propose a transaction to the Safe Transaction Service we need to call the `proposeTransaction` method from the API Kit instance.
