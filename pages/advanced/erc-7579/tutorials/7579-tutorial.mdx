@@ -189,7 +189,6 @@ import {
   custom,
   encodeAbiParameters,
   parseAbiParameters,
-  Transport,
   HttpTransport,
   Client,
   parseEther
@@ -226,20 +225,12 @@ export default function Home () {
   const [ownerIsAdded, setOwnerIsAdded] = useState(false)
   const [moduleIsUninstalled, setModuleIsUninstalled] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [walletClient, setWalletClient] = useState<ReturnType<
+    typeof createWalletClient
+  > | null>(null)
 
   // The module we will use is deployed as a smart contract on Sepolia:
   const ownableExecutorModule = '0xc98B026383885F41d9a995f85FC480E9bb8bB891'
-
-  // We create a wallet client to connect to MetaMask:
-  const walletClient = createWalletClient<
-    Transport,
-    typeof sepolia,
-    `0x${string}`
-  >({
-    chain: sepolia,
-    // @ts-expect-error MetaMask is a requirement for this tutorial
-    transport: custom(typeof window !== 'undefined' ? window.ethereum! : null)
-  })
 
   //  TODO: Make sure to add your own API key to the Pimlico URL:
   const pimlicoUrl =
@@ -251,15 +242,26 @@ export default function Home () {
     chain: sepolia
   })
 
+  useEffect(() => {
+    // We create a wallet client to connect to MetaMask:
+    const walletClient = createWalletClient({
+      chain: sepolia,
+      // @ts-expect-error MetaMask is a requirement for this tutorial
+      transport: custom(typeof window !== 'undefined' ? window.ethereum! : null)
+    })
+    setWalletClient(walletClient)
+  }, [])
+
   // Check for connected accounts on page load:
   useEffect(() => {
     checkAddresses()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [walletClient])
 
   // Check whether the user has connected two accounts, without MetaMask popping up:
   const checkAddresses = async () => {
-    const addresses = await walletClient.getAddresses()
+    if (!walletClient) return
+    const addresses = await walletClient!.getAddresses()
     setOwnerAddress(addresses[0])
     setExecutorAddress(addresses[1])
     if (addresses.length >= 2) {
@@ -269,7 +271,7 @@ export default function Home () {
 
   const connectWallets = async () => {
     // Only at the request address call, MetaMask will pop up and ask the user to connect:
-    await walletClient.requestAddresses()
+    await walletClient!.requestAddresses()
     checkAddresses()
   }
 
@@ -458,7 +460,8 @@ const init = async () => {
     '0xEBe001b3D534B9B6E2500FB78E67a1A137f561CE'
   >({
     client: publicClient,
-    owners: [walletClient],
+    // @ts-expect-error The wallet client is set in the useEffect
+    owners: [walletClient!],
     version: '1.4.1',
     // These modules are required for the 7579 functionality:
     safe4337ModuleAddress: '0x3Fdb5BC686e861480ef99A6E3FaAe03c0b9F32e2', // These are not meant to be used in production as of now.
@@ -567,7 +570,8 @@ const executeOnOwnedAccount = async () => {
 
   // Now, we call the `executeOnOwnedAccount` function of the `ownableExecutorModule` with the address of the safe
   // account and the data we want to execute. This will make our smart account send the transaction that is encoded above.
-  const hash = await walletClient.writeContract({
+  const hash = await walletClient!.writeContract({
+    chain: sepolia,
     account: executorAddress as `0x${string}`,
     abi: parseAbi(['function executeOnOwnedAccount(address, bytes)']),
     functionName: 'executeOnOwnedAccount',
