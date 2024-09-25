@@ -1,34 +1,32 @@
 import { Callout } from 'nextra/components'
 
 
-# **How to build an app with Safe and ERC-7579**
+# How to build an app with Safe and ERC-7579
 
-The smart account ecosystem was fragmented, with each provider building its own modules often incompatible with other smart account implementations. Developers had to build new modules compatible with their smart accounts or miss out on essential application features.
+The smart account ecosystem needed to be more cohesive. Each provider built its modules, which were often incompatible with other smart account implementations. Developers had to build new modules compatible with their smart accounts or miss out on essential application features.
 
-[ERC-7579](https://docs.safe.global/advanced/erc-7579/overview) aims to ensure interoperability across implementations. It defines the account interface so developers can implement modules for all smart accounts that follow this standard. The Safe7579 Adapter makes your Safe compatible with any ERC-7579 modules. As a developer building with Safe, you get access to a rich ecosystem of modules to make your application feature-rich.
+[ERC-7579](https://docs.safe.global/advanced/erc-7579/overview) aims to ensure interoperability across implementations. It defines the account interface so developers can implement modules for all smart accounts that follow this standard. The Safe7579 Adapter makes your Safe compatible with any ERC-7579 modules. As a developer building with Safe, you can access a rich ecosystem of modules to add features to your application.
 
-Let's say you want to build an app to enable scheduling transfers for monthly salaries to a team of contributors. However, Safe does not offer a native module for scheduling transfers. With the ERC-7579 compatibility, you can use Rhinestone's [Scheduled Transfer module](https://docs.rhinestone.wtf/module-sdk/modules/scheduled-transfers) with Safe to build an app to schedule transfers ahead of time.
+In this tutorial, you will build an app that can:
 
-This tutorial will teach you to build an app that can:
+- Enable a 7579 module on a newly deployed Safe (the [OwnableExecutor](https://github.com/rhinestonewtf/core-modules/blob/main/src/OwnableExecutor/OwnableExecutor.sol) module by Rhinestone)
+- Send a transaction via the 7579 module (Send a dummy transaction as the new owner via `executeOnOwnedAccount`)
+- Interact with the 7579 directly to add a new owner to the module
 
-- Deploy an ERC-7579-compatible Safe Smart Account.
-- Create a scheduled transaction.
-- Execute it at the requested date and time.
-
-![screenshot](../../../../assets/7579-tutorial.png)
+The full code for this tutorial is in the [Safe7579 module tutorial repository](https://github.com/5afe/safe-7579-tutorial).
 
 ## Prerequisites
 
 **Prerequisite knowledge:** You will need some basic experience with [React](https://react.dev/learn), [Next.js](https://nextjs.org/docs), [ERC-4337](https://docs.safe.global/home/4337-overview) and [ERC-7579](https://docs.safe.global/advanced/erc-7579/overview).
 
-Before progressing with the tutorial, please make sure you have:
+Before progressing with the tutorial, please make sure you have the following:
 
 - Downloaded and installed [Node.js](https://nodejs.org/en/download/package-manager) and [pnpm](https://pnpm.io/installation).
 - Created an API key from [Pimlico](https://www.pimlico.io/).
+- Metamask installed in your browser and connected to the Sepolia network.
+- Two test accounts in Metamask, the second with some Sepolia Eth for gas.
 
-**Note:** If you wish to follow along using the completed project, you can [check out the GitHub repository](https://github.com/5afe/safe-7579-tutorial) for this tutorial.
-
-## **1. Setup a Next.js application**
+## 1. Setup a Next.js application
 
 Initialize a new Next.js app using pnpm with the following command:
 
@@ -41,152 +39,667 @@ When prompted by the CLI:
 - Select `yes` to TypeScript, ESLint, and App router.
 - Select `no` to all other questions (Tailwind, `src` directory, and import aliases).
 
-### **Install dependencies**
+### Install dependencies
 
-For this project, we'll use Pimlico's [Permissionless.js](https://docs.pimlico.io/permissionless) to set up a Safe and interact with it, Rhinestone's [Module SDK](https://docs.rhinestone.wtf/module-sdk) to install and use core modules, and the [Protocol Kit](../../../sdk/protocol-kit) to get our Safe data. We will also use [viem](https://www.npmjs.com/package/viem) for some helper functions and [@svgr/webpack](https://www.npmjs.com/package/@svgr/webpack) to load SVG files.
+For this project, you will use Pimlico's [Permissionless.js](https://docs.pimlico.io/permissionless) to set up a Safe and interact with it and [viem](https://www.npmjs.com/package/viem) for some helper functions.
 
 <Callout type='warning' emoji='⚠️'>
-  As of now, `permissionless.js` can only be used to deploy single-signer Safe accounts. Multi-signature ERC-7579 Safes will be coming soon.
+ Currently, `permissionless.js` can only be used to deploy single-signer Safe accounts. Multi-signature ERC-7579 Safes will be coming soon.
 </Callout>
 
 Run the following command to add all these dependencies to the project:
 
 ```shell
-pnpm add permissionless viem @rhinestone/module-sdk @safe-global/protocol-kit @svgr/webpack
+pnpm add permissionless@0.2.0 viem@2.21.7 truncate-eth-address@1.0.2
 ```
 
-Now, create a file named `.env.local` at the root of your project, and add your Pimlico API key to it:
+## 2. Setup project
 
-```shell
-echo "NEXT_PUBLIC_PIMLICO_API_KEY='your_pimlico_api_key_goes_here'" > .env.local
-```
+First, set up the project and add some UI and styles so you can focus on the 7579-related code for the rest of the tutorial.
 
-### **Run the development server**
+### Add CSS
 
-Run the local development server with the following command:
-
-```shell
-pnpm dev
-```
-
-Go to `http://localhost:3000` in your browser to see the default Next.js application.
-
-![screenshot-default](../../../../assets/next.png)
-
-## 2. Initialize `permissionless` client
-
-Create a `lib` folder at the project root, and add a file `permissionless.ts`:
-
-```shell
-mkdir lib
-cd lib
-touch permissionless.ts
-```
-
-Add the code necessary to create Pimlico's `smartAccountClient` by adding this content to `permissionless.ts` :
-
-```typescript
-// from ../../../../examples/erc-7579/lib/permissionless.ts
-```
-
-It will:
-- Load a `PRIVATE_KEY` from `.env.local` (or generate one if it doesn't exist);
-- Create the `publicClient`, `paymasterClient` and `bundlerClient` necessary to initialize the `permissionless` library;
-- Create an ERC-7579-compatible Safe Smart Account from the generated private key 
-- Pass the Safe Smart Account object to `createSmartAccountClient` to generate a Permissionless client.
-
-We can then call `getSmartAccountClient()` wherever we need to interact with the Safe via Pimlico.
-
-## 3. Add Rhinestone module functionality
-
-Create a new file `scheduledTransfers.ts` in the `lib` folder:
-
-```shell
-touch scheduledTransfers.ts
-```
-
-Add the code necessary to create a scheduled transfer using Rhinestone's `ScheduledTransfers` module:
-```typescript
-// from ../../../../examples/erc-7579/lib/scheduledTransfers.ts
-```
-
-This file contains two functions:
-- `install7579Module` will install the module to a Safe and schedule its first transfer; 
-- `scheduleTransfer` to schedule subsequent transfers in a Safe where the module has been previously installed.
-
-In the UI, we can then detect whether the Safe has the module installed when a user tries to schedule a transfer. If not, it will run `install7579Module`; and if it does, it will run `scheduleTransfer`.
-
-For brevity, we are only covering a simple use case of the `ScheduledTransfers` module. You can find more information about the module's functionalities in the [Rhinestone documentation](https://docs.rhinestone.wtf/module-sdk/modules/scheduled-transfers), such as the capacity to schedule recurring transfers, with a pre-determined number of repeats.
-
-## 4. Add UI components
-
-Now that we have the logic necessary to set up a safe and schedule a transfer, let's create a simple UI to interact with it. Create a new file `ScheduledTransferForm.tsx` in the `components` folder:
-
-```shell
-cd ..
-mkdir components
-cd components
-touch ScheduledTransferForm.tsx
-```
-
-Add the following code to `ScheduledTransferForm.tsx`:
-
-```tsx
-// from ../../../../examples/erc-7579/components/ScheduledTransferForm.tsx
-```
-
-This component will provide a form to allow the user to input the amount, receiver address, and date and time for the scheduled transfer. It will detect whether the Safe has the module installed, and then call either `install7579Module` or `scheduleTransfer` from the `scheduledTransfers.ts` file.
-
-Now, edit `app/page.tsx` to include the `ScheduledTransferForm` component:
-
-```tsx
-// from ../../../../examples/erc-7579/app/page.tsx
-```
-
-## 5. Add styling (optional)
-
-We can add some styling to our app by editing the contents of `layout.tsx` in `app` folder:
-
-```tsx
-// from ../../../../examples/erc-7579/app/layout.tsx
-```
-
-This will add some basic styling to the app, including a header. You can also add some custom CSS to `globals.css` in the same folder:
+Replace the content of `app/globals.css` with the following:
 
 ```css
-// from ../../../../examples/erc-7579/app/globals.css
+:root {
+    background-color: #121312; 
+    font-family: Citerne, 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+body {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 6rem auto;
+  width: 500px;
+}
+
+.card {
+  background-color: #1c1c1c;
+  border-radius: 6px;
+  margin-bottom: 24px;
+  padding: 24px;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 100px rgba(18, 255, 128, 0.2);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 35px;
+  font-size: large;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 50px;
+}
+
+button {
+  background-color: #12ff80;
+  border: none;
+  border-radius: 6px;
+  color: rgba(0, 0, 0, 0.87);
+  border: 1px solid #12ff80;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 8px 24px;
+  position: relative;
+}
+button.skip {
+  background-color: transparent;
+  border: 1px solid #12ff80;
+  color: #12ff80;
+}
+
+.button--loading {
+  color: transparent;
+  background-color: transparent;
+}
+
+.button--loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 4px solid transparent;
+  border-top-color: #12ff80;
+  border-radius: 50%;
+  animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+pre {
+  border: 1px solid #303033;
+  border-radius: 8px;
+  color: #a1a3a7;
+  margin: 24px 0;
+  padding: 24px;
+  text-align: center;
+}
 ```
 
-To add some icons to the app, we will need to edit the `next.config.mjs` file at the root of the project to load SVG files:
+### Add a scaffold React component
 
-```js
-// from ../../../../examples/erc-7579/next.config.mjs
+Now, replace the content of `app/page.tsx` with the following code. It includes all necessary imports, the React component and the UI, and empty functions you will fill with code in the following steps. From now on, you will only work on this file.
+
+```tsx
+'use client'
+
+import { createSmartAccountClient } from 'permissionless'
+import { sepolia } from 'viem/chains'
+import {
+  encodePacked,
+  http,
+  encodeFunctionData,
+  parseAbi,
+  createWalletClient,
+  createPublicClient,
+  custom,
+  encodeAbiParameters,
+  parseAbiParameters,
+  HttpTransport,
+  Client,
+  parseEther
+} from 'viem'
+import { Erc7579Actions, erc7579Actions } from 'permissionless/actions/erc7579'
+import { createPimlicoClient } from 'permissionless/clients/pimlico'
+import {
+  toSafeSmartAccount,
+  ToSafeSmartAccountReturnType
+} from 'permissionless/accounts'
+import { useEffect, useState } from 'react'
+import truncateEthAddress from 'truncate-eth-address'
+import { SendUserOperationParameters } from 'viem/account-abstraction'
+
+export default function Home () {
+  const [safeAccount, setSafeAccount] =
+    useState<ToSafeSmartAccountReturnType<'0.7'> | null>(null)
+  const [smartAccountClient, setSmartAccountClient] = useState<
+    | (Client<HttpTransport, typeof sepolia> &
+        Erc7579Actions<ToSafeSmartAccountReturnType<'0.7'>> & {
+          sendUserOperation: (
+            params: SendUserOperationParameters
+          ) => Promise<string>
+        })
+    | null
+  >(null)
+  const [ownerAddress, setOwnerAddress] = useState<string | null>(null)
+  const [executorAddress, setExecutorAddress] = useState<string | null>(null)
+  const [safeAddress, setSafeAddress] = useState<string | null>(null)
+  const [safeIsDeployed, setSafeIsDeployed] = useState(false)
+  const [moduleIsInstalled, setModuleIsInstalled] = useState(false)
+  const [executorTransactionIsSent, setExecutorTransactionIsSent] =
+    useState(false)
+  const [ownerIsAdded, setOwnerIsAdded] = useState(false)
+  const [moduleIsUninstalled, setModuleIsUninstalled] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [walletClient, setWalletClient] = useState<ReturnType<
+    typeof createWalletClient
+  > | null>(null)
+
+  // The module we will use is deployed as a smart contract on Sepolia:
+  const ownableExecutorModule = '0xc98B026383885F41d9a995f85FC480E9bb8bB891'
+
+  //  TODO: Make sure to add your own API key to the Pimlico URL:
+  const pimlicoUrl =
+    'https://api.pimlico.io/v2/sepolia/rpc?apikey=YOUR_PIMLICO_API_KEY'
+
+  // The Pimlico client is used as a paymaster:
+  const pimlicoClient = createPimlicoClient({
+    transport: http(pimlicoUrl),
+    chain: sepolia
+  })
+
+  useEffect(() => {
+    // We create a wallet client to connect to MetaMask:
+    const walletClient = createWalletClient({
+      chain: sepolia,
+      // @ts-expect-error MetaMask is a requirement for this tutorial
+      transport: custom(typeof window !== 'undefined' ? window.ethereum! : null)
+    })
+    setWalletClient(walletClient)
+  }, [])
+
+  // Check for connected accounts on page load:
+  useEffect(() => {
+    checkAddresses()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [walletClient])
+
+  // Check whether the user has connected two accounts, without MetaMask popping up:
+  const checkAddresses = async () => {
+    if (!walletClient) return
+    const addresses = await walletClient!.getAddresses()
+    setOwnerAddress(addresses[0])
+    setExecutorAddress(addresses[1])
+    if (addresses.length >= 2) {
+      init()
+    }
+  }
+
+  const connectWallets = async () => {
+    // Only at the request address call, MetaMask will pop up and ask the user to connect:
+    await walletClient!.requestAddresses()
+    checkAddresses()
+  }
+
+  // The public client is required for the safe account creation:
+  const publicClient = createPublicClient({
+    transport: http('https://rpc.ankr.com/eth_sepolia'),
+    chain: sepolia
+  })
+
+  // The following functions will be filled with code in the following steps:
+
+  const init = async () => {}
+
+  const installModule = async () => {}
+
+  const executeOnOwnedAccount = async () => {}
+
+  const addOwner = async () => {}
+
+  const uninstallModule = async () => {}
+
+  // Depending on the state of the tutorial, different cards are displayed:
+  // Step 1: Connect Wallets
+  if (!ownerAddress || !executorAddress) {
+    return (
+      <div className='card'>
+        <div className='title'>Connect two accounts</div>
+        <div>
+          Please ensure to connect with two accounts to this site. The second
+          account needs to have some Sepolia Eth for gas.
+        </div>
+        <div className='actions'>
+          <button onClick={connectWallets}>Connect Wallet</button>
+        </div>
+      </div>
+    )
+  }
+
+  // Step 2: Install Module
+  if (!moduleIsInstalled) {
+    return (
+      <div className='card'>
+        <div className='title'>Install Module</div>
+        <div>
+          Your Safe has the address{' '}
+          {safeAddress && truncateEthAddress(safeAddress)} and is{' '}
+          {safeIsDeployed ? 'deployed' : 'not yet deployed'}.
+          {!safeIsDeployed &&
+            'It will be deployed with your first transaction, when you install the module.'}
+        </div>
+        <div>
+          You can now install the module. MetaMask will ask you to sign a
+          message with the first account after clicking the button.
+        </div>
+        <div className='actions'>
+          <button
+            onClick={installModule}
+            className={loading ? 'button--loading' : ''}
+          >
+            Install Module
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // Step 3: Execute on Owned Account
+  if (!executorTransactionIsSent) {
+    return (
+      <div className='card'>
+        <div className='title'>Execute on owned account</div>
+        <div>
+          You can now execute a transaction on the owned account as the
+          executor. In this case, you will send a dummy transaction. But you
+          could also claim ownership of the account.
+        </div>
+        <div>
+          When you click the button, Metamask will request a transaction from
+          the second account.
+        </div>
+        <div className='actions'>
+          <button
+            className='skip'
+            onClick={() => {
+              setExecutorTransactionIsSent(true)
+              setLoading(false)
+            }}
+          >
+            Skip
+          </button>
+          <button
+            onClick={executeOnOwnedAccount}
+            className={loading ? 'button--loading' : ''}
+          >
+            Execute on owned account
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // Step 4: Add Owner
+  if (!ownerIsAdded) {
+    return (
+      <div className='card'>
+        <div className='title'>Add Owner</div>
+        <div>
+          Now, you will interact with the 7579 module directly. You can add an
+          owner to the Safe. The new owner will be able to execute transactions
+          on the Safe. Metamask will request a signature from the first owner.
+        </div>
+        <div>
+          <div className='actions'>
+            <button
+              className='skip'
+              onClick={() => {
+                setOwnerIsAdded(true)
+                setLoading(false)
+              }}
+            >
+              Skip
+            </button>
+            <button
+              onClick={addOwner}
+              className={loading ? 'button--loading' : ''}
+            >
+              Add Owner
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Step 5: Uninstall Module
+  if (!moduleIsUninstalled) {
+    return (
+      <div className='card'>
+        <div className='title'>Uninstall Module</div>
+        <div>
+          To finish the module&apos;s lifecycle, you can now uninstall the
+          module. MetaMask will ask you to sign a message after clicking the
+          button.
+        </div>
+        <div className='actions'>
+          <button
+            onClick={uninstallModule}
+            className={loading ? 'button--loading' : ''}
+          >
+            Uninstall Module
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // Step 6: Finish
+  return (
+    <div className='card'>
+      <div className='title'>Well done</div>
+      <div>
+        Congratulations! You&apos;ve successfully installed, executed,
+        interacted with, and uninstalled the module. This tutorial is now
+        complete. Great job! Keep exploring!
+      </div>
+    </div>
+  )
+}
 ```
 
-Finally, in the `public` folder, add three icons. You can find them in the project's GitHub repository: [`safe.svg`](https://github.com/5afe/safe-7579-tutorial/blob/main/public/safe.svg), [`github.svg`](https://github.com/5afe/safe-7579-tutorial/blob/main/public/github.svg/), and [`external-link.svg`](https://github.com/5afe/safe-7579-tutorial/blob/main/public/external-link.svg).
+Add your Pimlico API key to the `pimlicoUrl` variable. You can find your API key in the Pimlico dashboard.
 
-## **Testing your app**
+You can now run the development server with `pnpm dev` and open the app in your browser at `http://localhost:3000`. You should see a card that asks you to connect two wallets. Connect two wallets to proceed with the tutorial. 
 
-That's it! You can find the source code for the example created in this tutorial [on GitHub](https://github.com/5afe/safe-7579-tutorial). You can now return to your browser and see the app displayed.
+## 3. Initialize the clients
 
-![screenshot-finalized](../../../../assets/7579-tutorial-2.png)
+In the first step, you create the clients that allow you to interact with the smart account. As permissionless.js is just a tiny wrapper around viem, you will use many of viem's functions in this tutorial. 
 
-Click the **Create Safe** button to initialize the Permissionless client with the private key you stored on `.env.local`. It will deploy an ERC-7579-compatible Safe Smart Account on its first transaction.
+To add this code, overwrite the `init` function with this one:
 
-![screenshot](../../../../assets/7579-tutorial-3.png)
+```tsx
+const init = async () => {
+  // The safe account is created using the public client:
+  const safeAccount = await toSafeSmartAccount<
+    '0.7',
+    '0xEBe001b3D534B9B6E2500FB78E67a1A137f561CE'
+  >({
+    client: publicClient,
+    // @ts-expect-error The wallet client is set in the useEffect
+    owners: [walletClient!],
+    version: '1.4.1',
+    // These modules are required for the 7579 functionality:
+    safe4337ModuleAddress: '0x3Fdb5BC686e861480ef99A6E3FaAe03c0b9F32e2', // These are not meant to be used in production as of now.
+    erc7579LaunchpadAddress: '0xEBe001b3D534B9B6E2500FB78E67a1A137f561CE' // These are not meant to be used in production as of now.
+  })
 
-Once loaded, you will be able to choose an amount to send, a receiver address and select a date and time for your scheduled payment. Click **Schedule Transfer** to send the transaction. The first time you do this, it will deploy the Safe to Sepolia test network and install the ScheduledTransfers module.
+  const isSafeDeployed = await safeAccount.isDeployed()
 
-## **Do more with Safe and ERC-7579**
+  setSafeAddress(safeAccount.address)
+  setSafeIsDeployed(isSafeDeployed)
 
-We learned how to deploy an ERC-7579-compatible Safe Smart Account and use an ERC-7579-compatible module, the Scheduled Transfer from Rhinestone. We hope you enjoyed this tutorial and that the combination of Safe and 7579 will allow you to tap into new functionalities for your decentralized apps.
+  // Finally, we create the smart account client, which provides functionality to interact with the smart account:
+  const smartAccountClient = createSmartAccountClient({
+    account: safeAccount,
+    chain: sepolia,
+    bundlerTransport: http(pimlicoUrl),
+    paymaster: pimlicoClient,
+    userOperation: {
+      estimateFeesPerGas: async () => {
+        return (await pimlicoClient.getUserOperationGasPrice()).fast
+      }
+    }
+  }).extend(erc7579Actions())
 
-As a next step, you can add more functionalities to your app using other [ERC-7579-compatible modules](https://docs.rhinestone.wtf/module-sdk/modules/ownable-validator). Here are some ideas:
+  // Check whether the module has been installed already:
+  const isModuleInstalled =
+    isSafeDeployed &&
+    (await smartAccountClient.isModuleInstalled({
+      address: ownableExecutorModule,
+      type: 'executor',
+      context: '0x'
+    }))
 
-- [Create a dead man switch](https://docs.rhinestone.wtf/module-sdk/modules/deadman-switch) in case your account becomes inactive after a certain amount of time.
-- Add [multi-factor validation](https://docs.rhinestone.wtf/module-sdk/modules/multi-factor) to your Smart Account.
-- [Designate an owner](https://docs.rhinestone.wtf/module-sdk/modules/ownable-executor) that can act on your behalf for executing transactions and paying for gas.
+  setModuleIsInstalled(isModuleInstalled)
 
-You can also find more inspiration on this list of [ERC-7579 modules](https://erc7579.com/modules). You can also read more about this ERC in our [overview](https://docs.safe.global/advanced/erc-7579/overview) or in the [official documentation](https://erc7579.com/).
+  // We store the clients in the state to use them in the following steps:
+  setSafeAccount(safeAccount)
+  setSmartAccountClient(smartAccountClient)
+
+  console.log('setup done')
+}
+```
+
+You must refresh your page after adding this code, as the initial site load will trigger the `init` function and set up the Safe account and the Smart account client. You can check the console to see if the setup was successful.
+
+## 4. Install the 7579 module
+
+Now, add the function to install the `OwnableExecutor` module as an `executor` to your smart account.
+
+Overwrite the `installModule` function with this one.
+
+```tsx
+const installModule = async () => {
+  setLoading(true)
+  console.log('Installing module...')
+
+  // The smart accounts client operates on 4337. It does not send transactions directly but instead creates user
+  // operations. The Pimlico bundler takes those user operations and sends them to the blockchain as regular
+  // transactions. We also use the Pimlico paymaster to sponsor the transaction. So, all interactions are free
+  // on Sepolia.
+  const userOpHash = await smartAccountClient?.installModule({
+    type: 'executor',
+    address: ownableExecutorModule,
+    context: encodePacked(['address'], [executorAddress as `0x${string}`])
+  })
+
+  console.log('User operation hash:', userOpHash, '\nwaiting for receipt...')
+
+  // After we sent the user operation, we wait for the transaction to be settled:
+  const transactionReceipt = await pimlicoClient.waitForUserOperationReceipt({
+    hash: userOpHash as `0x${string}`
+  })
+
+  console.log('Module installed:', transactionReceipt)
+
+  setModuleIsInstalled(true)
+  setSafeIsDeployed((await safeAccount?.isDeployed()) ?? false)
+  setLoading(false)
+}
+```
+
+When you open the UI now and click the “Install Module” button, the console should log the module installation process. You can use [jiffyscan.xyz](https://jiffyscan.xyz/) to inspect the user operation hash. From there, you can copy the transaction hash and inspect the transaction with [Etherscan](https://sepolia.etherscan.io/), [Tenderly](https://tenderly.co/), or other block explorers.
+
+## 5. Send a transaction via the 7579 module
+
+In the following function, you will use the `OwnableExecutor` module. The module allows owners to execute transactions from the smart account without collecting signatures. For this example, you will send a dummy transaction that sends zero eth to owner1. 
+
+In detail:
+
+1. Owner2 calls module
+2. The module calls `executeAsModule` on the smart account
+3. The smart account executes the transaction (and sends zero eth to owner1)
+
+Replace the `executeOnOwnedAccount` function with this code:
+
+```tsx
+const executeOnOwnedAccount = async () => {
+  setLoading(true)
+  console.log('Executing on owned account...')
+
+  // We encode the transaction we want the smart account to send. The fields are:
+  // - to (address)
+  // - value (uint256)
+  // - data (bytes)
+  // In this example case, it is a dummy transaction with zero data.
+  const executeOnOwnedAccountData = encodePacked(
+    ['address', 'uint256', 'bytes'],
+    ['0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2', parseEther('0'), '0x']
+  )
+
+  // Now, we call the `executeOnOwnedAccount` function of the `ownableExecutorModule` with the address of the safe
+  // account and the data we want to execute. This will make our smart account send the transaction that is encoded above.
+  const hash = await walletClient!.writeContract({
+    chain: sepolia,
+    account: executorAddress as `0x${string}`,
+    abi: parseAbi(['function executeOnOwnedAccount(address, bytes)']),
+    functionName: 'executeOnOwnedAccount',
+    args: [safeAddress as `0x${string}`, executeOnOwnedAccountData],
+    address: ownableExecutorModule
+  })
+
+  console.log('Executed on owned account, transaction hash:', hash)
+
+  await publicClient?.waitForTransactionReceipt({ hash })
+
+  setExecutorTransactionIsSent(true)
+  setLoading(false)
+}
+```
+
+When you open the UI and click the “Execute on owned account” button, your console should log the transaction. You can inspect the transaction with Tenderly to follow the call stack from the module over the Safe 7579 adapter to your Safe and the transaction's final receiver.
+
+You also learned the required data format to send a 7579 transaction from a module to a Safe. It is precisely the data you packed for the transaction in `executeOnOwnedAccountData`. Every other 7579 module uses the same data type to send transactions to a Safe. However, with most other modules, you don’t have to pack the data yourself; you call a function on the module, and the module sends the dedicated transaction to the smart account.
+
+## 6. Interact with the 7579 module directly
+
+Some modules can be configured directly. The `OwnableExecutor` module allows you to add additional owners and remove existing owners. This example outlines how you interact with the module directly to add a new owner.
+
+The call flow is:
+
+1. Sign a user operation with your smart account client and send it to the bundler.
+2. The bundler bundles the user operation into a regular transaction and sends it to the meme pool.
+3. The transaction executes a call from your smart account to the module with the defined data.
+4. The module recognizes your smart account as an authorized sender. It stores the new owner of your smart account in its storage.
+
+Replace `addOwner` with this function:
+
+```tsx
+const addOwner = async () => {
+  setLoading(true)
+  console.log('Adding owner...')
+
+  // The addOwner function is part of the OwnableExecutorModule. We encode the function data using the viem library:
+  const addOwnerData = encodeFunctionData({
+    abi: parseAbi(['function addOwner(address)']),
+    functionName: 'addOwner',
+    args: ['0x0000000000000000000000000000000000000002'] // We add 0x2 as the new owner just as an example.
+  })
+
+  // We use the smart account client to send the user operation: In this call, our smart account calls the `addOwner`
+  // function at the `ownableExecutorModule` with the new owner's address.
+  const userOp = await smartAccountClient?.sendUserOperation({
+    calls: [
+      {
+        to: ownableExecutorModule,
+        value: parseEther('0'),
+        data: addOwnerData
+      }
+    ]
+  })
+
+  console.log('User operation:', userOp, '\nwaiting for tx receipt...')
+
+  // Again, we wait for the transaction to be settled:
+  const receipt = await pimlicoClient.waitForUserOperationReceipt({
+    hash: userOp as `0x${string}`
+  })
+
+  console.log('Owner added, tx receipt:', receipt)
+  setOwnerIsAdded(true)
+  setLoading(false)
+}
+```
+
+When you open the UI and click the “Add Owner” button, your console should log the user operation that adds a new owner. Make sure to inspect the final transaction (you can get the transaction hash from jiffyscan.xyz) to understand the call stack from the smart account to the module.
+
+## 7. Uninstall the 7579 module
+
+The last step is to uninstall the module. If the module is no longer needed, you can remove it from the smart account.
+
+Replace the `uninstallModule` function with this code:
+
+```tsx
+const uninstallModule = async () => {
+  setLoading(true)
+  console.log('Uninstalling module...')
+
+  // To uninstall the module, use the `uninstallModule`.
+  // You have to pack the abi parameter yourself:
+  // - previousEntry (address): The address of the previous entry in the module sentinel list.
+  // - deInitData (bytes): The data that is passed to the deInit function of the module.
+  // As this is the only module, the previous entry is the sentinel address 0x1. The deInitData is empty for the
+  // OwnableExecutor.
+  const userOp = await smartAccountClient?.uninstallModule({
+    type: 'executor',
+    address: ownableExecutorModule,
+    context: encodeAbiParameters(
+      parseAbiParameters('address prevEntry, bytes memory deInitData'),
+      ['0x0000000000000000000000000000000000000001', '0x']
+    )
+  })
+
+  console.log('User operation:', userOp, '\nwaiting for tx receipt...')
+
+  // We wait for the transaction to be settled:
+  const receipt = await pimlicoClient.waitForUserOperationReceipt({
+    hash: userOp as `0x${string}`
+  })
+
+  console.log('Module uninstalled, tx receipt:', receipt)
+  setModuleIsUninstalled(true)
+  setLoading(false)
+}
+```
+
+In the last step of the UI, you can now click the “Uninstall Module” button to remove the module from the smart account. Notice that depending on the type of the 7579 module, the method required different `deInitData`. 
+
+Also, you have to pass the correct previous entry address to the `uninstallModule` function. If you have only one module installed, the previous entry is the [sentinel address](https://github.com/rhinestonewtf/sentinellist/blob/main/src/SentinelList.sol#L5) `0x1`.
+
+That’s it! You have successfully built an app that can interact with a Safe Smart Account using the ERC-7579 standard. You can now deploy and test your app with your Safes and modules.
+
+
+## Do more with Safe and ERC-7579
+
+You learned how to deploy an ERC-7579-compatible Safe Smart Account and use an ERC-7579-compatible module, the OwnableExecutor from Rhinestone. We hope you enjoyed this tutorial and that the combination of Safe and 7579 will allow you to tap into new functionalities for your decentralized apps.
+
+As a next step, you can add more functionalities to your app using other [ERC-7579-compatible modules](https://docs.rhinestone.wtf/module-sdk/modules/ownable-validator).
+
+You can also find more inspiration on this list of [ERC-7579 modules](https://erc7579.com/modules). You can also read more about this ERC in our [overview](https://docs.safe.global/advanced/erc-7579/overview) or the [official documentation](https://erc7579.com/).
 
 Did you encounter any difficulties? Let us know by opening [an issue](https://github.com/5afe/safe-7579-tutorial/issues/new) or asking a question on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the `safe-core` tag.
