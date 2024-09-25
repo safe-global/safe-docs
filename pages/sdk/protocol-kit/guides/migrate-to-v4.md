@@ -2,7 +2,7 @@
 
 This guide references the major changes between v3 and v4 to help those migrating an existing app.
 
-**Note:** When upgrading to `protocol-kit` v4, it's necessary to upgrade to `safe-core-sdk-types` v5.
+**Note:** When upgrading to `protocol-kit` v4, it's necessary to upgrade to `types-kit` v1.
 
 ## The create() method was renamed init() in the SafeFactory and Safe classes
 
