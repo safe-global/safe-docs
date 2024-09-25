@@ -13,7 +13,7 @@ The [Gelato relay](https://docs.gelato.network/developer-services/relay) allows 
 ## Install dependencies
 
 ```bash
-yarn add ethers @safe-global/relay-kit @safe-global/protocol-kit @safe-global/types-kit
+yarn add ethers @safe-global/relay-kit @safe-global/protocol-kit @safe-global/safe-core-sdk-types
 ```
 
 ## Relay Kit options
@@ -51,7 +51,7 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
   import {
     MetaTransactionData,
     MetaTransactionOptions
-  } from '@safe-global/types-kit'
+  } from '@safe-global/safe-core-sdk-types'
   ```
 
   ### Initialize the transaction settings
@@ -137,7 +137,7 @@ For the SyncFee quickstart tutorial, you will use the Gelato relayer to pay for 
   import { ethers } from 'ethers'
   import { GelatoRelayPack } from '@safe-global/relay-kit'
   import Safe from '@safe-global/protocol-kit'
-  import { MetaTransactionData } from '@safe-global/types-kit'
+  import { MetaTransactionData } from '@safe-global/safe-core-sdk-types'
   ```
 
   ### Initialize the transaction settings
