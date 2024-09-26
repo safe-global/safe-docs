@@ -1,0 +1,91 @@
+import { Tabs } from 'nextra/components'
+
+# `getSafeOperationConfirmations`
+
+Returns the list of confirmations for a given a Safe operation.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { ListOptions } from '@safe-global/api-kit'
+    import { apiKit } from './setup.ts'
+
+    const safeOperationHash = '0x...'
+
+    const config: ListOptions = {
+      limit: '3', // Optional
+      offset: '2' // Optional
+    }
+
+    const confirmationsResponse = await apiKit.getSafeOperationConfirmations(
+      safeOperationHash,
+      config
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeOperationConfirmationListResponse>`
+
+The paginated list of confirmations.
+
+## Parameters
+
+### `safeOperationHash`
+
+- **Type:** `string`
+
+The hash of the Safe operation to get confirmations for.
+
+```typescript focus=2
+const confirmationsResponse = await apiKit.getSafeOperationConfirmations(
+  '0x...'
+)
+```
+
+### `config.limit` (Optional)
+
+- **Type:** `number`
+
+The number of results to return per page.
+
+```typescript focus=4
+const confirmationsResponse = await apiKit.getSafeOperationConfirmations(
+  '0x...',
+  {
+    limit: 10
+  }
+)
+```
+
+### `config.offset` (Optional)
+
+- **Type:** `number`
+
+The initial index from which to return the results.
+
+```typescript focus=4
+const confirmationsResponse = await apiKit.getSafeOperationConfirmations(
+  '0x...',
+  {
+    offset: 50
+  }
+)
+```

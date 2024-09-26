@@ -1,0 +1,36 @@
+import { Tabs } from 'nextra/components'
+
+# `getServiceSingletonsInfo`
+
+Returns the list of Safe Singleton contracts.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const singletons = await apiKit.getServiceSingletonsInfo()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeSingletonResponse[]>`
+
+The list of Safe Singleton contracts.

@@ -1,0 +1,104 @@
+import { Tabs } from 'nextra/components'
+
+# `getMessages`
+
+Returns the list of messages associated to a Safe account.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { GetSafeMessageListProps } from '@safe-global/api-kit'
+    import { apiKit } from './setup.ts'
+
+    const safeAddress = '0x...'
+    
+    const config: GetSafeMessageListProps = {
+      ordering: 'created', // Optional
+      limit: '10', // Optional
+      offset: '50' // Optional
+    }
+
+    const messagesResponse = await apiKit.getMessages(safeAddress, config)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeMessageListResponse>`
+
+The paginated list of messages.
+
+## Parameters
+
+### `safeAddress`
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+const messagesResponse = await apiKit.getMessages(
+  '0x...'
+)
+```
+
+### `config.ordering` (Optional)
+
+- **Type:** `string`
+
+The field used when ordering the results.
+
+```typescript focus=4
+const messagesResponse = await apiKit.getMessages(
+  '0x...',
+  {
+    ordering: 'created'
+  }
+)
+```
+
+### `config.limit` (Optional)
+
+- **Type:** `number`
+
+The number of results to return per page.
+
+```typescript focus=4
+const messagesResponse = await apiKit.getMessages(
+  '0x...',
+  {
+    limit: 10
+  }
+)
+```
+
+### `config.offset` (Optional)
+
+- **Type:** `number`
+
+The initial index from which to return the results.
+
+```typescript focus=4
+const messagesResponse = await apiKit.getMessages(
+  '0x...',
+  {
+    offset: 50
+  }
+)
+```

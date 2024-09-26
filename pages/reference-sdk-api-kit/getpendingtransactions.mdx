@@ -1,0 +1,70 @@
+import { Tabs } from 'nextra/components'
+
+# `getPendingTransactions`
+
+Returns the list of multi-signature transactions that are waiting for the confirmation of the Safe owners.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const safeAddress = '0x...'
+    
+    const currentNonce = 10
+
+    const pendingTxs = await apiKit.getPendingTransactions(
+      safeAddress,
+      currentNonce // Optional
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeMultisigTransactionListResponse>`
+
+The list of transactions waiting for the confirmation of the Safe owners.
+
+## Parameters
+
+### `safeAddress`
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+const pendingTxs = await apiKit.getPendingTransactions(
+  '0x...'
+)
+```
+
+### `currentNonce` (Optional)
+
+- **Type:** `number`
+
+The current nonce of the Safe.
+
+```typescript focus=3
+const pendingTxs = await apiKit.getPendingTransactions(
+  '0x...',
+  10
+)
+```
