@@ -19,4 +19,5 @@
 | Scroll                       | [https://safe-transaction-scroll.safe.global](https://safe-transaction-scroll.safe.global/)              |
 | Sepolia                      | [https://safe-transaction-sepolia.safe.global](https://safe-transaction-sepolia.safe.global/)            |
 | X Layer                      | [https://safe-transaction-xlayer.safe.global](https://safe-transaction-xlayer.safe.global/)              |
+| Xai                          | [https://safe.xai.games](https://safe.xai.games/)                                                        |
 | zkSync Era Mainnet           | [https://safe-transaction-zksync.safe.global](https://safe-transaction-zksync.safe.global/)              |
