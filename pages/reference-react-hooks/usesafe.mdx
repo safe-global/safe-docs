@@ -2,23 +2,20 @@ import { Tabs } from "nextra/components";
 
 # `useSafe`
 
-## Usage
+This is the top-level hook to get safe related information. It returns a set of utilities to interact with the safe.
 
-desc.
+## Usage
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['example.ts', 'setup.ts']}>
+<Tabs items={['useSafe.ts']}>
   <Tabs.Tab>
     ```typescript
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
-    ```
+const { getBalance, getPendingTransactions } = useSafe()
 
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```typescript
-
-    ```
+```
 
   </Tabs.Tab>
 </Tabs>
@@ -27,22 +24,76 @@ desc.
 
 ## Parameters
 
-### `param1`
+### `config`
 
-- **Type:** `string`
+- **Type:** `SafeConfig`
 
-desc.
+## Returns
 
-```typescript focus=2
+### `isInitialized`
 
-```
+- **Type:** `boolean`
 
-### `param2`
+Inidicates if the Safe SDK is isInitialized so that it can be used.
 
-- **Type:** `string`
+### `isSignerConnected`
 
-desc.
+- **Type:** `boolean`
 
-```typescript focus=4
+Indicates if the signer is connected.
+
+### `connect`
+
+- **Type:** `function`
+
+Connects the signer to the Safe SDK.
+
+### `disconnect`
+
+- **Type:** `function`
+
+Disconnects the signer from the Safe SDK.
+
+### `getBalance`
+
+- **Type:** `function`
+
+Returns the balance of the Safe.
+
+### `getChain`
+
+- **Type:** `function`
+
+Returns the chain informations about the Safe.
+
+### `getPendingTransactions`
+
+- **Type:** `function`
+
+Returns the pending transactions of the Safe.
+
+### `getTransaction`
+
+- **Type:** `function`
+
+Returns a transaction by its hash.
+
+### `getTransactions`
+
+- **Type:** `function`
+
+Returns the transactions of the Safe.
+
+### `getSafeInfo`
+
+- **Type:** `function`
+
+Returns the Safe information.
+
+### `getSignerAddress`
+
+- **Type:** `function`
+
+Returns the signer address.
 
 ```
