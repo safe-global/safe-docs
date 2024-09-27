@@ -1,0 +1,52 @@
+import { Tabs } from 'nextra/components'
+
+# `getIncomingTransactions`
+
+Returns the history of incoming transactions of a Safe account.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const safeAddress = '0x...'
+
+    const incomingTxs = await apiKit.getIncomingTransactions(safeAddress)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<TransferListResponse>`
+
+The history of incoming transactions.
+
+## Parameters
+
+### `safeAddress`
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+const incomingTxs = await apiKit.getIncomingTransactions(
+  '0x...'
+)
+```

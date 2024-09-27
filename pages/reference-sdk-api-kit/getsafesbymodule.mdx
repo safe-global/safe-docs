@@ -1,0 +1,52 @@
+import { Tabs } from 'nextra/components'
+
+# `getSafesByModule`
+
+Returns the list of Safe accounts where the module address provided is enabled.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const moduleAddress = '0x...'
+
+    const safes = await getSafesByModule(moduleAddress)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<ModulesResponse>`
+
+The list of Safe addresses where the module provided is enabled.
+
+## Parameters
+
+### `moduleAddress`
+
+- **Type:** `string`
+
+The Safe Module address.
+
+```typescript focus=2
+const safes = await getSafesByModule(
+  '0x...'
+)
+```

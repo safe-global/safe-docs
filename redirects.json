@@ -50,6 +50,41 @@
     "permanent": true
   },
   {
+    "source": "/home/passkeys-overview",
+    "destination": "/advanced/passkeys/overview",
+    "permanent": true
+  },
+  {
+    "source": "/home/passkeys-safe",
+    "destination": "/advanced/passkeys/passkeys-safe",
+    "permanent": true
+  },
+  {
+    "source": "/home/passkeys-supported-networks",
+    "destination": "/advanced/passkeys/supported-networks",
+    "permanent": true
+  },
+  {
+    "source": "/home/passkeys-guides/safe-sdk",
+    "destination": "/sdk/signers/passkeys",
+    "permanent": true
+  },
+  {
+    "source": "/home/passkeys-tutorials/safe-passkeys-tutorial",
+    "destination": "/advanced/passkeys/tutorials/react",
+    "permanent": true
+  },
+  {
+    "source": "/home/passkeys-tutorials/safe-passkeys-nuxt",
+    "destination": "/advanced/passkeys/tutorials/nuxt",
+    "permanent": true
+  },
+  {
+    "source": "/home/passkeys-faq",
+    "destination": "/advanced/passkeys/overview",
+    "permanent": true
+  },
+  {
     "source": "/glossary",
     "destination": "/home/glossary",
     "permanent": true
@@ -511,12 +546,17 @@
   },
   {
     "source": "/safe-core-aa-sdk/api-kit/reference",
-    "destination": "/sdk/api-kit/reference",
+    "destination": "/reference-sdk-api-kit/overview",
     "permanent": true
   },
   {
     "source": "/sdk-api-kit/reference",
-    "destination": "/sdk/api-kit/reference",
+    "destination": "/reference-sdk-api-kit/overview",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/api-kit/reference",
+    "destination": "/reference-sdk-api-kit/overview",
     "permanent": true
   },
   {

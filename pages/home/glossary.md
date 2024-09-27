@@ -63,6 +63,39 @@ Gasless transactions (also known as meta-transactions) are Ethereum transactions
 See also:
 - [Relay Kit documentation](../sdk/relay-kit) on docs.safe.global
 
+## Multi-signature
+
+A multi-signature account is a [smart account](#smart-account) that allows you to customize ownership and control structures according to your needs. Multiple [externally-owned accounts](#externally-owned-account) can be designated as owners, and you can specify how many of those owners must approve a transaction before it is executed.
+
+**Possible configurations:**
+
+- **0/0 Safe**: An account with no owners, controlled entirely by [Safe Modules](#safe-module). This configuration is typically used for automation or executing conditional functions within a protocol's architecture.
+- **1/1 Safe**: An account with a single owner who has full control and ownership. Ideal for setting up a smart account with a single EOA that can take advantage of all smart account functionalities. Warning: If the owner loses access to their private key, there is no way to recover the account. A recovery plan or an emergency mechanism to handle key loss should be set.
+- **N/N Safe**: An account with multiple owners, all of whom must approve a transaction before it is executed. This setup is perfect for scenarios where equal ownership and responsibility among all participants are required. Warning: If any owner loses their private key, the Safe may become locked and unable to process transactions. A recovery plan or an emergency mechanism to handle key loss should be set.
+- **N/M Safe**: An account with multiple owners, but only a subset of them is required to approve a transaction. This configuration is useful when you want to distribute responsibility while maintaining flexibility in decision-making.
+
+**How does it work?**
+
+- Multi-signature is a function native to Safe smart contract.
+- The contract stores the owners' addresses and the threshold needed to execute a transaction in the smart contract storage.
+- When the user wants to perform a transaction, they send a payload containing the transaction details and the owners' signatures to the Safe account.
+- The safe account iterates through the signatures to verify that the payload has been signed correctly and by the correct owners.
+
+**Benefits:**
+
+- **Enhanced Security**: Reduces the risk associated with single points of failure, protecting your assets even if a key is lost or compromised.
+- **Customizable**: Tailor each smart account to fit your specific needs, allowing you to set up configurations that work best for your particular use case.
+- **Interoperable**: Flexibly assign a variety of signers as owners, including:
+  - Hardware wallets such as [Leger](https://www.ledger.com) or [Trezor](https://trezor.io/).
+  - Software wallets such as [Trust](https://trustwallet.com) or [Metamask](https://metamask.io).
+  - MPC wallets such as [Fireblocks](https://www.fireblocks.com) or [Zengo](https://zengo.com).
+  - Another smart contract account, such as Safe.
+  - Wallets generated via Social Logins or Passkeys.
+- **Upgradable**: Easily adjust the number of owners and the signing threshold for your account whenever
+- **Key Rotation**: Rotate ownership of any accounts at any time, maintaining security while adapting to changes.
+- **Shared Control**: Grant shared access and control of your account to multiple individuals, ensuring collaborative management.
+- **Auditability**: Maintain a transparent, auditable record of who signed each transaction and when providing clear accountability for all account activities.
+
 ## Network
 
 A blockchain network is a collection of interconnected computers that utilize a blockchain protocol for communication. Decentralized networks allow users to send transactions, that are processed on a distributed ledger with a consensus mechanism ensuring the batching, verification, and acceptance of data into blocks. This structure enables the development of applications without the need for a central authority or server.
@@ -139,7 +172,7 @@ See also:
 A smart account (also known as a smart contract account) leverages the programmability of smart contracts to extend its functionality and improve its security in comparison with [externally-owned accounts](#externally-owned-account). Smart accounts are controlled by one or multiple externally-owned accounts or other smart accounts, and all transactions have to be initiated by one of those.
 
 Some common features that smart accounts offer to their users are:
-- Multi-signature scheme
+- [Multi-signature](#multi-signature) scheme
 - Transaction batching
 - Account recovery
 - [Gasless transactions](#gasless-transaction)

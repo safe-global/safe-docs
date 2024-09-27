@@ -1,0 +1,137 @@
+import { Tabs } from 'nextra/components'
+
+# `estimateSafeTransaction`
+
+Estimates the safeTxGas for a given Safe multi-signature transaction.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { SafeMultisigTransactionEstimate } from '@safe-global/api-kit'
+    import { apiKit } from './setup.ts'
+
+    const safeAddress = '0x...'
+    
+    const safeTransaction: SafeMultisigTransactionEstimate = {
+      to: '0x...',
+      value: '0',
+      data: '0x',
+      operation: 0 // Optional
+    }
+
+    const estimateTx = await apiKit.estimateSafeTransaction(
+      safeAddress,
+      safeTransaction
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeMultisigTransactionEstimateResponse>`
+
+The safeTxGas for the given Safe transaction.
+
+## Parameters
+
+### `safeAddress`
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+const estimateTx = await apiKit.estimateSafeTransaction(
+  '0x...',
+  {
+    to: '0x...',
+    value: '0',
+    data: '0x'
+  }
+)
+```
+
+### `safeTransaction.to`
+
+- **Type:** `string`
+
+The transaction recipient of the Safe transaction to estimate.
+
+```typescript focus=4
+const estimateTx = await apiKit.estimateSafeTransaction(
+  '0x...',
+  {
+    to: '0x...',
+    value: '0',
+    data: '0x'
+  }
+)
+```
+
+### `safeTransaction.value`
+
+- **Type:** `string`
+
+The value of the Safe transaction to estimate.
+
+```typescript focus=5
+const estimateTx = await apiKit.estimateSafeTransaction(
+  '0x...',
+  {
+    to: '0x...',
+    value: '0',
+    data: '0x'
+  }
+)
+```
+
+### `safeTransaction.data`
+
+- **Type:** `string`
+
+The data of the Safe transaction to estimate.
+
+```typescript focus=6
+const estimateTx = await apiKit.estimateSafeTransaction(
+  '0x...',
+  {
+    to: '0x...',
+    value: '0',
+    data: '0x'
+  }
+)
+```
+
+### `safeTransaction.operation` (Optional)
+
+- **Type:** `OperationType`
+
+The operation of the Safe transaction to estimate.
+
+```typescript focus=7
+const estimateTx = await apiKit.estimateSafeTransaction(
+  '0x...',
+  {
+    to: '0x...',
+    value: '0',
+    data: '0x',
+    operation: 0
+  }
+)
+```

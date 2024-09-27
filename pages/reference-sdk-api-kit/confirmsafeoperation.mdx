@@ -1,0 +1,64 @@
+import { Tabs } from 'nextra/components'
+
+# `confirmSafeOperation`
+
+Adds a confirmation for a Safe operation. Once enough confirmations are collected, the Safe operation needs to be executed via the `executeTransaction` method from the `Safe4337Pack`.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const safeOperationHash = '0x...'
+    
+    const signature = '0x...'
+
+    await apiKit.confirmSafeOperation(safeOperationHash, signature)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `safeOperationHash`
+
+- **Type:** `string`
+
+The hash of the Safe operation that will be confirmed.
+
+```typescript focus=2
+await apiKit.confirmSafeOperation(
+  '0x...',
+  '0x...'
+)
+```
+
+### `signature`
+
+- **Type:** `string`
+
+The signature of the Safe operation.
+
+It can be obtained by calling the `getSignature` method from the `SafeOperation` object.
+
+```typescript focus=3
+await apiKit.confirmSafeOperation(
+  '0x...',
+  '0x...'
+)
+```

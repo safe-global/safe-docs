@@ -1,0 +1,52 @@
+import { Tabs } from 'nextra/components'
+
+# `getToken`
+
+Returns the information of a given ERC-20 token.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const tokenAddress = '0x...'
+
+    const token = await apiKit.getToken(tokenAddress)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<TokenInfoResponse>`
+
+The information of the given ERC-20 token.
+
+## Parameters
+
+### `tokenAddress`
+
+- **Type:** `string`
+
+The ERC-20 token address.
+
+```typescript focus=2
+const token = await apiKit.getToken(
+  '0x...'
+)
+```
