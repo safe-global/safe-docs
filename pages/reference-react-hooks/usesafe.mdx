@@ -2,7 +2,7 @@ import { Tabs } from "nextra/components";
 
 # `useSafe`
 
-This is the top-level hook to get safe related information. It returns a set of utilities to interact with the safe and enable to to things like connect and disconnect signers, retrieve balances and connected chain.
+This is the top-level hook to get safe related information. It returns a set of utilities to interact with the safe and enable to things like connect and disconnect signers, retrieve balances and connected chain.
 
 ## Usage
 
@@ -53,7 +53,7 @@ This is the top-level hook to get safe related information. It returns a set of 
 
 `boolean`
 
-Indicates if the Safe SDK is isInitialized so that it can be used. Always check this before start interacting with the Safe.
+Indicates if the Safe SDK is `isInitialized` so that it can be used. Always check this before start interacting with the Safe.
 
 ### `isSignerConnected`
 
@@ -65,7 +65,7 @@ Indicates if the signer is connected. Check this before start using any method t
 
 `(signer: string) => Promise<void>`
 
-Connects the signer used as param.
+Connects the signer used as `param`.
 
 {/* <!-- vale off --> */}
 
@@ -227,7 +227,7 @@ Get all pending transactions for the connected Safe.
 -  A query result object containing the list of pending transactions.
 - It returns `UsePendingTransactionsReturnType = UseQueryResult<SafeMultisigTransaction[]>`. 
   - `UseQueryResult` is the [react-query](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery) result.
-  - `SafeMultisigTransaction` contains the [transaction information](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/types-kit/src/types.ts#L216C1-L247C2) extracted from the Transaction service.
+  - `SafeMultisigTransaction` contains the [transaction information](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/types-kit/src/types.ts#L216C1-L247C2) extracted from the Transaction Service.
 
 {/* <!-- vale off --> */}
 
