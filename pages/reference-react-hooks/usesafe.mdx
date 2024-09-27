@@ -75,7 +75,7 @@ Connects the signer used as `param`.
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
-const Connect = ({ customConfig }) => {
+const Connect = () => {
   const { connect } = useSafe();
 
   return (
@@ -107,7 +107,7 @@ Disconnects the current connected signer.
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
-const Connect = ({ customConfig }) => {
+const Connect = () => {
   const { disconnect } = useSafe();
 
   return (
@@ -148,7 +148,7 @@ Retrieves the balance information of the Safe.
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
-const SafeBalance = ({ customConfig }) => {
+const SafeBalance = () => {
   const { getBalance } = useSafe();
   const { data, error, isLoading } = getBalance();
 
@@ -194,7 +194,7 @@ Get the chain information of the Safe.
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
-const ChainInfo = ({ customConfig }) => {
+const ChainInfo = () => {
   const { getChain } = useSafe();
   const { blockExplorers } = getChain()
 
@@ -237,7 +237,7 @@ Get all pending transactions for the connected Safe.
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
-const PendingTransactions = ({ customConfig }) => {
+const PendingTransactions = () => {
   const { getPendingTransactions } = useSafe();
   const { data, error, isLoading } = getPendingTransactions();
 
@@ -332,7 +332,7 @@ Get all transactions for the connected Safe.
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
-const Transactions = ({ customConfig }) => {
+const Transactions = () => {
   const { getTransactions } = useSafe();
   const { data, error, isLoading } = getTransactions();
 
@@ -377,7 +377,7 @@ Get the connected Safe information.
 import React from 'react';
 import { useSafeInfo } from '@safe-global/safe-core-sdk-react-hooks';
 
-const SafeInfo = ({ customConfig }) => {
+const SafeInfo = () => {
   const { getSafeInfo } = useSafe();
   const { data, error, isLoading } = getSafeInfo();
 
@@ -421,9 +421,9 @@ Get the configured signer's address.
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
-const SignerAddress = ({ customConfig }) => {
+const SignerAddress = () => {
   const { getSignerAddress } = useSafe();
-  const address = getSignerAddress({ config: customConfig });
+  const address = getSignerAddress();
 
   return (
     <div>
