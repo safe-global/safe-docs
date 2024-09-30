@@ -1,4 +1,4 @@
-import { Tabs } from "nextra/components";
+import { Tabs } from 'nextra/components'
 
 # `confirm`
 
@@ -55,7 +55,7 @@ To obtain the hash, an application that aims to confirm transactions can use the
 
 ```typescript
 const safeTxHashToSearch = '0x...'
-const pendingTransactions = await safeClient.getPendingTransactions();
+const pendingTransactions = await safeClient.getPendingTransactions()
 
 for (const transaction of pendingTransactions.results) {
   if (transaction.safeTxHash !== safeTxHashToSearch) {
