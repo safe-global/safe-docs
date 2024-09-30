@@ -10,42 +10,41 @@ This client enables developers to handle transactions and configure the Safe acc
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["existing-safe.ts", "new-safe.ts"]}>
+<Tabs items={['existing-safe.ts', 'new-safe.ts']}>
   <Tabs.Tab>
   ```typescript   
-    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+  import { createSafeClient } from '@safe-global/sdk-starter-kit'
 
-    // Use the safeAddress if the Safe account already exists
-    const safeClient = await createSafeClient({
-      provider,
-      signer,
-      safeAddress
-    })
+  // Use the safeAddress if the Safe account already exists
+  const safeClient = await createSafeClient({
+    provider,
+    signer,
+    safeAddress
+  })
   ```
   </Tabs.Tab>
   <Tabs.Tab>
   ```typescript 
-    import { createSafeClient } from '@safe-global/sdk-starter-kit'
-    import { privateKeyToAddress } from 'viem/accounts'
-    
-    const owner1 = privateKeyToAddress(OWNER_1_PRIVATE_KEY)
-    const owner2 = privateKeyToAddress(OWNER_2_PRIVATE_KEY)
-    const owner3 = privateKeyToAddress(OWNER_3_PRIVATE_KEY)
+  import { createSafeClient } from '@safe-global/sdk-starter-kit'
+  import { privateKeyToAddress } from 'viem/accounts'
+  
+  const owner1 = privateKeyToAddress(OWNER_1_PRIVATE_KEY)
+  const owner2 = privateKeyToAddress(OWNER_2_PRIVATE_KEY)
+  const owner3 = privateKeyToAddress(OWNER_3_PRIVATE_KEY)
 
-    // Use the safeOptions if the Safe account does not exist and you want to deploy a new one.
-    // The resulting Safe address will be deterministic based on the owners, threshold, and saltNonce. 
-    // Using the safeClient after the deployment (with the first send()) will operate as if you would use the safeAddress.
-    const safeClient = await createSafeClient({
-      provider: RPC_URL,
-      signer: OWNER_1_PRIVATE_KEY,
-      safeOptions: {
-        owners: [owner1, owner2, owner3],
-        threshold: THRESHOLD,
-        saltNonce: SALT_NONCE
-      }
-    })
-
-```
+  // Use the safeOptions if the Safe account does not exist and you want to deploy a new one.
+  // The resulting Safe address will be deterministic based on the owners, threshold, and saltNonce. 
+  // Using the safeClient after the deployment (with the first send()) will operate as if you would use the safeAddress.
+  const safeClient = await createSafeClient({
+    provider: RPC_URL,
+    signer: OWNER_1_PRIVATE_KEY,
+    safeOptions: {
+      owners: [owner1, owner2, owner3],
+      threshold: THRESHOLD,
+      saltNonce: SALT_NONCE
+    }
+  })
+  ```
 </Tabs.Tab>
 </Tabs>
 

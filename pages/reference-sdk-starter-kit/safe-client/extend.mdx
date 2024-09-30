@@ -14,6 +14,7 @@ You can add any functionality you need to the `SafeClient` on your own or by usi
   <Tabs.Tab>
     ```typescript
     import { offChainMessages } from '@safe-global/sdk-starter-kit'
+    import { safeClient } from './setup.ts'
 
     const safeMessageClient = safeClient.extend(offChainMessages())    
 
@@ -23,6 +24,7 @@ You can add any functionality you need to the `SafeClient` on your own or by usi
   <Tabs.Tab>
     ```typescript
     import { safeOperations } from '@safe-global/sdk-starter-kit'
+    import { safeClient } from './setup.ts'
 
     const safeOperationClient = await safeClient.extend(
       safeOperations({ bundlerUrl }, { isSponsored, paymasterUrl })
@@ -44,13 +46,13 @@ You can add any functionality you need to the `SafeClient` on your own or by usi
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
 
-      const safeClient = await createSafeClient({
-        provider,  
-        signer,
-        safeAddress
-      })
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress
+    })
     ```
   </Tabs.Tab>
 </Tabs>

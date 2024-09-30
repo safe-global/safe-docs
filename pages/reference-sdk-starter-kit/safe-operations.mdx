@@ -8,42 +8,43 @@ This extension method enables extending the SafeClient with the ability to use a
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["send-safe-operation.ts", "setup.ts"]}>
+<Tabs items={["example.ts", 'setup.ts']}>
   <Tabs.Tab>
-  ```typescript 
-      import { safeOperations } from '@safe-global/sdk-starter-kit'
+    ```typescript
+    import { safeOperations } from '@safe-global/sdk-starter-kit'
+    import { safeClient } from './setup.ts'
 
-      const transactions = [{
-        to: '0x...',
-        value: '0',
-        data '0x...',
-      }, {
-        to: '0x...',
-        value: '0',
-        data '0x...',
-      }]    
-    
-      const safeOperationsClient = await safeClient.extend(
-        safeOperations({ bundlerUrl }, { isSponsored, paymasterUrl })
-      )
+    const transactions = [{
+      to: '0x...',
+      value: '0',
+      data '0x...',
+    }, {
+      to: '0x...',
+      value: '0',
+      data '0x...',
+    }]    
 
-      const safeOperationResult = await safeClientWithSafeOperation.sendSafeOperation({
-        transactions,
-        validAfter: Number(timestamp - 60_000n),
-        validUntil: Number(timestamp + 60_000n)
-      })
-  ```
+    const safeOperationsClient = await safeClient.extend(
+      safeOperations({ bundlerUrl }, { isSponsored, paymasterUrl })
+    )
+
+    const safeOperationResult = await safeClientWithSafeOperation.sendSafeOperation({
+      transactions,
+      validAfter: Number(timestamp - 60_000n),
+      validUntil: Number(timestamp + 60_000n)
+    })
+    ```
   </Tabs.Tab>
   <Tabs.Tab>
-  ```typescript 
+    ```typescript
     import { createSafeClient } from '@safe-global/sdk-starter-kit'
 
-    const safeClient = await createSafeClient({
+    export const safeClient = await createSafeClient({
       provider,
       signer,
       safeAddress
     })
-  ```
+    ```
   </Tabs.Tab>
 </Tabs>
 

@@ -8,9 +8,11 @@ Returns the list of Safe owner accounts.
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['get-owners.ts', 'setup.ts']}>
+<Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
+    import { safeClient } from './setup.ts'
+
     const owners = await safeClient.getOwners()
     ```
   </Tabs.Tab>
@@ -18,8 +20,8 @@ Returns the list of Safe owner accounts.
     ```typescript
     import { createSafeClient } from '@safe-global/sdk-starter-kit'
 
-    const safeClient = await createSafeClient({
-      provider,  
+    export const safeClient = await createSafeClient({
+      provider,
       signer,
       safeAddress
     })

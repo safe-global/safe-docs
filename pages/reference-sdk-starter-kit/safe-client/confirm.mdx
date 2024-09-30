@@ -12,31 +12,25 @@ It's important to note that when you `confirm` the transaction, if the required 
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["confirm.ts", "confirm-all.ts", "setup.ts"]}>
+<Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
-    ```typescript 
-      const safeTxHash = '0x...'
-      const txResult = await safeClient.confirm({safeTxHash}) 
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```typescript           
-      // Confirm all pending transactions
-      for (const transaction of pendingTransactions.results) {
-        await safeClient.confirm({ safeTxHash: transaction.safeTxHash })
-      }      
+    ```typescript
+    import { safeClient } from './setup.ts'
+
+    const safeTxHash = '0x...'
+
+    const txResult = await safeClient.confirm({ safeTxHash })
     ```
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-      import { createSafeClient } from '@safe-global/sdk-starter-kit'
-          
-      // Remember to instantiate the Safe client with a signer who has not yet signed the transaction
-      const safeClient = await createSafeClient({
-        provider,  
-        signer,
-        safeAddress
-      })
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress
+    })
     ```
   </Tabs.Tab>
 </Tabs>
@@ -60,16 +54,16 @@ The transaction hash for a Safe transaction. This hash is not the same as the Et
 To obtain the hash, an application that aims to confirm transactions can use the `getPendingTransactions()` method to retrieve the various pending transactions and their corresponding hashes.
 
 ```typescript
-const safeTxHashToSearch = "0x...";
+const safeTxHashToSearch = '0x...'
 const pendingTransactions = await safeClient.getPendingTransactions();
 
 for (const transaction of pendingTransactions.results) {
   if (transaction.safeTxHash !== safeTxHashToSearch) {
-    return;
+    return
   }
 
   const txResult = await safeClient.confirm({
-    safeTxHash: transaction.safeTxHash,
-  });
+    safeTxHash: transaction.safeTxHash
+  })
 }
 ```

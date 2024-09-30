@@ -8,25 +8,29 @@ Creates a transaction (to, value, data) to change the Safe account threshold. Th
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['create-change-threshold-transaction.ts', 'setup.ts']}>
+<Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
+    import { safeClient } from './setup.ts'
+
     const transaction = await safeClient.createChangeThresholdTransaction({
       threshold
     })
 
-    const txResult = await safeClient.send({ transactions: [transaction] })
+    const txResult = await safeClient.send({
+      transactions: [transaction]
+    })
     ```
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-      import { createSafeClient } from '@safe-global/sdk-starter-kit'
-          
-      const safeClient = await createSafeClient({
-        provider,  
-        signer,
-        safeAddress
-      })
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress
+    })
     ```
   </Tabs.Tab>
 </Tabs>
@@ -46,4 +50,3 @@ Returns a `TransactionBase` transaction that you can use or include in a batch u
 - **Type:** `string`
 
 The new threshold for the Safe account.
-

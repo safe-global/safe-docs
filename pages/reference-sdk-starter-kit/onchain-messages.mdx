@@ -12,26 +12,29 @@ The `sendOnChainMessage` method is added to the SafeClient. This method creates 
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["on-chain-messages.ts", "setup.ts"]}>
+<Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
-  ```typescript 
+    ```typescript
     import { onChainMessages } from '@safe-global/sdk-starter-kit'
+    import { safeClient } from './setup.ts'
 
     const safeMessageClient = safeClient.extend(onChainMessages())
 
-    const txResult = safeMessageClient.sendOnChainMessage({ message })    
-  ```
+    const txResult = safeMessageClient.sendOnChainMessage({
+      message
+    })
+    ```
   </Tabs.Tab>
   <Tabs.Tab>
-  ```typescript 
+    ```typescript
     import { createSafeClient } from '@safe-global/sdk-starter-kit'
 
-    const safeClient = await createSafeClient({
+    export const safeClient = await createSafeClient({
       provider,
       signer,
       safeAddress
     })
-  ```
+    ```
   </Tabs.Tab>
 </Tabs>
 

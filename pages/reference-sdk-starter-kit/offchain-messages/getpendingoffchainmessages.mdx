@@ -8,25 +8,26 @@ This method returns the list of pending off-chain messages that require confirma
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["get-pending-off-chain-messages.ts", "setup.ts"]}>
+<Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
-  ```typescript 
+    ```typescript
     import { offChainMessages } from '@safe-global/sdk-starter-kit'
-    
+    import { safeClient } from './setup.ts'
+
     const safeMessageClient = safeClient.extend(offChainMessages())
     const pendingMessages = await safeMessageClient.getPendingOffChainMessages()
-  ```
+    ```
   </Tabs.Tab>
   <Tabs.Tab>
-  ```typescript 
+    ```typescript
     import { createSafeClient } from '@safe-global/sdk-starter-kit'
 
-    const safeClient = await createSafeClient({
-      provider,  
+    export const safeClient = await createSafeClient({
+      provider,
       signer,
       safeAddress
     })  
-  ```
+    ```
   </Tabs.Tab>
 </Tabs>
 

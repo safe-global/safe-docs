@@ -10,26 +10,29 @@ Off-chain messages are the default used by the Safe account (Can be configured u
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["off-chain-messages.ts", "setup.ts"]}>
+<Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
-  ```typescript 
+    ```typescript
     import { offChainMessages } from '@safe-global/sdk-starter-kit'
+    import { safeClient } from './setup.ts'
 
     const safeClientWithMessages = safeClient.extend(offChainMessages())
 
-    const txResult = await safeClientWithMessages.sendOffChainMessage({ message })
-  ```
+    const txResult = await safeClientWithMessages.sendOffChainMessage({
+      message 
+    })
+    ```
   </Tabs.Tab>
   <Tabs.Tab>
-  ```typescript 
+    ```typescript
     import { createSafeClient } from '@safe-global/sdk-starter-kit'
 
-    const safeClient = await createSafeClient({
+    export const safeClient = await createSafeClient({
       provider,
       signer,
       safeAddress
     })
-  ```
+    ```
   </Tabs.Tab>
 </Tabs>
 

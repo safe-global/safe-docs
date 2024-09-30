@@ -8,26 +8,30 @@ Creates a transaction (to, value, data) to swap an owner of the Safe account. Th
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['create-swap-owner-transaction.ts', 'setup.ts']}>
+<Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
+    import { safeClient } from './setup.ts'
+
     const transaction = await safeClient.createSwapOwnerTransaction({
       oldOwnerAddress,
       newOwnerAddress
     })
 
-    const txResult = await safeClient.send({ transactions: [transaction] })
+    const txResult = await safeClient.send({
+      transactions: [transaction]
+    })
     ```
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-      import { createSafeClient } from '@safe-global/sdk-starter-kit'
-          
-      const safeClient = await createSafeClient({
-        provider,  
-        signer,
-        safeAddress
-      })
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress
+    })
     ```
   </Tabs.Tab>
 </Tabs>
@@ -53,4 +57,3 @@ The Ethereum address to remove as an owner.
 - **Type:** `string`
 
 The new Ethereum address to add as an owner.
-

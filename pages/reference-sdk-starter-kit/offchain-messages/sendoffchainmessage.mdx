@@ -20,28 +20,30 @@ If the Safe account has not yet been deployed (you are using `safeOptions` and t
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["send-off-chain-message.ts", "setup.ts"]}>
+<Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
-    ```typescript 
-      import { offChainMessages } from '@safe-global/sdk-starter-kit'
+    ```typescript
+    import { offChainMessages } from '@safe-global/sdk-starter-kit'
+    import { safeClient } from './setup.ts'
 
-      const message = "I am the owner of this Safe 💪🏻"
-      const safeMessageClient = safeClient.extend(offChainMessages())
-      const messageResult = await safeMessageClient.sendOffChainMessage({ message })
+    const message = 'I am the owner of this Safe'
+    
+    const safeMessageClient = safeClient.extend(offChainMessages())
+    const messageResult = await safeMessageClient.sendOffChainMessage({
+      message
+    })
     ```
-
   </Tabs.Tab>
   <Tabs.Tab>
-    ```typescript      
-      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
 
-      const safeClient = await createSafeClient({
-        provider,  
-        signer,
-        safeAddress
-      })      
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress
+    })
     ```
-
   </Tabs.Tab>
 </Tabs>
 

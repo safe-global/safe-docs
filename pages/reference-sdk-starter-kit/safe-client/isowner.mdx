@@ -8,22 +8,25 @@ Checks if a specific address is an owner of the current Safe.
 
 {/* <!-- vale off --> */}
 
-<Tabs items={["is-owner.ts", "setup.ts"]}>
+<Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
-    ```typescript 
-      const ethereumAddress = '0x...'
-      const isOwner = await safeClient.isOwner(ethereumAddress)
+    ```typescript
+    import { safeClient } from './setup.ts'
+    
+    const ethereumAddress = '0x...'
+
+    const isOwner = await safeClient.isOwner(ethereumAddress)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
-    ```typescript 
-      import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
 
-      const safeClient = await createSafeClient({
-        provider,  
-        signer,
-        safeAddress
-      })
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress
+    })
     ```
   </Tabs.Tab>
 </Tabs>

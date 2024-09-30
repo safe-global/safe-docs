@@ -8,9 +8,11 @@ This function provides the current Safe threshold value. This number is the mini
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['get-threshold.ts', 'setup.ts']}>
+<Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
+    import { safeClient } from './setup.ts'
+
     const threshold = await safeClient.getThreshold()
     ```
   </Tabs.Tab>
@@ -18,8 +20,8 @@ This function provides the current Safe threshold value. This number is the mini
     ```typescript
     import { createSafeClient } from '@safe-global/sdk-starter-kit'
 
-    const safeClient = await createSafeClient({
-      provider,  
+    export const safeClient = await createSafeClient({
+      provider,
       signer,
       safeAddress
     })
