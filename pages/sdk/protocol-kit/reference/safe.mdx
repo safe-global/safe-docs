@@ -264,6 +264,98 @@ Returns the Safe nonce.
 const nonce = await protocolKit.getNonce()
 ```
 
+## Safe Deployment
+
+The Protocol Kit has been updated to simplify the creation of new Safes. It now includes the `createSafeDeploymentTransaction` method for deploying Safes. This method returns an Ethereum transaction object that is ready to be executed using the Ethereum client of your choice.
+
+### `createSafeDeploymentTransaction`
+
+Returns an Ethereum transaction object ready for execution, which includes the deployment of a Safe.
+
+```typescript
+const deploymentTransaction = await protocolKit.createSafeDeploymentTransaction()
+
+// Execute this transaction using the Ethereum client of your choice
+const txHash = await client.sendTransaction({
+  to: deploymentTransaction.to,
+  value: BigInt(deploymentTransaction.value),
+  data: `0x${deploymentTransaction.data}`
+})
+```
+
+#### Getting Started with `createSafeDeploymentTransaction`
+
+Before deploying a new Safe, you must initialize the Protocol Kit with the appropriate configurations. This includes setting the `predictedSafe` property and specifying the setup parameters such as `owners`, `threshold`, and optional parameters like `safeVersion` or `saltNonce`.
+
+```typescript
+import { SafeAccountConfig } from '@safe-global/protocol-kit'
+
+const safeAccountConfig: SafeAccountConfig = {
+  owners: ['0x...', '0x...', '0x...'],
+  threshold: 2
+  // Additional optional parameters can be included here
+}
+
+const predictSafe = {
+  safeAccountConfig,
+  safeDeploymentConfig: {
+    saltNonce, // optional parameter
+    safeVersion // optional parameter
+  }
+}
+
+const protocolKit = await Safe.init({ provider, signer, predictSafe })
+
+const deploymentTransaction = await protocolKit.createSafeDeploymentTransaction()
+```
+
+#### Reconnecting to the Deployed Safe using the `connect` method
+
+After the transaction has been executed and the Safe has been successfully deployed, it is necessary to reconnect the Protocol Kit instance to the newly created Safe address by using the `connect` method.
+
+```typescript
+// Create a deployment transaction
+const deploymentTransaction = await protocolKit.createSafeDeploymentTransaction()
+
+// Execute this transaction using the Ethereum client of your choice
+const txHash = await client.sendTransaction({
+  to: deploymentTransaction.to,
+  value: BigInt(deploymentTransaction.value),
+  data: `0x${deploymentTransaction.data}`
+})
+console.log('Transaction hash:', txHash)
+
+// Wait for the transaction to be confirmed
+const txReceipt = await client.waitForTransactionReceipt({ hash: txHash })
+
+// Extract the deployed Safe address from the transaction receipt
+const safeAddress = getSafeAddressFromDeploymentTx(txReceipt, safeVersion)
+console.log('Deployed Safe Address:', safeAddress)
+
+// Reconnect to the newly deployed Safe using the protocol-kit
+protocolKit.connect({ safeAddress })
+console.log('Reconnected to the deployed Safe.')
+
+// Confirm the Safe is deployed and fetch properties
+console.log('Is Safe deployed:', await protocolKit.isSafeDeployed())
+console.log('Safe Address:', await protocolKit.getAddress())
+console.log('Safe Owners:', await protocolKit.getOwners())
+console.log('Safe Threshold:', await protocolKit.getThreshold())
+```
+
+#### `getSafeAddressFromDeploymentTx` utility function
+
+The `getSafeAddressFromDeploymentTx` function is an utility that helps extract the Safe address from the transaction receipt of a Safe deployment. This function scans the events emitted during the transaction to identify the [creation event of a Safe](https://github.com/safe-global/safe-smart-account/blob/main/contracts/proxies/SafeProxyFactory.sol#L12) and returns its address.
+
+```typescript
+// Wait for the transaction to be confirmed
+const txReceipt = await client.waitForTransactionReceipt({ hash: txHash })
+
+// Extract the deployed Safe address from the transaction receipt
+const safeAddress = getSafeAddressFromDeploymentTx(txReceipt, safeVersion)
+console.log('Deployed Safe Address:', safeAddress)
+```
+
 ## Transactions
 
 ### `copyTransaction`
