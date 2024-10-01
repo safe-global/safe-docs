@@ -1,123 +1,42 @@
+import { Tabs } from "nextra/components";
+
 # `SafeConfig`
 
-The `SafeConfig` type is used by the `SafeProvider` and by some individual functions in case you are not using the `SafeProvider`.
+The `SafeConfig` type is used by the `SafeProvider` and some individual functions when the `SafeProvider` is not used.
+
+This is the `SafeConfig` type definition:
 
 ```typescript
 type SafeConfig<
-  Provider extends SdkStarterKitConfig['provider'] = SdkStarterKitConfig['provider'],
-  Signer extends SdkStarterKitConfig['signer'] = SdkStarterKitConfig['signer'],
+  Provider extends SdkStarterKitConfig["provider"] = SdkStarterKitConfig["provider"],
+  Signer extends SdkStarterKitConfig["signer"] = SdkStarterKitConfig["signer"],
   Chain extends ChainType = ChainType
 > = SdkStarterKitConfig & {
-  chain: Chain
-  provider: Provider
-  signer: Signer
-} & (Provider extends string ? { transport: HttpTransport } : { transport: CustomTransport })
+  chain: Chain;
+  provider: Provider;
+  signer: Signer;
+} & (Provider extends string
+    ? { transport: HttpTransport }
+    : { transport: CustomTransport });
 
 type ExistingSafeConfig = {
-    safeAddress?: string;
-    safeOptions?: never;
+  safeAddress?: string;
+  safeOptions?: never;
 };
+
 type PredictedSafeConfig = {
-    safeAddress?: never;
-    safeOptions?: SafeConfig;
+  safeAddress?: never;
+  safeOptions?: SafeConfig;
 };
+
 type SdkStarterKitRootConfig = {
-    provider: SafeProvider['provider'];
-    signer?: SafeProvider['signer'];
-};
-type SdkStarterKitConfig = SdkStarterKitRootConfig & (ExistingSafeConfig | PredictedSafeConfig);
-```
-
-The Safe React hooks package provide a `createConfig` function that can be used in order to create configurations
-
-## `createConfig`
-
-```typescript
-import type { SdkStarterKitConfig } from '@safe-global/sdk-starter-kit'
-import { Chain as ChainType, custom, http } from 'viem'
-import { CreateConfigParams, SafeConfig } from '@/types/index.js'
-import { isString } from '@/types/guards.js'
-
-/**
- * Create a SafeConfig object for the given parameters.
- * @param param Config parameter object
- * @returns Config object
- */
-export function createConfig<
-  Provider extends SdkStarterKitConfig['provider'] = SdkStarterKitConfig['provider'],
-  Signer extends SdkStarterKitConfig['signer'] = SdkStarterKitConfig['signer'],
-  Chain extends ChainType = ChainType
->({
-  provider,
-  signer,
-  ...rest
-}: CreateConfigParams<Provider, Signer, Chain>): SafeConfig<Provider, Signer, Chain> {
-  return {
-    transport: isString(provider) ? http(provider) : custom(provider),
-    provider,
-    signer,
-    ...rest
-  }
-}
-```
-
-## Usage
-
-{/* <!-- vale off --> */}
-
-<Tabs items={['using-safe-provider.tsx', 'using-individual-method.tsx', 'create-config.ts']}>
-<Tabs.Tab>
-  ```typescript
-  import ReactDOM from 'react-dom/client'
-  import { SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
-  import config from './config.ts'
-  import App from './App.tsx  '
-
-  ReactDOM.createRoot(document.getElementById('root')!).render(
-    <SafeProvider config={config}>
-      <App />
-    </SafeProvider>
-  )
-  ```
-</Tabs.Tab>
-  <Tabs.Tab>
-  ```typescript
-import React from 'react';
-import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
-import config from './config.ts';
-
-const ChainInfo = () => {
-  const { getChain } = useSafe();
-  const { blockExplorers } = getChain({ config })
-
-  return (
-    <div>
-      <h3>Chain Info</h3>
-      <pre>{JSON.stringify(blockExplorers, null, 2)}</pre>
-    </div>
-  );
+  provider: SafeProvider["provider"];
+  signer?: SafeProvider["signer"];
 };
 
-export default ChainInfo;
-  ```
-</Tabs.Tab>
-  <Tabs.Tab>
-  ```typescript
-  import { createConfig } from '@safe-global/safe-core-sdk-react-hooks'
+type SdkStarterKitConfig = SdkStarterKitRootConfig &
+  (ExistingSafeConfig | PredictedSafeConfig);
+```
 
-  const config = createConfig({
-    chain,
-    provider,
-    signer,
-    safeOptions: {
-      owners,
-      threshold
-    }
-  })
+The Safe React hooks package provides a [`createConfig`](./createconfig.mdx) function that can be used to create a new configuration.
 
-  export default config
-  ```
-</Tabs.Tab>
-</Tabs>
-
-{/* <!-- vale on --> */}

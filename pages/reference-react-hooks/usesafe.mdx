@@ -2,7 +2,7 @@ import { Tabs } from "nextra/components";
 
 # `useSafe`
 
-This is the top-level hook to get safe related information. It returns a set of utilities to interact with the safe and enable to things like connect and disconnect signers, retrieve balances and connected chain.
+This is the primary hook for accessing safe-related information. It provides a set of utilities to interact with the safe, allowing actions such as connecting and disconnecting signers, retrieving balances, and obtaining information about the connected chain, among others.
 
 ## Usage
 
@@ -14,10 +14,20 @@ This is the top-level hook to get safe related information. It returns a set of 
   import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
   
   function App() {
-    const { getBalance, getPendingTransactions } = useSafe()
-  }
+    const { isInitialized, getBalance } = useSafe()
+    const { data } = getBalance()
 
-  const { isInitialized, getBalance, getPendingTransactions } = useSafe()
+    if (!isInitialized) {
+      return <p>Safe SDK is not initialized</p>
+    }
+
+    return (
+      <div>
+        <h1>Safe App</h1>
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </div>
+    )
+  }
   ```
 </Tabs.Tab>
 <Tabs.Tab>
@@ -53,25 +63,27 @@ This is the top-level hook to get safe related information. It returns a set of 
 
 `boolean`
 
-Indicates if the Safe SDK is `isInitialized` so that it can be used. Always check this before start interacting with the Safe.
+Indicates whether the Safe SDK is `isInitialized` and ready for use. Always check this before interacting with the Safe.
 
 ### `isSignerConnected`
 
 `boolean`
 
-Indicates if the signer is connected. Check this before start using any method that requires a signer as sending transactions or signing messages.
+Indicates whether the signer is connected. Check this before using any method that requires a signer, such as sending transactions or signing messages.
 
 ### `connect`
 
 `(signer: string) => Promise<void>`
 
-Connects the signer used as `param`.
+Connects the specified signer.
+
+#### Parameters
+
+- `signer` (string): The address of the signer to connect.
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['Connect.tsx']}>
-  <Tabs.Tab>
-  ```typescript
+```typescript
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
@@ -87,9 +99,7 @@ const Connect = () => {
 };
 
 export default Connect;
-````
-</Tabs.Tab>
-</Tabs>
+```
 
 {/* <!-- vale on --> */}
 
@@ -101,13 +111,11 @@ Disconnects the current connected signer.
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['Disconnect.tsx']}>
-  <Tabs.Tab>
-  ```typescript
+```typescript
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
-const Connect = () => {
+const Disconnect = () => {
   const { disconnect } = useSafe();
 
   return (
@@ -118,10 +126,8 @@ const Connect = () => {
   );
 };
 
-export default Connect;
-````
-</Tabs.Tab>
-</Tabs>
+export default Disconnect;
+```
 
 {/* <!-- vale on --> */}
 
@@ -132,19 +138,17 @@ export default Connect;
 Retrieves the balance information of the Safe.
 
 #### Parameters
-- `params` (object, optional): Parameters to customize the hook behavior.
-  - `config` (SafeConfig, optional): `SafeConfig` to use instead of the one provided by `SafeProvider`.
+- `params` (UseBalanceParams, optional): Parameters to customize the hook behavior. It contains:
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
 
 #### Returns
-- A query result object containing the Safe balance.
-- It returns `UseBalanceReturnType = UseBalanceReturnTypeWagmi<GetBalanceQueryFnData>` being [`UseBalanceReturnTypeWagmi`](https://wagmi.sh/react/api/hooks/useBalance#return-type) the wagmi balance return type.
+- A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the Safe balance in the `data` property.
+- We are using the wagmi [`UseBalanceReturnType`](https://wagmi.sh/react/api/hooks/useBalance#return-type)
 
 #### Usage
 {/* <!-- vale off --> */}
 
-<Tabs items={['SafeBalance.tsx']}>
-  <Tabs.Tab>
-  ```typescript
+```typescript
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
@@ -164,33 +168,28 @@ const SafeBalance = () => {
 };
 
 export default SafeBalance;
-````
-</Tabs.Tab>
-</Tabs>
+```
 
 {/* <!-- vale on --> */}
 
-### `useChain`
+### `getChain`
 
 `(params: UseChainParams = {}) => UseChainReturnType`
 
 Get the chain information of the Safe. 
 
 #### Parameters
-- `params` (object, optional): Parameters to customize the hook behavior.
-  - `config` (SafeConfig, optional): `SafeConfig` to use instead of the one provided by `SafeProvider`.
+- `params` (UseChainParams, optional): Parameters to customize the hook behavior. It contains:
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
 
 #### Returns
-- An object describing the configured chain.
 - It returns `UseChainReturnType = SafeConfig['chain']` being `SafeConfig['chain']` the viem's [Chain Type](https://github.com/wevm/viem/blob/main/src/types/chain.ts).
 
 #### Usage
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['ChainInfo.tsx']}>
-  <Tabs.Tab>
-  ```typescript
+```typescript
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
@@ -207,9 +206,7 @@ const ChainInfo = () => {
 };
 
 export default ChainInfo;
-````
-</Tabs.Tab>
-</Tabs>
+```
 
 {/* <!-- vale on --> */}
 
@@ -220,20 +217,16 @@ export default ChainInfo;
 Get all pending transactions for the connected Safe.
 
 #### Parameters
-- `params` (object, optional): Parameters to customize the hook behavior.
-  - `config` (SafeConfig, optional): `SafeConfig` to use instead of the one provided by `SafeProvider`.
+- `params` (UsePendingTransactionsParams, optional): Parameters to customize the hook behavior. It contains:
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
 
 #### Returns
--  A query result object containing the list of pending transactions.
-- It returns `UsePendingTransactionsReturnType = UseQueryResult<SafeMultisigTransaction[]>`. 
-  - `UseQueryResult` is the [react-query](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery) result.
-  - `SafeMultisigTransaction` contains the [transaction information](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/types-kit/src/types.ts#L216C1-L247C2) extracted from the Transaction Service.
+- A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the pending transactions in the `data` property.
+- The `data` property type is `SafeMultisigTransaction` and contains the [transaction information](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/types-kit/src/types.ts#L216C1-L247C2) extracted from the Transaction Service.
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['PendingTransactions.tsx']}>
-  <Tabs.Tab>
-  ```typescript
+```typescript
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
@@ -253,9 +246,7 @@ const PendingTransactions = () => {
 };
 
 export default PendingTransactions;
-````
-</Tabs.Tab>
-</Tabs>
+```
 
 {/* <!-- vale on --> */}
 
@@ -266,22 +257,20 @@ export default PendingTransactions;
 Get an specific transaction.
 
 #### Parameters
-- `params` (object): Parameters to customize the hook behavior.
-  - `config` (SafeConfig, optional): `SafeConfig` to use instead of the one provided by `SafeProvider`.
+- `params` (UseTransactionParams): Parameters to customize the hook behavior. It contains:
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
   - `safeTxHash` (Hash, optional): Hash of the Safe transaction to be fetched. Either `safeTxHash` or `ethereumTxHash` must be provided.
   - `ethereumTxHash` (Hash, optional): Hash of the Ethereum transaction to be fetched. Either `safeTxHash` or `ethereumTxHash` must be provided.
 
 #### Returns
-- A query result object containing the transaction object. The type of the return value depends on whether `safeTxHash` or `ethereumTxHash` is provided:
-- If `safeTxHash` is provided, it returns `UseSafeTransactionReturnType`.
-- If `ethereumTxHash` is provided, it returns `UseTransactionReturnTypeWagmi`.
+- A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the transaction in the `data` property. The type of the return value depends on whether `safeTxHash` or `ethereumTxHash` are provided:
+  - If `safeTxHash` is provided, it returns a query result containing the [transaction](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/types-kit/src/types.ts#L216C1-L247C2).
+  - If `ethereumTxHash` is provided, it returns [`UseTransactionReturnTypeWagmi`](https://wagmi.sh/react/api/hooks/useTransaction).
 
 #### Usage
 {/* <!-- vale off --> */}
 
-<Tabs items={['Transaction.tsx']}>
-  <Tabs.Tab>
-  ```typescript
+```typescript
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
@@ -304,9 +293,7 @@ const TransactionStatus = ({ safeTxHash, /* ethereumTxHash */ }) => {
 };
 
 export default TransactionStatus;
-  ```
-</Tabs.Tab>
-</Tabs>
+```
 
 {/* <!-- vale on --> */}
 
@@ -317,18 +304,17 @@ export default TransactionStatus;
 Get all transactions for the connected Safe.
 
 #### Parameters
-- `params` (object, optional): Parameters to customize the hook behavior.
-  - `config` (SafeConfig, optional): `SafeConfig` to use instead of the one provided by `SafeProvider`.
+- `params` (UseTransactionsParams, optional): Parameters to customize the hook behavior. It contains:
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
 
 #### Returns
-- A query result object containing the list of executed transactions.
+- A [query](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) result object containing the list of transactions for the Safe account in the `data` property.
+- The `data` property [format](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/api-kit/src/types/safeTransactionServiceTypes.ts#L212-L216)
 
 #### Usage
 {/* <!-- vale off --> */}
 
-<Tabs items={['Transactions.tsx']}>
-  <Tabs.Tab>
-  ```typescript
+```typescript
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
@@ -341,17 +327,14 @@ const Transactions = () => {
 
   return (
     <div>
-      <h3>Executed Transactions</h3>
+      <h3>Transactions</h3>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 };
 
 export default Transactions;
-
 ```
-</Tabs.Tab>
-</Tabs>
 
 {/* <!-- vale on --> */}
 
@@ -362,18 +345,17 @@ export default Transactions;
 Get the connected Safe information.
 
 #### Parameters
-- `params` (object, optional): Parameters to customize the hook behavior.
-  - `config` (SafeConfig, optional): `SafeConfig` to use instead of the one provided by `SafeProvider`.
+- `params` (UseSafeInfoParams, optional): Parameters to customize the hook behavior. It contains:
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
 
 #### Returns
-- A query result object containing the Safe's information.
+- A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the Safe account information in the `data` property.
+- The `data` property [format](https://github.com/safe-global/safe-core-sdk-react-hooks/blob/6f620f2f9492d518af332cb7f21646beef4fb42f/src/types/index.ts#L32-L38)
 
 #### Usage
 {/* <!-- vale off --> */}
 
-<Tabs items={['SafeInfo.tsx']}>
-  <Tabs.Tab>
-  ```typescript
+```typescript
 import React from 'react';
 import { useSafeInfo } from '@safe-global/safe-core-sdk-react-hooks';
 
@@ -394,8 +376,6 @@ const SafeInfo = () => {
 
 export default SafeInfo;
 ```
-</Tabs.Tab>
-</Tabs>
 
 {/* <!-- vale on --> */}
 
@@ -403,21 +383,20 @@ export default SafeInfo;
 
 `(params: UseSignerAddressParams = {}) => UseSignerAddressReturnType`
 
-Get the configured signer's address.
+Get the configured signer address.
 
 #### Parameters
--      `params` (object, optional): Parameters to customize the hook behavior.
-  - `config` (SafeConfigWithSigner, optional): `SafeConfig` to use instead of the one provided by `SafeProvider`.
+- `params` (object, optional): Parameters to customize the hook behavior. It contains:
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
 
 #### Returns
--  Signer address or `undefined` if not available.
+-  The signer address or `undefined` if not available.
 
 #### Usage
+
 {/* <!-- vale off --> */}
 
-<Tabs items={['SignerAddress.tsx']}>
-  <Tabs.Tab>
-  ```typescript
+```typescript
 import React from 'react';
 import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
 
@@ -435,8 +414,6 @@ const SignerAddress = () => {
 
 export default SignerAddress;
 ```
-</Tabs.Tab>
-</Tabs>
 
 {/* <!-- vale on --> */}
 

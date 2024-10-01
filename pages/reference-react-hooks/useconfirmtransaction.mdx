@@ -2,24 +2,58 @@ import { Tabs } from "nextra/components";
 
 # `useConfirmTransaction`
 
-## Usage
+`(params?: UseConfirmTransactionParams): UseConfirmTransactionReturnType`
 
-desc.
+## Usage
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['example.ts', 'setup.ts']}>
+<Tabs items={['App.tsx', 'main.tsx']}>
   <Tabs.Tab>
-    ```typescript
+  ```typescript
+  import { useConfirmTransaction } from '@safe-global/safe-core-sdk-react-hooks'
+  
+  function App() {
+    const { confirmTransaction, isLoading, isError, data, error } = useConfirmTransaction();
 
-    ```
+    const handleConfirmTransaction = () => {
+      confirmTransaction({ safeTxHash });
+    };
 
+    return (
+      <div>
+        <button onClick={handleConfirmTransaction} disabled={isLoading}>
+          Send Transaction
+        </button>
+        {isError && <p>Error: {error.message}</p>}
+        {data && <p>Transaction confirmed: {JSON.stringify(data)}</p>}
+      </div>
+    );
+  }
+  ```
   </Tabs.Tab>
   <Tabs.Tab>
-    ```typescript
+  ```typescript
+  import ReactDOM from 'react-dom/client'
+  import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+  import App from './App.tsx'
 
-    ```
+  const config = createConfig({
+    chain,
+    provider,
+    signer,
+    safeOptions: {
+      owners,
+      threshold
+    }
+  })
 
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <SafeProvider config={config}>
+      <App />
+    </SafeProvider>
+  )
+  ```
   </Tabs.Tab>
 </Tabs>
 
@@ -27,22 +61,48 @@ desc.
 
 ## Parameters
 
-### `param1`
+- `params` (UseConfirmTransactionParams, optional): Parameters to customize the hook behavior. It contains:
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
 
-- **Type:** `string`
+## Returns 
 
-desc.
+- The react-query [`UseMutationResult`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation).
+- The `mutate` and `mutateAsync` functions have been renamed to `confirmTransaction` and `confirmTransactionAsync` respectively. The other properties in the return type remain unchanged, and the behavior is still the same described in the docs.
 
-```typescript focus=2
+### `confirmTransaction`
 
-```
+`UseMutateFunction<SafeClientResult, Error, ConfirmTransactionVariables, unknown>`
 
-### `param2`
+Function to send the transaction. It's a react-query [`mutate`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation) function
 
-- **Type:** `string`
+#### Parameters
 
-desc.
+- `ConfirmTransactionVariables`: Variables to send the transactions.
+  - `safeTxHash` (string): The safe transaction hash to confirm.
 
-```typescript focus=4
+#### Returns
 
-```
+In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the transaction result.
+
+### `confirmTransactionAsync`
+
+`UseMutateAsyncFunction<SafeClientResult, Error, ConfirmTransactionVariables, unknown>`
+
+Asynchronous function to send the transaction. It's a react-query [`mutateAsync`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation) function
+
+#### Parameters
+
+- `ConfirmTransactionVariables`: Variables to send the transactions.
+  - `safeTxHash` (string): The safe transaction hash to confirm.
+
+#### Returns
+
+In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the transaction result.
+
+## Caveats
+
+The `confirmTransaction` and `confirmTransactionAsync` methods are used to confirm a transaction proposed to the Transaction Service. These methods are only applicable for multisig Safe accounts (with more than one owner and a threshold greater than 1).
+
+These methods should be used in conjunction with the `useSendTransaction` hook mutation methods. When a transaction is stored in the Transaction Service, you should confirm it with other owners to make it valid.
+
+It's important to note that when you confirm the transaction, if the required number of signatures reaches the threshold stored in the Transaction Service, the transaction is automatically sent to the blockchain for execution and confirmation. This is something that already happens with the `useSendTransaction` methods when the threshold is 1.

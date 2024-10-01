@@ -1,48 +1,43 @@
-import { Tabs } from "nextra/components";
-
 # `SafeProvider`
 
 ## Usage
 
-desc.
+The `SafeProvider` component is a wrapper that offers a secure [React context](https://react.dev/reference/react/createContext#provider) for the `Safe` hooks.
+
+Usually, you will add this component at the root of your application, wrapping the entire application. Another way to work with Safe hooks is to pass the `config` as a parameter to the individual functions. You can find more information about this in the specific hook documentation.
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['example.ts', 'setup.ts']}>
-  <Tabs.Tab>
-    ```typescript
+```typescript
+  import ReactDOM from 'react-dom/client'
+  import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+  import App from './App.tsx'
 
-    ```
+  const config = createConfig({
+    chain,
+    provider,
+    signer,
+    safeOptions: {
+      owners,
+      threshold
+    }
+  })
 
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```typescript
-
-    ```
-
-  </Tabs.Tab>
-</Tabs>
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <SafeProvider config={config}>
+      <App />
+    </SafeProvider>
+  )
+```
 
 {/* <!-- vale on --> */}
 
-## Parameters
+## Props
 
-### `param1`
+### `config`
 
-- **Type:** `string`
+`SafeConfig`
 
-desc.
+The [configuration object](./safeconfig.mdx) for the Safe instance. 
 
-```typescript focus=2
-
-```
-
-### `param2`
-
-- **Type:** `string`
-
-desc.
-
-```typescript focus=4
-
-```
+Use the [`createConfig`](./createconfig.mdx) function to help you create the configuration object.
