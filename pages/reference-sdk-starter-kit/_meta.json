@@ -8,9 +8,13 @@
     "type": "separator",
     "title": "Starter Kit Reference"
   },
-  "safe-client": "Safe Client",
+  "safe-client": "SafeClient",
   "safe-client-result": "SafeClientResult",
-  "safe-operations": "Safe Operations",
-  "offchain-messages": "Off-chain Messages",
-  "onchain-messages": "On-chain Messages"
+  "-- Extensions": {
+    "type": "separator",
+    "title": "Extensions"
+  },
+  "safe-operations": "safeOperations",
+  "offchain-messages": "offchainMessages",
+  "onchain-messages": "onchainMessages"
 }

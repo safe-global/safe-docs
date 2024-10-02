@@ -1,14 +1,10 @@
-# Reference
+# Starter Kit Reference
 
-The [Starter Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/sdk-starter-kit) should be the entry point for working with Safe Smart Accounts. It provides an easy way to handle the Safe account main types:
+The [Starter Kit](../sdk/starter-kit) is the starting point for integrating the Safe smart account in the front-end, as it provides the most simplified way to handle the Safe transaction flow in its different forms:
 
-  - Transactions
-  - Off-chain and on-chain messages
-  - Safe operations
-
-The kit encapsulates significant logic that developers would otherwise need to implement in their target applications. It leverages the Safe contracts and services, such as the Transaction Service, by storing the types of operations requiring more signatures to be executed on the blockchain.
-
-This kit uses our other kits to implement the most commonly used flows that developers need to implement in their applications.
+- User operations
+- Multi-signature transactions
+- Off-chain and on-chain messages
 
 ## Install dependencies
 
@@ -29,7 +25,6 @@ To add the Starter Kit to your project, run:
     ```bash yarn
     yarn add @safe-global/sdk-starter-kit
     ```
-
   </CH.Code>
 </CH.Section>
 
