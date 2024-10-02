@@ -4,8 +4,6 @@ import { Tabs } from 'nextra/components'
 
 Creates and sends a message as a regular transaction using the [SignMessageLib](https://github.com/safe-global/safe-smart-account/blob/main/contracts/libraries/SignMessageLib.sol) contract. The message can be a string or an [`EIP712TypedData`](https://eips.ethereum.org/EIPS/eip-712) object.
 
-Since this method creates a new transaction, you can add more signatures by using the safeTxHash and the `confirm` method. You can also retrieve the pending transactions using the `getPendingTransactions` method from the SafeClient.
-
 ## Usage
 
 {/* <!-- vale off --> */}
@@ -13,26 +11,30 @@ Since this method creates a new transaction, you can add more signatures by usin
 <Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
-    import { onChainMessages } from '@safe-global/sdk-starter-kit'
-    import { safeClient } from './setup.ts'
+    import { onchainMessageClient } from './setup.ts'
 
-    const message = 'I am the owner of this Safe'
-
-    const safeMessageClient = safeClient.extend(onChainMessages())
-    const messageResult = await safeMessageClient.sendOnChainMessage({
-      message
+    const messageResult = await onchainMessageClient.sendOnChainMessage({
+      message: 'I am the owner of this Safe',
+      from: '0x...', // Optional
+      gasLimit: '123', // Optional
+      gasPrice: '123', // Optional
+      maxFeePerGas: '123', // Optional
+      maxPriorityFeePerGas: '123', // Optional
+      nonce: 123, // Optional
     })
     ```
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    import { createSafeClient, onChainMessages } from '@safe-global/sdk-starter-kit'
     
-    export const safeClient = await createSafeClient({
+    const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
+
+    export const onchainMessageClient = safeClient.extend(onChainMessages())
     ```
   </Tabs.Tab>
 </Tabs>
@@ -41,9 +43,9 @@ Since this method creates a new transaction, you can add more signatures by usin
 
 ## Returns
 
-`SafeClientResult`
+`Promise<SafeClientResult>`
 
-An object with the result of the operation.
+The result of the operation.
 
 ## Parameters
 
@@ -51,40 +53,88 @@ An object with the result of the operation.
 
 - **Type:** `string | EIP712TypedData`
 
-The message can be a raw string or an [EIP-712](https://eips.ethereum.org/EIPS/eip-712) compatible data object.
+The message to submit.
 
-### `from` (optional)
+```typescript focus=2
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc'
+})
+```
+
+### `from` (Optional)
 
 - **Type:** `string`
 
-The sender's address for the transaction.
+The sender's address.
 
-### `gasLimit` (optional)
+```typescript focus=3
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc',
+  from: '0x...'
+})
+```
+
+### `gasLimit` (Optional)
 
 - **Type:** `stringnumber | string | bigint`
 
-The maximum amount of gas the transaction can use. If the transaction requires more gas than the limit, it will fail.
+The maximum amount of gas the transaction can use. Transactions will fail if they require more gas than specified.
 
-### `gasPrice` (optional)
+```typescript focus=3
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc',
+  gasLimit: '123'
+})
+```
+
+### `gasPrice` (Optional)
 
 - **Type:** `number | string`
 
-The price in wei that the sender is willing to pay for each unit of gas.
+The price in wei per unit of gas the sender is willing to pay.
 
-### `maxFeePerGas` (optional)
+```typescript focus=3
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc',
+  gasPrice: '123'
+})
+```
+
+### `maxFeePerGas` (Optional)
 
 - **Type:** `number | string`
 
 The maximum fee per gas the sender is willing to pay.
 
-### `maxPriorityFeePerGas` (optional)
+```typescript focus=3
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc',
+  maxFeePerGas: '123'
+})
+```
+
+### `maxPriorityFeePerGas` (Optional)
 
 - **Type:** `number | string`
 
 The maximum priority fee per gas the sender is willing to pay.
 
-### `nonce` (optional)
+```typescript focus=3
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc',
+  maxPriorityFeePerGas: '123'
+})
+```
+
+### `nonce` (Optional)
 
 - **Type:** `number | string`
 
 The `nonce` refers to a unique number used in a transaction to prevent the same transaction from being processed more than once.
+
+```typescript focus=3
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc',
+  nonce: 5
+})
+```
