@@ -1,0 +1,155 @@
+import { Tabs } from 'nextra/components'
+
+# `createSafeClient`
+
+Returns an instance of the `SafeClient` class, which enables developers to configure new or existing Safe accounts and handle transactions.
+
+The `SafeClient` class provides a mechanism to extend its functionality via the [`extend`](./extend) method.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['Existing Safe', 'New Safe']}>
+  <Tabs.Tab>
+    
+
+    ```typescript   
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+    const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+
+    Use the `safeAddress` property to use an existing Safe account.
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript 
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+    const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2,
+        saltNonce: 123n
+      }
+    })
+    ```
+
+    Use the `safeOptions` property to configure and deploy a new Safe account. The Safe address generation is deterministic based on the `owners`, `threshold`, and `saltNonce` values. 
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeClient>`
+
+A new instance of the `SafeClient` class.
+
+## Parameters
+
+### `provider`
+
+- **Type:** `Eip1193Provider | HttpTransport | SocketTransport`
+
+The provider connected to the blockchain.
+
+```typescript focus=2
+const safeClient = await createSafeClient({
+  provider,
+  signer,
+  safeAddress: '0x...'
+})
+```
+
+### `signer`
+
+- **Type:** `HexAddress | PrivateKey | PasskeyClient`
+
+The signer connected to the Safe as an owner.
+- If it's an address, the same address from the `provider` will be used to sign.
+- If it's a private key, its derived address will be used to sign.
+- If it's a passkey, the passkey will be used to sign.
+
+```typescript focus=3
+const safeClient = await createSafeClient({
+  provider,
+  signer,
+  safeAddress: '0x...'
+})
+```
+
+### `safeAddress` (Optional)
+
+- **Type:** `HexAddress`
+
+The address of the connected Safe.
+
+```typescript focus=4
+const safeClient = await createSafeClient({
+  provider,
+  signer,
+  safeAddress: '0x...'
+})
+```
+
+### `safeOptions.owners` (Optional)
+
+- **Type:** `string[]`
+
+The list of owners to configure in the Safe.
+
+```typescript focus=5
+const safeClient = await createSafeClient({
+  provider,
+  signer,
+  safeOptions: {
+    owners: ['0x...', '0x...', '0x...'],
+    threshold: 2,
+    saltNonce: 123n
+  }
+})
+```
+
+### `safeOptions.threshold` (Optional)
+
+- **Type:** `number`
+
+The threshold of the Safe. It must be lower or equal to the number of owners.
+
+```typescript focus=6
+const safeClient = await createSafeClient({
+  provider,
+  signer,
+  safeOptions: {
+    owners: ['0x...', '0x...', '0x...'],
+    threshold: 2,
+    saltNonce: 123n
+  }
+})
+```
+
+### `safeOptions.saltNonce` (Optional)
+
+- **Type:** `string`
+
+The salt introduces randomness or predictability when the Safe address is generated.
+
+```typescript focus=7
+const safeClient = await createSafeClient({
+  provider,
+  signer,
+  safeOptions: {
+    owners: ['0x...', '0x...', '0x...'],
+    threshold: 2,
+    saltNonce: 123n
+  }
+})
+```

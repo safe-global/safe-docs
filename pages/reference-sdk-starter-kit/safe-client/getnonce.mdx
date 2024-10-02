@@ -1,0 +1,38 @@
+import { Tabs } from 'nextra/components'
+
+# `getNonce`
+
+Returns the nonce of the connected Safe.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { safeClient } from './setup.ts'
+    
+    const nonce = await safeClient.getNonce()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<number>`
+
+The nonce of the connected Safe.

@@ -1,0 +1,72 @@
+import { Tabs } from 'nextra/components'
+
+# `createSwapOwnerTransaction`
+
+Creates a Safe transaction to swap an owner of the connected Safe.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { safeClient } from './setup.ts'
+
+    const transaction = await safeClient.createSwapOwnerTransaction({
+      oldOwnerAddress: '0x...',
+      newOwnerAddress: '0x...'
+    })
+
+    const txResult = await safeClient.send({
+      transactions: [transaction]
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<TransactionBase>`
+
+The Safe transaction to swap an owner of the connected Safe.
+
+## Parameters
+
+### `oldOwnerAddress`
+
+- **Type:** `string`
+
+The address to remove as an owner.
+
+```typescript focus=2
+const transaction = await safeClient.createSwapOwnerTransaction({
+  oldOwnerAddress: '0x...'
+})
+```
+
+### `newOwnerAddress` (Optional)
+
+- **Type:** `string`
+
+The address to add as an owner.
+
+```typescript focus=3
+const transaction = await safeClient.createSwapOwnerTransaction({
+  oldOwnerAddress: '0x...',
+  newOwnerAddress: '0x...'
+})
+```

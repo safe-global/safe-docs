@@ -1,0 +1,41 @@
+import { Tabs } from 'nextra/components'
+
+# `onChainMessages`
+
+This extension extends the `SafeClient` functionality by allowing on-chain messages.
+
+On-chain messages are regular transactions created using the [SignMessageLib](https://github.com/safe-global/safe-smart-account/blob/main/contracts/libraries/SignMessageLib.sol) contract.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { onChainMessages } from '@safe-global/sdk-starter-kit'
+    import { safeClient } from './setup.ts'
+
+    const onchainMessagesClient = safeClient.extend(onChainMessages())
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`SafeClient & { sendOnChainMessage }`
+
+The `SafeClient` instance with the extended functionality.

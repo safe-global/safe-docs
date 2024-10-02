@@ -4,9 +4,9 @@ import { Tabs, Steps, Callout } from 'nextra/components'
 
 In this guide, you will learn how to create and execute multiple Safe transactions grouped in a batch from a Safe account that is not yet deployed and where the executor may or may not have funds to pay for the transaction fees. This can be achieved by supporting the [ERC-4337](../../../home/glossary.md#erc-4337) execution flow, which is supported by the [Safe4337Module](../../../advanced/erc-4337/guides/safe-sdk.mdx) and exposed via the Relay Kit from the Safe\{Core\} SDK.
 
-[Pimlico](https://pimlico.io) is used in this guide as the service provider, but any other provider compatible with the ERC-4337 can be used.
-
 Read the [Safe4337Module documentation](../../../advanced/erc-4337/guides/safe-sdk.mdx) to understand its benefits and flows better.
+
+[Pimlico](https://pimlico.io) is used in this guide as the service provider, but any other provider compatible with the ERC-4337 can be used.
 
 ## Prerequisites
 
@@ -162,6 +162,44 @@ yarn add @safe-global/relay-kit
 
   The `safeOperation` object has the `data` and `signatures` properties, which contain all the information about the transaction batch and the signatures of the Safe owners, respectively.
 
+  ### Track the user operation
+
+  Optionally, you can track all your ERC-4337 Safe transactions on-chain by attaching an on-chain identifier to the user operation `callData`.
+
+  This identifier must be unique for every project and has a length of 16 bytes. You can create a random one or derive it from a text string, maybe from your project name:
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const onchainIdentifier = toHex(
+    'TEXT_TO_DERIVE_THE_IDENTIFIER', // It could be your project name
+    { size: 16 }
+  )
+  ```
+
+  {/* <!-- vale on --> */}
+
+  Once generated, fill the [Ecosystem On-chain Tracking Form](https://docs.google.com/forms/d/e/1FAIpQLSfHWSPbSQwmo0mbtuFFewfLvDEOvTxfuvEl7AHOyrFE_dqpwQ/viewform) and provide the value of your `onchainIdentifier`.
+
+  Add the `onchainIdentifier` at the end of the ERC-4337 user operation `callData`.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  safeOperation.data.callData = concat([
+    safeOperation.data.callData as `0x{string}`,
+    onchainIdentifier
+  ]).toString()
+
+  const identifiedSafeOperation = await safe4337Pack.getEstimateFee({
+    safeOperation
+  })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  Once added, the Safe owners can sign the `identifiedSafeOperation`.
+
   ### Sign the user operation
 
   Before sending the user operation to the bundler, it's required to sign the `safeOperation` object with the connected signer. The `signSafeOperation()` method, which receives a `SafeOperation` object, generates a signature that will be checked when the `Safe4337Module` validates the user operation.
@@ -169,7 +207,7 @@ yarn add @safe-global/relay-kit
   {/* <!-- vale off --> */}
 
   ```typescript
-  const signedSafeOperation = await safe4337Pack.signSafeOperation(safeOperation)
+  const signedSafeOperation = await safe4337Pack.signSafeOperation(identifiedSafeOperation)
   ```
 
   {/* <!-- vale on --> */}
@@ -233,3 +271,4 @@ Learn more about the ERC-4337 standard and the `Safe4337Module` contract followi
 - [ERC-4337 website](https://www.erc4337.io)
 - [EIP-4337 on Ethereum EIPs](https://eips.ethereum.org/EIPS/eip-4337)
 - [Safe4337Module on GitHub](https://github.com/safe-global/safe-modules/tree/main/modules/4337)
+- [Safe On-chain Identifiers on GitHub](https://github.com/5afe/safe-onchain-identifiers showcases where and how to add the identifier at the end of your Safe transactions data if you are not using the Relay Kit. Check also the [specific code](https://github.com/5afe/safe-onchain-identifiers/blob/main/test/OnchainIdentifier.ts#L197-L217) where the identifier is concatenated to the `callData`.

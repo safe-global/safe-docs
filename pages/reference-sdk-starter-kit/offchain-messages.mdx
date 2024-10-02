@@ -1,0 +1,41 @@
+import { Tabs } from 'nextra/components'
+
+# `offChainMessages`
+
+This extension extends the `SafeClient` functionality by allowing off-chain messages.
+
+Off-chain messages are the default option used by Safe.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { offChainMessages } from '@safe-global/sdk-starter-kit'
+    import { safeClient } from './setup.ts'
+
+    const offchainMessagesClient = safeClient.extend(offChainMessages())
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`SafeClient & { sendOffChainMessage, confirmOffChainMessage, getPendingOffChainMessages }`
+
+The `SafeClient` instance with the extended functionality.

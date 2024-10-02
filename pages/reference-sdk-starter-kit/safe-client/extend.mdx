@@ -1,0 +1,81 @@
+import { Tabs } from 'nextra/components'
+
+# `extend`
+
+Extends the functionality of the `SafeClient` class. 
+
+The Starter Kit offers some extensions that allow this, but you can also implement your own.
+
+- [`onChainMessages`](../onchain-messages): Enables the use of on-chain messages.
+- [`offChainMessages`](../offchain-messages): Enables the use of off-chain messages.
+- [`safeOperations`](../safe-operations): Enables using a bundler and paymaster to submit ERC-4337 user operations.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['safe-operations.ts', 'custom-feature.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { safeOperations } from '@safe-global/sdk-starter-kit'
+    import { safeClient } from './setup.ts'
+
+    const safeOperationClient = await safeClient.extend(
+      safeOperations({ bundlerUrl }, { isSponsored, paymasterUrl })
+    )
+
+    const safeOperationResult = await safeOperationClient.sendSafeOperation({
+      transactions
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { SafeClient } from '@safe-global/sdk-starter-kit'
+    import { safeClient } from './setup.ts'
+
+    const extendFunction = (client: SafeClient) => ({
+      getBalance: async () => {
+        return client.protocolKit.getBalance()
+      }
+    })
+
+    const safeClientWithGetBalance = safeClient.extend(extendFunction)
+
+    const balance = await safeClientWithGetBalance.getBalance()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeClient & T> | SafeClient & T`
+
+The `SafeClient` with the added functionality.
+
+## Parameters
+
+### `extendFunction` 
+
+- **Type:** `(client: SafeClient) => Promise<T> | (client: SafeClient) => T`
+
+The extension function that receives the current `SafeClient` class and merges it with the added functionality.
+
+```typescript focus=2
+const safeMessageClient = safeClient.extend(
+  offChainMessages()
+)
+```

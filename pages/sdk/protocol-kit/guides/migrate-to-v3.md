@@ -10,10 +10,10 @@ The `signTransactionHash()` method was renamed to `signHash()` to align with the
 
 ```js
 // old:
-protocolKit.signTransactionHash(safeTxHash);
+protocolKit.signTransactionHash(safeTxHash)
 
 // new:
-protocolKit.signHash(safeTxHash);
+protocolKit.signHash(safeTxHash)
 ```
 
 ## Type changes

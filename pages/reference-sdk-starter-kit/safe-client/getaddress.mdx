@@ -1,0 +1,38 @@
+import { Tabs } from 'nextra/components'
+
+# `getAddress`
+
+Returns the connected Safe address or the predicted one based on the configuration parameters.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { safeClient } from './setup.ts'
+
+    const safeAddress = await safeClient.getAddress()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<string>`
+
+The connected Safe address or the predicted one based on the configuration parameters.
