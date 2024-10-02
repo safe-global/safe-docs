@@ -32,7 +32,6 @@ pnpm add @safe-global/starter-kit
   {/* <!-- vale off --> */}
 
   ```typescript
-  import { ethers } from 'ethers'
   import {
     createSafeClient,
     safeOperations,
@@ -72,7 +71,7 @@ pnpm add @safe-global/starter-kit
         signer: SIGNER_PRIVATE_KEY,
         safeOptions: {
           owners: [SIGNER_ADDRESS],
-          threshold: 1,
+          threshold: 1
         }
       })
       ```
@@ -92,7 +91,7 @@ pnpm add @safe-global/starter-kit
 
   {/* <!-- vale on --> */}
 
-  As this guide is related with ERC-4337 user operations, you need to add the `safeOperations` extension to the `SafeClient` to support this functionality.
+  As this guide is related with ERC-4337 user operations, you need to add the `safeOperations` extension to the `safeClient` instance to support this functionality.
 
   {/* <!-- vale off --> */}
 
@@ -103,7 +102,7 @@ pnpm add @safe-global/starter-kit
 
   const paymasterOptions: PaymasterOptions = {
     isSponsored: true,
-    paymasterUrl: `https://api.pimlico.io/v2/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+    paymasterUrl: `https://api.pimlico.io/v2/sepolia/rpc?apikey=${PIMLICO_API_KEY}`
   }
 
   const safeClientWithSafeOperation = await safeClient.extend(
@@ -138,13 +137,8 @@ pnpm add @safe-global/starter-kit
   {/* <!-- vale off --> */}
 
   ```typescript
-  const ethersProvider = new ethers.JsonRpcProvider(RPC_URL)
-  const timestamp = (await ethersProvider.getBlock('latest'))?.timestamp || 0
-
   const safeOperationResult = await safeClientWithSafeOperation.sendSafeOperation({
-    transactions,
-    validAfter: timestamp - 60_000,
-    validUntil: timestamp + 60_000
+    transactions
   })
 
   const safeOperationHash = safeOperationResult.safeOperations?.safeOperationHash
