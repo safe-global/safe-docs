@@ -2,19 +2,11 @@ import { Tabs } from 'nextra/components'
 
 # `sendOffChainMessage`
 
-The `sendOffChainMessage` method creates off-chain messages in your Safe account. Safe Wallet's default is off-chain messages, so this method helps with Safe creation and message storage by leveraging the Transaction Service.
+If the `threshold` of the connected Safe is greater than 1, it will create the Safe message and store it in the Safe Transaction Service to collect the signatures from the Safe owners.
 
-Two scenarios can happen.
+If the `threshold` of the connected Safe is 1, the Safe message will be submitted and be valid immediately.
 
-If the Safe account is already deployed (you are using the `safeAddress` or the `safeOptions` counterfactual address prediction derives an existing Safe account). In this case:
-
-  - The message will be stored using the Transaction Service.
-  - If the Safe is a multisig (threshold > 1), more signatures (confirmations) will be required. In that case, you can use the `confirmOffChainMessage` method.
-
-If the Safe account has not yet been deployed (you are using `safeOptions` and the counterfactual address prediction results in a non-existing Safe account):
-
-  - In the case the Safe is a multisig account, the `sendOffChainMessage` method will add the message, just as in the previous case. However, the Safe account will also be deployed using the funds in the current `signer` account.
-  - In the case the safe is a single-owner account, the message is automatically confirmed and valid.
+If the Safe account is not deployed, it will be deployed when this method is called and funds will be required in the connected signer account.
 
 ## Usage
 
@@ -23,26 +15,24 @@ If the Safe account has not yet been deployed (you are using `safeOptions` and t
 <Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
-    import { offChainMessages } from '@safe-global/sdk-starter-kit'
-    import { safeClient } from './setup.ts'
+    import { offchainMessageClient } from './setup.ts'
 
-    const message = 'I am the owner of this Safe'
-    
-    const safeMessageClient = safeClient.extend(offChainMessages())
-    const messageResult = await safeMessageClient.sendOffChainMessage({
-      message
+    const messageResult = await offchainMessageClient.sendOffChainMessage({
+      message: 'I am the owner of this Safe'
     })
     ```
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    import { createSafeClient, offChainMessages } from '@safe-global/sdk-starter-kit'
 
-    export const safeClient = await createSafeClient({
+    const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
+
+    export const offchainMessageClient = safeClient.extend(offChainMessages())
     ```
   </Tabs.Tab>
 </Tabs>
@@ -51,9 +41,9 @@ If the Safe account has not yet been deployed (you are using `safeOptions` and t
 
 ## Returns
 
-`SafeClientResult`
+`Promise<SafeClientResult>`
 
-An object with the result of the operation.
+The result of the off-chain message sent.
 
 ## Parameters
 
@@ -61,4 +51,10 @@ An object with the result of the operation.
 
 - **Type:** `string | EIP712TypedData`
 
-The message can be a raw string or an [EIP-712](https://eips.ethereum.org/EIPS/eip-712) compatible data object.
+The message to submit.
+
+```typescript focus=2
+const messageResult = await offchainMessageClient.sendOffChainMessage({
+  message: 'abc'
+})
+```

@@ -11,22 +11,22 @@ This method returns the list of pending off-chain messages that require confirma
 <Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
-    import { offChainMessages } from '@safe-global/sdk-starter-kit'
-    import { safeClient } from './setup.ts'
+    import { offchainMessageClient } from './setup.ts'
 
-    const safeMessageClient = safeClient.extend(offChainMessages())
-    const pendingMessages = await safeMessageClient.getPendingOffChainMessages()
+    const pendingMessages = await offchainMessageClient.getPendingOffChainMessages()
     ```
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    import { createSafeClient, offChainMessages } from '@safe-global/sdk-starter-kit'
 
-    export const safeClient = await createSafeClient({
+    const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
-    })  
+      safeAddress: '0x...'
+    })
+
+    export const offchainMessageClient = safeClient.extend(offChainMessages())
     ```
   </Tabs.Tab>
 </Tabs>
@@ -35,6 +35,6 @@ This method returns the list of pending off-chain messages that require confirma
 
 ## Returns
 
-`SafeMessageListResponse`
+`Promise<SafeMessageListResponse>`
 
 A paginated list of the pending off-chain messages
