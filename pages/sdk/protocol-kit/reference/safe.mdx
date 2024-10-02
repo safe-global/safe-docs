@@ -45,25 +45,79 @@ The `init` method initializes the Protocol Kit instance and connects the Safe ac
 {/* <!-- vale on --> */}
 
 - The `provider` property can be an [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible provider or an RPC URL. 
+<Tabs items={["rpc-url.ts", "eip1193.ts"]}>
+  <Tabs.Tab>
+  ```typescript
+  import Safe from '@safe-global/protocol-kit'
+
+  const rpcURL = 'https://mainnet.infura.io/v3/...'
+  const protocolKit = await Safe.init({
+    provider: rpcURL,
+    signer,
+    safeAddress
+  })
+  ```  
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ```typescript
+  import Safe from '@safe-global/protocol-kit'
+
+  const eip1193 = window.ethereum
+  const protocolKit = await Safe.init({
+    provider: eip1193,
+    signer,
+    safeAddress
+  })
+  ```    
+  </Tabs.Tab>
+</Tabs>
 
 - The `signer` property can be the signer address, its private key or a passkey object.
 
 This is an example of how to use a passkey object to initialize the SDK:
 
-```typescript
-import Safe from '@safe-global/protocol-kit'
+<Tabs items={["address.ts", "private-key.ts", "passkey.ts"]}>
+  <Tabs.Tab>
+  ```typescript
+  import Safe from '@safe-global/protocol-kit'
 
-const passkey: PasskeyArgType = {
-  rawId,
-  coordinates,
-}
+  const signerAddress = '0x...'
+  const protocolKit = await Safe.init({
+    provider,
+    signer: signerAddress,
+    safeAddress
+  })
+  ```  
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ```typescript
+  import Safe from '@safe-global/protocol-kit'
 
-const protocolKit = await Safe.init({
-  provider,
-  signer: passkey,
-  safeAddress
-})
-```
+  const privateKey = 'cc81...'
+  const protocolKit = await Safe.init({
+    provider,
+    signer: privateKey,
+    safeAddress
+  })
+  ```  
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ```typescript
+  import Safe from '@safe-global/protocol-kit'
+
+  const passkey: PasskeyArgType = {
+    rawId,
+    coordinates,
+  }
+
+  const protocolKit = await Safe.init({
+    provider,
+    signer: passkey,
+    safeAddress
+  })
+  ```  
+  </Tabs.Tab>
+</Tabs>
 
 - The `safeAddress` property is the string address of the Safe account. Use this property is the safe is already deployed.
 
