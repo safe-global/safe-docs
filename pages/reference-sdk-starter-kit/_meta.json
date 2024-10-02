@@ -1,0 +1,20 @@
+{
+  "home": {
+    "title": "← Go Back",
+    "href": "/sdk/overview"
+  },
+  "overview": "Overview",
+  "-- Starter Kit Reference": {
+    "type": "separator",
+    "title": "Starter Kit Reference"
+  },
+  "safe-client": "SafeClient",
+  "safe-client-result": "SafeClientResult",
+  "-- Extensions": {
+    "type": "separator",
+    "title": "Extensions"
+  },
+  "safe-operations": "safeOperations",
+  "offchain-messages": "offchainMessages",
+  "onchain-messages": "onchainMessages"
+}

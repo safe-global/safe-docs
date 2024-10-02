@@ -1,0 +1,56 @@
+import { Tabs } from 'nextra/components'
+
+# `confirm`
+
+If the number of signatures collected in the Safe Transaction Service for a given Safe transaction hash hasn't met the `threshold`, it will add the signature from the connected signer.
+
+If the number of collected signatures reaches the `threshold`, the Safe transaction will be submitted instantly.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { safeClient } from './setup.ts'
+
+    const txResult = await safeClient.confirm({
+      safeTxHash: '0x...'
+      })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeClientResult>`
+
+The result of the confirmed transaction.
+
+## Parameters
+
+### `safeTxHash`
+
+- **Type:** `string`
+
+The hash of the Safe transaction to sign.
+
+```typescript focus=2
+const txResult = await safeClient.confirm({
+  safeTxHash: '0x...'
+})
+```

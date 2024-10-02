@@ -1,0 +1,197 @@
+import { Tabs } from 'nextra/components'
+
+# `safeOperations`
+
+This extension extends the `SafeClient` functionality by allowing a bundler and a paymaster to submit [ERC-4337](https://eips.ethereum.org/EIPS/eip-4337) user operations.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={["example.ts", 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { PaymasterOptions } from '@safe-global/relay-kit' 
+    import { BundlerOptions, safeOperations } from '@safe-global/sdk-starter-kit'
+    import { safeClient } from './setup.ts'
+
+    const bundlerOptions: BundlerOptions = {
+      bundlerUrl: 'https://...'
+    }
+
+    const paymasterOptions: PaymasterOptions = {
+      isSponsored: true, // Optional
+      paymasterUrl: 'https://...', // Optional
+      sponsorshipPolicyId: 'abc', // Optional
+      paymasterAddress: '0x...', // Optional
+      paymasterTokenAddress: '0x...', // Optional
+      amountToApprove: 123n // Optional
+    }
+
+    const safeOperationsClient = await safeClient.extend(
+      safeOperations(bundlerOptions, paymasterOptions)
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeClient & { sendSafeOperation, confirmSafeOperation, getPendingSafeOperation }>`
+
+The `SafeClient` instance with the extended functionality.
+
+## Parameters
+
+### `bundlerOptions.bundlerUrl`
+
+- **Type:** `string`
+
+The URL of the bundler.
+
+```typescript focus=2
+safeOperations(
+  { bundlerUrl: 'https://...' },
+  {
+    isSponsored: true,
+    paymasterUrl: 'https://...',
+    sponsorshipPolicyId: 'abc',
+    paymasterAddress: '0x...',
+    paymasterTokenAddress: '0x...',
+    amountToApprove: 123n
+  }
+)
+```
+
+### `paymasterOptions.isSponsored` (Optional)
+
+- **Type:** `boolean`
+
+A boolean variable that indicates if the user operation is sponsored or not.
+
+```typescript focus=4
+safeOperations(
+  { bundlerUrl: 'https://...' },
+  {
+    isSponsored: true,
+    paymasterUrl: 'https://...',
+    sponsorshipPolicyId: 'abc',
+    paymasterAddress: '0x...',
+    paymasterTokenAddress: '0x...',
+    amountToApprove: 123n
+  }
+)
+```
+
+### `paymasterOptions.paymasterUrl`
+
+- **Type:** `string`
+
+The URL of the paymaster.
+
+```typescript focus=5
+safeOperations(
+  { bundlerUrl: 'https://...' },
+  {
+    isSponsored: true,
+    paymasterUrl: 'https://...',
+    sponsorshipPolicyId: 'abc',
+    paymasterAddress: '0x...',
+    paymasterTokenAddress: '0x...',
+    amountToApprove: 123n
+  }
+)
+```
+
+### `paymasterOptions.sponsorshipPolicyId` (Optional)
+
+- **Type:** `string`
+
+The sponsorship policy id used in the user operation. You can get it from the selected paymaster provider.
+
+```typescript focus=6
+safeOperations(
+  { bundlerUrl: 'https://...' },
+  {
+    isSponsored: true,
+    paymasterUrl: 'https://...',
+    sponsorshipPolicyId: 'abc',
+    paymasterAddress: '0x...',
+    paymasterTokenAddress: '0x...',
+    amountToApprove: 123n
+  }
+)
+```
+
+### `paymasterOptions.paymasterAddress` (Optional)
+
+- **Type:** `string`
+
+The address of the paymaster.
+
+```typescript focus=7
+safeOperations(
+  { bundlerUrl: 'https://...' },
+  {
+    isSponsored: true,
+    paymasterUrl: 'https://...',
+    sponsorshipPolicyId: 'abc',
+    paymasterAddress: '0x...',
+    paymasterTokenAddress: '0x...',
+    amountToApprove: 123n
+  }
+)
+```
+
+### `paymasterOptions.paymasterTokenAddress` (Optional)
+
+- **Type:** `string`
+
+The address of the ERC-20 token used to pay for the user operation.
+
+```typescript focus=8
+safeOperations(
+  { bundlerUrl: 'https://...' },
+  {
+    isSponsored: true,
+    paymasterUrl: 'https://...',
+    sponsorshipPolicyId: 'abc',
+    paymasterAddress: '0x...',
+    paymasterTokenAddress: '0x...',
+    amountToApprove: 123n
+  }
+)
+```
+
+### `paymasterOptions.amountToApprove` (Optional)
+
+- **Type:** `bigint`
+
+The amount of ERC-20 tokens to approve to the paymaster to pay for the user operation.
+
+```typescript focus=9
+safeOperations(
+  { bundlerUrl: 'https://...' },
+  {
+    isSponsored: true,
+    paymasterUrl: 'https://...',
+    sponsorshipPolicyId: 'abc',
+    paymasterAddress: '0x...',
+    paymasterTokenAddress: '0x...',
+    amountToApprove: 123n
+  }
+)
+```

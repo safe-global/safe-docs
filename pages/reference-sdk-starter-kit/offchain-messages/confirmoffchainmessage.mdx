@@ -1,0 +1,58 @@
+import { Tabs } from 'nextra/components'
+
+# `confirmOffChainMessage`
+
+If the number of signatures collected in the Safe Transaction Service for a given Safe message hash hasn't met the `threshold`, it will add the signature from the connected signer.
+
+If the number of collected signatures reaches the `threshold`, the Safe message will be submitted instantly.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { offchainMessageClient } from './setup.ts'
+    
+    const messageResult = await offchainMessageClient.confirmOffChainMessage({ 
+      messageHash: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient, offChainMessages } from '@safe-global/sdk-starter-kit'
+
+    const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+
+    export const offchainMessageClient = safeClient.extend(offChainMessages())
+    ```
+</Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeClientResult>`
+
+The result of the confirmed message.
+
+## Parameters
+
+### `messageHash`
+
+- **Type:** `string`
+
+The hash of the message to sign.
+
+```typescript focus=2
+const txResult = await safeMessageClient.confirmOffChainMessage({
+  messageHash: '0x...'
+})
+```

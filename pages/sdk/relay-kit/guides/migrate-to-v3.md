@@ -16,7 +16,7 @@ These changes affect the creation of the `Safe4337Pack` instance, as it was prev
 const safe4337Pack = await Safe4337Pack.init({
   ethAdapter: new EthersAdapter({ ethers, signerOrProvider }),
   // ...
-});
+})
 ```
 
 ```typescript
@@ -25,11 +25,11 @@ const safe4337Pack = await Safe4337Pack.init({
   provider: window.ethereum, // Or any compatible EIP-1193 provider,
   signer: "signerAddressOrPrivateKey", // Signer address or signer private key
   // ...
-});
+})
 
 const safe4337Pack = await Safe4337Pack.init({
   provider: "http://rpc.url", // Or websocket
   signer: "privateKey", // Signer private key
   // ...
-});
+})
 ```

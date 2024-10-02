@@ -1,0 +1,18 @@
+{
+  "constructor": "constructor",
+  "confirm": "confirm",
+  "createaddownertransaction": "createAddOwnerTransaction",
+  "createchangethresholdtransaction": "createChangeThresholdTransaction",
+  "createremoveownertransaction": "createRemoveOwnerTransaction",
+  "createswapownertransaction": "createSwapOwnerTransaction",
+  "extend": "extend",
+  "getaddress": "getAddress",
+  "getnonce": "getNonce",
+  "getowners": "getOwners",
+  "getownerswhoapprovedtx": "getOwnersWhoApprovedTx",
+  "getpendingtransactions": "getPendingTransactions",
+  "getthreshold": "getThreshold",
+  "isdeployed": "isDeployed",
+  "isowner": "isOwner",
+  "send": "send"
+}

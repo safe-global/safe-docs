@@ -1,0 +1,56 @@
+
+import { Tabs } from 'nextra/components'
+
+# `getPendingSafeOperations`
+
+Returns the pending Safe operations for the connected Safe account.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript 
+    import { safeOperationsClient } from './setup.ts'
+
+    const pendingSafeOperations = await safeOperationsClient.getPendingSafeOperations()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript 
+    import { createSafeClient, safeOperations } from '@safe-global/sdk-starter-kit'
+
+    const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+
+    const bundlerOptions: BundlerOptions = {
+      bundlerUrl: 'https://...'
+    }
+
+    const paymasterOptions: PaymasterOptions = {
+      isSponsored: true, // Optional
+      paymasterUrl: 'https://...', // Optional
+      sponsorshipPolicyId: 'abc', // Optional
+      paymasterAddress: '0x...', // Optional
+      paymasterTokenAddress: '0x...', // Optional
+      amountToApprove: 123n // Optional
+    }
+
+    export const safeOperationsClient = await safeClient.extend(
+      safeOperations(bundlerOptions, paymasterOptions)
+    )
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<GetSafeOperationListResponse>`
+
+The paginated list of pending Safe operations for the connected Safe account.

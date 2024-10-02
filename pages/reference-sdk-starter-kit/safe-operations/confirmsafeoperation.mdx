@@ -1,0 +1,73 @@
+import { Tabs } from 'nextra/components'
+
+# `confirmSafeOperation`
+
+If the number of signatures collected in the Safe Transaction Service for a given Safe operation hash hasn't met the `threshold`, it will add the signature from the connected signer.
+
+If the number of collected signatures reaches the `threshold`, the Safe operation will be submitted instantly.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { safeOperationsClient } from './setup.ts'
+
+    const safeOperationResult = await safeOperationsClient.confirmSafeOperation({
+      safeOperationHash: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient, safeOperations } from '@safe-global/sdk-starter-kit'
+
+    const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+
+    const bundlerOptions: BundlerOptions = {
+      bundlerUrl: 'https://...'
+    }
+
+    const paymasterOptions: PaymasterOptions = {
+      isSponsored: true, // Optional
+      paymasterUrl: 'https://...', // Optional
+      sponsorshipPolicyId: 'abc', // Optional
+      paymasterAddress: '0x...', // Optional
+      paymasterTokenAddress: '0x...', // Optional
+      amountToApprove: 123n // Optional
+    }
+
+    export const safeOperationsClient = await safeClient.extend(
+      safeOperations(bundlerOptions, paymasterOptions)
+    )
+    ```
+</Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeClientResult>`
+
+The result of the confirmed Safe operation.
+
+## Parameters
+
+### `safeOperationHash`
+
+- **Type:** `string`
+
+The Safe transaction hash to sign.
+
+```typescript focus=2
+const txResult = await safeOperationsClient.confirm({
+  safeTxHash: '0x...'
+})
+````
