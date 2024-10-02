@@ -1,4 +1,4 @@
-import { Callout } from 'nextra/components'
+import { Tabs, Callout } from 'nextra/components'
 
 # Safe reference
 
@@ -6,42 +6,45 @@ import { Callout } from 'nextra/components'
 
 ### `init`
 
-Returns an instance of the Protocol Kit connected to a Safe.
+The `init` method initializes the protocolKit instance and connects the Safe account. There are two main ways to initialize the protocolKit: you can use an already deployed Safe or deploy a new one.
 
-The `provider` property can be an [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible provider or an RPC URL. The `signer` property can be the signer address or its private key. The provided Safe must be a `safeAddress` or a `predictedSafe`.
+<Tabs items={['deployed-safe.ts', 'undeployed-safe.ts']}>
+  <Tabs.Tab>
+  Initialization of a deployed Safe using the `safeAddress` property.
+  ```typescript
+  import Safe from '@safe-global/protocol-kit'
 
-Initialization of a deployed Safe using the `safeAddress` property:
+  const protocolKit = await Safe.init({
+    provider,
+    signer,
+    safeAddress 
+  })
+  ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+  Initialization of an undeployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to initialize the SDK with the Safe configuration and use it to some extent before it's deployed.
+  ```typescript
+  import Safe, { PredictedSafeProps } from '@safe-global/protocol-kit'
 
-```typescript
-import Safe from '@safe-global/protocol-kit'
+  const predictedSafe: PredictedSafeProps = {
+    safeAccountConfig,
+    safeDeploymentConfig
+  }
 
-const protocolKit = await Safe.init({
-  provider,
-  signer,
-  safeAddress 
-})
-```
+  const protocolKit = await Safe.init({
+    provider,
+    signer,
+    predictedSafe
+  })
+  ```
+  </Tabs.Tab>
+</Tabs>
 
-Initialization of an undeployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to initialize the SDK with the Safe configuration and use it to some extent before it's deployed:
+- The `provider` property can be an [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible provider or an RPC URL. 
 
-```typescript
-import Safe, { PredictedSafeProps } from '@safe-global/protocol-kit'
+- The `signer` property can be the signer address, its private key or a passkey object.
 
-const predictedSafe: PredictedSafeProps = {
-  safeAccountConfig,
-  safeDeploymentConfig
-}
-
-const protocolKit = await Safe.init({
-  provider,
-  signer,
-  predictedSafe
-})
-```
-
-- The `signer` property
-
-  A passkey object can be passed as a signer to initialize an instance of the Protocol Kit.
+This is an example of how to use a passkey object to initialize the SDK:
 
 ```typescript
 import Safe from '@safe-global/protocol-kit'
@@ -54,10 +57,26 @@ const passkey: PasskeyArgType = {
 const protocolKit = await Safe.init({
   provider,
   signer: passkey,
-  // safeAddress or predictedSafe
+  safeAddress
 })
 ```
 
+- The `safeAddress` property is the string address of the Safe account. Use this property is the safe is already deployed.
+
+- The `predictedSafe` property is an object that contains the Safe account configuration and deployment details. Use this property if the Safe account has not been deployed yet. The `init` method does not deploy a new Safe; it only enables limited use of the protocolKit. To deploy a Safe, you must use the specific deployment methods: `createSafeDeploymentTransaction()` or `executeTransaction()`. This object contains the following properties:
+    - `safeAccountConfig`:
+      - `owners`: An array of Safe owner addresses.
+      - `threshold`: The number of signatures required to execute a Safe transaction.
+      - `to` (optional): The contract address for optional delegate call.
+      - `data` (optional): The data payload for optional delegate call.
+      - `fallbackHandler` (optional): The fallback handler address.
+      - `paymentToken` (optional): The token that should be used for the payment (0 is ETH).
+      - `payment` (optional): The value that should be paid.
+      - `paymentReceiver` (optional): The address that should receive the payment (or 0 if tx.origin).
+    - `safeDeploymentConfig`:
+      - `saltNonce` (optional): The salt nonce to use. Changing this value will update the predicted Safe account address.
+      - `safeVersion` (optional): The Safe contract version to use.
+      - `deploymentType` (optional): The Safe deployment type to use. It can be `canonical`, `eip155`, or `zksync`. Changing this value affects the search algorithm used to find the [Safe deployment address](https://github.com/safe-global/safe-deployments/tree/main/src/assets) for any Safe contract, resulting in a change to the predicted address.
 
 - The `isL1SafeSingleton` flag
 
@@ -275,7 +294,7 @@ Returns a transaction object ready to be executed and deploy a new Safe.
 Before deploying a new Safe, you must initialize and configure the Protocol Kit.
 
 ```typescript
-const predictSafe = {
+const predictedSafe = {
   safeAccountConfig: {
     owners: ['0x...', '0x...', '0x...'],
     threshold: 2
@@ -283,14 +302,15 @@ const predictSafe = {
   },
   safeDeploymentConfig: {
     saltNonce, // Optional
-    safeVersion // Optional
+    safeVersion, // Optional
+    deploymentType // Optional
   }
 }
 
 let protocolKit = await Safe.init({
   provider,
   signer,
-  predictSafe
+  predictedSafe
 })
 
 const deploymentTransaction = await protocolKit.createSafeDeploymentTransaction()
