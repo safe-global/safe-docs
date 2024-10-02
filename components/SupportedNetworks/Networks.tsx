@@ -454,18 +454,6 @@ const SupportedNetworks: React.FC = () => {
                   </NextLink>
                 </Grid>
               )}
-              <Grid item xs={12}>
-                <Typography
-                  variant='body2'
-                  maxWidth={470}
-                  mb={{ md: 8 }}
-                  mx='auto'
-                  textAlign='center'
-                >
-                  Listings are not endorsements and are only for educational
-                  purposes.
-                </Typography>
-              </Grid>
             </Grid>
           ) : (
             <Grid container flexDirection='column' alignItems='center'>
