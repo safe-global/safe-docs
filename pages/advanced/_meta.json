@@ -11,7 +11,10 @@
   "smart-account-modules": "Safe Modules",
   "smart-account-guards": "Safe Guards",
   "smart-account-signatures": "Signatures",
-  "smart-account-supported-networks": "Supported Networks",
+  "smart-account-supported-networks": {
+    "title": "Supported Networks",
+    "href": "/home/supported-networks"
+  },
   "smart-account-audits": "Audits",
   "smart-account-bug-bounty": "Bug Bounty",
   "-- Features": {
