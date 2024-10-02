@@ -2,9 +2,9 @@ import { Tabs } from 'nextra/components'
 
 # `confirmSafeOperation`
 
-Confirms the stored safeOperation. Remember when using `sendSafeOperation` if the number of signatures is not enough then the operations it's being stored using Safe services so you need to confirm it with other Safe owners.
+If the number of signatures collected in the Safe Transaction Service for a given Safe operation hash hasn't met the `threshold`, it will add the signature from the connected signer.
 
-When enough signatures are collected the operation will be sent to the bundler to be executed.
+If the number of collected signatures reaches the `threshold`, the Safe operation will be submitted instantly.
 
 ## Usage
 
@@ -13,28 +13,39 @@ When enough signatures are collected the operation will be sent to the bundler t
 <Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
-    import { safeOperations } from '@safe-global/sdk-starter-kit'
-    import { safeClient } from './setup.ts'
+    import { safeOperationsClient } from './setup.ts'
 
-    const safeOperationsClient = await safeClient.extend(
-      safeOperations({ bundlerUrl }, { isSponsored, paymasterUrl })
-    )
-
-    const safeOperationHash = '0x...'
-    const safeOperationResult = await safeClient.confirmSafeOperation({
-      safeOperationHash
+    const safeOperationResult = await safeOperationsClient.confirmSafeOperation({
+      safeOperationHash: '0x...'
     })
     ```
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    import { createSafeClient, safeOperations } from '@safe-global/sdk-starter-kit'
 
-    export const safeClient = await createSafeClient({
+    const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
+
+    const bundlerOptions: BundlerOptions = {
+      bundlerUrl: 'https://...'
+    }
+
+    const paymasterOptions: PaymasterOptions = {
+      isSponsored: true, // Optional
+      paymasterUrl: 'https://...', // Optional
+      sponsorshipPolicyId: 'abc', // Optional
+      paymasterAddress: '0x...', // Optional
+      paymasterTokenAddress: '0x...', // Optional
+      amountToApprove: 123n // Optional
+    }
+
+    export const safeOperationsClient = await safeClient.extend(
+      safeOperations(bundlerOptions, paymasterOptions)
+    )
     ```
 </Tabs.Tab>
 </Tabs>
@@ -43,29 +54,20 @@ When enough signatures are collected the operation will be sent to the bundler t
 
 ## Returns
 
-`SafeClientResult`
+`Promise<SafeClientResult>`
 
-An object with the result of the send operation.
+The result of the confirmed Safe operation.
 
 ## Parameters
 
-### `safeTxHash`
+### `safeOperationHash`
 
 - **Type:** `string`
 
-The transaction hash is a unique identifier for the transaction, but it does not represent the actual Ethereum transaction hash. This hash is computed and stored in the Transaction Service, as the transaction has not been executed yet.
+The Safe transaction hash to sign.
 
-To obtain the hash, an application that attempts to confirm transactions can use the `getPendingTransactions()` method to retrieve the various pending transactions and their hashes.
-
-```typescript
-const safeTxHashToSearch = '0x...'
-const pendingTransactions = await safeClient.getPendingTransactions()
-
-for (const transaction of pendingTransactions.results) {
-  if (transaction.safeTxHash !== safeTxHashToSearch) {
-    return
-  }
-
-  const txResult = await safeClient.confirm({ safeTxHash: transaction.safeTxHash })
-}
+```typescript focus=2
+const txResult = await safeOperationsClient.confirm({
+  safeTxHash: '0x...'
+})
 ````

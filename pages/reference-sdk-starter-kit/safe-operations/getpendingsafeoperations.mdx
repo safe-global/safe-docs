@@ -3,7 +3,7 @@ import { Tabs } from 'nextra/components'
 
 # `getPendingSafeOperations`
 
-Retrieves the pending Safe operations for the current Safe account.
+Returns the pending Safe operations for the connected Safe account.
 
 ## Usage
 
@@ -12,25 +12,37 @@ Retrieves the pending Safe operations for the current Safe account.
 <Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript 
-    import { safeOperations } from '@safe-global/sdk-starter-kit'
-    import { safeClient } from './setup.ts'
+    import { safeOperationsClient } from './setup.ts'
 
-    const safeOperationsClient = await safeClient.extend(
-      safeOperations({ bundlerUrl }, { isSponsored, paymasterUrl })
-    )
-
-    const pendingSafeOperations = await safeClientWithSafeOperation.getPendingSafeOperations()
+    const pendingSafeOperations = await safeOperationsClient.getPendingSafeOperations()
     ```
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript 
-    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    import { createSafeClient, safeOperations } from '@safe-global/sdk-starter-kit'
 
-    export const safeClient = await createSafeClient({
+    const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
+
+    const bundlerOptions: BundlerOptions = {
+      bundlerUrl: 'https://...'
+    }
+
+    const paymasterOptions: PaymasterOptions = {
+      isSponsored: true, // Optional
+      paymasterUrl: 'https://...', // Optional
+      sponsorshipPolicyId: 'abc', // Optional
+      paymasterAddress: '0x...', // Optional
+      paymasterTokenAddress: '0x...', // Optional
+      amountToApprove: 123n // Optional
+    }
+
+    export const safeOperationsClient = await safeClient.extend(
+      safeOperations(bundlerOptions, paymasterOptions)
+    )
     ```
   </Tabs.Tab>
 </Tabs>
@@ -39,6 +51,6 @@ Retrieves the pending Safe operations for the current Safe account.
 
 ## Returns
 
-`GetSafeOperationListResponse`
+`Promise<GetSafeOperationListResponse>`
 
-A paginated list of the pending SafeOperations for the current Safe account.
+The paginated list of pending Safe operations for the connected Safe account.
