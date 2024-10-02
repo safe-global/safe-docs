@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `getOwnersWhoApprovedTx`
 
-Returns a list of owners who have approved a specific Safe transaction.
+Returns the list of owners who signed a given Safe transaction.
 
 ## Usage
 
@@ -25,7 +25,7 @@ Returns a list of owners who have approved a specific Safe transaction.
     export const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>
@@ -37,7 +37,7 @@ Returns a list of owners who have approved a specific Safe transaction.
 
 `Promise<string[]>`
 
-The list of owners who approved the concrete `safeTxHash`.
+The list of owners who signed a given Safe transaction hash.
 
 ## Parameters
 
@@ -46,3 +46,9 @@ The list of owners who approved the concrete `safeTxHash`.
 - **Type:** `string`
 
 The Safe transaction hash to check.
+
+```typescript focus=2
+const owners = safeClient.getOwnersWhoApprovedTx(
+  '0x...'
+)
+```

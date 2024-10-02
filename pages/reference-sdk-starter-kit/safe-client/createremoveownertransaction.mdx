@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `createRemoveOwnerTransaction`
 
-Creates a transaction (to, value, data) to remove an owner to the Safe. The transaction can be included individually or in a batch within the `send` method.
+Creates a Safetransaction to remove an owner to the connected Safe.
 
 ## Usage
 
@@ -14,8 +14,8 @@ Creates a transaction (to, value, data) to remove an owner to the Safe. The tran
     import { safeClient } from './setup.ts'
 
     const transaction = await safeClient.createRemoveOwnerTransaction({
-      ownerAddress,
-      threshold
+      ownerAddress: '0x...',
+      threshold: 2
     })
 
     const txResult = await safeClient.send({
@@ -30,7 +30,7 @@ Creates a transaction (to, value, data) to remove an owner to the Safe. The tran
     export const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>
@@ -42,7 +42,7 @@ Creates a transaction (to, value, data) to remove an owner to the Safe. The tran
 
 `Promise<TransactionBase>`
 
-Returns a `TransactionBase` transaction that you can use or include in a batch using the `send` method.
+The Safe transaction to remove an owner of the connected Safe.
 
 ## Parameters
 
@@ -50,10 +50,23 @@ Returns a `TransactionBase` transaction that you can use or include in a batch u
 
 - **Type:** `string`
 
-The Ethereum address to remove as an owner.
+The address to remove as an owner.
 
-### `threshold` (optional)
+```typescript focus=2
+const transaction = await safeClient.createRemoveOwnerTransaction({
+  ownerAddress: '0x...'
+})
+```
+
+### `threshold` (Optional)
 
 - **Type:** `string`
 
-The new threshold for the Safe account.
+The new threshold of the connected Safe. If not provided, the current threshold is used.
+
+```typescript focus=3
+const transaction = await safeClient.createRemoveOwnerTransaction({
+  ownerAddress: '0x...',
+  threshold: 2
+})
+```

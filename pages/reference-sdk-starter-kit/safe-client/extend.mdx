@@ -2,25 +2,19 @@ import { Tabs } from 'nextra/components'
 
 # `extend`
 
-The `extend` function plays a central role in the extensibility of the `SafeClient`. 
+Extends the functionality of the `SafeClient` class. 
 
-You can add any functionality you need to the `SafeClient` on your own or by using some of the SDK-implemented extensions (`onChainMessages`, `offChainMessages`, `safeOperations`).
+The Starter Kit offers some extensions that allow this, but you can also implement your own.
+
+- [`onChainMessages`](../onchain-messages): Enables the use of on-chain messages.
+- [`offChainMessages`](../offchain-messages): Enables the use of off-chain messages.
+- [`safeOperations`](../safe-operations): Enables using a bundler and paymaster to submit ERC-4337 user operations.
 
 ## Usage
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['extend-with-messages.ts', 'extend-with-safe-operations.ts','add-some-feature.ts', 'setup.ts']}>
-  <Tabs.Tab>
-    ```typescript
-    import { offChainMessages } from '@safe-global/sdk-starter-kit'
-    import { safeClient } from './setup.ts'
-
-    const safeMessageClient = safeClient.extend(offChainMessages())    
-
-    await safeMessageClient.sendOffChainMessage({ message })
-    ```
-  </Tabs.Tab>
+<Tabs items={['safe-operations.ts', 'custom-feature.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
     import { safeOperations } from '@safe-global/sdk-starter-kit'
@@ -30,18 +24,25 @@ You can add any functionality you need to the `SafeClient` on your own or by usi
       safeOperations({ bundlerUrl }, { isSponsored, paymasterUrl })
     )
 
-    await safeOperationClient.sendSafeOperation({ transactions })
+    const safeOperationResult = await safeOperationClient.sendSafeOperation({
+      transactions
+    })
     ```
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-    const safeClientWithGetBalance = safeClient.extend(( client: SafeClient) => ({
+    import { SafeClient } from '@safe-global/sdk-starter-kit'
+    import { safeClient } from './setup.ts'
+
+    const extendFunction = (client: SafeClient) => ({
       getBalance: async () => {
         return client.protocolKit.getBalance()
       }
-    }))
+    })
 
-    await safeClientWithGetBalance.getBalance()
+    const safeClientWithGetBalance = safeClient.extend(extendFunction)
+
+    const balance = await safeClientWithGetBalance.getBalance()
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -51,7 +52,7 @@ You can add any functionality you need to the `SafeClient` on your own or by usi
     export const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>
@@ -63,12 +64,18 @@ You can add any functionality you need to the `SafeClient` on your own or by usi
 
 `Promise<SafeClient & T> | SafeClient & T`
 
-The SafeClient now includes the new functionality. It supports both asynchronous and synchronous usage.
+The `SafeClient` with the added functionality.
 
 ## Parameters
 
-### `(client: SafeClient) => Promise<T> | (client: SafeClient) => T`
+### `extendFunction` 
 
-- **Type:** `function`
+- **Type:** `(client: SafeClient) => Promise<T> | (client: SafeClient) => T`
 
-The extension function will receive the current SafeClient and merge it with the new returned functionality.
+The extension function that receives the current `SafeClient` class and merges it with the added functionality.
+
+```typescript focus=2
+const safeMessageClient = safeClient.extend(
+  offChainMessages()
+)
+```

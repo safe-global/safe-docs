@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `isDeployed`
 
-Verifies the deployment status of the existing Safe.
+Checks if the connected Safe is deployed.
 
 ## Usage
 
@@ -23,7 +23,7 @@ Verifies the deployment status of the existing Safe.
     export const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>
@@ -35,4 +35,4 @@ Verifies the deployment status of the existing Safe.
 
 `Promise<boolean>`
 
-A boolean value indicating if the Safe is deployed.
+The boolean value that indicates if the connected Safe is deployed.

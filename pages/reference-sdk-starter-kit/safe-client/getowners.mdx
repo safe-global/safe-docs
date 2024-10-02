@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `getOwners`
 
-Returns the list of Safe owner accounts.
+Returns the list of owners of the connected Safe.
 
 ## Usage
 
@@ -23,7 +23,7 @@ Returns the list of Safe owner accounts.
     export const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>
@@ -35,4 +35,4 @@ Returns the list of Safe owner accounts.
 
 `Promise<string[]>`
 
-Return the list of Safe account owners.
+The list of owners of the connected Safe.

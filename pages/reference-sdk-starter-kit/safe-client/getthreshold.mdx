@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `getThreshold`
 
-This function provides the current Safe threshold value. This number is the minimum number of signatures required to execute a transaction.
+Returns the threshold of the connected Safe.
 
 ## Usage
 
@@ -23,7 +23,7 @@ This function provides the current Safe threshold value. This number is the mini
     export const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>
@@ -35,4 +35,4 @@ This function provides the current Safe threshold value. This number is the mini
 
 `Promise<number>`
 
-The Safe account threshold.
+The threshold of the connected Safe.

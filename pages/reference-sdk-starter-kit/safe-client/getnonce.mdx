@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `getNonce`
 
-This method retrieves the current Safe nonce. The nonce is a number that represents the number of transactions sent from the Safe account.
+Returns the nonce of the connected Safe.
 
 ## Usage
 
@@ -23,7 +23,7 @@ This method retrieves the current Safe nonce. The nonce is a number that represe
     export const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>
@@ -35,4 +35,4 @@ This method retrieves the current Safe nonce. The nonce is a number that represe
 
 `Promise<number>`
 
-The Safe nonce.
+The nonce of the connected Safe.

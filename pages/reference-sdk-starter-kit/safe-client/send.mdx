@@ -2,19 +2,11 @@ import { Tabs } from 'nextra/components'
 
 # `send`
 
-The `send` method is used to send transactions from your Safe account. It covers various transaction flows that you would typically need to implement yourself if you're using a more advanced kit, such as the `protocol-kit` in conjunction with the `api-kit`. You can send an array to transactions (to, value, data) that we will convert to a transaction batch.
+If the `threshold` of the connected Safe is greater than 1, it will create the Safe transaction and store it in the Safe Transaction Service to collect the signatures from the Safe owners.
 
-We can distinguish two main cases when using the `send` method:
+If the `threshold` of the connected Safe is 1, the Safe transaction will be submitted and executed immediately.
 
-If the Safe account is already deployed (you are using `safeAddress` or the `safeOptions` counterfactual address prediction derives an existing Safe account):
-
-  - In the case the Safe is a multisig account (more than one owner and threshold greater than 1), the `send` method will propose the transaction to our Transaction Service. The transaction is not sent to the blockchain immediately, but is stored in our services. This is because you need more signatures than just the one for the `signer` used to create the client.
-  - In the case the Safe is a single-owner account (threshold equal to 1), the transaction is sent directly to the blockchain without being stored in our services, as it is not necessary.
-
-If the Safe account has not yet been deployed (you are using `safeOptions` and the counterfactual address prediction results in a non-existing Safe account):
-
-  - In the case the Safe is a multisig account, the `send` method will propose the transaction to our Transaction Service, just as in the previous case. However, the Safe account will be deployed using the funds in the current `signer` account.
-  - In the case the Safe is a single-owner account, the transaction is sent directly to the blockchain without being stored in our services. The Safe account will be deployed using the funds in the current `signer` account.
+If the Safe account is not deployed, it will be deployed when this method is called and funds will be required in the connected signer account.
 
 ## Usage
 
@@ -28,21 +20,24 @@ If the Safe account has not yet been deployed (you are using `safeOptions` and t
     const transactions = [{
       to: '0x...',
       data: '0x...',
-      value: '0'
-    }, {
+      value: '0',
+      operation: 1 // Optional
+    },
+    {
       to: '0x...',
       data: '0x...',
-      value: '0'
+      value: '0',
+      operation: 1 // Optional
     }]
 
     const txResult = await safeClient.send({
       transactions,
-      from,
-      gasLimit,
-      gasPrice,
-      maxFeePerGas,
-      maxPriorityFeePerGas,
-      nonce
+      from: '0x...', // Optional
+      gasLimit: '123', // Optional
+      gasPrice: '123', // Optional
+      maxFeePerGas: '123', // Optional
+      maxPriorityFeePerGas: '123', // Optional
+      nonce: 123 // Optional
     })
     ```
   </Tabs.Tab>
@@ -53,7 +48,7 @@ If the Safe account has not yet been deployed (you are using `safeOptions` and t
     export const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>
@@ -63,56 +58,152 @@ If the Safe account has not yet been deployed (you are using `safeOptions` and t
 
 ## Returns
 
-`SafeClientResult`
+`Promise<SafeClientResult>`
 
-An object with the result of the send transaction operation.
+The result of the Safe transaction sent.
 
 ## Parameters
 
-### `transactions`
-
-- **Type:** `TransactionBase[]`
-
-Here is the improved text:
-
-An array of transactions to be sent. If there are multiple transactions, they will be sent in the same batch. Each transaction is represented by an object containing the recipient address (to), the value (value) to be sent, and any additional data (data) as in a regular Ethereum transaction.
-
-  1.	`to`: The address of the recipient of the transaction.
-  2.	`value`: The amount of ether (in wei) being transferred from the sender to the recipient. If you are invoking a smart contract without sending any ether, this value can be zero.
-  3.	`data`: This field carries additional information sent with the transaction. For standard ether transfers between addresses, this field is usually empty. However, when interacting with smart contracts, this field contains the encoded function call and parameters.
-
-### `from` (optional)
+### `transactions.to`
 
 - **Type:** `string`
 
-The sender's address for the transaction.
+The address of the recipient.
 
-### `gasLimit` (optional)
+```typescript focus=3
+const txResult = await safeClient.send({
+  transactions: [{
+    to: '0x...',
+    value: '123',
+    data: '0x'
+  }]
+})
+```
+
+### `transactions.value`
+
+- **Type:** `string`
+
+The amount of native tokens that are transferred.
+
+```typescript focus=4
+const txResult = await safeClient.send({
+  transactions: [{
+    to: '0x...',
+    value: '123',
+    data: '0x'
+  }]
+})
+```
+
+### `transactions.data`
+
+- **Type:** `string`
+
+The encoded transaction data.
+
+```typescript focus=5
+const txResult = await safeClient.send({
+  transactions: [{
+    to: '0x...',
+    value: '123',
+    data: '0x'
+  }]
+})
+```
+
+### `transactions.operation` (Optional)
+
+- **Type:** `OperationType`
+
+- **Default:** `1`
+
+The operation of the Safe transaction.
+
+```typescript focus=6
+const txResult = await safeClient.send({
+  transactions: [{
+    to: '0x...',
+    value: '123',
+    data: '0x',
+    operation: 0
+  }]
+})
+```
+
+### `from` (Optional)
+
+- **Type:** `string`
+
+The address of the transaction sender.
+
+```typescript focus=3
+const txResult = await safeClient.send({
+  transactions,
+  from: '0x...'
+})
+```
+
+### `gasLimit` (Optional)
 
 - **Type:** `stringnumber | string | bigint`
 
-The maximum amount of gas the transaction can use. If the transaction requires more gas than the limit, it will fail.
+The maximum amount of gas the transaction can use.
 
-### `gasPrice` (optional)
+```typescript focus=3
+const txResult = await safeClient.send({
+  transactions,
+  gasLimit: '123'
+})
+```
+
+### `gasPrice` (Optional)
 
 - **Type:** `number | string`
 
 The price in wei that the sender is willing to pay for each unit of gas.
 
-### `maxFeePerGas` (optional)
+```typescript focus=3
+const txResult = await safeClient.send({
+  transactions,
+  gasPrice: '123'
+})
+```
+
+### `maxFeePerGas` (Optional)
 
 - **Type:** `number | string`
 
 The maximum fee per gas the sender is willing to pay.
 
-### `maxPriorityFeePerGas` (optional)
+```typescript focus=3
+const txResult = await safeClient.send({
+  transactions,
+  maxFeePerGas: '123'
+})
+```
+
+### `maxPriorityFeePerGas` (Optional)
 
 - **Type:** `number | string`
 
 The maximum priority fee per gas the sender is willing to pay.
 
-### `nonce` (optional)
+```typescript focus=3
+const txResult = await safeClient.send({
+  maxPriorityFeePerGas: '123'
+})
+```
+
+### `nonce` (Optional)
 
 - **Type:** `number | string`
 
-The `nonce` refers to a unique number used in a transaction to prevent the same transaction from being processed more than once.
+The nonce of the transaction.
+
+```typescript focus=3
+const txResult = await safeClient.send({
+  transactions,
+  nonce: 123
+})
+```

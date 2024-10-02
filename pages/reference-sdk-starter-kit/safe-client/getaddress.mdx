@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `getAddress`
 
-This method retrieves the current Safe address.
+Returns the connected Safe address or the predicted one based on the configuration parameters.
 
 ## Usage
 
@@ -23,7 +23,7 @@ This method retrieves the current Safe address.
     export const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>
@@ -35,4 +35,4 @@ This method retrieves the current Safe address.
 
 `Promise<string>`
 
-The Safe address or the predicted one, in case it has not yet been deployed. You can use the `safeOptions` to instantiate the SafeClient and to produce a deterministic address based on the different options.
+The connected Safe address or the predicted one based on the configuration parameters.

@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `createSwapOwnerTransaction`
 
-Creates a transaction (to, value, data) to swap an owner of the Safe account. The transaction can be included individually or in a batch within the `send` method.
+Creates a Safe transaction to swap an owner of the connected Safe.
 
 ## Usage
 
@@ -14,8 +14,8 @@ Creates a transaction (to, value, data) to swap an owner of the Safe account. Th
     import { safeClient } from './setup.ts'
 
     const transaction = await safeClient.createSwapOwnerTransaction({
-      oldOwnerAddress,
-      newOwnerAddress
+      oldOwnerAddress: '0x...',
+      newOwnerAddress: '0x...'
     })
 
     const txResult = await safeClient.send({
@@ -30,7 +30,7 @@ Creates a transaction (to, value, data) to swap an owner of the Safe account. Th
     export const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>
@@ -42,7 +42,7 @@ Creates a transaction (to, value, data) to swap an owner of the Safe account. Th
 
 `Promise<TransactionBase>`
 
-Returns a `TransactionBase` transaction that you can use or include in a batch using the `send` method.
+The Safe transaction to swap an owner of the connected Safe.
 
 ## Parameters
 
@@ -50,10 +50,23 @@ Returns a `TransactionBase` transaction that you can use or include in a batch u
 
 - **Type:** `string`
 
-The Ethereum address to remove as an owner.
+The address to remove as an owner.
 
-### `newOwnerAddress` (optional)
+```typescript focus=2
+const transaction = await safeClient.createSwapOwnerTransaction({
+  oldOwnerAddress: '0x...'
+})
+```
+
+### `newOwnerAddress` (Optional)
 
 - **Type:** `string`
 
-The new Ethereum address to add as an owner.
+The address to add as an owner.
+
+```typescript focus=3
+const transaction = await safeClient.createSwapOwnerTransaction({
+  oldOwnerAddress: '0x...',
+  newOwnerAddress: '0x...'
+})
+```
