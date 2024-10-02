@@ -1,0 +1,203 @@
+import { Steps, Tabs } from 'nextra/components'
+
+# Send User Operations
+
+In this guide, you will learn how to create Safe [user operations](../../../home/glossary.mdx#useroperation), sign them, collect the signatures from the different owners, and execute them.
+
+For more detailed information, see the [Starter Kit Reference](../../../reference-sdk-starter-kit/overview.mdx).
+
+[Pimlico](https://pimlico.io) is used in this guide as the service provider, but any other provider compatible with the ERC-4337 can be used.
+
+## Prerequisites
+
+- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- A [Pimlico account](https://dashboard.pimlico.io) and an API key.
+
+## Install dependencies
+
+First, you need to install some dependencies.
+
+```bash
+pnpm add @safe-global/starter-kit
+```
+
+## Steps
+
+<Steps>
+
+  ### Imports
+
+  Here are all the necessary imports for this guide.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  import { ethers } from 'ethers'
+  import {
+    createSafeClient,
+    safeOperations,
+    BundlerOptions
+  } from '@safe-global/sdk-starter-kit'
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Create a signer
+
+  Firstly, you need to get a signer, which will be the owner of a Safe account after it's deployed.
+
+  This example uses a private key, but any way to get an EIP-1193 compatible signer can be used.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const SIGNER_ADDRESS = // ...
+  const SIGNER_PRIVATE_KEY = // ...
+  const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Initialize the `SafeClient`
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['New Safe account', 'Existing Safe account']}>
+    <Tabs.Tab>
+      When deploying a new Safe account, you need to pass the configuration of the Safe in the `safeOptions` property. The Safe account is configured with your signer as the only owner in this case.
+
+      ```typescript
+      const safeClient = await createSafeClient({
+        provider: RPC_URL,
+        signer: SIGNER_PRIVATE_KEY,
+        safeOptions: {
+          owners: [SIGNER_ADDRESS],
+          threshold: 1,
+        }
+      })
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      When connecting an existing Safe account, you need to pass the `safeAddress`.
+
+      ```typescript
+      const safeClient = await createSafeClient({
+        provider: RPC_URL,
+        signer: SIGNER_PRIVATE_KEY,
+        safeAddress: '0x...'
+      })
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  As this guide is related with ERC-4337 user operations, you need to add the `safeOperations` extension to the `SafeClient` to support this functionality.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const bundlerOptions: BundlerOptions = {
+    bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`
+  }
+
+  const paymasterOptions: PaymasterOptions = {
+    isSponsored: true,
+    paymasterUrl: `https://api.pimlico.io/v2/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+  }
+
+  const safeClientWithSafeOperation = await safeClient.extend(
+    safeOperations(bundlerOptions, paymasterOptions)
+  )
+  ```
+
+  The `safeClientWithSafeOperation` instance has now support for managing user operations.
+
+  {/* <!-- vale on --> */}
+
+  ### Create a Safe transaction
+
+  Create an array of Safe transactions to execute.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const transactions = [{
+    to: '0x...',
+    data: '0x',
+    value: '0'
+  }]
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Send the Safe operation
+
+  If you configured your Safe with `threshold` equal to `1`, calling the [`sendSafeOperation`](../../../reference-sdk-starter-kit/safe-operations/sendsafeoperation.mdx) method will execute the user operation. However, if the `threshold` is greater than `1` the other owners of the Safe will need to confirm the user operation until the required number of signatures are collected.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const ethersProvider = new ethers.JsonRpcProvider(RPC_URL)
+  const timestamp = (await ethersProvider.getBlock('latest'))?.timestamp || 0
+
+  const safeOperationResult = await safeClientWithSafeOperation.sendSafeOperation({
+    transactions,
+    validAfter: timestamp - 60_000,
+    validUntil: timestamp + 60_000
+  })
+
+  const safeOperationHash = safeOperationResult.safeOperations?.safeOperationHash
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Confirm the Safe operations
+
+  If the user operation needs to be confirmed by other Safe owners, call the [`confirmSafeOperation`](../../../reference-sdk-starter-kit/safe-operations/confirmsafeoperation.mdx) method from a new `SafeClient` instance initialized with each of the signers that need to confirm it.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const newSafeClient = await createSafeClient({
+    provider: RPC_URL,
+    signer,
+    safeAddress: '0x...'
+  })
+
+  const newSafeClientWithSafeOperation = await newSafeClient.extend(
+    safeOperations({
+      bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`
+    }, {
+      isSponsored: true,
+      paymasterUrl: `https://api.pimlico.io/v2/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+    })
+  )
+  ```
+  {/* <!-- vale on --> */}
+
+  Finally, retrieve all the pending user operations from the Safe Transaction Service and confirm the one you just created with each missing owner.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const pendingSafeOperations =
+    await newSafeClientWithSafeOperation.getPendingSafeOperations()
+
+  for (const safeOperation of pendingSafeOperations.results) {
+    if (safeOperation.safeOperationHash !== safeOperationHash) {
+      return
+    }
+
+    const safeOperationResult =
+      await newSafeClientWithSafeOperation.confirmSafeOperation({ safeOperationHash })
+  }
+  ```
+
+  {/* <!-- vale on --> */}
+
+</Steps>
+
+## Recap and further reading
+
+After following this guide, you are able to deploy new Safe accounts and create, sign, and submit user operations with the Starter Kit.
