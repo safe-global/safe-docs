@@ -6,7 +6,7 @@ import { Tabs, Callout } from 'nextra/components'
 
 ### `init`
 
-The `init` method initializes the protocolKit instance and connects the Safe account. There are two main ways to initialize the protocolKit: you can use an already deployed Safe or deploy a new one.
+The `init` method initializes the Protocol kit instance and connects the Safe account. We have two main ways to initialize the Protocol kit: you can use an already deployed Safe or deploy a new one.
 
 <Tabs items={['deployed-safe.ts', 'undeployed-safe.ts']}>
   <Tabs.Tab>
@@ -63,7 +63,7 @@ const protocolKit = await Safe.init({
 
 - The `safeAddress` property is the string address of the Safe account. Use this property is the safe is already deployed.
 
-- The `predictedSafe` property is an object that contains the Safe account configuration and deployment details. Use this property if the Safe account has not been deployed yet. The `init` method does not deploy a new Safe; it only enables limited use of the protocolKit. To deploy a Safe, you must use the specific deployment methods: `createSafeDeploymentTransaction()` or `executeTransaction()`. This object contains the following properties:
+- The `predictedSafe` property is an object that contains the Safe account configuration and deployment details. Use this property if the Safe account has not been deployed yet. The `init` method does not deploy a new Safe; it only enables limited use of the Protocol kit. To deploy a Safe, you must use the specific deployment methods: `createSafeDeploymentTransaction()` or `executeTransaction()`. This object contains the following properties:
     - `safeAccountConfig`:
       - `owners`: An array of Safe owner addresses.
       - `threshold`: The number of signatures required to execute a Safe transaction.
