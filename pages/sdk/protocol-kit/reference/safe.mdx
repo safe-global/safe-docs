@@ -6,7 +6,36 @@ import { Tabs, Callout } from 'nextra/components'
 
 ### `init`
 
-The `init` method initializes the Protocol Kit instance and connects the Safe account. We have two main ways to initialize the Protocol Kit, depending on whether the Safe account is deployed or not.
+The `init` method initializes the Protocol Kit instance and connects the Safe account.
+
+```typescript
+import Safe from '@safe-global/protocol-kit'
+
+const protocolKit = await Safe.init({
+  provider,
+  signer,
+  safeAddress // or predictedSafe
+})
+```
+
+- The `safeAddress` property is the string address of the Safe account. Use this property is the safe is already deployed.
+
+- The `predictedSafe` property is an object that contains the Safe account configuration and deployment details. Use this property if the Safe account has not been deployed yet. The `init` method does not deploy a new Safe; it only enables limited use of the Protocol Kit. To deploy a Safe, you must use the specific deployment methods: `createSafeDeploymentTransaction()` or `executeTransaction()`. This object contains the following properties:
+    - `safeAccountConfig`:
+      - `owners`: An array of Safe owner addresses.
+      - `threshold`: The number of signatures required to execute a Safe transaction.
+      - `to` (optional): The contract address for optional delegate call.
+      - `data` (optional): The data payload for optional delegate call.
+      - `fallbackHandler` (optional): The fallback handler address.
+      - `paymentToken` (optional): The token that should be used for the payment (0 is ETH).
+      - `payment` (optional): The value that should be paid.
+      - `paymentReceiver` (optional): The address that should receive the payment (or 0 if tx.origin).
+    - `safeDeploymentConfig`:
+      - `saltNonce` (optional): The salt nonce to use. Changing this value will update the predicted Safe account address.
+      - `safeVersion` (optional): The Safe contract version to use.
+      - `deploymentType` (optional): The Safe deployment type to use. It can be `canonical`, `eip155`, or `zksync`. Changing this value affects the search algorithm used to find the [Safe deployment address](https://github.com/safe-global/safe-deployments/tree/main/src/assets) for any Safe contract, resulting in a change to the predicted address.
+
+We have two main ways to initialize the Protocol Kit, depending on whether the Safe account is deployed or not.
 
 {/* <!-- vale off --> */}
 
@@ -125,23 +154,6 @@ The `init` method initializes the Protocol Kit instance and connects the Safe ac
 </Tabs>
 
 {/* <!-- vale on --> */}
-
-- The `safeAddress` property is the string address of the Safe account. Use this property is the safe is already deployed.
-
-- The `predictedSafe` property is an object that contains the Safe account configuration and deployment details. Use this property if the Safe account has not been deployed yet. The `init` method does not deploy a new Safe; it only enables limited use of the Protocol Kit. To deploy a Safe, you must use the specific deployment methods: `createSafeDeploymentTransaction()` or `executeTransaction()`. This object contains the following properties:
-    - `safeAccountConfig`:
-      - `owners`: An array of Safe owner addresses.
-      - `threshold`: The number of signatures required to execute a Safe transaction.
-      - `to` (optional): The contract address for optional delegate call.
-      - `data` (optional): The data payload for optional delegate call.
-      - `fallbackHandler` (optional): The fallback handler address.
-      - `paymentToken` (optional): The token that should be used for the payment (0 is ETH).
-      - `payment` (optional): The value that should be paid.
-      - `paymentReceiver` (optional): The address that should receive the payment (or 0 if tx.origin).
-    - `safeDeploymentConfig`:
-      - `saltNonce` (optional): The salt nonce to use. Changing this value will update the predicted Safe account address.
-      - `safeVersion` (optional): The Safe contract version to use.
-      - `deploymentType` (optional): The Safe deployment type to use. It can be `canonical`, `eip155`, or `zksync`. Changing this value affects the search algorithm used to find the [Safe deployment address](https://github.com/safe-global/safe-deployments/tree/main/src/assets) for any Safe contract, resulting in a change to the predicted address.
 
 - The `isL1SafeSingleton` flag
 
