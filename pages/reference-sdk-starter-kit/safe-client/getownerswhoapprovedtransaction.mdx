@@ -1,6 +1,6 @@
 import { Tabs } from 'nextra/components'
 
-# `getOwnersWhoApprovedTx`
+# `getOwnersWhoApprovedTransaction`
 
 Returns the list of owners who signed a given Safe transaction.
 
@@ -15,7 +15,7 @@ Returns the list of owners who signed a given Safe transaction.
 
     const safeTxHash = '0x...'
 
-    const owners = safeClient.getOwnersWhoApprovedTx(safeTxHash)
+    const owners = safeClient.getOwnersWhoApprovedTransaction(safeTxHash)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -48,7 +48,7 @@ The list of owners who signed a given Safe transaction hash.
 The Safe transaction hash to check.
 
 ```typescript focus=2
-const owners = safeClient.getOwnersWhoApprovedTx(
+const owners = safeClient.getOwnersWhoApprovedTransaction(
   '0x...'
 )
 ```

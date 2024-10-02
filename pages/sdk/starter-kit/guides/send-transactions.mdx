@@ -1,0 +1,155 @@
+import { Steps, Tabs } from 'nextra/components'
+
+# Send Transactions
+
+In this guide, you will learn how to create Safe transactions, sign them, collect the signatures from the different owners, and execute them.
+
+For more detailed information, see the [Starter Kit Reference](../../../reference-sdk-starter-kit/overview.mdx).
+
+## Prerequisites
+
+- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+
+## Install dependencies
+
+First, you need to install some dependencies.
+
+```bash
+pnpm add @safe-global/starter-kit
+```
+
+## Steps
+
+<Steps>
+
+  ### Imports
+
+  Here are all the necessary imports for this guide.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  import { createSafeClient } from '@safe-global/sdk-starter-kit'
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Create a signer
+
+  Firstly, you need to get a signer, which will be the owner of a Safe account after it's deployed.
+
+  This example uses a private key, but any way to get an EIP-1193 compatible signer can be used.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const SIGNER_ADDRESS = // ...
+  const SIGNER_PRIVATE_KEY = // ...
+  const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Initialize the `SafeClient`
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['New Safe account', 'Existing Safe account']}>
+    <Tabs.Tab>
+      When deploying a new Safe account, you need to pass the configuration of the Safe in the `safeOptions` property. The Safe account is configured with your signer as the only owner in this case.
+
+      ```typescript
+      const safeClient = await createSafeClient({
+        provider: RPC_URL,
+        signer: SIGNER_PRIVATE_KEY,
+        safeOptions: {
+          owners: [SIGNER_ADDRESS],
+          threshold: 1
+        }
+      })
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      When connecting an existing Safe account, you need to pass the `safeAddress`.
+
+      ```typescript
+      const safeClient = await createSafeClient({
+        provider: RPC_URL,
+        signer: SIGNER_PRIVATE_KEY,
+        safeAddress: '0x...'
+      })
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  ### Create a Safe transaction
+
+  Create an array of Safe transactions to execute.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const transactions = [{
+    to: '0x...',
+    data: '0x',
+    value: '0'
+  }]
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Send the Safe transaction
+
+  If you configured your Safe with `threshold` equal to `1`, calling the [`send`](../../../reference-sdk-starter-kit/safe-client/send.mdx) method will execute the Safe transaction. However, if the `threshold` is greater than `1` the other owners of the Safe will need to confirm the transaction until the required number of signatures are collected.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const txResult = await safeClient.send({ transactions })
+
+  const safeTxHash = txResult.transactions?.safeTxHash
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Confirm the Safe transaction
+
+  If the Safe transaction needs to be confirmed by other Safe owners, call the [`confirm`](../../../reference-sdk-starter-kit/safe-client/confirm.mdx) method from a new `SafeClient` instance initialized with each of the signers that need to confirm it.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const newSafeClient = await createSafeClient({
+    provider: RPC_URL,
+    signer,
+    safeAddress: '0x...'
+  })
+  ```
+  
+  {/* <!-- vale on --> */}
+
+  Finally, retrieve all the pending Safe transactions from the Safe Transaction Service and confirm the one you just created with each missing owner.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const pendingTransactions = await newSafeClient.getPendingTransactions()
+
+  for (const transaction of pendingTransactions.results) {
+    if (transaction.safeTxHash !== safeTxHash) {
+      return
+    }
+
+    const txResult = await safeClient.confirm({ safeTxHash })
+  }
+  ```
+
+  {/* <!-- vale on --> */}
+
+</Steps>
+
+## Recap and further reading
+
+After following this guide, you are able to deploy new Safe accounts and create, sign, and execute Safe transactions with the Starter Kit.
