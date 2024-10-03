@@ -33,8 +33,8 @@ async function showSafeInfo(passkey: PasskeyArgType) {
     bundlerUrl: BUNDLER_URL + runtimeConfig.public.NUXT_PUBLIC_PIMLICO_API_KEY,
     options: {
       owners: [],
-      threshold: 1,
-    },
+      threshold: 1
+    }
   });
   store.setSafeAddress(await safe4337Pack.protocolKit.getAddress());
   store.setIsSafeDeployed(await safe4337Pack.protocolKit.isSafeDeployed());

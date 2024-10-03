@@ -157,7 +157,7 @@ function PendingDeploymentLabel() {
           border: '1px solid rgb(255, 255, 255)',
           whiteSpace: 'nowrap',
           backgroundColor: 'rgb(240, 185, 11)',
-          color: 'rgb(0, 20, 40)',
+          color: 'rgb(0, 20, 40)'
         }}
       >
         Deployment pending

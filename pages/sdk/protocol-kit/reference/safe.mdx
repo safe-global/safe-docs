@@ -148,7 +148,7 @@ Depending on whether the Safe account is deployed or not, you can initialize the
 
     const passkey: PasskeyArgType = {
       rawId,
-      coordinates,
+      coordinates
     }
 
     const protocolKit = await Safe.init({
@@ -712,7 +712,7 @@ Instead of using an address, this method also supports the use of a passkey to s
 ```typescript
 const passkey: PasskeyArgType = {
   rawId,
-  coordinates,
+  coordinates
 }
 const params: AddPasskeyOwnerTxParams = {
   passkey,
@@ -749,7 +749,7 @@ Instead of using an address, this method also supports the use of a passkey to r
 ```typescript
 const passkey: PasskeyArgType = {
   rawId,
-  coordinates,
+  coordinates
 }
 const params: AddPasskeyOwnerTxParams = {
   passkey,
@@ -786,7 +786,7 @@ Instead of using an address, this method also supports any combination of passke
 ```typescript
 const newOwnerPasskey: PasskeyArgType = {
   rawId,
-  coordinates,
+  coordinates
 }
 const params: SwapOwnerTxParams = {
   oldOwnerAddress,
