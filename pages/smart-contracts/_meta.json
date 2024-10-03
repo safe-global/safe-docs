@@ -8,26 +8,20 @@
     "title": "Safe Smart Account"
   },
   "smart-account-overview": "Overview",
-  "smart-account-modules": "Safe Modules",
   "smart-account-guards": "Safe Guards",
   "smart-account-signatures": "Signatures",
   "smart-account-supported-networks": "Supported Networks",
   "smart-account-audits": "Audits",
   "smart-account-bug-bounty": "Bug Bounty",
-  "-- Features": {
+  "smart-account-deployment": "Deployment",
+  "smart-account-reference": "Reference",
+  "-- Modules": {
     "type": "separator",
-    "title": "Features"
+    "title": "Modules"
   },
+  "smart-account-modules": "Overview",
   "erc-4337": "ERC-4337",
   "erc-7579": "ERC-7579",
   "passkeys": "Passkeys",
-  "-- Safe CLI": {
-    "type": "separator",
-    "title": "Safe CLI"
-  },
-  "cli-overview": "Overview",
-  "cli-installation": "Installation",
-  "cli-demos": "Demos",
-  "cli-guides": "Guides",
-  "cli-reference": "Reference"
+  "modules-reference": "Reference"
 }

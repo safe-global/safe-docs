@@ -3,8 +3,16 @@
     "title": "Home",
     "type": "page"
   },
+  "smart-contracts": {
+    "title": "Contracts",
+    "type": "page"
+  },
   "sdk": {
     "title": "SDK",
+    "type": "page"
+  },
+  "core-api": {
+    "title": "API",
     "type": "page"
   },
   "reference-sdk-api-kit": {
@@ -12,21 +20,13 @@
     "type": "page",
     "display": "hidden"
   },
-  "core-api": {
-    "title": "API",
-    "type": "page"
-  },
   "reference-sdk-starter-kit": {
     "title": "Starter Kit Reference",
     "type": "page",
     "display": "hidden"
   },
-  "smart-contracts": {
-    "title": "Smart Contracts",
-    "type": "page"
-  },
-  "advanced": {
-    "title": "Advanced",
+  "cli": {
+    "title": "CLI",
     "type": "page"
   },
   "resource-hub": {
