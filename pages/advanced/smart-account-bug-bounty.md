@@ -41,7 +41,7 @@ The scope of the bug bounty also includes officially supported Safe Modules:
 * MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
 * TokenCallbackHandler.sol (formerly DefaultCallbackHandler.sol), CompatibilityFallbackHandler.sol, HandlerContext.sol
 
-You can find addresses for deployed instances of these contracts [here](/home/supported-networks?version=v1.4.1) or in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
+You can find addresses for deployed instances of these contracts [here](/home/supported-networks.mdx?version=v1.4.1) or in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
 
 **Gnosis Safe core contracts (up to version 1.3.0)**
 
@@ -52,7 +52,7 @@ You can find addresses for deployed instances of these contracts [here](/home/su
 * CreateAndAddModules.sol, MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
 * DefaultCallbackHandler.sol, CompatibilityFallbackHandler.sol, HandlerContext.sol
 
-You can find addresses for deployed instances of these contracts [here](/home/supported-networks?version=v1.3.0) in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
+You can find addresses for deployed instances of these contracts [here](/home/supported-networks.mdx?version=v1.3.0) in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
 
 **Safe Modules contracts**
 
