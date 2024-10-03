@@ -1013,7 +1013,7 @@ const safeTransaction = await protocolKit.createEnableFallbackHandlerTx(fallback
 Returns a SafeMessage ready to be signed by the owners.
 
 ```typescript
-const rawMessage: string | EIP712TypedData = "I am the owner of this Safe"
+const rawMessage: string | EIP712TypedData = 'I am the owner of this Safe'
 const message = protocolKit.createMessage(rawMessage)
 ```
 
@@ -1069,7 +1069,7 @@ You can use multiple signing methods, such as:
 The third parameter (optional) is the preImageSafeAddress. If the preimage is required, this is the address of the Safe that will be used to calculate the preimage. It's a mandatory parameter for 1.3.0 and 1.4.1 contract versions. This is because the safe uses the old EIP-1271 interface, which uses `bytes` instead of `bytes32` for the message; we need to use the pre-image of the message to calculate the message hash. This parameter is used in conjunction with the SAFE_SIGNATURE signing method.
 
 ```typescript
-const rawMessage: string | EIP712TypedData = "I am the owner of this Safe"
+const rawMessage: string | EIP712TypedData = 'I am the owner of this Safe'
 const message = protocolKit.createMessage(rawMessage)
 const signedMessage = await protocolKit.signMessage(message)
 ```

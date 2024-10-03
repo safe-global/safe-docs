@@ -37,7 +37,7 @@ export async function createPasskey (): Promise<PasskeyArgType> {
   }
 
   const passkey = await extractPasskeyData(passkeyCredential)
-  console.log("Created Passkey: ", passkey)
+  console.log('Created Passkey:', passkey)
 
   return passkey
 }
