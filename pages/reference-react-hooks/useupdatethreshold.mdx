@@ -102,7 +102,7 @@ In the `data` property of the react-query mutation result, we will have a [`Safe
 
 The `updateThreshold` and `updateThresholdAsync` methods are used to send a transaction to update a Safe account's threshold. It covers transaction flows that you would typically need to implement yourself if you're using a more advanced kit, such as the `protocol-kit` in conjunction with the `api-kit`.
 
-The threshold can only be updated by the Safe's owner(s) and only if the Safe account is already deployed (you are using `safeAddress` or the `safeOptions` counterfactual address prediction derives an existing Safe account). If being used for a Safe account that has not been deployed yet, the methods will fail before sending the transaction.
+The threshold can only be updated by the owners of the Safe and only if the Safe account is already deployed (you are using `safeAddress` or the `safeOptions` counterfactual address prediction derives an existing Safe account). If being used for a Safe account that has not been deployed yet, the methods will fail before sending the transaction.
 
 We can distinguish two main cases when using these methods:
 
