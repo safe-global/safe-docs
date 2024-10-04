@@ -23,7 +23,7 @@ import { Tabs } from "nextra/components";
     return (
       <div>
         <button onClick={handleConfirmTransaction} disabled={isLoading}>
-          Send Transaction
+          Confirm Transaction
         </button>
         {isError && <p>Error: {error.message}</p>}
         {data && <p>Transaction confirmed: {JSON.stringify(data)}</p>}
