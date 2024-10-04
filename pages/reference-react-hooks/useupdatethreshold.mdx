@@ -1,0 +1,110 @@
+import { Tabs } from "nextra/components";
+
+# `useUpdateThreshold`
+
+`(params?: UseUpdateThresholdParams): UseUpdateThresholdReturnType`
+
+Hook to update the threshold of the connected Safe. It sends or (if the current threshold is > 1) proposes a transaction to update the threshold of the Safe account and returns the transaction result.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['App.tsx', 'main.tsx']}>
+  <Tabs.Tab>
+  ```typescript
+  import { useUpdateThreshold } from '@safe-global/safe-core-sdk-react-hooks'
+  
+  function App() {
+    const { updateThreshold, isLoading, isError, data, error } = useUpdateThreshold();
+
+    const handleUpdateThreshold = () => {
+      updateThreshold({ threshold: 2 });
+    };
+
+    return (
+      <div>
+        <button onClick={handleUpdateThreshold} disabled={isLoading}>
+          Update Threshold
+        </button>
+        {isError && <p>Error: {error.message}</p>}
+        {data && <p>Update Threshold Transaction sent: {JSON.stringify(data)}</p>}
+      </div>
+    );
+  }
+  ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ```typescript
+  import ReactDOM from 'react-dom/client'
+  import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+  import App from './App.tsx'
+
+  const config = createConfig({
+    chain,
+    provider,
+    signer,
+    safeAddress,
+  })
+
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <SafeProvider config={config}>
+      <App />
+    </SafeProvider>
+  )
+  ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+- `params` (UseUpdateThresholdParams, optional): Parameters to customize the hook behavior. It contains:
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+
+## Returns 
+
+- The react-query [`UseMutationResult`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation).
+- The `mutate` and `mutateAsync` functions have been renamed to `updateThreshold` and `updateThresholdAsync` respectively. The other properties in the return type remain unchanged, and the behavior is still the same as described in the docs.
+
+### `updateThreshold`
+
+`UseMutateFunction<SafeClientResult, Error, UpdateThresholdVariables, unknown>`
+
+Function for sending a transaction to update the threshold. It's a react-query [`mutate`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation) function.
+
+#### Parameters
+
+- `UpdateThresholdVariables`: Variables to update the threshold.
+  - `threshold` (number): New threshold value.
+
+#### Returns
+
+In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that updated the threshold.
+
+### `updateThresholdAsync`
+
+`UseMutateAsyncFunction<SafeClientResult, Error, UpdateThresholdVariables, unknown>`
+
+Asynchronous function for sending a transaction to update the threshold. It's a react-query [`mutateAsync`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation) function.
+
+#### Parameters
+
+- `UpdateThresholdVariables`: Variables to update the threshold.
+  - `threshold` (number): New threshold value.
+
+#### Returns
+
+In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that updated the threshold.
+
+## Caveats
+
+The `updateThreshold` and `updateThresholdAsync` methods are used to send a transaction to update a Safe account's threshold. It covers transaction flows that you would typically need to implement yourself if you're using a more advanced kit, such as the `protocol-kit` in conjunction with the `api-kit`.
+
+The threshold can only be updated by the Safe's owner(s) and only if the Safe account is already deployed (you are using `safeAddress` or the `safeOptions` counterfactual address prediction derives an existing Safe account). If being used for a Safe account that has not been deployed yet, the methods will fail before sending the transaction.
+
+We can distinguish two main cases when using these methods:
+
+  - In the case the Safe is a multisig account (more than one owner and threshold greater than 1), the methods will propose a transaction to update the threshold. The transaction is not sent to the blockchain immediately, but is stored in our Transaction Service. This is because you need more signatures than just the one for the `signer` used to create the client.
+  - In the case the Safe is a single-owner account (threshold equal to 1), the transaction to update the threshold is sent directly to the blockchain without being stored in our services, as it is not necessary.
