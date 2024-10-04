@@ -22,12 +22,12 @@ The props for creating a new configuration are those extracted from [SdkStarterK
 
 We can have primarily two use cases:
 
-- When using the `SafeProvider` component to provide a common configuration for all hooks.  
-- When you are not using the `SafeProvider` component or when using individual functions with a custom configuration.
+- Providing the configuration to the `SafeProvider` component.  
+- Customizing the configuration in some individual functions.
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['using-safe-provider.tsx', 'using-individual-method.tsx', 'create-config.ts']}>
+<Tabs items={['safe-provider.tsx', 'custom-configuration.tsx', 'create-config.ts']}>
   <Tabs.Tab>
   ```typescript
   import ReactDOM from 'react-dom/client'

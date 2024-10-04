@@ -139,7 +139,7 @@ Retrieves the balance information of the Safe.
 
 #### Parameters
 - `params` (UseBalanceParams, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
 
 #### Returns
 - A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the Safe balance in the `data` property.
@@ -180,7 +180,7 @@ Get the chain information of the Safe.
 
 #### Parameters
 - `params` (UseChainParams, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
 
 #### Returns
 - It returns `UseChainReturnType = SafeConfig['chain']` being `SafeConfig['chain']` the viem's [Chain Type](https://github.com/wevm/viem/blob/main/src/types/chain.ts).
@@ -218,7 +218,7 @@ Get all pending transactions for the connected Safe.
 
 #### Parameters
 - `params` (UsePendingTransactionsParams, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
 
 #### Returns
 - A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the pending transactions in the `data` property.
@@ -258,7 +258,7 @@ Get an specific transaction.
 
 #### Parameters
 - `params` (UseTransactionParams): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
   - `safeTxHash` (Hash, optional): Hash of the Safe transaction to be fetched. Either `safeTxHash` or `ethereumTxHash` must be provided.
   - `ethereumTxHash` (Hash, optional): Hash of the Ethereum transaction to be fetched. Either `safeTxHash` or `ethereumTxHash` must be provided.
 
@@ -305,7 +305,7 @@ Get all transactions for the connected Safe.
 
 #### Parameters
 - `params` (UseTransactionsParams, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
 
 #### Returns
 - A [query](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) result object containing the list of transactions for the Safe account in the `data` property.
@@ -346,7 +346,7 @@ Get the connected Safe information.
 
 #### Parameters
 - `params` (UseSafeInfoParams, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
 
 #### Returns
 - A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the Safe account information in the `data` property.
@@ -387,7 +387,7 @@ Get the configured signer address.
 
 #### Parameters
 - `params` (object, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used when a `SafeProvider` is not present in the component tree.
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
 
 #### Returns
 -  The signer address or `undefined` if not available.
