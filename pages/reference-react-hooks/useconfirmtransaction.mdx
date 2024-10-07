@@ -10,50 +10,58 @@ import { Tabs } from 'nextra/components'
 
 <Tabs items={['App.tsx', 'main.tsx']}>
   <Tabs.Tab>
-  ```typescript
-  import { useConfirmTransaction } from '@safe-global/safe-core-sdk-react-hooks'
-  
-  function App() {
-    const { confirmTransaction, isLoading, isError, data, error } = useConfirmTransaction()
+    ```typescript
+    import { useConfirmTransaction } from '@safe-global/safe-core-sdk-react-hooks'
+    
+    function App() {
+      const {
+        confirmTransaction,
+        isLoading,
+        isError,
+        data,
+        error
+      } = useConfirmTransaction()
 
-    const handleConfirmTransaction = () => {
-      confirmTransaction({ safeTxHash })
+      const handleConfirmTransaction = () => {
+        confirmTransaction({ safeTxHash })
+      }
+
+      return (
+        <>
+          <button onClick={handleConfirmTransaction} disabled={isLoading}>
+            Confirm Transaction
+          </button>
+          {isError && <p>Error: {error.message}</p>}
+          {data && <p>Transaction confirmed: {JSON.stringify(data)}</p>}
+        </>
+      )
     }
 
-    return (
-      <div>
-        <button onClick={handleConfirmTransaction} disabled={isLoading}>
-          Confirm Transaction
-        </button>
-        {isError && <p>Error: {error.message}</p>}
-        {data && <p>Transaction confirmed: {JSON.stringify(data)}</p>}
-      </div>
-    )
-  }
-  ```
+    export default App
+    ```
   </Tabs.Tab>
   <Tabs.Tab>
-  ```typescript
-  import ReactDOM from 'react-dom/client'
-  import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
-  import App from './App.tsx'
+    ```typescript
+    import ReactDOM from 'react-dom/client'
+    import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+    import App from './App.tsx'
 
-  const config = createConfig({
-    chain,
-    provider,
-    signer,
-    safeOptions: {
-      owners,
-      threshold
-    }
-  })
+    const config = createConfig({
+      chain,
+      provider,
+      signer,
+      safeOptions: {
+        owners,
+        threshold
+      }
+    })
 
-  ReactDOM.createRoot(document.getElementById('root')!).render(
-    <SafeProvider config={config}>
-      <App />
-    </SafeProvider>
-  )
-  ```
+    ReactDOM.createRoot(document.getElementById('root')!).render(
+      <SafeProvider config={config}>
+        <App />
+      </SafeProvider>
+    )
+    ```
   </Tabs.Tab>
 </Tabs>
 

@@ -1,38 +1,38 @@
 # `SafeProvider`
 
-## Usage
-
 The `SafeProvider` component is a wrapper that offers a secure [React context](https://react.dev/reference/react/createContext#provider) for the `Safe` hooks.
+
+## Usage
 
 Usually, you will add this component at the root of your application, wrapping the entire application. Another way to work with Safe hooks is to pass the `config` as a parameter to the individual functions. You can find more information about this in the specific hook documentation.
 
 {/* <!-- vale off --> */}
 
 ```typescript
-  import ReactDOM from 'react-dom/client'
-  import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
-  import App from './App.tsx'
+import ReactDOM from 'react-dom/client'
+import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+import App from './App.tsx'
 
-  const config = createConfig({
-    chain,
-    provider,
-    signer,
-    safeOptions: {
-      owners,
-      threshold
-    }
-  })
+const config = createConfig({
+  chain,
+  provider,
+  signer,
+  safeOptions: {
+    owners,
+    threshold
+  }
+})
 
-  ReactDOM.createRoot(document.getElementById('root')!).render(
-    <SafeProvider config={config}>
-      <App />
-    </SafeProvider>
-  )
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <SafeProvider config={config}>
+    <App />
+  </SafeProvider>
+)
 ```
 
 {/* <!-- vale on --> */}
 
-## Props
+## Parameters
 
 ### `config`
 

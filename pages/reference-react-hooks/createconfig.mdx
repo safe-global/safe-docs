@@ -2,6 +2,8 @@ import { Tabs } from 'nextra/components'
 
 # `createConfig`
 
+{/* <!-- vale off --> */}
+
 ```typescript
 createConfig<
   Provider extends SdkStarterKitConfig['provider'] = SdkStarterKitConfig['provider'],
@@ -15,6 +17,8 @@ CreateConfigParams<
   Chain extends ChainType = ChainType
 > = { chain: Chain; provider: Provider; signer: Signer } & SdkStarterKitConfig
 ```
+
+{/* <!-- vale on --> */}
 
 The props for creating a new configuration are those extracted from [SdkStarterKitConfig](https://github.com/safe-global/safe-core-sdk/blob/main/packages/sdk-starter-kit/src/types.ts#L49-L65) and are extended with the viem chain.
 
@@ -44,7 +48,6 @@ We can have primarily two use cases:
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-    import React from 'react'
     import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
     import config from './config.ts'
 

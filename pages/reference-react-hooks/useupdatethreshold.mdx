@@ -16,22 +16,30 @@ Hook to update the threshold of the connected Safe. It sends or (if the current 
     import { useUpdateThreshold } from '@safe-global/safe-core-sdk-react-hooks'
     
     function App() {
-      const { updateThreshold, isLoading, isError, data, error } = useUpdateThreshold()
+      const {
+        updateThreshold,
+        data,
+        isLoading,
+        isError,
+        error
+      } = useUpdateThreshold()
 
       const handleUpdateThreshold = () => {
         updateThreshold({ threshold: 2 })
       }
 
       return (
-        <div>
+        <>
           <button onClick={handleUpdateThreshold} disabled={isLoading}>
             Update Threshold
           </button>
           {isError && <p>Error: {error.message}</p>}
           {data && <p>Update Threshold Transaction sent: {JSON.stringify(data)}</p>}
-        </div>
+        </>
       )
     }
+
+    export default App
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -44,7 +52,7 @@ Hook to update the threshold of the connected Safe. It sends or (if the current 
       chain,
       provider,
       signer,
-      safeAddress,
+      safeAddress
     })
 
     ReactDOM.createRoot(document.getElementById('root')!).render(
