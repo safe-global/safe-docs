@@ -1,4 +1,4 @@
-import { Tabs } from "nextra/components";
+import { Tabs } from 'nextra/components'
 
 # `useSafe`
 
@@ -84,21 +84,21 @@ Connects the specified signer.
 {/* <!-- vale off --> */}
 
 ```typescript
-import React from 'react';
-import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
+import React from 'react'
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
 const Connect = () => {
-  const { connect } = useSafe();
+  const { connect } = useSafe()
 
   return (
     <div>
       <h3>Chain Info</h3>
-      <button onClick={() => connect("0xSignerAddress")}></button>
+      <button onClick={() => connect('0xSignerAddress')}></button>
     </div>
-  );
-};
+  )
+}
 
-export default Connect;
+export default Connect
 ```
 
 {/* <!-- vale on --> */}
@@ -112,21 +112,21 @@ Disconnects the current connected signer.
 {/* <!-- vale off --> */}
 
 ```typescript
-import React from 'react';
-import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
+import React from 'react'
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
 const Disconnect = () => {
-  const { disconnect } = useSafe();
+  const { disconnect } = useSafe()
 
   return (
     <div>
       <h3>Chain Info</h3>
       <button onClick={disconnect}></button>
     </div>
-  );
-};
+  )
+}
 
-export default Disconnect;
+export default Disconnect
 ```
 
 {/* <!-- vale on --> */}
@@ -149,25 +149,25 @@ Retrieves the balance information of the Safe.
 {/* <!-- vale off --> */}
 
 ```typescript
-import React from 'react';
-import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
+import React from 'react'
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
 const SafeBalance = () => {
-  const { getBalance } = useSafe();
-  const { data, error, isLoading } = getBalance();
+  const { getBalance } = useSafe()
+  const { data, error, isLoading } = getBalance()
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>Error: {error.message}</p>
 
   return (
     <div>
       <h3>Safe Balance</h3>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
-  );
-};
+  )
+}
 
-export default SafeBalance;
+export default SafeBalance
 ```
 
 {/* <!-- vale on --> */}
@@ -190,11 +190,11 @@ Get the chain information of the Safe.
 {/* <!-- vale off --> */}
 
 ```typescript
-import React from 'react';
-import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
+import React from 'react'
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
 const ChainInfo = () => {
-  const { getChain } = useSafe();
+  const { getChain } = useSafe()
   const { blockExplorers } = getChain()
 
   return (
@@ -202,10 +202,10 @@ const ChainInfo = () => {
       <h3>Chain Info</h3>
       <pre>{JSON.stringify(blockExplorers, null, 2)}</pre>
     </div>
-  );
-};
+  )
+}
 
-export default ChainInfo;
+export default ChainInfo
 ```
 
 {/* <!-- vale on --> */}
@@ -227,25 +227,25 @@ Get all pending transactions for the connected Safe.
 {/* <!-- vale off --> */}
 
 ```typescript
-import React from 'react';
-import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
+import React from 'react'
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
 const PendingTransactions = () => {
-  const { getPendingTransactions } = useSafe();
-  const { data, error, isLoading } = getPendingTransactions();
+  const { getPendingTransactions } = useSafe()
+  const { data, error, isLoading } = getPendingTransactions()
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>Error: {error.message}</p>
 
   return (
     <div>
       <h3>Pending Transactions</h3>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
-  );
-};
+  )
+}
 
-export default PendingTransactions;
+export default PendingTransactions
 ```
 
 {/* <!-- vale on --> */}
@@ -271,28 +271,28 @@ Get an specific transaction.
 {/* <!-- vale off --> */}
 
 ```typescript
-import React from 'react';
-import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
+import React from 'react'
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
 const TransactionStatus = ({ safeTxHash, /* ethereumTxHash */ }) => {
-  const { getTransaction } = useSafe();
+  const { getTransaction } = useSafe()
   const { data, error, isLoading } = getTransaction({
     safeTxHash,
     // ...or ethereumTxHash,
-  });
+  })
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>Error: {error.message}</p>
 
   return (
     <div>
       <h3>Transaction Status</h3>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
-  );
-};
+  )
+}
 
-export default TransactionStatus;
+export default TransactionStatus
 ```
 
 {/* <!-- vale on --> */}
@@ -315,25 +315,25 @@ Get all transactions for the connected Safe.
 {/* <!-- vale off --> */}
 
 ```typescript
-import React from 'react';
-import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
+import React from 'react'
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
 const Transactions = () => {
-  const { getTransactions } = useSafe();
-  const { data, error, isLoading } = getTransactions();
+  const { getTransactions } = useSafe()
+  const { data, error, isLoading } = getTransactions()
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>Error: {error.message}</p>
 
   return (
     <div>
       <h3>Transactions</h3>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
-  );
-};
+  )
+}
 
-export default Transactions;
+export default Transactions
 ```
 
 {/* <!-- vale on --> */}
@@ -356,25 +356,25 @@ Get the connected Safe information.
 {/* <!-- vale off --> */}
 
 ```typescript
-import React from 'react';
-import { useSafeInfo } from '@safe-global/safe-core-sdk-react-hooks';
+import React from 'react'
+import { useSafeInfo } from '@safe-global/safe-core-sdk-react-hooks'
 
 const SafeInfo = () => {
-  const { getSafeInfo } = useSafe();
-  const { data, error, isLoading } = getSafeInfo();
+  const { getSafeInfo } = useSafe()
+  const { data, error, isLoading } = getSafeInfo()
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>Error: {error.message}</p>
 
   return (
     <div>
       <h3>Safe Information</h3>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
-  );
-};
+  )
+}
 
-export default SafeInfo;
+export default SafeInfo
 ```
 
 {/* <!-- vale on --> */}
@@ -397,22 +397,22 @@ Get the configured signer address.
 {/* <!-- vale off --> */}
 
 ```typescript
-import React from 'react';
-import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
+import React from 'react'
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
 const SignerAddress = () => {
-  const { getSignerAddress } = useSafe();
-  const address = getSignerAddress();
+  const { getSignerAddress } = useSafe()
+  const address = getSignerAddress()
 
   return (
     <div>
       <h3>Signer Address</h3>
       {address ? <pre>{address}</pre> : <p>No address available</p>}
     </div>
-  );
-};
+  )
+}
 
-export default SignerAddress;
+export default SignerAddress
 ```
 
 {/* <!-- vale on --> */}

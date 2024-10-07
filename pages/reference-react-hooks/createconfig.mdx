@@ -1,11 +1,11 @@
-import { Tabs } from "nextra/components";
+import { Tabs } from 'nextra/components'
 
 # `createConfig`
 
 ```typescript
 createConfig<
-  Provider extends SdkStarterKitConfig["provider"] = SdkStarterKitConfig["provider"],
-  Signer extends SdkStarterKitConfig["signer"] = SdkStarterKitConfig["signer"],
+  Provider extends SdkStarterKitConfig['provider'] = SdkStarterKitConfig['provider'],
+  Signer extends SdkStarterKitConfig['signer'] = SdkStarterKitConfig['signer'],
   Chain extends ChainType = ChainType
 >(params: CreateConfigParams<Provider, Signer, Chain>): SafeConfig<Provider, Signer, Chain>
 
@@ -29,56 +29,56 @@ We can have primarily two use cases:
 
 <Tabs items={['safe-provider.tsx', 'custom-configuration.tsx', 'create-config.ts']}>
   <Tabs.Tab>
-  ```typescript
-  import ReactDOM from 'react-dom/client'
-  import { SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
-  import config from './config.ts'
-  import App from './App.tsx  '
+    ```typescript
+    import ReactDOM from 'react-dom/client'
+    import { SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+    import config from './config.ts'
+    import App from './App.tsx'
 
-  ReactDOM.createRoot(document.getElementById('root')!).render(
-    <SafeProvider config={config}>
-      <App />
-    </SafeProvider>
-  )
-  ```
+    ReactDOM.createRoot(document.getElementById('root')!).render(
+      <SafeProvider config={config}>
+        <App />
+      </SafeProvider>
+    )
+    ```
   </Tabs.Tab>
   <Tabs.Tab>
-  ```typescript
-  import React from 'react';
-  import { useSafe } from '@safe-global/safe-core-sdk-react-hooks';
-  import config from './config.ts';
+    ```typescript
+    import React from 'react'
+    import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
+    import config from './config.ts'
 
-  const ChainInfo = () => {
-  const { getChain } = useSafe();
-  const { blockExplorers } = getChain({ config })
+    const ChainInfo = () => {
+      const { getChain } = useSafe()
+      const { blockExplorers } = getChain({ config })
 
-  return (
-    <div>
-      <h3>Chain Info</h3>
-      <pre>{JSON.stringify(blockExplorers, null, 2)}</pre>
-    </div>
-  );
-  };
+      return (
+        <>
+          <h3>Chain Info</h3>
+          <pre>{JSON.stringify(blockExplorers, null, 2)}</pre>
+        </>
+      )
+    }
 
-  export default ChainInfo;
-  ```
+    export default ChainInfo
+    ```
   </Tabs.Tab>
   <Tabs.Tab>
-  ```typescript
-  import { createConfig } from '@safe-global/safe-core-sdk-react-hooks'
+    ```typescript
+    import { createConfig } from '@safe-global/safe-core-sdk-react-hooks'
 
-  const config = createConfig({
-    chain,
-    provider,
-    signer,
-    safeOptions: {
-      owners,
+    const config = createConfig({
+      chain,
+      provider,
+      signer,
+      safeOptions: {
+        owners,
         threshold
       }
     })
 
-  export default config
-  ```
+    export default config
+    ```
   </Tabs.Tab>
 </Tabs>
 

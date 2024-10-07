@@ -1,4 +1,4 @@
-import { Tabs } from "nextra/components";
+import { Tabs } from 'nextra/components'
 
 # `useConfirmTransaction`
 
@@ -14,11 +14,11 @@ import { Tabs } from "nextra/components";
   import { useConfirmTransaction } from '@safe-global/safe-core-sdk-react-hooks'
   
   function App() {
-    const { confirmTransaction, isLoading, isError, data, error } = useConfirmTransaction();
+    const { confirmTransaction, isLoading, isError, data, error } = useConfirmTransaction()
 
     const handleConfirmTransaction = () => {
-      confirmTransaction({ safeTxHash });
-    };
+      confirmTransaction({ safeTxHash })
+    }
 
     return (
       <div>
@@ -28,7 +28,7 @@ import { Tabs } from "nextra/components";
         {isError && <p>Error: {error.message}</p>}
         {data && <p>Transaction confirmed: {JSON.stringify(data)}</p>}
       </div>
-    );
+    )
   }
   ```
   </Tabs.Tab>

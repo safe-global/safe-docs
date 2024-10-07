@@ -1,4 +1,4 @@
-import { Tabs } from "nextra/components";
+import { Tabs } from 'nextra/components'
 
 # `useSendTransaction`
 
@@ -14,7 +14,7 @@ import { Tabs } from "nextra/components";
   import { useSendTransaction } from '@safe-global/safe-core-sdk-react-hooks'
   
   function App() {
-    const { sendTransaction, isLoading, isError, data, error } = useSendTransaction();
+    const { sendTransaction, isLoading, isError, data, error } = useSendTransaction()
 
     const handleSendTransaction = () => {
       sendTransaction({
@@ -25,8 +25,8 @@ import { Tabs } from "nextra/components";
             data: '0x...',
           },
         ],
-      });
-    };
+      })
+    }
 
     return (
       <div>
@@ -36,7 +36,7 @@ import { Tabs } from "nextra/components";
         {isError && <p>Error: {error.message}</p>}
         {data && <p>Transaction sent: {JSON.stringify(data)}</p>}
       </div>
-    );
+    )
   }
   ```
   </Tabs.Tab>

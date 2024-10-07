@@ -1,4 +1,4 @@
-import { Tabs } from "nextra/components";
+import { Tabs } from "nextra/components"
 
 # `SafeConfig`
 
@@ -8,8 +8,8 @@ This is the `SafeConfig` type definition:
 
 ```typescript
 type SafeConfig<
-  Provider extends SdkStarterKitConfig["provider"] = SdkStarterKitConfig["provider"],
-  Signer extends SdkStarterKitConfig["signer"] = SdkStarterKitConfig["signer"],
+  Provider extends SdkStarterKitConfig['provider'] = SdkStarterKitConfig['provider'],
+  Signer extends SdkStarterKitConfig['signer'] = SdkStarterKitConfig['signer'],
   Chain extends ChainType = ChainType
 > = SdkStarterKitConfig & {
   chain: Chain;
@@ -17,26 +17,25 @@ type SafeConfig<
   signer: Signer;
 } & (Provider extends string
     ? { transport: HttpTransport }
-    : { transport: CustomTransport });
+    : { transport: CustomTransport })
 
 type ExistingSafeConfig = {
   safeAddress?: string;
   safeOptions?: never;
-};
+}
 
 type PredictedSafeConfig = {
   safeAddress?: never;
   safeOptions?: SafeConfig;
-};
+}
 
 type SdkStarterKitRootConfig = {
-  provider: SafeProvider["provider"];
-  signer?: SafeProvider["signer"];
-};
+  provider: SafeProvider['provider'];
+  signer?: SafeProvider['signer'];
+}
 
 type SdkStarterKitConfig = SdkStarterKitRootConfig &
-  (ExistingSafeConfig | PredictedSafeConfig);
+  (ExistingSafeConfig | PredictedSafeConfig)
 ```
 
 The Safe React hooks package provides a [`createConfig`](./createconfig.mdx) function that can be used to create a new configuration.
-
