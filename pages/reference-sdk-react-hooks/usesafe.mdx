@@ -264,7 +264,7 @@ Get an specific transaction.
 #### Parameters
 
 - `params` (UseTransactionParams): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree. The config can only be used in combination with the `safeTxHash` parameter.
   - `safeTxHash` (Hash, optional): Hash of the Safe transaction to be fetched. Either `safeTxHash` or `ethereumTxHash` must be provided.
   - `ethereumTxHash` (Hash, optional): Hash of the Ethereum transaction to be fetched. Either `safeTxHash` or `ethereumTxHash` must be provided.
 
