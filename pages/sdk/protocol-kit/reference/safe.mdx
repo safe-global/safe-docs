@@ -18,7 +18,7 @@ const protocolKit = await Safe.init({
 })
 ```
 
-- The `safeAddress` property is the string address of the Safe account. Use this property is the safe is already deployed.
+- The `safeAddress` property is the address of the Safe account. Use this property if the Safe is already deployed.
 
 - The `predictedSafe` property is an object that contains the Safe account configuration and deployment details. Use this property if the Safe account has not been deployed yet. The `init` method does not deploy a new Safe; it only enables limited use of the Protocol Kit. To deploy a Safe, you must use the specific deployment methods: `createSafeDeploymentTransaction()` or `executeTransaction()`. This object contains the following properties:
     - `safeAccountConfig`:
@@ -35,7 +35,7 @@ const protocolKit = await Safe.init({
       - `safeVersion` (optional): The Safe contract version to use.
       - `deploymentType` (optional): The Safe deployment type to use. It can be `canonical`, `eip155`, or `zksync`. Changing this value affects the search algorithm used to find the [Safe deployment address](https://github.com/safe-global/safe-deployments/tree/main/src/assets) for any Safe contract, resulting in a change to the predicted address.
 
-We have two main ways to initialize the Protocol Kit, depending on whether the Safe account is deployed or not.
+There are two ways to initialize the Protocol Kit, depending on whether the Safe account is deployed or not.
 
 {/* <!-- vale off --> */}
 
@@ -48,12 +48,14 @@ We have two main ways to initialize the Protocol Kit, depending on whether the S
   const protocolKit = await Safe.init({
     provider,
     signer,
-    safeAddress 
+    safeAddress: '0x...'
   })
   ```
   </Tabs.Tab>
   <Tabs.Tab>
-  Initialization of an undeployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to initialize the SDK with the Safe configuration and use it to some extent before it's deployed.
+
+  Initialization of an undeployed Safe using the `predictedSafe` property. Passing a `predictedSafe` allows the Protocol Kit to be initialized with the Safe configuration, as it's calculated deterministically, using it with limited functionality before deployment.
+  
   ```typescript
   import Safe, { PredictedSafeProps } from '@safe-global/protocol-kit'
 
@@ -82,11 +84,12 @@ We have two main ways to initialize the Protocol Kit, depending on whether the S
   ```typescript
   import Safe from '@safe-global/protocol-kit'
 
-  const rpcURL = 'https://mainnet.infura.io/v3/...'
+  const rpcURL = 'https://sepolia.infura.io/v3/...'
+  
   const protocolKit = await Safe.init({
     provider: rpcURL,
     signer,
-    safeAddress
+    safeAddress: '0x...'
   })
   ```  
   </Tabs.Tab>
@@ -95,10 +98,11 @@ We have two main ways to initialize the Protocol Kit, depending on whether the S
   import Safe from '@safe-global/protocol-kit'
 
   const eip1193 = window.ethereum
+  
   const protocolKit = await Safe.init({
     provider: eip1193,
     signer,
-    safeAddress
+    safeAddress: '0x...'
   })
   ```    
   </Tabs.Tab>
@@ -106,7 +110,7 @@ We have two main ways to initialize the Protocol Kit, depending on whether the S
 
 {/* <!-- vale on --> */}
 
-- The `signer` property can be the signer address, its private key or a passkey object.
+- The `signer` property can be a Safe owner address, its private key or a passkey object.
 
 {/* <!-- vale off --> */}
 
@@ -116,10 +120,11 @@ We have two main ways to initialize the Protocol Kit, depending on whether the S
   import Safe from '@safe-global/protocol-kit'
 
   const signerAddress = '0x...'
+  
   const protocolKit = await Safe.init({
     provider,
     signer: signerAddress,
-    safeAddress
+    safeAddress: '0x...'
   })
   ```  
   </Tabs.Tab>
@@ -127,17 +132,18 @@ We have two main ways to initialize the Protocol Kit, depending on whether the S
   ```typescript
   import Safe from '@safe-global/protocol-kit'
 
-  const privateKey = 'cc81...'
+  const privateKey = '0x...'
+  
   const protocolKit = await Safe.init({
     provider,
     signer: privateKey,
-    safeAddress
+    safeAddress: '0x...'
   })
   ```  
   </Tabs.Tab>
   <Tabs.Tab>
   ```typescript
-  import Safe from '@safe-global/protocol-kit'
+  import Safe, { PasskeyArgType } from '@safe-global/protocol-kit'
 
   const passkey: PasskeyArgType = {
     rawId,
@@ -147,7 +153,7 @@ We have two main ways to initialize the Protocol Kit, depending on whether the S
   const protocolKit = await Safe.init({
     provider,
     signer: passkey,
-    safeAddress
+    safeAddress: '0x...'
   })
   ```  
   </Tabs.Tab>
