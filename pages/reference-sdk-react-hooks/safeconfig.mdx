@@ -2,7 +2,7 @@ import { Tabs } from "nextra/components"
 
 # `SafeConfig`
 
-The `SafeConfig` type is used by the `SafeProvider` and some individual functions when the `SafeProvider` is not used.
+The `SafeConfig` type is used by the `SafeProvider` and some individual functions to use a different configuration than the one from the `SafeProvider`.
 
 This is the `SafeConfig` type definition:
 
@@ -39,3 +39,13 @@ type SdkStarterKitConfig = SdkStarterKitRootConfig &
 ```
 
 The Safe React hooks package provides a [`createConfig`](./createconfig.mdx) function that can be used to create a new configuration.
+
+## `SafeConfigWithSigner`
+
+This type is a variation of the `SafeConfig` type where the `signer` property is mandatory. It is used by all hooks that perform sign operations, such as [`useSendTransaction`](./usesendtransaction.mdx), [`useConfirmTransaction`](./useconfirmtransaction.mdx), [`useUpdateThreshold`](./useupdatethreshold.mdx) and [`useUpdateOwners`](./useupdateowners.mdx).
+
+This is the `SafeConfigWithSigner` type definition:
+
+```typescript
+type SafeConfigWithSigner = SafeConfig & { signer: string }
+```

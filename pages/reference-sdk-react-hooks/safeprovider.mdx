@@ -4,7 +4,7 @@ The `SafeProvider` component is a wrapper that offers a secure [React context](h
 
 ## Usage
 
-Usually, you will add this component at the root of your application, wrapping the entire application. Another way to work with Safe hooks is to pass the `config` as a parameter to the individual functions. You can find more information about this in the specific hook documentation.
+Any component that uses a Safe hook requires a `SafeProvider` to be present somewhere in its parent component tree. Usually, you will add this component at the root of your application, wrapping the entire application and providing a global [configuration object](./safeconfig.mdx) to the hooks. Another way to work with Safe hooks is to pass the `config` as a parameter to the individual functions. You can find more information about this in the specific hook documentation.
 
 {/* <!-- vale off --> */}
 
