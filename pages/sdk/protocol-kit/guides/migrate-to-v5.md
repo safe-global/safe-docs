@@ -76,10 +76,10 @@ const txReceipt = await client.waitForTransactionReceipt({ hash: txHash })
 protocolKit = await protocolKit.connect({ safeAddress })
 
 // Confirm the Safe is deployed and fetch properties
-console.log('Is Safe deployed:', await protocolKit.isSafeDeployed());
-console.log('Safe Address:', await protocolKit.getAddress());
-console.log('Safe Owners:', await protocolKit.getOwners());
-console.log('Safe Threshold:', await protocolKit.getThreshold());
+console.log('Is Safe deployed:', await protocolKit.isSafeDeployed())
+console.log('Safe Address:', await protocolKit.getAddress())
+console.log('Safe Owners:', await protocolKit.getOwners())
+console.log('Safe Threshold:', await protocolKit.getThreshold())
 ```
 
 ### Predict the Safe Address
