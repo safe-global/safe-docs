@@ -125,9 +125,9 @@ const getMarkdownHeaderComponent: (
   headingLevel: number
 ) => React.FC<{ children: ReactNode }> =
   headingLevel =>
-    // eslint-disable-next-line @typescript-eslint/promise-function-async
-    ({ children }) =>
-      MdxHeading({ headingLevel, children })
+  // eslint-disable-next-line @typescript-eslint/promise-function-async
+  ({ children }) =>
+    MdxHeading({ headingLevel, children })
 
 export const useCurrentTocIndex: (
   headings: Heading[],
@@ -166,7 +166,7 @@ export const useCurrentTocIndex: (
         nextHeadingNode.offsetTop - navHeight <
           document.documentElement.scrollTop + window.innerHeight
       setCurrentIndex(
-        isNextHeadingInView ? nextHeading?.link ?? '' : active?.link ?? ''
+        isNextHeadingInView ? (nextHeading?.link ?? '') : (active?.link ?? '')
       )
     } else setCurrentIndex(_headings[0]?.children?.[0]?.link ?? '')
   }, [headings, navHeight])

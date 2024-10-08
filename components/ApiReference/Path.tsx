@@ -6,7 +6,7 @@ import { useContext } from 'react'
 import Method from './Method'
 import { NetworkContext } from './Network'
 
-const Path: React.FC<{ path: string, method: string }> = ({ path, method }) => {
+const Path: React.FC<{ path: string; method: string }> = ({ path, method }) => {
   const [network] = useContext(NetworkContext)
   return (
     <Grid
