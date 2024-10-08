@@ -157,7 +157,7 @@ export const useCurrentTocIndex: (
       }
     }
     if (active != null) {
-      const nextHeading = _headings[_headings.indexOf(active) + 1]
+      const nextHeading = _headings[_headings.indexOf(active as Heading) + 1]
       const nextHeadingNode = document.getElementById(
         nextHeading?.link.slice(1) ?? ''
       )
@@ -166,7 +166,9 @@ export const useCurrentTocIndex: (
         nextHeadingNode.offsetTop - navHeight <
           document.documentElement.scrollTop + window.innerHeight
       setCurrentIndex(
-        isNextHeadingInView ? (nextHeading?.link ?? '') : (active?.link ?? '')
+        (isNextHeadingInView
+          ? (nextHeading?.link ?? '')
+          : (active?.link ?? '')) as string
       )
     } else setCurrentIndex(_headings[0]?.children?.[0]?.link ?? '')
   }, [headings, navHeight])

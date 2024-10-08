@@ -22,7 +22,7 @@ export const apiServices = (
 ): Array<{ name: string; link: string }> => [
   {
     name: 'Safe{Core} SDK',
-    link: 'http://localhost:3000/sdk/overview'
+    link: '/sdk/overview'
   },
   {
     name: 'Safe{Wallet}',
@@ -57,17 +57,6 @@ export const curatedBlockExplorers = [
   'https://basescan.org',
   'https://sepolia.basescan.org'
 ]
-
-export const shortNametoTxService = (shortName: string): string => {
-  switch (shortName) {
-    case 'eth':
-      return 'mainnet'
-    case 'oeth':
-      return 'optimism'
-    default:
-      return shortName
-  }
-}
 
 // export const shortNameToIcon = (shortName: string): string => {
 //   if (shortNameToIconName(shortName) == null) return '/unknown-logo.png'
