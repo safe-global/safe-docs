@@ -1,3 +1,5 @@
+import txServiceNetworks from '../ApiReference/tx-service-networks.json'
+
 export const deprecatedNetworks = [
   3, // Ropsten
   4, // Rinkeby
@@ -15,31 +17,30 @@ export const deprecatedNetworks = [
   421613 // Arbitrum Goerli
 ]
 
-export const txServiceNetworks = [
-  1, // Ethereum
-  10, // Optimism
-  56, // BNB Smart Chain
-  100, // Gnosis Chain
-  137, // Polygon
-  196, // X Layer
-  324, // zkSync Era
-  1101, // Polygon zkEVM
-  8453, // Base
-  42161, // Arbitrum
-  42220, // Celo
-  43114, // Avalanche
-  59144, // Linea
-  84532, // Base Sepolia
-  534352, // Scroll
-  11155111, // Sepolia
-  1313161554 // Aurora
-]
-
-export const apiServices = [
-  'Transaction Service',
-  'Event Service',
-  'Safe{Core} SDK',
-  'Safe{Wallet}'
+export const apiServices = (
+  chainId: string
+): Array<{ name: string; link: string }> => [
+  {
+    name: 'Safe{Core} SDK',
+    link: 'http://localhost:3000/sdk/overview'
+  },
+  {
+    name: 'Safe{Wallet}',
+    link: 'https://safe.global/wallet'
+  },
+  {
+    name: 'Transaction Service',
+    link: `/core-api/transaction-service-reference/${
+      txServiceNetworks
+        .find(n => n.chainId.toString() === chainId)
+        ?.txServiceUrl?.split('-')[2]
+        .split('.')[0]
+    }`
+  },
+  {
+    name: 'Event Service',
+    link: 'https://github.com/safe-global/safe-events-service'
+  }
 ]
 
 export const curatedBlockExplorers = [

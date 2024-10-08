@@ -34,9 +34,11 @@ import deployments from './networks.json'
 import css from './styles.module.css'
 import { palette } from '../../styles/palette'
 import { capitalize } from 'lodash'
-import { apiServices, deprecatedNetworks, txServiceNetworks } from './utils'
+import { apiServices, deprecatedNetworks } from './utils'
+import txServiceNetworks from '../ApiReference/tx-service-networks.json'
+import NetworkModal from './NetworkModal'
 
-const networks = deployments.filter(
+export const networks = deployments.filter(
   network => !deprecatedNetworks.includes(network.chainId)
 ) as Network[]
 
@@ -109,15 +111,26 @@ export const _getFilteredNetworks = ({
         true
       ) &&
       isMatch(
-        txServiceNetworks.includes(network.chainId) ? apiServices : [],
-        selectedFeatures.filter(f => apiServices.includes(f)),
+        txServiceNetworks.map(n => n.chainId).includes(network.chainId)
+          ? apiServices(network.chainId.toString()).map(s => s.name)
+          : [],
+        selectedFeatures.filter(f =>
+          apiServices(network.chainId.toString())
+            .map(s => s.name)
+            .includes(f)
+        ),
         true
       ) &&
       isMatch(
         network.modules
           .map(m => m.moduleName?.split('-').map(capitalize).join(' '))
           .filter((v, i, a) => a.indexOf(v) === i) as string[],
-        selectedFeatures.filter(f => !apiServices.includes(f)),
+        selectedFeatures.filter(
+          f =>
+            !apiServices(network.chainId.toString())
+              .map(s => s.name)
+              .includes(f)
+        ),
         true
       )
   )
@@ -135,7 +148,10 @@ const getPage = (query: NextRouter['query']): number => {
   return parseInt(page ?? '1')
 }
 
-export const getFilters = (query: NextRouter['query'], filter: string): string[] => {
+export const getFilters = (
+  query: NextRouter['query'],
+  filter: string
+): string[] => {
   const filters = Array.isArray(query[filter])
     ? query[filter]
     : ([query[filter] ?? ''] as string[])
@@ -289,7 +305,7 @@ const SupportedNetworks: React.FC = () => {
       />
       <SidebarAccordion
         title='Features'
-        items={[...apiServices, ...modules]}
+        items={[...apiServices('1').map(s => s.name), ...modules]}
         selectedItems={selectedFeatures}
         onChange={onSelectFeature}
       />
@@ -297,216 +313,236 @@ const SupportedNetworks: React.FC = () => {
   )
 
   return (
-    <Container>
-      <Grid container mb={8} mt={4}>
-        <Grid
-          item
-          container
-          flexDirection='column'
-          alignItems='center'
-          justifyContent='center'
+    <>
+      <Container>
+        <Link
+          href='/core-api/transaction-service-overview'
+          sx={{
+            fontSize: '14px',
+            fontWeight: '400',
+            textDecoration: 'none',
+            transition: 'color 0.1s',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            color: 'grey.600',
+            mt: 2
+          }}
         >
-          <Typography textAlign='center' variant='h1' mb={2}>
-            Supported Networks
-          </Typography>
-          <TextField
-            className={css.searchField}
-            variant='outlined'
-            placeholder='Search by version, network, chain ID, or feature'
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position='start'>
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-              endAdornment:
-                searchQuery.length !== 0 ? (
-                  <InputAdornment position='end'>
-                    <IconButton onClick={onResetSearch}>
-                      <CloseIcon />
-                    </IconButton>
-                  </InputAdornment>
-                ) : undefined
-            }}
-            value={searchQuery}
-            sx={{ border: 'none', width: '80%', mt: [2, 0] }}
-            onChange={e => {
-              if (e.target.value.length === 0) onResetSearch()
-              else setSelectedFilter([e.target.value], 'search')
-            }}
-            fullWidth
-          />
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={GRID_SPACING}>
-        <Grid
-          item
-          xs={12}
-          md={3}
-          display='flex'
-          alignItems='center'
-          justifyContent='space-between'
-        >
-          <Typography>
-            {searchResults.length}{' '}
-            <Typography color='primary.light' component='span'>
-              result{searchResults.length === 1 ? '' : 's'}
-            </Typography>
-          </Typography>
-          {!noFilters && (
-            <Link
-              onClick={onResetFilters}
-              className={css.reset}
-              variant='caption'
-              sx={{
-                textDecoration: 'none',
-                color: 'text.primary',
-                cursor: 'pointer'
-              }}
-            >
-              Reset all
-            </Link>
-          )}
-          <Button
-            variant='outlined'
-            className={css.filterButton}
-            onClick={() => {
-              setIsFilterDrawerOpen(true)
-            }}
-            sx={{ display: ['flex', 'flex', 'none'] }}
+          ← Go Home
+        </Link>
+        <Grid container mb={8} mt={4}>
+          <Grid
+            item
+            container
+            flexDirection='column'
+            alignItems='center'
+            justifyContent='center'
           >
-            <FilterIcon />
-            Filter
-          </Button>
-        </Grid>
-
-        <Grid item xs={12} md={9} className={css.chipContainer}>
-          {selectedVersions.map(version => (
-            <Chip
-              key={version}
-              label={version}
-              onDelete={() => {
-                onSelectVersion(version, false)
+            <Typography textAlign='center' variant='h1' mb={2}>
+              Supported Networks
+            </Typography>
+            <TextField
+              className={css.searchField}
+              variant='outlined'
+              placeholder='Search by network name or chain ID'
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position='start'>
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+                endAdornment:
+                  searchQuery.length !== 0 ? (
+                    <InputAdornment position='end'>
+                      <IconButton onClick={onResetSearch}>
+                        <CloseIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ) : undefined
               }}
-              deleteIcon={<CrossIcon />}
-              sx={{
-                borderRadius: '4px',
-                height: '23px',
-                fontSize: '14px',
-                cursor: 'pointer'
+              value={searchQuery}
+              sx={{ border: 'none', width: '80%', mt: [2, 0] }}
+              onChange={e => {
+                if (e.target.value.length === 0) onResetSearch()
+                else setSelectedFilter([e.target.value], 'search')
               }}
+              fullWidth
             />
-          ))}
-          {selectedFeatures.map(feature => (
-            <Chip
-              key={feature}
-              label={feature}
-              onDelete={() => {
-                onSelectFeature(feature, false)
-              }}
-              deleteIcon={<CrossIcon />}
-              sx={{
-                borderRadius: '4px',
-                height: '23px',
-                fontSize: '14px',
-                cursor: 'pointer'
-              }}
-            />
-          ))}
+          </Grid>
         </Grid>
 
-        <Grid item sx={{ display: ['none', 'none', 'block'] }} md={3}>
-          {sidebar}
-        </Grid>
-
-        <Grid item xs={12} md={9}>
-          {visibleResults.length > 0 ? (
-            <Grid
-              container
-              spacing={GRID_SPACING}
-              display='flex'
-              alignContent='flex-start'
+        <Grid container spacing={GRID_SPACING}>
+          <Grid
+            item
+            xs={12}
+            md={3}
+            display='flex'
+            alignItems='center'
+            justifyContent='space-between'
+          >
+            <Typography>
+              {searchResults.length}{' '}
+              <Typography color='primary.light' component='span'>
+                result{searchResults.length === 1 ? '' : 's'}
+              </Typography>
+            </Typography>
+            {!noFilters && (
+              <Link
+                onClick={onResetFilters}
+                className={css.reset}
+                variant='caption'
+                sx={{
+                  textDecoration: 'none',
+                  color: 'text.primary',
+                  cursor: 'pointer'
+                }}
+              >
+                Reset all
+              </Link>
+            )}
+            <Button
+              variant='outlined'
+              className={css.filterButton}
+              onClick={() => {
+                setIsFilterDrawerOpen(true)
+              }}
+              sx={{ display: ['flex', 'flex', 'none'] }}
             >
-              {visibleResults.map((network, idx) => (
-                <Grid item xs={12} sm={6} key={network.name + idx}>
-                  <NetworkCard {...network} />
-                </Grid>
-              ))}
-              {shouldShowMoreButton && (
-                <Grid
-                  item
-                  xs={12}
-                  mt={{ xs: 2, md: 0 }}
-                  display='flex'
-                  justifyContent='center'
-                >
-                  <NextLink
-                    href={{ query: { page: page + 1 } }}
-                    shallow
-                    // Pagination marker for search engines
-                    rel='next'
-                    scroll={false}
-                  >
-                    <Button variant='contained' size='large'>
-                      Show more
-                    </Button>
-                  </NextLink>
-                </Grid>
-              )}
-            </Grid>
-          ) : (
-            <Grid container flexDirection='column' alignItems='center'>
-              <SearchIcon />
-              <Typography variant='h4' my={2}>
-                No results found for{' '}
-                {searchQuery.length !== 0
-                  ? `"${searchQuery}"`
-                  : 'selected filters'}
-              </Typography>
-              <Typography color='primary.light'>
-                Try searching something else
-              </Typography>
-            </Grid>
-          )}
-        </Grid>
-      </Grid>
+              <FilterIcon />
+              Filter
+            </Button>
+          </Grid>
 
-      <Dialog fullScreen open={isFilterDrawerOpen}>
-        <AppBar className={css.appBar}>
-          <Toolbar disableGutters>
-            <IconButton
+          <Grid item xs={12} md={9} className={css.chipContainer}>
+            {selectedVersions.map(version => (
+              <Chip
+                key={version}
+                label={version}
+                onDelete={() => {
+                  onSelectVersion(version, false)
+                }}
+                deleteIcon={<CrossIcon />}
+                sx={{
+                  borderRadius: '4px',
+                  height: '23px',
+                  fontSize: '14px',
+                  cursor: 'pointer'
+                }}
+              />
+            ))}
+            {selectedFeatures.map(feature => (
+              <Chip
+                key={feature}
+                label={feature}
+                onDelete={() => {
+                  onSelectFeature(feature, false)
+                }}
+                deleteIcon={<CrossIcon />}
+                sx={{
+                  borderRadius: '4px',
+                  height: '23px',
+                  fontSize: '14px',
+                  cursor: 'pointer'
+                }}
+              />
+            ))}
+          </Grid>
+
+          <Grid item sx={{ display: ['none', 'none', 'block'] }} md={3}>
+            {sidebar}
+          </Grid>
+
+          <Grid item xs={12} md={9}>
+            {visibleResults.length > 0 ? (
+              <Grid
+                container
+                spacing={GRID_SPACING}
+                display='flex'
+                alignContent='flex-start'
+              >
+                {visibleResults.map((network, idx) => (
+                  <Grid item xs={12} sm={6} key={network.name + idx}>
+                    <NetworkCard {...network} />
+                  </Grid>
+                ))}
+                {shouldShowMoreButton && (
+                  <Grid
+                    item
+                    xs={12}
+                    mt={{ xs: 2, md: 0 }}
+                    mb={6}
+                    display='flex'
+                    justifyContent='center'
+                  >
+                    <NextLink
+                      href={{ query: { ...query, page: page + 1 } }}
+                      shallow
+                      // Pagination marker for search engines
+                      rel='next'
+                      scroll={false}
+                    >
+                      <Button variant='contained' size='large'>
+                        Show more
+                      </Button>
+                    </NextLink>
+                  </Grid>
+                )}
+              </Grid>
+            ) : (
+              <Grid container flexDirection='column' alignItems='center'>
+                <SearchIcon />
+                <Typography variant='h4' my={2}>
+                  No results found for{' '}
+                  {searchQuery.length !== 0
+                    ? `"${searchQuery}"`
+                    : 'selected filters'}
+                </Typography>
+                <Typography color='primary.light'>
+                  Try searching something else
+                </Typography>
+              </Grid>
+            )}
+          </Grid>
+        </Grid>
+
+        <Dialog fullScreen open={isFilterDrawerOpen}>
+          <AppBar className={css.appBar}>
+            <Toolbar disableGutters>
+              <IconButton
+                onClick={() => {
+                  setIsFilterDrawerOpen(false)
+                }}
+                className={css.backButton}
+                disableRipple
+              >
+                <ArrowBackIcon />
+              </IconButton>
+              <Divider orientation='vertical' />
+              <Box p={2}>Filter</Box>
+            </Toolbar>
+          </AppBar>
+
+          <div className={css.filterWrapper}>
+            {sidebar}
+
+            <span style={{ flex: 1 }} />
+
+            <Button
+              variant='contained'
+              size='large'
+              fullWidth
               onClick={() => {
                 setIsFilterDrawerOpen(false)
               }}
-              className={css.backButton}
-              disableRipple
             >
-              <ArrowBackIcon />
-            </IconButton>
-            <Divider orientation='vertical' />
-            <Box p={2}>Filter</Box>
-          </Toolbar>
-        </AppBar>
-
-        <div className={css.filterWrapper}>
-          {sidebar}
-
-          <span style={{ flex: 1 }} />
-
-          <Button
-            variant='contained'
-            size='large'
-            fullWidth
-            onClick={() => {
-              setIsFilterDrawerOpen(false)
-            }}
-          >
-            Show results
-          </Button>
-        </div>
-      </Dialog>
-    </Container>
+              Show results
+            </Button>
+          </div>
+        </Dialog>
+      </Container>
+      <NetworkModal versions={versions} />
+    </>
   )
 }
 

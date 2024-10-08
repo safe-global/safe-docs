@@ -397,6 +397,15 @@
         "moduleName": "allowance-module"
       },
       {
+        "name": "add-modules-lib",
+        "version": "v0.2.0",
+        "address": "0x8EcD4ec46D4D2a6B64fE960B3D64e8B94B2234eb",
+        "chainId": "1",
+        "chainName": "Ethereum Mainnet",
+        "blockExplorerUrl": "https://etherscan.io",
+        "moduleName": "safe-4337-module"
+      },
+      {
         "name": "safe-4337-module",
         "version": "v0.2.0",
         "address": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
@@ -409,6 +418,15 @@
         "name": "safe-4337-module",
         "version": "v0.3.0",
         "address": "0x75cf11467937ce3F2f357CE24ffc3DBF8fD5c226",
+        "chainId": "1",
+        "chainName": "Ethereum Mainnet",
+        "blockExplorerUrl": "https://etherscan.io",
+        "moduleName": "safe-4337-module"
+      },
+      {
+        "name": "safe-module-setup",
+        "version": "v0.3.0",
+        "address": "0x2dd68b007B46fBe91B9A7c3EDa5A7a1063cB5b47",
         "chainId": "1",
         "chainName": "Ethereum Mainnet",
         "blockExplorerUrl": "https://etherscan.io",
@@ -1388,6 +1406,15 @@
         "name": "safe-4337-module",
         "version": "v0.3.0",
         "address": "0x75cf11467937ce3F2f357CE24ffc3DBF8fD5c226",
+        "chainId": "10",
+        "chainName": "OP Mainnet",
+        "blockExplorerUrl": "https://optimistic.etherscan.io",
+        "moduleName": "safe-4337-module"
+      },
+      {
+        "name": "safe-module-setup",
+        "version": "v0.3.0",
+        "address": "0x2dd68b007B46fBe91B9A7c3EDa5A7a1063cB5b47",
         "chainId": "10",
         "chainName": "OP Mainnet",
         "blockExplorerUrl": "https://optimistic.etherscan.io",
@@ -4725,9 +4752,36 @@
         "moduleName": "allowance-module"
       },
       {
+        "name": "add-modules-lib",
+        "version": "v0.2.0",
+        "address": "0x8EcD4ec46D4D2a6B64fE960B3D64e8B94B2234eb",
+        "chainId": "56",
+        "chainName": "BNB Smart Chain Mainnet",
+        "blockExplorerUrl": "https://bscscan.com",
+        "moduleName": "safe-4337-module"
+      },
+      {
+        "name": "safe-4337-module",
+        "version": "v0.2.0",
+        "address": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
+        "chainId": "56",
+        "chainName": "BNB Smart Chain Mainnet",
+        "blockExplorerUrl": "https://bscscan.com",
+        "moduleName": "safe-4337-module"
+      },
+      {
         "name": "safe-4337-module",
         "version": "v0.3.0",
         "address": "0x75cf11467937ce3F2f357CE24ffc3DBF8fD5c226",
+        "chainId": "56",
+        "chainName": "BNB Smart Chain Mainnet",
+        "blockExplorerUrl": "https://bscscan.com",
+        "moduleName": "safe-4337-module"
+      },
+      {
+        "name": "safe-module-setup",
+        "version": "v0.3.0",
+        "address": "0x2dd68b007B46fBe91B9A7c3EDa5A7a1063cB5b47",
         "chainId": "56",
         "chainName": "BNB Smart Chain Mainnet",
         "blockExplorerUrl": "https://bscscan.com",
@@ -6042,6 +6096,15 @@
         "chainName": "BNB Smart Chain Testnet",
         "blockExplorerUrl": "https://testnet.bscscan.com",
         "moduleName": "safe-4337-module"
+      },
+      {
+        "name": "safe-module-setup",
+        "version": "v0.3.0",
+        "address": "0x2dd68b007B46fBe91B9A7c3EDa5A7a1063cB5b47",
+        "chainId": "97",
+        "chainName": "BNB Smart Chain Testnet",
+        "blockExplorerUrl": "https://testnet.bscscan.com",
+        "moduleName": "safe-4337-module"
       }
     ],
     "iconUrl": "/unknown-logo.png"
@@ -6462,6 +6525,15 @@
         "name": "safe-4337-module",
         "version": "v0.3.0",
         "address": "0x75cf11467937ce3F2f357CE24ffc3DBF8fD5c226",
+        "chainId": "100",
+        "chainName": "Gnosis",
+        "blockExplorerUrl": "https://gnosisscan.io",
+        "moduleName": "safe-4337-module"
+      },
+      {
+        "name": "safe-module-setup",
+        "version": "v0.3.0",
+        "address": "0x2dd68b007B46fBe91B9A7c3EDa5A7a1063cB5b47",
         "chainId": "100",
         "chainName": "Gnosis",
         "blockExplorerUrl": "https://gnosisscan.io",
@@ -7519,6 +7591,15 @@
         "name": "safe-4337-module",
         "version": "v0.3.0",
         "address": "0x75cf11467937ce3F2f357CE24ffc3DBF8fD5c226",
+        "chainId": "137",
+        "chainName": "Polygon Mainnet",
+        "blockExplorerUrl": "https://polygonscan.com",
+        "moduleName": "safe-4337-module"
+      },
+      {
+        "name": "safe-module-setup",
+        "version": "v0.3.0",
+        "address": "0x2dd68b007B46fBe91B9A7c3EDa5A7a1063cB5b47",
         "chainId": "137",
         "chainName": "Polygon Mainnet",
         "blockExplorerUrl": "https://polygonscan.com",
@@ -11057,6 +11138,109 @@
     "iconUrl": "/unknown-logo.png"
   },
   {
+    "name": "Shape",
+    "chain": "ETH",
+    "rpc": [
+      "https://mainnet.shape.network",
+      "https://shape-mainnet.g.alchemy.com/public"
+    ],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "infoURL": "https://shape.network",
+    "shortName": "shape",
+    "chainId": 360,
+    "networkId": 360,
+    "icon": "shape",
+    "explorers": [
+      {
+        "name": "shapescan",
+        "url": "https://shapescan.xyz",
+        "standard": "EIP3091"
+      }
+    ],
+    "status": "active",
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.3.0",
+        "address": "0x017062a1dE2FE6b99BE3d9d37841FeD19F573804",
+        "chainId": "360",
+        "chainName": "Shape",
+        "blockExplorerUrl": "https://shapescan.xyz"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.3.0",
+        "address": "0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d",
+        "chainId": "360",
+        "chainName": "Shape",
+        "blockExplorerUrl": "https://shapescan.xyz"
+      },
+      {
+        "name": "gnosis_safe",
+        "version": "v1.3.0",
+        "address": "0x69f4D1788e39c87893C980c06EdF4b7f686e2938",
+        "chainId": "360",
+        "chainName": "Shape",
+        "blockExplorerUrl": "https://shapescan.xyz"
+      },
+      {
+        "name": "gnosis_safe_l2",
+        "version": "v1.3.0",
+        "address": "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA",
+        "chainId": "360",
+        "chainName": "Shape",
+        "blockExplorerUrl": "https://shapescan.xyz"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.3.0",
+        "address": "0x998739BFdAAdde7C933B942a68053933098f9EDa",
+        "chainId": "360",
+        "chainName": "Shape",
+        "blockExplorerUrl": "https://shapescan.xyz"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.3.0",
+        "address": "0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B",
+        "chainId": "360",
+        "chainName": "Shape",
+        "blockExplorerUrl": "https://shapescan.xyz"
+      },
+      {
+        "name": "proxy_factory",
+        "version": "v1.3.0",
+        "address": "0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC",
+        "chainId": "360",
+        "chainName": "Shape",
+        "blockExplorerUrl": "https://shapescan.xyz"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.3.0",
+        "address": "0x98FFBBF51bb33A056B08ddf711f289936AafF717",
+        "chainId": "360",
+        "chainName": "Shape",
+        "blockExplorerUrl": "https://shapescan.xyz"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.3.0",
+        "address": "0x727a77a074D1E6c4530e814F89E618a3298FC044",
+        "chainId": "360",
+        "chainName": "Shape",
+        "blockExplorerUrl": "https://shapescan.xyz"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "https://icons.llamao.fi/icons/chains/rsz_shape.png"
+  },
+  {
     "name": "PulseChain",
     "shortName": "pls",
     "chain": "PLS",
@@ -11718,9 +11902,33 @@
         "blockExplorerUrl": ""
       },
       {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "480",
+        "chainName": "World Chain",
+        "blockExplorerUrl": ""
+      },
+      {
         "name": "safe_proxy_factory",
         "version": "v1.4.1",
         "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "480",
+        "chainName": "World Chain",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "480",
+        "chainName": "World Chain",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
         "chainId": "480",
         "chainName": "World Chain",
         "blockExplorerUrl": ""
@@ -13039,7 +13247,7 @@
       }
     ],
     "modules": [],
-    "iconUrl": "/unknown-logo.png"
+    "iconUrl": "https://icons.llamao.fi/icons/chains/rsz_redstone.png"
   },
   {
     "name": "Acala Network",
@@ -25574,6 +25782,15 @@
         "moduleName": "safe-4337-module"
       },
       {
+        "name": "safe-module-setup",
+        "version": "v0.3.0",
+        "address": "0x2dd68b007B46fBe91B9A7c3EDa5A7a1063cB5b47",
+        "chainId": "8453",
+        "chainName": "Base",
+        "blockExplorerUrl": "https://basescan.org",
+        "moduleName": "safe-4337-module"
+      },
+      {
         "name": "daimo-p256-verifier",
         "version": "v0.2.0",
         "address": "0xc2b78104907F722DABAc4C69f826a522B2754De4",
@@ -27169,6 +27386,108 @@
         "chainId": "10849",
         "chainName": "Lamina1",
         "blockExplorerUrl": "https://subnets.avax.network/lamina1"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
+    "name": "Shape Sepolia Testnet",
+    "chain": "ETH",
+    "rpc": [
+      "https://sepolia.shape.network"
+    ],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "Sepolia Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "infoURL": "https://shape.network",
+    "shortName": "shapesep",
+    "chainId": 11011,
+    "networkId": 11011,
+    "icon": "shapeTestnet",
+    "explorers": [
+      {
+        "name": "blockscout",
+        "url": "https://explorer-sepolia.shape.network",
+        "standard": "EIP3091"
+      }
+    ],
+    "slip44": 1,
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.3.0",
+        "address": "0x017062a1dE2FE6b99BE3d9d37841FeD19F573804",
+        "chainId": "11011",
+        "chainName": "Shape Sepolia Testnet",
+        "blockExplorerUrl": "https://explorer-sepolia.shape.network"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.3.0",
+        "address": "0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d",
+        "chainId": "11011",
+        "chainName": "Shape Sepolia Testnet",
+        "blockExplorerUrl": "https://explorer-sepolia.shape.network"
+      },
+      {
+        "name": "gnosis_safe",
+        "version": "v1.3.0",
+        "address": "0x69f4D1788e39c87893C980c06EdF4b7f686e2938",
+        "chainId": "11011",
+        "chainName": "Shape Sepolia Testnet",
+        "blockExplorerUrl": "https://explorer-sepolia.shape.network"
+      },
+      {
+        "name": "gnosis_safe_l2",
+        "version": "v1.3.0",
+        "address": "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA",
+        "chainId": "11011",
+        "chainName": "Shape Sepolia Testnet",
+        "blockExplorerUrl": "https://explorer-sepolia.shape.network"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.3.0",
+        "address": "0x998739BFdAAdde7C933B942a68053933098f9EDa",
+        "chainId": "11011",
+        "chainName": "Shape Sepolia Testnet",
+        "blockExplorerUrl": "https://explorer-sepolia.shape.network"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.3.0",
+        "address": "0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B",
+        "chainId": "11011",
+        "chainName": "Shape Sepolia Testnet",
+        "blockExplorerUrl": "https://explorer-sepolia.shape.network"
+      },
+      {
+        "name": "proxy_factory",
+        "version": "v1.3.0",
+        "address": "0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC",
+        "chainId": "11011",
+        "chainName": "Shape Sepolia Testnet",
+        "blockExplorerUrl": "https://explorer-sepolia.shape.network"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.3.0",
+        "address": "0x98FFBBF51bb33A056B08ddf711f289936AafF717",
+        "chainId": "11011",
+        "chainName": "Shape Sepolia Testnet",
+        "blockExplorerUrl": "https://explorer-sepolia.shape.network"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.3.0",
+        "address": "0x727a77a074D1E6c4530e814F89E618a3298FC044",
+        "chainId": "11011",
+        "chainName": "Shape Sepolia Testnet",
+        "blockExplorerUrl": "https://explorer-sepolia.shape.network"
       }
     ],
     "modules": [],
@@ -31396,6 +31715,15 @@
         "name": "safe-4337-module",
         "version": "v0.3.0",
         "address": "0x75cf11467937ce3F2f357CE24ffc3DBF8fD5c226",
+        "chainId": "42161",
+        "chainName": "Arbitrum One",
+        "blockExplorerUrl": "https://arbiscan.io",
+        "moduleName": "safe-4337-module"
+      },
+      {
+        "name": "safe-module-setup",
+        "version": "v0.3.0",
+        "address": "0x2dd68b007B46fBe91B9A7c3EDa5A7a1063cB5b47",
         "chainId": "42161",
         "chainName": "Arbitrum One",
         "blockExplorerUrl": "https://arbiscan.io",
@@ -36627,6 +36955,15 @@
         "moduleName": "safe-4337-module"
       },
       {
+        "name": "safe-module-setup",
+        "version": "v0.3.0",
+        "address": "0x2dd68b007B46fBe91B9A7c3EDa5A7a1063cB5b47",
+        "chainId": "84532",
+        "chainName": "Base Sepolia Testnet",
+        "blockExplorerUrl": "https://base-sepolia.blockscout.com",
+        "moduleName": "safe-4337-module"
+      },
+      {
         "name": "daimo-p256-verifier",
         "version": "v0.2.0",
         "address": "0xc2b78104907F722DABAc4C69f826a522B2754De4",
@@ -37741,14 +38078,9 @@
   {
     "name": "Taiko Katla L2",
     "chain": "ETH",
-    "status": "active",
+    "status": "deprecated",
     "icon": "taiko",
-    "rpc": [
-      "https://rpc.katla.taiko.xyz",
-      "wss://ws.katla.taiko.xyz",
-      "https://taiko-katla.drpc.org",
-      "wss://taiko-katla.drpc.org"
-    ],
+    "rpc": [],
     "faucets": [],
     "nativeCurrency": {
       "name": "Ether",
@@ -37759,13 +38091,7 @@
     "shortName": "tko-katla",
     "chainId": 167008,
     "networkId": 167008,
-    "explorers": [
-      {
-        "name": "blockscout",
-        "url": "https://explorer.katla.taiko.xyz",
-        "standard": "EIP3091"
-      }
-    ],
+    "explorers": [],
     "smartAccounts": [
       {
         "name": "compatibility_fallback_handler",
@@ -37773,7 +38099,7 @@
         "address": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
         "chainId": "167008",
         "chainName": "Taiko Katla L2",
-        "blockExplorerUrl": "https://explorer.katla.taiko.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "create_call",
@@ -37781,7 +38107,7 @@
         "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
         "chainId": "167008",
         "chainName": "Taiko Katla L2",
-        "blockExplorerUrl": "https://explorer.katla.taiko.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "gnosis_safe",
@@ -37789,7 +38115,7 @@
         "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         "chainId": "167008",
         "chainName": "Taiko Katla L2",
-        "blockExplorerUrl": "https://explorer.katla.taiko.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "gnosis_safe_l2",
@@ -37797,7 +38123,7 @@
         "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
         "chainId": "167008",
         "chainName": "Taiko Katla L2",
-        "blockExplorerUrl": "https://explorer.katla.taiko.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "multi_send",
@@ -37805,7 +38131,7 @@
         "address": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
         "chainId": "167008",
         "chainName": "Taiko Katla L2",
-        "blockExplorerUrl": "https://explorer.katla.taiko.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "multi_send_call_only",
@@ -37813,7 +38139,7 @@
         "address": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
         "chainId": "167008",
         "chainName": "Taiko Katla L2",
-        "blockExplorerUrl": "https://explorer.katla.taiko.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "proxy_factory",
@@ -37821,7 +38147,7 @@
         "address": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
         "chainId": "167008",
         "chainName": "Taiko Katla L2",
-        "blockExplorerUrl": "https://explorer.katla.taiko.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "sign_message_lib",
@@ -37829,7 +38155,7 @@
         "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
         "chainId": "167008",
         "chainName": "Taiko Katla L2",
-        "blockExplorerUrl": "https://explorer.katla.taiko.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "simulate_tx_accessor",
@@ -37837,7 +38163,7 @@
         "address": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
         "chainId": "167008",
         "chainName": "Taiko Katla L2",
-        "blockExplorerUrl": "https://explorer.katla.taiko.xyz"
+        "blockExplorerUrl": ""
       }
     ],
     "modules": [],
@@ -38753,7 +39079,7 @@
       }
     ],
     "modules": [],
-    "iconUrl": "/unknown-logo.png"
+    "iconUrl": "https://icons.llamao.fi/icons/chains/rsz_nal.png"
   },
   {
     "name": "Polis Mainnet",
@@ -39286,6 +39612,15 @@
         "name": "safe-4337-module",
         "version": "v0.3.0",
         "address": "0x75cf11467937ce3F2f357CE24ffc3DBF8fD5c226",
+        "chainId": "421614",
+        "chainName": "Arbitrum Sepolia",
+        "blockExplorerUrl": "https://sepolia-explorer.arbitrum.io",
+        "moduleName": "safe-4337-module"
+      },
+      {
+        "name": "safe-module-setup",
+        "version": "v0.3.0",
+        "address": "0x2dd68b007B46fBe91B9A7c3EDa5A7a1063cB5b47",
         "chainId": "421614",
         "chainName": "Arbitrum Sepolia",
         "blockExplorerUrl": "https://sepolia-explorer.arbitrum.io",
@@ -44735,7 +45070,7 @@
       }
     ],
     "modules": [],
-    "iconUrl": "/unknown-logo.png"
+    "iconUrl": "https://icons.llamao.fi/icons/chains/rsz_nal.png"
   },
   {
     "name": "Meld",

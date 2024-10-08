@@ -1,22 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Img from 'next/image'
 import { Typography, Chip, Box, Button } from '@mui/material'
 // import { sendGAEvent } from '@next/third-parties/google'
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore'
 import css from './styles.module.css'
 import { getFilters, type Network } from './Networks'
-import NetworkModal from './NetworkModal'
 import { capitalize } from 'lodash'
-import { txServiceNetworks } from './utils'
+
+import txServiceNetworks from '../ApiReference/tx-service-networks.json'
 import { useRouter } from 'next/router'
+import { apiServices } from './utils'
 
 const NetworkCard = (network: Network): JSX.Element => {
-  const { query } = useRouter()
+  const { query, push } = useRouter()
 
   const selectedVersions = getFilters(query, 'version')
   const selectedFeatures = getFilters(query, 'feature')
-
-  const [showMore, setShowMore] = useState(false)
 
   const versions = network.smartAccounts
     .map(contract => contract.version)
@@ -27,8 +26,10 @@ const NetworkCard = (network: Network): JSX.Element => {
     .map(m => m.moduleName?.split('-').map(capitalize).join(' '))
     .filter((v, i, a) => a.indexOf(v) === i) as string[]
 
-  const apiServices = txServiceNetworks.includes(network.chainId)
-    ? ['Transaction Service', 'Event Service', 'Safe{Core} SDK', 'Safe{Wallet}']
+  const services = txServiceNetworks
+    .map(n => n.chainId)
+    .includes(network.chainId)
+    ? apiServices(network.chainId.toString()).map(s => s.name)
     : []
 
   return (
@@ -46,7 +47,12 @@ const NetworkCard = (network: Network): JSX.Element => {
         }}
         className={css.card}
         onClick={() => {
-          setShowMore(true)
+          void push({
+            query: {
+              ...query,
+              expand: network.chainId
+            }
+          })
           // sendGAEvent('event', 'supported_networks_link', {
           //   network_chainId: network.chainId,
           //   network_name: network.name
@@ -81,11 +87,11 @@ const NetworkCard = (network: Network): JSX.Element => {
             className={css.description}
             mb={0.5}
           >
-            chain id: {network.chainId}
+            Chain ID {network.chainId}
           </Typography>
 
           <div style={{ width: '100%' }}>
-            <Typography my={1}>Smart Accounts:</Typography>
+            <Typography my={1}>Smart Accounts</Typography>
             {versions.map(version => (
               <Chip
                 color={
@@ -105,12 +111,12 @@ const NetworkCard = (network: Network): JSX.Element => {
             ))}
           </div>
           <div style={{ width: '100%' }}>
-            {[...modules, ...apiServices].length > 0 && (
+            {[...modules, ...services].length > 0 && (
               <Typography mt={2} mb={1}>
-                Features:
+                Features
               </Typography>
             )}
-            {[...modules, ...apiServices].map(feature => (
+            {[...modules, ...services].map(feature => (
               <Chip
                 color={
                   selectedFeatures.includes(feature) ? 'primary' : 'default'
@@ -132,7 +138,12 @@ const NetworkCard = (network: Network): JSX.Element => {
             variant='text'
             fullWidth
             onClick={() => {
-              setShowMore(!showMore)
+              void push({
+                query: {
+                  ...query,
+                  expand: network.chainId
+                }
+              })
             }}
             sx={{ mt: 1 }}
           >
@@ -140,12 +151,6 @@ const NetworkCard = (network: Network): JSX.Element => {
           </Button>
         </div>
       </Box>
-      <NetworkModal
-        network={network}
-        showMore={showMore}
-        setShowMore={setShowMore}
-        versions={versions}
-      />
     </>
   )
 }

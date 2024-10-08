@@ -20,7 +20,7 @@ import css from './styles.module.css'
 
 const renderedMdx = <Mdx components={MDXComponents} />
 
-const ApiReference: React.FC = () => {
+const ApiReference: React.FC<{ networkName: string }> = ({ networkName }) => {
   const { headings } = useData()
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false)
   const currentIndex = useCurrentTocIndex(headings as Heading[], 100)
@@ -44,7 +44,7 @@ const ApiReference: React.FC = () => {
           pr={1}
           maxWidth={['100%', 'calc(100% - 200px - 16px)']}
         >
-          <NetworkProvider>
+          <NetworkProvider networkName={networkName}>
             <Button
               variant='outlined'
               sx={{

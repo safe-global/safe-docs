@@ -22,11 +22,7 @@ export const useNetworksSearch = (
             weight: 0.99
           },
           {
-            name: 'abstract',
-            weight: 0.5
-          },
-          {
-            name: 'tags',
+            name: 'chainId',
             weight: 0.5
           }
         ],
