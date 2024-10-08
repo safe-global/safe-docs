@@ -4,12 +4,20 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:security/recommended-legacy',
     'standard-with-typescript',
-    'next/core-web-vitals'
+    'next/core-web-vitals',
+    'plugin:prettier/recommended'
   ],
+  plugins: ['prettier'],
   parserOptions: {
     project: './tsconfig.json'
   },
-  ignorePatterns: ['.eslintrc.js', 'next.config.js', 'next-env.d.ts', 'out', '**/examples/**'],
+  ignorePatterns: [
+    '.eslintrc.js',
+    'next.config.js',
+    'next-env.d.ts',
+    'out',
+    '**/examples/**'
+  ],
   rules: {
     '@typescript-eslint/key-spacing': 0,
     'multiline-ternary': 0,
