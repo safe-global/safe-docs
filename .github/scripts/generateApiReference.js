@@ -6,7 +6,57 @@ const pathsMetadata = require('../../components/ApiReference/paths-metadata.json
 
 const baseUrl = 'https://safe-transaction-sepolia.safe.global'
 
-const curlify = req =>
+const txServiceNetworks = [
+  { chainId: 1, txServiceUrl: 'https://safe-transaction-mainnet.safe.global' },
+  {
+    chainId: 10,
+    txServiceUrl: 'https://safe-transaction-optimism.safe.global'
+  },
+  { chainId: 56, txServiceUrl: 'https://safe-transaction-bsc.safe.global' },
+  {
+    chainId: 100,
+    txServiceUrl: 'https://safe-transaction-gnosis-chain.safe.global'
+  },
+  {
+    chainId: 137,
+    txServiceUrl: 'https://safe-transaction-polygon.safe.global'
+  },
+  { chainId: 196, txServiceUrl: 'https://safe-transaction-xlayer.safe.global' },
+  { chainId: 324, txServiceUrl: 'https://safe-transaction-zksync.safe.global' },
+  { chainId: 1101, txServiceUrl: 'https://safe-transaction-zkevm.safe.global' },
+  { chainId: 8453, txServiceUrl: 'https://safe-transaction-base.safe.global' },
+  {
+    chainId: 42161,
+    txServiceUrl: 'https://safe-transaction-arbitrum.safe.global'
+  },
+  { chainId: 42220, txServiceUrl: 'https://safe-transaction-celo.safe.global' },
+  {
+    chainId: 43114,
+    txServiceUrl: 'https://safe-transaction-avalanche.safe.global'
+  },
+  {
+    chainId: 59144,
+    txServiceUrl: 'https://safe-transaction-linea.safe.global'
+  },
+  {
+    chainId: 84532,
+    txServiceUrl: 'https://safe-transaction-base-sepolia.safe.global'
+  },
+  {
+    chainId: 534352,
+    txServiceUrl: 'https://safe-transaction-scroll.safe.global'
+  },
+  {
+    chainId: 11155111,
+    txServiceUrl: 'https://safe-transaction-sepolia.safe.global'
+  },
+  {
+    chainId: 1313161554,
+    txServiceUrl: 'https://safe-transaction-aurora.safe.global'
+  }
+]
+
+const curlify = (req) =>
   `curl -X ${req.method} https://safe-transaction-sepolia.safe.global/api${
     req.url
   } \\
@@ -455,6 +505,36 @@ ${categories.map(category => generateCategoryContent(category)).join('\n')}
 
 const main = async () => {
   await getApiJson('https://safe-transaction-mainnet.safe.global')
+  txServiceNetworks.forEach(async network => {
+    const networkName = network.txServiceUrl.split('-')[2].split('.')[0]
+    fs.writeFileSync(
+      `./pages/core-api/transaction-service-reference/${
+        networkName
+      }.mdx`,
+      `
+{/* <!-- vale off --> */}
+import ApiReference from '../../../components/ApiReference'
+import { renderToString } from 'react-dom/server'
+import { MDXComponents, getHeadingsFromHtml } from '../../../lib/mdx'
+import Mdx from '../../../components/ApiReference/generated-reference.mdx'
+
+export const getStaticProps = async () => {
+  const renderedMdx = <Mdx components={MDXComponents} />
+  const contentString = renderToString(renderedMdx)
+  const headings = getHeadingsFromHtml(contentString)
+
+  return {
+    props: {
+      ssg: { headings }
+    }
+  }
+}
+
+<ApiReference networkName="${networkName}"/>
+{/* <!-- vale on --> */}
+`
+    )
+  })
   const mdxContent = generateMainContent()
   fs.writeFileSync(
     `./components/ApiReference/generated-reference.mdx`,
