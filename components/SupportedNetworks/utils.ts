@@ -57,15 +57,3 @@ export const curatedBlockExplorers = [
   'https://basescan.org',
   'https://sepolia.basescan.org'
 ]
-
-// export const shortNameToIcon = (shortName: string): string => {
-//   if (shortNameToIconName(shortName) == null) return '/unknown-logo.png'
-//   if (shortNameToIconName(shortName)?.endsWith('.jpg') === true) {
-//     return `https://icons.llamao.fi/icons/chains/rsz_${shortNameToIconName(
-//       shortName
-//     )}`
-//   }
-//   return `https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/refs/heads/master/128/${shortNameToIconName(
-//     shortName
-//   )}.png`
-// }
