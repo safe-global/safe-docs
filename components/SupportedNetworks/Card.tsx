@@ -87,7 +87,7 @@ const NetworkCard = (network: Network): JSX.Element => {
             className={css.description}
             mb={0.5}
           >
-            Chain ID {network.chainId}
+            Chain ID: {network.chainId}
           </Typography>
 
           <div style={{ width: '100%' }}>

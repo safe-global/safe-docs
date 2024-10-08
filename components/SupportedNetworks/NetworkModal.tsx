@@ -103,7 +103,7 @@ const NetworkModal: React.FC<{
               mb={0.5}
               textAlign='center'
             >
-              Chain ID {network?.chainId}
+              Chain ID: {network?.chainId}
             </Typography>
             {txServiceNetworks
               .map(n => n.chainId)
@@ -113,7 +113,7 @@ const NetworkModal: React.FC<{
                   {'Testnet'}
                 </Typography> */}
                 <Typography variant='h6' mt={2} mb={0.5}>
-                  API Services:
+                  Services
                 </Typography>
                 {apiServices(network?.chainId.toString() ?? '0').map(s => (
                   <Link
@@ -148,7 +148,7 @@ const NetworkModal: React.FC<{
               </>
             )}
             <Typography variant='h6' mt={3} mb={2}>
-              Smart Account:
+              Smart Account
             </Typography>
             {versions
               .filter(v =>
@@ -187,7 +187,7 @@ const NetworkModal: React.FC<{
               ))}
             {moduleTypes?.length != null && moduleTypes.length > 0 && (
               <Typography variant='h6' mt={3} mb={2}>
-                Modules:
+                Modules
               </Typography>
             )}
             {moduleTypes?.map((type, idx) => {
