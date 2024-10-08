@@ -84,7 +84,7 @@ console.log('Safe Threshold:', await protocolKit.getThreshold())
 
 ### Predict the Safe Address
 
-Before the Safe deployment, and if you are using Safe version `v1.3.0` or above, you can predict the address of your Safe account by replacing the `SafeFactory.predictSafeAddress` method with the `Safe.getAddress` method:
+You can predict the address of a Safe account before its deployment, as long as you are using Safe `v1.3.0` or greater, by replacing the `SafeFactory.predictSafeAddress` method with the `Safe.getAddress` method:
 
 ```typescript
 // old v4 code
