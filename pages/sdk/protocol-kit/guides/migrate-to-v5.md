@@ -41,7 +41,7 @@ console.log('Safe Threshold:', await protocolKit.getThreshold())
 // new v5 code
 import Safe, { PredictedSafeProps } from '@safe-global/protocol-kit'
 
-const predictSafe: PredictedSafeProps = {
+const predictedSafe: PredictedSafeProps = {
   safeAccountConfig: {
     owners: ['0x...', '0x...', '0x...'],
     threshold: 2
@@ -55,7 +55,7 @@ const predictSafe: PredictedSafeProps = {
 let protocolKit = await Safe.init({
   provider,
   signer,
-  predictSafe
+  predictedSafe
 })
 
 // you can predict the address of your Safe if the Safe version is `v1.3.0` or above
