@@ -49,9 +49,8 @@ export const mintNFT = async (passkey: PasskeyArgType, safeAddress: string) => {
   })
 
   // 3) Sign SafeOperation
-  const signedSafeOperation = await safe4337Pack.signSafeOperation(
-    safeOperation
-  )
+  const signedSafeOperation =
+    await safe4337Pack.signSafeOperation(safeOperation)
 
   console.log('SafeOperation', signedSafeOperation)
 

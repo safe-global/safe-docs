@@ -16,7 +16,10 @@
           >
             Read tutorial
             <template #trailing>
-              <UIcon name="tabler:external-link" class="dark:white black h-6 w-6"/>
+              <UIcon
+                name="tabler:external-link"
+                class="dark:white black h-6 w-6"
+              />
             </template>
           </UButton>
           <UButton
