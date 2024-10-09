@@ -10,7 +10,7 @@ The `SafeFactory` class, previously used for deploying Safes, has been removed. 
 
 ```typescript
 // old v4 code
-import { SafeFactory } from '@safe-global/protocol-kit'
+import { SafeFactory, SafeAccountConfig } from '@safe-global/protocol-kit'
 
 const safeFactory = await SafeFactory.init({
    provider,
@@ -18,7 +18,7 @@ const safeFactory = await SafeFactory.init({
    safeVersion // Optional
 })
 
-const safeAccountConfig = {
+const safeAccountConfig: SafeAccountConfig = {
    owners: ['0x...', '0x...', '0x...'],
    threshold: 2
 }
@@ -39,9 +39,9 @@ console.log('Safe Threshold:', await protocolKit.getThreshold())
 
 ```typescript
 // new v5 code
-import { Safe } from '@safe-global/protocol-kit'
+import Safe, { PredictedSafeProps } from '@safe-global/protocol-kit'
 
-const predictSafe = {
+const predictSafe: PredictedSafeProps = {
   safeAccountConfig: {
     owners: ['0x...', '0x...', '0x...'],
     threshold: 2
@@ -63,11 +63,14 @@ const safeAddress = await protocolKit.getAddress()
 
 const deploymentTransaction = await protocolKit.createSafeDeploymentTransaction()
 
-// Execute this transaction using your Ethereum client
+// Execute this transaction using the integrated signer or your preferred external Ethereum client
+const client = await protocolKit.getSafeProvider().getExternalSigner()
+
 const txHash = await client.sendTransaction({
   to: deploymentTransaction.to,
   value: BigInt(deploymentTransaction.value),
-  data: `0x${deploymentTransaction.data}`
+  data: deploymentTransaction.data as `0x${string}`,
+  chain: sepolia
 })
 
 const txReceipt = await client.waitForTransactionReceipt({ hash: txHash })
