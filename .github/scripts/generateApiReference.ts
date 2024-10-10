@@ -56,7 +56,7 @@ const txServiceNetworks = [
   }
 ]
 
-const curlify = (req) =>
+const curlify = (req: any) =>
   `curl -X ${req.method} https://safe-transaction-sepolia.safe.global/api${
     req.url
   } \\
@@ -271,8 +271,8 @@ const mainnetApiJson = resolveRefs(jsonFile)
 const addMethodContext = json => ({
   ...json,
   paths: Object.entries(json.paths).reduce((acc, [path, methods]) => {
-    const newMethods = Object.entries(methods).reduce(
-      (acc, [method, data]) => ({
+    const newMethods = Object.entries(methods as any).reduce(
+      (acc, [method, data]: [any, any]) => ({
         ...acc,
         [method]: {
           ...data,
@@ -305,7 +305,7 @@ const getApiJson = async url => {
 const generateMethodContent = (path, method) => {
   const _method = mainnetApiJson.paths[path][method]
   const responses = Object.entries(_method.responses).map(
-    ([code, { schema, ...data }]) => ({
+    ([code, { schema, ...data }]: [any, any]) => ({
       code,
       schema:
         schema?.['$ref'] !== undefined
@@ -454,8 +454,8 @@ const generateCategoryContent = category => `<Grid my={8} />
 ${category.paths.map(path => generatePathContent(path)).join('\n')}`
 
 const getCategories = () => {
-  const allMethods = Object.entries(mainnetApiJson.paths)
-    .map(([k, v]) => Object.values(v))
+  const allMethods: any = Object.entries(mainnetApiJson.paths)
+    .map(([k, v]: [any, any]) => Object.values(v))
     .flat()
   const allCategories = Array.from(
     new Set(

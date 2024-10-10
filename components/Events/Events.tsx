@@ -76,7 +76,7 @@ const EventsPage: React.FC = () => {
           </Typography>
           <Typography className={css.body} sx={{ mt: '50px' }}>
             We proudly support this event by sponsoring{' '}
-            {eventData.bounties.length} submission tracks for a total of{' '}$10,000
+            {eventData.bounties.length} submission tracks for a total of $10,000
             {/*
             {eventData.bounties[0].prize.currency}
             {eventData.bounties
@@ -214,7 +214,11 @@ const EventsPage: React.FC = () => {
               />
             ))}
           </Grid>
-          <Link href={eventData.bountyUrl} target='_blank' rel='noopener noreferrer'>
+          <Link
+            href={eventData.bountyUrl}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
             <Typography className={css.link}>
               Learn more at bounty&apos;s page{' '}
               {<ArrowForwardIosIcon sx={{ width: '16px' }} />}

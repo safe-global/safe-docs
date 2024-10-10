@@ -164,11 +164,6 @@ export const theme = createTheme({
       }
     },
     MuiContainer: {
-      defaultProps: {
-        fixed: true,
-        maxWidth: 'xl',
-        disableGutters: true
-      },
       styleOverrides: {
         root: {
           paddingLeft: '15px',

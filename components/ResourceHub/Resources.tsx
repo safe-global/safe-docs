@@ -133,7 +133,7 @@ const getPage = (query: NextRouter['query']): number => {
 
 const getFilters = (query: NextRouter['query'], filter: string): string[] => {
   const filters = Array.isArray(query[filter])
-    ? (query[filter])
+    ? query[filter]
     : ([query[filter] ?? ''] as string[])
 
   return (
@@ -216,20 +216,20 @@ export const Resources: React.FC = () => {
 
   const onSelect =
     (prev: string[], filterName: string) =>
-      (property: string, checked: boolean) => {
-        if (checked) {
-          setSelectedFilter(prev.concat(property), filterName)
-          sendGAEvent('event', 'resource_hub_filter', {
-            event_label: property,
-            filter_name: filterName
-          })
-        } else {
-          setSelectedFilter(
-            prev.filter(item => item !== property),
-            filterName
-          )
-        }
+    (property: string, checked: boolean) => {
+      if (checked) {
+        setSelectedFilter(prev.concat(property), filterName)
+        sendGAEvent('event', 'resource_hub_filter', {
+          event_label: property,
+          filter_name: filterName
+        })
+      } else {
+        setSelectedFilter(
+          prev.filter(item => item !== property),
+          filterName
+        )
       }
+    }
 
   const onSelectType = onSelect(selectedTypes, 'type')
   const onSelectSource = onSelect(selectedSources, 'source')
@@ -504,7 +504,7 @@ export const Resources: React.FC = () => {
                   justifyContent='center'
                 >
                   <NextLink
-                    href={{ query: { page: page + 1 } }}
+                    href={{ query: { ...query, page: page + 1 } }}
                     shallow
                     // Pagination marker for search engines
                     rel='next'

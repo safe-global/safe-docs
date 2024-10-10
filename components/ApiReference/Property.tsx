@@ -8,7 +8,7 @@ import { AccordionSummary } from '@mui/material'
 import Link from '@mui/material/Link'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Property: React.FC<{ property: any, required?: boolean }> = ({
+const Property: React.FC<{ property: any; required?: boolean }> = ({
   property,
   required
 }) => {

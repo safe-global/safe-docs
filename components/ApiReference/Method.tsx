@@ -1,6 +1,6 @@
 import { Chip, type SxProps } from '@mui/material'
 
-const MethodChip: React.FC<{ method?: string, sx?: SxProps }> = ({
+const MethodChip: React.FC<{ method?: string; sx?: SxProps }> = ({
   method,
   sx,
   ...props

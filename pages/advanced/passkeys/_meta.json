@@ -1,6 +1,9 @@
 {
   "overview": "Overview",
   "passkeys-safe": "Safe and Passkeys",
-  "supported-networks": "Supported Networks",
+  "supported-networks": {
+    "title": "Supported Networks",
+    "href": "/home/supported-networks?feature=Safe+Passkey+Module"
+  },
   "tutorials": "Tutorials"
 }

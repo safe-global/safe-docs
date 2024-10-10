@@ -14,11 +14,7 @@ const RemovedContentCallout: React.FC<{
 
   if (!isContentRemoved) return
 
-  return (
-    <Callout type="warning">
-      {description}
-    </Callout>
-  )
+  return <Callout type='warning'>{description}</Callout>
 }
 
 export default RemovedContentCallout
