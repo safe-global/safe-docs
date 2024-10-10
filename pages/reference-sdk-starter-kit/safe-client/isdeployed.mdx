@@ -1,0 +1,38 @@
+import { Tabs } from 'nextra/components'
+
+# `isDeployed`
+
+Checks if the connected Safe is deployed.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript 
+    import { safeClient } from './setup.ts'
+    
+    const isSafeDeployed = await safeClient.isDeployed()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<boolean>`
+
+The boolean value that indicates if the connected Safe is deployed.

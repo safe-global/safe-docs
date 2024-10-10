@@ -1,0 +1,60 @@
+import { Tabs } from 'nextra/components'
+
+# `sendOffChainMessage`
+
+If the `threshold` of the connected Safe is greater than 1, it will create the Safe message and store it in the Safe Transaction Service to collect the signatures from the Safe owners.
+
+If the `threshold` of the connected Safe is 1, the Safe message will be submitted and be valid immediately.
+
+If the Safe account is not deployed, it will be deployed when this method is called and funds will be required in the connected signer account.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { offchainMessageClient } from './setup.ts'
+
+    const messageResult = await offchainMessageClient.sendOffChainMessage({
+      message: 'I am the owner of this Safe'
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient, offChainMessages } from '@safe-global/sdk-starter-kit'
+
+    const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+
+    export const offchainMessageClient = safeClient.extend(offChainMessages())
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeClientResult>`
+
+The result of the off-chain message sent.
+
+## Parameters
+
+### `message`
+
+- **Type:** `string | EIP712TypedData`
+
+The message to submit.
+
+```typescript focus=2
+const messageResult = await offchainMessageClient.sendOffChainMessage({
+  message: 'abc'
+})
+```

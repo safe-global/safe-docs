@@ -1,0 +1,54 @@
+import { Tabs } from 'nextra/components'
+
+# `isOwner`
+
+Checks if a given address is an owner of the connected Safe.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { safeClient } from './setup.ts'
+    
+    const address = '0x...'
+
+    const isOwner = await safeClient.isOwner(address)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<boolean>`
+
+The boolean value that indicates if the given address is an owner of the connected Safe.
+
+## Parameters
+
+### `address`
+
+- **Type:** `string`
+
+The address to check if it is an owner of the Safe.
+
+```typescript focus=2
+const isOwner = await safeClient.isOwner(
+  '0x...'
+)
+```

@@ -264,6 +264,70 @@ Returns the Safe nonce.
 const nonce = await protocolKit.getNonce()
 ```
 
+## Safe Deployment
+
+The Protocol Kit has been updated to simplify the creation of new Safes. It now includes the `createSafeDeploymentTransaction` method for deploying Safes. This method returns an Ethereum transaction object that is ready to be executed using the Ethereum client of your choice.
+
+### `createSafeDeploymentTransaction`
+
+Returns a transaction object ready to be executed and deploy a new Safe.
+
+Before deploying a new Safe, you must initialize and configure the Protocol Kit.
+
+```typescript
+const predictSafe = {
+  safeAccountConfig: {
+    owners: ['0x...', '0x...', '0x...'],
+    threshold: 2
+    // ...
+  },
+  safeDeploymentConfig: {
+    saltNonce, // Optional
+    safeVersion // Optional
+  }
+}
+
+let protocolKit = await Safe.init({
+  provider,
+  signer,
+  predictSafe
+})
+
+const deploymentTransaction = await protocolKit.createSafeDeploymentTransaction()
+
+const txHash = await client.sendTransaction({
+  to: deploymentTransaction.to,
+  value: BigInt(deploymentTransaction.value),
+  data: `0x${deploymentTransaction.data}`
+})
+```
+
+**Reconnecting to the deployed Safe using the `connect` method**
+
+Once the transaction is executed and the Safe has been successfully deployed, it is necessary to reconnect the Protocol Kit instance to the newly created Safe address by using the `connect` method.
+
+```typescript
+const txReceipt = await client.waitForTransactionReceipt({ hash: txHash })
+
+const safeAddress = getSafeAddressFromDeploymentTx(txReceipt, safeVersion)
+
+protocolKit = await protocolKit.connect({ safeAddress })
+
+console.log('Is Safe deployed:', await protocolKit.isSafeDeployed())
+console.log('Safe Address:', await protocolKit.getAddress())
+console.log('Safe Owners:', await protocolKit.getOwners())
+console.log('Safe Threshold:', await protocolKit.getThreshold())
+```
+
+### `getSafeAddressFromDeploymentTx`
+
+Returns the Safe address from a Safe deployment transaction receipt. It scans the events emitted during the transaction to identify the [creation event of a Safe account](https://github.com/safe-global/safe-smart-account/blob/main/contracts/proxies/SafeProxyFactory.sol#L12) and returns its address.
+
+```typescript
+const txReceipt = await client.waitForTransactionReceipt({ hash: txHash })
+const safeAddress = getSafeAddressFromDeploymentTx(txReceipt, safeVersion)
+```
+
 ## Transactions
 
 ### `copyTransaction`
@@ -870,7 +934,7 @@ It requires two parameters:
 - signature: The signature to be validated or '0x'. You can send as signature one of the following:
   1) An array of SafeSignature. In this case the signatures are concatenated for validation (buildSignatureBytes())
   2) The concatenated signatures as string
-  3) '0x' if you want to validate an onchain message (Approved hash)
+  3) '0x' if you want to validate an on-chain message (Approved hash)
 
 The method returns if the signature is valid
 

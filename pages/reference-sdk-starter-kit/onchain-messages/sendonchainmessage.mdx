@@ -1,0 +1,140 @@
+import { Tabs } from 'nextra/components'
+
+# `sendOnChainMessage`
+
+Creates and sends a message as a regular transaction using the [SignMessageLib](https://github.com/safe-global/safe-smart-account/blob/main/contracts/libraries/SignMessageLib.sol) contract. The message can be a string or an [`EIP712TypedData`](https://eips.ethereum.org/EIPS/eip-712) object.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { onchainMessageClient } from './setup.ts'
+
+    const messageResult = await onchainMessageClient.sendOnChainMessage({
+      message: 'I am the owner of this Safe',
+      from: '0x...', // Optional
+      gasLimit: '123', // Optional
+      gasPrice: '123', // Optional
+      maxFeePerGas: '123', // Optional
+      maxPriorityFeePerGas: '123', // Optional
+      nonce: 123, // Optional
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient, onChainMessages } from '@safe-global/sdk-starter-kit'
+    
+    const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+
+    export const onchainMessageClient = safeClient.extend(onChainMessages())
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeClientResult>`
+
+The result of the operation.
+
+## Parameters
+
+### `message`
+
+- **Type:** `string | EIP712TypedData`
+
+The message to submit.
+
+```typescript focus=2
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc'
+})
+```
+
+### `from` (Optional)
+
+- **Type:** `string`
+
+The sender's address.
+
+```typescript focus=3
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc',
+  from: '0x...'
+})
+```
+
+### `gasLimit` (Optional)
+
+- **Type:** `stringnumber | string | bigint`
+
+The maximum amount of gas the transaction can use. Transactions will fail if they require more gas than specified.
+
+```typescript focus=3
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc',
+  gasLimit: '123'
+})
+```
+
+### `gasPrice` (Optional)
+
+- **Type:** `number | string`
+
+The price in wei per unit of gas the sender is willing to pay.
+
+```typescript focus=3
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc',
+  gasPrice: '123'
+})
+```
+
+### `maxFeePerGas` (Optional)
+
+- **Type:** `number | string`
+
+The maximum fee per gas the sender is willing to pay.
+
+```typescript focus=3
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc',
+  maxFeePerGas: '123'
+})
+```
+
+### `maxPriorityFeePerGas` (Optional)
+
+- **Type:** `number | string`
+
+The maximum priority fee per gas the sender is willing to pay.
+
+```typescript focus=3
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc',
+  maxPriorityFeePerGas: '123'
+})
+```
+
+### `nonce` (Optional)
+
+- **Type:** `number | string`
+
+The `nonce` refers to a unique number used in a transaction to prevent the same transaction from being processed more than once.
+
+```typescript focus=3
+const messageResult = await safeMessageClient.sendOnChainMessage({
+  message: 'abc',
+  nonce: 5
+})
+```

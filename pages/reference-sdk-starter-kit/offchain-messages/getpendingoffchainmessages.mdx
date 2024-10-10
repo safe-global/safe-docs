@@ -1,0 +1,40 @@
+import { Tabs } from 'nextra/components'
+
+# `getPendingOffChainMessages`
+
+This method returns the list of pending off-chain messages that require confirmation by using the `confirmOffChainMessage` method.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { offchainMessageClient } from './setup.ts'
+
+    const pendingMessages = await offchainMessageClient.getPendingOffChainMessages()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient, offChainMessages } from '@safe-global/sdk-starter-kit'
+
+    const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+
+    export const offchainMessageClient = safeClient.extend(offChainMessages())
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeMessageListResponse>`
+
+A paginated list of the pending off-chain messages

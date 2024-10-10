@@ -1,0 +1,235 @@
+import { Tabs } from 'nextra/components'
+
+# `sendSafeOperation`
+
+If the `threshold` of the connected Safe is greater than 1, it will create the Safe operation and store it in the Safe Transaction Service to collect the signatures from the Safe owners.
+
+If the `threshold` of the connected Safe is 1, the Safe operation will be sent to the bundler and executed immediately.
+
+If the Safe account is not deployed, it will be deployed when this method is called and funds will be required if the transaction is not sponsored by a paymaster.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { MetaTransactionData } from '@safe-global/types-kit'
+    import { safeOperationsClient } from './setup.ts'
+
+    const transactions: MetaTransactionData[] = [{
+      to: '0x...',
+      value: '0',
+      data: '0x'
+      operation: 1 // Optional
+    }, {
+      to: '0x...',
+      value: '0',
+      data: '0x',
+      operation: 1 // Optional
+    }]
+
+    const safeOperationResult = await safeOperationsClient.sendSafeOperation({
+      transactions,
+      validAfter: Number(timestamp - 60_000n), // Optional
+      validUntil: Number(timestamp + 60_000n), // Optional
+      amountToApprove: 123n, // Optional
+      feeEstimator: {
+        setupEstimation, // Optional
+        adjustEstimation, // Optional
+        getPaymasterEstimation // Optional
+      }
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient, safeOperations } from '@safe-global/sdk-starter-kit'
+
+    const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+
+    const bundlerOptions: BundlerOptions = {
+      bundlerUrl: 'https://...'
+    }
+
+    const paymasterOptions: PaymasterOptions = {
+      isSponsored: true, // Optional
+      paymasterUrl: 'https://...', // Optional
+      sponsorshipPolicyId: 'abc', // Optional
+      paymasterAddress: '0x...', // Optional
+      paymasterTokenAddress: '0x...', // Optional
+      amountToApprove: 123n // Optional
+    }
+
+    export const safeOperationsClient = await safeClient.extend(
+      safeOperations(bundlerOptions, paymasterOptions)
+    )
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeClientResult>`
+
+The result of the Safe operation sent.
+
+## Parameters
+
+### `transactions.to`
+
+- **Type:** `string`
+
+The address of the recipient.
+
+```typescript focus=3
+const safeOperationResult = await safeOperationsClient.sendSafeOperation({
+  transactions: [{
+    to: '0x...',
+    value: '123',
+    data: '0x'
+  }]
+})
+```
+
+### `transactions.value`
+
+- **Type:** `string`
+
+The amount of native tokens that are transferred.
+
+```typescript focus=4
+const safeOperationResult = await safeOperationsClient.sendSafeOperation({
+  transactions: [{
+    to: '0x...',
+    value: '123',
+    data: '0x'
+  }]
+})
+```
+
+### `transactions.data`
+
+- **Type:** `string`
+
+The encoded transaction data.
+
+```typescript focus=5
+const safeOperationResult = await safeOperationsClient.sendSafeOperation({
+  transactions: [{
+    to: '0x...',
+    value: '123',
+    data: '0x'
+  }]
+})
+```
+
+### `transactions.operation` (Optional)
+
+- **Type:** `OperationType`
+
+- **Default:** `1`
+
+The operation of the Safe transaction.
+
+```typescript focus=6
+const safeOperationResult = await safeOperationsClient.sendSafeOperation({
+  transactions: [{
+    to: '0x...',
+    value: '123',
+    data: '0x',
+    operation: 0
+  }]
+})
+```
+
+### `amountToApprove` (Optional)
+
+- **Type:** `bigint`
+
+The amount to approve for the Safe operation.
+
+```typescript focus=3
+const safeOperationResult = await safeOperationsClient.sendSafeOperation({
+  transactions,
+  ammountToApprove
+})
+```
+
+### `validAfter` (Optional)
+
+- **Type:** `number`
+
+The timestamp after which the Safe operation is valid.
+
+```typescript focus=3
+const safeOperationResult = await safeOperationsClient.sendSafeOperation({
+  transactions,
+  validAfter: Number(timestamp - 60_000n)
+})
+```
+
+### `validUntil` (Optional)
+
+- **Type:** `number`
+
+The timestamp until which the Safe operation is valid.
+
+```typescript focus=3
+const safeOperationResult = await safeOperationsClient.sendSafeOperation({
+  transactions,
+  validUntil: Number(timestamp + 60_000n)
+})
+```
+
+### `feeEstimator.setupEstimation` (Optional)
+
+- **Type:** `EstimateFeeFunction`
+
+Function called before `eth_estimateUserOperationGas`.
+
+```typescript focus=4
+const safeOperationResult = await safeOperationsClient.sendSafeOperation({
+  transactions,
+  feeEstimator: {
+    setupEstimation
+  }
+})
+```
+
+### `feeEstimator.adjustEstimation` (Optional)
+
+- **Type:** `EstimateFeeFunction`
+
+Function called after `eth_estimateUserOperationGas`.
+
+```typescript focus=4
+const safeOperationResult = await safeOperationsClient.sendSafeOperation({
+  transactions,
+  feeEstimator: {
+    adjustEstimation
+  }
+})
+```
+
+### `feeEstimator.getPaymasterEstimation` (Optional)
+
+- **Type:** `EstimateSponsoredFeeFunction`
+
+Function called if the Safe operation is sponsored to adjust the `paymasterAndData` property.
+
+```typescript focus=4
+const safeOperationResult = await safeOperationsClient.sendSafeOperation({
+  transactions,
+  feeEstimator: {
+    getPaymasterEstimation
+  }
+})
+```

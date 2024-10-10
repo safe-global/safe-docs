@@ -1,0 +1,38 @@
+import { Tabs } from 'nextra/components'
+
+# `getPendingTransactions`
+
+Returns the list of pending transactions from a Safe that require confirmation before they become executable.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { safeClient } from './setup.ts'
+
+    const pendingTransactions = await safeClient.getPendingTransactions()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddresss: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<SafeMultisigConfirmationListResponse>`
+
+The paginated list of the pending transactions.

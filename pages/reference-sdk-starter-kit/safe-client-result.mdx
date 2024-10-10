@@ -1,0 +1,97 @@
+# SafeClientResult
+
+The type of the object returned by the following methods from the `SafeClient` class and its extensions:
+
+- Transactions: `send` and `confirm`.
+- On-chain messages: `sendOnChainMessage` and `confirm`.
+- Off-chain messages: `sendOffChainMessage` and `confirmOffChainMessage`.
+- Safe operations: `sendSafeOperation` and `confirmSafeOperation`.
+
+## Properties
+
+```typescript
+type SafeClientResult = {
+  safeAddress: string
+  description: string
+  status: SafeClientTxStatus
+  transactions?: {
+    safeTxHash?: string
+    ethereumTxHash?: string
+  }
+  messages?: {
+    messageHash?: string
+  }
+  safeOperations?: {
+    userOperationHash?: string
+    safeOperationHash?: string
+  }
+  safeAccountDeployment?: {
+    ethereumTxHash?: string
+  }
+}
+```
+
+### `safeAddress`
+
+- **Type:** `string`
+
+The connected Safe address.
+
+### `description`
+
+- **Type:** `string`
+
+A human-readable description of the result. More details can be found [here](https://github.com/safe-global/safe-core-sdk/blob/main/packages/sdk-starter-kit/src/constants.ts).
+
+### `status`
+
+- **Type:** `SafeClientTxStatus`
+
+The status of the operation.
+
+- `PENDING_SIGNATURES`
+- `DEPLOYED_AND_PENDING_SIGNATURES`
+- `EXECUTED`
+- `DEPLOYED_AND_EXECUTED`
+- `MESSAGE_PENDING_SIGNATURES`
+- `DEPLOYED_AND_MESSAGE_PENDING_SIGNATURES`
+- `MESSAGE_CONFIRMED`
+- `DEPLOYED_AND_MESSAGE_CONFIRMED`
+- `SAFE_OPERATION_PENDING_SIGNATURE`
+- `SAFE_OPERATION_EXECUTED`
+
+### `transactions.safeTxHash` (Optional)
+
+- **Type:** `string`
+
+The hash of the transaction stored in the Safe Transaction Service.
+
+### `transactions.ethereumTxHash` (Optional)
+
+- **Type:** `string`
+
+The transaction hash of the transaction once it's executed.
+
+### `messages.messageHash` (Optional)
+
+- **Type:** `string`
+
+The hash of the message stored in the Safe Transaction Service.
+
+### `safeOperations.safeOperationHash` (Optional)
+
+- **Type:** `string`
+
+The hash of the Safe operation stored in the Safe Transaction Service.
+
+### `safeOperations.userOperationHash` (Optional)
+
+- **Type:** `string`
+
+The hash of the user operation sent to the bundler.
+
+### `safeAccountDeployment.ethereumTxHash` (Optional)
+
+- **Type:** `string`
+
+The hash of the transaction that deployed the Safe, if a Safe is deployed during the operation.

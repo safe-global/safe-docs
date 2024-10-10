@@ -1,0 +1,72 @@
+import { Tabs } from 'nextra/components'
+
+# `createRemoveOwnerTransaction`
+
+Creates a Safe transaction to remove an owner to the connected Safe.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { safeClient } from './setup.ts'
+
+    const transaction = await safeClient.createRemoveOwnerTransaction({
+      ownerAddress: '0x...',
+      threshold: 2
+    })
+
+    const txResult = await safeClient.send({
+      transactions: [transaction]
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createSafeClient } from '@safe-global/sdk-starter-kit'
+    
+    export const safeClient = await createSafeClient({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<TransactionBase>`
+
+The Safe transaction to remove an owner of the connected Safe.
+
+## Parameters
+
+### `ownerAddress`
+
+- **Type:** `string`
+
+The address to remove as an owner.
+
+```typescript focus=2
+const transaction = await safeClient.createRemoveOwnerTransaction({
+  ownerAddress: '0x...'
+})
+```
+
+### `threshold` (Optional)
+
+- **Type:** `string`
+
+The new threshold of the connected Safe. If not provided, the current threshold is used.
+
+```typescript focus=3
+const transaction = await safeClient.createRemoveOwnerTransaction({
+  ownerAddress: '0x...',
+  threshold: 2
+})
+```
