@@ -1,29 +1,36 @@
 # `SafeProvider`
 
-The `SafeProvider` component is a wrapper that offers a secure [React context](https://react.dev/reference/react/createContext#provider) for the `Safe` hooks.
+The `SafeProvider` component is a [context provider](https://react.dev/reference/react/createContext#provider) that wraps a React application and makes all the Safe React hooks available.
 
 ## Usage
 
-Any component that uses a Safe hook requires a `SafeProvider` to be present somewhere in its parent component tree. Usually, you will add this component at the root of your application, wrapping the entire application and providing a global [configuration object](./safeconfig.mdx) to the hooks. Another way to work with Safe hooks is to pass the `config` as a parameter to the individual functions. You can find more information about this in the specific hook documentation.
+Any component that uses a Safe hook requires a `SafeProvider` to be present somewhere in its parent component tree.
+
+Usually, you will add this component at the root of your application, wrapping the entire application and providing a global [configuration object](./safeconfig.mdx) to the hooks.
+
+Another way to work with Safe hooks is to pass the `config` as a parameter to the individual functions. You can find more information about this in the specific hook documentation.
 
 {/* <!-- vale off --> */}
 
 ```typescript
 import ReactDOM from 'react-dom/client'
 import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+import { sepolia } from 'viem/chains'
 import App from './App.tsx'
 
 const config = createConfig({
-  chain,
+  chain: sepolia,
   provider,
   signer,
   safeOptions: {
-    owners,
-    threshold
+    owners: ['0x...', '0x...', '0x...'],
+    threshold: 2
   }
 })
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const root = document.getElementById('root')
+
+ReactDOM.createRoot(root).render(
   <SafeProvider config={config}>
     <App />
   </SafeProvider>

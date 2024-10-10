@@ -31,15 +31,27 @@ We can have primarily two use cases:
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['safe-provider.tsx', 'custom-configuration.tsx', 'create-config.ts']}>
+<Tabs items={['safe-provider.tsx', 'custom-configuration.tsx']}>
   <Tabs.Tab>
     ```typescript
     import ReactDOM from 'react-dom/client'
-    import { SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
-    import config from './create-config.ts'
+    import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+    import { sepolia } from 'viem/chains'
     import App from './App.tsx'
 
-    ReactDOM.createRoot(document.getElementById('root')!).render(
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
+      }
+    })
+
+    const root = document.getElementById('root')
+    
+    ReactDOM.createRoot(root).render(
       <SafeProvider config={config}>
         <App />
       </SafeProvider>
@@ -48,8 +60,18 @@ We can have primarily two use cases:
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-    import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
-    import config from './create-config.ts'
+    import { createConfig, useSafe } from '@safe-global/safe-core-sdk-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
+      }
+    })
 
     const ChainInfo = () => {
       const { getChain } = useSafe()
@@ -64,23 +86,6 @@ We can have primarily two use cases:
     }
 
     export default ChainInfo
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```typescript
-    import { createConfig } from '@safe-global/safe-core-sdk-react-hooks'
-
-    const config = createConfig({
-      chain,
-      provider,
-      signer,
-      safeOptions: {
-        owners,
-        threshold
-      }
-    })
-
-    export default config
     ```
   </Tabs.Tab>
 </Tabs>

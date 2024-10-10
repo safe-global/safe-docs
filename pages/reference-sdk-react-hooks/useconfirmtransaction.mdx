@@ -46,19 +46,22 @@ Hook to confirm a pending multisig transaction which is stored by the Transactio
     ```typescript
     import ReactDOM from 'react-dom/client'
     import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+    import { sepolia } from 'viem/chains'
     import App from './App.tsx'
 
     const config = createConfig({
-      chain,
+      chain: sepolia,
       provider,
       signer,
       safeOptions: {
-        owners,
-        threshold
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
       }
     })
 
-    ReactDOM.createRoot(document.getElementById('root')!).render(
+    const root = document.getElementById('root')
+    
+    ReactDOM.createRoot(root).render(
       <SafeProvider config={config}>
         <App />
       </SafeProvider>
@@ -79,6 +82,13 @@ Hook to confirm a pending multisig transaction which is stored by the Transactio
 - The react-query [`UseMutationResult`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation).
 - The `mutate` and `mutateAsync` functions have been renamed to `confirmTransaction` and `confirmTransactionAsync` respectively. The other properties in the return type remain unchanged, and the behavior is still the same as described in the docs.
 
+
+
+
+
+
+
+
 ### `confirmTransaction`
 
 `UseMutateFunction<SafeClientResult, Error, ConfirmTransactionVariables, unknown>`
@@ -93,6 +103,13 @@ Function to send the transaction. It's a react-query [`mutate`](https://tanstack
 #### Returns
 
 In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the transaction result.
+
+
+
+
+
+
+
 
 ### `confirmTransactionAsync`
 

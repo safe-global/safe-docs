@@ -12,77 +12,72 @@ This is the hook to manage the owners of the Safe account. It provides methods t
 
 <Tabs items={['App.tsx', 'main.tsx']}>
   <Tabs.Tab>
-  ```typescript
-  import { useUpdateOwners } from '@safe-global/safe-core-sdk-react-hooks'
-  
-  function App() {
-    const { 
-      add: { addOwner, ...add },
-      remove: { removeOwner, ...remove },
-      swap: { swapOwner, ...swap }
-    } = useUpdateOwners();
+    ```typescript
+    import { useUpdateOwners } from '@safe-global/safe-core-sdk-react-hooks'
+    
+    function App() {
+      const { add, remove, swap } = useUpdateOwners()
 
-    const handleAddOwner = () => {
-      addOwner({ ownerAddress: '0xAddOwnerAddress' });
-    };
+      const handleAddOwner = () => {
+        add.addOwner({ ownerAddress: '0x...' })
+      }
 
-    const handleRemoveOwner = () => {
-      removeOwner({ ownerAddress: '0xRemoveOwnerAddress' });
-    };
+      const handleRemoveOwner = () => {
+        remove.removeOwner({ ownerAddress: '0x...' })
+      }
 
-    const handleSwapOwner = () => {
-      swapOwner({ oldOwnerAddress: '0xOldOwnerAddress', newOwnerAddress: '0xNewOwnerAddress' });
-    };
+      const handleSwapOwner = () => {
+        swap.swapOwner({
+          oldOwnerAddress: '0x...',
+          newOwnerAddress: '0x...'
+        })
+      }
 
-    const isError = add.isError || remove.isError || swap.isError;
-    const error = add.error || remove.error || swap.error;
-    const data = add.data || remove.data || swap.data;
+      const isError = add.isError || remove.isError || swap.isError;
+      const error = add.error || remove.error || swap.error;
+      const data = add.data || remove.data || swap.data;
 
-    return (
-      <div>
-        <button onClick={handleAddOwner} disabled={add.isLoading}>
-          Add Owner
-        </button>
+      return (
+        <div>
+          <button onClick={handleAddOwner} disabled={add.isLoading}>
+            Add Owner
+          </button>
+          <button onClick={handleRemoveOwner} disabled={remove.isLoading}>
+            Remove Owner
+          </button>
+          <button onClick={handleSwapOwner} disabled={swap.isLoading}>
+            Swap Owner
+          </button>
+          {isError && <p>Error: {error.message}</p>}
+          {data && <p>Update Owner Transaction sent: {JSON.stringify(data)}</p>}
+        </div>
+      )
+    }
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import ReactDOM from 'react-dom/client'
+    import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+    import { sepolia } from 'viem/chains'
+    import App from './App.tsx  '
 
-        <button onClick={handleRemoveOwner} disabled={remove.isLoading}>
-          Remove Owner
-        </button>
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
 
-        <button onClick={handleSwapOwner} disabled={swap.isLoading}>
-          Swap Owner
-        </button>
-
-        {isError && <p>Error: {error.message}</p>}
-
-        {data && <p>Update Owner Transaction sent: {JSON.stringify(data)}</p>}
-      </div>
+    const root = document.getElementById('root')
+    
+    ReactDOM.createRoot(root).render(
+      <SafeProvider config={config}>
+        <App />
+      </SafeProvider>
     )
-
-}
-
-````
-</Tabs.Tab>
-<Tabs.Tab>
-```typescript
-import ReactDOM from 'react-dom/client'
-import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
-import App from './App.tsx  '
-
-const config = createConfig({
-  chain,
-  provider,
-  signer,
-  safeAddress
-})
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <SafeProvider config={config}>
-    <App />
-  </SafeProvider>
-)
-````
-
-</Tabs.Tab>
+    ```
+  </Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
