@@ -1,38 +1,44 @@
-### `getChain`
+import { Tabs } from 'nextra/components'
+
+# `getChain`
+
+Get the chain information of the Safe. 
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
+
+    const ChainInfo = () => {
+      const { getChain } = useSafe()
+      const { blockExplorers } = getChain()
+
+      return (
+        <>
+          <h3>Chain Info</h3>
+          <pre>{JSON.stringify(blockExplorers, null, 2)}</pre>
+        </>
+      )
+    }
+
+    export default ChainInfo
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
 
 `(params: UseChainParams = {}) => UseChainReturnType`
 
-Get the chain information of the Safe. 
+- It returns `UseChainReturnType = SafeConfig['chain']` being `SafeConfig['chain']` the viem's [Chain Type](https://github.com/wevm/viem/blob/main/src/types/chain.ts).
 
 #### Parameters
 
 - `params` (UseChainParams, optional): Parameters to customize the hook behavior. It contains:
   - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
-
-#### Returns
-
-- It returns `UseChainReturnType = SafeConfig['chain']` being `SafeConfig['chain']` the viem's [Chain Type](https://github.com/wevm/viem/blob/main/src/types/chain.ts).
-
-#### Usage
-
-{/* <!-- vale off --> */}
-
-```typescript
-import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
-
-const ChainInfo = () => {
-  const { getChain } = useSafe()
-  const { blockExplorers } = getChain()
-
-  return (
-    <>
-      <h3>Chain Info</h3>
-      <pre>{JSON.stringify(blockExplorers, null, 2)}</pre>
-    </>
-  )
-}
-
-export default ChainInfo
-```
-
-{/* <!-- vale on --> */}

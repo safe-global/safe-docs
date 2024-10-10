@@ -1,3 +1,5 @@
+import { Tabs } from 'nextra/components'
+
 # `connect`
 
 Connects the specified signer.
@@ -6,24 +8,28 @@ Connects the specified signer.
 
 {/* <!-- vale off --> */}
 
-```typescript
-import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
+<Tabs items={['example.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
-const Connect = () => {
-  const { connect } = useSafe()
+    const Connect = () => {
+      const { connect } = useSafe()
 
-  const signerAddress = '0x...'
+      const signerAddress = '0x...'
 
-  return (
-    <>
-      <h3>Chain Info</h3>
-      <button onClick={() => connect(signerAddress)}></button>
-    </>
-  )
-}
+      return (
+        <>
+          <h3>Chain Info</h3>
+          <button onClick={() => connect(signerAddress)}></button>
+        </>
+      )
+    }
 
-export default Connect
-```
+    export default Connect
+    ```
+  </Tabs.Tab>
+</Tabs>
 
 {/* <!-- vale on --> */}
 
@@ -33,4 +39,8 @@ export default Connect
 
 ## Parameters
 
-- `signer` (string): The address of the signer to connect.
+### `signer`
+
+- **Type**: `string`
+
+The address of the signer to connect.
