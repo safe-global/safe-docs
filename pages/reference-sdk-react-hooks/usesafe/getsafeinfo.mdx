@@ -1,0 +1,42 @@
+### `getSafeInfo`
+
+`(params: UseSafeInfoParams = {}) => UseSafeInfoReturnType`
+
+Get the connected Safe information.
+
+#### Parameters
+
+- `params` (UseSafeInfoParams, optional): Parameters to customize the hook behavior. It contains:
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+
+#### Returns
+
+- A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the Safe account information in the `data` property.
+- The `data` property [format](https://github.com/safe-global/safe-core-sdk-react-hooks/blob/6f620f2f9492d518af332cb7f21646beef4fb42f/src/types/index.ts#L32-L38)
+
+#### Usage
+
+{/* <!-- vale off --> */}
+
+```typescript
+import { useSafeInfo } from '@safe-global/safe-core-sdk-react-hooks'
+
+const SafeInfo = () => {
+  const { getSafeInfo } = useSafe()
+  const { data, error, isLoading } = getSafeInfo()
+
+  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>Error: {error.message}</p>
+
+  return (
+    <>
+      <h3>Safe Information</h3>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </>
+  )
+}
+
+export default SafeInfo
+```
+
+{/* <!-- vale on --> */}

@@ -1,0 +1,30 @@
+# `disconnect`
+
+Disconnects the current connected signer.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+```typescript
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
+
+const Disconnect = () => {
+  const { disconnect } = useSafe()
+
+  return (
+    <>
+      <h3>Chain Info</h3>
+      <button onClick={disconnect}></button>
+    </>
+  )
+}
+
+export default Disconnect
+```
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`() => Promise<void>`

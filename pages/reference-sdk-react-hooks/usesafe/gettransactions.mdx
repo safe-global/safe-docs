@@ -1,0 +1,43 @@
+
+### `getTransactions`
+
+`(params: UseTransactionsParams = {}) => UseTransactionsReturnType`
+
+Get all transactions for the connected Safe.
+
+#### Parameters
+
+- `params` (UseTransactionsParams, optional): Parameters to customize the hook behavior. It contains:
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+
+#### Returns
+
+- A [query](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) result object containing the list of transactions for the Safe account in the `data` property.
+- The `data` property [format](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/api-kit/src/types/safeTransactionServiceTypes.ts#L212-L216)
+
+#### Usage
+
+{/* <!-- vale off --> */}
+
+```typescript
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
+
+const Transactions = () => {
+  const { getTransactions } = useSafe()
+  const { data, error, isLoading } = getTransactions()
+
+  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>Error: {error.message}</p>
+
+  return (
+    <>
+      <h3>Transactions</h3>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </>
+  )
+}
+
+export default Transactions
+```
+
+{/* <!-- vale on --> */}

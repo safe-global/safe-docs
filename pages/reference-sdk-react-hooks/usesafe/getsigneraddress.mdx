@@ -1,0 +1,38 @@
+### `getSignerAddress`
+
+`(params: UseSignerAddressParams = {}) => UseSignerAddressReturnType`
+
+Get the configured signer address.
+
+#### Parameters
+
+- `params` (object, optional): Parameters to customize the hook behavior. It contains:
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+
+#### Returns
+
+-  The signer address or `undefined` if not available.
+
+#### Usage
+
+{/* <!-- vale off --> */}
+
+```typescript
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
+
+const SignerAddress = () => {
+  const { getSignerAddress } = useSafe()
+  const address = getSignerAddress()
+
+  return (
+    <>
+      <h3>Signer Address</h3>
+      {address ? <pre>{address}</pre> : <p>No address available</p>}
+    </>
+  )
+}
+
+export default SignerAddress
+```
+
+{/* <!-- vale on --> */}

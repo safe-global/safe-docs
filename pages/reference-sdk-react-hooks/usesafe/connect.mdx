@@ -1,0 +1,36 @@
+# `connect`
+
+Connects the specified signer.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+```typescript
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
+
+const Connect = () => {
+  const { connect } = useSafe()
+
+  const signerAddress = '0x...'
+
+  return (
+    <>
+      <h3>Chain Info</h3>
+      <button onClick={() => connect(signerAddress)}></button>
+    </>
+  )
+}
+
+export default Connect
+```
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`(signer: string) => Promise<void>`
+
+## Parameters
+
+- `signer` (string): The address of the signer to connect.

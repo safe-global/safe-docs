@@ -1,0 +1,41 @@
+### `getBalance`
+
+`(params?: UseBalanceParams) => UseBalanceReturnType`
+
+Retrieves the balance information of the Safe.
+
+#### Parameters
+
+- `params` (UseBalanceParams, optional): Parameters to customize the hook behavior. It contains:
+  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+
+#### Returns
+
+- A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the Safe balance in the `data` property.
+- We are using the wagmi [`UseBalanceReturnType`](https://wagmi.sh/react/api/hooks/useBalance#return-type)
+
+#### Usage
+{/* <!-- vale off --> */}
+
+```typescript
+import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
+
+const SafeBalance = () => {
+  const { getBalance } = useSafe()
+  const { data, error, isLoading } = getBalance()
+
+  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>Error: {error.message}</p>
+
+  return (
+    <>
+      <h3>Safe Balance</h3>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </>
+  )
+}
+
+export default SafeBalance
+```
+
+{/* <!-- vale on --> */}
