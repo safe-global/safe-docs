@@ -1,0 +1,60 @@
+import { Tabs } from 'nextra/components'
+
+# `useSafe`
+
+This is the primary hook for accessing safe-related information. It provides a set of utilities to interact with the safe, allowing actions such as connecting and disconnecting signers, retrieving balances, and obtaining information about the connected chain, among others.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['App.tsx', 'main.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
+    
+    function App() {
+      const { isInitialized, getBalance } = useSafe()
+      const { data } = getBalance()
+
+      if (!isInitialized) {
+        return <p>Safe SDK is not initialized</p>
+      }
+
+      return (
+        <>
+          <h1>Safe App</h1>
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        </>
+      )
+    }
+
+    export default App
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import ReactDOM from 'react-dom/client'
+    import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+    import App from './App.tsx'
+
+    const config = createConfig({
+      chain,
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
+      }
+    })
+
+    ReactDOM.createRoot(document.getElementById('root')!).render(
+      <SafeProvider config={config}>
+        <App />
+      </SafeProvider>
+    )
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}

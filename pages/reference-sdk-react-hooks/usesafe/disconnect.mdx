@@ -1,0 +1,36 @@
+import { Tabs } from 'nextra/components'
+
+# `disconnect`
+
+Disconnects the connected signer.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
+
+    const Disconnect = () => {
+      const { disconnect } = useSafe()
+
+      return (
+        <>
+          <h3>Chain Info</h3>
+          <button onClick={disconnect}></button>
+        </>
+      )
+    }
+
+    export default Disconnect
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`() => Promise<void>`
