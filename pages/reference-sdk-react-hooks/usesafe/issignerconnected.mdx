@@ -11,7 +11,19 @@ Indicates whether the signer is connected. Check this before using any method th
 <Tabs items={['example.tsx']}>
   <Tabs.Tab>
     ```typescript
+    import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
+    const IsSignerConnected = () => {
+      const { isSignerConnected } = useSafe()
+
+      return (
+        <>
+          <h3>{isSignerConnected ? 'Signer is connected' : 'No signer connected'}</h3>
+        </>
+      )
+    }
+
+    export default IsSignerConnected
     ```
   </Tabs.Tab>
 </Tabs>
