@@ -3,6 +3,7 @@
   "connect": "connect",
   "disconnect": "disconnect",
   "issignerconnected": "isSignerConnected",
+  "isownerconnected": "isOwnerConnected",
   "getbalance": "getBalance",
   "getchain": "getChain",
   "gettransaction": "getTransaction",
