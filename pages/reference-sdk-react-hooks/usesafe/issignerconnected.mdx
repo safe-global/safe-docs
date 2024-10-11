@@ -2,7 +2,9 @@ import { Tabs } from 'nextra/components'
 
 # `isSignerConnected`
 
-Indicates whether the signer is connected. Check this before using any method that requires a signer, such as sending transactions or signing messages.
+Indicates whether a signer is connected. Check this before using any method that requires a signer, such as sending transactions or signing messages.
+
+**Note**: This flag does not indicate whether the connected signer is an owner of the Safe. Use [`isOwnerConnected`](./isownerconnected.mdx) for that purpose.
 
 ## Usage
 

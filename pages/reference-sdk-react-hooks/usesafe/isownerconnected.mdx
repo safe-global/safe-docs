@@ -4,6 +4,8 @@ import { Tabs } from 'nextra/components'
 
 Indicates whether a signer who is owner of the current Safe is connected. This flag is useful for checking whether the connected signer is authorised to perform any signing method with the Safe, such as sending transactions or signing messages.
 
+**Note**: In contrast, [`isSignerConnected`](./issignerconnected.mdx) is also true if a signer is connected who is **not** an owner of the current Safe.
+
 ## Usage
 
 {/* <!-- vale off --> */}
