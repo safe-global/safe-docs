@@ -11,7 +11,19 @@ Indicates whether the Safe SDK is `isInitialized` and ready for use. Always chec
 <Tabs items={['example.tsx']}>
   <Tabs.Tab>
     ```typescript
+    import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
+    const IsInitialized = () => {
+      const { isInitialized } = useSafe()
+
+      return (
+        <>
+          <h3>{isInitialized ? 'Is initialized' : 'Not initialized'}</h3>
+        </>
+      )
+    }
+
+    export default IsInitialized
     ```
   </Tabs.Tab>
 </Tabs>
