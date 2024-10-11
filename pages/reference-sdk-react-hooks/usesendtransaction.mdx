@@ -4,6 +4,8 @@ import { Tabs } from 'nextra/components'
 
 `(params?: UseSendTransactionParams): UseSendTransactionReturnType`
 
+Hook to send or propose transactions. For single-owner Safe accounts, it sends the transaction directly to the blockchain. For multisig Safe accounts, it sends the transaction to the Transaction Service.
+
 ## Usage
 
 {/* <!-- vale off --> */}
