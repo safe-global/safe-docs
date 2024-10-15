@@ -11,7 +11,7 @@ Returns a transaction by its Safe transaction hash or Ethereum transaction hash.
 <Tabs items={['example.tsx']}>
   <Tabs.Tab>
     ```typescript
-    import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
+    import { useSafe } from '@safe-global/safe-react-hooks'
 
     function TransactionStatus({ safeTxHash, ethereumTxHash }) {
       const { getTransaction } = useSafe()
@@ -86,7 +86,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-    import { createConfig } from '@safe-global/safe-core-sdk-react-hooks'
+    import { createConfig } from '@safe-global/safe-react-hooks'
     import { sepolia } from 'viem/chains'
 
     const config = createConfig({

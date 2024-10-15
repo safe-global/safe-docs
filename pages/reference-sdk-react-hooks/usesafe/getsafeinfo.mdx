@@ -11,7 +11,7 @@ Returns the information associated with the Safe connected to the [`SafeProvider
 <Tabs items={['example.tsx']}>
   <Tabs.Tab>
     ```typescript
-    import { useSafeInfo } from '@safe-global/safe-core-sdk-react-hooks'
+    import { useSafeInfo } from '@safe-global/safe-react-hooks'
 
     function SafeInfo() {
       const { getSafeInfo } = useSafe()
@@ -36,7 +36,7 @@ Returns the information associated with the Safe connected to the [`SafeProvider
 `UseSafeInfoReturnType`
 
 - A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the Safe account information in the `data` property.
-- The `data` property [format](https://github.com/safe-global/safe-core-sdk-react-hooks/blob/6f620f2f9492d518af332cb7f21646beef4fb42f/src/types/index.ts#L32-L38)
+- The `data` property [format](https://github.com/safe-global/safe-react-hooks/blob/6f620f2f9492d518af332cb7f21646beef4fb42f/src/types/index.ts#L32-L38)
 
 ## Parameters
 
@@ -66,7 +66,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-    import { createConfig } from '@safe-global/safe-core-sdk-react-hooks'
+    import { createConfig } from '@safe-global/safe-react-hooks'
     import { sepolia } from 'viem/chains'
 
     const config = createConfig({

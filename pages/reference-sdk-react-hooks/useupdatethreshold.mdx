@@ -11,7 +11,7 @@ Hook to update the threshold of the connected Safe. It sends or (if the current 
 <Tabs items={['App.tsx', 'main.tsx']}>
   <Tabs.Tab>
     ```typescript
-    import { useUpdateThreshold } from '@safe-global/safe-core-sdk-react-hooks'
+    import { useUpdateThreshold } from '@safe-global/safe-react-hooks'
     
     function App() {
       const {
@@ -43,7 +43,7 @@ Hook to update the threshold of the connected Safe. It sends or (if the current 
   <Tabs.Tab>
     ```typescript
     import ReactDOM from 'react-dom/client'
-    import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+    import { createConfig, SafeProvider } from '@safe-global/safe-react-hooks'
     import { sepolia } from 'viem/chains'
     import App from './App.tsx'
 

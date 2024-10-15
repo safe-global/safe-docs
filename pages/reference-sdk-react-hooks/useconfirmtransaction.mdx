@@ -13,7 +13,7 @@ Hook to confirm a pending multisig transaction which is stored by the Transactio
 <Tabs items={['App.tsx', 'main.tsx']}>
   <Tabs.Tab>
     ```typescript
-    import { useConfirmTransaction } from '@safe-global/safe-core-sdk-react-hooks'
+    import { useConfirmTransaction } from '@safe-global/safe-react-hooks'
     
     function App() {
       const {
@@ -45,7 +45,7 @@ Hook to confirm a pending multisig transaction which is stored by the Transactio
   <Tabs.Tab>
     ```typescript
     import ReactDOM from 'react-dom/client'
-    import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+    import { createConfig, SafeProvider } from '@safe-global/safe-react-hooks'
     import { sepolia } from 'viem/chains'
     import App from './App.tsx'
 

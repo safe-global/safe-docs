@@ -13,7 +13,7 @@ Hook to send or propose transactions. For single-owner Safe accounts, it sends t
 <Tabs items={['App.tsx', 'main.tsx']}>
   <Tabs.Tab>
     ```typescript
-    import { useSendTransaction } from '@safe-global/safe-core-sdk-react-hooks'
+    import { useSendTransaction } from '@safe-global/safe-react-hooks'
     
     function App() {
       const {
@@ -51,7 +51,7 @@ Hook to send or propose transactions. For single-owner Safe accounts, it sends t
   <Tabs.Tab>
     ```typescript
     import ReactDOM from 'react-dom/client'
-    import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+    import { createConfig, SafeProvider } from '@safe-global/safe-react-hooks'
     import { sepolia } from 'viem/chains'
     import App from './App.tsx'
 

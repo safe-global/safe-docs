@@ -11,7 +11,7 @@ Returns all the transactions associated with the Safe connected to the [`SafePro
 <Tabs items={['example.tsx']}>
   <Tabs.Tab>
     ```typescript
-    import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
+    import { useSafe } from '@safe-global/safe-react-hooks'
 
     function Transactions() {
       const { getTransactions } = useSafe()
@@ -70,7 +70,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
-    import { createConfig } from '@safe-global/safe-core-sdk-react-hooks'
+    import { createConfig } from '@safe-global/safe-react-hooks'
     import { sepolia } from 'viem/chains'
 
     const config = createConfig({

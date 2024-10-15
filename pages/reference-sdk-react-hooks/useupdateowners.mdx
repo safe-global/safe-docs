@@ -13,7 +13,7 @@ This is the hook to manage the owners of the Safe account. It provides methods t
 <Tabs items={['App.tsx', 'main.tsx']}>
   <Tabs.Tab>
     ```typescript
-    import { useUpdateOwners } from '@safe-global/safe-core-sdk-react-hooks'
+    import { useUpdateOwners } from '@safe-global/safe-react-hooks'
     
     function App() {
       const { add, remove, swap } = useUpdateOwners()
@@ -58,7 +58,7 @@ This is the hook to manage the owners of the Safe account. It provides methods t
   <Tabs.Tab>
     ```typescript
     import ReactDOM from 'react-dom/client'
-    import { createConfig, SafeProvider } from '@safe-global/safe-core-sdk-react-hooks'
+    import { createConfig, SafeProvider } from '@safe-global/safe-react-hooks'
     import { sepolia } from 'viem/chains'
     import App from './App.tsx  '
 
