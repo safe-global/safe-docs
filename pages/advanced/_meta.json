@@ -13,7 +13,9 @@
   "smart-account-signatures": "Signatures",
   "smart-account-supported-networks": {
     "title": "Supported Networks",
-    "href": "/home/supported-networks"
+    "theme": {
+      "layout": "raw"
+    }
   },
   "smart-account-audits": "Audits",
   "smart-account-bug-bounty": "Bug Bounty",

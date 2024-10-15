@@ -12,31 +12,33 @@ import {
   IconButton,
   Box,
   Link,
-  Container
+  Container,
+  useMediaQuery
 } from '@mui/material'
 import type { GridProps } from '@mui/material'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 import type { NextRouter } from 'next/router'
+import { capitalize } from 'lodash'
 import { sendGAEvent } from '@next/third-parties/google'
 import AddIcon from '@mui/icons-material/Add'
 
+import NetworkCard from './Card'
+import NetworkModal from './NetworkModal'
+import { theme } from '../../styles/theme'
+import { useNetworksSearch } from './useNetworksSearch'
+import { SidebarAccordion } from './SidebarAccordion'
+import { apiServices, deprecatedNetworks } from './utils'
+import { palette } from '../../styles/palette'
+import deployments from './networks.json'
+import txServiceNetworks from '../ApiReference/tx-service-networks.json'
+import css from './styles.module.css'
 import SearchIcon from '../../assets/svg/search.svg'
 import CrossIcon from '../../assets/svg/cross.svg'
 import CloseIcon from '../../assets/svg/close.svg'
 import FilterIcon from '../../assets/svg/filter.svg'
 import ArrowBackIcon from '../../assets/svg/arrow-back.svg'
-import { useNetworksSearch } from './useNetworksSearch'
-import { SidebarAccordion } from './SidebarAccordion'
-import NetworkCard from './Card'
-import deployments from './networks.json'
-import css from './styles.module.css'
-import { palette } from '../../styles/palette'
-import { capitalize } from 'lodash'
-import { apiServices, deprecatedNetworks } from './utils'
-import txServiceNetworks from '../ApiReference/tx-service-networks.json'
-import NetworkModal from './NetworkModal'
 
 export const networks = deployments.filter(
   network => !deprecatedNetworks.includes(network.chainId)
@@ -95,13 +97,13 @@ const isMatch = (
 export const _getFilteredNetworks = ({
   networks,
   selectedVersions,
-  selectedFeatures
-}: // selectedModules,
-{
+  selectedServices,
+  selectedModules
+}: {
   networks: Network[]
   selectedVersions: string[]
-  selectedFeatures: string[]
-  // selectedModules: string[]
+  selectedServices: string[]
+  selectedModules: string[]
 }): Network[] =>
   networks.filter(
     network =>
@@ -114,23 +116,14 @@ export const _getFilteredNetworks = ({
         txServiceNetworks.map(n => n.chainId).includes(network.chainId)
           ? apiServices(network.chainId.toString()).map(s => s.name)
           : [],
-        selectedFeatures.filter(f =>
-          apiServices(network.chainId.toString())
-            .map(s => s.name)
-            .includes(f)
-        ),
+        selectedServices,
         true
       ) &&
       isMatch(
         network.modules
           .map(m => m.moduleName?.split('-').map(capitalize).join(' '))
           .filter((v, i, a) => a.indexOf(v) === i) as string[],
-        selectedFeatures.filter(
-          f =>
-            !apiServices(network.chainId.toString())
-              .map(s => s.name)
-              .includes(f)
-        ),
+        selectedModules,
         true
       )
   )
@@ -171,11 +164,13 @@ const getSearchQuery = (query: NextRouter['query']): string => {
 const SupportedNetworks: React.FC = () => {
   const { query, push } = useRouter()
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false)
+  const [scrollPosition, setScrollPosition] = useState(0)
+  const isSmOrHigher = useMediaQuery(theme.breakpoints.up('sm'))
 
   const searchQuery = getSearchQuery(query)
   const selectedVersions = getFilters(query, 'version')
-  const selectedFeatures = getFilters(query, 'feature')
-  // const selectedModules = getFilters(query, 'module')
+  const selectedServices = getFilters(query, 'service')
+  const selectedModules = getFilters(query, 'module')
 
   const setSelectedFilter = (filters: string[], filterName: string): void => {
     void push(
@@ -212,7 +207,8 @@ const SupportedNetworks: React.FC = () => {
         query: {
           ...Object.fromEntries(
             Object.entries(query).filter(
-              ([key]) => key !== 'version' && key !== 'feature'
+              ([key]) =>
+                key !== 'version' && key !== 'service' && key !== 'module'
             )
           )
         }
@@ -240,13 +236,16 @@ const SupportedNetworks: React.FC = () => {
   }
 
   const onSelectVersion = onSelect(selectedVersions, 'version')
-  const onSelectFeature = onSelect(selectedFeatures, 'feature')
-  // const onSelectModule = onSelect(selectedModules, 'module')
+  const onSelectService = onSelect(selectedServices, 'service')
+  const onSelectModule = onSelect(selectedModules, 'module')
 
   const noFilters = useMemo(
-    () => selectedFeatures.length === 0 && selectedVersions.length === 0,
+    () =>
+      selectedServices.length === 0 &&
+      selectedVersions.length === 0 &&
+      selectedModules.length === 0,
 
-    [selectedFeatures, selectedVersions]
+    [selectedServices, selectedVersions, selectedModules]
   )
 
   // Type filtered results
@@ -258,18 +257,16 @@ const SupportedNetworks: React.FC = () => {
     return _getFilteredNetworks({
       networks,
       selectedVersions,
-      selectedFeatures
-      // selectedModules,
+      selectedServices,
+      selectedModules
     })
-  }, [noFilters, selectedFeatures, selectedVersions])
+  }, [noFilters, selectedServices, selectedVersions, selectedModules])
 
   // Search results
   const searchResults = useNetworksSearch(filteredResources, searchQuery)
 
   // Paginated filtered/search-based results
   const visibleResults = searchResults.slice(0, PAGE_LENGTH * page)
-
-  const shouldShowMoreButton = visibleResults.length < searchResults.length
 
   const sidebar = (
     <>
@@ -304,19 +301,57 @@ const SupportedNetworks: React.FC = () => {
         onChange={onSelectVersion}
       />
       <SidebarAccordion
-        title='Features'
-        items={[...apiServices('1').map(s => s.name), ...modules]}
-        selectedItems={selectedFeatures}
-        onChange={onSelectFeature}
+        title='Services'
+        items={apiServices('1').map(s => s.name)}
+        selectedItems={selectedServices}
+        onChange={onSelectService}
+      />
+      <SidebarAccordion
+        title='Modules'
+        items={modules}
+        selectedItems={selectedModules}
+        onChange={onSelectModule}
       />
     </>
   )
+
+  const handleScroll = (): void => {
+    const position = window.scrollY
+    setScrollPosition(position)
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (
+      scrollPosition > page * (isSmOrHigher ? 2000 : 3000) &&
+      visibleResults.length < searchResults.length
+    ) {
+      void push({ query: { ...query, page: page + 1 } }, undefined, {
+        scroll: false
+      })
+    }
+  }, [
+    scrollPosition,
+    push,
+    visibleResults.length,
+    searchResults.length,
+    query,
+    page,
+    isSmOrHigher
+  ])
 
   return (
     <>
       <Container>
         <Link
-          href='/core-api/transaction-service-overview'
+          href='/advanced/smart-account-overview'
           sx={{
             fontSize: '14px',
             fontWeight: '400',
@@ -329,7 +364,7 @@ const SupportedNetworks: React.FC = () => {
             mt: 2
           }}
         >
-          ← Go Home
+          ← Go to Advanced
         </Link>
         <Grid container mb={8} mt={4}>
           <Grid
@@ -431,12 +466,12 @@ const SupportedNetworks: React.FC = () => {
                 }}
               />
             ))}
-            {selectedFeatures.map(feature => (
+            {selectedServices.map(service => (
               <Chip
-                key={feature}
-                label={feature}
+                key={service}
+                label={service}
                 onDelete={() => {
-                  onSelectFeature(feature, false)
+                  onSelectService(service, false)
                 }}
                 deleteIcon={<CrossIcon />}
                 sx={{
@@ -466,28 +501,6 @@ const SupportedNetworks: React.FC = () => {
                     <NetworkCard {...network} />
                   </Grid>
                 ))}
-                {shouldShowMoreButton && (
-                  <Grid
-                    item
-                    xs={12}
-                    mt={{ xs: 2, md: 0 }}
-                    mb={6}
-                    display='flex'
-                    justifyContent='center'
-                  >
-                    <NextLink
-                      href={{ query: { ...query, page: page + 1 } }}
-                      shallow
-                      // Pagination marker for search engines
-                      rel='next'
-                      scroll={false}
-                    >
-                      <Button variant='contained' size='large'>
-                        Show more
-                      </Button>
-                    </NextLink>
-                  </Grid>
-                )}
               </Grid>
             ) : (
               <Grid container flexDirection='column' alignItems='center'>

@@ -806,47 +806,42 @@
   },
   {
     "source": "/core-api/transaction-service-supported-networks",
-    "destination": "/home/supported-networks?feature=Transaction+Service",
-    "permanent": true
-  },
-  {
-    "source": "/advanced/smart-account-supported-networks",
-    "destination": "/home/supported-networks",
+    "destination": "/advanced/smart-account-supported-networks?feature=Transaction+Service",
     "permanent": true
   },
   {
     "source": "/advanced/smart-account-supported-networks/v1.4.1",
-    "destination": "/home/supported-networks?version=v1.4.1",
+    "destination": "/advanced/smart-account-supported-networks?version=v1.4.1",
     "permanent": true
   },
   {
     "source": "/advanced/smart-account-supported-networks/v1.3.0",
-    "destination": "/home/supported-networks?version=v1.3.0",
+    "destination": "/advanced/smart-account-supported-networks?version=v1.3.0",
     "permanent": true
   },
   {
     "source": "/advanced/smart-account-supported-networks/v1.2.0",
-    "destination": "/home/supported-networks?version=v1.2.0",
+    "destination": "/advanced/smart-account-supported-networks?version=v1.2.0",
     "permanent": true
   },
   {
     "source": "/advanced/smart-account-supported-networks/v1.1.1",
-    "destination": "/home/supported-networks?version=v1.1.1",
+    "destination": "/advanced/smart-account-supported-networks?version=v1.1.1",
     "permanent": true
   },
   {
     "source": "/advanced/smart-account-supported-networks/v1.0.0",
-    "destination": "/home/supported-networks?version=v1.0.0",
+    "destination": "/advanced/smart-account-supported-networks?version=v1.0.0",
     "permanent": true
   },
   {
     "source": "/advanced/erc-4337/supported-networks",
-    "destination": "/home/supported-networks?feature=Safe+4337+Module",
+    "destination": "/advanced/smart-account-supported-networks?feature=Safe+4337+Module",
     "permanent": true
   },
   {
     "source": "/advanced/passkeys/supported-networks",
-    "destination": "/home/supported-networks?feature=Safe+Passkey+Module",
+    "destination": "/advanced/smart-account-supported-networks?feature=Safe+Passkey+Module",
     "permanent": true
   }
 ]

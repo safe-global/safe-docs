@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import Img from 'next/image'
 import {
   Typography,
@@ -39,16 +39,35 @@ const NetworkModal: React.FC<{
     .map(m => m.moduleName?.split('-').map(capitalize).join(' '))
     .filter((v, i, a) => a.indexOf(v) === i)
 
+  const handleClose = useCallback((): void => {
+    void push({
+      query: {
+        ...rest
+      }
+    })
+  }, [push, rest])
+
+  useEffect(() => {
+    const handleClickAway: (event: MouseEvent) => void = event => {
+      const target = event.target as HTMLElement
+      if (target?.id === 'backdrop') {
+        handleClose()
+      }
+    }
+    if (typeof window !== 'undefined') {
+      window.addEventListener('click', handleClickAway)
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('click', handleClickAway)
+      }
+    }
+  }, [handleClose])
+
   return (
     <Modal
       open={query.expand !== undefined}
-      onClose={() => {
-        void push({
-          query: {
-            ...rest
-          }
-        })
-      }}
+      onClose={handleClose}
       aria-labelledby='modal-modal-title'
       aria-describedby='modal-modal-description'
     >
@@ -60,6 +79,7 @@ const NetworkModal: React.FC<{
           justifyContent='center'
           height='calc(100vh - calc(100vh - 100%))'
           overflow='scroll'
+          id='backdrop'
           py={4}
           px={2}
         >

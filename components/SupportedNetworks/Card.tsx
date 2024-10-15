@@ -15,7 +15,8 @@ const NetworkCard = (network: Network): JSX.Element => {
   const { query, push } = useRouter()
 
   const selectedVersions = getFilters(query, 'version')
-  const selectedFeatures = getFilters(query, 'feature')
+  const selectedServices = getFilters(query, 'service')
+  const selectedModules = getFilters(query, 'module')
 
   const versions = network.smartAccounts
     .map(contract => contract.version)
@@ -119,7 +120,10 @@ const NetworkCard = (network: Network): JSX.Element => {
             {[...modules, ...services].map(feature => (
               <Chip
                 color={
-                  selectedFeatures.includes(feature) ? 'primary' : 'default'
+                  selectedServices.includes(feature) ||
+                  selectedModules.includes(feature)
+                    ? 'primary'
+                    : 'default'
                 }
                 key={feature}
                 sx={{
