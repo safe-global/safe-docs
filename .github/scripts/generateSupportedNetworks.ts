@@ -123,8 +123,8 @@ const getDeployedContractsFromGithubRepo = async (
             version: p.split('/')[module ? 1 : 0],
             address:
               typeof addressName === 'string'
-                ? json.deployments?.[addressName]?.address ??
-                  json.networkAddresses[chainId]
+                ? (json.deployments?.[addressName]?.address ??
+                  json.networkAddresses[chainId])
                 : undefined,
             addresses:
               typeof addressName === 'string'
@@ -171,15 +171,26 @@ const generateSupportedNetworks = async () => {
         const shortNameIcon = `https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/refs/heads/master/128/${shortNameToIconName(
           n.shortName
         )}.png`
-        const iconUrl = (await fetch
-          .default(llamaoIcon)
-          .then(async res =>
-            res.ok
-              ? llamaoIcon
-              : await fetch
-                  .default(shortNameIcon)
-                  .then(res => (res.ok ? shortNameIcon : '/unknown-logo.png'))
-          )) as string
+
+        const getRawGithubContent = async () =>
+          await fetch
+            .default(shortNameIcon)
+            .then(res => {
+              if (res.ok) return shortNameIcon
+              else throw new Error()
+            })
+            .catch(() => '/unknown-logo.png')
+
+        const iconUrl =
+          n.icon == null
+            ? ((await getRawGithubContent()) as string)
+            : ((await fetch
+                .default(llamaoIcon)
+                .then(async res => {
+                  if (res.ok) return llamaoIcon
+                  else throw new Error()
+                })
+                .catch(async () => await getRawGithubContent())) as string)
         return {
           ...n,
           smartAccounts: smartAccounts.filter(
