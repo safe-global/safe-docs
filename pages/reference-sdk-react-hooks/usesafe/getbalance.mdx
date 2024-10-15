@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 ### `getBalance`
 
-Retrieves the balance information of the Safe.
+Returns the balance information of the Safe connected to the [`SafeProvider`](../safeprovider.mdx).
 
 ## Usage
 
@@ -13,17 +13,17 @@ Retrieves the balance information of the Safe.
     ```typescript
     import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
-    const SafeBalance = () => {
+    function SafeBalance() {
       const { getBalance } = useSafe()
       const { data, error, isLoading } = getBalance()
 
-      if (isLoading) return <p>Loading...</p>
-      if (error) return <p>Error: {error.message}</p>
+      if (isLoading) return <>Loading...</>
+
+      if (error) return <>Error: {error.message}</>
 
       return (
         <>
-          <h3>Safe Balance</h3>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+          {JSON.stringify(data, null, 2)}
         </>
       )
     }
@@ -37,12 +37,50 @@ Retrieves the balance information of the Safe.
 
 ## Returns
 
-`(params?: UseBalanceParams) => UseBalanceReturnType`
+[`UseBalanceReturnType`](https://wagmi.sh/react/api/hooks/useBalance#return-type)
 
-- A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the Safe balance in the `data` property.
-- We are using the wagmi [`UseBalanceReturnType`](https://wagmi.sh/react/api/hooks/useBalance#return-type)
+The [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object with the Safe balance in the `data` property.
 
-#### Parameters
+## Parameters
 
-- `params` (UseBalanceParams, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+- **Type**: `UseBalanceParams`
+
+Parameters to customize the hook behavior.
+
+```typescript
+const result = getBalance(params)
+```
+
+### `config` (Optional)
+
+- **Type**: [`SafeConfig`](../safeconfig.mdx)
+
+The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import config from './index.ts'
+
+    const result = getBalance({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-core-sdk-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
+      }
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>

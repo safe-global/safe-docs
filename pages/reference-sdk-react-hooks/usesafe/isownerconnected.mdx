@@ -2,9 +2,9 @@ import { Tabs } from 'nextra/components'
 
 # `isOwnerConnected`
 
-Indicates whether a signer who is owner of the current Safe is connected. This flag is useful for checking whether the connected signer is authorised to perform any signing method with the Safe, such as sending transactions or signing messages.
+Checks if the signer connected to the [`SafeProvider`](../safeprovider.mdx) is an owner of the connected Safe. 
 
-**Note**: In contrast, [`isSignerConnected`](./issignerconnected.mdx) is also true if a signer is connected who is **not** an owner of the current Safe.
+Use the [`isSignerConnected`](./issignerconnected.mdx) function instead to avoid checking ownership.
 
 ## Usage
 
@@ -15,12 +15,12 @@ Indicates whether a signer who is owner of the current Safe is connected. This f
     ```typescript
     import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
-    const IsOwnerConnected = () => {
+    function IsOwnerConnected() {
       const { isOwnerConnected } = useSafe()
 
       return (
         <>
-          <h3>{isOwnerConnected ? 'Owner is connected' : 'Owner is not connected'}</h3>
+          {isOwnerConnected ? 'Owner is connected' : 'No owner connected'}
         </>
       )
     }
@@ -35,3 +35,5 @@ Indicates whether a signer who is owner of the current Safe is connected. This f
 ## Returns
 
 `boolean`
+
+The boolean value that indicates if an owner of the Safe is connected as a signer.

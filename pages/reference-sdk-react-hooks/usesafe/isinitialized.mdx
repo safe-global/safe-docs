@@ -2,7 +2,9 @@ import { Tabs } from 'nextra/components'
 
 # `isInitialized`
 
-Indicates whether the Safe SDK is `isInitialized` and ready for use. Always check this before interacting with the Safe.
+Checks if the [`SafeProvider`](../safeprovider.mdx) is initialized and ready to use.
+
+This function must be called before interacting with the Safe.
 
 ## Usage
 
@@ -13,12 +15,12 @@ Indicates whether the Safe SDK is `isInitialized` and ready for use. Always chec
     ```typescript
     import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
-    const IsInitialized = () => {
+    function IsInitialized() {
       const { isInitialized } = useSafe()
 
       return (
         <>
-          <h3>{isInitialized ? 'Is initialized' : 'Not initialized'}</h3>
+          {isInitialized ? 'Is initialized' : 'Not initialized'}
         </>
       )
     }
@@ -33,3 +35,5 @@ Indicates whether the Safe SDK is `isInitialized` and ready for use. Always chec
 ## Returns
 
 `boolean`
+
+The boolean value that indicates if the [`SafeProvider`](../safeprovider.mdx) is initialized and ready to use.

@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 ### `getPendingTransactions`
 
-Get all pending transactions for the connected Safe.
+Returns all the pending transactions associated with the Safe connected to the [`SafeProvider`](../safeprovider.mdx).
 
 ## Usage
 
@@ -13,19 +13,15 @@ Get all pending transactions for the connected Safe.
     ```typescript
     import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
-    const PendingTransactions = () => {
+    function PendingTransactions() {
       const { getPendingTransactions } = useSafe()
       const { data, error, isLoading } = getPendingTransactions()
 
       if (isLoading) return <p>Loading...</p>
+      
       if (error) return <p>Error: {error.message}</p>
 
-      return (
-        <>
-          <h3>Pending Transactions</h3>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        </>
-      )
+      return JSON.stringify(data, null, 2)
     }
 
     export default PendingTransactions
@@ -37,12 +33,51 @@ Get all pending transactions for the connected Safe.
 
 ## Returns
 
-`(params?: UsePendingTransactionsParams) => UsePendingTransactionsReturnType`
+`UsePendingTransactionsReturnType`
 
 - A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the pending transactions in the `data` property.
 - The `data` property type is `SafeMultisigTransaction[]` and contains the [transaction information](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/types-kit/src/types.ts#L216C1-L247C2) extracted from the Transaction Service.
 
 ## Parameters
 
-- `params` (UsePendingTransactionsParams, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+- **Type**: `UsePendingTransactionsParams`
+
+Parameters to customize the hook behavior.
+
+```typescript
+const result = getPendingTransactions(params)
+```
+
+### `config` (Optional)
+
+- **Type**: [`SafeConfig`](../safeconfig.mdx)
+
+The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import config from './index.ts'
+
+    const result = getPendingTransactions({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-core-sdk-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
+      }
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>

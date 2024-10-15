@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 ### `getTransactions`
 
-Get all transactions for the connected Safe.
+Returns all the transactions associated with the Safe connected to the [`SafeProvider`](../safeprovider.mdx).
 
 ## Usage
 
@@ -13,17 +13,17 @@ Get all transactions for the connected Safe.
     ```typescript
     import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
-    const Transactions = () => {
+    function Transactions() {
       const { getTransactions } = useSafe()
       const { data, error, isLoading } = getTransactions()
 
-      if (isLoading) return <p>Loading...</p>
-      if (error) return <p>Error: {error.message}</p>
+      if (isLoading) return <>Loading...</>
+      
+      if (error) return <>Error: {error.message}</>
 
       return (
         <>
-          <h3>Transactions</h3>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+          {JSON.stringify(data, null, 2)}
         </>
       )
     }
@@ -37,12 +37,51 @@ Get all transactions for the connected Safe.
 
 ## Returns
 
-`(params: UseTransactionsParams = {}) => UseTransactionsReturnType`
+`UseTransactionsReturnType`
 
-- A [query](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) result object containing the list of transactions for the Safe account in the `data` property.
+A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object with the list of transactions in the `data` property.
 - The `data` property [format](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/api-kit/src/types/safeTransactionServiceTypes.ts#L212-L216)
 
 ## Parameters
 
-- `params` (UseTransactionsParams, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+- **Type**: `UseTransactionsParams`
+
+Parameters to customize the hook behavior.
+
+```typescript
+const result = getTransactions(params)
+```
+
+### `config` (Optional)
+
+- **Type**: [`SafeConfig`](../safeconfig.mdx)
+
+The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import config from './index.ts'
+
+    const result = getTransactions({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-core-sdk-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
+      }
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>

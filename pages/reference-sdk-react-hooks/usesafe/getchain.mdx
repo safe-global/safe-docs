@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `getChain`
 
-Get the chain information of the Safe. 
+Get the chain information of the Safe connected to the [`SafeProvider`](../safeprovider.mdx). 
 
 ## Usage
 
@@ -13,14 +13,13 @@ Get the chain information of the Safe.
     ```typescript
     import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
-    const ChainInfo = () => {
+    function ChainInfo() {
       const { getChain } = useSafe()
       const { blockExplorers } = getChain()
 
       return (
         <>
-          <h3>Chain Info</h3>
-          <pre>{JSON.stringify(blockExplorers, null, 2)}</pre>
+          {JSON.stringify(blockExplorers, null, 2)}
         </>
       )
     }
@@ -34,11 +33,50 @@ Get the chain information of the Safe.
 
 ## Returns
 
-`(params: UseChainParams = {}) => UseChainReturnType`
+`UseChainReturnType`
 
-- It returns `UseChainReturnType = SafeConfig['chain']` being `SafeConfig['chain']` the viem's [Chain Type](https://github.com/wevm/viem/blob/main/src/types/chain.ts).
+Returns `UseChainReturnType = SafeConfig['chain']` being `SafeConfig['chain']` the viem's [Chain Type](https://github.com/wevm/viem/blob/main/src/types/chain.ts).
 
-#### Parameters
+## Parameters
 
-- `params` (UseChainParams, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+- **Type**: `UseChainParams`
+
+Parameters to customize the hook behavior.
+
+```typescript
+const result = getChain(params)
+```
+
+### `config` (Optional)
+
+- **Type**: [`SafeConfig`](../safeconfig.mdx)
+
+The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import config from './index.ts'
+
+    const result = getChain({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-core-sdk-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
+      }
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>

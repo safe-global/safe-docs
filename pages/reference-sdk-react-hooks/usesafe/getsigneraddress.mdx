@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 ### `getSignerAddress`
 
-Get the configured signer address.
+Returns the address of the signer connected to the [`SafeProvider`](../safeprovider.mdx).
 
 ## Usage
 
@@ -13,14 +13,13 @@ Get the configured signer address.
     ```typescript
     import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
-    const SignerAddress = () => {
+    function SignerAddress() {
       const { getSignerAddress } = useSafe()
       const address = getSignerAddress()
 
       return (
         <>
-          <h3>Signer Address</h3>
-          {address ? <pre>{address}</pre> : <p>No address available</p>}
+          {address ? address : 'No signer address'}
         </>
       )
     }
@@ -34,11 +33,50 @@ Get the configured signer address.
 
 #### Returns
 
-`(params: UseSignerAddressParams = {}) => UseSignerAddressReturnType`
+`UseSignerAddressReturnType`
 
 -  The signer address or `undefined` if not available.
 
 #### Parameters
 
-- `params` (object, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+- **Type**: `UseAddressParams`
+
+Parameters to customize the hook behavior.
+
+```typescript
+const result = getSignerAddress(params)
+```
+
+### `config` (Optional)
+
+- **Type**: [`SafeConfig`](../safeconfig.mdx)
+
+The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import config from './index.ts'
+
+    const result = getSignerAddress({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-core-sdk-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
+      }
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>

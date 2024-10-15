@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `connect`
 
-Connects the specified signer.
+Connects a given signer to the [`SafeProvider`](../safeprovider.mdx).
 
 ## Usage
 
@@ -13,16 +13,15 @@ Connects the specified signer.
     ```typescript
     import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
-    const Connect = () => {
+    function Connect() {
       const { connect } = useSafe()
 
       const signerAddress = '0x...'
 
       return (
-        <>
-          <h3>Chain Info</h3>
-          <button onClick={() => connect(signerAddress)}></button>
-        </>
+        <button onClick={() => connect(signerAddress)}>
+          Connect
+        </button>
       )
     }
 
@@ -33,14 +32,10 @@ Connects the specified signer.
 
 {/* <!-- vale on --> */}
 
-## Returns
-
-`(signer: string) => Promise<void>`
-
 ## Parameters
 
 ### `signer`
 
 - **Type**: `string`
 
-The address of the signer to connect.
+The address of the signer.

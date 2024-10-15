@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `disconnect`
 
-Disconnects the connected signer.
+Disconnects the signer connected to the [`SafeProvider`](../safeprovider.mdx).
 
 ## Usage
 
@@ -13,14 +13,13 @@ Disconnects the connected signer.
     ```typescript
     import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
-    const Disconnect = () => {
+    function Disconnect() {
       const { disconnect } = useSafe()
 
       return (
-        <>
-          <h3>Chain Info</h3>
-          <button onClick={disconnect}></button>
-        </>
+        <button onClick={disconnect}>
+          Disconnect
+        </button>
       )
     }
 
@@ -30,7 +29,3 @@ Disconnects the connected signer.
 </Tabs>
 
 {/* <!-- vale on --> */}
-
-## Returns
-
-`() => Promise<void>`

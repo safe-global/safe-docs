@@ -2,7 +2,7 @@ import { Tabs } from 'nextra/components'
 
 # `getTransaction`
 
-Get an specific transaction.
+Returns a transaction by its Safe transaction hash or Ethereum transaction hash.
 
 ## Usage
 
@@ -13,20 +13,20 @@ Get an specific transaction.
     ```typescript
     import { useSafe } from '@safe-global/safe-core-sdk-react-hooks'
 
-    const TransactionStatus = ({ safeTxHash, ethereumTxHash }) => {
+    function TransactionStatus({ safeTxHash, ethereumTxHash }) {
       const { getTransaction } = useSafe()
       const { data, error, isLoading } = getTransaction({
-        safeTxHash, // Optional
-        ethereumTxHash // Optional
+        safeTxHash // Optional
+        // ethereumTxHash // Optional
       })
 
-      if (isLoading) return <p>Loading...</p>
-      if (error) return <p>Error: {error.message}</p>
+      if (isLoading) return <>Loading...</>
+
+      if (error) return <>Error: {error.message}</>
 
       return (
         <>
-          <h3>Transaction Status</h3>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+          {JSON.stringify(data, null, 2)}
         </>
       )
     }
@@ -40,7 +40,7 @@ Get an specific transaction.
 
 ## Returns
 
-`<Params extends UseTransactionParams>(params: Params) => UseTransactionReturnType<Params>`
+`UseTransactionReturnType<Params>`
 
 - A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the transaction in the `data` property. The type of the return value depends on whether `safeTxHash` or `ethereumTxHash` are provided:
   - If `safeTxHash` is provided, it returns a query result containing the [transaction](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/types-kit/src/types.ts#L216C1-L247C2).
@@ -48,7 +48,56 @@ Get an specific transaction.
 
 ## Parameters
 
-- `params` (UseTransactionParams): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfig, optional): The [`SafeConfig`](./safeconfig.mdx) is used instead of the one provided by the nearest `SafeProvider` in the component tree. The config can only be used in combination with the `safeTxHash` parameter.
-  - `safeTxHash` (Hash, optional): Hash of the Safe transaction to be fetched. Either `safeTxHash` or `ethereumTxHash` must be provided.
-  - `ethereumTxHash` (Hash, optional): Hash of the Ethereum transaction to be fetched. Either `safeTxHash` or `ethereumTxHash` must be provided.
+- **Type**: `UseTransactionParams`
+
+Parameters to customize the hook behavior. Either `safeTxHash` or `ethereumTxHash` must be provided.
+
+```typescript
+const result = getTransaction(params)
+```
+
+### `safeTxHash` (Optional)
+
+- **Type**: `string`
+
+Hash of the Safe transaction to be fetched.
+
+### `ethereumTxHash` (Optional)
+
+- **Type**: `string`
+
+Hash of the Ethereum transaction to be fetched.
+
+### `config` (Optional)
+
+- **Type**: [`SafeConfig`](../safeconfig.mdx)
+
+The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import config from './index.ts'
+
+    const result = getTransaction({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-core-sdk-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
+      }
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
