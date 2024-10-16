@@ -54,10 +54,7 @@ Executes a Safe transaction from the Safe connected to the [`SafeProvider`](./sa
       chain: sepolia,
       provider,
       signer,
-      safeOptions: {
-        owners: ['0x...', '0x...', '0x...'],
-        threshold: 2
-      }
+      safeAddress: '0x...'
     })
 
     const root = document.getElementById('root')
@@ -110,10 +107,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](./sa
       chain: sepolia,
       provider,
       signer,
-      safeOptions: {
-        owners: ['0x...', '0x...', '0x...'],
-        threshold: 2
-      }
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>

@@ -33,23 +33,27 @@ Returns the address of the signer connected to the [`SafeProvider`](../safeprovi
 
 #### Returns
 
-`UseSignerAddressReturnType`
+`UseSignerAddressReturnType | undefined`
 
--  The signer address or `undefined` if not available.
+The signer address.
+
+```typescript
+import { UseSignerAddressReturnType } from '@safe-global/safe-react-hooks'
+```
 
 #### Parameters
 
-- **Type**: `UseAddressParams`
+`UseAddressParams`
 
 Parameters to customize the hook behavior.
 
 ```typescript
-const result = getSignerAddress(params)
+import { UseAddressParams } from '@safe-global/safe-react-hooks'
 ```
 
 ### `config` (Optional)
 
-- **Type**: [`SafeConfig`](../safeconfig.mdx)
+- **Type**: `SafeConfig`
 
 The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
 
@@ -74,10 +78,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
       chain: sepolia,
       provider,
       signer,
-      safeOptions: {
-        owners: ['0x...', '0x...', '0x...'],
-        threshold: 2
-      }
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>

@@ -35,22 +35,27 @@ Returns the information associated with the Safe connected to the [`SafeProvider
 
 `UseSafeInfoReturnType`
 
-- A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the Safe account information in the `data` property.
-- The `data` property [format](https://github.com/safe-global/safe-react-hooks/blob/6f620f2f9492d518af332cb7f21646beef4fb42f/src/types/index.ts#L32-L38)
+A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the Safe account information in the `data` property.
+
+The `data` property [format](https://github.com/safe-global/safe-react-hooks/blob/6f620f2f9492d518af332cb7f21646beef4fb42f/src/types/index.ts#L32-L38).
+
+```typescript
+import { UseSafeInfoReturnType } from '@safe-global/safe-react-hooks'
+```
 
 ## Parameters
 
-- **Type**: `UseSafeInfoParams`
+`UseSafeInfoParams`
 
 Parameters to customize the hook behavior.
 
 ```typescript
-const result = getSafeInfo(params)
+import { UseSafeInfoParams } from '@safe-global/safe-react-hooks'
 ```
 
 ### `config` (Optional)
 
-- **Type**: [`SafeConfig`](../safeconfig.mdx)
+- **Type**: `SafeConfig`
 
 The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
 
@@ -75,10 +80,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
       chain: sepolia,
       provider,
       signer,
-      safeOptions: {
-        owners: ['0x...', '0x...', '0x...'],
-        threshold: 2
-      }
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>

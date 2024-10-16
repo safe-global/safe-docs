@@ -15,11 +15,14 @@ Get the chain information of the Safe connected to the [`SafeProvider`](../safep
 
     function ChainInfo() {
       const { getChain } = useSafe()
-      const { blockExplorers } = getChain()
+      const {
+        name,
+        // ...
+      } = getChain()
 
       return (
         <>
-          {JSON.stringify(blockExplorers, null, 2)}
+          {name}
         </>
       )
     }
@@ -37,19 +40,23 @@ Get the chain information of the Safe connected to the [`SafeProvider`](../safep
 
 Returns `UseChainReturnType = SafeConfig['chain']` being `SafeConfig['chain']` the viem's [Chain Type](https://github.com/wevm/viem/blob/main/src/types/chain.ts).
 
+```typescript
+import { UseChainReturnType } from '@safe-global/safe-react-hooks'
+```
+
 ## Parameters
 
-- **Type**: `UseChainParams`
+`UseChainParams`
 
 Parameters to customize the hook behavior.
 
 ```typescript
-const result = getChain(params)
+import { UseChainParams } from '@safe-global/safe-react-hooks'
 ```
 
 ### `config` (Optional)
 
-- **Type**: [`SafeConfig`](../safeconfig.mdx)
+- **Type**: `SafeConfig`
 
 The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
 
@@ -74,10 +81,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
       chain: sepolia,
       provider,
       signer,
-      safeOptions: {
-        owners: ['0x...', '0x...', '0x...'],
-        threshold: 2
-      }
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>

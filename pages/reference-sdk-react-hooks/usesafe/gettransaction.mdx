@@ -42,18 +42,24 @@ Returns a transaction by its Safe transaction hash or Ethereum transaction hash.
 
 `UseTransactionReturnType<Params>`
 
-- A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the transaction in the `data` property. The type of the return value depends on whether `safeTxHash` or `ethereumTxHash` are provided:
-  - If `safeTxHash` is provided, it returns a query result containing the [transaction](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/types-kit/src/types.ts#L216C1-L247C2).
-  - If `ethereumTxHash` is provided, it returns [`UseTransactionReturnTypeWagmi`](https://wagmi.sh/react/api/hooks/useTransaction).
+A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the transaction in the `data` property. The type of the return value depends on whether `safeTxHash` or `ethereumTxHash` are provided:
+
+If `safeTxHash` is provided, it returns a query result containing the [transaction](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/types-kit/src/types.ts#L216C1-L247C2).
+
+If `ethereumTxHash` is provided, it returns [`UseTransactionReturnTypeWagmi`](https://wagmi.sh/react/api/hooks/useTransaction).
+
+```typescript
+import { UseTransactionReturnType } from '@safe-global/safe-react-hooks'
+```
 
 ## Parameters
 
-- **Type**: `UseTransactionParams`
+`UseTransactionParams`
 
 Parameters to customize the hook behavior. Either `safeTxHash` or `ethereumTxHash` must be provided.
 
 ```typescript
-const result = getTransaction(params)
+import { UseTransactionParams } from '@safe-global/safe-react-hooks'
 ```
 
 ### `safeTxHash` (Optional)
@@ -70,7 +76,7 @@ Hash of the Ethereum transaction to be fetched.
 
 ### `config` (Optional)
 
-- **Type**: [`SafeConfig`](../safeconfig.mdx)
+- **Type**: `SafeConfig`
 
 The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
 
@@ -95,10 +101,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
       chain: sepolia,
       provider,
       signer,
-      safeOptions: {
-        owners: ['0x...', '0x...', '0x...'],
-        threshold: 2
-      }
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>

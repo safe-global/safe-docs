@@ -15,15 +15,14 @@ Returns the balance information of the Safe connected to the [`SafeProvider`](..
 
     function SafeBalance() {
       const { getBalance } = useSafe()
-      const { data, error, isLoading } = getBalance()
-
-      if (isLoading) return <>Loading...</>
-
-      if (error) return <>Error: {error.message}</>
+      const {
+        data,
+        // ...
+      } = getBalance()
 
       return (
         <>
-          {JSON.stringify(data, null, 2)}
+          {data && JSON.stringify(data)}
         </>
       )
     }
@@ -41,19 +40,23 @@ Returns the balance information of the Safe connected to the [`SafeProvider`](..
 
 The [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object with the Safe balance in the `data` property.
 
+```typescript
+import { UseBalanceReturnType } from '@safe-global/safe-react-hooks'
+```
+
 ## Parameters
 
-- **Type**: `UseBalanceParams`
+`UseBalanceParams`
 
 Parameters to customize the hook behavior.
 
 ```typescript
-const result = getBalance(params)
+import { UseBalanceParams } from '@safe-global/safe-react-hooks'
 ```
 
 ### `config` (Optional)
 
-- **Type**: [`SafeConfig`](../safeconfig.mdx)
+- **Type**: `SafeConfig`
 
 The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
 
@@ -78,10 +81,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
       chain: sepolia,
       provider,
       signer,
-      safeOptions: {
-        owners: ['0x...', '0x...', '0x...'],
-        threshold: 2
-      }
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>

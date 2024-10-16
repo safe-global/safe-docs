@@ -15,11 +15,10 @@ Returns all the pending transactions associated with the Safe connected to the [
 
     function PendingTransactions() {
       const { getPendingTransactions } = useSafe()
-      const { data, error, isLoading } = getPendingTransactions()
-
-      if (isLoading) return <p>Loading...</p>
-      
-      if (error) return <p>Error: {error.message}</p>
+      const {
+        data,
+        // ...
+      } = getPendingTransactions()
 
       return JSON.stringify(data, null, 2)
     }
@@ -35,22 +34,27 @@ Returns all the pending transactions associated with the Safe connected to the [
 
 `UsePendingTransactionsReturnType`
 
-- A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the pending transactions in the `data` property.
-- The `data` property type is `SafeMultisigTransaction[]` and contains the [transaction information](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/types-kit/src/types.ts#L216C1-L247C2) extracted from the Transaction Service.
+A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object containing the pending transactions in the `data` property.
+
+The `data` property type is `SafeMultisigTransaction[]` and contains the [transaction information](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/types-kit/src/types.ts#L216C1-L247C2) extracted from the Transaction Service.
+
+```typescript
+import { UsePendingTransactionsReturnType } from '@safe-global/safe-react-hooks'
+```
 
 ## Parameters
 
-- **Type**: `UsePendingTransactionsParams`
+`UsePendingTransactionsParams`
 
 Parameters to customize the hook behavior.
 
 ```typescript
-const result = getPendingTransactions(params)
+import { UsePendingTransactionsParams } from '@safe-global/safe-react-hooks'
 ```
 
 ### `config` (Optional)
 
-- **Type**: [`SafeConfig`](../safeconfig.mdx)
+- **Type**: `SafeConfig`
 
 The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
 
@@ -75,10 +79,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
       chain: sepolia,
       provider,
       signer,
-      safeOptions: {
-        owners: ['0x...', '0x...', '0x...'],
-        threshold: 2
-      }
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>

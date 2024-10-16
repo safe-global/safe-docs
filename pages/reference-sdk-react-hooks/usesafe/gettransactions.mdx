@@ -40,21 +40,26 @@ Returns all the transactions associated with the Safe connected to the [`SafePro
 `UseTransactionsReturnType`
 
 A [query result](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery) object with the list of transactions in the `data` property.
-- The `data` property [format](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/api-kit/src/types/safeTransactionServiceTypes.ts#L212-L216)
+
+The `data` property [format](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/api-kit/src/types/safeTransactionServiceTypes.ts#L212-L216)
+
+```typescript
+import { UseTransactionsReturnType } from '@safe-global/safe-react-hooks'
+```
 
 ## Parameters
 
-- **Type**: `UseTransactionsParams`
+`UseTransactionsParams`
 
 Parameters to customize the hook behavior.
 
 ```typescript
-const result = getTransactions(params)
+import { UseTransactionsParams } from '@safe-global/safe-react-hooks'
 ```
 
 ### `config` (Optional)
 
-- **Type**: [`SafeConfig`](../safeconfig.mdx)
+- **Type**: `SafeConfig`
 
 The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
 
@@ -79,10 +84,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
       chain: sepolia,
       provider,
       signer,
-      safeOptions: {
-        owners: ['0x...', '0x...', '0x...'],
-        threshold: 2
-      }
+      safeAddress: '0x...'
     })
     ```
   </Tabs.Tab>
