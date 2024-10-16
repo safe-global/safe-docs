@@ -41,7 +41,7 @@ await Safe.create({
 // new
 await Safe.init({
    provider: window.ethereum, // Or any compatible EIP-1193 provider
-   signer: "0xSignerAddressOrPrivateKey", // Signer address or private key
+   signer: '0xSignerAddressOrPrivateKey', // Signer address or private key
    safeAddress: '0xSafeAddress'
    ...
 })
