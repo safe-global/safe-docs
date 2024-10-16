@@ -1,0 +1,250 @@
+import { Tabs } from 'nextra/components'
+
+# `useSendTransaction`
+
+Executes a Safe transaction from the Safe connected to the [`SafeProvider`](./safeprovider.mdx) or sends it to the Safe Transaction Service if it isn't executable.
+
+## Usage
+
+- If the `threshold` of the connected Safe is greater than `1`, it creates the Safe transaction and submits it to the Safe Transaction Service to collect the signatures from the Safe owners.
+- If the `threshold` of the connected Safe is `1`, it executes the Safe transaction.
+- If the connected Safe is not deployed, it deploys it using the funds from the connected signer to pay for the transaction fees, and executes the transaction or sends it to the Safe Transaction Service, depending on the `threshold`.
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['App.tsx', 'main.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useSendTransaction, SendTransactionVariables } from '@safe-global/safe-react-hooks'
+    
+    function App() {
+      const {
+        sendTransaction,
+        data,
+        // ...
+      } = useSendTransaction()
+
+      const sendTransactionParams: SendTransactionVariables = {
+        transactions: [{
+          to: '0x...',
+          value: '123',
+          data: '0x'
+        }]
+      }
+
+      return (
+        <>
+          <button onClick={() => sendTransaction(sendTransactionParams)}>
+            Send Transaction
+          </button>
+          {data && JSON.stringify(data)}
+        </>
+      )
+    }
+
+    export default App
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import ReactDOM from 'react-dom/client'
+    import { createConfig, SafeProvider } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+    import App from './App.tsx'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+
+    const root = document.getElementById('root')
+    
+    ReactDOM.createRoot(root).render(
+      <SafeProvider config={config}>
+        <App />
+      </SafeProvider>
+    )
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+`UseSendTransactionParams`
+
+Parameters to customize the hook behavior.
+
+```typescript
+import { UseSendTransactionParams } from '@safe-global/safe-react-hooks'
+```
+
+### `config` (Optional)
+
+- **Type**: `SafeConfigWithSigner`
+
+The configuration used instead of the one from the nearest [`SafeProvider`](./safeprovider.mdx).
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript focus=4
+    import { config } from './config.ts'
+
+    const result = useSendTransaction({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    export const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns 
+
+`UseSendTransactionReturnType`
+
+```typescript
+import { UseSendTransactionReturnType } from '@safe-global/safe-react-hooks'
+```
+
+[TanStack Query mutation documentation](https://tanstack.com/mutation/v5/docs/framework/react/reference/useMutation).
+
+### `sendTransaction`
+
+- **Type**: `UseMutateFunction<SafeClientResult, Error, SendTransactionVariables, unknown>`
+
+Function to send a transaction with the connected Safe.
+
+#### Parameters
+
+`SendTransactionVariables`
+
+```typescript
+import { SendTransactionVariables } from '@safe-global/safe-react-hooks'
+```
+
+Variables to send the transactions.
+
+#### Returns
+
+[`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/sdk-starter-kit/src/types.ts#L67-L85)
+
+The result of the transaction in the [`data`](#data) property.
+
+### `sendTransactionAsync`
+
+- **Type**: `UseMutateAsyncFunction<SafeClientResult, Error, SendTransactionVariables, unknown>`
+
+Asynchronous function to send a transaction with the connected Safe.
+
+#### Parameters
+
+`SendTransactionVariables`
+
+```typescript
+import { SendTransactionVariables } from '@safe-global/safe-react-hooks'
+```
+
+Variables to send the transactions.
+
+#### Returns
+
+[`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/sdk-starter-kit/src/types.ts#L67-L85)
+
+The result of the transaction in the [`data`](#data) property.
+
+### `data`
+
+- **Type**: [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/sdk-starter-kit/src/types.ts#L67-L85)
+- **Default**: `undefined`
+
+The last successfully resolved data for the mutation.
+
+### `error`
+
+- **Type**: `null | TError`
+- **Default**: `null`
+
+The error object for the mutation, if an error was encountered.
+
+### `failureCount`
+
+- **Type**: `number`
+
+The failure count for the mutation.
+
+Incremented every time the mutation fails.
+
+Reset to `0` when the mutation succeeds.
+
+### `failureReason`
+
+- **Type**: `null | TError`
+
+The failure reason for the mutation retry.
+
+Reset to `null` when the mutation succeeds.
+
+### `isError` / `isIdle` / `isPending` / `isSuccess`
+
+- **Type**: `boolean`
+
+The boolean variables derived from `status`.
+
+### `isPaused`
+
+- **Type**: `boolean`
+
+Will be `true` if the mutation has been `paused`.
+
+See [Network Mode](https://tanstack.com/query/v5/docs/framework/react/guides/network-mode) for more information.
+
+### `reset`
+
+- **Type**: `() => void`
+
+A function to clean the mutation internal state (for example, it resets the mutation to its initial state).
+
+### `status`
+
+- **Type**: `'idle' | 'pending' | 'error' | 'success'`
+
+`'idle'` initial status prior to the mutation function executing.
+
+`'pending'` if the mutation is currently executing.
+
+`'error'` if the last mutation attempt resulted in an error.
+
+`'success'` if the last mutation attempt was successful.
+
+### `submittedAt`
+
+- **Type**: `number`
+- **Default**: `0`
+
+The timestamp for when the mutation was submitted.
+
+### `variables`
+
+- **Type**: `SendTransactionVariables`
+- **Default**: `undefined`
+
+The `variables` object passed to the mutation function.

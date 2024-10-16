@@ -1,0 +1,90 @@
+import { Tabs } from 'nextra/components'
+
+# `getChain`
+
+Get the chain information of the Safe connected to the [`SafeProvider`](../safeprovider.mdx). 
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useSafe } from '@safe-global/safe-react-hooks'
+
+    function ChainInfo() {
+      const { getChain } = useSafe()
+      const {
+        name,
+        // ...
+      } = getChain()
+
+      return (
+        <>
+          {name}
+        </>
+      )
+    }
+
+    export default ChainInfo
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+`UseChainParams`
+
+Parameters to customize the hook behavior.
+
+```typescript
+import { UseChainParams } from '@safe-global/safe-react-hooks'
+```
+
+### `config` (Optional)
+
+- **Type**: `SafeConfig`
+
+The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript focus=4
+    import { config } from './config.ts'
+
+    const result = getChain({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    export const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`UseChainReturnType`
+
+Returns `UseChainReturnType = SafeConfig['chain']` being `SafeConfig['chain']` the viem's [Chain Type](https://github.com/wevm/viem/blob/main/src/types/chain.ts).
+
+```typescript
+import { UseChainReturnType } from '@safe-global/safe-react-hooks'
+```

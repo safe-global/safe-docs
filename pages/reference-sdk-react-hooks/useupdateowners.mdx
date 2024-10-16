@@ -1,0 +1,107 @@
+import { Tabs } from "nextra/components"
+
+# `useUpdateOwners`
+
+Updates the owners of the Safe connected to the [`SafeProvider`](./safeprovider.mdx).
+
+## Usage
+
+The connected Safe must be already deployed.
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['App.tsx', 'main.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useUpdateOwners } from '@safe-global/safe-react-hooks'
+    
+    function App() {
+      const { add, remove, swap } = useUpdateOwners()
+
+      // ...
+    }
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import ReactDOM from 'react-dom/client'
+    import { createConfig, SafeProvider } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+    import App from './App.tsx  '
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+
+    const root = document.getElementById('root')
+    
+    ReactDOM.createRoot(root).render(
+      <SafeProvider config={config}>
+        <App />
+      </SafeProvider>
+    )
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+`UseUpdateOwnersParams`
+
+Parameters to customize the hook behavior.
+
+```typescript
+import { UseUpdateOwnersParams } from '@safe-global/safe-react-hooks'
+```
+
+### `config` (Optional)
+
+- **Type**: `SafeConfigWithSigner`
+
+The configuration used instead of the one from the nearest [`SafeProvider`](./safeprovider.mdx).
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript focus=4
+    import { config } from './config.ts'
+
+    const result = useUpdateOwners({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    export const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`UseUpdateOwnersReturnType`
+
+```typescript
+import { UseUpdateOwnersReturnType } from '@safe-global/safe-react-hooks'
+```
+
+### [`add`](./useupdateowners/add.mdx)
+### [`remove`](./useupdateowners/remove.mdx)
+### [`swap`](./useupdateowners/swap.mdx)
