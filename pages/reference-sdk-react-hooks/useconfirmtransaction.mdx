@@ -16,7 +16,7 @@ This function is only relevant for Safes with their `threshold` greater than `1`
 <Tabs items={['App.tsx', 'main.tsx']}>
   <Tabs.Tab>
     ```typescript
-    import { useConfirmTransaction } from '@safe-global/safe-react-hooks'
+    import { useConfirmTransaction, ConfirmTransactionVariables } from '@safe-global/safe-react-hooks'
     
     function App() {
       const {
@@ -25,11 +25,13 @@ This function is only relevant for Safes with their `threshold` greater than `1`
         // ...
       } = useConfirmTransaction()
 
-      const safeTxHash = '0x...'
+      const confirmTransactionParams: ConfirmTransactionVariables = {
+        safeTxHash: '0x...'
+      }
 
       return (
         <>
-          <button onClick={() => confirmTransaction({ safeTxHash })}>
+          <button onClick={() => confirmTransaction(confirmTransactionParams)}>
             Confirm Transaction
           </button>
           {data && JSON.stringify(data)}
@@ -116,53 +118,130 @@ The configuration used instead of the one from the nearest [`SafeProvider`](./sa
 
 `UseConfirmTransactionReturnType`
 
-The react-query [`UseMutationResult`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation).
-
 ```typescript
 import { UseConfirmTransactionReturnType } from '@safe-global/safe-react-hooks'
 ```
 
-
-
-
-
-
-
-
+[TanStack Query mutation documentation](https://tanstack.com/mutation/v5/docs/framework/react/reference/useMutation).
 
 ### `confirmTransaction`
 
-`UseMutateFunction<SafeClientResult, Error, ConfirmTransactionVariables, unknown>`
+- **Type**: `UseMutateFunction<SafeClientResult, Error, ConfirmTransactionVariables, unknown>`
 
-Function to send the transaction. It's a react-query [`mutate`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation) function
+Function to confirm a Safe transaction from the connected Safe.
 
 #### Parameters
 
-- `ConfirmTransactionVariables`: Variables to send the transactions.
-  - `safeTxHash` (string): The safe transaction hash to confirm.
+`ConfirmTransactionVariables`
+
+```typescript
+import { ConfirmTransactionVariables } from '@safe-global/safe-react-hooks'
+```
+
+Variables to update the threshold.
 
 #### Returns
 
-In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the transaction result.
+[`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/sdk-starter-kit/src/types.ts#L67-L85)
 
-
-
-
-
-
-
+The result of the transaction in the [`data`](#data) property.
 
 ### `confirmTransactionAsync`
 
-`UseMutateAsyncFunction<SafeClientResult, Error, ConfirmTransactionVariables, unknown>`
+- **Type**: `UseMutateAsyncFunction<SafeClientResult, Error, ConfirmTransactionVariables, unknown>`
 
-Asynchronous function to send the transaction. It's a react-query [`mutateAsync`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation) function
+Asynchronous function to confirm a Safe transaction from the connected Safe.
 
 #### Parameters
 
-- `ConfirmTransactionVariables`: Variables to send the transactions.
-  - `safeTxHash` (string): The safe transaction hash to confirm.
+`ConfirmTransactionVariables`
+
+```typescript
+import { ConfirmTransactionVariables } from '@safe-global/safe-react-hooks'
+```
+
+Variables to update the threshold.
 
 #### Returns
 
-In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the transaction result.
+[`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/sdk-starter-kit/src/types.ts#L67-L85)
+
+The result of the transaction in the [`data`](#data) property.
+
+### `data`
+
+- **Type**: [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/sdk-starter-kit/src/types.ts#L67-L85)
+- **Default**: `undefined`
+
+The last successfully resolved data for the mutation.
+
+### `error`
+
+- **Type**: `null | TError`
+- **Default**: `null`
+
+The error object for the mutation, if an error was encountered.
+
+### `failureCount`
+
+- **Type**: `number`
+
+The failure count for the mutation.
+
+Incremented every time the mutation fails.
+
+Reset to `0` when the mutation succeeds.
+
+### `failureReason`
+
+- **Type**: `null | TError`
+
+The failure reason for the mutation retry.
+
+Reset to `null` when the mutation succeeds.
+
+### `isError` / `isIdle` / `isPending` / `isSuccess`
+
+- **Type**: `boolean`
+
+Boolean variables derived from `status`.
+
+### `isPaused`
+
+- **Type**: `boolean`
+
+Will be `true` if the mutation has been `paused`.
+
+See [Network Mode](https://tanstack.com/query/v5/docs/framework/react/guides/network-mode) for more information.
+
+### `reset`
+
+- **Type**: `() => void`
+
+A function to clean the mutation internal state (e.g. it resets the mutation to its initial state).
+
+### `status`
+
+- **Type**: `'idle' | 'pending' | 'error' | 'success'`
+
+`'idle'` initial status prior to the mutation function executing.
+
+`'pending'` if the mutation is currently executing.
+
+`'error'` if the last mutation attempt resulted in an error.
+
+`'success'` if the last mutation attempt was successful.
+
+### `submittedAt`
+
+- **Type**: `number`
+- **Default**: `0`
+
+The timestamp for when the mutation was submitted.
+
+### `variables`
+
+- **Type**: `ConfirmTransactionVariables`
+- **Default**: `undefined`
+
+The `variables` object passed to the mutation function.
