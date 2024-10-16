@@ -343,7 +343,7 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
     to: signMessageLibContract.address,
     value: '0',
     data: txData,
-    operation: OperationType.DelegateCall,
+    operation: OperationType.DelegateCall
   }
 
   const signMessageTx = await protocolKit.createTransaction({

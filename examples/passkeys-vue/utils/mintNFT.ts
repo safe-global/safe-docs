@@ -16,7 +16,8 @@ export const mintNFT = async (passkey: PasskeyArgType, safeAddress: string) => {
   const paymasterOptions = {
     isSponsored: true,
     paymasterAddress: PAYMASTER_ADDRESS,
-    paymasterUrl: PAYMASTER_URL + runtimeConfig.public.NUXT_PUBLIC_PIMLICO_API_KEY
+    paymasterUrl:
+      PAYMASTER_URL + runtimeConfig.public.NUXT_PUBLIC_PIMLICO_API_KEY
   }
 
   const safe4337Pack = await Safe4337Pack.init({
@@ -44,9 +45,8 @@ export const mintNFT = async (passkey: PasskeyArgType, safeAddress: string) => {
   })
 
   // 3) Sign SafeOperation
-  const signedSafeOperation = await safe4337Pack.signSafeOperation(
-    safeOperation
-  )
+  const signedSafeOperation =
+    await safe4337Pack.signSafeOperation(safeOperation)
 
   console.log('SafeOperation', signedSafeOperation)
 

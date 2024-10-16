@@ -23,13 +23,13 @@ const safe4337Pack = await Safe4337Pack.init({
 // new
 const safe4337Pack = await Safe4337Pack.init({
   provider: window.ethereum, // Or any compatible EIP-1193 provider,
-  signer: "signerAddressOrPrivateKey", // Signer address or signer private key
+  signer: 'signerAddressOrPrivateKey', // Signer address or signer private key
   // ...
 })
 
 const safe4337Pack = await Safe4337Pack.init({
-  provider: "http://rpc.url", // Or websocket
-  signer: "privateKey", // Signer private key
+  provider: 'http://rpc.url', // Or websocket
+  signer: 'privateKey', // Signer private key
   // ...
 })
 ```

@@ -806,7 +806,7 @@
   },
   {
     "source": "/core-api/transaction-service-supported-networks",
-    "destination": "/advanced/smart-account-supported-networks?feature=Transaction+Service",
+    "destination": "/advanced/smart-account-supported-networks?service=Transaction+Service",
     "permanent": true
   },
   {
@@ -836,12 +836,12 @@
   },
   {
     "source": "/advanced/erc-4337/supported-networks",
-    "destination": "/advanced/smart-account-supported-networks?feature=Safe+4337+Module",
+    "destination": "/advanced/smart-account-supported-networks?module=Safe+4337+Module",
     "permanent": true
   },
   {
     "source": "/advanced/passkeys/supported-networks",
-    "destination": "/advanced/smart-account-supported-networks?feature=Safe+Passkey+Module",
+    "destination": "/advanced/smart-account-supported-networks?module=Safe+Passkey+Module",
     "permanent": true
   }
 ]

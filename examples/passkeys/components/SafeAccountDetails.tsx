@@ -68,7 +68,7 @@ function SafeAccountDetails({ passkey }: props) {
   return (
     <Paper sx={{ margin: '32px auto 0', minWidth: '320px' }}>
       <Stack padding={4} alignItems={'center'}>
-        <Typography textAlign={'center'} variant='h1' color={'primary'}>
+        <Typography textAlign={'center'} variant="h1" color={'primary'}>
           Your Safe Account
         </Typography>
 
@@ -77,7 +77,12 @@ function SafeAccountDetails({ passkey }: props) {
         ) : (
           <>
             <Typography textAlign={'center'}>
-              <Link href={safeLink} target='_blank' underline='hover' color='text'>
+              <Link
+                href={safeLink}
+                target="_blank"
+                underline="hover"
+                color="text"
+              >
                 <Tooltip title={safeAddress}>
                   <Stack
                     component={'span'}
@@ -104,15 +109,20 @@ function SafeAccountDetails({ passkey }: props) {
             <Button
               onClick={handleMintNFT}
               startIcon={<PhotoIcon />}
-              variant='outlined'
+              variant="outlined"
               sx={{ margin: '24px' }}
             >
               Mint NFT
             </Button>
 
             {userOp && (
-              <Typography textAlign={'center'} >
-                <Link href={jiffscanLink} target='_blank' underline='hover' color='text'>
+              <Typography textAlign={'center'}>
+                <Link
+                  href={jiffscanLink}
+                  target="_blank"
+                  underline="hover"
+                  color="text"
+                >
                   <Stack
                     component={'span'}
                     padding={4}
@@ -157,7 +167,7 @@ function PendingDeploymentLabel() {
           border: '1px solid rgb(255, 255, 255)',
           whiteSpace: 'nowrap',
           backgroundColor: 'rgb(240, 185, 11)',
-          color: 'rgb(0, 20, 40)',
+          color: 'rgb(0, 20, 40)'
         }}
       >
         Deployment pending

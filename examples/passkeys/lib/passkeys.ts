@@ -6,7 +6,7 @@ import { STORAGE_PASSKEY_LIST_KEY } from './constants'
  * @returns {Promise<PasskeyArgType>} Passkey object with rawId and coordinates.
  * @throws {Error} If passkey creation fails.
  */
-export async function createPasskey (): Promise<PasskeyArgType> {
+export async function createPasskey(): Promise<PasskeyArgType> {
   const displayName = 'Safe Owner' // This can be customized to match, for example, a user name.
   // Generate a passkey credential using WebAuthn API
   const passkeyCredential = await navigator.credentials.create({
@@ -37,7 +37,7 @@ export async function createPasskey (): Promise<PasskeyArgType> {
   }
 
   const passkey = await extractPasskeyData(passkeyCredential)
-  console.log("Created Passkey: ", passkey)
+  console.log('Created Passkey:', passkey)
 
   return passkey
 }
@@ -74,9 +74,7 @@ export function loadPasskeysFromLocalStorage(): PasskeyArgType[] {
 export function getPasskeyFromRawId(passkeyRawId: string): PasskeyArgType {
   const passkeys = loadPasskeysFromLocalStorage()
 
-  const passkey = passkeys.find(
-    (passkey) => passkey.rawId === passkeyRawId
-  )!
+  const passkey = passkeys.find((passkey) => passkey.rawId === passkeyRawId)!
 
   return passkey
 }

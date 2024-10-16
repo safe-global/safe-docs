@@ -1,5 +1,5 @@
 {
-  "version": "4.15.0",
+  "version": "4.16.0",
   "description": "Safe docs",
   "scripts": {
     "build": "next build",
@@ -15,7 +15,7 @@
     "test": "env-cmd cypress run --headless",
     "typecheck": "tsc --noEmit --incremental false",
     "prepush": "pnpm lint && pnpm typecheck && pnpm validate-resources",
-    "prepare": "husky install",
+    "prepare": "husky",
     "release": "env-cmd release-it --no-npm --only-version"
   },
   "repository": {
