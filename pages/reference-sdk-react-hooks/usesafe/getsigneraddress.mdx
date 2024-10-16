@@ -1,0 +1,87 @@
+import { Tabs } from 'nextra/components'
+
+### `getSignerAddress`
+
+Returns the address of the signer connected to the [`SafeProvider`](../safeprovider.mdx).
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useSafe } from '@safe-global/safe-react-hooks'
+
+    function SignerAddress() {
+      const { getSignerAddress } = useSafe()
+      const address = getSignerAddress()
+
+      return (
+        <>
+          {address ? address : 'No signer address'}
+        </>
+      )
+    }
+
+    export default SignerAddress
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+`UseAddressParams`
+
+Parameters to customize the hook behavior.
+
+```typescript
+import { UseAddressParams } from '@safe-global/safe-react-hooks'
+```
+
+### `config` (Optional)
+
+- **Type**: `SafeConfig`
+
+The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript focus=4
+    import { config } from './config.ts'
+
+    const result = getSignerAddress({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    export const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`UseSignerAddressReturnType | undefined`
+
+The signer address.
+
+```typescript
+import { UseSignerAddressReturnType } from '@safe-global/safe-react-hooks'
+```

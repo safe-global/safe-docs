@@ -1,0 +1,46 @@
+# `SafeProvider`
+
+The `SafeProvider` is a [context provider](https://react.dev/reference/react/createContext#provider) that wraps a React application and makes all the Safe React Hooks available within the application with a global configuration.
+
+## Usage
+
+Any component that uses a Safe React Hook requires a `SafeProvider` to be present somewhere in its parent component tree.
+
+{/* <!-- vale off --> */}
+
+```typescript
+import ReactDOM from 'react-dom/client'
+import { createConfig, SafeProvider } from '@safe-global/safe-react-hooks'
+import { sepolia } from 'viem/chains'
+import App from './App.tsx'
+
+const config = createConfig({
+  chain: sepolia,
+  provider,
+  signer,
+  safeOptions: {
+    owners: ['0x...', '0x...', '0x...'],
+    threshold: 2
+  }
+})
+
+const root = document.getElementById('root')
+
+ReactDOM.createRoot(root).render(
+  <SafeProvider config={config}>
+    <App />
+  </SafeProvider>
+)
+```
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `config`
+
+- **Type**: `SafeConfig`
+
+The configuration object required to connect and setup a Safe account in the application.
+
+Use the [`createConfig`](./createconfig.mdx) function to create the configuration object.

@@ -1,0 +1,14 @@
+{
+  "connect": "connect",
+  "disconnect": "disconnect",
+  "getbalance": "getBalance",
+  "getchain": "getChain",
+  "getpendingtransactions": "getPendingTransactions",
+  "getsafeinfo": "getSafeInfo",
+  "getsigneraddress": "getSignerAddress",
+  "gettransaction": "getTransaction",
+  "gettransactions": "getTransactions",
+  "isinitialized": "isInitialized",
+  "isownerconnected": "isOwnerConnected",
+  "issignerconnected": "isSignerConnected"
+}

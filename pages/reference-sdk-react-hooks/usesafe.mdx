@@ -1,0 +1,84 @@
+import { Tabs } from 'nextra/components'
+
+# `useSafe`
+
+Provides a set of utilities to access different information about the Safe connected to the [`SafeProvider`].
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['App.tsx', 'main.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useSafe } from '@safe-global/safe-react-hooks'
+    
+    function App() {
+      const {
+        isInitialized,
+        connect,
+        disconnect,
+        isOwnerConnected,
+        isSignerConnected,
+        getBalance,
+        getChain,
+        getTransaction,
+        getTransactions,
+        getPendingTransactions,
+        getSafeInfo,
+        getSignerAddress
+      } = useSafe()
+
+      // ...
+    }
+
+    export default App
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import ReactDOM from 'react-dom/client'
+    import { createConfig, SafeProvider } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+    import App from './App.tsx'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+
+    const root = document.getElementById('root')
+    
+    ReactDOM.createRoot(root).render(
+      <SafeProvider config={config}>
+        <App />
+      </SafeProvider>
+    )
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`UseSafeReturnType`
+
+```typescript
+import { UseSafeReturnType } from '@safe-global/safe-react-hooks'
+```
+
+### [`isInitialized`](./usesafe/isinitialized.mdx)
+### [`connect`](./usesafe/connect.mdx)
+### [`disconnect`](./usesafe/disconnect.mdx)
+### [`isOwnerConnected`](./usesafe/isownerconnected.mdx)
+### [`isSignerConnected`](./usesafe/issignerconnected.mdx)
+### [`getBalance`](./usesafe/getbalance.mdx)
+### [`getChain`](./usesafe/getchain.mdx)
+### [`getTransaction`](./usesafe/gettransaction.mdx)
+### [`getTransactions`](./usesafe/gettransactions.mdx)
+### [`getPendingTransactions`](./usesafe/getpendingtransactions.mdx)
+### [`getSafeInfo`](./usesafe/getsafeinfo.mdx)
+### [`getSignerAddress`](./usesafe/getsigneraddress.mdx)
