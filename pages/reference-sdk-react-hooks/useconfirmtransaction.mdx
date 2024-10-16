@@ -2,9 +2,10 @@ import { Tabs } from 'nextra/components'
 
 # `useConfirmTransaction`
 
-`(params?: UseConfirmTransactionParams): UseConfirmTransactionReturnType`
+Confirms a pending multi-signature transaction shared via the Safe Transaction Service.
 
-Hook to confirm a pending multisig transaction which is stored by the Transaction Service.
+- If the number of signatures collected in the Safe Transaction Service for a given Safe transaction hash hasn't met the `threshold`, it adds the signature from the connected signer.
+- If the number of collected signatures reaches the `threshold`, it executes the Safe transaction.
 
 ## Usage
 
@@ -18,23 +19,18 @@ Hook to confirm a pending multisig transaction which is stored by the Transactio
     function App() {
       const {
         confirmTransaction,
-        isLoading,
-        isError,
         data,
-        error
+        // ...
       } = useConfirmTransaction()
 
-      const handleConfirmTransaction = () => {
-        confirmTransaction({ safeTxHash })
-      }
+      const safeTxHash = '0x...'
 
       return (
         <>
-          <button onClick={handleConfirmTransaction} disabled={isLoading}>
+          <button onClick={() => confirmTransaction({ safeTxHash })}>
             Confirm Transaction
           </button>
-          {isError && <p>Error: {error.message}</p>}
-          {data && <p>Transaction confirmed: {JSON.stringify(data)}</p>}
+          {data && JSON.stringify(data)}
         </>
       )
     }
@@ -74,13 +70,62 @@ Hook to confirm a pending multisig transaction which is stored by the Transactio
 
 ## Parameters
 
-- `params` (UseConfirmTransactionParams, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfigWithSigner, optional): The [`SafeConfigWithSigner`](./safeconfig.mdx#safeconfigwithsigner) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+`UseConfirmTransactionParams`
+
+Parameters to customize the hook behavior.
+
+```typescript
+import { UseConfirmTransactionParams } from '@safe-global/safe-react-hooks'
+```
+
+### `config` (Optional)
+
+- **Type**: `SafeConfigWithSigner`
+
+The configuration used instead of the one from the nearest [`SafeProvider`](./safeprovider.mdx).
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import config from './index.ts'
+
+    const result = useConfirmTransaction({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
+      }
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
 
 ## Returns 
 
-- The react-query [`UseMutationResult`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation).
-- The `mutate` and `mutateAsync` functions have been renamed to `confirmTransaction` and `confirmTransactionAsync` respectively. The other properties in the return type remain unchanged, and the behavior is still the same as described in the docs.
+`UseConfirmTransactionReturnType`
+
+The react-query [`UseMutationResult`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation).
+
+```typescript
+import { UseConfirmTransactionReturnType } from '@safe-global/safe-react-hooks'
+```
+
 
 
 
@@ -125,6 +170,16 @@ Asynchronous function to send the transaction. It's a react-query [`mutateAsync`
 #### Returns
 
 In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the transaction result.
+
+
+
+
+
+
+
+
+
+
 
 ## Caveats
 

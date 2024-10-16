@@ -2,7 +2,10 @@ import { Tabs } from 'nextra/components'
 
 # `useUpdateThreshold`
 
-Hook to update the threshold of the connected Safe. It sends or (if the current threshold is > 1) proposes a transaction to update the threshold of the Safe account and returns the transaction result.
+Executes a Safe transaction to update the threshold of the Safe connected to the [`SafeProvider`](./safeprovider.mdx).
+
+- If the `threshold` of the connected Safe is greater than `1`, it creates the Safe transaction and submits it to the Safe Transaction Service to collect the signatures from the Safe owners.
+- If the `threshold` of the connected Safe is `1`, it executes the Safe transaction.
 
 ## Usage
 
@@ -17,22 +20,17 @@ Hook to update the threshold of the connected Safe. It sends or (if the current 
       const {
         updateThreshold,
         data,
-        isLoading,
-        isError,
-        error
+        // ...
       } = useUpdateThreshold()
 
-      const handleUpdateThreshold = () => {
-        updateThreshold({ threshold: 2 })
-      }
+      const threshold = 3
 
       return (
         <>
-          <button onClick={handleUpdateThreshold} disabled={isLoading}>
+          <button onClick={() => updateThreshold({ threshold })}>
             Update Threshold
           </button>
-          {isError && <p>Error: {error.message}</p>}
-          {data && <p>Update Threshold Transaction sent: {JSON.stringify(data)}</p>}
+          {data && JSON.stringify(data)}
         </>
       )
     }
@@ -67,21 +65,63 @@ Hook to update the threshold of the connected Safe. It sends or (if the current 
 
 {/* <!-- vale on --> */}
 
-## Returns 
-
-`(params?: UseUpdateThresholdParams): UseUpdateThresholdReturnType`
-
-- The react-query [`UseMutationResult`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation).
-- The `mutate` and `mutateAsync` functions have been renamed to `updateThreshold` and `updateThresholdAsync` respectively. The other properties in the return type remain unchanged, and the behavior is still the same as described in the docs.
-
 ## Parameters
 
-- `params` (UseUpdateThresholdParams, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfigWithSigner, optional): The [`SafeConfigWithSigner`](./safeconfig.mdx#safeconfigwithsigner) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+`UseUpdateThresholdParams`
 
+Parameters to customize the hook behavior.
 
+```typescript
+import { UseUpdateThresholdParams } from '@safe-global/safe-react-hooks'
+```
 
+### `config` (Optional)
 
+- **Type**: `SafeConfigWithSigner`
+
+The configuration used instead of the one from the nearest [`SafeProvider`](./safeprovider.mdx).
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import config from './index.ts'
+
+    const result = useUpdateThreshold({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
+      }
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns 
+
+`UseUpdateThresholdReturnType`
+
+The react-query [`UseMutationResult`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation).
+
+```typescript
+import { UseUpdateThresholdReturnType } from '@safe-global/safe-react-hooks'
+```
 
 ### `updateThreshold`
 
@@ -98,10 +138,6 @@ Function for sending a transaction to update the threshold. It's a react-query [
 
 In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that updated the threshold.
 
-
-
-
-
 ### `updateThresholdAsync`
 
 `UseMutateAsyncFunction<SafeClientResult, Error, UpdateThresholdVariables, unknown>`
@@ -116,10 +152,6 @@ Asynchronous function for sending a transaction to update the threshold. It's a 
 #### Returns
 
 In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that updated the threshold.
-
-
-
-
 
 ## Caveats
 

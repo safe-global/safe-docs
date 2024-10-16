@@ -1,14 +1,10 @@
 # `SafeProvider`
 
-The `SafeProvider` component is a [context provider](https://react.dev/reference/react/createContext#provider) that wraps a React application and makes all the Safe React hooks available.
+The `SafeProvider` is a [context provider](https://react.dev/reference/react/createContext#provider) that wraps a React application and makes all the Safe React Hooks available within the application with a global configuration.
 
 ## Usage
 
-Any component that uses a Safe hook requires a `SafeProvider` to be present somewhere in its parent component tree.
-
-Usually, you will add this component at the root of your application, wrapping the entire application and providing a global [configuration object](./safeconfig.mdx) to the hooks.
-
-Another way to work with Safe hooks is to pass the `config` as a parameter to the individual functions. You can find more information about this in the specific hook documentation.
+Any component that uses a Safe React Hook requires a `SafeProvider` to be present somewhere in its parent component tree.
 
 {/* <!-- vale off --> */}
 
@@ -43,8 +39,8 @@ ReactDOM.createRoot(root).render(
 
 ### `config`
 
-`SafeConfig`
+- **Type**: `SafeConfig`
 
-The [configuration object](./safeconfig.mdx) for the Safe instance. 
+The configuration object required to connect and setup a Safe account in the application.
 
-Use the [`createConfig`](./createconfig.mdx) function to help you create the configuration object.
+Use the [`createConfig`](./createconfig.mdx) function to create the configuration object.

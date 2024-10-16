@@ -2,9 +2,11 @@ import { Tabs } from 'nextra/components'
 
 # `useSendTransaction`
 
-`(params?: UseSendTransactionParams): UseSendTransactionReturnType`
+Executes a Safe transaction from the Safe connected to the [`SafeProvider`](./safeprovider.mdx) or sends it to the Safe Transaction Service if it isn't executable.
 
-Hook to send or propose transactions. For single-owner Safe accounts, it sends the transaction directly to the blockchain. For multisig Safe accounts, it sends the transaction to the Transaction Service.
+- If the `threshold` of the connected Safe is greater than `1`, it creates the Safe transaction and submits it to the Safe Transaction Service to collect the signatures from the Safe owners.
+- If the `threshold` of the connected Safe is `1`, it executes the Safe transaction.
+- If the connected Safe is not deployed, it deploys it using the funds from the connected signer to pay for the transaction fees, and executes the transaction or sends it to the Safe Transaction Service, depending on the `threshold`.
 
 ## Usage
 
@@ -18,29 +20,22 @@ Hook to send or propose transactions. For single-owner Safe accounts, it sends t
     function App() {
       const {
         sendTransaction,
-        isLoading,
-        isError,
         data,
-        error
+        // ...
       } = useSendTransaction()
 
-      const handleSendTransaction = () => {
-        sendTransaction({
-          transactions: [{
-            to: '0x...',
-            value: '123',
-            data: '0x'
-          }]
-        })
-      }
+      const transactions = [{
+        to: '0x...',
+        value: '123',
+        data: '0x'
+      }]
 
       return (
         <>
-          <button onClick={handleSendTransaction} disabled={isLoading}>
+          <button onClick={() => sendTransaction({ transactions })}>
             Send Transaction
           </button>
-          {isError && <p>Error: {error.message}</p>}
-          {data && <p>Transaction sent: {JSON.stringify(data)}</p>}
+          {data && JSON.stringify(data)}
         </>
       )
     }
@@ -80,13 +75,63 @@ Hook to send or propose transactions. For single-owner Safe accounts, it sends t
 
 ## Parameters
 
-- `params` (UseSendTransactionParams, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfigWithSigner, optional): The [`SafeConfigWithSigner`](./safeconfig.mdx#safeconfigwithsigner) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+`UseSendTransactionParams`
+
+Parameters to customize the hook behavior.
+
+```typescript
+import { UseSendTransactionParams } from '@safe-global/safe-react-hooks'
+```
+
+### `config` (Optional)
+
+- **Type**: `SafeConfigWithSigner`
+
+The configuration used instead of the one from the nearest [`SafeProvider`](./safeprovider.mdx).
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import config from './index.ts'
+
+    const result = useSendTransaction({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
+      }
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
 
 ## Returns 
 
-- The react-query [`UseMutationResult`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation).
-- The `mutate` and `mutateAsync` functions have been renamed to `sendTransaction` and `sendTransactionAsync` respectively. The other properties in the return type remain unchanged, and the behavior is still the same described in the docs.
+`UseSendTransactionReturnType`
+
+The react-query [`UseMutationResult`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation).
+
+```typescript
+import { UseSendTransactionReturnType } from '@safe-global/safe-react-hooks'
+```
+
+
 
 
 
@@ -132,6 +177,17 @@ Asynchronous function to send the transaction. It's a react-query [`mutateAsync`
 #### Returns
 
 In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the transaction result.
+
+
+
+
+
+
+
+
+
+
+
 
 ## Caveats
 
