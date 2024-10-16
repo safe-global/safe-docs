@@ -2,51 +2,23 @@ import { Tabs } from 'nextra/components'
 
 # `createConfig`
 
-{/* <!-- vale off --> */}
-
-```typescript
-createConfig<
-  Provider extends SdkStarterKitConfig['provider'] = SdkStarterKitConfig['provider'],
-  Signer extends SdkStarterKitConfig['signer'] = SdkStarterKitConfig['signer'],
-  Chain extends ChainType = ChainType
->(params: CreateConfigParams<Provider, Signer, Chain>): SafeConfig<Provider, Signer, Chain>
-
-CreateConfigParams<
-  Provider extends SdkStarterKitConfig['provider'] = SdkStarterKitConfig['provider'],
-  Signer extends SdkStarterKitConfig['signer'] = SdkStarterKitConfig['signer'],
-  Chain extends ChainType = ChainType
-> = { chain: Chain; provider: Provider; signer: Signer } & SdkStarterKitConfig
-```
-
-{/* <!-- vale on --> */}
-
-The props for creating a new configuration are those extracted from [SdkStarterKitConfig](https://github.com/safe-global/safe-core-sdk/blob/main/packages/sdk-starter-kit/src/types.ts#L49-L65) and are extended with the viem chain.
+Returns the configuration object required to initialize the Safe React Hooks.
 
 ## Usage
 
-We can have primarily two use cases:
-
-- Providing the configuration to the `SafeProvider` component.  
-- Customizing the configuration in some individual functions.
+It can be used to initialize the [`SafeProvider`](./safeprovider.mdx) or any of the Safe React Hooks. The global configuration will be overwritten within the scope of a hook if a hook is created with a custom configuration.
 
 {/* <!-- vale off --> */}
 
-<Tabs items={['safe-provider.tsx', 'custom-configuration.tsx']}>
+<Tabs items={['SafeProvider configuration', 'Hook configuration']}>
   <Tabs.Tab>
     ```typescript
     import ReactDOM from 'react-dom/client'
     import { createConfig, SafeProvider } from '@safe-global/safe-react-hooks'
-    import { sepolia } from 'viem/chains'
     import App from './App.tsx'
 
     const config = createConfig({
-      chain: sepolia,
-      provider,
-      signer,
-      safeOptions: {
-        owners: ['0x...', '0x...', '0x...'],
-        threshold: 2
-      }
+      // ...
     })
 
     const root = document.getElementById('root')
@@ -61,33 +33,210 @@ We can have primarily two use cases:
   <Tabs.Tab>
     ```typescript
     import { createConfig, useSafe } from '@safe-global/safe-react-hooks'
-    import { sepolia } from 'viem/chains'
 
     const config = createConfig({
-      chain: sepolia,
-      provider,
-      signer,
-      safeOptions: {
-        owners: ['0x...', '0x...', '0x...'],
-        threshold: 2
-      }
+      // ...
     })
 
-    const ChainInfo = () => {
-      const { getChain } = useSafe()
-      const { blockExplorers } = getChain({ config })
+    function CustomComponent() {
+      const {
+        getChain,
+        // ...
+      } = useSafe()
+      const { name } = getChain({ config })
 
       return (
-        <>
-          <h3>Chain Info</h3>
-          <pre>{JSON.stringify(blockExplorers, null, 2)}</pre>
-        </>
+        <div>
+          {name}
+        </div>
       )
     }
 
-    export default ChainInfo
+    export default CustomComponent
     ```
   </Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
+
+The `createConfig` parameters vary depending on if you want to connect a Safe account that is already deployed or you want to deploy a new one.
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['Existing Safe', 'New Safe']}>
+  <Tabs.Tab>
+    Use the `safeAddress` property to use an existing Safe account.
+
+    ```typescript
+    import { createConfig } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    Use the `safeOptions` property to configure and deploy a new Safe account. The Safe address generation is deterministic based on the `owners`, `threshold`, and `saltNonce` values. 
+
+    ```typescript 
+    import { createConfig } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2,
+        saltNonce: 123n // Optional
+      }
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+`CreateConfigParams`
+
+```typescript
+import { CreateConfigParams } from '@safe-global/safe-react-hooks'
+```
+
+### `chain`
+- **Type:** `Chain`
+
+The connected chain.
+
+```typescript focus=2
+const config = createConfig({
+  chain: sepolia,
+  provider,
+  signer,
+  safeAddress: '0x...'
+})
+```
+
+### `provider`
+
+- **Type:** `Eip1193Provider | HttpTransport | SocketTransport`
+
+The provider connected to the blockchain.
+
+```typescript focus=3
+const config = createConfig({
+  chain: sepolia,
+  provider,
+  signer,
+  safeAddress: '0x...'
+})
+```
+
+### `signer`
+
+- **Type:** `HexAddress | PrivateKey | PasskeyClient`
+
+The signer connected to the Safe as an owner.
+- If it's an address, the same address from the `provider` will be used to sign.
+- If it's a private key, its derived address will be used to sign.
+- If it's a passkey, the passkey will be used to sign.
+
+```typescript focus=4
+const config = createConfig({
+  chain: sepolia
+  provider,
+  signer,
+  safeAddress: '0x...'
+})
+```
+
+### `safeAddress` (Optional)
+
+- **Type:** `HexAddress`
+
+The address of the connected Safe.
+
+```typescript focus=5
+const config = createConfig({
+  chain: sepolia
+  provider,
+  signer,
+  safeAddress: '0x...'
+})
+```
+
+### `safeOptions` (Optional)
+
+#### `owners`
+
+- **Type:** `string[]`
+
+The list of owners to configure in the Safe.
+
+```typescript focus=6
+const config = createConfig({
+  chain: sepolia
+  provider,
+  signer,
+  safeOptions: {
+    owners: ['0x...', '0x...', '0x...'],
+    threshold: 2,
+    saltNonce: 123n
+  }
+})
+```
+
+#### `threshold`
+
+- **Type:** `number`
+
+The threshold of the Safe. It must be lower or equal to the number of owners.
+
+```typescript focus=7
+const config = createConfig({
+  chain: sepolia
+  provider,
+  signer,
+  safeOptions: {
+    owners: ['0x...', '0x...', '0x...'],
+    threshold: 2,
+    saltNonce: 123n
+  }
+})
+```
+
+#### `saltNonce` (Optional)
+
+- **Type:** `string`
+
+The salt introduces randomness or predictability when the Safe address is generated.
+
+```typescript focus=8
+const config = createConfig({
+  chain: sepolia
+  provider,
+  signer,
+  safeOptions: {
+    owners: ['0x...', '0x...', '0x...'],
+    threshold: 2,
+    saltNonce: 123n
+  }
+})
+```
+
+## Returns
+
+`SafeConfig`
+
+The Safe React Hooks configuration.
+
+```typescript
+import { SafeConfig } from '@safe-global/safe-react-hooks'
+```
