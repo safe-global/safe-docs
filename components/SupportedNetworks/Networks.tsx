@@ -330,7 +330,7 @@ const SupportedNetworks: React.FC = () => {
 
   useEffect(() => {
     if (
-      scrollPosition > page * (isSmOrHigher ? 2000 : 3000) &&
+      scrollPosition > page * (isSmOrHigher ? 1800 : 3000) &&
       visibleResults.length < searchResults.length
     ) {
       void push({ query: { ...query, page: page + 1 } }, undefined, {
@@ -374,7 +374,7 @@ const SupportedNetworks: React.FC = () => {
             alignItems='center'
             justifyContent='center'
           >
-            <Typography textAlign='center' variant='h1' mb={2}>
+            <Typography textAlign='center' variant='h1' fontSize='42px' mb={4}>
               Supported Networks
             </Typography>
             <TextField
@@ -382,6 +382,13 @@ const SupportedNetworks: React.FC = () => {
               variant='outlined'
               placeholder='Search by network name or chain ID'
               InputProps={{
+                // dark style:
+                style: {
+                  color: 'white',
+                  backgroundColor: 'rgba(28, 28, 28, 1)',
+                  borderRadius: '8px',
+                  border: 'none'
+                },
                 startAdornment: (
                   <InputAdornment position='start'>
                     <SearchIcon />
@@ -397,7 +404,7 @@ const SupportedNetworks: React.FC = () => {
                   ) : undefined
               }}
               value={searchQuery}
-              sx={{ border: 'none', width: '80%', mt: [2, 0] }}
+              sx={{ border: 'none', width: ['80%', '500px'], mt: [2, 0] }}
               onChange={e => {
                 if (e.target.value.length === 0) onResetSearch()
                 else setSelectedFilter([e.target.value], 'search')
@@ -488,8 +495,10 @@ const SupportedNetworks: React.FC = () => {
             {sidebar}
           </Grid>
 
-          <Grid item xs={12} md={9}>
-            {visibleResults.length > 0 ? (
+          <Grid item xs={12} md={9} mb={6}>
+            {query.expand !== undefined ? (
+              <NetworkModal versions={versions} />
+            ) : visibleResults.length > 0 ? (
               <Grid
                 container
                 spacing={GRID_SPACING}
@@ -554,7 +563,6 @@ const SupportedNetworks: React.FC = () => {
           </div>
         </Dialog>
       </Container>
-      <NetworkModal versions={versions} />
     </>
   )
 }
