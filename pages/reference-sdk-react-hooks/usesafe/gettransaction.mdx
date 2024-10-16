@@ -53,11 +53,31 @@ import { UseTransactionParams } from '@safe-global/safe-react-hooks'
 
 Hash of the Safe transaction to be fetched.
 
+{/* <!-- vale off --> */}
+
+```typescript focus=2
+const result = getTransaction({
+  safeTxHash: '0x...'
+})
+```
+
+{/* <!-- vale on --> */}
+
 ### `ethereumTxHash` (Optional)
 
 - **Type**: `string`
 
 Hash of the Ethereum transaction to be fetched.
+
+{/* <!-- vale off --> */}
+
+```typescript focus=2
+const result = getTransaction({
+  ethereumTxHash: '0x...'
+})
+```
+
+{/* <!-- vale on --> */}
 
 ### `config` (Optional)
 
@@ -69,10 +89,11 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
 
 <Tabs items={['index.tsx', 'config.ts']}>
   <Tabs.Tab>
-    ```typescript
-    import config from './index.ts'
+    ```typescript focus=5
+    import { config } from './config.ts'
 
     const result = getTransaction({
+      safeTxHash: '0x...',
       config
     })
     ```
@@ -82,7 +103,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
     import { createConfig } from '@safe-global/safe-react-hooks'
     import { sepolia } from 'viem/chains'
 
-    const config = createConfig({
+    export const config = createConfig({
       chain: sepolia,
       provider,
       signer,

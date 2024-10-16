@@ -89,8 +89,8 @@ The configuration used instead of the one from the nearest [`SafeProvider`](./sa
 
 <Tabs items={['index.tsx', 'config.ts']}>
   <Tabs.Tab>
-    ```typescript
-    import config from './index.ts'
+    ```typescript focus=4
+    import { config } from './config.ts'
 
     const result = useUpdateThreshold({
       config
@@ -102,7 +102,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](./sa
     import { createConfig } from '@safe-global/safe-react-hooks'
     import { sepolia } from 'viem/chains'
 
-    const config = createConfig({
+    export const config = createConfig({
       chain: sepolia,
       provider,
       signer,

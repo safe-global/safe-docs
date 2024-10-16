@@ -51,8 +51,8 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
 
 <Tabs items={['index.tsx', 'config.ts']}>
   <Tabs.Tab>
-    ```typescript
-    import config from './index.ts'
+    ```typescript focus=4
+    import { config } from './config.ts'
 
     const result = getSignerAddress({
       config
@@ -64,7 +64,7 @@ The configuration used instead of the one from the nearest [`SafeProvider`](../s
     import { createConfig } from '@safe-global/safe-react-hooks'
     import { sepolia } from 'viem/chains'
 
-    const config = createConfig({
+    export const config = createConfig({
       chain: sepolia,
       provider,
       signer,
