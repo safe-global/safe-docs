@@ -2,8 +2,10 @@ import { Tabs } from "nextra/components"
 
 # `remove`
 
-- The react-query [`UseMutationResult`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation).
-- The `mutate` and `mutateAsync` functions have been renamed to `removeOwner` and `removeOwnerAsync` respectively.
+Executes a Safe transaction to remove an owner of the Safe connected to the [`SafeProvider`](./safeprovider.mdx) or sends it to the Safe Transaction Service if it isn't executable.
+
+- If the `threshold` of the connected Safe is greater than `1`, it creates the Safe transaction and submits it to the Safe Transaction Service to collect the signatures from the Safe owners.
+- If the `threshold` of the connected Safe is `1`, it executes the Safe transaction.
 
 ## Usage
 
@@ -12,24 +14,27 @@ import { Tabs } from "nextra/components"
 <Tabs items={['App.tsx', 'main.tsx']}>
   <Tabs.Tab>
     ```typescript
-    import { useUpdateOwners } from '@safe-global/safe-react-hooks'
+    import { useUpdateOwners, RemoveOwnerVariables } from '@safe-global/safe-react-hooks'
     
     function App() {
       const { remove } = useUpdateOwners()
-      const { removeOwner, data, error, isLoading } = swap
+      const {
+        removeOwner,
+        data,
+        // ...
+      } = remove
 
-      const ownerAddress = '0x...'
-
-      if (isLoading) return <>Loading...</>
-
-      if (error) return <>Error: {error.message}</>
+      const removeOwnerParams: RemoveOwnerVariables = {
+        ownerAddress: '0x...',
+        threshold: 1 // Optional
+      }
 
       return (
         <>
-          <button onClick={() => removeOwner({ ownerAddress })} disabled={isLoading}>
+          <button onClick={() => removeOwner(removeOwnerParams)}>
             Remove Owner
           </button>
-          {data && JSON.stringify(data, null, 2)}
+          {data && JSON.stringify(data)}
         </>
       )
     }

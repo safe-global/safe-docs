@@ -2,8 +2,10 @@ import { Tabs } from "nextra/components"
 
 # `swap`
 
-- The react-query [`UseMutationResult`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation).
-- The `mutate` and `mutateAsync` functions have been renamed to `swapOwner` and `swapOwnerAsync` respectively.
+Executes a Safe transaction to swap an owner of the Safe connected to the [`SafeProvider`](./safeprovider.mdx) or sends it to the Safe Transaction Service if it isn't executable.
+
+- If the `threshold` of the connected Safe is greater than `1`, it creates the Safe transaction and submits it to the Safe Transaction Service to collect the signatures from the Safe owners.
+- If the `threshold` of the connected Safe is `1`, it executes the Safe transaction.
 
 ## Usage
 
@@ -12,24 +14,27 @@ import { Tabs } from "nextra/components"
 <Tabs items={['App.tsx', 'main.tsx']}>
   <Tabs.Tab>
     ```typescript
-    import { useUpdateOwners } from '@safe-global/safe-react-hooks'
+    import { useUpdateOwners, SwapOwnerVariables } from '@safe-global/safe-react-hooks'
     
     function App() {
       const { swap } = useUpdateOwners()
-      const { swapOwner, data, error, isLoading } = swap
+      const {
+        swapOwner,
+        data,
+        // ...
+      } = swap
 
-      const ownerAddress = '0x...'
-
-      if (isLoading) return <>Loading...</>
-
-      if (error) return <>Error: {error.message}</>
+      const swapOwnerParams: SwapOwnerVariables = {
+        oldOwnerAddress: '0x...',
+        newOwnerAddress: '0x...'
+      }
 
       return (
         <>
-          <button onClick={() => swapOwner({ ownerAddress })} disabled={isLoading}>
+          <button onClick={() => swapOwner(swapOwnerParams)}>
             Swap Owner
           </button>
-          {data && JSON.stringify(data, null, 2)}
+          {data && JSON.stringify(data)}
         </>
       )
     }
