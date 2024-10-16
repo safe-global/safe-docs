@@ -2,12 +2,14 @@ import { Tabs } from "nextra/components"
 
 # `swap`
 
-Executes a Safe transaction to swap an owner of the Safe connected to the [`SafeProvider`](./safeprovider.mdx) or sends it to the Safe Transaction Service if it isn't executable.
+Contains the `swapOwner` and `swapOwnerAsync` functions, which execute a Safe transaction to swap an owner of the Safe connected to the [`SafeProvider`](./safeprovider.mdx) or send it to the Safe Transaction Service if it isn't executable.
+
+## Usage
 
 - If the `threshold` of the connected Safe is greater than `1`, it creates the Safe transaction and submits it to the Safe Transaction Service to collect the signatures from the Safe owners.
 - If the `threshold` of the connected Safe is `1`, it executes the Safe transaction.
 
-## Usage
+The connected Safe must be already deployed.
 
 {/* <!-- vale off --> */}
 

@@ -4,10 +4,12 @@ import { Tabs } from 'nextra/components'
 
 Confirms a pending multi-signature transaction shared via the Safe Transaction Service.
 
+## Usage
+
 - If the number of signatures collected in the Safe Transaction Service for a given Safe transaction hash hasn't met the `threshold`, it adds the signature from the connected signer.
 - If the number of collected signatures reaches the `threshold`, it executes the Safe transaction.
 
-## Usage
+This function is only relevant for Safes with their `threshold` greater than `1`.
 
 {/* <!-- vale off --> */}
 
@@ -170,21 +172,3 @@ Asynchronous function to send the transaction. It's a react-query [`mutateAsync`
 #### Returns
 
 In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the transaction result.
-
-
-
-
-
-
-
-
-
-
-
-## Caveats
-
-The `confirmTransaction` and `confirmTransactionAsync` methods are used to confirm a transaction proposed to the Transaction Service. These methods are only applicable for multisig Safe accounts (with more than one owner and a threshold greater than 1).
-
-These methods should be used in conjunction with the `useSendTransaction` hook mutation methods. When a transaction is stored in the Transaction Service, you should confirm it with other owners to make it valid.
-
-It's important to note that when you confirm the transaction, if the required number of signatures reaches the threshold stored in the Transaction Service, the transaction is automatically sent to the blockchain for execution and confirmation. This is something that already happens with the `useSendTransaction` methods when the threshold is 1.

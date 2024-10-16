@@ -4,11 +4,11 @@ import { Tabs } from 'nextra/components'
 
 Executes a Safe transaction from the Safe connected to the [`SafeProvider`](./safeprovider.mdx) or sends it to the Safe Transaction Service if it isn't executable.
 
+## Usage
+
 - If the `threshold` of the connected Safe is greater than `1`, it creates the Safe transaction and submits it to the Safe Transaction Service to collect the signatures from the Safe owners.
 - If the `threshold` of the connected Safe is `1`, it executes the Safe transaction.
 - If the connected Safe is not deployed, it deploys it using the funds from the connected signer to pay for the transaction fees, and executes the transaction or sends it to the Safe Transaction Service, depending on the `threshold`.
-
-## Usage
 
 {/* <!-- vale off --> */}
 
@@ -177,31 +177,3 @@ Asynchronous function to send the transaction. It's a react-query [`mutateAsync`
 #### Returns
 
 In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the transaction result.
-
-
-
-
-
-
-
-
-
-
-
-
-## Caveats
-
-The `sendTransaction` and `sendTransactionAsync` methods are used to send transactions from your Safe account. It covers various transaction flows that you would typically need to implement yourself if you're using a more advanced kit, such as the `protocol-kit` in conjunction with the `api-kit`. You can send an array to transactions (to, value, data) that we will convert to a transaction batch.
-
-We can distinguish two main cases when using these methods:
-
-If the Safe account is already deployed (you are using `safeAddress` or the `safeOptions` counterfactual address prediction derives an existing Safe account):
-
-  - In the case the Safe is a multisig account (more than one owner and threshold greater than 1), the methods will propose the transaction to our Transaction Service. The transaction is not sent to the blockchain immediately, but is stored in our services. This is because you need more signatures than just the one for the `signer` used to create the client.
-  - In the case the Safe is a single-owner account (threshold equal to 1), the transaction is sent directly to the blockchain without being stored in our services, as it is not necessary.
-
-If the Safe account has not yet been deployed (you are using `safeOptions` and the counterfactual address prediction results in a non-existing Safe account):
-
-  - In the case the Safe is a multisig account, the methods will propose the transaction to our Transaction Service, just as in the previous case. However, the Safe account will be deployed using the funds in the current `signer` account.
-  - In the case the Safe is a single-owner account, the transaction is sent directly to the blockchain without being stored in our services. The Safe account will be deployed using the funds in the current `signer` account.
-  
