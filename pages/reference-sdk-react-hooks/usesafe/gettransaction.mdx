@@ -37,6 +37,63 @@ Returns a transaction by its Safe transaction hash or Ethereum transaction hash.
 
 {/* <!-- vale on --> */}
 
+## Parameters
+
+`UseTransactionParams`
+
+Parameters to customize the hook behavior. Either `safeTxHash` or `ethereumTxHash` must be provided.
+
+```typescript
+import { UseTransactionParams } from '@safe-global/safe-react-hooks'
+```
+
+### `safeTxHash` (Optional)
+
+- **Type**: `string`
+
+Hash of the Safe transaction to be fetched.
+
+### `ethereumTxHash` (Optional)
+
+- **Type**: `string`
+
+Hash of the Ethereum transaction to be fetched.
+
+### `config` (Optional)
+
+- **Type**: `SafeConfig`
+
+The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import config from './index.ts'
+
+    const result = getTransaction({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
 ## Returns
 
 `UseTransactionReturnType<Params>`
@@ -57,7 +114,6 @@ The last successfully resolved data for the query.
 If `safeTxHash` is provided, it returns the [`SafeMultisigTransactionResponse`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/types-kit/src/types.ts#L208-L239) type.
 
 If `ethereumTxHash` is provided, it returns the [`UseTransactionReturnTypeWagmi`](https://github.com/safe-global/safe-react-hooks/blob/a0b08e3392e69e2bcf704bc64bae564e989ced8a/src/hooks/useTransaction.ts#L17) type.
-
 
 ### `dataUpdatedAt`
 
@@ -203,75 +259,3 @@ A function to manually refetch the query.
 `error` if the query attempt resulted in an error. The corresponding `error` property has the error received from the attempted fetch.
 
 `success` if the query has received a response with no errors and is ready to display its data. The corresponding `data` property on the query is the data received from the successful fetch or if the query's `enabled` property is set to `false` and has not been fetched yet `data` is the first `initialData` supplied to the query on initialization.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Parameters
-
-`UseTransactionParams`
-
-Parameters to customize the hook behavior. Either `safeTxHash` or `ethereumTxHash` must be provided.
-
-```typescript
-import { UseTransactionParams } from '@safe-global/safe-react-hooks'
-```
-
-### `safeTxHash` (Optional)
-
-- **Type**: `string`
-
-Hash of the Safe transaction to be fetched.
-
-### `ethereumTxHash` (Optional)
-
-- **Type**: `string`
-
-Hash of the Ethereum transaction to be fetched.
-
-### `config` (Optional)
-
-- **Type**: `SafeConfig`
-
-The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
-
-{/* <!-- vale off --> */}
-
-<Tabs items={['index.tsx', 'config.ts']}>
-  <Tabs.Tab>
-    ```typescript
-    import config from './index.ts'
-
-    const result = getTransaction({
-      config
-    })
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```typescript
-    import { createConfig } from '@safe-global/safe-react-hooks'
-    import { sepolia } from 'viem/chains'
-
-    const config = createConfig({
-      chain: sepolia,
-      provider,
-      signer,
-      safeAddress: '0x...'
-    })
-    ```
-  </Tabs.Tab>
-</Tabs>
-
-{/* <!-- vale on --> */}

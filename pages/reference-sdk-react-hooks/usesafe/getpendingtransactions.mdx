@@ -34,6 +34,51 @@ Returns all the pending transactions associated with the Safe connected to the [
 
 {/* <!-- vale on --> */}
 
+## Parameters
+
+`UsePendingTransactionsParams`
+
+Parameters to customize the hook behavior.
+
+```typescript
+import { UsePendingTransactionsParams } from '@safe-global/safe-react-hooks'
+```
+
+### `config` (Optional)
+
+- **Type**: `SafeConfig`
+
+The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import config from './index.ts'
+
+    const result = getPendingTransactions({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
 ## Returns
 
 `UsePendingTransactionsReturnType`
@@ -195,60 +240,3 @@ A function to manually refetch the query.
 `error` if the query attempt resulted in an error. The corresponding `error` property has the error received from the attempted fetch.
 
 `success` if the query has received a response with no errors and is ready to display its data. The corresponding `data` property on the query is the data received from the successful fetch or if the query's `enabled` property is set to `false` and has not been fetched yet `data` is the first `initialData` supplied to the query on initialization.
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Parameters
-
-`UsePendingTransactionsParams`
-
-Parameters to customize the hook behavior.
-
-```typescript
-import { UsePendingTransactionsParams } from '@safe-global/safe-react-hooks'
-```
-
-### `config` (Optional)
-
-- **Type**: `SafeConfig`
-
-The configuration used instead of the one from the nearest [`SafeProvider`](../safeprovider.mdx).
-
-{/* <!-- vale off --> */}
-
-<Tabs items={['index.tsx', 'config.ts']}>
-  <Tabs.Tab>
-    ```typescript
-    import config from './index.ts'
-
-    const result = getPendingTransactions({
-      config
-    })
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```typescript
-    import { createConfig } from '@safe-global/safe-react-hooks'
-    import { sepolia } from 'viem/chains'
-
-    const config = createConfig({
-      chain: sepolia,
-      provider,
-      signer,
-      safeAddress: '0x...'
-    })
-    ```
-  </Tabs.Tab>
-</Tabs>
-
-{/* <!-- vale on --> */}
