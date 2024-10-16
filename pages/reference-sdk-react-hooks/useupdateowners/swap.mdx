@@ -1,0 +1,97 @@
+import { Tabs } from "nextra/components"
+
+# `swap`
+
+- The react-query [`UseMutationResult`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation).
+- The `mutate` and `mutateAsync` functions have been renamed to `swapOwner` and `swapOwnerAsync` respectively.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['App.tsx', 'main.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useUpdateOwners } from '@safe-global/safe-react-hooks'
+    
+    function App() {
+      const { swap } = useUpdateOwners()
+      const { swapOwner, data, error, isLoading } = swap
+
+      const ownerAddress = '0x...'
+
+      if (isLoading) return <>Loading...</>
+
+      if (error) return <>Error: {error.message}</>
+
+      return (
+        <>
+          <button onClick={() => swapOwner({ ownerAddress })} disabled={isLoading}>
+            Swap Owner
+          </button>
+          {data && JSON.stringify(data, null, 2)}
+        </>
+      )
+    }
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import ReactDOM from 'react-dom/client'
+    import { createConfig, SafeProvider } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+    import App from './App.tsx  '
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+
+    const root = document.getElementById('root')
+    
+    ReactDOM.createRoot(root).render(
+      <SafeProvider config={config}>
+        <App />
+      </SafeProvider>
+    )
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Structure
+
+### `swapOwner`
+
+`UseMutateFunction<SafeClientResult, Error, SwapOwnerVariables, unknown>`
+
+Function for sending a transaction to swap an owner. It's a react-query [`mutate`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation) function.
+
+#### Parameters
+
+- `SwapOwnerVariables`: Variables to swap an owner.
+  - `oldOwnerAddress` (string | [PasskeyArgType](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/protocol-kit/src/types/passkeys.ts#L6-L10)): The old owner's address or passkey.
+  - `newOwnerAddress` (string | [PasskeyArgType](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/protocol-kit/src/types/passkeys.ts#L6-L10)): The new owner's address or passkey.
+
+#### Returns
+
+In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that swapped the owner.
+
+### `swapOwnerAsync`
+
+`UseMutateAsyncFunction<SafeClientResult, Error, SwapOwnerVariables, unknown>`
+
+Asynchronous function for sending a transaction to swap an owner. It's a react-query [`mutateAsync`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation) function.
+
+#### Parameters
+
+- `SwapOwnerVariables`: Variables to swap an owner.
+  - `oldOwnerAddress` (string | [PasskeyArgType](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/protocol-kit/src/types/passkeys.ts#L6-L10)): The old owner's address or passkey.
+  - `newOwnerAddress` (string | [PasskeyArgType](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/protocol-kit/src/types/passkeys.ts#L6-L10)): The new owner's address or passkey.
+
+#### Returns
+
+In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that swapped the owner.

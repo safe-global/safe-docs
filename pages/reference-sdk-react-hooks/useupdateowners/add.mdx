@@ -1,0 +1,97 @@
+import { Tabs } from "nextra/components"
+
+# `add`
+
+- The react-query [`UseMutationResult`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation).
+- The `mutate` and `mutateAsync` functions have been renamed to `addOwner` and `addOwnerAsync` respectively.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['App.tsx', 'main.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useUpdateOwners } from '@safe-global/safe-react-hooks'
+    
+    function App() {
+      const { add } = useUpdateOwners()
+      const { addOwner, data, error, isLoading } = add
+
+      const ownerAddress = '0x...'
+
+      if (isLoading) return <>Loading...</>
+
+      if (error) return <>Error: {error.message}</>
+
+      return (
+        <>
+          <button onClick={() => addOwner({ ownerAddress })} disabled={isLoading}>
+            Add Owner
+          </button>
+          {data && JSON.stringify(data, null, 2)}
+        </>
+      )
+    }
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import ReactDOM from 'react-dom/client'
+    import { createConfig, SafeProvider } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+    import App from './App.tsx  '
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+
+    const root = document.getElementById('root')
+    
+    ReactDOM.createRoot(root).render(
+      <SafeProvider config={config}>
+        <App />
+      </SafeProvider>
+    )
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Structure
+
+### `addOwner`
+
+`UseMutateFunction<SafeClientResult, Error, AddOwnerVariables, unknown>`
+
+Function for sending a transaction to add a new owner. It's a react-query [`mutate`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation) function.
+
+#### Parameters
+
+- `AddOwnerVariables`: Variables to add an owner.
+  - `ownerAddress` (string): The address of the new owner.
+  - `threshold` (number, optional): New threshold value.
+
+#### Returns
+
+In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that added the owner.
+
+### `addOwnerAsync`
+
+`UseMutateAsyncFunction<SafeClientResult, Error, AddOwnerVariables, unknown>`
+
+Asynchronous function for sending a transaction to add a new owner. It's a react-query [`mutateAsync`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation) function.
+
+#### Parameters
+
+- `AddOwnerVariables`: Variables to add an owner.
+  - `ownerAddress` (string): The address of the new owner.
+  - `threshold` (number, optional): New threshold value.
+
+#### Returns
+
+In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that added the owner.

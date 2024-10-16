@@ -1,10 +1,8 @@
-import { Tabs } from "nextra/components";
+import { Tabs } from "nextra/components"
 
 # `useUpdateOwners`
 
-`(params?: UseUpdateOwnersParams): UseUpdateOwnersReturnType`
-
-This is the hook to manage the owners of the Safe account. It provides methods to add a new owner, remove an existing one, and to swap an existing owner in favor of a new one.
+Updates the owners of the Safe connected to the [`SafeProvider`](./safeprovider.mdx).
 
 ## Usage
 
@@ -18,40 +16,7 @@ This is the hook to manage the owners of the Safe account. It provides methods t
     function App() {
       const { add, remove, swap } = useUpdateOwners()
 
-      const handleAddOwner = () => {
-        add.addOwner({ ownerAddress: '0x...' })
-      }
-
-      const handleRemoveOwner = () => {
-        remove.removeOwner({ ownerAddress: '0x...' })
-      }
-
-      const handleSwapOwner = () => {
-        swap.swapOwner({
-          oldOwnerAddress: '0x...',
-          newOwnerAddress: '0x...'
-        })
-      }
-
-      const isError = add.isError || remove.isError || swap.isError;
-      const error = add.error || remove.error || swap.error;
-      const data = add.data || remove.data || swap.data;
-
-      return (
-        <div>
-          <button onClick={handleAddOwner} disabled={add.isLoading}>
-            Add Owner
-          </button>
-          <button onClick={handleRemoveOwner} disabled={remove.isLoading}>
-            Remove Owner
-          </button>
-          <button onClick={handleSwapOwner} disabled={swap.isLoading}>
-            Swap Owner
-          </button>
-          {isError && <p>Error: {error.message}</p>}
-          {data && <p>Update Owner Transaction sent: {JSON.stringify(data)}</p>}
-        </div>
-      )
+      // ...
     }
     ```
   </Tabs.Tab>
@@ -84,121 +49,66 @@ This is the hook to manage the owners of the Safe account. It provides methods t
 
 ## Parameters
 
-- `params` (UseUpdateOwnersParams, optional): Parameters to customize the hook behavior. It contains:
-  - `config` (SafeConfigWithSigner, optional): The [`SafeConfigWithSigner`](./safeconfig.mdx#safeconfigwithsigner) is used instead of the one provided by the nearest `SafeProvider` in the component tree.
+`UseUpdateOwnersParams`
+
+Parameters to customize the hook behavior.
+
+```typescript
+import { UseUpdateOwnersParams } from '@safe-global/safe-react-hooks'
+```
+
+### `config` (Optional)
+
+- **Type**: `SafeConfigWithSigner`
+
+The configuration used instead of the one from the nearest [`SafeProvider`](./safeprovider.mdx).
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['index.tsx', 'config.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import config from './index.ts'
+
+    const result = useUpdateOwners({
+      config
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import { createConfig } from '@safe-global/safe-react-hooks'
+    import { sepolia } from 'viem/chains'
+
+    const config = createConfig({
+      chain: sepolia,
+      provider,
+      signer,
+      safeOptions: {
+        owners: ['0x...', '0x...', '0x...'],
+        threshold: 2
+      }
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
 
 ## Returns
 
-### `add`
+`UseUpdateOwnersReturnType`
 
-- The react-query [`UseMutationResult`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation).
-- The `mutate` and `mutateAsync` functions have been renamed to `addOwner` and `addOwnerAsync` respectively. The other properties in the return type remain unchanged, and the behavior is still the same as described in the docs.
+```typescript
+import { UseUpdateOwnersReturnType } from '@safe-global/safe-react-hooks'
+```
 
-#### `addOwner`
+### [`add`](./useupdateowners/add.mdx)
+### [`remove`](./useupdateowners/remove.mdx)
+### [`swap`](./useupdateowners/swap.mdx)
 
-`UseMutateFunction<SafeClientResult, Error, AddOwnerVariables, unknown>`
 
-Function for sending a transaction to add a new owner. It's a react-query [`mutate`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation) function.
 
-##### Parameters
-
-- `AddOwnerVariables`: Variables to add an owner.
-  - `ownerAddress` (string): The address of the new owner.
-  - `threshold` (number, optional): New threshold value.
-
-##### Returns
-
-In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that added the owner.
-
-#### `addOwnerAsync`
-
-`UseMutateAsyncFunction<SafeClientResult, Error, AddOwnerVariables, unknown>`
-
-Asynchronous function for sending a transaction to add a new owner. It's a react-query [`mutateAsync`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation) function.
-
-##### Parameters
-
-- `AddOwnerVariables`: Variables to add an owner.
-  - `ownerAddress` (string): The address of the new owner.
-  - `threshold` (number, optional): New threshold value.
-
-##### Returns
-
-In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that added the owner.
-
-### `remove`
-
-- The react-query [`UseMutationResult`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation).
-- The `mutate` and `mutateAsync` functions have been renamed to `removeOwner` and `removeOwnerAsync` respectively. The other properties in the return type remain unchanged, and the behavior is still the same as described in the docs.
-
-#### `removeOwner`
-
-`UseMutateFunction<SafeClientResult, Error, RemoveOwnerVariables, unknown>`
-
-Function for sending a transaction to remove an existing owner. It's a react-query [`mutate`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation) function.
-
-##### Parameters
-
-- `RemoveOwnerVariables`: Variables to remove an owner.
-  - `ownerAddress` (string): The address of the owner that will be removed.
-  - `threshold` (number, optional): New threshold value.
-
-##### Returns
-
-In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that removed the owner.
-
-#### `removeOwnerAsync`
-
-`UseMutateAsyncFunction<SafeClientResult, Error, RemoveOwnerVariables, unknown>`
-
-Asynchronous function for sending a transaction to remove an existing owner. It's a react-query [`mutateAsync`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation) function.
-
-##### Parameters
-
-- `RemoveOwnerVariables`: Variables to remove an owner.
-  - `ownerAddress` (string): The address of the owner that will be removed.
-  - `threshold` (number, optional): New threshold value.
-
-##### Returns
-
-In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that removed the owner.
-
-### `swap`
-
-- The react-query [`UseMutationResult`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation).
-- The `mutate` and `mutateAsync` functions have been renamed to `swapOwner` and `swapOwnerAsync` respectively. The other properties in the return type remain unchanged, and the behavior is still the same as described in the docs.
-
-#### `swapOwner`
-
-`UseMutateFunction<SafeClientResult, Error, SwapOwnerVariables, unknown>`
-
-Function for sending a transaction to swap an owner. It's a react-query [`mutate`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation) function.
-
-##### Parameters
-
-- `SwapOwnerVariables`: Variables to swap an owner.
-  - `oldOwnerAddress` (string | [PasskeyArgType](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/protocol-kit/src/types/passkeys.ts#L6-L10)): The old owner's address or passkey.
-  - `newOwnerAddress` (string | [PasskeyArgType](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/protocol-kit/src/types/passkeys.ts#L6-L10)): The new owner's address or passkey.
-
-##### Returns
-
-In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that swapped the owner.
-
-#### `swapOwnerAsync`
-
-`UseMutateAsyncFunction<SafeClientResult, Error, SwapOwnerVariables, unknown>`
-
-Asynchronous function for sending a transaction to swap an owner. It's a react-query [`mutateAsync`](https://tanstack.com/query/v4/docs/framework/react/reference/useMutation) function.
-
-##### Parameters
-
-- `SwapOwnerVariables`: Variables to swap an owner.
-  - `oldOwnerAddress` (string | [PasskeyArgType](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/protocol-kit/src/types/passkeys.ts#L6-L10)): The old owner's address or passkey.
-  - `newOwnerAddress` (string | [PasskeyArgType](https://github.com/safe-global/safe-core-sdk/blob/dc602ed126cc210048b278b2372c0979ee4be62b/packages/protocol-kit/src/types/passkeys.ts#L6-L10)): The new owner's address or passkey.
-
-##### Returns
-
-In the `data` property of the react-query mutation result, we will have a [`SafeClientResult`](https://github.com/safe-global/safe-core-sdk/blob/9fca59736c418dc6253404b4a7784e2245d83312/packages/sdk-starter-kit/src/types.ts#L67-L85) object containing the result of the transaction that swapped the owner.
 
 ## Caveats
 
