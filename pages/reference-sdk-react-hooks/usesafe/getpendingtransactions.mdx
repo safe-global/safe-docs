@@ -20,7 +20,11 @@ Returns all the pending transactions associated with the Safe connected to the [
         // ...
       } = getPendingTransactions()
 
-      return JSON.stringify(data, null, 2)
+      return (
+        <>
+          {data && JSON.stringify(data)}
+        </>
+      )
     }
 
     export default PendingTransactions

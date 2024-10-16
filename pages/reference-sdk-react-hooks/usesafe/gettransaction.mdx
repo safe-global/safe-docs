@@ -15,18 +15,17 @@ Returns a transaction by its Safe transaction hash or Ethereum transaction hash.
 
     function TransactionStatus({ safeTxHash, ethereumTxHash }) {
       const { getTransaction } = useSafe()
-      const { data, error, isLoading } = getTransaction({
+      const {
+        data,
+        // ...
+      } = getTransaction({
         safeTxHash // Optional
         // ethereumTxHash // Optional
       })
 
-      if (isLoading) return <>Loading...</>
-
-      if (error) return <>Error: {error.message}</>
-
       return (
         <>
-          {JSON.stringify(data, null, 2)}
+          {data && JSON.stringify(data)}
         </>
       )
     }

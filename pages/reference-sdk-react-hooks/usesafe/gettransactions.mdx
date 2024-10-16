@@ -15,15 +15,14 @@ Returns all the transactions associated with the Safe connected to the [`SafePro
 
     function Transactions() {
       const { getTransactions } = useSafe()
-      const { data, error, isLoading } = getTransactions()
-
-      if (isLoading) return <>Loading...</>
-      
-      if (error) return <>Error: {error.message}</>
+      const {
+        data,
+        // ...
+      } = getTransactions()
 
       return (
         <>
-          {JSON.stringify(data, null, 2)}
+          {data && JSON.stringify(data)}
         </>
       )
     }

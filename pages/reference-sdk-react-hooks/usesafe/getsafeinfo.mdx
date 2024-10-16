@@ -15,13 +15,16 @@ Returns the information associated with the Safe connected to the [`SafeProvider
 
     function SafeInfo() {
       const { getSafeInfo } = useSafe()
-      const { data, error, isLoading } = getSafeInfo()
+      const {
+        data,
+        // ...
+      } = getSafeInfo()
 
-      if (isLoading) return <p>Loading...</p>
-      
-      if (error) return <p>Error: {error.message}</p>
-
-      return JSON.stringify(data, null, 2)
+      return (
+        <>
+          {data && JSON.stringify(data)}
+        </>
+      )
     }
 
     export default SafeInfo
