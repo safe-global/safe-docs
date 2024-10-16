@@ -330,7 +330,7 @@ const SupportedNetworks: React.FC = () => {
 
   useEffect(() => {
     if (
-      scrollPosition > page * (isSmOrHigher ? 2000 : 3000) &&
+      scrollPosition > page * (isSmOrHigher ? 1800 : 3000) &&
       visibleResults.length < searchResults.length
     ) {
       void push({ query: { ...query, page: page + 1 } }, undefined, {
