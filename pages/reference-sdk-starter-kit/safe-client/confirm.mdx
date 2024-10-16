@@ -2,9 +2,10 @@ import { Tabs } from 'nextra/components'
 
 # `confirm`
 
-If the number of signatures collected in the Safe Transaction Service for a given Safe transaction hash hasn't met the `threshold`, it will add the signature from the connected signer.
+Confirms a pending multi-signature transaction shared via the Safe Transaction Service.
 
-If the number of collected signatures reaches the `threshold`, the Safe transaction will be submitted instantly.
+- If the number of signatures collected in the Safe Transaction Service for a given Safe transaction hash hasn't met the `threshold`, it adds the signature from the connected signer.
+- If the number of collected signatures reaches the `threshold`, it executes the Safe transaction.
 
 ## Usage
 
