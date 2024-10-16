@@ -1,14 +1,14 @@
 {
-  "isinitialized": "isInitialized",
   "connect": "connect",
   "disconnect": "disconnect",
-  "issignerconnected": "isSignerConnected",
-  "isownerconnected": "isOwnerConnected",
   "getbalance": "getBalance",
   "getchain": "getChain",
-  "gettransaction": "getTransaction",
-  "gettransactions": "getTransactions",
   "getpendingtransactions": "getPendingTransactions",
   "getsafeinfo": "getSafeInfo",
-  "getsigneraddress": "getSignerAddress"
+  "gettransaction": "getTransaction",
+  "gettransactions": "getTransactions",
+  "getsigneraddress": "getSignerAddress",
+  "isinitialized": "isInitialized",
+  "isownerconnected": "isOwnerConnected",
+  "issignerconnected": "isSignerConnected"
 }
