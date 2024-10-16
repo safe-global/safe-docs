@@ -236,19 +236,12 @@ const NetworkModal: React.FC<{
   )
 }
 
-function splitAddress(address: string, charDisplayed: number = 8): string {
-  const firstPart = address.slice(0, charDisplayed)
-  const lastPart = address.slice(address.length - charDisplayed)
-
-  return `${firstPart}...${lastPart}`
-}
-
 export const SplitAddress: React.FC<{ address: string }> = ({ address }) => {
   return (
-    <>
-      {splitAddress(address)}
+    <span style={{ marginLeft: '4px' }}>
+      {address}
       <CopyToClipboard getValue={() => address} style={{ marginLeft: '8px' }} />
-    </>
+    </span>
   )
 }
 
@@ -256,53 +249,53 @@ const ContractAddress: React.FC<{
   contract: Contract
   hasBlockExplorer: boolean
   network: Network
-}> = ({ contract, network, hasBlockExplorer }) => {
-  return (
-    <li style={{ marginLeft: '12px' }} key={contract.name}>
-      <code>{contract.name}.sol</code>:{' '}
-      <Typography variant='caption' ml={0.5} mb={0.5}>
-        {(contract.address?.length ?? 0) > 0 ? (
+}> = ({ contract, network, hasBlockExplorer }) => (
+  <li style={{ marginLeft: '12px', marginBottom: '8px' }} key={contract.name}>
+    <code>{contract.name}.sol</code>:{' '}
+    <Typography variant='caption'>
+      {(contract.address?.length ?? 0) > 0 ? (
+        hasBlockExplorer ? (
+          <>
+            <Link
+              target='_blank'
+              rel='noreferrer noopener'
+              href={network?.explorers[0].url + '/address/' + contract.address}
+              style={{
+                marginRight: '8px',
+                marginLeft: '4px',
+                marginBottom: '4px'
+              }}
+            >
+              {contract.address ?? ''}
+            </Link>
+            <CopyToClipboard getValue={() => contract.address ?? ''} />
+          </>
+        ) : (
+          <SplitAddress address={contract.address ?? ''} />
+        )
+      ) : (
+        contract.addresses?.map((a: [string, string]) =>
           hasBlockExplorer ? (
-            <>
+            <li key={a[1]} style={{ marginLeft: '12px' }}>
+              {a[0].slice(0, -1)}:{' '}
               <Link
                 target='_blank'
                 rel='noreferrer noopener'
-                href={
-                  network?.explorers[0].url + '/address/' + contract.address
-                }
-                style={{ marginRight: '8px' }}
+                href={network?.explorers[0].url + '/address/' + a[1]}
               >
-                {splitAddress(contract.address ?? '')}
+                {a[1]}
               </Link>
-              <CopyToClipboard getValue={() => contract.address ?? ''} />
-            </>
+              <CopyToClipboard getValue={() => a[1]} />
+            </li>
           ) : (
-            <SplitAddress address={contract.address ?? ''} />
+            <li key={a[1]} style={{ marginLeft: '12px' }}>
+              {a[0].slice(0, -1)}: {<SplitAddress address={a[1]} />}
+            </li>
           )
-        ) : (
-          contract.addresses?.map((a: [string, string]) =>
-            hasBlockExplorer ? (
-              <li key={a[1]} style={{ marginLeft: '12px' }}>
-                {a[0].slice(0, -1)}:{' '}
-                <Link
-                  target='_blank'
-                  rel='noreferrer noopener'
-                  href={network?.explorers[0].url + '/address/' + a[1]}
-                >
-                  {a[1]}
-                </Link>
-                <CopyToClipboard getValue={() => a[1]} />
-              </li>
-            ) : (
-              <li key={a[1]} style={{ marginLeft: '12px' }}>
-                {a[0].slice(0, -1)}: {<SplitAddress address={a[1]} />}
-              </li>
-            )
-          )
-        )}
-      </Typography>
-    </li>
-  )
-}
+        )
+      )}
+    </Typography>
+  </li>
+)
 
 export default NetworkModal
