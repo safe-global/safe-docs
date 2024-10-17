@@ -48,12 +48,16 @@ const NetworkCard = (network: Network): JSX.Element => {
         }}
         className={css.card}
         onClick={() => {
-          void push({
-            query: {
-              ...query,
-              expand: network.chainId
-            }
-          })
+          void push(
+            {
+              query: {
+                ...query,
+                expand: network.chainId
+              }
+            },
+            undefined,
+            { scroll: false }
+          )
           // sendGAEvent('event', 'supported_networks_link', {
           //   network_chainId: network.chainId,
           //   network_name: network.name
@@ -104,7 +108,7 @@ const NetworkCard = (network: Network): JSX.Element => {
                   height: '23px',
                   fontSize: '14px',
                   cursor: 'pointer',
-                  ml: 1
+                  mr: 1
                 }}
                 className={css.chip}
                 label={version}
@@ -131,7 +135,7 @@ const NetworkCard = (network: Network): JSX.Element => {
                   height: '23px',
                   fontSize: '14px',
                   cursor: 'pointer',
-                  ml: 1
+                  mr: 1
                 }}
                 className={css.chip}
                 label={feature}

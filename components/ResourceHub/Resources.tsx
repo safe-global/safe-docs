@@ -334,7 +334,7 @@ export const Resources: React.FC = () => {
           alignItems='center'
           justifyContent='center'
         >
-          <Typography textAlign='center' variant='h1' mb={[2, 0]}>
+          <Typography textAlign='center' variant='h1' fontSize='42px' mb={4}>
             Resource Hub
           </Typography>
           <TextField
@@ -342,6 +342,12 @@ export const Resources: React.FC = () => {
             variant='outlined'
             placeholder='Search by name, description, or tag'
             InputProps={{
+              style: {
+                color: 'white',
+                backgroundColor: 'rgba(28, 28, 28, 1)',
+                borderRadius: '8px',
+                border: 'none'
+              },
               startAdornment: (
                 <InputAdornment position='start'>
                   <SearchIcon />
@@ -357,7 +363,7 @@ export const Resources: React.FC = () => {
                 ) : undefined
             }}
             value={searchQuery}
-            sx={{ border: 'none', width: '80%', mt: [2, 0] }}
+            sx={{ border: 'none', width: ['80%', '500px'], mt: [2, 0] }}
             onChange={e => {
               if (e.target.value.length === 0) onResetSearch()
               else setSelectedFilter([e.target.value], 'search')
