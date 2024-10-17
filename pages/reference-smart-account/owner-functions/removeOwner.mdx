@@ -1,0 +1,32 @@
+# `removeOwner`
+Defined in [OwnerManager.sol](https://github.com/safe-global/safe-smart-account/blob/main/contracts/base/OwnerManager.sol)
+
+## Overview
+
+```solidity
+function removeOwner(address prevOwner, address owner, uint256 _threshold) external
+
+```
+
+Removes the owner `owner` from the Safe and updates the threshold to `_threshold`.
+
+*This can only be done via a Safe transaction.*
+
+This function emits the [`RemovedOwner`](../owner-events/removedOwner.md) and [`ChangedThreshold`](../owner-events/changedThreshold.md) events.
+
+## Parameters
+### `prevOwner`
+- **Type:** `address`
+
+Owner that pointed to the owner to be removed in the linked list
+
+### `owner`
+- **Type:** `address`
+
+Owner address to be removed.
+
+### `_threshold`
+- **Type:** `uint256`
+
+New threshold.
+
