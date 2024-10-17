@@ -1,0 +1,208 @@
+import { Steps, Tabs } from 'nextra/components'
+
+# Send Transactions
+
+This guide will teach you how to deploy new Safe accounts and create, sign, and execute Safe transactions using the Safe React Hooks.
+
+For more detailed information, see the [Safe React Hooks Reference](../../../reference-sdk-react-hooks/overview.mdx).
+
+## Prerequisites
+
+- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+
+## Install dependencies
+
+First, you need to install some dependencies.
+
+```bash
+pnpm add @safe-global/safe-react-hooks
+```
+
+## Steps
+
+<Steps>
+
+  ### Imports
+
+  Here are all the necessary imports for this guide.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  import {
+    SafeProvider,
+    createConfig,
+    useSafe,
+    useSendTransaction,
+    SendTransactionVariables,
+    useConfirmTransaction,
+    ConfirmTransactionVariables
+  } from '@safe-global/safe-react-hooks'
+  import { sepolia } from 'viem/chains'
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Create a signer and provider
+
+  Firstly, you need to get a signer, which will be the owner of a Safe account after it's deployed.
+
+  This example uses a private key, but any way to get an EIP-1193 compatible signer can be used.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const SIGNER_ADDRESS = // ...
+  const SIGNER_PRIVATE_KEY = // ...
+
+  const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Initialize the Safe React Hooks
+
+  You need to wrap your app with the [`SafeProvider`](../../../reference-sdk-react-hooks/safeprovider.mdx) to have access to the different Safe React Hooks like `useSendTransaction()`, `useConfirmTransaction()`, and `usePendingTransactions()` that will provide the functionality you need in this guide.
+
+  `SafeProvider` receives a `config` object with different properties to create the global configuration that you can get from the [`createConfig`](../../../reference-sdk-react-hooks/createconfig.mdx) function. 
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['New Safe account', 'Existing Safe account']}>
+    <Tabs.Tab>
+      When deploying a new Safe account for the connected signer, you need to pass the configuration of the Safe in the `safeOptions` property. In this case, the Safe account is configured with your signer as the only owner.
+
+      ```typescript
+      const config = createConfig({
+        chain: sepolia,
+        provider: RPC_URL,
+        signer: SIGNER_PRIVATE_KEY,
+        safeOptions: {
+          owners: [SIGNER_ADDRESS],
+          threshold: 1
+        }
+      })
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      When connecting an existing Safe account, you need to pass the `safeAddress` property.
+
+      ```typescript
+      const config = createConfig({
+        chain: sepolia,
+        provider: RPC_URL,
+        signer: SIGNER_PRIVATE_KEY,
+        safeAddress: '0x...'
+      })
+      ```
+    </Tabs.Tab>
+  </Tabs>
+  
+  {/* <!-- vale on --> */}
+
+  To apply the global configuration to your app, pass the created `config` to the `SafeProvider`.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  <SafeProvider config={config}>
+    <App />
+  </SafeProvider>
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Create a Safe transaction
+
+  Create an array of Safe transactions to execute.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const transactions = [{
+    to: '0x...',
+    data: '0x',
+    value: '0'
+  }]
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Send the Safe transaction
+
+  Create a `SendTransaction` component in your application to create and send a transaction.
+
+  If you configured your Safe with `threshold` equal to `1`, calling the `sendTransaction` function from the [`useSendTransaction`](../../../reference-sdk-react-hooks/usesendtransaction.mdx) hook will execute the Safe transaction. However, if the `threshold` is greater than `1` the other owners of the Safe will need to confirm the transaction until the required number of signatures are collected.
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['SendTransaction.tsx']}>
+    <Tabs.Tab>
+      ```typescript
+      function SendTransaction() {
+        const { sendTransaction } = useSendTransaction()
+
+        const sendTransactionParams: SendTransactionVariables = {
+          transactions
+        }
+
+        return (
+          <button onClick={() => sendTransaction(sendTransactionParams)}>
+            Send Transaction
+          </button>
+        )
+      }
+
+      export default SendTransaction
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  ### Confirm the Safe transaction
+
+  Create a `ConfirmPendingTransactions` component in your application to check the transactions pending for confirmation in case the Safe transaction needs to be confirmed by other Safe owners.
+  
+  Retrieve all the pending Safe transactions from the Safe Transaction Service by calling the [`getPendingTransaction`](../../../reference-sdk-react-hooks/usesafe/getpendingtransactions.mdx) function from the [`useSafe`](../../../reference-sdk-react-hooks/usesafe.mdx) hook, and call the `confirmTransaction` function from the [`useConfirmTransaction`](../../../reference-sdk-react-hooks/useconfirmtransaction.mdx) hook to confirm them.
+
+  Notice that the `SafeProvider` configuration needs to be initialized with a different Safe owner as the `signer` when confirming a transaction.
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['ConfirmPendingTransactions.tsx']}>
+    <Tabs.Tab>
+      ```typescript
+      function ConfirmPendingTransactions() {
+        const { getPendingTransactions } = useSafe()
+        const { data = [] } = getPendingTransactions()
+        const { confirmTransaction } = useConfirmTransaction()
+  
+        return (
+          <>
+            {data.length > 0 && data.map(tx => (
+              <>
+                {tx.safeTxHash}
+                <button onClick={() => confirmTransaction({
+                  safeTxHash: tx.safeTxHash
+                })} />
+              </>
+            ))}
+          </>
+        )
+      }
+
+      export default ConfirmPendingTransactions
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  Once the total number of confirmations reaches the `threshold` of the Safe, the `confirmTransaction` will automatically execute the transaction. 
+
+</Steps>
+
+## Recap and further reading
+
+After following this guide, you are able to deploy new Safe accounts and create, sign, and execute Safe transactions using the Safe React Hooks.
