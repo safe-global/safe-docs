@@ -3,10 +3,11 @@ const { capitalize } = require('lodash')
 
 const jsonFile = require('../../components/ApiReference/mainnet-swagger.json')
 const pathsMetadata = require('../../components/ApiReference/paths-metadata.json')
+const txServiceNetworks = require('../../components/ApiReference/tx-service-networks.json')
 
 const baseUrl = 'https://safe-transaction-sepolia.safe.global'
 
-const curlify = req =>
+const curlify = (req: any) =>
   `curl -X ${req.method} https://safe-transaction-sepolia.safe.global/api${
     req.url
   } \\
@@ -62,7 +63,7 @@ const validAfter = '2024-02-23T04:40:36.000Z'
 const validUntil = '2024-07-11T02:00:36.000Z'
 const moduleAddress = '0xa581c4A4DB7175302464fF3C06380BC3270b4037'
 
-const getSampleValue = param => {
+const getSampleValue = (param: string) => {
   switch (param) {
     case 'nonce':
       return 10
@@ -142,14 +143,14 @@ const getSampleValue = param => {
 }
 
 const generateSampleApiResponse = async (
-  path,
-  pathWithParams,
-  method,
-  requestBody
+  path: string,
+  pathWithParams: string,
+  method: string,
+  requestBody: string
 ) => {
   const fetch = await import('node-fetch')
 
-  let response
+  let response: any
   const url = baseUrl + pathWithParams
   if (method === 'get') {
     response = await fetch.default(url).then(async res => {
@@ -197,13 +198,13 @@ const generateSampleApiResponse = async (
   }
 }
 
-const slugify = text => text?.replace?.(/ /g, '-').replace(/\//g, '-')
-const resolveRef = ref => {
+const slugify = (text: string) => text?.replace?.(/ /g, '-').replace(/\//g, '-')
+const resolveRef = (ref: string) => {
   const refName = ref.split('/').pop()
-  return { refName, ...jsonFile.definitions[refName] }
+  return { refName, ...jsonFile.definitions[refName as string] }
 }
 
-const resolveRefs = obj => {
+const resolveRefs = (obj: any) => {
   if (typeof obj === 'object') {
     for (const key in obj) {
       if (key === '$ref') {
@@ -218,11 +219,11 @@ const resolveRefs = obj => {
 
 const mainnetApiJson = resolveRefs(jsonFile)
 
-const addMethodContext = json => ({
+const addMethodContext = (json: any) => ({
   ...json,
   paths: Object.entries(json.paths).reduce((acc, [path, methods]) => {
-    const newMethods = Object.entries(methods).reduce(
-      (acc, [method, data]) => ({
+    const newMethods = Object.entries(methods as any).reduce(
+      (acc, [method, data]: [any, any]) => ({
         ...acc,
         [method]: {
           ...data,
@@ -241,7 +242,7 @@ const addMethodContext = json => ({
   }, {})
 })
 
-const getApiJson = async url => {
+const getApiJson = async (url: string) => {
   const response = await fetch(url + '/?format=openapi')
   const json = await response.json()
   const withContext = addMethodContext(json)
@@ -252,10 +253,10 @@ const getApiJson = async url => {
   return withContext
 }
 
-const generateMethodContent = (path, method) => {
+const generateMethodContent = (path: string, method: string) => {
   const _method = mainnetApiJson.paths[path][method]
   const responses = Object.entries(_method.responses).map(
-    ([code, { schema, ...data }]) => ({
+    ([code, { schema, ...data }]: [any, any]) => ({
       code,
       schema:
         schema?.['$ref'] !== undefined
@@ -274,7 +275,7 @@ const generateMethodContent = (path, method) => {
   const pathWithParams =
     pathParams?.reduce(
       (acc, param) =>
-        acc.replace(param, getSampleValue(param.replace(/{|}/g, ''))),
+        acc.replace(param, getSampleValue(param.replace(/{|}/g, '')) as string),
       path
     ) ?? path
 
@@ -297,20 +298,20 @@ const generateMethodContent = (path, method) => {
     method === 'get'
       ? undefined
       : _method.parameters
-          .filter(p => p.in === 'body')
-          .map(p => p.schema?.properties)
-          .reduce((acc, obj) => {
+          .filter((p: any) => p.in === 'body')
+          .map((p: any) => p.schema?.properties)
+          .reduce((acc: any, obj: any) => {
             for (const key in obj) {
               acc[key] = getSampleValue(key)
             }
             return acc
           }, {})
 
-  const query =
-    '?limit=2' +
-    (_method.parameters.map(p => p.name).includes('safe')
-      ? `&safe=${sampleSafe}`
-      : '')
+  // const query =
+  //   '?limit=2' +
+  //   (_method.parameters.map(p => p.name).includes('safe')
+  //     ? `&safe=${sampleSafe}`
+  //     : '')
 
   // This is commented out, as we omit response generation for now.
   // It is planned to move this into a separate script.
@@ -389,13 +390,16 @@ ${sampleResponse}
 `
 }
 
-const generatePathContent = path =>
+const generatePathContent = (path: string) =>
   `${Object.keys(mainnetApiJson.paths[path])
     .filter(method => method !== 'parameters')
     .map(method => generateMethodContent(path, method))
     .join('\n')}`
 
-const generateCategoryContent = category => `<Grid my={8} />
+const generateCategoryContent = (category: {
+  title: string
+  paths: string[]
+}) => `<Grid my={8} />
 
 ## ${capitalize(category.title)}
 
@@ -404,23 +408,26 @@ const generateCategoryContent = category => `<Grid my={8} />
 ${category.paths.map(path => generatePathContent(path)).join('\n')}`
 
 const getCategories = () => {
-  const allMethods = Object.entries(mainnetApiJson.paths)
-    .map(([k, v]) => Object.values(v))
+  const allMethods: any = Object.entries(mainnetApiJson.paths)
+    .map(([k, v]: [any, any]) => Object.values(v))
     .flat()
   const allCategories = Array.from(
     new Set(
       allMethods
-        .map(method => method.tags)
+        .map((method: { tags: string[] }) => method.tags)
         .flat()
         .filter(Boolean)
     )
-  )
-  return allCategories.map(title => ({
+  ) as string[]
+  return allCategories.map((title: string) => ({
     title,
     paths: allMethods
-      .filter(method => method.tags?.includes(title) && !method.deprecated)
-      .map(m => m.path)
-      .filter((path, i, arr) => arr.indexOf(path) === i)
+      .filter(
+        (method: { tags: string[]; deprecated: boolean }) =>
+          method.tags?.includes(title) && !method.deprecated
+      )
+      .map((m: { path: string }) => m.path)
+      .filter((path: string, i: number, arr: any[]) => arr.indexOf(path) === i)
   }))
 }
 
@@ -455,6 +462,36 @@ ${categories.map(category => generateCategoryContent(category)).join('\n')}
 
 const main = async () => {
   await getApiJson('https://safe-transaction-mainnet.safe.global')
+  txServiceNetworks.forEach(
+    async (network: { chainId: string; txServiceUrl: string }) => {
+      const networkName = network.txServiceUrl.split('-')[2].split('.')[0]
+      fs.writeFileSync(
+        `./pages/core-api/transaction-service-reference/${networkName}.mdx`,
+        `
+{/* <!-- vale off --> */}
+import ApiReference from '../../../components/ApiReference'
+import { renderToString } from 'react-dom/server'
+import { MDXComponents, getHeadingsFromHtml } from '../../../lib/mdx'
+import Mdx from '../../../components/ApiReference/generated-reference.mdx'
+
+export const getStaticProps = async () => {
+  const renderedMdx = <Mdx components={MDXComponents} />
+  const contentString = renderToString(renderedMdx)
+  const headings = getHeadingsFromHtml(contentString)
+
+  return {
+    props: {
+      ssg: { headings }
+    }
+  }
+}
+
+<ApiReference networkName="${networkName}"/>
+{/* <!-- vale on --> */}
+`
+      )
+    }
+  )
   const mdxContent = generateMainContent()
   fs.writeFileSync(
     `./components/ApiReference/generated-reference.mdx`,

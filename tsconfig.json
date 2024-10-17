@@ -8,8 +8,8 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -19,7 +19,7 @@
     "incremental": true,
     "sourceMap": true,
     "outDir": "dist",
-    "types": ["cypress"]
+    "types": ["cypress", "node"]
   },
   "include": [
     "next-env.d.ts",

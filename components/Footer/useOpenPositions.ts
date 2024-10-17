@@ -14,9 +14,9 @@ interface SecondaryLocation {
 }
 
 export type OpenPositionsResponse = SWRResponse<
-Position[],
-unknown,
-SWRConfiguration<Position[], unknown, BareFetcher<Position[]>> | undefined
+  Position[],
+  unknown,
+  SWRConfiguration<Position[], unknown, BareFetcher<Position[]>> | undefined
 >
 
 const enum EmploymentType {
