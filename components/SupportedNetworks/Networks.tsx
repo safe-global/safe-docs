@@ -382,7 +382,6 @@ const SupportedNetworks: React.FC = () => {
               variant='outlined'
               placeholder='Search by network name or chain ID'
               InputProps={{
-                // dark style:
                 style: {
                   color: 'white',
                   backgroundColor: 'rgba(28, 28, 28, 1)',
