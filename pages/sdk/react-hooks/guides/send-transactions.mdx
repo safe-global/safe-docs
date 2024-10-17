@@ -2,7 +2,7 @@ import { Steps, Tabs } from 'nextra/components'
 
 # Send Transactions
 
-In this guide, you will learn how to deploy new Safe accounts and create, sign, and execute Safe transactions using the Safe React Hooks.
+This guide will teach you how to deploy new Safe accounts and create, sign, and execute Safe transactions using the Safe React Hooks.
 
 For more detailed information, see the [Safe React Hooks Reference](../../../reference-sdk-react-hooks/overview.mdx).
 
@@ -70,7 +70,7 @@ pnpm add @safe-global/starter-kit
 
   <Tabs items={['New Safe account', 'Existing Safe account']}>
     <Tabs.Tab>
-      When deploying a new Safe account for the connected signer, you need to pass the configuration of the Safe in the `safeOptions` property. The Safe account is configured with your signer as the only owner in this case.
+      When deploying a new Safe account for the connected signer, you need to pass the configuration of the Safe in the `safeOptions` property. In this case, the Safe account is configured with your signer as the only owner.
 
       ```typescript
       const config = createConfig({
@@ -199,7 +199,7 @@ pnpm add @safe-global/starter-kit
 
   {/* <!-- vale on --> */}
 
-  Once the total number of confirmations reach the `threshold` of the Safe, the `confirmTransaction` will automatically execute the transaction. 
+  Once the total number of confirmations reaches the `threshold` of the Safe, the `confirmTransaction` will automatically execute the transaction. 
 
 </Steps>
 
