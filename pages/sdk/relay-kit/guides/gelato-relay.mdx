@@ -102,7 +102,7 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
   ### Prepare the transaction
 
   ```typescript
-  const safeTransaction = await relayKit.createRelayedTransaction({
+  const safeTransaction = await relayKit.createTransaction({
     transactions,
     options
   })
@@ -113,10 +113,10 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
   ### Send the transaction to the relay
 
   ```typescript
-  const response = await relayKit.executeRelayTransaction(
-    signedSafeTransaction,
+  const response = await relayKit.executeTransaction({
+    executable: signedSafeTransaction,
     options
-  )
+  })
 
   console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`)
   ```
@@ -181,7 +181,7 @@ For the SyncFee quickstart tutorial, you will use the Gelato relayer to pay for 
   ### Prepare the transaction
 
   ```typescript
-  const safeTransaction = await relayKit.createRelayedTransaction({ transactions })
+  const safeTransaction = await relayKit.createTransaction({ transactions })
 
   const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
   ```
@@ -189,7 +189,9 @@ For the SyncFee quickstart tutorial, you will use the Gelato relayer to pay for 
   ### Send the transaction to the relay
 
   ```typescript
-  const response = await relayKit.executeRelayTransaction(signedSafeTransaction)
+  const response = await relayKit.executeTransaction({
+    executable: signedSafeTransaction  
+  })
 
   console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`)
   ```
