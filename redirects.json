@@ -843,5 +843,55 @@
     "source": "/advanced/passkeys/supported-networks",
     "destination": "/advanced/smart-account-supported-networks?module=Safe+Passkey+Module",
     "permanent": true
+  },
+  {
+    "source": "/reference-smart-account",
+    "destination": "/reference-smart-account/overview",
+    "permanent": true
+  },
+  {
+    "source": "/reference-smart-account/owner-functions",
+    "destination": "/reference-smart-account/owner-functions/addOwnerWithThreshold",
+    "permanent": true
+  },
+  {
+    "source": "/reference-smart-account/owner-events",
+    "destination": "/reference-smart-account/owner-events/AddedOwner",
+    "permanent": true
+  },
+  {
+    "source": "/reference-smart-account/module-functions",
+    "destination": "/reference-smart-account/module-functions/enableModule",
+    "permanent": true
+  },
+  {
+    "source": "/reference-smart-account/module-events",
+    "destination": "/reference-smart-account/module-events/ModuleEnabled",
+    "permanent": true
+  },
+  {
+    "source": "/reference-smart-account/signature-functions",
+    "destination": "/reference-smart-account/signature-functions/checkSignatures",
+    "permanent": true
+  },
+  {
+    "source": "/reference-smart-account/signature-events",
+    "destination": "/reference-smart-account/signature-events/ApproveHash",
+    "permanent": true
+  },
+  {
+    "source": "/reference-smart-account/transaction-functions",
+    "destination": "/reference-smart-account/transaction-functions/execTransaction",
+    "permanent": true
+  },
+  {
+    "source": "/reference-smart-account/transaction-events",
+    "destination": "/reference-smart-account/transaction-events/ExecutionSuccess",
+    "permanent": true
+  },
+  {
+    "source": "/reference-smart-account/utility-functions",
+    "destination": "/reference-smart-account/utility-functions/getStorageAt",
+    "permanent": true
   }
 ]
