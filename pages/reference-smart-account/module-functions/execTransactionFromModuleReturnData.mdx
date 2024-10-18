@@ -1,5 +1,5 @@
 # `execTransactionFromModuleReturnData`
-Defined in [ModuleManager.sol](https://github.com/safe-global/safe-smart-account/blob/main/contracts/base/ModuleManager.sol)
+Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-account/blob/main/contracts/base/ModuleManager.sol#L168)
 
 ## Overview
 
@@ -13,9 +13,21 @@ function execTransactionFromModuleReturnData(
 
 ```
 
-Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Token) and return data.
+Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Token) and return `data`.
 
-This function emits the [`ExecutionFromModuleSuccess`](../module-events/executionFromModuleSuccess.md) or [`ExecutionFromModuleFailure`](../module-events/executionFromModuleFailure.md) events based on the transaction outcome.
+This function emits the [`ExecutionFromModuleSuccess`](../module-events/ExecutionFromModuleSuccess.md) or [`ExecutionFromModuleFailure`](../module-events/ExecutionFromModuleFailure.md) events based on the transaction outcome.
+
+## Returns
+
+### `success`
+- **Type:** `bool`
+
+Boolean flag indicating if the call succeeded.
+
+### `returnData`
+- **Type:** `bytes`
+
+Data returned by the call.
 
 ## Parameters
 
@@ -38,15 +50,3 @@ Data payload of module transaction.
 - **Type:** `enum Enum.Operation`
 
 Operation type of module transaction.
-
-## Returns
-
-### `success`
-- **Type:** `bool`
-
-Boolean flag indicating if the call succeeded.
-
-### `returnData`
-- **Type:** `bytes`
-
-Data returned by the call.

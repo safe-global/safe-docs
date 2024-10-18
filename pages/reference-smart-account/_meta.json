@@ -10,8 +10,21 @@
   },
   "owner-functions": "Owner Functions",
   "module-functions": "Module Functions",
+  "transaction-functions": "Transaction Functions",
+  "fallback-functions": "Fallback Functions",
+  "guard-functions": "Guard Functions",
+  "signature-functions": "Signature Functions",
+  "setup-functions": "Setup Functions",
+  "utility-functions": "Utility Functions",
   "-- Events": {
     "type": "separator",
     "title": "Events"
-  }
+  },
+  "owner-events": "Owner Events",
+  "module-events": "Module Events",
+  "transaction-events": "Transaction Events",
+  "fallback-events": "Fallback Events",
+  "guard-events": "Guard Events",
+  "signature-events": "Signature Events",
+  "setup-events": "Setup Events"
 }

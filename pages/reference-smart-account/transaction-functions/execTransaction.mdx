@@ -1,0 +1,82 @@
+# `execTransaction`
+Defined in [`Executor.sol`](https://github.com/safe-global/safe-smart-account/tree/main/contracts/Safe.sol#L111)
+
+## Overview
+
+```solidity
+function execTransaction(
+    address to,
+    uint256 value,
+    bytes data,
+    Enum.Operation operation,
+    uint256 safeTxGas,
+    uint256 baseGas,
+    uint256 gasPrice,
+    address gasToken,
+    address payable refundReceiver, bytes signatures) external payable returns (bool success)
+
+```
+
+Executes an `operation` (0: Call, 1: DelegateCall) transaction to `to` with `value` (Native Currency) and pays `gasPrice` * `gasLimit` in `gasToken` token to `refundReceiver`.
+
+*The fees are always transferred, even if the user transaction fails. This method doesn't perform any sanity check of the transaction, such as if the contract at `to` address has code or not. It is the responsibility of the caller to perform such checks.*
+
+This function emits the [`ExecutionSuccess`](../transaction-events/ExecutionSuccess.mdx) or [`ExecutionFailure`](../transaction-events/ExecutionFailure.mdx) events based on the transaction outcome.
+
+## Returns
+
+- **Type:** `bool`
+
+Boolean indicating transaction's success.
+
+## Parameters
+
+### `to`
+- **Type:** `address`
+
+Destination address of Safe transaction.
+
+### `value`
+- **Type:** `uint256`
+
+Ether value of Safe transaction.
+
+### `data`
+- **Type:** `bytes`
+
+Data payload of Safe transaction.
+
+### `operation`
+- **Type:** `Enum.Operation`
+
+Operation type of Safe transaction.
+
+### `safeTxGas`
+- **Type:** `uint256`
+
+Gas that should be used for the Safe transaction.
+
+### `baseGas`
+- **Type:** `uint256`
+
+Gas costs that are independent of the transaction execution (e.g. base transaction fee, signature check, payment of the refund).
+
+### `gasPrice`
+- **Type:** `uint256`
+
+Gas price that should be used for the payment calculation.
+
+### `gasToken`
+- **Type:** `address`
+
+Token address (or 0 if ETH) that is used for the payment.
+
+### `refundReceiver`
+- **Type:** `address payable`
+
+Address of receiver of gas payment (or 0 if tx.origin).
+
+### `signatures`
+- **Type:** `bytes`
+
+Signature data that should be verified. Can be packed ECDSA signature ((bytes32 r)(bytes32 s)(uint8 v)), contract signature (EIP-1271) or approved hash.
