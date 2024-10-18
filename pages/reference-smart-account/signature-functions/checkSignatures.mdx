@@ -1,0 +1,23 @@
+# `checkSignatures`
+Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/main/contracts/Safe.sol#L270)
+
+## Overview
+
+```solidity
+function checkSignatures(bytes32 dataHash, bytes signatures) public view
+
+```
+
+Checks whether the signature provided is valid for the provided data and hash. Reverts otherwise.
+
+## Parameters
+
+### `dataHash`
+- **Type:** `bytes32`
+
+Hash of the data (could be either a message hash or transaction hash).
+
+### `signatures`
+- **Type:** `bytes`
+
+Signature data that should be verified. Can be packed ECDSA signature ((bytes32 r)(bytes32 s)(uint8 v)), contract signature (EIP-1271) or approved hash.
