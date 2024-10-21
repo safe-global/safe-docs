@@ -11,6 +11,10 @@ Returns if `owner` is an owner of the Safe.
 <Tabs items={['example.sol']}>
   <Tabs.Tab>
     ```solidity
+    interface ISafe {
+        function isOwner(address owner) external view returns (bool)
+    }
+
     contract Example {
         function example() … {
             (bool isOwner) = (ISafe safe).isOwner("0x..."); // true

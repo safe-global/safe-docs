@@ -18,6 +18,14 @@ This can only be done via a Safe transaction.
     interface ISafe {
         function changeThreshold(uint256 _threshold) external
     }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).changeThreshold(
+                1
+            )
+        }
+    }
 ```
 </Tabs.Tab>
 </Tabs>

@@ -2,11 +2,6 @@ import { Tabs, Callout } from "nextra/components"
 
 # `swapOwner`
 
-```solidity
-function swapOwner(address prevOwner, address oldOwner, address newOwner) external
-
-```
-
 Replaces the owner `oldOwner` in the Safe with `newOwner`.
 
 <Callout type="warning">
@@ -20,6 +15,10 @@ This can only be done via a Safe transaction.
 <Tabs items={['example.sol']}>
   <Tabs.Tab>
     ```solidity
+    interface ISafe {
+        function swapOwner(address prevOwner, address oldOwner, address newOwner) external
+    }
+
     contract Example {
         function example() … {
             (ISafe safe).swapOwner("0x...", "0x...", "0x...");
@@ -37,15 +36,39 @@ This can only be done via a Safe transaction.
 
 Owner that pointed to the owner to be replaced in the linked list
 
+```solidity focus=2
+swapOwner(
+    "0x...",
+    "0x...",
+    "0x..."
+)
+```
+
 ### `oldOwner`
 - **Type:** `address`
 
 Owner address to be replaced.
 
+```solidity focus=3
+swapOwner(
+    "0x...",
+    "0x...",
+    "0x..."
+)
+```
+
 ### `newOwner`
 - **Type:** `address`
 
 New owner address.
+
+```solidity focus=4
+swapOwner(
+    "0x...",
+    "0x...",
+    "0x..."
+)
+```
 
 ## Events
 

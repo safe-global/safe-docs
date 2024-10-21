@@ -16,7 +16,7 @@ This can only be done via a Safe transaction.
 
 <Tabs items={['example.sol']}>
   <Tabs.Tab>
-```solidity
+    ```solidity
     interface ISafe {
         function removeOwner(address prevOwner, address owner, uint256 _threshold) external
     }
@@ -30,7 +30,7 @@ This can only be done via a Safe transaction.
             )
         }
     }
-```
+    ```
 </Tabs.Tab>
 </Tabs>
 
@@ -43,17 +43,41 @@ This can only be done via a Safe transaction.
 
 Owner that pointed to the owner to be removed in the linked list
 
+```solidity focus=2
+removeOwner(
+    "0x...",
+    "0x...",
+    1
+)
+```
+
 ### `owner`
 
 - **Type:** `address`
 
 Owner address to be removed.
 
+```solidity focus=3
+removeOwner(
+    "0x...",
+    "0x...",
+    1
+)
+```
+
 ### `_threshold`
 
 - **Type:** `uint256`
 
 New threshold.
+
+```solidity focus=4
+removeOwner(
+    "0x...",
+    "0x...",
+    1
+)
+```
 
 ## Events
 
