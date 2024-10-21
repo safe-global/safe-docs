@@ -1,12 +1,10 @@
-import { Tabs, Callout } from "nextra/components"
+import { Tabs, Callout } from 'nextra/components'
 
 # `addOwnerWithThreshold`
 
 Adds the owner `owner` to the Safe and updates the threshold to `_threshold`.
 
-<Callout type="warning">
-This can only be done via a Safe transaction.
-</Callout>
+<Callout type='warning'>This can only be done via a Safe transaction.</Callout>
 
 ## Usage
 
@@ -27,7 +25,8 @@ This can only be done via a Safe transaction.
             )
         }
     }
-```
+
+````
 </Tabs.Tab>
 </Tabs>
 
@@ -37,7 +36,7 @@ This can only be done via a Safe transaction.
 
 ### `owner`
 
-- **Type:** `address` 
+- **Type:** `address`
 
 New owner address.
 
@@ -46,7 +45,7 @@ addOwnerWithThreshold(
     "0x...",
     1
 )
-```
+````
 
 ### `_threshold`
 
@@ -70,6 +69,6 @@ event AddedOwner(address owner)
 
 ```
 
-Emitted when an owner is added to the Safe. 
+Emitted when an owner is added to the Safe.
 
 This event is also emitted in the [`swapOwner`](./swapOwner.mdx) function.
