@@ -1,0 +1,75 @@
+import { Tabs, Callout } from "nextra/components"
+
+# `addOwnerWithThreshold`
+
+Adds the owner `owner` to the Safe and updates the threshold to `_threshold`.
+
+<Callout type="warning">
+This can only be done via a Safe transaction.
+</Callout>
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+```solidity
+    interface ISafe {
+        function addOwnerWithThreshold(address owner, uint256 _threshold) external
+    }
+
+    contract Example {
+        function example() … {
+            (ISafe safe).addOwnerWithThreshold(
+                "0x...",
+                1
+            )
+        }
+    }
+```
+</Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `owner`
+
+- **Type:** `address` 
+
+New owner address.
+
+```solidity focus=2
+addOwnerWithThreshold(
+    "0x...",
+    1
+)
+```
+
+### `_threshold`
+
+- **Type:** `uint256`
+
+New threshold.
+
+```solidity focus=3
+addOwnerWithThreshold(
+    "0x...",
+    1
+)
+```
+
+## Events
+
+### `AddedOwner`
+
+```solidity
+event AddedOwner(address owner)
+
+```
+
+Emitted when an owner is added to the Safe. 
+
+This event is also emitted in the [`swapOwner`](./swapOwner.mdx) function.

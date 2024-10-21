@@ -1,0 +1,71 @@
+import { Tabs, Callout } from "nextra/components"
+
+# `removeOwner`
+
+## Overview
+
+Removes the owner `owner` from the Safe and updates the threshold to `_threshold`.
+
+<Callout type="warning">
+This can only be done via a Safe transaction.
+</Callout>
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+```solidity
+    interface ISafe {
+        function removeOwner(address prevOwner, address owner, uint256 _threshold) external
+    }
+
+    contract Example {
+        function example() … {
+            (ISafe safe).removeOwner(
+                "0x...",
+                "0x...",
+                1
+            )
+        }
+    }
+```
+</Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `prevOwner`
+- **Type:** `address`
+
+Owner that pointed to the owner to be removed in the linked list
+
+### `owner`
+
+- **Type:** `address`
+
+Owner address to be removed.
+
+### `_threshold`
+
+- **Type:** `uint256`
+
+New threshold.
+
+## Events
+
+### `RemovedOwner`
+
+```solidity
+event RemovedOwner(address owner)
+
+```
+
+Emitted when an owner is removed from the Safe.
+
+This event is also emitted in the [`swapOwner`](/reference-smart-account/owner/swapOwner.mdx) functions.
+
+### [`ChangedThreshold`](../owner/changeThreshold#changedthreshold.mdx)

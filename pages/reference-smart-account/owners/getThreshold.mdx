@@ -1,0 +1,33 @@
+import { Tabs } from "nextra/components"
+
+# `getThreshold`
+
+## Overview
+
+```solidity
+function getThreshold() external view returns (uint256)
+
+```
+
+Returns the number of required confirmations for a Safe transaction aka the threshold.
+
+## Usage
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    contract Example {
+        function example() … {
+            (uint256 threshold) = (ISafe safe).getThreshold(); // 1
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Returns
+
+### `threshold`
+- **Type:** `uint256`
+
+Threshold number.

@@ -1,0 +1,32 @@
+import { Tabs } from "nextra/components"
+
+# `isOwner`
+
+Returns if `owner` is an owner of the Safe.
+
+## Usage
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    contract Example {
+        function example() … {
+            (bool isOwner) = (ISafe safe).isOwner("0x..."); // true
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Returns
+
+### `isOwner`
+- **Type:** `bool`
+
+Boolean flag indicating if `owner` is an owner of the Safe.
+
+## Parameters
+### `owner`
+- **Type:** `address`
+
+Owner address.
