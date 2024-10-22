@@ -1,0 +1,54 @@
+import { Tabs, Callout } from 'nextra/components'
+
+# `enableModule`
+
+Enables the module `module` for the Safe.
+
+<Callout type='warning'>This can only be done via a Safe transaction.</Callout>
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface IModuleManager {
+        function enableModule(address module) external
+    }
+
+    contract Example {
+        function example() ... {
+            (IModuleManager moduleManager).enableModule("0x...")
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `module`
+
+- **Type:** `address`
+
+Module to be whitelisted.
+
+```solidity focus=2
+enableModule(
+  "0x..."
+)
+```
+
+## Events
+
+### `EnabledModule`
+
+```solidity
+event EnabledModule(address module)
+
+```
+
+Emitted when a module is enabled for the Safe.

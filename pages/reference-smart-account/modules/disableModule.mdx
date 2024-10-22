@@ -1,0 +1,68 @@
+import { Tabs, Callout } from 'nextra/components'
+
+# `disableModule`
+
+Disables the module `module` for the Safe.
+
+<Callout type='warning'>This can only be done via a Safe transaction.</Callout>
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface IModuleManager {
+        function disableModule(address prevModule, address module) external
+    }
+
+    contract Example {
+        function example() ... {
+            (IModuleManager moduleManager).disableModule("0x...", "0x...")
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `prevModule`
+
+- **Type:** `address`
+
+Previous module in the modules linked list.
+
+```solidity focus=2
+disableModule(
+  "0x...",
+  "0x..."
+)
+```
+
+### `module`
+
+- **Type:** `address`
+
+Module to be removed.
+
+```solidity focus=3
+disableModule(
+  "0x...",
+  "0x..."
+)
+```
+
+## Events
+
+### `DisabledModule`
+
+```solidity
+event DisabledModule(address module)
+
+```
+
+Emitted when a module is disabled for the Safe.

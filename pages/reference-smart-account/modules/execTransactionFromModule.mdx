@@ -1,0 +1,132 @@
+import { Tabs, Callout } from 'nextra/components'
+
+# `execTransactionFromModule`
+
+Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Token).
+
+<Callout type='info'>
+  Function is virtual to allow overriding for L2 singleton to emit an event for
+  indexing.
+</Callout>
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+      function execTransactionFromModule(
+          address to,
+          uint256 value,
+          bytes data,
+          enum Enum.Operation operation
+      ) external returns (bool success)
+    }
+
+    contract Example {
+      function example() … {
+        (ISafe safe).execTransactionFromModule(
+          "0x...",
+          "0x...",
+          "0x...",
+          Enum.Operation.Call
+        )
+      }
+    }
+
+    ```
+
+</Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+### `success`
+
+- **Type:** `bool`
+
+Boolean flag indicating if the call succeeded.
+
+## Parameters
+
+### `to`
+
+- **Type:** `address`
+
+Destination address of module transaction.
+
+```solidity focus=2
+execTransactionFromModule(
+  "0x...",
+  "0x...",
+  "0x...",
+  Enum.Operation.Call
+)
+```
+
+### `value`
+
+- **Type:** `uint256`
+
+Ether value of module transaction.
+
+```solidity focus=3
+execTransactionFromModule(
+  "0x...",
+  "0x...",
+  "0x...",
+  Enum.Operation.Call
+)
+```
+
+### `data`
+
+- **Type:** `bytes`
+
+Data payload of module transaction.
+
+```solidity focus=4
+execTransactionFromModule(
+  "0x...",
+  "0x...",
+  "0x...",
+  Enum.Operation.Call
+)
+```
+
+### `operation`
+
+- **Type:** `enum Enum.Operation`
+
+Operation type of module transaction.
+
+```solidity focus=5
+execTransactionFromModule(
+  "0x...",
+  "0x...",
+  "0x...",
+  Enum.Operation.Call
+)
+```
+
+## Events
+
+### `ExecutionFromModuleSuccess`
+
+```solidity
+event ExecutionFromModuleSuccess(address to, uint256 value, bytes data)
+```
+
+Emitted when a transaction executed by a module succeeds. This event is also emitted in the [`execTransactionFromModuleReturnData`](./execTransactionFromModuleReturnData.mdx#executionfrommodulesuccess) function.
+### `ExecutionFromModuleFailure`
+
+```solidity
+event ExecutionFromModuleFailure(address module)
+
+```
+
+Emitted when a transaction executed by a module fails. This event is also emitted in the [`execTransactionFromModuleReturnData`](./execTransactionFromModuleReturnData.mdx#executionfrommodulefailure) function.

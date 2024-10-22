@@ -1,0 +1,73 @@
+import { Tabs } from 'nextra/components'
+
+# `getModulesPaginated`
+
+Returns an array of modules. If all entries fit into a single page, the next pointer will be 0x1. If another page is present, next will be the last element of the returned array.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface IModuleManager {
+      function getModulesPaginated(address start, uint256 pageSize) external view returns (address[] array, address next)
+    }
+
+    contract Example {
+      function example() … {
+        (IModuleManager moduleManager).getModulesPaginated(
+          "0x...",
+          "0x..."
+        )
+      }
+    }
+    ```
+
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+### `array`
+
+- **Type:** `address[]`
+
+Array of modules.
+
+### `next`
+
+- **Type:** `address`
+
+Start of the next page.
+
+## Parameters
+
+### `start`
+
+- **Type:** `address`
+
+Start of the page. Has to be a module or start pointer (0x1 address).
+
+```solidity focus=2
+getModulesPaginated(
+  "0x...",
+  "0x..."
+)
+```
+
+### `pageSize`
+
+- **Type:** `uint256`
+
+Maximum number of modules that should be returned. Has to be > 0.
+
+```solidity focus=3
+getModulesPaginated(
+  "0x...",
+  "0x..."
+)
+```
