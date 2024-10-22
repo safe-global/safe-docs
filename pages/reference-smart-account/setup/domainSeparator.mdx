@@ -1,0 +1,34 @@
+import { Tabs } from 'nextra/components'
+
+# `domainSeparator`
+
+Returns the domain separator for this contract, as defined in the EIP-712 standard.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function domainSeparator() external view returns (bytes32)
+    }
+
+    contract Example {
+        function example() … {
+            (ISafe safe).domainSeparator()
+        }
+    }
+    ```
+
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+- **Type:** `bytes32`
+
+The domain separator hash.

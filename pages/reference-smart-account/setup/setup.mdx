@@ -1,0 +1,79 @@
+import { Tabs, Callout } from 'nextra/components'
+
+# `setup`
+
+Sets an initial storage of the Safe contract.
+
+<Callout type='warning'>
+  This method can only be called once. If a proxy was created without setting
+  up, anyone can call setup and claim the proxy.
+</Callout>
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function setup(
+            address[] _owners,
+            uint256 _threshold,
+        ) external
+    }
+
+    function example() ... {
+      (ISafe safe).setup([owner1, owner2], 1)
+    }
+
+    ```
+
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `_owners`
+
+- **Type:** `address[]`
+
+List of Safe owners.
+
+```solidity focus=2
+setup(
+    [owner1, owner2],
+    1
+)
+```
+
+### `_threshold`
+
+- **Type:** `uint256`
+
+Number of required confirmations for a Safe transaction.
+
+```solidity focus=3
+setup(
+    [owner1, owner2],
+    1
+)
+```
+
+## Events
+
+### `SafeSetup`
+
+```solidity
+event SafeSetup(
+  address initiator,
+  address[] owners,
+  uint256 threshold,
+  address initializer,
+  address fallbackHandler
+)
+```
+
+Emitted when the Safe is set up.
