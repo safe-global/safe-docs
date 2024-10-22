@@ -19,6 +19,12 @@ Set Fallback Handler to `handler` for the Safe.
     interface ISafe {
         function setFallbackHandler(address handler) external
     }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).setFallbackHandler("0x...")
+        }
+    }
     ```
   </Tabs.Tab>
 </Tabs>

@@ -10,12 +10,20 @@ Returns a list of Safe owners.
 
 <Tabs items={['example.sol']}>
   <Tabs.Tab>
-```solidity
+    ```solidity
     interface ISafe {
         function getOwners() external view returns (address[])
     }
-```
-</Tabs.Tab>
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).getOwners()
+        }
+    }
+
+    ```
+
+  </Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}

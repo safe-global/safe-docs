@@ -16,7 +16,11 @@ Removes the owner `owner` from the Safe and updates the threshold to `_threshold
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function removeOwner(address prevOwner, address owner, uint256 _threshold) external
+        function removeOwner(
+            address prevOwner,
+            address owner,
+            uint256 _threshold
+        ) external
     }
 
     contract Example {

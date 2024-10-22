@@ -14,12 +14,20 @@ Replaces the owner `oldOwner` in the Safe with `newOwner`.
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function swapOwner(address prevOwner, address oldOwner, address newOwner) external
+        function swapOwner(
+            address prevOwner,
+            address oldOwner,
+            address newOwner
+        ) external
     }
 
     contract Example {
         function example() … {
-            (ISafe safe).swapOwner("0x...", "0x...", "0x...");
+            (ISafe safe).swapOwner(
+                "0x...",
+                "0x...",
+                "0x..."
+            )
         }
     }
     ```
