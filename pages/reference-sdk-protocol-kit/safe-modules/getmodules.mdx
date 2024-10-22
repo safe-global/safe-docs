@@ -1,0 +1,38 @@
+import { Tabs } from 'nextra/components'
+
+# `getModules`
+
+Returns the list of addresses of all the enabled Safe Modules.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { protocolKit } from './setup.ts'
+
+    const moduleAddresses = await protocolKit.getModules()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<string[]>`
+
+The list of addresses of all the enabled Safe Modules.
