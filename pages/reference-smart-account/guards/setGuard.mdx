@@ -1,0 +1,58 @@
+import { Tabs, Callout } from 'nextra/components'
+
+# `setGuard`
+
+Set Transaction Guard `guard` that checks transactions before execution.
+
+<Callout type='warning'>This can only be done via a Safe transaction.</Callout>
+<Callout type='error' emoji='🚨'>
+  Since a guard has full power to block Safe transaction execution, a broken
+  guard can cause a denial of service for the Safe. Make sure to carefully audit
+  the guard code and design recovery mechanisms.
+</Callout>
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function setGuard(address guard) external
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).setGuard("0x...")
+        }
+    }
+    ```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Parameters
+
+### `guard`
+
+- **Type:** `address`
+
+The address of the guard to be used or the 0 address to disable the guard.
+
+```solidity focus=2
+setGuard(
+  "0x..."
+)
+```
+
+## Events
+
+### `ChangedGuard`
+
+```solidity
+event ChangedGuard(address guard)
+
+```
+
+Emitted when a guard is set for the Safe.
