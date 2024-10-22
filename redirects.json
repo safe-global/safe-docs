@@ -843,5 +843,10 @@
     "source": "/advanced/passkeys/supported-networks",
     "destination": "/advanced/smart-account-supported-networks?module=Safe+Passkey+Module",
     "permanent": true
+  },
+  {
+    "source": "/core-api/transaction-service-reference",
+    "destination": "/core-api/transaction-service-reference/mainnet",
+    "permanent": true
   }
 ]
