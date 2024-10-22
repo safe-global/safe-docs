@@ -850,48 +850,28 @@
     "permanent": true
   },
   {
-    "source": "/reference-smart-account/owner-functions",
-    "destination": "/reference-smart-account/owner-functions/addOwnerWithThreshold",
+    "source": "/reference-smart-account/owners",
+    "destination": "/reference-smart-account/owners/addOwnerWithThreshold",
     "permanent": true
   },
   {
-    "source": "/reference-smart-account/owner-events",
-    "destination": "/reference-smart-account/owner-events/AddedOwner",
+    "source": "/reference-smart-account/modules",
+    "destination": "/reference-smart-account/modules/enableModule",
     "permanent": true
   },
   {
-    "source": "/reference-smart-account/module-functions",
-    "destination": "/reference-smart-account/module-functions/enableModule",
+    "source": "/reference-smart-account/signatures",
+    "destination": "/reference-smart-account/signatures/checkSignatures",
     "permanent": true
   },
   {
-    "source": "/reference-smart-account/module-events",
-    "destination": "/reference-smart-account/module-events/ModuleEnabled",
+    "source": "/reference-smart-account/transactions",
+    "destination": "/reference-smart-account/transactions/execTransaction",
     "permanent": true
   },
   {
-    "source": "/reference-smart-account/signature-functions",
-    "destination": "/reference-smart-account/signature-functions/checkSignatures",
-    "permanent": true
-  },
-  {
-    "source": "/reference-smart-account/signature-events",
-    "destination": "/reference-smart-account/signature-events/ApproveHash",
-    "permanent": true
-  },
-  {
-    "source": "/reference-smart-account/transaction-functions",
-    "destination": "/reference-smart-account/transaction-functions/execTransaction",
-    "permanent": true
-  },
-  {
-    "source": "/reference-smart-account/transaction-events",
-    "destination": "/reference-smart-account/transaction-events/ExecutionSuccess",
-    "permanent": true
-  },
-  {
-    "source": "/reference-smart-account/utility-functions",
-    "destination": "/reference-smart-account/utility-functions/getStorageAt",
+    "source": "/reference-smart-account/utilities",
+    "destination": "/reference-smart-account/utilities/getStorageAt",
     "permanent": true
   }
 ]
