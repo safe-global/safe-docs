@@ -380,7 +380,7 @@ const SupportedNetworks: React.FC = () => {
             <TextField
               className={css.searchField}
               variant='outlined'
-              placeholder='Search by network name, chain ID or contract address'
+              placeholder='Search by network name, chain ID, or contract address'
               InputProps={{
                 style: {
                   color: 'white',
