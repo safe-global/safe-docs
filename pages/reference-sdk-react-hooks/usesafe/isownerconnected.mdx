@@ -1,0 +1,39 @@
+import { Tabs } from 'nextra/components'
+
+# `isOwnerConnected`
+
+Checks if the signer connected to the [`SafeProvider`](../safeprovider.mdx) is an owner of the connected Safe. 
+
+Use the [`isSignerConnected`](./issignerconnected.mdx) function instead to avoid checking ownership.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useSafe } from '@safe-global/safe-react-hooks'
+
+    function IsOwnerConnected() {
+      const { isOwnerConnected } = useSafe()
+
+      return (
+        <>
+          {isOwnerConnected ? 'Owner is connected' : 'No owner connected'}
+        </>
+      )
+    }
+
+    export default IsOwnerConnected
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`boolean`
+
+The boolean value that indicates if an owner of the Safe is connected as a signer.

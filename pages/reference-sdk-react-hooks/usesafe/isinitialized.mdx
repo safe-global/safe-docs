@@ -1,0 +1,39 @@
+import { Tabs } from 'nextra/components'
+
+# `isInitialized`
+
+Checks if the [`SafeProvider`](../safeprovider.mdx) is initialized and ready to use.
+
+This function must be called before interacting with the Safe.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useSafe } from '@safe-global/safe-react-hooks'
+
+    function IsInitialized() {
+      const { isInitialized } = useSafe()
+
+      return (
+        <>
+          {isInitialized ? 'Is initialized' : 'Not initialized'}
+        </>
+      )
+    }
+
+    export default IsInitialized
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`boolean`
+
+The boolean value that indicates if the [`SafeProvider`](../safeprovider.mdx) is initialized and ready to use.

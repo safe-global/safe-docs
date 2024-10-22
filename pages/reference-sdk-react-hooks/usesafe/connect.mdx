@@ -1,0 +1,47 @@
+import { Tabs } from 'nextra/components'
+
+# `connect`
+
+Connects a given signer to the [`SafeProvider`](../safeprovider.mdx).
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.tsx']}>
+  <Tabs.Tab>
+    ```typescript
+    import { useSafe } from '@safe-global/safe-react-hooks'
+
+    function Connect() {
+      const { connect } = useSafe()
+
+      const signerAddress = '0x...'
+
+      return (
+        <button onClick={() => connect(signerAddress)}>
+          Connect
+        </button>
+      )
+    }
+
+    export default Connect
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `signer`
+
+- **Type**: `string`
+
+The address of the signer.
+
+```typescript focus=2
+connect(
+  '0x...'
+)
+```
