@@ -1,0 +1,107 @@
+import { Tabs, Callout } from 'nextra/components'
+
+# `checkNSignatures`
+
+Checks whether the signature provided is valid for the provided data and hash. Reverts otherwise.
+
+<Callout type='info'>
+  Since the EIP-1271 does an external call, be mindful of re-entrancy attacks.
+</Callout>
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function checkNSignatures(
+            address executor,
+            bytes32 dataHash,
+            bytes signatures,
+            uint256 requiredSignatures
+        ) external view
+    }
+
+    function example() ... {
+        (ISafe safe).checkNSignatures(
+            "0x...",
+            "0x...",
+            "0x...",
+            1
+        )
+    }
+    ```
+
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `executor`
+
+- **Type:** `address`
+
+Address that executing the transaction.
+
+<Callout type='warning'>
+  Make sure that the executor address is a legitimate executor. Incorrectly
+  passed the executor might reduce the threshold by 1 signature.
+</Callout>
+
+```solidity focus=2
+checkNSignatures(
+    "0x...",
+    "0x...",
+    "0x...",
+    1
+)
+```
+
+### `dataHash`
+
+- **Type:** `bytes32`
+
+Hash of the data (could be either a message hash or transaction hash).
+
+```solidity focus=3
+checkNSignatures(
+    "0x...",
+    "0x...",
+    "0x...",
+    1
+)
+```
+
+### `signatures`
+
+- **Type:** `bytes`
+
+Signature data that should be verified. Can be packed ECDSA signature ((bytes32 r)(bytes32 s)(uint8 v)), contract signature (EIP-1271) or approved hash.
+
+```solidity focus=4
+checkNSignatures(
+    "0x...",
+    "0x...",
+    "0x...",
+    1
+)
+```
+
+### `requiredSignatures`
+
+- **Type:** `uint256`
+
+Amount of required valid signatures.
+
+```solidity focus=5
+checkNSignatures(
+    "0x...",
+    "0x...",
+    "0x...",
+    1
+)
+```
