@@ -6,22 +6,26 @@ Returns a `uint256` if the `messageHash` is signed by the owner.
 
 ## Usage
 
+{/* <!-- vale off --> */}
+
 <Tabs items={['example.sol']}>
   <Tabs.Tab>
-```solidity
-interface ISafe {
-    function signedMessages(bytes32 messageHash) external view returns (uint256)
-}
-
-contract Example {
-    function example() ... {
-        (ISafe safe).signedMessages("0x...")
+    ```solidity
+    interface ISafe {
+        function signedMessages(bytes32 messageHash) external view returns (uint256)
     }
-}
-```
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).signedMessages("0x...")
+        }
+    }
+    ```
 
   </Tabs.Tab>
 </Tabs>
+
+{/* <!-- vale on --> */}
 
 ## Parameters
 
