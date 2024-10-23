@@ -1,0 +1,234 @@
+import { Tabs } from 'nextra/components'
+
+# `createRemoveOwnerTx`
+
+Returns a Safe transaction to remove an owner of the connected Safe and optionally change the threshold.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'passkeys-example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import {
+      RemoveOwnerTxParams,
+      SafeTransactionOptionalProps
+    } from '@safe-global/protocol-kit'
+    import { protocolKit } from './setup.ts'
+
+    const params: RemoveOwnerTxParams = {
+      ownerAddress: '0x...'
+      threshold: 123 // Optional
+    }
+
+    const options: SafeTransactionOptionalProps = {
+      safeTxGas: '123', // Optional
+      baseGas: '123', // Optional
+      gasPrice: '123', // Optional
+      gasToken: '0x...', // Optional
+      refundReceiver: '0x...', // Optional
+      nonce: 123 // Optional
+    }
+
+    const safeTransaction = await protocolKit.createRemoveOwnerTx(
+      params,
+      options // Optional
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import {
+      RemovePasskeyOwnerTxParams,
+      PasskeyArgType,
+      SafeTransactionOptionalProps
+    } from '@safe-global/protocol-kit'
+    import { protocolKit } from './setup.ts'
+
+    const passkey: PasskeyArgType = {
+      rawId,
+      coordinates
+    }
+
+    const params: RemovePasskeyOwnerTxParams = {
+      passkey,
+      threshold: 1 // Optional
+    }
+
+    const options: SafeTransactionOptionalProps = {
+      safeTxGas: '123', // Optional
+      baseGas: '123', // Optional
+      gasPrice: '123', // Optional
+      gasToken: '0x...', // Optional
+      refundReceiver: '0x...', // Optional
+      nonce: 123 // Optional
+    }
+
+    const safeTransaction = await protocolKit.createRemoveOwnerTx(
+      params,
+      options // Optional
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `params.ownerAddress`
+
+- **Type**: `string`
+
+The address of the owner to remove to the Safe.
+
+```typescript focus=2
+const safeTransaction = await protocolKit.createRemoveOwnerTx({
+  ownerAddress: '0x...'
+})
+```
+
+### `params.passkey`
+
+- **Type**: `PasskeyArgType`
+
+The passkey associated with the owner to remove to the Safe.
+
+```typescript focus=2
+const safeTransaction = await protocolKit.createRemoveOwnerTx({
+  passkey
+})
+```
+
+### `params.threshold` (Optional)
+
+- **Type**: `number`
+
+The new threshold of the Safe.
+
+```typescript focus=3
+const safeTransaction = await protocolKit.createRemoveOwnerTx({
+  ownerAddress: '0x...',
+  threshold: 1
+})
+```
+
+### `options.safeTxGas` (Optional)
+
+- **Type**: `string`
+
+The gas that should be used for the Safe transaction.
+
+```typescript focus=6
+const safeTransaction = await protocolKit.createRemoveOwnerTx(
+  {
+    ownerAddress: '0x...'
+  },
+  {
+    safeTxGas: '123'
+  }
+)
+```
+
+### `options.baseGas` (Optional)
+
+- **Type**: `string`
+
+The gas costs for the data used to trigger the Safe transaction.
+
+```typescript focus=6
+const safeTransaction = await protocolKit.createRemoveOwnerTx(
+  {
+    ownerAddress: '0x...'
+  },
+  {
+    baseGas: '123'
+  }
+)
+```
+
+### `options.gasPrice` (Optional)
+
+- **Type**: `string`
+
+The price in wei that the sender is willing to pay for each unit of gas.
+
+```typescript focus=6
+const safeTransaction = await protocolKit.createRemoveOwnerTx(
+  {
+    ownerAddress: '0x...'
+  },
+  {
+    gasPrice: '123'
+  }
+)
+```
+
+### `options.gasToken` (Optional)
+
+- **Type**: `string`
+
+The token address that is used for the gas payment, or `0x0000000000000000000000000000000000000000` if there is no payment.
+
+```typescript focus=6
+const safeTransaction = await protocolKit.createRemoveOwnerTx(
+  {
+    ownerAddress: '0x...'
+  },
+  {
+    gasToken: '0x...'
+  }
+)
+```
+
+### `options.refundReceiver` (Optional)
+
+- **Type**: `string`
+
+The address of the gas payment receiver or `0x0000000000000000000000000000000000000000` if there is no payment.
+
+```typescript focus=6
+const safeTransaction = await protocolKit.createRemoveOwnerTx(
+  {
+    ownerAddress: '0x...'
+  },
+  {
+    refundReceiver: '0x...'
+  }
+)
+```
+
+### `options.nonce` (Optional)
+
+- **Type**: `number`
+
+The transaction nonce.
+
+```typescript focus=6
+const safeTransaction = await protocolKit.createRemoveOwnerTx(
+  {
+    ownerAddress: '0x...'
+  },
+  {
+    nonce: 123
+  }
+)
+```
+
+## Returns
+
+`Promise<SafeTransaction>`
+
+The Safe transaction to remove an owner.

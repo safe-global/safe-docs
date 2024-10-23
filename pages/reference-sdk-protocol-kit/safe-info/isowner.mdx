@@ -1,0 +1,54 @@
+import { Tabs } from 'nextra/components'
+
+# `isOwner`
+
+Checks if a given address is an owner of the connected Safe.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { protocolKit } from './setup.ts'
+
+    const address = '0x...'
+
+    const isOwner = await protocolKit.isOwner(address)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `address`
+
+- **Type**: `string`
+
+The address to check.
+
+```typescript focus=2
+const isOwner = await protocolKit.isOwner(
+  '0x...'
+)
+```
+
+## Returns
+
+`Promise<string>`
+
+The boolean value that indicates if the address is an owner of the Safe.
