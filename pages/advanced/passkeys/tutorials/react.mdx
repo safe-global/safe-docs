@@ -166,6 +166,18 @@ Add the following code to the `SafeAccountDetails.tsx` file:
 
 This component displays the details of the Safe account, including the Safe address, whether it is deployed, and a button to mint the NFT.
 
+Still in the `components` folder, create a file `SafeThemeProvider.tsx`. This file will provide the Safe theme to the app using Material UI:
+
+```bash
+touch SafeThemeProvider.tsx
+```
+
+Add the following code to the `SafeThemeProvider.tsx` file:
+
+```tsx
+// from ../../../../examples/passkeys/components/SafeThemeProvider.tsx
+```
+
 Lastly, replace the content of the `page.tsx` file, within the `app` folder, with this code:
 
 ```tsx
@@ -194,18 +206,6 @@ To add some icons to the app, we will need to edit the `next.config.mjs` file at
 
 ```js
 // from ../../../../examples/passkeys/next.config.mjs
-```
-
-In `components`, create a file `SafeThemeProvider.tsx`. This file will provide the Safe theme to the app using Material UI:
-
-```bash
-touch SafeThemeProvider.tsx
-```
-
-Add the following code to the `SafeThemeProvider.tsx` file:
-
-```tsx
-// from ../../../../examples/passkeys/components/SafeThemeProvider.tsx
 ```
 
 Finally, create a `public` folder, with four icons: [`safe.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/safe.svg), [`github.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/github.svg/), [`external-link.svg`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/external-link.svg), [`safeLogo.png`](https://github.com/5afe/safe-passkeys-tutorial/blob/main/public/safeLogo.png)
