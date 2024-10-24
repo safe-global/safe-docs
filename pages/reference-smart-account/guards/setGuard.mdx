@@ -19,16 +19,15 @@ Set Transaction Guard `guard` that checks transactions before execution.
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function setGuard(address guard) external
+        function setGuard(address guard) external;
     }
 
     contract Example {
         function example() ... {
-            (ISafe safe).setGuard("0x...")
+            (ISafe safe).setGuard("0x...");
         }
     }
     ```
-
   </Tabs.Tab>
 </Tabs>
 
@@ -41,8 +40,8 @@ Set Transaction Guard `guard` that checks transactions before execution.
 The address of the guard to be used or the 0 address to disable the guard.
 
 ```solidity focus=2
-setGuard(
-  "0x..."
+(ISafe safe).setGuard(
+    "0x..."
 )
 ```
 
@@ -51,8 +50,7 @@ setGuard(
 ### `ChangedGuard`
 
 ```solidity
-event ChangedGuard(address guard)
-
+event ChangedGuard(address guard);
 ```
 
 Emitted when a guard is set for the Safe.

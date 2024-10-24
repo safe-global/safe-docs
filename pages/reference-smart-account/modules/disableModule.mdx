@@ -13,13 +13,13 @@ Disables the module `module` for the Safe.
 <Tabs items={['example.sol']}>
   <Tabs.Tab>
     ```solidity
-    interface IModuleManager {
-        function disableModule(address prevModule, address module) external
+    interface ISafe {
+        function disableModule(address prevModule, address module) external;
     }
 
     contract Example {
         function example() ... {
-            (IModuleManager moduleManager).disableModule("0x...", "0x...")
+            (ISafe safe).disableModule("0x...", "0x...");
         }
     }
     ```
@@ -37,9 +37,9 @@ Disables the module `module` for the Safe.
 Previous module in the modules linked list.
 
 ```solidity focus=2
-disableModule(
-  "0x...",
-  "0x..."
+(ISafe safe).disableModule(
+    "0x...",
+    "0x..."
 )
 ```
 
@@ -50,9 +50,9 @@ disableModule(
 Module to be removed.
 
 ```solidity focus=3
-disableModule(
-  "0x...",
-  "0x..."
+(ISafe safe).disableModule(
+    "0x...",
+    "0x..."
 )
 ```
 
@@ -61,8 +61,7 @@ disableModule(
 ### `DisabledModule`
 
 ```solidity
-event DisabledModule(address module)
-
+event DisabledModule(address module);
 ```
 
 Emitted when a module is disabled for the Safe.

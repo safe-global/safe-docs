@@ -17,7 +17,7 @@ Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Toke
           uint256 value,
           bytes data,
           enum Enum.Operation operation
-      ) external returns (bool success, bytes returnData)
+      ) external returns (bool success, bytes returnData);
     }
 
     contract Example {
@@ -27,11 +27,10 @@ Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Toke
           "0x...",
           "0x...",
           Enum.Operation.Call
-        )
+        );
       }
     }
     ```
-
   </Tabs.Tab>
 </Tabs>
 
@@ -60,12 +59,12 @@ Data returned by the call.
 Destination address of module transaction.
 
 ```solidity focus=2
-execTransactionFromModuleReturnData(
-  "0x...",
-  "0x...",
-  "0x...",
-  Enum.Operation.Call
-)
+(ISafe safe).execTransactionFromModuleReturnData(
+    "0x...",
+    "0x...",
+    "0x...",
+    Enum.Operation.Call
+);
 ```
 
 ### `value`
@@ -75,12 +74,12 @@ execTransactionFromModuleReturnData(
 Ether value of module transaction.
 
 ```solidity focus=3
-execTransactionFromModuleReturnData(
-  "0x...",
-  "0x...",
-  "0x...",
-  Enum.Operation.Call
-)
+(ISafe safe).execTransactionFromModuleReturnData(
+    "0x...",
+    "0x...",
+    "0x...",
+    Enum.Operation.Call
+);
 ```
 
 ### `data`
@@ -90,12 +89,12 @@ execTransactionFromModuleReturnData(
 Data payload of module transaction.
 
 ```solidity focus=4
-execTransactionFromModuleReturnData(
-  "0x...",
-  "0x...",
-  "0x...",
-  Enum.Operation.Call
-)
+(ISafe safe).execTransactionFromModuleReturnData(
+    "0x...",
+    "0x...",
+    "0x...",
+    Enum.Operation.Call
+);
 ```
 
 ### `operation`
@@ -105,12 +104,12 @@ execTransactionFromModuleReturnData(
 Operation type of module transaction.
 
 ```solidity focus=5
-execTransactionFromModuleReturnData(
-  "0x...",
-  "0x...",
-  "0x...",
-  Enum.Operation.Call
-)
+(ISafe safe).execTransactionFromModuleReturnData(
+    "0x...",
+    "0x...",
+    "0x...",
+    Enum.Operation.Call
+);
 ```
 
 ## Events

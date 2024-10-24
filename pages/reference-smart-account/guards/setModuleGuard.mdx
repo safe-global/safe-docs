@@ -24,12 +24,12 @@ Set Module Guard `moduleGuard` for the Safe. Make sure you trust the module gu
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function setModuleGuard(address moduleGuard) external
+        function setModuleGuard(address moduleGuard) external;
     }
 
     contract Example {
         function example() ... {
-            (ISafe safe).setModuleGuard("0x...")
+            (ISafe safe).setModuleGuard("0x...");
         }
     }
     ```
@@ -47,8 +47,8 @@ Set Module Guard `moduleGuard` for the Safe. Make sure you trust the module gu
 The address of the module guard to be used or the zero address to disable the module guard.
 
 ```solidity focus=2
-setModuleGuard(
-  "0x..."
+(ISafe safe).setModuleGuard(
+    "0x..."
 )
 ```
 
@@ -57,8 +57,7 @@ setModuleGuard(
 ### `ChangedModuleGuard`
 
 ```solidity
-event ChangedModuleGuard(address moduleGuard)
-
+event ChangedModuleGuard(address moduleGuard);
 ```
 
 Emitted when a module guard is set for the Safe.

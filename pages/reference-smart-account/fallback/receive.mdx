@@ -12,12 +12,12 @@ Receive function accepts native currency transactions.
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        receive() external payable
+        receive() external payable;
     }
 
     contract Example {
         function example() ... {
-            (ISafe safe).receive()
+            (ISafe safe).receive();
         }
     }
     ```
@@ -30,7 +30,6 @@ Receive function accepts native currency transactions.
 
 ```solidity
 event SafeReceived(address sender, uint256 value)
-
 ```
 
 Emitted when the Safe contract receives a payment.

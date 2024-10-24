@@ -11,20 +11,16 @@ Returns an array of modules. If all entries fit into a single page, the next poi
 <Tabs items={['example.sol']}>
   <Tabs.Tab>
     ```solidity
-    interface IModuleManager {
-      function getModulesPaginated(address start, uint256 pageSize) external view returns (address[] array, address next)
+    interface ISafe {
+      function getModulesPaginated(address start, uint256 pageSize) external view returns (address[] array, address next);
     }
 
     contract Example {
       function example() … {
-        (IModuleManager moduleManager).getModulesPaginated(
-          "0x...",
-          "0x..."
-        )
+        (ISafe safe).getModulesPaginated("0x...", "0x...");
       }
     }
     ```
-
   </Tabs.Tab>
 </Tabs>
 
@@ -53,10 +49,10 @@ Start of the next page.
 Start of the page. Has to be a module or start pointer (0x1 address).
 
 ```solidity focus=2
-getModulesPaginated(
-  "0x...",
-  "0x..."
-)
+(ISafe safe).getModulesPaginated(
+    "0x...",
+    "0x..."
+);
 ```
 
 ### `pageSize`
@@ -66,8 +62,8 @@ getModulesPaginated(
 Maximum number of modules that should be returned. Has to be > 0.
 
 ```solidity focus=3
-getModulesPaginated(
-  "0x...",
-  "0x..."
-)
+(ISafe safe).getModulesPaginated(
+    "0x...",
+    "0x..."
+);
 ```

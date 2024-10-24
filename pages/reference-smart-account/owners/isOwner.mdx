@@ -12,16 +12,15 @@ Returns if `owner` is an owner of the Safe.
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function isOwner(address owner) external view returns (bool)
+        function isOwner(address owner) external view returns (bool);
     }
 
     contract Example {
         function example() … {
-            (bool isOwner) = (ISafe safe).isOwner("0x..."); // true
+            (bool isOwner) = (ISafe safe).isOwner("0x...");
         }
     }
     ```
-
   </Tabs.Tab>
 </Tabs>
 
@@ -44,7 +43,7 @@ Boolean flag indicating if `owner` is an owner of the Safe.
 Owner address.
 
 ```solidity focus=2
-isOwner(
-  "0x..."
-)
+(ISafe safe).isOwner(
+    "0x..."
+);
 ```

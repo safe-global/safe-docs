@@ -15,17 +15,16 @@ Checks whether the signature provided is valid for the provided data and hash. R
         function checkSignatures(
             bytes32 dataHash,
             bytes signatures
-        ) external view
+        ) external view;
     }
 
     function example() ... {
         (ISafe safe).checkSignatures(
             "0x...",
             "0x..."
-        )
+        );
     }
     ```
-
   </Tabs.Tab>
 </Tabs>
 
@@ -40,10 +39,10 @@ Checks whether the signature provided is valid for the provided data and hash. R
 Hash of the data (could be either a message hash or transaction hash).
 
 ```solidity focus=2
-checkSignatures(
+(ISafe safe).checkSignatures(
     "0x...",
     "0x..."
-)
+);
 ```
 
 ### `signatures`
@@ -53,8 +52,8 @@ checkSignatures(
 Signature data that should be verified. Can be packed ECDSA signature ((bytes32 r)(bytes32 s)(uint8 v)), contract signature (EIP-1271) or approved hash.
 
 ```solidity focus=3
-checkSignatures(
+(ISafe safe).checkSignatures(
     "0x...",
     "0x..."
-)
+);
 ```

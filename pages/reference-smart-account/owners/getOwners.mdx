@@ -12,17 +12,15 @@ Returns a list of Safe owners.
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function getOwners() external view returns (address[])
+        function getOwners() external view returns (address[]);
     }
 
     contract Example {
         function example() ... {
-            (ISafe safe).getOwners()
+            (ISafe safe).getOwners();
         }
     }
-
     ```
-
   </Tabs.Tab>
 </Tabs>
 

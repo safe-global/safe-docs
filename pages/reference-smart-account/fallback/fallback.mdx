@@ -12,12 +12,12 @@ This function emits the [`SafeReceived`](./fallback/receive.mdx#safereceived) ev
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        fallback() external
+        fallback() external;
     }
 
     contract Example {
         function example() ... {
-            (ISafe safe).fallback()
+            (ISafe safe).fallback();
         }
     }
     ```

@@ -10,18 +10,17 @@ Reads `length` bytes of storage in the currents contract.
 
 <Tabs items={['example.sol']}>
   <Tabs.Tab>
-```solidity
+    ```solidity
     interface ISafe {
-        function getStorageAt(uint256 offset, uint256 length) external view returns (bytes)
+        function getStorageAt(uint256 offset, uint256 length) external view returns (bytes);
     }
 
     contract Example {
         function example() ... {
-            (ISafe safe).getStorageAt(0, 1)
+            (ISafe safe).getStorageAt(0, 1);
         }
     }
-
-```
+    ```
   </Tabs.Tab>
 </Tabs>
 
@@ -33,10 +32,10 @@ Reads `length` bytes of storage in the currents contract.
 The offset in the current contract's storage in words to start reading from.
 
 ```solidity focus=2
-getStorageAt(
+(ISafe safe).getStorageAt(
     0,
     1
-)
+);
 ```
 
 ### `length`
@@ -46,10 +45,10 @@ getStorageAt(
 The number of words (32 bytes) of data to read.
 
 ```solidity focus=3
-getStorageAt(
+(ISafe safe).getStorageAt(
     0,
     1
-)
+);
 ```
 
 ## Returns

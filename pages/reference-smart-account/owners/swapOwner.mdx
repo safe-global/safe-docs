@@ -18,7 +18,7 @@ Replaces the owner `oldOwner` in the Safe with `newOwner`.
             address prevOwner,
             address oldOwner,
             address newOwner
-        ) external
+        ) external;
     }
 
     contract Example {
@@ -27,11 +27,10 @@ Replaces the owner `oldOwner` in the Safe with `newOwner`.
                 "0x...",
                 "0x...",
                 "0x..."
-            )
+            );
         }
     }
     ```
-
   </Tabs.Tab>
 </Tabs>
 
@@ -46,11 +45,11 @@ Replaces the owner `oldOwner` in the Safe with `newOwner`.
 Owner that pointed to the owner to be replaced in the linked list
 
 ```solidity focus=2
-swapOwner(
+(ISafe safe).swapOwner(
     "0x...",
     "0x...",
     "0x..."
-)
+);
 ```
 
 ### `oldOwner`
@@ -60,11 +59,11 @@ swapOwner(
 Owner address to be replaced.
 
 ```solidity focus=3
-swapOwner(
+(ISafe safe).swapOwner(
     "0x...",
     "0x...",
     "0x..."
-)
+);
 ```
 
 ### `newOwner`
@@ -74,11 +73,11 @@ swapOwner(
 New owner address.
 
 ```solidity focus=4
-swapOwner(
+(ISafe safe).swapOwner(
     "0x...",
     "0x...",
     "0x..."
-)
+);
 ```
 
 ## Events

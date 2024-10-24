@@ -17,28 +17,26 @@ Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Toke
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-      function execTransactionFromModule(
-          address to,
-          uint256 value,
-          bytes data,
-          enum Enum.Operation operation
-      ) external returns (bool success)
+        function execTransactionFromModule(
+            address to,
+            uint256 value,
+            bytes data,
+            enum Enum.Operation operation
+        ) external returns (bool success);
     }
 
     contract Example {
-      function example() … {
-        (ISafe safe).execTransactionFromModule(
-          "0x...",
-          "0x...",
-          "0x...",
-          Enum.Operation.Call
-        )
-      }
+        function example() … {
+            (ISafe safe).execTransactionFromModule(
+                "0x...",
+                "0x...",
+                "0x...",
+                Enum.Operation.Call
+            );
+        }
     }
-
     ```
-
-</Tabs.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
@@ -60,12 +58,12 @@ Boolean flag indicating if the call succeeded.
 Destination address of module transaction.
 
 ```solidity focus=2
-execTransactionFromModule(
-  "0x...",
-  "0x...",
-  "0x...",
-  Enum.Operation.Call
-)
+(ISafe safe).execTransactionFromModule(
+    "0x...",
+    "0x...",
+    "0x...",
+    Enum.Operation.Call
+);
 ```
 
 ### `value`
@@ -75,12 +73,12 @@ execTransactionFromModule(
 Ether value of module transaction.
 
 ```solidity focus=3
-execTransactionFromModule(
-  "0x...",
-  "0x...",
-  "0x...",
-  Enum.Operation.Call
-)
+(ISafe safe).execTransactionFromModule(
+    "0x...",
+    "0x...",
+    "0x...",
+    Enum.Operation.Call
+);
 ```
 
 ### `data`
@@ -90,12 +88,12 @@ execTransactionFromModule(
 Data payload of module transaction.
 
 ```solidity focus=4
-execTransactionFromModule(
-  "0x...",
-  "0x...",
-  "0x...",
-  Enum.Operation.Call
-)
+(ISafe safe).execTransactionFromModule(
+    "0x...",
+    "0x...",
+    "0x...",
+    Enum.Operation.Call
+);
 ```
 
 ### `operation`
@@ -105,12 +103,12 @@ execTransactionFromModule(
 Operation type of module transaction.
 
 ```solidity focus=5
-execTransactionFromModule(
-  "0x...",
-  "0x...",
-  "0x...",
-  Enum.Operation.Call
-)
+(ISafe safe).execTransactionFromModule(
+    "0x...",
+    "0x...",
+    "0x...",
+    Enum.Operation.Call
+);
 ```
 
 ## Events
@@ -118,15 +116,14 @@ execTransactionFromModule(
 ### `ExecutionFromModuleSuccess`
 
 ```solidity
-event ExecutionFromModuleSuccess(address to, uint256 value, bytes data)
+event ExecutionFromModuleSuccess(address to, uint256 value, bytes data);
 ```
 
 Emitted when a transaction executed by a module succeeds. This event is also emitted in the [`execTransactionFromModuleReturnData`](./execTransactionFromModuleReturnData.mdx#executionfrommodulesuccess) function.
 ### `ExecutionFromModuleFailure`
 
 ```solidity
-event ExecutionFromModuleFailure(address module)
-
+event ExecutionFromModuleFailure(address module);
 ```
 
 Emitted when a transaction executed by a module fails. This event is also emitted in the [`execTransactionFromModuleReturnData`](./execTransactionFromModuleReturnData.mdx#executionfrommodulefailure) function.

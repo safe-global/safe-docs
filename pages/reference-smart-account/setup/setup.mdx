@@ -19,16 +19,16 @@ Sets an initial storage of the Safe contract.
     interface ISafe {
         function setup(
             address[] _owners,
-            uint256 _threshold,
-        ) external
+            uint256 _threshold
+        ) external;
     }
 
+    contract Example {
     function example() ... {
-      (ISafe safe).setup([owner1, owner2], 1)
+        (ISafe safe).setup([owner1, owner2], 1);
+      }
     }
-
     ```
-
   </Tabs.Tab>
 </Tabs>
 
@@ -43,10 +43,10 @@ Sets an initial storage of the Safe contract.
 List of Safe owners.
 
 ```solidity focus=2
-setup(
+(ISafe safe).setup(
     [owner1, owner2],
     1
-)
+);
 ```
 
 ### `_threshold`
@@ -56,10 +56,10 @@ setup(
 Number of required confirmations for a Safe transaction.
 
 ```solidity focus=3
-setup(
+(ISafe safe).setup(
     [owner1, owner2],
     1
-)
+);
 ```
 
 ## Events
@@ -73,7 +73,7 @@ event SafeSetup(
   uint256 threshold,
   address initializer,
   address fallbackHandler
-)
+);
 ```
 
 Emitted when the Safe is set up.

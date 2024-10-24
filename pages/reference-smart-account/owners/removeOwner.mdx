@@ -20,7 +20,7 @@ Removes the owner `owner` from the Safe and updates the threshold to `_threshold
             address prevOwner,
             address owner,
             uint256 _threshold
-        ) external
+        ) external;
     }
 
     contract Example {
@@ -29,12 +29,11 @@ Removes the owner `owner` from the Safe and updates the threshold to `_threshold
                 "0x...",
                 "0x...",
                 1
-            )
+            );
         }
     }
     ```
-
-</Tabs.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
@@ -48,11 +47,11 @@ Removes the owner `owner` from the Safe and updates the threshold to `_threshold
 Owner that pointed to the owner to be removed in the linked list
 
 ```solidity focus=2
-removeOwner(
+(ISafe safe).removeOwner(
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `owner`
@@ -62,11 +61,11 @@ removeOwner(
 Owner address to be removed.
 
 ```solidity focus=3
-removeOwner(
+(ISafe safe).removeOwner(
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `_threshold`
@@ -76,11 +75,11 @@ removeOwner(
 New threshold.
 
 ```solidity focus=4
-removeOwner(
+(ISafe safe).removeOwner(
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ## Events
@@ -88,8 +87,7 @@ removeOwner(
 ### `RemovedOwner`
 
 ```solidity
-event RemovedOwner(address owner)
-
+event RemovedOwner(address owner);
 ```
 
 Emitted when an owner is removed from the Safe.

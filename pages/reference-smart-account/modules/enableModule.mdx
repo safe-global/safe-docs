@@ -13,13 +13,13 @@ Enables the module `module` for the Safe.
 <Tabs items={['example.sol']}>
   <Tabs.Tab>
     ```solidity
-    interface IModuleManager {
-        function enableModule(address module) external
+    interface ISafe {
+        function enableModule(address module) external;
     }
 
     contract Example {
         function example() ... {
-            (IModuleManager moduleManager).enableModule("0x...")
+            (ISafe safe).enableModule("0x...");
         }
     }
     ```
@@ -37,8 +37,8 @@ Enables the module `module` for the Safe.
 Module to be whitelisted.
 
 ```solidity focus=2
-enableModule(
-  "0x..."
+(ISafe safe).enableModule(
+    "0x..."
 )
 ```
 
@@ -47,8 +47,7 @@ enableModule(
 ### `EnabledModule`
 
 ```solidity
-event EnabledModule(address module)
-
+event EnabledModule(address module);
 ```
 
 Emitted when a module is enabled for the Safe.

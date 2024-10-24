@@ -12,22 +12,18 @@ Adds the owner `owner` to the Safe and updates the threshold to `_threshold`.
 
 <Tabs items={['example.sol']}>
   <Tabs.Tab>
-```solidity
-interface ISafe {
-    function addOwnerWithThreshold(address owner, uint256 _threshold) external
-}
-
-contract Example {
-    function example() ... {
-        (ISafe safe).addOwnerWithThreshold(
-            "0x...",
-            1
-        )
+    ```solidity
+    interface ISafe {
+        function addOwnerWithThreshold(address owner, uint256 _threshold) external;
     }
-}
 
-````
-</Tabs.Tab>
+    contract Example {
+        function example() ... {
+            (ISafe safe).addOwnerWithThreshold("0x...", 1);
+        }
+    }
+    ```
+  </Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
@@ -41,11 +37,11 @@ contract Example {
 New owner address.
 
 ```solidity focus=2
-addOwnerWithThreshold(
+(ISafe safe).addOwnerWithThreshold(
     "0x...",
     1
-)
-````
+);
+```
 
 ### `_threshold`
 
@@ -54,10 +50,10 @@ addOwnerWithThreshold(
 New threshold.
 
 ```solidity focus=3
-addOwnerWithThreshold(
+(ISafe safe).addOwnerWithThreshold(
     "0x...",
     1
-)
+);
 ```
 
 ## Events
@@ -65,8 +61,7 @@ addOwnerWithThreshold(
 ### `AddedOwner`
 
 ```solidity
-event AddedOwner(address owner)
-
+event AddedOwner(address owner);
 ```
 
 Emitted when an owner is added to the Safe.

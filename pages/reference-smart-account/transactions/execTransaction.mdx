@@ -30,7 +30,7 @@ Executes an `operation` (0: Call, 1: DelegateCall) transaction to `to` with `val
             address gasToken,
             address payable refundReceiver,
             bytes signatures
-        ) external payable returns (bool success)
+        ) external payable returns (bool success);
     }
 
     contract Example {
@@ -46,12 +46,10 @@ Executes an `operation` (0: Call, 1: DelegateCall) transaction to `to` with `val
                 address(0),
                 payable(0),
                 "0x..."
-            )
+            );
         }
     }
-
     ```
-
   </Tabs.Tab>
 </Tabs>
 
@@ -72,7 +70,7 @@ Boolean indicating transaction's success.
 Destination address of Safe transaction.
 
 ```solidity focus=2
-execTransaction(
+(ISafe safe).execTransaction(
     "0x...",
     0,
     "0x...",
@@ -83,7 +81,7 @@ execTransaction(
     address(0),
     payable(0),
     "0x..."
-)
+);
 ```
 
 ### `value`
@@ -93,7 +91,7 @@ execTransaction(
 Ether value of Safe transaction.
 
 ```solidity focus=3
-execTransaction(
+(ISafe safe).execTransaction(
     "0x...",
     0,
     "0x...",
@@ -104,7 +102,7 @@ execTransaction(
     address(0),
     payable(0),
     "0x..."
-)
+);
 ```
 
 ### `data`
@@ -114,7 +112,7 @@ execTransaction(
 Data payload of Safe transaction.
 
 ```solidity focus=4
-execTransaction(
+(ISafe safe).execTransaction(
     "0x...",
     0,
     "0x...",
@@ -125,7 +123,7 @@ execTransaction(
     address(0),
     payable(0),
     "0x..."
-)
+);
 ```
 
 ### `operation`
@@ -135,7 +133,7 @@ execTransaction(
 Operation type of Safe transaction.
 
 ```solidity focus=5
-execTransaction(
+(ISafe safe).execTransaction(
     "0x...",
     0,
     "0x...",
@@ -146,7 +144,7 @@ execTransaction(
     address(0),
     payable(0),
     "0x..."
-)
+);
 ```
 
 ### `safeTxGas`
@@ -156,7 +154,7 @@ execTransaction(
 Gas that should be used for the Safe transaction.
 
 ```solidity focus=6
-execTransaction(
+(ISafe safe).execTransaction(
     "0x...",
     0,
     "0x...",
@@ -167,7 +165,7 @@ execTransaction(
     address(0),
     payable(0),
     "0x..."
-)
+);
 ```
 
 ### `baseGas`
@@ -177,7 +175,7 @@ execTransaction(
 Gas costs that are independent of the transaction execution (for example base transaction fee, signature check, payment of the refund).
 
 ```solidity focus=7
-execTransaction(
+(ISafe safe).execTransaction(
     "0x...",
     0,
     "0x...",
@@ -188,7 +186,7 @@ execTransaction(
     address(0),
     payable(0),
     "0x..."
-)
+);
 ```
 
 ### `gasPrice`
@@ -198,7 +196,7 @@ execTransaction(
 Gas price that should be used for the payment calculation.
 
 ```solidity focus=8
-execTransaction(
+(ISafe safe).execTransaction(
     "0x...",
     0,
     "0x...",
@@ -209,7 +207,7 @@ execTransaction(
     address(0),
     payable(0),
     "0x..."
-)
+);
 ```
 
 ### `gasToken`
@@ -219,7 +217,7 @@ execTransaction(
 Token address (or 0 if ETH) that is used for the payment.
 
 ```solidity focus=9
-execTransaction(
+(ISafe safe).execTransaction(
     "0x...",
     0,
     "0x...",
@@ -230,7 +228,7 @@ execTransaction(
     address(0),
     payable(0),
     "0x..."
-)
+);
 ```
 
 ### `refundReceiver`
@@ -240,7 +238,7 @@ execTransaction(
 Address of receiver of gas payment (or 0 if tx.origin).
 
 ```solidity focus=10
-execTransaction(
+(ISafe safe).execTransaction(
     "0x...",
     0,
     "0x...",
@@ -251,7 +249,7 @@ execTransaction(
     address(0),
     payable(0),
     "0x..."
-)
+);
 ```
 
 ### `signatures`
@@ -261,7 +259,7 @@ execTransaction(
 Signature data that should be verified. Can be packed ECDSA signature ((bytes32 r)(bytes32 s)(uint8 v)), contract signature (EIP-1271) or approved hash.
 
 ```solidity focus=11
-execTransaction(
+(ISafe safe).execTransaction(
     "0x...",
     0,
     "0x...",
@@ -272,7 +270,7 @@ execTransaction(
     address(0),
     payable(0),
     "0x..."
-)
+);
 ```
 
 ## Events
@@ -280,8 +278,7 @@ execTransaction(
 ### `ExecutionSuccess`
 
 ```solidity
-event ExecutionSuccess(bytes32 txHash, uint256 payment)
-
+event ExecutionSuccess(bytes32 txHash, uint256 payment);
 ```
 
 Emitted when a transaction is executed successfully.
@@ -289,8 +286,7 @@ Emitted when a transaction is executed successfully.
 ### `ExecutionFailure`
 
 ```solidity
-event ExecutionFailure(bytes32 txHash, uint256 payment)
-
+event ExecutionFailure(bytes32 txHash, uint256 payment);
 ```
 
 Emitted when a transaction fails.

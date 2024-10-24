@@ -17,12 +17,12 @@ Set Fallback Handler to `handler` for the Safe.
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function setFallbackHandler(address handler) external
+        function setFallbackHandler(address handler) external;
     }
 
     contract Example {
         function example() ... {
-            (ISafe safe).setFallbackHandler("0x...")
+            (ISafe safe).setFallbackHandler("0x...");
         }
     }
     ```
@@ -40,9 +40,9 @@ Set Fallback Handler to `handler` for the Safe.
 Contract to handle fallback calls.
 
 ```solidity focus=2
-setFallbackHandler(
+(ISafe safe).setFallbackHandler(
     "0x..."
-)
+);
 ```
 
 ## Events
@@ -50,7 +50,7 @@ setFallbackHandler(
 ### `ChangedFallbackHandler`
 
 ```solidity
-event ChangedFallbackHandler(address handler)
+event ChangedFallbackHandler(address handler);
 ```
 
 Emitted when the fallback handler is changed.

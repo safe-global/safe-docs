@@ -21,7 +21,7 @@ Checks whether the signature provided is valid for the provided data and hash. R
             bytes32 dataHash,
             bytes signatures,
             uint256 requiredSignatures
-        ) external view
+        ) external view;
     }
 
     function example() ... {
@@ -30,10 +30,9 @@ Checks whether the signature provided is valid for the provided data and hash. R
             "0x...",
             "0x...",
             1
-        )
+        );
     }
     ```
-
   </Tabs.Tab>
 </Tabs>
 
@@ -53,12 +52,12 @@ Address that executing the transaction.
 </Callout>
 
 ```solidity focus=2
-checkNSignatures(
+(ISafe safe).checkNSignatures(
     "0x...",
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `dataHash`
@@ -68,12 +67,12 @@ checkNSignatures(
 Hash of the data (could be either a message hash or transaction hash).
 
 ```solidity focus=3
-checkNSignatures(
+(ISafe safe).checkNSignatures(
     "0x...",
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `signatures`
@@ -83,12 +82,12 @@ checkNSignatures(
 Signature data that should be verified. Can be packed ECDSA signature ((bytes32 r)(bytes32 s)(uint8 v)), contract signature (EIP-1271) or approved hash.
 
 ```solidity focus=4
-checkNSignatures(
+(ISafe safe).checkNSignatures(
     "0x...",
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `requiredSignatures`
@@ -98,10 +97,10 @@ checkNSignatures(
 Amount of required valid signatures.
 
 ```solidity focus=5
-checkNSignatures(
+(ISafe safe).checkNSignatures(
     "0x...",
     "0x...",
     "0x...",
     1
-)
+);
 ```

@@ -12,16 +12,15 @@ Returns the number of required confirmations for a Safe transaction aka the thre
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function getThreshold() external view returns (uint256)
+        function getThreshold() external view returns (uint256);
     }
 
     contract Example {
         function example() ... {
-            (uint256 threshold) = (ISafe safe).getThreshold(); // 1
+            (uint256 threshold) = (ISafe safe).getThreshold();
         }
     }
     ```
-
   </Tabs.Tab>
 </Tabs>
 

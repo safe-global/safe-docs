@@ -23,7 +23,7 @@ Encodes the transaction data for `execTransaction`.
             address gasToken,
             address refundReceiver,
             uint256 _nonce
-        ) external view returns (bytes)
+        ) external view returns (bytes);
     }
 
     function example() ... {
@@ -38,7 +38,7 @@ Encodes the transaction data for `execTransaction`.
             "0x...",
             "0x...",
             1
-        )
+        );
     }
     ```
   </Tabs.Tab>
@@ -60,7 +60,7 @@ Encoded transaction data.
 Destination address.
 
 ```solidity focus=2
-encodeTransactionData(
+(ISafe safe).encodeTransactionData(
     "0x...",
     0,
     "0x...",
@@ -71,7 +71,7 @@ encodeTransactionData(
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `value`
@@ -80,7 +80,7 @@ encodeTransactionData(
 Ether value.
 
 ```solidity focus=3
-encodeTransactionData(
+(ISafe safe).encodeTransactionData(
     "0x...",
     0,
     "0x...",
@@ -91,7 +91,7 @@ encodeTransactionData(
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `data`
@@ -100,7 +100,7 @@ encodeTransactionData(
 Data payload.
 
 ```solidity focus=4
-encodeTransactionData(
+(ISafe safe).encodeTransactionData(
     "0x...",
     0,
     "0x...",
@@ -111,7 +111,7 @@ encodeTransactionData(
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `operation`
@@ -120,7 +120,7 @@ encodeTransactionData(
 Operation type.
 
 ```solidity focus=5
-encodeTransactionData(
+(ISafe safe).encodeTransactionData(
     "0x...",
     0,
     "0x...",
@@ -131,7 +131,7 @@ encodeTransactionData(
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `safeTxGas`
@@ -140,7 +140,7 @@ encodeTransactionData(
 Gas that should be used for the Safe transaction.
 
 ```solidity focus=6
-encodeTransactionData(
+(ISafe safe).encodeTransactionData(
     "0x...",
     0,
     "0x...",
@@ -151,7 +151,7 @@ encodeTransactionData(
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `baseGas`
@@ -160,7 +160,7 @@ encodeTransactionData(
 Gas costs for data used to trigger the Safe transaction.
 
 ```solidity focus=7
-encodeTransactionData(
+(ISafe safe).encodeTransactionData(
     "0x...",
     0,
     "0x...",
@@ -171,7 +171,7 @@ encodeTransactionData(
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `gasPrice`
@@ -180,7 +180,7 @@ encodeTransactionData(
 Maximum gas price that should be used for this transaction.
 
 ```solidity focus=8
-encodeTransactionData(
+(ISafe safe).encodeTransactionData(
     "0x...",
     0,
     "0x...",
@@ -191,7 +191,7 @@ encodeTransactionData(
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `gasToken`
@@ -200,7 +200,7 @@ encodeTransactionData(
 Token address (or 0 if ETH) that is used for the payment.
 
 ```solidity focus=9
-encodeTransactionData(
+(ISafe safe).encodeTransactionData(
     "0x...",
     0,
     "0x...",
@@ -211,7 +211,7 @@ encodeTransactionData(
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `refundReceiver`
@@ -220,7 +220,7 @@ encodeTransactionData(
 Address of receiver of gas payment (or 0 if tx.origin).
 
 ```solidity focus=10
-encodeTransactionData(
+(ISafe safe).encodeTransactionData(
     "0x...",
     0,
     "0x...",
@@ -231,7 +231,7 @@ encodeTransactionData(
     "0x...",
     "0x...",
     1
-)
+);
 ```
 
 ### `_nonce`
@@ -240,7 +240,7 @@ encodeTransactionData(
 Transaction nonce.
 
 ```solidity focus=11
-encodeTransactionData(
+(ISafe safe).encodeTransactionData(
     "0x...",
     0,
     "0x...",
@@ -251,5 +251,5 @@ encodeTransactionData(
     "0x...",
     "0x...",
     1
-)
+);
 ```

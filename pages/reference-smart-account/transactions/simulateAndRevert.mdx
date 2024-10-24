@@ -17,16 +17,15 @@ This method reverts with data equal to `abi.encode(bool(success), bytes(response
         function simulateAndRevert(
             address targetContract,
             bytes calldata payload
-        ) external
+        ) external;
     }
 
     contract Example {
         function example() ... {
-            (ISafe safe).simulateAndRevert("0x...", "0x...")
+            (ISafe safe).simulateAndRevert("0x...", "0x...");
         }
     }
     ```
-
   </Tabs.Tab>
 </Tabs>
 
@@ -39,10 +38,10 @@ This method reverts with data equal to `abi.encode(bool(success), bytes(response
 Address of the contract containing the code to execute.
 
 ```solidity focus=2
-simulateAndRevert(
+(ISafe safe).simulateAndRevert(
     "0x...",
     "0x..."
-)
+);
 ```
 
 ### `calldataPayload`
@@ -52,8 +51,8 @@ simulateAndRevert(
 Payload to be executed.
 
 ```solidity focus=3
-simulateAndRevert(
+(ISafe safe).simulateAndRevert(
     "0x...",
     "0x..."
-)
+);
 ```

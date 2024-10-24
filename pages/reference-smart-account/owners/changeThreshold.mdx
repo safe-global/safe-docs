@@ -12,21 +12,18 @@ Changes the threshold of the Safe to `_threshold`.
 
 <Tabs items={['example.sol']}>
   <Tabs.Tab>
-```solidity
+    ```solidity
     interface ISafe {
-        function changeThreshold(uint256 _threshold) external
+        function changeThreshold(uint256 _threshold) external;
     }
 
     contract Example {
         function example() ... {
-            (ISafe safe).changeThreshold(
-                1
-            )
+            (ISafe safe).changeThreshold(1);
         }
     }
-
-````
-</Tabs.Tab>
+    ```
+  </Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
@@ -34,23 +31,23 @@ Changes the threshold of the Safe to `_threshold`.
 ## Parameters
 
 ### `_threshold`
+
 - **Type:** `uint256`
 
 New threshold.
 
 ```solidity focus=2
-changeThreshold(
+(ISafe safe).changeThreshold(
     1
-)
-````
+);
+```
 
 ## Events
 
 ### `ChangedThreshold`
 
 ```solidity
-event ChangedThreshold(uint256 threshold)
-
+event ChangedThreshold(uint256 threshold);
 ```
 
 Emitted when the threshold for confirmations is changed.

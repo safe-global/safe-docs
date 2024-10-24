@@ -23,7 +23,7 @@ Returns transaction hash to be signed by owners.
             address gasToken,
             address refundReceiver,
             uint256 _nonce
-        ) external view returns (bytes32)
+        ) external view returns (bytes32);
     }
 
     contract Example {
@@ -39,7 +39,7 @@ Returns transaction hash to be signed by owners.
                 address(0),
                 payable(0),
                 1
-            )
+            );
         }
     }
     ```
@@ -60,7 +60,7 @@ Transaction hash.
 Destination address.
 
 ```solidity focus=2
-getTransactionHash(
+(ISafe safe).getTransactionHash(
     "0x...",
     0,
     "0x...",
@@ -71,7 +71,7 @@ getTransactionHash(
     address(0),
     payable(0),
     1
-)
+);
 ```
 
 ### `value`
@@ -80,7 +80,7 @@ getTransactionHash(
 Ether value.
 
 ```solidity focus=3
-getTransactionHash(
+(ISafe safe).getTransactionHash(
     "0x...",
     0,
     "0x...",
@@ -91,7 +91,7 @@ getTransactionHash(
     address(0),
     payable(0),
     1
-)
+);
 ```
 
 ### `data`
@@ -100,7 +100,7 @@ getTransactionHash(
 Data payload.
 
 ```solidity focus=4
-getTransactionHash(
+(ISafe safe).getTransactionHash(
     "0x...",
     0,
     "0x...",
@@ -111,7 +111,7 @@ getTransactionHash(
     address(0),
     payable(0),
     1
-)
+);
 ```
 
 ### `operation`
@@ -120,7 +120,7 @@ getTransactionHash(
 Operation type.
 
 ```solidity focus=5
-getTransactionHash(
+(ISafe safe).getTransactionHash(
     "0x...",
     0,
     "0x...",
@@ -131,7 +131,7 @@ getTransactionHash(
     address(0),
     payable(0),
     1
-)
+);
 ```
 
 ### `safeTxGas`
@@ -140,7 +140,7 @@ getTransactionHash(
 Gas that should be used for the safe transaction.
 
 ```solidity focus=6
-getTransactionHash(
+(ISafe safe).getTransactionHash(
     "0x...",
     0,
     "0x...",
@@ -151,7 +151,7 @@ getTransactionHash(
     address(0),
     payable(0),
     1
-)
+);
 ```
 
 ### `baseGas`
@@ -160,7 +160,7 @@ getTransactionHash(
 Gas costs for data used to trigger the safe transaction.
 
 ```solidity focus=7
-getTransactionHash(
+(ISafe safe).getTransactionHash(
     "0x...",
     0,
     "0x...",
@@ -171,7 +171,7 @@ getTransactionHash(
     address(0),
     payable(0),
     1
-)
+);
 ```
 
 ### `gasPrice`
@@ -180,7 +180,7 @@ getTransactionHash(
 Maximum gas price that should be used for this transaction.
 
 ```solidity focus=8
-getTransactionHash(
+(ISafe safe).getTransactionHash(
     "0x...",
     0,
     "0x...",
@@ -191,7 +191,7 @@ getTransactionHash(
     address(0),
     payable(0),
     1
-)
+);
 ```
 
 ### `gasToken`
@@ -200,7 +200,7 @@ getTransactionHash(
 Token address (or 0 if ETH) that is used for the payment.
 
 ```solidity focus=9
-getTransactionHash(
+(ISafe safe).getTransactionHash(
     "0x...",
     0,
     "0x...",
@@ -211,7 +211,7 @@ getTransactionHash(
     address(0),
     payable(0),
     1
-)
+);
 ```
 
 ### `refundReceiver`
@@ -220,7 +220,7 @@ getTransactionHash(
 Address of receiver of gas payment (or 0 if tx.origin).
 
 ```solidity focus=10
-getTransactionHash(
+(ISafe safe).getTransactionHash(
     "0x...",
     0,
     "0x...",
@@ -231,7 +231,7 @@ getTransactionHash(
     address(0),
     payable(0),
     1
-)
+);
 ```
 
 ### `_nonce`
@@ -240,7 +240,7 @@ getTransactionHash(
 Transaction nonce.
 
 ```solidity focus=11
-getTransactionHash(
+(ISafe safe).getTransactionHash(
     "0x...",
     0,
     "0x...",
@@ -251,5 +251,5 @@ getTransactionHash(
     address(0),
     payable(0),
     1
-)
+);
 ```
