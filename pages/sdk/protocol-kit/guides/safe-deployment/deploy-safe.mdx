@@ -127,7 +127,7 @@ Once we create the deployment transaction object, we can execute it using the si
   const txReceipt = await client.waitForTransactionReceipt({ hash: txHash })
   ```
 
-  ### Reconnect the `protocolKit` to the newly deployed Safe
+  ### Reconnect the Protocol Kit to the newly deployed Safe
 
 Once the deployment transaction has been successfully executed, it's necessary to reconnect your Protocol Kit instance to the address of the newly created Safe using the `connect` Method
 
