@@ -57,6 +57,7 @@ Encoded transaction data.
 ## Parameters
 
 ### `to`
+
 - **Type:** `address`
 
 Destination address.
@@ -77,6 +78,7 @@ Destination address.
 ```
 
 ### `value`
+
 - **Type:** `uint256`
 
 Native token value.
@@ -97,6 +99,7 @@ Native token value.
 ```
 
 ### `data`
+
 - **Type:** `bytes`
 
 Data payload.
@@ -117,6 +120,7 @@ Data payload.
 ```
 
 ### `operation`
+
 - **Type:** `enum Enum.Operation`
 
 Operation type.
@@ -137,6 +141,7 @@ Operation type.
 ```
 
 ### `safeTxGas`
+
 - **Type:** `uint256`
 
 Gas that should be used for the Safe transaction.
@@ -157,6 +162,7 @@ Gas that should be used for the Safe transaction.
 ```
 
 ### `baseGas`
+
 - **Type:** `uint256`
 
 Gas costs for data used to trigger the Safe transaction.
@@ -177,6 +183,7 @@ Gas costs for data used to trigger the Safe transaction.
 ```
 
 ### `gasPrice`
+
 - **Type:** `uint256`
 
 Maximum gas price that should be used for this transaction.
@@ -197,6 +204,7 @@ Maximum gas price that should be used for this transaction.
 ```
 
 ### `gasToken`
+
 - **Type:** `address`
 
 Token address (or 0 if ETH) that is used for the payment.
@@ -217,6 +225,7 @@ Token address (or 0 if ETH) that is used for the payment.
 ```
 
 ### `refundReceiver`
+
 - **Type:** `address`
 
 Address of receiver of gas payment (or 0 if tx.origin).
@@ -237,6 +246,7 @@ Address of receiver of gas payment (or 0 if tx.origin).
 ```
 
 ### `_nonce`
+
 - **Type:** `uint256`
 
 Transaction nonce.
