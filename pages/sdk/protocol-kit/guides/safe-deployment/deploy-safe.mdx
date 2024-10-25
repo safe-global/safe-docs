@@ -14,6 +14,8 @@ For more detailed information, see the [Protocol Kit Reference](../../../protoco
 
 First, you need to install the Protocol Kit.
 
+{/* <!-- vale off --> */}
+
 <CH.Section>
   <CH.Code style={{ boxShadow: 'none' }}>
     ```bash pnpm
@@ -29,6 +31,8 @@ First, you need to install the Protocol Kit.
     ```
   </CH.Code>
 </CH.Section>
+
+{/* <!-- vale on --> */}
 
 ## Steps
 
@@ -127,9 +131,13 @@ Once we create the deployment transaction object, we can execute it using the si
   const txReceipt = await client.waitForTransactionReceipt({ hash: txHash })
   ```
 
+  {/* <!-- vale on --> */}
+
   ### Reconnect the Protocol Kit to the newly deployed Safe
 
 Once the deployment transaction has been successfully executed, it's necessary to reconnect your Protocol Kit instance to the address of the newly created Safe using the `connect` Method
+
+  {/* <!-- vale off --> */}
 
 ```typescript
 // Reconnect to the newly deployed Safe using the protocol-kit
@@ -142,6 +150,7 @@ console.log("Safe Owners:", await protocolKit.getOwners())
 console.log("Safe Threshold:", await protocolKit.getThreshold())
 ```
 
+{/* <!-- vale on --> */}
 
 </Steps>
 

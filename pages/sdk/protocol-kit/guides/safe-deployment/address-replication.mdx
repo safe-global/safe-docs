@@ -16,6 +16,8 @@ For more detailed information, see the [Protocol Kit Reference](../../../protoco
 
 First, you need to install the Protocol Kit.
 
+{/* <!-- vale off --> */}
+
 <CH.Section>
   <CH.Code style={{ boxShadow: 'none' }}>
     ```bash pnpm
@@ -31,6 +33,8 @@ First, you need to install the Protocol Kit.
     ```
   </CH.Code>
 </CH.Section>
+
+{/* <!-- vale on --> */}
 
 ## Steps
 
@@ -52,7 +56,7 @@ import { sepolia, gnosisChiado } from 'viem/chains'
 
 ### Create a signer
 
-Firstly, you need to get a signer to execute the deployment transaction in each chain. this example uses a private key, but any way to get an `EIP-1193` compatible signer can be used.
+You need a signer to instantiate the Protocol Kit. This example uses a private key to obtain a signer, but other `EIP-1193` compatible signers are also supported. For more detailed information on the available options, please refer to the [Protocol Kit reference](../../reference/safe.mdx#initialization).
 
 {/* <!-- vale off --> */}
 
@@ -177,6 +181,8 @@ Repeat the initialization and deployment for Chiado chain using the same `predic
   console.log('Is Safe deployed:', await protocolKitChiado.isSafeDeployed())
   console.log('Safe Address:', await protocolKitChiado.getAddress())
 ```
+
+{/* <!-- vale on --> */}
 
 </Steps>
 
