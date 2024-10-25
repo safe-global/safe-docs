@@ -2,17 +2,17 @@ import { Tabs, Callout } from 'nextra/components'
 
 # `setModuleGuard`
 
-Set Module Guard `moduleGuard` for the Safe. Make sure you trust the module guard.
+Set Module Guard `moduleGuard` for the Safe. Make sure you trust the Module Guard.
 
 <Callout type='warning'>
-  Set a module guard that checks transactions initiated by the module before
+  Set a Module Guard that checks transactions initiated by the module before
   execution This action can only be done via a Safe transaction.
 </Callout>
 
 <Callout type='error' emoji='🚨'>
-  Since a module guard has full power to block Safe transaction execution
-  initiated via a module, a broken module guard can cause a denial of service
-  for the Safe Modules. Make sure to carefully audit the module guard code and
+  Since a Module Guard has full power to block Safe transaction execution
+  initiated via a module, a broken Module Guard can cause a denial of service
+  for the Safe Modules. Make sure to carefully audit the Module Guard code and
   design recovery mechanisms.
 </Callout>
 
@@ -44,7 +44,7 @@ Set Module Guard `moduleGuard` for the Safe. Make sure you trust the module gu
 
 - **Type:** `address`
 
-The address of the module guard to be used or the zero address to disable the module guard.
+The address of the Module Guard to be used or the zero address to disable the Module Guard.
 
 ```solidity focus=2
 (ISafe safe).setModuleGuard(
@@ -60,4 +60,4 @@ The address of the module guard to be used or the zero address to disable the mo
 event ChangedModuleGuard(address moduleGuard);
 ```
 
-Emitted when a module guard is set for the Safe.
+Emitted when a Module Guard is set for the Safe.
