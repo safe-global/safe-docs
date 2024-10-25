@@ -56,7 +56,7 @@ import { sepolia, gnosisChiado } from 'viem/chains'
 
 ### Create a signer
 
-You need a signer to instantiate the Protocol Kit. This example uses a private key to obtain a signer, but other `EIP-1193` compatible signers are also supported. For more detailed information on the available options, please refer to the [Protocol Kit reference](../../reference/safe.mdx#initialization).
+You need a signer to instantiate the Protocol Kit. This example uses a private key to obtain a signer, but other [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible signers are also supported. For detailed information about signers and providers, please refer to the [Protocol Kit reference](../../reference/safe.mdx#initialization).
 
 {/* <!-- vale off --> */}
 
@@ -68,7 +68,7 @@ const SIGNER_PRIVATE_KEY = // ...
 
 ### Define the Safe Configuration
 
-Define the configuration for your Safe. This includes the `owners`, `threshold`, deployment type, salt nonce for address predictability, and the version of the Safe.
+Define the configuration for your Safe. This example includes the `owners`, `threshold`, `deploymentType`, `saltNonce`, and the `safeVersion`. You can read more about these properties in the [Protocol Kit reference](../../reference/safe.mdx#initialization).
 
 {/* <!-- vale off --> */}
 
