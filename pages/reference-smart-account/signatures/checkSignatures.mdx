@@ -18,11 +18,13 @@ Checks whether the signature provided is valid for the provided data and hash. R
         ) external view;
     }
 
-    function example() ... {
-        (ISafe safe).checkSignatures(
+    contract Example {
+        function example() ... {
+            (ISafe safe).checkSignatures(
             "0x...",
             "0x..."
-        );
+            );
+        }
     }
     ```
   </Tabs.Tab>

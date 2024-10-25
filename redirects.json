@@ -873,5 +873,10 @@
     "source": "/reference-smart-account/utilities",
     "destination": "/reference-smart-account/utilities/getStorageAt",
     "permanent": true
+  },
+  {
+    "source": "/reference-smart-account/setup",
+    "destination": "/reference-smart-account/setup/setup",
+    "permanent": true
   }
 ]

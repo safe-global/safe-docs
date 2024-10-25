@@ -4,7 +4,7 @@ import { Tabs, Callout } from 'nextra/components'
 
 Set Transaction Guard `guard` that checks transactions before execution.
 
-<Callout type='warning'>This can only be done via a Safe transaction.</Callout>
+<Callout type='warning'>This action can only be done via a Safe transaction.</Callout>
 <Callout type='error' emoji='🚨'>
   Since a guard has full power to block Safe transaction execution, a broken
   guard can cause a denial of service for the Safe. Make sure to carefully audit
@@ -42,7 +42,7 @@ The address of the guard to be used or the 0 address to disable the guard.
 ```solidity focus=2
 (ISafe safe).setGuard(
     "0x..."
-)
+);
 ```
 
 ## Events

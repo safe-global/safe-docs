@@ -12,13 +12,16 @@ Returns an array of modules. If all entries fit into a single page, the next poi
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-      function getModulesPaginated(address start, uint256 pageSize) external view returns (address[] array, address next);
+        function getModulesPaginated(
+            address start,
+            uint256 pageSize
+        ) external view returns (address[] array, address next);
     }
 
     contract Example {
-      function example() … {
-        (ISafe safe).getModulesPaginated("0x...", "0x...");
-      }
+        function example() … {
+            (ISafe safe).getModulesPaginated("0x...", "0x...");
+        }
     }
     ```
   </Tabs.Tab>

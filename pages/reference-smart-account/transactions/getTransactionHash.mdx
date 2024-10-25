@@ -36,7 +36,7 @@ Returns transaction hash to be signed by owners.
                 0,
                 0,
                 0,
-                address(0),
+                "0x",
                 payable(0),
                 1
             );
@@ -46,7 +46,7 @@ Returns transaction hash to be signed by owners.
   </Tabs.Tab>
 </Tabs>
 
-## Return value
+## Returns
 
 - **Type:** `bytes32`
 
@@ -55,6 +55,7 @@ Transaction hash.
 ## Parameters
 
 ### `to`
+
 - **Type:** `address`
 
 Destination address.
@@ -68,13 +69,14 @@ Destination address.
     0,
     0,
     0,
-    address(0),
+    "0x",
     payable(0),
     1
 );
 ```
 
 ### `value`
+
 - **Type:** `uint256`
 
 Ether value.
@@ -88,13 +90,14 @@ Ether value.
     0,
     0,
     0,
-    address(0),
+    "0x",
     payable(0),
     1
 );
 ```
 
 ### `data`
+
 - **Type:** `bytes`
 
 Data payload.
@@ -108,13 +111,14 @@ Data payload.
     0,
     0,
     0,
-    address(0),
+    "0x",
     payable(0),
     1
 );
 ```
 
 ### `operation`
+
 - **Type:** `Enum.Operation`
 
 Operation type.
@@ -128,13 +132,14 @@ Operation type.
     0,
     0,
     0,
-    address(0),
+    "0x",
     payable(0),
     1
 );
 ```
 
 ### `safeTxGas`
+
 - **Type:** `uint256`
 
 Gas that should be used for the safe transaction.
@@ -148,13 +153,14 @@ Gas that should be used for the safe transaction.
     0,
     0,
     0,
-    address(0),
+    "0x",
     payable(0),
     1
 );
 ```
 
 ### `baseGas`
+
 - **Type:** `uint256`
 
 Gas costs for data used to trigger the safe transaction.
@@ -168,13 +174,14 @@ Gas costs for data used to trigger the safe transaction.
     0,
     0,
     0,
-    address(0),
+    "0x",
     payable(0),
     1
 );
 ```
 
 ### `gasPrice`
+
 - **Type:** `uint256`
 
 Maximum gas price that should be used for this transaction.
@@ -188,13 +195,14 @@ Maximum gas price that should be used for this transaction.
     0,
     0,
     0,
-    address(0),
+    "0x",
     payable(0),
     1
 );
 ```
 
 ### `gasToken`
+
 - **Type:** `address`
 
 Token address (or 0 if ETH) that is used for the payment.
@@ -208,13 +216,14 @@ Token address (or 0 if ETH) that is used for the payment.
     0,
     0,
     0,
-    address(0),
+    "0x",
     payable(0),
     1
 );
 ```
 
 ### `refundReceiver`
+
 - **Type:** `address`
 
 Address of receiver of gas payment (or 0 if tx.origin).
@@ -228,13 +237,14 @@ Address of receiver of gas payment (or 0 if tx.origin).
     0,
     0,
     0,
-    address(0),
+    "0x",
     payable(0),
     1
 );
 ```
 
 ### `_nonce`
+
 - **Type:** `uint256`
 
 Transaction nonce.
@@ -248,7 +258,7 @@ Transaction nonce.
     0,
     0,
     0,
-    address(0),
+    "0x",
     payable(0),
     1
 );

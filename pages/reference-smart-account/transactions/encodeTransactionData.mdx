@@ -26,19 +26,21 @@ Encodes the transaction data for `execTransaction`.
         ) external view returns (bytes);
     }
 
-    function example() ... {
-        (ISafe safe).encodeTransactionData(
-            "0x...",
-            0,
-            "0x...",
-            Enum.Operation.Call,
-            100000,
-            0,
-            0,
-            "0x...",
-            "0x...",
-            1
-        );
+    contract Example {
+        function example() ... {
+            (ISafe safe).encodeTransactionData(
+                "0x...",
+                0,
+                "0x...",
+                Enum.Operation.Call,
+                100000,
+                0,
+                0,
+                "0x...",
+                "0x...",
+                1
+            );
+        }
     }
     ```
   </Tabs.Tab>

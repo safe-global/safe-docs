@@ -24,13 +24,16 @@ Checks whether the signature provided is valid for the provided data and hash. R
         ) external view;
     }
 
-    function example() ... {
-        (ISafe safe).checkNSignatures(
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).checkNSignatures(
+                "0x...",
             "0x...",
             "0x...",
-            "0x...",
-            1
-        );
+                1
+            );
+        }
     }
     ```
   </Tabs.Tab>

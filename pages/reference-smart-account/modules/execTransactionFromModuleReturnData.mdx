@@ -12,23 +12,23 @@ Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Toke
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-      function execTransactionFromModuleReturnData(
-          address to,
-          uint256 value,
-          bytes data,
-          enum Enum.Operation operation
-      ) external returns (bool success, bytes returnData);
+        function execTransactionFromModuleReturnData(
+            address to,
+            uint256 value,
+            bytes data,
+            enum Enum.Operation operation
+        ) external returns (bool success, bytes returnData);
     }
 
     contract Example {
-      function example() … {
-        (ISafe safe).execTransactionFromModuleReturnData(
-          "0x...",
-          "0x...",
-          "0x...",
-          Enum.Operation.Call
-        );
-      }
+        function example() … {
+            (ISafe safe).execTransactionFromModuleReturnData(
+                "0x...",
+                "0x...",
+                "0x...",
+                Enum.Operation.Call
+            );
+        }
     }
     ```
   </Tabs.Tab>

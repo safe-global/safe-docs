@@ -6,7 +6,7 @@ Set Module Guard `moduleGuard` for the Safe. Make sure you trust the module gu
 
 <Callout type='warning'>
   Set a module guard that checks transactions initiated by the module before
-  execution This can only be done via a Safe transaction.
+  execution This action can only be done via a Safe transaction.
 </Callout>
 
 <Callout type='error' emoji='🚨'>
@@ -49,7 +49,7 @@ The address of the module guard to be used or the zero address to disable the mo
 ```solidity focus=2
 (ISafe safe).setModuleGuard(
     "0x..."
-)
+);
 ```
 
 ## Events
