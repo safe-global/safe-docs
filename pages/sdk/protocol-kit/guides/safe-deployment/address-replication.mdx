@@ -68,9 +68,9 @@ const SIGNER_PRIVATE_KEY = // ...
 
 ### Define the Safe Configuration
 
-{/* <!-- vale off --> */}
-
 Define the configuration for your Safe. This includes the `owners`, `threshold`, deployment type, salt nonce for address predictability, and the version of the Safe.
+
+{/* <!-- vale off --> */}
 
 ```typescript
 // Safe account config
@@ -91,12 +91,11 @@ const safeDeploymentConfig: SafeDeploymentConfig = {
 
 ### Initialize the Protocol Kit for Sepolia and Chiado chain
 
-{/* <!-- vale off --> */}
-
-
 Initialize the Protocol Kit for deploying on Sepolia and Chiado. Set up the provider and signer along with the predicted Safe configuration.
 
 You can use the `getAddress` method to ensure that the Safe account has the same predicted address across chains.
+
+{/* <!-- vale off --> */}
 
 ```typescript
   let protocolKitSepolia = await Safe.init({
