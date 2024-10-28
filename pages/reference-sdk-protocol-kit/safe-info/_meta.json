@@ -1,0 +1,15 @@
+{
+  "createaddownertx": "createAddOwnerTx",
+  "createchangethresholdtx": "createChangeThresholdTx",
+  "createremoveownertx": "createRemoveOwnerTx",
+  "createswapownertx": "createSwapOwnerTx",
+  "getaddress": "getAddress",
+  "getbalance": "getBalance",
+  "getchainid": "getChainId",
+  "getcontractversion": "getContractVersion",
+  "getnonce": "getNonce",
+  "getowners": "getOwners",
+  "getownerswhoapprovedtx": "getOwnersWhoApprovedTx",
+  "getthreshold": "getThreshold",
+  "isowner": "isOwner"
+}

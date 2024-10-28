@@ -1,0 +1,157 @@
+import { Tabs } from 'nextra/components'
+
+# `createDisableModuleTx`
+
+Returns a Safe transaction to disable a Safe Module.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { SafeTransactionOptionalProps } from '@safe-global/protocol-kit'
+    import { protocolKit } from './setup.ts'
+
+    const moduleAddress = '0x...'
+
+    const options: SafeTransactionOptionalProps = {
+      safeTxGas: '123', // Optional
+      baseGas: '123', // Optional
+      gasPrice: '123', // Optional
+      gasToken: '0x...', // Optional
+      refundReceiver: '0x...', // Optional
+      nonce: 123 // Optional
+    }
+
+    const safeTransaction = await protocolKit.createDisableModuleTx(
+      moduleAddress,
+      options // Optional
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `moduleAddress`
+
+- **Type**: `string`
+
+The Safe Module address to disable.
+
+```typescript focus=2
+const safeTransaction = await protocolKit.createDisableModuleTx(
+  '0x...'
+)
+```
+
+### `options.safeTxGas` (Optional)
+
+- **Type**: `string`
+
+The gas that should be used for the Safe transaction.
+
+```typescript focus=4
+const safeTransaction = await protocolKit.createDisableModuleTx(
+  '0x...',
+  options: {
+    safeTxGas: '123'
+  }
+)
+```
+
+### `options.baseGas` (Optional)
+
+- **Type**: `string`
+
+The gas costs for the data used to trigger the Safe transaction.
+
+```typescript focus=4
+const safeTransaction = await protocolKit.createDisableModuleTx(
+  '0x...',
+  options: {
+    baseGas: '123'
+  }
+)
+```
+
+### `options.gasPrice` (Optional)
+
+- **Type**: `string`
+
+The price in wei that the sender is willing to pay for each unit of gas.
+
+```typescript focus=4
+const safeTransaction = await protocolKit.createDisableModuleTx(
+  '0x...',
+  options: {
+    gasPrice: '123'
+  }
+)
+```
+
+### `options.gasToken` (Optional)
+
+- **Type**: `string`
+
+The token address that is used for the gas payment, or `0x0000000000000000000000000000000000000000` if there is no payment.
+
+```typescript focus=4
+const safeTransaction = await protocolKit.createDisableModuleTx(
+  '0x...',
+  options: {
+    gasToken: '0x...'
+  }
+)
+```
+
+### `options.refundReceiver` (Optional)
+
+- **Type**: `string`
+
+The address of the gas payment receiver or `0x0000000000000000000000000000000000000000` if there is no payment.
+
+```typescript focus=4
+const safeTransaction = await protocolKit.createDisableModuleTx(
+  '0x...',
+  options: {
+    refundReceiver: '0x...'
+  }
+)
+```
+
+### `options.nonce` (Optional)
+
+- **Type**: `number`
+
+The transaction nonce.
+
+```typescript focus=4
+const safeTransaction = await protocolKit.createDisableModuleTx(
+  '0x...',
+  options: {
+    nonce: 123
+  }
+)
+```
+
+## Returns
+
+`Promise<SafeTransaction>`
+
+The Safe transaction to disable the Safe Module.

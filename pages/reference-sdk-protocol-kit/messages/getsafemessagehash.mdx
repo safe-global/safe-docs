@@ -1,0 +1,60 @@
+import { Tabs } from 'nextra/components'
+
+# `getSafeMessageHash`
+
+Returns the Safe message hash of a message ready to be signed.
+
+It returns the same hash returned by the [`getMessageHash`](https://github.com/safe-global/safe-smart-account/blob/main/contracts/handler/CompatibilityFallbackHandler.sol#L26) method in the `CompatibilityFallbackHandler` contract.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { hashSafeMessage } from '@safe-global/protocol-kit'
+    import { EIP712TypedData } from '@safe-global/types-kit'
+    import { protocolKit } from './setup.ts'
+
+    const rawMessage: string | EIP712TypedData = 'Example message'
+    const messageHash = hashSafeMessage(rawMessage)
+
+    const safeMessageHash = await protocolKit.getSafeMessageHash(messageHash)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+## Parameters
+
+### `messageHash`
+
+- **Type**: `string`
+
+The hash of the message.
+
+```typescript focus=2
+const safeMessageHash = await protocolKit.getSafeMessageHash(
+  '0x...'
+)
+```
+
+## Returns
+
+`Promise<string>`
+
+The Safe message hash.
