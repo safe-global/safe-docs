@@ -43,7 +43,7 @@ Returns a Safe transaction ready to be signed by the owners of the connected Saf
 
 - **Type**: `number`
 
-The nonce of the transaction(s) that will be rejected.
+The nonce of the transaction that will be rejected.
 
 ```typescript focus=2
 const rejectionTransaction = await protocolKit.createRejectionTransaction(
@@ -55,4 +55,4 @@ const rejectionTransaction = await protocolKit.createRejectionTransaction(
 
 `Promise<SafeTransaction>`
 
-The Safe transaction that invalidates the pending Safe transaction(s).
+The Safe transaction that invalidates the pending Safe transaction.
