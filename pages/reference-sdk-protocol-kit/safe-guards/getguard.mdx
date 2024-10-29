@@ -1,0 +1,38 @@
+import { Tabs } from 'nextra/components'
+
+# `getGuard`
+
+Returns the enabled Safe Guard or `0x0000000000000000000000000000000000000000` if no guards are enabled.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { protocolKit } from './setup.ts'
+
+    const guardAddress = await protocolKit.getGuard()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<string>`
+
+The enabled Safe Guard or `0x0000000000000000000000000000000000000000` if no guards are enabled.

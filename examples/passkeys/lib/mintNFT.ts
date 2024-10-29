@@ -1,5 +1,5 @@
 import { PasskeyArgType } from '@safe-global/protocol-kit'
-import { Safe4337Pack } from '@safe-global/relay-kit'
+import { Safe4337Pack, SponsoredPaymasterOption } from '@safe-global/relay-kit'
 import { encodeFunctionData } from 'viem'
 import {
   BUNDLER_URL,
@@ -13,7 +13,7 @@ const paymasterOptions = {
   isSponsored: true,
   paymasterAddress: PAYMASTER_ADDRESS,
   paymasterUrl: PAYMASTER_URL
-}
+} as SponsoredPaymasterOption
 
 /**
  * Mint an NFT.
@@ -22,7 +22,10 @@ const paymasterOptions = {
  * @returns {Promise<void>}
  * @throws {Error} If the operation fails.
  */
-export const mintNFT = async (passkey: PasskeyArgType, safeAddress: string) => {
+export const mintNFT = async (
+  passkey: PasskeyArgType,
+  safeAddress: string
+): Promise<string> => {
   // 1) Initialize Safe4337Pack
   const safe4337Pack = await Safe4337Pack.init({
     provider: RPC_URL,
