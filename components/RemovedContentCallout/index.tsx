@@ -2,8 +2,8 @@ import { Callout } from 'nextra/components'
 import { useEffect, useState } from 'react'
 
 const RemovedContentCallout: React.FC<{
-  description: string
-}> = ({ description }) => {
+  children: React.ReactNode
+}> = ({ children }) => {
   const [isContentRemoved, setIsContentRemoved] = useState<boolean>(false)
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const RemovedContentCallout: React.FC<{
 
   if (!isContentRemoved) return
 
-  return <Callout type='warning'>{description}</Callout>
+  return <Callout type='warning'>{children}</Callout>
 }
 
 export default RemovedContentCallout

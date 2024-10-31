@@ -321,7 +321,17 @@
   },
   {
     "source": "/sdk-protocol-kit/reference",
-    "destination": "/sdk/protocol-kit/reference",
+    "destination": "/reference-sdk-protocol-kit/overview",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-protocol-kit/reference/safe",
+    "destination": "/reference-sdk-protocol-kit/overview",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-protocol-kit/reference/safe-factory",
+    "destination": "/reference-sdk-protocol-kit?removed=true",
     "permanent": true
   },
   {
@@ -340,17 +350,7 @@
     "permanent": true
   },
   {
-    "source": "/sdk/protocol-kit/reference/migrate-to-v1",
-    "destination": "/sdk/protocol-kit/guides/migrate-to-v1",
-    "permanent": true
-  },
-  {
     "source": "/sdk/protocol-kit/reference/migrating-to-v1",
-    "destination": "/sdk/protocol-kit/guides/migrate-to-v1",
-    "permanent": true
-  },
-  {
-    "source": "/sdk/protocol-kit/reference/migrate-to-v1",
     "destination": "/sdk/protocol-kit/guides/migrate-to-v1",
     "permanent": true
   },
@@ -370,17 +370,7 @@
     "permanent": true
   },
   {
-    "source": "/sdk/protocol-kit/reference/migrate-to-v2",
-    "destination": "/sdk/protocol-kit/guides/migrate-to-v2",
-    "permanent": true
-  },
-  {
     "source": "/sdk/protocol-kit/reference/migrating-to-v2",
-    "destination": "/sdk/protocol-kit/guides/migrate-to-v2",
-    "permanent": true
-  },
-  {
-    "source": "/sdk/protocol-kit/reference/migrate-to-v2",
     "destination": "/sdk/protocol-kit/guides/migrate-to-v2",
     "permanent": true
   },
