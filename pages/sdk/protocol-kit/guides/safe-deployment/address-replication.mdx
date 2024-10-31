@@ -1,10 +1,8 @@
-import { Steps } from "nextra/components";
+import { Steps } from 'nextra/components'
 
-# Safe Address Replication Across Chains
+# Safe Multichain Deployment
 
-In this guide, you will learn how to replicate a Safe address across different chains using the Protocol Kit. This process includes initializing the Protocol Kit, configuring the Safe, predicting the Safe address on different chains, and executing the deployment.
-
-We will demonstrate how to deploy a Safe account on both the Sepolia and Chiado chains with the same address using the Protocol Kit.
+This guide will teach you how to replicate a Safe address across different chains using the Protocol Kit. This process includes initializing the Protocol Kit, configuring the Safes to deploy, predicting its address on different chains, and executing the deployment transactions.
 
 For more detailed information, see the [Protocol Kit Reference](../../../protocol-kit/reference/safe.mdx).
 
@@ -18,21 +16,9 @@ First, you need to install the Protocol Kit.
 
 {/* <!-- vale off --> */}
 
-<CH.Section>
-  <CH.Code style={{ boxShadow: 'none' }}>
-    ```bash pnpm
-    pnpm add @safe-global/protocol-kit
-    ```
-
-    ```bash npm
-    npm install @safe-global/protocol-kit
-    ```
-
-    ```bash yarn
-    yarn add @safe-global/protocol-kit
-    ```
-  </CH.Code>
-</CH.Section>
+```bash
+pnpm add @safe-global/protocol-kit viem
+```
 
 {/* <!-- vale on --> */}
 
@@ -40,151 +26,186 @@ First, you need to install the Protocol Kit.
 
 <Steps>
 
-### Imports
+  ### Imports
 
-Import the `Safe` class from the Protocol Kit and chain configuration from `Viem`.
+  Here are all the necessary imports for this guide.
 
-{/* <!-- vale off --> */}
+  {/* <!-- vale off --> */}
 
-```typescript
-import Safe, { SafeDeploymentConfig, SafeAccountConfig } from '@safe-global/protocol-kit'
-import { waitForTransactionReceipt } from 'viem/actions'
-import { sepolia, gnosisChiado } from 'viem/chains'
-```
+  ```typescript
+  import Safe, {
+    PredictedSafeProps,
+    SafeAccountConfig,
+    SafeDeploymentConfig
+  } from '@safe-global/protocol-kit'
+  import { waitForTransactionReceipt } from 'viem/actions'
+  import { gnosisChiado, sepolia } from 'viem/chains'
+  ```
 
-{/* <!-- vale on --> */}
+  {/* <!-- vale on --> */}
 
-### Create a signer
+  ### Create a signer
 
-You need a signer to instantiate the Protocol Kit. This example uses a private key to obtain a signer, but other [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible signers are also supported. For detailed information about signers and providers, please refer to the [Protocol Kit reference](../../reference/safe.mdx#initialization).
+  You need a signer to instantiate the Protocol Kit. This example uses a private key to obtain a signer, but other [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible signers are also supported. For detailed information about signers, please refer to the [Protocol Kit reference](../../../../reference-sdk-protocol-kit/overview.md).
 
-{/* <!-- vale off --> */}
+  {/* <!-- vale off --> */}
 
-```typescript
-const SIGNER_PRIVATE_KEY = // ...
-```
+  ```typescript
+  const SIGNER_PRIVATE_KEY = // ...
+  ```
 
-{/* <!-- vale on --> */}
+  {/* <!-- vale on --> */}
 
-### Define the Safe Configuration
+  ### Configure the Safe deployment
 
-Define the configuration for your Safe. This example includes the `owners`, `threshold`, `deploymentType`, `saltNonce`, and the `safeVersion`. You can read more about these properties in the [Protocol Kit reference](../../reference/safe.mdx#initialization).
+  Define the [`predictedSafe`](../../../../reference-sdk-protocol-kit/initialization/init.mdx#predictedsafe-optional) object with the configuration for all the Safe accounts you will deploy. Check the reference to learn about all the different configuration options.
 
-{/* <!-- vale off --> */}
+  {/* <!-- vale off --> */}
 
-```typescript
-// Safe account config
-const safeAccountConfig: SafeAccountConfig = {
-  owners: ['0xOwnerAddress'],
-  threshold: 1
-}
+  ```typescript
+  const safeAccountConfig: SafeAccountConfig = {
+    owners: ['0x...', '0x...', '0x...'],
+    threshold: 2
+    // More optional properties
+  }
 
-// Safe deployment config
-const safeDeploymentConfig: SafeDeploymentConfig = {
-  deploymentType: 'canonical',
-  saltNonce: '12345',
-  safeVersion: '1.3.0'
-}
-```
+  const predictedSafe: PredictedSafeProps = {
+    safeAccountConfig
+    // More optional properties
+  }
+  ```
 
-{/* <!-- vale on --> */}
+  {/* <!-- vale on --> */}
 
-### Initialize the Protocol Kit for Sepolia and Chiado chain
+  ### Initialize the Protocol Kit
 
-Initialize the Protocol Kit for deploying on Sepolia and Chiado. Set up the provider and signer along with the predicted Safe configuration.
+  Initialize an instance of the Protocol Kit for each network where you want to deploy a new Safe smart account by calling the [`init`](../../../../reference-sdk-protocol-kit/initialization/init.mdx) method. Pass the `provider` with its corresponding value depending on the network, the `signer` executing the deployment, and the [`predictedSafe`](../../../../reference-sdk-protocol-kit/initialization/init.mdx#predictedsafe-optional) with the Safe account configuration.
 
-You can use the `getAddress` method to ensure that the Safe account has the same predicted address across chains.
+  {/* <!-- vale off --> */}
 
-{/* <!-- vale off --> */}
-
-```typescript
-  let protocolKitSepolia = await Safe.init({
+  ```typescript
+  const protocolKitSepolia = await Safe.init({
     provider: sepolia.rpcUrls.default.http[0],
     signer: SIGNER_PRIVATE_KEY,
-    predictedSafe: {
-      safeAccountConfig,
-      safeDeploymentConfig
-    }
+    predictedSafe
   })
-
-  let protocolKitChiado = await Safe.init({
+  
+  const protocolKitChiado = await Safe.init({
     provider: gnosisChiado.rpcUrls.default.http[0],
     signer: PRIVATE_KEY,
-    predictedSafe: {
-      safeAccountConfig,
-      safeDeploymentConfig
-    }
+    predictedSafe
   })
+  ```
 
-  const safeAddressInSepolia = await protocolKitSepolia.getAddress()
-  const safeAddressInChiado = await protocolKitChiado.getAddress()
+  {/* <!-- vale on --> */}
 
-  console.log('safeAddressInSepolia: ', safeAddressInSepolia)
-  console.log('safeAddressInChiado: ', safeAddressInChiado)
-```
+  ### Predict the Safe addresses
 
-{/* <!-- vale on --> */}
+  You can predict the Safe addresses by calling the [`getAddress`](../../../../reference-sdk-protocol-kit/safe-info/getaddress.mdx) method from each Protocol Kit instance and ensure that the result addresses are the same.
 
-### Deploy the Safe on Sepolia
+  {/* <!-- vale off --> */}
 
-Create and send the deployment transaction on Sepolia.
+  ```typescript
+  const sepoliaPredictedSafeAddress = await protocolKitSepolia.getAddress()
+  const chiadoPredictedSafeAddress = await protocolKitChiado.getAddress()
+  ```
 
-{/* <!-- vale off --> */}
+  {/* <!-- vale on --> */}
 
-```typescript
-  const deploymentTransactionInSepolia = await protocolKitSepolia.createSafeDeploymentTransaction()
+  ### Deployment on Sepolia
 
-  const sepoliaClient = await protocolKitSepolia.getSafeProvider().getExternalSigner()
+  Create the deployment transaction to deploy a new Safe account in Sepolia by calling the [`createSafeDeploymentTransaction`](../../../../reference-sdk-protocol-kit/deployment/createsafedeploymenttransaction.mdx) method.
+  
+  {/* <!-- vale off --> */}
 
-  const txHashSepolia = await sepoliaClient!.sendTransaction({
-    to: deploymentTransactionInSepolia.to,
-    value: BigInt(deploymentTransactionInSepolia.value),
-    data: deploymentTransactionInSepolia.data as `0x${string}`,
+  ```typescript
+  const sepoliaDeploymentTransaction =
+    await protocolKitSepolia.createSafeDeploymentTransaction()
+  ```
+  
+  {/* <!-- vale on --> */}
+
+  Call the `sendTransaction` method from your Sepolia client instance and wait for the transaction to be executed.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const sepoliaClient =
+    await protocolKitSepolia.getSafeProvider().getExternalSigner()
+
+  const transactionHashSepolia = await sepoliaClient!.sendTransaction({
+    to: sepoliaDeploymentTransaction.to,
+    value: BigInt(sepoliaDeploymentTransaction.value),
+    data: sepoliaDeploymentTransaction.data as `0x${string}`,
     chain: sepolia
   })
 
-  await waitForTransactionReceipt(sepoliaClient!, { hash: txHashSepolia })
+  await waitForTransactionReceipt(
+    sepoliaClient!,
+    { hash: transactionHashSepolia }
+  )
+  ```
 
-  protocolKitSepolia = await protocolKitSepolia.connect({ safeAddress: safeAddressInSepolia })
+  {/* <!-- vale on --> */}
 
-  // Confirm the Safe is deployed in Sepolia and fetch Safe info
-  console.log('Is Safe deployed:', await protocolKitSepolia.isSafeDeployed())
-  console.log('Safe Address:', await protocolKitSepolia.getAddress())
-```
+  Once the deployment transaction is executed, connect the new Safe address to the Protocol Kit instance by calling the [`connect`](../../../../reference-sdk-protocol-kit/initialization/connect.mdx) method.
 
-{/* <!-- vale on --> */}
+  {/* <!-- vale off --> */}
 
-### Repeat Deployment for Chiado
+  ```typescript
+  const newProtocolKitSepolia = await protocolKitSepolia.connect({
+    safeAddress: sepoliaPredictedSafeAddress
+  })
 
-Repeat the initialization and deployment for Chiado chain using the same `predictedSafe` configuration to ensure the Safe address matches the one deployed on Sepolia.
+  const isSepoliaSafeDeployed = await newProtocolKitSepolia.isSafeDeployed() // True
+  const sepoliaDeployedSafeAddress = await newProtocolKitSepolia.getAddress()
+  ```
 
-{/* <!-- vale off --> */}
+  {/* <!-- vale on --> */}
 
-```typescript
-  const deploymentTransactionInChiado = await protocolKitChiado.createSafeDeploymentTransaction()
+  If everything went well, `isSepoliaSafeDeployed` should be `true`, and the `sepoliaDeployedSafeAddress` should equal the `sepoliaPredictedSafeAddress`.
 
-  const chiadoClient = await protocolKitChiado.getSafeProvider().getExternalSigner()
+  ### Deployment on Chiado
 
-  const txHashChiado = await chiadoClient!.sendTransaction({
-    to: deploymentTransactionInChiado.to,
-    value: BigInt(deploymentTransactionInChiado.value),
-    data: deploymentTransactionInChiado.data as `0x${string}`,
+  Repeat the same steps to deploy a Safe with the same configuration on Chiado testnet.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const chiadoDeploymentTransaction =
+    await protocolKitChiado.createSafeDeploymentTransaction()
+
+  const chiadoClient =
+    await protocolKitChiado.getSafeProvider().getExternalSigner()
+
+  const transactionHashChiado = await chiadoClient!.sendTransaction({
+    to: chiadoDeploymentTransaction.to,
+    value: BigInt(chiadoDeploymentTransaction.value),
+    data: chiadoDeploymentTransaction.data as `0x${string}`,
     chain: gnosisChiado
   })
 
-  await waitForTransactionReceipt(chiadoClient!, { hash: txHashChiado })
+  await waitForTransactionReceipt(
+    chiadoClient!,
+    { hash: transactionHashChiado }
+  )
 
-  protocolKitChiado = await protocolKitChiado.connect({ safeAddress: safeAddressInChiado })
+  const newProtocolKitChiado = await protocolKitChiado.connect({
+    safeAddress: chiadoPredictedSafeAddress
+  })
 
-  // Confirm the Safe is deployed in Chiado and fetch properties
-  console.log('Is Safe deployed:', await protocolKitChiado.isSafeDeployed())
-  console.log('Safe Address:', await protocolKitChiado.getAddress())
-```
+  const isChiadoSafeDeployed = await newProtocolKitChiado.isSafeDeployed() // True
+  const chiadoDeployedSafeAddress = await newProtocolKitChiado.getAddress()
+  ```
 
-{/* <!-- vale on --> */}
+  {/* <!-- vale on --> */}
+
+  If everything went well, `isChiadoSafeDeployed` should be `true`, and the `chiadoDeployedSafeAddress` should equal the `chiadoPredictedSafeAddress`.
+
+  In addition, `chiadoDeployedSafeAddress` and `sepoliaDeployedSafeAddress` should have the same value.
 
 </Steps>
 
 ## Recap and further reading
 
-By following this guide, you've learned how to deploy Safes with the same address on multiple chains using the Protocol Kit.
+After following this guide, you are able to deploy multiple Safe accounts with the same address on different chains using the Protocol Kit.
