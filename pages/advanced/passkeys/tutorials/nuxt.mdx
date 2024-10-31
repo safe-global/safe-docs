@@ -10,7 +10,7 @@ An increasing number of applications rely on passkeys to authenticate users secu
 Being able to unlock a Safe Smart Account with your fingerprints or Face ID, sending transactions without worrying about third-party wallet interfaces, phishing attempts, or securing seed phrases will bring new forms of ownership to the connected world.
 Today, we'll learn how to make this a reality using [Safe\{Core\} SDK](../../../sdk/overview.mdx), [Pimlico](https://www.pimlico.io/), and [Nuxt](https://nuxt.com/docs/getting-started/introduction).
 
-This tutorial will demonstrate creating a web app for using [passkeys](../passkeys-overview.mdx) in your Safe. This app will allow you to:
+This tutorial will demonstrate creating a web app for using [passkeys](../overview.mdx) in your Safe. This app will allow you to:
 
 - Create a new passkey secured by the user's device.
 - Deploy a new Safe on Ethereum Sepolia for free.
@@ -41,7 +41,7 @@ When prompted by the CLI, select `pnpm` and `yes` to initialize a Git repository
 
 ### Install dependencies
 
-For this project, we'll use the [Relay Kit](../../../sdk/relay-kit.mdx) and [Protocol Kit](../../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem) for a helper function to encode the dummy transaction. We will also use [`@pinia/nuxt`](https://pinia.vuejs.org/) for state management and node polyfills from [Vite](https://www.npmjs.com/package/vite-plugin-node-polyfillFs).
+For this project, we'll use the [Relay Kit](../../../sdk/relay-kit.mdx) and [Protocol Kit](../../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sponsor a transaction, and use [viem](https://www.npmjs.com/package/viem) for a helper function to encode the dummy transaction. We will also use [`@pinia/nuxt`](https://pinia.vuejs.org/) for state management and node polyfills from [Vite](https://www.npmjs.com/package/vite-plugin-node-polyfills).
 
 Run the following command to add all these dependencies to the project:
 
@@ -237,6 +237,6 @@ Please be mindful of certain security considerations when dealing with passkeys.
 
 We learned how to use passkeys (create them, store them, and use them securely) and how they can interact with a Safe (deploy it and send transactions). We hope you enjoyed this tutorial and that the combination of passkeys and the ERC-4337 will unlock new forms of ownership for your project and users.
 
-You can now integrate passkeys with more transactions and functionalities of the Safe ecosystem. You can read more about passkeys in our [overview](../passkeys-overview.mdx) or in the [WebAuthn API documentation](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API).
+You can now integrate passkeys with more transactions and functionalities of the Safe ecosystem. You can read more about passkeys in our [overview](../overview.mdx) or in the [WebAuthn API documentation](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API).
 
 Did you encounter any difficulties? Let us know by opening [an issue](https://github.com/5afe/safe-passkeys-nuxt/issues/new) or asking a question on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the `safe-core` tag.

@@ -598,7 +598,7 @@ pnpm install viem permissionless
 
   #### Get the `callData`
 
-  The `callData` encodes a call to the `executeUserOp` function and represents the action(s) that will be executed from the Safe account. In this example we are sending a transaction to the Safe account with no value and no data, resulting in an increase of the nonce of the account. However, this can be any action like a transfer of the native or an ERC-20 token, a call to another contract, etc.
+  The `callData` encodes a call to the `executeUserOp` function and represents the actions that will be executed from the Safe account. In this example we are sending a transaction to the Safe account with no value and no data, resulting in an increase of the nonce of the account. However, this can be any action like a transfer of the native or an ERC-20 token, a call to another contract, etc.
 
   Check the `encodeCallData` tab to see how the encoding is implemented.
 

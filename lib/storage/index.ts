@@ -6,7 +6,7 @@ class Storage {
   private readonly prefix: string
   private readonly storage?: BrowserStorage
 
-  constructor (storage?: BrowserStorage, prefix = LS_NAMESPACE) {
+  constructor(storage?: BrowserStorage, prefix = LS_NAMESPACE) {
     this.prefix = prefix
     this.storage = storage
   }
@@ -63,14 +63,14 @@ const local = new Storage(
 
 export const localItem = <T>(
   key: string
-): { get: () => T | null, set: (value: T) => void, remove: () => void } => ({
-    get: () => local.getItem<T>(key),
-    set: (value: T) => {
-      local.setItem<T>(key, value)
-    },
-    remove: () => {
-      local.removeItem(key)
-    }
-  })
+): { get: () => T | null; set: (value: T) => void; remove: () => void } => ({
+  get: () => local.getItem<T>(key),
+  set: (value: T) => {
+    local.setItem<T>(key, value)
+  },
+  remove: () => {
+    local.removeItem(key)
+  }
+})
 
 export default local

@@ -89,7 +89,7 @@ For more detailed information, see the [API Kit Reference](../../../reference-sd
 
   Before a transaction can be executed, any of the Safe signers needs to initiate the process by creating a proposal of a transaction. This transaction is sent to the service to make it accessible by the other owners so they can give their approval and sign the transaction as well.
 
-  For a full list and description of the properties see [`proposeTransaction`](../../../reference-sdk-api-kit/proposetransaction) in the API Kit reference.
+  For a full list and description of the properties see [`proposeTransaction`](../../../reference-sdk-api-kit/proposetransaction.mdx) in the API Kit reference.
 
   ```typescript
   // Create transaction
@@ -132,7 +132,7 @@ For more detailed information, see the [API Kit Reference](../../../reference-sd
 
   ### Confirm the transaction
 
-  In this step you need to sign the transaction with the Protocol Kit and submit the signature to the Safe Transaction Service using the [`confirmTransaction`](../../../reference-sdk-api-kit/confirmtransaction) method.
+  In this step you need to sign the transaction with the Protocol Kit and submit the signature to the Safe Transaction Service using the [`confirmTransaction`](../../../reference-sdk-api-kit/confirmtransaction.mdx) method.
 
   ```typescript
   const protocolKitOwner2 = await Safe.init({
@@ -151,6 +151,6 @@ For more detailed information, see the [API Kit Reference](../../../reference-sd
   )
   ```
 
-  The Safe transaction is now ready to be executed. This can be done using the [Safe\{Wallet\} web](https://app.safe.global) interface, the [Protocol Kit](../../protocol-kit/reference/safe#executetransaction), the [Safe CLI](../../../advanced/cli-reference/tx-service-commands#execute-pending-transaction) or any other tool that's available.
+  The Safe transaction is now ready to be executed. This can be done using the [Safe\{Wallet\} web](https://app.safe.global) interface, the [Protocol Kit](../../../reference-sdk-protocol-kit/transactions/executetransaction.mdx), the [Safe CLI](../../../advanced/cli-reference/tx-service-commands.mdx#execute-pending-transaction) or any other tool that's available.
 
 </Steps>

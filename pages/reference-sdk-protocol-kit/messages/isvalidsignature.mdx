@@ -1,0 +1,81 @@
+import { Tabs } from 'nextra/components'
+
+# `isValidSignature`
+
+Checks if a signature is valid by calling the [`isValidSignature`](https://github.com/safe-global/safe-smart-account/blob/main/contracts/handler/CompatibilityFallbackHandler.sol#L57) method in the `CompatibilityFallbackHandler` contract.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { hashSafeMessage } from '@safe-global/protocol-kit'
+    import { EIP712TypedData } from '@safe-global/types-kit'
+    import { protocolKit } from './setup.ts'
+
+    const rawMessage: string | EIP712TypedData = 'Example message'
+    const messageHash = hashSafeMessage(rawMessage)
+    const safeMessageHash = await protocolKit.getSafeMessageHash(messageHash)
+
+    const signature = '0x...'
+
+    const isValidSignature = await protocolKit.isValidSignature(
+      safeMessageHash,
+      signature
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `safeMessageHash`
+
+- **Type**: `string`
+
+The Safe message hash.
+
+```typescript focus=2
+const isValidSignature = await protocolKit.isValidSignature(
+  '0x...', 
+  '0x...'
+)
+```
+
+### `signature`
+
+- **Type**: [`SafeSignature[]`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/types-kit/src/types.ts#L46-L52) | `string`
+
+The signature to be validated.
+
+- `SafeSignature[]` to validate multiple Safe signatures.
+- `string` to validate one or multiple signatures concatenated.
+- `0x` to validate an on-chain message ([`approvedHashes`](https://github.com/safe-global/safe-smart-account/blob/main/contracts/Safe.sol#L69) in the Safe contract).
+
+```typescript focus=3
+const isValidSignature = await protocolKit.isValidSignature(
+  '0x...', 
+  '0x...'
+)
+```
+
+## Returns
+
+`Promise<boolean>`
+
+The boolean value that indicates if the signature is valid.

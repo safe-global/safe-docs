@@ -1,0 +1,66 @@
+import { Tabs } from 'nextra/components'
+
+# `getTransactionHash`
+
+Returns the Safe transaction hash of a Safe transaction.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import {
+      MetaTransactionData,
+      OperationType
+    } from '@safe-global/types-kit'
+    import { protocolKit } from './setup.ts'
+
+    const transactions: MetaTransactionData[] = [{
+      to: '0x...',
+      value: '123',
+      data: '0x',
+      operation: OperationType.Call // Optional
+    }]
+    const safeTransaction = await protocolKit.createTransaction({
+      transactions
+    })
+
+    const safeTransactionHash = await protocolKit.getTransactionHash(safeTransaction)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `safeTransaction`
+
+- **Type**: [`SafeTransaction`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/types-kit/src/types.ts#L54-L60)
+
+The Safe transaction.
+
+```typescript focus=2
+const safeTransactionHash = await protocolKit.getTransactionHash(
+  safeTransaction
+)
+```
+
+## Returns
+
+`Promise<string>`
+
+The Safe transaction hash of the Safe transaction.

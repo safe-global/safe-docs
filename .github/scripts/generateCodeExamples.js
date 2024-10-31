@@ -35,22 +35,22 @@ const repos = [
       '/layouts/default.vue',
       '/nuxt.config.ts'
     ]
-  },
-  {
-    organization: '5afe',
-    repo: 'safe-7579-tutorial',
-    destination: './examples/erc-7579',
-    branch: 'main',
-    files: [
-      '/lib/permissionless.ts',
-      '/lib/scheduledTransfers.ts',
-      '/components/ScheduledTransferForm.tsx',
-      '/app/page.tsx',
-      '/app/layout.tsx',
-      '/app/globals.css',
-      '/next.config.mjs'
-    ]
   }
+  // {
+  //   organization: '5afe',
+  //   repo: 'safe-7579-tutorial',
+  //   destination: './examples/erc-7579',
+  //   branch: 'main',
+  //   files: [
+  //     '/lib/permissionless.ts',
+  //     '/lib/scheduledTransfers.ts',
+  //     '/components/ScheduledTransferForm.tsx',
+  //     '/app/page.tsx',
+  //     '/app/layout.tsx',
+  //     '/app/globals.css',
+  //     '/next.config.mjs'
+  //   ]
+  // }
 ]
 
 const generateCodeExamples = async ({

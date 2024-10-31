@@ -37,15 +37,13 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
         height: '100%'
       }}
       className={css.card}
-      onClick={
-        () => {
-          sendGAEvent('event', 'resource_hub_link', {
-            resource_url: resource.url,
-            resource_type: resource.type,
-            resource_name: resource.name
-          })
-        }
-      }
+      onClick={() => {
+        sendGAEvent('event', 'resource_hub_link', {
+          resource_url: resource.url,
+          resource_type: resource.type,
+          resource_name: resource.name
+        })
+      }}
     >
       <a
         href={resource.url}

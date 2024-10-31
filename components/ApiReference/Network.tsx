@@ -19,25 +19,11 @@ import { capitalize } from 'lodash'
 import { CopyToClipboard } from 'nextra/components'
 import Check from '@mui/icons-material/Check'
 
-const transactionServiceUrls = [
-  'https://safe-transaction-mainnet.safe.global',
-  'https://safe-transaction-arbitrum.safe.global',
-  'https://safe-transaction-aurora.safe.global',
-  'https://safe-transaction-avalanche.safe.global',
-  'https://safe-transaction-base.safe.global',
-  'https://safe-transaction-base-sepolia.safe.global',
-  'https://safe-transaction-bsc.safe.global',
-  'https://safe-transaction-celo.safe.global',
-  'https://safe-transaction-gnosis-chain.safe.global',
-  'https://safe-transaction-linea.safe.global',
-  'https://safe-transaction-optimism.safe.global',
-  'https://safe-transaction-polygon.safe.global',
-  'https://safe-transaction-zkevm.safe.global',
-  'https://safe-transaction-scroll.safe.global',
-  'https://safe-transaction-sepolia.safe.global',
-  'https://safe-transaction-xlayer.safe.global',
-  'https://safe-transaction-zksync.safe.global'
-]
+import txServiceNetworks from './tx-service-networks.json'
+
+const transactionServiceUrls = txServiceNetworks.map(
+  ({ txServiceUrl }) => txServiceUrl
+)
 
 /**
  * Finds the index of the default network for the NetworkContext.
@@ -48,12 +34,15 @@ const indexOfDefaultNetwork = transactionServiceUrls.indexOf(
 )
 
 export const NetworkContext = createContext<
-[string, Dispatch<SetStateAction<string>>]
+  [string, Dispatch<SetStateAction<string>>]
 >([transactionServiceUrls[indexOfDefaultNetwork], () => {}])
 
-export const NetworkProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const state = useState(transactionServiceUrls[indexOfDefaultNetwork])
-
+export const NetworkProvider: React.FC<
+  PropsWithChildren<{ networkName: string }>
+> = ({ children, networkName }) => {
+  const state = useState(
+    transactionServiceUrls.find(url => url.includes(networkName)) ?? ''
+  )
   return (
     <NetworkContext.Provider value={state}>{children}</NetworkContext.Provider>
   )
@@ -90,7 +79,14 @@ const NetworkSwitcher: React.FC = () => {
         >
           {transactionServiceUrls.map(url => (
             <MenuItem key={url} value={url}>
-              {capitalize(url.split('-')[2].split('.')[0])}
+              <Link
+                href={
+                  '/core-api/transaction-service-reference/' +
+                  url.split('-')[2].split('.')[0]
+                }
+              >
+                {capitalize(url.split('-')[2].split('.')[0])}
+              </Link>
             </MenuItem>
           ))}
         </Select>
@@ -166,8 +162,8 @@ export const NetworkNotice: React.FC = () => {
           }}
         />
         to copy the base URL for{' '}
-        {capitalize(network.split('-')[2].split('.')[0])} and update it in your
-        request.
+        {capitalize(network?.split('-')[2]?.split('.')[0])} and update it in
+        your request.
       </Box>
     )
   )

@@ -710,6 +710,11 @@
     "permanent": true
   },
   {
+    "source": "/core-api/transaction-service-reference",
+    "destination": "/core-api/transaction-service-reference/mainnet",
+    "permanent": true
+  },
+  {
     "source": "/safe-core-aa-sdk/safe-apps",
     "destination": "https://github.com/safe-global/safe-apps-sdk",
     "permanent": true
@@ -802,6 +807,46 @@
   {
     "source": "/safe-core-protocol/security/security-audits",
     "destination": "https://github.com/5afe/safe-core-protocol",
+    "permanent": true
+  },
+  {
+    "source": "/core-api/transaction-service-supported-networks",
+    "destination": "/advanced/smart-account-supported-networks?service=Transaction+Service",
+    "permanent": true
+  },
+  {
+    "source": "/advanced/smart-account-supported-networks/v1.4.1",
+    "destination": "/advanced/smart-account-supported-networks?version=v1.4.1",
+    "permanent": true
+  },
+  {
+    "source": "/advanced/smart-account-supported-networks/v1.3.0",
+    "destination": "/advanced/smart-account-supported-networks?version=v1.3.0",
+    "permanent": true
+  },
+  {
+    "source": "/advanced/smart-account-supported-networks/v1.2.0",
+    "destination": "/advanced/smart-account-supported-networks?version=v1.2.0",
+    "permanent": true
+  },
+  {
+    "source": "/advanced/smart-account-supported-networks/v1.1.1",
+    "destination": "/advanced/smart-account-supported-networks?version=v1.1.1",
+    "permanent": true
+  },
+  {
+    "source": "/advanced/smart-account-supported-networks/v1.0.0",
+    "destination": "/advanced/smart-account-supported-networks?version=v1.0.0",
+    "permanent": true
+  },
+  {
+    "source": "/advanced/erc-4337/supported-networks",
+    "destination": "/advanced/smart-account-supported-networks?module=Safe+4337+Module",
+    "permanent": true
+  },
+  {
+    "source": "/advanced/passkeys/supported-networks",
+    "destination": "/advanced/smart-account-supported-networks?module=Safe+Passkey+Module",
     "permanent": true
   }
 ]

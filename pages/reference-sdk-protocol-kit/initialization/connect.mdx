@@ -1,0 +1,255 @@
+import { Tabs } from 'nextra/components'
+
+# `connect`
+
+Returns a new instance of the Protocol Kit connected to a new Safe or a new signer.
+
+## Usage
+
+Depending on whether the Safe account you want to connect to the Protocol Kit is deployed or not, you can do it in two different ways:
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['Existing Safe', 'New Safe']}>
+  <Tabs.Tab>
+    Connection of a deployed Safe using the `safeAddress` property:
+
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    const protocolKit = Safe.init({
+      // ...
+    })
+
+    const newProtocolKit = await protocolKit.connect({
+      signer, // Optional
+      safeAddress: '0x...' // Optional
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    Connection of an undeployed Safe using the `predictedSafe` property. Because Safes are deployed in a deterministic way, passing a `predictedSafe` will allow to connect a Safe to the Protocol Kit with the Safe configuration:
+
+    ```typescript
+    import Safe, {
+      PredictedSafeProps,
+      SafeAccountConfig,
+      SafeDeploymentConfig
+    } from '@safe-global/protocol-kit'
+
+    const safeAccountConfig: SafeAccountConfig = {
+      owners: ['0x...', '0x...', '0x...'],
+      threshold: 2,
+      to: '0x...', // Optional
+      data: '0x', // Optional
+      fallbackHandler: '0x...', // Optional
+      paymentToken: '', // Optional
+      payment: 123, // Optional
+      paymentReceiver: '0x...' // Optional
+    }
+    const safeDeploymentConfig: SafeDeploymentConfig = {
+      saltNonce: '123', // Optional
+      safeVersion: '1.4.1', // Optional
+      deploymentType: 'canonical' // Optional
+    }
+    const predictedSafe: PredictedSafeProps = {
+      safeAccountConfig,
+      safeDeploymentConfig // Optional
+    }
+
+    const protocolKit = await Safe.init({
+      // ...
+    })
+
+    const newProtocolKit = await protocolKit.connect({
+      signer, // Optional
+      predictedSafe // Optional
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `provider` (Optional)
+
+- **Type**: [`Eip1193Provider`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/types/safeProvider.ts#L21-L23) | [`HttpTransport`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/types/safeProvider.ts#L51) | [`SocketTransport`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/types/safeProvider.ts#L52)
+
+An [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible provider, or an RPC URL. 
+
+{/* <!-- vale off --> */}
+
+<Tabs items={["url.ts", "eip1193.ts"]}>
+  <Tabs.Tab>
+    ```typescript focus=2
+    const protocolKit = await Safe.connect({
+      provider: 'https://eth-sepolia.public.blastapi.io',
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript focus=2
+    const protocolKit = await Safe.connect({
+      provider: window.ethereum,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+### `signer` (Optional)
+
+- **Type**: `string` | [`PasskeyArgType`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/types/passkeys.ts#L6-L10) | [`PasskeyClient`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/types/safeProvider.ts#L38-L44)
+
+A Safe owner address, its private key, or a passkey object.
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['Address', 'Private Key', 'Passkey']}>
+  <Tabs.Tab>
+    ```typescript focus=3
+    const protocolKit = await Safe.connect({
+      provider,
+      signer: '0x...',
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript focus=3
+    const protocolKit = await Safe.connect({
+      provider,
+      signer: '0x...',
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript focus=3,4,5,6
+    const protocolKit = await Safe.connect({
+      provider,
+      signer: {
+        rawId: 'abc',
+        coordinates: { x: '123', y: '123' }
+      },
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+### `safeAddress` (Optional)
+
+- **Type**: `string`
+
+The address of a Safe account.
+
+Use this property to connect a Safe account that is already deployed to the Protocol Kit instance.
+
+```typescript focus=4
+const protocolKit = await Safe.connect({
+  provider,
+  signer,
+  safeAddress: '0x...'
+})
+```
+
+### `predictedSafe` (Optional)
+
+- **Type**: [`PredictedSafeProps`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/types/safeConfig.ts#L25-L28)
+
+An object that contains the Safe account configuration and deployment details.
+
+Use this property to connect a Safe account that has yet to be deployed the Protocol Kit instance. This object contains the following properties:
+
+- `safeAccountConfig`:
+  - `owners`: An array of Safe owner addresses.
+  - `threshold`: The number of signatures required to execute a Safe transaction.
+  - `to` (optional): The contract address for optional delegate call.
+  - `data` (optional): The data payload for optional delegate call.
+  - `fallbackHandler` (optional): The fallback handler address.
+  - `paymentToken` (optional): The token that should be used for the payment (use `0x0000000000000000000000000000000000000000` for the native token).
+  - `payment` (optional): The value that should be paid.
+  - `paymentReceiver` (optional): The address that should receive the payment (use `0x0000000000000000000000000000000000000000` for the `tx.origin`).
+- `safeDeploymentConfig`:
+  - `saltNonce` (optional): The salt nonce to use. Changing this value will update the predicted Safe account address.
+  - `safeVersion` (optional): The Safe contract version to use.
+  - `deploymentType` (optional): The Safe deployment type to use. It can be `canonical`, `eip155`, or `zksync`. Changing this value affects the search algorithm used to find the [Safe deployment address](https://github.com/safe-global/safe-deployments/tree/main/src/assets) for any Safe contract, resulting in a change to the predicted address.
+
+```typescript focus=4
+const protocolKit = await Safe.connect({
+  provider,
+  signer,
+  predictedSafe
+})
+```
+
+### `isL1SafeSingleton` (Optional)
+
+- **Type**: `boolean`
+
+A boolean variables that indicates if the Safe uses the [`Safe.sol`](https://github.com/safe-global/safe-smart-account/blob/v1.4.1/contracts/Safe.sol) contract as the singleton contract (`true`), or uses the [`SafeL2.sol`](https://github.com/safe-global/safe-smart-account/blob/v1.4.1/contracts/SafeL2.sol) contract instead (`false`).
+
+`Safe.sol` version of the contract doesn't trigger events for each Safe transaction to save gas. `SafeL2.sol` version triggers events, which is more appropriate for L2 networks.
+
+By default, `Safe.sol` is only used on Ethereum Mainnet. For the rest of the networks where the Safe contracts are already deployed, the `SafeL2.sol` contract is used unless you add the `isL1SafeSingleton` flag to force using the `Safe.sol` contract.
+
+```typescript focus=5
+const protocolKit = await Safe.connect({
+  provider,
+  signer,
+  safeAddress,
+  isL1SafeSingleton: true
+})
+```
+
+### `contractNetworks` (Optional)
+
+- **Type**: [`ContractNetworksConfig`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/types/contracts.ts#L131-L134)
+
+If the Safe contracts aren't deployed to your current network, this property is required to point to the addresses of the Safe contracts previously deployed by you.
+
+```typescript focus=5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26
+const protocolKit = await Safe.connect({
+  provider,
+  signer,
+  safeAddress,
+  contractNetworks: {
+    [chainId]: {
+      safeSingletonAddress: '<SINGLETON_ADDRESS>',
+      safeProxyFactoryAddress: '<PROXY_FACTORY_ADDRESS>',
+      multiSendAddress: '<MULTI_SEND_ADDRESS>',
+      multiSendCallOnlyAddress: '<MULTI_SEND_CALL_ONLY_ADDRESS>',
+      fallbackHandlerAddress: '<FALLBACK_HANDLER_ADDRESS>',
+      signMessageLibAddress: '<SIGN_MESSAGE_LIB_ADDRESS>',
+      createCallAddress: '<CREATE_CALL_ADDRESS>',
+      simulateTxAccessorAddress: '<SIMULATE_TX_ACCESSOR_ADDRESS>',
+      safeWebAuthnSignerFactoryAddress:'<SAFE_WEB_AUTHN_SIGNER_FACTORY_ADDRESS>',
+      safeSingletonAbi: '<SINGLETON_ABI>', // Optional. Only needed with web3.js
+      safeProxyFactoryAbi: '<PROXY_FACTORY_ABI>', // Optional. Only needed with web3.js
+      multiSendAbi: '<MULTI_SEND_ABI>', // Optional. Only needed with web3.js
+      multiSendCallOnlyAbi: '<MULTI_SEND_CALL_ONLY_ABI>', // Optional. Only needed with web3.js
+      fallbackHandlerAbi: '<FALLBACK_HANDLER_ABI>', // Optional. Only needed with web3.js
+      signMessageLibAbi: '<SIGN_MESSAGE_LIB_ABI>', // Optional. Only needed with web3.js
+      createCallAbi: '<CREATE_CALL_ABI>', // Optional. Only needed with web3.js
+      simulateTxAccessorAbi: '<SIMULATE_TX_ACCESSOR_ABI>' // Optional. Only needed with web3.js
+      safeWebAuthnSignerFactoryAbi: '<SAFE_WEB_AUTHN_SIGNER_FACTORY_ABI>' // Optional. Only needed with web3.js
+    }
+  }
+})
+```
+
+## Returns
+
+`Promise<Safe>`
+
+An instance of the Protocol Kit

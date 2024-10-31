@@ -11,7 +11,7 @@ import Hr from '../Hr'
 import { MdxHeading } from '../../lib/mdx'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Response: React.FC<{ response: any, index: number }> = ({
+const Response: React.FC<{ response: any; index: number }> = ({
   response,
   index
 }) => {
@@ -21,15 +21,15 @@ const Response: React.FC<{ response: any, index: number }> = ({
     type === undefined
       ? []
       : Object.entries(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        type === 'object'
-          ? response.schema?.properties
-          : response.schema?.items
-      ).map(([key, value]) => ({
-        name: key,
-        value,
-        required: response.schema?.required?.includes(key)
-      }))
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          type === 'object'
+            ? response.schema?.properties
+            : response.schema?.items
+        ).map(([key, value]) => ({
+          name: key,
+          value,
+          required: response.schema?.required?.includes(key)
+        }))
 
   return (
     <>
