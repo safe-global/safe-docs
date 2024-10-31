@@ -4,7 +4,7 @@ import { Steps } from 'nextra/components'
 
 This guide will teach you how to deploy a new Safe using the Protocol Kit. This process includes initializing the Protocol Kit, setting up your Safe configuration, and executing the deployment.
 
-For more detailed information, see the [Protocol Kit Reference](../../../../reference-sdk-protocol-kit/overview.mdx).
+For more detailed information, see the [Protocol Kit Reference](../../../reference-sdk-protocol-kit/overview.mdx).
 
 ## Prerequisites
 
@@ -45,7 +45,7 @@ pnpm add @safe-global/protocol-kit viem
 
   ### Create a signer
 
-  You need a signer to instantiate the Protocol Kit. This example uses a private key to obtain a signer, but [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible signers are also supported. For detailed information about signers, please refer to the [Protocol Kit reference](../../../../reference-sdk-protocol-kit/overview.md).
+  You need a signer to instantiate the Protocol Kit. This example uses a private key to obtain a signer, but [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible signers are also supported. For detailed information about signers, please refer to the [Protocol Kit reference](../../../reference-sdk-protocol-kit/overview.md).
 
   {/* <!-- vale off --> */}
 
@@ -57,7 +57,7 @@ pnpm add @safe-global/protocol-kit viem
 
   ### Initialize the Protocol Kit
   
-  Initialize an instance of the Protocol Kit for each network where you want to deploy a new Safe smart account by calling the [`init`](../../../../reference-sdk-protocol-kit/initialization/init.mdx) method. Pass the `provider` with its corresponding value depending on the network, the `signer` executing the deployment, and the [`predictedSafe`](../../../../reference-sdk-protocol-kit/initialization/init.mdx#predictedsafe-optional) with the Safe account configuration.
+  Initialize an instance of the Protocol Kit for each network where you want to deploy a new Safe smart account by calling the [`init`](../../../reference-sdk-protocol-kit/initialization/init.mdx) method. Pass the `provider` with its corresponding value depending on the network, the `signer` executing the deployment, and the [`predictedSafe`](../../../reference-sdk-protocol-kit/initialization/init.mdx#predictedsafe-optional) with the Safe account configuration.
 
   {/* <!-- vale off --> */}
 
@@ -84,7 +84,7 @@ pnpm add @safe-global/protocol-kit viem
 
   ### Predict the Safe address
 
-  You can predict the Safe address using the [`getAddress`](../../../../reference-sdk-protocol-kit/safe-info/getaddress.mdx) method in the Protocol Kit.
+  You can predict the Safe address using the [`getAddress`](../../../reference-sdk-protocol-kit/safe-info/getaddress.mdx) method in the Protocol Kit.
 
   {/* <!-- vale off --> */}
 
@@ -96,7 +96,7 @@ pnpm add @safe-global/protocol-kit viem
 
   ### Create the deployment transaction
 
-  Create the deployment transaction to deploy a new Safe smart account by calling the [`createSafeDeploymentTransaction`](../../../../reference-sdk-protocol-kit/deployment/createsafedeploymenttransaction.mdx) method.
+  Create the deployment transaction to deploy a new Safe smart account by calling the [`createSafeDeploymentTransaction`](../../../reference-sdk-protocol-kit/deployment/createsafedeploymenttransaction.mdx) method.
 
   {/* <!-- vale off --> */}
 
@@ -131,7 +131,7 @@ pnpm add @safe-global/protocol-kit viem
 
   ### Reinitialize the Protocol Kit
 
-  Once the deployment transaction is executed, connect the new Safe address to the Protocol Kit instance by calling the [`connect`](../../../../reference-sdk-protocol-kit/initialization/connect.mdx) method.
+  Once the deployment transaction is executed, connect the new Safe address to the Protocol Kit instance by calling the [`connect`](../../../reference-sdk-protocol-kit/initialization/connect.mdx) method.
 
   {/* <!-- vale off --> */}
 
