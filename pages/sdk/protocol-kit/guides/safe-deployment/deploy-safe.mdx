@@ -4,7 +4,7 @@ import { Steps } from 'nextra/components'
 
 In this guide, you will learn how to deploy a new Safe using the Protocol Kit. This process includes initializing the Protocol Kit, setting up your Safe configuration, and executing the deployment.
 
-For more detailed information, see the [Protocol Kit Reference](../../../protocol-kit/reference/safe.mdx).
+For more detailed information, see the [Protocol Kit Reference](../../../../reference-sdk-protocol-kit/overview.mdx).
 
 ## Prerequisites
 
@@ -12,25 +12,13 @@ For more detailed information, see the [Protocol Kit Reference](../../../protoco
 
 ## Install dependencies
 
-First, you need to install the Protocol Kit.
+First, you need to install some dependencies.
 
 {/* <!-- vale off --> */}
 
-<CH.Section>
-  <CH.Code style={{ boxShadow: 'none' }}>
-    ```bash pnpm
-    pnpm add @safe-global/protocol-kit
-    ```
-
-    ```bash npm
-    npm install @safe-global/protocol-kit
-    ```
-
-    ```bash yarn
-    yarn add @safe-global/protocol-kit
-    ```
-  </CH.Code>
-</CH.Section>
+```bash
+pnpm add @safe-global/protocol-kit viem
+```
 
 {/* <!-- vale on --> */}
 
@@ -40,19 +28,20 @@ First, you need to install the Protocol Kit.
 
   ### Imports
 
-  Import the `Safe` class from the Protocol Kit.
+  Here are all the necessary imports for this guide.
 
   {/* <!-- vale off --> */}
 
   ```typescript
-  import Safe from '@safe-global/protocol-kit'
+  import Safe, { PredictedSafeProps } from '@safe-global/protocol-kit'
+  import { sepolia } from 'viem/chains'
   ```
 
   {/* <!-- vale on --> */}
 
   ### Create a signer
 
-  You need a signer to instantiate the Protocol Kit. This example uses a private key to obtain a signer, but other [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible signers are also supported. For detailed information about signers and providers, please refer to the [Protocol Kit reference](../../reference/safe.mdx#initialization).
+  You need a signer to instantiate the Protocol Kit. This example uses a private key to obtain a signer, but other [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible signers are also supported. For detailed information about signers and providers, please refer to the [Protocol Kit reference](../../../../reference-sdk-protocol-kit/overview.md).
 
   {/* <!-- vale off --> */}
 
@@ -65,20 +54,18 @@ First, you need to install the Protocol Kit.
 
   ### Initialize the Protocol Kit
 
-  Initialize the Protocol Kit with the `provider`, `signer`, and the `predictedSafe` configuration. The `predictedSafe` property is used to define the desired configuration of the Safe account. You can read more about the avalable options in the [Protocol Kit reference](../../reference/safe.mdx#initialization).
+  Call the [`init`](../../../../reference-sdk-protocol-kit/initialization/init.mdx) method to initialize the Protocol Kit with the `provider`, `signer`, and the `predictedSafe` configuration. The [`predictedSafe`](../../../../reference-sdk-protocol-kit/initialization/init.mdx#predictedsafe-optional) property is used to define the desired configuration of the Safe account you will deploy.
 
   {/* <!-- vale off --> */}
 
   ```typescript
-  // Define your Safe configuration
-  const predictedSafe = {
+  const predictedSafe: PredictedSafeProps = {
     safeAccountConfig: {
-      owners: ['0xOwner1', '0xOwner2', '0xOwner3'], // In this example, 3 owners
-      threshold: 2 // Requires at least 2 signatures to approve a transaction
+      owners: ['0x...', '0x...', '0x...'],
+      threshold: 2
     }
   }
 
-  // Initialize the Protocol Kit with the predictedSafe
   const protocolKit = await Safe.init({
     provider: RPC_URL,
     signer: SIGNER_PRIVATE_KEY,
@@ -88,9 +75,9 @@ First, you need to install the Protocol Kit.
 
   {/* <!-- vale on --> */}
 
-  ### Predict your Safe address
+  ### Predict the Safe address
 
-  You can predict your Safe address by using the `getAddress` method in the Protocol Kit.
+  You can predict the Safe address by using the [`getAddress`](../../../../reference-sdk-protocol-kit/safe-info/getaddress.mdx) method in the Protocol Kit.
 
   {/* <!-- vale off --> */}
 
@@ -102,7 +89,7 @@ First, you need to install the Protocol Kit.
 
   ### Create the deployment transaction
 
-  In this step we are going to create the transaction to deploy a new Safe account.
+  Create the transaction to deploy a new Safe smart account by calling the [`createSafeDeploymentTransaction`](../../../../reference-sdk-protocol-kit/deployment/createsafedeploymenttransaction.mdx) method.
 
   {/* <!-- vale off --> */}
 
@@ -114,47 +101,48 @@ First, you need to install the Protocol Kit.
 
   ### Execute the deployment transaction
 
-Once we create the deployment transaction object, we can execute it using the signer you specified earlier or your preferred external Ethereum client.
+  Once you have the deployment transaction object ready, execute it using the provided signer or your preferred external Ethereum client.
 
   {/* <!-- vale off --> */}
 
   ```typescript
   const client = await protocolKit.getSafeProvider().getExternalSigner()
 
-  const txHash = await client.sendTransaction({
+  const transactionHash = await client.sendTransaction({
     to: deploymentTransaction.to,
     value: BigInt(deploymentTransaction.value),
     data: deploymentTransaction.data as `0x${string}`,
     chain: sepolia
   })
 
-  const txReceipt = await client.waitForTransactionReceipt({ hash: txHash })
+  const transactionReceipt = await client.waitForTransactionReceipt({
+    hash: transactionHash
+  })
   ```
 
   {/* <!-- vale on --> */}
 
-  ### Reconnect the Protocol Kit to the newly deployed Safe
+  ### Reinitialize the Protocol Kit
 
-Once the deployment transaction has been successfully executed, it's necessary to reconnect your Protocol Kit instance to the address of the newly created Safe using the `connect` Method
+  Once the deployment transaction is executed, connect the new Safe address to the Protocol Kit instance by calling the [`connect`](../../../../reference-sdk-protocol-kit/initialization/connect.mdx) method.
 
   {/* <!-- vale off --> */}
 
-```typescript
-// Reconnect to the newly deployed Safe using the protocol-kit
-protocolKit = await protocolKit.connect({ safeAddress })
+  ```typescript
+  const newProtocolKit = await protocolKit.connect({
+    safeAddress
+  })
 
-// Confirm the Safe is deployed and fetch properties
-console.log("Is Safe deployed:", await protocolKit.isSafeDeployed())
-console.log("Safe Address:", await protocolKit.getAddress())
-console.log("Safe Owners:", await protocolKit.getOwners())
-console.log("Safe Threshold:", await protocolKit.getThreshold())
-```
+  const isSafeDeployed = await newProtocolKit.isSafeDeployed() // True
+  const safeAddress = await newProtocolKit.getAddress()
+  const safeOwners = await newProtocolKit.getOwners()
+  const safeThreshold = await newProtocolKit.getThreshold()
+  ```
 
-{/* <!-- vale on --> */}
+  {/* <!-- vale on --> */}
 
 </Steps>
 
-
 ## Recap and further reading
 
-After following this guide, you are able to deploy new Safe accounts with the Protocol Kit.
+After following this guide, you are able to deploy new Safe smart accounts with the Protocol Kit.
