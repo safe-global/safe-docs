@@ -1,8 +1,8 @@
 import { Steps } from 'nextra/components'
 
-# Deploy a Safe
+# Safe Deployment
 
-In this guide, you will learn how to deploy a new Safe using the Protocol Kit. This process includes initializing the Protocol Kit, setting up your Safe configuration, and executing the deployment.
+This guide will teach you how to deploy a new Safe using the Protocol Kit. This process includes initializing the Protocol Kit, setting up your Safe configuration, and executing the deployment.
 
 For more detailed information, see the [Protocol Kit Reference](../../../../reference-sdk-protocol-kit/overview.mdx).
 
@@ -33,7 +33,11 @@ pnpm add @safe-global/protocol-kit viem
   {/* <!-- vale off --> */}
 
   ```typescript
-  import Safe, { PredictedSafeProps } from '@safe-global/protocol-kit'
+  import Safe, {
+    PredictedSafeProps,
+    SafeAccountConfig,
+    SafeDeploymentConfig
+  } from '@safe-global/protocol-kit'
   import { sepolia } from 'viem/chains'
   ```
 
@@ -41,33 +45,36 @@ pnpm add @safe-global/protocol-kit viem
 
   ### Create a signer
 
-  You need a signer to instantiate the Protocol Kit. This example uses a private key to obtain a signer, but other [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible signers are also supported. For detailed information about signers and providers, please refer to the [Protocol Kit reference](../../../../reference-sdk-protocol-kit/overview.md).
+  You need a signer to instantiate the Protocol Kit. This example uses a private key to obtain a signer, but [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible signers are also supported. For detailed information about signers, please refer to the [Protocol Kit reference](../../../../reference-sdk-protocol-kit/overview.md).
 
   {/* <!-- vale off --> */}
 
   ```typescript
   const SIGNER_PRIVATE_KEY = // ...
-  const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
   ```
 
   {/* <!-- vale on --> */}
 
   ### Initialize the Protocol Kit
-
-  Call the [`init`](../../../../reference-sdk-protocol-kit/initialization/init.mdx) method to initialize the Protocol Kit with the `provider`, `signer`, and the `predictedSafe` configuration. The [`predictedSafe`](../../../../reference-sdk-protocol-kit/initialization/init.mdx#predictedsafe-optional) property is used to define the desired configuration of the Safe account you will deploy.
+  
+  Initialize an instance of the Protocol Kit for each network where you want to deploy a new Safe smart account by calling the [`init`](../../../../reference-sdk-protocol-kit/initialization/init.mdx) method. Pass the `provider` with its corresponding value depending on the network, the `signer` executing the deployment, and the [`predictedSafe`](../../../../reference-sdk-protocol-kit/initialization/init.mdx#predictedsafe-optional) with the Safe account configuration.
 
   {/* <!-- vale off --> */}
 
   ```typescript
+  const safeAccountConfig: SafeAccountConfig = {
+    owners: ['0x...', '0x...', '0x...'],
+    threshold: 2
+    // More optional properties
+  }
+
   const predictedSafe: PredictedSafeProps = {
-    safeAccountConfig: {
-      owners: ['0x...', '0x...', '0x...'],
-      threshold: 2
-    }
+    safeAccountConfig
+    // More optional properties
   }
 
   const protocolKit = await Safe.init({
-    provider: RPC_URL,
+    provider: sepolia.rpcUrls.default.http[0],
     signer: SIGNER_PRIVATE_KEY,
     predictedSafe
   })
@@ -77,7 +84,7 @@ pnpm add @safe-global/protocol-kit viem
 
   ### Predict the Safe address
 
-  You can predict the Safe address by using the [`getAddress`](../../../../reference-sdk-protocol-kit/safe-info/getaddress.mdx) method in the Protocol Kit.
+  You can predict the Safe address using the [`getAddress`](../../../../reference-sdk-protocol-kit/safe-info/getaddress.mdx) method in the Protocol Kit.
 
   {/* <!-- vale off --> */}
 
@@ -89,7 +96,7 @@ pnpm add @safe-global/protocol-kit viem
 
   ### Create the deployment transaction
 
-  Create the transaction to deploy a new Safe smart account by calling the [`createSafeDeploymentTransaction`](../../../../reference-sdk-protocol-kit/deployment/createsafedeploymenttransaction.mdx) method.
+  Create the deployment transaction to deploy a new Safe smart account by calling the [`createSafeDeploymentTransaction`](../../../../reference-sdk-protocol-kit/deployment/createsafedeploymenttransaction.mdx) method.
 
   {/* <!-- vale off --> */}
 
@@ -101,7 +108,7 @@ pnpm add @safe-global/protocol-kit viem
 
   ### Execute the deployment transaction
 
-  Once you have the deployment transaction object ready, execute it using the provided signer or your preferred external Ethereum client.
+  Once the deployment transaction object is ready, execute it using the provided signer or your preferred external Ethereum client.
 
   {/* <!-- vale off --> */}
 
