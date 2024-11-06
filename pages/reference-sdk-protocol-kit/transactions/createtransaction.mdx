@@ -108,9 +108,9 @@ const safeTransaction = await protocolKit.createTransaction({
 ### `transactions.operation` (Optional)
 
 - **Type:** `OperationType`
-- **Default:** `1`
+- **Default:** `0`
 
-The operation of the Safe transaction.
+The operation of the Safe transaction. `0` for a *Call* and `1` for a *DelegateCall*.
 
 ```typescript focus=6
 const safeTransaction = await protocolKit.createTransaction({
