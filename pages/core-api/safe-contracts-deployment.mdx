@@ -54,6 +54,11 @@ Open a [pull request](https://github.com/ethereum-lists/chains) to add your chai
             INFURA_KEY=your_Infura_project_API_key
             ```
 
+            If you deploy to a ZKsync chain, add the following line to the `.env` file:
+            ```bash
+            HARDHAT_ENABLE_ZKSYNC=1
+            ```
+
             Deploy the contracts by running this command:
             ```bash
             npm run deploy-all your_chain_id
@@ -64,6 +69,11 @@ Open a [pull request](https://github.com/ethereum-lists/chains) to add your chai
             ```bash
             MNEMONIC=funded_account_on_this_network
             NODE_URL=RPC_endpoint_for_your_network
+            ```
+
+            If you deploy to a ZKsync chain, add the following line to the `.env` file:
+            ```bash
+            HARDHAT_ENABLE_ZKSYNC=1
             ```
 
             Deploy the contracts by running this command:
