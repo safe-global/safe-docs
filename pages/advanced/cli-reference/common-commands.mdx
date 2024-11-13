@@ -252,7 +252,7 @@ change_master_copy <address>
 ## Update to L2
 
 <Callout type="warning" emoji="⚠️">
-  A non-L2 Safe can only be migrated to L2 if the non-L2 Safe was not used before (nonce must be zero).
+  A non-L2 Safe can only be migrated to L2 if the L2 Safe was not used before (nonce must be zero).
 </Callout>
 
 Updates a `v1.1.1`, `v1.3.0`, or `v1.4.1` non-L2 Safe to an L2 Safe supported by Safe \{Wallet\}.
@@ -263,4 +263,4 @@ The nonce for the Safe must be 0, and supported versions are `v1.1.1`, `v1.3.0`,
 ```bash
 update_version_to_l2 <address>
 ```
-where `address` is the address of the update contract.
+where `address` is the address of the migration contract.
