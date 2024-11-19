@@ -2,7 +2,7 @@ import { Tabs, Callout } from 'nextra/components'
 
 # `execTransaction`
 
-Executes an `operation` (0: Call, 1: DelegateCall) transaction to `to` with `value` (Native Currency) and pays `gasPrice` \* `gasLimit` in `gasToken` token to `refundReceiver`.
+Executes a Safe transaction to `to` with `value` (Native Currency) and pays `gasPrice` \* `gasLimit` in `gasToken` token to `refundReceiver`.
 
 <Callout type='warning'>
   The fees are always transferred, even if the user transaction fails. This
@@ -214,7 +214,7 @@ Gas price that should be used for the payment calculation.
 
 - **Type:** `address`
 
-Token address (or `0` if ETH) that is used for the payment.
+Token address (or `0x` if native token) that is used for the payment.
 
 ```solidity focus=9
 (ISafe safe).execTransaction(

@@ -207,7 +207,7 @@ Maximum gas price that should be used for this transaction.
 
 - **Type:** `address`
 
-Token address (or 0 if ETH) that is used for the payment.
+Token address (or `0x` if native token) that is used for the payment.
 
 ```solidity focus=9
 (ISafe safe).encodeTransactionData(
@@ -228,7 +228,7 @@ Token address (or 0 if ETH) that is used for the payment.
 
 - **Type:** `address`
 
-Address of receiver of gas payment (or 0 if tx.origin).
+Address of receiver of gas payment (or `0x` if tx.origin).
 
 ```solidity focus=10
 (ISafe safe).encodeTransactionData(
