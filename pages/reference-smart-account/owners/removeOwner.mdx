@@ -8,7 +8,9 @@ import ChangedThreshold from '../../../components/Events/mdx/ChangedThreshold.md
 
 Removes the owner `owner` from the Safe and updates the threshold to `_threshold`.
 
-<Callout type='warning'>This action can only be done via a Safe transaction.</Callout>
+<Callout type='warning'>
+  This action can only be done via a Safe transaction.
+</Callout>
 
 ## Usage
 
@@ -35,6 +37,7 @@ Removes the owner `owner` from the Safe and updates the threshold to `_threshold
         }
     }
     ```
+
   </Tabs.Tab>
 </Tabs>
 
@@ -46,7 +49,13 @@ Removes the owner `owner` from the Safe and updates the threshold to `_threshold
 
 - **Type:** `address`
 
-Current owner address.
+Owner address that is pointing to the owner to be removed in the contract [linked list](https://github.com/safe-global/safe-smart-account/blob/7f79aaf05c33df71d9cb687f0bc8a73fa39d25d5/contracts/base/OwnerManager.sol#L19).
+
+<Callout type='info'>
+  A linked list is a data structure that allows efficient insertion and removal
+  of elements in a list. Each element in it will point to the next one. In Safe
+  contracts, the owners are stored in a linked list.
+</Callout>
 
 ```solidity focus=2
 (ISafe safe).removeOwner(

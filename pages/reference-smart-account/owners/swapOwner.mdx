@@ -47,7 +47,13 @@ Replaces the owner `oldOwner` in the Safe with `newOwner`.
 
 - **Type:** `address`
 
-Owner that points to the owner to be replaced in the linked list.
+Owner address that is pointing to the owner to be removed in the contract [linked list](https://github.com/safe-global/safe-smart-account/blob/7f79aaf05c33df71d9cb687f0bc8a73fa39d25d5/contracts/base/OwnerManager.sol#L19).
+
+<Callout type='info'>
+  A linked list is a data structure that allows efficient insertion and removal
+  of elements in a list. Each element in it will point to the next one. In Safe
+  contracts, the owners are stored in a linked list.
+</Callout>
 
 ```solidity focus=2
 (ISafe safe).swapOwner(
