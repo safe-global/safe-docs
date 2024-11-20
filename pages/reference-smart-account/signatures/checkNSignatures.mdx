@@ -5,7 +5,7 @@ import { Tabs, Callout } from 'nextra/components'
 Checks whether the signature provided is valid for the provided data and hash. Reverts otherwise.
 
 <Callout type='info'>
-  Since the EIP-1271 does an external call, be mindful of re-entrancy attacks.
+  Since the EIP-1271 makes an external call, be mindful of re-entrancy attacks.
 </Callout>
 
 ## Usage
@@ -47,11 +47,11 @@ Checks whether the signature provided is valid for the provided data and hash. R
 
 - **Type:** `address`
 
-Address that executing the transaction.
+Address executing the transaction.
 
 <Callout type='warning'>
-  Make sure that the executor address is a legitimate executor. Incorrectly
-  passed the executor might reduce the threshold by 1 signature.
+  Make sure that the executor address is a legitimate executor. When incorrectly
+  passed, the executor might reduce the threshold by one signature.
 </Callout>
 
 ```solidity focus=2

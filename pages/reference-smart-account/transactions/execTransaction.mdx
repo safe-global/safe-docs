@@ -4,7 +4,7 @@ import ExecutionFailure from '../events/ExecutionFailure.mdx'
 
 # `execTransaction`
 
-Executes a Safe transaction to `to` with `value` (Native Currency) and pays `gasPrice` \* `gasLimit` in `gasToken` token to `refundReceiver`.
+Executes a Safe transaction to `to` with `value` (native currency) and pays `gasPrice` \* `gasLimit` in `gasToken` token to `refundReceiver`.
 
 <Callout type='warning'>
   The fees are always transferred, even if the user transaction fails. This
@@ -174,7 +174,7 @@ Gas that should be used for the Safe transaction.
 
 - **Type:** `uint256`
 
-Gas costs that are independent of the transaction execution (for example base transaction fee, signature check, payment of the refund).
+Gas costs that are independent of the transaction execution (for example, the base transaction fee, signature check, and refund payment).
 
 ```solidity focus=7
 (ISafe safe).execTransaction(
