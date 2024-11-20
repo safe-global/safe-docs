@@ -1,4 +1,6 @@
 import { Tabs, Callout } from 'nextra/components'
+import ExecutionFromModuleSuccess from '../events/ExecutionFromModuleSuccess.mdx'
+import ExecutionFromModuleFailure from '../events/ExecutionFromModuleFailure.mdx'
 
 # `execTransactionFromModule`
 
@@ -113,18 +115,5 @@ Operation type of the module transaction.
 
 ## Events
 
-### `ExecutionFromModuleSuccess`
-
-```solidity
-event ExecutionFromModuleSuccess(address to, uint256 value, bytes data);
-```
-
-Emitted when a transaction executed by a module succeeds. This event is also emitted in the [`execTransactionFromModuleReturnData`](./execTransactionFromModuleReturnData.mdx#executionfrommodulesuccess) function.
-
-### `ExecutionFromModuleFailure`
-
-```solidity
-event ExecutionFromModuleFailure(address module);
-```
-
-Emitted when a transaction executed by a module fails. This event is also emitted in the [`execTransactionFromModuleReturnData`](./execTransactionFromModuleReturnData.mdx#executionfrommodulefailure) function.
+<ExecutionFromModuleSuccess />
+<ExecutionFromModuleFailure />

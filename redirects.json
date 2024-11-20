@@ -848,40 +848,5 @@
     "source": "/advanced/passkeys/supported-networks",
     "destination": "/advanced/smart-account-supported-networks?module=Safe+Passkey+Module",
     "permanent": true
-  },
-  {
-    "source": "/reference-smart-account",
-    "destination": "/reference-smart-account/overview",
-    "permanent": true
-  },
-  {
-    "source": "/reference-smart-account/owners",
-    "destination": "/reference-smart-account/owners/addOwnerWithThreshold",
-    "permanent": true
-  },
-  {
-    "source": "/reference-smart-account/modules",
-    "destination": "/reference-smart-account/modules/enableModule",
-    "permanent": true
-  },
-  {
-    "source": "/reference-smart-account/signatures",
-    "destination": "/reference-smart-account/signatures/checkSignatures",
-    "permanent": true
-  },
-  {
-    "source": "/reference-smart-account/transactions",
-    "destination": "/reference-smart-account/transactions/execTransaction",
-    "permanent": true
-  },
-  {
-    "source": "/reference-smart-account/utilities",
-    "destination": "/reference-smart-account/utilities/getStorageAt",
-    "permanent": true
-  },
-  {
-    "source": "/reference-smart-account/setup",
-    "destination": "/reference-smart-account/setup/setup",
-    "permanent": true
   }
 ]

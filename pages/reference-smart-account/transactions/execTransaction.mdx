@@ -1,4 +1,6 @@
 import { Tabs, Callout } from 'nextra/components'
+import ExecutionSuccess from '../events/ExecutionSuccess.mdx'
+import ExecutionFailure from '../events/ExecutionFailure.mdx'
 
 # `execTransaction`
 
@@ -256,7 +258,7 @@ Address of receiver of gas payment (or `0` if `tx.origin`).
 
 - **Type:** `bytes`
 
-Signature data that should be verified. Can be packed ECDSA signature `((bytes32 r)(bytes32 s)(uint8 v))`, contract signature (EIP-1271) or approved hash.
+Signature data that should be verified. Can be packed ECDSA signature `((bytes32 r)(bytes32 s)(uint8 v))`, contract signature ([EIP-1271](../../home/glossary.md#eip-1271)), or approved hash.
 
 ```solidity focus=11
 (ISafe safe).execTransaction(
@@ -275,18 +277,5 @@ Signature data that should be verified. Can be packed ECDSA signature `((bytes32
 
 ## Events
 
-### `ExecutionSuccess`
-
-```solidity
-event ExecutionSuccess(bytes32 txHash, uint256 payment);
-```
-
-Emitted when a transaction is executed successfully.
-
-### `ExecutionFailure`
-
-```solidity
-event ExecutionFailure(bytes32 txHash, uint256 payment);
-```
-
-Emitted when a transaction fails.
+<ExecutionSuccess />
+<ExecutionFailure />

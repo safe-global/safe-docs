@@ -1,4 +1,6 @@
 import { Tabs, Callout } from 'nextra/components'
+import RemovedOwner from '../../../components/Events/mdx/RemovedOwner.mdx'
+import ChangedThreshold from '../../../components/Events/mdx/ChangedThreshold.mdx'
 
 # `removeOwner`
 
@@ -44,7 +46,7 @@ Removes the owner `owner` from the Safe and updates the threshold to `_threshold
 
 - **Type:** `address`
 
-Owner that pointed to the owner to be removed in the linked list
+Current owner address.
 
 ```solidity focus=2
 (ISafe safe).removeOwner(
@@ -84,14 +86,5 @@ New threshold.
 
 ## Events
 
-### `RemovedOwner`
-
-```solidity
-event RemovedOwner(address owner);
-```
-
-Emitted when an owner is removed from the Safe.
-
-This event is also emitted in the [`swapOwner`](/reference-smart-account/owner/swapOwner.mdx) functions.
-
-### [`ChangedThreshold`](./changeThreshold.mdx#changedthreshold)
+<RemovedOwner />
+<ChangedThreshold />

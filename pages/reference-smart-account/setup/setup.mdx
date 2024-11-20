@@ -1,4 +1,5 @@
 import { Tabs, Callout } from 'nextra/components'
+import SafeSetup from '../events/SafeSetup.mdx'
 
 # `setup`
 
@@ -64,16 +65,4 @@ Number of required confirmations for a Safe transaction.
 
 ## Events
 
-### `SafeSetup`
-
-```solidity
-event SafeSetup(
-  address initiator,
-  address[] owners,
-  uint256 threshold,
-  address initializer,
-  address fallbackHandler
-);
-```
-
-Emitted when the Safe is set up.
+<SafeSetup />

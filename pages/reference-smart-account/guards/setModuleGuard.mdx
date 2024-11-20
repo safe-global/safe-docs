@@ -1,4 +1,5 @@
 import { Tabs, Callout } from 'nextra/components'
+import ChangedModuleGuard from '../events/ChangedModuleGuard.mdx'
 
 # `setModuleGuard`
 
@@ -44,7 +45,7 @@ execution.
 
 - **Type:** `address`
 
-The address of the Module Guard to be used or the zero address to disable the Module Guard.
+The address of the Module Guard to be used or the `0x` address to disable the Module Guard.
 
 ```solidity focus=2
 (ISafe safe).setModuleGuard(
@@ -54,10 +55,4 @@ The address of the Module Guard to be used or the zero address to disable the Mo
 
 ## Events
 
-### `ChangedModuleGuard`
-
-```solidity
-event ChangedModuleGuard(address moduleGuard);
-```
-
-Emitted when a Module Guard is set for the Safe.
+<ChangedModuleGuard />

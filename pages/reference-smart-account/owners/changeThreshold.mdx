@@ -1,4 +1,5 @@
 import { Tabs, Callout } from 'nextra/components'
+import ChangedThreshold from '../../../components/Events/mdx/ChangedThreshold.mdx'
 
 # `changeThreshold`
 
@@ -44,12 +45,4 @@ New threshold.
 
 ## Events
 
-### `ChangedThreshold`
-
-```solidity
-event ChangedThreshold(uint256 threshold);
-```
-
-Emitted when the threshold for confirmations is changed.
-
-This event is also emitted in the [`addOwnerWithThreshold`](./addOwnerWithThreshold.mdx) and [`removeOwner`](./removeOwner.mdx) functions.
+<ChangedThreshold />

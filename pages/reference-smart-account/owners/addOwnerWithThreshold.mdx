@@ -1,4 +1,6 @@
 import { Tabs, Callout } from 'nextra/components'
+import AddedOwner from '../events/AddedOwner.mdx'
+import ChangedThreshold from '../events/ChangedThreshold.mdx'
 
 # `addOwnerWithThreshold`
 
@@ -58,14 +60,5 @@ New threshold.
 
 ## Events
 
-### `AddedOwner`
-
-```solidity
-event AddedOwner(address owner);
-```
-
-Emitted when an owner is added to the Safe.
-
-This event is also emitted in the [`swapOwner`](./swapOwner.mdx) function.
-
-### [`ChangedThreshold`](./changeThreshold.mdx#changedthreshold)
+<AddedOwner />
+<ChangedThreshold />

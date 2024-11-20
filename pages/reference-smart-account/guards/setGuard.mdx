@@ -1,4 +1,5 @@
 import { Tabs, Callout } from 'nextra/components'
+import ChangedGuard from '../events/ChangedGuard.mdx'
 
 # `setGuard`
 
@@ -37,7 +38,7 @@ Set Transaction Guard `guard` that checks transactions before execution.
 
 - **Type:** `address`
 
-The address of the guard to be used or the 0 address to disable the guard.
+The address of the guard to be used or the `0x` address to disable the guard.
 
 ```solidity focus=2
 (ISafe safe).setGuard(
@@ -47,10 +48,4 @@ The address of the guard to be used or the 0 address to disable the guard.
 
 ## Events
 
-### `ChangedGuard`
-
-```solidity
-event ChangedGuard(address guard);
-```
-
-Emitted when a guard is set for the Safe.
+<ChangedGuard />

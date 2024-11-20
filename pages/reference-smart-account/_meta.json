@@ -15,5 +15,9 @@
   "guards": "Guards",
   "fallback": "Fallback Handler",
   "signatures": "Signatures",
-  "utilities": "Utilities"
+  "utilities": "Utilities",
+  "events": {
+    "type": "page",
+    "display": "hidden"
+  }
 }

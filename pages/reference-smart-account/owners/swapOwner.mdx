@@ -1,10 +1,14 @@
 import { Tabs, Callout } from 'nextra/components'
+import AddedOwner from '../events/AddedOwner.mdx'
+import RemovedOwner from '../events/RemovedOwner.mdx'
 
 # `swapOwner`
 
 Replaces the owner `oldOwner` in the Safe with `newOwner`.
 
-<Callout type='warning'>This action can only be done via a Safe transaction.</Callout>
+<Callout type='warning'>
+  This action can only be done via a Safe transaction.
+</Callout>
 
 ## Usage
 
@@ -31,6 +35,7 @@ Replaces the owner `oldOwner` in the Safe with `newOwner`.
         }
     }
     ```
+
   </Tabs.Tab>
 </Tabs>
 
@@ -82,6 +87,5 @@ New owner address.
 
 ## Events
 
-### [`AddedOwner`](./addOwnerWithThreshold.mdx#addedowner)
-
-### [`RemovedOwner`](./removeOwner.mdx#removedowner)
+<AddedOwner />
+<RemovedOwner />
