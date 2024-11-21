@@ -51,7 +51,7 @@ Hash of the data (could be either a message hash or transaction hash).
 
 - **Type:** `bytes`
 
-Signature data that should be verified. Can be packed ECDSA signature `((bytes32 r)(bytes32 s)(uint8 v))`, contract signature ([EIP-1271](../../home/glossary.md#eip-1271)) or approved hash.
+Signature data that should be verified. Can be packed ECDSA signature `((bytes32 r)(bytes32 s)(uint8 v))`, contract signature ([EIP-1271](../../home/glossary.md#eip-1271)), or approved hash.
 
 ```solidity focus=3
 (ISafe safe).checkSignatures(
