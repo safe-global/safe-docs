@@ -24,7 +24,7 @@ execution.
 
     contract Example {
         function example() ... {
-            (ISafe safe).setModuleGuard("0x...");
+            (ISafe safe).setModuleGuard(0x...);
         }
     }
     ```
@@ -39,11 +39,11 @@ execution.
 
 - **Type:** `address`
 
-The address of the Module Guard to be used or the `0x` address to disable the Module Guard.
+The address of the Module Guard to be used, or `address(0)` to disable the Module Guard.
 
 ```solidity focus=2
 (ISafe safe).setModuleGuard(
-    "0x..."
+    0x...
 );
 ```
 

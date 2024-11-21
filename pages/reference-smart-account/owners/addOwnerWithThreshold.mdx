@@ -22,7 +22,7 @@ Adds the owner `owner` to the Safe and updates the threshold to `_threshold`.
 
     contract Example {
         function example() ... {
-            (ISafe safe).addOwnerWithThreshold("0x...", 1);
+            (ISafe safe).addOwnerWithThreshold(0x..., 1);
         }
     }
     ```
@@ -41,7 +41,7 @@ New owner address.
 
 ```solidity focus=2
 (ISafe safe).addOwnerWithThreshold(
-    "0x...",
+    0x...,
     1
 );
 ```
@@ -54,7 +54,7 @@ New threshold.
 
 ```solidity focus=3
 (ISafe safe).addOwnerWithThreshold(
-    "0x...",
+    0x...,
     1
 );
 ```

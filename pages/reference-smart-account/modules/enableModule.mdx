@@ -21,7 +21,7 @@ Enables a new Safe Module in a Safe account.
 
     contract Example {
         function example() ... {
-            (ISafe safe).enableModule("0x...");
+            (ISafe safe).enableModule(0x...);
         }
     }
     ```
@@ -40,7 +40,7 @@ Safe Module to be enabled.
 
 ```solidity focus=2
 (ISafe safe).enableModule(
-    "0x..."
+    0x...
 );
 ```
 

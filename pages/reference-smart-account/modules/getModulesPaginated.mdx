@@ -20,7 +20,7 @@ Returns an array of modules. If all entries fit into a single page, the next poi
 
     contract Example {
         function example() … {
-            (ISafe safe).getModulesPaginated("0x...", "0x...");
+            (ISafe safe).getModulesPaginated(0x..., 1);
         }
     }
     ```
@@ -53,8 +53,8 @@ Start of the page. Has to be a module or start pointer (`0x1` address).
 
 ```solidity focus=2
 (ISafe safe).getModulesPaginated(
-    "0x...",
-    "0x..."
+    0x...,
+    1
 );
 ```
 
@@ -66,7 +66,7 @@ Maximum number of modules that should be returned. Has to be greater than zero.
 
 ```solidity focus=3
 (ISafe safe).getModulesPaginated(
-    "0x...",
-    "0x..."
+    0x...,
+    1
 );
 ```

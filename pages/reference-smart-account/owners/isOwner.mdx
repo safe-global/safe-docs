@@ -17,7 +17,7 @@ Returns if `owner` is an owner of the Safe.
 
     contract Example {
         function example() … {
-            (bool isOwner) = (ISafe safe).isOwner("0x...");
+            (bool isOwner) = (ISafe safe).isOwner(0x...);
         }
     }
     ```
@@ -44,6 +44,6 @@ Owner address.
 
 ```solidity focus=2
 (ISafe safe).isOwner(
-    "0x..."
+    0x...
 );
 ```

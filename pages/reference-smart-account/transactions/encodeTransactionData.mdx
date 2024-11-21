@@ -29,15 +29,15 @@ Encodes the transaction data for `execTransaction`.
     contract Example {
         function example() ... {
             (ISafe safe).encodeTransactionData(
-                "0x...",
+                0x...,
                 0,
                 "0x...",
                 Enum.Operation.Call,
                 100000,
                 0,
                 0,
-                "0x...",
-                "0x...",
+                0x...,
+                0x...,
                 1
             );
         }
@@ -64,15 +64,15 @@ Destination address.
 
 ```solidity focus=2
 (ISafe safe).encodeTransactionData(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     100000,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     1
 );
 ```
@@ -85,15 +85,15 @@ Native token value.
 
 ```solidity focus=3
 (ISafe safe).encodeTransactionData(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     100000,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     1
 );
 ```
@@ -106,15 +106,15 @@ Data payload.
 
 ```solidity focus=4
 (ISafe safe).encodeTransactionData(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     100000,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     1
 );
 ```
@@ -127,15 +127,15 @@ Operation type.
 
 ```solidity focus=5
 (ISafe safe).encodeTransactionData(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     100000,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     1
 );
 ```
@@ -148,15 +148,15 @@ Gas that should be used for the Safe transaction.
 
 ```solidity focus=6
 (ISafe safe).encodeTransactionData(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     100000,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     1
 );
 ```
@@ -169,15 +169,15 @@ Gas costs for data used to trigger the Safe transaction.
 
 ```solidity focus=7
 (ISafe safe).encodeTransactionData(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     100000,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     1
 );
 ```
@@ -190,15 +190,15 @@ Maximum gas price that should be used for this transaction.
 
 ```solidity focus=8
 (ISafe safe).encodeTransactionData(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     100000,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     1
 );
 ```
@@ -207,19 +207,19 @@ Maximum gas price that should be used for this transaction.
 
 - **Type:** `address`
 
-Token address (or `0x` if native token) that is used for the payment.
+Token address (or `address(0)` if native token) that is used for the payment.
 
 ```solidity focus=9
 (ISafe safe).encodeTransactionData(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     100000,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     1
 );
 ```
@@ -228,19 +228,19 @@ Token address (or `0x` if native token) that is used for the payment.
 
 - **Type:** `address`
 
-Address of receiver of gas payment (or `0x` if `tx.origin`).
+Address of receiver of gas payment (or `address(0)` if `tx.origin`).
 
 ```solidity focus=10
 (ISafe safe).encodeTransactionData(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     100000,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     1
 );
 ```
@@ -253,15 +253,15 @@ Transaction nonce.
 
 ```solidity focus=11
 (ISafe safe).encodeTransactionData(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     100000,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     1
 );
 ```

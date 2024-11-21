@@ -38,15 +38,15 @@ Executes a Safe transaction to `to` with `value` (native currency) and pays `gas
     contract Example {
         function example() ... {
             (ISafe safe).execTransaction(
-                "0x...",
+                0x...,
                 0,
                 "0x...",
                 Enum.Operation.Call,
                 0,
                 0,
                 0,
-                "0x...",
-                "0x...",
+                0x...,
+                0x...,
                 "0x..."
             );
         }
@@ -73,15 +73,15 @@ Destination address of Safe transaction.
 
 ```solidity focus=2
 (ISafe safe).execTransaction(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     0,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     "0x..."
 );
 ```
@@ -94,15 +94,15 @@ Native token value of Safe transaction.
 
 ```solidity focus=3
 (ISafe safe).execTransaction(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     0,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     "0x..."
 );
 ```
@@ -115,15 +115,15 @@ Data payload of Safe transaction.
 
 ```solidity focus=4
 (ISafe safe).execTransaction(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     0,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     "0x..."
 );
 ```
@@ -136,15 +136,15 @@ Operation type of Safe transaction.
 
 ```solidity focus=5
 (ISafe safe).execTransaction(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     0,
     0,
     0,
-    "0x",
-    "0x...",
+    0x...,
+    0x...,
     "0x..."
 );
 ```
@@ -157,15 +157,15 @@ Gas that should be used for the Safe transaction.
 
 ```solidity focus=6
 (ISafe safe).execTransaction(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     0,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     "0x..."
 );
 ```
@@ -178,15 +178,15 @@ Gas costs that are independent of the transaction execution (for example, the ba
 
 ```solidity focus=7
 (ISafe safe).execTransaction(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     0,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     "0x..."
 );
 ```
@@ -199,15 +199,15 @@ Gas price that should be used for the payment calculation.
 
 ```solidity focus=8
 (ISafe safe).execTransaction(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     0,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     "0x..."
 );
 ```
@@ -220,15 +220,15 @@ Token address (or `0x` if native token) that is used for the payment.
 
 ```solidity focus=9
 (ISafe safe).execTransaction(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     0,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     "0x..."
 );
 ```
@@ -241,15 +241,15 @@ Address of receiver of gas payment (or `0` if `tx.origin`).
 
 ```solidity focus=10
 (ISafe safe).execTransaction(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     0,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     "0x..."
 );
 ```
@@ -262,15 +262,15 @@ Signature data that should be verified. Can be packed ECDSA signature `((bytes32
 
 ```solidity focus=11
 (ISafe safe).execTransaction(
-    "0x...",
+    0x...,
     0,
     "0x...",
     Enum.Operation.Call,
     0,
     0,
     0,
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     "0x..."
 );
 ```

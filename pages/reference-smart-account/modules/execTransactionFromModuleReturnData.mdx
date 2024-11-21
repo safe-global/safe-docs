@@ -25,14 +25,15 @@ Executes a transaction from an enabled Safe Module and returns the result data.
     contract Example {
         function example() … {
             (ISafe safe).execTransactionFromModuleReturnData(
-                "0x...",
-                "0x...",
+                0x...,
+                0,
                 "0x...",
                 Enum.Operation.Call
             );
         }
     }
     ```
+
   </Tabs.Tab>
 </Tabs>
 
@@ -62,8 +63,8 @@ Destination address of the Safe Module transaction.
 
 ```solidity focus=2
 (ISafe safe).execTransactionFromModuleReturnData(
-    "0x...",
-    "0x...",
+    0x...,
+    0,
     "0x...",
     Enum.Operation.Call
 );
@@ -77,8 +78,8 @@ Value of the native token transferred in the module transaction.
 
 ```solidity focus=3
 (ISafe safe).execTransactionFromModuleReturnData(
-    "0x...",
-    "0x...",
+    0x...,
+    0,
     "0x...",
     Enum.Operation.Call
 );
@@ -92,8 +93,8 @@ Data payload of the module transaction.
 
 ```solidity focus=4
 (ISafe safe).execTransactionFromModuleReturnData(
-    "0x...",
-    "0x...",
+    0x...,
+    0,
     "0x...",
     Enum.Operation.Call
 );
@@ -107,8 +108,8 @@ Operation type of the module transaction.
 
 ```solidity focus=5
 (ISafe safe).execTransactionFromModuleReturnData(
-    "0x...",
-    "0x...",
+    0x...,
+    0,
     "0x...",
     Enum.Operation.Call
 );

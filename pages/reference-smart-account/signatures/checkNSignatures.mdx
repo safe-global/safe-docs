@@ -28,7 +28,7 @@ Checks whether the signature provided is valid for the provided data and hash. R
     contract Example {
         function example() ... {
             (ISafe safe).checkNSignatures(
-                "0x...",
+                0x...,
                 "0x...",
                 "0x...",
                 1
@@ -56,7 +56,7 @@ Address executing the transaction.
 
 ```solidity focus=2
 (ISafe safe).checkNSignatures(
-    "0x...",
+    0x...,
     "0x...",
     "0x...",
     1
@@ -71,7 +71,7 @@ Hash of the data (could be either a message hash or transaction hash).
 
 ```solidity focus=3
 (ISafe safe).checkNSignatures(
-    "0x...",
+    0x...,
     "0x...",
     "0x...",
     1
@@ -86,7 +86,7 @@ Signature data that should be verified. Can be packed ECDSA signature `((bytes32
 
 ```solidity focus=4
 (ISafe safe).checkNSignatures(
-    "0x...",
+    0x...,
     "0x...",
     "0x...",
     1
@@ -101,7 +101,7 @@ Amount of required valid signatures.
 
 ```solidity focus=5
 (ISafe safe).checkNSignatures(
-    "0x...",
+    0x...,
     "0x...",
     "0x...",
     1

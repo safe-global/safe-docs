@@ -30,8 +30,8 @@ Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (native toke
     contract Example {
         function example() … {
             (ISafe safe).execTransactionFromModule(
-                "0x...",
-                "0x...",
+                0x...,
+                0,
                 "0x...",
                 Enum.Operation.Call
             );
@@ -61,8 +61,8 @@ Destination address of module transaction.
 
 ```solidity focus=2
 (ISafe safe).execTransactionFromModule(
-    "0x...",
-    "0x...",
+    0x...,
+    0,
     "0x...",
     Enum.Operation.Call
 );
@@ -76,8 +76,8 @@ The native token value transferred in the Safe Module transaction.
 
 ```solidity focus=3
 (ISafe safe).execTransactionFromModule(
-    "0x...",
-    "0x...",
+    0x...,
+    0,
     "0x...",
     Enum.Operation.Call
 );
@@ -91,8 +91,8 @@ Data payload of the module transaction.
 
 ```solidity focus=4
 (ISafe safe).execTransactionFromModule(
-    "0x...",
-    "0x...",
+    0x...,
+    0,
     "0x...",
     Enum.Operation.Call
 );
@@ -106,8 +106,8 @@ Operation type of the module transaction.
 
 ```solidity focus=5
 (ISafe safe).execTransactionFromModule(
-    "0x...",
-    "0x...",
+    0x...,
+    0,
     "0x...",
     Enum.Operation.Call
 );

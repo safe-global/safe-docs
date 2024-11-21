@@ -29,8 +29,8 @@ Removes the owner `owner` from the Safe and updates the threshold to `_threshold
     contract Example {
         function example() … {
             (ISafe safe).removeOwner(
-                "0x...",
-                "0x...",
+                0x...,
+                0x...,
                 1
             );
         }
@@ -58,8 +58,8 @@ Owner address that is pointing to the owner to be removed in the contract [linke
 
 ```solidity focus=2
 (ISafe safe).removeOwner(
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     1
 );
 ```
@@ -72,8 +72,8 @@ Owner address to be removed.
 
 ```solidity focus=3
 (ISafe safe).removeOwner(
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     1
 );
 ```
@@ -86,8 +86,8 @@ New threshold.
 
 ```solidity focus=4
 (ISafe safe).removeOwner(
-    "0x...",
-    "0x...",
+    0x...,
+    0x...,
     1
 );
 ```

@@ -23,7 +23,7 @@ Set Transaction Guard `guard` that checks transactions before execution.
 
     contract Example {
         function example() ... {
-            (ISafe safe).setGuard("0x...");
+            (ISafe safe).setGuard(0x...);
         }
     }
     ```
@@ -36,11 +36,11 @@ Set Transaction Guard `guard` that checks transactions before execution.
 
 - **Type:** `address`
 
-The address of the guard to be used or the `0x` address to disable the guard.
+The address of the guard to be used, or `address(0)` to disable the guard.
 
 ```solidity focus=2
 (ISafe safe).setGuard(
-    "0x..."
+    0x...
 );
 ```
 

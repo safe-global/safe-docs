@@ -26,7 +26,7 @@ Sets an initial storage of the Safe contract.
 
     contract Example {
       function example() ... {
-          (ISafe safe).setup(["0x...", "0x..."], 1);
+          (ISafe safe).setup([0x..., 0x...], 1);
       }
     }
     ```
@@ -45,7 +45,7 @@ List of Safe owners.
 
 ```solidity focus=2
 (ISafe safe).setup(
-    ["0x...", "0x..."],
+    [0x..., 0x...],
     1
 );
 ```
@@ -58,7 +58,7 @@ Number of required confirmations for a Safe transaction.
 
 ```solidity focus=3
 (ISafe safe).setup(
-    ["0x...", "0x..."],
+    [0x..., 0x...],
     1
 );
 ```

@@ -17,7 +17,7 @@ Returns if a module is enabled.
 
     contract Example {
         function example() … {
-            (ISafe safe).isModuleEnabled("0x...");
+            (ISafe safe).isModuleEnabled(0x...);
         }
     }
     ```
@@ -42,6 +42,6 @@ Address of the module.
 
 ```solidity focus=2
 (ISafe safe).isModuleEnabled(
-    "0x..."
+    0x...
 );
 ```

@@ -22,7 +22,7 @@ This method reverts with data equal to `abi.encode(bool(success), bytes(response
 
     contract Example {
         function example() ... {
-            (ISafe safe).simulateAndRevert("0x...", "0x...");
+            (ISafe safe).simulateAndRevert(0x..., "0x...");
         }
     }
     ```
@@ -39,7 +39,7 @@ Address of the contract containing the code to execute.
 
 ```solidity focus=2
 (ISafe safe).simulateAndRevert(
-    "0x...",
+    0x...,
     "0x..."
 );
 ```
@@ -52,7 +52,7 @@ Payload to be executed.
 
 ```solidity focus=3
 (ISafe safe).simulateAndRevert(
-    "0x...",
+    0x...,
     "0x..."
 );
 ```
