@@ -1,21 +1,15 @@
 import { Tabs, Callout } from 'nextra/components'
 import ChangedModuleGuard from '../events/ChangedModuleGuard.mdx'
+import OnlySafeTxCallout from '../../../components/callouts/OnlySafeTxCallout.mdx'
+import ModuleCallout from '../../../components/callouts/ModuleCallout.mdx'
 
 # `setModuleGuard`
 
 Set a Module Guard that checks transactions initiated by the module before
 execution. 
 
-<Callout type='warning'>
-  This action can only be done via a Safe transaction.
-</Callout>
-
-<Callout type='error' emoji='🚨'>
-  Since a Module Guard has full power to block Safe transaction execution
-  initiated via a module, a broken Module Guard can cause a denial of service
-  for the Safe Modules. Make sure to carefully audit the Module Guard code and
-  design recovery mechanisms.
-</Callout>
+<OnlySafeTxCallout />
+<ModuleCallout />
 
 ## Usage
 

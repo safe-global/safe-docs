@@ -1,14 +1,13 @@
 import { Tabs, Callout } from 'nextra/components'
 import AddedOwner from '../events/AddedOwner.mdx'
 import RemovedOwner from '../events/RemovedOwner.mdx'
+import OnlySafeTxCallout from '../../../components/callouts/OnlySafeTxCallout.mdx'
 
 # `swapOwner`
 
 Replaces the owner `oldOwner` in the Safe with `newOwner`.
 
-<Callout type='warning'>
-  This action can only be done via a Safe transaction.
-</Callout>
+<OnlySafeTxCallout />
 
 ## Usage
 

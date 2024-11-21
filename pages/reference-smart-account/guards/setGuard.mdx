@@ -1,16 +1,14 @@
 import { Tabs, Callout } from 'nextra/components'
 import ChangedGuard from '../events/ChangedGuard.mdx'
+import OnlySafeTxCallout from '../../../components/callouts/OnlySafeTxCallout.mdx'
+import ModuleCallout from '../../../components/callouts/ModuleCallout.mdx'
 
 # `setGuard`
 
 Set Transaction Guard `guard` that checks transactions before execution.
 
-<Callout type='warning'>This action can only be done via a Safe transaction.</Callout>
-<Callout type='error' emoji='🚨'>
-  Since a guard has the full power to block Safe transaction executions, a broken
-  guard can cause a denial of service for the Safe. Make sure to carefully audit
-  the guard code, and design recovery mechanisms.
-</Callout>
+<OnlySafeTxCallout />
+<ModuleCallout />
 
 ## Usage
 
