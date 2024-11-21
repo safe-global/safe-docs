@@ -1,0 +1,35 @@
+import { Tabs } from 'nextra/components'
+
+# `getThreshold`
+
+Returns the threshold of the Safe account.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function getThreshold() external view returns (uint256);
+    }
+
+    contract Example {
+        function example() ... {
+            (uint256 threshold) = (ISafe safe).getThreshold();
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+### `threshold`
+
+- **Type:** `uint256`
+
+Threshold number.

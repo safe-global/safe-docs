@@ -1,0 +1,47 @@
+import { Tabs } from 'nextra/components'
+
+# `isModuleEnabled`
+
+Returns if a module is enabled.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function isModuleEnabled(address module) external view returns (bool);
+    }
+
+    contract Example {
+        function example() … {
+            (ISafe safe).isModuleEnabled(0x...);
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Returns
+
+### `isModuleEnabled`
+
+- **Type:** `bool`
+
+Boolean flag indicating if the module is enabled.
+
+## Parameters
+
+### `module`
+
+- **Type:** `address`
+
+Address of the module.
+
+```solidity focus=2
+(ISafe safe).isModuleEnabled(
+    0x...
+);
+```
