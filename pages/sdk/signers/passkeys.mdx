@@ -53,61 +53,61 @@ In this guide, you will learn how to create a Passkey signer that can be added a
 
   {/* <!-- vale on --> */}
 
-In addition, you will need to import a web3 library of your choice to use in the "Get the provider and signer" section. In this guide, we are using `viem`.
+  In addition, you will need to import a web3 library of your choice to use in the "Get the provider and signer" section. In this guide, we are using `viem`.
 
-### Create a passkey
+  ### Create a passkey
 
-Firstly, you need to generate a passkey credential using the [WebAuthn API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API) in a supporting browser environment.
+  Firstly, you need to generate a passkey credential using the [WebAuthn API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API) in a supporting browser environment.
 
-{/* <!-- vale off --> */}
+  {/* <!-- vale off --> */}
 
-```typescript
-const RP_NAME = 'Safe Smart Account'
-const USER_DISPLAY_NAME = 'User display name'
-const USER_NAME = 'User name'
+  ```typescript
+  const RP_NAME = 'Safe Smart Account'
+  const USER_DISPLAY_NAME = 'User display name'
+  const USER_NAME = 'User name'
 
-const passkeyCredential = await navigator.credentials.create({
-  publicKey: {
-    pubKeyCredParams: [
-      {
-        alg: -7,
-        type: 'public-key'
-      }
-    ],
-    challenge: crypto.getRandomValues(new Uint8Array(32)),
-    rp: {
-      name: RP_NAME
-    },
-    user: {
-      displayName: USER_DISPLAY_NAME,
-      id: crypto.getRandomValues(new Uint8Array(32)),
-      name: USER_NAME
-    },
-    timeout: 60_000,
-    attestation: 'none'
+  const passkeyCredential = await navigator.credentials.create({
+    publicKey: {
+      pubKeyCredParams: [
+        {
+          alg: -7,
+          type: 'public-key'
+        }
+      ],
+      challenge: crypto.getRandomValues(new Uint8Array(32)),
+      rp: {
+        name: RP_NAME
+      },
+      user: {
+        displayName: USER_DISPLAY_NAME,
+        id: crypto.getRandomValues(new Uint8Array(32)),
+        name: USER_NAME
+      },
+      timeout: 60_000,
+      attestation: 'none'
+    }
+  })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  After generating the `passkeyCredential` object, you need to create the signer. This signer will be an `PasskeyArgType` object containing the `rawId` and the `coordinates` information.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  if (!passkeyCredential) {
+    throw Error('Passkey creation failed: No credential was returned.')
   }
-})
-```
 
-{/* <!-- vale on --> */}
+  const passkeySigner = await Safe.createPasskeySigner(passkeyCredential)
+  ```
 
-After generating the `passkeyCredential` object, you need to create the signer. This signer will be an `PasskeyArgType` object containing the `rawId` and the `coordinates` information.
+  {/* <!-- vale on --> */}
 
-{/* <!-- vale off --> */}
+  At this point, it's critical to securely store the information in the `passkeySigner` object in a persistent service. Losing access to this data will result in the user being unable to access their passkey and, therefore, their Safe Smart Account.
 
-```typescript
-if (!passkeyCredential) {
-  throw Error('Passkey creation failed: No credential was returned.')
-}
-
-const passkeySigner = await Safe.createPasskeySigner(passkeyCredential)
-```
-
-{/* <!-- vale on --> */}
-
-At this point, it's critical to securely store the information in the `passkeySigner` object in a persistent service. Losing access to this data will result in the user being unable to access their passkey and, therefore, their Safe Smart Account.
-
-### Get the provider and signer
+  ### Get the provider and signer
 
   Once the passkey is created, you need the `provider` and `signer` props that the Safe\{Core\} SDK require to instantiate the kits.
 
@@ -143,25 +143,25 @@ At this point, it's critical to securely store the information in the `passkeySi
 
   {/* <!-- vale on --> */}
 
-### Instantiate SDK
+  ### Instantiate SDK
 
-With the `provider` and `signer` you are ready to instantiate any of the kits from the Safe\{Core\} SDK and set up or use this signer as a Safe owner.
+  With the `provider` and `signer` you are ready to instantiate any of the kits from the Safe\{Core\} SDK and set up or use this signer as a Safe owner.
 
-For example, you can instantiate the `protocol-kit` as follows and sign a transaction with the passkey signer:
+  For example, you can instantiate the `protocol-kit` as follows and sign a transaction with the passkey signer:
 
-{/* <!-- vale off --> */}
+  {/* <!-- vale off --> */}
 
-```typescript
-const protocolKit = await Safe.init({ provider, signer, safeAddress })
-
-const transaction = { to: '0x1234', value: '0x0', data: '0x' }
-const safeTransaction = await protocolKit.createTransaction({ transactions: [transaction] })
-const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
-```
-
-{/* <!-- vale on --> */}
-
-</Steps>
+  ```typescript
+  const protocolKit = await Safe.init({ provider, signer, safeAddress })
+  
+  const transaction = { to: '0x1234', value: '0x0', data: '0x' }
+  const safeTransaction = await protocolKit.createTransaction({ transactions: [transaction] })
+  const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
+  ```
+  
+  {/* <!-- vale on --> */}
+  
+  </Steps>
 
 ## Recap and further reading
 
