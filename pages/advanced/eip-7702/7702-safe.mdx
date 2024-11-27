@@ -1,0 +1,27 @@
+# Safe and EIP-7702
+
+EIP-7702 does not specify how to initialise the storage of the account but only gives a way to set the code of the account.
+This means that the account will be created with an empty storage, and the user will have to set the storage manually.
+
+Existing Safe contracts cannot be used with EIP-7702, because delegating to Safe Singleton or the Proxy contract will expose the EOA account to the risk of front-runing during setup.
+
+## Possible approaches
+
+- Modified Safe Singleton
+
+[SafeEIP7702](https://github.com/safe-global/safe-smart-account/blob/feature/eip-7702/contracts/experimental/SafeEIP7702.sol)
+
+- Modified Safe Proxy and Safe Singleton
+
+[SafeEIP7702Proxy](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/SafeEIP7702Proxy.sol)
+
+- SafeLite
+
+[SafeLite](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/experimental/SafeLite.sol)
+
+### Comparison table
+
+| Feature | SafeEIP7702 | SafeEIP7702Proxy | SafeLite |
+| --- | --- | --- | --- |
+| Existing Wallet UI Compatibility | Partially | Full | Not usable |
+| Gas overhead | Between SafeLite and SafeEIP7702Proxy approach | High as new Proxy has to be deployed for each EOA | Least |
