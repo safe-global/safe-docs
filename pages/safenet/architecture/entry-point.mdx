@@ -1,0 +1,14 @@
+# Entry Point
+
+* Smart Contract
+* Deployed once on every chain
+* Not to be confused with 4337 entry point contract
+* Called by processor when relaying Safenet transactions on the spend chain
+* Ensures on-chain bookkeeping
+* Responsible for cross-chain communication. 
+* Executes Safe transactions that are signed by the owners (thus doesn't require further authentication)
+* Needs additional authentication for bridging to the home chain (but this is configured on the home chain and can be managed by the Safe DAO)
+* Stores minimal data with storage and events. This data is used by `Validators` to check settlements. 
+
+
+TODO: If a validity proof is needed, information about executed Safenet transactions can be sent to the home chain for the challenge resolution.

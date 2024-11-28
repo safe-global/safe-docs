@@ -1,0 +1,6 @@
+# Settlement
+
+* process by which a processor debits funds from a Safenet account in order to repay the liquidity provider for the short-term loan (i.e. pre-fund) from the Safenet action.
+
+1. If no `validator` challenges the settlement request, the settlement is executed.
+2. If a `validator` challenges the settlement request, the `processor` needs to provide a proof that the transaction was valid. This proof requires external bridges and is gas and time consuming.

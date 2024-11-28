@@ -1,0 +1,21 @@
+# Safenet Transaction
+
+To provide a high-level overview of Safenet, this page describes the flow of a Safenet transaction.
+Further details on the components and roles involved in a Safenet transaction are covered in the [Core Components](../core-components/processor.mdx) section.
+
+A Safenet transaction consists of multiple parts:
+
+1. The users sign a Safenet transaction. 
+This includes the regular Safe transaction, that need to be signed by a enough owners of the Safe.
+2. As the Safenet guard needs to green-light every transaction of the Smart Accounts, one or multiple `processors` check the transaction. 
+These checks can include checking if the funds are available on any of the chains where the Safenet account has Safe Smart Accounts, or it can check other security properties.
+When the `processors` agree that the transaction is valid, they sign the transaction.
+3. The processor sends the transaction and the signatures from step 1. and 2. to the `Relayer`.
+4. The `Relayer` executes the transaction.
+5. While executing the Safenet transaction, multiple things happen:
+    1. The `liquidity provider` send funds to the Safe Smart Account on the spend chain.
+    2. The initial Safe transaction is executed. The Safe guard will verify the signature provided by the `processors`.
+    3. When everything is correct, the Safe Smart Account can execute the desired transaction on the spend chain, with the funds being available.
+6. A resource lock is issued on the Safe Smart Account on the debit chain, to ensure that the liquidity provider gets reimbursed.
+7. The processor requests a [settlement](../concepts/settlement.mdx) on the debit chain. The settlement request has a challenge delay, in which any `validator` can challenge the settlement request.
+8. If no `validator` challenges the settlement request, the settlement is executed. The liquidity provider receives funds from the Safe Smart Account on the debit chain, and the Safe Smart Account is unlocked.
