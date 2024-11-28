@@ -19,11 +19,11 @@ Setting Code for the EOA
 Once the EOA signs the hash, an authorization list is sent to the EVM node through a new transaction type, the set code
 transaction, introduced in EIP-7702.
 
-The EVM node then:
+The execution client then performs the following checks:
 
 - Verifies the signature.
 - Checks the account's nonce.
-- Confirms the chain ID.
+- Confirms the chain ID (`0` or the current chain ID).
 
 If all checks pass, the execution client sets the EOA's code in the format `(0xef0100 ++ address)`.
 
