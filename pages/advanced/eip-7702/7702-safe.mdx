@@ -3,25 +3,42 @@
 EIP-7702 does not specify how to initialise the storage of the account but only gives a way to set the code of the account.
 This means that the account will be created with an empty storage, and the user will have to set the storage manually.
 
-Existing Safe contracts cannot be used with EIP-7702, because delegating to Safe Singleton or the Proxy contract will expose the EOA account to the risk of front-runing during setup.
+Existing Safe contracts cannot be used with EIP-7702, because of following reasons:
+
+1. Delegating to Safe Singleton or the Proxy contract will expose the EOA account to the risk of front-runing during setup.
+2. In its current implementation, the Safe Singleton contract does not let itself to become an owner meaning that after delegating to the Safe Singleton, the EOA account cannot sign Safe transactions and will need to keep another private key to do so.
 
 ## Possible approaches
 
-- Modified Safe Singleton
+### Modified safe singleton
+
+In this approach, a derived version of Safe Singleton aka `SafeEIP7702` overrides the `setup` function and reverts when called. 
+Instead, a new function `setupEIP7702` in the contract has a `signature` parameter. The default owner will be set to the address of the EOA account that is delegating to this Singleton contract with a threshold of 1.
 
 [SafeEIP7702](https://github.com/safe-global/safe-smart-account/blob/feature/eip-7702/contracts/experimental/SafeEIP7702.sol)
 
-- Modified Safe Proxy and Safe Singleton
+Because of no proxy contract in this approach, the storage slot 0 remains unused. Safe Transaction Service and other services that depend on the value at storage slot 0 will not work with this approach.
+
+
+### Modified safe proxy
 
 [SafeEIP7702Proxy](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/SafeEIP7702Proxy.sol)
 
-- SafeLite
 
-[SafeLite](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/experimental/SafeLite.sol)
+This approach uses a derived proxy contract from [Safe Proxy](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/SafeEIP7702Proxy.sol) with following changes:
+1. The constructor of the `SafeEIP7702Proxy` contract has an additional parameter `setupDataHash` which is the hash of the `setup` function call data. Thus, the address of the proxy contract also depends on the `setupDataHash` and not just the `singleton` contract address.
+Proxy contract uses this hash to verify that the `setup` function parameter values are unchanged during initialised of storage.
 
-### Comparison table
+2. The proxy implements `setup` function which calls the `setup` function of the `singleton` contract and has additional logic:
+- Set the storage slot 0 that is, the address of the singleton in the EOA storage.
+- Verify that the `setupDataHash` is equal to the hash of the `setup` function call data.
 
-| Feature | SafeEIP7702 | SafeEIP7702Proxy | SafeLite |
-| --- | --- | --- | --- |
-| Existing Wallet UI Compatibility | Partially | Full | Not usable |
-| Gas overhead | Between SafeLite and SafeEIP7702Proxy approach | High as new Proxy has to be deployed for each EOA | Least |
+This approach has a gas overhead as a new proxy contract has to be deployed for each EOA account as the setupDataHash will be possibly unique for each user.
+But, using this approach users can use the existing Safe Wallet UI with minor modifications and import the EOA account as a Safe account. 
+
+### SafeLite
+
+[SafeLite](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/experimental/SafeLite.sol) is a lite version of Safe and compatible with EIP-7702. The contract does not have a proxy and does not need any initialisation.
+SafeLite supports ERC-4337 and hence can use features such as sponsored transactions, and even batch transactions. SafeLite also supports ERC-1271 for contract-based signatures.
+SafeLite is not compatible with the existing Safe Wallet UI as it does not use the same storage layout as the existing Safe contracts.
+It does not have the features of the existing Safe contracts such as Modules, Fallback Handler, Guards.
