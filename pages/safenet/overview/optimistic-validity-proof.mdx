@@ -2,10 +2,9 @@
 
 A core concept of Safenet are optimistic validity proofs.
 They enable the secure and efficient processing of Safenet transactions.
-At a Safenet transaction, the user never risks losing funds due to an error.
-Only Safenet actors risk to loose funds, when an error occurs. 
-
-The users' funds are always safe.
+They ensure that the user funds are never at risk.
+Only Safenet actors risk to loose funds, when they behave badly. 
+Optimistic validity proofs work similarly to [slashing](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/rewards-and-penalties/#slashing) in proof-of-stake networks.
 
 Optimistic validity proofs 
 
@@ -14,6 +13,12 @@ As the processors fronted the transaction, they risk to loose funds, when the tr
 The user does not risk to loose funds. 
 The only risk the user takes, is that the transaction is not possible. When the processors pre-funds a invalid transaction, the user will end up with double the amount of funds.
 
+
+Optimistic validity proofs ensure that the happy path is fast and efficient. On the other hand, the unhappy path is slow and expensive, as it requires cross-chain communication and validation.
+
+* The processor has an incentive to process transactions correctly, as they risk to loose funds, when they process invalid transactions. 
+* The liquidity provider is secured by the stake of the processor.
+* The validator has an incentive to challenge invalid transactions, as they can earn a fee. They have an incentive not to challenge valid transactions, as they risk to loose funds, when the transaction is valid.
 
 * optimistically assume settlements are valid, but provide a mechanism for challenging them, where the onus of proof is on the processor. 
 The processor must prove correctness if challenged (as opposed to optimistic fraud proofs, where the challenger must prove incorrectness).
