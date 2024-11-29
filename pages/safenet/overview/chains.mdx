@@ -1,5 +1,14 @@
 # Chains
 
-- **Home Chain:** the chain for the core Safenet contracts that are managed by the Safe DAO and where validity proofs are finalized. For all intents and purposes, this is Ethereum Mainnet.
-- **Spend Chain:** the chain where the Safenet action executes. In particular, assets required for executing the blockchain transaction are fronted as part of the *action* by the liquidity provider on the spend chain.
-- **Debit Chain:** the chain where funds owed by the Safenet account to the liquidity provider (in exchange for fronting those funds on the *spend chain*) are debited as part of a Safenet settlement.
+Safenet provides a unified user experience over multiple blockchains. 
+A Safenet transaction can happen on one chain or multiple chains.
+In a Safenet transaction, chains can take up the following roles:
+
+- **Spend Chain:** This is where the user wants to execute an action.
+Safenet makes sure the required funds are available instantly on the spend chain.
+Another name is *target chain*.
+- **Debit Chain:** This is where a user owns the required assets for the action.
+The user does not have to select the debit chain, as Safenet finds the required funds over all connects chains.
+Another name is *source chain*.
+- **Home Chain:** Safenet uses Ethereum Mainnet as the home chain for configuration and coordination.
+For example, the configurable set of safety guarantees for a user's Safenet account is stored on Ethereum Mainnet.

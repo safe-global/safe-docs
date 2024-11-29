@@ -19,3 +19,19 @@ When the `processors` agree that the transaction is valid, they sign the transac
 6. A resource lock is issued on the Safe Smart Account on the debit chain, to ensure that the liquidity provider gets reimbursed.
 7. The processor requests a [settlement](../concepts/settlement.mdx) on the debit chain. The settlement request has a challenge delay, in which any `validator` can challenge the settlement request.
 8. If no `validator` challenges the settlement request, the settlement is executed. The liquidity provider receives funds from the Safe Smart Account on the debit chain, and the Safe Smart Account is unlocked.
+
+A Safenet transaction consists of three main phases:
+
+1. The security checks
+2. The pre-funded transaction
+3. The settlement
+
+### 1. The security checks
+
+1. The user signs an intent to send a transaction on the spend chain. This involves signing a Safe transaction with enough owners of the Safe.
+2. The processors checks the transaction. This can include checking if the funds are available on any of the chains where the Safenet account has Safe Smart Accounts, or it can check other security properties. The processors signs the transaction.
+3. The `Relayer` executes the transaction. The transaction is only valid with the signaturs of the owners and the signature of the processor.
+4. The transaction executes on the spend chain:
+    1. The `liquidity provider` send funds to the user's Safe Smart Account on the spend chain (pre-funding).
+    2. The initial Safe transaction is executed.
+    3. When everything is correct, the Safe Smart Account can execute the desired transaction on the spend chain, with the funds being available.
