@@ -26,7 +26,10 @@ The processor sends an [attestation](./attestation.mdx) from the spend chain (wh
 ### Challenge Resolution
 The processor proves the settlement's validity to the guarantee engine on the home chain, which then informs the settlement contract on the debit chain:
     * If the settlement is validated, the settlement can proceed immediately, bypassing the remaining settlement delay.
-    * If the processor fails to prove the settlement's validity, the challenge delay expires, and the settlement is deemed invalid, meaning it can never be executed.
+    * If the processor fails to prove the settlement's validity, the challenge delay expires, and the settlement is deemed invalid, meaning it can never be executed. 
+	    
+When a challenge is successful, the processor or liquidity provider loses the fronted funds, and the user does not pay anything. 
+The user could benefit from the outgoing transaction.
 </Steps>
 
 
