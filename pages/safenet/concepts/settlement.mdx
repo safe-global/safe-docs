@@ -85,7 +85,7 @@ The sad flow diagram illustrates the process of a failed settlement.
 The validator challenges the settlement, and the processor must prove the settlement's validity. 
 If the processor fails to provide proof, the settlement is deemed invalid, and the funds are not transferred.
 
-### Correctness Proof
+### Correctness Proof (Attestation)
 
 ```mermaid
 sequenceDiagram
@@ -119,4 +119,4 @@ The correctness proof diagram illustrates the process of proving the settlement'
 The processor sends information from the spend chain to the home chain, where the guarantee engine validates the settlement. 
 If the settlement is proven correct, the settlement can proceed immediately.
 
-The processor can voluntarily provide the correctness proof at the moment of settlement to bypass the challenge delay and ensure a faster settlement process.
+The processor can voluntarily provide the attestation at the moment of settlement to bypass the challenge delay and ensure a faster settlement process.

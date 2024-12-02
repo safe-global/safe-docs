@@ -1,11 +1,11 @@
 # Entry Point
 
 The Entry Point is a smart contract deployed on every supported [chain](../chains.mdx). 
-It is distinct from the 4337 entry point contract and serves as the primary gateway for [Safenet transactions](../safenet-transaction.mdx). 
+It is distinct from the 4337 entry point contract and is the primary gateway for [Safenet transactions](../safenet-transaction.mdx). 
 When the [processor](../core-components/processor.mdx) relays transactions, the entry point ensures on-chain bookkeeping and cross-chain communication. 
 
-It executes Safe transactions that have been signed by the owners and co-signed the processor, meaning no further authentication is required. 
+It executes Safe transactions signed by the owners and co-signed by the processor, meaning no further authentication is required. 
 
-For on-chain bookkeeping it stores minimal data in the form of storage and events, which validators use to verify the correctness of [settlements](../concepts/settlement.mdx).
+For on-chain bookkeeping, minimal data is stored in the form of storage and events, which validators use to verify the correctness of [settlements](../concepts/settlement.mdx).
 If validity proofs are needed, information about executed Safenet transactions can be sent to the home chain to facilitate challenge resolution. 
-This requires additional authentication, as per configuration managed by the [Safe DAO](./safe-dao.mdx).
+This requires additional authentication, as configured by the [Safe DAO](./safe-dao.mdx).
