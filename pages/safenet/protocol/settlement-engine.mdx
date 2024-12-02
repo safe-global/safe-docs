@@ -1,6 +1,8 @@
 # Settlement Engine
 
-* Smart Contract
-* Responsible for processing debit requests on the debit chain
-* Will eventually transfer funds from a Safenet Safe to a beneficiary chosen by the liquidity provider that fronted funds on the spending chain
-* Upon settlement, it will start a delay period in which validators can check settlement correctness and challenge the settlement if they find that it is invalid. In the case where there is no challenge during the settlement delay, the processor can execute the settlement which will trigger the debiting of the Safe and transfer the funds from the account to a beneficiary to reimburse the liquidity provider that fronted the funds. The liquidity provision and relayer fees are included in the debiting.
+The Settlement Engine is a smart contract that processes debit requests on the [debit chain](../chains.mdx). 
+It is responsible for transferring funds from a Safenet Safe to the [beneficiary](./beneficiary.mdx) designated by the [liquidity provider](../core-components/liquidity-provider.mdx) who fronted funds on the spending chain. 
+
+Once a [settlement](../concepts/settlement.mdx) is initiated, a delay period begins, allowing [validators](../core-components/validator.mdx) to verify the correctness of the settlement. 
+If no [challenges](../concepts/challenge.mdx) are raised during this period, the processor can finalize the settlement, which triggers the debiting of the Safe and transfers funds to the beneficiary. 
+
