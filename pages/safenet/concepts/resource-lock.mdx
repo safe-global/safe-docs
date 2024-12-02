@@ -1,0 +1,8 @@
+# Resource lock 
+
+The Resource Lock is a mechanism in Safenet that ensures the availability of user funds for transactions by locking a portion of the End User's assets. 
+This lock guarantees that sufficient resources are set aside to settle transactions securely and efficiently.
+
+The resource lock is issued on the funds on the debit chain before the fulfillment is done on the spend chain. The lock is maintained until the transaction is settled on the debit chain.
+
+The Processor manages the resource lock, ensuring that no transactions can move funds out of the End User's Safe Smart Account on the debit chain while the resource lock is in effect.

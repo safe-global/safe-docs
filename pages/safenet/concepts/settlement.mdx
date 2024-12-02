@@ -1,31 +1,43 @@
 # Settlement
 
-**Settlement:** process by which a processor debits funds from a Safenet account in order to repay the liquidity provider for the short-term loan (pre-fund) from the Safenet action.
+Settlement is the process by which a processor debits funds from a Safenet account to repay the liquidity provider for the short-term loan (pre-funding) used in a Safenet transaction.
 
+The settlement engine handles debit requests on the debit chain by transferring funds from the Safenet Safe to a beneficiary designated by the liquidity provider. This occurs after the liquidity provider has fronted funds on the spend chain.
 
-The settlement engine is responsible for processing debit requests on the debit chain. That is, it will eventually transfer funds from a Safenet Safe to a beneficiary chosen by the liquidity provider that fronted funds on the spending chain.
+Once settlement is initiated, a delay period begins, during which validators can verify the settlement's correctness and challenge it if necessary. If no challenge is made during this period, the processor completes the settlement, debiting the Safe and transferring the funds to the beneficiary, which includes repayment of the liquidity provision and relayer fees.
 
-Upon settlement, it will start a delay period in which validators can check settlement correctness and challenge the settlement if they find that it is invalid. In the case where there is no challenge during the settlement delay, the processor can execute the settlement which will trigger the debiting of the Safe and transfer the funds from the account to a beneficiary to reimburse the liquidity provider that fronted the funds. The liquidity provision and relayer fees are included in the debiting.
+If a validator challenges the settlement, the cross-chain challenge process begins:
 
-In case a validator does find something wrong with the settlement, it can start a cross-chain challenge flow. For this flow:
+1. The challenger initiates a transaction with the settlement engine to start a challenge on the debit chain, with a separate challenge delay. During this delay, the processor must prove the settlement's correctness.
+2. The processor sends information from the spend chain (where the Safenet transaction was executed) to the home chain to validate the settlement.
+3. The processor proves the settlement's validity to the guarantee engine on the home chain, which then informs the settlement contract on the debit chain:
+    * If the settlement is validated, the settlement can proceed immediately, bypassing the remaining settlement delay.
+    * If the processor fails to prove the settlement's validity, the challenge delay expires, and the settlement is deemed invalid, meaning it can never be executed.
 
-1. The challenger will execute a transaction to the settlement engine to start a challenge on the debit chain with a challenge delay. Note that this delay is separate from the settlement delay, and represents how much time the processor has to prove correctness of the settlement. As long as a challenge is on-going, the settlement cannot be executed.
-2. The processor is required to send information from the spend chain, where the Safenet transaction actually executed, to the home chain in order to prove correctness of the settlement there.
-3. The processor will prove the settlement to the guarantee engine on the home chain, which will send a message indicating that correctness is proven to the settlement contract on the debit chain.
-    - Once the message is received by the settlement engine, the settlement is considered valid and can be executed right way to trigger the debit of the Safe (that is the settlement delay is waived).
-    - In case the processor is unable to prove correctness of the settlement, the settlement contract will never receive a message from the guarantee engine, and the challenge delay will timeout. At this point, the settlement is considered invalid and **can never again be executed**.
-
+## Flow Diagrams
 
 ### Happy Flow
 
 ![Safenet-settlement-happy-flow](../../../assets/safenet-settlement-happy-flow.png)
 
-
+The happy flow diagram illustrates the process of a successful settlement. 
+The processor initiates the settlement process by debiting the Safe and transferring funds to the beneficiary. 
+The validator verifies the settlement's correctness and, if no challenge is made, the settlement is completed.
 
 ### Sad Flow
 
 ![Safenet-settlement-sad-flow](../../../assets/safenet-settlement-sad-flow.png)
 
+The sad flow diagram illustrates the process of a failed settlement. 
+The validator challenges the settlement, and the processor must prove the settlement's validity. 
+If the processor fails to provide proof, the settlement is deemed invalid, and the funds are not transferred.
+
 ### Correctness Proof
 
 ![Safenet-settlement-correctness-proof](../../../assets/safenet-settlement-correctness-proof.png)
+
+The correctness proof diagram illustrates the process of proving the settlement's validity. 
+The processor sends information from the spend chain to the home chain, where the guarantee engine validates the settlement. 
+If the settlement is proven correct, the settlement can proceed immediately.
+
+The processor can voluntarily provide the correctness proof at the moment of settlement to bypass the challenge delay and ensure a faster settlement process.
