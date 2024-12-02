@@ -2,30 +2,21 @@
 
 Optimistic validity proofs are the core concept of Safenet that enable speed and convenience of the centralized world with the security and self-custody of the decentralized world.
 
+They make sure that in the vast majority of cases (the happy path), transactions are fast and gas-efficient, while still providing security guarantees. Only in the rare case of a dispute, the system falls back to a slow and gas-intense process.
 
-* A Safenet transaction's fulfillment is always fast and gas-efficient, because neither the processor nor the liquidity provider have an incentive to send out funds to a user that they would not receive back (and the processor does not want to loose its stakes).
-* The settlement is slightly slower, as it has a challenge delay, in which a validator can challenge the settlement request. 
+* A Safenet transaction's **fulfillment is always fast and gas-efficient**, because neither the processor nor the liquidity provider have an incentive to send out funds to a user that they would not receive back (and the processor does not want to loose its stakes).
+* The **settlement is gas-efficient but slightly slower**, as it has a challenge delay, in which a validator can challenge the settlement request. 
 It is gas-efficient, as the processor does not have to send a proof of validity initially (but is free to do so).
-Only when a validator challenges the settlement request, the processor has to send a proof of validity. 
-The proof has to be send from the spend chain to the debit chain, which is costly and slow, as the processor has to use cross-chain bridges.
+* Only a **challenged settlement is gas-intense and slow**. When a validator challenges the settlement request, the processor has to send a proof of validity. 
+The proof has to be send from the spend chain to the debit chain with a cross-chain bridge, which is costly and slow.
 
-Safenet optimistically assumes a transaction is valid, which will make the transaction fast and gas-efficient. A processor does not have to proof the validity of a transaction to execute it.
-
-Only when the transaction is challenged, the validity of the transaction has to be proven, the validity of the transaction is checked, which is slow and costs more gas.
-
-Optimistic validity proofs work similarly to [slashing](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/rewards-and-penalties/#slashing) in proof-of-stake networks. 
-
-
-A transaction by a processors is considered valid by default. 
-The processor does not have to send a proof of validity.
-A validator can challenge the validity of a transaction. 
-The validator has to post some collateral with the challenge, that is send to the processor, if the transaction is valid.
-The processor has to send a proof of validity, if the transaction is challenged.
-Sending a proof of validity is costly, as it requires to check the validity of the transaction sending the proof over a bridge from the spend chain to the debit chain.
-The processors can also send a proof of validity with the settlement request. 
+Optimistic validity proofs work similarly to [slashing](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/rewards-and-penalties/#slashing) in proof-of-stake networks.
+Both the processor and the validator will be punished for sending invalid transactions of challenges.
 
 These are the economic incentives for the different actors:
 
 * The processor has an incentive to process transactions correctly, as they risk to loose funds, when they process invalid transactions. 
 * The liquidity provider is secured by the stake of the processor.
 * The validator has an incentive to challenge invalid transactions, as they can earn a fee. They have an incentive not to challenge valid transactions, as they risk to loose funds, when the transaction is valid.
+
+The exact process of dispute resolution is described in the [settlement](/safenet/settlement) page.
