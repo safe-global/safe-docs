@@ -12,7 +12,7 @@ In case a validator does find something wrong with the settlement, it can start 
 1. The challenger will execute a transaction to the settlement engine to start a challenge on the debit chain with a challenge delay. Note that this delay is separate from the settlement delay, and represents how much time the processor has to prove correctness of the settlement. As long as a challenge is on-going, the settlement cannot be executed.
 2. The processor is required to send information from the spend chain, where the Safenet transaction actually executed, to the home chain in order to prove correctness of the settlement there.
 3. The processor will prove the settlement to the guarantee engine on the home chain, which will send a message indicating that correctness is proven to the settlement contract on the debit chain.
-    - Once the message is received by the settlement engine, the settlement is considered valid and can be executed right way to trigger the debit of the Safe (i.e. the settlement delay is waived).
+    - Once the message is received by the settlement engine, the settlement is considered valid and can be executed right way to trigger the debit of the Safe (that is the settlement delay is waived).
     - In case the processor is unable to prove correctness of the settlement, the settlement contract will never receive a message from the guarantee engine, and the challenge delay will timeout. At this point, the settlement is considered invalid and **can never again be executed**.
 
 

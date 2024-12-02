@@ -3,15 +3,15 @@
 Optimistic validity proofs are the core concept of Safenet that enable speed and convenience of the centralized world with the security and self-custody of the decentralized world.
 
 
-* A Safenet transaction's fulfillment is always fast and gas-efficient, because neither the processor nor the liquidity provider have an incentive to send out funds to a user that they would not receive back (and the procosser does not want to loose its stakes).
+* A Safenet transaction's fulfillment is always fast and gas-efficient, because neither the processor nor the liquidity provider have an incentive to send out funds to a user that they would not receive back (and the processor does not want to loose its stakes).
 * The settlement is slightly slower, as it has a challenge delay, in which a validator can challenge the settlement request. 
 It is gas-efficient, as the processor does not have to send a proof of validity initially (but is free to do so).
 Only when a validator challenges the settlement request, the processor has to send a proof of validity. 
-The proof has to be send from the spend chain to the debit chain, which is costly and slow, as the proccsor has to use cross-chain bridges.
+The proof has to be send from the spend chain to the debit chain, which is costly and slow, as the processor has to use cross-chain bridges.
 
 Safenet optimistically assumes a transaction is valid, which will make the transaction fast and gas-efficient. A processor does not have to proof the validity of a transaction to execute it.
 
-Only when the transaction is challenged, the validity of the transaction has to be proofen, the validity of the transaction is checked, which is slow and costs more gas.
+Only when the transaction is challenged, the validity of the transaction has to be proven, the validity of the transaction is checked, which is slow and costs more gas.
 
 Optimistic validity proofs work similarly to [slashing](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/rewards-and-penalties/#slashing) in proof-of-stake networks. 
 
