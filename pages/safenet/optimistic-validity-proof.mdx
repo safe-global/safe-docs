@@ -8,7 +8,7 @@ Only in the rare case of a dispute, the system falls back to a slow and gas-inte
 * A [Safenet transaction's](./safenet-transaction.mdx) **fulfillment is always fast and gas-efficient**, because neither the [processor](./core-components/processor.mdx) nor the [liquidity provider](./core-components/liquidity-provider.mdx) have an incentive to send out funds to a user that they would not receive back (and the processor does not want to loose its stakes).
 * The **[settlement](./concepts/settlement.mdx) is gas-efficient but slightly slower**, as it has a [challenge](./concepts/challenge.mdx) delay, in which a [validator](./core-components/validator.mdx) can challenge the settlement request. 
 It is gas-efficient, as the processor does not have to send a proof of validity initially (but is free to do so).
-* Only a **challenged settlement is gas-intense and slow**. When a validator challenges the settlement request, the processor has to send a proof of validity ([attestation](../concepts/attestation.mdx)). 
+* Only a **challenged settlement is gas-intense and slow**. When a validator challenges the settlement request, the processor has to send a proof of validity ([attestation](./concepts/attestation.mdx)). 
 The attestation has to be send from the spend chain to the debit chain with a cross-chain bridge, which is costly and slow.
 
 Optimistic validity proofs work similarly to [slashing](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/rewards-and-penalties/#slashing) in proof-of-stake networks.
