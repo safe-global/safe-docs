@@ -12,7 +12,8 @@ It is gas-efficient, as the processor does not have to send a proof of validity 
 The attestation has to be send from the spend chain to the debit chain with a cross-chain bridge, which is costly and slow.
 
 Optimistic validity proofs work similarly to [slashing](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/rewards-and-penalties/#slashing) in proof-of-stake networks.
-Both the processor and the validator will be punished for sending invalid transactions of challenges.
+The processors risks to loose their stake or pre-funded funds, when they process invalid transactions.
+The validator risks to loose their collateral, when they challenge valid transactions.
 
 These are the economic incentives for the different actors:
 
