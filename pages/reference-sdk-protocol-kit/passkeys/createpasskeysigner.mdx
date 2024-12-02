@@ -1,0 +1,37 @@
+import { Tabs } from 'nextra/components'
+
+# `createPasskeySigner`
+
+Creates a new passkey signer using a [WebAuthn credential](https://developer.mozilla.org/en-US/docs/Web/API/Credential).
+
+## Usage
+
+```typescript
+const rpcUrl = "https://..."
+const credential = window.navigator.credentials.create({ ... })
+
+const passkeySigner = await Safe.createPasskeySigner(credential)
+
+const protocolKit = await Safe.init({
+  provider: rpcURL,
+  signer: passkeySigner,
+  safeAddress
+})
+```
+
+## Parameters
+
+### `credential`
+
+- **Type**: `Credential`
+
+The WebAuthn credential to use for signing.
+
+## Returns
+
+`Promise<Pick<PasskeyArgType, 'rawId' | 'coordinates'>>`
+
+An object containing the passkey signer that should be stored securely containing:
+
+- `rawId`: The `rawId` of the credential.
+- `coordinates`: The coordinates of the credential. The coordinates are used to sign using Safe smart contracts
