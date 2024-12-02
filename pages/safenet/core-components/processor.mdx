@@ -5,8 +5,8 @@ The Processor is a service that executes [transactions](../safenet-transaction.m
 * The [End User](./end-user.mdx) is registered with Safenet (locking assets through a [Guard](../protocol/guard.mdx) acting as a co-signing).
 * The End User has sufficient locked funds to settle transactions across one or more [chains](../chains.mdx).
 * The End User's [guarantees](../protocol/guarantee.mdx) are validated.
-* The Processor has enough liquidity to pre-fund the End User's account.
+* The Processor or [liquidity provider](./liquidity-provider.mdx) has enough liquidity to pre-fund the End User's account on the spend chain.
 
 After execution, the Processor handles the [settlements](../concepts/settlement.mdx) by initiating an optimistic settlement process. 
 This process, subject to delay, can be [challenged](../concepts/challenge.mdx) by a [Validator](./validator.mdx). 
-The Processor refunds itself or the [liquidity provider](./liquidity-provider.mdx) by pulling funds from the End User's account.
+The Processor refunds itself or the liquidity provider by pulling funds from the End User's account.
