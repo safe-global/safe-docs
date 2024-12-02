@@ -113,35 +113,16 @@ In this guide, you will learn how to create a Passkey signer that can be added a
 
   [How to initialize the Protocol Kit](https://docs.safe.global/reference-sdk-protocol-kit/initialization/init)
 
-  The `provider` (eip1193 compatible or rpc) can be obtained by using `viem` in several ways:
-  {/* <!-- vale off --> */}
-
-  <Tabs items={['eip1193', 'rpcUrl']}>
-    <Tabs.Tab>
-    ```typescript
-    import { createWalletClient, http } from 'viem'
-    import { sepolia } from 'viem/chains'
-
-    const walletClient = createWalletClient({
-      chain: sepolia,
-      transport: http('https://rpc.ankr.com/eth_sepolia')
-    })
-
-    const provider = { request: walletClient.request }
-    const signer = passkeySigner
-      ```
-          </Tabs.Tab>
-    <Tabs.Tab>
-    ```typescript
-    import { sepolia } from 'viem/chains'
-
-    const provider = sepolia.rpcUrls.default.http[0]
-    const signer = passkeySigner
-    ```
-    </Tabs.Tab>
-  </Tabs>
-
-  {/* <!-- vale on --> */}
+  You can instantiate the provider using `viem` and the following imports:
+  ```typescript
+  import { createWalletClient, http } from 'viem'
+  import { sepolia } from 'viem/chains
+  const provider = createWalletClient({
+    chain: sepolia,
+    transport: http('https://rpc.ankr.com/eth_sepolia')
+  })
+  const signer = passkey
+  ```
 
   ### Instantiate SDK
 
