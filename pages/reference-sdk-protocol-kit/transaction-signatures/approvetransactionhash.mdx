@@ -1,0 +1,172 @@
+import { Tabs } from 'nextra/components'
+
+# `approveTransactionHash`
+
+Approves on-chain a Safe transaction hash with the connected signer.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import {
+      MetaTransactionData,
+      OperationType,
+      TransactionOptions
+    } from '@safe-global/types-kit'
+    import { protocolKit } from './setup.ts'
+
+    const transactions: MetaTransactionData[] = [{
+      to: '0x...',
+      value: '123',
+      data: '0x',
+      operation: OperationType.Call // Optional
+    }]
+    const safeTransaction = await protocolKit.createTransaction({
+      transactions
+    })
+    const safeTransactionHash = await protocolKit.getTransactionHash(
+      safeTransaction
+    )
+
+    const options: TransactionOptions = {
+      from: '0x...', // Optional
+      gasLimit: '123', // Optional
+      gasPrice: '123', // Optional
+      maxFeePerGas: '123', // Optional
+      maxPriorityFeePerGas: '123', // Optional
+      nonce: 123 // Optional
+    }
+
+    const txResponse = await protocolKit.approveTransactionHash(
+      safeTransactionHash,
+      options // Optional
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### safeTransactionHash
+
+- **Type**: `string`
+
+The Safe transaction hash to approve.
+
+```typescript focus=2
+const transactionResponse = await protocolKit.approveTransactionHash(
+  '0x...'
+)
+```
+
+### `options.from` (Optional)
+
+- **Type**: `string`
+
+The address of the transaction sender.
+
+```typescript focus=4
+const transactionResponse = await protocolKit.approveTransactionHash(
+  '0x...',
+  options: {
+    from: '0x...'
+  }
+)
+```
+
+### `options.gasLimit` (Optional)
+
+- **Type**: `number | string | bigint`
+
+The maximum amount of gas the transaction can use.
+
+```typescript focus=4
+const transactionResponse = await protocolKit.approveTransactionHash(
+  '0x...',
+  options: {
+    gasLimit: '123'
+  }
+)
+```
+
+### `options.gasPrice` (Optional)
+
+- **Type**: `number | string`
+
+The price in wei that the sender is willing to pay for each unit of gas.
+
+```typescript focus=4
+const transactionResponse = await protocolKit.approveTransactionHash(
+  '0x...',
+  options: {
+    gasPrice: '123'
+  }
+)
+```
+
+### `options.maxFeePerGas` (Optional)
+
+- **Type**: `number | string`
+
+The maximum fee per gas the sender is willing to pay.
+
+```typescript focus=4
+const transactionResponse = await protocolKit.approveTransactionHash(
+  '0x...',
+  options: {
+    maxFeePerGas: '123'
+  }
+)
+```
+
+### `options.maxPriorityFeePerGas` (Optional)
+
+- **Type**: `number | string`
+
+The maximum priority fee per gas the sender is willing to pay.
+
+```typescript focus=4
+const transactionResponse = await protocolKit.approveTransactionHash(
+  '0x...',
+  options: {
+    maxPriorityFeePerGas: '123'
+  }
+)
+```
+
+### `options.nonce` (Optional)
+
+- **Type**: `number`
+
+The nonce of the transaction.
+
+```typescript focus=4
+const transactionResponse = await protocolKit.approveTransactionHash(
+  '0x...',
+  options: {
+    nonce: 123
+  }
+)
+```
+
+## Returns
+
+`Promise<TransactionResult>`
+
+The Safe transaction response.

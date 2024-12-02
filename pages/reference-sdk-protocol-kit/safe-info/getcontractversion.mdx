@@ -1,0 +1,38 @@
+import { Tabs } from 'nextra/components'
+
+# `getContractVersion`
+
+Returns the contract version of the connected Safe.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { protocolKit } from './setup.ts'
+
+    const contractVersion = protocolKit.getContractVersion()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+[`SafeVersion`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/types-kit/src/types.ts#L3)
+
+The Safe contract version.

@@ -13,6 +13,7 @@
 [Bb]inance
 [Bb]lockchain
 [Bb]lockchains
+[Bb]oolean
 [Bb]undler
 [Bb]undlers
 [Cc]hainlist
@@ -37,6 +38,7 @@
 [Mm]ainnet
 [Mm]iddleware
 [Mm]onerium
+[Mm]ultichain
 [Mm]ultisig
 [Mm]ultisend
 [Nn]extra
@@ -251,7 +253,6 @@ Zora
 address_full_match
 auditable
 auth_code
-boolean
 bytestrings
 checksummed
 createTransaction
@@ -263,7 +264,6 @@ maxWidth
 mempool
 messageHash
 monorepo
-multichain
 npm
 onboarding
 onchain

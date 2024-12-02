@@ -1,0 +1,58 @@
+import { Tabs } from 'nextra/components'
+
+# `simulateAndRevert`
+
+Performs a `delegatecall` on a `targetContract` in the context of `self`. Internally reverts execution to avoid side effects (making it static).
+
+This method reverts with data equal to `abi.encode(bool(success), bytes(response))`. Specifically, the `returndata` after a call to this method will be: `success:bool || response.length:uint256 || response:bytes`.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function simulateAndRevert(
+            address targetContract,
+            bytes calldata payload
+        ) external;
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).simulateAndRevert(0x..., "0x...");
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Parameters
+
+### `targetContract`
+
+- **Type:** `address`
+
+Address of the contract containing the code to execute.
+
+```solidity focus=2
+(ISafe safe).simulateAndRevert(
+    0x...,
+    "0x..."
+);
+```
+
+### `calldataPayload`
+
+- **Type:** `bytes`
+
+Payload to be executed.
+
+```solidity focus=3
+(ISafe safe).simulateAndRevert(
+    0x...,
+    "0x..."
+);
+```

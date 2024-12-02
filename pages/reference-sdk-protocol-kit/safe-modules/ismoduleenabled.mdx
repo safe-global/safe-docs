@@ -1,0 +1,54 @@
+import { Tabs } from 'nextra/components'
+
+# `isModuleEnabled`
+
+Checks if a given Safe Module is enabled in the connected Safe.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { protocolKit } from './setup.ts'
+
+    const moduleAddress = '0x...'
+
+    const isEnabled = await protocolKit.isModuleEnabled(moduleAddress)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `moduleAddress`
+
+- **Type**: `string`
+
+The Safe Module address to check.
+
+```typescript focus=2
+const isEnabled = await protocolKit.isModuleEnabled(
+  '0x...'
+)
+```
+
+## Returns
+
+`Promise<boolean>`
+
+The boolean value that indicates if the module is enabled in the connected Safe.

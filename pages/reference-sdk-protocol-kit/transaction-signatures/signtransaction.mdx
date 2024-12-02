@@ -1,0 +1,110 @@
+import { Tabs } from 'nextra/components'
+
+# `signTransaction`
+
+Returns a new `SafeTransaction` object that includes the signature of the current owner. 
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { SigningMethod } from '@safe-global/protocol-kit'
+    import { MetaTransactionData, OperationType } from '@safe-global/types-kit'
+    import { protocolKit } from './setup.ts'
+
+    const transactions: MetaTransactionData[] = [{
+      to: '0x...',
+      value: '123',
+      data: '0x',
+      operation: OperationType.Call // Optional
+    }]
+    const safeTransaction = await protocolKit.createTransaction({
+      transactions
+    })
+
+    const signingMethod = SigningMethod.ETH_SIGN_TYPED_DATA_V4
+
+    const preimageSafeAddress = '0x...'
+
+    const signedSafeTransaction = await protocolKit.signTransaction(
+      safeTransaction,
+      signingMethod, // Optional
+      preimageSafeAddress // Optional
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `safeTransaction`
+
+- **Type**: [`SafeTransaction`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/types-kit/src/types.ts#L54-L60) | [`SafeMultisigTransactionResponse`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/types-kit/src/types.ts#L208-L239)
+
+The Safe transaction to sign.
+
+```typescript focus=2
+const signedSafeTransaction = await protocolKit.signTransaction(
+  safeTransaction
+)
+```
+
+### `signingMethod` (Optional)
+
+- **Type**: [`SigningMethodType`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/protocol-kit/src/types/signing.ts#L9)
+- **Default**: `SigningMethod.ETH_SIGN_TYPED_DATA_V4`
+
+The signature type.
+
+You can use multiple signing methods, such as:
+
+- `ETH_SIGN` (`eth_sign`): Regular hash signature.
+- `ETH_SIGN_TYPED_DATA_V4` (`eth_signTypedData_v4`): Typed data signature `v4`.
+- `ETH_SIGN_TYPED_DATA_V3` (`eth_signTypedData_v3`): Typed data signature `v3`.
+- `ETH_SIGN_TYPED_DATA` (`eth_signTypedData`): Typed data signature.
+- `SAFE_SIGNATURE`: Signature from another Safe that acts as a signer.
+
+```typescript focus=3
+const signedSafeTransaction = await protocolKit.signTransaction(
+  safeTransaction,
+  SigningMethod.ETH_SIGN_TYPED_DATA_V4
+)
+```
+
+### `preimageSafeAddress` (Optional)
+
+- **Type**: `string`
+
+The address of the Safe that will be used to calculate the preimage.
+
+Required parameter for `v1.3.0` and `v1.4.1` Safe smart accounts. These versions use the old EIP-1271 interface, which uses `bytes` instead of `bytes32` for the message. You need to use the pre-image of the message to calculate the message hash.
+
+```typescript focus=4
+const signedSafeTransaction = await protocolKit.signTransaction(
+  safeTransaction,
+  SigningMethod.ETH_SIGN_TYPED_DATA_V4,
+  '0x...'
+)
+```
+
+## Returns
+
+`Promise<SafeTransaction>`
+
+The signed Safe transaction.

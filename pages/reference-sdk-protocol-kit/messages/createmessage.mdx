@@ -1,0 +1,55 @@
+import { Tabs } from 'nextra/components'
+
+# `createMessage`
+
+Returns a Safe message ready to be signed by the owners.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { EIP712TypedData } from '@safe-global/types-kit'
+    import { protocolKit } from './setup.ts'
+
+    const rawMessage: string | EIP712TypedData = 'Example message'
+
+    const message = protocolKit.createMessage(rawMessage)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `rawMessage`
+
+- **Type**: `string`
+
+The message.
+
+```typescript focus=2
+const message = protocolKit.createMessage(
+  'Example message'
+)
+```
+
+## Returns
+
+[`SafeMessage`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/types-kit/src/types.ts#L62-L68)
+
+The Safe message.

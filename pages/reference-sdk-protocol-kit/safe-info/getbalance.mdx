@@ -1,0 +1,38 @@
+import { Tabs } from 'nextra/components'
+
+# `getBalance`
+
+Returns the native token balance of the connected Safe smart account.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { protocolKit } from './setup.ts'
+
+    const balance = await protocolKit.getBalance()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<bigint>`
+
+The native token balance.

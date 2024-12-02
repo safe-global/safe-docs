@@ -1,0 +1,56 @@
+import { Tabs } from 'nextra/components'
+
+# `getOwnersWhoApprovedTx`
+
+Returns a list of owners who approved a given Safe transaction.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { protocolKit } from './setup.ts'
+
+    const safeTransactionHash = '0x...'
+
+    const ownerAddresses = await protocolKit.getOwnersWhoApprovedTx(
+      safeTransactionHash
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `safeTransactionHash`
+
+- **Type**: `string`
+
+The Safe transaction hash of a Safe transaction.
+
+```typescript focus=2
+const ownerAddresses = await protocolKit.getOwnersWhoApprovedTx(
+  '0x...'
+)
+```
+
+## Returns
+
+`Promise<string[]>`
+
+The list of owners who approved a given Safe transaction.

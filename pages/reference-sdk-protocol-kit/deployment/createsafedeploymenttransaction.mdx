@@ -1,0 +1,62 @@
+import { Tabs } from 'nextra/components'
+
+# `createSafeDeploymentTransaction`
+
+Returns a transaction to deploy a new Safe smart account.
+
+## Usage
+
+Before deploying a new Safe, you must initialize and configure the Protocol Kit accordingly.
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { protocolKit } from './setup.ts'
+
+    const transaction = await protocolKit.createSafeDeploymentTransaction()
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe, {
+      PredictedSafeProps,
+      SafeAccountConfig,
+      SafeDeploymentConfig
+    } from '@safe-global/protocol-kit'
+
+    const safeAccountConfig: SafeAccountConfig = {
+      owners: ['0x...', '0x...', '0x...'],
+      threshold: 2,
+      to: '0x...', // Optional
+      data: '0x', // Optional
+      fallbackHandler: '0x...', // Optional
+      paymentToken: '', // Optional
+      payment: 123, // Optional
+      paymentReceiver: '0x...' // Optional
+    }
+    const safeDeploymentConfig: SafeDeploymentConfig = {
+      saltNonce: '123', // Optional
+      safeVersion: '1.4.1', // Optional
+      deploymentType: 'canonical' // Optional
+    }
+    const predictedSafe: PredictedSafeProps = {
+      safeAccountConfig,
+      safeDeploymentConfig // Optional
+    }
+
+    const protocolKit = await Safe.init({
+      provider,
+      signer,
+      predictedSafe
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Returns
+
+`Promise<Transaction>`
+
+The transaction that deploys the new Safe account when executed.

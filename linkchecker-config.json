@@ -23,6 +23,12 @@
     },
     {
       "pattern": "^https://trustwallet.com"
+    },
+    {
+      "pattern": "^https://dashboard.pimlico.io"
+    },
+    {
+      "pattern": "^https://api.stripe.com"
     }
   ],
   "replacementPatterns": [

@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import Fuse from 'fuse.js'
 import { type Network } from './Networks'
 
 export const useNetworksSearch = (
@@ -13,31 +12,18 @@ export const useNetworksSearch = (
       }),
     [resources]
   )
-  const fuse = useMemo(
-    () =>
-      new Fuse(sortedByChainId, {
-        keys: [
-          {
-            name: 'name',
-            weight: 0.99
-          },
-          {
-            name: 'chainId',
-            weight: 0.5
-          }
-        ],
-        distance: 500,
-        threshold: 0.3,
-        findAllMatches: true
-      }),
-    [sortedByChainId]
-  )
 
   return useMemo(() => {
-    if (query.length === 0) {
-      return sortedByChainId
-    }
+    if (query.length === 0) return sortedByChainId
 
-    return fuse.search(query).map(result => result.item)
-  }, [fuse, sortedByChainId, query])
+    const lowercaseQuery = query.toLowerCase()
+    return sortedByChainId.filter(
+      network =>
+        network.name.toLowerCase().includes(lowercaseQuery) ||
+        network.chainId.toString().includes(lowercaseQuery) ||
+        network.smartAccounts?.some(account =>
+          account.address?.toLowerCase().includes(lowercaseQuery)
+        )
+    )
+  }, [sortedByChainId, query])
 }

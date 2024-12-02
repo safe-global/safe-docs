@@ -1,0 +1,86 @@
+import { Tabs } from 'nextra/components'
+
+# `getSafeAddressFromDeploymentTx`
+
+Returns the Safe address from a Safe deployment transaction receipt.
+
+It scans the events emitted during the execution of the transaction to identify the [creation event](https://github.com/safe-global/safe-smart-account/blob/main/contracts/proxies/SafeProxyFactory.sol#L12) and return its address.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { getSafeAddressFromDeploymentTx } from '@safe-global/protocol-kit'
+    import { createWalletClient, http } from 'viem'
+    import { privateKeyToAccount } from 'viem/accounts'
+    import { sepolia } from 'viem/chains'
+    import { waitForTransactionReceipt } from 'viem/actions'
+    import { protocolKit } from './setup.ts'
+
+    const account = privateKeyToAccount('0x...')
+    const client = createWalletClient({
+      account,
+      chain: sepolia,
+      transport: http('https://rpc.ankr.com/eth_sepolia')
+    })
+    const transactionReceipt = await waitForTransactionReceipt(client, {
+      hash: '0x...'
+    })
+
+    const safeAddress = getSafeAddressFromDeploymentTx(
+      transactionReceipt,
+      safeVersion: '1.4.1'
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `transactionReceipt`
+
+- **Type**: `FormattedTransactionReceipt`
+
+The transaction receipt of the Safe deployment.
+
+```typescript focus=2
+const safeAddress = getSafeAddressFromDeploymentTx(
+  transactionReceipt,
+  '1.4.1'
+)
+```
+
+### `safeVersion`
+
+- **Type**: [`SafeVersion`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/types-kit/src/types.ts#L3)
+
+The version of the Safe account.
+
+```typescript focus=3
+const safeAddress = getSafeAddressFromDeploymentTx(
+  transactionReceipt,
+  '1.4.1'
+)
+```
+
+## Returns
+
+`string`
+
+The address of the deployed Safe account.

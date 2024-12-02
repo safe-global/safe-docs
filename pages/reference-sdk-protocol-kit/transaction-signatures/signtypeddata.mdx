@@ -1,0 +1,84 @@
+import { Tabs } from 'nextra/components'
+
+# `signTypedData`
+
+Signs a transaction with the current signer according to the EIP-712.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import {
+      MetaTransactionData,
+      OperationType
+    } from '@safe-global/types-kit'
+    import { protocolKit } from './setup.ts'
+
+    const transactions: MetaTransactionData[] = [{
+      to: '0x...',
+      value: '123',
+      data: '0x',
+      operation: OperationType.Call // Optional
+    }]
+    const eip712Data = await protocolKit.createTransaction({
+      transactions
+    })
+
+    const methodVersion = 'v4'
+
+    const signature = await protocolKit.signTypedData(
+      eip712Data,
+      methodVersion // Optional
+    )
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      provider,
+      signer,
+      safeAddress: '0x...'
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `eip712Data`
+
+- **Type**: [`SafeTransaction`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/types-kit/src/types.ts#L54-L60) | [`SafeMessage`](https://github.com/safe-global/safe-core-sdk/blob/main/packages/types-kit/src/types.ts#L62-L68)
+
+The Safe transaction or message to sign.
+
+```typescript focus=2
+const signature = await protocolKit.signTypedData(
+  eip712Data
+)
+```
+
+### `methodVersion` (Optional)
+
+- **Type**: `'v3' | 'v4'`
+
+The EIP-712 version to use.
+
+```typescript focus=3
+const signature = await protocolKit.signTypedData(
+  eip712Data,
+  'v4'
+)
+```
+
+## Returns
+
+`Promise<SafeSignature>`
+
+The Safe signature.
