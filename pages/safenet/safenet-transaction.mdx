@@ -17,7 +17,7 @@ In the first phase, security checks are performed off-chain to ensure that the t
 
 ### 2. Fulfillment
 
-This it the main part of the transaction, that the user is interested in. This part enables the users to send a transaction on the [spend chain](./chains.mdx), as if they would posses the required funds on the spend chain.
+This is the main part of the transaction, that the user is interested in. This part enables the users to send a transaction on the [spend chain](./chains.mdx), as if they would posses the required funds on the spend chain.
 
 1. A [resource lock](./concepts/resource-lock.mdx) is issued on the Safe Smart Account on the debit chain. This prevents the user from moving out the funds from the Safe Smart Account on the debit chain before the [liquidity provider](./core-components/liquidity-provider.mdx) is reimbursed.
 2. The liquidity provider send funds to the user's Safe Smart Account on the spend chain (pre-funding).
@@ -38,4 +38,25 @@ When the settlement is [challenged](./concepts/challenge.mdx), the processors ha
 
 This flow diagram illustrates the first two phases of a Safenet transaction:
 
-![Safenet-transaction-flow](../../assets/safenet-transaction-flow.png)
+``` mermaid
+sequenceDiagram
+	box MVP Processor
+		actor P as Processor
+		actor R as Relayer
+		actor LP as Liquidity Provider
+	end
+	participant E as Entry Point
+  participant S as Settlement Engine
+	participant G as Guard
+	participant A as Account
+	participant T as Target
+ 
+  P->>R: cosignature
+  R->>+E: executeSafenetAction()
+  LP-->>A: transferFrom(Liquidity Provider, Account)
+  E->>A: execTransaction()
+  E->>G: checkSafeTransaction()
+  G-->>P: ecrecover()
+  A->>T: CALL
+  deactivate E
+```

@@ -9,7 +9,7 @@ Only in the rare case of a dispute, the system falls back to a slow and gas-inte
 * The **[settlement](./concepts/settlement.mdx) is gas-efficient but slightly slower**, as it has a [challenge](./concepts/challenge.mdx) delay, in which a [validator](./core-components/validator.mdx) can challenge the settlement request. 
 It is gas-efficient, as the processor does not have to send a proof of validity initially (but is free to do so).
 * Only a **challenged settlement is gas-intense and slow**. When a validator challenges the settlement request, the processor has to send a proof of validity ([attestation](./concepts/attestation.mdx)). 
-The attestation has to be send from the spend chain to the debit chain with a cross-chain bridge, which is costly and slow.
+The attestation has to be sent from the spend chain to the debit chain with a cross-chain bridge, which is costly and slow.
 
 Optimistic validity proofs work similarly to [slashing](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/rewards-and-penalties/#slashing) in proof-of-stake networks.
 The processors risks to loose their stake or pre-funded funds, when they process invalid transactions.
@@ -19,4 +19,5 @@ These are the economic incentives for the different actors:
 
 * The processor has an incentive to process transactions correctly, as they risk to loose funds, when they process invalid transactions. 
 * The liquidity provider is secured by the stake of the processor.
-* The validator has an incentive to challenge invalid transactions, as they can earn a fee. They have an incentive not to challenge valid transactions, as they risk to loose funds, when the transaction is valid.
+* The validator has an incentive to challenge invalid transactions, as they can earn a fee. 
+They have an incentive not to challenge valid transactions, as they risk to loose funds, when the transaction is valid.

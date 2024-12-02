@@ -23,7 +23,24 @@ During this delay, the processor must prove the settlement's correctness.
 
 ### Happy Flow
 
-![Safenet-settlement-happy-flow](../../../assets/safenet-settlement-happy-flow.png)
+```mermaid
+sequenceDiagram
+	box MVP Processor
+		actor P as Processor
+		actor LP as Liquidity Provider
+	end
+	actor V as Validator
+  participant S as Settlement Engine
+	participant A as Account
+
+  P->>S: settle (WITH COLLATERAL Ξ)
+  Note over S: Settlement Delay...
+  V->>V: check settlement correctness
+  Note over S: ...Settlement Delay
+  P->>+S: executeSettlement
+  A-->>LP: transferFrom(Account, Liquidity Provider)
+  deactivate S
+```
 
 The happy flow diagram illustrates the process of a successful settlement. 
 The processor initiates the settlement process by debiting the Safe and transferring funds to the beneficiary. 
@@ -31,7 +48,38 @@ The validator verifies the settlement's correctness and, if no challenge is made
 
 ### Sad Flow
 
-![Safenet-settlement-sad-flow](../../../assets/safenet-settlement-sad-flow.png)
+```mermaid
+sequenceDiagram
+	box MVP Processor
+		actor P as Processor
+		actor LP as Liquidity Provider
+	end
+	actor V as Validator
+	box rgb(255,165,0,0.2)
+		participant G as Guarantee Engine<br>(HOME CHAIN)
+	end
+	participant B as Bridge
+  participant S as Settlement Engine
+	participant A as Account
+
+  P->>S: settle
+	Note over S: Settlement Delay...
+  V->>V: check settlement correctness
+  
+  opt Incorrect Settlement
+	  V->>S: challenge (WITH COLLATERAL Ξ)
+	end
+  
+  alt Correctness Proven
+    G-->>+B: correctnessProven
+	  B->>S: correctnessProven
+    A-->>LP: transferFrom(Account, Liquidity Provider)
+    deactivate B
+  else
+	  Note over S: ...Settlement Delay
+	  P-->>P: punished: loses fronted funds
+  end
+```
 
 The sad flow diagram illustrates the process of a failed settlement. 
 The validator challenges the settlement, and the processor must prove the settlement's validity. 
@@ -39,7 +87,33 @@ If the processor fails to provide proof, the settlement is deemed invalid, and t
 
 ### Correctness Proof
 
-![Safenet-settlement-correctness-proof](../../../assets/safenet-settlement-correctness-proof.png)
+```mermaid
+sequenceDiagram
+	box MVP Processor
+		actor P as Processor
+	end
+	box rgb(255,165,0,0.2)
+		participant E as Entry Point<br>(SPEND CHAIN)
+		participant S as Settlement Engine<br>(DEBIT CHAIN)
+	end
+	participant TS as Transceiver<br>for Spend Chain
+	participant TD as Transceiver<br>for Debit Chain
+	participant G as Guarantee Engine
+	participant G1 as Guarantee 1...
+	participant GN as ...Guarantee N
+  
+  P->>+E: sendReceipt()
+  E-->>+TS: receipt
+  deactivate E
+  TS->>G: safenetReceipt()
+  deactivate TS
+    
+  P->>+G: prove()
+  G->>G1: checkGuarantee()
+  G->>GN: checkGuarantee()
+  G->>-TD: correctnessProven()
+  TD-->>S: correctnessProven
+```
 
 The correctness proof diagram illustrates the process of proving the settlement's validity. 
 The processor sends information from the spend chain to the home chain, where the guarantee engine validates the settlement. 
