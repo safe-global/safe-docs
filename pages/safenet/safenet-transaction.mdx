@@ -1,11 +1,11 @@
 # Safenet Transaction
 
 To provide a high-level overview of Safenet, this page describes the flow of a Safenet transaction.
-Further details on the components and roles involved in a Safenet transaction are covered in the [Core Components](../core-components/processor.mdx) section.
+Further details on the components and roles involved in a Safenet transaction are covered in the [Core Components](core-components/processor.mdx) section.
 
 A Safenet transaction consists of three main phases:
 
-![Safenet-transaction-phases](../../../assets/safenet-transaction-phases.png)
+![Safenet-transaction-phases](../../assets/safenet-transaction-phases.png)
 
 ### 1. Simulation
 
@@ -33,10 +33,10 @@ This phase ensures that the liquidity provider gets reimbursed for the pre-fundi
 2. The settlement request has a challenge delay, in which any `validator` can challenge the settlement request.
 3. When the settlement is not challenged, the settlement is executed. The liquidity provider receives funds from the Safe Smart Account on the debit chain, and the Safe Smart Account is unlocked.
 
-When the settlement is challenged, the processors has to prove that the validity of the transaction. This is described in the [Settlement](../concepts/settlement.mdx) section.
+When the settlement is challenged, the processors has to prove that the validity of the transaction. This is described in the [Settlement](concepts/settlement.mdx) section.
 
 ## Flow Diagram
 
 This flow diagram illustrates the first two phases of a Safenet transaction:
 
-![Safenet-transaction-flow](../../../assets/safenet-transaction-flow.png)
+![Safenet-transaction-flow](../../assets/safenet-transaction-flow.png)
