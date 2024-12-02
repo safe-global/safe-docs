@@ -1,6 +1,13 @@
 # Processors
 
+The Processor represents a service that executes user’s signed transactions on behalf of the End User if certain conditions are met:
+
+- The End User is registered to Safenet (locking his assets through a Guard / co-signing mechanism)
+- The End User has enough funds locked to settle the transactions on one or more chains
+- The guarantees enabled by the End User have passed
+- The Processor has enough liquidity available to pre-fund the user’s account
 
 
-* Provide optimistic validity proofs
-* Have to record or collect data from a particular Safenet transaction themselves.
+The Processor must have a Safe account available on all supported chains to handle liquidity provisioning to the End User
+
+The Processor takes care of the settlements of the transaction after execution by initiating an optimistic process (with delay) that can be challenged by a Validator. The settlement consists in pulling out funds from the End User account to refund himself.
