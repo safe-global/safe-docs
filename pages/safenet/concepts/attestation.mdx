@@ -3,7 +3,7 @@
 The [processor](../core-components/processor.mdx) uses an attestation to prove the validity of a [settlement](../concepts/settlement.mdx).
 It serves as a cryptographic proof that the fulfillment of a Safenet [transaction](../safenet-transaction.mdx) is valid under the specific conditions defined by the user's configured [guarantees](../concepts/guarantee.mdx).
 
-The attestation has to be sent from the spend [chain](../concepts/chain.mdx) to the home chain, where it is validated by the [guarantee engine](../protocol/guarantee-engine.mdx).
+The attestation has to be sent from the spend [chain](../chains.mdx) to the home chain, where it is validated by the [guarantee engine](../protocol/guarantee-engine.mdx).
 It is then sent from the guarantee engine to the [settlement engine](../protocol/settlement-engine.mdx) on the debit chain to finalize the settlement.
 The attestation data is sent through external bridges, which can be costly and slow.
 

@@ -2,7 +2,7 @@ import { Callout, Steps, Tabs } from 'nextra/components'
 
 # Settlement
 
-Settlement is the process by which a [processor](../core-components/processor.mdx) debits funds from a [Safenet account](../core-components/safenet-account.mdx) to repay the [liquidity provider](../core-components/liquidity-provider.mdx) for the short-term loan (pre-funding) used in a [Safenet transaction](../safenet-transaction.mdx).
+Settlement is the process by which a [processor](../core-components/processor.mdx) debits funds from a [Safenet account](../safenet-account.mdx) to repay the [liquidity provider](../core-components/liquidity-provider.mdx) for the short-term loan (pre-funding) used in a [Safenet transaction](../safenet-transaction.mdx).
 
 The [settlement engine](../protocol/settlement-engine.mdx) handles debit requests on the debit [chain](../chains.mdx) by transferring funds from the Safenet Safe to a [beneficiary](../protocol/beneficiary.mdx) designated by the liquidity provider. 
 This occurs after the liquidity provider has fronted funds on the spend chain.
