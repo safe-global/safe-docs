@@ -73,6 +73,64 @@ Many new tokens require wallet contracts to implement callbacks. Token standards
 
 Another core functionality of the Safe is **token payment**. Generally, Ethereum transactions require ETH for paying transaction fees ("gas"). With the Safe, users can pay transaction fees in a number of supported ERC20 tokens. This is realized via a transaction relay service that accepts those tokens and submits the transactions to the blockchain, therefore paying the gas fee in ETH. With the same functionality, Ether-less transactions can be implemented, where a 3rd party pays transaction fees on behalf of a Safe via the same relay service.
 
+### Architecture
+
+![Safe Smart Accounts Architecture](../../assets/diagram-safe-smart-accounts-architecture.png)
+
+#### Safe Singleton Factory
+
+The Safe Singleton Factory is a contract that deploys all the Safe related contracts. This contract helps to deploy Safe contracts at same address across different networks and eventually also helps to deploy Safe proxies at same address across different networks.
+For more information, refer to the [Safe Singleton Factory](https://github.com/safe-global/safe-singleton-factory) repository.
+
+#### Safe Proxy Factory
+
+The Safe proxy factory contract provides a simple way to create a new proxy contract pointing to a singleton and executing a setup function in the newly deployed proxy all in one transaction.
+
+#### Safe
+
+This is a singleton contract which is deployed only once and used by Safe Proxy to delegate calls. It is the main contract that holds the logic for signature verification, executing transactions, managing owners, modules, fallback handler.
+Being a singleton contract, this contract cannot be used directly as a Safe account but only through a Safe Proxy contract.
+
+The two types of Safe contracts are:
+- Safe
+- SafeL2: The version emits additional events and to be used for L2 chains that don't support tracing.
+
+A Safe contract itself is composed of different contracts. The diagram below shows the main components of a Safe contract.
+
+![Safe Smart Account Components](../../assets/diagram-safe-smart-account-safe-components.png)
+
+##### Owner Management
+
+One core feature of a Safe account is to be operated by multiple accounts known as owners. `OwnerManager.sol` allows you to add, remove, and replace owners. Furthermore, a threshold number of owners required to confirm a transaction for it to be executed can be specified and modified. You can retrieve the list of owners. Events are emitted every time an owner is added or removed as well as whenever the threshold changes.
+
+##### Module Management
+
+Modules add additional functionalities to the Safe accounts. They are smart contracts which implement the Safe's functionality, while separating module logic from the Safe's core contract. Depending on the use case, modules could for instance allow the execution of transactions without requiring all confirmation. A basic Safe does not require any modules. Adding and removing a module requires confirmation from all owners. Modules are very security-critical, so they need to be as secure as all other Safe contracts. Events are emitted whenever a module is added or removed and also whenever a module transaction was successful or failed.
+
+Some of the modules that are available are:
+- [Allowance Module](https://github.com/safe-global/safe-modules/tree/main/modules/4337)
+- [Recovery Module](https://github.com/safe-global/safe-modules/tree/main/modules/recovery)
+- [4337 Module](https://github.com/safe-global/safe-modules/tree/main/modules/4337)
+- [Passkey Module](https://github.com/safe-global/safe-modules/tree/main/modules/passkey)
+
+##### Executor
+
+This contract contains the logic to execute `call` or `delegatecall` to external address.
+
+##### Fallback Manager
+
+Ethereum fallback functions are executed when a called function signature does not match any defined function. Certain use cases require those fallback functions to contain some logic. EVM limits the size of a Smart contract to 24KB. The Fallback Manager contract allows you to extend the functionality of the Safe contract by adding additional logic to the fallback function and overcome the contract size limit.
+
+##### Guard Management
+
+Guards are used to check if a transaction should be executed or rejected based on the logic defined in the guard. A Guard Manager contract allows you to add, remove, and replace guards. Guards are security critical as a malicious guard could prevent transactions from being executed and block access to funds stored in the Safe. Events are emitted whenever a guard is updated.
+
+#### SafeProxy
+
+A Safe Proxy is a contract that delegates all calls to the Safe Singleton. By deploying a Proxy the cost to create a Safe account gets reduced as the byte code size of proxy contract is lesser than deploying the actual Safe contract code.
+
+![Safe Proxy Creation](../../assets/diagram-safe-smart-account-proxy-creation.png)
+
 ### Concepts
 
 #### Owners
