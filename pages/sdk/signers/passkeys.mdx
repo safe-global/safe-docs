@@ -113,18 +113,26 @@ In this guide, you will learn how to create a Passkey signer that can be added a
 
 Check [how to initialize the Protocol Kit](../../reference-sdk-protocol-kit/initialization/init.mdx)
 
-  You can instantiate the provider using `viem` and the following imports:
+  {/* <!-- vale off --> */}
 
-  ```typescript
-  import { createWalletClient, http } from 'viem'
-  import { sepolia } from 'viem/chains
-  
-  const provider = createWalletClient({
-    chain: sepolia,
-    transport: http('https://rpc.ankr.com/eth_sepolia')
-  })
-  const signer = passkey
-  ```
+  <Tabs items={['viem']}>
+    <Tabs.Tab>
+      You can instantiate the provider using `viem` and the following imports:
+
+      ```typescript
+      import { createWalletClient, http } from 'viem'
+      import { sepolia } from 'viem/chains
+      
+      const provider = createWalletClient({
+        chain: sepolia,
+        transport: http('https://rpc.ankr.com/eth_sepolia')
+      })
+      const signer = passkey
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
 
   ### Instantiate SDK
 
