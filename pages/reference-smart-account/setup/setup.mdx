@@ -189,7 +189,7 @@ Value that should be paid.
 
 - **Type:** `address`
 
-Address that should receive the payment (or 0 if `tx.origin`).
+Address that receives the payment for the Safe proxy contract deployment fees (or `0` if `tx.origin`).
 
 ```solidity focus=9
 (ISafe safe).setup(
