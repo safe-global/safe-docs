@@ -36,10 +36,13 @@ Because this approach does not use a proxy contract, storage slot 0 remains unus
 
 ### SafeLite
 
-[SafeLite](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/experimental/SafeLite.sol) is a lite version of Safe and compatible with EIP-7702. The contract does not have a proxy and does not need any initialisation.
-SafeLite supports ERC-4337 and hence can use features such as sponsored transactions, and even batch transactions. SafeLite also supports ERC-1271 for contract-based signatures.
-SafeLite is not compatible with the existing Safe Wallet UI as it does not use the same storage layout as the existing Safe contracts.
-It does not have the features of the existing Safe contracts such as Modules, Fallback Handler, Guards.
+[SafeLite](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/experimental/SafeLite.sol) is a lite version of Safe that is compatible with EIP-7702. The contract does not have a proxy and does not need initialization.
+
+SafeLite supports ERC-4337 and can use features such as sponsored transactions and batch transactions. SafeLite also supports ERC-1271 for contract-based signatures.
+
+SafeLite is not compatible with Safe\{Wallet\} as it does not use the same storage layout as the existing Safe contracts.
+
+It does not have the features of the existing Safe contracts such as Modules, Fallback Handler, and Guards.
 
 ![diagram-7702-approach-3](../../../assets/diagram-7702-approach-3.png)
 
