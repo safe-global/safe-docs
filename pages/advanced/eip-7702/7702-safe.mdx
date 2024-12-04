@@ -24,8 +24,7 @@ Proxy contract uses this hash to verify that the `setup` function parameter valu
 - Set the storage slot 0 that is, the address of the singleton in the EOA storage.
 - Verify that the `setupDataHash` is equal to the hash of the `setup` function call data.
 
-This approach has a gas overhead as a new proxy contract has to be deployed for each EOA account as the setupDataHash will be possibly unique for each user.
-But, using this approach users can use the existing Safe Wallet UI with minor modifications and import the EOA account as a Safe account. 
+This approach has a gas overhead as a new proxy contract has to be deployed for each EOA account, as the `setupDataHash` may be unique for each user. However, using this approach, users can use Safe\{Wallet\} with minor modifications and import the EOA account as a Safe account. 
 
 ![diagram-7702-approach-1](../../../assets/diagram-7702-approach-1.png)
 
