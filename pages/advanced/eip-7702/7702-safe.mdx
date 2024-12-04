@@ -30,7 +30,7 @@ Follow the instructions here to use this approach to set code in EOA: https://gi
 
 This approach uses the [SafeEIP7702](https://github.com/safe-global/safe-smart-account/blob/feature/eip-7702/contracts/experimental/SafeEIP7702.sol) contract, a derived version of Safe Singleton that overrides the `setup` function and reverts when called. Instead, the contract's new `setupEIP7702` function has a `signature` parameter. The default owner will be set to the address of the EOA account that delegates to this Singleton contract with a threshold of 1.
 
-Because of no proxy contract in this approach, the storage slot 0 remains unused. Safe Transaction Service and other services that depend on the value at storage slot 0 will not work with this approach.
+Because this approach does not use a proxy contract, storage slot 0 remains unused. The Safe Transaction Service and other services that depend on the value at storage slot 0 will not work with this approach.
 
 ![diagram-7702-approach-2](../../../assets/diagram-7702-approach-2.png)
 
