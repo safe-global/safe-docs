@@ -16,12 +16,10 @@ Existing Safe contracts cannot be used with EIP-7702, because of following reaso
 [SafeEIP7702Proxy](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/SafeEIP7702Proxy.sol)
 
 This approach uses a derived proxy contract from [Safe Proxy](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/SafeEIP7702Proxy.sol) with following changes:
-1. The constructor of the `SafeEIP7702Proxy` contract has an additional parameter `setupDataHash` which is the hash of the `setup` function call data. Thus, the address of the proxy contract also depends on the `setupDataHash` and not just the `singleton` contract address.
-Proxy contract uses this hash to verify that the `setup` function parameter values are unchanged during initialised of storage.
-
-2. The proxy implements `setup` function which calls the `setup` function of the `singleton` contract and has additional logic:
-- Set the storage slot 0 that is, the address of the singleton in the EOA storage.
-- Verify that the `setupDataHash` is equal to the hash of the `setup` function call data.
+- The constructor of the `SafeEIP7702Proxy` contract has the additional `setupDataHash` parameter, which is the hash of the `setup` function call data. Thus, the address of the proxy contract also depends on the `setupDataHash` and not just the Singleton contract address. The proxy contract uses this hash to verify that the `setup` function parameter values are unchanged during the initialization of storage.
+- The proxy implements the `setup` function, which calls the `setup` function of the `singleton` contract and has additional logic:
+  - Set the storage slot 0, that is, the address of the singleton in the EOA storage.
+  - Verify that the `setupDataHash` equals the hash of the `setup` function call data.
 
 This approach has a gas overhead as a new proxy contract has to be deployed for each EOA account, as the `setupDataHash` may be unique for each user. However, using this approach, users can use Safe\{Wallet\} with minor modifications and import the EOA account as a Safe account. 
 
