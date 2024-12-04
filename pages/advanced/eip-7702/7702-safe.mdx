@@ -7,7 +7,7 @@ This means that the account will be created with an empty storage, and the user 
 
 Existing Safe contracts cannot be used with EIP-7702, because of following reasons:
 
-- Delegating to Safe Singleton or the Proxy contract will expose the EOA account to the risk of front-runing during setup.
+- Delegating to Safe Singleton or the Proxy contract will expose the EOA account to the risk of front-running during setup.
 - In its current implementation, the Safe Singleton contract does not let itself to become an owner meaning that after delegating to the Safe Singleton, the EOA account cannot sign Safe transactions and will need to keep another private key to do so.
 
 ## Possible approaches
