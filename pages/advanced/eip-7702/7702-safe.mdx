@@ -32,8 +32,7 @@ Follow the instructions here to use this approach to set code in EOA: https://gi
 
 ### Modified safe singleton
 
-In this approach, a derived version of Safe Singleton aka `SafeEIP7702` overrides the `setup` function and reverts when called. 
-Instead, a new function `setupEIP7702` in the contract has a `signature` parameter. The default owner will be set to the address of the EOA account that is delegating to this Singleton contract with a threshold of 1.
+In this approach, a derived version of Safe Singleton, aka `SafeEIP7702`, overrides the `setup` function and reverts when called. Instead, the contract's new `setupEIP7702` function has a `signature` parameter. The default owner will be set to the address of the EOA account that delegates to this Singleton contract with a threshold of 1.
 
 [SafeEIP7702](https://github.com/safe-global/safe-smart-account/blob/feature/eip-7702/contracts/experimental/SafeEIP7702.sol)
 
