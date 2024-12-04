@@ -13,9 +13,8 @@ Existing Safe contracts cannot be used with EIP-7702, because of following reaso
 
 ### Modified safe proxy
 
-[SafeEIP7702Proxy](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/SafeEIP7702Proxy.sol)
+This approach uses the [SafeEIP7702Proxy](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/SafeEIP7702Proxy.sol), a proxy contract derived from the [Safe Proxy](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/SafeEIP7702Proxy.sol) with the following changes:
 
-This approach uses a derived proxy contract from [Safe Proxy](https://github.com/5afe/safe-eip7702/blob/main/safe-eip7702-contracts/contracts/SafeEIP7702Proxy.sol) with following changes:
 - The constructor of the `SafeEIP7702Proxy` contract has the additional `setupDataHash` parameter, which is the hash of the `setup` function call data. Thus, the address of the proxy contract also depends on the `setupDataHash` and not just the Singleton contract address. The proxy contract uses this hash to verify that the `setup` function parameter values are unchanged during the initialization of storage.
 - The proxy implements the `setup` function, which calls the `setup` function of the `singleton` contract and has additional logic:
   - Set the storage slot 0, that is, the address of the singleton in the EOA storage.
