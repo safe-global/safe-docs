@@ -1,56 +1,56 @@
 {
-  "/v1/about/ethereum-rpc/": {
+  "/api/v1/about/ethereum-rpc/": {
     "get": {
       "title": "Ethereum RPC",
       "additionalInfo": "This is an example of more detailed information about Ethereum RPC endpoint. This should support MDX."
     }
   },
-  "/v1/about/": {
+  "/api/v1/about/": {
     "get": {
       "title": "General Information"
     }
   },
-  "/v1/about/ethereum-tracing-rpc/": {
+  "/api/v1/about/ethereum-tracing-rpc/": {
     "get": {
       "title": "Ethereum Tracing RPC"
     }
   },
-  "/v1/about/indexing/": {
+  "/api/v1/about/indexing/": {
     "get": {
       "title": "Indexing"
     }
   },
-  "/v1/about/master-copies/": {
+  "/api/v1/about/master-copies/": {
     "get": {
       "title": "Master Copies"
     }
   },
-  "/v1/about/singletons/": {
+  "/api/v1/about/singletons/": {
     "get": {
       "title": "Singletons"
     }
   },
-  "/v1/about/deployments/": {
+  "/api/v1/about/deployments/": {
     "get": {
       "title": "List deployments"
     }
   },
-  "/v1/contracts/": {
+  "/api/v1/contracts/": {
     "get": {
       "title": "List Contracts"
     }
   },
-  "/v1/contracts/{address}/": {
+  "/api/v1/contracts/{address}/": {
     "get": {
       "title": "Get Specific Contract"
     }
   },
-  "/v1/data-decoder/": {
+  "/api/v1/data-decoder/": {
     "post": {
       "title": "Get Decoded Data"
     }
   },
-  "/v1/delegates/": {
+  "/api/v1/delegates/": {
     "get": {
       "title": "List Delegates"
     },
@@ -58,32 +58,32 @@
       "title": "Create Delegate"
     }
   },
-  "/v1/delegates/{delegate_address}/": {
+  "/api/v1/delegates/{delegate_address}/": {
     "delete": {
       "title": "Delete Delegate"
     }
   },
-  "/v1/messages/{message_hash}/": {
+  "/api/v1/messages/{message_hash}/": {
     "get": {
       "title": "Get Message"
     }
   },
-  "/v1/messages/{message_hash}/signatures/": {
+  "/api/v1/messages/{message_hash}/signatures/": {
     "post": {
       "title": "Sign Message"
     }
   },
-  "/v1/module-transaction/{module_transaction_id}": {
+  "/api/v1/module-transaction/{module_transaction_id}": {
     "get": {
       "title": "Get Module Transaction"
     }
   },
-  "/v1/modules/{address}/safes/": {
+  "/api/v1/modules/{address}/safes/": {
     "get": {
       "title": "List Safes that use a Specific Module"
     }
   },
-  "/v1/multisig-transactions/{safe_tx_hash}/": {
+  "/api/v1/multisig-transactions/{safe_tx_hash}/": {
     "get": {
       "title": "Get Multisig Transaction"
     },
@@ -91,7 +91,7 @@
       "title": "Delete Queued Multisig Transaction"
     }
   },
-  "/v1/multisig-transactions/{safe_tx_hash}/confirmations/": {
+  "/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/": {
     "get": {
       "title": "List Multisig Confirmations"
     },
@@ -99,27 +99,27 @@
       "title": "Confirm Multisig Transaction"
     }
   },
-  "/v1/notifications/devices/": {
+  "/api/v1/notifications/devices/": {
     "post": {
       "title": "Create Device"
     }
   },
-  "/v1/notifications/devices/{uuid}/": {
+  "/api/v1/notifications/devices/{uuid}/": {
     "delete": {
       "title": "Delete Device"
     }
   },
-  "/v1/notifications/devices/{uuid}/safes/{address}/": {
+  "/api/v1/notifications/devices/{uuid}/safes/{address}/": {
     "delete": {
       "title": "Remove a Safe from a Device"
     }
   },
-  "/v1/owners/{address}/safes/": {
+  "/api/v1/owners/{address}/safes/": {
     "get": {
       "title": "List Safes from a Specific Owner"
     }
   },
-  "/v1/safe-operations/{safe_operation_hash}/confirmations/": {
+  "/api/v1/safe-operations/{safe_operation_hash}/confirmations/": {
     "get": {
       "title": "Get the list of confirmations for a multisig transaction"
     },
@@ -127,47 +127,47 @@
       "title": "Add a confirmation for a transaction"
     }
   },
-  "/v1/safes/{address}/": {
+  "/api/v1/safes/{address}/": {
     "get": {
       "title": "Get Safe Status"
     }
   },
-  "/v1/safes/{address}/all-transactions/": {
+  "/api/v1/safes/{address}/all-transactions/": {
     "get": {
       "title": "List Transactions"
     }
   },
-  "/v1/safes/{address}/balances/": {
+  "/api/v1/safes/{address}/balances/": {
     "get": {
       "title": "List a Safe's Balances (Deprecated)"
     }
   },
-  "/v1/safes/{address}/balances/usd/": {
+  "/api/v1/safes/{address}/balances/usd/": {
     "get": {
       "title": "List a Safe's Balances in USD (Deprecated)"
     }
   },
-  "/v1/safes/{address}/creation/": {
+  "/api/v1/safes/{address}/creation/": {
     "get": {
       "title": "Get Safe Creation Status"
     }
   },
-  "/v2/safes/{address}/balances/": {
+  "/api/v2/safes/{address}/balances/": {
     "get": {
       "title": "Get Safe Balances"
     }
   },
-  "/v1/safes/{address}/delegates/{delegate_address}/": {
+  "/api/v1/safes/{address}/delegates/{delegate_address}/": {
     "delete": {
       "title": "Remove Delegate from Safe"
     }
   },
-  "/v1/safes/{address}/incoming-transfers/": {
+  "/api/v1/safes/{address}/incoming-transfers/": {
     "get": {
       "title": "List Incoming Transfers"
     }
   },
-  "/v1/safes/{address}/messages/": {
+  "/api/v1/safes/{address}/messages/": {
     "get": {
       "title": "List Messages"
     },
@@ -175,12 +175,12 @@
       "title": "Create Signed Message"
     }
   },
-  "/v1/safes/{address}/module-transactions/": {
+  "/api/v1/safes/{address}/module-transactions/": {
     "get": {
       "title": "List a Safe's Module Transactions"
     }
   },
-  "/v1/safes/{address}/multisig-transactions/": {
+  "/api/v1/safes/{address}/multisig-transactions/": {
     "get": {
       "title": "List a Safe's Multisig Transactions"
     },
@@ -188,12 +188,12 @@
       "title": "Create Multisig Transaction"
     }
   },
-  "/v1/safes/{address}/multisig-transactions/estimations/": {
+  "/api/v1/safes/{address}/multisig-transactions/estimations/": {
     "post": {
       "title": "Estimate Gas Costs for a Multisig Transaction"
     }
   },
-  "/v1/safes/{address}/transactions/": {
+  "/api/v1/safes/{address}/transactions/": {
     "get": {
       "title": "List a Safe's Transactions (Deprecated)"
     },
@@ -201,12 +201,12 @@
       "title": "Create Transaction (Deprecated)"
     }
   },
-  "/v1/safes/{address}/transfers/": {
+  "/api/v1/safes/{address}/transfers/": {
     "get": {
       "title": "List Transfers"
     }
   },
-  "/v1/safes/{address}/safe-operations/": {
+  "/api/v1/safes/{address}/safe-operations/": {
     "get": {
       "title": "List Safe Operations"
     },
@@ -214,27 +214,27 @@
       "title": "Create Safe Operation"
     }
   },
-  "/v1/safes/{address}/user-operations/": {
+  "/api/v1/safes/{address}/user-operations/": {
     "get": {
       "title": "List User Operations"
     }
   },
-  "/v1/safe-operations/{safe_operation_hash}/": {
+  "/api/v1/safe-operations/{safe_operation_hash}/": {
     "get": {
       "title": "Get Safe Operation"
     }
   },
-  "/v1/tokens/": {
+  "/api/v1/tokens/": {
     "get": {
       "title": "List Tokens"
     }
   },
-  "/v1/tokens/{address}/": {
+  "/api/v1/tokens/{address}/": {
     "get": {
       "title": "Get a Specific Token's Information"
     }
   },
-  "/v1/transactions/{safe_tx_hash}/": {
+  "/api/v1/transactions/{safe_tx_hash}/": {
     "get": {
       "title": "Get Transaction (Deprecated)"
     },
@@ -242,17 +242,17 @@
       "title": "Delete Queued Transaction (Deprecated)"
     }
   },
-  "/v1/transfer/{transfer_id}": {
+  "/api/v1/transfer/{transfer_id}": {
     "get": {
       "title": "Get Transfer"
     }
   },
-  "/v1/user-operations/{user_operation_hash}/": {
+  "/api/v1/user-operations/{user_operation_hash}/": {
     "get": {
       "title": "Get User Operation"
     }
   },
-  "/v2/delegates/": {
+  "/api/v2/delegates/": {
     "get": {
       "title": "List Delegates"
     },
@@ -260,12 +260,12 @@
       "title": "Create Delegate"
     }
   },
-  "/v2/delegates/{delegate_address}/": {
+  "/api/v2/delegates/{delegate_address}/": {
     "delete": {
       "title": "Delete Delegate"
     }
   },
-  "/v2/safes/{address}/collectibles/": {
+  "/api/v2/safes/{address}/collectibles/": {
     "get": {
       "title": "List Collectibles"
     }
