@@ -78,16 +78,26 @@ const NetworkSwitcher: React.FC = () => {
           }}
         >
           {transactionServiceUrls.map(url => (
-            <MenuItem key={url} value={url}>
-              <Link
-                href={
-                  '/core-api/transaction-service-reference/' +
-                  url.split('-')[2].split('.')[0]
-                }
-              >
-                {capitalize(url.split('-')[2].split('.')[0])}
-              </Link>
-            </MenuItem>
+            <Link
+              //  @ts-expect-error - value is not a valid prop for Link
+              value={url}
+              key={url}
+              href={
+                '/core-api/transaction-service-reference/' +
+                url
+                  .replace('https://safe-transaction-', '')
+                  .replace('.safe.global', '')
+              }
+            >
+              <MenuItem>
+                {capitalize(
+                  url
+                    .replace('https://safe-transaction-', '')
+                    .replace('.safe.global', '')
+                    .replace('-', ' ')
+                )}
+              </MenuItem>
+            </Link>
           ))}
         </Select>
         <Grid mr={1} my={2} sx={{ width: ['100%', '100%', 'auto'] }} item>
@@ -112,7 +122,7 @@ const NetworkSwitcher: React.FC = () => {
         </Grid>
         <Grid sx={{ width: '100%' }} item mr={1}>
           <Link
-            href={`${network}?format=openapi`}
+            href={network + '/schema'}
             target='_blank'
             rel='noopener noreferrer'
           >

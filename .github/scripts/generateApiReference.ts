@@ -1,5 +1,6 @@
 const fs = require('fs')
 const { capitalize } = require('lodash')
+const YAML = require('yaml')
 
 const jsonFile = require('../../components/ApiReference/mainnet-swagger.json')
 const pathsMetadata = require('../../components/ApiReference/paths-metadata.json')
@@ -201,7 +202,7 @@ const generateSampleApiResponse = async (
 const slugify = (text: string) => text?.replace?.(/ /g, '-').replace(/\//g, '-')
 const resolveRef = (ref: string) => {
   const refName = ref.split('/').pop()
-  return { refName, ...jsonFile.definitions[refName as string] }
+  return { refName, ...jsonFile.components.schemas[refName as string] }
 }
 
 const resolveRefs = (obj: any) => {
@@ -243,8 +244,9 @@ const addMethodContext = (json: any) => ({
 })
 
 const getApiJson = async (url: string) => {
-  const response = await fetch(url + '/?format=openapi')
-  const json = await response.json()
+  const response = await fetch(url + '/schema/')
+  const yaml = await response.text()
+  const json = YAML.parse(yaml)
   const withContext = addMethodContext(json)
   fs.writeFileSync(
     './components/ApiReference/mainnet-swagger.json',
@@ -298,7 +300,7 @@ const generateMethodContent = (path: string, method: string) => {
     method === 'get'
       ? undefined
       : _method.parameters
-          .filter((p: any) => p.in === 'body')
+          ?.filter((p: any) => p.in === 'body')
           .map((p: any) => p.schema?.properties)
           .reduce((acc: any, obj: any) => {
             for (const key in obj) {
@@ -317,11 +319,11 @@ const generateMethodContent = (path: string, method: string) => {
   // It is planned to move this into a separate script.
   // generateSampleApiResponse(path, pathWithParams + query, method, requestBody)
 
-  const codeBlockWithinDescription = _method.description.match(
+  const codeBlockWithinDescription = _method.description?.match(
     /```[a-z]*\n[\s\S]*?\n```/
   )?.[0]
   const description = _method.description
-    .replace(codeBlockWithinDescription, '___insert code block___')
+    ?.replace(codeBlockWithinDescription, '___insert code block___')
     .replace(/{/g, '\\{')
     .replace(/}/g, '\\}')
     .replace(/(?<=\n)-/g, '\n\\-')
@@ -464,7 +466,9 @@ const main = async () => {
   await getApiJson('https://safe-transaction-mainnet.safe.global')
   txServiceNetworks.forEach(
     async (network: { chainId: string; txServiceUrl: string }) => {
-      const networkName = network.txServiceUrl.split('-')[2].split('.')[0]
+      const networkName = network.txServiceUrl
+        .replace('https://safe-transaction-', '')
+        .split('.')[0]
       fs.writeFileSync(
         `./pages/core-api/transaction-service-reference/${networkName}.mdx`,
         `

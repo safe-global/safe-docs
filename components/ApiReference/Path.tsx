@@ -27,7 +27,6 @@ const Path: React.FC<{ path: string; method: string }> = ({ path, method }) => {
           overflow: 'auto'
         }}
       >
-        /api
         {path.split('/').map((p, i) => {
           const isParam = p.startsWith('{')
           return (
@@ -54,7 +53,7 @@ const Path: React.FC<{ path: string; method: string }> = ({ path, method }) => {
           mt: 0.6
         }}
       >
-        <CopyToClipboard getValue={() => `${network}/api${path}`} />
+        <CopyToClipboard getValue={() => `${network}${path}`} />
       </Box>
     </Grid>
   )

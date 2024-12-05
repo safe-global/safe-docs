@@ -32,8 +32,7 @@ export const slugify: (text: string) => string = text =>
 export const getHeadingChildren: (heading: string) => Heading[] = heading => {
   const allMethods = Object.entries(swagger.paths)
     .map(([k, v]) => Object.entries(v))
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .flat() as Array<[string, any]>
+    .flat()
 
   return allMethods
     .filter(
@@ -43,7 +42,7 @@ export const getHeadingChildren: (heading: string) => Heading[] = heading => {
     )
     .map(([methodName, method]) => {
       const title =
-        pathsMetadata?.[method.path as '/v1/about/ethereum-rpc/']?.[
+        pathsMetadata?.[method.path as '/api/v1/about/ethereum-rpc/']?.[
           methodName as 'get'
         ]?.title ?? method.path + ' - ' + methodName?.toUpperCase()
       return {
