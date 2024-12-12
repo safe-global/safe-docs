@@ -16,19 +16,23 @@ const Response: React.FC<{ response: any; index: number }> = ({
   index
 }) => {
   const isSuccess = response.code.startsWith('2') === true
-  const type = response.schema?.type
+  const content = response.content?.['application/json']
+  const type = content?.schema?.type
   const properties =
     type === undefined
       ? []
       : Object.entries(
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-          type === 'object'
-            ? response.schema?.properties
-            : response.schema?.items
+          (type === 'object'
+            ? content?.schema?.properties
+            : content?.schema?.items) ?? {}
         ).map(([key, value]) => ({
           name: key,
           value,
-          required: response.schema?.required?.includes(key)
+          required:
+            content?.schema?.required?.includes(
+              key
+            )
         }))
 
   return (
