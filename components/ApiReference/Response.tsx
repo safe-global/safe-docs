@@ -29,10 +29,7 @@ const Response: React.FC<{ response: any; index: number }> = ({
         ).map(([key, value]) => ({
           name: key,
           value,
-          required:
-            content?.schema?.required?.includes(
-              key
-            )
+          required: content?.schema?.required?.includes(key)
         }))
 
   return (
