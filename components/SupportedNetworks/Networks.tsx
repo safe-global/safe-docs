@@ -271,7 +271,7 @@ const SupportedNetworks: React.FC = () => {
   const sidebar = (
     <>
       <NextLink
-        href='/core-api/safe-contracts-deployment'
+        href='/core-api/safe-installation-overview'
         target='_blank'
         rel='noreferrer'
       >
