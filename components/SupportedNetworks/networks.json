@@ -61,6 +61,11 @@
         "url": "https://ethereum.dex.guru",
         "icon": "dexguru",
         "standard": "EIP3091"
+      },
+      {
+        "name": "Routescan",
+        "url": "https://ethereum.routescan.io",
+        "standard": "EIP3091"
       }
     ],
     "smartAccounts": [
@@ -1130,6 +1135,11 @@
         "url": "https://optimism.dex.guru",
         "icon": "dexguru",
         "standard": "EIP3091"
+      },
+      {
+        "name": "Routescan",
+        "url": "https://mainnet.superscan.network",
+        "standard": "EIP3091"
       }
     ],
     "smartAccounts": [
@@ -1723,7 +1733,7 @@
         "standard": "EIP3091"
       },
       {
-        "name": "flarescan",
+        "name": "Routescan",
         "url": "https://mainnet.flarescan.com",
         "standard": "EIP3091"
       }
@@ -1917,7 +1927,7 @@
         "standard": "EIP3091"
       },
       {
-        "name": "flarescan",
+        "name": "Routescan",
         "url": "https://coston.testnet.flarescan.com",
         "standard": "EIP3091"
       }
@@ -2214,7 +2224,7 @@
         "standard": "EIP3091"
       },
       {
-        "name": "flarescan",
+        "name": "Routescan",
         "url": "https://songbird.flarescan.com",
         "standard": "EIP3091"
       }
@@ -4233,7 +4243,9 @@
       "https://rpc.xinfin.network",
       "https://rpc1.xinfin.network",
       "https://rpc.xdcrpc.com",
-      "https://erpc.xdcrpc.com"
+      "https://erpc.xdcrpc.com",
+      "https://rpc.ankr.com/xdc",
+      "https://rpc.xdc.org"
     ],
     "faucets": [],
     "nativeCurrency": {
@@ -4254,14 +4266,8 @@
         "standard": "EIP3091"
       },
       {
-        "name": "xdcscan",
+        "name": "openscan",
         "url": "https://xdcscan.io",
-        "icon": "blocksscan",
-        "standard": "EIP3091"
-      },
-      {
-        "name": "blocksscan",
-        "url": "https://xdc.blocksscan.io",
         "icon": "blocksscan",
         "standard": "EIP3091"
       }
@@ -4348,10 +4354,13 @@
     "chain": "XDC",
     "rpc": [
       "https://rpc.apothem.network",
-      "https://erpc.apothem.network"
+      "https://erpc.apothem.network",
+      "https://apothem.xdcrpc.com"
     ],
     "faucets": [
-      "https://faucet.apothem.network"
+      "https://faucet.apothem.network",
+      "https://faucet.blocksscan.io",
+      "https://apothem.xdcscan.io/faucet"
     ],
     "nativeCurrency": {
       "name": "XinFin",
@@ -4366,13 +4375,13 @@
     "explorers": [
       {
         "name": "xdcscan",
-        "url": "https://apothem.xinfinscan.com",
+        "url": "https://testnet.xdcscan.com",
         "icon": "blocksscan",
         "standard": "EIP3091"
       },
       {
-        "name": "blocksscan",
-        "url": "https://apothem.blocksscan.io",
+        "name": "openscan",
+        "url": "https://apothem.xdcscan.io",
         "icon": "blocksscan",
         "standard": "EIP3091"
       }
@@ -4384,7 +4393,7 @@
         "address": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
         "chainId": "51",
         "chainName": "XDC Apothem Network",
-        "blockExplorerUrl": "https://apothem.xinfinscan.com"
+        "blockExplorerUrl": "https://testnet.xdcscan.com"
       },
       {
         "name": "create_call",
@@ -4392,7 +4401,7 @@
         "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
         "chainId": "51",
         "chainName": "XDC Apothem Network",
-        "blockExplorerUrl": "https://apothem.xinfinscan.com"
+        "blockExplorerUrl": "https://testnet.xdcscan.com"
       },
       {
         "name": "gnosis_safe",
@@ -4400,7 +4409,7 @@
         "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         "chainId": "51",
         "chainName": "XDC Apothem Network",
-        "blockExplorerUrl": "https://apothem.xinfinscan.com"
+        "blockExplorerUrl": "https://testnet.xdcscan.com"
       },
       {
         "name": "gnosis_safe_l2",
@@ -4408,7 +4417,7 @@
         "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
         "chainId": "51",
         "chainName": "XDC Apothem Network",
-        "blockExplorerUrl": "https://apothem.xinfinscan.com"
+        "blockExplorerUrl": "https://testnet.xdcscan.com"
       },
       {
         "name": "multi_send",
@@ -4416,7 +4425,7 @@
         "address": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
         "chainId": "51",
         "chainName": "XDC Apothem Network",
-        "blockExplorerUrl": "https://apothem.xinfinscan.com"
+        "blockExplorerUrl": "https://testnet.xdcscan.com"
       },
       {
         "name": "multi_send_call_only",
@@ -4424,7 +4433,7 @@
         "address": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
         "chainId": "51",
         "chainName": "XDC Apothem Network",
-        "blockExplorerUrl": "https://apothem.xinfinscan.com"
+        "blockExplorerUrl": "https://testnet.xdcscan.com"
       },
       {
         "name": "proxy_factory",
@@ -4432,7 +4441,7 @@
         "address": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
         "chainId": "51",
         "chainName": "XDC Apothem Network",
-        "blockExplorerUrl": "https://apothem.xinfinscan.com"
+        "blockExplorerUrl": "https://testnet.xdcscan.com"
       },
       {
         "name": "sign_message_lib",
@@ -4440,7 +4449,7 @@
         "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
         "chainId": "51",
         "chainName": "XDC Apothem Network",
-        "blockExplorerUrl": "https://apothem.xinfinscan.com"
+        "blockExplorerUrl": "https://testnet.xdcscan.com"
       },
       {
         "name": "simulate_tx_accessor",
@@ -4448,7 +4457,7 @@
         "address": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
         "chainId": "51",
         "chainName": "XDC Apothem Network",
-        "blockExplorerUrl": "https://apothem.xinfinscan.com"
+        "blockExplorerUrl": "https://testnet.xdcscan.com"
       }
     ],
     "modules": [],
@@ -6952,7 +6961,9 @@
     "chain": "Shibarium",
     "icon": "shibarium",
     "rpc": [
-      "https://www.shibrpc.com"
+      "https://www.shibrpc.com",
+      "https://rpc.shibrpc.com",
+      "https://shib.nownodes.io"
     ],
     "faucets": [],
     "nativeCurrency": {
@@ -7185,7 +7196,7 @@
         "standard": "EIP3091"
       },
       {
-        "name": "flarescan",
+        "name": "Routescan",
         "url": "https://coston2.testnet.flarescan.com",
         "standard": "EIP3091"
       }
@@ -7533,6 +7544,208 @@
         "chainId": "123",
         "chainName": "Fuse Sparknet",
         "blockExplorerUrl": ""
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
+    "name": "HashKey Chain Testnet",
+    "title": "HashKey Chain Testnet",
+    "chain": "HashKey Chain Testnet",
+    "rpc": [
+      "https://hashkeychain-testnet.alt.technology"
+    ],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "HashKey EcoPoints",
+      "symbol": "HSK",
+      "decimals": 18
+    },
+    "infoURL": "https://hashkey.cloud",
+    "shortName": "HSKT",
+    "chainId": 133,
+    "networkId": 133,
+    "explorers": [
+      {
+        "name": "blockscout",
+        "url": "https://hashkeychain-testnet-explorer.alt.technology",
+        "icon": "blockscout",
+        "standard": "EIP3091"
+      }
+    ],
+    "parent": {
+      "type": "L2",
+      "chain": "eip155-11155111"
+    },
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.3.0",
+        "address": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.3.0",
+        "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "gnosis_safe",
+        "version": "v1.3.0",
+        "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "gnosis_safe_l2",
+        "version": "v1.3.0",
+        "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.3.0",
+        "address": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.3.0",
+        "address": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "proxy_factory",
+        "version": "v1.3.0",
+        "address": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.3.0",
+        "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.3.0",
+        "address": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "133",
+        "chainName": "HashKey Chain Testnet",
+        "blockExplorerUrl": "https://hashkeychain-testnet-explorer.alt.technology"
       }
     ],
     "modules": [],
@@ -7951,6 +8164,209 @@
       }
     ],
     "iconUrl": "https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/refs/heads/master/128/polygon.png"
+  },
+  {
+    "name": "Sonic Mainnet",
+    "chain": "sonic",
+    "rpc": [
+      "https://rpc.soniclabs.com"
+    ],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "Sonic",
+      "symbol": "S",
+      "decimals": 18
+    },
+    "features": [
+      {
+        "name": "EIP155"
+      }
+    ],
+    "infoURL": "https://soniclabs.com",
+    "shortName": "sonic",
+    "chainId": 146,
+    "networkId": 146,
+    "icon": "sonic",
+    "explorers": [
+      {
+        "name": "sonic",
+        "url": "https://explorer.soniclabs.com",
+        "icon": "sonic",
+        "standard": "none"
+      }
+    ],
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.3.0",
+        "address": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.3.0",
+        "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "gnosis_safe",
+        "version": "v1.3.0",
+        "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "gnosis_safe_l2",
+        "version": "v1.3.0",
+        "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.3.0",
+        "address": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.3.0",
+        "address": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "proxy_factory",
+        "version": "v1.3.0",
+        "address": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.3.0",
+        "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.3.0",
+        "address": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "146",
+        "chainName": "Sonic Mainnet",
+        "blockExplorerUrl": "https://explorer.soniclabs.com"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
   },
   {
     "name": "ShimmerEVM",
@@ -8520,6 +8936,130 @@
     ],
     "modules": [],
     "iconUrl": "/unknown-logo.png"
+  },
+  {
+    "name": "Waterfall Network",
+    "chain": "Waterfall Network",
+    "rpc": [
+      "https://rpc.waterfall.network/"
+    ],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "WATER",
+      "symbol": "WATER",
+      "decimals": 18
+    },
+    "features": [
+      {
+        "name": "EIP1559"
+      }
+    ],
+    "infoURL": "https://waterfall.network",
+    "shortName": "water",
+    "chainId": 181,
+    "networkId": 181,
+    "icon": "waterfall-main",
+    "explorers": [],
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "181",
+        "chainName": "Waterfall Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "181",
+        "chainName": "Waterfall Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "181",
+        "chainName": "Waterfall Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "181",
+        "chainName": "Waterfall Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "181",
+        "chainName": "Waterfall Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "181",
+        "chainName": "Waterfall Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "181",
+        "chainName": "Waterfall Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "181",
+        "chainName": "Waterfall Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "181",
+        "chainName": "Waterfall Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "181",
+        "chainName": "Waterfall Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "181",
+        "chainName": "Waterfall Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "181",
+        "chainName": "Waterfall Network",
+        "blockExplorerUrl": ""
+      }
+    ],
+    "modules": [],
+    "iconUrl": "https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/refs/heads/master/128/water.png"
   },
   {
     "name": "X Layer Testnet",
@@ -10412,8 +10952,7 @@
     "name": "Orderly Mainnet",
     "chain": "ETH",
     "rpc": [
-      "https://rpc.orderly.network",
-      "https://l2-orderly-mainnet-0.t.conduit.xyz"
+      "https://rpc.orderly.network"
     ],
     "faucets": [],
     "nativeCurrency": {
@@ -10421,7 +10960,7 @@
       "symbol": "ETH",
       "decimals": 18
     },
-    "infoURL": "www.orderly.network",
+    "infoURL": "https://orderly.network/",
     "shortName": "orderly",
     "chainId": 291,
     "networkId": 291,
@@ -10555,7 +11094,7 @@
       {
         "name": "compatibility_fallback_handler",
         "version": "v1.3.0",
-        "address": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
+        "address": "0x2f870a80647BbC554F3a0EBD093f11B4d2a7492A",
         "chainId": "300",
         "chainName": "zkSync Sepolia Testnet",
         "blockExplorerUrl": "https://sepolia.explorer.zksync.io"
@@ -10563,7 +11102,7 @@
       {
         "name": "create_call",
         "version": "v1.3.0",
-        "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+        "address": "0xcB8e5E438c5c2b45FbE17B02Ca9aF91509a8ad56",
         "chainId": "300",
         "chainName": "zkSync Sepolia Testnet",
         "blockExplorerUrl": "https://sepolia.explorer.zksync.io"
@@ -10571,7 +11110,7 @@
       {
         "name": "gnosis_safe",
         "version": "v1.3.0",
-        "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        "address": "0xB00ce5CCcdEf57e539ddcEd01DF43a13855d9910",
         "chainId": "300",
         "chainName": "zkSync Sepolia Testnet",
         "blockExplorerUrl": "https://sepolia.explorer.zksync.io"
@@ -10579,7 +11118,7 @@
       {
         "name": "gnosis_safe_l2",
         "version": "v1.3.0",
-        "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
+        "address": "0x1727c2c531cf966f902E5927b98490fDFb3b2b70",
         "chainId": "300",
         "chainName": "zkSync Sepolia Testnet",
         "blockExplorerUrl": "https://sepolia.explorer.zksync.io"
@@ -10587,7 +11126,7 @@
       {
         "name": "multi_send",
         "version": "v1.3.0",
-        "address": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+        "address": "0x0dFcccB95225ffB03c6FBB2559B530C2B7C8A912",
         "chainId": "300",
         "chainName": "zkSync Sepolia Testnet",
         "blockExplorerUrl": "https://sepolia.explorer.zksync.io"
@@ -10595,7 +11134,7 @@
       {
         "name": "multi_send_call_only",
         "version": "v1.3.0",
-        "address": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
+        "address": "0xf220D3b4DFb23C4ade8C88E526C1353AbAcbC38F",
         "chainId": "300",
         "chainName": "zkSync Sepolia Testnet",
         "blockExplorerUrl": "https://sepolia.explorer.zksync.io"
@@ -10603,7 +11142,7 @@
       {
         "name": "proxy_factory",
         "version": "v1.3.0",
-        "address": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
+        "address": "0xDAec33641865E4651fB43181C6DB6f7232Ee91c2",
         "chainId": "300",
         "chainName": "zkSync Sepolia Testnet",
         "blockExplorerUrl": "https://sepolia.explorer.zksync.io"
@@ -10611,7 +11150,7 @@
       {
         "name": "sign_message_lib",
         "version": "v1.3.0",
-        "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
+        "address": "0x357147caf9C0cCa67DfA0CF5369318d8193c8407",
         "chainId": "300",
         "chainName": "zkSync Sepolia Testnet",
         "blockExplorerUrl": "https://sepolia.explorer.zksync.io"
@@ -10619,7 +11158,7 @@
       {
         "name": "simulate_tx_accessor",
         "version": "v1.3.0",
-        "address": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
+        "address": "0x4191E2e12E8BC5002424CE0c51f9947b02675a44",
         "chainId": "300",
         "chainName": "zkSync Sepolia Testnet",
         "blockExplorerUrl": "https://sepolia.explorer.zksync.io"
@@ -12167,6 +12706,214 @@
         "chainId": "424",
         "chainName": "PGN (Public Goods Network)",
         "blockExplorerUrl": "https://explorer.publicgoods.network"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
+    "name": "AppChain",
+    "chain": "AppChain",
+    "rpc": [
+      "https://rpc.appchain.xyz/http",
+      "wss://rpc.appchain.xyz/ws"
+    ],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "infoURL": "https://appchain.xyz",
+    "shortName": "appchain",
+    "chainId": 466,
+    "networkId": 466,
+    "icon": "appchain",
+    "explorers": [
+      {
+        "name": "AppChain Explorer",
+        "url": "https://explorer.appchain.xyz",
+        "icon": "blockscout",
+        "standard": "EIP3091"
+      }
+    ],
+    "parent": {
+      "type": "L2",
+      "chain": "eip155-1",
+      "bridges": [
+        {
+          "url": "https://bridge.appchain.xyz"
+        }
+      ]
+    },
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.3.0",
+        "address": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.3.0",
+        "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "gnosis_safe",
+        "version": "v1.3.0",
+        "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "gnosis_safe_l2",
+        "version": "v1.3.0",
+        "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.3.0",
+        "address": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.3.0",
+        "address": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "proxy_factory",
+        "version": "v1.3.0",
+        "address": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.3.0",
+        "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.3.0",
+        "address": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "466",
+        "chainName": "AppChain",
+        "blockExplorerUrl": "https://explorer.appchain.xyz"
       }
     ],
     "modules": [],
@@ -13903,6 +14650,11 @@
         "name": "modescout",
         "url": "https://sepolia.explorer.mode.network",
         "standard": "none"
+      },
+      {
+        "name": "Routesan",
+        "url": "https://testnet.modescan.io",
+        "standard": "none"
       }
     ],
     "parent": {
@@ -14139,6 +14891,147 @@
         "chainId": "919",
         "chainName": "Mode Testnet",
         "blockExplorerUrl": "https://sepolia.explorer.mode.network"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
+    "name": "Haust Mainnet",
+    "title": "Haust Mainnet",
+    "chain": "Haust",
+    "rpc": [
+      "https://haust-network-rpc.eu-north-2.gateway.fm"
+    ],
+    "faucets": [],
+    "features": [
+      {
+        "name": "EIP155"
+      }
+    ],
+    "nativeCurrency": {
+      "name": "HAUST",
+      "symbol": "HAUST",
+      "decimals": 18
+    },
+    "infoURL": "https://haust.network/",
+    "shortName": "haust",
+    "chainId": 938,
+    "networkId": 938,
+    "icon": "haust",
+    "explorers": [
+      {
+        "name": "blockscout",
+        "url": "https://haust-network-blockscout.eu-north-2.gateway.fm",
+        "icon": "haust",
+        "standard": "EIP3091"
+      }
+    ],
+    "parent": {
+      "type": "L2",
+      "chain": "eip155-1",
+      "bridges": [
+        {
+          "url": "https://haust-network-bridge.eu-north-2.gateway.fm"
+        }
+      ]
+    },
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "938",
+        "chainName": "Haust Mainnet",
+        "blockExplorerUrl": "https://haust-network-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "938",
+        "chainName": "Haust Mainnet",
+        "blockExplorerUrl": "https://haust-network-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "938",
+        "chainName": "Haust Mainnet",
+        "blockExplorerUrl": "https://haust-network-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "938",
+        "chainName": "Haust Mainnet",
+        "blockExplorerUrl": "https://haust-network-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "938",
+        "chainName": "Haust Mainnet",
+        "blockExplorerUrl": "https://haust-network-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "938",
+        "chainName": "Haust Mainnet",
+        "blockExplorerUrl": "https://haust-network-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "938",
+        "chainName": "Haust Mainnet",
+        "blockExplorerUrl": "https://haust-network-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "938",
+        "chainName": "Haust Mainnet",
+        "blockExplorerUrl": "https://haust-network-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "938",
+        "chainName": "Haust Mainnet",
+        "blockExplorerUrl": "https://haust-network-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "938",
+        "chainName": "Haust Mainnet",
+        "blockExplorerUrl": "https://haust-network-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "938",
+        "chainName": "Haust Mainnet",
+        "blockExplorerUrl": "https://haust-network-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "938",
+        "chainName": "Haust Mainnet",
+        "blockExplorerUrl": "https://haust-network-blockscout.eu-north-2.gateway.fm"
       }
     ],
     "modules": [],
@@ -14524,10 +15417,10 @@
     "iconUrl": "https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/refs/heads/master/128/5ire.png"
   },
   {
-    "name": "Kaia Testnet Kairos",
+    "name": "Kaia Kairos Testnet",
     "chain": "KAIA",
     "rpc": [
-      "https://public-en.kairos.node.kaia.io"
+      "https://public-en-kairos.node.kaia.io"
     ],
     "faucets": [
       "https://faucet.kaia.io"
@@ -14560,7 +15453,7 @@
         "version": "v1.3.0",
         "address": "0x017062a1dE2FE6b99BE3d9d37841FeD19F573804",
         "chainId": "1001",
-        "chainName": "Kaia Testnet Kairos",
+        "chainName": "Kaia Kairos Testnet",
         "blockExplorerUrl": "https://kairos.kaiascope.com"
       },
       {
@@ -14568,7 +15461,7 @@
         "version": "v1.3.0",
         "address": "0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d",
         "chainId": "1001",
-        "chainName": "Kaia Testnet Kairos",
+        "chainName": "Kaia Kairos Testnet",
         "blockExplorerUrl": "https://kairos.kaiascope.com"
       },
       {
@@ -14576,7 +15469,7 @@
         "version": "v1.3.0",
         "address": "0x69f4D1788e39c87893C980c06EdF4b7f686e2938",
         "chainId": "1001",
-        "chainName": "Kaia Testnet Kairos",
+        "chainName": "Kaia Kairos Testnet",
         "blockExplorerUrl": "https://kairos.kaiascope.com"
       },
       {
@@ -14584,7 +15477,7 @@
         "version": "v1.3.0",
         "address": "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA",
         "chainId": "1001",
-        "chainName": "Kaia Testnet Kairos",
+        "chainName": "Kaia Kairos Testnet",
         "blockExplorerUrl": "https://kairos.kaiascope.com"
       },
       {
@@ -14592,7 +15485,7 @@
         "version": "v1.3.0",
         "address": "0x998739BFdAAdde7C933B942a68053933098f9EDa",
         "chainId": "1001",
-        "chainName": "Kaia Testnet Kairos",
+        "chainName": "Kaia Kairos Testnet",
         "blockExplorerUrl": "https://kairos.kaiascope.com"
       },
       {
@@ -14600,7 +15493,7 @@
         "version": "v1.3.0",
         "address": "0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B",
         "chainId": "1001",
-        "chainName": "Kaia Testnet Kairos",
+        "chainName": "Kaia Kairos Testnet",
         "blockExplorerUrl": "https://kairos.kaiascope.com"
       },
       {
@@ -14608,7 +15501,7 @@
         "version": "v1.3.0",
         "address": "0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC",
         "chainId": "1001",
-        "chainName": "Kaia Testnet Kairos",
+        "chainName": "Kaia Kairos Testnet",
         "blockExplorerUrl": "https://kairos.kaiascope.com"
       },
       {
@@ -14616,7 +15509,7 @@
         "version": "v1.3.0",
         "address": "0x98FFBBF51bb33A056B08ddf711f289936AafF717",
         "chainId": "1001",
-        "chainName": "Kaia Testnet Kairos",
+        "chainName": "Kaia Kairos Testnet",
         "blockExplorerUrl": "https://kairos.kaiascope.com"
       },
       {
@@ -14624,7 +15517,103 @@
         "version": "v1.3.0",
         "address": "0x727a77a074D1E6c4530e814F89E618a3298FC044",
         "chainId": "1001",
-        "chainName": "Kaia Testnet Kairos",
+        "chainName": "Kaia Kairos Testnet",
+        "blockExplorerUrl": "https://kairos.kaiascope.com"
+      },
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "1001",
+        "chainName": "Kaia Kairos Testnet",
+        "blockExplorerUrl": "https://kairos.kaiascope.com"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "1001",
+        "chainName": "Kaia Kairos Testnet",
+        "blockExplorerUrl": "https://kairos.kaiascope.com"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "1001",
+        "chainName": "Kaia Kairos Testnet",
+        "blockExplorerUrl": "https://kairos.kaiascope.com"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "1001",
+        "chainName": "Kaia Kairos Testnet",
+        "blockExplorerUrl": "https://kairos.kaiascope.com"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "1001",
+        "chainName": "Kaia Kairos Testnet",
+        "blockExplorerUrl": "https://kairos.kaiascope.com"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "1001",
+        "chainName": "Kaia Kairos Testnet",
+        "blockExplorerUrl": "https://kairos.kaiascope.com"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "1001",
+        "chainName": "Kaia Kairos Testnet",
+        "blockExplorerUrl": "https://kairos.kaiascope.com"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "1001",
+        "chainName": "Kaia Kairos Testnet",
+        "blockExplorerUrl": "https://kairos.kaiascope.com"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "1001",
+        "chainName": "Kaia Kairos Testnet",
+        "blockExplorerUrl": "https://kairos.kaiascope.com"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "1001",
+        "chainName": "Kaia Kairos Testnet",
+        "blockExplorerUrl": "https://kairos.kaiascope.com"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "1001",
+        "chainName": "Kaia Kairos Testnet",
+        "blockExplorerUrl": "https://kairos.kaiascope.com"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "1001",
+        "chainName": "Kaia Kairos Testnet",
         "blockExplorerUrl": "https://kairos.kaiascope.com"
       }
     ],
@@ -15745,6 +16734,14 @@
     "rpc": [
       "https://rpc.test.btcs.network/"
     ],
+    "features": [
+      {
+        "name": "EIP155"
+      },
+      {
+        "name": "EIP1559"
+      }
+    ],
     "faucets": [
       "https://scan.test.btcs.network/faucet"
     ],
@@ -15852,6 +16849,14 @@
       "https://rpc-core.icecreamswap.com",
       "https://core.drpc.org",
       "wss://core.drpc.org"
+    ],
+    "features": [
+      {
+        "name": "EIP155"
+      },
+      {
+        "name": "EIP1559"
+      }
     ],
     "faucets": [],
     "nativeCurrency": {
@@ -17823,7 +18828,16 @@
       {
         "name": "compatibility_fallback_handler",
         "version": "v1.3.0",
-        "address": "0x017062a1dE2FE6b99BE3d9d37841FeD19F573804",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0x017062a1dE2FE6b99BE3d9d37841FeD19F573804"
+          ],
+          [
+            "Canonical contracts",
+            "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4"
+          ]
+        ],
         "chainId": "1516",
         "chainName": "Story Odyssey Testnet",
         "blockExplorerUrl": "https://odyssey-testnet-explorer.storyscan.xyz"
@@ -17831,7 +18845,16 @@
       {
         "name": "create_call",
         "version": "v1.3.0",
-        "address": "0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d"
+          ],
+          [
+            "Canonical contracts",
+            "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4"
+          ]
+        ],
         "chainId": "1516",
         "chainName": "Story Odyssey Testnet",
         "blockExplorerUrl": "https://odyssey-testnet-explorer.storyscan.xyz"
@@ -17839,7 +18862,16 @@
       {
         "name": "gnosis_safe",
         "version": "v1.3.0",
-        "address": "0x69f4D1788e39c87893C980c06EdF4b7f686e2938",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0x69f4D1788e39c87893C980c06EdF4b7f686e2938"
+          ],
+          [
+            "Canonical contracts",
+            "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552"
+          ]
+        ],
         "chainId": "1516",
         "chainName": "Story Odyssey Testnet",
         "blockExplorerUrl": "https://odyssey-testnet-explorer.storyscan.xyz"
@@ -17847,7 +18879,16 @@
       {
         "name": "gnosis_safe_l2",
         "version": "v1.3.0",
-        "address": "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA"
+          ],
+          [
+            "Canonical contracts",
+            "0x3E5c63644E683549055b9Be8653de26E0B4CD36E"
+          ]
+        ],
         "chainId": "1516",
         "chainName": "Story Odyssey Testnet",
         "blockExplorerUrl": "https://odyssey-testnet-explorer.storyscan.xyz"
@@ -17855,7 +18896,16 @@
       {
         "name": "multi_send",
         "version": "v1.3.0",
-        "address": "0x998739BFdAAdde7C933B942a68053933098f9EDa",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0x998739BFdAAdde7C933B942a68053933098f9EDa"
+          ],
+          [
+            "Canonical contracts",
+            "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761"
+          ]
+        ],
         "chainId": "1516",
         "chainName": "Story Odyssey Testnet",
         "blockExplorerUrl": "https://odyssey-testnet-explorer.storyscan.xyz"
@@ -17863,7 +18913,16 @@
       {
         "name": "multi_send_call_only",
         "version": "v1.3.0",
-        "address": "0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B"
+          ],
+          [
+            "Canonical contracts",
+            "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D"
+          ]
+        ],
         "chainId": "1516",
         "chainName": "Story Odyssey Testnet",
         "blockExplorerUrl": "https://odyssey-testnet-explorer.storyscan.xyz"
@@ -17871,7 +18930,16 @@
       {
         "name": "proxy_factory",
         "version": "v1.3.0",
-        "address": "0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC"
+          ],
+          [
+            "Canonical contracts",
+            "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2"
+          ]
+        ],
         "chainId": "1516",
         "chainName": "Story Odyssey Testnet",
         "blockExplorerUrl": "https://odyssey-testnet-explorer.storyscan.xyz"
@@ -17879,7 +18947,16 @@
       {
         "name": "sign_message_lib",
         "version": "v1.3.0",
-        "address": "0x98FFBBF51bb33A056B08ddf711f289936AafF717",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0x98FFBBF51bb33A056B08ddf711f289936AafF717"
+          ],
+          [
+            "Canonical contracts",
+            "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2"
+          ]
+        ],
         "chainId": "1516",
         "chainName": "Story Odyssey Testnet",
         "blockExplorerUrl": "https://odyssey-testnet-explorer.storyscan.xyz"
@@ -17887,7 +18964,16 @@
       {
         "name": "simulate_tx_accessor",
         "version": "v1.3.0",
-        "address": "0x727a77a074D1E6c4530e814F89E618a3298FC044",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0x727a77a074D1E6c4530e814F89E618a3298FC044"
+          ],
+          [
+            "Canonical contracts",
+            "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da"
+          ]
+        ],
         "chainId": "1516",
         "chainName": "Story Odyssey Testnet",
         "blockExplorerUrl": "https://odyssey-testnet-explorer.storyscan.xyz"
@@ -18517,6 +19603,132 @@
     "iconUrl": "/unknown-logo.png"
   },
   {
+    "name": "Metal L2",
+    "chain": "Metal L2",
+    "rpc": [
+      "https://rpc.metall2.com"
+    ],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "ETH",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "infoURL": "https://metall2.com",
+    "shortName": "metall2",
+    "chainId": 1750,
+    "networkId": 1750,
+    "icon": "metal",
+    "explorers": [
+      {
+        "name": "blockscout",
+        "url": "https://explorer.metall2.com",
+        "icon": "blockscout",
+        "standard": "EIP3091"
+      }
+    ],
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "1750",
+        "chainName": "Metal L2",
+        "blockExplorerUrl": "https://explorer.metall2.com"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "1750",
+        "chainName": "Metal L2",
+        "blockExplorerUrl": "https://explorer.metall2.com"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "1750",
+        "chainName": "Metal L2",
+        "blockExplorerUrl": "https://explorer.metall2.com"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "1750",
+        "chainName": "Metal L2",
+        "blockExplorerUrl": "https://explorer.metall2.com"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "1750",
+        "chainName": "Metal L2",
+        "blockExplorerUrl": "https://explorer.metall2.com"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "1750",
+        "chainName": "Metal L2",
+        "blockExplorerUrl": "https://explorer.metall2.com"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "1750",
+        "chainName": "Metal L2",
+        "blockExplorerUrl": "https://explorer.metall2.com"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "1750",
+        "chainName": "Metal L2",
+        "blockExplorerUrl": "https://explorer.metall2.com"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "1750",
+        "chainName": "Metal L2",
+        "blockExplorerUrl": "https://explorer.metall2.com"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "1750",
+        "chainName": "Metal L2",
+        "blockExplorerUrl": "https://explorer.metall2.com"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "1750",
+        "chainName": "Metal L2",
+        "blockExplorerUrl": "https://explorer.metall2.com"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "1750",
+        "chainName": "Metal L2",
+        "blockExplorerUrl": "https://explorer.metall2.com"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
     "name": "Rabbit Analog Testnet Chain",
     "chain": "rAna",
     "icon": "rabbit",
@@ -18944,10 +20156,11 @@
     "iconUrl": "/unknown-logo.png"
   },
   {
-    "name": "Swell Network Testnet",
-    "chain": "Swell L2 Testnet",
+    "name": "Swellchain",
+    "chain": "ETH",
     "rpc": [
-      "https://swell-testnet.alt.technology"
+      "https://swell-mainnet.alt.technology",
+      "https://rpc.ankr.com/swell"
     ],
     "faucets": [],
     "nativeCurrency": {
@@ -18956,13 +20169,292 @@
       "decimals": 18
     },
     "infoURL": "https://app.swellnetwork.io/layer2/swell-l2",
-    "shortName": "swell-l2-testnet",
-    "chainId": 1924,
-    "networkId": 1924,
+    "shortName": "swellchain",
+    "chainId": 1923,
+    "networkId": 1923,
+    "icon": "swell",
     "explorers": [
       {
-        "name": "swell-l2-testnet",
-        "icon": "swell",
+        "name": "Swellchain Explorer",
+        "url": "https://explorer.swellnetwork.io",
+        "standard": "none"
+      }
+    ],
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "Canonical contracts",
+            "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4"
+          ],
+          [
+            "EIP-155 contracts",
+            "0x017062a1dE2FE6b99BE3d9d37841FeD19F573804"
+          ]
+        ],
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "Canonical contracts",
+            "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4"
+          ],
+          [
+            "EIP-155 contracts",
+            "0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d"
+          ]
+        ],
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "gnosis_safe",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "Canonical contracts",
+            "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552"
+          ],
+          [
+            "EIP-155 contracts",
+            "0x69f4D1788e39c87893C980c06EdF4b7f686e2938"
+          ]
+        ],
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "gnosis_safe_l2",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "Canonical contracts",
+            "0x3E5c63644E683549055b9Be8653de26E0B4CD36E"
+          ],
+          [
+            "EIP-155 contracts",
+            "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA"
+          ]
+        ],
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "Canonical contracts",
+            "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761"
+          ],
+          [
+            "EIP-155 contracts",
+            "0x998739BFdAAdde7C933B942a68053933098f9EDa"
+          ]
+        ],
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "Canonical contracts",
+            "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D"
+          ],
+          [
+            "EIP-155 contracts",
+            "0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B"
+          ]
+        ],
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "proxy_factory",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "Canonical contracts",
+            "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2"
+          ],
+          [
+            "EIP-155 contracts",
+            "0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC"
+          ]
+        ],
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "Canonical contracts",
+            "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2"
+          ],
+          [
+            "EIP-155 contracts",
+            "0x98FFBBF51bb33A056B08ddf711f289936AafF717"
+          ]
+        ],
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "Canonical contracts",
+            "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da"
+          ],
+          [
+            "EIP-155 contracts",
+            "0x727a77a074D1E6c4530e814F89E618a3298FC044"
+          ]
+        ],
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "1923",
+        "chainName": "Swellchain",
+        "blockExplorerUrl": "https://explorer.swellnetwork.io"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
+    "name": "Swellchain Testnet",
+    "chain": "ETH",
+    "rpc": [
+      "https://swell-testnet.alt.technology",
+      "https://rpc.ankr.com/swell-testnet"
+    ],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "infoURL": "https://app.swellnetwork.io/layer2/swell-l2",
+    "shortName": "swellchain-sep",
+    "chainId": 1924,
+    "networkId": 1924,
+    "icon": "swell",
+    "explorers": [
+      {
+        "name": "Swellchain Testnet Explorer",
         "url": "https://swell-testnet-explorer.alt.technology",
         "standard": "none"
       }
@@ -18982,7 +20474,7 @@
           ]
         ],
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -18999,7 +20491,7 @@
           ]
         ],
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19016,7 +20508,7 @@
           ]
         ],
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19033,7 +20525,7 @@
           ]
         ],
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19050,7 +20542,7 @@
           ]
         ],
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19067,7 +20559,7 @@
           ]
         ],
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19084,7 +20576,7 @@
           ]
         ],
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19101,7 +20593,7 @@
           ]
         ],
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19118,7 +20610,7 @@
           ]
         ],
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19126,7 +20618,7 @@
         "version": "v1.4.1",
         "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19134,7 +20626,7 @@
         "version": "v1.4.1",
         "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19142,7 +20634,7 @@
         "version": "v1.4.1",
         "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19150,7 +20642,7 @@
         "version": "v1.4.1",
         "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19158,7 +20650,7 @@
         "version": "v1.4.1",
         "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19166,7 +20658,7 @@
         "version": "v1.4.1",
         "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19174,7 +20666,7 @@
         "version": "v1.4.1",
         "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19182,7 +20674,7 @@
         "version": "v1.4.1",
         "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19190,7 +20682,7 @@
         "version": "v1.4.1",
         "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19198,7 +20690,7 @@
         "version": "v1.4.1",
         "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19206,7 +20698,7 @@
         "version": "v1.4.1",
         "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       },
       {
@@ -19214,7 +20706,7 @@
         "version": "v1.4.1",
         "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
         "chainId": "1924",
-        "chainName": "Swell Network Testnet",
+        "chainName": "Swellchain Testnet",
         "blockExplorerUrl": "https://swell-testnet-explorer.alt.technology"
       }
     ],
@@ -22299,13 +23791,8 @@
     "slip44": 1,
     "explorers": [
       {
-        "name": "3xpl",
-        "url": "https://3xpl.com/botanix",
-        "standard": "EIP3091"
-      },
-      {
-        "name": "Blockscout",
-        "url": "https://blockscout.botanixlabs.dev",
+        "name": "Botanix Explorer",
+        "url": "https://testnet.botanixscan.io",
         "standard": "EIP3091"
       }
     ],
@@ -22316,7 +23803,7 @@
         "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
         "chainId": "3636",
         "chainName": "Botanix Testnet",
-        "blockExplorerUrl": "https://3xpl.com/botanix"
+        "blockExplorerUrl": "https://testnet.botanixscan.io"
       },
       {
         "name": "create_call",
@@ -22324,7 +23811,7 @@
         "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
         "chainId": "3636",
         "chainName": "Botanix Testnet",
-        "blockExplorerUrl": "https://3xpl.com/botanix"
+        "blockExplorerUrl": "https://testnet.botanixscan.io"
       },
       {
         "name": "multi_send",
@@ -22332,7 +23819,7 @@
         "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
         "chainId": "3636",
         "chainName": "Botanix Testnet",
-        "blockExplorerUrl": "https://3xpl.com/botanix"
+        "blockExplorerUrl": "https://testnet.botanixscan.io"
       },
       {
         "name": "multi_send_call_only",
@@ -22340,7 +23827,7 @@
         "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
         "chainId": "3636",
         "chainName": "Botanix Testnet",
-        "blockExplorerUrl": "https://3xpl.com/botanix"
+        "blockExplorerUrl": "https://testnet.botanixscan.io"
       },
       {
         "name": "safe",
@@ -22348,7 +23835,7 @@
         "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
         "chainId": "3636",
         "chainName": "Botanix Testnet",
-        "blockExplorerUrl": "https://3xpl.com/botanix"
+        "blockExplorerUrl": "https://testnet.botanixscan.io"
       },
       {
         "name": "safe_l2",
@@ -22356,7 +23843,7 @@
         "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
         "chainId": "3636",
         "chainName": "Botanix Testnet",
-        "blockExplorerUrl": "https://3xpl.com/botanix"
+        "blockExplorerUrl": "https://testnet.botanixscan.io"
       },
       {
         "name": "safe_proxy_factory",
@@ -22364,7 +23851,7 @@
         "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
         "chainId": "3636",
         "chainName": "Botanix Testnet",
-        "blockExplorerUrl": "https://3xpl.com/botanix"
+        "blockExplorerUrl": "https://testnet.botanixscan.io"
       },
       {
         "name": "sign_message_lib",
@@ -22372,7 +23859,7 @@
         "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
         "chainId": "3636",
         "chainName": "Botanix Testnet",
-        "blockExplorerUrl": "https://3xpl.com/botanix"
+        "blockExplorerUrl": "https://testnet.botanixscan.io"
       },
       {
         "name": "simulate_tx_accessor",
@@ -22380,7 +23867,7 @@
         "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
         "chainId": "3636",
         "chainName": "Botanix Testnet",
-        "blockExplorerUrl": "https://3xpl.com/botanix"
+        "blockExplorerUrl": "https://testnet.botanixscan.io"
       }
     ],
     "modules": [],
@@ -22848,6 +24335,142 @@
         "chainId": "4002",
         "chainName": "Fantom Testnet",
         "blockExplorerUrl": "https://testnet.ftmscan.com"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
+    "name": "Nahmii 3 Mainnet",
+    "chain": "Nahmii",
+    "rpc": [
+      "https://rpc.n3.nahmii.io"
+    ],
+    "status": "active",
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "infoURL": "https://nahmii.io",
+    "shortName": "Nahmii3Mainnet",
+    "chainId": 4061,
+    "networkId": 4061,
+    "icon": "nahmii",
+    "explorers": [
+      {
+        "name": "Nahmii 3 Mainnet Explorer",
+        "url": "https://explorer.nahmii.io",
+        "icon": "nahmii",
+        "standard": "EIP3091"
+      }
+    ],
+    "parent": {
+      "type": "L2",
+      "chain": "eip155-1",
+      "bridges": [
+        {
+          "url": "https://accounts.nahmii.io"
+        }
+      ]
+    },
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "4061",
+        "chainName": "Nahmii 3 Mainnet",
+        "blockExplorerUrl": "https://explorer.nahmii.io"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "4061",
+        "chainName": "Nahmii 3 Mainnet",
+        "blockExplorerUrl": "https://explorer.nahmii.io"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "4061",
+        "chainName": "Nahmii 3 Mainnet",
+        "blockExplorerUrl": "https://explorer.nahmii.io"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "4061",
+        "chainName": "Nahmii 3 Mainnet",
+        "blockExplorerUrl": "https://explorer.nahmii.io"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "4061",
+        "chainName": "Nahmii 3 Mainnet",
+        "blockExplorerUrl": "https://explorer.nahmii.io"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "4061",
+        "chainName": "Nahmii 3 Mainnet",
+        "blockExplorerUrl": "https://explorer.nahmii.io"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "4061",
+        "chainName": "Nahmii 3 Mainnet",
+        "blockExplorerUrl": "https://explorer.nahmii.io"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "4061",
+        "chainName": "Nahmii 3 Mainnet",
+        "blockExplorerUrl": "https://explorer.nahmii.io"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "4061",
+        "chainName": "Nahmii 3 Mainnet",
+        "blockExplorerUrl": "https://explorer.nahmii.io"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "4061",
+        "chainName": "Nahmii 3 Mainnet",
+        "blockExplorerUrl": "https://explorer.nahmii.io"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "4061",
+        "chainName": "Nahmii 3 Mainnet",
+        "blockExplorerUrl": "https://explorer.nahmii.io"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "4061",
+        "chainName": "Nahmii 3 Mainnet",
+        "blockExplorerUrl": "https://explorer.nahmii.io"
       }
     ],
     "modules": [],
@@ -23782,7 +25405,7 @@
     "name": "Orderly Sepolia Testnet",
     "chain": "ETH",
     "rpc": [
-      "https://l2-orderly-l2-4460-sepolia-8tc3sd7dvy.t.conduit.xyz"
+      "https://testnet-rpc.orderly.org"
     ],
     "faucets": [],
     "nativeCurrency": {
@@ -23790,7 +25413,7 @@
       "symbol": "ETH",
       "decimals": 18
     },
-    "infoURL": "www.orderly.network",
+    "infoURL": "https://orderly.network",
     "shortName": "orderlyl2",
     "chainId": 4460,
     "networkId": 4460,
@@ -23799,7 +25422,7 @@
     "explorers": [
       {
         "name": "basescout",
-        "url": "https://explorerl2new-orderly-l2-4460-sepolia-8tc3sd7dvy.t.conduit.xyz",
+        "url": "https://testnet-explorer.orderly.org",
         "icon": "blockscout",
         "standard": "EIP3091"
       }
@@ -23811,7 +25434,7 @@
         "address": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
         "chainId": "4460",
         "chainName": "Orderly Sepolia Testnet",
-        "blockExplorerUrl": "https://explorerl2new-orderly-l2-4460-sepolia-8tc3sd7dvy.t.conduit.xyz"
+        "blockExplorerUrl": "https://testnet-explorer.orderly.org"
       },
       {
         "name": "create_call",
@@ -23819,7 +25442,7 @@
         "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
         "chainId": "4460",
         "chainName": "Orderly Sepolia Testnet",
-        "blockExplorerUrl": "https://explorerl2new-orderly-l2-4460-sepolia-8tc3sd7dvy.t.conduit.xyz"
+        "blockExplorerUrl": "https://testnet-explorer.orderly.org"
       },
       {
         "name": "gnosis_safe",
@@ -23827,7 +25450,7 @@
         "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         "chainId": "4460",
         "chainName": "Orderly Sepolia Testnet",
-        "blockExplorerUrl": "https://explorerl2new-orderly-l2-4460-sepolia-8tc3sd7dvy.t.conduit.xyz"
+        "blockExplorerUrl": "https://testnet-explorer.orderly.org"
       },
       {
         "name": "gnosis_safe_l2",
@@ -23835,7 +25458,7 @@
         "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
         "chainId": "4460",
         "chainName": "Orderly Sepolia Testnet",
-        "blockExplorerUrl": "https://explorerl2new-orderly-l2-4460-sepolia-8tc3sd7dvy.t.conduit.xyz"
+        "blockExplorerUrl": "https://testnet-explorer.orderly.org"
       },
       {
         "name": "multi_send",
@@ -23843,7 +25466,7 @@
         "address": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
         "chainId": "4460",
         "chainName": "Orderly Sepolia Testnet",
-        "blockExplorerUrl": "https://explorerl2new-orderly-l2-4460-sepolia-8tc3sd7dvy.t.conduit.xyz"
+        "blockExplorerUrl": "https://testnet-explorer.orderly.org"
       },
       {
         "name": "multi_send_call_only",
@@ -23851,7 +25474,7 @@
         "address": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
         "chainId": "4460",
         "chainName": "Orderly Sepolia Testnet",
-        "blockExplorerUrl": "https://explorerl2new-orderly-l2-4460-sepolia-8tc3sd7dvy.t.conduit.xyz"
+        "blockExplorerUrl": "https://testnet-explorer.orderly.org"
       },
       {
         "name": "proxy_factory",
@@ -23859,7 +25482,7 @@
         "address": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
         "chainId": "4460",
         "chainName": "Orderly Sepolia Testnet",
-        "blockExplorerUrl": "https://explorerl2new-orderly-l2-4460-sepolia-8tc3sd7dvy.t.conduit.xyz"
+        "blockExplorerUrl": "https://testnet-explorer.orderly.org"
       },
       {
         "name": "sign_message_lib",
@@ -23867,7 +25490,7 @@
         "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
         "chainId": "4460",
         "chainName": "Orderly Sepolia Testnet",
-        "blockExplorerUrl": "https://explorerl2new-orderly-l2-4460-sepolia-8tc3sd7dvy.t.conduit.xyz"
+        "blockExplorerUrl": "https://testnet-explorer.orderly.org"
       },
       {
         "name": "simulate_tx_accessor",
@@ -23875,7 +25498,7 @@
         "address": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
         "chainId": "4460",
         "chainName": "Orderly Sepolia Testnet",
-        "blockExplorerUrl": "https://explorerl2new-orderly-l2-4460-sepolia-8tc3sd7dvy.t.conduit.xyz"
+        "blockExplorerUrl": "https://testnet-explorer.orderly.org"
       }
     ],
     "modules": [],
@@ -24044,6 +25667,214 @@
         "chainId": "4653",
         "chainName": "Gold Chain",
         "blockExplorerUrl": ""
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
+    "name": "AppChain Testnet",
+    "chain": "AppChain Testnet",
+    "rpc": [
+      "https://appchaintestnet.rpc.caldera.xyz/http",
+      "wss://appchaintestnet.rpc.caldera.xyz/ws"
+    ],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "infoURL": "https://appchain.xyz",
+    "shortName": "appchaintestnet",
+    "chainId": 4661,
+    "networkId": 4661,
+    "icon": "appchain",
+    "explorers": [
+      {
+        "name": "AppChain Testnet Explorer",
+        "url": "https://appchaintestnet.explorer.caldera.xyz",
+        "icon": "blockscout",
+        "standard": "EIP3091"
+      }
+    ],
+    "parent": {
+      "type": "L2",
+      "chain": "eip155-11155111",
+      "bridges": [
+        {
+          "url": "https://appchaintestnet.bridge.caldera.xyz"
+        }
+      ]
+    },
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.3.0",
+        "address": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.3.0",
+        "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "gnosis_safe",
+        "version": "v1.3.0",
+        "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "gnosis_safe_l2",
+        "version": "v1.3.0",
+        "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.3.0",
+        "address": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.3.0",
+        "address": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "proxy_factory",
+        "version": "v1.3.0",
+        "address": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.3.0",
+        "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.3.0",
+        "address": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "4661",
+        "chainName": "AppChain Testnet",
+        "blockExplorerUrl": "https://appchaintestnet.explorer.caldera.xyz"
       }
     ],
     "modules": [],
@@ -27842,6 +29673,102 @@
         "chainId": "8217",
         "chainName": "Kaia Mainnet",
         "blockExplorerUrl": "https://kaiascope.com"
+      },
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "8217",
+        "chainName": "Kaia Mainnet",
+        "blockExplorerUrl": "https://kaiascope.com"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "8217",
+        "chainName": "Kaia Mainnet",
+        "blockExplorerUrl": "https://kaiascope.com"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "8217",
+        "chainName": "Kaia Mainnet",
+        "blockExplorerUrl": "https://kaiascope.com"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "8217",
+        "chainName": "Kaia Mainnet",
+        "blockExplorerUrl": "https://kaiascope.com"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "8217",
+        "chainName": "Kaia Mainnet",
+        "blockExplorerUrl": "https://kaiascope.com"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "8217",
+        "chainName": "Kaia Mainnet",
+        "blockExplorerUrl": "https://kaiascope.com"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "8217",
+        "chainName": "Kaia Mainnet",
+        "blockExplorerUrl": "https://kaiascope.com"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "8217",
+        "chainName": "Kaia Mainnet",
+        "blockExplorerUrl": "https://kaiascope.com"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "8217",
+        "chainName": "Kaia Mainnet",
+        "blockExplorerUrl": "https://kaiascope.com"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "8217",
+        "chainName": "Kaia Mainnet",
+        "blockExplorerUrl": "https://kaiascope.com"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "8217",
+        "chainName": "Kaia Mainnet",
+        "blockExplorerUrl": "https://kaiascope.com"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "8217",
+        "chainName": "Kaia Mainnet",
+        "blockExplorerUrl": "https://kaiascope.com"
       }
     ],
     "modules": [],
@@ -27995,6 +29922,11 @@
         "name": "dexguru",
         "url": "https://base.dex.guru",
         "icon": "dexguru",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Routescan",
+        "url": "https://base.superscan.network",
         "standard": "EIP3091"
       }
     ],
@@ -33373,6 +35305,118 @@
     "iconUrl": "/unknown-logo.png"
   },
   {
+    "name": "Mezo Matsnet Testnet",
+    "chain": "Mezo",
+    "icon": "mezo",
+    "rpc": [
+      "https://rpc.test.mezo.org"
+    ],
+    "faucets": [
+      "https://mezo.org/matsnet"
+    ],
+    "nativeCurrency": {
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "decimals": 18
+    },
+    "features": [
+      {
+        "name": "EIP155"
+      },
+      {
+        "name": "EIP1559"
+      }
+    ],
+    "infoURL": "https://mezo.org/",
+    "shortName": "mezo",
+    "chainId": 31611,
+    "networkId": 31611,
+    "explorers": [
+      {
+        "name": "blockscout",
+        "url": "https://explorer.test.mezo.org",
+        "icon": "blockscout",
+        "standard": "EIP3091"
+      }
+    ],
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.3.0",
+        "address": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
+        "chainId": "31611",
+        "chainName": "Mezo Matsnet Testnet",
+        "blockExplorerUrl": "https://explorer.test.mezo.org"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.3.0",
+        "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+        "chainId": "31611",
+        "chainName": "Mezo Matsnet Testnet",
+        "blockExplorerUrl": "https://explorer.test.mezo.org"
+      },
+      {
+        "name": "gnosis_safe",
+        "version": "v1.3.0",
+        "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        "chainId": "31611",
+        "chainName": "Mezo Matsnet Testnet",
+        "blockExplorerUrl": "https://explorer.test.mezo.org"
+      },
+      {
+        "name": "gnosis_safe_l2",
+        "version": "v1.3.0",
+        "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
+        "chainId": "31611",
+        "chainName": "Mezo Matsnet Testnet",
+        "blockExplorerUrl": "https://explorer.test.mezo.org"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.3.0",
+        "address": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+        "chainId": "31611",
+        "chainName": "Mezo Matsnet Testnet",
+        "blockExplorerUrl": "https://explorer.test.mezo.org"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.3.0",
+        "address": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
+        "chainId": "31611",
+        "chainName": "Mezo Matsnet Testnet",
+        "blockExplorerUrl": "https://explorer.test.mezo.org"
+      },
+      {
+        "name": "proxy_factory",
+        "version": "v1.3.0",
+        "address": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
+        "chainId": "31611",
+        "chainName": "Mezo Matsnet Testnet",
+        "blockExplorerUrl": "https://explorer.test.mezo.org"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.3.0",
+        "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
+        "chainId": "31611",
+        "chainName": "Mezo Matsnet Testnet",
+        "blockExplorerUrl": "https://explorer.test.mezo.org"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.3.0",
+        "address": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
+        "chainId": "31611",
+        "chainName": "Mezo Matsnet Testnet",
+        "blockExplorerUrl": "https://explorer.test.mezo.org"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
     "name": "Zilliqa EVM",
     "chain": "ZIL",
     "rpc": [
@@ -33672,6 +35716,102 @@
         "chainId": "33139",
         "chainName": "ApeChain",
         "blockExplorerUrl": "https://apescan.io"
+      },
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "33139",
+        "chainName": "ApeChain",
+        "blockExplorerUrl": "https://apescan.io"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "33139",
+        "chainName": "ApeChain",
+        "blockExplorerUrl": "https://apescan.io"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "33139",
+        "chainName": "ApeChain",
+        "blockExplorerUrl": "https://apescan.io"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "33139",
+        "chainName": "ApeChain",
+        "blockExplorerUrl": "https://apescan.io"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "33139",
+        "chainName": "ApeChain",
+        "blockExplorerUrl": "https://apescan.io"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "33139",
+        "chainName": "ApeChain",
+        "blockExplorerUrl": "https://apescan.io"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "33139",
+        "chainName": "ApeChain",
+        "blockExplorerUrl": "https://apescan.io"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "33139",
+        "chainName": "ApeChain",
+        "blockExplorerUrl": "https://apescan.io"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "33139",
+        "chainName": "ApeChain",
+        "blockExplorerUrl": "https://apescan.io"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "33139",
+        "chainName": "ApeChain",
+        "blockExplorerUrl": "https://apescan.io"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "33139",
+        "chainName": "ApeChain",
+        "blockExplorerUrl": "https://apescan.io"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "33139",
+        "chainName": "ApeChain",
+        "blockExplorerUrl": "https://apescan.io"
       }
     ],
     "modules": [],
@@ -33807,6 +35947,11 @@
       {
         "name": "modescout",
         "url": "https://explorer.mode.network",
+        "standard": "none"
+      },
+      {
+        "name": "Routescan",
+        "url": "https://modescan.io",
         "standard": "none"
       }
     ],
@@ -35709,6 +37854,281 @@
     "iconUrl": "/unknown-logo.png"
   },
   {
+    "name": "Hemi Network",
+    "chain": "ETH",
+    "rpc": [],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "infoURL": "https://hemi.xyz",
+    "shortName": "hemi",
+    "chainId": 43111,
+    "networkId": 43111,
+    "icon": "hemi",
+    "explorers": [],
+    "parent": {
+      "type": "L2",
+      "chain": "eip155-1"
+    },
+    "status": "incubating",
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0x017062a1dE2FE6b99BE3d9d37841FeD19F573804"
+          ],
+          [
+            "Canonical contracts",
+            "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4"
+          ]
+        ],
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "create_call",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d"
+          ],
+          [
+            "Canonical contracts",
+            "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4"
+          ]
+        ],
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "gnosis_safe",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0x69f4D1788e39c87893C980c06EdF4b7f686e2938"
+          ],
+          [
+            "Canonical contracts",
+            "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552"
+          ]
+        ],
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "gnosis_safe_l2",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA"
+          ],
+          [
+            "Canonical contracts",
+            "0x3E5c63644E683549055b9Be8653de26E0B4CD36E"
+          ]
+        ],
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0x998739BFdAAdde7C933B942a68053933098f9EDa"
+          ],
+          [
+            "Canonical contracts",
+            "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761"
+          ]
+        ],
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B"
+          ],
+          [
+            "Canonical contracts",
+            "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D"
+          ]
+        ],
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "proxy_factory",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC"
+          ],
+          [
+            "Canonical contracts",
+            "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2"
+          ]
+        ],
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0x98FFBBF51bb33A056B08ddf711f289936AafF717"
+          ],
+          [
+            "Canonical contracts",
+            "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2"
+          ]
+        ],
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.3.0",
+        "addresses": [
+          [
+            "EIP-155 contracts",
+            "0x727a77a074D1E6c4530e814F89E618a3298FC044"
+          ],
+          [
+            "Canonical contracts",
+            "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da"
+          ]
+        ],
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "43111",
+        "chainName": "Hemi Network",
+        "blockExplorerUrl": ""
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
     "name": "Avalanche Fuji Testnet",
     "chain": "AVAX",
     "icon": "avax",
@@ -35732,13 +38152,18 @@
     "slip44": 1,
     "explorers": [
       {
-        "name": "snowscan-testnet",
+        "name": "Etherscan",
         "url": "https://testnet.snowscan.xyz",
         "standard": "EIP3091"
       },
       {
-        "name": "snowtrace",
+        "name": "Routescan",
         "url": "https://testnet.snowtrace.io",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Avascan",
+        "url": "https://testnet.avascan.info",
         "standard": "EIP3091"
       }
     ],
@@ -35927,13 +38352,18 @@
     "slip44": 9005,
     "explorers": [
       {
-        "name": "snowscan",
+        "name": "Etherscan",
         "url": "https://snowscan.xyz",
         "standard": "EIP3091"
       },
       {
-        "name": "snowtrace",
+        "name": "Routescan",
         "url": "https://snowtrace.io",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Avascan",
+        "url": "https://avascan.info",
         "standard": "EIP3091"
       }
     ],
@@ -37596,6 +40026,312 @@
     ],
     "modules": [],
     "iconUrl": "/unknown-logo.png"
+  },
+  {
+    "name": "Sonic Blaze Testnet",
+    "chain": "blaze-testnet",
+    "rpc": [
+      "https://rpc.blaze.soniclabs.com"
+    ],
+    "faucets": [
+      "https://blaze.soniclabs.com/account"
+    ],
+    "nativeCurrency": {
+      "name": "Sonic",
+      "symbol": "S",
+      "decimals": 18
+    },
+    "features": [
+      {
+        "name": "EIP155"
+      }
+    ],
+    "infoURL": "https://blaze.soniclabs.com",
+    "shortName": "blaze",
+    "chainId": 57054,
+    "networkId": 57054,
+    "icon": "sonic",
+    "explorers": [
+      {
+        "name": "sonic blaze testnet",
+        "url": "https://explorer.blaze.soniclabs.com",
+        "icon": "sonic",
+        "standard": "none"
+      }
+    ],
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.3.0",
+        "address": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
+        "chainId": "57054",
+        "chainName": "Sonic Blaze Testnet",
+        "blockExplorerUrl": "https://explorer.blaze.soniclabs.com"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.3.0",
+        "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+        "chainId": "57054",
+        "chainName": "Sonic Blaze Testnet",
+        "blockExplorerUrl": "https://explorer.blaze.soniclabs.com"
+      },
+      {
+        "name": "gnosis_safe",
+        "version": "v1.3.0",
+        "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        "chainId": "57054",
+        "chainName": "Sonic Blaze Testnet",
+        "blockExplorerUrl": "https://explorer.blaze.soniclabs.com"
+      },
+      {
+        "name": "gnosis_safe_l2",
+        "version": "v1.3.0",
+        "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
+        "chainId": "57054",
+        "chainName": "Sonic Blaze Testnet",
+        "blockExplorerUrl": "https://explorer.blaze.soniclabs.com"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.3.0",
+        "address": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+        "chainId": "57054",
+        "chainName": "Sonic Blaze Testnet",
+        "blockExplorerUrl": "https://explorer.blaze.soniclabs.com"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.3.0",
+        "address": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
+        "chainId": "57054",
+        "chainName": "Sonic Blaze Testnet",
+        "blockExplorerUrl": "https://explorer.blaze.soniclabs.com"
+      },
+      {
+        "name": "proxy_factory",
+        "version": "v1.3.0",
+        "address": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
+        "chainId": "57054",
+        "chainName": "Sonic Blaze Testnet",
+        "blockExplorerUrl": "https://explorer.blaze.soniclabs.com"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.3.0",
+        "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
+        "chainId": "57054",
+        "chainName": "Sonic Blaze Testnet",
+        "blockExplorerUrl": "https://explorer.blaze.soniclabs.com"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.3.0",
+        "address": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
+        "chainId": "57054",
+        "chainName": "Sonic Blaze Testnet",
+        "blockExplorerUrl": "https://explorer.blaze.soniclabs.com"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/refs/heads/master/128/blaze.png"
+  },
+  {
+    "name": "Ink",
+    "chain": "ETH",
+    "rpc": [],
+    "faucets": [],
+    "features": [
+      {
+        "name": "EIP155"
+      },
+      {
+        "name": "EIP1559"
+      }
+    ],
+    "nativeCurrency": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "infoURL": "https://inkonchain.com",
+    "shortName": "ink",
+    "chainId": 57073,
+    "networkId": 57073,
+    "explorers": [],
+    "status": "incubating",
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.3.0",
+        "address": "0x017062a1dE2FE6b99BE3d9d37841FeD19F573804",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "create_call",
+        "version": "v1.3.0",
+        "address": "0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "gnosis_safe",
+        "version": "v1.3.0",
+        "address": "0x69f4D1788e39c87893C980c06EdF4b7f686e2938",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "gnosis_safe_l2",
+        "version": "v1.3.0",
+        "address": "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.3.0",
+        "address": "0x998739BFdAAdde7C933B942a68053933098f9EDa",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.3.0",
+        "address": "0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "proxy_factory",
+        "version": "v1.3.0",
+        "address": "0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.3.0",
+        "address": "0x98FFBBF51bb33A056B08ddf711f289936AafF717",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.3.0",
+        "address": "0x727a77a074D1E6c4530e814F89E618a3298FC044",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "57073",
+        "chainName": "Ink",
+        "blockExplorerUrl": ""
+      }
+    ],
+    "modules": [],
+    "iconUrl": "https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/refs/heads/master/128/ink.png"
   },
   {
     "name": "Sepolia PGN (Public Goods Network)",
@@ -40806,6 +43542,277 @@
     "iconUrl": "/unknown-logo.png"
   },
   {
+    "name": "Plume Devnet",
+    "title": "Plume Sepolia L2 Rollup Devnet",
+    "chain": "ETH",
+    "rpc": [
+      "https://test-rpc.plumenetwork.xyz",
+      "wss://test-rpc.plumenetwork.xyz"
+    ],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "Plume Sepolia Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "infoURL": "https://www.plumenetwork.xyz/",
+    "shortName": "plume-devnet",
+    "chainId": 98864,
+    "networkId": 98864,
+    "slip44": 1,
+    "icon": "plume",
+    "explorers": [
+      {
+        "name": "Blockscout",
+        "url": "https://test-explorer.plumenetwork.xyz",
+        "icon": "blockscout",
+        "standard": "EIP3091"
+      }
+    ],
+    "parent": {
+      "type": "L2",
+      "chain": "eip155-11155111"
+    },
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "98864",
+        "chainName": "Plume Devnet",
+        "blockExplorerUrl": "https://test-explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "98864",
+        "chainName": "Plume Devnet",
+        "blockExplorerUrl": "https://test-explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "98864",
+        "chainName": "Plume Devnet",
+        "blockExplorerUrl": "https://test-explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "98864",
+        "chainName": "Plume Devnet",
+        "blockExplorerUrl": "https://test-explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "98864",
+        "chainName": "Plume Devnet",
+        "blockExplorerUrl": "https://test-explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "98864",
+        "chainName": "Plume Devnet",
+        "blockExplorerUrl": "https://test-explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "98864",
+        "chainName": "Plume Devnet",
+        "blockExplorerUrl": "https://test-explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "98864",
+        "chainName": "Plume Devnet",
+        "blockExplorerUrl": "https://test-explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "98864",
+        "chainName": "Plume Devnet",
+        "blockExplorerUrl": "https://test-explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "98864",
+        "chainName": "Plume Devnet",
+        "blockExplorerUrl": "https://test-explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "98864",
+        "chainName": "Plume Devnet",
+        "blockExplorerUrl": "https://test-explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "98864",
+        "chainName": "Plume Devnet",
+        "blockExplorerUrl": "https://test-explorer.plumenetwork.xyz"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
+    "name": "Plume Mainnet",
+    "title": "Plume Ethereum L2 Rollup Mainnet",
+    "chain": "ETH",
+    "rpc": [
+      "https://rpc.plumenetwork.xyz",
+      "wss://rpc.plumenetwork.xyz"
+    ],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "Plume Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "infoURL": "https://www.plumenetwork.xyz/",
+    "shortName": "plume",
+    "chainId": 98865,
+    "networkId": 98865,
+    "slip44": 1,
+    "icon": "plume",
+    "explorers": [
+      {
+        "name": "Blockscout",
+        "url": "https://explorer.plumenetwork.xyz",
+        "icon": "blockscout",
+        "standard": "EIP3091"
+      }
+    ],
+    "parent": {
+      "type": "L2",
+      "chain": "eip155-11155111",
+      "bridges": [
+        {
+          "url": "https://bridge.plumenetwork.xyz"
+        }
+      ]
+    },
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "98865",
+        "chainName": "Plume Mainnet",
+        "blockExplorerUrl": "https://explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "98865",
+        "chainName": "Plume Mainnet",
+        "blockExplorerUrl": "https://explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "98865",
+        "chainName": "Plume Mainnet",
+        "blockExplorerUrl": "https://explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "98865",
+        "chainName": "Plume Mainnet",
+        "blockExplorerUrl": "https://explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "98865",
+        "chainName": "Plume Mainnet",
+        "blockExplorerUrl": "https://explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "98865",
+        "chainName": "Plume Mainnet",
+        "blockExplorerUrl": "https://explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "98865",
+        "chainName": "Plume Mainnet",
+        "blockExplorerUrl": "https://explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "98865",
+        "chainName": "Plume Mainnet",
+        "blockExplorerUrl": "https://explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "98865",
+        "chainName": "Plume Mainnet",
+        "blockExplorerUrl": "https://explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "98865",
+        "chainName": "Plume Mainnet",
+        "blockExplorerUrl": "https://explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "98865",
+        "chainName": "Plume Mainnet",
+        "blockExplorerUrl": "https://explorer.plumenetwork.xyz"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "98865",
+        "chainName": "Plume Mainnet",
+        "blockExplorerUrl": "https://explorer.plumenetwork.xyz"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
     "name": "Masa Testnet",
     "chain": "MASA",
     "icon": "masa",
@@ -41418,6 +44425,11 @@
         "name": "etherscan",
         "url": "https://taikoscan.io",
         "standard": "EIP3091"
+      },
+      {
+        "name": "Routescan",
+        "url": "https://taikoexplorer.com",
+        "standard": "EIP3091"
       }
     ],
     "smartAccounts": [
@@ -41772,8 +44784,8 @@
         "standard": "EIP3091"
       },
       {
-        "name": "routescan",
-        "url": "https://hekla.taikoscan.network",
+        "name": "Routescan",
+        "url": "https://hekla.taikoexplorer.com",
         "standard": "EIP3091"
       }
     ],
@@ -42527,9 +45539,33 @@
         "blockExplorerUrl": "https://calibration.filscan.io"
       },
       {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "314159",
+        "chainName": "Filecoin - Calibration testnet",
+        "blockExplorerUrl": "https://calibration.filscan.io"
+      },
+      {
         "name": "safe_proxy_factory",
         "version": "v1.4.1",
         "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "314159",
+        "chainName": "Filecoin - Calibration testnet",
+        "blockExplorerUrl": "https://calibration.filscan.io"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "314159",
+        "chainName": "Filecoin - Calibration testnet",
+        "blockExplorerUrl": "https://calibration.filscan.io"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
         "chainId": "314159",
         "chainName": "Filecoin - Calibration testnet",
         "blockExplorerUrl": "https://calibration.filscan.io"
@@ -42751,6 +45787,131 @@
     ],
     "modules": [],
     "iconUrl": "https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/refs/heads/master/128/olympus.png"
+  },
+  {
+    "name": "Metal C-Chain",
+    "chain": "Metal",
+    "rpc": [
+      "https://api.metalblockchain.org/ext/bc/C/rpc"
+    ],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "Metal",
+      "symbol": "METAL",
+      "decimals": 18
+    },
+    "infoURL": "https://www.metalblockchain.org/",
+    "shortName": "metal",
+    "chainId": 381931,
+    "networkId": 381931,
+    "slip44": 9005,
+    "explorers": [
+      {
+        "name": "metalscan",
+        "url": "https://metalscan.io",
+        "standard": "EIP3091"
+      }
+    ],
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "381931",
+        "chainName": "Metal C-Chain",
+        "blockExplorerUrl": "https://metalscan.io"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "381931",
+        "chainName": "Metal C-Chain",
+        "blockExplorerUrl": "https://metalscan.io"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "381931",
+        "chainName": "Metal C-Chain",
+        "blockExplorerUrl": "https://metalscan.io"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "381931",
+        "chainName": "Metal C-Chain",
+        "blockExplorerUrl": "https://metalscan.io"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "381931",
+        "chainName": "Metal C-Chain",
+        "blockExplorerUrl": "https://metalscan.io"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "381931",
+        "chainName": "Metal C-Chain",
+        "blockExplorerUrl": "https://metalscan.io"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "381931",
+        "chainName": "Metal C-Chain",
+        "blockExplorerUrl": "https://metalscan.io"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "381931",
+        "chainName": "Metal C-Chain",
+        "blockExplorerUrl": "https://metalscan.io"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "381931",
+        "chainName": "Metal C-Chain",
+        "blockExplorerUrl": "https://metalscan.io"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "381931",
+        "chainName": "Metal C-Chain",
+        "blockExplorerUrl": "https://metalscan.io"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "381931",
+        "chainName": "Metal C-Chain",
+        "blockExplorerUrl": "https://metalscan.io"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "381931",
+        "chainName": "Metal C-Chain",
+        "blockExplorerUrl": "https://metalscan.io"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/refs/heads/master/128/metal.png"
   },
   {
     "name": "Arbitrum Rinkeby",
@@ -44532,8 +47693,8 @@
     "iconUrl": "/unknown-logo.png"
   },
   {
-    "name": "Open Campus Codex",
-    "chain": "Open Campus Codex",
+    "name": "EDU Chain Testnet",
+    "chain": "EDU Chain Testnet",
     "icon": "open-campus-codex",
     "rpc": [
       "https://rpc.open-campus-codex.gelato.digital"
@@ -44551,7 +47712,7 @@
     "explorers": [
       {
         "name": "Open Campus Codex",
-        "url": "https://opencampus-codex.blockscout.com",
+        "url": "https://edu-chain-testnet.blockscout.com",
         "icon": "open-campus-codex",
         "standard": "none"
       }
@@ -44571,8 +47732,8 @@
           ]
         ],
         "chainId": "656476",
-        "chainName": "Open Campus Codex",
-        "blockExplorerUrl": "https://opencampus-codex.blockscout.com"
+        "chainName": "EDU Chain Testnet",
+        "blockExplorerUrl": "https://edu-chain-testnet.blockscout.com"
       },
       {
         "name": "create_call",
@@ -44588,8 +47749,8 @@
           ]
         ],
         "chainId": "656476",
-        "chainName": "Open Campus Codex",
-        "blockExplorerUrl": "https://opencampus-codex.blockscout.com"
+        "chainName": "EDU Chain Testnet",
+        "blockExplorerUrl": "https://edu-chain-testnet.blockscout.com"
       },
       {
         "name": "gnosis_safe",
@@ -44605,8 +47766,8 @@
           ]
         ],
         "chainId": "656476",
-        "chainName": "Open Campus Codex",
-        "blockExplorerUrl": "https://opencampus-codex.blockscout.com"
+        "chainName": "EDU Chain Testnet",
+        "blockExplorerUrl": "https://edu-chain-testnet.blockscout.com"
       },
       {
         "name": "gnosis_safe_l2",
@@ -44622,8 +47783,8 @@
           ]
         ],
         "chainId": "656476",
-        "chainName": "Open Campus Codex",
-        "blockExplorerUrl": "https://opencampus-codex.blockscout.com"
+        "chainName": "EDU Chain Testnet",
+        "blockExplorerUrl": "https://edu-chain-testnet.blockscout.com"
       },
       {
         "name": "multi_send",
@@ -44639,8 +47800,8 @@
           ]
         ],
         "chainId": "656476",
-        "chainName": "Open Campus Codex",
-        "blockExplorerUrl": "https://opencampus-codex.blockscout.com"
+        "chainName": "EDU Chain Testnet",
+        "blockExplorerUrl": "https://edu-chain-testnet.blockscout.com"
       },
       {
         "name": "multi_send_call_only",
@@ -44656,8 +47817,8 @@
           ]
         ],
         "chainId": "656476",
-        "chainName": "Open Campus Codex",
-        "blockExplorerUrl": "https://opencampus-codex.blockscout.com"
+        "chainName": "EDU Chain Testnet",
+        "blockExplorerUrl": "https://edu-chain-testnet.blockscout.com"
       },
       {
         "name": "proxy_factory",
@@ -44673,8 +47834,8 @@
           ]
         ],
         "chainId": "656476",
-        "chainName": "Open Campus Codex",
-        "blockExplorerUrl": "https://opencampus-codex.blockscout.com"
+        "chainName": "EDU Chain Testnet",
+        "blockExplorerUrl": "https://edu-chain-testnet.blockscout.com"
       },
       {
         "name": "sign_message_lib",
@@ -44690,8 +47851,8 @@
           ]
         ],
         "chainId": "656476",
-        "chainName": "Open Campus Codex",
-        "blockExplorerUrl": "https://opencampus-codex.blockscout.com"
+        "chainName": "EDU Chain Testnet",
+        "blockExplorerUrl": "https://edu-chain-testnet.blockscout.com"
       },
       {
         "name": "simulate_tx_accessor",
@@ -44707,8 +47868,8 @@
           ]
         ],
         "chainId": "656476",
-        "chainName": "Open Campus Codex",
-        "blockExplorerUrl": "https://opencampus-codex.blockscout.com"
+        "chainName": "EDU Chain Testnet",
+        "blockExplorerUrl": "https://edu-chain-testnet.blockscout.com"
       }
     ],
     "modules": [],
@@ -45650,6 +48811,140 @@
     "iconUrl": "/unknown-logo.png"
   },
   {
+    "name": "exSat Testnet",
+    "chain": "exSat",
+    "icon": "exsat",
+    "rpc": [
+      "https://evm-tst3.exsat.network"
+    ],
+    "faucets": [],
+    "nativeCurrency": {
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "decimals": 18
+    },
+    "infoURL": "https://exsat.network/",
+    "shortName": "txsat",
+    "chainId": 839999,
+    "networkId": 839999,
+    "explorers": [
+      {
+        "name": "exSat Testnet Explorer",
+        "url": "https://scan-testnet.exsat.network",
+        "standard": "EIP3091"
+      }
+    ],
+    "parent": {
+      "type": "L2",
+      "chain": "eip155-1",
+      "bridges": [
+        {
+          "url": ""
+        }
+      ]
+    },
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "839999",
+        "chainName": "exSat Testnet",
+        "blockExplorerUrl": "https://scan-testnet.exsat.network"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "839999",
+        "chainName": "exSat Testnet",
+        "blockExplorerUrl": "https://scan-testnet.exsat.network"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "839999",
+        "chainName": "exSat Testnet",
+        "blockExplorerUrl": "https://scan-testnet.exsat.network"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "839999",
+        "chainName": "exSat Testnet",
+        "blockExplorerUrl": "https://scan-testnet.exsat.network"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "839999",
+        "chainName": "exSat Testnet",
+        "blockExplorerUrl": "https://scan-testnet.exsat.network"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "839999",
+        "chainName": "exSat Testnet",
+        "blockExplorerUrl": "https://scan-testnet.exsat.network"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "839999",
+        "chainName": "exSat Testnet",
+        "blockExplorerUrl": "https://scan-testnet.exsat.network"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "839999",
+        "chainName": "exSat Testnet",
+        "blockExplorerUrl": "https://scan-testnet.exsat.network"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "839999",
+        "chainName": "exSat Testnet",
+        "blockExplorerUrl": "https://scan-testnet.exsat.network"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "839999",
+        "chainName": "exSat Testnet",
+        "blockExplorerUrl": "https://scan-testnet.exsat.network"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "839999",
+        "chainName": "exSat Testnet",
+        "blockExplorerUrl": "https://scan-testnet.exsat.network"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "839999",
+        "chainName": "exSat Testnet",
+        "blockExplorerUrl": "https://scan-testnet.exsat.network"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
     "name": "Treasure Ruby",
     "chainId": 978657,
     "shortName": "treasure-ruby",
@@ -45669,31 +48964,16 @@
         "name": "EIP1559"
       }
     ],
-    "infoURL": "https://portal.treasure.lol",
+    "infoURL": "https://app.treasure.lol",
     "icon": "treasureruby",
-    "rpc": [
-      "https://rpc-testnet.treasure.lol/http",
-      "wss://rpc-testnet.treasure.lol/ws"
-    ],
-    "faucets": [
-      "https://portal.treasure.lol/faucet"
-    ],
-    "explorers": [
-      {
-        "name": "treasurescan",
-        "url": "https://testnet.treasurescan.io",
-        "icon": "treasure",
-        "standard": "EIP3091"
-      }
-    ],
+    "rpc": [],
+    "faucets": [],
+    "status": "deprecated",
+    "explorers": [],
     "parent": {
       "type": "L2",
       "chain": "eip155-1",
-      "bridges": [
-        {
-          "url": "https://portal.treasure.lol/bridge"
-        }
-      ]
+      "bridges": []
     },
     "smartAccounts": [
       {
@@ -45702,7 +48982,7 @@
         "address": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
         "chainId": "978657",
         "chainName": "Treasure Ruby",
-        "blockExplorerUrl": "https://testnet.treasurescan.io"
+        "blockExplorerUrl": ""
       },
       {
         "name": "create_call",
@@ -45710,7 +48990,7 @@
         "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
         "chainId": "978657",
         "chainName": "Treasure Ruby",
-        "blockExplorerUrl": "https://testnet.treasurescan.io"
+        "blockExplorerUrl": ""
       },
       {
         "name": "gnosis_safe",
@@ -45718,7 +48998,7 @@
         "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         "chainId": "978657",
         "chainName": "Treasure Ruby",
-        "blockExplorerUrl": "https://testnet.treasurescan.io"
+        "blockExplorerUrl": ""
       },
       {
         "name": "gnosis_safe_l2",
@@ -45726,7 +49006,7 @@
         "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
         "chainId": "978657",
         "chainName": "Treasure Ruby",
-        "blockExplorerUrl": "https://testnet.treasurescan.io"
+        "blockExplorerUrl": ""
       },
       {
         "name": "multi_send",
@@ -45734,7 +49014,7 @@
         "address": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
         "chainId": "978657",
         "chainName": "Treasure Ruby",
-        "blockExplorerUrl": "https://testnet.treasurescan.io"
+        "blockExplorerUrl": ""
       },
       {
         "name": "multi_send_call_only",
@@ -45742,7 +49022,7 @@
         "address": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
         "chainId": "978657",
         "chainName": "Treasure Ruby",
-        "blockExplorerUrl": "https://testnet.treasurescan.io"
+        "blockExplorerUrl": ""
       },
       {
         "name": "proxy_factory",
@@ -45750,7 +49030,7 @@
         "address": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
         "chainId": "978657",
         "chainName": "Treasure Ruby",
-        "blockExplorerUrl": "https://testnet.treasurescan.io"
+        "blockExplorerUrl": ""
       },
       {
         "name": "sign_message_lib",
@@ -45758,7 +49038,7 @@
         "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
         "chainId": "978657",
         "chainName": "Treasure Ruby",
-        "blockExplorerUrl": "https://testnet.treasurescan.io"
+        "blockExplorerUrl": ""
       },
       {
         "name": "simulate_tx_accessor",
@@ -45766,7 +49046,140 @@
         "address": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
         "chainId": "978657",
         "chainName": "Treasure Ruby",
-        "blockExplorerUrl": "https://testnet.treasurescan.io"
+        "blockExplorerUrl": ""
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
+    "name": "Waterfall 9 Test Network",
+    "chain": "Waterfall TestNet9",
+    "rpc": [
+      "https://rpc.testnet9.waterfall.network"
+    ],
+    "faucets": [
+      "https://faucet.testnet9.waterfall.network"
+    ],
+    "nativeCurrency": {
+      "name": "WATER",
+      "symbol": "WATER",
+      "decimals": 18
+    },
+    "features": [
+      {
+        "name": "EIP1559"
+      }
+    ],
+    "infoURL": "https://waterfall.network",
+    "shortName": "water9",
+    "chainId": 1501869,
+    "networkId": 1501869,
+    "icon": "waterfall",
+    "explorers": [
+      {
+        "name": "Waterfall Explorer Testnet9",
+        "url": "https://explorer.testnet9.waterfall.network",
+        "icon": "waterfall",
+        "standard": "EIP3091"
+      }
+    ],
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "1501869",
+        "chainName": "Waterfall 9 Test Network",
+        "blockExplorerUrl": "https://explorer.testnet9.waterfall.network"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "1501869",
+        "chainName": "Waterfall 9 Test Network",
+        "blockExplorerUrl": "https://explorer.testnet9.waterfall.network"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "1501869",
+        "chainName": "Waterfall 9 Test Network",
+        "blockExplorerUrl": "https://explorer.testnet9.waterfall.network"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "1501869",
+        "chainName": "Waterfall 9 Test Network",
+        "blockExplorerUrl": "https://explorer.testnet9.waterfall.network"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "1501869",
+        "chainName": "Waterfall 9 Test Network",
+        "blockExplorerUrl": "https://explorer.testnet9.waterfall.network"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "1501869",
+        "chainName": "Waterfall 9 Test Network",
+        "blockExplorerUrl": "https://explorer.testnet9.waterfall.network"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "1501869",
+        "chainName": "Waterfall 9 Test Network",
+        "blockExplorerUrl": "https://explorer.testnet9.waterfall.network"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "1501869",
+        "chainName": "Waterfall 9 Test Network",
+        "blockExplorerUrl": "https://explorer.testnet9.waterfall.network"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "1501869",
+        "chainName": "Waterfall 9 Test Network",
+        "blockExplorerUrl": "https://explorer.testnet9.waterfall.network"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "1501869",
+        "chainName": "Waterfall 9 Test Network",
+        "blockExplorerUrl": "https://explorer.testnet9.waterfall.network"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "1501869",
+        "chainName": "Waterfall 9 Test Network",
+        "blockExplorerUrl": "https://explorer.testnet9.waterfall.network"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "1501869",
+        "chainName": "Waterfall 9 Test Network",
+        "blockExplorerUrl": "https://explorer.testnet9.waterfall.network"
       }
     ],
     "modules": [],
@@ -46834,7 +50247,8 @@
       "wss://ethereum-sepolia-rpc.publicnode.com",
       "https://sepolia.drpc.org",
       "wss://sepolia.drpc.org",
-      "https://rpc-sepolia.rockx.com"
+      "https://rpc-sepolia.rockx.com",
+      "https://eth-sepolia.g.alchemy.com/v2/WddzdzI2o9S3COdT73d5w6AIogbKq4X-"
     ],
     "faucets": [
       "http://fauceth.komputing.org?chain=11155111&address=${ADDRESS}"
@@ -46858,6 +50272,11 @@
       {
         "name": "otterscan-sepolia",
         "url": "https://sepolia.otterscan.io",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Routescan",
+        "url": "https://11155111.testnet.routescan.io",
         "standard": "EIP3091"
       }
     ],
@@ -48500,10 +51919,7 @@
     "name": "Plume Testnet",
     "title": "Plume Sepolia Rollup Testnet",
     "chain": "ETH",
-    "rpc": [
-      "https://testnet-rpc.plumenetwork.xyz/http",
-      "wss://testnet-rpc.plumenetwork.xyz/ws"
-    ],
+    "rpc": [],
     "faucets": [],
     "nativeCurrency": {
       "name": "Plume Sepolia Ether",
@@ -48516,22 +51932,11 @@
     "networkId": 161221135,
     "slip44": 1,
     "icon": "plume",
-    "explorers": [
-      {
-        "name": "Blockscout",
-        "url": "https://testnet-explorer.plumenetwork.xyz",
-        "icon": "blockscout",
-        "standard": "EIP3091"
-      }
-    ],
+    "status": "deprecated",
+    "explorers": [],
     "parent": {
       "type": "L2",
-      "chain": "eip155-11155111",
-      "bridges": [
-        {
-          "url": "https://testnet-bridge.plumenetwork.xyz"
-        }
-      ]
+      "chain": "eip155-11155111"
     },
     "smartAccounts": [
       {
@@ -48540,7 +51945,7 @@
         "address": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
         "chainId": "161221135",
         "chainName": "Plume Testnet",
-        "blockExplorerUrl": "https://testnet-explorer.plumenetwork.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "create_call",
@@ -48548,7 +51953,7 @@
         "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
         "chainId": "161221135",
         "chainName": "Plume Testnet",
-        "blockExplorerUrl": "https://testnet-explorer.plumenetwork.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "gnosis_safe",
@@ -48556,7 +51961,7 @@
         "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
         "chainId": "161221135",
         "chainName": "Plume Testnet",
-        "blockExplorerUrl": "https://testnet-explorer.plumenetwork.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "gnosis_safe_l2",
@@ -48564,7 +51969,7 @@
         "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
         "chainId": "161221135",
         "chainName": "Plume Testnet",
-        "blockExplorerUrl": "https://testnet-explorer.plumenetwork.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "multi_send",
@@ -48572,7 +51977,7 @@
         "address": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
         "chainId": "161221135",
         "chainName": "Plume Testnet",
-        "blockExplorerUrl": "https://testnet-explorer.plumenetwork.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "multi_send_call_only",
@@ -48580,7 +51985,7 @@
         "address": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
         "chainId": "161221135",
         "chainName": "Plume Testnet",
-        "blockExplorerUrl": "https://testnet-explorer.plumenetwork.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "proxy_factory",
@@ -48588,7 +51993,7 @@
         "address": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
         "chainId": "161221135",
         "chainName": "Plume Testnet",
-        "blockExplorerUrl": "https://testnet-explorer.plumenetwork.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "sign_message_lib",
@@ -48596,7 +52001,7 @@
         "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
         "chainId": "161221135",
         "chainName": "Plume Testnet",
-        "blockExplorerUrl": "https://testnet-explorer.plumenetwork.xyz"
+        "blockExplorerUrl": ""
       },
       {
         "name": "simulate_tx_accessor",
@@ -48604,7 +52009,7 @@
         "address": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
         "chainId": "161221135",
         "chainName": "Plume Testnet",
-        "blockExplorerUrl": "https://testnet-explorer.plumenetwork.xyz"
+        "blockExplorerUrl": ""
       }
     ],
     "modules": [],
@@ -50761,6 +54166,144 @@
     "iconUrl": "/unknown-logo.png"
   },
   {
+    "name": "Haust Testnet",
+    "title": "Haust Testnet",
+    "chain": "Haust-testnet",
+    "rpc": [
+      "https://rpc-test.haust.network"
+    ],
+    "faucets": [
+      "https://haust-testnet-faucet.eu-north-2.gateway.fm"
+    ],
+    "nativeCurrency": {
+      "name": "HAUST",
+      "symbol": "HAUST",
+      "decimals": 18
+    },
+    "infoURL": "https://haust.network/",
+    "shortName": "hst-test",
+    "chainId": 1570754601,
+    "networkId": 1570754601,
+    "icon": "haust",
+    "explorers": [
+      {
+        "name": "blockscout",
+        "url": "https://haust-testnet-blockscout.eu-north-2.gateway.fm",
+        "icon": "haust",
+        "standard": "EIP3091"
+      }
+    ],
+    "parent": {
+      "type": "L2",
+      "chain": "eip155-11155111",
+      "bridges": [
+        {
+          "url": "https://haust-testnet-bridge.eu-north-2.gateway.fm"
+        }
+      ]
+    },
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.4.1",
+        "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+        "chainId": "1570754601",
+        "chainName": "Haust Testnet",
+        "blockExplorerUrl": "https://haust-testnet-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.4.1",
+        "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
+        "chainId": "1570754601",
+        "chainName": "Haust Testnet",
+        "blockExplorerUrl": "https://haust-testnet-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.4.1",
+        "address": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "chainId": "1570754601",
+        "chainName": "Haust Testnet",
+        "blockExplorerUrl": "https://haust-testnet-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.4.1",
+        "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "chainId": "1570754601",
+        "chainName": "Haust Testnet",
+        "blockExplorerUrl": "https://haust-testnet-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "safe",
+        "version": "v1.4.1",
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "chainId": "1570754601",
+        "chainName": "Haust Testnet",
+        "blockExplorerUrl": "https://haust-testnet-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "safe_l2",
+        "version": "v1.4.1",
+        "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+        "chainId": "1570754601",
+        "chainName": "Haust Testnet",
+        "blockExplorerUrl": "https://haust-testnet-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "safe_migration",
+        "version": "v1.4.1",
+        "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+        "chainId": "1570754601",
+        "chainName": "Haust Testnet",
+        "blockExplorerUrl": "https://haust-testnet-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "safe_proxy_factory",
+        "version": "v1.4.1",
+        "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+        "chainId": "1570754601",
+        "chainName": "Haust Testnet",
+        "blockExplorerUrl": "https://haust-testnet-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "safe_to_l2_migration",
+        "version": "v1.4.1",
+        "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+        "chainId": "1570754601",
+        "chainName": "Haust Testnet",
+        "blockExplorerUrl": "https://haust-testnet-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "safe_to_l2_setup",
+        "version": "v1.4.1",
+        "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+        "chainId": "1570754601",
+        "chainName": "Haust Testnet",
+        "blockExplorerUrl": "https://haust-testnet-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.4.1",
+        "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
+        "chainId": "1570754601",
+        "chainName": "Haust Testnet",
+        "blockExplorerUrl": "https://haust-testnet-blockscout.eu-north-2.gateway.fm"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.4.1",
+        "address": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "chainId": "1570754601",
+        "chainName": "Haust Testnet",
+        "blockExplorerUrl": "https://haust-testnet-blockscout.eu-north-2.gateway.fm"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
     "name": "Harmony Mainnet Shard 0",
     "chain": "Harmony",
     "rpc": [
@@ -51798,6 +55341,119 @@
         "chainId": "123420000220",
         "chainName": "Fluence Stage",
         "blockExplorerUrl": "https://blockscout.stage.fluence.dev"
+      }
+    ],
+    "modules": [],
+    "iconUrl": "/unknown-logo.png"
+  },
+  {
+    "name": "Kakarot Starknet Sepolia",
+    "chain": "ETH",
+    "icon": "kakarot",
+    "rpc": [
+      "https://sepolia-rpc.kakarot.org"
+    ],
+    "faucets": [
+      "https://sepolia-faucet.kakarot.org/"
+    ],
+    "nativeCurrency": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "infoURL": "https://kakarot.org",
+    "shortName": "kkrt-starknet-sepolia",
+    "chainId": 920637907288165,
+    "networkId": 920637907288165,
+    "explorers": [
+      {
+        "name": "Kakarot Scan",
+        "url": "https://sepolia.kakarotscan.org",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Kakarot Explorer",
+        "url": "https://sepolia-explorer.kakarot.org",
+        "standard": "EIP3091"
+      }
+    ],
+    "parent": {
+      "type": "L2",
+      "chain": "eip155-11155111",
+      "bridges": []
+    },
+    "smartAccounts": [
+      {
+        "name": "compatibility_fallback_handler",
+        "version": "v1.3.0",
+        "address": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
+        "chainId": "920637907288165",
+        "chainName": "Kakarot Starknet Sepolia",
+        "blockExplorerUrl": "https://sepolia.kakarotscan.org"
+      },
+      {
+        "name": "create_call",
+        "version": "v1.3.0",
+        "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+        "chainId": "920637907288165",
+        "chainName": "Kakarot Starknet Sepolia",
+        "blockExplorerUrl": "https://sepolia.kakarotscan.org"
+      },
+      {
+        "name": "gnosis_safe",
+        "version": "v1.3.0",
+        "address": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+        "chainId": "920637907288165",
+        "chainName": "Kakarot Starknet Sepolia",
+        "blockExplorerUrl": "https://sepolia.kakarotscan.org"
+      },
+      {
+        "name": "gnosis_safe_l2",
+        "version": "v1.3.0",
+        "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
+        "chainId": "920637907288165",
+        "chainName": "Kakarot Starknet Sepolia",
+        "blockExplorerUrl": "https://sepolia.kakarotscan.org"
+      },
+      {
+        "name": "multi_send",
+        "version": "v1.3.0",
+        "address": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+        "chainId": "920637907288165",
+        "chainName": "Kakarot Starknet Sepolia",
+        "blockExplorerUrl": "https://sepolia.kakarotscan.org"
+      },
+      {
+        "name": "multi_send_call_only",
+        "version": "v1.3.0",
+        "address": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
+        "chainId": "920637907288165",
+        "chainName": "Kakarot Starknet Sepolia",
+        "blockExplorerUrl": "https://sepolia.kakarotscan.org"
+      },
+      {
+        "name": "proxy_factory",
+        "version": "v1.3.0",
+        "address": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
+        "chainId": "920637907288165",
+        "chainName": "Kakarot Starknet Sepolia",
+        "blockExplorerUrl": "https://sepolia.kakarotscan.org"
+      },
+      {
+        "name": "sign_message_lib",
+        "version": "v1.3.0",
+        "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
+        "chainId": "920637907288165",
+        "chainName": "Kakarot Starknet Sepolia",
+        "blockExplorerUrl": "https://sepolia.kakarotscan.org"
+      },
+      {
+        "name": "simulate_tx_accessor",
+        "version": "v1.3.0",
+        "address": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
+        "chainId": "920637907288165",
+        "chainName": "Kakarot Starknet Sepolia",
+        "blockExplorerUrl": "https://sepolia.kakarotscan.org"
       }
     ],
     "modules": [],
