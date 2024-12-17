@@ -1,4 +1,5 @@
 import { Callout } from 'nextra/components'
+import { Bleed } from 'nextra-theme-docs'
 
 # How to build a React Native app with Safe and passkeys
 
@@ -163,7 +164,7 @@ Add the following code to the `passkeys.ts` file:
 // from ../../../../examples/react-native-passkeys/lib/passkeys.ts
 ```
 
-In this file, we have 2 main functions:
+We are adding 2 functions here:
 
 - `createPasskey`, which helps create a new passkey using `react-native-passkeys`.
 - `getPasskey` helps retrieve the passkey using `react-native-passkeys` lib. This is the one we need to pass to the protocol kit and will be called to sign any message or transaction.
@@ -182,14 +183,25 @@ Add the following code to the `safe.ts` file:
 // from ../../../../examples/react-native-passkeys/lib/safe.ts
 ```
 
+We are including 4 new utilities to deploy a safe, sign messages, and sign and execute transactions.
+
+- `activateAccount` will deploy a new Safe account on Sepolia based on the predicted Safe configuration.
+- `addPasskeyOwner` adds a new passkey owner to the Safe account.
+- `signPasskeyMessage` assists in signing messages using the passkey signer.
+- `sendDummyPasskeyTransaction` creates and executes a dummy on-chain rejection transaction to test the passkey signer.
+
 ## 6. Add UI functionality
 
-Go to the `App.tsx` file and add the following code:
+Using the existing `App.tsx` file, we will add the UI components to interact with the Safe account and passkeys. Let's update the whole content and use this instead:
 
 ```tsx
 // from ../../../../examples/react-native-passkeys/components/App.tsx
 ```
 
-Now we should have a working app that allows the user to activate the Safe account
+Now we should have a working app that allows the user to activate the Safe account and interact with passkeys.
 
 ![react-native-passkeys-app-3.png](../../../../assets/react-native-passkeys-app-3.png)
+
+## 7. See the App in action
+
+![react-native-passkeys-app.mp4](../../../../assets/react-native-passkeys-app.gif)
