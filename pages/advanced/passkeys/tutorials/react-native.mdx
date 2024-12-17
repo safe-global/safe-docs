@@ -7,11 +7,13 @@ An increasing number of applications rely on passkeys to authenticate users secu
 Being able to unlock a Safe Smart Account with your fingerprints or Face ID, sending transactions without worrying about third-party wallet interfaces, phishing attempts, or securing seed phrases will bring new forms of ownership to the connected world.
 Today, we'll learn how to use passkeys with [React Native](https://reactnative.dev) and [Expo](https://docs.expo.dev).
 
-This tutorial will demonstrate creating a React Native app for using [passkeys](../overview.mdx) in your Safe. This app will allow you to:
+This tutorial will show you how to create a React Native app for using [passkeys](../overview.mdx) in your Safe. This app will enable you to:
 
 - Deploy a new Safe on Ethereum Sepolia.
 - Create a new passkey secured by the user's device.
 - Sign messages and create transactions using the passkey as a signer.
+
+This is how the final app will look:
 
 ![react-native-passkeys-app-1.png](../../../../assets/react-native-passkeys-app-1.png)
 
@@ -29,43 +31,73 @@ Before progressing with the tutorial, please make sure you have:
 
 ### Initialize a new project
 
-Initialize a new React Native project using Expo. Run the following command in your terminal:
+Initialize a new React Native project using Expo by running the following command in your terminal:
 
 ```bash
 npx create-expo-app@latest --template blank-typescript
 ```
 
-When prompted by the CLI enter the name of the application (e.g react-native-passkeys).
+When prompted by the CLI, enter the name of the application (e.g., react-native-passkeys).
 
 ### Install dependencies
 
-Run the following command to add all these dependencies to the project:
+Run the following command to add the project dependencies:
 
 ```bash
 npm install @safe-global/protocol-kit react-native-passkeys react-native-base64 @react-native-async-storage/async-storage react-native-prompt-android expo-build-properties
 ```
 
-For this project, we'll use:
+We are using:
 
-- [`@safe-global/protocol-kit`](https://github.com/safe-global/safe-core-sdk): [Protocol Kit](../../../sdk/protocol-kit.mdx) from the Safe\{Core\} SDK to set up a Safe, sign and send transactions.
-- [`react-native-passkeys`](https://github.com/peterferguson/react-native-passkeys): Expo module to help you create and authenticate with passkeys on iOS, Android & web with the same api.
-- [`react-native-base64`](https://github.com/eranbo/react-native-base64): Base64 encoding and decoding helping util.
-- [`@react-native-async-storage/async-storage`](https://github.com/react-native-async-storage/async-storage): An asynchronous, unencrypted, persistent, key-value storage system for React Native.
-- [`react-native-prompt-android`](https://github.com/powerdesigninc/react-native-prompt): This package helps you to use Prompt Dialog cross platform iOS(Alert.prompt) and Android(Dialog).
-- [`expo-build-properties`](https://docs.expo.dev/versions/latest/sdk/build-properties): A [config plugin](https://docs.expo.dev/config-plugins/introduction) configuring the native build properties of your android/gradle.properties and ios/Podfile.properties.json directories during [Prebuild](https://docs.expo.dev/workflow/prebuild).
+| Package                                                                                                    | Description                                                                                                                                                                                                                                      |
+| :--------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`@safe-global/protocol-kit`](https://github.com/safe-global/safe-core-sdk)                                | [Protocol Kit](../../../sdk/protocol-kit.mdx) package from the Safe\{Core\} SDK to set up a new Safe account, sign and send transactions.                                                                                                        |
+| [`react-native-passkeys`](https://github.com/peterferguson/react-native-passkeys)                          | Expo module for creating and authenticating passkeys on iOS, Android, and the web using the same API.                                                                                                                                            |
+| [`react-native-base64`](https://github.com/eranbo/react-native-base64)                                     | Base64 encoding and decoding helping util.                                                                                                                                                                                                       |
+| [`@react-native-async-storage/async-storage`](https://github.com/react-native-async-storage/async-storage) | An asynchronous, unencrypted, persistent key-value storage system for React Native. We'll use localStorage in the web and this AsyncStorage on the apps to store the passkey `rawId` and `coordinates`                                           |
+| [`react-native-prompt-android`](https://github.com/powerdesigninc/react-native-prompt)                     | This package allows you to use Prompt Dialog across platforms, including iOS (Alert.prompt) and Android (Dialog).                                                                                                                                |
+| [`expo-build-properties`](https://docs.expo.dev/versions/latest/sdk/build-properties)                      | A [plugin](https://docs.expo.dev/config-plugins/introduction) to configure the native build properties in your android/gradle.properties and ios/Podfile.properties.json directories during [Prebuild](https://docs.expo.dev/workflow/prebuild). |
 
-### Configure React Native and Expo
+### Configure your development environment to use React Native and Expo
 
-You need to configure your environment to use React Native and Expo. If you are a React Native developer, you have probably set everything up already. However, if you are new to React Native, you should prepare your environment. The best option is to follow the [official Expo documentation](https://docs.expo.dev/get-started/set-up-your-environment).
+You need to configure your environment. If you are a React Native developer, you may have already set everything up. However, if you are new to React Native, you should prepare your environment. The best option is to follow the [official Expo documentation](https://docs.expo.dev/get-started/set-up-your-environment).
 
-We will use emulators and development builds in this tutorial, so please go to the specific sections to configure them. If you know how to use a physical device, you can skip these steps. If you only want to test one platform, that's fine too and you only need to follow one of the steps below:
+We will use emulators and development builds in this tutorial, so please refer to the relevant sections in the Expo documentation for proper configuration. If you know how to do that or want to use a physical device, you can skip these steps. If you only want to test one platform, that's fine too, you only need to follow one of the steps below:
 
 - [**Android Studio Emulator**](https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=simulated&mode=development-build)
 - [**iOS Simulator**](https://docs.expo.dev/get-started/set-up-your-environment/?platform=ios&device=simulated&mode=development-build)
 
+### Setup and host `AASA` and `assetslinks.json` files
+
+To use passkeys in the app, you need to complete some additional setup in the Android and iOS projects. The steps are outlined in the `README.md` file of the [react-native-passkeys](https://github.com/peterferguson/react-native-passkeys) repository. Please follow the instructions for each platform you want to test. Basically you need to:
+
+- **iOS**: Serve the [Apple App Site Association](https://developer.apple.com/documentation/xcode/supporting-associated-domains) (AASA) file
+- **Android**: Serve the [`assetlinks.json`](https://developer.android.com/training/app-links/verify-android-applinks)
+
+To facilitate this, we are providing a simple [Node Express web server](https://github.com/5afe/aasa-server) for testing. Fill in your data in the `apple-app-site-association` and `assetlinks.json` files and start the server.
+
+```bash
+npm start
+```
+
+Once you have it running, you need a public domain secured with SSL to test the passkeys (`localhost` is not valid). You can use a service like [ngrok](https://download.ngrok.com/mac-os) to create a tunnel to your local server.
+
+After the installation, create a tunnel to the localhost port you are using, which should be `3000` if you are using the provided server.
+
+```bash
+ngrok http 3000
+```
+
+The ngrok service will provide you with a public domain. You should copy this domain and add it to your project files:
+
+- [passkeys.ts](https://github.com/5afe/react-native-passkeys-tutorial/blob/913cc17f353062bf1c4c55ad303e8623b6035a6b/lib/passkeys.ts#L8)
+- [app.json](https://github.com/5afe/react-native-passkeys-tutorial/blob/913cc17f353062bf1c4c55ad303e8623b6035a6b/app.json#L19). It's important to have the [developer mode](https://developer.apple.com/documentation/xcode/configuring-an-associated-domain) activated (?mode=developer) in your `app.json`.
+
+> If you are using iOS simulator remember to add your provisioning profile to sign the app through xcode.
+
 ### Add environment variables
 
-Now, create a file named `.env` in the root of your project and add the following keys:
+Create a file named `.env` in the root of your project and add the following keys:
 
 ```bash
 # Add the Safe account owners.
@@ -79,49 +111,20 @@ EXPO_PUBLIC_SAFE_SIGNER_PK=add_your_private_key_here
 EXPO_PUBLIC_RPC_URL=https://...
 ```
 
-### Setup and host `AASA` and `assetslinks.json` files
-
-To use passkeys in the app, you need to complete some additional setup in the Android and iOS projects. The steps are outlined in the `README.md` file of the [react-native-passkeys](https://github.com/peterferguson/react-native-passkeys) repository. Please follow the instructions for each platform you want to test. They are as follows:
-
-- For iOS, serve the [Apple App Site Association](https://developer.apple.com/documentation/xcode/supporting-associated-domains) (AASA) file
-- For Android, serve an [`assetlinks.json`](https://developer.android.com/training/app-links/verify-android-applinks)
-
-To facilitate this, we are providing a simple [Node Express web server](https://github.com/5afe/aasa-server) for testing. Fill in your data in the `apple-app-site-association` and `assetlinks.json` files, then start the server.
-
-```bash
-npm start
-```
-
-Once you have it running, you need a public and secured with SSL domain to test the passkeys (http://localhost:3000 is not valid). You can use a service like [ngrok](https://ngrok.com) to create a tunnel to your local server.
-
-```bash
-ngrok http 3000
-```
-
-The ngrok service will provide you with a public domain that you should add in your project files where explained in the [react-native-passkeys](https://github.com/peterferguson/react-native-passkeys) repository.
-
-If you are using iOS simulator remember to add your provisioning profile to sign the app through xcode. Setup as well [developer mode](https://developer.apple.com/documentation/xcode/configuring-an-associated-domain) in your `app.json`.
-
-```json
-"associatedDomains": [
-  "webcredentials:your-ngrok-domain?mode=developer"
-]
-```
-
 ### Run emulators
 
-After completing all these configurations 🙃, you can now run a local build of the app on the emulators using the following commands:
+After completing all these configurations 🙃, you can finally run the local development build of the app on the emulators by using the following commands:
 
 ```bash
 npx expo run:android
 npx expo run:ios
 ```
 
-An important consideration is that the chosen Android emulator must be compatible with Google Play Services to store the passkeys in the Android keystore. When creating the emulator with Android Studio Device Manager, be sure to include one with the Play Store services.
+An important consideration is that the selected Android emulator must be compatible with Google Play Services to store the passkeys in the Android keystore. When creating the emulator using Android Studio Device Manager, ensure that you include one with Play Store services.
 
 ![react-native-passkeys-app-2.png](../../../../assets/react-native-passkeys-play-store.png)
 
-After building and initializing, you should see the app running on the emulator. You can begin developing the app.
+After building and initializing, you should see the app running on the emulator. You can start developing the app.
 
 ![react-native-passkeys-app-2.png](../../../../assets/react-native-passkeys-app-2.png)
 
@@ -166,8 +169,8 @@ Add the following code to the `passkeys.ts` file:
 
 We are adding 2 functions here:
 
-- `createPasskey`, which helps create a new passkey using `react-native-passkeys`.
-- `getPasskey` helps retrieve the passkey using `react-native-passkeys` lib. This is the one we need to pass to the protocol kit and will be called to sign any message or transaction.
+- `createPasskey` helps generate a new passkey using `react-native-passkeys`.
+- `getPasskey` retrieves the passkey using the `react-native-passkeys` library. This method is necessary for pass to the [protocol-kit init](TODO: document this and add url) method and will be used to sign any message or transaction.
 
 ## 5. Add Safe functionality
 
@@ -183,25 +186,30 @@ Add the following code to the `safe.ts` file:
 // from ../../../../examples/react-native-passkeys/lib/safe.ts
 ```
 
-We are including 4 new utilities to deploy a safe, sign messages, and sign and execute transactions.
+We are introducing four new methods to securely deploy, sign messages, and execute transactions.
 
-- `activateAccount` will deploy a new Safe account on Sepolia based on the predicted Safe configuration.
+- `activateAccount` will deploy a new Safe account on Sepolia based on the predicted configuration.
 - `addPasskeyOwner` adds a new passkey owner to the Safe account.
-- `signPasskeyMessage` assists in signing messages using the passkey signer.
+- `signPasskeyMessage` helps sign messages using the passkey signer.
 - `sendDummyPasskeyTransaction` creates and executes a dummy on-chain rejection transaction to test the passkey signer.
 
 ## 6. Add UI functionality
 
-Using the existing `App.tsx` file, we will add the UI components to interact with the Safe account and passkeys. Let's update the whole content and use this instead:
+Using the existing `App.tsx` file, we will add UI components to interact with the Safe account and passkeys. Let's update the entire content and use this instead:
 
 ```tsx
 // from ../../../../examples/react-native-passkeys/components/App.tsx
 ```
 
-Now we should have a working app that allows the user to activate the Safe account and interact with passkeys.
+Now we should have a functional app that enables users to activate their Safe account and interact with passkeys.
 
 ![react-native-passkeys-app-3.png](../../../../assets/react-native-passkeys-app-3.png)
 
 ## 7. See the App in action
 
 ![react-native-passkeys-app.mp4](../../../../assets/react-native-passkeys-app.gif)
+
+## Links
+
+- [React Native Passkeys Tutorial](https://github.com/5afe/react-native-passkeys-tutorial)
+- [AASA server](https://github.com/5afe/aasa-server)

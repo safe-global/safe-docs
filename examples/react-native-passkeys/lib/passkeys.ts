@@ -5,7 +5,7 @@ import { create, get } from 'react-native-passkeys'
 const RP_NAME = 'Safe Smart Account'
 const USER_DISPLAY_NAME = 'Safe account'
 const USER_NAME = 'safe-account'
-const DOMAIN = 'bba3-159-147-239-227.ngrok-free.app'
+const DOMAIN = 'add_your_domain_here'
 const CHALLENGE = 'the-challenge'
 const USER_ID = 'my-user-id'
 
