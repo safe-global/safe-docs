@@ -67,33 +67,9 @@ We will use emulators and development builds in this tutorial, so please refer t
 - [**Android Studio Emulator**](https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=simulated&mode=development-build)
 - [**iOS Simulator**](https://docs.expo.dev/get-started/set-up-your-environment/?platform=ios&device=simulated&mode=development-build)
 
-### Setup and host `AASA` and `assetslinks.json` files
+**⚠️ An important consideration is that the selected Android emulator must be compatible with Google Play Services to store the passkeys in the Android keystore. When [creating the emulator](https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=simulated&mode=development-build#set-up-an-emulator) using Android Studio Device Manager, ensure that you include one with Play Store services.**
 
-To use passkeys in the app, you need to complete some additional setup in the Android and iOS projects. The steps are outlined in the `README.md` file of the [react-native-passkeys](https://github.com/peterferguson/react-native-passkeys) repository. Please follow the instructions for each platform you want to test. Basically you need to:
-
-- **iOS**: Serve the [Apple App Site Association](https://developer.apple.com/documentation/xcode/supporting-associated-domains) (AASA) file
-- **Android**: Serve the [`assetlinks.json`](https://developer.android.com/training/app-links/verify-android-applinks)
-
-To facilitate this, we are providing a simple [Node Express web server](https://github.com/5afe/aasa-server) for testing. Fill in your data in the `apple-app-site-association` and `assetlinks.json` files and start the server.
-
-```bash
-npm start
-```
-
-Once you have it running, you need a public domain secured with SSL to test the passkeys (`localhost` is not valid). You can use a service like [ngrok](https://download.ngrok.com/mac-os) to create a tunnel to your local server.
-
-After the installation, create a tunnel to the localhost port you are using, which should be `3000` if you are using the provided server.
-
-```bash
-ngrok http 3000
-```
-
-The ngrok service will provide you with a public domain. You should copy this domain and add it to your project files:
-
-- [passkeys.ts](https://github.com/5afe/react-native-passkeys-tutorial/blob/913cc17f353062bf1c4c55ad303e8623b6035a6b/lib/passkeys.ts#L8)
-- [app.json](https://github.com/5afe/react-native-passkeys-tutorial/blob/913cc17f353062bf1c4c55ad303e8623b6035a6b/app.json#L19). It's important to have the [developer mode](https://developer.apple.com/documentation/xcode/configuring-an-associated-domain) activated (?mode=developer) in your `app.json`.
-
-> If you are using iOS simulator remember to add your provisioning profile to sign the app through xcode.
+![react-native-passkeys-app-2.png](../../../../assets/react-native-passkeys-play-store.png)
 
 ### Add environment variables
 
@@ -111,20 +87,18 @@ EXPO_PUBLIC_SAFE_SIGNER_PK=add_your_private_key_here
 EXPO_PUBLIC_RPC_URL=https://...
 ```
 
+Remember to add the .env file to your `.gitignore` file to avoid committing sensitive information.
+
 ### Run emulators
 
-After completing all these configurations 🙃, you can finally run the local development build of the app on the emulators by using the following commands:
+After completing all these configurations 🙃, you can finally run the local development build of the app on the emulators (Emulators should be running) by using the following commands:
 
 ```bash
 npx expo run:android
 npx expo run:ios
 ```
 
-An important consideration is that the selected Android emulator must be compatible with Google Play Services to store the passkeys in the Android keystore. When creating the emulator using Android Studio Device Manager, ensure that you include one with Play Store services.
-
-![react-native-passkeys-app-2.png](../../../../assets/react-native-passkeys-play-store.png)
-
-After building and initializing, you should see the app running on the emulator. You can start developing the app.
+After the building and initialization steps visible in the terminal logs, you should see the app running on the emulator. You can now begin developing the app.
 
 ![react-native-passkeys-app-2.png](../../../../assets/react-native-passkeys-app-2.png)
 
@@ -205,7 +179,47 @@ Now we should have a functional app that enables users to activate their Safe ac
 
 ![react-native-passkeys-app-3.png](../../../../assets/react-native-passkeys-app-3.png)
 
-## 7. See the App in action
+### 7. Setup and host `AASA` and `assetslinks.json` files
+
+To use passkeys in the app, you need to complete some additional setup in the Android and iOS projects. The steps are outlined in the `README.md` file of the [react-native-passkeys](https://github.com/peterferguson/react-native-passkeys) repository. Please follow the instructions for each platform you want to test. Basically you need to:
+
+- **iOS**: Serve the [Apple App Site Association](https://developer.apple.com/documentation/xcode/supporting-associated-domains) (AASA) file
+- **Android**: Serve the [`assetlinks.json`](https://developer.android.com/training/app-links/verify-android-applinks)
+
+To facilitate this, we are providing a simple [Node Express web server](https://github.com/5afe/aasa-server) for testing. Clone the repository, fill in your data in the `apple-app-site-association` and `assetlinks.json` files and start the server.
+
+```bash
+git clone https://github.com/5afe/aasa-server.git
+npm install
+# Update the apple-app-site-association and assetlinks.json files
+npm start
+```
+
+Once you have it running, you need a public domain secured with SSL to test the passkeys (`localhost` is not valid). You can use a service like [ngrok](https://download.ngrok.com/mac-os) to create a tunnel to your local server.
+
+After the installation, create a tunnel to the localhost port you are using, which should be `3000` if you are using the provided server.
+
+```bash
+ngrok http 3000
+```
+
+The ngrok service will provide you with a public domain. You must copy this domain and add it to your project files after completing the steps below:
+
+- [passkeys.ts](https://github.com/5afe/react-native-passkeys-tutorial/blob/913cc17f353062bf1c4c55ad303e8623b6035a6b/lib/passkeys.ts#L8)
+- [app.json](https://github.com/5afe/react-native-passkeys-tutorial/blob/913cc17f353062bf1c4c55ad303e8623b6035a6b/app.json#L19). It's important to have the [developer mode](https://developer.apple.com/documentation/xcode/configuring-an-associated-domain) activated (?mode=developer) in your `app.json`.
+
+Not updating this information will result in an error when trying to create a passkey.
+
+```
+Error Domain=com.apple.AuthenticationServices.AuthorizationError Code=1004 "(null)"
+```
+
+⚠️ If you are using iOS simulator remember to:
+
+- Add your provisioning profile to sign the app through xcode. You can open the generated iOS project in xcode and under Signing & Capabilities choose your team.
+- Activate FaceId. Go to Features > Face ID > Enrolled in the iOS simulator menu.
+
+## 8. See the App in action
 
 ![react-native-passkeys-app.mp4](../../../../assets/react-native-passkeys-app.gif)
 

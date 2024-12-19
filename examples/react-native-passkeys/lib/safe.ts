@@ -96,14 +96,10 @@ export async function sendDummyPasskeyTransaction(
   const signedTransaction =
     await protocolKitSigner.signTransaction(safeTransaction)
 
-  try {
-    const txResult = await protocolKit.executeTransaction(signedTransaction)
-    const receipt = await waitForTransactionReceipt(client, {
-      hash: txResult.hash as `0x${string}`
-    })
+  const txResult = await protocolKit.executeTransaction(signedTransaction)
+  const receipt = await waitForTransactionReceipt(client, {
+    hash: txResult.hash as `0x${string}`
+  })
 
-    return receipt
-  } catch (error) {
-    console.error(error)
-  }
+  return receipt
 }

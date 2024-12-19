@@ -201,6 +201,7 @@ export default function App() {
     setIsLoading(true)
 
     const receipt = await sendDummyPasskeyTransaction(
+      protocolKit,
       passkeySignerProtocolKit,
       safeAddress
     )
