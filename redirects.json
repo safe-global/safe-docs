@@ -150,11 +150,6 @@
     "permanent": true
   },
   {
-    "source": "/sdk-protocol-kit/guides/signatures",
-    "destination": "/sdk/protocol-kit/guides/signatures",
-    "permanent": true
-  },
-  {
     "source": "/safe-smart-account/supported-networks",
     "destination": "/advanced/smart-account-supported-networks",
     "permanent": true
@@ -315,8 +310,33 @@
     "permanent": true
   },
   {
+    "source": "/sdk-protocol-kit/guides/signatures",
+    "destination": "/sdk/protocol-kit/guides/signatures",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-protocol-kit/guides/signatures/transactions",
+    "destination": "/sdk/protocol-kit/guides/signatures/transactions",
+    "permanent": true
+  },
+  {
+    "source": "/sdk-protocol-kit/guides/signatures/messages",
+    "destination": "/sdk/protocol-kit/guides/signatures/messages",
+    "permanent": true
+  },
+  {
     "source": "/safe-core-aa-sdk/protocol-kit/reference",
-    "destination": "/sdk/protocol-kit/reference",
+    "destination": "/reference-sdk-protocol-kit/overview",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/protocol-kit/reference",
+    "destination": "/reference-sdk-protocol-kit/overview",
+    "permanent": true
+  },
+  {
+    "source": "/sdk/protocol-kit/reference/safe",
+    "destination": "/reference-sdk-protocol-kit/overview",
     "permanent": true
   },
   {
