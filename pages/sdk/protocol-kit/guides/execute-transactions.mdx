@@ -1,284 +1,241 @@
+import { Steps, Tabs } from 'nextra/components'
+
 # Execute transactions
 
-In this quickstart guide, you will create a 2 of 3 multi-sig Safe and propose and execute a transaction to send some ETH out of this Safe.
+In this guide, you will learn how to create Safe transactions, sign them, collect the signatures from the different owners, and execute them.
 
-To find more details and configuration options for available methods, see the [Protocol Kit reference](../../../reference-sdk-protocol-kit/overview.mdx).
+See the [Protocol Kit reference](../../../reference-sdk-protocol-kit/overview.mdx) to find more details and configuration options.
 
-### Prerequisites
+## Prerequisites
 
-1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-2. Three externally-owned accounts with Testnet ETH in at least one account
+- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+- An existing Safe with several signers.
 
-### Install dependencies
+## Install dependencies
 
-First, we need to install some dependencies.
-
-```bash
-yarn add @safe-global/protocol-kit \
-  @safe-global/api-kit \
-  @safe-global/safe-core-sdk-types
-```
-
-### Initialize Signers and Providers
-
-The signers trigger transactions to the Ethereum blockchain or off-chain transactions. The provider connects to the Ethereum blockchain.
-
-You can get a public RPC URL from [Chainlist](https://chainlist.org), however, public RPC URLs can be unreliable so you can also try a dedicated provider like Infura or Alchemy.
-
-For this guide, we will be creating a Safe on the Sepolia Testnet.
-
-```tsx
-// https://chainlist.org/?search=sepolia&testnets=true
-const RPC_URL = 'https://eth-sepolia.public.blastapi.io'
-
-// Initialize signers
-const OWNER_1_ADDRESS = // ...
-const OWNER_1_PRIVATE_KEY = // ...
-
-const OWNER_2_ADDRESS = // ...
-const OWNER_2_PRIVATE_KEY = // ...
-
-const OWNER_3_ADDRESS = // ...
-
-const provider = new ethers.JsonRpcProvider(RPC_URL)
-const owner1Signer = new ethers.Wallet(OWNER_1_PRIVATE_KEY, provider)
-```
-
-### Initialize the API Kit
-
-The [API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) consumes the [Safe Transaction Service API](https://github.com/safe-global/safe-transaction-service). To use this library, create a new instance of the `SafeApiKit` class, imported from `@safe-global/api-kit`. In chains where Safe provides a Transaction Service, it's enough to specify the `chainId.` You can specify your own service using the optional `txServiceUrl` parameter.
-
-You will be using Sepolia for this tutorial, however, you can also get [service URLs for different networks](../../../advanced/smart-account-supported-networks.mdx?service=Transaction+Service&service=Safe{Core}+SDK).
-
-```tsx
-import SafeApiKit from '@safe-global/api-kit'
-
-const apiKit = new SafeApiKit({
-  chainId: 1n
-})
-
-// Or using a custom service
-const apiKit = new SafeApiKit({
-  chainId: 1n, // set the correct chainId
-  txServiceUrl: 'https://url-to-your-custom-service'
-})
-```
-
-### Initialize the Protocol Kit
-
-The `SafeFactory` class allows the deployment of new Safe accounts while the `Safe` class represents an instance of a specific one.
-
-```tsx
-import { SafeFactory } from '@safe-global/protocol-kit'
-
-const safeFactory = await SafeFactory.init({
-  provider: RPC_URL,
-  signer: OWNER_1_PRIVATE_KEY
-})
-```
-
-### Deploy a Safe
-
-Calling the `deploySafe` method will deploy the desired Safe and return a Protocol Kit initialized instance ready to be used. Check the [method reference](./protocol-kit/reference/safe-factory.mdx#deploysafe) for more details on additional configuration parameters and callbacks.
-
-```tsx
-import { SafeAccountConfig } from '@safe-global/protocol-kit'
-
-const safeAccountConfig: SafeAccountConfig = {
-  owners: [
-    await OWNER_1_ADDRESS,
-    await OWNER_2_ADDRESS,
-    await OWNER_3_ADDRESS
-  ],
-  threshold: 2,
-  // Optional params
-}
-
-/* This Safe is tied to owner 1 because the factory was initialized with the owner 1 as the signer. */
-const protocolKitOwner1 = await safeFactory.deploySafe({ safeAccountConfig })
-
-const safeAddress = await protocolKitOwner1.getAddress()
-
-console.log('Your Safe has been deployed:')
-console.log(`https://sepolia.etherscan.io/address/${safeAddress}`)
-console.log(`https://app.safe.global/sep:${safeAddress}`)
-```
-
-### Send ETH to the Safe
-
-You will send some ETH to this Safe.
-
-```tsx
-const safeAddress = protocolKit.getAddress()
-
-const safeAmount = ethers.parseUnits('0.01', 'ether').toHexString()
-
-const transactionParameters = {
-  to: safeAddress,
-  value: safeAmount
-}
-
-const tx = await owner1Signer.sendTransaction(transactionParameters)
-
-console.log('Fundraising.')
-console.log(`Deposit Transaction: https://sepolia.etherscan.io/tx/${tx.hash}`)
-```
-
-## Making a transaction from a Safe
-
-The first signer will sign and propose a transaction to send 0.005 ETH out of the Safe. Then, the second signer will add their own proposal and execute the transaction since it meets the 2 of 3 thresholds.
-
-At a high level, making a transaction from the Safe requires the following steps:
-
-### Overview
-
-The high-level overview of a multi-sig transaction is PCE: Propose. Confirm. Execute.
-
-1. **First signer proposes a transaction**
-   1. Create transaction: define the amount, destination, and any additional data
-   2. Perform an off-chain signature of the transaction before proposing
-   3. Submit the transaction and signature to the Safe Transaction Service
-2. **Second signer confirms the transaction**
-   1. Get pending transactions from the Safe service
-   2. Perform an off-chain signature of the transaction
-   3. Submit the signature to the service
-3. **Anyone executes the transaction**
-   1. In this example, the first signer executes the transaction
-   2. Anyone can get the pending transaction from the Safe service
-   3. Account executing the transaction pays the gas fee
-
-### Create a transaction
-
-For more details on what to include in a transaction see [`createTransaction`](../../../reference-sdk-protocol-kit/transactions/createtransaction.mdx) method.
-
-```tsx
-import { MetaTransactionData } from '@safe-global/safe-core-sdk-types'
-
-// Any address can be used. In this example you will use vitalik.eth
-const destination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-const amount = ethers.parseUnits('0.005', 'ether').toString()
-
-const safeTransactionData: MetaTransactionData = {
-  to: destination,
-  data: '0x',
-  value: amount
-}
-// Create a Safe transaction with the provided parameters
-const safeTransaction = await protocolKitOwner1.createTransaction({ transactions: [safeTransactionData] })
-```
-
-### Track the Safe transaction
-
-Optionally, you can track all your Safe transactions on-chain by attaching an on-chain identifier to the `data` property.
-
-This identifier must be unique for every project and has a length of 16 bytes. You can create a random one or derive it from a text string, maybe from your project name:
+First, you need to install some dependencies.
 
 {/* <!-- vale off --> */}
 
-```typescript
-const onchainIdentifier = toHex(
-  'TEXT_TO_DERIVE_THE_IDENTIFIER', // It could be your project name
-  { size: 16 }
-)
+```bash
+pnpm add @safe-global/api-kit \
+  @safe-global/protocol-kit \
+  @safe-global/types-kit
 ```
 
 {/* <!-- vale on --> */}
 
-Once generated, fill the [Ecosystem On-chain Tracking Form](https://docs.google.com/forms/d/e/1FAIpQLSfHWSPbSQwmo0mbtuFFewfLvDEOvTxfuvEl7AHOyrFE_dqpwQ/viewform) and provide the value of your `onchainIdentifier`.
+## Steps
 
-Add the `onchainIdentifier` at the end of the Safe transaction `data`.
+<Steps>
 
-{/* <!-- vale off --> */}
+  ### Imports
 
-```typescript
-safeTransaction.data.data = concat([
-  safeOperation.data.data as `0x{string}`,
-  onchainIdentifier
-]).toString()
-```
+  Here are all the necessary imports for this guide.
 
-{/* <!-- vale on --> */}
+  {/* <!-- vale off --> */}
 
-### Propose the transaction
+  ```typescript
+  import SafeApiKit from '@safe-global/api-kit'
+  import Safe from '@safe-global/protocol-kit'
+  import {
+    MetaTransactionData,
+    OperationType
+  } from '@safe-global/types-types'
+  ```
 
-To propose a transaction to the Safe Transaction Service we need to call the `proposeTransaction` method from the API Kit instance.
+  {/* <!-- vale on --> */}
 
-For a full list and description of the properties see [`proposeTransaction`](../../../reference-sdk-api-kit/proposetransaction.mdx) in the API Kit reference.
+  ### Setup
 
-```tsx
-// Deterministic hash based on transaction parameters
-const safeTxHash = await protocolKitOwner1.getTransactionHash(safeTransaction)
+  You need a Safe account setup with two or more signers and threshold two, so at least multiple signatures have to be collected when executing a transaction.
 
-// Sign transaction to verify that the transaction is coming from owner 1
-const senderSignature = await protocolKitOwner1.signHash(safeTxHash)
+  This example uses private keys, but any EIP-1193 compatible signers can be used.
 
-await apiKit.proposeTransaction({
-  safeAddress,
-  safeTransactionData: safeTransaction.data,
-  safeTxHash,
-  senderAddress: OWNER_1_ADDRESS,
-  senderSignature: senderSignature.data
-})
-```
+  {/* <!-- vale off --> */}
 
-### Get pending transactions
+  ```typescript
+  const SAFE_ADDRESS = // ...
 
-```tsx
-const pendingTransactions = (await apiKit.getPendingTransactions(safeAddress)).results
-```
+  const OWNER_1_ADDRESS = // ...
+  const OWNER_1_PRIVATE_KEY = // ...
 
-### Confirm the transaction: Second confirmation
+  const OWNER_2_PRIVATE_KEY = // ...
 
-When owner 2 is connected to the application, the Protocol Kit should be initialized again with the existing Safe address the address of the owner 2 instead of the owner 1.
+  const RPC_URL = 'https://eth-sepolia.public.blastapi.io'
+  ```
 
-```tsx
-// Assumes that the first pending transaction is the transaction you want to confirm
-const transaction = pendingTransactions[0]
-const safeTxHash = transaction.safeTxHash
+  {/* <!-- vale on --> */}
 
-const protocolKitOwner2 = await Safe.init({
-  provider: RPC_URL,
-  signer: OWNER_2_PRIVATE_KEY,
-  safeAddress
-})
+  This guide uses Sepolia, but you can use any chain from the Safe Transaction Service [supported networks](../../../advanced/smart-account-supported-networks.mdx?service=Transaction+Service&service=Safe{Core}+SDK).
 
-const signature = await protocolKitOwner2.signHash(safeTxHash)
-const response = await apiKit.confirmTransaction(safeTxHash, signature.data)
-```
+  ### Initialize the Protocol Kit
 
-### Execute the transaction
+  To handle transactions and signatures, you need to create an instance of the Protocol Kit with the `provider`, `signer` and `safeAddress`.
 
-Anyone can execute the Safe transaction once it has the required number of signatures. In this example, owner 1 will execute the transaction and pay for the gas fees.
+  {/* <!-- vale off --> */}
 
-```tsx
-const safeTransaction = await apiKit.getTransaction(safeTxHash)
-const executeTxResponse = await protocolKit.executeTransaction(safeTransaction)
-const receipt = await executeTxResponse.transactionResponse?.wait()
+  ```typescript
+  const protocolKitOwner1 = await Safe.init({
+    provider: RPC_URL,
+    signer: OWNER_1_PRIVATE_KEY,
+    safeAddress: SAFE_ADDRESS
+  })
+  ```
 
-console.log('Transaction executed:')
-console.log(`https://sepolia.etherscan.io/tx/${receipt.transactionHash}`)
-```
+  {/* <!-- vale on --> */}
 
-### Confirm that the transaction was executed
+  ### Create a transaction
 
-You know that the transaction was executed if the balance in your Safe changes.
+  {/* <!-- vale off --> */}
 
-```tsx
-const afterBalance = await protocolKit.getBalance()
+  Create a `safeTransactionData` object with the properties of the transaction, add it to an array of transactions you want to execute, and pass it to the `createTransaction` method.
 
-console.log(`The final balance of the Safe: ${ethers.formatUnits(afterBalance, 'ether')} ETH`)
-```
+  ```typescript
+  const safeTransactionData: MetaTransactionData = {
+    to: '0x',
+    value: '1', // 1 wei
+    data: '0x',
+    operation: OperationType.Call
+  }
 
-```bash
-$ node index.js
+  const safeTransaction = await protocolKitOwner1.createTransaction({
+    transactions: [safeTransactionData]
+  })
+  ```
 
-Fundraising.
+  {/* <!-- vale on --> */}
 
-Initial balance of Safe: 0.01 ETH
-Buying a car.
-The final balance of the Safe: 0.005 ETH
-```
+  For more details on what to include in a transaction, see the [`createTransaction`](../reference/safe.mdx#createtransaction) method in the reference.
 
-### Conclusion
+  ### Track the Safe transaction
 
-In this quickstart, you learned how to create and deploy a new Safe account and to propose and then execute a transaction from it.
+  Optionally, you can track all your Safe transactions on-chain by attaching an on-chain identifier to the `data` property.
+
+  This identifier must be unique for every project and has a length of 16 bytes. You can create a random one or derive it from a text string, maybe from your project name:
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const onchainIdentifier = toHex(
+    'TEXT_TO_DERIVE_THE_IDENTIFIER', // It could be your project name
+    { size: 16 }
+  )
+  ```
+
+  {/* <!-- vale on --> */}
+
+  Once generated, fill out the [Ecosystem On-chain Tracking Form](https://docs.google.com/forms/d/e/1FAIpQLSfHWSPbSQwmo0mbtuFFewfLvDEOvTxfuvEl7AHOyrFE_dqpwQ/viewform) and provide the value of your `onchainIdentifier`.
+
+  Add the `onchainIdentifier` at the end of the Safe transaction `data`.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  safeTransaction.data.data = concat([
+    safeOperation.data.data as `0x{string}`,
+    onchainIdentifier
+  ]).toString()
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Propose the transaction
+
+  Before a transaction can be executed, the signer who creates it needs to send it to the Safe Transaction Service so that it is accessible by the other owners, who can then give their approval and sign the transaction.
+
+  Firstly, you need to create an instance of the API Kit. In chains where the [Safe Transaction Service](../../../core-api/transaction-service-overview.mdx) is supported, it's enough to specify the `chainId` property.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const apiKit = new SafeApiKit({
+    chainId: 11155111n
+  })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  You need to calculate the Safe transaction hash, sign the transaction hash, and call the `proposeTransaction` method from the API Kit instance to propose a transaction.
+
+  For a full list and description of the properties see [`proposeTransaction`](../../../reference-sdk-api-kit/proposetransaction.mdx) in the API Kit reference.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  // Deterministic hash based on transaction parameters
+  const safeTxHash = await protocolKitOwner1.getTransactionHash(safeTransaction)
+
+  // Sign transaction to verify that the transaction is coming from owner 1
+  const senderSignature = await protocolKitOwner1.signHash(safeTxHash)
+
+  await apiKit.proposeTransaction({
+    safeAddress,
+    safeTransactionData: safeTransaction.data,
+    safeTxHash,
+    senderAddress: OWNER_1_ADDRESS,
+    senderSignature: senderSignature.data
+  })
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Retrieve the pending transactions
+
+  The other signers need to retrieve the pending transactions from the Safe Transaction Service. Depending on the situation, different methods in the API Kit are available.
+
+  Call the [`getPendingTransactions`](../../../reference-sdk-api-kit/getpendingtransactions.mdx) method to retrieve all the pending transactions of a Safe account.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const pendingTransactions = (await apiKit.getPendingTransactions(safeAddress)).results
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Confirm the transaction
+
+  Once a signer has the pending transaction, they need to sign it with the Protocol Kit and submit the signature to the service using the [`confirmTransaction`](../../../reference-sdk-api-kit/confirmtransaction.mdx) method.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const protocolKitOwner2 = await Safe.init({
+    provider: RPC_URL,
+    signer: OWNER_2_PRIVATE_KEY,
+    safeAddress: SAFE_ADDRESS
+    })
+
+      const safeTxHash = transaction.transactionHash
+      const signature = await protocolKitOwner2.signHash(safeTxHash)
+
+      // Confirm the Safe transaction
+      const signatureResponse = await apiKit.confirmTransaction(
+    safeTxHash,
+    signature.data
+  )
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Execute the transaction
+
+  The Safe transaction is now ready to be executed. This can be done using the [Safe\{Wallet\}](https://app.safe.global) web interface, the [Protocol Kit](../../../reference-sdk-protocol-kit/transactions/executetransaction.mdx), the [Safe CLI](../../../advanced/cli-reference/tx-service-commands.mdx#execute-pending-transaction) or any other tool that's available.
+
+  In this guide, the first signer will get the transaction from the service by calling the [`getTransaction`](../../../reference-sdk-api-kit/gettransaction.mdx) method and execute it by passing the transaction with all the signatures to the [`executeTransaction`](../../../reference-sdk-protocol-kit/transactions/executetransaction.mdx) method.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const safeTransaction = await apiKit.getTransaction(safeTxHash)
+  const executeTxResponse = await protocolKitOwner1.executeTransaction(safeTransaction)
+  ```
+
+  {/* <!-- vale on --> */}
+
+</Steps>
+
+## Recap and further reading
+
+After following this guide, you are able to create, sign, and execute Safe transactions with the Protocol Kit and share the signatures with the different signers using the API Kit.
