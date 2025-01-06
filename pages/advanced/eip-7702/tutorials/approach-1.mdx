@@ -1,0 +1,49 @@
+import { Callout } from 'nextra/components'
+
+# Approach 1: Delegate to modified Safe Proxy contract
+
+The tutorial below presents an approach to set delegation designator to a modified Safe Proxy contract discussed in [EIP-7702 approaches](../7702-safe#modified-safe-proxy).
+
+### 1. Setup project
+
+```bash
+git clone git@github.com:5afe/safe-eip7702.git
+```
+
+### 2. Install dependencies
+
+```bash
+cd safe-eip7702/safe-eip7702-contracts
+pnpm i
+```
+
+### 3. Setup RPC and .env file
+
+- Copy `.env.example` to `.env` and update the values
+- Set the relayer and EOA private keys in the `.env` file.
+    - `RELAYER_PRIVATE_KEY`: Used for paying gas fees
+    - `ACCOUNT_PRIVATE_KEY`: EOA private key whose code will be set
+
+- Update `hardhat.config.ts` has appropriate values for the network.
+- Make sure the contracts are deployed on the network using
+    ```bash
+    npx hardhat deploy --network <network>
+    ```
+
+### 4. Run the script to set the code
+
+```bash
+    npx hardhat run src/scripts/1_set_code.ts --network <network>
+```
+
+### 5. Execute transaction
+
+- The script `2_execute.ts` can be used to execute a transaction using the EOA which is sponsored by the relayer account. The script will send 1 wei to the relayer account from EOA address.
+```bash
+    npx hardhat run src/scripts/2_execute.ts --network <network>
+```
+
+- The script `3_batch_execute.ts` can be used to execute batch transaction using the EOA which is sponsored by the relayer account. The script will execute 2 calls which send 1 wei in each call to the relayer account from EOA address.
+```bash
+    npx hardhat run src/scripts/3_batch_execute.ts --network <network>
+```
