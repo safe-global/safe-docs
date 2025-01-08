@@ -205,7 +205,7 @@ After the installation, create a tunnel to the localhost port you are using, whi
 ngrok http 3000
 ```
 
-The ngrok service will provide you with a public domain. You must copy this domain and add it to your project files after completing the steps below:
+The ngrok service will provide you with a public domain. You must copy this domain (without `https://`) and add it to your project files after completing the steps below:
 
 - [passkeys.ts](https://github.com/5afe/react-native-passkeys-tutorial/blob/913cc17f353062bf1c4c55ad303e8623b6035a6b/lib/passkeys.ts#L8)
 - [app.json](https://github.com/5afe/react-native-passkeys-tutorial/blob/913cc17f353062bf1c4c55ad303e8623b6035a6b/app.json#L19). It's important to have the [developer mode](https://developer.apple.com/documentation/xcode/configuring-an-associated-domain) activated (?mode=developer) in your `app.json`.
