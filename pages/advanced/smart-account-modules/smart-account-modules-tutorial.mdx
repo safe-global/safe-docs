@@ -59,6 +59,18 @@ Add overrides in `package.json` so that we don't face any peer dependency relate
 npm add hardhat @safe-global/safe-contracts @openzeppelin/contracts
 ```
 
+### Initialize hardhat project
+
+Select create TypeScript project.
+
+```bash
+npx hardhat init
+```
+
+```bash
+npx hardhat compile
+```
+
 ### Update hardhat.config.ts
 
 When compiling Safe contracts with solidity 0.8.x the bytecode size exceeds the limit of 24KB. To overcome this, set `allowUnlimitedContractSize` to `true` in the hardhat config.
@@ -87,21 +99,9 @@ export default config;
 
 ```
 
-### Initialize hardhat project
-
-Select create TypeScript project.
-
-```bash
-npx hardhat init
-```
-
-```bash
-npx hardhat compile
-```
-
 ### Create a new Solidity contract
 
-Delete the default `Lock.sol` and test file `Lock.ts` and create a new Solidity contract `TokenTransferModule.sol` in the `contracts` directory.
+Delete the default `contracts/Lock.sol` and test file `test/Lock.ts` and create a new Solidity contract `TokenTransferModule.sol` in the `contracts` directory.
 
 `TokenTransferModule.sol` will contain the module code which will be used further in the tutorial for interacting with the UI.
 
