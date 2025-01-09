@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-import prompt from 'react-native-prompt-android'
-import Safe, { PasskeyArgType } from '@safe-global/protocol-kit'
+import { useEffect, useState } from "react";
+import prompt from "react-native-prompt-android";
+import Safe, { PasskeyArgType } from "@safe-global/protocol-kit";
 import {
   View,
   Text,
@@ -9,221 +9,222 @@ import {
   Platform,
   Alert,
   ActivityIndicator,
-  SafeAreaView
-} from 'react-native'
+  SafeAreaView,
+} from "react-native";
 import {
   getStoredPassKey,
   removeStoredPassKey,
-  storePassKey
-} from './lib/storage'
-import { createPassKey, getPassKey } from './lib/passkeys'
+  storePassKey,
+} from "./lib/storage";
+import { createPassKey, getPassKey } from "./lib/passkeys";
 import {
   activateAccount,
   addPasskeyOwner,
   sendDummyPasskeyTransaction,
-  signPasskeyMessage
-} from './lib/safe'
+  signPasskeyMessage,
+} from "./lib/safe";
 
-const PASSKEY_NAME = 'safe-owner'
+const PASSKEY_NAME = "safe-owner";
 
 export default function App() {
-  const [protocolKit, setProtocolKit] = useState<Safe | null>(null)
+  const [protocolKit, setProtocolKit] = useState<Safe | null>(null);
   const [passkeySignerProtocolKit, setPasskeySignerProtocolKit] =
-    useState<Safe | null>(null)
+    useState<Safe | null>(null);
   const [passkeySigner, setPasskeySigner] = useState<PasskeyArgType | null>(
     null
-  )
-  const [safeAddress, setSafeAddress] = useState<string | null>(null)
-  const [isDeployed, setIsDeployed] = useState<boolean>(false)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  );
+  const [safeAddress, setSafeAddress] = useState<string | null>(null);
+  const [isDeployed, setIsDeployed] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       let protocolKitInstance = await Safe.init({
         provider: process.env.EXPO_PUBLIC_RPC_URL as string,
         signer: process.env.EXPO_PUBLIC_SAFE_SIGNER_PK,
         predictedSafe: {
           safeAccountConfig: {
             owners: JSON.parse(process.env.EXPO_PUBLIC_SAFE_OWNERS as string),
-            threshold: 1
+            threshold: 1,
           },
           safeDeploymentConfig: {
-            saltNonce: process.env.EXPO_PUBLIC_SAFE_SALT_NONCE
-          }
-        }
-      })
+            saltNonce: process.env.EXPO_PUBLIC_SAFE_SALT_NONCE,
+          },
+        },
+      });
 
-      const safeAddress = await protocolKitInstance.getAddress()
-      const isDeployed = await protocolKitInstance.isSafeDeployed()
+      const safeAddress = await protocolKitInstance.getAddress();
+      const isDeployed = await protocolKitInstance.isSafeDeployed();
 
-      console.log('Safe address', safeAddress)
-      console.log('Is deployed', isDeployed)
+      console.log("Safe address", safeAddress);
+      console.log("Is deployed", isDeployed);
 
-      setSafeAddress(safeAddress)
-      setIsDeployed(isDeployed)
+      setSafeAddress(safeAddress);
+      setIsDeployed(isDeployed);
 
       if (isDeployed) {
         protocolKitInstance = await protocolKitInstance.connect({
           provider: process.env.EXPO_PUBLIC_RPC_URL,
           signer: process.env.EXPO_PUBLIC_SAFE_SIGNER_PK,
-          safeAddress: safeAddress
-        })
+          safeAddress: safeAddress,
+        });
       }
 
-      setProtocolKit(protocolKitInstance)
-      setIsLoading(false)
-    })()
-  }, [])
+      setProtocolKit(protocolKitInstance);
+      setIsLoading(false);
+    })();
+  }, []);
 
   useEffect(() => {
-    ;(async () => {
-      const storedPasskey = await getStoredPassKey(PASSKEY_NAME)
+    (async () => {
+      const storedPasskey = await getStoredPassKey(PASSKEY_NAME);
 
-      setPasskeySigner(storedPasskey)
-    })()
-  }, [])
+      setPasskeySigner(storedPasskey);
+    })();
+  }, []);
 
   useEffect(() => {
-    if (!passkeySigner || !safeAddress) return
-    ;(async () => {
+    if (!passkeySigner || !safeAddress) return;
+
+    (async () => {
       const passkeySignerProtocolKitInstance = await Safe.init({
         provider: process.env.EXPO_PUBLIC_RPC_URL,
         signer: { ...passkeySigner, getFn: getPassKey } as PasskeyArgType,
-        safeAddress
-      })
+        safeAddress,
+      });
 
-      setPasskeySignerProtocolKit(passkeySignerProtocolKitInstance)
-    })()
-  }, [safeAddress, passkeySigner])
+      setPasskeySignerProtocolKit(passkeySignerProtocolKitInstance);
+    })();
+  }, [safeAddress, passkeySigner]);
 
   const handleActivateAccount = async () => {
-    if (!protocolKit || !safeAddress) return
+    if (!protocolKit || !safeAddress) return;
 
-    setIsLoading(true)
+    setIsLoading(true);
 
-    const receipt = await activateAccount(protocolKit)
+    const receipt = await activateAccount(protocolKit);
 
     if (receipt.transactionHash) {
-      setIsDeployed(true)
+      setIsDeployed(true);
 
       const updatedProtocolKitInstance = await protocolKit.connect({
         provider: protocolKit.getSafeProvider().provider,
         signer: protocolKit.getSafeProvider().signer,
-        safeAddress: await protocolKit.getAddress()
-      })
+        safeAddress: await protocolKit.getAddress(),
+      });
 
-      setProtocolKit(updatedProtocolKitInstance)
+      setProtocolKit(updatedProtocolKitInstance);
 
-      setIsLoading(false)
+      setIsLoading(false);
     } else {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const handleAddPasskeyOwner = async () => {
     if (!protocolKit) {
-      return
+      return;
     }
 
-    const passkeyCredential = await createPassKey()
+    const passkeyCredential = await createPassKey();
 
     if (!passkeyCredential) {
-      throw Error('Passkey creation failed: No credential was returned.')
+      throw Error("Passkey creation failed: No credential was returned.");
     }
 
-    const signer = await Safe.createPasskeySigner(passkeyCredential)
+    const signer = await Safe.createPasskeySigner(passkeyCredential);
 
-    setIsLoading(true)
+    setIsLoading(true);
 
-    await addPasskeyOwner(protocolKit, signer)
+    await addPasskeyOwner(protocolKit, signer);
 
-    await storePassKey(signer, PASSKEY_NAME)
+    await storePassKey(signer, PASSKEY_NAME);
 
     const passkeySignerProtocolKitInstance = await Safe.init({
       provider: process.env.EXPO_PUBLIC_RPC_URL,
       signer: { ...signer, getFn: getPassKey } as PasskeyArgType,
-      safeAddress: safeAddress as string
-    })
+      safeAddress: safeAddress as string,
+    });
 
-    setPasskeySignerProtocolKit(passkeySignerProtocolKitInstance)
-    setPasskeySigner(signer)
-    setIsLoading(false)
-  }
+    setPasskeySignerProtocolKit(passkeySignerProtocolKitInstance);
+    setPasskeySigner(signer);
+    setIsLoading(false);
+  };
 
   const handleSignMessage = async () => {
-    if (!passkeySignerProtocolKit) return
+    if (!passkeySignerProtocolKit) return;
 
     prompt(
-      'Sign message',
-      'Enter the message to sign',
+      "Sign message",
+      "Enter the message to sign",
       [
         {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel'
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
         },
         {
-          text: 'Sign',
+          text: "Sign",
           onPress: async (message: string) => {
             const signedMessage = await signPasskeyMessage(
               passkeySignerProtocolKit,
               message
-            )
+            );
 
-            if (Platform.OS === 'web') {
+            if (Platform.OS === "web") {
               window.alert(
                 (signedMessage.data as string) +
-                  '\n' +
+                  "\n" +
                   signedMessage.encodedSignatures()
-              )
+              );
             } else {
               Alert.alert(
                 signedMessage.data as string,
                 signedMessage.encodedSignatures()
-              )
+              );
             }
-          }
-        }
+          },
+        },
       ],
       {
-        type: 'plain-text',
+        type: "plain-text",
         cancelable: false,
-        defaultValue: '',
-        placeholder: 'placeholder',
-        style: 'shimo'
+        defaultValue: "",
+        placeholder: "placeholder",
+        style: "shimo",
       }
-    )
-  }
+    );
+  };
 
   const handleSendTransaction = async () => {
-    if (!safeAddress || !protocolKit || !passkeySignerProtocolKit) return
+    if (!safeAddress || !protocolKit || !passkeySignerProtocolKit) return;
 
-    setIsLoading(true)
+    setIsLoading(true);
 
     const receipt = await sendDummyPasskeyTransaction(
       protocolKit,
       passkeySignerProtocolKit,
       safeAddress
-    )
+    );
 
-    setIsLoading(false)
+    setIsLoading(false);
 
     if (receipt.transactionHash) {
-      if (Platform.OS === 'web') {
-        window.alert(receipt.transactionHash)
+      if (Platform.OS === "web") {
+        window.alert(receipt.transactionHash);
       } else {
-        Alert.alert('Transaction hash', receipt.transactionHash)
+        Alert.alert("Transaction hash", receipt.transactionHash);
       }
     }
-  }
+  };
 
   const handleRemovePasskey = async () => {
-    removeStoredPassKey(PASSKEY_NAME)
-    setPasskeySigner(null)
-  }
+    removeStoredPassKey(PASSKEY_NAME);
+    setPasskeySigner(null);
+  };
 
   if (isLoading) {
-    return <ActivityIndicator style={styles.loadingContainer} size='large' />
+    return <ActivityIndicator style={styles.loadingContainer} size="large" />;
   }
 
   return (
@@ -241,7 +242,7 @@ export default function App() {
         <View style={styles.sectionContainer}>
           <Text style={styles.text}>⚠️ The account is not activated yet</Text>
           <View style={styles.button}>
-            <Button title='Activate Account' onPress={handleActivateAccount} />
+            <Button title="Activate Account" onPress={handleActivateAccount} />
           </View>
         </View>
       )}
@@ -251,7 +252,7 @@ export default function App() {
           {!passkeySigner && (
             <View style={styles.button}>
               <Button
-                title='Add Passkey Owner'
+                title="Add Passkey Owner"
                 onPress={handleAddPasskeyOwner}
               />
             </View>
@@ -260,61 +261,61 @@ export default function App() {
           {passkeySigner && (
             <>
               <View style={styles.button}>
-                <Button title='Sign Message' onPress={handleSignMessage} />
+                <Button title="Sign Message" onPress={handleSignMessage} />
               </View>
               <View style={styles.button}>
                 <Button
-                  title='Send Dummy Transaction'
+                  title="Send Dummy Transaction"
                   onPress={handleSendTransaction}
                 />
               </View>
               <View style={styles.button}>
-                <Button title='Remove Passkey' onPress={handleRemovePasskey} />
+                <Button title="Remove Passkey" onPress={handleRemovePasskey} />
               </View>
             </>
           )}
         </>
       )}
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 16
+    backgroundColor: "#fff",
+    padding: 16,
   },
   titleContainer: {
     marginBottom: 16,
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
   },
   titleText: {
     fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'left',
-    marginBottom: 8
+    fontWeight: "bold",
+    textAlign: "left",
+    marginBottom: 8,
   },
   sectionContainer: {
     marginBottom: 16,
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 4
+    fontWeight: "600",
+    marginBottom: 4,
   },
   text: {
     fontSize: 16,
-    textAlign: 'left',
-    marginBottom: 8
+    textAlign: "left",
+    marginBottom: 8,
   },
   button: {
     marginVertical: 8,
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center'
-  }
-})
+    justifyContent: "center",
+  },
+});
