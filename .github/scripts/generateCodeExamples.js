@@ -35,6 +35,18 @@ const repos = [
       '/layouts/default.vue',
       '/nuxt.config.ts'
     ]
+  },
+  {
+    organization: '5afe',
+    repo: 'react-native-passkeys-tutorial',
+    destination: './examples/react-native-passkeys',
+    branch: 'main',
+    files: [
+      '/lib/passkeys.ts',
+      '/lib/safe.ts',
+      '/lib/storage.ts',
+      '/App.tsx'
+    ]
   }
   // {
   //   organization: '5afe',
