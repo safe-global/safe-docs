@@ -242,7 +242,11 @@ export default function App() {
         <View style={styles.sectionContainer}>
           <Text style={styles.text}>⚠️ The account is not activated yet</Text>
           <View style={styles.button}>
-            <Button title="Activate Account" onPress={handleActivateAccount} />
+            <Button
+              color="#12FF80"
+              title="Activate Account"
+              onPress={handleActivateAccount}
+            />
           </View>
         </View>
       )}
@@ -252,6 +256,7 @@ export default function App() {
           {!passkeySigner && (
             <View style={styles.button}>
               <Button
+                color="#12FF80"
                 title="Add Passkey Owner"
                 onPress={handleAddPasskeyOwner}
               />
@@ -261,16 +266,25 @@ export default function App() {
           {passkeySigner && (
             <>
               <View style={styles.button}>
-                <Button title="Sign Message" onPress={handleSignMessage} />
+                <Button
+                  color="#12FF80"
+                  title="Sign Message"
+                  onPress={handleSignMessage}
+                />
               </View>
               <View style={styles.button}>
                 <Button
+                  color="#12FF80"
                   title="Send Dummy Transaction"
                   onPress={handleSendTransaction}
                 />
               </View>
               <View style={styles.button}>
-                <Button title="Remove Passkey" onPress={handleRemovePasskey} />
+                <Button
+                  color="#12FF80"
+                  title="Remove Passkey"
+                  onPress={handleRemovePasskey}
+                />
               </View>
             </>
           )}
@@ -283,7 +297,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
+    color: "#fff",
     padding: 16,
   },
   titleContainer: {
@@ -295,6 +310,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "left",
     marginBottom: 8,
+    color: "#12FF80",
   },
   sectionContainer: {
     marginBottom: 16,
@@ -304,11 +320,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600",
     marginBottom: 4,
+    color: "#fff",
   },
   text: {
     fontSize: 16,
     textAlign: "left",
     marginBottom: 8,
+    color: "#fff",
   },
   button: {
     marginVertical: 8,
