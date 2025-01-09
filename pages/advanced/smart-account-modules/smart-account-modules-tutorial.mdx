@@ -40,13 +40,51 @@ git init
 ```
 
 ```bash
-pnpm init
+npm init
 ```
 
 ### Install dependencies
 
+Add overrides in `package.json` so that we don't face any peer dependency related issues.
+
+```json
+...
+  "overrides": {
+    "ethers": "^6.13.5"
+  }
+...
+```
+
 ```bash
-pnpm add hardhat @safe-global/safe-contracts
+npm add hardhat @safe-global/safe-contracts @openzeppelin/contracts
+```
+
+### Update hardhat.config.ts
+
+When compiling Safe contracts with solidity 0.8.x the bytecode size exceeds the limit of 24KB. To overcome this, set `allowUnlimitedContractSize` to `true` in the hardhat config.
+Also, add `dependencyCompiler` to import `SafeProxyFactory` contract.
+
+```typescript
+import { HardhatUserConfig } from "hardhat/config";
+import "@nomicfoundation/hardhat-toolbox";
+import "hardhat-dependency-compiler";
+
+const config: HardhatUserConfig = {
+  solidity: "0.8.28",
+  networks: {
+    hardhat: {
+      allowUnlimitedContractSize: true,
+    },
+  },
+  dependencyCompiler: {
+    paths: [
+      "@safe-global/safe-contracts/contracts/proxies/SafeProxyFactory.sol",
+    ],
+  },
+};
+
+export default config;
+
 ```
 
 ### Initialize hardhat project
@@ -311,6 +349,11 @@ contract TokenWithdrawModule {
     }
 }
 ```
+
+### Testing the contract
+
+
+
 
 ## Do more with Safe and Safe Modules
 
