@@ -353,7 +353,370 @@ contract TokenWithdrawModule {
 ### Testing the contract
 
 
+#### Step 1: Start with an empty test file
 
+Create a new file named `TokenTransferModule.test.ts` and include the following basic structure:
+
+```typescript
+// Import necessary libraries and types
+
+describe("TokenTransferModule Tests", function () {
+
+  // Define variables
+
+  // Before hook to setup the contracts
+  before(async () => {
+  });
+
+    
+  beforeEach(async () => {
+
+  });
+
+  // Add your test cases here
+ it("Should successfully transfer tokens to bob", async function () {
+
+ });
+```
+
+#### Step 2: Create test/utils/utils.ts file
+
+```typescript
+import { ethers } from "hardhat";
+import { Signer, AddressLike, BigNumberish, ZeroAddress } from "ethers";
+import { Safe } from "../../typechain-types";
+
+const { keccak256, toUtf8Bytes } = ethers;
+
+// Define the type hash for the permit function
+const PERMIT_TYPEHASH = keccak256(
+  toUtf8Bytes(
+    "TokenTransfer(uint256 amount, address _beneficiary, uint256 nonce, uint256 deadline)"
+  )
+);
+
+/**
+ * Generates the EIP-712 digest for a token transfer.
+ * @param name - The name of the contract.
+ * @param address - The address of the contract.
+ * @param chainId - The chain ID of the network.
+ * @param amount - The amount of tokens to transfer.
+ * @param user - The address of the beneficiary.
+ * @param nonce - The nonce for the transaction.
+ * @param deadline - The deadline for the transaction.
+ * @returns The EIP-712 digest.
+ */
+function getDigest(
+  name: string,
+  address: string,
+  chainId: bigint,
+  amount: BigInt,
+  user: string,
+  nonce: BigInt,
+  deadline: BigInt
+): string {
+  // Get the domain separator for the contract
+  const DOMAIN_SEPARATOR = getDomainSeparator(name, address, chainId);
+  const defaultAbiCoder = ethers.AbiCoder.defaultAbiCoder();
+
+  // Generate the EIP-712 digest
+  return keccak256(
+    ethers.solidityPacked(
+      ["bytes1", "bytes1", "bytes32", "bytes32"],
+      [
+        "0x19",
+        "0x01",
+        DOMAIN_SEPARATOR,
+        keccak256(
+          defaultAbiCoder.encode(
+            ["bytes32", "uint256", "address", "uint256", "uint256"],
+            [PERMIT_TYPEHASH, amount, user, nonce, deadline]
+          )
+        ),
+      ]
+    )
+  );
+}
+
+/**
+ * Gets the EIP-712 domain separator.
+ * @param name - The name of the contract.
+ * @param contractAddress - The address of the contract.
+ * @param chainId - The chain ID of the network.
+ * @returns The EIP-712 domain separator.
+ */
+function getDomainSeparator(
+  name: string,
+  contractAddress: string,
+  chainId: bigint
+): string {
+  const defaultAbiCoder = ethers.AbiCoder.defaultAbiCoder();
+  return keccak256(
+    defaultAbiCoder.encode(
+      ["bytes32", "bytes32", "bytes32", "uint256", "address"],
+      [
+        keccak256(
+          toUtf8Bytes(
+            "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
+          )
+        ),
+        keccak256(toUtf8Bytes(name)),
+        keccak256(toUtf8Bytes("1")),
+        chainId,
+        contractAddress,
+      ]
+    )
+  );
+}
+
+/**
+ * Executes a transaction on the Safe contract.
+ * @param wallets - The signers of the transaction.
+ * @param safe - The Safe contract instance.
+ * @param to - The address to send the transaction to.
+ * @param value - The value to send with the transaction.
+ * @param data - The data to send with the transaction.
+ * @param operation - The operation type (0 for call, 1 for delegate call).
+ * @param message - A message describing the transaction.
+ */
+const execTransaction = async function (
+  wallets: Signer[],
+  safe: Safe,
+  to: AddressLike,
+  value: BigNumberish,
+  data: string,
+  operation: number,
+  message: string
+): Promise<void> {
+  // Get the current nonce of the Safe contract
+  const nonce = await safe.nonce();
+
+  // Get the transaction hash for the Safe transaction
+  const transactionHash = await safe.getTransactionHash(
+    to,
+    value,
+    data,
+    operation,
+    0,
+    0,
+    0,
+    ZeroAddress,
+    ZeroAddress,
+    nonce
+  );
+
+  let signatureBytes = "0x";
+  const bytesDataHash = ethers.getBytes(transactionHash);
+
+  // Get the addresses of the signers
+  const addresses = await Promise.all(wallets.map(wallet => wallet.getAddress()));
+  // Sort the signers by their addresses
+  const sorted = wallets.sort((a, b) => {
+    const addressA = addresses[wallets.indexOf(a)];
+    const addressB = addresses[wallets.indexOf(b)];
+    return addressA.localeCompare(addressB, "en", { sensitivity: "base" });
+  });
+
+  // Sign the transaction hash with each signer
+  for (let i = 0; i < sorted.length; i++) {
+    const flatSig = (await sorted[i].signMessage(bytesDataHash))
+      .replace(/1b$/, "1f")
+      .replace(/1c$/, "20");
+    signatureBytes += flatSig.slice(2);
+  }
+
+  // Execute the transaction on the Safe contract
+  await safe.execTransaction(
+    to,
+    value,
+    data,
+    operation,
+    0,
+    0,
+    0,
+    ZeroAddress,
+    ZeroAddress,
+    signatureBytes
+  );
+};
+
+export {
+  PERMIT_TYPEHASH,
+  execTransaction,
+  getDigest,
+  getDomainSeparator,
+};
+```
+
+#### Step 3: Setup contracts and variables
+
+#### Step 4: Add test cases
+
+#### Final test code
+
+```typescript
+import { ethers } from "hardhat";
+import { expect } from "chai";
+import { Signer, ZeroAddress } from "ethers";
+import { Safe__factory, TestToken, TokenWithdrawModule } from "../typechain-types";
+import { execTransaction, getDigest } from "./utils/utils";
+
+describe("Example module tests", async function () {
+  let deployer: Signer;
+  let alice: Signer;
+  let bob: Signer;
+  let charlie: Signer;
+  let masterCopy: any;
+  let proxyFactory: any;
+  let token: TestToken;
+  let safeFactory: Safe__factory;
+  let chainId: bigint;
+
+  // Setup signers and deploy contracts before running tests
+  before(async () => {
+    [deployer, alice, bob, charlie] = await ethers.getSigners();
+
+    chainId = (await ethers.provider.getNetwork()).chainId;
+    safeFactory = await ethers.getContractFactory("Safe", deployer);
+    masterCopy = await safeFactory.deploy();
+
+    proxyFactory = await (
+      await ethers.getContractFactory("SafeProxyFactory", deployer)
+    ).deploy();
+  });
+
+  // Deploy a new token contract before each test
+  beforeEach(async () => {
+    token = await (
+      await ethers.getContractFactory("TestToken", deployer)
+    ).deploy("test", "T");
+  });
+
+  // Helper function to setup contracts
+  const setupContracts = async (
+    walletOwners: Signer[],
+    threshold: number
+  ): Promise<{ exampleModule: TokenWithdrawModule }> => {
+    const ownerAddresses = await Promise.all(
+      walletOwners.map(async (walletOwner) => await walletOwner.getAddress())
+    );
+
+    const safeData = masterCopy.interface.encodeFunctionData("setup", [
+      ownerAddresses,
+      threshold,
+      ZeroAddress,
+      "0x",
+      ZeroAddress,
+      ZeroAddress,
+      0,
+      ZeroAddress,
+    ]);
+
+    // Read the safe address by executing the static call to createProxyWithNonce function
+    const safeAddress = await proxyFactory.createProxyWithNonce.staticCall(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    // Create the proxy with nonce
+    await proxyFactory.createProxyWithNonce(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    if (safeAddress === ZeroAddress) {
+      throw new Error("Safe address not found");
+    }
+
+    // Deploy the TokenWithdrawModule contract
+    const exampleModule = await (
+      await ethers.getContractFactory("TokenWithdrawModule", deployer)
+    ).deploy(token.target, safeAddress);
+
+    // Mint tokens to the safe address
+    await token
+      .connect(deployer)
+      .mint(safeAddress, BigInt(10) ** BigInt(18) * BigInt(100000));
+
+    const safe = await ethers.getContractAt("Safe", safeAddress);
+
+    // Enable the module in the safe
+    const enableModuleData = masterCopy.interface.encodeFunctionData(
+      "enableModule",
+      [exampleModule.target]
+    );
+
+    // Execute the transaction to enable the module
+    await execTransaction(
+      walletOwners.slice(0, threshold),
+      safe,
+      safe.target,
+      0,
+      enableModuleData,
+      0,
+      "enable module"
+    );
+
+    // Verify that the module is enabled
+    expect(await safe.isModuleEnabled.staticCall(exampleModule.target)).to.be
+      .true;
+
+    return { exampleModule };
+  };
+
+  // Test case to verify token transfer to bob
+  it("Should successfully transfer tokens to bob", async function () {
+    const wallets = [alice];
+    const { exampleModule } = await setupContracts(wallets, 1);
+
+    const amount = BigInt(10) ** BigInt(18) * BigInt(10);
+
+    let signatureBytes = "0x";
+    const deadline = 100000000000000n;
+    const nonce = await exampleModule.nonces(await bob.getAddress());
+
+    // Generate the digest for the transaction
+    const digest = getDigest(
+      "TokenWithdrawModule",
+      await exampleModule.getAddress(),
+      chainId,
+      amount,
+      await bob.getAddress(),
+      nonce,
+      deadline
+    );
+
+    const bytesDataHash = ethers.getBytes(digest);
+
+    // Sign the digest with each wallet owner
+    for (let i = 0; i < wallets.length; i++) {
+      const flatSig = (await wallets[i].signMessage(bytesDataHash))
+        .replace(/1b$/, "1f")
+        .replace(/1c$/, "20");
+      signatureBytes += flatSig.slice(2);
+    }
+
+    // Attempt to transfer tokens with an invalid signer (should fail)
+    await expect(
+      exampleModule
+        .connect(charlie)
+        .tokenTransfer(amount, await charlie.getAddress(), deadline, signatureBytes)
+    ).to.be.revertedWith("GS026");
+
+    // Transfer tokens with a valid signer
+    await exampleModule
+      .connect(bob)
+      .tokenTransfer(amount, await bob.getAddress(), deadline, signatureBytes);
+
+    // Verify the token balance of bob
+    const balanceBob = await token.balanceOf.staticCall(await bob.getAddress());
+    expect(balanceBob).to.be.equal(amount);
+  });
+
+});
+```
 
 ## Do more with Safe and Safe Modules
 
