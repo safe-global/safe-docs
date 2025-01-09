@@ -45,7 +45,7 @@ npm init
 
 ### Install dependencies
 
-Add overrides in `package.json` so that we don't face any peer dependency related issues.
+Add overrides in `package.json` so that there are no peer dependency related issues.
 
 ```json
 ...
@@ -363,14 +363,9 @@ Create a new file named `TokenTransferModule.test.ts` and include the following 
 describe("TokenTransferModule Tests", function () {
 
   // Define variables
-
+   
   // Before hook to setup the contracts
   before(async () => {
-  });
-
-    
-  beforeEach(async () => {
-
   });
 
   // Add your test cases here
@@ -380,6 +375,8 @@ describe("TokenTransferModule Tests", function () {
 ```
 
 #### Step 2: Create test/utils/utils.ts file
+
+Create a new file named `utils.ts` in the `test/utils` directory and include the code below. This file contains utility functions to generate the EIP-712 digest and execute transaction through the Safe account.
 
 ```typescript
 import { ethers } from "hardhat";
@@ -477,7 +474,6 @@ function getDomainSeparator(
  * @param value - The value to send with the transaction.
  * @param data - The data to send with the transaction.
  * @param operation - The operation type (0 for call, 1 for delegate call).
- * @param message - A message describing the transaction.
  */
 const execTransaction = async function (
   wallets: Signer[],
@@ -486,7 +482,6 @@ const execTransaction = async function (
   value: BigNumberish,
   data: string,
   operation: number,
-  message: string
 ): Promise<void> {
   // Get the current nonce of the Safe contract
   const nonce = await safe.nonce();
@@ -550,18 +545,39 @@ export {
 
 #### Step 3: Setup contracts and variables
 
-#### Step 4: Add test cases
+This step will set up the necessary contracts and variables for the tests. This includes deploying the Safe contract, the Token contract, and the TokenWithdrawModule contract. It will also initialize the Safe with the required owners and enable the TokenWithdrawModule as a module in the Safe.
 
-#### Final test code
+1. **Import necessary libraries and types**:
+   - Import the required libraries and types from `hardhat`, `chai`, and `ethers`.
+
+2. **Define variables**:
+   - Define variables to hold the signers, contract instances, and other necessary data.
+
+3. **Setup signers and deploy contracts before running tests**:
+   - Use the `before` hook to set up the signers and deploy the `Safe` and `SafeProxyFactory` contracts before running the tests.
+
+4. **Helper function to setup contracts**:
+   - Define a helper function `setupContracts` to deploy and initialize the contracts. This function:
+     - Deploys the Safe contract and sets up the owners and threshold.
+     - Deploys the TokenWithdrawModule contract.
+     - Mints tokens to the Safe address.
+     - Enables the TokenWithdrawModule in the Safe.
+     - Verifies that the module is enabled in the Safe.
+
+This setup ensures that each test starts with a fresh instance of the contracts and the necessary initial state.
 
 ```typescript
+// Import necessary libraries and types
 import { ethers } from "hardhat";
 import { expect } from "chai";
 import { Signer, ZeroAddress } from "ethers";
 import { Safe__factory, TestToken, TokenWithdrawModule } from "../typechain-types";
+import { SafeTransaction } from "@safe-global/safe-contracts";
 import { execTransaction, getDigest } from "./utils/utils";
 
-describe("Example module tests", async function () {
+describe("TokenTransferModule Tests", function () {
+
+  // Define variables
   let deployer: Signer;
   let alice: Signer;
   let bob: Signer;
@@ -572,7 +588,7 @@ describe("Example module tests", async function () {
   let safeFactory: Safe__factory;
   let chainId: bigint;
 
-  // Setup signers and deploy contracts before running tests
+    // Setup signers and deploy contracts before running tests
   before(async () => {
     [deployer, alice, bob, charlie] = await ethers.getSigners();
 
@@ -580,19 +596,17 @@ describe("Example module tests", async function () {
     safeFactory = await ethers.getContractFactory("Safe", deployer);
     masterCopy = await safeFactory.deploy();
 
+    // Deploy a new token contract before each test
+    token = await (
+      await ethers.getContractFactory("TestToken", deployer)
+    ).deploy("test", "T");
+
     proxyFactory = await (
       await ethers.getContractFactory("SafeProxyFactory", deployer)
     ).deploy();
   });
 
-  // Deploy a new token contract before each test
-  beforeEach(async () => {
-    token = await (
-      await ethers.getContractFactory("TestToken", deployer)
-    ).deploy("test", "T");
-  });
-
-  // Helper function to setup contracts
+  // Setup contracts: Deploy a new token contract, create a new Safe, deploy the TokenWithdrawModule contract, and nable the module in the Safe.
   const setupContracts = async (
     walletOwners: Signer[],
     threshold: number
@@ -655,8 +669,204 @@ describe("Example module tests", async function () {
       safe.target,
       0,
       enableModuleData,
+      0
+    );
+
+    // Verify that the module is enabled
+    expect(await safe.isModuleEnabled.staticCall(exampleModule.target)).to.be
+      .true;
+
+    return { exampleModule };
+  };
+});
+
+```
+
+#### Step 4: Add test case
+
+This step adds a test case to verify that the `TokenWithdrawModule` correctly transfers tokens from the Safe to a beneficiary.
+
+1. **Define the test case**:
+   - Define a test case named "Should successfully transfer tokens to bob".
+
+2. **Setup contracts**:
+   - Call the `setupContracts` helper function to deploy and initialize the contracts with the required owners and threshold.
+
+3. **Define transfer parameters**:
+   - Define the amount of tokens to transfer and the deadline for the transaction.
+
+4. **Generate the digest**:
+   - Generate the EIP-712 digest for the token transfer using the `getDigest` utility function.
+
+5. **Sign the digest**:
+   - Sign the digest with the wallet owners' private keys to produce the required signatures.
+
+6. **Try invalid transfer**:
+   - Try to transfer tokens with an invalid signer (charlie) and expect the transaction to revert.
+
+7. **Execute valid transfer**:
+   - Execute the token transfer with a valid signer (bob) and verify that the transfer is successful.
+
+8. **Verify token balance**:
+   - Check the token balance of bob to ensure that the tokens were transferred correctly.
+
+This test case ensures that the `TokenWithdrawModule` correctly handles token transfers, including signature verification and transaction execution.
+
+```typescript
+  // Test case to verify token transfer to bob
+  it("Should successfully transfer tokens to bob", async function () {
+    const wallets = [alice];
+    const { exampleModule } = await setupContracts(wallets, 1);
+
+    const amount = BigInt(10) ** BigInt(18) * BigInt(10);
+
+    let signatureBytes = "0x";
+    const deadline = 100000000000000n;
+    const nonce = await exampleModule.nonces(await bob.getAddress());
+
+    // Generate the digest for the transaction
+    const digest = getDigest(
+      "TokenWithdrawModule",
+      await exampleModule.getAddress(),
+      chainId,
+      amount,
+      await bob.getAddress(),
+      nonce,
+      deadline
+    );
+
+    const bytesDataHash = ethers.getBytes(digest);
+
+    // Sign the digest with each wallet owner
+    for (let i = 0; i < wallets.length; i++) {
+      const flatSig = (await wallets[i].signMessage(bytesDataHash))
+        .replace(/1b$/, "1f")
+        .replace(/1c$/, "20");
+      signatureBytes += flatSig.slice(2);
+    }
+
+    // Attempt to transfer tokens with an invalid signer (should fail)
+    await expect(
+      exampleModule
+        .connect(charlie)
+        .tokenTransfer(amount, await charlie.getAddress(), deadline, signatureBytes)
+    ).to.be.revertedWith("GS026");
+
+    // Transfer tokens with a valid signer
+    await exampleModule
+      .connect(bob)
+      .tokenTransfer(amount, await bob.getAddress(), deadline, signatureBytes);
+
+    // Verify the token balance of bob
+    const balanceBob = await token.balanceOf.staticCall(await bob.getAddress());
+    expect(balanceBob).to.be.equal(amount);
+  });
+```
+
+#### Final test code
+
+Here is the complete code for reference:
+
+```typescript
+import { ethers } from "hardhat";
+import { expect } from "chai";
+import { Signer, ZeroAddress } from "ethers";
+import { Safe, Safe__factory, SafeProxyFactory, TestToken, TokenWithdrawModule } from "../typechain-types";
+import { execTransaction, getDigest } from "./utils/utils";
+
+describe("Example module tests", async function () {
+  let deployer: Signer;
+  let alice: Signer;
+  let bob: Signer;
+  let charlie: Signer;
+  let masterCopy: Safe;
+  let proxyFactory: SafeProxyFactory;
+  let token: TestToken;
+  let safeFactory: Safe__factory;
+  let chainId: bigint;
+
+  // Setup signers and deploy contracts before running tests
+  before(async () => {
+    [deployer, alice, bob, charlie] = await ethers.getSigners();
+
+    chainId = (await ethers.provider.getNetwork()).chainId;
+    safeFactory = await ethers.getContractFactory("Safe", deployer);
+    masterCopy = await safeFactory.deploy();
+
+    // Deploy a new token contract before each test
+    token = await (
+      await ethers.getContractFactory("TestToken", deployer)
+    ).deploy("test", "T");
+
+    proxyFactory = await (
+      await ethers.getContractFactory("SafeProxyFactory", deployer)
+    ).deploy();
+  });
+
+  // Setup contracts: Deploy a new token contract, create a new Safe, deploy the TokenWithdrawModule contract, and nable the module in the Safe.
+  const setupContracts = async (
+    walletOwners: Signer[],
+    threshold: number
+  ): Promise<{ exampleModule: TokenWithdrawModule }> => {
+    const ownerAddresses = await Promise.all(
+      walletOwners.map(async (walletOwner) => await walletOwner.getAddress())
+    );
+
+    const safeData = masterCopy.interface.encodeFunctionData("setup", [
+      ownerAddresses,
+      threshold,
+      ZeroAddress,
+      "0x",
+      ZeroAddress,
+      ZeroAddress,
       0,
-      "enable module"
+      ZeroAddress,
+    ]);
+
+    // Read the safe address by executing the static call to createProxyWithNonce function
+    const safeAddress = await proxyFactory.createProxyWithNonce.staticCall(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    // Create the proxy with nonce
+    await proxyFactory.createProxyWithNonce(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    if (safeAddress === ZeroAddress) {
+      throw new Error("Safe address not found");
+    }
+
+    // Deploy the TokenWithdrawModule contract
+    const exampleModule = await (
+      await ethers.getContractFactory("TokenWithdrawModule", deployer)
+    ).deploy(token.target, safeAddress);
+
+    // Mint tokens to the safe address
+    await token
+      .connect(deployer)
+      .mint(safeAddress, BigInt(10) ** BigInt(18) * BigInt(100000));
+
+    const safe = await ethers.getContractAt("Safe", safeAddress);
+
+    // Enable the module in the safe
+    const enableModuleData = masterCopy.interface.encodeFunctionData(
+      "enableModule",
+      [exampleModule.target]
+    );
+
+    // Execute the transaction to enable the module
+    await execTransaction(
+      walletOwners.slice(0, threshold),
+      safe,
+      safe.target,
+      0,
+      enableModuleData,
+      0
     );
 
     // Verify that the module is enabled
