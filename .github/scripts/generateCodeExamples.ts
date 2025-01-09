@@ -1,5 +1,13 @@
 const fs = require('fs')
 
+type Repo = {
+  organization: string
+  repo: string
+  destination: string
+  branch: string
+  files: string[]
+}
+
 const repos = [
   {
     organization: '5afe',
@@ -71,7 +79,7 @@ const generateCodeExamples = async ({
   branch,
   destination,
   files
-}) => {
+}: Repo) => {
   const fetch = await import('node-fetch')
   files.forEach(async filePath => {
     const url = `https://raw.githubusercontent.com/${organization}/${repo}/${branch}${filePath}?token=$(date +%s)`
