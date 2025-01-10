@@ -16,9 +16,7 @@ The full code for this tutorial is in the [Safe Module tutorial repository](http
 
 Before progressing with the tutorial, please make sure you have the following:
 
-- Downloaded and installed [Node.js](https://nodejs.org/en/download/package-manager) and [pnpm](https://pnpm.io/installation).
-- Metamask installed in your browser and connected to the Sepolia network.
-- Two test accounts in Metamask, the second with some Sepolia Eth for gas.
+- Downloaded and installed [Node.js](https://nodejs.org/en/download/package-manager) and [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
 ## Setup contracts repository
 
@@ -50,7 +48,9 @@ Add overrides in `package.json` so that there are no peer dependency related iss
 ```json
 ...
   "overrides": {
-    "ethers": "^6.13.5"
+    "@safe-global/safe-contracts": {
+      "ethers": "^6.13.5"
+    }
   }
 ...
 ```
