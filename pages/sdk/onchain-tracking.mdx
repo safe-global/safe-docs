@@ -1,0 +1,182 @@
+import { Tabs, Steps } from 'nextra/components'
+
+# On-chain Tracking
+
+We aim to understand better and recognise our key contributors who are driving the adoption of smart accounts within our ecosystem.
+
+Implementing a Safe on-chain identifier enables tracking of complex data, such as whether a Safe transaction is executed via our SDK or another, whether it originates from a platform like a Safe App or widget (e.g., the CoW Swap widget in our Safe interface), the tool version, the project, and more.
+
+By submitting your on-chain identifier through the form provided at the end of this page, you will help us accurately attribute activity and allow us to return value to our Ecosystem Partners in the future.
+
+## On-chain identifier format
+
+The identifiers used to track Safe deployments and transactions are 50 bytes in length and follow the format below:
+
+`5afe` `00` `6363643438383836663461336661366162653539` `646561` `393238` `653366`
+
+Check the last 50 bytes of the `data` field in this [example transaction](https://sepolia.etherscan.io/tx/0xe0192eedd1fc2d06be0561d57380d610dd6d162af0f3cfbd6c08f9062d738761) to see how the identifier appears after the transaction is executed.
+
+### Prefix hash
+
+- **Type:** `2 bytes`
+- **Example:** `5afe`
+
+Static prefix to identify the Safe on-chain identifier.
+
+### Version hash
+
+- **Type:** `1 byte`
+- **Example:** `00`
+
+Version number of the Safe on-chain identifier format.
+
+### Project hash
+
+- **Type:** `20 bytes`
+- **Example:** `6363643438383836663461336661366162653539`
+
+Truncated hash of the project's name (e.g., "Gnosis", "CoW Swap").
+
+### Platform hash
+
+- **Type:** `3 bytes`
+- **Example:** `646561`
+
+Truncated hash of the platform's name (e.g., "Web", "Mobile", "Safe App", "Widget").
+
+### Tool hash
+
+- **Type:** `3 bytes`
+- **Example:** `393238`
+
+Truncated hash of the tool's name (e.g., "protocol-kit", "relay-kit", or any custom tool built by projects).
+
+### Tool version hash
+
+- **Type:** `3 bytes`
+- **Example:** `653366`
+
+Truncated hash of the tool's version (e.g., "1.0.0", "1.0.1").
+
+## Steps
+
+The on-chain identifier allows tracking the deployment of Safe accounts, the execution of Safe transactions, and the execution of Safe user operations:
+
+<Steps>
+
+  ### Track Safe deployments
+
+  Safe deployments can be tracked by assigning an on-chain identifier to the [`paymentReceiver`](../reference-smart-account/setup/setup.mdx#paymentreceiver) or [`saltNonce`](https://github.com/safe-global/safe-smart-account/blob/main/contracts/proxies/SafeProxyFactory.sol#L55) properties during the Safe configuration and deployment.
+  
+  If you use the [Protocol Kit](../sdk/protocol-kit.mdx) or the [Relay Kit](../sdk/relay-kit.mdx) to deploy a Safe, adding the `onchainAnalytics` property to the initialization method will automatically handle this. The deployment transaction will include the identifier.
+
+  {/* <!-- vale off --> */}
+
+  <Tabs items={['Protocol Kit', 'Relay Kit']}>
+    <Tabs.Tab>
+      ```typescript
+      import Safe, { OnchainAnalyticsProps } from '@safe-global/protocol-kit'
+
+      const onchainAnalytics: OnchainAnalyticsProps = {
+        project: 'YOUR_PROJECT_NAME'
+        platform: 'CURRENT_PLATFORM' // Optional
+      }
+
+      const protocolKit = await Safe.init({
+        // ...
+        onchainAnalytics
+      })
+
+      // Execute the deployment
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```typescript
+      import { Safe4337Pack } from '@safe-global/relay-kit'
+      import { OnchainAnalyticsProps } from '@safe-global/protocol-kit'
+
+      const onchainAnalytics: OnchainAnalyticsProps = {
+        project: 'YOUR_PROJECT_NAME'
+        platform: 'CURRENT_PLATFORM' // Optional
+      }
+      
+      const safe4337Pack = await Safe4337Pack.init({
+        // ...
+        onchainAnalytics
+      })
+
+      // Execute the deployment
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  {/* <!-- vale on --> */}
+
+  ### Track Safe transactions
+
+  Safe transactions can be tracked by concatenating the on-chain identifier at the end of the transaction `data` or user operation `callData` properties. 
+
+  If you use the [Protocol Kit](../sdk/protocol-kit.mdx) or the [Relay Kit](../sdk/relay-kit.mdx) to execute the Safe transactions, adding the `onchainAnalytics` property to the initialization method will automatically handle this. The Safe transactions will include the identifier.
+
+  <Tabs items={['Protocol Kit', 'Relay Kit']}>
+    <Tabs.Tab>
+      ```typescript
+      import Safe, { OnchainAnalyticsProps } from '@safe-global/protocol-kit'
+
+      const onchainAnalytics: OnchainAnalyticsProps = {
+        project: 'YOUR_PROJECT_NAME'
+        platform: 'CURRENT_PLATFORM' // Optional
+      }
+
+      const protocolKit = await Safe.init({
+        // ...
+        onchainAnalytics
+      })
+
+      // Execute the transaction
+      ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+      ```typescript
+      import { Safe4337Pack } from '@safe-global/relay-kit'
+      import { OnchainAnalyticsProps } from '@safe-global/protocol-kit'
+
+      const onchainAnalytics: OnchainAnalyticsProps = {
+        project: 'YOUR_PROJECT_NAME'
+        platform: 'CURRENT_PLATFORM' // Optional
+      }
+      
+      const safe4337Pack = await Safe4337Pack.init({
+        // ...
+        onchainAnalytics
+      })
+
+      // Execute the transaction
+      ```
+    </Tabs.Tab>
+  </Tabs>
+
+  ### Get the on-chain identifier
+
+  To get the current safe on-chain identifier, you can use the `getOnchainIdentifier` method from an initialized instance of the Protocol Kit.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const onchainIdentifier = protocolKit.getOnchainIdentifier()
+  ```
+
+  {/* <!-- vale on --> */}
+
+</Steps>
+
+## Submission Form
+
+<br/>
+
+<iframe
+  src="https://docs.google.com/forms/d/e/1FAIpQLSfHWSPbSQwmo0mbtuFFewfLvDEOvTxfuvEl7AHOyrFE_dqpwQ/viewform?embedded=true"
+  width="100%"
+  height="1750"
+  frameborder="0"
+>Loading…</iframe>
