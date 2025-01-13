@@ -1,5 +1,5 @@
 import { Callout } from 'nextra/components'
-import { Bleed } from 'nextra-theme-docs'
+import { Bleed, Tabs } from 'nextra-theme-docs'
 
 # How to build a React Native app with Safe and passkeys
 
@@ -26,6 +26,7 @@ Before progressing with the tutorial, please make sure you have:
 - Downloaded and installed [Node.js](https://nodejs.org/en/download/package-manager).
 - Have enrolled to the [Apple Developer Program](https://developer.apple.com/programs/enroll/) and installed [Xcode](https://developer.apple.com/xcode/) (if you want to test the app on iOS)
 - Have downloaded and installed [Android Studio](https://developer.android.com/studio) and have a Google account connected to your emulator (if you want to test the app on Android)
+- Have a [ngrok](https://ngrok.com/) account to create an HTTPS tunnel to your server.
 
 **Note:** If you wish to follow along using the completed project, you can [check out the GitHub repository](https://github.com/5afe/react-native-passkeys-tutorial) for this tutorial.
 
@@ -46,6 +47,7 @@ When prompted by the CLI, enter the name of the application (for example, react-
 Run the following command to add the project dependencies:
 
 ```bash
+cd react-native-passkeys
 npm install @safe-global/protocol-kit react-native-passkeys react-native-base64 @react-native-async-storage/async-storage react-native-prompt-android expo-build-properties
 ```
 
@@ -69,7 +71,7 @@ We will use emulators and development builds in this tutorial, so please refer t
 - [**Android Studio Emulator**](https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=simulated&mode=development-build)
 - [**iOS Simulator**](https://docs.expo.dev/get-started/set-up-your-environment/?platform=ios&device=simulated&mode=development-build)
 
-**⚠️ An important consideration is that the selected Android emulator must be compatible with Google Play Services to store the passkeys in the Android keystore. When [creating the emulator](https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=simulated&mode=development-build#set-up-an-emulator) using Android Studio Device Manager, ensure that you include one with Play Store services.**
+When [creating the emulator](https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=simulated&mode=development-build#set-up-an-emulator) using Android Studio Device Manager, ensure that you include one with Play Store services, as this is required for passkeys.
 
 ![react-native-passkeys-app-2.png](../../../../assets/react-native-passkeys-play-store.png)
 
@@ -77,30 +79,21 @@ We will use emulators and development builds in this tutorial, so please refer t
 
 Create a file named `.env` in the root of your project and add the following keys:
 
-```bash
-# Add the Safe account owners.
-EXPO_PUBLIC_SAFE_OWNERS=["0xOwnerAddress1", "..."]
-# Safe salt nonce. A random number that is used to generate to Safe account address. When you change the number a new Safe will be predicted.
-# This is useful to start testing the app with a new Safe account.
-EXPO_PUBLIC_SAFE_SALT_NONCE=1
-# The private key of the Safe account owner that will be used to deploy the Safe or execute transactions. Should have some test Sepolia ETH.
-EXPO_PUBLIC_SAFE_SIGNER_PK=add_your_private_key_here
-# Sepolia RPC URL you want to use
-EXPO_PUBLIC_RPC_URL=https://...
+```.env
+// from ../../../../examples/react-native-passkeys/.env-sample
 ```
 
-Remember to add the .env file to your `.gitignore` file to avoid committing sensitive information.
+Replace `add_private_key_here` by a private key you own, and `0xOwnerAddress1` by one or more public addresses you own. These addresses will be used to deploy the Safe and add passkey owners.
 
 ### Run emulators
 
 After completing all these configurations 🙃, you can finally run the local development build of the app on the emulators (Emulators should be running) by using the following commands:
 
 ```bash
-npx expo run:android
-npx expo run:ios
+npx expo start
 ```
 
-After the building and initialization steps visible in the terminal logs, you should see the app running on the emulator. You can now begin developing the app.
+After the building and initialization steps visible in the terminal logs, press `a` in your terminal to launch the Android simulator, or `i` for the iOS simulator. You can now begin developing the app.
 
 ![react-native-passkeys-app-2.png](../../../../assets/react-native-passkeys-app-2.png)
 
@@ -183,17 +176,42 @@ Now we should have a functional app that enables users to activate their Safe ac
 
 ## 7. Setup and host `AASA` and `assetslinks.json` files
 
-To use passkeys in the app, you need to complete some additional setup in the Android and iOS projects. The steps are outlined in the `README.md` file of the [react-native-passkeys](https://github.com/peterferguson/react-native-passkeys) repository. Please follow the instructions for each platform you want to test. Basically you need to:
+To use passkeys in the app, you need to complete some additional setup in the Android and iOS projects. To facilitate this, we are providing a simple [Node Express web server](https://github.com/5afe/aasa-server) for testing.
 
-- **iOS**: Serve the [Apple App Site Association](https://developer.apple.com/documentation/xcode/supporting-associated-domains) (AASA) file
-- **Android**: Serve the [`assetlinks.json`](https://developer.android.com/training/app-links/verify-android-applinks)
-
-To facilitate this, we are providing a simple [Node Express web server](https://github.com/5afe/aasa-server) for testing. Clone the repository, fill in your data in the `apple-app-site-association` and `assetlinks.json` files and start the server.
+Clone and install the repository with:
 
 ```bash
 git clone https://github.com/5afe/aasa-server.git
+```
+
+Fill in your data in the `apple-app-site-association` and `assetlinks.json` files as follows:
+
+
+<Tabs items={['iOS', 'Android']}>
+  <Tabs.Tab>
+    - Login or subscribe to the Apple Developer Program and [locate your Team
+    ID](https://developer.apple.com/help/account/manage-your-team/locate-your-team-id/).
+    - Add your Team ID instead of `add_your_apple_team_id_here` in the
+    `apple-app-site-association` file
+    - Add your provisioning profile to sign the app through Xcode. You can open the generated iOS project in Xcode and under Signing & Capabilities choose your team.
+    - Activate FaceId. Go to Features > Face ID > Enrolled in the iOS simulator menu.
+  </Tabs.Tab>
+  <Tabs.Tab>
+    - Add a Google account in the settings of the Android emulated phone. 
+    - Get an Android keystore SHA 256 fingerprint with this command (from the root of your project):
+    ```bash
+    keytool -list -v -keystore ./android/app/debug.keystore -alias androiddebugkey -storepass android -keypass android
+    ```
+    - Copy the value in front of `SHA 256` at the
+    place of `add_your_sha256_cert_fingerprints_here` in the assetslinks.json
+    file.
+  </Tabs.Tab>
+</Tabs>
+
+You can now start the server with:
+```bash
+cd aasa-server
 npm install
-# Update the apple-app-site-association and assetlinks.json files
 npm start
 ```
 
@@ -215,11 +233,6 @@ Not updating this information will result in an error when trying to create a pa
 ```
 Error Domain=com.apple.AuthenticationServices.AuthorizationError Code=1004 "(null)"
 ```
-
-⚠️ If you are using iOS simulator remember to:
-
-- Add your provisioning profile to sign the app through xcode. You can open the generated iOS project in xcode and under Signing & Capabilities choose your team.
-- Activate FaceId. Go to Features > Face ID > Enrolled in the iOS simulator menu.
 
 ## 8. See the App in action
 

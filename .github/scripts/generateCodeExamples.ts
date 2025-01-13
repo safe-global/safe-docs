@@ -53,7 +53,8 @@ const repos = [
       '/lib/passkeys.ts',
       '/lib/safe.ts',
       '/lib/storage.ts',
-      '/App.tsx'
+      '/App.tsx',
+      '/.env-sample'
     ]
   }
   // {
