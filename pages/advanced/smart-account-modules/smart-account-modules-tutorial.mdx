@@ -359,8 +359,30 @@ contract TokenWithdrawModule {
 }
 ```
 
-### Testing the contract
+#### Create TestToken.sol contract
 
+Create a new file in the `contracts` directory named `TestToken.sol` and add the following code:
+
+```solidity
+// SPDX-License-Identifier: SEE LICENSE IN LICENSE
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract TestToken is ERC20, Ownable {
+    constructor(
+        string memory _name,
+        string memory _symbol
+    ) ERC20(_name, _symbol) Ownable(msg.sender){}
+
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+    }
+}
+```
+
+### Testing the contract
 
 #### Step 1: Start with an empty test file
 
