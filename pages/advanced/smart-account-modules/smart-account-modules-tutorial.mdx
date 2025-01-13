@@ -5,8 +5,8 @@ import { Callout } from 'nextra/components'
 In this tutorial, you will:
 
 - Build a Safe Module
-- Enable an example module on a Safe (the [TokenTransferModule](https://github.com/5afe/safe-module-tutorial-contracts) module)
-- Send a transaction via the TokenTransferModule (Send a transaction that transfers ERC20 token from the Safe account)
+- Enable an example module on a Safe (the [TokenWithdrawModule](https://github.com/5afe/safe-module-tutorial-contracts) module)
+- Send a transaction via the TokenWithdrawModule (Send a transaction that transfers ERC20 token from the Safe account)
 
 The full code for this tutorial is in the [Safe Module tutorial repository](https://github.com/5afe/safe-module-tutorial).
 
@@ -94,9 +94,9 @@ export default config;
 
 ### Create a new Solidity contract
 
-Delete the default `contracts/Lock.sol` and test file `test/Lock.ts` and create a new Solidity contract `TokenTransferModule.sol` in the `contracts` directory.
+Delete the default `contracts/Lock.sol` and test file `test/Lock.ts` and create a new Solidity contract `TokenWithdrawModule.sol` in the `contracts` directory.
 
-`TokenTransferModule.sol` will contain the module code which will be used further in the tutorial for interacting with the UI.
+`TokenWithdrawModule.sol` will contain the module code which will be used further in the tutorial for interacting with the UI.
 
 #### Step 1. Create empty contract
 
@@ -105,7 +105,7 @@ Delete the default `contracts/Lock.sol` and test file `test/Lock.ts` and create 
 pragma solidity ^0.8.0;
 // Imports will be added here
 
-contract TokenTransferModule {
+contract TokenWithdrawModule {
   // State variables will be added here
 
   // Constructor will be added here
@@ -137,7 +137,7 @@ Declare the necessary state variables for the contract.
 ```solidity
 bytes32 public immutable PERMIT_TYPEHASH =
     keccak256(
-        "TokenTransfer(uint256 amount, address _beneficiary, uint256 nonce, uint256 deadline)"
+        "TokenWithdrawModule(uint256 amount, address _beneficiary, uint256 nonce, uint256 deadline)"
     );
 address public immutable safeAddress;
 address public immutable tokenAddress;
@@ -271,7 +271,7 @@ import "@safe-global/safe-contracts/contracts/Safe.sol";
 contract TokenWithdrawModule {
     bytes32 public immutable PERMIT_TYPEHASH =
         keccak256(
-            "TokenTransfer(uint256 amount, address _beneficiary, uint256 nonce, uint256 deadline)"
+            "TokenWithdrawModule(uint256 amount, address _beneficiary, uint256 nonce, uint256 deadline)"
         );
     address public immutable safeAddress;
     address public immutable tokenAddress;
@@ -397,7 +397,7 @@ const { keccak256, toUtf8Bytes } = ethers;
 // Define the type hash for the permit function
 const PERMIT_TYPEHASH = keccak256(
   toUtf8Bytes(
-    "TokenTransfer(uint256 amount, address _beneficiary, uint256 nonce, uint256 deadline)"
+    "TokenWithdrawModule(uint256 amount, address _beneficiary, uint256 nonce, uint256 deadline)"
   )
 );
 
@@ -557,12 +557,12 @@ Explanation:
 
 #### Step 2: Start with an empty test file
 
-Create a new file named `TokenTransferModule.test.ts` and include the following basic structure:
+Create a new file named `TokenWithdrawModule.test.ts` and include the following basic structure:
 
 ```typescript
 // Import necessary libraries and types
 
-describe("TokenTransferModule Tests", function () {
+describe("TokenWithdrawModule Tests", function () {
 
   // Define variables
    
@@ -586,7 +586,7 @@ import { Signer, ZeroAddress } from "ethers";
 import { Safe__factory, TestToken, TokenWithdrawModule } from "../typechain-types";
 import { execTransaction, getDigest } from "./utils/utils";
 
-describe("TokenTransferModule Tests", function () {
+describe("TokenWithdrawModule Tests", function () {
 
   // Define variables
   let deployer: Signer;
