@@ -243,7 +243,7 @@ export default function App() {
           <Text style={styles.text}>⚠️ The account is not activated yet</Text>
           <View style={styles.button}>
             <Button
-              color="#12FF80"
+              color="#10e573"
               title="Activate Account"
               onPress={handleActivateAccount}
             />
@@ -256,7 +256,7 @@ export default function App() {
           {!passkeySigner && (
             <View style={styles.button}>
               <Button
-                color="#12FF80"
+                color="#10e573"
                 title="Add Passkey Owner"
                 onPress={handleAddPasskeyOwner}
               />
@@ -267,21 +267,21 @@ export default function App() {
             <>
               <View style={styles.button}>
                 <Button
-                  color="#12FF80"
+                  color="#10e573"
                   title="Sign Message"
                   onPress={handleSignMessage}
                 />
               </View>
               <View style={styles.button}>
                 <Button
-                  color="#12FF80"
+                  color="#10e573"
                   title="Send Dummy Transaction"
                   onPress={handleSendTransaction}
                 />
               </View>
               <View style={styles.button}>
                 <Button
-                  color="#12FF80"
+                  color="#10e573"
                   title="Remove Passkey"
                   onPress={handleRemovePasskey}
                 />

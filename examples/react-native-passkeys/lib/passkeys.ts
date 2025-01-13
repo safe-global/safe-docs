@@ -9,10 +9,13 @@ const DOMAIN = "add_your_domain_here";
 const CHALLENGE = "the-challenge";
 const USER_ID = "my-user-id";
 
+// This function verifies the passkey of the user.
 export async function getPassKey(
   options?: CredentialRequestOptions
 ): Promise<Credential | null> {
+  // Convert the challenge to a base64 URL string.
   const challenge = bufferSourceToBase64Url(options?.publicKey?.challenge);
+  // Convert the allowCredentials to a binary string.
   const allowCredentials = options?.publicKey?.allowCredentials?.map(
     (cred) => ({
       type: cred.type,
@@ -20,6 +23,7 @@ export async function getPassKey(
     })
   );
 
+  // Get the passkey of the user.
   let credential = await get({
     rpId: DOMAIN,
     challenge,
@@ -27,6 +31,7 @@ export async function getPassKey(
     allowCredentials,
   });
 
+  // Convert the passkey to a Credential object.
   if (credential?.response) {
     credential.response.authenticatorData = base64ToArrayBuffer(
       credential.response.authenticatorData
@@ -39,20 +44,25 @@ export async function getPassKey(
     );
   }
 
+  // Return the passkey credential.
   return credential as Credential;
 }
 
+// This function creates a new passkey for the user.
 export async function createPassKey() {
+  // Convert the challenge to a base64 URL string.
   const challenge =
     Platform.OS === "web"
       ? crypto.getRandomValues(new Uint8Array(32))
       : bufferToBase64URLString(utf8StringToBuffer(CHALLENGE));
 
+  // Generate a random user ID.
   const userId =
     Platform.OS === "web"
       ? crypto.getRandomValues(new Uint8Array(32))
       : bufferToBase64URLString(utf8StringToBuffer(USER_ID));
 
+  // Create the passkey request JSON.
   const credentialRequestJson = {
     pubKeyCredParams: [{ alg: -7, type: "public-key" }],
     challenge,
@@ -65,6 +75,7 @@ export async function createPassKey() {
     attestation: "none",
   };
 
+  // Add the authenticator selection to the request JSON
   if (Platform.OS !== "web") {
     //@ts-expect-error authenticatorSelection is not in the official types
     credentialRequestJson.authenticatorSelection = {
@@ -72,6 +83,7 @@ export async function createPassKey() {
     };
   }
 
+  // Create the passkey for the user using official passkeys API.
   const passkey =
     Platform.OS === "web"
       ? await navigator.credentials.create({
@@ -83,6 +95,9 @@ export async function createPassKey() {
   return passkey;
 }
 
+/*
+* Helper functions:
+*/
 function bufferToBase64URLString(buffer: ArrayBuffer): string {
   const bytes = new Uint8Array(buffer);
   let str = "";
@@ -128,3 +143,4 @@ function base64ToArrayBuffer(base64: string) {
   }
   return bytes.buffer;
 }
+//
