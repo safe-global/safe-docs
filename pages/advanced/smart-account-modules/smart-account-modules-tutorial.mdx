@@ -245,7 +245,7 @@ Explanation:
 3. **Signature Verification**:
    - Call `checkSignatures` on the Safe to verify the signatures provided match the owners of the Safe.
 4. **Transaction Execution**:
-   - A module can use `execwhenTransactionFromModule` or `execTransactionFromModuleReturnData` function to execute transactions through a Safe account on which the module is enabled.
+   - A module can use `execTransactionFromModule` or `execTransactionFromModuleReturnData` function to execute transactions through a Safe account on which the module is enabled.
    - Encode the transfer call using `abi.encodeWithSignature`.
    - Use `execTransactionFromModule` to execute the token transfer via the Safe.
    - Ensure execution succeeds, otherwise revert.
