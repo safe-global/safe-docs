@@ -186,29 +186,32 @@ git clone https://github.com/5afe/aasa-server.git
 
 Fill in your data in the `apple-app-site-association` and `assetlinks.json` files as follows:
 
+{/* <!-- vale off --> */}
 
 <Tabs items={['iOS', 'Android']}>
   <Tabs.Tab>
     - Login or subscribe to the Apple Developer Program and [locate your Team
     ID](https://developer.apple.com/help/account/manage-your-team/locate-your-team-id/).
     - Add your Team ID instead of `add_your_apple_team_id_here` in the
-    `apple-app-site-association` file
-    - Add your provisioning profile to sign the app through Xcode. You can open the generated iOS project in Xcode and under Signing & Capabilities choose your team.
-    - Activate FaceId. Go to Features > Face ID > Enrolled in the iOS simulator menu.
+    `apple-app-site-association` file - Add your provisioning profile to sign
+    the app through Xcode. You can open the generated iOS project in Xcode and
+    under Signing & Capabilities choose your team. - Activate FaceId. Go to
+    Features > Face ID > Enrolled in the iOS simulator menu.
   </Tabs.Tab>
   <Tabs.Tab>
-    - Add a Google account in the settings of the Android emulated phone. 
-    - Get an Android keystore SHA 256 fingerprint with this command (from the root of your project):
-    ```bash
-    keytool -list -v -keystore ./android/app/debug.keystore -alias androiddebugkey -storepass android -keypass android
-    ```
-    - Copy the value in front of `SHA 256` at the
-    place of `add_your_sha256_cert_fingerprints_here` in the assetslinks.json
-    file.
+    - Add a Google account in the settings of the Android emulated phone. - Get
+    an Android keystore SHA 256 fingerprint with this command (from the root of
+    your project): ```bash keytool -list -v -keystore
+    ./android/app/debug.keystore -alias androiddebugkey -storepass android
+    -keypass android ``` - Copy the value in front of `SHA 256` at the place of
+    `add_your_sha256_cert_fingerprints_here` in the assetslinks.json file.
   </Tabs.Tab>
 </Tabs>
 
+{/* <!-- vale on --> */}
+
 You can now start the server with:
+
 ```bash
 cd aasa-server
 npm install
