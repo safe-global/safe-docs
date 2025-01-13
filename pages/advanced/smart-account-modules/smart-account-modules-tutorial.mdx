@@ -23,7 +23,7 @@ Before progressing with the tutorial, please make sure you have the following:
 This tutorial will guide creating a Safe Module that allows users to withdraw ERC20 tokens from a Safe account, provided that the Safe owners have given their approval in the form of off-chain signatures. The primary use case is to enable beneficiaries to withdraw tokens themselves without requiring the Safe owners to execute transactions directly.
 
 ### Limitations
-- The nonce in the contract increases sequentially, meaning tokens must be withdrawn one at a time and in the correct order. Each withdrawal depends on completing the previous one.
+- Each beneficiary has an independent sequential nonce, requiring them to withdraw tokens one at a time in the correct order based on their own nonce.
 - The withdrawal using module will work only for specific token and Safe address set during the module deployment.
 
 ### Initialize a new project
@@ -120,7 +120,6 @@ Explanation:
 - **`contract TokenWithdrawModule`**: Declares the contract name.
 
 #### Step 2: Import required dependencies
-
 
 ```solidity
 import "@safe-global/safe-contracts/contracts/common/Enum.sol";
@@ -384,30 +383,9 @@ contract TestToken is ERC20, Ownable {
 
 ### Testing the contract
 
-#### Step 1: Start with an empty test file
+#### Step 1: Create test/utils/utils.ts file
 
-Create a new file named `TokenTransferModule.test.ts` and include the following basic structure:
-
-```typescript
-// Import necessary libraries and types
-
-describe("TokenTransferModule Tests", function () {
-
-  // Define variables
-   
-  // Before hook to setup the contracts
-  before(async () => {
-  });
-
-  // Add your test cases here
- it("Should successfully transfer tokens to bob", async function () {
-
- });
-```
-
-#### Step 2: Create test/utils/utils.ts file
-
-Create a new file named `utils.ts` in the `test/utils` directory and include the code below. This file contains utility functions to generate the EIP-712 digest and execute transaction through the Safe account.
+Create a new file named `utils.ts` in the `test/utils` directory and include the code below.
 
 ```typescript
 import { ethers } from "hardhat";
@@ -574,28 +552,31 @@ export {
 };
 ```
 
+Explanation:
+- This file contains utility functions to generate the EIP-712 digest and execute transaction through the Safe account.
+
+#### Step 2: Start with an empty test file
+
+Create a new file named `TokenTransferModule.test.ts` and include the following basic structure:
+
+```typescript
+// Import necessary libraries and types
+
+describe("TokenTransferModule Tests", function () {
+
+  // Define variables
+   
+  // Before hook to setup the contracts
+  before(async () => {
+  });
+
+  // Add your test cases here
+ it("Should successfully transfer tokens to bob", async function () {
+
+ });
+```
+
 #### Step 3: Setup contracts and variables
-
-This step will set up the necessary contracts and variables for the tests. This includes deploying the Safe contract, the Token contract, and the TokenWithdrawModule contract. It will also initialize the Safe with the required owners and enable the TokenWithdrawModule as a module in the Safe.
-
-1. **Import necessary libraries and types**:
-   - Import the required libraries and types from `hardhat`, `chai`, and `ethers`.
-
-2. **Define variables**:
-   - Define variables to hold the signers, contract instances, and other necessary data.
-
-3. **Setup signers and deploy contracts before running tests**:
-   - Use the `before` hook to set up the signers and deploy the `Safe` and `SafeProxyFactory` contracts before running the tests.
-
-4. **Helper function to setup contracts**:
-   - Define a helper function `setupContracts` to deploy and initialize the contracts. This function:
-     - Deploys the Safe contract and sets up the owners and threshold.
-     - Deploys the TokenWithdrawModule contract.
-     - Mints tokens to the Safe address.
-     - Enables the TokenWithdrawModule in the Safe.
-     - Verifies that the module is enabled in the Safe.
-
-This setup ensures that each test starts with a fresh instance of the contracts and the necessary initial state.
 
 ```typescript
 // Import necessary libraries and types
@@ -603,7 +584,6 @@ import { ethers } from "hardhat";
 import { expect } from "chai";
 import { Signer, ZeroAddress } from "ethers";
 import { Safe__factory, TestToken, TokenWithdrawModule } from "../typechain-types";
-import { SafeTransaction } from "@safe-global/safe-contracts";
 import { execTransaction, getDigest } from "./utils/utils";
 
 describe("TokenTransferModule Tests", function () {
@@ -713,35 +693,27 @@ describe("TokenTransferModule Tests", function () {
 
 ```
 
+Explanation:
+This step will set up the necessary contracts and variables for the tests. This includes deploying the Safe contract, the Token contract, and the TokenWithdrawModule contract. It will also initialize the Safe with the required owners and enable the TokenWithdrawModule as a module in the Safe.
+
+1. **Import necessary libraries and types**:
+   - Import the required libraries and types from `hardhat`, `chai`, and `ethers`.
+
+2. **Define variables**:
+   - Define variables to hold the signers, contract instances, and other necessary data.
+
+3. **Setup signers and deploy contracts before running tests**:
+   - Use the `before` hook to set up the signers and deploy the `Safe` and `SafeProxyFactory` contracts before running the tests.
+
+4. **Helper function to setup contracts**:
+   - Define a helper function `setupContracts` to deploy and initialize the contracts. This function:
+     - Deploys the Safe contract and sets up the owners and threshold.
+     - Deploys the TokenWithdrawModule contract.
+     - Mints tokens to the Safe address.
+     - Enables the TokenWithdrawModule in the Safe.
+     - Verifies that the module is enabled in the Safe.
+
 #### Step 4: Add test case
-
-This step adds a test case to verify that the `TokenWithdrawModule` correctly transfers tokens from the Safe to a beneficiary.
-
-1. **Define the test case**:
-   - Define a test case named "Should successfully transfer tokens to bob".
-
-2. **Setup contracts**:
-   - Call the `setupContracts` helper function to deploy and initialize the contracts with the required owners and threshold.
-
-3. **Define transfer parameters**:
-   - Define the amount of tokens to transfer and the deadline for the transaction.
-
-4. **Generate the digest**:
-   - Generate the EIP-712 digest for the token transfer using the `getDigest` utility function.
-
-5. **Sign the digest**:
-   - Sign the digest with the wallet owners' private keys to produce the required signatures.
-
-6. **Try invalid transfer**:
-   - Try to transfer tokens with an invalid signer (charlie) and expect the transaction to revert.
-
-7. **Execute valid transfer**:
-   - Execute the token transfer with a valid signer (bob) and verify that the transfer is successful.
-
-8. **Verify token balance**:
-   - Check the token balance of bob to ensure that the tokens were transferred correctly.
-
-This test case ensures that the `TokenWithdrawModule` correctly handles token transfers, including signature verification and transaction execution.
 
 ```typescript
   // Test case to verify token transfer to bob
@@ -793,6 +765,35 @@ This test case ensures that the `TokenWithdrawModule` correctly handles token tr
     expect(balanceBob).to.be.equal(amount);
   });
 ```
+
+This step adds a test case to verify that the `TokenWithdrawModule` correctly transfers tokens from the Safe to a beneficiary.
+
+1. **Define the test case**:
+   - Define a test case named "Should successfully transfer tokens to bob".
+
+2. **Setup contracts**:
+   - Call the `setupContracts` helper function to deploy and initialize the contracts with the required owners and threshold.
+
+3. **Define transfer parameters**:
+   - Define the amount of tokens to transfer and the deadline for the transaction.
+
+4. **Generate the digest**:
+   - Generate the EIP-712 digest for the token transfer using the `getDigest` utility function.
+
+5. **Sign the digest**:
+   - Sign the digest with the wallet owners' private keys to produce the required signatures.
+
+6. **Try invalid transfer**:
+   - Try to transfer tokens with an invalid signer (charlie) and expect the transaction to revert.
+
+7. **Execute valid transfer**:
+   - Execute the token transfer with a valid signer (bob) and verify that the transfer is successful.
+
+8. **Verify token balance**:
+   - Check the token balance of bob to ensure that the tokens were transferred correctly.
+
+This test case ensures that the `TokenWithdrawModule` correctly handles token transfers, including signature verification and transaction execution.
+
 
 #### Final test code
 
