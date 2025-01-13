@@ -137,7 +137,7 @@ Declare the necessary state variables for the contract.
 ```solidity
 bytes32 public immutable PERMIT_TYPEHASH =
     keccak256(
-        "TokenWithdrawModule(uint256 amount, address _beneficiary, uint256 nonce, uint256 deadline)"
+      "TokenWithdrawModule(uint256 amount,address _beneficiary,uint256 nonce,uint256 deadline)"
     );
 address public immutable safeAddress;
 address public immutable tokenAddress;
@@ -271,7 +271,7 @@ import "@safe-global/safe-contracts/contracts/Safe.sol";
 contract TokenWithdrawModule {
     bytes32 public immutable PERMIT_TYPEHASH =
         keccak256(
-            "TokenWithdrawModule(uint256 amount, address _beneficiary, uint256 nonce, uint256 deadline)"
+            "TokenWithdrawModule(uint256 amount,address _beneficiary,uint256 nonce,uint256 deadline)"
         );
     address public immutable safeAddress;
     address public immutable tokenAddress;
@@ -392,89 +392,6 @@ import { ethers } from "hardhat";
 import { Signer, AddressLike, BigNumberish, ZeroAddress } from "ethers";
 import { Safe } from "../../typechain-types";
 
-const { keccak256, toUtf8Bytes } = ethers;
-
-// Define the type hash for the permit function
-const PERMIT_TYPEHASH = keccak256(
-  toUtf8Bytes(
-    "TokenWithdrawModule(uint256 amount, address _beneficiary, uint256 nonce, uint256 deadline)"
-  )
-);
-
-/**
- * Generates the EIP-712 digest for a token transfer.
- * @param name - The name of the contract.
- * @param address - The address of the contract.
- * @param chainId - The chain ID of the network.
- * @param amount - The amount of tokens to transfer.
- * @param user - The address of the beneficiary.
- * @param nonce - The nonce for the transaction.
- * @param deadline - The deadline for the transaction.
- * @returns The EIP-712 digest.
- */
-function getDigest(
-  name: string,
-  address: string,
-  chainId: bigint,
-  amount: BigInt,
-  user: string,
-  nonce: BigInt,
-  deadline: BigInt
-): string {
-  // Get the domain separator for the contract
-  const DOMAIN_SEPARATOR = getDomainSeparator(name, address, chainId);
-  const defaultAbiCoder = ethers.AbiCoder.defaultAbiCoder();
-
-  // Generate the EIP-712 digest
-  return keccak256(
-    ethers.solidityPacked(
-      ["bytes1", "bytes1", "bytes32", "bytes32"],
-      [
-        "0x19",
-        "0x01",
-        DOMAIN_SEPARATOR,
-        keccak256(
-          defaultAbiCoder.encode(
-            ["bytes32", "uint256", "address", "uint256", "uint256"],
-            [PERMIT_TYPEHASH, amount, user, nonce, deadline]
-          )
-        ),
-      ]
-    )
-  );
-}
-
-/**
- * Gets the EIP-712 domain separator.
- * @param name - The name of the contract.
- * @param contractAddress - The address of the contract.
- * @param chainId - The chain ID of the network.
- * @returns The EIP-712 domain separator.
- */
-function getDomainSeparator(
-  name: string,
-  contractAddress: string,
-  chainId: bigint
-): string {
-  const defaultAbiCoder = ethers.AbiCoder.defaultAbiCoder();
-  return keccak256(
-    defaultAbiCoder.encode(
-      ["bytes32", "bytes32", "bytes32", "uint256", "address"],
-      [
-        keccak256(
-          toUtf8Bytes(
-            "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
-          )
-        ),
-        keccak256(toUtf8Bytes(name)),
-        keccak256(toUtf8Bytes("1")),
-        chainId,
-        contractAddress,
-      ]
-    )
-  );
-}
-
 /**
  * Executes a transaction on the Safe contract.
  * @param wallets - The signers of the transaction.
@@ -545,15 +462,12 @@ const execTransaction = async function (
 };
 
 export {
-  PERMIT_TYPEHASH,
   execTransaction,
-  getDigest,
-  getDomainSeparator,
 };
 ```
 
 Explanation:
-- This file contains utility functions to generate the EIP-712 digest and execute transaction through the Safe account.
+- This file contains utility function to execute transaction through the Safe account.
 
 #### Step 2: Start with an empty test file
 
@@ -584,7 +498,7 @@ import { ethers } from "hardhat";
 import { expect } from "chai";
 import { Signer, ZeroAddress } from "ethers";
 import { Safe__factory, TestToken, TokenWithdrawModule } from "../typechain-types";
-import { execTransaction, getDigest } from "./utils/utils";
+import { execTransaction } from "./utils/utils";
 
 describe("TokenWithdrawModule Tests", function () {
 
@@ -722,24 +636,36 @@ This step will set up the necessary contracts and variables for the tests. This 
     const { exampleModule } = await setupContracts(wallets, 1);
 
     const amount = BigInt(10) ** BigInt(18) * BigInt(10);
-
-    let signatureBytes = "0x";
     const deadline = 100000000000000n;
     const nonce = await exampleModule.nonces(await bob.getAddress());
 
-    // Generate the digest for the transaction
-    const digest = getDigest(
-      "TokenWithdrawModule",
-      await exampleModule.getAddress(),
-      chainId,
-      amount,
-      await bob.getAddress(),
-      nonce,
-      deadline
-    );
+    // Define the EIP-712 domain and types
+    const domain: TypedDataDomain = {
+      name: "TokenWithdrawModule",
+      version: "1",
+      chainId: chainId,
+      verifyingContract: await exampleModule.getAddress(),
+    };
 
+    const types = {
+      TokenWithdrawModule: [
+        { name: "amount", type: "uint256" },
+        { name: "_beneficiary", type: "address" },
+        { name: "nonce", type: "uint256" },
+        { name: "deadline", type: "uint256" },
+      ],
+    };
+
+    const value = {
+      amount: amount,
+      _beneficiary: await bob.getAddress(),
+      nonce: nonce,
+      deadline: deadline,
+    };
+
+    const digest = ethers.TypedDataEncoder.hash(domain, types, value);
     const bytesDataHash = ethers.getBytes(digest);
-
+    let signatureBytes = "0x";
     // Sign the digest with each wallet owner
     for (let i = 0; i < wallets.length; i++) {
       const flatSig = (await wallets[i].signMessage(bytesDataHash))
@@ -778,7 +704,7 @@ This step adds a test case to verify that the `TokenWithdrawModule` correctly tr
    - Define the amount of tokens to transfer and the deadline for the transaction.
 
 4. **Generate the digest**:
-   - Generate the EIP-712 digest for the token transfer using the `getDigest` utility function.
+   - Generate the EIP-712 digest for the token transfer.
 
 5. **Sign the digest**:
    - Sign the digest with the wallet owners' private keys to produce the required signatures.
@@ -802,9 +728,9 @@ Here is the complete code for reference:
 ```typescript
 import { ethers } from "hardhat";
 import { expect } from "chai";
-import { Signer, ZeroAddress } from "ethers";
+import { Signer, TypedDataDomain, ZeroAddress } from "ethers";
 import { Safe, Safe__factory, SafeProxyFactory, TestToken, TokenWithdrawModule } from "../typechain-types";
-import { execTransaction, getDigest } from "./utils/utils";
+import { execTransaction } from "./utils/utils";
 
 describe("Example module tests", async function () {
   let deployer: Signer;
@@ -835,7 +761,7 @@ describe("Example module tests", async function () {
     ).deploy();
   });
 
-  // Setup contracts: Deploy a new token contract, create a new Safe, deploy the TokenWithdrawModule contract, and nable the module in the Safe.
+  // Setup contracts: Deploy a new token contract, create a new Safe, deploy the TokenWithdrawModule contract, and enable the module in the Safe.
   const setupContracts = async (
     walletOwners: Signer[],
     threshold: number
@@ -914,24 +840,36 @@ describe("Example module tests", async function () {
     const { exampleModule } = await setupContracts(wallets, 1);
 
     const amount = BigInt(10) ** BigInt(18) * BigInt(10);
-
-    let signatureBytes = "0x";
     const deadline = 100000000000000n;
     const nonce = await exampleModule.nonces(await bob.getAddress());
 
-    // Generate the digest for the transaction
-    const digest = getDigest(
-      "TokenWithdrawModule",
-      await exampleModule.getAddress(),
-      chainId,
-      amount,
-      await bob.getAddress(),
-      nonce,
-      deadline
-    );
+    // Define the EIP-712 domain and types
+    const domain: TypedDataDomain = {
+      name: "TokenWithdrawModule",
+      version: "1",
+      chainId: chainId,
+      verifyingContract: await exampleModule.getAddress(),
+    };
 
+    const types = {
+      TokenWithdrawModule: [
+        { name: "amount", type: "uint256" },
+        { name: "_beneficiary", type: "address" },
+        { name: "nonce", type: "uint256" },
+        { name: "deadline", type: "uint256" },
+      ],
+    };
+
+    const value = {
+      amount: amount,
+      _beneficiary: await bob.getAddress(),
+      nonce: nonce,
+      deadline: deadline,
+    };
+
+    const digest = ethers.TypedDataEncoder.hash(domain, types, value);
     const bytesDataHash = ethers.getBytes(digest);
-
+    let signatureBytes = "0x";
     // Sign the digest with each wallet owner
     for (let i = 0; i < wallets.length; i++) {
       const flatSig = (await wallets[i].signMessage(bytesDataHash))
@@ -956,7 +894,6 @@ describe("Example module tests", async function () {
     const balanceBob = await token.balanceOf.staticCall(await bob.getAddress());
     expect(balanceBob).to.be.equal(amount);
   });
-
 });
 ```
 
