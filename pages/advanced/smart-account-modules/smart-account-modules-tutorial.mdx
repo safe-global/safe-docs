@@ -27,6 +27,10 @@ This tutorial will guide creating a Safe Module that allows users to withdraw ER
 ### Initialize a new project
 
 ```bash
+mkdir safe-module-tutorial && cd safe-module-tutorial 
+```
+
+```bash
 npm init
 ```
 You can choose all default values.
@@ -46,16 +50,18 @@ Add overrides in `package.json` so that there are no peer dependency related iss
 ```
 
 ```bash
-npm add hardhat @safe-global/safe-contracts @openzeppelin/contracts hardhat-dependency-compiler
+npm add -D hardhat @safe-global/safe-contracts @openzeppelin/contracts hardhat-dependency-compiler
 ```
 
 ### Initialize hardhat project
 
-Select create TypeScript project.
-
 ```bash
 npx hardhat init
 ```
+
+Select `Create a TypeScript project` and leave the default values for the rest of the prompts.
+
+Now, try compiling the contracts to ensure everything is set up correctly.
 
 ```bash
 npx hardhat compile
@@ -285,6 +291,25 @@ contract TokenWithdrawModule {
     }
 
     /**
+     * @dev Generates the EIP-712 domain separator for the contract.
+     *
+     * @return The EIP-712 domain separator.
+     */
+    function getDomainSeparator() private view returns (bytes32) {
+      return keccak256(
+          abi.encode(
+              keccak256(
+                  "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
+              ),
+              keccak256(bytes("TokenWithdrawModule")),
+              keccak256(bytes("1")),
+              block.chainid,
+              address(this)
+          )
+      );
+    }
+
+    /**
      * @dev Transfers a specified amount of tokens to a beneficiary.
      *
      * @param _amount amount of tokens to be transferred
@@ -336,21 +361,6 @@ contract TokenWithdrawModule {
             "Could not execute token transfer"
         );
     }
-
-  function getDomainSeparator() private view returns (bytes32) {
-
-      return keccak256(
-          abi.encode(
-              keccak256(
-                  "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
-              ),
-              keccak256(bytes("TokenWithdrawModule")),
-              keccak256(bytes("1")),
-              block.chainid,
-              address(this)
-          )
-      );
-  }
 }
 ```
 
@@ -481,9 +491,9 @@ describe("TokenWithdrawModule Tests", function () {
   });
 
   // Add your test cases here
- it("Should successfully transfer tokens to bob", async function () {
-
- });
+  it("Should successfully transfer tokens to bob", async function () {
+  });
+});
 ```
 
 #### Step 3: Setup contracts and variables
@@ -492,7 +502,7 @@ describe("TokenWithdrawModule Tests", function () {
 // Import necessary libraries and types
 import { ethers } from "hardhat";
 import { expect } from "chai";
-import { Signer, ZeroAddress } from "ethers";
+import { Signer, TypedDataDomain, ZeroAddress } from "ethers";
 import { Safe__factory, TestToken, TokenWithdrawModule } from "../typechain-types";
 import { execTransaction } from "./utils/utils";
 
