@@ -22,24 +22,16 @@ Before progressing with the tutorial, please make sure you have the following:
 
 This tutorial will guide creating a Safe Module that allows users to withdraw ERC20 tokens from a Safe account, provided that the Safe owners have given their approval in the form of off-chain signatures. The primary use case is to enable beneficiaries to withdraw tokens themselves without requiring the Safe owners to execute transactions directly.
 
-### Use cases
-- Simplifies token withdrawal by enabling beneficiaries to perform withdrawals themselves.
-- Reduces the need for Safe owners to execute each transaction on-chain.
-
 ### Limitations
-- Beneficiaries must be externally owned accounts (EOAs) and cannot be smart contracts.
-- The nonce is sequential for simplicity
-- The contract will work only for specific token and Safe address provided during deployment.
+- The nonce in the contract increases sequentially, meaning tokens must be withdrawn one at a time and in the correct order. Each withdrawal depends on completing the previous one.
+- The withdrawal using module will work only for specific token and Safe address set during the module deployment.
 
-### Initialize a new repository
-
-```bash
-git init
-```
+### Initialize a new project
 
 ```bash
 npm init
 ```
+You can choose all default values.
 
 ### Install dependencies
 
@@ -74,6 +66,7 @@ npx hardhat compile
 ### Update hardhat.config.ts
 
 When compiling Safe contracts with solidity 0.8.x the bytecode size exceeds the limit of 24KB. To overcome this, set `allowUnlimitedContractSize` to `true` in the hardhat config.
+In practise with production networks, use the officially deployed Safe contracts.
 Also, add `dependencyCompiler` to import `SafeProxyFactory` contract.
 
 ```typescript
@@ -171,7 +164,33 @@ constructor(address _tokenAddress, address _safeAddress) {
 
 - Initializes `tokenAddress` and `safeAddress` with provided values during deployment. Thus, in this module the token and Safe addresses are fixed.
 
-#### Step 5: Implement the `tokenTransfer` function
+#### Step 5: Implement the `getDomainSeparator` function
+
+Add a helper function to compute the EIP-712 domain separator.
+
+```solidity
+  function getDomainSeparator() private view returns (bytes32) {
+
+      return keccak256(
+          abi.encode(
+              keccak256(
+                  "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
+              ),
+              keccak256(bytes("TokenWithdrawModule")),
+              keccak256(bytes("1")),
+              block.chainid,
+              address(this)
+          )
+      );
+  }
+```
+
+Explanation:
+- Computes the `EIP712Domain` separator for the current chain and contract.
+- Ensures compatibility with the EIP-712 standard for off-chain signing.
+- Using a Domain separator ensures that the signature is valid for specific contracts in context and the chain. Thus, preventing replay attacks.
+
+#### Step 6: Implement the `tokenTransfer` function
 
 Add a function to handle token transfers from the Safe.
 
@@ -235,36 +254,6 @@ Explanation:
    - Encode the transfer call using `abi.encodeWithSignature`.
    - Use `execTransactionFromModule` to execute the token transfer via the Safe.
    - Ensure execution succeeds, otherwise revert.
-
-#### Step 6: Implement the `getDomainSeparator` function
-
-Add a helper function to compute the EIP-712 domain separator.
-
-```solidity
-function getDomainSeparator() private view returns (bytes32) {
-    uint256 chainId;
-    assembly {
-        chainId := chainid()
-    }
-
-    return keccak256(
-        abi.encode(
-            keccak256(
-                "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
-            ),
-            keccak256(bytes("TokenWithdrawModule")),
-            keccak256(bytes("1")),
-            chainId,
-            address(this)
-        )
-    );
-}
-```
-
-Explanation:
-- Computes the `EIP712Domain` separator for the current chain and contract.
-- Ensures compatibility with the EIP-712 standard for off-chain signing.
-- Using a Domain separator ensures that the signature is valid for specific contracts in context and the chain. Thus, preventing replay attacks.
 
 #### Final contract code
 
@@ -353,25 +342,20 @@ contract TokenWithdrawModule {
         );
     }
 
-    function getDomainSeparator() private view returns (bytes32) {
+  function getDomainSeparator() private view returns (bytes32) {
 
-        uint256 chainId;
-        assembly {
-            chainId := chainid()
-        }
-
-        return keccak256(
-            abi.encode(
-                keccak256(
-                    "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
-                ),
-                keccak256(bytes("TokenWithdrawModule")),
-                keccak256(bytes("1")),
-                chainId,
-                address(this)
-            )
-        );
-    }
+      return keccak256(
+          abi.encode(
+              keccak256(
+                  "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
+              ),
+              keccak256(bytes("TokenWithdrawModule")),
+              keccak256(bytes("1")),
+              block.chainid,
+              address(this)
+          )
+      );
+  }
 }
 ```
 
