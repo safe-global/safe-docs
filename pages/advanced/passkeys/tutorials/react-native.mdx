@@ -94,7 +94,7 @@ npx expo run:android
 npx expo run:ios
 ```
 
-After the building and initialization steps visible in the terminal logs, press `a` in your terminal to launch the Android simulator, or `i` for the iOS simulator. You can now begin developing the app.
+You can now begin developing the app.
 
 ![react-native-passkeys-app-2.png](../../../../assets/react-native-passkeys-app-2.png)
 
@@ -194,10 +194,10 @@ Fill in your data in the `apple-app-site-association` and `assetlinks.json` file
     - Login or subscribe to the Apple Developer Program and [locate your Team
     ID](https://developer.apple.com/help/account/manage-your-team/locate-your-team-id/).
     - Add your Team ID instead of `add_your_apple_team_id_here` in the
-    `apple-app-site-association` file - Add your provisioning profile to sign
-    the app through Xcode. You can open the generated iOS project in Xcode and
-    under Signing & Capabilities choose your team. - Activate FaceId. Go to
-    Features > Face ID > Enrolled in the iOS simulator menu.
+    `apple-app-site-association` file in the AASA server.
+    - Add your provisioning profile to sign the app through Xcode. You can open the generated iOS project in Xcode (open the folder `/ios` in your project) and
+    under `Signing & Capabilities` choose your team. Make sure that the `Bundle Identifier` is `com.safeglobal.reactnativepasskeys`.
+    - Activate FaceId. Go to Features > Face ID > Enrolled in the iOS simulator menu.
   </Tabs.Tab>
   <Tabs.Tab>
     - Add a Google account in the settings of the Android emulated phone.
@@ -239,6 +239,14 @@ Not updating this information will result in an error when trying to create a pa
 ```
 Error Domain=com.apple.AuthenticationServices.AuthorizationError Code=1004 "(null)"
 ```
+
+If you are using iOS, you will also need to add this URL to the app's associated domains. Open Xcode again, in the tab `Signing & Capabilities`, click the button `+ Capability`, select `Associated Domain`, and add the ngrok URL with the prefix `webcredentials:`. For example:
+
+```bash
+webcredentials:your-ngrok-domain.ngrok-free.app
+```
+
+Restart the app in the emulator to apply the changes, by running 
 
 ## 8. See the App in action
 
