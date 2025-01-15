@@ -71,7 +71,7 @@ We will use emulators and development builds in this tutorial, so please refer t
 - [**Android Studio Emulator**](https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=simulated&mode=development-build)
 - [**iOS Simulator**](https://docs.expo.dev/get-started/set-up-your-environment/?platform=ios&device=simulated&mode=development-build)
 
-When [creating the emulator](https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=simulated&mode=development-build#set-up-an-emulator) using Android Studio Device Manager, ensure that you include one with Play Store services, as this is required for passkeys.
+When [creating the emulator](https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=simulated&mode=development-build#set-up-an-emulator) using Android Studio Device Manager, ensure that you include one with Play Store services, as this is required for passkeys. The version 17 of the Java Development Kit (JDK) is used to compile the project, make sure that you are [using the correct version](https://stackoverflow.com/questions/30631286/how-to-specify-the-jdk-version-in-android-studio) before running the emulator.
 
 ![react-native-passkeys-app-2.png](../../../../assets/react-native-passkeys-play-store.png)
 
@@ -90,7 +90,8 @@ Replace `add_private_key_here` by a private key you own, and `0xOwnerAddress1` b
 After completing all these configurations 🙃, you can finally run the local development build of the app on the emulators (Emulators should be running) by using the following commands:
 
 ```bash
-npx expo start
+npx expo run:android
+npx expo run:ios
 ```
 
 After the building and initialization steps visible in the terminal logs, press `a` in your terminal to launch the Android simulator, or `i` for the iOS simulator. You can now begin developing the app.
@@ -199,11 +200,13 @@ Fill in your data in the `apple-app-site-association` and `assetlinks.json` file
     Features > Face ID > Enrolled in the iOS simulator menu.
   </Tabs.Tab>
   <Tabs.Tab>
-    - Add a Google account in the settings of the Android emulated phone. - Get
-    an Android keystore SHA 256 fingerprint with this command (from the root of
-    your project): ```bash keytool -list -v -keystore
-    ./android/app/debug.keystore -alias androiddebugkey -storepass android
-    -keypass android ``` - Copy the value in front of `SHA 256` at the place of
+    - Add a Google account in the settings of the Android emulated phone.
+    - Get an Android keystore SHA 256 fingerprint with this command (from the root
+    of your project):
+```bash
+keytool -list -v -keystore ./android/app/debug.keystore -alias androiddebugkey -storepass android -keypass android
+```
+    - Copy the value in front of `SHA 256` at the place of
     `add_your_sha256_cert_fingerprints_here` in the assetslinks.json file.
   </Tabs.Tab>
 </Tabs>
