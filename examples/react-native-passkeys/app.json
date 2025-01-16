@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "react-native-passkeys",
+    "slug": "react-native-passkeys",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.<your_organization>.<your_app_name>",
+      "associatedDomains": [
+        "webcredentials:add_your_ngrok_domain_here?mode=developer"
+      ],
+      "appleTeamId": "your_apple_team_id"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.<your_organization>.<your_app_name>"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "15.1"
+          },
+          "android": {
+            "compileSdkVersion": 34
+          }
+        }
+      ]
+    ]
+  }
+}
