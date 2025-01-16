@@ -1,0 +1,84 @@
+# AI Quick Start Guide
+
+Get started with Safe AI integration in just a few steps.
+
+This guide will help you set up a Safe Smart Account with the AI agent as the only signer.
+This 1-out-of-1 signer setup is discouraged by Safe, as it is not secure.
+However, many projects choose this setup for simplicity.
+
+## Prerequisites
+
+- tbd
+
+## Installation
+
+First, add the Safe SDK to your project:
+
+```bash
+pnpm add @safe-global/sdk-starter-kit
+```
+
+## Creating a Safe Smart Account for your AI Agent
+
+When your AI agent is ready to interact with the blockchain, you can create a Safe Smart Account for it.
+
+```typescript
+import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+const SIGNER_ADDRESS = // ...
+const SIGNER_PRIVATE_KEY = // ...
+const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
+
+const safeClient = await createSafeClient({
+  provider: RPC_URL,
+  signer: SIGNER_PRIVATE_KEY,
+  safeOptions: {
+    owners: [SIGNER_ADDRESS],
+    threshold: 1
+  }
+})
+```
+
+This creates a Safe Smart Account, but the actual smart contract will be deployed when you send the first transaction.
+
+## Send transactions
+
+```typescript
+// Smart Account transactions are always batched transactions.
+// This means that the AI agent can propose multiple transactions at once.
+const transactions = [{
+  to: '0x...',
+  data: '0x',
+  value: '0'
+}]
+
+const txResult = await safeClient.send({ transactions })
+
+const safeTxHash = txResult.transactions?.safeTxHash
+
+```
+
+## Example: Buy an ERC20 token
+
+```typescript
+
+
+```
+
+## Example: Sell an ERC20 token
+
+```typescript
+
+```
+
+## Example: Buy an NFT
+
+```typescript
+
+```
+
+## Example: Buy a token on Virtuals
+
+```typescript
+
+```
