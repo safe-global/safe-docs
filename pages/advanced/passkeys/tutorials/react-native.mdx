@@ -232,7 +232,7 @@ Replace your project's `app.json` with the following:
 // from ../../../../examples/react-native-passkeys/app.json
 ```
 
-In the `associatedDomains` array, replace `add_your_ngrok_domain_here` with your public ngrok domain; replace `your_apple_team_id_here` with your Apple Developer Program Team ID; lastly replace `your_package_name_here` with your app's package name (it must be the same than the one in the `apple-app-site-association` or `assetlinks.json` file).
+In the `associatedDomains` array, replace `add_your_ngrok_domain_here` with your public ngrok domain; replace `your_apple_team_id_here` with your Apple Developer Program Team ID; lastly replace the two occurrences of `com.<your_organization>.<your_app_name>` with your app's package name (it must be the same than the one in the `apple-app-site-association` or `assetlinks.json` file).
 
 Delete the `/ios` and `/android` folders and restart the app (`npx expo run:ios` or `npx expo run:android`) to apply the changes.
 
