@@ -54,6 +54,7 @@ const repos = [
       '/lib/safe.ts',
       '/lib/storage.ts',
       '/App.tsx',
+      '/app.json',
       '/.env-sample'
     ]
   }
