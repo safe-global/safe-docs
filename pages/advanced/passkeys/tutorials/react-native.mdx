@@ -175,7 +175,7 @@ Now we should have a functional app that enables users to activate their Safe ac
 
 ![react-native-passkeys-app-3.png](../../../../assets/react-native-passkeys-app-3.png)
 
-## 7. Setup and host `AASA` and `assetslinks.json` files
+## 7. Setup emulator specific registration files
 
 To use passkeys in the app, you need to complete some additional setup in the Android and iOS projects. To facilitate this, we are providing a simple [Node Express web server](https://github.com/5afe/aasa-server) for testing.
 
@@ -185,18 +185,13 @@ Clone and install the repository with:
 git clone https://github.com/5afe/aasa-server.git
 ```
 
-Fill in your data in the `apple-app-site-association` and `assetlinks.json` files as follows:
-
 {/* <!-- vale off --> */}
 
 <Tabs items={['iOS', 'Android']}>
   <Tabs.Tab>
     - Login or subscribe to the Apple Developer Program and [locate your Team
     ID](https://developer.apple.com/help/account/manage-your-team/locate-your-team-id/).
-    - Add your Team ID instead of `add_your_apple_team_id_here` in the
-    `apple-app-site-association` file in the AASA server.
-    - Add your provisioning profile to sign the app through Xcode. You can open the generated iOS project in Xcode (open the folder `/ios` in your project) and
-    under `Signing & Capabilities` choose your team. Make sure that the `Bundle Identifier` is `com.safeglobal.reactnativepasskeys`.
+    - In the `apple-app-site-association` file in the AASA server, add your Team ID instead of `add_your_apple_team_id_here`, and a bundle identifier (following this convention `com.<your_team_name>.<your_app_name>`) instead of `add_your_package_name_here`.
     - Activate FaceId. Go to Features > Face ID > Enrolled in the iOS simulator menu.
   </Tabs.Tab>
   <Tabs.Tab>
@@ -206,14 +201,14 @@ Fill in your data in the `apple-app-site-association` and `assetlinks.json` file
 ```bash
 keytool -list -v -keystore ./android/app/debug.keystore -alias androiddebugkey -storepass android -keypass android
 ```
-    - Copy the value in front of `SHA 256` at the place of
-    `add_your_sha256_cert_fingerprints_here` in the assetslinks.json file.
+    - Copy the value in front of `SHA 256` at the place of `add_your_sha256_cert_fingerprints_here` in the assetslinks.json file.
+    - Add a bundle identifier (following this convention `com.<your_team_name>.<your_app_name>`) instead of `add_your_package_name`
   </Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
 
-You can now start the server with:
+Fill in your data in the `apple-app-site-association` (if you are using iOS) or `assetlinks.json` (if using android) files as explained above. You can now start the server with:
 
 ```bash
 cd aasa-server
@@ -229,24 +224,17 @@ After the installation, create a tunnel to the localhost port you are using, whi
 ngrok http 3000
 ```
 
-The ngrok service will provide you with a public domain. You must copy this domain (without `https://`) and add it to your project files after completing the steps below:
+The ngrok service will provide you with a public domain. You must copy this domain (without `https://`) and add it to [passkeys.ts](https://github.com/5afe/react-native-passkeys-tutorial/blob/913cc17f353062bf1c4c55ad303e8623b6035a6b/lib/passkeys.ts#L8) (line 8).
 
-- [passkeys.ts](https://github.com/5afe/react-native-passkeys-tutorial/blob/913cc17f353062bf1c4c55ad303e8623b6035a6b/lib/passkeys.ts#L8)
-- [app.json](https://github.com/5afe/react-native-passkeys-tutorial/blob/913cc17f353062bf1c4c55ad303e8623b6035a6b/app.json#L19). It's important to have the [developer mode](https://developer.apple.com/documentation/xcode/configuring-an-associated-domain) activated (?mode=developer) in your `app.json`.
+Replace your project's `app.json` with the following:
 
-Not updating this information will result in an error when trying to create a passkey.
-
-```
-Error Domain=com.apple.AuthenticationServices.AuthorizationError Code=1004 "(null)"
+```json
+// from ../../../../examples/react-native-passkeys/app.json
 ```
 
-If you are using iOS, you will also need to add this URL to the app's associated domains. Open Xcode again, in the tab `Signing & Capabilities`, click the button `+ Capability`, select `Associated Domain`, and add the ngrok URL with the prefix `webcredentials:`. For example:
+In the `associatedDomains` array, replace `add_your_ngrok_domain_here` with your public ngrok domain; replace `your_apple_team_id_here` with your Apple Developer Program Team ID; lastly replace `your_package_name_here` with your app's package name (it must be the same than the one in the `apple-app-site-association` or `assetlinks.json` file).
 
-```bash
-webcredentials:your-ngrok-domain.ngrok-free.app
-```
-
-Restart the app to apply the changes.
+Delete the `/ios` and `/android` folders and restart the app (`npx expo run:ios` or `npx expo run:android`) to apply the changes.
 
 ## 8. See the App in action
 
