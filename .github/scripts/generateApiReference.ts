@@ -353,6 +353,15 @@ const generateMethodContent = (path: string, method: string) => {
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+${
+  hasExample && example !== 'export {}\n'
+    ? `
+\`\`\`js TypeScript
+// from ${examplePath.replace('./components/ApiReference/', '')}
+\`\`\`
+            `
+    : ''
+}
 \`\`\`bash ${hasExample && example !== 'export {}\n' ? 'curl' : ''}
 ${curlify({
   url: pathWithParams,
@@ -360,16 +369,6 @@ ${curlify({
   body: requestBody
 })} 
 \`\`\`
-
-        ${
-          hasExample && example !== 'export {}\n'
-            ? `
-\`\`\`js TypeScript
-// from ${examplePath.replace('./components/ApiReference/', '')}
-\`\`\`
-            `
-            : ''
-        }
       </CH.Code>
     </CH.Section>
     <NetworkNotice />

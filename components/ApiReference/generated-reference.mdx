@@ -46,14 +46,13 @@ This service is available on [multiple networks](../../core-api/transaction-serv
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/contracts/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -123,14 +122,13 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/contracts/ \
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -190,18 +188,17 @@ as in case of an ABI collision the Safe Transaction Service would know which ABI
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-data-decoder--post.ts
+```
+            
 ```bash curl
 curl -X POST https://safe-transaction-sepolia.safe.global/api/api/v1/data-decoder/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v1-data-decoder--post.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -261,18 +258,17 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/api/v1/data-decode
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v2-delegates--get.ts
+```
+            
 ```bash curl
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v2/delegates/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v2-delegates--get.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -355,18 +351,17 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v2-delegates--post.ts
+```
+            
 ```bash curl
 curl -X POST https://safe-transaction-sepolia.safe.global/api/api/v2/delegates/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v2-delegates--post.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -408,18 +403,17 @@ either the `delegator` (owner) or the `delegate` itself. Check `POST /delegates/
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v2-delegates-{delegate_address}--delete.ts
+```
+            
 ```bash curl
 curl -X DELETE https://safe-transaction-sepolia.safe.global/api/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
 ```
-
-        
-```js TypeScript
-// from examples/-v2-delegates-{delegate_address}--delete.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -465,18 +459,17 @@ Empty Response
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-messages-{message_hash}--get.ts
+```
+            
 ```bash curl
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/messages/0x3b3b57b3/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v1-messages-{message_hash}--get.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -534,18 +527,17 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/messages/0x3
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-messages-{message_hash}-signatures--post.ts
+```
+            
 ```bash curl
 curl -X POST https://safe-transaction-sepolia.safe.global/api/api/v1/messages/0x3b3b57b3/signatures/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
 ```
-
-        
-```js TypeScript
-// from examples/-v1-messages-{message_hash}-signatures--post.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -585,18 +577,17 @@ Empty Response
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-safes-{address}-messages--get.ts
+```
+            
 ```bash curl
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v1-safes-{address}-messages--get.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -669,18 +660,17 @@ service needs to derive it itself.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-safes-{address}-messages--post.ts
+```
+            
 ```bash curl
 curl -X POST https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
 ```
-
-        
-```js TypeScript
-// from examples/-v1-safes-{address}-messages--post.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -726,14 +716,13 @@ Empty Response
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/module-transaction/0x3b3b57b3 \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -787,14 +776,13 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/module-trans
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -916,14 +904,13 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X DELETE https://safe-transaction-sepolia.safe.global/api/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -964,14 +951,13 @@ the given Safe transaction hash
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1026,14 +1012,13 @@ does not support the use of delegates to make transactions trusted.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X POST https://safe-transaction-sepolia.safe.global/api/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1089,18 +1074,17 @@ but there will be 2 transactions in the list.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-safes-{address}-all-transactions--get.ts
+```
+            
 ```bash curl
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v1-safes-{address}-all-transactions--get.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1212,14 +1196,13 @@ Only 1000 newest transfers will be returned.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1278,18 +1261,17 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-safes-{address}-module-transactions--get.ts
+```
+            
 ```bash curl
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v1-safes-{address}-module-transactions--get.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1351,18 +1333,17 @@ By default, only ``trusted`` multisig transactions are returned.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-safes-{address}-multisig-transactions--get.ts
+```
+            
 ```bash curl
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v1-safes-{address}-multisig-transactions--get.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1459,18 +1440,17 @@ retrieves all the information related.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-safes-{address}-multisig-transactions--post.ts
+```
+            
 ```bash curl
 curl -X POST https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
 ```
-
-        
-```js TypeScript
-// from examples/-v1-safes-{address}-multisig-transactions--post.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1512,14 +1492,13 @@ curl -X POST https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X POST https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1562,14 +1541,13 @@ Only 1000 newest transfers will be returned.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1628,14 +1606,13 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/transfer/3b3b57b3 \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1693,18 +1670,17 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/transfer/3b3
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-modules-{address}-safes--get.ts
+```
+            
 ```bash curl
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v1-modules-{address}-safes--get.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1752,18 +1728,17 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/modules/0xcd
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-owners-{address}-safes--get.ts
+```
+            
 ```bash curl
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v1-owners-{address}-safes--get.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1821,14 +1796,13 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/owners/0xcd2
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1902,14 +1876,13 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safe-operati
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -1963,14 +1936,13 @@ the use of delegates to make a transaction trusted.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X POST https://safe-transaction-sepolia.safe.global/api/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -2010,14 +1982,13 @@ Empty Response
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -2098,14 +2069,13 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X POST https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -2145,14 +2115,13 @@ Empty Response
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/user-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -2233,18 +2202,17 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-user-operations-{user_operation_hash}--get.ts
+```
+            
 ```bash curl
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v1-user-operations-{user_operation_hash}--get.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -2324,18 +2292,17 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/user-operati
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-safes-{address}--get.ts
+```
+            
 ```bash curl
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v1-safes-{address}--get.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -2392,14 +2359,13 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -2461,18 +2427,17 @@ deployment.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-safes-{address}-creation--get.ts
+```
+            
 ```bash curl
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v1-safes-{address}-creation--get.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -2569,14 +2534,13 @@ The maximum limit allowed is 200.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -2635,14 +2599,13 @@ The maximum limit allowed is 10.
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/collectibles/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -2706,18 +2669,17 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v2/safes/0xcd2E
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-tokens--get.ts
+```
+            
 ```bash curl
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/tokens/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v1-tokens--get.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -2773,18 +2735,17 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/tokens/ \
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
+```js TypeScript
+// from examples/-v1-tokens-{address}--get.ts
+```
+            
 ```bash curl
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
-```js TypeScript
-// from examples/-v1-tokens-{address}--get.ts
-```
-            
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -2832,14 +2793,13 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/tokens/0xcd2
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/tokens/lists/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
@@ -2880,14 +2840,13 @@ curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v1/tokens/lists
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+
 ```bash 
 curl -X GET https://safe-transaction-sepolia.safe.global/api/api/v2/analytics/multisig-transactions/by-origin/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
 ```
-
-        
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
