@@ -288,7 +288,7 @@ const generateMethodContent = (path: string, method: string) => {
       method.toUpperCase()
   const filePath = `./components/ApiReference/examples/${slugify(
     path
-  )}-${method}`
+  )}-${method}`.replace('-api', '')
   const examplePath = filePath + '.ts'
   const sampleResponsePath = filePath + '.json'
   const hasExample = fs.existsSync(examplePath)
@@ -365,7 +365,7 @@ ${curlify({
           hasExample && example !== 'export {}\n'
             ? `
 \`\`\`js TypeScript
-// from ./examples/${slugify(path)}-${method}.ts
+// from ${examplePath.replace('./components/ApiReference/', '')}
 \`\`\`
             `
             : ''
