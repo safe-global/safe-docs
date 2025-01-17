@@ -94,7 +94,12 @@ const Property: React.FC<{ property: any; required?: boolean }> = ({
                 ? '[]'
                 : property.value?.type === 'object'
                   ? ''
-                  : property.value?.type}
+                  : Array.isArray(property.value?.type)
+                    ? property.value?.type.join(' | ')
+                    : (property.value?.type ??
+                      (Array.isArray(property.value.schema?.type)
+                        ? property.value.schema?.type.join(' | ')
+                        : property.value.schema?.type))}
             </code>
             <Typography
               variant='body1'
