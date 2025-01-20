@@ -27,7 +27,13 @@ const protocolKit = await Safe.init({
 
 The WebAuthn credential to use for signing.
 
-### Returns
+```typescript focus=2
+const passkeySigner = await Safe.createPasskeySigner(
+  credential
+)
+```
+
+## Returns
 
 `Promise<Pick<PasskeyArgType, 'rawId' | 'coordinates'>>`
 
