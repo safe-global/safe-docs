@@ -1,0 +1,86 @@
+# Advanced Safe Smart Account Setups for AI Agents
+
+Here you find advanced setups for Safe Smart Accounts for AI agents.
+
+* Agent proposes transactions, human executes them
+* Multi-agent setup
+* Agent manages a certain amount of funds
+* Agent is scoped to selected actions
+
+## Agent proposes transactions, human executes them
+
+In this setup, the AI agent proposes transactions, but one or more required human signers are needed to execute them.
+This adds an additional layer of security, as the AI agent cannot execute transactions without human approval.
+
+For this setup, we recommend a 2-out-of-3, 3-out-of-5, or 5-out-of-7 threshold.
+The important considerations are:
+
+* The AI agent should be one signer
+* The threshold should be two more, so at least one human approval is required
+* The amount of signers should be higher than the threshold to make sure the Safe Smart Account is functional when one key is lost
+
+Here is an example setup:
+
+```typescript
+import { createSafeClient } from '@safe-global/sd
+
+k-starter-kit'
+
+const AGENT_ADDRESS = // ...
+const AGENT_PRIVATE_KEY = // ...
+const HUMAN_SIGNER_1_ADDRESS = // ...
+const HUMAN_SIGNER_2_ADDRESS = // ...
+const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
+
+const safeClient = await createSafeClient({
+  provider: RPC_URL,
+  signer: AGENT_PRIVATE_KEY,
+  safeOptions: {
+    owners: [AGENT_ADDRESS, HUMAN_SIGNER_1_ADDRESS, HUMAN_SIGNER_2_ADDRESS],
+    threshold: 2
+  }
+})
+```
+
+Here, the AI agent creates the Safe Smart Account and adds two human signers for a 2-out-of-3 setup.
+
+## Multi-agent setup
+
+In this setup, the Safe Smart Account is managed by multiple agents.
+When one agent proposes a transaction, it needs to be approved by at least one other agent.
+We recommend to have human signers as well, so that the Safe Smart Account is functional even without the AI agents.
+
+Here is an example with a 2-out-of-4 setup:
+
+```typescript
+import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+const AGENT_1_ADDRESS = // ...
+const AGENT_1_PRIVATE_KEY = // ...
+const AGENT_2_ADDRESS = // ...
+const HUMAN_SIGNER_1_ADDRESS = // ...
+const HUMAN_SIGNER_2_ADDRESS = // ...
+const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
+
+const safeClient = await createSafeClient({
+  provider: RPC_URL,
+  signer: AGENT_1_PRIVATE_KEY,
+  safeOptions: {
+    owners: [AGENT_1_ADDRESS, AGENT_2_ADDRESS, HUMAN_SIGNER_1_ADDRESS, HUMAN_SIGNER_2_ADDRESS],
+    threshold: 2
+  }
+})
+```
+
+This setup is similar to the previous one.
+The AI agents can make autonomous decisions, and the human signers can do so, too.
+
+## Agent manages a certain amount of funds
+
+This setup is used by DAO's or other organizations that want to utilize AI agents to manage their funds.
+
+
+
+
+## Agent is scoped to selected actions
+
