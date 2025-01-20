@@ -288,7 +288,7 @@ const generateMethodContent = (path: string, method: string) => {
       method.toUpperCase()
   const filePath = `./components/ApiReference/examples/${slugify(
     path
-  )}-${method}`
+  )}-${method}`.replace('-api', '')
   const examplePath = filePath + '.ts'
   const sampleResponsePath = filePath + '.json'
   const hasExample = fs.existsSync(examplePath)
@@ -353,6 +353,15 @@ const generateMethodContent = (path: string, method: string) => {
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
+${
+  hasExample && example !== 'export {}\n'
+    ? `
+\`\`\`js TypeScript
+// from ${examplePath.replace('./components/ApiReference/', '')}
+\`\`\`
+            `
+    : ''
+}
 \`\`\`bash ${hasExample && example !== 'export {}\n' ? 'curl' : ''}
 ${curlify({
   url: pathWithParams,
@@ -360,16 +369,6 @@ ${curlify({
   body: requestBody
 })} 
 \`\`\`
-
-        ${
-          hasExample && example !== 'export {}\n'
-            ? `
-\`\`\`js TypeScript
-// from ./examples/${slugify(path)}-${method}.ts
-\`\`\`
-            `
-            : ''
-        }
       </CH.Code>
     </CH.Section>
     <NetworkNotice />
