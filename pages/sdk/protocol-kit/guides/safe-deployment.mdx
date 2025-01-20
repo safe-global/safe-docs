@@ -59,6 +59,8 @@ pnpm add @safe-global/protocol-kit viem
   
   Initialize an instance of the Protocol Kit for each network where you want to deploy a new Safe smart account by calling the [`init`](../../../reference-sdk-protocol-kit/initialization/init.mdx) method. Pass the `provider` with its corresponding value depending on the network, the `signer` executing the deployment, and the [`predictedSafe`](../../../reference-sdk-protocol-kit/initialization/init.mdx#predictedsafe-optional) with the Safe account configuration.
 
+  Optionally, you can [track your Safe deployments and transactions on-chain](../../onchain-tracking.mdx) by using the `onchainAnalytics` property.
+
   {/* <!-- vale off --> */}
 
   ```typescript
@@ -76,7 +78,8 @@ pnpm add @safe-global/protocol-kit viem
   const protocolKit = await Safe.init({
     provider: sepolia.rpcUrls.default.http[0],
     signer: SIGNER_PRIVATE_KEY,
-    predictedSafe
+    predictedSafe,
+    onchainAnalytics // Optional
   })
   ```
 

@@ -73,13 +73,16 @@ pnpm add @safe-global/api-kit \
 
   To handle transactions and signatures, you need to create an instance of the Protocol Kit with the `provider`, `signer` and `safeAddress`.
 
+  Optionally, you can [track your Safe transactions on-chain](../../onchain-tracking.mdx) by using the `onchainAnalytics` property.
+
   {/* <!-- vale off --> */}
 
   ```typescript
   const protocolKitOwner1 = await Safe.init({
     provider: RPC_URL,
     signer: OWNER_1_PRIVATE_KEY,
-    safeAddress: SAFE_ADDRESS
+    safeAddress: SAFE_ADDRESS,
+    onchainAnalytics // Optional
   })
   ```
 
@@ -87,9 +90,9 @@ pnpm add @safe-global/api-kit \
 
   ### Create a transaction
 
-  {/* <!-- vale off --> */}
-
   Create a `safeTransactionData` object with the properties of the transaction, add it to an array of transactions you want to execute, and pass it to the `createTransaction` method.
+
+  {/* <!-- vale off --> */}
 
   ```typescript
   const safeTransactionData: MetaTransactionData = {
@@ -107,38 +110,6 @@ pnpm add @safe-global/api-kit \
   {/* <!-- vale on --> */}
 
   For more details on what to include in a transaction, see the [`createTransaction`](../reference/safe.mdx#createtransaction) method in the reference.
-
-  ### Track the Safe transaction
-
-  Optionally, you can track all your Safe transactions on-chain by attaching an on-chain identifier to the `data` property.
-
-  This identifier must be unique for every project and has a length of 16 bytes. You can create a random one or derive it from a text string, maybe from your project name:
-
-  {/* <!-- vale off --> */}
-
-  ```typescript
-  const onchainIdentifier = toHex(
-    'TEXT_TO_DERIVE_THE_IDENTIFIER', // It could be your project name
-    { size: 16 }
-  )
-  ```
-
-  {/* <!-- vale on --> */}
-
-  Once generated, fill out the [Ecosystem On-chain Tracking Form](https://docs.google.com/forms/d/e/1FAIpQLSfHWSPbSQwmo0mbtuFFewfLvDEOvTxfuvEl7AHOyrFE_dqpwQ/viewform) and provide the value of your `onchainIdentifier`.
-
-  Add the `onchainIdentifier` at the end of the Safe transaction `data`.
-
-  {/* <!-- vale off --> */}
-
-  ```typescript
-  safeTransaction.data.data = concat([
-    safeOperation.data.data as `0x{string}`,
-    onchainIdentifier
-  ]).toString()
-  ```
-
-  {/* <!-- vale on --> */}
 
   ### Propose the transaction
 

@@ -66,12 +66,12 @@ pnpm add @safe-global/protocol-kit viem
   const safeAccountConfig: SafeAccountConfig = {
     owners: ['0x...', '0x...', '0x...'],
     threshold: 2
-    // More optional properties
+    // ...
   }
 
   const predictedSafe: PredictedSafeProps = {
     safeAccountConfig
-    // More optional properties
+    // ...
   }
   ```
 
@@ -87,17 +87,23 @@ pnpm add @safe-global/protocol-kit viem
   const protocolKitSepolia = await Safe.init({
     provider: sepolia.rpcUrls.default.http[0],
     signer: SIGNER_PRIVATE_KEY,
-    predictedSafe
+    predictedSafe,
+    onchainAnalytics // Optional
+    // ...
   })
   
   const protocolKitChiado = await Safe.init({
     provider: gnosisChiado.rpcUrls.default.http[0],
     signer: PRIVATE_KEY,
-    predictedSafe
+    predictedSafe,
+    onchainAnalytics // Optional
+    // ...
   })
   ```
 
   {/* <!-- vale on --> */}
+
+  Optionally, you can [track your Safe deployments and transactions on-chain](../../onchain-tracking.mdx) by using the `onchainAnalytics` property.
 
   ### Predict the Safe addresses
 

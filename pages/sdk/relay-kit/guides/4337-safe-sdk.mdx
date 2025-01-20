@@ -67,6 +67,8 @@ yarn add @safe-global/relay-kit
     <Tabs.Tab>
       When deploying a new Safe account, we need to pass the configuration of the Safe in the `options` property. In this case, we are configuring a Safe account that will have our signer as the only owner.
 
+      Optionally, you can [track your ERC-4337 Safe transactions on-chain](../../onchain-tracking.mdx) by using the `onchainAnalytics` property.
+
       ```typescript
       const safe4337Pack = await Safe4337Pack.init({
         provider: RPC_URL,
@@ -76,12 +78,15 @@ yarn add @safe-global/relay-kit
           owners: [SIGNER_ADDRESS],
           threshold: 1
         },
+        onchainAnalytics // Optional
         // ...
       })
       ```
     </Tabs.Tab>
     <Tabs.Tab>
       When connecting an existing Safe account, we need to pass the `safeAddress` in the `options` property.
+      
+      Optionally, you can [track your ERC-4337 Safe transactions on-chain](../../onchain-tracking.mdx) by using the `onchainAnalytics` property.
 
       ```typescript
       const safe4337Pack = await Safe4337Pack.init({
@@ -91,6 +96,7 @@ yarn add @safe-global/relay-kit
         options: {
           safeAddress: '0x...'
         },
+        onchainAnalytics // Optional
         // ...
       })
       ```
@@ -165,44 +171,6 @@ yarn add @safe-global/relay-kit
   {/* <!-- vale on --> */}
 
   The `safeOperation` object has the `data` and `signatures` properties, which contain all the information about the transaction batch and the signatures of the Safe owners, respectively.
-
-  ### Track the user operation
-
-  Optionally, you can track all your ERC-4337 Safe transactions on-chain by attaching an on-chain identifier to the user operation `callData`.
-
-  This identifier must be unique for every project and has a length of 16 bytes. You can create a random one or derive it from a text string, maybe from your project name:
-
-  {/* <!-- vale off --> */}
-
-  ```typescript
-  const onchainIdentifier = toHex(
-    'TEXT_TO_DERIVE_THE_IDENTIFIER', // It could be your project name
-    { size: 16 }
-  )
-  ```
-
-  {/* <!-- vale on --> */}
-
-  Once generated, fill the [Ecosystem On-chain Tracking Form](https://docs.google.com/forms/d/e/1FAIpQLSfHWSPbSQwmo0mbtuFFewfLvDEOvTxfuvEl7AHOyrFE_dqpwQ/viewform) and provide the value of your `onchainIdentifier`.
-
-  Add the `onchainIdentifier` at the end of the ERC-4337 user operation `callData`.
-
-  {/* <!-- vale off --> */}
-
-  ```typescript
-  safeOperation.data.callData = concat([
-    safeOperation.data.callData as `0x{string}`,
-    onchainIdentifier
-  ]).toString()
-
-  const identifiedSafeOperation = await safe4337Pack.getEstimateFee({
-    safeOperation
-  })
-  ```
-
-  {/* <!-- vale on --> */}
-
-  Once added, the Safe owners can sign the `identifiedSafeOperation`.
 
   ### Sign the user operation
 

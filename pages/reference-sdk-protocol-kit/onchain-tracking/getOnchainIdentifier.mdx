@@ -1,0 +1,44 @@
+import { Tabs } from 'nextra/components'
+
+# `getOnchainIdentifier`
+
+Returns the on-chain identifier generated internally. This identifier is appended to the `data` field of transactions to enable on-chain tracking.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { protocolKit } from './setup.ts'
+
+    const onchainIdentifier = await protocolKit.getOnchainIdentifier()
+
+    console.log(onchainIdentifier) // e.g., '5afe006562303761323539616336346466346135306537646561393238383963'
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import Safe from '@safe-global/protocol-kit'
+
+    export const protocolKit = Safe.init({
+      // ...
+      onchainAnalytics: {
+        project: 'Cow Swap', // Specify your project name
+        platform: 'Web'      // Optional platform
+      }
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`string`
+
+The on-chain identifier in hexadecimal format (`5afe00...`), which includes hashed metadata such as project name, platform, tool, and tool version.
+
+For more details about the identifier format, please refer to the [On-chain identifier](../../sdk/onchain-tracking.mdx#on-chain-identifier-format) section.
