@@ -64,11 +64,48 @@ The on-chain identifier allows tracking the deployment of Safe accounts, the exe
 
 <Steps>
 
-  ### Track Safe deployments
+  ### Generate an on-chain identifier
 
-  Safe deployments can be tracked by assigning an on-chain identifier to the [`paymentReceiver`](../reference-smart-account/setup/setup.mdx#paymentreceiver) or [`saltNonce`](https://github.com/safe-global/safe-smart-account/blob/main/contracts/proxies/SafeProxyFactory.sol#L55) properties during the Safe configuration and deployment.
+  Feel free to skip this section if you use the Protocol Kit or Relay Kit from the Safe\{Core\} SDK, as this is handled internally.
+
+  To create an on-chain identifier with the format described above, you need to implement a function that receives the `project`, `platform`, `tool`, and `toolVersion` used; and returns the correct identifier after hashing, truncating, and concatenating all these parameters.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  function generateOnChainIdentifier({
+    project,
+    platform = 'Web',
+    tool,
+    toolVersion
+  }: OnChainIdentifierParamsType): string {
+    const identifierPrefix = '5afe' // Safe identifier prefix
+    const identifierVersion = '00' // First version
+    const projectHash = generateHash(project, 20) // Take the last 20 bytes
+    const platformHash = generateHash(platform, 3) // Take the last 3 bytes
+    const toolHash = generateHash(tool, 3) // Take the last 3 bytes
+    const toolVersionHash = generateHash(toolVersion, 3) // Take the last 3 bytes
+
+    return `${identifierPrefix}${identifierVersion}${projectHash}${platformHash}${toolHash}${toolVersionHash}`
+  }
+
+  function generateHash(input: string, size: number): string {
+    const fullHash = keccak256(toHex(input))
+    return toHex(fullHash.slice(-size)).replace('0x', '') // Take the last X bytes
+  }
+  ```
+
+  {/* <!-- vale on --> */}
+
+  This identifier will be added to all your Safe transactions and become searchable on-chain.
+
+  ### Track Safe deployments
   
-  If you use the [Protocol Kit](../sdk/protocol-kit.mdx) or the [Relay Kit](../sdk/relay-kit.mdx) to deploy a Safe, adding the `onchainAnalytics` property to the initialization method will automatically handle this. The deployment transaction will include the identifier.
+  Safe deployments can be tracked by concatenating the on-chain identifier at the end of the deployment transaction `data`. This way Safe deployment transactions will include the identifier.
+  
+  If you use the [Protocol Kit](../sdk/protocol-kit.mdx) or the [Relay Kit](../sdk/relay-kit.mdx) to deploy a Safe, adding the `onchainAnalytics` property to the initialization method will automatically handle this.
+  
+  If you use a custom implementation, remember to manually add the on-chain identifier at the end of the deployment transaction `data`.
 
   {/* <!-- vale off --> */}
 
@@ -78,7 +115,7 @@ The on-chain identifier allows tracking the deployment of Safe accounts, the exe
       import Safe, { OnchainAnalyticsProps } from '@safe-global/protocol-kit'
 
       const onchainAnalytics: OnchainAnalyticsProps = {
-        project: 'YOUR_PROJECT_NAME'
+        project: 'YOUR_PROJECT_NAME' // Required. Always use the same value for your project.
         platform: 'CURRENT_PLATFORM' // Optional
       }
 
@@ -96,7 +133,7 @@ The on-chain identifier allows tracking the deployment of Safe accounts, the exe
       import { OnchainAnalyticsProps } from '@safe-global/protocol-kit'
 
       const onchainAnalytics: OnchainAnalyticsProps = {
-        project: 'YOUR_PROJECT_NAME'
+        project: 'YOUR_PROJECT_NAME' // Required. Always use the same value for your project.
         platform: 'CURRENT_PLATFORM' // Optional
       }
       
@@ -114,9 +151,11 @@ The on-chain identifier allows tracking the deployment of Safe accounts, the exe
 
   ### Track Safe transactions
 
-  Safe transactions can be tracked by concatenating the on-chain identifier at the end of the transaction `data` or user operation `callData` properties. 
+  Safe transactions can be tracked by concatenating the on-chain identifier at the end of the transaction `data` or user operation `callData` properties. This way Safe transactions will include the identifier.
 
-  If you use the [Protocol Kit](../sdk/protocol-kit.mdx) or the [Relay Kit](../sdk/relay-kit.mdx) to execute the Safe transactions, adding the `onchainAnalytics` property to the initialization method will automatically handle this. The Safe transactions will include the identifier.
+  If you use the [Protocol Kit](../sdk/protocol-kit.mdx) or the [Relay Kit](../sdk/relay-kit.mdx) to execute the Safe transactions, adding the `onchainAnalytics` property to the initialization method will automatically handle this.
+
+  If you use a custom implementation, remember to manually add the on-chain identifier at the end of the transaction `data`/`callData`.
 
   {/* <!-- vale off --> */}
 
@@ -162,7 +201,7 @@ The on-chain identifier allows tracking the deployment of Safe accounts, the exe
 
   ### Get the on-chain identifier
 
-  To get the current safe on-chain identifier, you can use the `getOnchainIdentifier` method from an initialized instance of the Protocol Kit.
+  If you use the Protocol Kit or the Relay Kit, call the `getOnchainIdentifier` method from an initialized instance of the Protocol Kit to get the current Safe on-chain identifier.
 
   {/* <!-- vale off --> */}
 
