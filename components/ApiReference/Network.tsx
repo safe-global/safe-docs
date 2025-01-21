@@ -7,9 +7,7 @@ import {
   useContext
 } from 'react'
 import Link from 'next/link'
-import MuiLink from '@mui/material/Link'
 import Select from '@mui/material/Select'
-import Box from '@mui/material/Box'
 import MenuItem from '@mui/material/MenuItem'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
@@ -17,7 +15,6 @@ import Button from '@mui/material/Button'
 import GetAppIcon from '@mui/icons-material/GetApp'
 import { capitalize } from 'lodash'
 import { CopyToClipboard } from 'nextra/components'
-import Check from '@mui/icons-material/Check'
 
 import txServiceNetworks from './tx-service-networks.json'
 
@@ -140,42 +137,6 @@ const NetworkSwitcher: React.FC = () => {
 
       <Grid container mt={2} alignItems='center'></Grid>
     </>
-  )
-}
-
-export const NetworkNotice: React.FC = () => {
-  const [network] = useContext(NetworkContext)
-  const [copied, setCopied] = useState(false)
-  return (
-    network !== transactionServiceUrls[indexOfDefaultNetwork] && (
-      <Box sx={{ fontSize: '12px', mt: -2, mb: 3 }}>
-        This snippet shows a sample request on Ethereum Sepolia. Please{' '}
-        <MuiLink
-          sx={{ '&:hover': { cursor: 'pointer' } }}
-          onClick={() => {
-            void navigator.clipboard.writeText(network)
-            setCopied(true)
-            setTimeout(() => {
-              setCopied(false)
-            }, 3000)
-          }}
-        >
-          click here
-        </MuiLink>{' '}
-        <Check
-          sx={{
-            fontSize: '12px',
-            width: copied ? '12px' : 0,
-            opacity: copied ? 1 : 0,
-            mr: copied ? 0.5 : 0,
-            transition: '0.4s'
-          }}
-        />
-        to copy the base URL for{' '}
-        {capitalize(network?.split('-')[2]?.split('.')[0])} and update it in
-        your request.
-      </Box>
-    )
   )
 }
 
