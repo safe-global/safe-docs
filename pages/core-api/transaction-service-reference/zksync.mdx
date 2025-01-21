@@ -3,12 +3,13 @@
 import ApiReference from '../../../components/ApiReference'
 import { renderToString } from 'react-dom/server'
 import { MDXComponents, getHeadingsFromHtml } from '../../../lib/mdx'
-import Mdx from '../../../components/ApiReference/generated-reference.mdx'
+import Mdx from '../../../components/ApiReference/generated/zksync-reference.mdx'
+import swagger from '../../../components/ApiReference/schemas/zksync-swagger.json'
 
 export const getStaticProps = async () => {
   const renderedMdx = <Mdx components={MDXComponents} />
   const contentString = renderToString(renderedMdx)
-  const headings = getHeadingsFromHtml(contentString)
+  const headings = getHeadingsFromHtml(swagger, contentString)
 
   return {
     props: {
