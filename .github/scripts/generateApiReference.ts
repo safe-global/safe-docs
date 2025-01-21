@@ -2,14 +2,11 @@ const fs = require('fs')
 const { capitalize } = require('lodash')
 const YAML = require('yaml')
 
-const jsonFile = require('../../components/ApiReference/mainnet-swagger.json')
 const pathsMetadata = require('../../components/ApiReference/paths-metadata.json')
 const txServiceNetworks = require('../../components/ApiReference/tx-service-networks.json')
 
-const baseUrl = 'https://safe-transaction-sepolia.safe.global'
-
 const curlify = (req: any) =>
-  `curl -X ${req.method} https://safe-transaction-sepolia.safe.global/api${
+  `curl -X ${req.method} https://safe-transaction-${req.networkName}.safe.global/api${
     req.url
   } \\
     -H "Accept: application/json" \\
@@ -147,11 +144,13 @@ const generateSampleApiResponse = async (
   path: string,
   pathWithParams: string,
   method: string,
-  requestBody: string
+  requestBody: string,
+  networkName: string
 ) => {
   const fetch = await import('node-fetch')
 
   let response: any
+  const baseUrl = `https://safe-transaction-${networkName}.safe.global`
   const url = baseUrl + pathWithParams
   if (method === 'get') {
     response = await fetch.default(url).then(async res => {
@@ -200,25 +199,23 @@ const generateSampleApiResponse = async (
 }
 
 const slugify = (text: string) => text?.replace?.(/ /g, '-').replace(/\//g, '-')
-const resolveRef = (ref: string) => {
+const resolveRef = (swagger: any, ref: string) => {
   const refName = ref.split('/').pop()
-  return { refName, ...jsonFile.components.schemas[refName as string] }
+  return { refName, ...swagger.components.schemas[refName as string] }
 }
 
-const resolveRefs = (obj: any) => {
+const resolveRefs = (swagger: any, obj: any) => {
   if (typeof obj === 'object') {
     for (const key in obj) {
       if (key === '$ref') {
-        obj = resolveRef(obj[key])
+        obj = resolveRef(swagger, obj[key])
       } else {
-        obj[key] = resolveRefs(obj[key])
+        obj[key] = resolveRefs(swagger, obj[key])
       }
     }
   }
   return obj
 }
-
-const mainnetApiJson = resolveRefs(jsonFile)
 
 const addMethodContext = (json: any) => ({
   ...json,
@@ -243,31 +240,31 @@ const addMethodContext = (json: any) => ({
   }, {})
 })
 
-const getApiJson = async (url: string) => {
+const getApiJson = async (url: string, networkName: string) => {
   const response = await fetch(url + '/schema/')
   const yaml = await response.text()
   const json = YAML.parse(yaml)
   const withContext = addMethodContext(json)
   fs.writeFileSync(
-    './components/ApiReference/mainnet-swagger.json',
+    `./components/ApiReference/schemas/${networkName}-swagger.json`,
     JSON.stringify(withContext, null, 2)
   )
   return withContext
 }
 
-const generateMethodContent = (path: string, method: string) => {
-  const _method = mainnetApiJson.paths[path][method]
+const generateMethodContent = (swagger: any, networkName: string, path: string, method: string) => {
+  const _method = swagger.paths[path][method]
   const responses = Object.entries(_method.responses).map(
     ([code, { schema, ...data }]: [any, any]) => ({
       code,
       schema:
         schema?.['$ref'] !== undefined
-          ? resolveRef(schema['$ref'])
+          ? resolveRef(swagger, schema['$ref'])
           : {
               ...schema,
               items:
                 schema?.items?.['$ref'] !== undefined
-                  ? resolveRef(schema.items['$ref'])
+                  ? resolveRef(swagger, schema.items['$ref'])
                   : schema?.items
             },
       ...data
@@ -317,7 +314,7 @@ const generateMethodContent = (path: string, method: string) => {
 
   // This is commented out, as we omit response generation for now.
   // It is planned to move this into a separate script.
-  // generateSampleApiResponse(path, pathWithParams + query, method, requestBody)
+  // generateSampleApiResponse(path, pathWithParams + query, method, requestBody, networkName)
 
   const codeBlockWithinDescription = _method.description?.match(
     /```[a-z]*\n[\s\S]*?\n```/
@@ -357,7 +354,7 @@ ${
   hasExample && example !== 'export {}\n'
     ? `
 \`\`\`js TypeScript
-// from ${examplePath.replace('./components/ApiReference/', '')}
+// from ${examplePath.replace('./components/ApiReference/', '../')}
 \`\`\`
             `
     : ''
@@ -366,12 +363,12 @@ ${
 ${curlify({
   url: pathWithParams,
   method: method.toUpperCase(),
-  body: requestBody
+  body: requestBody,
+  networkName
 })} 
 \`\`\`
       </CH.Code>
     </CH.Section>
-    <NetworkNotice />
 
     ${
       hasResponse && sampleResponse !== '{}'
@@ -391,13 +388,13 @@ ${sampleResponse}
 `
 }
 
-const generatePathContent = (path: string) =>
-  `${Object.keys(mainnetApiJson.paths[path])
+const generatePathContent = (swagger: any, networkName: string, path: string) =>
+  `${Object.keys(swagger.paths[path])
     .filter(method => method !== 'parameters')
-    .map(method => generateMethodContent(path, method))
+    .map(method => generateMethodContent(swagger, networkName, path, method))
     .join('\n')}`
 
-const generateCategoryContent = (category: {
+const generateCategoryContent = (swagger: any, networkName: string, category: {
   title: string
   paths: string[]
 }) => `<Grid my={8} />
@@ -406,10 +403,10 @@ const generateCategoryContent = (category: {
 
 <Grid my={6} />
 
-${category.paths.map(path => generatePathContent(path)).join('\n')}`
+${category.paths.map(path => generatePathContent(swagger, networkName, path)).join('\n')}`
 
-const getCategories = () => {
-  const allMethods: any = Object.entries(mainnetApiJson.paths)
+const getCategories = (swagger: any) => {
+  const allMethods: any = Object.entries(swagger.paths)
     .map(([k, v]: [any, any]) => Object.values(v))
     .flat()
   const allCategories = Array.from(
@@ -432,18 +429,17 @@ const getCategories = () => {
   }))
 }
 
-const generateMainContent = () => {
-  const categories = getCategories().filter(
+const generateMainContent = (swagger: any, networkName: string) => {
+  const categories = getCategories(swagger).filter(
     c => c.title !== 'about' && c.title !== 'notifications'
   )
-
-  return `import Path from './Path'
-import Hr from '../Hr'
-import SampleRequestHeader from './SampleRequestHeader'
-import Parameters from './Parameter'
-import NetworkSwitcher, { NetworkNotice } from './Network'
-import Responses from './Response'
-import Feedback from '../Feedback'
+  return `import Path from '../Path'
+import Hr from '../../Hr'
+import SampleRequestHeader from '../SampleRequestHeader'
+import Parameters from '../Parameter'
+import NetworkSwitcher from '../Network'
+import Responses from '../Response'
+import Feedback from '../../Feedback'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import NextLink from 'next/link'
@@ -453,21 +449,26 @@ import Link from '@mui/material/Link'
 
 The Safe Transaction Service API Reference is a collection of endpoints that allow to keep track of Safe transactions.
 
-This service is available on [multiple networks](../../core-api/transaction-service-supported-networks), at different endpoints.
+This service is available on [multiple networks](../../../core-api/transaction-service-supported-networks), at different endpoints.
 
 <NetworkSwitcher />
 
-${categories.map(category => generateCategoryContent(category)).join('\n')}
+${categories.map(category => generateCategoryContent(swagger, networkName, category)).join('\n')}
 `
 }
 
 const main = async () => {
-  await getApiJson('https://safe-transaction-mainnet.safe.global')
   txServiceNetworks.forEach(
     async (network: { chainId: string; txServiceUrl: string }) => {
       const networkName = network.txServiceUrl
         .replace('https://safe-transaction-', '')
         .split('.')[0]
+      
+      // Download swagger schema and converts it from YAML to JSON.
+      const jsonFile = await getApiJson(network.txServiceUrl, networkName)
+      const resolvedJson = resolveRefs(jsonFile, jsonFile)
+
+      // Generate the page which will load the reference file, and parse it to generate the dynamic sidebar on the client side.
       fs.writeFileSync(
         `./pages/core-api/transaction-service-reference/${networkName}.mdx`,
         `
@@ -475,12 +476,13 @@ const main = async () => {
 import ApiReference from '../../../components/ApiReference'
 import { renderToString } from 'react-dom/server'
 import { MDXComponents, getHeadingsFromHtml } from '../../../lib/mdx'
-import Mdx from '../../../components/ApiReference/generated-reference.mdx'
+import Mdx from '../../../components/ApiReference/generated/${networkName}-reference.mdx'
+import swagger from '../../../components/ApiReference/schemas/${networkName}-swagger.json'
 
 export const getStaticProps = async () => {
   const renderedMdx = <Mdx components={MDXComponents} />
   const contentString = renderToString(renderedMdx)
-  const headings = getHeadingsFromHtml(contentString)
+  const headings = getHeadingsFromHtml(swagger, contentString)
 
   return {
     props: {
@@ -493,12 +495,14 @@ export const getStaticProps = async () => {
 {/* <!-- vale on --> */}
 `
       )
+
+      // Generate the main reference file.
+      const mdxContent = generateMainContent(resolvedJson, networkName)
+      fs.writeFileSync(
+        `./components/ApiReference/generated/${networkName}-reference.mdx`,
+        mdxContent
+      )
     }
-  )
-  const mdxContent = generateMainContent()
-  fs.writeFileSync(
-    `./components/ApiReference/generated-reference.mdx`,
-    mdxContent
   )
 }
 
