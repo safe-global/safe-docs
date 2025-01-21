@@ -1,0 +1,39 @@
+# Human approval for Agent actions
+
+This page describes a setup, where an autonomous agent proposes transactions, and one or more human signers approve and execute the transaction.
+
+This setup benefits from increased security, as the Smart Account can not be compromised by convincing the agent to execute a malicious transaction.
+
+On the other hand, it can take minutes or hours to collect the necessary approvals, which reduces the agility of this setup.
+
+## Setup the Smart Account
+
+For this setup, we recommend a 2-out-of-3, 3-out-of-5, or 5-out-of-7 threshold.
+The important considerations are:
+
+* The AI agent should be one signer
+* The threshold should be two more, so at least one human approval is required
+* The amount of signers should be higher than the threshold to make sure the Safe Smart Account is functional when one key is lost
+
+Here is an example setup:
+
+```typescript
+import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+const AGENT_ADDRESS = // ...
+const AGENT_PRIVATE_KEY = // ...
+const HUMAN_SIGNER_1_ADDRESS = // ...
+const HUMAN_SIGNER_2_ADDRESS = // ...
+const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
+
+const safeClient = await createSafeClient({
+  provider: RPC_URL,
+  signer: AGENT_PRIVATE_KEY,
+  safeOptions: {
+    owners: [AGENT_ADDRESS, HUMAN_SIGNER_1_ADDRESS, HUMAN_SIGNER_2_ADDRESS],
+    threshold: 2
+  }
+})
+```
+
+Here, the AI agent creates the Safe Smart Account and adds two human signers for a 2-out-of-3 setup.

@@ -1,0 +1,31 @@
+## Multi-agent setup
+
+In this setup, the Safe Smart Account is managed by multiple agents.
+When one agent proposes a transaction, it needs to be approved by at least one other agent.
+We recommend to have human signers as well, so that the Safe Smart Account is functional even without the AI agents.
+
+Here is an example with a 2-out-of-4 setup:
+
+```typescript
+import { createSafeClient } from '@safe-global/sdk-starter-kit'
+
+const AGENT_1_ADDRESS = // ...
+const AGENT_1_PRIVATE_KEY = // ...
+const AGENT_2_ADDRESS = // ...
+const HUMAN_SIGNER_1_ADDRESS = // ...
+const HUMAN_SIGNER_2_ADDRESS = // ...
+const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
+
+const safeClient = await createSafeClient({
+  provider: RPC_URL,
+  signer: AGENT_1_PRIVATE_KEY,
+  safeOptions: {
+    owners: [AGENT_1_ADDRESS, AGENT_2_ADDRESS, HUMAN_SIGNER_1_ADDRESS, HUMAN_SIGNER_2_ADDRESS],
+    threshold: 2
+  }
+})
+```
+
+This setup is similar to the previous one.
+The AI agents can make autonomous decisions, and the human signers can do so, too.
+
