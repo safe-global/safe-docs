@@ -514,7 +514,7 @@ export const getStaticProps = async () => {
 
       // Replace Sepolia chainId in the example files.
       const exampleFiles = fs
-        .readdirSync('./components/ApiReference/examples')
+        .readdirSync('./components/ApiReference/examples/sepolia')
         .filter((file: string) => file.endsWith('.ts'))
       exampleFiles.forEach((file: string) => {
         const contents = fs.readFileSync(
