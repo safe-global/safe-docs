@@ -252,7 +252,12 @@ const getApiJson = async (url: string, networkName: string) => {
   return withContext
 }
 
-const generateMethodContent = (swagger: any, networkName: string, path: string, method: string) => {
+const generateMethodContent = (
+  swagger: any,
+  networkName: string,
+  path: string,
+  method: string
+) => {
   const _method = swagger.paths[path][method]
   const responses = Object.entries(_method.responses).map(
     ([code, { schema, ...data }]: [any, any]) => ({
@@ -286,7 +291,8 @@ const generateMethodContent = (swagger: any, networkName: string, path: string, 
   const filePath = `./components/ApiReference/examples/${slugify(
     path
   )}-${method}`.replace('-api', '')
-  const examplePath = filePath + '.ts'
+  const examplePath =
+    filePath.replace('examples', `examples/${networkName}`) + '.ts'
   const sampleResponsePath = filePath + '.json'
   const hasExample = fs.existsSync(examplePath)
   const hasResponse = fs.existsSync(sampleResponsePath)
@@ -394,10 +400,14 @@ const generatePathContent = (swagger: any, networkName: string, path: string) =>
     .map(method => generateMethodContent(swagger, networkName, path, method))
     .join('\n')}`
 
-const generateCategoryContent = (swagger: any, networkName: string, category: {
-  title: string
-  paths: string[]
-}) => `<Grid my={8} />
+const generateCategoryContent = (
+  swagger: any,
+  networkName: string,
+  category: {
+    title: string
+    paths: string[]
+  }
+) => `<Grid my={8} />
 
 ## ${capitalize(category.title)}
 
@@ -463,7 +473,6 @@ const main = async () => {
       const networkName = network.txServiceUrl
         .replace('https://safe-transaction-', '')
         .split('.')[0]
-      
       // Download swagger schema and converts it from YAML to JSON.
       const jsonFile = await getApiJson(network.txServiceUrl, networkName)
       const resolvedJson = resolveRefs(jsonFile, jsonFile)
@@ -502,6 +511,26 @@ export const getStaticProps = async () => {
         `./components/ApiReference/generated/${networkName}-reference.mdx`,
         mdxContent
       )
+
+      // Replace Sepolia chainId in the example files.
+      const exampleFiles = fs
+        .readdirSync('./components/ApiReference/examples')
+        .filter((file: string) => file.endsWith('.ts'))
+      exampleFiles.forEach((file: string) => {
+        const contents = fs.readFileSync(
+          `./components/ApiReference/examples/${file}`,
+          'utf-8'
+        )
+        if (
+          !fs.existsSync(`./components/ApiReference/examples/${networkName}`)
+        ) {
+          fs.mkdirSync(`./components/ApiReference/examples/${networkName}`)
+        }
+        fs.writeFileSync(
+          `./components/ApiReference/examples/${networkName}/${file}`,
+          contents.replace('chainId: 11155111n', `chainId: ${network.chainId}n`)
+        )
+      })
     }
   )
 }
