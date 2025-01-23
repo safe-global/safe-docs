@@ -11,3 +11,5 @@ cd out
 for file in $(find . -name '*.html' | sed 's|^\./||'); do
     aws s3 cp ${file%} $BUCKET/${file%.*} --content-type 'text/html' &
 done
+
+wait
