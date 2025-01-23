@@ -1,0 +1,201 @@
+import { Steps } from 'nextra/components'
+
+# Agent with a spending limit for a treasury
+
+This setup is used by DAO's or other organizations that want to utilize AI agents to manage their funds.
+
+This setup uses the [allowance module](https://github.com/safe-global/safe-modules/blob/main/modules/allowances/contracts/AllowanceModule.sol) of Safe.
+After activating it for a Safe Smart Account, you can set an allowance per token for a spender (the delegator).
+It can be a one-time allowance, or an allowance that resets after a certain time interval (for example, 100 USDC every day).
+
+You can find an easy to run example for the allowance module in our [example repository](https://github.com/5afe/allowance-module-scripts).
+
+You can setup an allowance (spending limit) on a Safe Smart Account with the [Safe Wallet](https://app.safe.global) interface following [this guide](https://help.safe.global/en/articles/40842-set-up-and-use-spending-limits).
+Then, your agent can spend the allowance, as described in the last step.
+
+Here are the important code snippets to get you up and running:
+
+## Pre-requisites
+
+- A deployed Safe Smart Account
+- The Smart Account should hold an amount of the ERC20 token for which the allowance will be given
+
+## Set and use a spending limit for the Agent
+
+<Steps>
+
+### Enable the Allowance module on your Safe
+
+When you set a spending limit from Safe Wallet, the allowance module will be enabled automatically.
+Here is a code example to enable it programmatically:
+
+```typescript
+import Safe from '@safe-global/protocol-kit'
+import { getAllowanceModuleDeployment } from '@safe-global/safe-modules-deployments'
+
+const preExistingSafe = await Safe.init({
+provider: RPC_URL,
+signer: OWNER_1_PRIVATE_KEY,
+safeAddress: safeAddress
+})
+
+// Add Module
+const allowanceModule = getAllowanceModuleDeployment({ network: '11155111' })!
+const safeTransaction = await preExistingSafe.createEnableModuleTx(
+allowanceModule.networkAddresses['11155111']
+)
+const txResponse = await preExistingSafe.executeTransaction(safeTransaction)
+console.log(txResponse)
+```
+
+### Set spending limit for Agent
+
+Now you can set a spending limit to your Agent:
+
+```typescript
+import { getAllowanceModuleDeployment } from '@safe-global/safe-modules-deployments'
+import Safe from '@safe-global/protocol-kit'
+import { getAllowanceModuleDeployment } from '@safe-global/safe-modules-deployments'
+import { OperationType, MetaTransactionData } from '@safe-global/types-kit'
+
+const ERC20_TOKEN_ADDRESS = '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238'
+const preExistingSafe = await Safe.init({
+    provider: RPC_URL,
+    signer: OWNER_1_PRIVATE_KEY,
+    safeAddress: safeAddress
+})
+
+const allowanceModule = getAllowanceModuleDeployment({ network: '11155111' })!
+
+const allowanceModuleAddress = allowanceModule.networkAddresses['11155111']
+
+const callData1 = encodeFunctionData({
+    abi: allowanceModule.abi,
+    functionName: 'addDelegate',
+    args: [AGENT_ADDRESS]
+})
+// agent can spend 1 USDC per day:
+const callData2 = encodeFunctionData({
+    abi: allowanceModule.abi,
+    functionName: 'setAllowance',
+    args: [
+        AGENT_ADDRESS, // delegate
+        ERC20_TOKEN_ADDRESS, // token
+        1_000_000, // allowance amount (1 USDC)
+        1_440, // reset time in minutes (1440 mins = 1 day)
+        0 // reset base (fine to set zero)
+    ]
+})
+
+const safeTransactionData1: MetaTransactionData = {
+    to: allowanceModuleAddress,
+    value: '0',
+    data: callData1,
+    operation: OperationType.Call
+}
+
+const safeTransactionData2: MetaTransactionData = {
+    to: allowanceModuleAddress,
+    value: '0',
+    data: callData2,
+    operation: OperationType.Call
+}
+
+const safeTransaction = await preExistingSafe.createTransaction({
+transactions: [safeTransactionData1, safeTransactionData2],
+onlyCalls: true
+})
+
+const txResponse = await preExistingSafe.executeTransaction(safeTransaction)
+console.log(txResponse)
+```
+
+### Let the Agent use the spending limit
+
+Now your agent has a spending limit, either set programmatically or from Safe Wallet.
+
+Here is how the agent can spend it:
+
+```typescript
+import {
+  createPublicClient,
+  http,
+  encodeFunctionData,
+  zeroAddress,
+  createWalletClient,
+} from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+const ERC20_TOKEN_ADDRESS = '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238'
+
+const allowanceModule = getAllowanceModuleDeployment({ network: '11155111' })!
+
+const allowanceModuleAddress = allowanceModule.networkAddresses[
+    '11155111'
+] as `0x${string}`
+
+const publicClient = createPublicClient({ transport: http(RPC_URL!) })
+
+// Read allowance module to get current nonce
+const allowance = await publicClient.readContract({
+    address: allowanceModuleAddress,
+    abi: allowanceModule.abi,
+    functionName: 'getTokenAllowance',
+    args: [safeAddress, AGENT_ADDRESS, ERC20_TOKEN_ADDRESS]
+})
+
+const amount = 1
+
+// generate hash
+const hash = await publicClient.readContract({
+    address: allowanceModuleAddress,
+    abi: allowanceModule.abi,
+    functionName: 'generateTransferHash',
+    args: [
+        safeAddress,
+        ERC20_TOKEN_ADDRESS,
+        AGENT_ADDRESS,
+        amount,
+        zeroAddress,
+        0,
+        allowance[4] // nonce
+    ]
+})
+
+const agentAccount = privateKeyToAccount(
+    AGENT_PRIVATE_KEY as `0x${string}`
+)
+const signature = await agentAccount.sign({
+    hash: hash as unknown as `0x${string}`
+})
+
+const { request } = await publicClient.simulateContract({
+    address: allowanceModuleAddress,
+    abi: allowanceModule.abi,
+    functionName: 'executeAllowanceTransfer',
+    args: [
+        safeAddress,
+        ERC20_TOKEN_ADDRESS,
+        AGENT_ADDRESS,
+        amount,
+        zeroAddress,
+        0,
+        AGENT_ADDRESS,
+        signature
+    ],
+    account: agentAccount
+})
+
+const walletClient = createWalletClient({ transport: http(RPC_URL!) })
+
+const tx = await walletClient.writeContract(request)
+console.log(tx)
+```
+
+In this example, your agent will get a daily spending limit of 10 USDC.
+
+## Next steps
+
+You can find more info in the example repository or in the documentation about the allowance module.
+
+If you have a technical question, feel free to reach out on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the safe-core tag.
+</Steps>
