@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useData } from 'nextra/ssg'
 import Grid from '@mui/material/Grid'
 import Dialog from '@mui/material/Dialog'
@@ -14,16 +14,26 @@ import ExpandLess from '@mui/icons-material/ExpandLess'
 
 import TOC, { type Heading } from './TOC'
 import { MDXComponents, useCurrentTocIndex } from '../../lib/mdx'
-import Mdx from './generated-reference.mdx'
 import { NetworkProvider } from './Network'
 import css from './styles.module.css'
 
-const renderedMdx = <Mdx components={MDXComponents} />
-
 const ApiReference: React.FC<{ networkName: string }> = ({ networkName }) => {
   const { headings } = useData()
+  const [Mdx, setMdx] = useState<React.ComponentType<{
+    components: typeof MDXComponents
+  }> | null>(null)
+  const renderedMdx = Mdx != null ? <Mdx components={MDXComponents} /> : null
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false)
   const currentIndex = useCurrentTocIndex(headings as Heading[], 100)
+
+  useEffect(() => {
+    void (async () => {
+      const { default: Component } = await import(
+        `./generated/${networkName}-reference.mdx`
+      )
+      setMdx(() => Component)
+    })()
+  }, [networkName])
 
   return (
     <>

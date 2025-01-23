@@ -22,14 +22,17 @@ import {
 import MuiLink from '@mui/material/Link'
 
 import { type Heading } from '../components/ApiReference/TOC'
-import swagger from '../components/ApiReference/mainnet-swagger.json'
 import pathsMetadata from '../components/ApiReference/paths-metadata.json'
 import HashTag from '../assets/svg/hashtag.svg'
+import type Swagger from '../components/ApiReference/mainnet-swagger.json'
 
 export const slugify: (text: string) => string = text =>
   text?.replace?.(/ /g, '-').replace(/\//g, '-')
 
-export const getHeadingChildren: (heading: string) => Heading[] = heading => {
+export const getHeadingChildren = (
+  swagger: typeof Swagger,
+  heading: string
+): Heading[] => {
   const allMethods = Object.entries(swagger.paths)
     .map(([k, v]) => Object.entries(v))
     .flat()
@@ -54,9 +57,10 @@ export const getHeadingChildren: (heading: string) => Heading[] = heading => {
     .filter(child => !child.text.includes('Deprecated'))
 }
 
-export const getHeadingsFromHtml: (
+export const getHeadingsFromHtml = (
+  swagger: typeof Swagger,
   stringifiedHtml: string
-) => Heading[] = stringifiedHtml => {
+): Heading[] => {
   const headings = stringifiedHtml.match(/<h[2]\s[^>]*>(.*?)<\/h[2]>/g)
   if (headings != null) {
     return (
@@ -71,7 +75,7 @@ export const getHeadingsFromHtml: (
         return {
           text: headingText,
           link,
-          children: getHeadingChildren(headingText.toLowerCase())
+          children: getHeadingChildren(swagger, headingText.toLowerCase())
         }
       }) ?? []
     )
