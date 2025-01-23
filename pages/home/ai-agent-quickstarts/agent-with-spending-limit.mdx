@@ -1,6 +1,6 @@
 import { Steps } from 'nextra/components'
 
-# Agent with a spending limit for a treasury
+# AI Agent with a spending limit for a treasury
 
 This setup is used by DAO's or other organizations that want to utilize AI agents to manage their funds.
 
@@ -20,7 +20,7 @@ Here are the important code snippets to get you up and running:
 - A deployed Safe Smart Account
 - The Smart Account should hold an amount of the ERC20 token for which the allowance will be given
 
-## Set and use a spending limit for the Agent
+## Set and use a spending limit for the AI Agent
 
 <Steps>
 
@@ -48,9 +48,9 @@ const txResponse = await preExistingSafe.executeTransaction(safeTransaction)
 console.log(txResponse)
 ```
 
-### Set spending limit for Agent
+### Set spending limit for AI Agent
 
-Now you can set a spending limit to your Agent:
+Now you can set a spending limit to your AI Agent:
 
 ```typescript
 import { getAllowanceModuleDeployment } from '@safe-global/safe-modules-deployments'
@@ -110,7 +110,7 @@ const txResponse = await preExistingSafe.executeTransaction(safeTransaction)
 console.log(txResponse)
 ```
 
-### Let the Agent use the spending limit
+### Let the AI Agent use the spending limit
 
 Now your agent has a spending limit, either set programmatically or from Safe Wallet.
 
