@@ -186,8 +186,8 @@ const usdcBalanceBefore = await publicClient.readContract({
 console.log("USDC balance before: ", usdcBalanceBefore);
 
 const safeTx = await protocolKit.createTransaction({
-transactions: [safeDepositTx, safeApproveTx, safeSwapTx],
-onlyCalls: true,
+    transactions: [safeDepositTx, safeApproveTx, safeSwapTx],
+    onlyCalls: true,
 });
 
 const txResponse = await protocolKit.executeTransaction(safeTx);
