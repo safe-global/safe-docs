@@ -34,15 +34,15 @@ import Safe from '@safe-global/protocol-kit'
 import { getAllowanceModuleDeployment } from '@safe-global/safe-modules-deployments'
 
 const preExistingSafe = await Safe.init({
-provider: RPC_URL,
-signer: OWNER_1_PRIVATE_KEY,
-safeAddress: safeAddress
+  provider: RPC_URL,
+  signer: OWNER_1_PRIVATE_KEY,
+  safeAddress: safeAddress
 })
 
 // Add Module
 const allowanceModule = getAllowanceModuleDeployment({ network: '11155111' })!
 const safeTransaction = await preExistingSafe.createEnableModuleTx(
-allowanceModule.networkAddresses['11155111']
+  allowanceModule.networkAddresses['11155111']
 )
 const txResponse = await preExistingSafe.executeTransaction(safeTransaction)
 console.log(txResponse)
@@ -60,9 +60,9 @@ import { OperationType, MetaTransactionData } from '@safe-global/types-kit'
 
 const ERC20_TOKEN_ADDRESS = '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238'
 const preExistingSafe = await Safe.init({
-    provider: RPC_URL,
-    signer: OWNER_1_PRIVATE_KEY,
-    safeAddress: safeAddress
+  provider: RPC_URL,
+  signer: OWNER_1_PRIVATE_KEY,
+  safeAddress: safeAddress
 })
 
 const allowanceModule = getAllowanceModuleDeployment({ network: '11155111' })!
@@ -70,40 +70,40 @@ const allowanceModule = getAllowanceModuleDeployment({ network: '11155111' })!
 const allowanceModuleAddress = allowanceModule.networkAddresses['11155111']
 
 const callData1 = encodeFunctionData({
-    abi: allowanceModule.abi,
-    functionName: 'addDelegate',
-    args: [AGENT_ADDRESS]
+  abi: allowanceModule.abi,
+  functionName: 'addDelegate',
+  args: [AGENT_ADDRESS]
 })
 // agent can spend 1 USDC per day:
 const callData2 = encodeFunctionData({
-    abi: allowanceModule.abi,
-    functionName: 'setAllowance',
-    args: [
-        AGENT_ADDRESS, // delegate
-        ERC20_TOKEN_ADDRESS, // token
-        1_000_000, // allowance amount (1 USDC)
-        1_440, // reset time in minutes (1440 mins = 1 day)
-        0 // reset base (fine to set zero)
-    ]
+  abi: allowanceModule.abi,
+  functionName: 'setAllowance',
+  args: [
+    AGENT_ADDRESS, // delegate
+    ERC20_TOKEN_ADDRESS, // token
+    1_000_000, // allowance amount (1 USDC)
+    1_440, // reset time in minutes (1440 mins = 1 day)
+    0 // reset base (fine to set zero)
+  ]
 })
 
 const safeTransactionData1: MetaTransactionData = {
-    to: allowanceModuleAddress,
-    value: '0',
-    data: callData1,
-    operation: OperationType.Call
+  to: allowanceModuleAddress,
+  value: '0',
+  data: callData1,
+  operation: OperationType.Call
 }
 
 const safeTransactionData2: MetaTransactionData = {
-    to: allowanceModuleAddress,
-    value: '0',
-    data: callData2,
-    operation: OperationType.Call
+  to: allowanceModuleAddress,
+  value: '0',
+  data: callData2,
+  operation: OperationType.Call
 }
 
 const safeTransaction = await preExistingSafe.createTransaction({
-transactions: [safeTransactionData1, safeTransactionData2],
-onlyCalls: true
+  transactions: [safeTransactionData1, safeTransactionData2],
+  onlyCalls: true
 })
 
 const txResponse = await preExistingSafe.executeTransaction(safeTransaction)
@@ -130,59 +130,59 @@ const ERC20_TOKEN_ADDRESS = '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238'
 const allowanceModule = getAllowanceModuleDeployment({ network: '11155111' })!
 
 const allowanceModuleAddress = allowanceModule.networkAddresses[
-    '11155111'
+  '11155111'
 ] as `0x${string}`
 
 const publicClient = createPublicClient({ transport: http(RPC_URL!) })
 
 // Read allowance module to get current nonce
 const allowance = await publicClient.readContract({
-    address: allowanceModuleAddress,
-    abi: allowanceModule.abi,
-    functionName: 'getTokenAllowance',
-    args: [safeAddress, AGENT_ADDRESS, ERC20_TOKEN_ADDRESS]
+  address: allowanceModuleAddress,
+  abi: allowanceModule.abi,
+  functionName: 'getTokenAllowance',
+  args: [safeAddress, AGENT_ADDRESS, ERC20_TOKEN_ADDRESS]
 })
 
 const amount = 1
 
 // generate hash
 const hash = await publicClient.readContract({
-    address: allowanceModuleAddress,
-    abi: allowanceModule.abi,
-    functionName: 'generateTransferHash',
-    args: [
-        safeAddress,
-        ERC20_TOKEN_ADDRESS,
-        AGENT_ADDRESS,
-        amount,
-        zeroAddress,
-        0,
-        allowance[4] // nonce
-    ]
+  address: allowanceModuleAddress,
+  abi: allowanceModule.abi,
+  functionName: 'generateTransferHash',
+  args: [
+    safeAddress,
+    ERC20_TOKEN_ADDRESS,
+    AGENT_ADDRESS,
+    amount,
+    zeroAddress,
+    0,
+    allowance[4] // nonce
+  ]
 })
 
 const agentAccount = privateKeyToAccount(
-    AGENT_PRIVATE_KEY as `0x${string}`
+  AGENT_PRIVATE_KEY as `0x${string}`
 )
 const signature = await agentAccount.sign({
-    hash: hash as unknown as `0x${string}`
+  hash: hash as unknown as `0x${string}`
 })
 
 const { request } = await publicClient.simulateContract({
-    address: allowanceModuleAddress,
-    abi: allowanceModule.abi,
-    functionName: 'executeAllowanceTransfer',
-    args: [
-        safeAddress,
-        ERC20_TOKEN_ADDRESS,
-        AGENT_ADDRESS,
-        amount,
-        zeroAddress,
-        0,
-        AGENT_ADDRESS,
-        signature
-    ],
-    account: agentAccount
+  address: allowanceModuleAddress,
+  abi: allowanceModule.abi,
+  functionName: 'executeAllowanceTransfer',
+  args: [
+    safeAddress,
+    ERC20_TOKEN_ADDRESS,
+    AGENT_ADDRESS,
+    amount,
+    zeroAddress,
+    0,
+    AGENT_ADDRESS,
+    signature
+  ],
+  account: agentAccount
 })
 
 const walletClient = createWalletClient({ transport: http(RPC_URL!) })
