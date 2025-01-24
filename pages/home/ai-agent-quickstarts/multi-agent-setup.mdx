@@ -1,12 +1,14 @@
+import { Steps } from 'nextra/components'
+
 # Multi-Agent Setup
 
-In this guide, you'll learn how to set up and manage a Safe Smart Account with multiple agents. 
-This setup ensures that every transaction proposed by one agent is approved by at least one other agent. 
+In this guide, you'll learn how to set up and manage a Safe Smart Account with multiple agents.
+This setup ensures that every transaction proposed by one agent is approved by at least one other agent.
 To maintain full functionality, we recommend including human signers in addition to the AI agents. 
 
 Below, we demonstrate a 2-out-of-4 setup as an example.
 
-## Two Agents Propose, Check, and Execute Transactions
+# Two Agents Propose, Check, and Execute Transactions
 
 <Steps>
 
@@ -31,17 +33,16 @@ const newSafe = await Safe.init({
   }
 })
 ```
+The Smart Account is now created with a fixed address. If the account has not been deployed yet, it will automatically deploy when the first transaction is executed.
 
-The Smart Account is now created with a fixed address and if it is not deployed, it will be deployed with the next transaction.
+### Propose a Transaction with Agent One
 
-### Propose transaction with agent one 
+Agent One can now propose transactions. We recommend sending these transactions to the [Safe Transaction Service](./../../../core-api/transaction-service-overview.mdx). Using this service provides several benefits:
+- It allows Agent Two to easily receive, sign, and execute the transaction.
+- Transactions appear in the Safe Wallet interface, where human signers can review, approve, and execute them.
 
-The AI agent one can now propose transactions.
-We recommend sending the transactions to the [Safe Transaction Service](./../../../core-api/transaction-service-overview.mdx).
-This makes it easy for the AI agent two to receive, sign and execute the transaction.
-Also, the transactions shows up in the Safe Wallet interface and can easily be checked, approved and executed by the human signers.
+Here's an example of how Agent One can propose a simple transaction to the zero address:
 
-A simple example transaction to the zero address can be proposed like this:
 
 ```typescript
 import SafeApiKit from '@safe-global/api-kit'
@@ -77,8 +78,10 @@ await apiKit.proposeTransaction({
 
 ### Receive and sign transaction with agent two
 
-In the next step, the second AI agent has to receive the transaction and, possibly after certain checks, sign and execute it.
-The second AI agent will run on it's own machine, so you would have to initialize the Safe instance with the Smart Account's address.
+In the next step, the second AI agent needs to receive the transaction and, after performing any necessary checks, sign and execute it.
+
+The second AI agent will run on its own machine, so you would have to initialize the Safe instance with the Smart Account's address.
+
 
 ```typescript
 const SAFE_ADDRESS = '0x...' // The address of the Smart Account from step one
