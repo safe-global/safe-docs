@@ -1,0 +1,117 @@
+import { Steps } from 'nextra/components'
+
+# Multi-Agent Setup
+
+In this guide, you'll learn how to set up and manage a Safe Smart Account with multiple agents.
+This setup ensures that every transaction proposed by one agent is approved by at least one other agent.
+To maintain full functionality, we recommend including human signers in addition to the AI agents. 
+
+Below, we demonstrate a 2-out-of-4 setup as an example.
+
+# Two Agents Propose, Check, and Execute Transactions
+
+<Steps>
+
+### Setup Safe Smart Account with agent one
+
+You will use the Safe [Protocol Kit](./../../sdk/protocol-kit.mdx).
+
+```typescript
+import Safe from '@safe-global/protocol-kit'
+
+const AGENT_1_ADDRESS = // ...
+const AGENT_1_PRIVATE_KEY = // ...
+const AGENT_2_ADDRESS = // ...
+const HUMAN_SIGNER_1_ADDRESS = // ...
+const HUMAN_SIGNER_2_ADDRESS = // ...
+const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
+
+const newSafe = await Safe.init({
+  provider: RPC_URL,
+  signer: AGENT_1_PRIVATE_KEY,
+  safeOptions: {
+    owners: [AGENT_1_ADDRESS, AGENT_2_ADDRESS, HUMAN_SIGNER_1_ADDRESS, HUMAN_SIGNER_2_ADDRESS],
+    threshold: 2
+  }
+})
+```
+The Smart Account is now created with a fixed address. If the account has not been deployed yet, it will automatically deploy when the first transaction is executed.
+
+### Propose a Transaction with Agent One
+
+Agent One can now propose transactions. We recommend sending these transactions to the [Safe Transaction Service](./../../../core-api/transaction-service-overview.mdx). Using this service provides several benefits:
+- It allows Agent Two to easily receive, sign, and execute the transaction.
+- Transactions appear in the Safe Wallet interface, where human signers can review, approve, and execute them.
+
+You can use the [API Kit](./../../sdk/api-kit.mdx) to propose transactions to the Safe Transaction Service.
+
+Here's an example of how Agent One can propose a simple transaction to the zero address:
+
+
+```typescript
+import SafeApiKit from '@safe-global/api-kit'
+
+const apiKit = new SafeApiKit({
+  chainId: 11155111n
+})
+
+const tx = await newSafe.createTransaction({
+  transactions: [
+    {
+      to: '0x0000000000000000000000000000000000000000',
+      data: '0x',
+      value: '0'
+    }
+  ]
+})
+
+// Every transaction has a Safe (Smart Account) Transaction Hash different than the final transaction hash
+const safeTxHash = await newSafe.getTransactionHash(tx)
+// The AI agent signs this Safe (Smart Account) Transaction Hash
+const signature = await newSafe.signHash(safeTxHash)
+
+// Now the transaction with the signature is sent to the Transaction Service with the Api Kit:
+await apiKit.proposeTransaction({
+  safeAddress: safeAddress,
+  safeTransactionData: tx.data,
+  safeTxHash,
+  senderSignature: signature.data,
+  senderAddress: AGENT_ADDRESS
+})
+```
+
+### Receive and sign transaction with agent two
+
+In the next step, the second AI agent needs to receive the transaction and, after performing any necessary checks, sign and execute it.
+
+The second AI agent will run on its own machine, so you would have to initialize the Safe instance with the Smart Account's address.
+
+
+```typescript
+const SAFE_ADDRESS = '0x...' // The address of the Smart Account from step one
+
+// Initialize the Safe object with the same address, but a different signer
+const existingSafe = await Safe.init({
+  provider: RPC_URL,
+  signer: AGENT_2_PRIVATE_KEY,
+  safeAddress: SAFE_ADDRESS
+})
+
+// Get pending transactions that need a signature
+const pendingTransactions = await apiKit.getPendingTransactions(SAFE_ADDRESS)
+// We assume there is only one pending transaction
+const transaction = pendingTransactions.results[0]
+
+// Here, your AI agent could check this transaction.
+
+// As only one more signater is required, AI agent two can execute the transaction:
+existingSafe.executeTransaction(transaction)
+```
+</Steps>
+
+
+## Next steps
+Your AI agents can make autonomous decisions, and the human signers can do so, too.
+We are exited to see what you will build.
+
+If you have a technical question, feel free to reach out on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the safe-core tag.

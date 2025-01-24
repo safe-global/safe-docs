@@ -1,0 +1,38 @@
+# Basic setup to equip your AI agent with a Smart Account
+
+Get started with Safe AI integration in just a few steps.
+
+This guide will help you set up a Safe Smart Account with the AI agent as the only signer.
+This 1-out-of-1 signer setup is discouraged by Safe, as it is not the most secure.
+However, many projects choose this setup for simplicity.
+
+## Installation
+
+First, add the Safe [Protocol Kit](./../../sdk/protocol-kit.mdx) to your project:
+
+```bash
+import Safe from '@safe-global/protocol-kit'
+```
+
+## Creating a Safe Smart Account for your AI agent
+
+When your AI agent is ready to interact with the blockchain, you can create a Safe Smart Account for it.
+
+```typescript
+import Safe from '@safe-global/protocol-kit'
+
+const SIGNER_ADDRESS = // ...
+const SIGNER_PRIVATE_KEY = // ...
+const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
+
+const safeClient = await Safe.init({
+  provider: RPC_URL,
+  signer: SIGNER_PRIVATE_KEY,
+  safeOptions: {
+    owners: [SIGNER_ADDRESS],
+    threshold: 1
+  }
+})
+```
+
+This creates a Safe Smart Account, but the actual smart contract will be deployed when you send the first transaction.

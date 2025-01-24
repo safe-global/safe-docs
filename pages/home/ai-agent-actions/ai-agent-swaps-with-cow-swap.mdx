@@ -1,0 +1,134 @@
+import { Steps } from 'nextra/components'
+
+# AI agent swaps on CoW Swap
+
+CoW swap ensures best prices and fastest execution and minimizes MEV.
+
+You can find a working code example to run locally in our [AI agent with Safe Smart Account CoW Swap example repository](https://github.com/5afe/safe-cowswap).
+
+Here is a quick guide to get you up and running:
+
+## Requirements
+
+- A deployed Safe Smart Account
+- The AI agent is a signer on the Safe
+- This example assumes, that the threshold of the Safe Smart Account is one, so the AI agent can sign autonomously.
+If you require more signatures, you have to collect those signatures programmatically of with the [Safe Wallet](https://app.safe.global/).
+
+## Let your AI agent send an intent 
+
+<Steps>
+### Setup the Safe Smart Account 
+
+Your Safe Smart Account should be deployed.
+Now, initialize an instance with the [Protocol Kit](./../../sdk/protocol-kit.mdx):
+
+```typescript
+import Safe from "@safe-global/protocol-kit";
+
+const preExistingSafe = await Safe.init({
+  provider: RPC_URL,
+  signer: AGENT_PRIVATE_KEY,
+  safeAddress: SAFE_ADDRESS,
+});
+```
+
+### Send swap intent
+
+Now, you can use the CoW Swap SDK to assemble a transaction that you can sign and execute with your Safe Smart Account.
+The swap will then be executed.
+
+Please be aware that the CoW Swap's SDK uses Ethers, while Safe's SDK use viem.
+You will see some warnings in the logs, but the code works nonetheless.
+
+In this example, we buy COW and pay with WETH.
+
+```typescript
+import {
+  SwapAdvancedSettings,
+  TradeParameters,
+  TradingSdk,
+  SupportedChainId,
+  OrderKind,
+  SigningScheme,
+} from "@cowprotocol/cow-sdk";
+import { VoidSigner } from "@ethersproject/abstract-signer";
+import { JsonRpcProvider } from "@ethersproject/providers";
+
+const traderParams = {
+  chainId: SupportedChainId.SEPOLIA,
+  signer: new VoidSigner(
+    smartContractWalletAddress: SAFE_ADDRESS,
+    new JsonRpcProvider("https://sepolia.gateway.tenderly.co")
+  ),
+  appCode: "awesome-app",
+};
+
+const cowSdk = new TradingSdk(traderParams, { logs: false });
+
+const parameters: TradeParameters = {
+  kind: OrderKind.SELL,
+  sellToken: WETH_ADDRESS,
+  sellTokenDecimals: 18,
+  buyToken: COW_ADDRESS,
+  buyTokenDecimals: 18,
+  amount: INPUT_AMOUNT,
+};
+
+const advancedParameters: SwapAdvancedSettings = {
+  quoteRequest: {
+  // Specify the signing scheme
+  signingScheme: SigningScheme.PRESIGN,
+  },
+};
+
+const orderId = await cowSdk.postSwapOrder(parameters, advancedParameters);
+
+console.log(`Order ID: [${orderId}]`);
+
+const preSignTransaction = await cowSdk.getPreSignTransaction({
+  orderId,
+  account: smartContractWalletAddress,
+});
+
+const customChain = defineChain({
+  ...sepolia,
+  name: "custom chain",
+  transport: http(RPC_URL),
+});
+
+const publicClient = createPublicClient({
+  chain: customChain,
+  transport: http(RPC_URL),
+});
+
+const safePreSignTx: MetaTransactionData = {
+  to: preSignTransaction.to,
+  value: preSignTransaction.value,
+  data: preSignTransaction.data,
+  operation: OperationType.Call,
+};
+
+const safeTx = await preExistingSafe.createTransaction({
+  transactions: [safePreSignTx],
+  onlyCalls: true,
+});
+
+// You might need to collect more signatures here
+
+const txResponse = await preExistingSafe.executeTransaction(safeTx);
+console.log(`Sent tx hash: [${txResponse.hash}]`);
+console.log("Waiting for the tx to be mined");
+await publicClient.waitForTransactionReceipt({
+  hash: txResponse.hash as `0x${string}`,
+});
+```
+
+</Steps>
+
+## Next steps
+
+Now, where your AI agent can execute trades autonomously, you are free to use this power as you like.
+You can find more specific information in the [CoW Swap Trading SDK docs](https://github.com/cowprotocol/cow-sdk/tree/main/src/trading#readme).
+
+If you have a technical question about Safe Smart Accounts, feel free to reach out on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the safe-core tag.
