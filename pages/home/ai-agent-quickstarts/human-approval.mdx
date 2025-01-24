@@ -1,3 +1,5 @@
+import { Steps } from 'nextra/components'
+
 # Human approval for Agent actions
 
 This page describes a setup, where an autonomous agent proposes transactions, and one or more human signers approve and execute the transaction.
@@ -15,7 +17,15 @@ The important considerations are:
 * The threshold should be two more, so at least one human approval is required
 * The amount of signers should be higher than the threshold to make sure the Safe Smart Account is functional when one key is lost
 
+<Steps>
+
 Here is an example setup:
+
+### Deploy Safe
+
+You can add the AI agent as a signer in the [Safe Wallet](https://app.safe.global/).
+
+You can also setup the Safe Smart Account programmatically like this:
 
 ```typescript
 import { createSafeClient } from '@safe-global/sdk-starter-kit'
@@ -26,7 +36,7 @@ const HUMAN_SIGNER_1_ADDRESS = // ...
 const HUMAN_SIGNER_2_ADDRESS = // ...
 const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
 
-const safeClient = await createSafeClient({
+const newSafe = await createSafeClient({
   provider: RPC_URL,
   signer: AGENT_PRIVATE_KEY,
   safeOptions: {
@@ -37,13 +47,66 @@ const safeClient = await createSafeClient({
 ```
 
 Here, the AI agent creates the Safe Smart Account and adds two human signers for a 2-out-of-3 setup.
+The Smart Account will be deployed when the first transaction is executed.
+
+### Assemble and propose a transaction
+
+The AI agent can now propose transactions.
+We recommend sending the transactions to the [Safe Transaction Service](./../../../core-api/transaction-service-overview.mdx).
+By this, you make sure that the transactions show up in the Safe Wallet interface and can easily be checked, approved and executed by the human signers.
+
+A simple example transaction to the zero address can be proposed like this:
+
+```typescript
+import SafeApiKit from '@safe-global/api-kit'
+
+const apiKit = new SafeApiKit({
+  chainId: 11155111n
+})
+
+const tx = await newSafe.createTransaction({
+  transactions: [
+    {
+      to: '0x0000000000000000000000000000000000000000',
+      data: '0x',
+      value: '0'
+    }
+  ]
+})
+
+// Every transaction has a Safe (Smart Account) Transaction Hash different than the final transaction hash
+const safeTxHash = await newSafe.getTransactionHash(tx)
+// The AI agent signs this Safe (Smart Account) Transaction Hash
+const signature = await newSafe.signHash(safeTxHash)
+
+// Now the transaction with the signature is sent to the Transaction Service with the Api Kit:
+await apiKit.proposeTransaction({
+  safeAddress: safeAddress,
+  safeTransactionData: tx.data,
+  safeTxHash,
+  senderSignature: signature.data,
+  senderAddress: AGENT_ADDRESS
+})
+```
 
 ## Approve and execute the transactions
 
 The transactions will now show up in the transaction interface of the [Safe Wallet](https://app.safe.global).
 The human signers now have to connect their Metamask, and approve and/or execute the transactions with a click.
+They can also use the [Mobile App](https://help.safe.global/en/articles/40844-sign-transactions) to sign the transactions.
 
+In the Safe Wallet, the human signers will see the transaction in the queued transaction view:
+
+![ai-agent-approve-transaction-1](../../../assets/ai-agent-approve-transaction-1.png)
+
+And can either add a signature or execute the transaction when enough signatures were collected:
+
+![ai-agent-approve-transaction-2](../../../assets/ai-agent-approve-transaction-2.png)
+
+</Steps>
 
 ## Next steps
+Now your AI agent is equipped with a Safe Smart Account and you are in full control of the transactions.
+We are exited to see what you will build.
 
 If you have a technical question, feel free to reach out on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the safe-core tag.
