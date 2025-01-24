@@ -1,13 +1,19 @@
-## Multi-agent setup
+# Multi-Agent Setup
 
-In this setup, the Safe Smart Account is managed by multiple agents.
-When one agent proposes a transaction, it needs to be approved by at least one other agent.
-We recommend to have human signers as well, so that the Safe Smart Account is functional even without the AI agents.
+In this guide, you'll learn how to set up and manage a Safe Smart Account with multiple agents. 
+This setup ensures that every transaction proposed by one agent is approved by at least one other agent. 
+To maintain full functionality, we recommend including human signers in addition to the AI agents. 
 
-Here is an example with a 2-out-of-4 setup:
+Below, we demonstrate a 2-out-of-4 setup as an example.
+
+## Two Agents Propose, Check, and Execute Transactions
+
+<Steps>
+
+### Setup Safe Smart Account with agent one
 
 ```typescript
-import { createSafeClient } from '@safe-global/sdk-starter-kit'
+import Safe from '@safe-global/protocol-kit'
 
 const AGENT_1_ADDRESS = // ...
 const AGENT_1_PRIVATE_KEY = // ...
@@ -16,7 +22,7 @@ const HUMAN_SIGNER_1_ADDRESS = // ...
 const HUMAN_SIGNER_2_ADDRESS = // ...
 const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
 
-const safeClient = await createSafeClient({
+const newSafe = await Safe.init({
   provider: RPC_URL,
   signer: AGENT_1_PRIVATE_KEY,
   safeOptions: {
@@ -26,6 +32,79 @@ const safeClient = await createSafeClient({
 })
 ```
 
-This setup is similar to the previous one.
-The AI agents can make autonomous decisions, and the human signers can do so, too.
+The Smart Account is now created with a fixed address and if it is not deployed, it will be deployed with the next transaction.
 
+### Propose transaction with agent one 
+
+The AI agent one can now propose transactions.
+We recommend sending the transactions to the [Safe Transaction Service](./../../../core-api/transaction-service-overview.mdx).
+This makes it easy for the AI agent two to receive, sign and execute the transaction.
+Also, the transactions shows up in the Safe Wallet interface and can easily be checked, approved and executed by the human signers.
+
+A simple example transaction to the zero address can be proposed like this:
+
+```typescript
+import SafeApiKit from '@safe-global/api-kit'
+
+const apiKit = new SafeApiKit({
+  chainId: 11155111n
+})
+
+const tx = await newSafe.createTransaction({
+  transactions: [
+    {
+      to: '0x0000000000000000000000000000000000000000',
+      data: '0x',
+      value: '0'
+    }
+  ]
+})
+
+// Every transaction has a Safe (Smart Account) Transaction Hash different than the final transaction hash
+const safeTxHash = await newSafe.getTransactionHash(tx)
+// The AI agent signs this Safe (Smart Account) Transaction Hash
+const signature = await newSafe.signHash(safeTxHash)
+
+// Now the transaction with the signature is sent to the Transaction Service with the Api Kit:
+await apiKit.proposeTransaction({
+  safeAddress: safeAddress,
+  safeTransactionData: tx.data,
+  safeTxHash,
+  senderSignature: signature.data,
+  senderAddress: AGENT_ADDRESS
+})
+```
+
+### Receive and sign transaction with agent two
+
+In the next step, the second AI agent has to receive the transaction and, possibly after certain checks, sign and execute it.
+The second AI agent will run on it's own machine, so you would have to initialize the Safe instance with the Smart Account's address.
+
+```typescript
+const SAFE_ADDRESS = '0x...' // The address of the Smart Account from step one
+
+// Initialize the Safe object with the same address, but a different signer
+const existingSafe = await Safe.init({
+  provider: RPC_URL,
+  signer: AGENT_2_PRIVATE_KEY,
+  safeAddress: SAFE_ADDRESS
+})
+
+// Get pending transactions that need a signature
+const pendingTransactions = await apiKit.getPendingTransactions(SAFE_ADDRESS)
+// We assume there is only one pending transaction
+const transaction = pendingTransactions.results[0]
+
+// Here, your AI agent could check this transaction.
+
+// As only one more signater is required, AI agent two can execute the transaction:
+existingSafe.executeTransaction(transaction)
+```
+</Steps>
+
+
+## Next steps
+Your AI agents can make autonomous decisions, and the human signers can do so, too.
+We are exited to see what you will build.
+
+If you have a technical question, feel free to reach out on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the safe-core tag.
