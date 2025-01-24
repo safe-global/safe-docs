@@ -14,6 +14,8 @@ Below, we demonstrate a 2-out-of-4 setup as an example.
 
 ### Setup Safe Smart Account with agent one
 
+You will use the Safe [Protocol Kit](./../../sdk/protocol-kit.mdx).
+
 ```typescript
 import Safe from '@safe-global/protocol-kit'
 
@@ -40,6 +42,8 @@ The Smart Account is now created with a fixed address. If the account has not be
 Agent One can now propose transactions. We recommend sending these transactions to the [Safe Transaction Service](./../../../core-api/transaction-service-overview.mdx). Using this service provides several benefits:
 - It allows Agent Two to easily receive, sign, and execute the transaction.
 - Transactions appear in the Safe Wallet interface, where human signers can review, approve, and execute them.
+
+You can use the [Api Kit](./../../sdk/api-kit.mdx) to propose transactions to the Safe Transaction Service.
 
 Here's an example of how Agent One can propose a simple transaction to the zero address:
 
