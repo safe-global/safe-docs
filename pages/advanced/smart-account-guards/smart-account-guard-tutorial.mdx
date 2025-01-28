@@ -319,9 +319,10 @@ Create a new file named `NoDelegatecallGuard.test.ts` and include the following 
 ```typescript
 import { ethers } from "hardhat";
 import { expect } from "chai";
-import { Contract, Signer, ZeroAddress } from "ethers";
+import { Signer, ZeroAddress } from "ethers";
 import { Safe, Safe__factory, SafeProxyFactory } from "../typechain-types";
 import { execTransaction } from "./utils/utils";
+import { NoDelegatecallGuard } from "../typechain-types/contracts/NoDelegatecallGuard";
 
 describe("Example module tests", async function () {
   let deployer: Signer;
@@ -330,7 +331,8 @@ describe("Example module tests", async function () {
   let proxyFactory: SafeProxyFactory;
   let safeFactory: Safe__factory;
   let safe: Safe;
-  let exampleGuard: NoDelegateCallGuard;
+  let exampleGuard: NoDelegatecallGuard;
+  const threshold = 1;
 
   beforeEach(async () => {});
 
@@ -437,9 +439,10 @@ This step sets up the test environment by deploying and configuring the necessar
 ```typescript
 import { ethers } from "hardhat";
 import { expect } from "chai";
-import { Contract, Signer, ZeroAddress } from "ethers";
+import { Signer, ZeroAddress } from "ethers";
 import { Safe, Safe__factory, SafeProxyFactory } from "../typechain-types";
 import { execTransaction } from "./utils/utils";
+import { NoDelegatecallGuard } from "../typechain-types/contracts/NoDelegatecallGuard";
 
 describe("Example module tests", async function () {
   let deployer: Signer;
@@ -448,7 +451,7 @@ describe("Example module tests", async function () {
   let proxyFactory: SafeProxyFactory;
   let safeFactory: Safe__factory;
   let safe: Safe;
-  let exampleGuard: NoDelegateCallGuard;
+  let exampleGuard: NoDelegatecallGuard;
   const threshold = 1;
 
   // Setup signers and deploy contracts before running tests
