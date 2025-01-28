@@ -1,0 +1,225 @@
+import { Callout } from 'nextra/components'
+
+# Building a Guard for Safe account
+
+This tutorial demonstrates how to:
+- Create a Safe Guard
+- Enable a Guard on a Safe account
+- Write tests for the Guard
+
+You will build a `NoDelegatecallGuard` that blocks delegate calls through Safe account when executing a Safe Transaction.
+__Note:__ The Guard will not block `delegatecall` for module transactions.
+
+
+## Prerequisites
+
+- Experience with [Solidity](https://docs.soliditylang.org/en/latest/) and [Hardhat](https://hardhat.org)
+- [Node.js](https://nodejs.org/en/download/package-manager) and [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) installed
+
+## Project Setup
+
+
+Start a new project directory and initialize npm.
+
+```bash
+mkdir safe-guard-tutorial && cd safe-guard-tutorial 
+```
+
+```bash
+npm init
+```
+You can choose all default values.
+
+### Install dependencies
+
+Add overrides in `package.json` so that there are no peer dependency related issues.
+
+```json
+{
+  // ... 
+  "overrides": {
+    "@safe-global/safe-contracts": {
+      "ethers": "^6.13.5"
+    }
+  }
+}
+```
+
+```bash
+npm add -D hardhat @safe-global/safe-contracts hardhat-dependency-compiler
+```
+
+### Initialize hardhat project
+
+```bash
+npx hardhat init
+```
+
+Select `Create a TypeScript project` and leave the default values for the rest of the prompts.
+
+Now, try compiling the contracts to ensure everything is set up correctly.
+
+```bash
+npx hardhat compile
+```
+
+### Update hardhat.config.ts
+
+When compiling Safe contracts with solidity 0.8.x the bytecode size exceeds the limit of 24KB. To overcome this, set `allowUnlimitedContractSize` to `true` in the hardhat config.
+In practise with production networks, use the officially deployed Safe contracts.
+Also, add `dependencyCompiler` to import `SafeProxyFactory` contract.
+
+```typescript
+import { HardhatUserConfig } from "hardhat/config";
+import "@nomicfoundation/hardhat-toolbox";
+import "hardhat-dependency-compiler";
+
+const config: HardhatUserConfig = {
+  solidity: "0.8.28",
+  networks: {
+    hardhat: {
+      allowUnlimitedContractSize: true,
+    },
+  },
+  dependencyCompiler: {
+    paths: [
+      "@safe-global/safe-contracts/contracts/proxies/SafeProxyFactory.sol",
+      "@safe-global/safe-contracts/contracts/Safe.sol",
+    ],
+  },
+};
+
+export default config;
+
+```
+
+## Create a new Solidity contract
+
+Delete the default `contracts/Lock.sol` and test file `test/Lock.ts` and create a new Solidity contract `NoDelegatecallGuard.sol` in the `contracts` directory.
+
+### Step 1. Create empty contract
+
+```solidity
+// SPDX-License-Identifier: LGPL-3.0
+pragma solidity ^0.8.0;
+// Imports will be added here
+
+contract NoDelegatecallGuard {
+  // Functions will be added here
+}
+```
+
+Explanation:
+- **SPDX License Identifier**: Specifies the license type.
+- **`pragma solidity ^0.8.0`**: Defines the Solidity compiler version.
+- **`contract NoDelegatecallGuard`**: Declares the contract name.
+
+### Step 2: Import required dependencies
+
+```solidity
+import { BaseGuard } from "@safe-global/safe-contracts/contracts/base/GuardManager.sol";
+import { Enum } from "@safe-global/safe-contracts/contracts/common/Enum.sol";
+```
+
+Explanation:
+- **`BaseGuard.sol`**: Implements Guard interface and supports ERC-165.
+- **`Enum.sol`**: Provides Enum `Operation` which can have values like `Call` or `DelegateCall`. This will be used further in the contract when a module calls a Safe account where the module specifies the operation type.
+
+### Step 3: Inherit BaseGuard and implement functions
+
+```solidity
+contract NoDelegatecallGuard is BaseGuard {
+      function checkTransaction(
+        address /*to*/,
+        uint256 /*value*/,
+        bytes memory /*data*/,
+        Enum.Operation operation,
+        uint256 /*safeTxGas*/,
+        uint256 /*baseGas*/,
+        uint256 /*gasPrice*/,
+        address /*gasToken*/,
+        address payable /*refundReceiver*/,
+        bytes memory /*signatures*/,
+        address /*msgSender*/
+    ) external {
+    }
+
+    function checkAfterExecution(bytes32 txHash, bool success) external {
+
+    }
+}
+```
+
+Explanation:
+TODO
+
+### Step 4: Implement logic in `checkTransaction` function
+
+```solidity
+contract NoDelegatecallGuard is BaseGuard {
+
+    error DelegateCallNotAllowed();
+
+    function checkTransaction(
+        address /*to*/,
+        uint256 /*value*/,
+        bytes memory /*data*/,
+        Enum.Operation operation,
+        uint256 /*safeTxGas*/,
+        uint256 /*baseGas*/,
+        uint256 /*gasPrice*/,
+        address /*gasToken*/,
+        address payable /*refundReceiver*/,
+        bytes memory /*signatures*/,
+        address /*msgSender*/
+    ) external {
+        if(operation == Enum.Operation.DelegateCall) {
+            revert DelegateCallNotAllowed();
+        }
+    }
+
+    function checkAfterExecution(bytes32 txHash, bool success) external {
+
+    }
+}
+```
+
+Explanation:
+TODO
+
+### Final contract code
+
+```solidity
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.28;
+
+import { BaseGuard } from "@safe-global/safe-contracts/contracts/base/GuardManager.sol";
+import { Enum } from "@safe-global/safe-contracts/contracts/common/Enum.sol";
+
+contract NoDelegatecallGuard is BaseGuard {
+
+    error DelegateCallNotAllowed();
+
+    function checkTransaction(
+        address /*to*/,
+        uint256 /*value*/,
+        bytes memory /*data*/,
+        Enum.Operation operation,
+        uint256 /*safeTxGas*/,
+        uint256 /*baseGas*/,
+        uint256 /*gasPrice*/,
+        address /*gasToken*/,
+        address payable /*refundReceiver*/,
+        bytes memory /*signatures*/,
+        address /*msgSender*/
+    ) external {
+        if(operation == Enum.Operation.DelegateCall) {
+            revert DelegateCallNotAllowed();
+        }
+    }
+
+    function checkAfterExecution(bytes32 txHash, bool success) external {
+
+    }
+}
+```
