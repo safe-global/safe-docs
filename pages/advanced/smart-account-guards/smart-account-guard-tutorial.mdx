@@ -157,7 +157,7 @@ Explanation:
 ```solidity
 contract NoDelegatecallGuard is BaseGuard {
 
-    error DelegateCallNotAllowed();
+    error DelegatecallNotAllowed();
 
     function checkTransaction(
         address /*to*/,
@@ -173,7 +173,7 @@ contract NoDelegatecallGuard is BaseGuard {
         address /*msgSender*/
     ) external {
         if(operation == Enum.Operation.DelegateCall) {
-            revert DelegateCallNotAllowed();
+            revert DelegatecallNotAllowed();
         }
     }
 
@@ -184,7 +184,7 @@ contract NoDelegatecallGuard is BaseGuard {
 ```
 
 Explanation:
-- The `checkTransaction` function checks if the operation type is `DelegateCall`. If it is, the function reverts with a custom error `DelegateCallNotAllowed`.
+- The `checkTransaction` function checks if the operation type is `DelegateCall`. If it is, the function reverts with a custom error `DelegatecallNotAllowed`.
 
 ### Final contract code
 
@@ -197,7 +197,7 @@ import { Enum } from "@safe-global/safe-contracts/contracts/common/Enum.sol";
 
 contract NoDelegatecallGuard is BaseGuard {
 
-    error DelegateCallNotAllowed();
+    error DelegatecallNotAllowed();
 
     function checkTransaction(
         address /*to*/,
@@ -213,7 +213,7 @@ contract NoDelegatecallGuard is BaseGuard {
         address /*msgSender*/
     ) external {
         if(operation == Enum.Operation.DelegateCall) {
-            revert DelegateCallNotAllowed();
+            revert DelegatecallNotAllowed();
         }
     }
 
@@ -423,7 +423,7 @@ This step sets up the test environment by deploying and configuring the necessar
 
     await expect(
       execTransaction(wallets, safe, ZeroAddress, 0, "0x", 1)
-    ).to.be.revertedWithCustomError(exampleGuard, "DelegateCallNotAllowed");
+    ).to.be.revertedWithCustomError(exampleGuard, "DelegatecallNotAllowed");
   });
 
   it("Should allow call", async function () {
@@ -534,7 +534,7 @@ describe("NoDelegatecallGuard", async function () {
 
     await expect(
       execTransaction(wallets, safe, ZeroAddress, 0, "0x", 1)
-    ).to.be.revertedWithCustomError(exampleGuard, "DelegateCallNotAllowed");
+    ).to.be.revertedWithCustomError(exampleGuard, "DelegatecallNotAllowed");
   });
 
   it("Should allow call", async function () {
