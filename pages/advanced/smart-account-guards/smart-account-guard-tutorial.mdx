@@ -324,7 +324,7 @@ import { Safe, Safe__factory, SafeProxyFactory } from "../typechain-types";
 import { execTransaction } from "./utils/utils";
 import { NoDelegatecallGuard } from "../typechain-types/contracts/NoDelegatecallGuard";
 
-describe("Example module tests", async function () {
+describe("NoDelegatecallGuard", async function () {
   let deployer: Signer;
   let alice: Signer;
   let masterCopy: Safe;
@@ -341,6 +341,7 @@ describe("Example module tests", async function () {
 
   it("Should allow call", async function () {});
 
+  it("Should allow to replace the guard", async function () {});
 });
 ```
 
@@ -389,21 +390,21 @@ describe("Example module tests", async function () {
       throw new Error("Safe address not found");
     }
 
-    // Deploy the TokenWithdrawModule contract
+    // Deploy the NoDelegatecallGuard contract
     exampleGuard = await (
       await ethers.getContractFactory("NoDelegatecallGuard", deployer)
     ).deploy();
 
     safe = await ethers.getContractAt("Safe", safeAddress);
 
-    // Enable the module in the safe
-    const enableGuardData = masterCopy.interface.encodeFunctionData(
+    // Set the guard in the safe
+    const setGuardData = masterCopy.interface.encodeFunctionData(
       "setGuard",
       [exampleGuard.target]
     );
 
-    // Execute the transaction to enable the module
-    await execTransaction([alice], safe, safe.target, 0, enableGuardData, 0);
+    // Execute the transaction to set the Guard
+    await execTransaction([alice], safe, safe.target, 0, setGuardData, 0);
   });
 ```
 
@@ -417,20 +418,36 @@ This step sets up the test environment by deploying and configuring the necessar
 ### Step 4: Add test cases
 
 ```typescript
-  // Test case to verify token transfer to bob
   it("Should not allow delegatecall", async function () {
     const wallets = [alice];
-    // Execute the transaction to enable the module
+
     await expect(
       execTransaction(wallets, safe, ZeroAddress, 0, "0x", 1)
     ).to.be.revertedWithCustomError(exampleGuard, "DelegateCallNotAllowed");
   });
 
-  // Test case to verify token transfer to bob
   it("Should allow call", async function () {
     const wallets = [alice];
 
     expect(await execTransaction(wallets, safe, ZeroAddress, 0, "0x", 0));
+  });
+
+  it("Should allow to replace the guard", async function () {
+    const wallets = [alice];
+
+    const setGuardData = masterCopy.interface.encodeFunctionData("setGuard", [
+      ZeroAddress,
+    ]);
+    expect(
+      await execTransaction(
+        wallets,
+        safe,
+        await safe.getAddress(),
+        0,
+        setGuardData,
+        0
+      )
+    );
   });
 ```
 
@@ -444,7 +461,7 @@ import { Safe, Safe__factory, SafeProxyFactory } from "../typechain-types";
 import { execTransaction } from "./utils/utils";
 import { NoDelegatecallGuard } from "../typechain-types/contracts/NoDelegatecallGuard";
 
-describe("Example module tests", async function () {
+describe("NoDelegatecallGuard", async function () {
   let deployer: Signer;
   let alice: Signer;
   let masterCopy: Safe;
@@ -496,37 +513,52 @@ describe("Example module tests", async function () {
       throw new Error("Safe address not found");
     }
 
-    // Deploy the TokenWithdrawModule contract
+    // Deploy the NoDelegatecallGuard contract
     exampleGuard = await (
       await ethers.getContractFactory("NoDelegatecallGuard", deployer)
     ).deploy();
 
     safe = await ethers.getContractAt("Safe", safeAddress);
 
-    // Enable the module in the safe
-    const enableGuardData = masterCopy.interface.encodeFunctionData(
-      "setGuard",
-      [exampleGuard.target]
-    );
+    // Set the guard in the safe
+    const setGuardData = masterCopy.interface.encodeFunctionData("setGuard", [
+      exampleGuard.target,
+    ]);
 
-    // Execute the transaction to enable the module
-    await execTransaction([alice], safe, safe.target, 0, enableGuardData, 0);
+    // Execute the transaction to set the Guard
+    await execTransaction([alice], safe, safe.target, 0, setGuardData, 0);
   });
 
-  // Test case to verify token transfer to bob
   it("Should not allow delegatecall", async function () {
     const wallets = [alice];
-    // Execute the transaction to enable the module
+
     await expect(
       execTransaction(wallets, safe, ZeroAddress, 0, "0x", 1)
     ).to.be.revertedWithCustomError(exampleGuard, "DelegateCallNotAllowed");
   });
 
-  // Test case to verify token transfer to bob
   it("Should allow call", async function () {
     const wallets = [alice];
 
     expect(await execTransaction(wallets, safe, ZeroAddress, 0, "0x", 0));
+  });
+
+  it("Should allow to replace the guard", async function () {
+    const wallets = [alice];
+
+    const setGuardData = masterCopy.interface.encodeFunctionData("setGuard", [
+      ZeroAddress,
+    ]);
+    expect(
+      await execTransaction(
+        wallets,
+        safe,
+        await safe.getAddress(),
+        0,
+        setGuardData,
+        0
+      )
+    );
   });
 });
 ```
@@ -539,6 +571,6 @@ npx hardhat test
 
 Congratulations! You have successfully created, enabled and tested a Safe Guard.
 
-## Do more with Safe and Safe Modules
+## Do more with Safe and Guard
 
 Did you encounter any difficulties? Let us know by opening [an issue](https://github.com/5afe/safe-guard-tutorial/issues/new) or asking a question on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the `safe-core` tag.
