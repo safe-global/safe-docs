@@ -10,14 +10,12 @@ This tutorial demonstrates how to:
 You will build a `NoDelegatecallGuard` that blocks delegate calls through Safe account when executing a Safe Transaction.
 __Note:__ The Guard will not block `delegatecall` for module transactions.
 
-
 ## Prerequisites
 
 - Experience with [Solidity](https://docs.soliditylang.org/en/latest/) and [Hardhat](https://hardhat.org)
 - [Node.js](https://nodejs.org/en/download/package-manager) and [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) installed
 
 ## Project Setup
-
 
 Start a new project directory and initialize npm.
 
@@ -90,7 +88,6 @@ const config: HardhatUserConfig = {
 };
 
 export default config;
-
 ```
 
 ## Create a new Solidity contract
@@ -222,4 +219,314 @@ contract NoDelegatecallGuard is BaseGuard {
 
     }
 }
+```
+
+## Testing the contract
+
+### Step 1: Create test/utils/utils.ts file
+
+Create a new file named `utils.ts` in the `test/utils` directory and include the code below.
+
+```typescript
+
+import { ethers } from "hardhat";
+import { Signer, AddressLike, BigNumberish, ZeroAddress } from "ethers";
+import { Safe } from "../../typechain-types";
+
+/**
+ * Executes a transaction on the Safe contract.
+ * @param wallets - The signers of the transaction.
+ * @param safe - The Safe contract instance.
+ * @param to - The address to send the transaction to.
+ * @param value - The value to send with the transaction.
+ * @param data - The data to send with the transaction.
+ * @param operation - The operation type (0 for call, 1 for delegate call).
+ */
+const execTransaction = async function (
+  wallets: Signer[],
+  safe: Safe,
+  to: AddressLike,
+  value: BigNumberish,
+  data: string,
+  operation: number,
+): Promise<void> {
+  // Get the current nonce of the Safe contract
+  const nonce = await safe.nonce();
+
+  // Get the transaction hash for the Safe transaction
+  const transactionHash = await safe.getTransactionHash(
+    to,
+    value,
+    data,
+    operation,
+    0,
+    0,
+    0,
+    ZeroAddress,
+    ZeroAddress,
+    nonce
+  );
+
+  let signatureBytes = "0x";
+  const bytesDataHash = ethers.getBytes(transactionHash);
+
+  // Get the addresses of the signers
+  const addresses = await Promise.all(wallets.map(wallet => wallet.getAddress()));
+  // Sort the signers by their addresses
+  const sorted = wallets.sort((a, b) => {
+    const addressA = addresses[wallets.indexOf(a)];
+    const addressB = addresses[wallets.indexOf(b)];
+    return addressA.localeCompare(addressB, "en", { sensitivity: "base" });
+  });
+
+  // Sign the transaction hash with each signer
+  for (let i = 0; i < sorted.length; i++) {
+    const flatSig = (await sorted[i].signMessage(bytesDataHash))
+      .replace(/1b$/, "1f")
+      .replace(/1c$/, "20");
+    signatureBytes += flatSig.slice(2);
+  }
+
+  // Execute the transaction on the Safe contract
+  await safe.execTransaction(
+    to,
+    value,
+    data,
+    operation,
+    0,
+    0,
+    0,
+    ZeroAddress,
+    ZeroAddress,
+    signatureBytes
+  );
+};
+
+export {
+  execTransaction,
+};
+```
+
+Explanation:
+- This file contains utility function to execute transaction through the Safe account.
+
+### Step 2: Start with an boilerplate test file
+
+Create a new file named `NoDelegatecallGuard.test.ts` and include the following basic structure that will be filled in later steps (ignore the warnings about unused imports):
+
+```typescript
+import { ethers } from "hardhat";
+import { expect } from "chai";
+import { Contract, Signer, ZeroAddress } from "ethers";
+import { Safe, Safe__factory, SafeProxyFactory } from "../typechain-types";
+import { execTransaction } from "./utils/utils";
+
+describe("Example module tests", async function () {
+  let deployer: Signer;
+  let alice: Signer;
+  let masterCopy: Safe;
+  let proxyFactory: SafeProxyFactory;
+  let safeFactory: Safe__factory;
+  let safe: Safe;
+  let exampleGuard: Contract;
+
+  beforeEach(async () => {});
+
+ const setupContracts = async (
+    walletOwners: Signer[],
+    threshold: number
+  ) => {};
+
+  // Add your test cases here
+  it("Should not allow delegatecall", async function () {});
+
+  it("Should allow call", async function () {});
+
+});
+```
+
+### Step 3: Setup contracts and variables in before hook
+
+```typescript
+  // Setup signers and deploy contracts before running tests
+  beforeEach(async () => {
+    [deployer, alice] = await ethers.getSigners();
+
+    safeFactory = await ethers.getContractFactory("Safe", deployer);
+    masterCopy = await safeFactory.deploy();
+
+    proxyFactory = await (
+      await ethers.getContractFactory("SafeProxyFactory", deployer)
+    ).deploy();
+
+    const ownerAddresses = [await alice.getAddress()];
+
+    const safeData = masterCopy.interface.encodeFunctionData("setup", [
+      ownerAddresses,
+      threshold,
+      ZeroAddress,
+      "0x",
+      ZeroAddress,
+      ZeroAddress,
+      0,
+      ZeroAddress,
+    ]);
+
+    // Read the safe address by executing the static call to createProxyWithNonce function
+    const safeAddress = await proxyFactory.createProxyWithNonce.staticCall(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    // Create the proxy with nonce
+    await proxyFactory.createProxyWithNonce(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    if (safeAddress === ZeroAddress) {
+      throw new Error("Safe address not found");
+    }
+
+    // Deploy the TokenWithdrawModule contract
+    exampleGuard = await (
+      await ethers.getContractFactory("NoDelegatecallGuard", deployer)
+    ).deploy();
+
+    safe = await ethers.getContractAt("Safe", safeAddress);
+
+    // Enable the module in the safe
+    const enableModuleData = masterCopy.interface.encodeFunctionData(
+      "setGuard",
+      [exampleGuard.target]
+    );
+
+    // Execute the transaction to enable the module
+    await execTransaction([alice], safe, safe.target, 0, enableModuleData, 0);
+  });
+```
+
+This step sets up the test environment by deploying and configuring the necessary contracts. Please note that:
+
+- Alice is the only owner of the Safe and a threshold of 1 is set. Thus, only Alice's signature is required to execute transactions.
+- Alice as the owner of the Safe is required to set the guard.
+- The guard is enabled by calling the `setGuard` function on the Safe contract.
+- ⚠️ Security Note: Only trusted and audited code should be enabled as a guard, since guard can block transactions. A malicious guard make Safe unusable by blocking all transactions.
+
+### Step 4: Add test cases
+
+```typescript
+  // Test case to verify token transfer to bob
+  it("Should not allow delegatecall", async function () {
+    const wallets = [alice];
+    // Execute the transaction to enable the module
+    await expect(
+      execTransaction(wallets, safe, ZeroAddress, 0, "0x", 1)
+    ).to.be.revertedWithCustomError(exampleGuard, "DelegateCallNotAllowed");
+  });
+
+  // Test case to verify token transfer to bob
+  it("Should allow call", async function () {
+    const wallets = [alice];
+
+    expect(await execTransaction(wallets, safe, ZeroAddress, 0, "0x", 0));
+  });
+```
+
+### Final test code
+
+```typescript
+import { ethers } from "hardhat";
+import { expect } from "chai";
+import { Contract, Signer, ZeroAddress } from "ethers";
+import { Safe, Safe__factory, SafeProxyFactory } from "../typechain-types";
+import { execTransaction } from "./utils/utils";
+
+describe("Example module tests", async function () {
+  let deployer: Signer;
+  let alice: Signer;
+  let masterCopy: Safe;
+  let proxyFactory: SafeProxyFactory;
+  let safeFactory: Safe__factory;
+  let safe: Safe;
+  let exampleGuard: Contract;
+  const threshold = 1;
+
+  // Setup signers and deploy contracts before running tests
+  beforeEach(async () => {
+    [deployer, alice] = await ethers.getSigners();
+
+    safeFactory = await ethers.getContractFactory("Safe", deployer);
+    masterCopy = await safeFactory.deploy();
+
+    proxyFactory = await (
+      await ethers.getContractFactory("SafeProxyFactory", deployer)
+    ).deploy();
+
+    const ownerAddresses = [await alice.getAddress()];
+
+    const safeData = masterCopy.interface.encodeFunctionData("setup", [
+      ownerAddresses,
+      threshold,
+      ZeroAddress,
+      "0x",
+      ZeroAddress,
+      ZeroAddress,
+      0,
+      ZeroAddress,
+    ]);
+
+    // Read the safe address by executing the static call to createProxyWithNonce function
+    const safeAddress = await proxyFactory.createProxyWithNonce.staticCall(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    // Create the proxy with nonce
+    await proxyFactory.createProxyWithNonce(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    if (safeAddress === ZeroAddress) {
+      throw new Error("Safe address not found");
+    }
+
+    // Deploy the TokenWithdrawModule contract
+    exampleGuard = await (
+      await ethers.getContractFactory("NoDelegatecallGuard", deployer)
+    ).deploy();
+
+    safe = await ethers.getContractAt("Safe", safeAddress);
+
+    // Enable the module in the safe
+    const enableModuleData = masterCopy.interface.encodeFunctionData(
+      "setGuard",
+      [exampleGuard.target]
+    );
+
+    // Execute the transaction to enable the module
+    await execTransaction([alice], safe, safe.target, 0, enableModuleData, 0);
+  });
+
+  // Test case to verify token transfer to bob
+  it("Should not allow delegatecall", async function () {
+    const wallets = [alice];
+    // Execute the transaction to enable the module
+    await expect(
+      execTransaction(wallets, safe, ZeroAddress, 0, "0x", 1)
+    ).to.be.revertedWithCustomError(exampleGuard, "DelegateCallNotAllowed");
+  });
+
+  // Test case to verify token transfer to bob
+  it("Should allow call", async function () {
+    const wallets = [alice];
+
+    expect(await execTransaction(wallets, safe, ZeroAddress, 0, "0x", 0));
+  });
+});
 ```
