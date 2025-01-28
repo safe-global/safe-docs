@@ -148,7 +148,9 @@ contract NoDelegatecallGuard is BaseGuard {
 ```
 
 Explanation:
-TODO
+- `BaseGuard` is inherited to implement the Guard interface. The Guard interface has two functions:
+  - `checkTransaction`: This function is called before Safe transaction is executed.
+  - `checkAfterExecution`: This function is called after Safe transaction is executed.
 
 ### Step 4: Implement logic in `checkTransaction` function
 
@@ -182,7 +184,7 @@ contract NoDelegatecallGuard is BaseGuard {
 ```
 
 Explanation:
-TODO
+- The `checkTransaction` function checks if the operation type is `DelegateCall`. If it is, the function reverts with a custom error `DelegateCallNotAllowed`.
 
 ### Final contract code
 
@@ -530,3 +532,15 @@ describe("Example module tests", async function () {
   });
 });
 ```
+
+## Run the tests
+
+```bash
+npx hardhat test
+```
+
+Congratulations! You have successfully created, enabled and tested a Safe Guard.
+
+## Do more with Safe and Safe Modules
+
+Did you encounter any difficulties? Let us know by opening [an issue](https://github.com/5afe/safe-guard-tutorial/issues/new) or asking a question on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the `safe-core` tag.
