@@ -34,5 +34,18 @@
   },
   "safe-installation-overview": "Overview",
   "safe-contracts-deployment": "Contracts Deployment",
-  "safe-infrastructure-deployment": "Infrastructure Deployment"
+  "safe-infrastructure-deployment": "Infrastructure Deployment",
+  "-- Safe Config Service": {
+    "type": "separator",
+    "title": "Safe Config Service"
+  },
+  "config-service-reference": {
+    "title": "Configuration",
+    "href": "/config-service-configuration/overview",
+    "theme": {
+      "layout": "full",
+      "toc": false,
+      "sidebar": false
+    }
+  }
 }

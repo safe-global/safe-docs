@@ -1,0 +1,195 @@
+# Add or edit chain
+
+Add (or edit) a blockchain network.
+
+## Usage
+
+You can add a new chain by visiting this address: [`http://localhost:8000/cfg/admin/chains/chain/add/`](http://localhost:8000/cfg/admin/chains/chain/add/)
+
+You can edit an existing chain by visiting this address: `http://localhost:8000/cfg/admin/chains/chain/{chain index}/change/` where `{chain index}` is the index of the chain you want to edit.
+
+## Parameters
+
+### `ChainId`
+
+The unique identifier for the chain.
+
+### `Relevance`
+
+The relative importance of this chain for your project. You can use this value between 0 and 100 to sort chains in the UI.
+
+### `Chain Name`
+
+The name of the chain, in plain letters.
+
+### `EIP-3770 short name`
+
+The short name of the chain, as defined in [EIP-3770](https://eips.ethereum.org/EIPS/eip-3770). This corresponds to the three letters that will be prepended to all addresses on this chain.
+
+### `Password`
+
+Opens a section to set a password for the user. You can set a new password or leave it blank to keep the current one.
+
+### `Description`
+
+A brief description of the chain.
+
+### `Chain logo URI`
+
+The URI of the chain's logo. This will be displayed in the UI.
+
+### `L2`
+
+Whether this chain is a Layer 2 chain. This has important consequences on the indexing ability of the chain. If this chain is an Ethereum Layer 2, not checking this box will increase the indexing time, hence possibly missing the correct indexing of some transactions.
+
+### `Is testnet`
+
+Whether this chain is a testnet. This will be indicated in the UI.
+
+### `RPC authentication`
+
+Whether the RPC endpoint requires authentication to access its data. If `API key path` is set, the API key will be read from the RPC URI.
+
+### `Rpc uri`
+
+The URI of the chain's RPC endpoint. This is the endpoint where the Config Service will fetch the chain's data.
+
+### `Safe Apps RPC authentication`
+
+Whether the RPC endpoint dedicated to Safe Apps will require authentication. If `API key path` is set, the API key will be read from the Safe Apps RPC URI.
+
+### `Safe Apps rpc uri`
+
+The URI of the chain's RPC endpoint dedicated to Safe Apps.
+
+### `Public RPC authentication`
+
+Whether the fallback public RPC endpoint will require authentication. If `API key path` is set, the API key will be read from the Public RPC URI.
+
+### `Public rpc uri`
+
+The URI of the chain's RPC public endpoint.
+
+### `Block explorer uri address template`
+
+The URI template for the chain's block explorer addresses. This will be used to generate address links to the block explorer. For example: `https://etherscan.io/address/{{address}}`.
+
+### `Block explorer uri tx hash template`
+
+The URI template for the chain's block explorer transaction hashes. This will be used to generate `txHash` links to the block explorer. For example: `https://etherscan.io/tx/{{txHash}}`.
+
+### `Block explorer uri api template`
+
+The URI template for the chain's block explorer API. This will be used to fetch data from the block explorer. For example: `https://api.etherscan.io/api`.
+
+### `Beacon chain explorer uri public key template`
+
+The URI template for the chain's beacon chain explorer public keys. This will be used to generate public key links to the beacon chain explorer. For example: `https://beaconscan.com/validator/{{publicKey}}`.
+
+### `Currency name`
+
+The name of the chain's native currency.
+
+### `Currency symbol`
+
+The symbol of the chain's native currency.
+
+### `Currency decimals`
+
+The number of decimals of the chain's native currency.
+
+### `Currency logo uri`
+
+The URI of the chain's native currency logo. This will be displayed in the UI.
+
+### `Transaction service uri`
+
+The URI of the chain's [Transaction Service](/core-api/api-safe-transaction-service). This will be used to fetch transaction data from the chain. You will need to deploy one Transaction Service per chain, as well as one `txs-db`, `amqp` and `celery` instances.
+
+### `Vpc transaction service uri`
+
+The URI of the chain's VPC Transaction Service. If you are using a Virtual Private Cloud (VPC) to run your Transaction Service, you can set this URI to fetch transaction data from the chain.
+
+### `Theme text color`
+
+The chain color to display the text in the UI.
+
+### `Theme background color`
+
+The chain color to display the background in the UI.
+
+### `Ens registry address`
+
+The address of the chain's ENS registry.
+
+### `Recommended mastercopy version`
+
+The recommended version of the chain's mastercopy. This will be used to display a warning if the mastercopy is outdated. For example: `1.4.1`.
+
+### `Prices provider native coin`
+
+The native coin used by the chain's price provider.
+
+### `Prices provider chain name`
+
+The name of the chain's price provider.
+
+### `Balances provider chain name`
+
+The name of the chain's balances provider.
+
+### `Balances provider enabled`
+
+Whether the chain's balances provider is enabled.
+
+### `Hidden`
+
+Whether the chain is hidden in the UI.
+
+### `Safe singleton address`
+
+The address of the chain's Safe Singleton.
+
+### `Safe proxy factory address`
+
+The address of the chain's Safe Proxy
+
+### `Multisend address`
+
+The address of the chain's multisend contract.
+
+### `Multisand call only address`
+
+The address of the chain's multisend call only contract.
+
+### `Fallback handler address`
+
+The address of the chain's fallback handler contract.
+
+### `Sign message lib address`
+
+The address of the chain's sign message library contract.
+
+### `Create call address`
+
+The address of the chain's create call contract.
+
+### `Simulate tx accessor address`
+
+The address of the chain's simulate transaction accessor contract.
+
+### `Safe web authn signer factory address`
+
+The address of the chain's Safe WebAuthn Signer Factory contract.
+
+### Features enabled on this chain
+
+A list of [features](./add-or-edit-feature.mdx) enabled on this chain. You can select as many as you want by clicking `+ Add another Feature-chain relationship`.
+
+### Gas prices set for this chain
+
+A list of [gas prices](./add-or-edit-gas-price.mdx) set for this chain. You can select as many as you want by clicking `+ Add another Gas price`.
+
+### Wallets enabled for this chain
+
+A list of [wallets](./add-or-edit-wallet.mdx) enabled for this chain. You can select as many as you want by clicking `+ Add another Wallet-chain relationship`.
