@@ -134,8 +134,7 @@ contract NoDelegatecallGuard is BaseGuard {
 ```
 
 Explanation:
-- **`BaseGuard.sol`**: BaseGuard is an abstract contract that inherits Guard interface and implements ERC-165 interface.
-- The Guard interface has two functions which need to be implemented:
+- **`BaseGuard.sol`**: BaseGuard is an abstract contract that implements ERC-165 and inherits the Guard interface with two functions:
   - `checkTransaction`: This function is called before Safe transaction is executed.
   - `checkAfterExecution`: This function is called after Safe transaction is executed.
 - **`Enum.sol`**: Provides Enum `Operation` which can have values like `Call` or `DelegateCall`.
