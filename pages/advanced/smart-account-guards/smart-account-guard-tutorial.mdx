@@ -1,0 +1,564 @@
+import { Callout } from 'nextra/components'
+
+# Building a Guard for Safe Smart Account
+
+This tutorial demonstrates how to build a custom Guard contract that adds security restrictions to a Safe Smart Account. You'll learn how to:
+- Create a Safe Guard that prevents delegate calls
+- Enable the Guard on a Safe Smart Account  
+- Write comprehensive tests for the Guard
+
+You'll build a `NoDelegatecallGuard` that blocks `delegatecall` operations through the Safe account. While this is a simple example, the same principles can be used to build more complex Guards for your specific security needs.
+
+<Callout type="info">
+A Safe account supports two types of transactions:
+- **Safe Transaction**: Executed through the Safe owners with required signatures
+- **Module Transaction**: Executed through an enabled Safe Module
+
+This tutorial focuses on Safe Transactions, as Guards only apply to those.
+</Callout>
+
+## Understanding Safe Guards
+
+Before we dive into the code, let's understand what Guards do:
+
+- Guards are contracts that can inspect and validate transactions before and after they are executed by a Safe
+- They implement a standard interface with two key functions:
+  - `checkTransaction`: Called before execution to validate the transaction
+  - `checkAfterExecution`: Called after execution for post-transaction checks
+- Guards can block transactions by reverting if validation fails
+
+<Callout type="warning">
+Only enable Guards from trusted and audited code. A malicious Guard could block all transactions and make your Safe unusable.
+</Callout>
+
+## Prerequisites
+
+Before starting this tutorial, make sure you have:
+- Experience with [Solidity](https://docs.soliditylang.org/en/latest/) and [Hardhat](https://hardhat.org)
+- [Node.js](https://nodejs.org/en/download/package-manager) and [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) installed
+- Basic understanding of Smart Account concepts
+
+## Project Setup
+
+### Initialize Project
+
+Create a new project directory and initialize npm:
+
+```bash
+mkdir safe-guard-tutorial && cd safe-guard-tutorial 
+npm init -y
+```
+
+### Configure Dependencies
+
+Add the following to your `package.json`:
+
+```json
+{
+  // ... existing content ...
+  "overrides": {
+    "@safe-global/safe-contracts": {
+      "ethers": "^6.13.5"
+    }
+  }
+}
+```
+
+Install the required dependencies:
+
+```bash
+npm add -D hardhat @safe-global/safe-contracts hardhat-dependency-compiler
+```
+
+### Setup Hardhat project
+
+Initialize a TypeScript Hardhat project:
+
+```bash
+npx hardhat init
+```
+
+Now, try compiling the contracts to ensure everything is set up correctly.
+
+```bash
+npx hardhat compile
+```
+
+Select `Create a TypeScript project` when prompted.
+
+When compiling Safe contracts with solidity 0.8.x the bytecode size exceeds the limit of 24KB. To overcome this, set `allowUnlimitedContractSize` to `true` in the hardhat config.
+In practise with production networks, use the officially deployed Safe contracts. Also, add `dependencyCompiler` to import `SafeProxyFactory` and `Safe` contracts.
+
+Update your `hardhat.config.ts`:
+
+```typescript
+import { HardhatUserConfig } from "hardhat/config";
+import "@nomicfoundation/hardhat-toolbox";
+import "hardhat-dependency-compiler";
+
+const config: HardhatUserConfig = {
+  solidity: "0.8.28",
+  networks: {
+    hardhat: {
+      allowUnlimitedContractSize: true, // Required for Safe contracts
+    },
+  },
+  dependencyCompiler: {
+    paths: [
+      "@safe-global/safe-contracts/contracts/proxies/SafeProxyFactory.sol",
+      "@safe-global/safe-contracts/contracts/Safe.sol",
+    ],
+  },
+};
+
+export default config;
+```
+
+## Create a new Solidity contract
+
+Delete the default `contracts/Lock.sol` and test file `test/Lock.ts` and create a new Solidity contract `NoDelegatecallGuard.sol` in the `contracts` directory.
+
+### Step 1. Create NoDelegatecallGuard contract
+
+```solidity
+// SPDX-License-Identifier: LGPL-3.0
+pragma solidity ^0.8.0;
+import { BaseGuard } from "@safe-global/safe-contracts/contracts/base/GuardManager.sol";
+import { Enum } from "@safe-global/safe-contracts/contracts/common/Enum.sol";
+
+contract NoDelegatecallGuard is BaseGuard {
+  error DelegatecallNotAllowed();
+
+  // Functions will be added here
+}
+```
+
+Explanation:
+- **`BaseGuard.sol`**: BaseGuard is an abstract contract that implements ERC-165 and inherits the Guard interface with two functions:
+  - `checkTransaction`: This function is called before Safe transaction is executed.
+  - `checkAfterExecution`: This function is called after Safe transaction is executed.
+- **`Enum.sol`**: Provides Enum `Operation` which can have values like `Call` or `DelegateCall`.
+- `DelegatecallNotAllowed` is a custom error type that will be used to revert the transaction if `delegatecall` is detected.
+
+### Step 2: Implement `checkTransaction` function
+
+```solidity
+function checkTransaction(
+    address /*to*/,
+    uint256 /*value*/,
+    bytes memory /*data*/,
+    Enum.Operation operation,
+    uint256 /*safeTxGas*/,
+    uint256 /*baseGas*/,
+    uint256 /*gasPrice*/,
+    address /*gasToken*/,
+    address payable /*refundReceiver*/,
+    bytes memory /*signatures*/,
+    address /*msgSender*/
+) external {
+    if(operation == Enum.Operation.DelegateCall) {
+        revert DelegatecallNotAllowed();
+    }
+}
+```
+
+Explanation:
+- The `checkTransaction` function checks if the operation type is `DelegateCall`. If it is, the function reverts with a custom error `DelegatecallNotAllowed`.
+
+### Step 3: Implement `checkAfterExecution` function
+
+```solidity
+function checkAfterExecution(bytes32 txHash, bool success) external {
+}
+```
+
+Explanation:
+- The `checkAfterExecution` function is empty as we do not need to perform any action after the transaction is executed.
+
+### Final contract code
+
+```solidity
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.28;
+
+import { BaseGuard } from "@safe-global/safe-contracts/contracts/base/GuardManager.sol";
+import { Enum } from "@safe-global/safe-contracts/contracts/common/Enum.sol";
+
+contract NoDelegatecallGuard is BaseGuard {
+
+    error DelegatecallNotAllowed();
+
+    function checkTransaction(
+        address /*to*/,
+        uint256 /*value*/,
+        bytes memory /*data*/,
+        Enum.Operation operation,
+        uint256 /*safeTxGas*/,
+        uint256 /*baseGas*/,
+        uint256 /*gasPrice*/,
+        address /*gasToken*/,
+        address payable /*refundReceiver*/,
+        bytes memory /*signatures*/,
+        address /*msgSender*/
+    ) external {
+        if(operation == Enum.Operation.DelegateCall) {
+            revert DelegatecallNotAllowed();
+        }
+    }
+
+    function checkAfterExecution(bytes32 txHash, bool success) external {
+
+    }
+}
+```
+
+## Testing the contract
+
+### Step 1: Create test/utils/utils.ts file
+
+Create a new file named `utils.ts` in the `test/utils` directory and include the code below.
+
+```typescript
+import { ethers } from "hardhat";
+import { Signer, AddressLike, BigNumberish, ZeroAddress } from "ethers";
+import { Safe } from "../../typechain-types";
+
+/**
+ * Executes a transaction on the Safe contract.
+ * @param wallets - The signers of the transaction.
+ * @param safe - The Safe contract instance.
+ * @param to - The address to send the transaction to.
+ * @param value - The value to send with the transaction.
+ * @param data - The data to send with the transaction.
+ * @param operation - The operation type (0 for call, 1 for delegate call).
+ */
+const execTransaction = async function (
+  wallets: Signer[],
+  safe: Safe,
+  to: AddressLike,
+  value: BigNumberish,
+  data: string,
+  operation: number,
+): Promise<void> {
+  // Get the current nonce of the Safe contract
+  const nonce = await safe.nonce();
+
+  // Get the transaction hash for the Safe transaction
+  const transactionHash = await safe.getTransactionHash(
+    to,
+    value,
+    data,
+    operation,
+    0,
+    0,
+    0,
+    ZeroAddress,
+    ZeroAddress,
+    nonce
+  );
+
+  let signatureBytes = "0x";
+  const bytesDataHash = ethers.getBytes(transactionHash);
+
+  // Get the addresses of the signers
+  const addresses = await Promise.all(wallets.map(wallet => wallet.getAddress()));
+  // Sort the signers by their addresses
+  const sorted = wallets.sort((a, b) => {
+    const addressA = addresses[wallets.indexOf(a)];
+    const addressB = addresses[wallets.indexOf(b)];
+    return addressA.localeCompare(addressB, "en", { sensitivity: "base" });
+  });
+
+  // Sign the transaction hash with each signer
+  for (let i = 0; i < sorted.length; i++) {
+    const flatSig = (await sorted[i].signMessage(bytesDataHash))
+      .replace(/1b$/, "1f")
+      .replace(/1c$/, "20");
+    signatureBytes += flatSig.slice(2);
+  }
+
+  // Execute the transaction on the Safe contract
+  await safe.execTransaction(
+    to,
+    value,
+    data,
+    operation,
+    0,
+    0,
+    0,
+    ZeroAddress,
+    ZeroAddress,
+    signatureBytes
+  );
+};
+
+export {
+  execTransaction,
+};
+```
+
+Explanation:
+- This file contains utility function to execute transaction through the Safe account.
+
+### Step 2: Start with a boilerplate test file
+
+Create a new file named `NoDelegatecallGuard.test.ts` and include the following basic structure that will be filled in later steps (ignore the warnings about unused imports):
+
+```typescript
+import { ethers } from "hardhat";
+import { expect } from "chai";
+import { Signer, ZeroAddress } from "ethers";
+import { Safe, Safe__factory, SafeProxyFactory } from "../typechain-types";
+import { execTransaction } from "./utils/utils";
+import { NoDelegatecallGuard } from "../typechain-types/contracts/NoDelegatecallGuard";
+
+describe("NoDelegatecallGuard", async function () {
+  let deployer: Signer;
+  let alice: Signer;
+  let masterCopy: Safe;
+  let proxyFactory: SafeProxyFactory;
+  let safeFactory: Safe__factory;
+  let safe: Safe;
+  let exampleGuard: NoDelegatecallGuard;
+  const threshold = 1;
+
+  beforeEach(async () => {});
+
+  // Add your test cases here
+  it("Should not allow delegatecall", async function () {});
+
+  it("Should allow call", async function () {});
+
+  it("Should allow to replace the guard", async function () {});
+});
+```
+
+### Step 3: Setup contracts and variables in before hook
+
+```typescript
+  // Setup signers and deploy contracts before running tests
+  beforeEach(async () => {
+    [deployer, alice] = await ethers.getSigners();
+
+    safeFactory = await ethers.getContractFactory("Safe", deployer);
+    masterCopy = await safeFactory.deploy();
+
+    proxyFactory = await (
+      await ethers.getContractFactory("SafeProxyFactory", deployer)
+    ).deploy();
+
+    const ownerAddresses = [await alice.getAddress()];
+
+    const safeData = masterCopy.interface.encodeFunctionData("setup", [
+      ownerAddresses,
+      threshold,
+      ZeroAddress,
+      "0x",
+      ZeroAddress,
+      ZeroAddress,
+      0,
+      ZeroAddress,
+    ]);
+
+    // Read the safe address by executing the static call to createProxyWithNonce function
+    const safeAddress = await proxyFactory.createProxyWithNonce.staticCall(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    // Create the proxy with nonce
+    await proxyFactory.createProxyWithNonce(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    if (safeAddress === ZeroAddress) {
+      throw new Error("Safe address not found");
+    }
+
+    // Deploy the NoDelegatecallGuard contract
+    exampleGuard = await (
+      await ethers.getContractFactory("NoDelegatecallGuard", deployer)
+    ).deploy();
+
+    safe = await ethers.getContractAt("Safe", safeAddress);
+
+    // Set the guard in the safe
+    const setGuardData = masterCopy.interface.encodeFunctionData(
+      "setGuard",
+      [exampleGuard.target]
+    );
+
+    // Execute the transaction to set the Guard
+    await execTransaction([alice], safe, safe.target, 0, setGuardData, 0);
+  });
+```
+
+This step sets up the test environment by deploying and configuring the necessary contracts. Please note that:
+
+- Alice is the only owner of the Safe and a threshold of 1 is set. Thus, only Alice's signature is required to execute transactions.
+- Alice as the owner of the Safe is required to set the guard.
+- The guard is enabled by calling the `setGuard` function on the Safe contract.
+- ⚠️ Security Note: Only trusted and audited code should be enabled as a guard, since guard can block transactions. A malicious guard make Safe unusable by blocking all transactions.
+
+### Step 4: Add test cases
+
+```typescript
+  it("Should not allow delegatecall", async function () {
+    const wallets = [alice];
+
+    await expect(
+      execTransaction(wallets, safe, ZeroAddress, 0, "0x", 1)
+    ).to.be.revertedWithCustomError(exampleGuard, "DelegatecallNotAllowed");
+  });
+
+  it("Should allow call", async function () {
+    const wallets = [alice];
+
+    expect(await execTransaction(wallets, safe, ZeroAddress, 0, "0x", 0));
+  });
+
+  it("Should allow to replace the guard", async function () {
+    const wallets = [alice];
+
+    const setGuardData = masterCopy.interface.encodeFunctionData("setGuard", [
+      ZeroAddress,
+    ]);
+    expect(
+      await execTransaction(
+        wallets,
+        safe,
+        await safe.getAddress(),
+        0,
+        setGuardData,
+        0
+      )
+    );
+  });
+```
+
+### Final test code
+
+```typescript
+import { ethers } from "hardhat";
+import { expect } from "chai";
+import { Signer, ZeroAddress } from "ethers";
+import { Safe, Safe__factory, SafeProxyFactory } from "../typechain-types";
+import { execTransaction } from "./utils/utils";
+import { NoDelegatecallGuard } from "../typechain-types/contracts/NoDelegatecallGuard";
+
+describe("NoDelegatecallGuard", async function () {
+  let deployer: Signer;
+  let alice: Signer;
+  let masterCopy: Safe;
+  let proxyFactory: SafeProxyFactory;
+  let safeFactory: Safe__factory;
+  let safe: Safe;
+  let exampleGuard: NoDelegatecallGuard;
+  const threshold = 1;
+
+  // Setup signers and deploy contracts before running tests
+  beforeEach(async () => {
+    [deployer, alice] = await ethers.getSigners();
+
+    safeFactory = await ethers.getContractFactory("Safe", deployer);
+    masterCopy = await safeFactory.deploy();
+
+    proxyFactory = await (
+      await ethers.getContractFactory("SafeProxyFactory", deployer)
+    ).deploy();
+
+    const ownerAddresses = [await alice.getAddress()];
+
+    const safeData = masterCopy.interface.encodeFunctionData("setup", [
+      ownerAddresses,
+      threshold,
+      ZeroAddress,
+      "0x",
+      ZeroAddress,
+      ZeroAddress,
+      0,
+      ZeroAddress,
+    ]);
+
+    // Read the safe address by executing the static call to createProxyWithNonce function
+    const safeAddress = await proxyFactory.createProxyWithNonce.staticCall(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    // Create the proxy with nonce
+    await proxyFactory.createProxyWithNonce(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    if (safeAddress === ZeroAddress) {
+      throw new Error("Safe address not found");
+    }
+
+    // Deploy the NoDelegatecallGuard contract
+    exampleGuard = await (
+      await ethers.getContractFactory("NoDelegatecallGuard", deployer)
+    ).deploy();
+
+    safe = await ethers.getContractAt("Safe", safeAddress);
+
+    // Set the guard in the safe
+    const setGuardData = masterCopy.interface.encodeFunctionData("setGuard", [
+      exampleGuard.target,
+    ]);
+
+    // Execute the transaction to set the Guard
+    await execTransaction([alice], safe, safe.target, 0, setGuardData, 0);
+  });
+
+  it("Should not allow delegatecall", async function () {
+    const wallets = [alice];
+
+    await expect(
+      execTransaction(wallets, safe, ZeroAddress, 0, "0x", 1)
+    ).to.be.revertedWithCustomError(exampleGuard, "DelegatecallNotAllowed");
+  });
+
+  it("Should allow call", async function () {
+    const wallets = [alice];
+
+    expect(await execTransaction(wallets, safe, ZeroAddress, 0, "0x", 0));
+  });
+
+  it("Should allow to replace the guard", async function () {
+    const wallets = [alice];
+
+    const setGuardData = masterCopy.interface.encodeFunctionData("setGuard", [
+      ZeroAddress,
+    ]);
+    expect(
+      await execTransaction(
+        wallets,
+        safe,
+        await safe.getAddress(),
+        0,
+        setGuardData,
+        0
+      )
+    );
+  });
+});
+```
+
+## Run the tests
+
+```bash
+npx hardhat test
+```
+
+Congratulations! You have successfully created, enabled and tested a Safe Guard.
+
+## Do more with Safe and Guard
+
+Did you encounter any difficulties? Let us know by opening [an issue](https://github.com/5afe/safe-guard-tutorial/issues/new) or asking a question on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the `safe-core` tag.
