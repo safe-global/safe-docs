@@ -7,7 +7,8 @@ This tutorial demonstrates how to:
 - Enable a Guard on a Safe account
 - Write tests for the Guard
 
-You will build a `NoDelegatecallGuard` that blocks delegate calls through Safe account when executing a Safe Transaction.
+You will build a `NoDelegatecallGuard` that blocks `delegatecall` through Safe account when executing a Safe Transaction.
+
 __Note:__ The Guard will not block `delegatecall` for module transactions.
 
 ## Prerequisites
@@ -65,7 +66,7 @@ npx hardhat compile
 
 When compiling Safe contracts with solidity 0.8.x the bytecode size exceeds the limit of 24KB. To overcome this, set `allowUnlimitedContractSize` to `true` in the hardhat config.
 In practise with production networks, use the officially deployed Safe contracts.
-Also, add `dependencyCompiler` to import `SafeProxyFactory` contract.
+Also, add `dependencyCompiler` to import `SafeProxyFactory` and `Safe` contracts.
 
 ```typescript
 import { HardhatUserConfig } from "hardhat/config";
