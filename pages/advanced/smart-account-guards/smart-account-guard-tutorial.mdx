@@ -1,41 +1,61 @@
 import { Callout } from 'nextra/components'
 
-# Building a Guard for Safe account
+# Building a Guard for Safe Smart Account
 
-This tutorial demonstrates how to:
-- Create a Safe Guard
-- Enable a Guard on a Safe Smart Account
-- Write tests for the Guard
+This tutorial demonstrates how to build a custom Guard contract that adds security restrictions to a Safe Smart Account. You'll learn how to:
+- Create a Safe Guard that prevents delegate calls
+- Enable the Guard on a Safe Smart Account  
+- Write comprehensive tests for the Guard
 
-Two types of transactions can be executed through a Safe account:
-- **Safe Transaction**: A transaction executed through the owners of a Safe Smart Account.
-- **Module Transaction**: A transaction executed through a Module enabled on a Safe Smart Account.
+<Callout type="info">
+A Safe account supports two types of transactions:
+- **Safe Transaction**: Executed through the Safe owners with required signatures
+- **Module Transaction**: Executed through an enabled Safe Module
 
-In this tutorial, you will build a `NoDelegatecallGuard` contract that blocks `delegate call' through the Safe account when executing a Safe Transaction. The Guard will not block `delegate call` for Module transactions as the Guard functions are not called when executing a Module transaction.
-This Guard is a simple example of how to restrict certain operations in a Safe Smart Account. You can build more complex Guards to suit your requirements. 
+This tutorial focuses on Safe Transactions, as Guards only apply to those.
+</Callout>
+
+You'll build a `NoDelegatecallGuard` that blocks `delegatecall` operations through the Safe account. While this is a simple example, the same principles can be used to build more complex Guards for your specific security needs.
+
+## Understanding Safe Guards
+
+Before we dive into the code, let's understand what Guards do:
+
+- Guards are contracts that can inspect and validate transactions before and after they are executed by a Safe
+- They implement a standard interface with two key functions:
+  - `checkTransaction`: Called before execution to validate the transaction
+  - `checkAfterExecution`: Called after execution for post-transaction checks
+- Guards can block transactions by reverting if validation fails
+
+<Callout type="warning">
+Only enable Guards from trusted and audited code. A malicious Guard could block all transactions and make your Safe unusable.
+</Callout>
 
 ## Prerequisites
 
+Before starting this tutorial, make sure you have:
 - Experience with [Solidity](https://docs.soliditylang.org/en/latest/) and [Hardhat](https://hardhat.org)
 - [Node.js](https://nodejs.org/en/download/package-manager) and [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) installed
+- Basic understanding of Smart Account concepts
 
 ## Project Setup
 
-Start a new project directory and initialize npm.
+### Initialize Project
+
+Create a new project directory and initialize npm:
 
 ```bash
 mkdir safe-guard-tutorial && cd safe-guard-tutorial 
-npm init
+npm init -y
 ```
-You can choose all default values.
 
-### Install dependencies
+### Configure Dependencies
 
-Add overrides in `package.json` so that there are no peer dependency related issues.
+Add the following to your `package.json`:
 
 ```json
 {
-  // ... 
+  // ... existing content ...
   "overrides": {
     "@safe-global/safe-contracts": {
       "ethers": "^6.13.5"
@@ -44,17 +64,19 @@ Add overrides in `package.json` so that there are no peer dependency related iss
 }
 ```
 
+Install the required dependencies:
+
 ```bash
 npm add -D hardhat @safe-global/safe-contracts hardhat-dependency-compiler
 ```
 
-### Initialize hardhat project
+### Setup Hardhat project
+
+Initialize a TypeScript Hardhat project:
 
 ```bash
 npx hardhat init
 ```
-
-Select `Create a TypeScript project` and leave the default values for the rest of the prompts.
 
 Now, try compiling the contracts to ensure everything is set up correctly.
 
@@ -62,11 +84,12 @@ Now, try compiling the contracts to ensure everything is set up correctly.
 npx hardhat compile
 ```
 
-### Update hardhat.config.ts
+Select `Create a TypeScript project` when prompted.
 
 When compiling Safe contracts with solidity 0.8.x the bytecode size exceeds the limit of 24KB. To overcome this, set `allowUnlimitedContractSize` to `true` in the hardhat config.
-In practise with production networks, use the officially deployed Safe contracts.
-Also, add `dependencyCompiler` to import `SafeProxyFactory` and `Safe` contracts.
+In practise with production networks, use the officially deployed Safe contracts. Also, add `dependencyCompiler` to import `SafeProxyFactory` and `Safe` contracts.
+
+Update your `hardhat.config.ts`:
 
 ```typescript
 import { HardhatUserConfig } from "hardhat/config";
@@ -77,7 +100,7 @@ const config: HardhatUserConfig = {
   solidity: "0.8.28",
   networks: {
     hardhat: {
-      allowUnlimitedContractSize: true,
+      allowUnlimitedContractSize: true, // Required for Safe contracts
     },
   },
   dependencyCompiler: {
@@ -211,7 +234,6 @@ contract NoDelegatecallGuard is BaseGuard {
 Create a new file named `utils.ts` in the `test/utils` directory and include the code below.
 
 ```typescript
-
 import { ethers } from "hardhat";
 import { Signer, AddressLike, BigNumberish, ZeroAddress } from "ethers";
 import { Safe } from "../../typechain-types";
