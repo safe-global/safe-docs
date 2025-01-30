@@ -110,7 +110,7 @@ const Property: React.FC<{ property: any; required?: boolean }> = ({
                 }
               }}
             >
-              {property.value?.description}
+              {property.value?.description?.split('\n')?.[0] ?? ''}
             </Typography>
           </Grid>
         </Grid>
