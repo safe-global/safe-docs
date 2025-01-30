@@ -10,6 +10,7 @@ This tutorial demonstrates how to:
 Two types of transactions can be executed through a Safe account:
 - **Safe Transaction**: A transaction executed through the owners of a Safe Smart Account.
 - **Module Transaction**: A transaction executed through a Module enabled on a Safe Smart Account.
+
 In this tutorial, you will build a `NoDelegatecallGuard` contract that blocks `delegate call' through the Safe account when executing a Safe Transaction. The Guard will not block `delegate call` for Module transactions as the Guard functions are not called when executing a Module transaction.
 This Guard is a simple example of how to restrict certain operations in a Safe Smart Account. You can build more complex Guards to suit your requirements. 
 
