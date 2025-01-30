@@ -4,12 +4,14 @@ import { Callout } from 'nextra/components'
 
 This tutorial demonstrates how to:
 - Create a Safe Guard
-- Enable a Guard on a Safe account
+- Enable a Guard on a Safe Smart Account
 - Write tests for the Guard
 
-You will build a `NoDelegatecallGuard` that blocks `delegatecall` through Safe account when executing a Safe Transaction.
-
-__Note:__ The Guard will not block `delegatecall` for module transactions.
+Two types of transactions can be executed through a Safe account:
+- **Safe Transaction**: A transaction executed through the owners of a Safe Smart Account.
+- **Module Transaction**: A transaction executed through a Module enabled on a Safe Smart Account.
+In this tutorial, you will build a `NoDelegatecallGuard` contract that blocks `delegate call' through the Safe account when executing a Safe Transaction. The Guard will not block `delegate call` for Module transactions as the Guard functions are not called when executing a Module transaction.
+This Guard is a simple example of how to restrict certain operations in a Safe Smart Account. You can build more complex Guards to suit your requirements. 
 
 ## Prerequisites
 
@@ -22,9 +24,6 @@ Start a new project directory and initialize npm.
 
 ```bash
 mkdir safe-guard-tutorial && cd safe-guard-tutorial 
-```
-
-```bash
 npm init
 ```
 You can choose all default values.
@@ -107,11 +106,6 @@ contract NoDelegatecallGuard {
 }
 ```
 
-Explanation:
-- **SPDX License Identifier**: Specifies the license type.
-- **`pragma solidity ^0.8.0`**: Defines the Solidity compiler version.
-- **`contract NoDelegatecallGuard`**: Declares the contract name.
-
 ### Step 2: Import required dependencies
 
 ```solidity
@@ -123,69 +117,54 @@ Explanation:
 - **`BaseGuard.sol`**: Implements Guard interface and supports ERC-165.
 - **`Enum.sol`**: Provides Enum `Operation` which can have values like `Call` or `DelegateCall`.
 
-### Step 3: Inherit BaseGuard and implement functions
+### Step 3: Inherit BaseGuard and define custom error type
 
 ```solidity
 contract NoDelegatecallGuard is BaseGuard {
-      function checkTransaction(
-        address /*to*/,
-        uint256 /*value*/,
-        bytes memory /*data*/,
-        Enum.Operation operation,
-        uint256 /*safeTxGas*/,
-        uint256 /*baseGas*/,
-        uint256 /*gasPrice*/,
-        address /*gasToken*/,
-        address payable /*refundReceiver*/,
-        bytes memory /*signatures*/,
-        address /*msgSender*/
-    ) external {
-    }
-
-    function checkAfterExecution(bytes32 txHash, bool success) external {
-
-    }
+    error DelegatecallNotAllowed();
 }
 ```
 
 Explanation:
-- `BaseGuard` is inherited to implement the Guard interface. The Guard interface has two functions:
+- `BaseGuard` is inherited to implement the Guard interface. The Guard interface has two functions which need to be implemented:
   - `checkTransaction`: This function is called before Safe transaction is executed.
   - `checkAfterExecution`: This function is called after Safe transaction is executed.
+- `DelegatecallNotAllowed` is a custom error type that will be used to revert the transaction if `delegatecall` is detected.
 
-### Step 4: Implement logic in `checkTransaction` function
+### Step 4: Implement `checkTransaction` function
 
 ```solidity
-contract NoDelegatecallGuard is BaseGuard {
-
-    error DelegatecallNotAllowed();
-
-    function checkTransaction(
-        address /*to*/,
-        uint256 /*value*/,
-        bytes memory /*data*/,
-        Enum.Operation operation,
-        uint256 /*safeTxGas*/,
-        uint256 /*baseGas*/,
-        uint256 /*gasPrice*/,
-        address /*gasToken*/,
-        address payable /*refundReceiver*/,
-        bytes memory /*signatures*/,
-        address /*msgSender*/
-    ) external {
-        if(operation == Enum.Operation.DelegateCall) {
-            revert DelegatecallNotAllowed();
-        }
-    }
-
-    function checkAfterExecution(bytes32 txHash, bool success) external {
-
+function checkTransaction(
+    address /*to*/,
+    uint256 /*value*/,
+    bytes memory /*data*/,
+    Enum.Operation operation,
+    uint256 /*safeTxGas*/,
+    uint256 /*baseGas*/,
+    uint256 /*gasPrice*/,
+    address /*gasToken*/,
+    address payable /*refundReceiver*/,
+    bytes memory /*signatures*/,
+    address /*msgSender*/
+) external {
+    if(operation == Enum.Operation.DelegateCall) {
+        revert DelegatecallNotAllowed();
     }
 }
 ```
 
 Explanation:
 - The `checkTransaction` function checks if the operation type is `DelegateCall`. If it is, the function reverts with a custom error `DelegatecallNotAllowed`.
+
+### Step 5: Implement `checkAfterExecution` function
+
+```solidity
+function checkAfterExecution(bytes32 txHash, bool success) external {
+}
+```
+
+Explanation:
+- The `checkAfterExecution` function is empty as we do not need to perform any action after the transaction is executed.
 
 ### Final contract code
 
