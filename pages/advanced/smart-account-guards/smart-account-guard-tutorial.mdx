@@ -7,6 +7,8 @@ This tutorial demonstrates how to build a custom Guard contract that adds securi
 - Enable the Guard on a Safe Smart Account  
 - Write comprehensive tests for the Guard
 
+You'll build a `NoDelegatecallGuard` that blocks `delegatecall` operations through the Safe account. While this is a simple example, the same principles can be used to build more complex Guards for your specific security needs.
+
 <Callout type="info">
 A Safe account supports two types of transactions:
 - **Safe Transaction**: Executed through the Safe owners with required signatures
@@ -14,8 +16,6 @@ A Safe account supports two types of transactions:
 
 This tutorial focuses on Safe Transactions, as Guards only apply to those.
 </Callout>
-
-You'll build a `NoDelegatecallGuard` that blocks `delegatecall` operations through the Safe account. While this is a simple example, the same principles can be used to build more complex Guards for your specific security needs.
 
 ## Understanding Safe Guards
 
@@ -118,44 +118,30 @@ export default config;
 
 Delete the default `contracts/Lock.sol` and test file `test/Lock.ts` and create a new Solidity contract `NoDelegatecallGuard.sol` in the `contracts` directory.
 
-### Step 1. Create empty contract
+### Step 1. Create NoDelegatecallGuard contract
 
 ```solidity
 // SPDX-License-Identifier: LGPL-3.0
 pragma solidity ^0.8.0;
-// Imports will be added here
+import { BaseGuard } from "@safe-global/safe-contracts/contracts/base/GuardManager.sol";
+import { Enum } from "@safe-global/safe-contracts/contracts/common/Enum.sol";
 
-contract NoDelegatecallGuard {
+contract NoDelegatecallGuard is BaseGuard {
+  error DelegatecallNotAllowed();
+
   // Functions will be added here
 }
 ```
 
-### Step 2: Import required dependencies
-
-```solidity
-import { BaseGuard } from "@safe-global/safe-contracts/contracts/base/GuardManager.sol";
-import { Enum } from "@safe-global/safe-contracts/contracts/common/Enum.sol";
-```
-
 Explanation:
-- **`BaseGuard.sol`**: Implements Guard interface and supports ERC-165.
-- **`Enum.sol`**: Provides Enum `Operation` which can have values like `Call` or `DelegateCall`.
-
-### Step 3: Inherit BaseGuard and define custom error type
-
-```solidity
-contract NoDelegatecallGuard is BaseGuard {
-    error DelegatecallNotAllowed();
-}
-```
-
-Explanation:
-- `BaseGuard` is inherited to implement the Guard interface. The Guard interface has two functions which need to be implemented:
+- **`BaseGuard.sol`**: BaseGuard is an abstract contract that inherits Guard interface and implements ERC-165 interface.
+- The Guard interface has two functions which need to be implemented:
   - `checkTransaction`: This function is called before Safe transaction is executed.
   - `checkAfterExecution`: This function is called after Safe transaction is executed.
+- **`Enum.sol`**: Provides Enum `Operation` which can have values like `Call` or `DelegateCall`.
 - `DelegatecallNotAllowed` is a custom error type that will be used to revert the transaction if `delegatecall` is detected.
 
-### Step 4: Implement `checkTransaction` function
+### Step 2: Implement `checkTransaction` function
 
 ```solidity
 function checkTransaction(
@@ -180,7 +166,7 @@ function checkTransaction(
 Explanation:
 - The `checkTransaction` function checks if the operation type is `DelegateCall`. If it is, the function reverts with a custom error `DelegatecallNotAllowed`.
 
-### Step 5: Implement `checkAfterExecution` function
+### Step 3: Implement `checkAfterExecution` function
 
 ```solidity
 function checkAfterExecution(bytes32 txHash, bool success) external {
