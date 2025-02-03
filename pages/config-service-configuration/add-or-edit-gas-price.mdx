@@ -1,0 +1,43 @@
+# Add or edit chain gas prices
+
+Add (or edit) a new gas price to the configuration, so they can be attributed to chains.
+
+## Usage
+
+You can add a new gas price by visiting this address: `http://localhost:8000/cfg/admin/chains/gasprice/add/`
+
+You can edit an existing gas price by visiting this address: `http://localhost:8000/cfg/admin/chains/gasprice/{gasprice index}/change/` where `{gasprice index}` is the index of the gas price you want to edit.
+
+## Parameters
+
+### `Chain`
+
+The chain that will have this gas price enabled.
+
+### `Oracle uri`
+
+The URI of the oracle that will provide the gas price.
+
+### `Oracle parameter`
+
+The parameter that will be used to fetch the gas price from the oracle.
+
+### `Gwei multiplier factor`
+
+The factor that will be used to multiply the fetched gas price. This is useful when the oracle returns the gas price in a different unit than Gwei.
+
+### `Fixed gas price (wei)`
+
+A fixed gas price that will be used instead of fetching it from the oracle. This is useful when the oracle is not available.
+
+### `Rank`
+
+The relative importance of this gas price to your project. You can use this value between 0 and 100 to sort gas prices by priority.
+
+### `Max fee per gas (wei)`
+
+The `maxFeePerGas` that will be used to calculate the gas price. This is useful when the oracle returns a gas price that is too high.
+
+### `Max priority fee per gas (wei)`
+
+The `maxPriorityFeePerGas` that will be used to calculate the gas price. This is useful when the oracle returns a gas price that is too high.

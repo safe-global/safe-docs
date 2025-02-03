@@ -1,0 +1,27 @@
+# Add user
+
+Add a new Django user. Users are generally admins from your organization that will have partial or total access to the Config Service.
+
+After creation, you can access more options to [edit this user](./edit-user.mdx). 
+
+## Usage
+
+You can edit an existing user by visiting this address: `http://localhost:8000/cfg/admin/auth/user/{user index}/change/`, where `{user index}` is the index of the user you want to edit.
+
+## Parameters
+
+### `Username`
+
+A user name for identifying this user. Must be unique.
+
+### `Password-based authentication`
+
+This section is used to set whether the user will use Django's [built-in authentication system](https://docs.djangoproject.com/en/5.1/topics/auth/) (`Enabled`), or will use an external authentication system (`Disabled`). If you enable this option, you will need to set a password for the user. If you disable this option, you will have to implement [your own authentication method](https://docs.djangoproject.com/en/5.1/topics/auth/customizing/).
+
+### `Password`
+
+Opens a section to set a password for the user. 
+
+### `Confirm password`
+
+A confirmation field for the password.
