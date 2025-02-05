@@ -73,7 +73,7 @@ yarn add @safe-global/relay-kit
       const safe4337Pack = await Safe4337Pack.init({
         provider: RPC_URL,
         signer: SIGNER_PRIVATE_KEY,
-        bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+        bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`,
         options: {
           owners: [SIGNER_ADDRESS],
           threshold: 1
@@ -92,7 +92,7 @@ yarn add @safe-global/relay-kit
       const safe4337Pack = await Safe4337Pack.init({
         provider: RPC_URL,
         signer: SIGNER_PRIVATE_KEY,
-        bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+        bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`,
         options: {
           safeAddress: '0x...'
         },
@@ -138,7 +138,7 @@ yarn add @safe-global/relay-kit
         // ...
         paymasterOptions: {
           isSponsored: true,
-          paymasterUrl: `https://api.pimlico.io/v2/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+          paymasterUrl: `https://api.pimlico.io/v2/sepolia/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`,
           paymasterAddress: '0x...',
           paymasterTokenAddress: '0x...',
           sponsorshipPolicyId // Optional value to set the sponsorship policy id from Pimlico
