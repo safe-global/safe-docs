@@ -63,7 +63,7 @@ Replace the content of `app/globals.css` with the following:
 
 ```css
 :root {
-    background-color: #121312;
+    background-color: #121312; 
     font-family: Citerne, 'DM Sans', sans-serif;
     font-size: 14px;
     line-height: 1.4;
@@ -444,11 +444,11 @@ export default function Home () {
 
 Add your Pimlico API key to the `pimlicoUrl` variable. You can find your API key in the Pimlico dashboard.
 
-You can now run the development server with `pnpm dev` and open the app in your browser at `http://localhost:3000`. You should see a card that asks you to connect two wallets. Connect two wallets to proceed with the tutorial.
+You can now run the development server with `pnpm dev` and open the app in your browser at `http://localhost:3000`. You should see a card that asks you to connect two wallets. Connect two wallets to proceed with the tutorial. 
 
 ## 3. Initialize the clients
 
-In the first step, you create the clients that allow you to interact with the smart account. As permissionless.js is just a tiny wrapper around viem, you will use many of viem's functions in this tutorial.
+In the first step, you create the clients that allow you to interact with the smart account. As permissionless.js is just a tiny wrapper around viem, you will use many of viem's functions in this tutorial. 
 
 To add this code, overwrite the `init` function with this one:
 
@@ -547,7 +547,7 @@ When you open the UI now and click the “Install Module” button, the console 
 
 ## 5. Send a transaction via the 7579 module
 
-In the following function, you will use the `OwnableExecutor` module. The module allows owners to execute transactions from the smart account without collecting signatures. For this example, you will send a dummy transaction that sends zero eth to owner1.
+In the following function, you will use the `OwnableExecutor` module. The module allows owners to execute transactions from the smart account without collecting signatures. For this example, you will send a dummy transaction that sends zero eth to owner1. 
 
 In detail:
 
@@ -687,7 +687,7 @@ const uninstallModule = async () => {
 }
 ```
 
-In the last step of the UI, you can now click the “Uninstall Module” button to remove the module from the smart account. Notice that depending on the type of the 7579 module, the method required different `deInitData`.
+In the last step of the UI, you can now click the “Uninstall Module” button to remove the module from the smart account. Notice that depending on the type of the 7579 module, the method required different `deInitData`. 
 
 Also, you have to pass the correct previous entry address to the `uninstallModule` function. If you have only one module installed, the previous entry is the [sentinel address](https://github.com/rhinestonewtf/sentinellist/blob/main/src/SentinelList.sol#L5) `0x1`.
 
