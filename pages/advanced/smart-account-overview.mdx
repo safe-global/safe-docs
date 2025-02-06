@@ -49,7 +49,7 @@ You can add **Safe Modules** to your Safe which facilitates more fine-grained ac
 
 Many new tokens require wallet contracts to implement callbacks. Token standards like **ERC-721** and **ERC-1155** allow contracts to immediately react to receiving tokens through these and make it even possible to reject the transfer altogether.
 
-#### Ether-less accounts
+#### Sponsored transactions
 
 Another core functionality of the Safe is **token payment**. Generally, Ethereum transactions require ETH for paying transaction fees ("gas"). With the Safe, users can pay transaction fees in a number of supported ERC20 tokens. This is realized via a transaction relay service that accepts those tokens and submits the transactions to the blockchain, therefore paying the gas fee in ETH. With the same functionality, Ether-less transactions can be implemented, where a 3rd party pays transaction fees on behalf of a Safe via the same relay service.
 
@@ -85,7 +85,7 @@ One core feature of a Safe account is to be operated by multiple accounts known 
 
 ##### Module Management
 
-Modules add additional functionalities to the Safe accounts. They are smart contracts which implement the Safe's functionality, while separating module logic from the Safe's core contract. Depending on the use case, modules could for instance allow the execution of transactions without requiring all confirmation. A basic Safe does not require any modules. Adding and removing a module requires confirmation from all owners. Modules are very security-critical, so they need to be as secure as all other Safe contracts. Events are emitted whenever a module is added or removed and also whenever a module transaction was successful or failed.
+Modules add additional functionalities to the Safe accounts. They are smart contracts which implement the Safe's functionality, while separating module logic from the Safe's core contract. Depending on the use case, modules could for instance allow the execution of transactions without requiring all confirmation. A basic Safe does not require any modules. Adding and removing a module requires confirmation from the required threshold of owners. Modules are very security-critical, so they need to be as secure as all other Safe contracts.
 
 Some of the modules that are available are:
 - [Allowance Module](https://github.com/safe-global/safe-modules/tree/main/modules/4337)
