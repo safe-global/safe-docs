@@ -134,8 +134,11 @@ A Safe Proxy is a contract that delegates all calls to the Safe Singleton. By de
 
 #### Owners
 
-Each Safe account maintains it own list of owners in the storage in the form of Ethereum addresses. Owners can be added or removed by other owners. Along with list of owners, a Safe account also maintains a **threshold** which is the minimum number of owners required to confirm a transaction before it gets executed.
-The threshold of owners required to confirm a transaction is also stored in the Safe storage. Owners of a Safe account can change the threshold value as well. A Safe account can have any number of owners and the threshold value can be set to any value between one and the total number of owners.
+Each Safe account maintains it own list of owners in the storage in the form of Ethereum addresses. Owners can be added or removed by other owners.
+
+#### Threshold
+
+Safe Smart Account maintains a **threshold** which is the minimum number of owners required to confirm a transaction before it gets executed. The threshold of owners required to confirm a transaction is also stored in the Safe storage. Owners of a Safe account can change the threshold value as well. A Safe account can have any number of owners and the threshold value can be set to any value between one and the total number of owners.
 
 #### Signature verification
 
