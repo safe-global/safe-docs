@@ -23,32 +23,13 @@ The vision for Safe Smart Accounts is to become the standard core used in all sm
 
 The architectural design of Safe Smart Account keeps the following principles in mind.
 
-<Grid
-  container
-  spacing={2}
-  display='flex'
-  alignContent='flex-start'
-  mt={3}
->
-  <Grid item xs={12} md={6}>
-    <CustomCard
-      title={'Secure default'}
-      description={'Uses a multi-signature logic where a threshold of owners must confirm a transaction before execution to provide a secure default without trusting any additional contract. For example, a module, guard, or fallback handler (explained below).'}
-      url={''}
-      icon={<SafeCoreSDK />}
-      newTab={false}
-    />
-  </Grid>
-  <Grid item xs={12} md={6}>
-    <CustomCard
-      title={'Maximum flexibility'}
-      description={'Supports modules that execute transactions using alternative access patterns (instead of multi-signature). Also supports the delegatecall function, which introduces complex execution logic by loading instructions from other contracts and executing via a Safe Smart Account.'}
-      url={''}
-      icon={<SafeSmartAccount />}
-      newTab={false}
-      />
-  </Grid>
-</Grid>
+- **Secure default**
+
+  Uses a multi-signature logic where a threshold of owners must confirm a transaction before execution to provide a secure default without trusting any additional contract. For example, a module, guard, or fallback handler (explained below).
+
+- **Maximum flexibility**
+
+  Supports modules that execute transactions using alternative access patterns (instead of multi-signature). Also supports the delegatecall function, which introduces complex execution logic by loading instructions from other contracts and executing via a Safe Smart Account.
 
 ### Features
 
