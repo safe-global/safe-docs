@@ -11,9 +11,8 @@ EOAs for short are Ethereum accounts that use traditional key pairs. That is, th
 
 The other type of Ethereum accounts are smart contract accounts. Like EOAs, smart contract accounts each have a unique public Ethereum address, and it is impossible to tell them apart from EOAs by looking at an Ethereum address. Smart contract accounts too can receive funds and make transactions like EOAs. Generally, the key difference is that no single private key is used to verify transactions. Instead, the logic behind how the account completes transactions is defined in the smart contract code. Smart contracts are programs that run on the Ethereum blockchain and execute when specific conditions are met. Their functionality within contract accounts means that such accounts, in contrast to EOAs, can, for example, implement access rights that specify by whom, how, and under which conditions transactions can be executed, as well as more complex logic.
 
-# EOAs vs. Contract Accounts
+# Difference between EOAs and Contract Accounts
 
-What is the difference between the two different types of accounts on Ethereum: externally owned accounts (EOAs) and contract accounts?
 
 ![Ethereum Accounts](../../assets/safe-smart-contract-accounts.png)
 
@@ -55,7 +54,7 @@ The architectural design of Safe Smart Account keeps the following principles in
 
 #### High Security
 
-Safe's **multi-signature** functionality allows you to define a list of owner accounts and a threshold number of accounts required to confirm a transaction. Once the threshold of owner accounts have confirmed a transaction, the Safe transaction can be executed. Owners can either be EOAs, other smart contract accounts or even a Passkey.
+Safe's **multi-signature** functionality allows you to define a list of owner accounts and a threshold number of accounts required to confirm a transaction. Once the threshold of owner accounts have confirmed a transaction, the Safe transaction can be executed. Owners can either be EOAs, other smart contract accounts or even a passkey.
 
 #### Advanced execution logic
 
@@ -67,7 +66,7 @@ You can add **Safe Modules** to your Safe which facilitates more fine-grained ac
 
 #### Token callback support
 
-Many new tokens require wallet contracts to implement callbacks. Token standards like **ERC721** and **ERC1155** allow contracts to immediately react to receiving tokens through these and make it even possible to reject the transfer altogether.
+Many new tokens require wallet contracts to implement callbacks. Token standards like **ERC-721** and **ERC-1155** allow contracts to immediately react to receiving tokens through these and make it even possible to reject the transfer altogether.
 
 #### Ether-less accounts
 
@@ -136,7 +135,7 @@ A Safe Proxy is a contract that delegates all calls to the Safe Singleton. By de
 #### Owners
 
 Each Safe account maintains it own list of owners in the storage in the form of Ethereum addresses. Owners can be added or removed by other owners. Along with list of owners, a Safe account also maintains a **threshold** which is the minimum number of owners required to confirm a transaction before it gets executed.
-The threshold of owners required to confirm a transaction is also stored in the Safe storage. Owners of a Safe account can change the threshold value as well. A Safe account can have any number of owners and the threshold value can be set to any value between 1 and the total number of owners.
+The threshold of owners required to confirm a transaction is also stored in the Safe storage. Owners of a Safe account can change the threshold value as well. A Safe account can have any number of owners and the threshold value can be set to any value between one and the total number of owners.
 
 #### Signature verification
 
