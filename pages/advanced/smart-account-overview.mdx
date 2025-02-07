@@ -130,24 +130,24 @@ Transactions through a Safe account can be primarily divided into two types:
 
 ##### Safe Transaction
 
-Safe Smart Account contract provides `execTransaction` function to submit and execute a Safe transaction which is signed by the owners of the Safe account.
+Safe Smart Account contract provides `execTransaction` function to submit and execute a Safe transaction which is signed by the owners of the Safe Smart Account.
 
-To execute a transaction with the Safe, the `execTransaction` method needs to be called with the following parameters:
+To execute a transaction with the Safe Smart Account, the `execTransaction` method needs to be called with the following parameters:
 
 - `to`: The recipient address of the transaction.
 - `value`: The amount of Ether (in wei) to send with the transaction.
 - `data`: The data payload of the transaction, typically used to call a function on the recipient contract.
-- `operation`: The Safe supports `CALL` and `DELEGATECALL.`
+- `operation`: Safe Smart Account supports `CALL` and `DELEGATECALL.`
 - `safeTxGas`: Gas that should be used for the Safe transaction.
 - `baseGas`: This is the amount of gas independent of the specific Safe transactions, but used for general things such as signature checks and the base transaction fee. `SafeTxGas` and `baseGas` combined are comparable to the gas limit of a regular transaction.
 - `gasPrice`: Same like for a regular Ethereum transaction. Setting the gas price to 0 means that no refund is paid out.
-- `gasToken`: For regular Ethereum transactions, gas is always paid in Ether. A Safe enables users to pay in ERC20 tokens or Ether. The desired token is specified here. If `0x0`, then Ether is used. Gas costs are calculated by `(baseGas + txGas) * gasPrice`.
+- `gasToken`: For regular Ethereum transactions, gas is always paid in Ether. A Safe Smart Account enables users to pay in ERC20 tokens or Ether. The desired token is specified here. If `0x0`, then Ether is used. Gas costs are calculated by `(baseGas + txGas) * gasPrice`.
 - `refundReceiver`: The refund does not necessarily have to go to the account submitting the transaction but can be paid out to any account specified here. If set to `0`, `tx.origin` will be used.
-- `signatures`: All parameters are used to generate a transaction hash and signed by the owners of the Safe. A list of hex encoded signatures is expected (`execTransaction` expects that the signatures are sorted by owner address. This is required to easily validate no confirmation duplicates exist).
+- `signatures`: All parameters are used to generate a transaction hash and signed by the owners of the Safe Smart Account. A list of hex encoded signatures is expected (`execTransaction` expects that the signatures are sorted by owner address. This is required to easily validate no confirmation duplicates exist).
 
 ##### Module Transaction
 
-Safe Smart Account contract provides `execTransactionFromModule` and `execTransactionFromModuleReturnData` functions to accept transactions from modules. A module can be any Ethereum address and can bypass signature verification logic to execute transactions through a Safe account.
+Safe Smart Account contract provides `execTransactionFromModule` and `execTransactionFromModuleReturnData` functions to accept transactions from modules. A module can be any Ethereum address and can bypass signature verification logic to execute transactions through a Safe Smart Account.
 
 - `to`: The recipient address of the transaction.
 - `value`: The amount of Ether (in wei) to send with the transaction.
@@ -170,4 +170,4 @@ More information is available in the [Safe Guards](smart-account-guards.mdx) pag
 
 #### Signatures
 
-Safe contracts support alternative signature schemes such as [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) and [EIP-712](https://eips.ethereum.org/EIPS/eip-712) and relaying by making the confirmation/verification logic independent of `msg.sender`. Read more about the [signature schemes](https://github.com/safe-global/safe-smart-account/blob/main/docs/signatures.md) supported by Safe.
+Safe Smart Account support alternative signature schemes such as [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) and [EIP-712](https://eips.ethereum.org/EIPS/eip-712) and relaying by making the confirmation/verification logic independent of `msg.sender`. Read more about the [signature schemes](https://github.com/safe-global/safe-smart-account/blob/main/docs/signatures.md) supported by Safe.
