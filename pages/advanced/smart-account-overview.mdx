@@ -69,9 +69,11 @@ The Safe proxy factory contract provides a simple way to create a new proxy cont
 This is a singleton contract deployed only once and used by Safe Proxy to delegate calls. It is the main contract that holds the logic for signature verification, executing transactions, managing owners, modules, and the fallback handler.
 As a singleton contract, it cannot be used directly as a Safe account but only through a Safe Proxy contract.
 
-The two types of Safe contracts are:
+The two types of Safe Smart Accounts are:
 - Safe
 - SafeL2: The version emits additional events and is to be used for L2 chains that don't support tracing.
+
+_Hint: For legacy reasons they are referred as Safe._
 
 A Safe contract itself is composed of different contracts. The diagram below shows the main components of a Safe contract.
 
