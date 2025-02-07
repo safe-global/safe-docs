@@ -121,7 +121,7 @@ Safe Smart Account maintains a [threshold](/home/glossary#threshold), the minimu
 
 #### Signature verification
 
-Safe account, being a contract account, does not have a private key to sign transactions, and EVM cannot verify incoming transactions to a contract account. Hence, a contract account has to do the authentication and authorization in its code. When a transaction is submitted to a Safe account, it is first verified by the Safe account to ensure that the transaction is valid. If the required number of owners has signed the transaction, the transaction is allowed to be executed. If the required number of owners has not signed the transaction, the transaction reverts to the signature validation step.
+A Safe Smart Account, being a contract account, does not have a private key to sign transactions, and the EVM cannot verify incoming transactions to a contract account. Hence, a contract account has to do the authentication and authorization in its code. When a transaction is submitted to a Safe account, it is first verified by the Safe Smart Account to ensure it is valid. If the required number of owners has signed the transaction, the transaction is allowed to be executed. If the required number of owners has not signed the transaction, the transaction reverts to the signature validation step.
 A Safe account verifies if each signer is an owner of the Safe account and verifies the signature based on the signature type. To learn more about the signature types supported by Safe and encoding, refer to the [Signatures](/smart-account-signatures) page.
 
 #### Transaction flow
