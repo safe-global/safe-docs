@@ -8,7 +8,7 @@ import SafeSmartAccount from '../../assets/svg/ic-smart-account.svg'
 
 ## Smart Accounts
 
-The other type of Ethereum account is a [smart contract account](/home/glossary#smart-account). Like EOAs, smart contract accounts each have a unique public Ethereum address, and it is impossible to tell them apart from EOAs by looking at an Ethereum address. Smart contract accounts, too, can receive funds and make transactions like EOAs but cannot initiate them. Generally, the key difference is that no single private key is used to verify transactions. Instead, the smart contract code defines the logic behind how the account completes transactions. Smart contracts are programs that run on the Ethereum blockchain and execute when specific conditions are met. Their functionality within contract accounts means that such accounts, in contrast to EOAs, can, for example, implement access rights that specify by whom, how, and under which conditions transactions can be executed, as well as more complex logic.
+The other type of Ethereum account is a [Smart Account](/home/glossary#smart-account), also sometimes called Smart Contract Account. Like EOAs, smart contract accounts each have a unique public Ethereum address, and it is impossible to tell them apart from EOAs by looking at an Ethereum address. Smart contract accounts, too, can receive funds and make transactions like EOAs but cannot initiate them. Generally, the key difference is that no single private key is used to verify transactions. Instead, the smart contract code defines the logic behind how the account completes transactions. Smart contracts are programs that run on the Ethereum blockchain and execute when specific conditions are met. Their functionality within contract accounts means that such accounts, in contrast to EOAs, can, for example, implement access rights that specify by whom, how, and under which conditions transactions can be executed, as well as more complex logic.
 
 # Difference between EOAs and Contract Accounts
 
@@ -16,7 +16,7 @@ The other type of Ethereum account is a [smart contract account](/home/glossary#
 
 ## Safe Smart Account
 
-Safe Smart Account, also called Smart Contract Account, is a Smart Account with multi-signature functionality at its core. It is secure and flexible, and it can be used to manage funds and execute transactions on the Ethereum blockchain.
+Safe Smart Account is a Smart Account with multi-signature functionality at its core. It is secure and flexible, and it can be used to manage funds and execute transactions on the Ethereum blockchain.
 The vision for Safe Smart Accounts is to become the standard core used in all smart contract-based wallets. It also aims to make the benefits of Account Abstraction accessible to users and developers.
 
 The architectural design of Safe Smart Account keeps the following principles in mind.
@@ -121,7 +121,7 @@ Safe Smart Account maintains a [threshold](/home/glossary#threshold), the minimu
 
 #### Signature verification
 
-A Safe Smart Account, being a contract account, does not have a private key to sign transactions, and the EVM cannot verify incoming transactions to a contract account. Hence, a contract account has to do the authentication and authorization in its code. When a transaction is submitted to a Safe account, it is first verified by the Safe Smart Account to ensure it is valid. If the required number of owners has signed the transaction, the transaction is allowed to be executed. If the required number of owners has not signed the transaction, the transaction reverts to the signature validation step.
+Safe account, being a contract account, does not have a private key to sign transactions, and EVM cannot verify incoming transactions to a contract account. Hence, a contract account has to do the authentication and authorization in its code. When a transaction is submitted to a Safe account, it is first verified by the Safe account to ensure that the transaction is valid. If the required number of owners has signed the transaction, the transaction is allowed to be executed. If the required number of owners has not signed the transaction, the transaction reverts to the signature validation step.
 A Safe account verifies if each signer is an owner of the Safe account and verifies the signature based on the signature type. To learn more about the signature types supported by Safe and encoding, refer to the [Signatures](/smart-account-signatures) page.
 
 #### Transaction flow
