@@ -28,9 +28,11 @@ const RPC_URL = 'https://rpc.ankr.com/eth_sepolia'
 const safeClient = await Safe.init({
   provider: RPC_URL,
   signer: SIGNER_PRIVATE_KEY,
-  safeOptions: {
-    owners: [SIGNER_ADDRESS],
-    threshold: 1
+  predictedSafe: {
+    safeAccountConfig: {
+      owners: [SIGNER_ADDRESS],
+      threshold: 1
+    }
   }
 })
 ```
