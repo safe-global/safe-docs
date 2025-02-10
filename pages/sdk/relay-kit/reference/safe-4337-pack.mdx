@@ -145,6 +145,7 @@ Safe4337CreateTransactionProps = {
     validUntil?: number
     validAfter?: number
     feeEstimator?: IFeeEstimator
+    customNonce?: bigint
   }
 }
 ```
@@ -155,6 +156,7 @@ Safe4337CreateTransactionProps = {
   - **`validUntil`** : The UserOperation will remain valid until this block's timestamp.
   - **`validAfter`** : The UserOperation will be valid after this block's timestamp.
   - **`feeEstimator`** : The fee estimator calculates gas requirements by implementing the `IFeeEstimator` interface.
+  - **`customNonce`** : The custom nonce for the SafeOperation. If not provided, the nonce will be calculated internally using the `getNonce` method from the Entrypoint contract.
 
 **Returns**
 A promise that resolves to the `SafeOperation`.
@@ -166,6 +168,7 @@ A promise that resolves to the `SafeOperation`.
 - We use a similar API to `protocol-kit` for developers transitioning to `Safe4337Pack`. This API helps with creating and executing transactions, bundling user operations and sending them to the bundler.
 - Use `validUntil` and `validAfter` to set the block timestamp range for the user operation's validity. The operation will be rejected if the block timestamp falls outside this range.
 - The `feeEstimator` calculates gas needs for the UserOperation. We default to Pimlico's `feeEstimator`, but you can use a different one by providing your own. The IFeeEstimator interface requires an object with specific methods.
+- The User operations support the usage of a [custom nonce](https://docs.stackup.sh/docs/useroperation-nonce). You can use them by leveraging the `createTransaction` method and passing a `customNonce` in the options parameter. We exported an utility method `encodeNonce` in the `relay-kit` to make it easier to compose the nonce.
 
 ```typescript
 IFeeEstimator {
