@@ -36,9 +36,8 @@ If the Safe account is not deployed, it will be deployed when this method is cal
       validUntil: Number(timestamp + 60_000n), // Optional
       amountToApprove: 123n, // Optional
       feeEstimator: {
-        setupEstimation, // Optional
-        adjustEstimation, // Optional
-        getPaymasterEstimation // Optional
+        preEstimateUserOperationGas, // Optional
+        postEstimateUserOperationGas, // Optional
       }
     })
     ```
@@ -189,7 +188,7 @@ const safeOperationResult = await safeOperationsClient.sendSafeOperation({
 })
 ```
 
-### `feeEstimator.setupEstimation` (Optional)
+### `feeEstimator.preEstimateUserOperationGas` (Optional)
 
 - **Type:** `EstimateFeeFunction`
 
@@ -199,12 +198,12 @@ Function called before `eth_estimateUserOperationGas`.
 const safeOperationResult = await safeOperationsClient.sendSafeOperation({
   transactions,
   feeEstimator: {
-    setupEstimation
+    preEstimateUserOperationGas
   }
 })
 ```
 
-### `feeEstimator.adjustEstimation` (Optional)
+### `feeEstimator.postEstimateUserOperationGas` (Optional)
 
 - **Type:** `EstimateFeeFunction`
 
@@ -214,22 +213,7 @@ Function called after `eth_estimateUserOperationGas`.
 const safeOperationResult = await safeOperationsClient.sendSafeOperation({
   transactions,
   feeEstimator: {
-    adjustEstimation
-  }
-})
-```
-
-### `feeEstimator.getPaymasterEstimation` (Optional)
-
-- **Type:** `EstimateSponsoredFeeFunction`
-
-Function called if the Safe operation is sponsored to adjust the `paymasterAndData` property.
-
-```typescript focus=4
-const safeOperationResult = await safeOperationsClient.sendSafeOperation({
-  transactions,
-  feeEstimator: {
-    getPaymasterEstimation
+    postEstimateUserOperationGas
   }
 })
 ```

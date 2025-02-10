@@ -169,9 +169,8 @@ A promise that resolves to the `SafeOperation`.
 
 ```typescript
 IFeeEstimator {
-  setupEstimation?: EstimateFeeFunction
-  adjustEstimation?: EstimateFeeFunction
-  getPaymasterEstimation?: EstimateSponsoredFeeFunction
+  preEstimateUserOperationGas?: EstimateFeeFunction
+  postEstimateUserOperationGas?: EstimateFeeFunction  
 }
 
  EstimateFeeFunctionProps = {
@@ -190,9 +189,8 @@ EstimateSponsoredFeeFunctionProps = {
 
 All methods are optional and will be called in the specified order if you provide any of them:
 
-1. `setupEstimation` : This method, called before using the bundler `eth_estimateUserOperationGas` in the pack code, allows you to adjust the user operation before the bundler estimates it, as each provider has its own recommendations.
-2. `adjustEstimation` : This method is used after calling `eth_estimateUserOperationGas` in the pack code to adjust the bundler estimation.
-3. `getPaymasterEstimation` : After using the bundler `eth_estimateUserOperationGas` from the package code, this method is used if the user operation is sponsored. It helps adjust the bundler's estimation when a paymaster sponsors the transaction that use to involve some specific fee estimations.
+1. `preEstimateUserOperationGas` : This method, called before using the bundler `eth_estimateUserOperationGas` in the pack code, allows you to adjust the user operation before the bundler estimates it.
+2. `postEstimateUserOperationGas` : This method is used after calling `eth_estimateUserOperationGas` in the pack code to adjust the bundler estimation.
 
 ### `signSafeOperation(safeOperation, signingMethod)`
 
