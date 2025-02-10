@@ -1,4 +1,4 @@
-import { Tabs } from 'nextra/components'
+import { Callout } from 'nextra/components'
 
 # Create an AI agent that can interact with your Safe
 
@@ -70,23 +70,35 @@ In this tutorial, we will use the [Mistral.ai](https://mistral.ai) model `mistra
 ollama pull mistral-nemo
 ```
 
+If you want to play around with the model before going further, type the following to your terminal to engage a conversation:
+
+```bash
+ollama run mistral-nemo
+```
+
+<Callout type="info" emoji="💡">
+  Note that the `ollama` desktop app must be running in the background for the agent to work.
+</Callout>
+
+Use `/bye` to exit the chat.
+
 ## 3. Create the agent
 
-Now that we are all set, we can write the logic of our agent. Create a new file called `agent.ts` in the root of your project and add the following code:
+Now that we are all set, we can write the logic of our agent. Create a new file called `agent.ts` at the root of your project and add the following code:
 
 ```typescript
 // from ../../examples/ai-agent/agent.ts
 ```
 
-This file will load the model, create a [LangGraph agent](https://langchain-ai.github.io/langgraphjs/concepts/agentic_concepts/#reflection), and attach any tools we may need to interact with a Safe.
+This file will load the model, create a [LangGraph agent](https://langchain-ai.github.io/langgraphjs/concepts/agentic_concepts/), and attach any tools we may need to interact with a Safe.
 
 It will also send the first messages to our agent to test that it works correctly.
 
 ## 4. Add the tools
 
-As mentioned above, the agent will load [tools](https://js.langchain.com/docs/integrations/tools/), that will enable it to gain much more precision compared to the non-deterministic raw output they could produce. Since we want our agent to be able to manage funds, we cannot afford to rely on luck to generate transaction data. 
+As mentioned above, the agent will load [tools](https://js.langchain.com/docs/integrations/tools/), which will enable it to gain much more precision compared to the non-deterministic raw output they normally produce. We want our agent to be able to manage funds, and we cannot afford to rely on luck to generate transaction data. 
 
-To give reliability to your agent, you can pre-define widget of code that it will be able to invoke. In this case, we will use [CoinGecko API](https://coingecko.com) to fetch latest ETH prices. Create a new folder `tools` with the file `prices.ts` in it:
+To give reliability to your agent, you can pre-define widgets of code that it will be able to invoke. In this case, we will use [CoinGecko API](https://coingecko.com) to fetch latest ETH prices. Create a new folder `tools` with the file `prices.ts` in it:
 
 ```bash
 mkdir tools
@@ -137,6 +149,8 @@ Un-comment the lines 57 to 69 to add a second prompt, which will deploy a Safe w
 
 ![Agent running](../../assets/ai-agent-setup.png)
 
+You can run the script multiple times; the agent will slightly adapt or rephrase its answers, but should always return similar results. If it does not, you can try to run larger models, and adjust the wording of the prompts and tool descriptions, as they will greatly influence the agent's behaviour.
+
 ## Debugging your agent
 
 It is highly recommended to add a LangSmith configuration to your agent. This will allow you to debug your agent in real-time, and to see the output of your agent in a more readable format.
@@ -147,15 +161,13 @@ You can think of it as Tenderly for AI agents, where you can visualize the whole
 
 Congrats! In just a few lines of code, we learned how to run an agent locally, and equip it with specialized tools tailored to our needs. We can now deploy Safes, check their balance, and interact with them in a more efficient way using the power of modern LLMs.
 
-Running local agents are ideal for rapid iteration and development. Many tries can be necessary to adjust the prompt and the system instructions so that your agent can work more reliably. Once the agent is ready, you can deploy it to production and let it run autonomously with bigger models, harnessing the full extent of customization and automation possible with this new computing platform.
+Running local agents is ideal for rapid iteration and development. Many tries can be necessary to adjust the prompt and the system instructions so that your agent can work more reliably. Once the agent is ready, you can [deploy it to production](https://langchain-ai.github.io/langgraphjs/tutorials/deployment/#deployment-options) and let it run autonomously with bigger models, harnessing the full power of this new computing paradigm.
 
-To go further, see the resources below:
-- [LangGraph Quickstart guide](https://langchain-ai.github.io/langgraphjs/tutorials/quickstart/), from which this page is inspired;
+To go further, you can take a look at the resources below:
+- The [LangGraph Quickstart guide](https://langchain-ai.github.io/langgraphjs/tutorials/quickstart/), from which this page is inspired;
 - Adding [breakpoints](https://langchain-ai.github.io/langgraphjs/how-tos/breakpoints/) to build [Human-in-the-loop AI actions](https://docs.safe.global/home/ai-agent-quickstarts/human-approval);
-- LangChain [JS tutorials](https://js.langchain.com/docs/tutorials/);
-- LangChain [Python tutorials](https://python.langchain.com/tutorials/);
-- Build [multiple agents systems](https://langchain-ai.github.io/langgraphjs/tutorials/multi_agent/multi_agent_collaboration/);
+- LangChain [JS](https://js.langchain.com/docs/tutorials/) or [Python tutorials](https://python.langchain.com/tutorials/);
+- Building [multiple agents systems](https://langchain-ai.github.io/langgraphjs/tutorials/multi_agent/multi_agent_collaboration/);
 - The list of prebuilt [LangChain tools](https://js.langchain.com/docs/integrations/tools/)
-- [Deploy your agent to production](https://langchain-ai.github.io/langgraphjs/tutorials/deployment/#deployment-options)
 
 Did you encounter any difficulties? Let us know by opening [an issue](https://github.com/5afe/safe-ai-agent-tutorial/issues/new) or asking a question on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the `safe-core` tag.
