@@ -57,7 +57,20 @@ const repos = [
       '/app.json',
       '/.env-sample'
     ]
-  }
+  },
+  {
+    organization: '5afe',
+    repo: 'safe-ai-agent-tutorial',
+    destination: './examples/ai-agent',
+    branch: 'main',
+    files: [
+      '/agent.ts',
+      '/tools/safe.ts',
+      '/tools/prices.ts',
+      '/tools/math.ts',
+      '/.env.example'
+    ]
+  },
   // {
   //   organization: '5afe',
   //   repo: 'safe-7579-tutorial',
