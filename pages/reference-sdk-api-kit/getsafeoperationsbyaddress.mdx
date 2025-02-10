@@ -16,7 +16,9 @@ Returns the list of Safe operations associated to a Safe account.
 
     const config: GetSafeOperationListProps = {
       safeAddress: '0x...',
-      ordering: 'created', // Optional
+      executed: false, // Optional,
+      hasConfirmations: true, // Optional,
+      ordering: 'created', // Optional      
       limit: '10', // Optional
       offset: '50' // Optional
     }
@@ -55,6 +57,44 @@ The Safe address.
 const safeOperationsResponse = await apiKit.getSafeOperationsByAddress({
   safeAddress: '0x...'
 })
+```
+
+### `config.executed` (Optional)
+
+- **Type:** `boolean`
+
+When `true` it will return the Safe operations whose associated User Operation was already executed in the bundler.
+When `false` it will return the Safe operations that are pending to execute.
+
+If omitted, it will return all the Safe operations.
+
+```typescript focus=4
+const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
+  {
+    safeAddress: '0x...',
+    executed: true,
+    ordering: 'created'
+  }
+)
+```
+
+### `config.hasConfirmations` (Optional)
+
+- **Type:** `string`
+
+When `true` it will return the Safe operations that have confirmations from any owner.
+When `false` it will return the Safe operations that don't have confirmations.
+
+If omitted, it will return all the Safe operations.
+
+```typescript focus=4
+const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
+  {
+    safeAddress: '0x...',
+    hasConfirmations: true,
+    ordering: 'created'
+  }
+)
 ```
 
 ### `config.ordering` (Optional)
