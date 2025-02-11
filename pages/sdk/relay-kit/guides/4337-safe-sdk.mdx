@@ -2,10 +2,6 @@ import { Tabs, Steps, Callout } from 'nextra/components'
 
 # Safe accounts with the Safe4337Module
 
-<Callout type="warning">
-  **EntryPoint compatibility:**  The Relay Kit only supports the ERC-4337 EntryPoint v0.6. v0.7 is not supported yet.
-</Callout>
-
 In this guide, you will learn how to create and execute multiple Safe transactions grouped in a batch from a Safe account that is not yet deployed and where the executor may or may not have funds to pay for the transaction fees. This can be achieved by supporting the [ERC-4337](../../../home/glossary.md#erc-4337) execution flow, which is supported by the [Safe4337Module](../../../advanced/erc-4337/guides/safe-sdk.mdx) and exposed via the Relay Kit from the Safe\{Core\} SDK.
 
 Read the [Safe4337Module documentation](../../../advanced/erc-4337/guides/safe-sdk.mdx) to understand its benefits and flows better.
@@ -69,11 +65,14 @@ yarn add @safe-global/relay-kit
 
       Optionally, you can [track your ERC-4337 Safe transactions on-chain](../../onchain-tracking.mdx) by using the `onchainAnalytics` property.
 
+      By default `Safe4337Pack` is using  version `0.3.0` of the Safe 4337 Module that is only compatible with Entrypoint v0.7. If you need to use v0.6 then add the `safeModulesVersion` property to the options object with the '0.2.0' value.
+
       ```typescript
       const safe4337Pack = await Safe4337Pack.init({
         provider: RPC_URL,
         signer: SIGNER_PRIVATE_KEY,
-        bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+        bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,        
+        // safeModulesVersion: '0.2.0', // Defaults to 0.3.0. If you are using the v0.6 of the EntryPoint set the value to '0.2.0'
         options: {
           owners: [SIGNER_ADDRESS],
           threshold: 1
@@ -121,6 +120,7 @@ yarn add @safe-global/relay-kit
       const safe4337Pack = await Safe4337Pack.init({
         // ...
         paymasterOptions: {
+          paymasterUrl: `https://api.pimlico.io/v2/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
           paymasterAddress: '0x...',
           paymasterTokenAddress: '0x...',
           amountToApprove // Optional
