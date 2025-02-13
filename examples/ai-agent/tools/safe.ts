@@ -1,6 +1,6 @@
 import { z } from "zod";
 import Safe from "@safe-global/protocol-kit";
-import { createPublicClient, http } from "viem";
+import { createPublicClient, formatEther, http } from "viem";
 import { sepolia } from "viem/chains";
 
 export const getEthBalance = async ({ address, chainId }) => {
@@ -25,11 +25,9 @@ export const getEthBalance = async ({ address, chainId }) => {
   const weiBalance = ethBalanceData.find(
     (element) => element?.tokenAddress === null && element?.token === null
   )?.balance;
-  const ethBalance = BigInt(weiBalance) / BigInt(10 ** 18); // Convert from wei to eth
+  const ethBalance = formatEther(weiBalance); // Convert from wei to eth
 
-  return `The current balance of the Safe Multisig at address ${address} is ${ethBalance.toLocaleString(
-    "en-US"
-  )} ETH.`;
+  return `The current balance of the Safe Multisig at address ${address} is ${ethBalance} ETH.`;
 };
 
 export const deployNewSafe = async () => {
