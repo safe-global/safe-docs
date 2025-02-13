@@ -166,7 +166,7 @@ pnpm install viem permissionless
     account: safeAccount,
     entryPoint: ENTRYPOINT_ADDRESS_V06,
     chain: chain,
-    bundlerTransport: http(`https://api.pimlico.io/v1/${chainName}/rpc?add_balance_override&apikey=${PILMICO_API_KEY}`),
+    bundlerTransport: http(`https://api.pimlico.io/v1/${chainName}/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`),
     middleware: {
       gasPrice: async () => (await bundlerClient.getUserOperationGasPrice()).fast,
       sponsorUserOperation: paymasterClient.sponsorUserOperation
