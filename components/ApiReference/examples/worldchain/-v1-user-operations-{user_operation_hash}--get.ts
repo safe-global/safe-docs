@@ -3,7 +3,7 @@ import { Safe4337Pack } from '@safe-global/relay-kit'
 const safe4337Pack = await Safe4337Pack.init({
   provider: 'https://eth-sepolia.public.blastapi.io',
   signer: '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',
-  bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`,
+  bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`,
   options: {
     safeAddress: '0x97566B1eCaCd321736F183117C26ACe1b72F4a1b'
   }

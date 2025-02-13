@@ -96,7 +96,7 @@ pnpm install viem permissionless
     transport: http(`https://rpc.ankr.com/${chainName}`)
   })
   ```
-  
+
   {/* <!-- vale on --> */}
 
   Secondly, we instantiate the `bundlerClient` using the Pimlico API `v1`, which is dedicated to the Bundler methods. This API requires a `PIMLICO_API_KEY` that we can get from their [dashboard](https://dashboard.pimlico.io/apikeys).
@@ -105,7 +105,7 @@ pnpm install viem permissionless
 
   ```typescript
   const bundlerClient = createPimlicoBundlerClient({
-    transport: http(`https://api.pimlico.io/v1/${chainName}/rpc?apikey=${PIMLICO_API_KEY}`),
+    transport: http(`https://api.pimlico.io/v1/${chainName}/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`),
     entryPoint: ENTRYPOINT_ADDRESS_V06
   })
   ```
@@ -118,7 +118,7 @@ pnpm install viem permissionless
 
   ```typescript
   const paymasterClient = createPimlicoPaymasterClient({
-    transport: http(`https://api.pimlico.io/v2/${chainName}/rpc?apikey=${PIMLICO_API_KEY}`),
+    transport: http(`https://api.pimlico.io/v2/${chainName}/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`),
     entryPoint: ENTRYPOINT_ADDRESS_V06
   })
   ```
@@ -166,7 +166,7 @@ pnpm install viem permissionless
     account: safeAccount,
     entryPoint: ENTRYPOINT_ADDRESS_V06,
     chain: chain,
-    bundlerTransport: http(`https://api.pimlico.io/v1/${chainName}/rpc?apikey=${PIMLICO_API_KEY}`),
+    bundlerTransport: http(`https://api.pimlico.io/v1/${chainName}/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`),
     middleware: {
       gasPrice: async () => (await bundlerClient.getUserOperationGasPrice()).fast,
       sponsorUserOperation: paymasterClient.sponsorUserOperation
