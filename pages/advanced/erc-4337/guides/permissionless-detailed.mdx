@@ -131,7 +131,7 @@ pnpm install viem permissionless
   {/* <!-- vale off --> */}
 
   ```typescript
-  const PIMLICO_API_V1 = `https://api.pimlico.io/v1/gnosis/rpc?add_balance_override&apikey=`
+  const PIMLICO_API_V1 = `https://api.pimlico.io/v1/gnosis/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`
 
   const bundlerClient = createClient({
     transport: http(PIMLICO_API_V1),
@@ -148,7 +148,7 @@ pnpm install viem permissionless
   {/* <!-- vale off --> */}
 
   ```typescript
-  const PIMLICO_API_V2 = `https://api.pimlico.io/v2/gnosis/rpc?add_balance_override&apikey=`
+  const PIMLICO_API_V2 = `https://api.pimlico.io/v2/gnosis/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`
 
   const pimlicoPaymasterClient = createClient({
     transport: http(PIMLICO_API_V2),

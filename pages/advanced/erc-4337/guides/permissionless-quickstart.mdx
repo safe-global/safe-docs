@@ -105,7 +105,7 @@ pnpm install viem permissionless
 
   ```typescript
   const bundlerClient = createPimlicoBundlerClient({
-    transport: http(`https://api.pimlico.io/v1/${chainName}/rpc?add_balance_override&apikey=`),
+    transport: http(`https://api.pimlico.io/v1/${chainName}/rpc?add_balance_override&apikey=${PIMLICO_API_KEY`),
     entryPoint: ENTRYPOINT_ADDRESS_V06
   })
   ```
@@ -118,7 +118,7 @@ pnpm install viem permissionless
 
   ```typescript
   const paymasterClient = createPimlicoPaymasterClient({
-    transport: http(`https://api.pimlico.io/v2/${chainName}/rpc?add_balance_override&apikey=`),
+    transport: http(`https://api.pimlico.io/v2/${chainName}/rpc?add_balance_override&apikey=${PIMLICO_API_KEY`),
     entryPoint: ENTRYPOINT_ADDRESS_V06
   })
   ```
