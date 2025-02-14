@@ -14,10 +14,15 @@ Returns the history of multi-signature transactions of a Safe account.
     import { apiKit } from './setup.ts'
 
     const safeAddress = '0x...'
+    const options = {
+      executed: true,
+      nonce: '0x...',
+      ordering: 'created',
+      limit: 10,
+      offset: 10
+    }
 
-    const multisigTxs = await apiKit.getMultisigTransactions(
-      safeAddress
-    )
+    const multisigTxs = await apiKit.getMultisigTransactions(safeAddress, options)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -52,3 +57,33 @@ const multisigTxs = await apiKit.getMultisigTransactions(
   '0x...'
 )
 ```
+
+### `options.executed` (Optional)
+
+- **Type:** `boolean`
+
+Filter the executed transactions if `true`.
+
+### `options.nonce` (Optional)
+
+- **Type:** `string`
+
+The nonce used to return the results.
+
+### `options.ordering` (Optional)
+
+- **Type:** `string`
+
+The field used to sort the results.
+
+### `options.limit` (Optional)
+
+- **Type:** `number`
+
+The number of results to return per page.
+
+### `options.offset` (Optional)
+
+- **Type:** `number`
+
+The initial index from which to return the results.

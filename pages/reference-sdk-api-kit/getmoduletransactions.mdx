@@ -14,10 +14,13 @@ Returns the history of module transactions of a Safe account.
     import { apiKit } from './setup.ts'
 
     const safeAddress = '0x...'
+    const options = {
+      module: '0x...',
+      limit: 10,
+      offset: 10
+    }
 
-    const moduleTxs = await apiKit.getModuleTransactions(
-      safeAddress
-    )
+    const moduleTxs = await apiKit.getModuleTransactions(safeAddress, options)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -52,3 +55,21 @@ const moduleTxs = await apiKit.getModuleTransactions(
   '0x...'
 )
 ```
+
+### `options.module` (Optional)
+
+- **Type:** `string`
+
+The module to get the transactions from.
+
+### `options.limit` (Optional)
+
+- **Type:** `number`
+
+The number of results to return per page.
+
+### `options.offset` (Optional)
+
+- **Type:** `number`
+
+The initial index from which to return the results.
