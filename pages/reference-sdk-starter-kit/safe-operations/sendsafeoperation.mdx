@@ -192,7 +192,7 @@ const safeOperationResult = await safeOperationsClient.sendSafeOperation({
 
 - **Type:** `EstimateFeeFunction`
 
-Function called before `eth_estimateUserOperationGas`.
+Function called before `eth_estimateUserOperationGas` to setup the User operation for gas estimation.
 
 ```typescript focus=4
 const safeOperationResult = await safeOperationsClient.sendSafeOperation({
@@ -207,7 +207,7 @@ const safeOperationResult = await safeOperationsClient.sendSafeOperation({
 
 - **Type:** `EstimateFeeFunction`
 
-Function called after `eth_estimateUserOperationGas`.
+Function called after `eth_estimateUserOperationGas` to adjust the User operations with the result of the gas estimation.
 
 ```typescript focus=4
 const safeOperationResult = await safeOperationsClient.sendSafeOperation({

@@ -168,7 +168,7 @@ A promise that resolves to the `SafeOperation`.
 - We use a similar API to `protocol-kit` for developers transitioning to `Safe4337Pack`. This API helps with creating and executing transactions, bundling user operations and sending them to the bundler.
 - Use `validUntil` and `validAfter` to set the block timestamp range for the user operation's validity. The operation will be rejected if the block timestamp falls outside this range.
 - The `feeEstimator` calculates gas needs for the UserOperation. We default to Pimlico's `feeEstimator`, but you can use a different one by providing your own. The IFeeEstimator interface requires an object with specific methods.
-- The User operations support the usage of a [custom nonce](https://docs.stackup.sh/docs/useroperation-nonce). You can use them by leveraging the `createTransaction` method and passing a `customNonce` in the options parameter. We exported an utility method `encodeNonce` in the `relay-kit` to make it easier to compose the nonce.
+- User operations support the usage of [custom nonce](https://docs.stackup.sh/docs/useroperation-nonce). You can use a custom nonce by leveraging the `createTransaction` method and passing the `customNonce` property as part of the `options` parameter. We exported an utility method `encodeNonce` in the `relay-kit` to make it easier to compose the nonce.
 
 ```typescript
 IFeeEstimator {
@@ -176,7 +176,7 @@ IFeeEstimator {
   postEstimateUserOperationGas?: EstimateFeeFunction  
 }
 
- EstimateFeeFunctionProps = {
+EstimateFeeFunctionProps = {
   userOperation: UserOperation
   bundlerUrl: string
   entryPoint: string
@@ -192,8 +192,8 @@ EstimateSponsoredFeeFunctionProps = {
 
 All methods are optional and will be called in the specified order if you provide any of them:
 
-1. `preEstimateUserOperationGas` : This method, called before using the bundler `eth_estimateUserOperationGas` in the pack code, allows you to adjust the user operation before the bundler estimates it.
-2. `postEstimateUserOperationGas` : This method is used after calling `eth_estimateUserOperationGas` in the pack code to adjust the bundler estimation.
+1. `preEstimateUserOperationGas` : This method is used before calling the standard RPC `eth_estimateUserOperationGas` method, allowing you to setup the User operation before the bundler gas estimation.
+2. `postEstimateUserOperationGas` : This method is used after calling `eth_estimateUserOperationGas` method to adjust the bundler estimation.
 
 ### `signSafeOperation(safeOperation, signingMethod)`
 
