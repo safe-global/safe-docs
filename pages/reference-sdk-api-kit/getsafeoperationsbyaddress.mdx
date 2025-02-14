@@ -14,8 +14,8 @@ Returns the list of Safe operations associated to a Safe account.
     import { GetSafeOperationListProps } from '@safe-global/api-kit'
     import { apiKit } from './setup.ts'
 
-    const config: GetSafeOperationListProps = {
-      safeAddress: '0x...',
+    const safeAddress = '0x...'
+    const options: GetSafeOperationListProps = {      
       executed: false, // Optional,
       hasConfirmations: true, // Optional,
       ordering: 'created', // Optional      
@@ -23,7 +23,7 @@ Returns the list of Safe operations associated to a Safe account.
       offset: '50' // Optional
     }
 
-    const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(config)
+    const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(safeAddress, options)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -47,7 +47,7 @@ The paginated list of Safe operations.
 
 ## Parameters
 
-### `config.safeAddress`
+### `safeAddress`
 
 - **Type:** `string`
 
@@ -59,7 +59,7 @@ const safeOperationsResponse = await apiKit.getSafeOperationsByAddress({
 })
 ```
 
-### `config.executed` (Optional)
+### `options.executed` (Optional)
 
 - **Type:** `boolean`
 
@@ -78,7 +78,7 @@ const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
 )
 ```
 
-### `config.hasConfirmations` (Optional)
+### `options.hasConfirmations` (Optional)
 
 - **Type:** `string`
 
@@ -97,7 +97,7 @@ const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
 )
 ```
 
-### `config.ordering` (Optional)
+### `options.ordering` (Optional)
 
 - **Type:** `string`
 - **Default:** `-user_operation__nonce`
@@ -115,7 +115,7 @@ const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
 )
 ```
 
-### `config.limit` (Optional)
+### `options.limit` (Optional)
 
 - **Type:** `number`
 
@@ -130,7 +130,7 @@ const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
 )
 ```
 
-### `config.offset` (Optional)
+### `options.offset` (Optional)
 
 - **Type:** `number`
 

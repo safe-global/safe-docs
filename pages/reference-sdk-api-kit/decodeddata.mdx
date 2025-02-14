@@ -33,9 +33,16 @@ Decodes the specified Safe transaction data.
 
 ## Returns
 
-`Promise<any>`
+`Promise<DataDecoded>`
 
 The transaction data decoded.
+
+```typescript
+type DataDecoded = {
+  readonly method: string
+  readonly parameters: DecodedParameters[]
+}
+```
 
 ## Parameters
 
@@ -45,8 +52,19 @@ The transaction data decoded.
 
 The Safe transaction data to decode.
 
-```typescript focus=2
+```typescript
+const decodedData = await apiKit.decodeData('0x...')
+```
+
+### `to` (Optional)
+
+- **Type:** `string`
+
+The address of the receiving contract. If provided, the decoded data will be more accurate, as in case of an ABI collision the Safe Transaction Service would know which ABI to use
+
+```typescript
 const decodedData = await apiKit.decodeData(
+  '0x...',
   '0x...'
 )
 ```

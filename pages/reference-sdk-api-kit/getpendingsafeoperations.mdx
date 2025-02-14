@@ -14,14 +14,14 @@ Returns the list of Safe operations which are pending to be executed through a b
     import { GetSafeOperationListProps } from '@safe-global/api-kit'
     import { apiKit } from './setup.ts'
 
-    const config: Omit<GetSafeOperationListProps, 'executed'> = {
-      safeAddress: '0x...',
+    const safeAddress = '0x...'
+    const options: Omit<GetSafeOperationListProps, 'executed'> = {
       ordering: 'created', // Optional
       limit: '10', // Optional
       offset: '50' // Optional
     }
 
-    const safeOperationsResponse = await apiKit.getPendingSafeOperations(config)
+    const safeOperationsResponse = await apiKit.getPendingSafeOperations(safeAddress, options)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -45,7 +45,7 @@ The paginated list of Safe operations.
 
 ## Parameters
 
-### `config.safeAddress`
+### `safeAddress`
 
 - **Type:** `string`
 
@@ -57,7 +57,7 @@ const safeOperationsResponse = await apiKit.getPendingSafeOperations({
 })
 ```
 
-### `config.ordering` (Optional)
+### `options.ordering` (Optional)
 
 - **Type:** `string`
 - **Default:** `-user_operation__nonce`
@@ -75,7 +75,7 @@ const safeOperationsResponse = await apiKit.getPendingSafeOperations(
 )
 ```
 
-### `config.limit` (Optional)
+### `options.limit` (Optional)
 
 - **Type:** `number`
 
@@ -90,7 +90,7 @@ const safeOperationsResponse = await apiKit.getPendingSafeOperations(
 )
 ```
 
-### `config.offset` (Optional)
+### `options.offset` (Optional)
 
 - **Type:** `number`
 
