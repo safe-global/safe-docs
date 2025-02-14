@@ -57,3 +57,8 @@ const safe4337Pack = await Safe4337Pack.init({
   }
 })
 ````
+
+## Renamed `EthSafeOperation`
+
+We renamed the `EthSafeOperation` to `BaseSafeOperation` so all the methods using it as a type in the `Safe4337Pack` will reflect this change
+
