@@ -15,7 +15,7 @@ Returns the list of Safe operations associated to a Safe account.
     import { apiKit } from './setup.ts'
 
     const safeAddress = '0x...'
-    const options: GetSafeOperationListProps = {      
+    const options: GetSafeOperationListOptions = {      
       executed: false, // Optional,
       hasConfirmations: true, // Optional,
       ordering: 'created', // Optional      
