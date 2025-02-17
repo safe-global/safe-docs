@@ -11,12 +11,12 @@ Creates a new message with an initial signature.
 <Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
-    import { AddMessageProps } from '@safe-global/api-kit'
+    import { AddMessageOptions } from '@safe-global/api-kit'
     import { apiKit } from './setup.ts'
 
     const safeAddress = '0x...'
     
-    const config: AddMessageProps = {
+    const config: AddMessageOptions = {
       message: '0x...',
       signature: '0x...',
       safeAppId: 1 // Optional

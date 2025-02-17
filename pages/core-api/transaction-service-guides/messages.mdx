@@ -17,51 +17,43 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
 <Steps>
   ### Install dependencies
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
-  <Tabs items={['TypeScript', 'Python']}>
-    <Tabs.Tab>
-      ```bash
-      yarn add @safe-global/api-kit @safe-global/protocol-kit @safe-global/types-kit
-      ```
-    </Tabs.Tab>
-    <Tabs.Tab>
-      ```bash
-      pip install safe-eth-py web3 hexbytes
-      ```
-    </Tabs.Tab>
-  </Tabs>
+{' '}
+<Tabs items={['TypeScript', 'Python']}>
+  <Tabs.Tab>
+    ```bash yarn add @safe-global/api-kit @safe-global/protocol-kit
+    @safe-global/types-kit ```
+  </Tabs.Tab>
+  <Tabs.Tab>```bash pip install safe-eth-py web3 hexbytes ```</Tabs.Tab>
+</Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  ### Imports
+### Imports
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
-  <Tabs items={['TypeScript', 'Python']}>
-    <Tabs.Tab>
-      ```typescript
-      import SafeApiKit, { AddMessageProps } from '@safe-global/api-kit'
-      import Safe, { hashSafeMessage } from '@safe-global/protocol-kit'
-      ```
-    </Tabs.Tab>
-    <Tabs.Tab>
-      ```python
-      from datetime import datetime
-      from eth_account import Account
-      from eth_account.messages import defunct_hash_message
-      from safe_eth.eth import EthereumClient, EthereumNetwork
-      from safe_eth.safe import Safe
-      from safe_eth.safe.api.transaction_service_api import TransactionServiceApi
-      ```
-    </Tabs.Tab>
-  </Tabs>
+{' '}
+<Tabs items={['TypeScript', 'Python']}>
+  <Tabs.Tab>
+    ```typescript import SafeApiKit, {AddMessageOptions} from
+    '@safe-global/api-kit' import Safe, {hashSafeMessage} from
+    '@safe-global/protocol-kit' ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```python from datetime import datetime from eth_account import Account from
+    eth_account.messages import defunct_hash_message from safe_eth.eth import
+    EthereumClient, EthereumNetwork from safe_eth.safe import Safe from
+    safe_eth.safe.api.transaction_service_api import TransactionServiceApi ```
+  </Tabs.Tab>
+</Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  ### Create a Safe message
+### Create a Safe message
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
@@ -102,13 +94,14 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       }'
       ```
     </Tabs.Tab>
+
   </Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  ### Sign the message
+### Sign the message
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
@@ -130,13 +123,14 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       We skip this step because the message we created in the Transaction Service using Curl already has the signature of the message creator. Check the [Create a Safe message](#create-a-safe-message) step.
     </Tabs.Tab>
+
   </Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  ### Send the message to the service
+### Send the message to the service
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
@@ -146,7 +140,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
         chainId: 11155111n
       })
 
-      const messageProps: AddMessageProps = {
+      const messageProps: AddMessageOptions = {
         message: rawMessage,
         signature: signedMessageOwnerA.encodedSignatures()
       }
@@ -172,15 +166,16 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       We skip this step because the message we created using Curl is already in the Transaction Service. Check the [Create a Safe message](#create-a-safe-message) step.
     </Tabs.Tab>
+
   </Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  ### Collect the missing signatures
+### Collect the missing signatures
 
-  #### Get the pending message
+#### Get the pending message
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
@@ -214,13 +209,14 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       -H 'accept: application/json' \
       ```
     </Tabs.Tab>
+
   </Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
 
-  #### Add missing signatures
+#### Add missing signatures
 
-  {/* <!-- vale off --> */}
+{/* <!-- vale off --> */}
 
   <Tabs items={['TypeScript', 'Python', 'Curl']}>
     <Tabs.Tab>
@@ -230,7 +226,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
 
       // Get Owner B address
       const ownerBAddress = '0x...'
-    
+
       // Send the message to the Transaction Service with the signature from Owner B
       await apiKit.addMessageSignature(
         safeMessageHash,
@@ -261,7 +257,9 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       }'
       ```
     </Tabs.Tab>
+
   </Tabs>
 
-  {/* <!-- vale on --> */}
+{/* <!-- vale on --> */}
+
 </Steps>
