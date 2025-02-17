@@ -15,7 +15,7 @@ Returns the list of Safe operations which are pending to be executed through a b
     import { apiKit } from './setup.ts'
 
     const safeAddress = '0x...'
-    const options: Omit<GetSafeOperationListProps, 'executed'> = {
+    const options: GetPendingSafeOperationListOptions = {
       ordering: 'created', // Optional
       limit: '10', // Optional
       offset: '50' // Optional
