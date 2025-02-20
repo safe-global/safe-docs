@@ -11,5 +11,5 @@ We moved these types to the `api-kit`.
 import { SigningMethod, SigningMethodType } from '@safe-global/protocol-kit'
 
 // new v6 code
-import { SigningMethod, SigningMethodType } from '@safe-global/api-kit'
+import { SigningMethod, SigningMethodType } from '@safe-global/types-kit'
 ```
