@@ -1,8 +1,16 @@
-import { Tabs } from 'nextra/components'
+import { Tabs, Callout } from 'nextra/components'
 
 # `getPendingSafeOperations`
 
 Returns the list of Safe operations which are pending to be executed through a bundler.
+
+<Callout type="info" emoji="ℹ️">
+The SafeOperations methods are currently compatible with Entrypoint v0.6, which corresponds to `safeModuleVersion` v0.2.0. If you need to use v0.7, you should use the `relay-kit` `Safe4337Pack` class with `safeModuleVersion` v0.3.0, and collect the signatures yourself.
+
+Examples of how to use the `Safe4337Pack` are provided in the following links:
+- [Playgrounds](https://github.com/safe-global/safe-core-sdk/tree/main/playground/relay-kit)
+- [Guide](https://docs.safe.global/sdk/relay-kit/guides/4337-safe-sdk)
+</Callout>
 
 ## Usage
 
