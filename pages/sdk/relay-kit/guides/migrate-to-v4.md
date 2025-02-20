@@ -2,19 +2,6 @@
 
 This guide references the major changes between v3 and v4 to help those migrating an existing app.
 
-## Default `safeModuleVersion` is 0.3.0
-
-This is an important change, not in terms of code but in the behavior of the `Safe4337Pack`. We have added support for then Entrypoint v0.7 contract and we are making it the  default. If you are using Entrypoint v0.6, you need to set the `safeModuleVersion` to `0.2.0` when calling the `Safe4337Pack.init` method. This version of the Safe 4337 Module is the one compatible with the Entrypoint v0.6 so the pack automatically will work with it.
-
-```typescript
-const safe4337Pack = await Safe4337Pack.init({
-  provider: window.ethereum, // Or any compatible EIP-1193 provider,
-  signer: 'signerAddressOrPrivateKey',
-  safeModuleVersion: '0.2.0' // If you are using the v0.6 of the EntryPoint
-  // ...
-})
-```
-
 ## FeeEstimator interface updated
 
 The `IFeeEstimator` interface originally included three methods for users to hook into the process to estimate the fees of an User operation. In the `relay-kit` new version we simplified the interface to feature only two methods that configure or update the User operation fields before and after calling the standard RPC estimation method (`eth_estimateUserOperationGas`). Additionally, we renamed the methods to be more descriptive.

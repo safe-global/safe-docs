@@ -32,6 +32,11 @@ const safe4337Pack = await Safe4337Pack.init({
 
 The static method `init()` generates an instance of `Safe4337Pack`. Use this method to create the initial instance instead of the regular constructor.
 
+<Callout type="info" emoji="ℹ️">
+We have added support for then Entrypoint v0.7 contract but we are not making it the default yet. 
+If you are using Entrypoint v0.7, you need to set the `safeModuleVersion` to `0.3.0` when calling the `Safe4337Pack.init` method. This version of the Safe 4337 Module is the one compatible with the Entrypoint v0.7.
+</Callout>
+
 **Parameters**
 
 The `Safe4337InitOptions` used in the `init()` method are:

@@ -8,6 +8,11 @@ Read the [Safe4337Module documentation](../../../advanced/erc-4337/guides/safe-s
 
 [Pimlico](https://pimlico.io) is used in this guide as the service provider, but any other provider compatible with the ERC-4337 can be used.
 
+<Callout type="info" emoji="ℹ️">
+We have added support for then Entrypoint v0.7 contract but we are not making it the default yet. 
+If you are using Entrypoint v0.7, you need to set the `safeModuleVersion` to `0.3.0` when calling the `Safe4337Pack.init` method. This version of the Safe 4337 Module is the one compatible with the Entrypoint v0.7.
+</Callout>
+
 ## Prerequisites
 
 - [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
@@ -65,14 +70,14 @@ yarn add @safe-global/relay-kit
 
       Optionally, you can [track your ERC-4337 Safe transactions on-chain](../../onchain-tracking.mdx) by using the `onchainAnalytics` property.
 
-      By default `Safe4337Pack` is using  version `0.3.0` of the Safe 4337 Module that is only compatible with Entrypoint v0.7. If you need to use v0.6 then add the `safeModulesVersion` property to the options object with the '0.2.0' value.
+      By default `Safe4337Pack` is using  version `0.2.0` of the Safe 4337 Module that is only compatible with Entrypoint v0.6. If you need to use v0.7 then add the `safeModulesVersion` property to the options object with the '0.3.0' value.
 
       ```typescript
       const safe4337Pack = await Safe4337Pack.init({
         provider: RPC_URL,
         signer: SIGNER_PRIVATE_KEY,
         bundlerUrl: `https://api.pimlico.io/v2/11155111/rpc?apikey=${PIMLICO_API_KEY}`,        
-        // safeModulesVersion: '0.2.0', // Defaults to 0.3.0. If you are using the v0.6 of the EntryPoint set the value to '0.2.0'
+        // safeModulesVersion: '0.3.0', // Defaults to 0.2.0. If you are using the v0.7 of the EntryPoint set the value to '0.3.0'
         options: {
           owners: [SIGNER_ADDRESS],
           threshold: 1
