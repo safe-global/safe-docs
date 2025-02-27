@@ -1,0 +1,173 @@
+import { Callout } from 'nextra/components'
+
+# Create an AI agent that can interact with your Safe
+
+At Safe, we envision a future where an important part of the onchain economy is driven by AI agents. We support this vision by organizing one of the [biggest AI x Crypto hackathons to date](https://agentathon.ai), as well as providing concrete [guides](./ai-agent-quickstarts/introduction) to help you get started.
+
+In this tutorial, we will learn how to set up and deploy an AI agent that has capabilities to access a Safe and prepare transactions for it 🤖. We will use [LangChain](https://www.langchain.com/agents) to set up the agent, the [Protocol Kit](../sdk/protocol-kit.mdx) to interact with Safes, and [`ollama`](https://ollama.com/) to load and run the agents locally.
+
+**Note:** If you wish to follow along using the completed project, you can [check out the GitHub repository](https://github.com/5afe/safe-ai-agent-tutorial) for this tutorial.
+
+## **What you'll need**
+
+**Prerequisite knowledge:** You will need some basic familiarity with the [LangChain framework](https://www.langchain.com/langchain) and [Node.js](https://nodejs.org/en).
+
+Before progressing with the tutorial, please make sure you have:
+
+- Installed and opened `ollama`. This tutorial will run [`mistral-nemo`](https://ollama.com/library/mistral-nemo) (minimum 16GB RAM & 8GB disk space required), but feel free to explore [other models](https://ollama.com/library);
+- Set up a wallet for your agent with some Sepolia test funds to pay for the transactions, for example with [Metamask](https://metamask.io/);
+- (Optional) If you wish to use OpenAI models instead (or another provider), you will need to create an account on their website and get an API key;
+- (Optional) Set up an account on [LangSmith](https://smith.langchain.com/) for agent observability & monitoring.
+
+## 1. Setup a LangChain project
+
+With LangChain, we can rapidly swap models and providers, and **chain** the results of your prompts to plug it into configurable APIs and web automations.
+
+LangChain comes with TypeScript and Python SDKs. While the TypeScript is more easily into web applications, the Python SDK is more elaborate and will enable you to interact with your model with more granularity.
+
+To create a new LangChain project, run the following commands in your terminal:
+
+```bash
+mkdir my-safe-agent
+cd my-safe-agent
+touch .env
+```
+
+To install the project dependencies, run:
+
+{/* <!-- vale off --> */}
+
+<CH.Section>
+  <CH.Code style={{ boxShadow: 'none' }}>
+    ```bash pnpm
+    pnpm add @langchain/core @langchain/langgraph @langchain/ollama @safe-global/protocol-kit tsx viem zod
+    ```
+
+    ```bash npm
+    npm install @langchain/core @langchain/langgraph @langchain/ollama @safe-global/protocol-kit tsx viem zod
+    ```
+
+    ```bash yarn
+    yarn add @langchain/core @langchain/langgraph @langchain/ollama @safe-global/protocol-kit tsx viem zod
+    ```
+
+  </CH.Code>
+</CH.Section>
+
+{/* <!-- vale on --> */}
+
+Then, fill your agent wallet's private key and address in `.env`, with some optional values for debugging and monitoring the agent, as follows:
+
+```typescript
+// from ../../examples/ai-agent/.env.example
+```
+
+## 2. Choose your model
+
+In this tutorial, we will use the [Mistral.ai](https://mistral.ai) model `mistral-nemo`, but you can replace it with any other model you prefer. Since it is a local model, we will first download it by running:
+
+```bash
+ollama pull mistral-nemo
+```
+
+If you want to play around with the model before going further, type the following to your terminal to engage a conversation:
+
+```bash
+ollama run mistral-nemo
+```
+
+<Callout type="info" emoji="💡">
+  Note that the `ollama` desktop app must be running in the background for the agent to work.
+</Callout>
+
+Use `/bye` to exit the chat.
+
+## 3. Create the agent
+
+Now that we are all set, we can write the logic of our agent. Create a new file called `agent.ts` at the root of your project and add the following code:
+
+```typescript
+// from ../../examples/ai-agent/agent.ts
+```
+
+This file will load the model, create a [LangGraph agent](https://langchain-ai.github.io/langgraphjs/concepts/agentic_concepts/), and attach any tools we may need to interact with a Safe.
+
+It will also send the first messages to our agent to test that it works correctly.
+
+## 4. Add the tools
+
+As mentioned above, the agent will load [tools](https://js.langchain.com/docs/integrations/tools/), which will enable it to gain much more precision compared to the non-deterministic raw output they normally produce. We want our agent to be able to manage funds, and we cannot afford to rely on luck to generate transaction data. 
+
+To give reliability to your agent, you can pre-define widgets of code that it will be able to invoke. In this case, we will use [CoinGecko API](https://coingecko.com) to fetch latest ETH prices. Create a new folder `tools` with the file `prices.ts` in it:
+
+```bash
+mkdir tools
+touch tools/prices.ts
+```
+
+Add the following code:
+
+```typescript
+// from ../../examples/ai-agent/tools/prices.ts
+```
+
+Then, we will use the [Safe Transaction Service](https://docs.safe.global/core-api/transaction-service-overview) to fetch the balance of an address, and the Protocol Kit to deploy Safes. Create a new file `safe.ts` in the `tools` folder:
+
+```bash
+touch tools/safe.ts
+```
+
+Copy the following code:
+
+```typescript
+// from ../../examples/ai-agent/tools/safe.ts
+```
+
+Lastly, to improve the reliability of mathematical operation in certain models, we will add a tool to handle simple operations (here, a multiplication). Create a new file `math.ts` in the `tools` folder:
+
+```bash
+touch tools/math.ts
+```
+
+Add the following code:
+
+```typescript
+// from ../../examples/ai-agent/tools/math.ts
+```
+
+## 5. Run the agent
+
+We're all set! To run the agent, execute the following command in your terminal:
+
+```bash
+pnpm tsx --env-file=.env agent.ts
+```
+
+You can see that the agent is running the first prompt, about the balance of Eth in a given Safe. It returns the number of ETH this address contains, and its value in USD at the current prices.
+
+Un-comment the lines 57 to 69 to add a second prompt, which will deploy a Safe with a given amount of ETH. You can then see the agent deploying the Safe and returning the address of the newly created Safe.
+
+![Agent running](../../assets/ai-agent-setup.png)
+
+You can run the script multiple times; the agent will slightly adapt or rephrase its answers, but should always return similar results. If it does not, you can try to run larger models, and adjust the wording of the prompts and tool descriptions, as they will greatly influence the agent's behaviour.
+
+## Debugging your agent
+
+It is highly recommended to add a LangSmith configuration to your agent. This will allow you to debug your agent in real-time, and to see the output of your agent in a more readable format.
+
+You can think of it as Tenderly for AI agents, where you can visualize the whole stack being called in real-time and the full content of the chain of thought. You can use it to debug your tools, and refine your prompts repeatedly without having to pay large API costs from AI providers.
+
+## Going further with Safe agents
+
+Congrats! In just a few lines of code, we learned how to run an agent locally, and equip it with specialized tools tailored to our needs. We can now deploy Safes, check their balance, and interact with them in a more efficient way using the power of modern LLMs.
+
+Running local agents is ideal for rapid iteration and development. Many tries can be necessary to adjust the prompt and the system instructions so that your agent can work more reliably. Once the agent is ready, you can [deploy it to production](https://langchain-ai.github.io/langgraphjs/tutorials/deployment/#deployment-options) and let it run autonomously with bigger models, harnessing the full power of this new computing paradigm.
+
+To go further, you can take a look at the resources below:
+- The [LangGraph Quickstart guide](https://langchain-ai.github.io/langgraphjs/tutorials/quickstart/), from which this page is inspired;
+- Adding [breakpoints](https://langchain-ai.github.io/langgraphjs/how-tos/breakpoints/) to build [Human-in-the-loop AI actions](https://docs.safe.global/home/ai-agent-quickstarts/human-approval);
+- LangChain [JS](https://js.langchain.com/docs/tutorials/) or [Python tutorials](https://python.langchain.com/tutorials/);
+- Building [multiple agents systems](https://langchain-ai.github.io/langgraphjs/tutorials/multi_agent/multi_agent_collaboration/);
+- The list of prebuilt [LangChain tools](https://js.langchain.com/docs/integrations/tools/)
+
+Did you encounter any difficulties? Let us know by opening [an issue](https://github.com/5afe/safe-ai-agent-tutorial/issues/new) or asking a question on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the `safe-core` tag.
