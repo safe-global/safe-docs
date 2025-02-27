@@ -11,12 +11,12 @@ Returns the list of messages associated to a Safe account.
 <Tabs items={['example.ts', 'setup.ts']}>
   <Tabs.Tab>
     ```typescript
-    import { GetSafeMessageListProps } from '@safe-global/api-kit'
+    import { GetSafeMessageListOptions } from '@safe-global/api-kit'
     import { apiKit } from './setup.ts'
 
     const safeAddress = '0x...'
     
-    const config: GetSafeMessageListProps = {
+    const config: GetSafeMessageListOptions = {
       ordering: 'created', // Optional
       limit: '10', // Optional
       offset: '50' // Optional
