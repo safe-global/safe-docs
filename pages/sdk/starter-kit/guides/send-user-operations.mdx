@@ -97,12 +97,12 @@ pnpm add @safe-global/sdk-starter-kit
 
   ```typescript
   const bundlerOptions: BundlerOptions = {
-    bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`
+    bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`
   }
 
   const paymasterOptions: PaymasterOptions = {
     isSponsored: true,
-    paymasterUrl: `https://api.pimlico.io/v2/sepolia/rpc?apikey=${PIMLICO_API_KEY}`
+    paymasterUrl: `https://api.pimlico.io/v2/sepolia/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`
   }
 
   const safeClientWithSafeOperation = await safeClient.extend(
@@ -161,10 +161,10 @@ pnpm add @safe-global/sdk-starter-kit
 
   const newSafeClientWithSafeOperation = await newSafeClient.extend(
     safeOperations({
-      bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?apikey=${PIMLICO_API_KEY}`
+      bundlerUrl: `https://api.pimlico.io/v1/sepolia/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`
     }, {
       isSponsored: true,
-      paymasterUrl: `https://api.pimlico.io/v2/sepolia/rpc?apikey=${PIMLICO_API_KEY}`
+      paymasterUrl: `https://api.pimlico.io/v2/sepolia/rpc?add_balance_override&apikey=${PIMLICO_API_KEY}`
     })
   )
   ```
