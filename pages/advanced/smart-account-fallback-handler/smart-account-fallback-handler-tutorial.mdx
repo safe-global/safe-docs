@@ -1,0 +1,640 @@
+import { Callout } from 'nextra/components'
+
+# Building a Fallback Handler for Safe Smart Account
+
+This tutorial demonstrates how to build a custom Fallback Handler contract that adds a functions to a Safe Smart Account. You'll learn how to:
+- Create a Fallback Handler
+- Enable the Fallback Handler on a Safe Smart Account  
+- Write comprehensive tests for the Fallback Handler
+
+You'll build a `ERC1271FallbackHandler` that adds a support for [ERC-1271 standard](https://eips.ethereum.org/EIPS/eip-1271) to Safe Smart Account. This is only an example and should not be used in production without proper security audits.
+
+## Prerequisites
+
+Before starting this tutorial, make sure you have:
+- Experience with [Solidity](https://docs.soliditylang.org/en/latest/) and [Hardhat](https://hardhat.org)
+- [Node.js](https://nodejs.org/en/download/package-manager) and [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) installed
+- Basic understanding of Smart Account concepts
+
+## Project Setup
+
+### Initialize Project
+
+Create a new project directory and initialize npm:
+
+```bash
+mkdir safe-fallback-handler-tutorial && cd safe-fallback-handler-tutorial
+npm init -y
+```
+
+### Configure Dependencies
+
+Add the following to your `package.json`:
+
+```json
+{
+  // ... existing content ...
+  "overrides": {
+    "@safe-global/safe-contracts": {
+      "ethers": "^6.13.5"
+    }
+  }
+}
+```
+
+Install the required dependencies:
+
+```bash
+npm add -D hardhat @safe-global/safe-contracts hardhat-dependency-compiler
+```
+
+### Setup Hardhat project
+
+Initialize a TypeScript Hardhat project:
+
+```bash
+npx hardhat init
+```
+
+Now, try compiling the contracts to ensure everything is set up correctly.
+
+```bash
+npx hardhat compile
+```
+
+Select `Create a TypeScript project` when prompted.
+
+When compiling Safe contracts with solidity 0.8.x the bytecode size exceeds the limit of 24KB. To overcome this, set `allowUnlimitedContractSize` to `true` in the hardhat config.
+In practise with production networks, use the officially deployed Safe contracts. Also, add `dependencyCompiler` to import `SafeProxyFactory` and `Safe` contracts.
+
+Update your `hardhat.config.ts`:
+
+```typescript
+import { HardhatUserConfig } from "hardhat/config";
+import "@nomicfoundation/hardhat-toolbox";
+import "hardhat-dependency-compiler";
+
+const config: HardhatUserConfig = {
+  solidity: "0.8.28",
+  networks: {
+    hardhat: {
+      allowUnlimitedContractSize: true, // Required for Safe contracts
+    },
+  },
+  dependencyCompiler: {
+    paths: [
+      "@safe-global/safe-contracts/contracts/proxies/SafeProxyFactory.sol",
+      "@safe-global/safe-contracts/contracts/Safe.sol",
+    ],
+  },
+};
+
+export default config;
+```
+
+## Create a new Solidity contract
+
+Delete the default `contracts/Lock.sol` and test file `test/Lock.ts` and create a new Solidity contract `NoDelegatecallGuard.sol` in the `contracts` directory.
+
+### Step 1. Create MyCustomFallbackHandler contract
+
+```solidity
+// SPDX-License-Identifier: LGPL-3.0
+pragma solidity ^0.8.0;
+import {Safe} from "@safe-global/safe-contracts/contracts/Safe.sol";
+
+contract ERC1271FallbackHandler {
+
+}
+```
+
+### Step 2: Define constants
+
+```solidity
+    // keccak256("SafeMessage(bytes message)");
+    bytes32 private constant SAFE_MSG_TYPEHASH =
+        0x60b3cbf8b4a223d68d641b3b6ddf9a298e7f33710cf3d3a9d1146b5a6150fbca;
+
+    // bytes4(keccak256("isValidSignature(bytes32,bytes)")
+    bytes4 internal constant EIP1271_MAGIC_VALUE = 0x1626ba7e;
+```
+
+### Step 3: Create a function to encode message data
+
+```solidity
+    /**
+     * @dev Returns the pre-image of the message hash (see getMessageHashForSafe).
+     * @param safe Safe to which the message is targeted.
+     * @param message Message that should be encoded.
+     * @return Encoded message.
+     */
+    function encodeMessageDataForSafe(
+        Safe safe,
+        bytes memory message
+    ) public view returns (bytes memory) {
+        bytes32 safeMessageHash = keccak256(
+            abi.encode(SAFE_MSG_TYPEHASH, keccak256(message))
+        );
+        return
+            abi.encodePacked(
+                bytes1(0x19),
+                bytes1(0x01),
+                safe.domainSeparator(),
+                safeMessageHash
+            );
+    }
+```
+
+Explanation:
+- This view function generates a encoded message that owners of the Safe can hash and sign.
+
+### Step 4: Implement the `isValidSignature` function
+
+```solidity
+    /**
+        * @notice Implementation of updated EIP-1271 signature validation method.
+        * @param _dataHash Hash of the data signed on the behalf of address(msg.sender)
+        * @param _signature Signature byte array associated with _dataHash
+        * @return Updated EIP1271 magic value if signature is valid, otherwise 0x0
+        */
+    function isValidSignature(
+        bytes32 _dataHash,
+        bytes calldata _signature
+    ) external view returns (bytes4) {
+        // Caller should be a Safe
+        Safe safe = Safe(payable(msg.sender));
+        bytes memory messageData = encodeMessageDataForSafe(
+            safe,
+            abi.encode(_dataHash)
+        );
+        bytes32 messageHash = keccak256(messageData);
+        if (_signature.length == 0) {
+            require(safe.signedMessages(messageHash) != 0, "Hash not approved");
+        } else {
+            safe.checkSignatures(messageHash, messageData, _signature);
+        }
+        return EIP1271_MAGIC_VALUE;
+    }
+```
+
+- It computes a message hash from the provided data and checks for prior approval (if no signature is provided) or verifies the signature using the Safe's built-in `checkSignatures` method. Upon successful verification, it returns a specific value to confirm the signature's validity per EIP-1271.
+- If the signature verification fails, the function reverts.
+
+### Final contract code
+
+```solidity
+// SPDX-License-Identifier: LGPL-3.0
+pragma solidity ^0.8.0;
+import {Safe} from "@safe-global/safe-contracts/contracts/Safe.sol";
+
+contract ERC1271FallbackHandler {
+    // keccak256("SafeMessage(bytes message)");
+    bytes32 private constant SAFE_MSG_TYPEHASH =
+        0x60b3cbf8b4a223d68d641b3b6ddf9a298e7f33710cf3d3a9d1146b5a6150fbca;
+
+    // bytes4(keccak256("isValidSignature(bytes32,bytes)")
+    bytes4 internal constant EIP1271_MAGIC_VALUE = 0x1626ba7e;
+
+    /**
+     * @dev Returns the pre-image of the message hash (see getMessageHashForSafe).
+     * @param safe Safe to which the message is targeted.
+     * @param message Message that should be encoded.
+     * @return Encoded message.
+     */
+    function encodeMessageDataForSafe(
+        Safe safe,
+        bytes memory message
+    ) public view returns (bytes memory) {
+        bytes32 safeMessageHash = keccak256(
+            abi.encode(SAFE_MSG_TYPEHASH, keccak256(message))
+        );
+        return
+            abi.encodePacked(
+                bytes1(0x19),
+                bytes1(0x01),
+                safe.domainSeparator(),
+                safeMessageHash
+            );
+    }
+
+    /**
+     * @notice Implementation of updated EIP-1271 signature validation method.
+     * @param _dataHash Hash of the data signed on the behalf of address(msg.sender)
+     * @param _signature Signature byte array associated with _dataHash
+     * @return Updated EIP1271 magic value if signature is valid, otherwise 0x0
+     */
+    function isValidSignature(
+        bytes32 _dataHash,
+        bytes calldata _signature
+    ) external view returns (bytes4) {
+        // Caller should be a Safe
+        Safe safe = Safe(payable(msg.sender));
+        bytes memory messageData = encodeMessageDataForSafe(
+            safe,
+            abi.encode(_dataHash)
+        );
+        bytes32 messageHash = keccak256(messageData);
+        if (_signature.length == 0) {
+            require(safe.signedMessages(messageHash) != 0, "Hash not approved");
+        } else {
+            safe.checkSignatures(messageHash, messageData, _signature);
+        }
+        return EIP1271_MAGIC_VALUE;
+    }
+}
+```
+
+## Testing the contract
+
+### Step 1: Create test/utils/utils.ts file
+
+Create a new file named `utils.ts` in the `test/utils` directory and include the code below.
+
+```typescript
+import { ethers } from "hardhat";
+import { Signer, AddressLike, BigNumberish, ZeroAddress } from "ethers";
+import { Safe } from "../../typechain-types";
+
+/**
+ * Executes a transaction on the Safe contract.
+ * @param wallets - The signers of the transaction.
+ * @param safe - The Safe contract instance.
+ * @param to - The address to send the transaction to.
+ * @param value - The value to send with the transaction.
+ * @param data - The data to send with the transaction.
+ * @param operation - The operation type (0 for call, 1 for delegate call).
+ */
+const execTransaction = async function (
+  wallets: Signer[],
+  safe: Safe,
+  to: AddressLike,
+  value: BigNumberish,
+  data: string,
+  operation: number,
+): Promise<void> {
+  // Get the current nonce of the Safe contract
+  const nonce = await safe.nonce();
+
+  // Get the transaction hash for the Safe transaction
+  const transactionHash = await safe.getTransactionHash(
+    to,
+    value,
+    data,
+    operation,
+    0,
+    0,
+    0,
+    ZeroAddress,
+    ZeroAddress,
+    nonce
+  );
+
+  let signatureBytes = "0x";
+  const bytesDataHash = ethers.getBytes(transactionHash);
+
+  // Get the addresses of the signers
+  const addresses = await Promise.all(wallets.map(wallet => wallet.getAddress()));
+  // Sort the signers by their addresses
+  const sorted = wallets.sort((a, b) => {
+    const addressA = addresses[wallets.indexOf(a)];
+    const addressB = addresses[wallets.indexOf(b)];
+    return addressA.localeCompare(addressB, "en", { sensitivity: "base" });
+  });
+
+  // Sign the transaction hash with each signer
+  for (let i = 0; i < sorted.length; i++) {
+    const flatSig = (await sorted[i].signMessage(bytesDataHash))
+      .replace(/1b$/, "1f")
+      .replace(/1c$/, "20");
+    signatureBytes += flatSig.slice(2);
+  }
+
+  // Execute the transaction on the Safe contract
+  await safe.execTransaction(
+    to,
+    value,
+    data,
+    operation,
+    0,
+    0,
+    0,
+    ZeroAddress,
+    ZeroAddress,
+    signatureBytes
+  );
+};
+
+export {
+  execTransaction,
+};
+```
+
+- This file contains utility function to execute transaction through the Safe account.
+
+### Step 2: Start with a boilerplate test file
+
+Create a new file named `ERC1271FallbackHandler.test.ts` and include the following basic structure that will be filled in later steps (ignore the warnings about unused imports):
+
+```typescript
+import { ethers } from "hardhat";
+import { expect } from "chai";
+import { Signer, ZeroAddress } from "ethers";
+import { Safe, Safe__factory, SafeProxyFactory } from "../typechain-types";
+import { ERC1271FallbackHandler } from "../typechain-types/contracts/ERC1271FallbackHandler";
+
+describe("ERC1271FallbackHandler.test", async function () {
+  let deployer: Signer;
+  let alice: Signer;
+  let masterCopy: Safe;
+  let proxyFactory: SafeProxyFactory;
+  let safeFactory: Safe__factory;
+  let safe: Safe;
+  let exampleFallbackHandler: ERC1271FallbackHandler;
+  const threshold = 1;
+
+  const EIP712_SAFE_MESSAGE_TYPE = {
+    // "SafeMessage(bytes message)"
+    SafeMessage: [{ type: "bytes", name: "message" }],
+  };
+
+  // Setup signers and deploy contracts before running tests
+  beforeEach(async () => {});
+
+  it("should revert if called directly", async () => {});
+
+  it("should revert if message was not signed", async () => {});
+
+  it("should revert if signature is not valid", async () => {});
+
+  it("should return magic value if enough owners signed and allow a mix different signature types", async () => {});
+});
+```
+
+### Step 3: Setup contracts and variables in before hook
+
+```typescript
+  // Setup signers and deploy contracts before running tests
+  beforeEach(async () => {
+    [deployer, alice] = await ethers.getSigners();
+
+    safeFactory = await ethers.getContractFactory("Safe", deployer);
+
+    // Deploy the ERC1271FallbackHandler contract
+    exampleFallbackHandler = await (
+      await ethers.getContractFactory("ERC1271FallbackHandler", deployer)
+    ).deploy();
+
+    masterCopy = await safeFactory.deploy();
+
+    proxyFactory = await (
+      await ethers.getContractFactory("SafeProxyFactory", deployer)
+    ).deploy();
+
+    const ownerAddresses = [await alice.getAddress()];
+
+    const safeData = masterCopy.interface.encodeFunctionData("setup", [
+      ownerAddresses,
+      threshold,
+      ZeroAddress,
+      "0x",
+      exampleFallbackHandler.target,
+      ZeroAddress,
+      0,
+      ZeroAddress,
+    ]);
+
+    // Read the safe address by executing the static call to createProxyWithNonce function
+    const safeAddress = await proxyFactory.createProxyWithNonce.staticCall(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    // Create the proxy with nonce
+    await proxyFactory.createProxyWithNonce(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    if (safeAddress === ZeroAddress) {
+      throw new Error("Safe address not found");
+    }
+
+    safe = await ethers.getContractAt("Safe", safeAddress);
+  });
+```
+
+This step sets up the test environment by deploying and configuring the necessary contracts. Please note that:
+
+- Alice is the only owner of the Safe and a threshold of 1 is set. Thus, only Alice's signature is required to execute transactions.
+- The Fallback Handler here is set during the Safe setup process. It is also possible to set the Fallback Handler after the Safe is created using `setFallbackHandler` function.
+- ⚠️ Security Note: Only trusted and audited code should be enabled as a Fallback Handler.
+
+### Step 4: Add test cases
+
+```typescript
+  it("should revert if called directly", async () => {
+    const dataHash = ethers.keccak256("0xbaddad");
+    await expect(
+      exampleFallbackHandler.isValidSignature.staticCall(dataHash, "0x")
+    ).to.be.reverted;
+  });
+
+  it("should revert if message was not signed", async () => {
+    const validator = await ethers.getContractAt(
+      "ERC1271FallbackHandler",
+      safe.target
+    );
+    const dataHash = ethers.keccak256("0xbaddad");
+    await expect(
+      validator.isValidSignature.staticCall(dataHash, "0x")
+    ).to.be.revertedWith("Hash not approved");
+  });
+
+  it("should revert if signature is not valid", async () => {
+    const validator = await ethers.getContractAt(
+      "ERC1271FallbackHandler",
+      safe.target
+    );
+    const dataHash = ethers.keccak256("0xbaddad");
+    await expect(
+      validator.isValidSignature.staticCall(dataHash, "0xdeaddeaddeaddead")
+    ).to.be.reverted;
+  });
+
+  it("should return magic value if enough owners signed and allow a mix different signature types", async () => {
+    const validator = await ethers.getContractAt(
+      "ERC1271FallbackHandler",
+      safe.target
+    );
+
+    const validatorAddress = await validator.getAddress();
+    const dataHash = ethers.keccak256("0xbaddad");
+    const typedDataSig = {
+      signer: await alice.getAddress(),
+      data: await alice.signTypedData(
+        {
+          verifyingContract: validatorAddress,
+          chainId: (await ethers.provider.getNetwork()).chainId,
+        },
+        EIP712_SAFE_MESSAGE_TYPE,
+        { message: dataHash }
+      ),
+    };
+
+    expect(
+      await validator.isValidSignature.staticCall(dataHash, typedDataSig.data)
+    ).to.be.eq("0x1626ba7e");
+  });
+```
+
+- The test cases above cover the following scenarios:
+  - Reverting if the Fallback Handler is called directly.
+  - Reverting if the message was not signed.
+  - Reverting if the signature is not valid.
+  - Returning the magic value if enough owners signed and allowing a mix of different signature types.
+- This is a basic set of tests to ensure the Fallback Handler is working as expected. More tests can be added to cover additional scenarios with different signing methods.
+
+### Final test code
+
+```typescript
+import { ethers } from "hardhat";
+import { expect } from "chai";
+import { Signer, ZeroAddress } from "ethers";
+import { Safe, Safe__factory, SafeProxyFactory } from "../typechain-types";
+import { ERC1271FallbackHandler } from "../typechain-types/contracts/ERC1271FallbackHandler";
+
+describe("ERC1271FallbackHandler.test", async function () {
+  let deployer: Signer;
+  let alice: Signer;
+  let masterCopy: Safe;
+  let proxyFactory: SafeProxyFactory;
+  let safeFactory: Safe__factory;
+  let safe: Safe;
+  let exampleFallbackHandler: ERC1271FallbackHandler;
+  const threshold = 1;
+
+  const EIP712_SAFE_MESSAGE_TYPE = {
+    // "SafeMessage(bytes message)"
+    SafeMessage: [{ type: "bytes", name: "message" }],
+  };
+
+  // Setup signers and deploy contracts before running tests
+  beforeEach(async () => {
+    [deployer, alice] = await ethers.getSigners();
+
+    safeFactory = await ethers.getContractFactory("Safe", deployer);
+
+    // Deploy the ERC1271FallbackHandler contract
+    exampleFallbackHandler = await (
+      await ethers.getContractFactory("ERC1271FallbackHandler", deployer)
+    ).deploy();
+
+    masterCopy = await safeFactory.deploy();
+
+    proxyFactory = await (
+      await ethers.getContractFactory("SafeProxyFactory", deployer)
+    ).deploy();
+
+    const ownerAddresses = [await alice.getAddress()];
+
+    const safeData = masterCopy.interface.encodeFunctionData("setup", [
+      ownerAddresses,
+      threshold,
+      ZeroAddress,
+      "0x",
+      exampleFallbackHandler.target,
+      ZeroAddress,
+      0,
+      ZeroAddress,
+    ]);
+
+    // Read the safe address by executing the static call to createProxyWithNonce function
+    const safeAddress = await proxyFactory.createProxyWithNonce.staticCall(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    // Create the proxy with nonce
+    await proxyFactory.createProxyWithNonce(
+      await masterCopy.getAddress(),
+      safeData,
+      0n
+    );
+
+    if (safeAddress === ZeroAddress) {
+      throw new Error("Safe address not found");
+    }
+
+    safe = await ethers.getContractAt("Safe", safeAddress);
+  });
+
+  it("should revert if called directly", async () => {
+    const dataHash = ethers.keccak256("0xbaddad");
+    await expect(
+      exampleFallbackHandler.isValidSignature.staticCall(dataHash, "0x")
+    ).to.be.reverted;
+  });
+
+  it("should revert if message was not signed", async () => {
+    const validator = await ethers.getContractAt(
+      "ERC1271FallbackHandler",
+      safe.target
+    );
+    const dataHash = ethers.keccak256("0xbaddad");
+    await expect(
+      validator.isValidSignature.staticCall(dataHash, "0x")
+    ).to.be.revertedWith("Hash not approved");
+  });
+
+  it("should revert if signature is not valid", async () => {
+    const validator = await ethers.getContractAt(
+      "ERC1271FallbackHandler",
+      safe.target
+    );
+    const dataHash = ethers.keccak256("0xbaddad");
+    await expect(
+      validator.isValidSignature.staticCall(dataHash, "0xdeaddeaddeaddead")
+    ).to.be.reverted;
+  });
+
+  it("should return magic value if enough owners signed and allow a mix different signature types", async () => {
+    const validator = await ethers.getContractAt(
+      "ERC1271FallbackHandler",
+      safe.target
+    );
+
+    const validatorAddress = await validator.getAddress();
+    const dataHash = ethers.keccak256("0xbaddad");
+    const typedDataSig = {
+      signer: await alice.getAddress(),
+      data: await alice.signTypedData(
+        {
+          verifyingContract: validatorAddress,
+          chainId: (await ethers.provider.getNetwork()).chainId,
+        },
+        EIP712_SAFE_MESSAGE_TYPE,
+        { message: dataHash }
+      ),
+    };
+
+    expect(
+      await validator.isValidSignature.staticCall(dataHash, typedDataSig.data)
+    ).to.be.eq("0x1626ba7e");
+  });
+});
+```
+
+## Run the tests
+
+```bash
+npx hardhat test
+```
+
+Congratulations! You have successfully created, enabled and tested a Fallback Handler for Safe Smart Account.
+
+## Do more with Safe and Fallback Handlers
+
+Did you encounter any difficulties? Let us know by opening [an issue](https://github.com/5afe/safe-guard-tutorial/issues/new) or asking a question on [Stack Exchange](https://ethereum.stackexchange.com/questions/tagged/safe-core) with the `safe-core` tag.
