@@ -4,6 +4,7 @@
     "href": "/advanced/smart-account-overview"
   },
   "overview": "Overview",
+  "deployment": "Deployment",
   "-- Safe Reference": {
     "type": "separator",
     "title": "Safe Reference"
@@ -19,9 +20,5 @@
   "events": {
     "type": "page",
     "display": "hidden"
-  },
-  "-- ": {
-    "type": "separator"
-  },
-  "deployment": "Deployment"
+  }
 }
