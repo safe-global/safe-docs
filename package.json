@@ -5,7 +5,7 @@
     "build": "next build",
     "dev": "next dev",
     "generate-api-reference": "pnpm ts-node --project tsconfig.json .github/scripts/generateApiReference.ts",
-    "generate-contracts-reference": "pnpm ts-node --project tsconfig.json .github/scripts/generateContractsReference.ts",
+    "generate-contracts-reference": "pnpm ts-node --project tsconfig.json .github/scripts/generateContractsReference.ts && rm -rf ./modules",
     "generate-code-examples": "pnpm ts-node --project tsconfig.json .github/scripts/generateCodeExamples.ts",
     "generate-supported-networks": "pnpm ts-node --project tsconfig.json .github/scripts/generateSupportedNetworks.ts",
     "get-resources-og": "node .github/scripts/getResourcesOg.js",
