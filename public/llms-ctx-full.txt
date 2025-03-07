@@ -1,0 +1,541 @@
+<project title="Safe Documentation" summary="Safe is an open-source and modular account abstraction stack that enables secure management of digital assets. It's the essential tooling and infrastructure for integrating secure Smart Accounts, with over $100B+ in assets secured and 200+ projects built on top of it since 2018.">
+
+Safe brings digital ownership of accounts to everyone by building universal and open contract standards for the custody of digital assets, data, and identity. The documentation covers the Safe{Core} tooling and infrastructure for developers to integrate Safe Smart Accounts into their applications.
+
+## What is Safe
+
+At Safe, we pursue a future where everyone has complete control and flexibility over their digital assets. Our vision is to move from merely reading and writing in the digital realm to fully owning our digital identities, financial assets, digital art, and more.
+
+### Smart accounts
+
+While externally-owned accounts (EOAs) have been the cornerstone of digital assets management thus far, they have a lot of limitations and fall short in onboarding mainstream users. Not only are seed phrases cumbersome to secure, but the lack of flexibility and the limited security of EOAs hinder our progress toward actual digital ownership.
+
+Safe is at the forefront of modular smart account infrastructure, paving the way for developers to create various applications and wallets. Safe brings digital ownership of accounts to everyone by building universal and open contract standards for the custody of digital assets, data, and identity.
+
+### Our stack
+
+Our goal is to establish smart accounts as the default, and our approach to making this a reality has developed across two primary areas of focus:
+
+- Safe{Core}: The most secure and robust tooling and infrastructure to integrate Safe Smart Account and leverage account abstraction into your product.
+- Safe{Wallet}: Official interface designed for individuals and industries spanning various sectors, ensuring a seamless and secure digital asset management experience.
+
+## Safe{Core}
+
+Safe{Core} is an open-source and modular account abstraction stack. It's the essential tooling and infrastructure for integrating the Safe Smart Account into any digital platform, ensuring a tested core with flexible and secure capabilities for innovative applications.
+
+### Why build on Safe{Core}?
+
+Safe secures an extensive amount of assets. It has been thoroughly audited and tested since 2018, and it has become the default wallet of choice for many, including DAOs, web3 native companies, and individuals like Vitalik Buterin, who trust Safe with their own assets. In addition, over 200 projects are currently building on top of Safe, and it's expected that this number will only continue to grow.
+
+- $100B+ secured
+- Formally verified
+- 200+ projects
+
+With Safe{Core}, we are putting a modular stack in the hands of developers to build the next generation of account abstraction wallets and solutions. We have partnered with the best in the business to improve UX capabilities and compatibility with existing ecosystem tools.
+
+### The Safe{Core} stack
+
+The Safe{Core} stack is categorized into three distinct groups:
+
+- Safe{Core} SDK: The SDK offers developers the ability to abstract the complexity that comes with operating a smart contract account. It also provides developer kits to help integrate Safe with external service providers.
+- Safe{Core} API: The Safe infrastructure needed to power interfaces with all Safe account related information. This includes the Safe Transaction Service, Safe Events Service, etc.
+- Safe Smart Account: The modular and extensible smart contract account, designed to serve as the standard core utilized in all smart contract-based wallets and applications.
+
+## Smart Account Architecture
+
+### How do Safe Smart Accounts work?
+
+#### EOAs
+
+EOAs, for short, are Ethereum accounts that use traditional key pairs. That is, they consist of a single private key that can be used to make transactions and sign messages. If you gain access to that private key, you gain complete control of the account. This means that your private key is a single point of failure between you and your funds being lost.
+
+#### Smart Accounts
+
+The other type of Ethereum account is a Smart Account, also sometimes called Smart Contract Account. Like EOAs, smart contract accounts each have a unique public Ethereum address, and it is impossible to tell them apart from EOAs by looking at an Ethereum address. Smart contract accounts, too, can receive funds and make transactions like EOAs but cannot initiate them. Generally, the key difference is that no single private key is used to verify transactions. Instead, the smart contract code defines the logic behind how the account completes transactions. Smart contracts are programs that run on the Ethereum blockchain and execute when specific conditions are met. Their functionality within contract accounts means that such accounts, in contrast to EOAs, can, for example, implement access rights that specify by whom, how, and under which conditions transactions can be executed, as well as more complex logic.
+
+#### Safe Smart Account
+
+Safe Smart Account is a Smart Account with multi-signature functionality at its core. It is secure and flexible, and it can be used to manage funds and execute transactions on the Ethereum blockchain.
+The vision for Safe Smart Accounts is to become the standard core used in all smart contract-based wallets. It also aims to make the benefits of Account Abstraction accessible to users and developers.
+
+The architectural design of Safe Smart Account keeps the following principles in mind:
+
+- **Secure default**
+  Uses a multi-signature logic where a threshold of owners must confirm a transaction before execution to provide a secure default without trusting any additional contract—for example, a module, guard, or fallback handler.
+
+- **Maximum flexibility**
+  Supports modules that execute transactions using alternative access patterns (instead of multi-signature). It also supports the `delegatecall` function, which introduces complex execution logic by loading instructions from other contracts and executing via a Safe Smart Account.
+
+### Features
+
+#### High Security
+
+Safe's **multi-signature** functionality allows you to define a list of owner accounts and a threshold number of accounts required to confirm a transaction. Once the threshold of owner accounts have confirmed a transaction, the Safe transaction can be executed. Owners can be EOAs, other smart contract accounts, or even a passkey.
+
+#### Advanced execution logic
+
+It is possible to use different **Safe Library contracts** to perform complex transactions. A prevalent example is **batched transactions**, where multiple simple Ethereum transactions are combined and executed at once. That means instead of having to sign several transactions sequentially, a user just needs to sign one batched transaction.
+
+#### Advanced access management
+
+You can add **Safe Modules** to your Safe, which facilitates more fine-grained access management. For instance, defining a module that can only be used to **recover access** to a Safe under specific circumstances is possible. Another example is **allowance modules** that allow owners of a Safe to grant limited execution permission, such as a daily limit to external accounts.
+
+#### Token callback support
+
+Many new tokens require wallet contracts to implement callbacks. Token standards like **ERC-721** and **ERC-1155** allow contracts to immediately react to receiving tokens through these and make it even possible to reject the transfer altogether.
+
+#### Sponsored transactions
+
+Another core functionality of the Safe is **token payment**. Generally, Ethereum transactions require ETH to pay transaction fees ("gas"). With the Safe, users can pay transaction fees in several supported ERC20 tokens. This is realized via a transaction relay service that accepts those tokens and submits the transactions to the blockchain, paying the gas fee in ETH. With the same functionality, Ether-less transactions can be implemented, where a 3rd party pays transaction fees on behalf of a Safe via the same relay service.
+
+### Architecture
+
+The Safe Smart Account architecture includes several key components:
+
+#### Safe Singleton Factory
+
+The Safe Singleton Factory is a contract that deploys all the Safe Smart Account related contracts. This contract helps to deploy Safe Smart Account contracts at the same address across different networks and eventually also helps to deploy Safe proxies at the same address across different networks.
+
+#### Safe Proxy Factory
+
+The Safe proxy factory contract provides a simple way to create a new proxy contract pointing to a singleton and executing a setup function in the newly deployed proxy all in one transaction.
+
+#### Safe
+
+This is a singleton contract deployed only once and used by Safe Proxy to delegate calls. It is the main contract that holds the logic for signature verification, executing transactions, managing owners, modules, and the fallback handler.
+As a singleton contract, it cannot be used directly as a Safe account but only through a Safe Proxy contract.
+
+The two types of Safe Smart Accounts are:
+- Safe
+- SafeL2: The version emits additional events and is to be used for L2 chains that don't support tracing.
+
+A Safe contract is composed of different components:
+
+##### Owner Management
+
+One core feature of a Safe account is that it can be operated by multiple accounts, known as owners. `OwnerManager.sol` allows you to add, remove, and replace owners. Furthermore, a threshold number of owners required to confirm a transaction for it to be executed can be specified and modified.
+
+##### Module Management
+
+Modules add additional functionalities to the Safe accounts. They are smart contracts that implement Safe's functionality while separating module logic from Safe's core contract. Depending on the use case, modules could, for instance, allow the execution of transactions without requiring all confirmations.
+
+Some available modules include:
+- Allowance Module
+- Recovery Module
+- 4337 Module
+- Passkey Module
+
+##### Executor
+
+This contract contains the logic to execute `call` or `delegatecall` to external address.
+
+##### Fallback Manager
+
+Ethereum fallback functions are executed when a called function signature does not match any defined function. The Fallback Manager contract allows you to extend the functionality of the Safe contract by adding additional logic to the fallback function and overcoming the contract size limit.
+
+##### Guard Management
+
+Guards are used to check if a transaction should be executed or rejected based on the logic defined in the guard. A Guard Manager contract allows you to add, remove, and replace guards.
+
+#### SafeProxy
+
+A Safe Proxy is a contract that delegates all calls to the Safe Singleton. Deploying a Proxy reduces the cost of creating a Safe account, as the proxy contract's byte code size is less than that of the actual Safe contract code.
+
+## AI Agent Integration
+
+### AI agents Powered by Safe Smart Accounts
+
+The intersection of AI and blockchain technology is evolving rapidly. 
+Safe provides tools for building AI agents that leverage Safe Smart Accounts for blockchain interactions.
+
+### Why Use Safe Smart Accounts for AI agents?
+
+Safe Smart Accounts offer a secure and modular solution for enabling AI agents to interact with the blockchain. 
+While other options include giving an AI agent a private key, using Multi-Party Computation (MPC), relying on custodial services with an API, or manually sending transactions from a user's wallet, Safe Smart Accounts offer distinct advantages.
+
+### Key Benefits of Safe Smart Accounts for AI agents:
+
+1. **Enhanced Security**: Safe Smart Accounts offer robust security features, making them one of the most secure methods for blockchain interactions. 
+Signers retain control of private keys, and signers can be replaced if necessary. Additional security measures, such as spending limits, timelocks, and whitelists, can be easily added to safeguard transactions.  
+*This is especially crucial since many AI agents can be influenced by specific prompts.*
+
+2. **True Self-Custody**: With Safe Smart Accounts, there's no reliance on third-party intermediaries. 
+This reduces costs and eliminates single points of failure, aligning with blockchain's core principle of decentralization.
+
+3. **Modular Design**: Safe Smart Accounts provide unmatched modularity. Native and third-party modules extend functionality, allowing you to customize accounts based on your project's needs.
+
+4. **Flexibility**: Multiple signers can propose transactions within a Safe Smart Account. 
+This allows your AI agent to propose transactions while maintaining your control over the account, with the option to withdraw funds or intervene at any point.
+
+5. **Multi-Signer Setup**: Some use cases involve multiple AI agents acting as signers on a single Smart Account. 
+These agents must reach consensus before a transaction is signed, adding an extra layer of security and decentralization.
+
+### AI Agent Setup Example
+
+Creating an AI agent that can interact with a Safe Smart Account can be done using LangChain and Ollama:
+
+```typescript
+import {
+  defineConfig,
+  ChatOllama,
+  OllamaInput,
+} from '@langchain/community/chat_models/ollama'
+import { SafeTool } from './tools/safe';
+import { PricesTool } from './tools/prices';
+import { MathTool } from './tools/math';
+
+// Set up the AI model
+const model = new ChatOllama({
+  baseUrl: 'http://localhost:11434',
+  model: 'mistral-nemo',
+  temperature: 0
+});
+
+// Add Safe-specific tools
+const tools = [
+  new MathTool(),
+  new PricesTool(),
+  new SafeTool()
+];
+
+// Create agent with tools and model
+const agent = createReactAgent({
+  llm: model,
+  tools: tools
+});
+
+// Example prompt to deploy a new Safe account
+const response = await agent.invoke({
+  input: `
+  Deploy a new Safe account with the following configuration:
+  - Network: Sepolia
+  - Owners: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e, ${process.env.SIGNER_ADDRESS}
+  - Threshold: 2
+  - Use 0.01 ETH to fund it
+  `
+});
+
+console.log(response.output);
+```
+
+The Safe tools allow AI agents to:
+- Check account balances
+- Deploy new Safe accounts
+- Prepare transactions
+- Check token prices
+- Use mathematical operations for calculating asset values
+
+## Developer Tools
+
+### SDK Overview
+
+Safe SDK provides a comprehensive toolkit for developers to interact with Safe Smart Accounts:
+
+```typescript
+// Protocol Kit example
+import Safe, { SafeFactory, SafeAccountConfig } from '@safe-global/protocol-kit'
+import { ethers } from 'ethers'
+
+// Create a Safe account
+const provider = new ethers.providers.JsonRpcProvider('https://sepolia.infura.io/v3/your-api-key')
+const signer = new ethers.Wallet('your-private-key', provider)
+
+const safeFactory = await SafeFactory.create({ ethAdapter: new EthersAdapter({ ethers, signerOrProvider: signer }) })
+
+const safeAccountConfig: SafeAccountConfig = {
+  owners: ['0x...', '0x...'],
+  threshold: 2
+}
+
+const safeSdk = await safeFactory.deploySafe({ safeAccountConfig })
+```
+
+### Protocol Kit Example
+
+The Protocol Kit enables interaction with Safe smart contracts:
+
+```typescript
+// Creating and executing a transaction
+const safeTransactionData = {
+  to: '0x...',
+  value: ethers.utils.parseEther('0.1').toString(),
+  data: '0x'
+}
+
+const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
+const signedSafeTransaction = await safeSdk.signTransaction(safeTransaction)
+
+// If we have the threshold of signatures
+const txHash = await safeSdk.executeTransaction(signedSafeTransaction)
+```
+
+### API Kit Example
+
+The API Kit allows developers to interact with the Safe Transaction Service:
+
+```typescript
+import { SafeApiKit, SafeInfoResponse } from '@safe-global/api-kit'
+
+const safeService = new SafeApiKit({
+  txServiceUrl: 'https://safe-transaction-sepolia.safe.global'
+})
+
+// Get Safe account information
+const safeInfo: SafeInfoResponse = await safeService.getSafeInfo('0x...')
+
+// Get pending transactions
+const pendingTxs = await safeService.getPendingTransactions('0x...')
+```
+
+### Relay Kit Example
+
+The Relay Kit enables gas-free transactions:
+
+```typescript
+import { GelatoRelayPack } from '@safe-global/relay-kit'
+
+// Create a relay pack
+const relayPack = new GelatoRelayPack('your-gelato-api-key')
+
+// Create a transaction
+const safeTransactionData = {
+  to: '0x...',
+  value: '0',
+  data: '0x...'
+}
+
+// Relay the transaction (user doesn't pay gas)
+const response = await relayPack.relayTransaction({
+  target: safeAddress,
+  encodedTransaction: encodedTx,
+  chainId: 11155111
+})
+```
+
+## Advanced Features
+
+### Smart Account Guards
+
+Guards provide an additional layer of security by validating transactions before they're executed:
+
+```solidity
+// Example Guard contract
+contract SpendingLimitGuard is Guard {
+    mapping(address => uint256) public dailyLimits;
+    mapping(address => uint256) public dailySpent;
+    mapping(address => uint256) public lastSpendDay;
+
+    function checkTransaction(
+        address to,
+        uint256 value,
+        bytes memory data,
+        Enum.Operation operation,
+        uint256 safeTxGas,
+        uint256 baseGas,
+        uint256 gasPrice,
+        address gasToken,
+        address payable refundReceiver,
+        bytes memory signatures,
+        address msgSender
+    ) external override {
+        // Reset spent amount if it's a new day
+        uint256 currentDay = block.timestamp / 1 days;
+        if (currentDay > lastSpendDay[msg.sender]) {
+            dailySpent[msg.sender] = 0;
+            lastSpendDay[msg.sender] = currentDay;
+        }
+
+        // Check if transaction exceeds daily limit
+        require(
+            dailySpent[msg.sender] + value <= dailyLimits[msg.sender],
+            "Daily spending limit exceeded"
+        );
+        
+        // Update spent amount
+        dailySpent[msg.sender] += value;
+    }
+}
+```
+
+### Smart Account Modules
+
+Modules extend the functionality of Safe accounts:
+
+```solidity
+// Example Social Recovery Module
+contract SocialRecoveryModule {
+    mapping(address => address[]) public friends;
+    mapping(address => mapping(address => bool)) public recoveryApproved;
+    mapping(address => uint256) public threshold;
+    
+    function addFriend(address safe, address friend) external {
+        require(GnosisSafe(safe).isOwner(msg.sender), "Not an owner");
+        friends[safe].push(friend);
+    }
+    
+    function approveRecovery(address safe, address newOwner) external {
+        require(isFriend(safe, msg.sender), "Not a friend");
+        recoveryApproved[safe][msg.sender] = true;
+        
+        // Check if threshold reached
+        uint256 approvals = 0;
+        for (uint i = 0; i < friends[safe].length; i++) {
+            if (recoveryApproved[safe][friends[safe][i]]) {
+                approvals++;
+            }
+        }
+        
+        if (approvals >= threshold[safe]) {
+            // Execute recovery by swapping ownership
+            bytes memory data = abi.encodeWithSignature(
+                "swapOwner(address,address,address)",
+                address(0x1), // prev owner placeholder
+                GnosisSafe(safe).getOwners()[0], // current owner
+                newOwner // new owner
+            );
+            GnosisSafe(safe).execTransactionFromModule(
+                safe, 0, data, Enum.Operation.Call
+            );
+        }
+    }
+}
+```
+
+### ERC-4337 Integration
+
+Safe Smart Accounts can be used with ERC-4337 for account abstraction:
+
+```typescript
+// Using Safe with ERC-4337
+import { Safe4337Module } from '@safe-global/protocol-kit'
+
+// Add the 4337 module to a Safe
+const safe4337Module = new Safe4337Module(...)
+await safeSdk.enableModule(safe4337Module.getAddress())
+
+// Create a user operation
+const userOp = await safe4337Module.createUserOp({
+  target: '0x...',
+  value: ethers.utils.parseEther('0.1').toString(),
+  data: '0x'
+})
+
+// Submit the user operation to a bundler
+const userOpHash = await bundler.sendUserOperation(userOp)
+```
+
+### Passkeys Support
+
+Safe supports passkeys for authentication:
+
+```typescript
+import { PasskeySignerFactory } from '@safe-global/protocol-kit'
+
+// Create a new passkey
+const passkeySignerFactory = new PasskeySignerFactory()
+const passkeySigner = await passkeySignerFactory.create({
+  username: 'user@example.com'
+})
+
+// Use passkey to sign transactions
+const safeAccountConfig = {
+  owners: [passkeySigner.getAddress()],
+  threshold: 1
+}
+
+// Sign Safe transactions with passkey
+const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
+const signedSafeTransaction = await safeSdk.signTransactionWithPasskey(safeTransaction, passkeySigner)
+```
+
+## SafeNet
+
+SafeNet is a cross-chain protocol that allows users to use Safe accounts across multiple chains securely.
+
+### Introduction to SafeNet
+
+SafeNet is a protocol built on top of Safe Smart Accounts that enables cross-chain transactions. It allows users to transfer assets between different blockchain networks without having to manage multiple accounts or trust centralized bridges.
+
+### SafeNet Architecture
+
+The SafeNet architecture consists of several components:
+
+1. **Home Safe**: The primary Safe account that initiates cross-chain transactions
+2. **Entry Point**: The smart contract that receives transaction requests
+3. **Guarantee Engine**: Provides validation for cross-chain transactions
+4. **Settlement Engine**: Finalizes cross-chain transactions
+
+### SafeNet Transaction Flow
+
+A typical SafeNet transaction follows these steps:
+
+1. User initiates a transaction from their Home Safe
+2. Transaction is validated by the Guarantee Engine
+3. Validators attest to the transaction's validity
+4. Transaction is executed on the target chain
+5. Settlement is completed, finalizing the transaction
+
+## CLI Reference
+
+The Safe CLI provides a command-line interface for interacting with Safe accounts:
+
+```bash
+# Install the Safe CLI
+npm install -g @safe-global/safe-cli
+
+# Set up your configuration
+safe config setup
+
+# Connect to a network
+safe config networks add sepolia --rpc-url https://sepolia.infura.io/v3/your-api-key
+
+# Create a new Safe account
+safe create --owners 0x... 0x... --threshold 2 --network sepolia
+
+# Execute a transaction
+safe tx execute --to 0x... --value 0.1 --network sepolia
+```
+
+## Supported Networks
+
+Safe Smart Accounts are supported on various networks, including:
+
+1. **Ethereum Mainnet**
+2. **Layer 2 Networks**:
+   - Arbitrum
+   - Optimism
+   - Polygon
+   - Base
+   - zkSync
+3. **Testnets**:
+   - Sepolia
+   - Goerli
+4. **Sidechains**:
+   - Gnosis Chain
+   - Avalanche C-Chain
+   - BNB Smart Chain
+
+Each network has different features and capabilities, but the core Safe functionality remains the same across all supported chains.
+
+## Resource Hub
+
+The Safe ecosystem includes various resources for developers:
+
+### Community Tutorials
+
+- Creating multi-signature wallets with Safe
+- Implementing social recovery with Safe Modules
+- Building dApps that interact with Safe accounts
+
+### Official Tools
+
+- Safe{Wallet} web interface
+- Safe{Core} SDK libraries
+- Transaction simulation tools
+
+### Integration Guides
+
+- Integrating Safe with wallets
+- Using Safe with existing dApps
+- Extending Safe functionality with custom modules
+</project>
