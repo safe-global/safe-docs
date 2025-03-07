@@ -1,0 +1,57 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+
+
+# `getModules` (0xb2494df3)
+
+
+
+Returns array of first 10 modules.
+
+
+
+
+Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/CompatibilityFallbackHandler.sol#L87)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function getModules() external view returns (address[] memory)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).getModules();
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+
+
+  - **Type:** `address[]`
+
+  Array of modules.
+
+
+
+
+
+
+

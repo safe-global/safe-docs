@@ -66,20 +66,6 @@ const functionCategories = {
   utilities: ['getStorageAt']
 }
 
-// function execAsync(cmd: string, opts = {}) {
-//   return new Promise(function (resolve, reject) {
-//     // Execute the command, reject if we exit non-zero (i.e. error)
-//     shell.exec(
-//       cmd,
-//       opts,
-//       function (code: number, stdout: string, stderr: string) {
-//         if (code != 0) return reject(new Error(stderr))
-//         return resolve(stdout)
-//       }
-//     )
-//   })
-// }
-
 // Recursively find all line numbers where the searchString occurs in the file
 function findLinesInFile(file: string, searchString: string): number[] {
   const lines: number[] = [] // Array to store line numbers of matches
@@ -129,7 +115,7 @@ function findFunctionNameInFile(file: string, functionName: string) {
     })
     return events.filter(event => event.split(' ').length === 1)
   } catch (error) {
-    console.error(`Error reading file ${file}:`, error)
+    console.error(`Error reading file ${file}:`, error.message)
     return []
   }
 }
@@ -137,33 +123,43 @@ function findFunctionNameInFile(file: string, functionName: string) {
 // Explore a given directory recursively and return all the file paths
 const walkPath = (dir: string) => {
   let results: string[] = []
-  const list = fs.readdirSync(dir)
-  list.forEach(function (file: string) {
-    const filePath: string = path.join(dir, file)
-    const stat = fs.statSync(filePath)
-    if (stat?.isDirectory()) {
-      results = results.concat(walkPath(filePath))
-    } else {
-      results.push(filePath)
-    }
-  })
+  try {
+    const list = fs.readdirSync(dir)
+    list.forEach(function (file: string) {
+      const filePath: string = path.join(dir, file)
+      const stat = fs.statSync(filePath)
+      if (stat?.isDirectory()) {
+        results = results.concat(walkPath(filePath))
+      } else {
+        results.push(filePath)
+      }
+    })
+  } catch (error) {
+    console.error(`Error reading directory ${dir}:`, error)
+  }
 
   return results
 }
 
 // Generate the overview page for each version number
-const generateOverviewPage = (version: string, destination: string) => {
+const generateOverviewPage = async (version: string, destination: string) => {
   const overviewPage = `${version !== 'v1.4.1' ? `import LegacyCallout from '../../../components/callouts/LegacyCallout.mdx'\n\n<LegacyCallout />\n\n` : ''}# Safe Smart Account  v\`${version.slice(1)}\` - Reference
 
 This reference lists all public functions and events of the [Safe Smart Account](../advanced/smart-account-overview.mdx) contracts version \`${version.slice(1)}\`, logically clustered.
 
 `
-  fs.appendFileSync(`${destination}/overview.mdx`, overviewPage, 'utf8')
+  await shell.exec(`mkdir -p ${destination}`, { async: true }, async () => {
+    fs.appendFileSync(`${destination}/overview.mdx`, overviewPage, 'utf8')
+  })
 }
 
-const generateMetaJson = (destination: string) => {
+const generateMetaJson = async (
+  destination: string,
+  categories: string[],
+  callback: () => Promise<void>
+) => {
   const metaJson = Object.fromEntries(
-    smartAccountVersions.map(v => [
+    categories.map(v => [
       v,
       {
         title: v,
@@ -172,12 +168,14 @@ const generateMetaJson = (destination: string) => {
       }
     ])
   )
-  shell.exec(`mkdir -p ${destination}`)
-  fs.writeFileSync(
-    `${destination}/_meta.json`,
-    JSON.stringify(metaJson, null, 2),
-    'utf8'
-  )
+  shell.exec(`mkdir -p ${destination}`, { async: true }, async () => {
+    fs.writeFileSync(
+      `${destination}/_meta.json`,
+      JSON.stringify(metaJson, null, 2),
+      'utf8'
+    )
+    await callback()
+  })
 }
 
 // Generate the _meta.json file for each version number
@@ -235,11 +233,11 @@ const setupSolarity = async ({
 }: {
   repoDestination: string
   moduleName?: string
-  callback?: () => Promise<void>
+  callback: () => Promise<void>
 }) => {
   // Install the dependencies and add the @solarity/hardhat-markup plugin
   await shell.exec(
-    `cd ${repoDestination} && ${moduleName !== null ? `pnpm` : 'yarn'} add @solarity/hardhat-markup`,
+    `cd ${repoDestination} && ${moduleName !== null ? 'pnpm' : 'yarn'} add @solarity/hardhat-markup`,
     { async: true },
     async () => {
       // Add the plugin to the hardhat.config.ts file
@@ -248,7 +246,7 @@ const setupSolarity = async ({
       const newHardhatConfig =
         'import "@solarity/hardhat-markup";\n' + hardhatConfig
       fs.writeFileSync(hardhatConfigPath, newHardhatConfig, 'utf8')
-      await callback?.()
+      await callback()
     }
   )
 }
@@ -433,13 +431,15 @@ const generateMarkdownFromNatspec = async ({
   mdDestination,
   repoUrl,
   moduleName,
-  version
+  version,
+  callback
 }: {
   repoDestination: string
   mdDestination: string
   repoUrl: string
   moduleName?: string
   version?: string
+  callback: () => Promise<void>
 }) => {
   // Format files so they adhere to Safe docs standards
   const publicFunctions: DocContent[] = []
@@ -468,16 +468,6 @@ const generateMarkdownFromNatspec = async ({
       .filter(t => t.includes('public') || t.includes('external'))
       .map(functionDoc => {
         const contentLines = functionDoc?.split('\n')
-        // const contractPath = solarityFilePath
-        //   .replace('.md', '.sol')
-        //   .replace('/generated-markups/contracts', '')
-        // contentLines.splice(
-        //   2,
-        //   0,
-        //   `Defined in [\`${contractName}.sol\`](${repoUrl}tree/${version}/${contractPath}#L${findLineInFile('contracts/' + contractPath, 'function ' + functionDoc?.split(' ')[0])})\n`
-        // )
-        // return contentLines.join('\n')
-        // contentLines.splice(0, 2)
         const functionName = contentLines[0]?.split(' ')[0]
         const functionSignature = contentLines[0]?.split(' ')[1]
         const functionDefinition = functionDoc
@@ -575,29 +565,34 @@ const generateMarkdownFromNatspec = async ({
   const dedupedPublicFunctions = publicFunctions.reduce(dedupeReducer, [])
 
   // Generate one file per function
-  dedupedPublicFunctions.forEach(({ contractName, functionName, contents }) => {
-    if (ignoredFunctions.includes(functionName ?? '')) return
-    if (moduleName == null) {
-      const category =
-        Object.entries(functionCategories).find(([categoryName, categories]) =>
-          categories.includes(functionName ?? '')
-        )?.[0] || 'other'
-      const directory = `${mdDestination}/${category}`
-      const filePath = directory + `/${functionName}.mdx`
+  dedupedPublicFunctions.forEach(
+    async ({ contractName, functionName, contents }) => {
+      if (ignoredFunctions.includes(functionName ?? '')) return
+      if (moduleName == null) {
+        const category =
+          Object.entries(functionCategories).find(
+            ([categoryName, categories]) =>
+              categories.includes(functionName ?? '')
+          )?.[0] || 'other'
+        const directory = `${mdDestination}/${category}`
+        const filePath = directory + `/${functionName}.mdx`
 
-      // Save file
-      shell.mkdir('-p', directory)
-      fs.appendFileSync(filePath, contents, 'utf8')
-    } else {
-      // Save file
-      shell.mkdir('-p', mdDestination)
-      fs.appendFileSync(
-        mdDestination + `/${functionName}.mdx`,
-        contents,
-        'utf8'
-      )
+        // Save file
+        shell.exec(`mkdir -p ${directory}`, { async: true }, async () => {
+          fs.appendFileSync(filePath, contents, 'utf8')
+        })
+      } else {
+        // Save file
+        shell.exec(`mkdir -p ${mdDestination}`, { async: true }, async () => {
+          fs.appendFileSync(
+            mdDestination + `/${functionName}.mdx`,
+            contents,
+            'utf8'
+          )
+        })
+      }
     }
-  })
+  )
 
   // Generate one file per event
   publicEvents.forEach(({ eventName, contents }) => {
@@ -605,15 +600,17 @@ const generateMarkdownFromNatspec = async ({
     const filePath = directory + `/${eventName}.mdx`
 
     // Save file
-    shell.mkdir('-p', directory)
-    fs.writeFileSync(
-      filePath,
-      contents.replaceAll('{', '\\{').replaceAll('}', '\\}'),
-      'utf8'
-    )
+    shell.exec(`mkdir -p ${directory}`, { async: true }, async () => {
+      fs.writeFileSync(
+        filePath,
+        contents.replaceAll('{', '\\{').replaceAll('}', '\\}'),
+        'utf8'
+      )
+    })
   })
 
   if (moduleName == null) generateMetaJsonCategories(mdDestination) // Generate a _meta.json file per category
+  await callback()
 }
 
 // Takes a GitHub repository with Solidity contracts and generates documentation for each public function and event
@@ -653,31 +650,33 @@ const generateSolidityReference = async (
                         { async: true },
                         async () => {
                           // Generate final .mdx files
-                          generateMarkdownFromNatspec({
+                          await generateMarkdownFromNatspec({
                             repoDestination,
                             mdDestination: `${mdDestination}/${version}`,
                             repoUrl,
-                            version
-                          })
-                          generateOverviewPage(
                             version,
-                            `${mdDestination}/${version}`
-                          )
-                          generateMetaJsonVersions(
-                            version,
-                            `${mdDestination}/${version}`
-                          )
-                          await shell.exec(
-                            `rm -rf ${repoDestination}/build && rm -rf ${repoDestination}/node_modules && rm -rf ${repoDestination}/generated-markups && cd ${repoDestination} && git stash && git stash drop`,
-                            { async: true },
-                            async () => {
-                              shell.exec(
-                                `cd ${repoDestination} `,
+                            callback: async () => {
+                              await generateOverviewPage(
+                                version,
+                                `${mdDestination}/${version}`
+                              )
+                              generateMetaJsonVersions(
+                                version,
+                                `${mdDestination}/${version}`
+                              )
+                              await shell.exec(
+                                `rm -rf ${repoDestination}/build && rm -rf ${repoDestination}/node_modules && rm -rf ${repoDestination}/generated-markups && cd ${repoDestination} && git stash && git stash drop`,
                                 { async: true },
-                                callback
+                                async () => {
+                                  shell.exec(
+                                    `cd ${repoDestination} `,
+                                    { async: true },
+                                    await callback()
+                                  )
+                                }
                               )
                             }
-                          )
+                          })
                         }
                       )
                     }
@@ -688,14 +687,20 @@ const generateSolidityReference = async (
           )
         }
         async function processAllVersions(list: string[]) {
-          if (list.length == 0) return
-          console.log('processing ', list[0])
+          if (list.length == 0) {
+            // Clean up temporary files
+            shell.rm('-rf', repoDestination)
+            return
+          }
           return await generateVersionReference(list[0], async () => {
-            await processAllVersions(list.slice(1, list.length))
+            generateMetaJson(
+              mdDestination,
+              smartAccountVersions,
+              async () => await processAllVersions(list.slice(1, list.length))
+            )
           })
         }
         await processAllVersions(smartAccountVersions)
-        generateMetaJson(mdDestination)
       } else {
         const paths = walkPath(source)
           .map(p => p.replace(source, ''))
@@ -703,38 +708,56 @@ const generateSolidityReference = async (
         const modules = paths
           .map(p => p.split('/')[1])
           .filter((path, i, arr) => arr.indexOf(path) === i)
-        modules.forEach(async module => {
-          const _repoDestination = `${source}/${module}`
-          const _mdDestination = `${mdDestination}/${module}`
-          const moduleName = module
-          const _repoUrl = repoUrl + '/modules/' + module
-          // Prepare repo & generate .md doc files using @solarity:
-          await setupSolarity({
-            repoDestination: _repoDestination,
-            moduleName,
-            callback: async () => {
-              shell.exec(
-                `cd ${_repoDestination} && pnpm exec hardhat markup`,
-                { async: true },
-                async () => {
-                  // Generate final .mdx files
-                  generateMarkdownFromNatspec({
-                    repoDestination: _repoDestination,
-                    mdDestination: _mdDestination,
-                    repoUrl: _repoUrl,
-                    moduleName
-                  })
-                }
-              )
-            }
-          })
-        })
+        await shell.exec(
+          `cd ${repoDestination} && pnpm i`,
+          { async: true },
+          async () =>
+            await Promise.all(
+              modules.map(async moduleName => {
+                const _repoDestination = `${source}/${moduleName}`
+                const _mdDestination = `${mdDestination}/${moduleName}`
+                const _repoUrl = repoUrl + '/modules/' + moduleName
+                // Prepare repo & generate .md doc files using @solarity:
+                await setupSolarity({
+                  repoDestination: _repoDestination,
+                  moduleName,
+                  callback: async () => {
+                    await shell.exec(
+                      `cd ${_repoDestination} && pnpm exec hardhat markup`,
+                      { async: true },
+                      async () => {
+                        // Generate final .mdx files
+                        await generateMarkdownFromNatspec({
+                          repoDestination: _repoDestination,
+                          mdDestination: _mdDestination,
+                          repoUrl: _repoUrl,
+                          moduleName,
+                          callback: async () => {
+                            await generateOverviewPage(
+                              moduleName,
+                              _mdDestination
+                            )
+                            await generateMetaJsonVersions(
+                              moduleName,
+                              _mdDestination
+                            )
+                            await generateMetaJson(
+                              mdDestination,
+                              ['4337', 'allowances', 'passkey', 'recovery'],
+                              async () => {}
+                            )
+                          }
+                        })
+                      }
+                    )
+                  }
+                })
+              })
+            )
+        )
       }
     }
   )
-
-  // Clean up temporary files
-  shell.rm('-rf', repoDestination)
 }
 
 const main = async () => {
@@ -746,7 +769,7 @@ const main = async () => {
   generateSolidityReference(
     `https://github.com/safe-global/safe-modules/`,
     'modules',
-    'pages/modules-reference'
+    'pages/reference-modules'
   )
 }
 
