@@ -1,0 +1,45 @@
+import { Callout } from 'nextra/components'
+
+# Safe Fallback Handler
+
+Safe Fallback Handler helps to add new features to Safe Smart Account contract without requiring to change the Safe Smart Account code. Fallback Handler helps to bypass this restriction of 24KB contract size limit. They are smart contracts that add functionality to Safe while separating module logic from Safe's core contracts. A basic Safe doesn't require any modules. Adding and removing a module requires confirmation from the configured threshold number of owners. Events are emitted whenever a fallback handler is changed.
+
+## How it works
+
+- If set, a fallback handler is a smart contract that which is called when function signature from `calldata` does not to match any of the functions available in the Singleton code.
+- When calling a Fallback Handler contract, Safe Smart Account appends the address of the caller to the `calldata`.
+
+![diagram-fallback-handler](../../assets/diagram-fallback-handler.png)
+
+## Examples
+
+1. [TokenCallbackHandler](https://github.com/safe-global/safe-smart-account/blob/main/contracts/handler/TokenCallbackHandler.sol)
+
+- Handles supported tokens' callbacks, allowing Safes to receive these tokens
+- Supports interfaces
+  - `ERC1155TokenReceiver`
+  - `ERC777TokensRecipient`
+  - `ERC721TokenReceiver`
+
+2. [CompatibilityFallbackHandler](https://github.com/safe-global/safe-smart-account/blob/main/contracts/handler/CompatibilityFallbackHandler.sol)
+
+- Inherits from `TokenCallbackHandler`.
+- Implements the ERC-1271 standard via the `isValidSignature` function, ensuring secure on-chain signature verification.
+- Implements a `simulate` function that performs a `delegatecall` to a target contract in a simulated, static manner by reverting after execution to avoid side effects.
+- Additional functions not present in the core Safe Singleton contract that are useful to have but not critical.
+  - **getMessageHash:** Returns a hash for a message using the caller/s Safe instance.  
+  - **encodeMessageDataForSafe:** Encodes a message with the Safe's domain separator and a predefined message type hash.  
+  - **getMessageHashForSafe:** Combines encoding and hashing to produce the final message hash.  
+  - Provides a `getModules` function to retrieve a paginated list (first 10 modules) of modules associated with the Safe.
+
+3. [ExtensibleFallbackHandler](https://github.com/safe-global/safe-smart-account/blob/main/contracts/handler/ExtensibleFallbackHandler.sol)
+
+- Allows setting a different fallback handler for each function signature.
+
+4. [Safe4337Module as Fallback Handler](https://github.com/safe-global/safe-modules/blob/main/modules/4337/contracts/Safe4337Module.sol)
+
+- Implements `validateUserOp` function specified by ERC-4337.
+
+<Callout type='error' emoji='‼️'>
+  Safe Fallback Handler can be a security risk since they add arbitrary functions to the Safe Smart Account contract. Only add trusted and audited Fallback Handler to a Safe.
+</Callout>
