@@ -2,5 +2,9 @@
   "approveHash": "approveHash",
   "checkNSignatures": "checkNSignatures",
   "checkSignatures": "checkSignatures",
-  "signedMessages": "signedMessages"
+  "encodeMessageDataForSafe": "encodeMessageDataForSafe",
+  "getMessageHash": "getMessageHash",
+  "getMessageHashForSafe": "getMessageHashForSafe",
+  "isValidSignature": "isValidSignature",
+  "signMessage": "signMessage"
 }

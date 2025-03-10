@@ -5,18 +5,17 @@ import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout
 import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
 
-<LegacyCallout />
-
-# `getModules` (0xb2494df3)
 
 
-
-Returns array of first 10 modules.
+# `tokensReceived` (0x0023de29)
 
 
 
+Handles ERC777 Token callback.
+return nothing (not standardized)
 
-Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/handler/CompatibilityFallbackHandler.sol#L74)
+
+Defined in [` TokenCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/TokenCallbackHandler.sol#L48)
 
 
 ## Usage
@@ -27,12 +26,12 @@ Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function getModules() external view returns (address[] memory)
+        function tokensReceived(address,address,address,uint256,bytes calldata,bytes calldata) external pure override
     }
 
     contract Example {
         function example() ... {
-            (ISafe safe).getModules();
+            (ISafe safe).tokensReceived();
         }
     }
     ```
@@ -40,15 +39,6 @@ Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/
 </Tabs>
 
 {/* <!-- vale on --> */}
-
-## Returns
-
-
-
-  - **Type:** `address[]`
-
-  Array of modules.
-
 
 
 

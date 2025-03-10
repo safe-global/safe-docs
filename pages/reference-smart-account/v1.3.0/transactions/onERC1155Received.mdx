@@ -5,15 +5,16 @@ import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout
 import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
 
+<LegacyCallout />
+
+# `onERC1155Received` (0xf23a6e61)
 
 
-# `masterCopy` (0xa619486e)
 
 
 
 
-
-Defined in [` IProxy.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/proxies/IProxy.sol#Lundefined)
+Defined in [` DefaultCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/handler/DefaultCallbackHandler.sol#L15)
 
 
 ## Usage
@@ -24,12 +25,12 @@ Defined in [` IProxy.sol`](https://github.com/safe-global/safe-smart-account/tre
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function masterCopy() external view returns (address)
+        function onERC1155Received(address,address,uint256,uint256,bytes calldata) external pure override returns (bytes4)
     }
 
     contract Example {
         function example() ... {
-            (ISafe safe).masterCopy();
+            (ISafe safe).onERC1155Received();
         }
     }
     ```

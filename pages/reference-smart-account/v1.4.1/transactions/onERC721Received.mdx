@@ -7,16 +7,15 @@ import IrreversibilityCallout from '../../../../components/callouts/Irreversibil
 
 
 
-# `getModules` (0xb2494df3)
+# `onERC721Received` (0x150b7a02)
 
 
 
-Returns array of first 10 modules.
+Handles ERC721 Token callback.
+return Standardized onERC721Received return value.
 
 
-
-
-Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/CompatibilityFallbackHandler.sol#L87)
+Defined in [` TokenCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/TokenCallbackHandler.sol#L40)
 
 
 ## Usage
@@ -27,12 +26,12 @@ Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function getModules() external view returns (address[] memory)
+        function onERC721Received(address,address,uint256,bytes calldata) external pure override returns (bytes4)
     }
 
     contract Example {
         function example() ... {
-            (ISafe safe).getModules();
+            (ISafe safe).onERC721Received();
         }
     }
     ```
@@ -40,15 +39,6 @@ Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/
 </Tabs>
 
 {/* <!-- vale on --> */}
-
-## Returns
-
-
-
-  - **Type:** `address[]`
-
-  Array of modules.
-
 
 
 

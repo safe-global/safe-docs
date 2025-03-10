@@ -1,5 +1,6 @@
 import { Tabs, Callout } from 'nextra/components'
-import SafeMultiSigTransaction from '../events/SafeMultiSigTransaction.mdx'
+import ExecutionSuccess from '../events/ExecutionSuccess.mdx'
+import ExecutionFailure from '../events/ExecutionFailure.mdx'
 import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
@@ -23,7 +24,7 @@ It is the responsibility of the caller to perform such checks.
 
 
 
-Defined in [` SafeL2.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/SafeL2.sol#L32)
+Defined in [` Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/Safe.sol#L139)
 
 
 ## Usage
@@ -34,7 +35,7 @@ Defined in [` SafeL2.sol`](https://github.com/safe-global/safe-smart-account/tre
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function execTransaction(address to,uint256 value,bytes calldata data,Enum.Operation operation,uint256 safeTxGas,uint256 baseGas,uint256 gasPrice,address gasToken,address payable refundReceiver,bytes memory signatures) public payable override returns (bool)
+        function execTransaction(address to,uint256 value,bytes calldata data,Enum.Operation operation,uint256 safeTxGas,uint256 baseGas,uint256 gasPrice,address gasToken,address payable refundReceiver,bytes memory signatures) public payable virtual returns (bool success)
     }
 
     contract Example {
@@ -134,5 +135,6 @@ Defined in [` SafeL2.sol`](https://github.com/safe-global/safe-smart-account/tre
 
 ## Events
 
-<SafeMultiSigTransaction />
+<ExecutionSuccess />
+<ExecutionFailure />
 
