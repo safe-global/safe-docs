@@ -1,0 +1,71 @@
+import { Tabs, Callout } from 'nextra/components'
+import AddedOwner from '../events/AddedOwner.mdx'
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `addOwnerWithThreshold` (0x0d582f13)
+
+
+
+Adds the owner `owner` to the Safe and updates the threshold to `_threshold`.
+
+Allows to add a new owner to the Safe and update the threshold at the same time.
+<OnlySafeTxCallout />
+
+
+
+
+Defined in [` OwnerManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/base/OwnerManager.sol#L51)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function addOwnerWithThreshold(address owner,uint256 _threshold) public authorized
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).addOwnerWithThreshold(
+                0x...
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+## Parameters
+
+### `owner`
+
+  - **Type:** `address`
+
+  New owner address.
+
+  ```solidity focus=2
+  (ISafe safe).addOwnerWithThreshold(
+    0x...
+  );
+  ```
+
+
+
+
+## Events
+
+<AddedOwner />
+

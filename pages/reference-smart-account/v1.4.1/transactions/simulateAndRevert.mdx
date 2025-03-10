@@ -1,0 +1,71 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+
+
+# `simulateAndRevert` (0xb4faba09)
+
+
+
+Performs a delegatecall on a targetContract in the context of self.
+Internally reverts execution to avoid side effects (making it static).
+
+This method reverts with data equal to `abi.encode(bool(success), bytes(response))`.
+Specifically, the `returndata` after a call to this method will be:
+`success:bool || response.length:uint256 || response:bytes`.
+
+
+
+
+
+Defined in [` StorageAccessible.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/common/StorageAccessible.sol#L40)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function simulateAndRevert(address targetContract,bytes memory calldataPayload) external
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).simulateAndRevert(
+                0x...
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+## Parameters
+
+### `targetContract`
+
+  - **Type:** `address`
+
+  Address of the contract containing the code to execute.
+
+  ```solidity focus=2
+  (ISafe safe).simulateAndRevert(
+    0x...
+  );
+  ```
+
+
+
+
+

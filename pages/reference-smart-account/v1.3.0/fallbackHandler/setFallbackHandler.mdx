@@ -1,0 +1,70 @@
+import { Tabs, Callout } from 'nextra/components'
+import ChangedFallbackHandler from '../events/ChangedFallbackHandler.mdx'
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `setFallbackHandler` (0xf08a0323)
+
+
+
+Allows to add a contract to handle fallback calls.
+Only fallback calls without value and with data will be forwarded.
+<OnlySafeTxCallout />
+
+
+
+
+Defined in [` FallbackManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/base/FallbackManager.sol#L26)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function setFallbackHandler(address handler) public authorized
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).setFallbackHandler(
+                0x...
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+## Parameters
+
+### `handler`
+
+  - **Type:** `address`
+
+  contract to handle fallbacks calls.
+
+  ```solidity focus=2
+  (ISafe safe).setFallbackHandler(
+    0x...
+  );
+  ```
+
+
+
+
+## Events
+
+<ChangedFallbackHandler />
+

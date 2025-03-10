@@ -1,0 +1,74 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `getStorageAt` (0x5624b25b)
+
+
+
+Reads `length` bytes of storage in the currents contract
+
+
+
+
+Defined in [` StorageAccessible.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/common/StorageAccessible.sol#L13)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function getStorageAt(uint256 offset,uint256 length) public view returns (bytes memory)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).getStorageAt(
+                0
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+
+
+  - **Type:** `bytes`
+
+  the bytes that were read.
+
+
+
+
+## Parameters
+
+### `offset`
+
+  - **Type:** `uint256`
+
+  - the offset in the current contract's storage in words to start reading from
+
+  ```solidity focus=2
+  (ISafe safe).getStorageAt(
+    0
+  );
+  ```
+
+
+
+
+

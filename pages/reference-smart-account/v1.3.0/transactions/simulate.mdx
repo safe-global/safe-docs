@@ -1,0 +1,66 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `simulate` (0xbd61951d)
+
+
+
+Performs a delegetecall on a targetContract in the context of self.
+Internally reverts execution to avoid side effects (making it static). Catches revert and returns encoded result as bytes.
+
+
+
+
+Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/handler/CompatibilityFallbackHandler.sol#L87)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function simulate(address targetContract,bytes calldata calldataPayload) external returns (bytes memory response)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).simulate(
+                0x...
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+## Parameters
+
+### `targetContract`
+
+  - **Type:** `address`
+
+  Address of the contract containing the code to execute.
+
+  ```solidity focus=2
+  (ISafe safe).simulate(
+    0x...
+  );
+  ```
+
+
+
+
+

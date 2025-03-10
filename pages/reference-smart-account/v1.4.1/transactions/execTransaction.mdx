@@ -1,0 +1,140 @@
+import { Tabs, Callout } from 'nextra/components'
+import ExecutionSuccess from '../events/ExecutionSuccess.mdx'
+import ExecutionFailure from '../events/ExecutionFailure.mdx'
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+
+
+# `execTransaction` (0x6a761202)
+
+
+
+Executes a `operation` \{0: Call, 1: DelegateCall\}\} transaction to `to` with `value` (Native Currency)
+and pays `gasPrice` * `gasLimit` in `gasToken` token to `refundReceiver`.
+
+The fees are always transferred, even if the user transaction fails.
+This method doesn't perform any sanity check of the transaction, such as:
+- if the contract at `to` address has code or not
+- if the `gasToken` is a contract or not
+It is the responsibility of the caller to perform such checks.
+
+
+
+
+Defined in [` Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/Safe.sol#L139)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function execTransaction(address to,uint256 value,bytes calldata data,Enum.Operation operation,uint256 safeTxGas,uint256 baseGas,uint256 gasPrice,address gasToken,address payable refundReceiver,bytes memory signatures) public payable virtual returns (bool success)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).execTransaction(
+                0x...,
+                0,
+                0,
+                "0x..."
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+### `success`
+
+  - **Type:** `bool`
+
+  Boolean indicating transaction's success.
+
+
+
+
+## Parameters
+
+### `to`
+
+  - **Type:** `address`
+
+  Destination address of Safe transaction.
+
+  ```solidity focus=2
+  (ISafe safe).execTransaction(
+    0x...,
+    0,
+    0,
+    "0x..."
+  );
+  ```
+
+
+### `operation`
+
+  - **Type:** `enum Enum.Operation`
+
+  Operation type of Safe transaction.
+
+  ```solidity focus=3
+  (ISafe safe).execTransaction(
+    0x...,
+    0,
+    0,
+    "0x..."
+  );
+  ```
+
+
+### `gasPrice`
+
+  - **Type:** `uint256`
+
+  Gas price that should be used for the payment calculation.
+
+  ```solidity focus=4
+  (ISafe safe).execTransaction(
+    0x...,
+    0,
+    0,
+    "0x..."
+  );
+  ```
+
+
+### `signatures`
+
+  - **Type:** `bytes`
+
+  Signature data that should be verified. Can be packed ECDSA signature (\{bytes32 r\}\{bytes32 s\}\{uint8 v\}), contract signature (EIP-1271) or approved hash.
+
+  ```solidity focus=5
+  (ISafe safe).execTransaction(
+    0x...,
+    0,
+    0,
+    "0x..."
+  );
+  ```
+
+
+
+
+## Events
+
+<ExecutionSuccess />
+<ExecutionFailure />
+
