@@ -1,17 +1,41 @@
 import fs from 'fs'
 import shell from 'shelljs'
+import { capitalize } from 'lodash'
+
 import { ParamType } from './types'
 import { findLinesInFile } from './utils'
 import { sampleValues } from './constants'
+import { generateMetaJson } from './metaJsons'
 
 // Generate the overview page for each version number
 export const generateOverviewPage = async (
   version: string,
   destination: string
 ) => {
-  const overviewPage = `${version !== 'v1.4.1' ? `import LegacyCallout from '../../../components/callouts/LegacyCallout.mdx'\n\n<LegacyCallout />\n\n` : ''}# Safe Smart Account  v\`${version.slice(1)}\` - Reference
+  const isModule = version.includes('/')
+  const moduleName = version.split('/')[0]
+  const _version = isModule ? version.split('/')[1] : version
+  const overviewPage = `${version !== 'v1.4.1' ? `import LegacyCallout from ../../../components/callouts/LegacyCallout.mdx'\n\n<LegacyCallout />\n\n` : ''}# Safe Smart Account  \`${version}\` - Reference
 
-This reference lists all public functions and events of the [Safe Smart Account](../advanced/smart-account-overview.mdx) contracts version \`${version.slice(1)}\`, logically clustered.
+This reference lists all public functions and events of the [Safe Smart Account](../advanced/smart-account-overview.mdx)'} contracts version \`${version.slice(1)}\`, logically clustered.
+
+`
+  await shell.exec(`mkdir -p ${destination}`, { async: true }, async () => {
+    fs.appendFileSync(`${destination}/overview.mdx`, overviewPage, 'utf8')
+  })
+}
+
+// Generate the overview page for each version number
+export const generateOverviewPageModule = async (
+  version: string,
+  destination: string
+) => {
+  const moduleName = version.split('/')[0]
+  const _version = version.split('/')[1]
+
+  const overviewPage = `${_version !== 'v1.4.1' ? `import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'\n\n<LegacyCallout />\n\n` : ''}# ${capitalize(moduleName)} Module \`${_version}\` - Reference
+
+This reference lists all public functions and events of the [Safe Smart Account](../advanced/smart-account-overview.mdx)'} contracts version \`${_version.slice(1)}\`, logically clustered.
 
 `
   await shell.exec(`mkdir -p ${destination}`, { async: true }, async () => {
@@ -46,7 +70,6 @@ export const getSafeDocsTemplate = ({
   contractPath,
   version,
   repoUrl,
-  moduleName,
   repoDestination
 }: {
   functionName?: string
@@ -58,16 +81,16 @@ export const getSafeDocsTemplate = ({
   functionReturnTypes: ParamType[]
   contractName: string
   contractPath: string
-  version?: string
+  version: string
   repoUrl: string
   moduleName?: string
   repoDestination: string
 }) => `import { Tabs, Callout } from 'nextra/components'
-${functionEvents?.map(event => `import ${event} from '${moduleName == null ? '..' : '.'}/events/${event}.mdx'`).join('\n')}
-import LegacyCallout from '${moduleName == null ? '..' : '.'}/../../../components/callouts/LegacyCallout.mdx'
-import OnlySafeTxCallout from '${moduleName == null ? '..' : '.'}/../../../components/callouts/OnlySafeTxCallout.mdx'
-import ReentrancyCallout from '${moduleName == null ? '..' : '.'}/../../../components/callouts/ReentrancyCallout.mdx'
-import IrreversibilityCallout from '${moduleName == null ? '..' : '.'}/../../../components/callouts/IrreversibilityCallout.mdx'
+${functionEvents?.map(event => `import ${event} from '../events/${event}.mdx'`).join('\n')}
+import LegacyCallout from '${version.includes('/') ? '../..' : '..'}/../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '${version.includes('/') ? '../..' : '..'}/../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '${version.includes('/') ? '../..' : '..'}/../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '${version.includes('/') ? '../..' : '..'}/../../../components/callouts/IrreversibilityCallout.mdx'
 
 ${version !== 'v1.4.1' ? `<LegacyCallout />` : ''}
 
@@ -160,3 +183,74 @@ ${functionEvents.map(event => `<${event} />`).join('\n')}
 `
 }
 `
+
+// Recursively process all versions to ensure operations (cloning, installing deps, etc.) are done sequentially:
+export const processAllVersions = async ({
+  list,
+  mdDestination,
+  repoDestination,
+  versions,
+  generateFunction
+}: {
+  list: string[]
+  mdDestination: string
+  repoDestination: string
+  versions: string[]
+  generateFunction: (
+    version: string,
+    callback: () => Promise<void>,
+    repoDestination: string,
+    mdDestination: string
+  ) => Promise<void>
+}) => {
+  if (list.length == 0) {
+    // Clean up temporary files
+    shell.rm('-rf', repoDestination)
+    return
+  }
+  console.info('Processing version:', list[0])
+  return await generateFunction(
+    list[0],
+    async () => {
+      generateMetaJson(
+        mdDestination,
+        versions,
+        async () =>
+          await processAllVersions({
+            list: list.slice(1, list.length),
+            mdDestination,
+            repoDestination,
+            versions,
+            generateFunction
+          })
+      )
+    },
+    repoDestination,
+    mdDestination
+  )
+}
+
+// Takes a GitHub repository with Solidity contracts and generates documentation for each public function and event
+export const runSolidityGenerationScript = (
+  mdDestination,
+  repoDestination,
+  repoUrl,
+  versions,
+  generateFunction
+) => {
+  // Prepare files
+  shell.rm('-rf', mdDestination)
+  shell.exec(
+    `git clone ${repoUrl} ${repoDestination}`,
+    { async: true },
+    async () => {
+      await processAllVersions({
+        list: versions,
+        mdDestination,
+        repoDestination,
+        versions,
+        generateFunction
+      })
+    }
+  )
+}

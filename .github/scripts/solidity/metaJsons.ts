@@ -1,9 +1,8 @@
 import fs from 'fs'
 import shell from 'shelljs'
 
-import { functionCategories } from './constants'
+import { smartAccountCategories } from './constants'
 import capitalize from 'lodash/capitalize'
-import { DocContent } from './types'
 
 export const generateMetaJson = async (
   destination: string,
@@ -35,7 +34,7 @@ export const generateMetaJsonVersions = (
   version: string,
   destination: string
 ) => {
-  const categories = Object.keys(functionCategories)
+  const categories = Object.keys(smartAccountCategories)
   const content = Object.fromEntries([
     [
       'home',
@@ -67,13 +66,14 @@ export const generateMetaJsonCategories = (
   destination: string,
   publicFunctions: string[]
 ) => {
-  const categories = Object.entries(functionCategories)
+  const categories = Object.entries(smartAccountCategories)
   categories.forEach(([category, functions]) => {
     const content = Object.fromEntries(
       functions
         .map(functionName => [functionName, functionName])
         .filter(([functionName]) => publicFunctions.includes(functionName))
     )
+    fs.mkdirSync(`${destination}/${category}`, { recursive: true })
     fs.writeFileSync(
       `${destination}/${category}/_meta.json`,
       JSON.stringify(content, null, 2),

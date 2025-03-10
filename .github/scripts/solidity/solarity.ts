@@ -4,6 +4,8 @@ import shell from 'shelljs'
 import { dedupeReducer, findFunctionNameInFile, walkPath } from './utils'
 import { getSafeDocsTemplate } from './templates'
 import type { DocContent, ParamType } from './types'
+import { generateMetaJsonCategories } from './metaJsons'
+import { ignoredFunctions, smartAccountCategories } from './constants'
 
 // Setup Solarity to generate documentation from a given repository in solidity
 export const setupSolarity = async ({
@@ -69,28 +71,30 @@ export const getParametersFromMdTable = (functionDoc: string) => {
 export const getPublicFunctionsAndEvents = ({
   repoUrl,
   repoDestination,
-  version,
-  moduleName
+  version
 }: {
   repoUrl: string
   repoDestination: string
-  version?: string
-  moduleName?: string
+  version: string
 }) => {
   // Format files so they adhere to Safe docs standards
   const publicFunctions: DocContent[] = []
   const publicEvents: DocContent[] = []
   const solarityFilesPaths = walkPath(
     `${repoDestination}/generated-markups/${
-      moduleName === 'recovery' ? 'candide-contracts/contracts' : 'contracts'
+      version.includes('recovery') ? 'candide-contracts/contracts' : 'contracts'
     }`
-  ).filter(
-    p =>
-      p.endsWith('.md') &&
-      !p.includes('test') &&
-      !p.includes('examples') &&
-      !p.includes('interfaces')
   )
+    .filter(
+      p =>
+        p.endsWith('.md') &&
+        !p.includes('test') &&
+        !p.includes('examples') &&
+        !p.includes('interfaces')
+    )
+    .filter(p =>
+      version.includes('/') ? p.includes(version.split('/')[0]) : true
+    )
 
   // Generate .mdx pages:
   solarityFilesPaths.forEach(solarityFilePath => {
@@ -153,7 +157,6 @@ export const getPublicFunctionsAndEvents = ({
               .replace('/generated-markups/contracts', ''),
             version,
             repoUrl,
-            moduleName,
             repoDestination
           })
 
@@ -200,4 +203,64 @@ export const getPublicFunctionsAndEvents = ({
   const dedupedPublicFunctions = publicFunctions.reduce(dedupeReducer, [])
 
   return { publicFunctions: dedupedPublicFunctions, publicEvents }
+}
+
+export const generateMarkdownFromNatspec = async ({
+  repoDestination,
+  mdDestination,
+  repoUrl,
+  version,
+  callback
+}: {
+  repoDestination: string
+  mdDestination: string
+  repoUrl: string
+  moduleName?: string
+  version: string
+  callback: () => Promise<void>
+}) => {
+  // Format files so they adhere to Safe docs standards
+  const { publicFunctions, publicEvents } = getPublicFunctionsAndEvents({
+    repoUrl,
+    repoDestination,
+    version
+  })
+
+  // Generate one file per function
+  publicFunctions.forEach(async ({ contractName, functionName, contents }) => {
+    if (ignoredFunctions.includes(functionName ?? '')) return
+    const category =
+      Object.entries(smartAccountCategories).find(
+        ([categoryName, categories]) => categories.includes(functionName ?? '')
+      )?.[0] ?? 'other'
+    const directory = `${mdDestination}/${category}`
+    const filePath = directory + `/${functionName}.mdx`
+
+    // Save file
+    shell.exec(`mkdir -p ${directory}`, { async: true }, async () => {
+      fs.appendFileSync(filePath, contents, 'utf8')
+    })
+  })
+
+  // Generate one file per event
+  publicEvents.forEach(({ eventName, contents }) => {
+    const directory = `${mdDestination}/events`
+    const filePath = directory + `/${eventName}.mdx`
+
+    // Save file
+    shell.exec(`mkdir -p ${directory}`, { async: true }, async () => {
+      fs.writeFileSync(
+        filePath,
+        contents.replaceAll('{', '\\{').replaceAll('}', '\\}'),
+        'utf8'
+      )
+    })
+  })
+
+  // Generate a _meta.json file per category
+  await generateMetaJsonCategories(
+    mdDestination,
+    publicFunctions.map(publicFunction => publicFunction.functionName as string)
+  )
+  await callback()
 }

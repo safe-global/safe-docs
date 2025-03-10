@@ -1,4 +1,10 @@
 export const smartAccountVersions = ['v1.3.0', 'v1.4.1'] // Older versions don't support hardhat
+export const modulesVersions = {
+  '4337': ['v0.3.0'],
+  allowances: ['v0.1.1'],
+  passkey: ['v0.2.1'],
+  recovery: ['v0.1.0', 'v0.2.0']
+}
 export const ignoredFunctions = [
   'checkAfterExecution',
   'checkTransaction',
@@ -18,7 +24,7 @@ export const sampleValues = {
   bool: 'true',
   string: '"..."'
 }
-export const functionCategories = {
+export const smartAccountCategories = {
   setup: [
     'createChainSpecificProxyWithNonce',
     'createProxyWithCallback',
@@ -47,7 +53,7 @@ export const functionCategories = {
     'simulate',
     'simulateAndRevert',
     'tokensReceived',
-    'requiredTxGas',
+    'requiredTxGas'
   ],
   modules: [
     'enableModule',
