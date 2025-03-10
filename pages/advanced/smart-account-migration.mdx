@@ -14,7 +14,7 @@ Also, make sure to verify the compatibility of the new Singleton contract with t
 
 ## Migration Process
 
-Finding the address of the new Singleton contract is the first step in the migration process. Safe team users [SafeMigration](https://github.com/safe-global/safe-smart-account/blob/main/contracts/libraries/SafeMigration.sol) contract to update the Singleton contract address in the SafeProxy contract.
+Finding the address of the new Singleton contract is the first step in the migration process. Safe Team maintains [SafeMigration](https://github.com/safe-global/safe-smart-account/blob/main/contracts/libraries/SafeMigration.sol) contract to update the Singleton contract address in the `SafeProxy` contract.
 
 The officially deployed `SafeMigration` contract addresses can be found in the [Safe Deployments repository](https://github.com/safe-global/safe-deployments).
 
@@ -276,5 +276,5 @@ npm run migrate:L2:withFH
 
 ## Further actions
 
-- The migration script can be extended to support Safe Account migration with threshold more than one. The users can use ApiKit to propose the transaction, fetch transaction data and sign the transaction.
+- The migration script can be extended to support Safe Account migration with threshold more than one. The users can use [Safe API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) to propose the transaction, fetch transaction data and sign the transaction.
 - Source code of this script is available in the [Safe Migration Script repository](https://github.com/5afe/safe-migration-script).
