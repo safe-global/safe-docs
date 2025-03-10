@@ -1,0 +1,279 @@
+import { Callout } from 'nextra/components'
+import { Steps } from 'nextra/components'
+
+# Safe Smart Account Migration
+
+As the Smart Account ecosystem and standards evolve, Safe Team releases new versions of the Singleton contract as and when required.
+The **SafeProxy** contract (aka. Safe Smart Account) stores the address of the Singleton contract at storage `slot(0)`.  The existing SafeProxy contracts can be migrated to the new Singleton contract, but the Safe Smart Account owners have to take special steps to do so.
+The guide below provides a step-by-step process to migrate the SafeProxy contract to the new Singleton contract using `delegatecall`.
+
+<Callout type="warning">
+Only migrate to the trusted and audited contracts. A malicious implementation contract can take over the SafeProxy contract, causing loss of access to the account and potentially losing all funds.
+Also, make sure to verify the compatibility of the new Singleton contract with the existing SafeProxy contract.
+</Callout>
+
+## Migration Process
+
+Finding the address of the new Singleton contract is the first step in the migration process. Safe team users [SafeMigration](https://github.com/safe-global/safe-smart-account/blob/main/contracts/libraries/SafeMigration.sol) contract to update the Singleton contract address in the SafeProxy contract.
+
+The officially deployed `SafeMigration` contract addresses can be found in the [Safe Deployments repository](https://github.com/safe-global/safe-deployments).
+
+## SafeMigration contract methods
+
+Currently available [SafeMigration](https://github.com/safe-global/safe-deployments/blob/main/src/assets/v1.4.1/safe_migration.json) contract supports upgrading to the Safe Singleton contract version 1.4.1.
+
+The contract provides the below functions to migrate the SafeProxy contract to the new Singleton contract.
+
+### `migrateSingleton()`
+
+    This function updates the Safe's Singleton address to the new Singleton implementation.
+
+### `migrateWithFallbackHandler()`
+
+    This function updates the Safe's Singleton address and the fallback handler to the new implementations.
+
+### `migrateL2Singleton()`
+
+    This function updates the Safe's Singleton to the Singleton L2 address.
+
+### `migrateL2WithFallbackHandler()`
+
+    This function updates the Safe's Singleton address (to Singleton L2) and the fallback handler to the new implementations.
+
+The tutorial below provides a step-by-step guide for migrating an existing SafeProxy contract to the Singleton v1.4.1 using the Safe Protocol Kit.
+
+## Requirements
+
+- A deployed SafeProxy contract.
+- The SafeProxy contract should be compatible with the Singleton contract v1.4.1.
+- This example assumes that the threshold of the Safe Smart Account is one.
+
+<Steps>
+
+### Setup a new project
+
+```bash
+mkdir safe-migration-tutorial && cd safe-migration-tutorial
+npm init -y
+npm install @safe-global/protocol-kit @safe-global/types-kit viem
+```
+
+Add typescript support to the project:
+
+```bash
+npm install --save-dev typescript ts-node
+npx tsc --init
+```
+
+### Add script commands in package.json
+
+The `SafeMigration` contract provides four methods for migration. Update the `package.json` to add the following script commands:
+The migration script will read the argument and choose the appropriate method to execute.
+
+```json
+...
+  "scripts": {
+    ...
+    "migrate:L1": "ts-node ./src/migrate.ts migrateSingleton",
+    "migrate:L2": "ts-node ./src/migrate.ts migrateL2Singleton",
+    "migrate:L1:withFH": "ts-node ./src/migrate.ts migrateWithFallbackHandler",
+    "migrate:L2:withFH": "ts-node ./src/migrate.ts migrateL2WithFallbackHandler"
+  },
+...
+```
+
+### Create a migration script
+
+Create a new file `src/migrate.ts` and add the following code:
+
+```bash
+mkdir src
+touch src/migrate.ts
+```
+
+```typescript
+import Safe from "@safe-global/protocol-kit";
+import { MetaTransactionData, OperationType } from "@safe-global/types-kit";
+import { parseAbi, encodeFunctionData, http, createPublicClient } from "viem";
+
+type MigrationMethod =
+  | "migrateSingleton"
+  | "migrateWithFallbackHandler"
+  | "migrateL2Singleton"
+  | "migrateL2WithFallbackHandler";
+
+async function main(migrationMethod: MigrationMethod) {
+    // Define constants
+    // Build calldata for the migration
+    // Initialize the Protocol Kit
+    // Create and execute transaction
+}
+
+const migrationMethod = process.argv.slice(2)[0] as MigrationMethod;
+main(migrationMethod).catch(console.error);
+```
+
+### Define variables
+
+Define the constants required for the migration script. Replace the placeholders with the actual values.
+
+```typescript
+    // Define constants
+    const SAFE_ADDRESS = // ...
+    const OWNER_PRIVATE_KEY = // ...
+    const RPC_URL = // ...
+    const SAFE_MIGRATION_CONTRACT_ADDRESS = // ...
+    const ABI = parseAbi([
+    "function migrateSingleton() public",
+    "function migrateWithFallbackHandler() external",
+    "function migrateL2Singleton() public",
+    "function migrateL2WithFallbackHandler() external",
+  ]);
+```
+
+### Build `calldata` for the migration
+
+```typescript
+    // Build calldata for the migration
+    const calldata = encodeFunctionData({
+        abi: ABI,
+        functionName: migrationMethod,
+    });
+
+    const safeTransactionData: MetaTransactionData = {
+        to: SAFE_MIGRATION_CONTRACT_ADDRESS,
+        value: "0",
+        data: calldata,
+        operation: OperationType.DelegateCall,
+    };
+```
+
+### Initialize the Protocol Kit
+
+```typescript
+    // Initialize the Protocol Kit
+    const preExistingSafe = await Safe.init({
+        provider: RPC_URL,
+        signer: OWNER_PRIVATE_KEY,
+        safeAddress: SAFE_ADDRESS,
+    });
+```
+
+### Create and execute transaction
+
+```typescript
+    // Create and execute transaction
+    const safeTransaction = await preExistingSafe.createTransaction({
+        transactions: [safeTransactionData],
+    });
+
+    console.log(
+        `Executing migration method [${migrationMethod}] using Safe [${SAFE_ADDRESS}]`
+    );
+
+    const result = await preExistingSafe.executeTransaction(safeTransaction);
+
+    const publicClient = createPublicClient({
+        transport: http(RPC_URL),
+    });
+
+    console.log(`Transaction hash [${result.hash}]`);
+
+    await publicClient.waitForTransactionReceipt({
+        hash: result.hash as `0x${string}`,
+    });
+```
+
+### Final script
+
+```typescript
+import Safe from "@safe-global/protocol-kit";
+import { MetaTransactionData, OperationType } from "@safe-global/types-kit";
+import { parseAbi, encodeFunctionData, http, createPublicClient } from "viem";
+
+type MigrationMethod =
+  | "migrateSingleton"
+  | "migrateWithFallbackHandler"
+  | "migrateL2Singleton"
+  | "migrateL2WithFallbackHandler";
+
+async function main(migrationMethod: MigrationMethod) {
+  const SAFE_ADDRESS = // ...
+  const OWNER_PRIVATE_KEY = // ...
+  const RPC_URL = // ...
+  const SAFE_MIGRATION_CONTRACT_ADDRESS = // ...
+  const ABI = parseAbi([
+    "function migrateSingleton() public",
+    "function migrateWithFallbackHandler() external",
+    "function migrateL2Singleton() public",
+    "function migrateL2WithFallbackHandler() external",
+  ]);
+
+  const calldata = encodeFunctionData({
+    abi: ABI,
+    functionName: migrationMethod,
+  });
+
+  const safeTransactionData: MetaTransactionData = {
+    to: SAFE_MIGRATION_CONTRACT_ADDRESS,
+    value: "0",
+    data: calldata,
+    operation: OperationType.DelegateCall,
+  };
+
+  const preExistingSafe = await Safe.init({
+    provider: RPC_URL,
+    signer: OWNER_PRIVATE_KEY,
+    safeAddress: SAFE_ADDRESS,
+  });
+
+  const safeTransaction = await preExistingSafe.createTransaction({
+    transactions: [safeTransactionData],
+  });
+
+  console.log(
+    `Executing migration method [${migrationMethod}] using Safe [${SAFE_ADDRESS}]`
+  );
+
+  const result = await preExistingSafe.executeTransaction(safeTransaction);
+
+  const publicClient = createPublicClient({
+    transport: http(RPC_URL),
+  });
+
+  console.log(`Transaction hash [${result.hash}]`);
+  await publicClient.waitForTransactionReceipt({
+    hash: result.hash as `0x${string}`,
+  });
+}
+
+const migrationMethod = process.argv.slice(2)[0] as MigrationMethod;
+main(migrationMethod).catch(console.error);
+
+```
+
+### Run the migration script
+
+Run one of the below commands:
+
+```bash
+npm run migrate:L1
+```
+
+```bash
+npm run migrate:L2
+```
+
+```bash
+npm run migrate:L1:withFH
+```
+
+```bash
+npm run migrate:L2:withFH
+```
+
+</Steps>
+
+## Further actions
+
+- The migration script can be extended to support Safe Account migration with threshold more than one. The users can use ApiKit to propose the transaction, fetch transaction data and sign the transaction.
