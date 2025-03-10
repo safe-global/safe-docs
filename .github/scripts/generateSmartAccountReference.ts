@@ -1,15 +1,15 @@
 import shell from 'shelljs'
 
-import { smartAccountVersions } from './solidity/constants.ts'
+import { smartAccountVersions } from '../../lib/solidity/constants.ts'
 import {
   setupSolarity,
   generateMarkdownFromNatspec
-} from './solidity/solarity.ts'
+} from '../../lib/solidity/solarity.ts'
 import {
   generateOverviewPage,
   runSolidityGenerationScript
-} from './solidity/templates.ts'
-import { generateMetaJsonVersions } from './solidity/metaJsons.ts'
+} from '../../lib/solidity/templates.ts'
+import { generateMetaJsonVersions } from '../../lib/solidity/metaJsons.ts'
 
 const repoUrl = 'https://github.com/safe-global/safe-smart-account/'
 const repoDestination = '.temp/contracts'
