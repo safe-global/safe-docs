@@ -12,12 +12,9 @@ export const generateOverviewPage = async (
   version: string,
   destination: string
 ) => {
-  const isModule = version.includes('/')
-  const moduleName = version.split('/')[0]
-  const _version = isModule ? version.split('/')[1] : version
-  const overviewPage = `${version !== 'v1.4.1' ? `import LegacyCallout from ../../../components/callouts/LegacyCallout.mdx'\n\n<LegacyCallout />\n\n` : ''}# Safe Smart Account  \`${version}\` - Reference
+  const overviewPage = `${version !== 'v1.4.1' ? `import LegacyCallout from '../../../components/callouts/LegacyCallout.mdx'\n\n<LegacyCallout />\n\n` : ''}# Safe Smart Account  \`${version}\` - Reference
 
-This reference lists all public functions and events of the [Safe Smart Account](../advanced/smart-account-overview.mdx)'} contracts version \`${version.slice(1)}\`, logically clustered.
+This reference lists all public functions and events of the [Safe Smart Account](../advanced/smart-account-overview.mdx) contracts version \`${version.slice(1)}\`, logically clustered.
 
 `
   await shell.exec(`mkdir -p ${destination}`, { async: true }, async () => {
