@@ -97,7 +97,7 @@ export const getPublicFunctionsAndEvents = ({
         p.endsWith('.md') &&
         !p.includes('test') &&
         !p.includes('examples') &&
-        !p.includes('interfaces') &&
+        (p.includes('ISafeSignerFactory') ? true : !p.includes('interfaces')) &&
         !p.includes('vendor/FCL')
     )
     .filter(p =>

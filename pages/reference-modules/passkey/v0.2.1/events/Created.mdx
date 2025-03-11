@@ -1,0 +1,16 @@
+### `Created`
+```solidity
+event Created(address indexed signer, uint256 x, uint256 y, P256.Verifiers verifiers)
+```
+
+Emitted when a new signer is created.
+
+
+Parameters:
+
+| Name      | Type           | Description                          |
+| :-------- | :------------- | :----------------------------------- |
+| signer    | address        | The signer address.                  |
+| x         | uint256        | The x-coordinate of the public key.  |
+| y         | uint256        | The y-coordinate of the public key.  |
+| verifiers | P256.Verifiers | The P-256 verifiers to use.          |

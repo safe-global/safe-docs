@@ -92,7 +92,7 @@ import OnlySafeTxCallout from '${isModule ? '../..' : '..'}/../../../components/
 import ReentrancyCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/IrreversibilityCallout.mdx'
 
-${isModule && version !== 'v1.4.1' ? `<LegacyCallout />` : ''}
+${!isModule && version !== 'v1.4.1' ? `<LegacyCallout />` : ''}
 
 # \`${functionName}\` ${functionSignature}
 
@@ -139,7 +139,7 @@ ${functionReturnTypes
 
   - **Type:** \`${type}\`
 
-  ${description}
+  ${description.replaceAll('>', '\\>').replaceAll('<', '\\<')}
 
 `
   )
