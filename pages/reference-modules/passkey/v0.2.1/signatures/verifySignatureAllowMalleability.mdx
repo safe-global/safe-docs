@@ -1,0 +1,91 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `verifySignatureAllowMalleability` undefined
+
+
+
+Verifies the signature of a message using P256 elliptic curve, without signature
+malleability check.
+
+
+
+
+Defined in [` P256.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/libraries/P256.sol#L100)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function verifySignatureAllowMalleability(P256.Verifiers verifiers,bytes32 message,uint256 r,uint256 s,uint256 x,uint256 y) internal view returns (bool success)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).verifySignatureAllowMalleability(
+                ,
+                0
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+### `success`
+
+  - **Type:** `bool`
+
+  A boolean indicating whether the signature is valid or not.
+
+
+
+
+## Parameters
+
+### `verifiers`
+
+  - **Type:** `P256.Verifiers`
+
+  The P-256 verifiers to use.
+
+  ```solidity focus=2
+  (ISafe safe).verifySignatureAllowMalleability(
+    ,
+    0
+  );
+  ```
+
+
+### `s`
+
+  - **Type:** `uint256`
+
+  The s component of the signature.
+
+  ```solidity focus=3
+  (ISafe safe).verifySignatureAllowMalleability(
+    ,
+    0
+  );
+  ```
+
+
+
+
+

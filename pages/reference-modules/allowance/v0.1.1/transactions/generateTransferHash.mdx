@@ -1,0 +1,46 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `generateTransferHash` (0xd626e043)
+
+
+
+Generates the transfer hash that should be signed to authorize a transfer
+
+
+Defined in [` AllowanceModule.sol`](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances/contracts/AllowanceModule.sol#L214)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function generateTransferHash(address safe,address token,address to,uint96 amount,address paymentToken,uint96 payment,uint16 nonce) public view returns (bytes32)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).generateTransferHash();
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+
+
+

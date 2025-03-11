@@ -1,0 +1,83 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `confirmRecovery` (0x064e2d0e)
+
+
+
+Lets single guardian confirm the execution of the recovery request.
+Can also trigger the start of the execution by passing true to '_execute' parameter.
+Once triggered the recovery is pending for the recovery period before it can be finalised.
+
+
+
+
+Defined in [` SocialRecoveryModule.sol`](https://github.com/safe-global/safe-modules/tree/recovery/v0.1.0/modules/recovery/contracts/generated-markups/candide-contracts/contracts/modules/social_recovery/SocialRecoveryModule.sol#Lundefined)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function confirmRecovery(address _wallet,address[] calldata _newOwners,uint256 _newThreshold,bool _execute) external
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).confirmRecovery(
+                0x...,
+                true
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+## Parameters
+
+### `_wallet`
+
+  - **Type:** `address`
+
+  The target wallet.
+
+  ```solidity focus=2
+  (ISafe safe).confirmRecovery(
+    0x...,
+    true
+  );
+  ```
+
+
+### `_execute`
+
+  - **Type:** `bool`
+
+  Whether to auto-start execution of recovery.
+
+  ```solidity focus=3
+  (ISafe safe).confirmRecovery(
+    0x...,
+    true
+  );
+  ```
+
+
+
+
+

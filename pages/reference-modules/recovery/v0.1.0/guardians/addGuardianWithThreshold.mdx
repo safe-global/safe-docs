@@ -1,0 +1,65 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `addGuardianWithThreshold` (0xbe0e54d7)
+
+
+
+Lets an authorised module add a guardian to a wallet and change the threshold.
+
+
+
+
+Defined in [` GuardianStorage.sol`](https://github.com/safe-global/safe-modules/tree/recovery/v0.1.0/modules/recovery/contracts/generated-markups/candide-contracts/contracts/modules/social_recovery/storage/GuardianStorage.sol#Lundefined)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function addGuardianWithThreshold(address _guardian,uint256 _threshold) external onlyWhenModuleIsEnabled
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).addGuardianWithThreshold(
+                0x...
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+## Parameters
+
+### `_guardian`
+
+  - **Type:** `address`
+
+  The guardian to add.
+
+  ```solidity focus=2
+  (ISafe safe).addGuardianWithThreshold(
+    0x...
+  );
+  ```
+
+
+
+
+

@@ -1,0 +1,74 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `guardiansCount` (0xc026e7ee)
+
+
+
+Returns the number of guardians for a wallet.
+
+
+
+
+Defined in [` GuardianStorage.sol`](https://github.com/safe-global/safe-modules/tree/recovery/v0.1.0/modules/recovery/contracts/generated-markups/candide-contracts/contracts/modules/social_recovery/storage/GuardianStorage.sol#Lundefined)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function guardiansCount(address _wallet) public view returns (uint256)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).guardiansCount(
+                0x...
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+
+
+  - **Type:** `uint256`
+
+  the number of guardians.
+
+
+
+
+## Parameters
+
+### `_wallet`
+
+  - **Type:** `address`
+
+  The target wallet.
+
+  ```solidity focus=2
+  (ISafe safe).guardiansCount(
+    0x...
+  );
+  ```
+
+
+
+
+

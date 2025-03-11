@@ -1,0 +1,74 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `isValidSignature` (0x1626ba7e)
+
+
+
+Validates the signature for a given data hash.
+
+
+
+
+Defined in [` SignatureValidator.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/base/SignatureValidator.sol#L18)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function isValidSignature(bytes32 message,bytes calldata signature) external view returns (bytes4 magicValue)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).isValidSignature(
+                "0x..."
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+### `magicValue`
+
+  - **Type:** `bytes4`
+
+  The magic value indicating the validity of the signature.
+
+
+
+
+## Parameters
+
+### `message`
+
+  - **Type:** `bytes32`
+
+  The signed message.
+
+  ```solidity focus=2
+  (ISafe safe).isValidSignature(
+    "0x..."
+  );
+  ```
+
+
+
+
+

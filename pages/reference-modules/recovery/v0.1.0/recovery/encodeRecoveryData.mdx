@@ -1,0 +1,46 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `encodeRecoveryData` (0x1e01c4f0)
+
+
+
+Returns the bytes that are hashed to be signed by guardians.
+
+
+Defined in [` SocialRecoveryModule.sol`](https://github.com/safe-global/safe-modules/tree/recovery/v0.1.0/modules/recovery/contracts/generated-markups/candide-contracts/contracts/modules/social_recovery/SocialRecoveryModule.sol#Lundefined)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function encodeRecoveryData(address _wallet,address[] calldata _newOwners,uint256 _newThreshold,uint256 _nonce) public view returns (bytes memory)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).encodeRecoveryData();
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+
+
+

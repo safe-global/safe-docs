@@ -1,0 +1,77 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `validateUserOp` (0x19822f7c)
+
+
+
+Validates a user operation provided by the entry point.
+
+Must validate caller is the entryPoint.
+Must validate the signature and nonce
+
+
+
+
+Defined in [` Safe4337Module.sol`](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0-1/modules/4337/contracts/Safe4337Module.sol#L133)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function validateUserOp(PackedUserOperation calldata userOp,bytes32,uint256 missingAccountFunds) external onlySupportedEntryPoint returns (uint256 validationData)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).validateUserOp(
+                
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+### `validationData`
+
+  - **Type:** `uint256`
+
+  - Packaged ValidationData structure. use `_packValidationData` and `_unpackValidationData` to encode and decode. <20-byte> sigAuthorizer - 0 for valid signature, 1 to mark signature failure, otherwise, an address of an "authorizer" contract. <6-byte> validUntil - Last timestamp this operation is valid. 0 for "indefinite" <6-byte> validAfter - First timestamp this operation is valid If an account doesn't use time-range, it is enough to return SIG_VALIDATION_FAILED value (1) for signature failure. Note that the validation code cannot use block.timestamp (or block.number) directly.
+
+
+
+
+## Parameters
+
+### `userOp`
+
+  - **Type:** `struct PackedUserOperation`
+
+  - The operation that is about to be executed.
+
+  ```solidity focus=2
+  (ISafe safe).validateUserOp(
+    
+  );
+  ```
+
+
+
+
+

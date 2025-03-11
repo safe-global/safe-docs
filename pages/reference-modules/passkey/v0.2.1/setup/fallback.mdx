@@ -1,0 +1,90 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `fallback` undefined
+
+
+
+ A fallback function that takes the following input format and returns a result
+indicating whether the signature is valid or not:
+- `input[  0: 32]`: message
+- `input[ 32: 64]`: signature r
+- `input[ 64: 96]`: signature s
+- `input[ 96:128]`: public key x
+- `input[128:160]`: public key y
+
+The output is either:
+- `abi.encode(1)` bytes for a valid signature.
+- `""` empty bytes for an invalid signature or error.
+
+Note that this function does not follow the Solidity ABI format (in particular, it does not
+have a 4-byte selector), which is why it requires a fallback function and not regular
+Solidity function. Additionally, it has `view` function semantics, and is expected to be
+called with `STATICCALL` opcode.
+
+
+
+
+
+Defined in [` FCLP256Verifier.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/verifiers/FCLP256Verifier.sol#L2)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        fallback(bytes calldata input) external returns (bytes memory output)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).fallback(
+                "0x..."
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+### `output`
+
+  - **Type:** `bytes`
+
+  The encoded signature verification result.
+
+
+
+
+## Parameters
+
+### `input`
+
+  - **Type:** `bytes`
+
+  The encoded input parameters.
+
+  ```solidity focus=2
+  (ISafe safe).fallback(
+    "0x..."
+  );
+  ```
+
+
+
+
+

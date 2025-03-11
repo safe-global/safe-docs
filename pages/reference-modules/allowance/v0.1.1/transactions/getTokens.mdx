@@ -1,0 +1,46 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `getTokens` (0x8d0e8e1d)
+
+
+
+
+
+
+Defined in [` AllowanceModule.sol`](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances/contracts/AllowanceModule.sol#L287)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function getTokens(address safe,address delegate) public view returns (address[] memory)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).getTokens();
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+
+
+

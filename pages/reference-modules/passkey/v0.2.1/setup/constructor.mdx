@@ -1,0 +1,81 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `constructor` undefined
+
+
+
+Creates a new WebAuthn Safe Signer Proxy.
+
+
+
+
+Defined in [` SafeWebAuthnSignerProxy.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/SafeWebAuthnSignerProxy.sol#L42)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        constructor(address singleton, uint256 x, uint256 y, P256.Verifiers verifiers)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).constructor(
+                0x...,
+                
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+## Parameters
+
+### `singleton`
+
+  - **Type:** `address`
+
+  The \{SafeWebAuthnSignerSingleton\} implementation to proxy to.
+
+  ```solidity focus=2
+  (ISafe safe).constructor(
+    0x...,
+    
+  );
+  ```
+
+
+### `verifiers`
+
+  - **Type:** `P256.Verifiers`
+
+  The P-256 verifiers used for ECDSA signature verification.
+
+  ```solidity focus=3
+  (ISafe safe).constructor(
+    0x...,
+    
+  );
+  ```
+
+
+
+
+

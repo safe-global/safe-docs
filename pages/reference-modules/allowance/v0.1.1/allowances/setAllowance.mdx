@@ -1,0 +1,84 @@
+import { Tabs, Callout } from 'nextra/components'
+import SetAllowance from '../events/SetAllowance.mdx'
+import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `setAllowance` (0xbeaeb388)
+
+
+
+Allows to update the allowance for a specified token. <OnlySafeTxCallout />
+
+
+
+
+Defined in [` AllowanceModule.sol`](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances/contracts/AllowanceModule.sol#L75)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function setAllowance(address delegate,address token,uint96 allowanceAmount,uint16 resetTimeMin,uint32 resetBaseMin) public
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).setAllowance(
+                0x...,
+                
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+## Parameters
+
+### `delegate`
+
+  - **Type:** `address`
+
+  Delegate whose allowance should be updated.
+
+  ```solidity focus=2
+  (ISafe safe).setAllowance(
+    0x...,
+    
+  );
+  ```
+
+
+### `resetTimeMin`
+
+  - **Type:** `uint16`
+
+  Time after which the allowance should reset
+
+  ```solidity focus=3
+  (ISafe safe).setAllowance(
+    0x...,
+    
+  );
+  ```
+
+
+
+
+## Events
+
+<SetAllowance />
+

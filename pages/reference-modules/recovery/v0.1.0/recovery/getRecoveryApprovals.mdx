@@ -1,0 +1,74 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `getRecoveryApprovals` (0x6c6595ca)
+
+
+
+Retrieves the guardian approval count for this particular recovery request at current nonce.
+
+
+
+
+Defined in [` SocialRecoveryModule.sol`](https://github.com/safe-global/safe-modules/tree/recovery/v0.1.0/modules/recovery/contracts/generated-markups/candide-contracts/contracts/modules/social_recovery/SocialRecoveryModule.sol#Lundefined)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function getRecoveryApprovals(address _wallet,address[] calldata _newOwners,uint256 _newThreshold) public view returns (uint256 approvalCount)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).getRecoveryApprovals(
+                0x...
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+### `approvalCount`
+
+  - **Type:** `uint256`
+
+  The wallet's current recovery request
+
+
+
+
+## Parameters
+
+### `_wallet`
+
+  - **Type:** `address`
+
+  The target wallet.
+
+  ```solidity focus=2
+  (ISafe safe).getRecoveryApprovals(
+    0x...
+  );
+  ```
+
+
+
+
+
