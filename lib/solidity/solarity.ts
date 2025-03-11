@@ -5,7 +5,11 @@ import { dedupeReducer, findFunctionNameInFile, walkPath } from './utils'
 import { getSafeDocsTemplate } from './templates'
 import type { DocContent, ParamType } from './types'
 import { generateMetaJsonCategories } from './metaJsons'
-import { ignoredFunctions, smartAccountCategories } from './constants'
+import {
+  ignoredFunctions,
+  modulesCategories,
+  smartAccountCategories
+} from './constants'
 
 // Setup Solarity to generate documentation from a given repository in solidity
 export const setupSolarity = async ({
@@ -19,7 +23,7 @@ export const setupSolarity = async ({
 }): Promise<void> => {
   shell.exec(
     // Install the dependencies and add the @solarity/hardhat-markup plugin
-    `cd ${repoDestination} && ${moduleName !== null ? 'pnpm' : 'yarn'} add @solarity/hardhat-markup`,
+    `cd ${repoDestination} && ${moduleName !== null ? 'npx pnpm@9' : 'yarn'} add @solarity/hardhat-markup`,
     { async: true },
     async () => {
       // Add the plugin to the hardhat.config.ts file
@@ -93,7 +97,8 @@ export const getPublicFunctionsAndEvents = ({
         p.endsWith('.md') &&
         !p.includes('test') &&
         !p.includes('examples') &&
-        !p.includes('interfaces')
+        !p.includes('interfaces') &&
+        !p.includes('vendor/FCL')
     )
     .filter(p =>
       version.includes('/') ? p.includes(version.split('/')[0]) : true
@@ -233,9 +238,15 @@ export const generateMarkdownFromNatspec = async ({
   publicFunctions.forEach(({ contractName, functionName, contents }) => {
     if (ignoredFunctions.includes(functionName ?? '')) return
     const category =
-      Object.entries(smartAccountCategories).find(
-        ([categoryName, categories]) => categories.includes(functionName ?? '')
-      )?.[0] ?? 'other'
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      Object.entries(
+        version.includes('/')
+          ? modulesCategories[version.split('/')[0] as '4337']
+          : smartAccountCategories
+      ).find(
+        ([, categories]) => categories.includes(functionName ?? '')
+        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+      )?.[0] || 'other'
     const directory = `${mdDestination}/${category}`
     const filePath = directory + `/${functionName}.mdx`
 
@@ -263,7 +274,8 @@ export const generateMarkdownFromNatspec = async ({
   // Generate a _meta.json file per category
   generateMetaJsonCategories(
     mdDestination,
-    publicFunctions.map(publicFunction => publicFunction.functionName ?? '')
+    publicFunctions.map(publicFunction => publicFunction.functionName ?? ''),
+    version
   )
   await callback()
 }

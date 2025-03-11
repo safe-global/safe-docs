@@ -1,9 +1,9 @@
 export const smartAccountVersions = ['v1.3.0', 'v1.4.1'] // Older versions don't support hardhat
 export const modulesVersions = {
-  '4337': ['v0.3.0'],
-  allowances: ['v0.1.1'],
+  '4337': ['v0.3.0-1'], // The older version (0.2.0) has a different file structure
+  allowance: ['v0.1.1'],
   passkey: ['v0.2.1'],
-  recovery: ['v0.1.0', 'v0.2.0']
+  recovery: ['v0.1.0']
 }
 export const ignoredFunctions = [
   'checkAfterExecution',
@@ -83,4 +83,73 @@ export const smartAccountCategories = {
     'proxyCreationCode',
     'supportsInterface'
   ]
+}
+
+export const modulesCategories = {
+  '4337': {
+    setup: ['domainSeparator', 'enableModules', 'nonce', 'threshold'],
+    operations: [
+      'executeUserOp',
+      'executeUserOpWithErrorString',
+      'getOperationHash',
+      'validateUserOp'
+    ]
+  },
+  allowance: {
+    setup: ['getChainId'],
+    allowances: [
+      'deleteAllowance',
+      'getTokenAllowance',
+      'resetAllowance',
+      'setAllowance'
+    ],
+    delegates: ['addDelegate', 'getDelegates', 'removeDelegate'],
+    transactions: [
+      'executeAllowanceTransfer',
+      'execTransactionFromModule',
+      'getTokens',
+      'generateTransferHash'
+    ]
+  },
+  passkey: {
+    setup: ['configure', 'constructor', 'fallback', 'getConfiguration'],
+    signers: ['createSigner', 'getSigner'],
+    signatures: [
+      'encodeSigningMessage',
+      'isValidSignature',
+      'isValidSignatureForSigner',
+      'verifySignature',
+      'verifySignatureAllowMalleability'
+    ]
+  },
+  recovery: {
+    setup: [
+      'changeThreshold',
+      'domainSeparator',
+      'getChainId',
+      'nonce',
+      'threshold'
+    ],
+    guardians: [
+      'addGuardianWithThreshold',
+      'getGuardians',
+      'guardiansCount',
+      'hasGuardianApproved',
+      'isGuardian',
+      'revokeGuardianWithThreshold',
+      'validateGuardianSignature'
+    ],
+    recovery: [
+      'confirmRecovery',
+      'cancelRecovery',
+      'encodeRecoveryData',
+      'executeRecovery',
+      'finalizeRecovery',
+      'getRecoveryApprovals',
+      'getRecoveryHash',
+      'getRecoveryRequest',
+      'invalidateNonce',
+      'multiConfirmRecovery'
+    ]
+  }
 }

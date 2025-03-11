@@ -30,9 +30,9 @@ export const generateOverviewPageModule = async (
   const moduleName = version.split('/')[0]
   const _version = version.split('/')[1]
 
-  const overviewPage = `${_version !== 'v1.4.1' ? `import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'\n\n<LegacyCallout />\n\n` : ''}# ${capitalize(moduleName)} Module \`${_version}\` - Reference
+  const overviewPage = `# ${capitalize(moduleName)} Module \`${_version}\` - Reference
 
-This reference lists all public functions and events of the [Safe Smart Account](../advanced/smart-account-overview.mdx)'} contracts version \`${_version.slice(1)}\`, logically clustered.
+This reference lists all public functions and events of the [Safe ${moduleName} Module](../advanced/smart-account-modules.mdx) contracts version \`${_version.slice(1)}\`, logically clustered.
 
 `
   shell.exec(`mkdir -p ${destination}`, { async: true }, async () => {
@@ -80,22 +80,25 @@ export const getSafeDocsTemplate = ({
   contractPath: string
   version: string
   repoUrl: string
-  moduleName?: string
   repoDestination: string
-}): string => `import { Tabs, Callout } from 'nextra/components'
+}): string => {
+  const isModule = version.includes('/')
+  let moduleName = version.split('/')[0]
+  if (moduleName === 'allowance') moduleName = 'allowances'
+  return `import { Tabs, Callout } from 'nextra/components'
 ${functionEvents?.map(event => `import ${event} from '../events/${event}.mdx'`).join('\n')}
-import LegacyCallout from '${version.includes('/') ? '../..' : '..'}/../../../components/callouts/LegacyCallout.mdx'
-import OnlySafeTxCallout from '${version.includes('/') ? '../..' : '..'}/../../../components/callouts/OnlySafeTxCallout.mdx'
-import ReentrancyCallout from '${version.includes('/') ? '../..' : '..'}/../../../components/callouts/ReentrancyCallout.mdx'
-import IrreversibilityCallout from '${version.includes('/') ? '../..' : '..'}/../../../components/callouts/IrreversibilityCallout.mdx'
+import LegacyCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/IrreversibilityCallout.mdx'
 
-${version !== 'v1.4.1' ? `<LegacyCallout />` : ''}
+${isModule && version !== 'v1.4.1' ? `<LegacyCallout />` : ''}
 
 # \`${functionName}\` ${functionSignature}
 
 ${getDescrptionCallouts(functionDescription)}
 
-Defined in [\`${contractName}.sol\`](${repoUrl}tree/${version}/${contractPath.replace('.temp/', '')}#L${findLinesInFile(contractPath.replace(repoDestination, repoDestination + '/contracts'), 'function ' + functionName)[0] ?? findLinesInFile(contractPath.replace(repoDestination, repoDestination + '/contracts'), functionName ?? '')[0]})\n
+Defined in [\`${contractName}.sol\`](${repoUrl}tree/${version}/${contractPath.replace(repoDestination, `${isModule ? 'modules/' + moduleName + '/' : ''}contracts`)}#L${findLinesInFile(contractPath.replace(repoDestination, repoDestination + '/contracts'), 'function ' + functionName)[0] ?? findLinesInFile(contractPath.replace(repoDestination, repoDestination + '/contracts'), functionName ?? '')[0]})\n
 
 ## Usage
 
@@ -180,6 +183,7 @@ ${functionEvents.map(event => `<${event} />`).join('\n')}
 `
 }
 `
+}
 
 // Recursively process all versions to ensure operations (cloning, installing deps, etc.) are done sequentially:
 export const processAllVersions = async ({
@@ -203,9 +207,8 @@ export const processAllVersions = async ({
   if (list.length === 0) {
     // Clean up temporary files
     shell.rm('-rf', repoDestination)
-    return
+    return // End of processing
   }
-  console.info('Processing version:', list[0])
   await generateFunction(
     list[0],
     async () => {

@@ -1,8 +1,8 @@
 import fs from 'fs'
 import shell from 'shelljs'
-
-import { smartAccountCategories } from './constants'
 import capitalize from 'lodash/capitalize'
+
+import { modulesCategories, smartAccountCategories } from './constants'
 
 export const generateMetaJson = async (
   destination: string,
@@ -10,14 +10,18 @@ export const generateMetaJson = async (
   callback: () => Promise<void>
 ): Promise<void> => {
   const metaJson = Object.fromEntries(
-    categories.map(v => [
-      v,
-      {
-        title: v,
-        type: 'page',
-        display: 'hidden'
-      }
-    ])
+    categories.map(v => {
+      const versionNumber = v.split('/')[1]
+      const version = versionNumber == null ? v : v.split('/')[0]
+      return [
+        version,
+        {
+          title: version,
+          type: 'page',
+          display: 'hidden'
+        }
+      ]
+    })
   )
   shell.exec(`mkdir -p ${destination}`, { async: true }, async () => {
     fs.writeFileSync(
@@ -29,7 +33,7 @@ export const generateMetaJson = async (
   })
 }
 
-// Generate the _meta.json file for each version number
+// Generate the _meta.json file for each version number of the Safe Smart Account
 export const generateMetaJsonVersions = (
   version: string,
   destination: string
@@ -61,12 +65,50 @@ export const generateMetaJsonVersions = (
   )
 }
 
+// Generate the _meta.json file for each version number of the Safe Smart Account
+export const generateMetaJsonVersionsModule = (
+  version: string,
+  destination: string
+): void => {
+  const moduleName = version.split('/')[0]
+  const categories = Object.keys(modulesCategories[moduleName as '4337'])
+  const content = Object.fromEntries([
+    [
+      'home',
+      {
+        title: '← Go Back',
+        href: '/advanced/smart-account-overview'
+      }
+    ],
+    ['overview', 'Overview'],
+    [
+      `-- Safe Module Reference`,
+      {
+        type: 'separator',
+        title: `${capitalize(moduleName)} Module Reference`
+      }
+    ],
+    ['events', { title: 'Events', type: 'page', display: 'hidden' }],
+    ...categories.map(category => [category, capitalize(category)])
+  ])
+  fs.appendFileSync(
+    `${destination}/_meta.json`,
+    JSON.stringify(content, null, 2),
+    'utf8'
+  )
+}
+
 // Generate the _meta.json file for each category
 export const generateMetaJsonCategories = (
   destination: string,
-  publicFunctions: string[]
+  publicFunctions: string[],
+  version: string
 ): void => {
-  const categories = Object.entries(smartAccountCategories)
+  const categories = Object.entries(
+    version.includes('/')
+      ? modulesCategories[version.split('/')[0] as '4337']
+      : smartAccountCategories
+  )
   categories.forEach(([category, functions]) => {
     const content = Object.fromEntries(
       functions
