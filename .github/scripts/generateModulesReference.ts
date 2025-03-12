@@ -39,6 +39,7 @@ const generateModulesReference = async (
   const _version = version.split('/')[1]
   const _repoDestination = `${repoDestination}/modules/${moduleName === 'allowance' ? 'allowances' : moduleName}`
   const _mdDestination = `${mdDestination}/${moduleName}/${_version}`
+  const _repoUrl = `${repoUrl}tree/${version}/`
   shell.rm('-rf', mdDestination + '/' + moduleName + '/' + _version)
   await shell.exec(
     `git clone ${repoUrl} ${repoDestination}`,
@@ -64,7 +65,11 @@ const generateModulesReference = async (
                     repoUrl,
                     version,
                     callback: async () => {
-                      await generateOverviewPageModule(version, _mdDestination)
+                      await generateOverviewPageModule(
+                        version,
+                        _mdDestination,
+                        _repoUrl
+                      )
                       await generateMetaJsonVersionsModule(
                         moduleName,
                         _mdDestination

@@ -16,13 +16,25 @@ export const ignoredFunctions = [
 export const sampleValues = {
   address: '0x...',
   'address[]': '["0x..."]',
+  uint8: 0,
+  uint16: 0,
+  uint32: 0,
+  uint48: 0,
+  uint96: 0,
   uint256: '0',
   'uint256[]': '[0]',
+  'struct PackedUserOperation': `PackedUserOperation`,
+  'struct SafeWebAuthnSharedSigner.Signer': 'Signer',
+  'struct SocialRecoveryModule.RecoveryRequest': 'RecoveryRequest',
+  'struct SocialRecoveryModule.SignatureData[]': '[SignatureData]',
+  'P256.Verifiers': 'Verifiers',
   bytes: '"0x..."',
   'enum Enum.Operation': '0',
   bytes32: '"0x..."',
   bool: 'true',
-  string: '"..."'
+  string: '"..."',
+  'contract ISafe': 'ISafe',
+  'contract IP256Verifier': 'IP256Verifier'
 }
 export const smartAccountCategories = {
   setup: [

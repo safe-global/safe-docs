@@ -25,14 +25,15 @@ This reference lists all public functions and events of the [Safe Smart Account]
 // Generate the overview page for each version number
 export const generateOverviewPageModule = async (
   version: string,
-  destination: string
+  destination: string,
+  repoUrl: string
 ): Promise<void> => {
   const moduleName = version.split('/')[0]
   const _version = version.split('/')[1]
 
   const overviewPage = `# ${capitalize(moduleName)} Module \`${_version}\` - Reference
 
-This reference lists all public functions and events of the [Safe ${moduleName} Module](../advanced/smart-account-modules.mdx) contracts version \`${_version.slice(1)}\`, logically clustered.
+This reference lists all public functions and events of the [Safe ${moduleName} Module](${repoUrl}) contracts version \`${_version.slice(1)}\`, logically clustered.
 
 `
   shell.exec(`mkdir -p ${destination}`, { async: true }, async () => {
@@ -94,7 +95,7 @@ import IrreversibilityCallout from '${isModule ? '../..' : '..'}/../../../compon
 
 ${!isModule && version !== 'v1.4.1' ? `<LegacyCallout />` : ''}
 
-# \`${functionName}\` ${functionSignature}
+# \`${functionName}\` ${functionSignature ?? ''}
 
 ${getDescrptionCallouts(functionDescription)}
 
