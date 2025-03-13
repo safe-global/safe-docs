@@ -15,6 +15,7 @@ export const ignoredFunctions = [
 ]
 export const sampleValues = {
   address: '0x...',
+  'address payable': '0x...',
   'address[]': '["0x..."]',
   uint8: 0,
   uint16: 0,
