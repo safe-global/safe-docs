@@ -28,7 +28,7 @@ const versions = Object.entries(modulesVersions).reduce(
 )
 
 // Clones the safe-modules GitHub repository and generates documentation for each public function and event
-const generateModulesReference = async (
+const generateModulesReference = (
   version: string,
   callback: () => void,
   repoDestination: string,
@@ -40,7 +40,7 @@ const generateModulesReference = async (
   const _repoDestination = `${repoDestination}/modules/${moduleName === 'allowance' ? 'allowances' : moduleName}`
   const _mdDestination = `${mdDestination}/${moduleName}/${_version}`
   const _repoUrl = `${repoUrl}tree/${version}/`
-  await shell.exec(
+  shell.exec(
     `cd ${repoDestination} && git checkout tags/${version} && npx pnpm@9 i`,
     { async: true },
     async () => {
@@ -52,19 +52,15 @@ const generateModulesReference = async (
           shell.exec(
             `cd ${_repoDestination} && npx pnpm@9 exec hardhat markup && mkdir -p ${_mdDestination}`,
             { async: true },
-            async () => {
+            () => {
               // Generate final .mdx files
-              await generateMarkdownFromNatspec({
+              generateMarkdownFromNatspec({
                 repoDestination: _repoDestination,
                 mdDestination: _mdDestination,
                 repoUrl,
                 version,
                 callback: async () => {
-                  await generateOverviewPageModule(
-                    version,
-                    _mdDestination,
-                    _repoUrl
-                  )
+                  generateOverviewPageModule(version, _mdDestination, _repoUrl)
                   generateMetaJsonVersionsModule(moduleName, _mdDestination)
                   generateMetaJson(
                     `${mdDestination}/${moduleName}`,
