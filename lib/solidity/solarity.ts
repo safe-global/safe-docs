@@ -59,7 +59,7 @@ export const getParametersFromMdTable = (functionDoc: string): ParamType[] => {
   }
   // Extract function parameters
   const parameters: ParamType[] = []
-  for (let i = 0; i < names.length; i += 3) {
+  for (let i = 0; i < names.length; i++) {
     const name = names[i]
     const type = types[i]
     const description = descriptions[i]

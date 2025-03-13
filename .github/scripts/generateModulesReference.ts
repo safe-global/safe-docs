@@ -40,59 +40,53 @@ const generateModulesReference = async (
   const _repoDestination = `${repoDestination}/modules/${moduleName === 'allowance' ? 'allowances' : moduleName}`
   const _mdDestination = `${mdDestination}/${moduleName}/${_version}`
   const _repoUrl = `${repoUrl}tree/${version}/`
-  shell.rm('-rf', mdDestination + '/' + moduleName + '/' + _version)
   await shell.exec(
-    `git clone ${repoUrl} ${repoDestination}`,
+    `cd ${repoDestination} && git checkout tags/${version} && npx pnpm@9 i`,
     { async: true },
     async () => {
-      await shell.exec(
-        `cd ${repoDestination} && git checkout tags/${version} && npx pnpm@9 i`,
-        { async: true },
-        async () => {
-          // Prepare repo & generate .md doc files using @solarity:
-          await setupSolarity({
-            repoDestination: _repoDestination,
-            moduleName,
-            callback: async () => {
-              await shell.exec(
-                `cd ${_repoDestination} && npx pnpm@9 exec hardhat markup && mkdir -p ${_mdDestination}`,
-                { async: true },
-                async () => {
-                  // Generate final .mdx files
-                  await generateMarkdownFromNatspec({
-                    repoDestination: _repoDestination,
-                    mdDestination: _mdDestination,
-                    repoUrl,
+      // Prepare repo & generate .md doc files using @solarity:
+      await setupSolarity({
+        repoDestination: _repoDestination,
+        moduleName,
+        callback: async () => {
+          await shell.exec(
+            `cd ${_repoDestination} && npx pnpm@9 exec hardhat markup && mkdir -p ${_mdDestination}`,
+            { async: true },
+            async () => {
+              // Generate final .mdx files
+              await generateMarkdownFromNatspec({
+                repoDestination: _repoDestination,
+                mdDestination: _mdDestination,
+                repoUrl,
+                version,
+                callback: async () => {
+                  await generateOverviewPageModule(
                     version,
-                    callback: async () => {
-                      await generateOverviewPageModule(
-                        version,
-                        _mdDestination,
-                        _repoUrl
-                      )
-                      await generateMetaJsonVersionsModule(
-                        moduleName,
-                        _mdDestination
-                      )
-                      await generateMetaJson(
-                        `${mdDestination}/${moduleName}`,
-                        [_version],
-                        async () => {
-                          await shell.exec(
-                            `rm -rf ${_repoDestination}/build && rm -rf ${_repoDestination}/node_modules && rm -rf ${_repoDestination}/generated-markups && cd ${repoDestination} && rm -f pnpm-lock.yaml && git stash && git stash drop`,
-                            { async: true },
-                            callback
-                          )
-                        }
+                    _mdDestination,
+                    _repoUrl
+                  )
+                  await generateMetaJsonVersionsModule(
+                    moduleName,
+                    _mdDestination
+                  )
+                  await generateMetaJson(
+                    `${mdDestination}/${moduleName}`,
+                    [_version],
+                    async () => {
+                      // Remove all changes to the git index so we can git checkout different branches again
+                      await shell.exec(
+                        `rm -rf ${_repoDestination}/build && rm -rf ${_repoDestination}/node_modules && rm -rf ${_repoDestination}/generated-markups && cd ${repoDestination} && rm -f pnpm-lock.yaml && git stash && git stash drop`,
+                        { async: true },
+                        callback
                       )
                     }
-                  })
+                  )
                 }
-              )
+              })
             }
-          })
+          )
         }
-      )
+      })
     }
   )
 }
