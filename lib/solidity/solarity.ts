@@ -12,27 +12,27 @@ import {
 } from './constants'
 
 // Setup Solarity to generate documentation from a given repository in solidity
-export const setupSolarity = async ({
+export const setupSolarity = ({
   repoDestination,
   moduleName,
   callback
 }: {
   repoDestination: string
   moduleName?: string
-  callback: () => Promise<void>
-}): Promise<void> => {
+  callback: () => void
+}): void => {
   shell.exec(
     // Install the dependencies and add the @solarity/hardhat-markup plugin
     `cd ${repoDestination} && ${moduleName !== null ? 'npx pnpm@9' : 'yarn'} add @solarity/hardhat-markup`,
     { async: true },
-    async () => {
+    () => {
       // Add the plugin to the hardhat.config.ts file
       const hardhatConfigPath = `${repoDestination}/hardhat.config.ts`
       const hardhatConfig = fs.readFileSync(hardhatConfigPath, 'utf8')
       const newHardhatConfig =
         'import "@solarity/hardhat-markup";\n' + hardhatConfig
       fs.writeFileSync(hardhatConfigPath, newHardhatConfig, 'utf8')
-      await callback()
+      callback()
     }
   )
 }
@@ -213,7 +213,7 @@ export const getPublicFunctionsAndEvents = ({
   return { publicFunctions: dedupedPublicFunctions, publicEvents }
 }
 
-export const generateMarkdownFromNatspec = async ({
+export const generateMarkdownFromNatspec = ({
   repoDestination,
   mdDestination,
   repoUrl,
@@ -225,8 +225,8 @@ export const generateMarkdownFromNatspec = async ({
   repoUrl: string
   moduleName?: string
   version: string
-  callback: () => Promise<void>
-}): Promise<void> => {
+  callback: () => void
+}): void => {
   // Format files so they adhere to Safe docs standards
   const { publicFunctions, publicEvents } = getPublicFunctionsAndEvents({
     repoUrl,
@@ -277,5 +277,5 @@ export const generateMarkdownFromNatspec = async ({
     publicFunctions.map(publicFunction => publicFunction.functionName ?? ''),
     version
   )
-  await callback()
+  callback()
 }

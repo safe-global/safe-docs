@@ -30,7 +30,7 @@ const versions = Object.entries(modulesVersions).reduce(
 // Clones the safe-modules GitHub repository and generates documentation for each public function and event
 const generateModulesReference = async (
   version: string,
-  callback: () => Promise<void>,
+  callback: () => void,
   repoDestination: string,
   mdDestination: string
 ) => {
@@ -45,11 +45,11 @@ const generateModulesReference = async (
     { async: true },
     async () => {
       // Prepare repo & generate .md doc files using @solarity:
-      await setupSolarity({
+      setupSolarity({
         repoDestination: _repoDestination,
         moduleName,
-        callback: async () => {
-          await shell.exec(
+        callback: () => {
+          shell.exec(
             `cd ${_repoDestination} && npx pnpm@9 exec hardhat markup && mkdir -p ${_mdDestination}`,
             { async: true },
             async () => {
@@ -65,16 +65,13 @@ const generateModulesReference = async (
                     _mdDestination,
                     _repoUrl
                   )
-                  await generateMetaJsonVersionsModule(
-                    moduleName,
-                    _mdDestination
-                  )
-                  await generateMetaJson(
+                  generateMetaJsonVersionsModule(moduleName, _mdDestination)
+                  generateMetaJson(
                     `${mdDestination}/${moduleName}`,
                     [_version],
-                    async () => {
+                    () => {
                       // Remove all changes to the git index so we can git checkout different branches again
-                      await shell.exec(
+                      shell.exec(
                         `rm -rf ${_repoDestination}/build && rm -rf ${_repoDestination}/node_modules && rm -rf ${_repoDestination}/generated-markups && cd ${repoDestination} && rm -f pnpm-lock.yaml && git stash && git stash drop`,
                         { async: true },
                         callback
