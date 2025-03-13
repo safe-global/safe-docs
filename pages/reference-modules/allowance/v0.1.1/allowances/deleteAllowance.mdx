@@ -33,6 +33,7 @@ Defined in [` AllowanceModule.sol`](https://github.com/safe-global/safe-modules/
     contract Example {
         function example() ... {
             (ISafe safe).deleteAllowance(
+                0x...,
                 0x...
             );
         }
@@ -55,6 +56,21 @@ Defined in [` AllowanceModule.sol`](https://github.com/safe-global/safe-modules/
 
   ```solidity focus=2
   (ISafe safe).deleteAllowance(
+    0x...,
+    0x...
+  );
+  ```
+
+
+### `token`
+
+  - **Type:** `address`
+
+  Token contract address.
+
+  ```solidity focus=3
+  (ISafe safe).deleteAllowance(
+    0x...,
     0x...
   );
   ```

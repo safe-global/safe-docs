@@ -34,6 +34,8 @@ Defined in [` GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account
         function example() ... {
             (ISafe safe).checkNSignatures(
                 "0x...",
+                "0x...",
+                "0x...",
                 0
             );
         }
@@ -57,6 +59,40 @@ Defined in [` GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account
   ```solidity focus=2
   (ISafe safe).checkNSignatures(
     "0x...",
+    "0x...",
+    "0x...",
+    0
+  );
+  ```
+
+
+### `data`
+
+  - **Type:** `bytes`
+
+  That should be signed (this is passed to an external validator contract)
+
+  ```solidity focus=3
+  (ISafe safe).checkNSignatures(
+    "0x...",
+    "0x...",
+    "0x...",
+    0
+  );
+  ```
+
+
+### `signatures`
+
+  - **Type:** `bytes`
+
+  Signature data that should be verified. Can be ECDSA signature, contract signature (EIP-1271) or approved hash.
+
+  ```solidity focus=4
+  (ISafe safe).checkNSignatures(
+    "0x...",
+    "0x...",
+    "0x...",
     0
   );
   ```
@@ -68,8 +104,10 @@ Defined in [` GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account
 
   Amount of required valid signatures.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).checkNSignatures(
+    "0x...",
+    "0x...",
     "0x...",
     0
   );

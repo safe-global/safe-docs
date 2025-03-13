@@ -7,7 +7,7 @@ import IrreversibilityCallout from '../../../../../components/callouts/Irreversi
 
 
 
-# `encodeSigningMessage` undefined
+# `encodeSigningMessage` 
 
 
 
@@ -38,7 +38,9 @@ Defined in [` WebAuthn.sol`](https://github.com/safe-global/safe-modules/tree/pa
     contract Example {
         function example() ... {
             (ISafe safe).encodeSigningMessage(
-                "0x..."
+                "0x...",
+                "0x...",
+                "..."
             );
         }
     }
@@ -69,7 +71,39 @@ Defined in [` WebAuthn.sol`](https://github.com/safe-global/safe-modules/tree/pa
 
   ```solidity focus=2
   (ISafe safe).encodeSigningMessage(
-    "0x..."
+    "0x...",
+    "0x...",
+    "..."
+  );
+  ```
+
+
+### `authenticatorData`
+
+  - **Type:** `bytes`
+
+  Authenticator data.
+
+  ```solidity focus=3
+  (ISafe safe).encodeSigningMessage(
+    "0x...",
+    "0x...",
+    "..."
+  );
+  ```
+
+
+### `clientDataFields`
+
+  - **Type:** `string`
+
+  Client data fields.
+
+  ```solidity focus=4
+  (ISafe safe).encodeSigningMessage(
+    "0x...",
+    "0x...",
+    "..."
   );
   ```
 

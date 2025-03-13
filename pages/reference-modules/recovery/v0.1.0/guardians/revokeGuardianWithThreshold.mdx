@@ -33,6 +33,7 @@ Defined in [` GuardianStorage.sol`](https://github.com/safe-global/safe-modules/
     contract Example {
         function example() ... {
             (ISafe safe).revokeGuardianWithThreshold(
+                0x...,
                 0x...
             );
         }
@@ -55,6 +56,21 @@ Defined in [` GuardianStorage.sol`](https://github.com/safe-global/safe-modules/
 
   ```solidity focus=2
   (ISafe safe).revokeGuardianWithThreshold(
+    0x...,
+    0x...
+  );
+  ```
+
+
+### `_guardian`
+
+  - **Type:** `address`
+
+  The guardian to revoke.
+
+  ```solidity focus=3
+  (ISafe safe).revokeGuardianWithThreshold(
+    0x...,
     0x...
   );
   ```

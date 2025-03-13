@@ -34,6 +34,8 @@ Defined in [` ISafe.sol`](https://github.com/safe-global/safe-modules/tree/allow
         function example() ... {
             (ISafe safe).execTransactionFromModule(
                 0x...,
+                0,
+                "0x...",
                 0
             );
         }
@@ -57,6 +59,40 @@ Defined in [` ISafe.sol`](https://github.com/safe-global/safe-modules/tree/allow
   ```solidity focus=2
   (ISafe safe).execTransactionFromModule(
     0x...,
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `value`
+
+  - **Type:** `uint256`
+
+  Ether value of module transaction.
+
+  ```solidity focus=3
+  (ISafe safe).execTransactionFromModule(
+    0x...,
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `data`
+
+  - **Type:** `bytes`
+
+  Data payload of module transaction.
+
+  ```solidity focus=4
+  (ISafe safe).execTransactionFromModule(
+    0x...,
+    0,
+    "0x...",
     0
   );
   ```
@@ -68,9 +104,11 @@ Defined in [` ISafe.sol`](https://github.com/safe-global/safe-modules/tree/allow
 
   Operation type of module transaction.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).execTransactionFromModule(
     0x...,
+    0,
+    "0x...",
     0
   );
   ```

@@ -35,6 +35,7 @@ Defined in [` ModuleManager.sol`](https://github.com/safe-global/safe-smart-acco
     contract Example {
         function example() ... {
             (ISafe safe).disableModule(
+                0x...,
                 0x...
             );
         }
@@ -57,6 +58,21 @@ Defined in [` ModuleManager.sol`](https://github.com/safe-global/safe-smart-acco
 
   ```solidity focus=2
   (ISafe safe).disableModule(
+    0x...,
+    0x...
+  );
+  ```
+
+
+### `module`
+
+  - **Type:** `address`
+
+  Module to be removed.
+
+  ```solidity focus=3
+  (ISafe safe).disableModule(
+    0x...,
     0x...
   );
   ```

@@ -7,7 +7,7 @@ import IrreversibilityCallout from '../../../../../components/callouts/Irreversi
 
 
 
-# `verifySignature` undefined
+# `verifySignature` 
 
 
 
@@ -42,7 +42,11 @@ Defined in [` P256.sol`](https://github.com/safe-global/safe-modules/tree/passke
     contract Example {
         function example() ... {
             (ISafe safe).verifySignature(
-                ,
+                IP256Verifier,
+                "0x...",
+                0,
+                0,
+                0,
                 0
             );
         }
@@ -74,7 +78,47 @@ Defined in [` P256.sol`](https://github.com/safe-global/safe-modules/tree/passke
 
   ```solidity focus=2
   (ISafe safe).verifySignature(
-    ,
+    IP256Verifier,
+    "0x...",
+    0,
+    0,
+    0,
+    0
+  );
+  ```
+
+
+### `message`
+
+  - **Type:** `bytes32`
+
+  The signed message.
+
+  ```solidity focus=3
+  (ISafe safe).verifySignature(
+    IP256Verifier,
+    "0x...",
+    0,
+    0,
+    0,
+    0
+  );
+  ```
+
+
+### `r`
+
+  - **Type:** `uint256`
+
+  The r component of the signature.
+
+  ```solidity focus=4
+  (ISafe safe).verifySignature(
+    IP256Verifier,
+    "0x...",
+    0,
+    0,
+    0,
     0
   );
   ```
@@ -86,9 +130,49 @@ Defined in [` P256.sol`](https://github.com/safe-global/safe-modules/tree/passke
 
   The s component of the signature.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).verifySignature(
-    ,
+    IP256Verifier,
+    "0x...",
+    0,
+    0,
+    0,
+    0
+  );
+  ```
+
+
+### `x`
+
+  - **Type:** `uint256`
+
+  The x coordinate of the public key.
+
+  ```solidity focus=6
+  (ISafe safe).verifySignature(
+    IP256Verifier,
+    "0x...",
+    0,
+    0,
+    0,
+    0
+  );
+  ```
+
+
+### `y`
+
+  - **Type:** `uint256`
+
+  The y coordinate of the public key.
+
+  ```solidity focus=7
+  (ISafe safe).verifySignature(
+    IP256Verifier,
+    "0x...",
+    0,
+    0,
+    0,
     0
   );
   ```

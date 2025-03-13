@@ -38,7 +38,10 @@ Defined in [` SafeWebAuthnSignerFactory.sol`](https://github.com/safe-global/saf
         function example() ... {
             (ISafe safe).isValidSignatureForSigner(
                 "0x...",
-                0
+                "0x...",
+                0,
+                0,
+                Verifiers
             );
         }
     }
@@ -70,7 +73,44 @@ Defined in [` SafeWebAuthnSignerFactory.sol`](https://github.com/safe-global/saf
   ```solidity focus=2
   (ISafe safe).isValidSignatureForSigner(
     "0x...",
-    0
+    "0x...",
+    0,
+    0,
+    Verifiers
+  );
+  ```
+
+
+### `signature`
+
+  - **Type:** `bytes`
+
+  The signature bytes.
+
+  ```solidity focus=3
+  (ISafe safe).isValidSignatureForSigner(
+    "0x...",
+    "0x...",
+    0,
+    0,
+    Verifiers
+  );
+  ```
+
+
+### `x`
+
+  - **Type:** `uint256`
+
+  The x-coordinate of the public key.
+
+  ```solidity focus=4
+  (ISafe safe).isValidSignatureForSigner(
+    "0x...",
+    "0x...",
+    0,
+    0,
+    Verifiers
   );
   ```
 
@@ -81,10 +121,30 @@ Defined in [` SafeWebAuthnSignerFactory.sol`](https://github.com/safe-global/saf
 
   The y-coordinate of the public key.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).isValidSignatureForSigner(
     "0x...",
-    0
+    "0x...",
+    0,
+    0,
+    Verifiers
+  );
+  ```
+
+
+### `verifiers`
+
+  - **Type:** `P256.Verifiers`
+
+  The P-256 verifiers to use.
+
+  ```solidity focus=6
+  (ISafe safe).isValidSignatureForSigner(
+    "0x...",
+    "0x...",
+    0,
+    0,
+    Verifiers
   );
   ```
 

@@ -33,6 +33,7 @@ Defined in [` SignatureValidator.sol`](https://github.com/safe-global/safe-modul
     contract Example {
         function example() ... {
             (ISafe safe).isValidSignature(
+                "0x...",
                 "0x..."
             );
         }
@@ -64,6 +65,21 @@ Defined in [` SignatureValidator.sol`](https://github.com/safe-global/safe-modul
 
   ```solidity focus=2
   (ISafe safe).isValidSignature(
+    "0x...",
+    "0x..."
+  );
+  ```
+
+
+### `signature`
+
+  - **Type:** `bytes`
+
+  The signature to be validated.
+
+  ```solidity focus=3
+  (ISafe safe).isValidSignature(
+    "0x...",
     "0x..."
   );
   ```

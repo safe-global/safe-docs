@@ -35,7 +35,8 @@ Defined in [` ModuleManager.sol`](https://github.com/safe-global/safe-smart-acco
     contract Example {
         function example() ... {
             (ISafe safe).getModulesPaginated(
-                0x...
+                0x...,
+                0
             );
         }
     }
@@ -54,6 +55,13 @@ Defined in [` ModuleManager.sol`](https://github.com/safe-global/safe-smart-acco
   Array of modules.
 
 
+### `next`
+
+  - **Type:** `address`
+
+  Start of the next page.
+
+
 
 
 ## Parameters
@@ -66,7 +74,22 @@ Defined in [` ModuleManager.sol`](https://github.com/safe-global/safe-smart-acco
 
   ```solidity focus=2
   (ISafe safe).getModulesPaginated(
-    0x...
+    0x...,
+    0
+  );
+  ```
+
+
+### `pageSize`
+
+  - **Type:** `uint256`
+
+  Maximum number of modules that should be returned. Has to be > 0
+
+  ```solidity focus=3
+  (ISafe safe).getModulesPaginated(
+    0x...,
+    0
   );
   ```
 

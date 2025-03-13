@@ -37,6 +37,7 @@ Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/
     contract Example {
         function example() ... {
             (ISafe safe).isValidSignature(
+                "0x...",
                 "0x..."
             );
         }
@@ -68,6 +69,21 @@ Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/
 
   ```solidity focus=2
   (ISafe safe).isValidSignature(
+    "0x...",
+    "0x..."
+  );
+  ```
+
+
+### `_signature`
+
+  - **Type:** `bytes`
+
+  Signature byte array associated with _dataHash
+
+  ```solidity focus=3
+  (ISafe safe).isValidSignature(
+    "0x...",
     "0x..."
   );
   ```

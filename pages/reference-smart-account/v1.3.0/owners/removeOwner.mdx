@@ -36,7 +36,9 @@ Defined in [` OwnerManager.sol`](https://github.com/safe-global/safe-smart-accou
     contract Example {
         function example() ... {
             (ISafe safe).removeOwner(
-                0x...
+                0x...,
+                0x...,
+                0
             );
         }
     }
@@ -58,7 +60,39 @@ Defined in [` OwnerManager.sol`](https://github.com/safe-global/safe-smart-accou
 
   ```solidity focus=2
   (ISafe safe).removeOwner(
-    0x...
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `owner`
+
+  - **Type:** `address`
+
+  Owner address to be removed.
+
+  ```solidity focus=3
+  (ISafe safe).removeOwner(
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `_threshold`
+
+  - **Type:** `uint256`
+
+  New threshold.
+
+  ```solidity focus=4
+  (ISafe safe).removeOwner(
+    0x...,
+    0x...,
+    0
   );
   ```
 

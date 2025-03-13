@@ -7,19 +7,18 @@ import IrreversibilityCallout from '../../../../../components/callouts/Irreversi
 
 
 
-# `getConfiguration` (0xc44b11f7)
+# `getConfiguration` (0x6bd50cef)
 
 
 
-Return the signer configuration for the specified account.
-
-The calling account must be a Safe, as the signer data is stored in the Safe's storage
-and must be read with the \{StorageAccessible\} support from the Safe.
-
+Returns the x coordinate, y coordinate, and P-256 verifiers used for ECDSA signature
+validation. The values are expected to appended to calldata by the caller. See the
+\{SafeWebAuthnSignerProxy\} contract implementation.
 
 
 
-Defined in [` SafeWebAuthnSharedSigner.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/4337/SafeWebAuthnSharedSigner.sol#L89)
+
+Defined in [` SafeWebAuthnSignerSingleton.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/SafeWebAuthnSignerSingleton.sol#L32)
 
 
 ## Usage
@@ -30,14 +29,12 @@ Defined in [` SafeWebAuthnSharedSigner.sol`](https://github.com/safe-global/safe
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function getConfiguration(address account) public view returns (SafeWebAuthnSharedSigner.Signer memory signer)
+        function getConfiguration()publicpurereturns (uint256 x, uint256 y, P256.Verifiers verifiers)
     }
 
     contract Example {
         function example() ... {
-            (ISafe safe).getConfiguration(
-                0x...
-            );
+            (ISafe safe).getConfiguration();
         }
     }
     ```
@@ -46,21 +43,29 @@ Defined in [` SafeWebAuthnSharedSigner.sol`](https://github.com/safe-global/safe
 
 {/* <!-- vale on --> */}
 
+## Returns
+
+### `x`
+
+  - **Type:** `uint256`
+
+  The x coordinate of the P-256 public key.
 
 
-## Parameters
+### `y`
 
-### `account`
+  - **Type:** `uint256`
 
-  - **Type:** `address`
+  The y coordinate of the P-256 public key.
 
-  The account to request signer data for.
 
-  ```solidity focus=2
-  (ISafe safe).getConfiguration(
-    0x...
-  );
-  ```
+### `verifiers`
+
+  - **Type:** `P256.Verifiers`
+
+  The P-256 verifiers.
+
+
 
 
 

@@ -7,7 +7,7 @@ import IrreversibilityCallout from '../../../../../components/callouts/Irreversi
 
 
 
-# `constructor` undefined
+# `constructor` 
 
 
 
@@ -34,7 +34,9 @@ Defined in [` SafeWebAuthnSignerProxy.sol`](https://github.com/safe-global/safe-
         function example() ... {
             (ISafe safe).constructor(
                 0x...,
-                
+                0,
+                0,
+                Verifiers
             );
         }
     }
@@ -57,7 +59,41 @@ Defined in [` SafeWebAuthnSignerProxy.sol`](https://github.com/safe-global/safe-
   ```solidity focus=2
   (ISafe safe).constructor(
     0x...,
-    
+    0,
+    0,
+    Verifiers
+  );
+  ```
+
+
+### `x`
+
+  - **Type:** `uint256`
+
+  The x coordinate of the P-256 public key of the WebAuthn credential.
+
+  ```solidity focus=3
+  (ISafe safe).constructor(
+    0x...,
+    0,
+    0,
+    Verifiers
+  );
+  ```
+
+
+### `y`
+
+  - **Type:** `uint256`
+
+  The y coordinate of the P-256 public key of the WebAuthn credential.
+
+  ```solidity focus=4
+  (ISafe safe).constructor(
+    0x...,
+    0,
+    0,
+    Verifiers
   );
   ```
 
@@ -68,10 +104,12 @@ Defined in [` SafeWebAuthnSignerProxy.sol`](https://github.com/safe-global/safe-
 
   The P-256 verifiers used for ECDSA signature verification.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).constructor(
     0x...,
-    
+    0,
+    0,
+    Verifiers
   );
   ```
 

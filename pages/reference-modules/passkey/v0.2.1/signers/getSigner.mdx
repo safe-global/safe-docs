@@ -36,7 +36,9 @@ Defined in [` SafeWebAuthnSignerFactory.sol`](https://github.com/safe-global/saf
     contract Example {
         function example() ... {
             (ISafe safe).getSigner(
-                0
+                0,
+                0,
+                Verifiers
             );
         }
     }
@@ -67,7 +69,39 @@ Defined in [` SafeWebAuthnSignerFactory.sol`](https://github.com/safe-global/saf
 
   ```solidity focus=2
   (ISafe safe).getSigner(
-    0
+    0,
+    0,
+    Verifiers
+  );
+  ```
+
+
+### `y`
+
+  - **Type:** `uint256`
+
+  The y-coordinate of the public key.
+
+  ```solidity focus=3
+  (ISafe safe).getSigner(
+    0,
+    0,
+    Verifiers
+  );
+  ```
+
+
+### `verifiers`
+
+  - **Type:** `P256.Verifiers`
+
+  The P-256 verifiers to use.
+
+  ```solidity focus=4
+  (ISafe safe).getSigner(
+    0,
+    0,
+    Verifiers
   );
   ```
 

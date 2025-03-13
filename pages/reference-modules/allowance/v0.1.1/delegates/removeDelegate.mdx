@@ -34,7 +34,8 @@ Defined in [` AllowanceModule.sol`](https://github.com/safe-global/safe-modules/
     contract Example {
         function example() ... {
             (ISafe safe).removeDelegate(
-                0x...
+                0x...,
+                true
             );
         }
     }
@@ -56,7 +57,22 @@ Defined in [` AllowanceModule.sol`](https://github.com/safe-global/safe-modules/
 
   ```solidity focus=2
   (ISafe safe).removeDelegate(
-    0x...
+    0x...,
+    true
+  );
+  ```
+
+
+### `removeAllowances`
+
+  - **Type:** `bool`
+
+  Indicator if allowances should also be removed. This should be set to `true` unless this causes an out of gas, in this case the allowances should be "manually" deleted via `deleteAllowance`.
+
+  ```solidity focus=3
+  (ISafe safe).removeDelegate(
+    0x...,
+    true
   );
   ```
 

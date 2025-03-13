@@ -36,7 +36,8 @@ Defined in [` OwnerManager.sol`](https://github.com/safe-global/safe-smart-accou
     contract Example {
         function example() ... {
             (ISafe safe).addOwnerWithThreshold(
-                0x...
+                0x...,
+                0
             );
         }
     }
@@ -58,7 +59,22 @@ Defined in [` OwnerManager.sol`](https://github.com/safe-global/safe-smart-accou
 
   ```solidity focus=2
   (ISafe safe).addOwnerWithThreshold(
-    0x...
+    0x...,
+    0
+  );
+  ```
+
+
+### `_threshold`
+
+  - **Type:** `uint256`
+
+  New threshold.
+
+  ```solidity focus=3
+  (ISafe safe).addOwnerWithThreshold(
+    0x...,
+    0
   );
   ```
 

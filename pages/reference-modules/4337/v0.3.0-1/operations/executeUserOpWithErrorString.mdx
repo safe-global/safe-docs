@@ -34,7 +34,9 @@ Defined in [` Safe4337Module.sol`](https://github.com/safe-global/safe-modules/t
         function example() ... {
             (ISafe safe).executeUserOpWithErrorString(
                 0x...,
-                
+                0,
+                "0x...",
+                0
             );
         }
     }
@@ -57,7 +59,41 @@ Defined in [` Safe4337Module.sol`](https://github.com/safe-global/safe-modules/t
   ```solidity focus=2
   (ISafe safe).executeUserOpWithErrorString(
     0x...,
-    
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `value`
+
+  - **Type:** `uint256`
+
+  Ether value of the user operation.
+
+  ```solidity focus=3
+  (ISafe safe).executeUserOpWithErrorString(
+    0x...,
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `data`
+
+  - **Type:** `bytes`
+
+  Data payload of the user operation.
+
+  ```solidity focus=4
+  (ISafe safe).executeUserOpWithErrorString(
+    0x...,
+    0,
+    "0x...",
+    0
   );
   ```
 
@@ -68,10 +104,12 @@ Defined in [` Safe4337Module.sol`](https://github.com/safe-global/safe-modules/t
 
   Operation type of the user operation.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).executeUserOpWithErrorString(
     0x...,
-    
+    0,
+    "0x...",
+    0
   );
   ```
 

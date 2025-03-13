@@ -34,7 +34,9 @@ Defined in [` SocialRecoveryModule.sol`](https://github.com/safe-global/safe-mod
     contract Example {
         function example() ... {
             (ISafe safe).executeRecovery(
-                0x...
+                0x...,
+                ["0x..."],
+                0
             );
         }
     }
@@ -56,7 +58,39 @@ Defined in [` SocialRecoveryModule.sol`](https://github.com/safe-global/safe-mod
 
   ```solidity focus=2
   (ISafe safe).executeRecovery(
-    0x...
+    0x...,
+    ["0x..."],
+    0
+  );
+  ```
+
+
+### `_newOwners`
+
+  - **Type:** `address[]`
+
+  The new owners' addressess.
+
+  ```solidity focus=3
+  (ISafe safe).executeRecovery(
+    0x...,
+    ["0x..."],
+    0
+  );
+  ```
+
+
+### `_newThreshold`
+
+  - **Type:** `uint256`
+
+  The new threshold for the safe.
+
+  ```solidity focus=4
+  (ISafe safe).executeRecovery(
+    0x...,
+    ["0x..."],
+    0
   );
   ```
 

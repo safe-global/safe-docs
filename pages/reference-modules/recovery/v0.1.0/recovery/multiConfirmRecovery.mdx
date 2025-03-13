@@ -36,7 +36,10 @@ Defined in [` SocialRecoveryModule.sol`](https://github.com/safe-global/safe-mod
         function example() ... {
             (ISafe safe).multiConfirmRecovery(
                 0x...,
-                
+                ["0x..."],
+                0,
+                [SignatureData],
+                true
             );
         }
     }
@@ -59,7 +62,44 @@ Defined in [` SocialRecoveryModule.sol`](https://github.com/safe-global/safe-mod
   ```solidity focus=2
   (ISafe safe).multiConfirmRecovery(
     0x...,
-    
+    ["0x..."],
+    0,
+    [SignatureData],
+    true
+  );
+  ```
+
+
+### `_newOwners`
+
+  - **Type:** `address[]`
+
+  The new owners' addressess.
+
+  ```solidity focus=3
+  (ISafe safe).multiConfirmRecovery(
+    0x...,
+    ["0x..."],
+    0,
+    [SignatureData],
+    true
+  );
+  ```
+
+
+### `_newThreshold`
+
+  - **Type:** `uint256`
+
+  The new threshold for the safe.
+
+  ```solidity focus=4
+  (ISafe safe).multiConfirmRecovery(
+    0x...,
+    ["0x..."],
+    0,
+    [SignatureData],
+    true
   );
   ```
 
@@ -70,10 +110,30 @@ Defined in [` SocialRecoveryModule.sol`](https://github.com/safe-global/safe-mod
 
   The guardians signatures.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).multiConfirmRecovery(
     0x...,
-    
+    ["0x..."],
+    0,
+    [SignatureData],
+    true
+  );
+  ```
+
+
+### `_execute`
+
+  - **Type:** `bool`
+
+  Whether to auto-start execution of recovery.
+
+  ```solidity focus=6
+  (ISafe safe).multiConfirmRecovery(
+    0x...,
+    ["0x..."],
+    0,
+    [SignatureData],
+    true
   );
   ```
 

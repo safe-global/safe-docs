@@ -34,7 +34,10 @@ Defined in [` AllowanceModule.sol`](https://github.com/safe-global/safe-modules/
         function example() ... {
             (ISafe safe).setAllowance(
                 0x...,
-                
+                0x...,
+                0,
+                0,
+                0
             );
         }
     }
@@ -57,7 +60,44 @@ Defined in [` AllowanceModule.sol`](https://github.com/safe-global/safe-modules/
   ```solidity focus=2
   (ISafe safe).setAllowance(
     0x...,
-    
+    0x...,
+    0,
+    0,
+    0
+  );
+  ```
+
+
+### `token`
+
+  - **Type:** `address`
+
+  Token contract address.
+
+  ```solidity focus=3
+  (ISafe safe).setAllowance(
+    0x...,
+    0x...,
+    0,
+    0,
+    0
+  );
+  ```
+
+
+### `allowanceAmount`
+
+  - **Type:** `uint96`
+
+  allowance in smallest token unit.
+
+  ```solidity focus=4
+  (ISafe safe).setAllowance(
+    0x...,
+    0x...,
+    0,
+    0,
+    0
   );
   ```
 
@@ -68,10 +108,30 @@ Defined in [` AllowanceModule.sol`](https://github.com/safe-global/safe-modules/
 
   Time after which the allowance should reset
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).setAllowance(
     0x...,
-    
+    0x...,
+    0,
+    0,
+    0
+  );
+  ```
+
+
+### `resetBaseMin`
+
+  - **Type:** `uint32`
+
+  Time based on which the reset time should be increased
+
+  ```solidity focus=6
+  (ISafe safe).setAllowance(
+    0x...,
+    0x...,
+    0,
+    0,
+    0
   );
   ```
 

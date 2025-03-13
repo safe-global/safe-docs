@@ -36,7 +36,9 @@ Defined in [` Safe4337Module.sol`](https://github.com/safe-global/safe-modules/t
     contract Example {
         function example() ... {
             (ISafe safe).validateUserOp(
-                
+                PackedUserOperation,
+                "0x...",
+                0
             );
         }
     }
@@ -67,7 +69,39 @@ Defined in [` Safe4337Module.sol`](https://github.com/safe-global/safe-modules/t
 
   ```solidity focus=2
   (ISafe safe).validateUserOp(
-    
+    PackedUserOperation,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `userOpHash`
+
+  - **Type:** `bytes32`
+
+  - Hash of the user's request data. can be used as the basis for signature.
+
+  ```solidity focus=3
+  (ISafe safe).validateUserOp(
+    PackedUserOperation,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `missingAccountFunds`
+
+  - **Type:** `uint256`
+
+  - Missing funds on the account's deposit in the entrypoint. This is the minimum amount to transfer to the sender(entryPoint) to be able to make the call. The excess is left as a deposit in the entrypoint for future calls. Can be withdrawn anytime using "entryPoint.withdrawTo()". In case there is a paymaster in the request (or the current deposit is high enough), this value will be zero.
+
+  ```solidity focus=4
+  (ISafe safe).validateUserOp(
+    PackedUserOperation,
+    "0x...",
+    0
   );
   ```
 

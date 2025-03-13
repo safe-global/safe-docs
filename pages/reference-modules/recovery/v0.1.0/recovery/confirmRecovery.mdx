@@ -36,6 +36,8 @@ Defined in [` SocialRecoveryModule.sol`](https://github.com/safe-global/safe-mod
         function example() ... {
             (ISafe safe).confirmRecovery(
                 0x...,
+                ["0x..."],
+                0,
                 true
             );
         }
@@ -59,6 +61,40 @@ Defined in [` SocialRecoveryModule.sol`](https://github.com/safe-global/safe-mod
   ```solidity focus=2
   (ISafe safe).confirmRecovery(
     0x...,
+    ["0x..."],
+    0,
+    true
+  );
+  ```
+
+
+### `_newOwners`
+
+  - **Type:** `address[]`
+
+  The new owners' addressess.
+
+  ```solidity focus=3
+  (ISafe safe).confirmRecovery(
+    0x...,
+    ["0x..."],
+    0,
+    true
+  );
+  ```
+
+
+### `_newThreshold`
+
+  - **Type:** `uint256`
+
+  The new threshold for the safe.
+
+  ```solidity focus=4
+  (ISafe safe).confirmRecovery(
+    0x...,
+    ["0x..."],
+    0,
     true
   );
   ```
@@ -70,9 +106,11 @@ Defined in [` SocialRecoveryModule.sol`](https://github.com/safe-global/safe-mod
 
   Whether to auto-start execution of recovery.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).confirmRecovery(
     0x...,
+    ["0x..."],
+    0,
     true
   );
   ```
