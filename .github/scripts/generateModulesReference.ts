@@ -59,7 +59,7 @@ const generateModulesReference = (
                 mdDestination: _mdDestination,
                 repoUrl,
                 version,
-                callback: async () => {
+                callback: () => {
                   generateOverviewPageModule(version, _mdDestination, _repoUrl)
                   generateMetaJsonVersionsModule(moduleName, _mdDestination)
                   generateMetaJson(
