@@ -6,6 +6,7 @@
 (?i)zkevm
 (?i)zksync
 (?i)wagmi
+[Aa][Bb][Ii]
 [Aa][Pp][Ii]
 [Aa]urora
 [Aa]rbitrum
@@ -80,7 +81,6 @@
 [Xx]code 
 A1
 AA
-ABI
 ABIs
 API Kit
 APIs
@@ -112,6 +112,7 @@ C1
 CORS
 Canto
 Callout
+Calldata
 Cascadia
 Celestia
 Chiado
@@ -143,6 +144,7 @@ Etherscan
 Eurus
 Evmos
 Fantom
+Fas
 Fireblocks
 Foesenek
 Fraxtal
@@ -224,6 +226,7 @@ Safe Client Gateway
 Safe Config Service
 Safe Guards
 Safe Module
+Safe module
 Safe Modules
 Safe [Ss]mart [Aa]ccount
 Safe Transaction Service
@@ -282,8 +285,12 @@ Zilliqa
 Zircuit
 Zoltu
 Zora
+_data
 _dataHash
-abi
+_execute
+authorizer
+approvalCount
+calldata
 delegetecall
 delegatecalls
 address_full_match
@@ -304,6 +311,7 @@ initializer
 ledgerblue
 ledgereth
 maxWidth
+mastercopies
 mempool
 messageHash
 monorepo
@@ -323,6 +331,7 @@ refetching
 returndata
 rollups
 saltNonce
+sigAuthorizer
 stablecoin
 superset
 targetContract
@@ -336,6 +345,8 @@ undefined
 undeployed
 unencrypted
 v1
+validUntil
+validAfter
 viem
 zkLink
 zKyoto
