@@ -33,7 +33,9 @@ Defined in [` CreateCall.sol`](https://github.com/safe-global/safe-smart-account
     contract Example {
         function example() ... {
             (ISafe safe).performCreate2(
-                0
+                0,
+                "0x...",
+                "0x..."
             );
         }
     }
@@ -64,7 +66,39 @@ Defined in [` CreateCall.sol`](https://github.com/safe-global/safe-smart-account
 
   ```solidity focus=2
   (ISafe safe).performCreate2(
-    0
+    0,
+    "0x...",
+    "0x..."
+  );
+  ```
+
+
+### `deploymentData`
+
+  - **Type:** `bytes`
+
+  The initialisation code of the contract to be created.
+
+  ```solidity focus=3
+  (ISafe safe).performCreate2(
+    0,
+    "0x...",
+    "0x..."
+  );
+  ```
+
+
+### `salt`
+
+  - **Type:** `bytes32`
+
+  The salt value to use for the contract creation.
+
+  ```solidity focus=4
+  (ISafe safe).performCreate2(
+    0,
+    "0x...",
+    "0x..."
   );
   ```
 

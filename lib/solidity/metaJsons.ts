@@ -4,11 +4,11 @@ import capitalize from 'lodash/capitalize'
 
 import { modulesCategories, smartAccountCategories } from './constants'
 
-export const generateMetaJson = async (
+export const generateMetaJson = (
   destination: string,
   categories: string[],
-  callback: () => Promise<void>
-): Promise<void> => {
+  callback: () => void
+): void => {
   const metaJson = Object.fromEntries(
     categories.map(v => {
       const versionNumber = v.split('/')[1]
@@ -29,7 +29,7 @@ export const generateMetaJson = async (
       JSON.stringify(metaJson, null, 2),
       'utf8'
     )
-    await callback()
+    callback()
   })
 }
 

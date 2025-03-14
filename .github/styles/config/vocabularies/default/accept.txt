@@ -6,6 +6,7 @@
 (?i)zkevm
 (?i)zksync
 (?i)wagmi
+[Aa][Bb][Ii]
 [Aa][Pp][Ii]
 [Aa]urora
 [Aa]rbitrum
@@ -19,6 +20,7 @@
 [Bb]oolean
 [Bb]undler
 [Bb]undlers
+[Cc]alldata
 [Cc]hainlist
 [Cc]elo
 [Cc]omposable
@@ -80,9 +82,9 @@
 [Xx]code 
 A1
 AA
-ABI
 ABIs
 API Kit
+APIs
 Acala
 Alfajores
 Andromeda
@@ -142,6 +144,7 @@ Etherscan
 Eurus
 Evmos
 Fantom
+Fas
 Fireblocks
 Foesenek
 Fraxtal
@@ -172,9 +175,11 @@ keystore
 LUKSO
 Lightlink
 Lisk
+LLMs
 Mandala
 Mantle
 Masa
+MasterCopy
 Meld
 Metadium
 Metamask
@@ -227,6 +232,7 @@ Safe Transaction Service
 Safenet
 Safe{Core} Account Abstraction SDK
 Safe{DAO}
+SDKs
 Sei
 SEPA
 Shibarium
@@ -278,20 +284,32 @@ Zilliqa
 Zircuit
 Zoltu
 Zora
+_data
+_dataHash
+_execute
+authorizer
+approvalCount
+delegetecall
+delegatecalls
 address_full_match
 auditable
+automations
 auth_code
+bool
 bytestrings
 checksummed
 createTransaction
 const
 deployer
+e.g.
 eth_getLogs
 eSpace
 execTransaction
+initializer
 ledgerblue
 ledgereth
 maxWidth
+mastercopies
 mempool
 messageHash
 monorepo
@@ -308,10 +326,13 @@ preimage
 refetch
 refetches
 refetching
+returndata
 rollups
 saltNonce
+sigAuthorizer
 stablecoin
 superset
+targetContract
 textWrap
 timelock
 timelocks
@@ -322,6 +343,8 @@ undefined
 undeployed
 unencrypted
 v1
+validUntil
+validAfter
 viem
 zkLink
 zKyoto

@@ -35,6 +35,8 @@ Defined in [` SafeProxyFactory.sol`](https://github.com/safe-global/safe-smart-a
         function example() ... {
             (ISafe safe).createProxyWithCallback(
                 0x...,
+                "0x...",
+                0,
                 
             );
         }
@@ -58,6 +60,40 @@ Defined in [` SafeProxyFactory.sol`](https://github.com/safe-global/safe-smart-a
   ```solidity focus=2
   (ISafe safe).createProxyWithCallback(
     0x...,
+    "0x...",
+    0,
+    
+  );
+  ```
+
+
+### `initializer`
+
+  - **Type:** `bytes`
+
+  Payload for a message call to be sent to a new proxy contract.
+
+  ```solidity focus=3
+  (ISafe safe).createProxyWithCallback(
+    0x...,
+    "0x...",
+    0,
+    
+  );
+  ```
+
+
+### `saltNonce`
+
+  - **Type:** `uint256`
+
+  Nonce that will be used to generate the salt to calculate the address of the new proxy contract.
+
+  ```solidity focus=4
+  (ISafe safe).createProxyWithCallback(
+    0x...,
+    "0x...",
+    0,
     
   );
   ```
@@ -69,9 +105,11 @@ Defined in [` SafeProxyFactory.sol`](https://github.com/safe-global/safe-smart-a
 
   Callback that will be invoked after the new proxy contract has been successfully deployed and initialized.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).createProxyWithCallback(
     0x...,
+    "0x...",
+    0,
     
   );
   ```

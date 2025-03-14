@@ -26,7 +26,6 @@ jobs:
             ## Branch preview
             ⏳ Deploying a preview site...
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]'
 
       - uses: actions/checkout@v3
 
@@ -42,6 +41,7 @@ jobs:
         shell: bash
         run: pnpm build
         env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
           NEXT_PUBLIC_HOST_URL: 'https://docs.staging.5afe.dev'
 
       - name: Configure AWS credentials

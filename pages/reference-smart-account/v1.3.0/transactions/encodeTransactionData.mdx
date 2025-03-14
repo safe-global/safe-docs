@@ -35,7 +35,13 @@ Defined in [` GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account
             (ISafe safe).encodeTransactionData(
                 0x...,
                 0,
+                "0x...",
                 0,
+                0,
+                0,
+                0,
+                0x...,
+                0x...,
                 0
             );
         }
@@ -69,7 +75,57 @@ Defined in [` GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account
   (ISafe safe).encodeTransactionData(
     0x...,
     0,
+    "0x...",
     0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `value`
+
+  - **Type:** `uint256`
+
+  Ether value.
+
+  ```solidity focus=3
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `data`
+
+  - **Type:** `bytes`
+
+  Data payload.
+
+  ```solidity focus=4
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
     0
   );
   ```
@@ -81,11 +137,61 @@ Defined in [` GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account
 
   Operation type.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).encodeTransactionData(
     0x...,
     0,
+    "0x...",
     0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `safeTxGas`
+
+  - **Type:** `uint256`
+
+  Gas that should be used for the safe transaction.
+
+  ```solidity focus=6
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `baseGas`
+
+  - **Type:** `uint256`
+
+  Gas costs for that are independent of the transaction execution(e.g. base transaction fee, signature check, payment of the refund)
+
+  ```solidity focus=7
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
     0
   );
   ```
@@ -97,11 +203,61 @@ Defined in [` GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account
 
   Maximum gas price that should be used for this transaction.
 
-  ```solidity focus=4
+  ```solidity focus=8
   (ISafe safe).encodeTransactionData(
     0x...,
     0,
+    "0x...",
     0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `gasToken`
+
+  - **Type:** `address`
+
+  Token address (or 0 if ETH) that is used for the payment.
+
+  ```solidity focus=9
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `refundReceiver`
+
+  - **Type:** `address`
+
+  Address of receiver of gas payment (or 0 if tx.origin).
+
+  ```solidity focus=10
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
     0
   );
   ```
@@ -113,11 +269,17 @@ Defined in [` GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account
 
   Transaction nonce.
 
-  ```solidity focus=5
+  ```solidity focus=11
   (ISafe safe).encodeTransactionData(
     0x...,
     0,
+    "0x...",
     0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
     0
   );
   ```
