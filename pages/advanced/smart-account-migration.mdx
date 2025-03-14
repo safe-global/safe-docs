@@ -4,12 +4,12 @@ import { Steps } from 'nextra/components'
 # Safe Smart Account Migration
 
 As the Smart Account ecosystem and standards evolve, Safe Team releases new versions of the Singleton contract as and when required.
-The **SafeProxy** contract (aka. Safe Smart Account) stores the address of the Singleton contract at storage `slot(0)`.  The existing SafeProxy contracts can be migrated to the new Singleton contract, but the Safe Smart Account owners have to take special steps to do so.
-The guide below provides a step-by-step process to migrate the SafeProxy contract to the new Singleton contract using `delegatecall`.
+The **SafeProxy** contract (aka. Safe Smart Account) stores the address of the Singleton contract at storage `slot(0)`.  The existing SafeProxy contracts can be migrated to the new Singleton contract, but the Safe Smart Account owners must take special steps.
+The guide below provides a step-by-step process for migrating the SafeProxy contract to the new Singleton contract using `delegatecall`.
 
 <Callout type="warning">
 Only migrate to the trusted and audited contracts. A malicious implementation contract can take over the SafeProxy contract, causing loss of access to the account and potentially losing all funds.
-Also, make sure to verify the compatibility of the new Singleton contract with the existing SafeProxy contract.
+Also, verify the compatibility of the new Singleton contract with the existing SafeProxy contract.
 </Callout>
 
 ## Migration Process
@@ -276,5 +276,5 @@ npm run migrate:L2:withFH
 
 ## Further actions
 
-- The migration script can be extended to support Safe Account migration with threshold more than one. The users can use [Safe API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) to propose the transaction, fetch transaction data and sign the transaction.
-- Source code of this script is available in the [Safe Migration Script repository](https://github.com/5afe/safe-migration-script).
+- The migration script can be extended to support Safe Account migration with a threshold of more than one. Users can use the [Safe API Kit](https://github.com/safe-global/safe-core-sdk/tree/main/packages/api-kit) to propose the transactions, fetch transaction data, and sign them.
+- The source code for this script is available in the [Safe Migration Script repository](https://github.com/5afe/safe-migration-script).
