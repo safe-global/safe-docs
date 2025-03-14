@@ -14,7 +14,7 @@ Also, verify the compatibility of the new Singleton contract with the existing S
 
 ## Migration Process
 
-Finding the address of the new Singleton contract is the first step in the migration process. Safe Team maintains [SafeMigration](https://github.com/safe-global/safe-smart-account/blob/main/contracts/libraries/SafeMigration.sol) contract to update the Singleton contract address in the `SafeProxy` contract.
+Finding the address of the new Singleton contract is the first step in the migration process. Safe maintains [SafeMigration](https://github.com/safe-global/safe-smart-account/blob/main/contracts/libraries/SafeMigration.sol) contract to update the Singleton contract address in the `SafeProxy` contract.
 
 The officially deployed `SafeMigration` contract addresses can be found in the [Safe Deployments repository](https://github.com/safe-global/safe-deployments).
 
@@ -118,12 +118,12 @@ main(migrationMethod).catch(console.error);
 Define the constants required for the migration script. Replace the placeholders with the actual values.
 
 ```typescript
-    // Define constants
-    const SAFE_ADDRESS = // ...
-    const OWNER_PRIVATE_KEY = // ...
-    const RPC_URL = // ...
-    const SAFE_MIGRATION_CONTRACT_ADDRESS = // ...
-    const ABI = parseAbi([
+  // Define constants
+  const SAFE_ADDRESS = // ...
+  const OWNER_PRIVATE_KEY = // ...
+  const RPC_URL = // ...
+  const SAFE_MIGRATION_CONTRACT_ADDRESS = // ...
+  const ABI = parseAbi([
     "function migrateSingleton() public",
     "function migrateWithFallbackHandler() external",
     "function migrateL2Singleton() public",
@@ -134,54 +134,54 @@ Define the constants required for the migration script. Replace the placeholders
 ### Build `calldata` for the migration
 
 ```typescript
-    // Build calldata for the migration
-    const calldata = encodeFunctionData({
-        abi: ABI,
-        functionName: migrationMethod,
-    });
+  // Build calldata for the migration
+  const calldata = encodeFunctionData({
+    abi: ABI,
+    functionName: migrationMethod,
+  });
 
-    const safeTransactionData: MetaTransactionData = {
-        to: SAFE_MIGRATION_CONTRACT_ADDRESS,
-        value: "0",
-        data: calldata,
-        operation: OperationType.DelegateCall,
-    };
+  const safeTransactionData: MetaTransactionData = {
+    to: SAFE_MIGRATION_CONTRACT_ADDRESS,
+    value: "0",
+    data: calldata,
+    operation: OperationType.DelegateCall,
+  };
 ```
 
 ### Initialize the Protocol Kit
 
 ```typescript
-    // Initialize the Protocol Kit
-    const preExistingSafe = await Safe.init({
-        provider: RPC_URL,
-        signer: OWNER_PRIVATE_KEY,
-        safeAddress: SAFE_ADDRESS,
-    });
+  // Initialize the Protocol Kit
+  const preExistingSafe = await Safe.init({
+    provider: RPC_URL,
+    signer: OWNER_PRIVATE_KEY,
+    safeAddress: SAFE_ADDRESS,
+  });
 ```
 
 ### Create and execute transaction
 
 ```typescript
-    // Create and execute transaction
-    const safeTransaction = await preExistingSafe.createTransaction({
-        transactions: [safeTransactionData],
-    });
+  // Create and execute transaction
+  const safeTransaction = await preExistingSafe.createTransaction({
+    transactions: [safeTransactionData],
+  });
 
-    console.log(
-        `Executing migration method [${migrationMethod}] using Safe [${SAFE_ADDRESS}]`
-    );
+  console.log(
+    `Executing migration method [${migrationMethod}] using Safe [${SAFE_ADDRESS}]`
+  );
 
-    const result = await preExistingSafe.executeTransaction(safeTransaction);
+  const result = await preExistingSafe.executeTransaction(safeTransaction);
 
-    const publicClient = createPublicClient({
-        transport: http(RPC_URL),
-    });
+  const publicClient = createPublicClient({
+    transport: http(RPC_URL),
+  });
 
-    console.log(`Transaction hash [${result.hash}]`);
+  console.log(`Transaction hash [${result.hash}]`);
 
-    await publicClient.waitForTransactionReceipt({
-        hash: result.hash as `0x${string}`,
-    });
+  await publicClient.waitForTransactionReceipt({
+    hash: result.hash as `0x${string}`,
+  });
 ```
 
 ### Final script
