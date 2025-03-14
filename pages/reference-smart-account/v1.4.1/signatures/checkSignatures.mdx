@@ -1,0 +1,65 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+
+
+# `checkSignatures` (0x934f3a11)
+
+
+
+Checks whether the signature provided is valid for the provided data and hash. Reverts otherwise.
+
+
+
+
+Defined in [` Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/Safe.sol#L257)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function checkSignatures(bytes32 dataHash,bytes memory data,bytes memory signatures) public view
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).checkSignatures(
+                "0x..."
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+## Parameters
+
+### `dataHash`
+
+  - **Type:** `bytes32`
+
+  Hash of the data (could be either a message hash or transaction hash)
+
+  ```solidity focus=2
+  (ISafe safe).checkSignatures(
+    "0x..."
+  );
+  ```
+
+
+
+
+

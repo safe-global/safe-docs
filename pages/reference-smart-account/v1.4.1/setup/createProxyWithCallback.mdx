@@ -1,0 +1,82 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+
+
+# `createProxyWithCallback` (0xd18af54d)
+
+
+
+Deploy a new proxy with `_singleton` singleton and `saltNonce` salt.
+Optionally executes an initializer call to a new proxy and calls a specified callback address `callback`.
+
+
+
+
+Defined in [` SafeProxyFactory.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/proxies/SafeProxyFactory.sol#L86)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function createProxyWithCallback(address _singleton,bytes memory initializer,uint256 saltNonce,IProxyCreationCallback callback) public returns (SafeProxy proxy)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).createProxyWithCallback(
+                0x...,
+                
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+## Parameters
+
+### `_singleton`
+
+  - **Type:** `address`
+
+  Address of singleton contract. Must be deployed at the time of execution.
+
+  ```solidity focus=2
+  (ISafe safe).createProxyWithCallback(
+    0x...,
+    
+  );
+  ```
+
+
+### `callback`
+
+  - **Type:** `contract IProxyCreationCallback`
+
+  Callback that will be invoked after the new proxy contract has been successfully deployed and initialized.
+
+  ```solidity focus=3
+  (ISafe safe).createProxyWithCallback(
+    0x...,
+    
+  );
+  ```
+
+
+
+
+

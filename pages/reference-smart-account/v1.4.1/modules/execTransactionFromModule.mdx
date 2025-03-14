@@ -1,0 +1,97 @@
+import { Tabs, Callout } from 'nextra/components'
+import ExecutionFromModuleSuccess from '../events/ExecutionFromModuleSuccess.mdx'
+import ExecutionFromModuleFailure from '../events/ExecutionFromModuleFailure.mdx'
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+
+
+# `execTransactionFromModule` (0x468721a7)
+
+
+
+Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Token)
+
+Function is virtual to allow overriding for L2 singleton to emit an event for indexing.
+
+
+
+
+Defined in [` ModuleManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/base/ModuleManager.sol#L81)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function execTransactionFromModule(address to,uint256 value,bytes memory data,Enum.Operation operation) public virtual returns (bool success)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).execTransactionFromModule(
+                0x...,
+                0
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+### `success`
+
+  - **Type:** `bool`
+
+  Boolean flag indicating if the call succeeded.
+
+
+
+
+## Parameters
+
+### `to`
+
+  - **Type:** `address`
+
+  Destination address of module transaction.
+
+  ```solidity focus=2
+  (ISafe safe).execTransactionFromModule(
+    0x...,
+    0
+  );
+  ```
+
+
+### `operation`
+
+  - **Type:** `enum Enum.Operation`
+
+  Operation type of module transaction.
+
+  ```solidity focus=3
+  (ISafe safe).execTransactionFromModule(
+    0x...,
+    0
+  );
+  ```
+
+
+
+
+## Events
+
+<ExecutionFromModuleSuccess />
+<ExecutionFromModuleFailure />
+

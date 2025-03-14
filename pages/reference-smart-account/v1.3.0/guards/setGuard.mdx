@@ -1,0 +1,68 @@
+import { Tabs, Callout } from 'nextra/components'
+import ChangedGuard from '../events/ChangedGuard.mdx'
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `setGuard` (0xe19a9dd9)
+
+
+
+Set a guard that checks transactions before execution
+
+
+
+
+Defined in [` GuardManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/base/GuardManager.sol#L34)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function setGuard(address guard) external authorized
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).setGuard(
+                0x...
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+## Parameters
+
+### `guard`
+
+  - **Type:** `address`
+
+  The address of the guard to be used or the 0 address to disable the guard
+
+  ```solidity focus=2
+  (ISafe safe).setGuard(
+    0x...
+  );
+  ```
+
+
+
+
+## Events
+
+<ChangedGuard />
+

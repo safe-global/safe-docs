@@ -1,0 +1,74 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `getMessageHashForSafe` (0x6ac24784)
+
+
+
+Returns hash of a message that can be signed by owners.
+
+
+
+
+Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/handler/CompatibilityFallbackHandler.sol#L51)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function getMessageHashForSafe(GnosisSafe safe,bytes memory message) public view returns (bytes32)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).getMessageHashForSafe(
+                
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+
+
+  - **Type:** `bytes32`
+
+  Message hash.
+
+
+
+
+## Parameters
+
+### `safe`
+
+  - **Type:** `contract GnosisSafe`
+
+  Safe to which the message is targeted
+
+  ```solidity focus=2
+  (ISafe safe).getMessageHashForSafe(
+    
+  );
+  ```
+
+
+
+
+
