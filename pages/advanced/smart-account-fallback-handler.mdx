@@ -34,12 +34,12 @@ Supports the following token interfaces:
 
 Source code: [CompatibilityFallbackHandler](https://github.com/safe-global/safe-smart-account/blob/main/contracts/handler/CompatibilityFallbackHandler.sol)
 
-- Extends TokenCallbackHandler functionality.
-- Implements ERC-1271 via the isValidSignature method, enabling secure on-chain signature verification.
-- Provides a simulate function, which executes a static delegatecall to a target contract and intentionally reverts afterward to avoid unintended state changes.
+- Extends `TokenCallbackHandler` functionality.
+- Implements ERC-1271 via the `isValidSignature` method, enabling secure on-chain signature verification.
+- Provides a `simulate` function, which executes a static `delegatecall` to a target contract and intentionally reverts afterward to avoid unintended state changes.
 - Includes additional utility functions:
   - **getMessageHash:** Generates message hashes specific to the calling Safe instance.
-  - **encodeMessageDataForSafe:** Encodes messages using the Safe's domain separator and a predefined message type hash.
+  - **encodeMessageDataForSafe:** Encodes messages using the Smart Account's domain separator and a predefined message type hash.
   - **getMessageHashForSafe:** Combines message encoding and hashing into a final message hash.
   - **getModules:** Retrieves a paginated list (first 10 entries) of modules associated with the Safe.
 
@@ -47,13 +47,13 @@ Source code: [CompatibilityFallbackHandler](https://github.com/safe-global/safe-
 
 Source code: [ExtensibleFallbackHandler](https://github.com/safe-global/safe-smart-account/blob/main/contracts/handler/ExtensibleFallbackHandler.sol)
 
-- Enables assigning individual fallback handlers to specific function signatures.
+The ExtensibleFallbackHandler enables assigning individual fallback handlers to specific function signatures, allowing for more granular control over fallback behavior.
 
 ### Safe4337Module as Fallback Handler
 
 Source code: [Safe4337Module](https://github.com/safe-global/safe-modules/blob/main/modules/4337/contracts/Safe4337Module.sol)
 
-- Implements the `validateUserOp` function defined by ERC-4337.
+This fallback handler implements the `validateUserOp` function defined by ERC-4337, enabling Safe Smart Accounts to be used as ERC-4337 compatible smart contract wallets.
 
 <Callout type='error' emoji='‼️'>
   Using a Safe Fallback Handler can introduce security risks, as it enables
