@@ -1,0 +1,70 @@
+import { Tabs } from 'nextra/components'
+
+# `decodeData`
+
+Decodes the specified Safe transaction data.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { apiKit } from './setup.ts'
+
+    const data = '0x...'
+
+    const decodedData = await apiKit.decodeData(data)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<DataDecoded>`
+
+The transaction data decoded.
+
+```typescript
+type DataDecoded = {
+  readonly method: string
+  readonly parameters: DecodedParameters[]
+}
+```
+
+## Parameters
+
+### `data`
+
+- **Type:** `string`
+
+The Safe transaction data to decode.
+
+```typescript
+const decodedData = await apiKit.decodeData('0x...')
+```
+
+### `to` (Optional)
+
+- **Type:** `string`
+
+The address of the receiving contract. If provided, the decoded data will be more accurate, as in case of an ABI collision the Safe Transaction Service would know which ABI to use
+
+```typescript
+const decodedData = await apiKit.decodeData(
+  '0x...',
+  '0x...'
+)
+```

@@ -1,8 +1,16 @@
-import { Tabs } from 'nextra/components'
+import { Tabs, Callout } from 'nextra/components'
 
 # `getSafeOperationsByAddress`
 
 Returns the list of Safe operations associated to a Safe account.
+
+<Callout type="info" emoji="ℹ️">
+The SafeOperations methods are currently compatible with Entrypoint v0.6, which corresponds to `safeModuleVersion` v0.2.0. If you need to use v0.7, you should use the `relay-kit` `Safe4337Pack` class with `safeModuleVersion` v0.3.0, and collect the signatures yourself.
+
+Examples of how to use the `Safe4337Pack` are provided in the following links:
+- [Playgrounds](https://github.com/safe-global/safe-core-sdk/tree/main/playground/relay-kit)
+- [Guide](https://docs.safe.global/sdk/relay-kit/guides/4337-safe-sdk)
+</Callout>
 
 ## Usage
 
@@ -14,14 +22,16 @@ Returns the list of Safe operations associated to a Safe account.
     import { GetSafeOperationListProps } from '@safe-global/api-kit'
     import { apiKit } from './setup.ts'
 
-    const config: GetSafeOperationListProps = {
-      safeAddress: '0x...',
-      ordering: 'created', // Optional
+    const safeAddress = '0x...'
+    const options: GetSafeOperationListOptions = {      
+      executed: false, // Optional,
+      hasConfirmations: true, // Optional,
+      ordering: 'created', // Optional      
       limit: '10', // Optional
       offset: '50' // Optional
     }
 
-    const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(config)
+    const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(safeAddress, options)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -45,7 +55,7 @@ The paginated list of Safe operations.
 
 ## Parameters
 
-### `config.safeAddress`
+### `safeAddress`
 
 - **Type:** `string`
 
@@ -57,14 +67,52 @@ const safeOperationsResponse = await apiKit.getSafeOperationsByAddress({
 })
 ```
 
-### `config.ordering` (Optional)
+### `options.executed` (Optional)
+
+- **Type:** `boolean`
+
+When `true` it will return the Safe operations whose associated User Operation was already executed in the bundler.
+When `false` it will return the Safe operations that are pending to execute.
+
+If omitted, it will return all the Safe operations.
+
+```typescript focus=4
+const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
+  {
+    safeAddress: '0x...',
+    executed: true,
+    ordering: 'created'
+  }
+)
+```
+
+### `options.hasConfirmations` (Optional)
+
+- **Type:** `string`
+
+When `true` it will return the Safe operations that have confirmations from any owner.
+When `false` it will return the Safe operations that don't have confirmations.
+
+If omitted, it will return all the Safe operations.
+
+```typescript focus=4
+const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
+  {
+    safeAddress: '0x...',
+    hasConfirmations: true,
+    ordering: 'created'
+  }
+)
+```
+
+### `options.ordering` (Optional)
 
 - **Type:** `string`
 - **Default:** `-user_operation__nonce`
 
 The field used when ordering the results.
 
-Can be one of: `-user_operation__nonce`, `user_operation__nonce`, `-created`, `created`.
+Can be one of: `-user_operation__nonce`, `-created`, `created`.
 
 ```typescript focus=4
 const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
@@ -75,7 +123,7 @@ const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
 )
 ```
 
-### `config.limit` (Optional)
+### `options.limit` (Optional)
 
 - **Type:** `number`
 
@@ -90,7 +138,7 @@ const safeOperationsResponse = await apiKit.getSafeOperationsByAddress(
 )
 ```
 
-### `config.offset` (Optional)
+### `options.offset` (Optional)
 
 - **Type:** `number`
 

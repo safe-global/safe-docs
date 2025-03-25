@@ -1,0 +1,114 @@
+import { Tabs, Callout } from 'nextra/components'
+
+# `getPendingSafeOperations`
+
+Returns the list of Safe operations which are pending to be executed through a bundler.
+
+<Callout type="info" emoji="ℹ️">
+The SafeOperations methods are currently compatible with Entrypoint v0.6, which corresponds to `safeModuleVersion` v0.2.0. If you need to use v0.7, you should use the `relay-kit` `Safe4337Pack` class with `safeModuleVersion` v0.3.0, and collect the signatures yourself.
+
+Examples of how to use the `Safe4337Pack` are provided in the following links:
+- [Playgrounds](https://github.com/safe-global/safe-core-sdk/tree/main/playground/relay-kit)
+- [Guide](https://docs.safe.global/sdk/relay-kit/guides/4337-safe-sdk)
+</Callout>
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.ts', 'setup.ts']}>
+  <Tabs.Tab>
+    ```typescript
+    import { GetSafeOperationListProps } from '@safe-global/api-kit'
+    import { apiKit } from './setup.ts'
+
+    const safeAddress = '0x...'
+    const options: GetPendingSafeOperationListOptions = {
+      ordering: 'created', // Optional
+      limit: '10', // Optional
+      offset: '50' // Optional
+    }
+
+    const safeOperationsResponse = await apiKit.getPendingSafeOperations(safeAddress, options)
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```typescript
+    import SafeApiKit from '@safe-global/api-kit'
+
+    export const apiKit = new SafeApiKit({
+      chainId: 1n, // Mainnet
+    })
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+`Promise<GetSafeOperationListResponse>`
+
+The paginated list of Safe operations.
+
+## Parameters
+
+### `safeAddress`
+
+- **Type:** `string`
+
+The Safe address.
+
+```typescript focus=2
+const safeOperationsResponse = await apiKit.getPendingSafeOperations({
+  safeAddress: '0x...'
+})
+```
+
+### `options.ordering` (Optional)
+
+- **Type:** `string`
+- **Default:** `-user_operation__nonce`
+
+The field used when ordering the results.
+
+Can be one of: `-user_operation__nonce`, `-created`, `created`.
+
+```typescript focus=4
+const safeOperationsResponse = await apiKit.getPendingSafeOperations(
+  {
+    safeAddress: '0x...',
+    ordering: 'created'
+  }
+)
+```
+
+### `options.limit` (Optional)
+
+- **Type:** `number`
+
+The number of results to return per page.
+
+```typescript focus=4
+const safeOperationsResponse = await apiKit.getPendingSafeOperations(
+  {
+    safeAddress: '0x...',
+    limit: 10
+  }
+)
+```
+
+### `options.offset` (Optional)
+
+- **Type:** `number`
+
+The initial index from which to return the results.
+
+```typescript focus=4
+const safeOperationsResponse = await apiKit.getPendingSafeOperations(
+  {
+    safeAddress: '0x...',
+    offset: 50
+  }
+)
+```

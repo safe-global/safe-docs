@@ -1,0 +1,74 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+
+
+# `getMessageHash` (0x0a1028c4)
+
+
+
+Returns the hash of a message to be signed by owners.
+
+
+
+
+Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/CompatibilityFallbackHandler.sol#L46)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function getMessageHash(bytes memory message) public view returns (bytes32)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).getMessageHash(
+                "0x..."
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+
+
+  - **Type:** `bytes32`
+
+  Message hash.
+
+
+
+
+## Parameters
+
+### `message`
+
+  - **Type:** `bytes`
+
+  Raw message bytes.
+
+  ```solidity focus=2
+  (ISafe safe).getMessageHash(
+    "0x..."
+  );
+  ```
+
+
+
+
+

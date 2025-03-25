@@ -1,0 +1,18 @@
+# Deploying Smart Accounts
+
+To save deployment gas costs, users will deploy a `SafeProxy` contract instead of deploying the complete bytecode of Smart Account and associated contracts. The `SafeProxy` delegates all calls to a singleton contract, whose address is stored at `slot(0)` of the proxy contract. This means that the proxy contract itself is lightweight and inexpensive to deploy, while the actual logic is handled by the singleton contract.
+
+The `SafeProxyFactory` contract is used to deploy `SafeProxy` contracts. The `SafeProxyFactory` contract provides various functions to deploy a `SafeProxy` contract which are given below.
+The address of the proxy depends on the address of the `SafeProxyFactory` contract, `intializer` data, and the salt used to deploy the proxy.
+
+## Functions available to deploy a `SafeProxy` contract
+
+- [`createProxyWithNonce`](/reference-smart-account/v1.4.1/setup/createProxyWithNonce)
+- [`createChainSpecificProxyWithNonce`](/reference-smart-account/v1.4.1/setup/createChainSpecificProxyWithNonce)
+- [`createProxyWithCallback`](/reference-smart-account/v1.4.1/setup/createProxyWithCallback)
+
+## Reference
+
+- [SafeProxy.sol](https://github.com/safe-global/safe-smart-account/blob/release/v1.4.1/contracts/proxies/SafeProxy.sol)
+- [SafeProxyFactory.sol](https://github.com/safe-global/safe-smart-account/blob/release/v1.4.1/contracts/proxies/SafeProxyFactory.sol)
+- [IProxyCreationCallback](https://github.com/safe-global/safe-smart-account/blob/release/v1.4.1/contracts/proxies/IProxyCreationCallback.sol)

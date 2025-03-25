@@ -1,22 +1,11 @@
 {
-  "home": {
-    "title": "← Go Back",
-    "href": "/advanced/smart-account-overview"
+  "v1.3.0": {
+    "title": "v1.3.0",
+    "type": "page",
+    "display": "hidden"
   },
-  "overview": "Overview",
-  "-- Safe Reference": {
-    "type": "separator",
-    "title": "Safe Reference"
-  },
-  "setup": "Setup",
-  "owners": "Owners",
-  "transactions": "Transactions",
-  "modules": "Modules",
-  "guards": "Guards",
-  "fallback": "Fallback Handler",
-  "signatures": "Signatures",
-  "utilities": "Utilities",
-  "events": {
+  "v1.4.1": {
+    "title": "v1.4.1",
     "type": "page",
     "display": "hidden"
   }

@@ -14,8 +14,13 @@ Returns the history of incoming transactions of a Safe account.
     import { apiKit } from './setup.ts'
 
     const safeAddress = '0x...'
+    const options = {
+      _from: '0x...',
+      limit: 10,
+      offset: 10
+    }
 
-    const incomingTxs = await apiKit.getIncomingTransactions(safeAddress)
+    const incomingTxs = await apiKit.getIncomingTransactions(safeAddress, options)
     ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -50,3 +55,21 @@ const incomingTxs = await apiKit.getIncomingTransactions(
   '0x...'
 )
 ```
+
+### `options.from` (Optional)
+
+- **Type:** `string`
+
+The transaction sender address.
+
+### `options.limit` (Optional)
+
+- **Type:** `number`
+
+The number of results to return per page.
+
+### `options.offset` (Optional)
+
+- **Type:** `number`
+
+The initial index from which to return the results.

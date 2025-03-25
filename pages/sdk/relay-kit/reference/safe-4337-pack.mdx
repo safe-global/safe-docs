@@ -32,6 +32,11 @@ const safe4337Pack = await Safe4337Pack.init({
 
 The static method `init()` generates an instance of `Safe4337Pack`. Use this method to create the initial instance instead of the regular constructor.
 
+<Callout type="info" emoji="ℹ️">
+We have added support for then Entrypoint v0.7 contract but we are not making it the default yet. 
+If you are using Entrypoint v0.7, you need to set the `safeModuleVersion` to `0.3.0` when calling the `Safe4337Pack.init` method. This version of the Safe 4337 Module is the one compatible with the Entrypoint v0.7.
+</Callout>
+
 **Parameters**
 
 The `Safe4337InitOptions` used in the `init()` method are:
@@ -145,16 +150,18 @@ Safe4337CreateTransactionProps = {
     validUntil?: number
     validAfter?: number
     feeEstimator?: IFeeEstimator
+    customNonce?: bigint
   }
 }
 ```
 
-- **`transactions`** : Array of `MetaTransactionData` to batch in a `SafeOperation` (using the multisend contract if more than one transaction is included).
+- **`transactions`** : Array of `MetaTransactionData` to batch in a `SafeOperation` (using the MultiSend contract if more than one transaction is included).
 - **`options`** : Optional parameters.
   - **`amountToApprove`** : The amount to approve to the `paymasterTokenAddress`.
   - **`validUntil`** : The UserOperation will remain valid until this block's timestamp.
   - **`validAfter`** : The UserOperation will be valid after this block's timestamp.
   - **`feeEstimator`** : The fee estimator calculates gas requirements by implementing the `IFeeEstimator` interface.
+  - **`customNonce`** : The custom nonce for the SafeOperation. If not provided, the nonce will be calculated internally using the `getNonce` method from the Entrypoint contract.
 
 **Returns**
 A promise that resolves to the `SafeOperation`.
@@ -166,15 +173,15 @@ A promise that resolves to the `SafeOperation`.
 - We use a similar API to `protocol-kit` for developers transitioning to `Safe4337Pack`. This API helps with creating and executing transactions, bundling user operations and sending them to the bundler.
 - Use `validUntil` and `validAfter` to set the block timestamp range for the user operation's validity. The operation will be rejected if the block timestamp falls outside this range.
 - The `feeEstimator` calculates gas needs for the UserOperation. We default to Pimlico's `feeEstimator`, but you can use a different one by providing your own. The IFeeEstimator interface requires an object with specific methods.
+- User operations support the usage of [custom nonce](https://docs.stackup.sh/docs/useroperation-nonce). You can use a custom nonce by leveraging the `createTransaction` method and passing the `customNonce` property as part of the `options` parameter. We exported an utility method `encodeNonce` in the `relay-kit` to make it easier to compose the nonce.
 
 ```typescript
 IFeeEstimator {
-  setupEstimation?: EstimateFeeFunction
-  adjustEstimation?: EstimateFeeFunction
-  getPaymasterEstimation?: EstimateSponsoredFeeFunction
+  preEstimateUserOperationGas?: EstimateFeeFunction
+  postEstimateUserOperationGas?: EstimateFeeFunction  
 }
 
- EstimateFeeFunctionProps = {
+EstimateFeeFunctionProps = {
   userOperation: UserOperation
   bundlerUrl: string
   entryPoint: string
@@ -190,9 +197,8 @@ EstimateSponsoredFeeFunctionProps = {
 
 All methods are optional and will be called in the specified order if you provide any of them:
 
-1. `setupEstimation` : This method, called before using the bundler `eth_estimateUserOperationGas` in the pack code, allows you to adjust the user operation before the bundler estimates it, as each provider has its own recommendations.
-2. `adjustEstimation` : This method is used after calling `eth_estimateUserOperationGas` in the pack code to adjust the bundler estimation.
-3. `getPaymasterEstimation` : After using the bundler `eth_estimateUserOperationGas` from the package code, this method is used if the user operation is sponsored. It helps adjust the bundler's estimation when a paymaster sponsors the transaction that use to involve some specific fee estimations.
+1. `preEstimateUserOperationGas` : This method is used before calling the standard RPC `eth_estimateUserOperationGas` method, allowing you to setup the User operation before the bundler gas estimation.
+2. `postEstimateUserOperationGas` : This method is used after calling `eth_estimateUserOperationGas` method to adjust the bundler estimation.
 
 ### `signSafeOperation(safeOperation, signingMethod)`
 
