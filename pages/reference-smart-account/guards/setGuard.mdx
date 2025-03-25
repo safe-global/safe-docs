@@ -1,0 +1,49 @@
+import { Tabs, Callout } from 'nextra/components'
+import ChangedGuard from '../events/ChangedGuard.mdx'
+import OnlySafeTxCallout from '../../../components/callouts/OnlySafeTxCallout.mdx'
+import ModuleCallout from '../../../components/callouts/ModuleCallout.mdx'
+
+# `setGuard`
+
+Set Transaction Guard `guard` that checks transactions before execution.
+
+<OnlySafeTxCallout />
+<ModuleCallout />
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function setGuard(address guard) external;
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).setGuard(0x...);
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Parameters
+
+### `guard`
+
+- **Type:** `address`
+
+The address of the guard to be used, or `address(0)` to disable the guard.
+
+```solidity focus=2
+(ISafe safe).setGuard(
+    0x...
+);
+```
+
+## Events
+
+<ChangedGuard />

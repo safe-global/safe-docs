@@ -1,0 +1,49 @@
+import { Tabs, Callout } from 'nextra/components'
+import EnabledModule from '../events/EnabledModule.mdx'
+import OnlySafeTxCallout from '../../../components/callouts/OnlySafeTxCallout.mdx'
+
+# `enableModule`
+
+Enables a new Safe Module in a Safe account.
+
+<OnlySafeTxCallout />
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function enableModule(address module) external;
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).enableModule(0x...);
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `module`
+
+- **Type:** `address`
+
+Safe Module to be enabled.
+
+```solidity focus=2
+(ISafe safe).enableModule(
+    0x...
+);
+```
+
+## Events
+
+<EnabledModule />

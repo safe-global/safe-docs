@@ -1,0 +1,35 @@
+import { Tabs } from 'nextra/components'
+
+# `getOwners`
+
+Returns a list of Safe owners.
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function getOwners() external view returns (address[]);
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).getOwners();
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+### `owners`
+
+- **Type:** `address[]`
+
+Array of Safe owners.
