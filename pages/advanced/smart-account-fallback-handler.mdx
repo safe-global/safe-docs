@@ -11,7 +11,7 @@ import { Callout } from 'nextra/components'
 
 The Safe Fallback Handler enables extending the functionality of a Safe Smart Account without modifying its core contract code. It addresses Ethereum's 24KB contract size limitation by delegating additional logic to external smart contracts. Fallback Handlers clearly separate modular logic from the core Safe implementation.
 
-A basic Safe Smart Account does not require any modules by default. The addition or removal of modules must be confirmed by a predefined threshold of Safe owners. To maintain transparency and security, an event is emitted whenever the fallback handler is updated.
+A basic Safe Smart Account does not require any fallback handler by default. The addition or removal of fallback handler must be confirmed by a predefined threshold of Safe owners. To maintain transparency and security, an event is emitted whenever the fallback handler is updated.
 
 ## How it works
 
