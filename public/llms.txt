@@ -1,0 +1,48 @@
+# Safe Documentation
+
+> Safe is an open-source and modular account abstraction stack that enables secure management of digital assets. It's the essential tooling and infrastructure for integrating secure Smart Accounts, with over $100B+ in assets secured and 200+ projects built on top of it since 2018.
+
+Safe brings digital ownership of accounts to everyone by building universal and open contract standards for the custody of digital assets, data, and identity. The documentation covers the Safe{Core} tooling and infrastructure for developers to integrate Safe Smart Accounts into their applications.
+
+## Core Concepts
+
+- [What is Safe](https://docs.safe.global/home/what-is-safe): Overview of the Safe protocol and smart account features
+- [Safe Core](https://docs.safe.global/home/safe-core): Introduction to the Safe Core SDK and services
+- [Smart Account Overview](https://docs.safe.global/advanced/smart-account-overview): Technical details about Safe's smart account architecture
+- [Glossary](https://docs.safe.global/home/glossary): Definitions of key terms and concepts
+
+## AI Agent Integration
+
+- [AI Overview](https://docs.safe.global/home/ai-overview): Introduction to AI agents powered by Safe Smart Accounts
+- [AI Agent Setup](https://docs.safe.global/home/ai-agent-setup): Guide to creating an AI agent that can interact with a Safe
+- [Basic Agent Setup](https://docs.safe.global/home/ai-agent-quickstarts/basic-agent-setup): Quickstart guide for setting up a simple AI agent
+- [Agent with Spending Limit](https://docs.safe.global/home/ai-agent-quickstarts/agent-with-spending-limit): Creating an AI agent with controlled spending capabilities
+- [Human Approval Workflow](https://docs.safe.global/home/ai-agent-quickstarts/human-approval): Implementing human-in-the-loop approval for AI agent transactions
+
+## Developer Tools
+
+- [SDK Overview](https://docs.safe.global/sdk/overview): Introduction to Safe SDK packages for developers
+- [Protocol Kit](https://docs.safe.global/sdk/protocol-kit): SDK for interacting with Safe smart contracts
+- [API Kit](https://docs.safe.global/sdk/api-kit): SDK for interacting with Safe APIs and services
+- [Relay Kit](https://docs.safe.global/sdk/relay-kit): SDK for implementing transaction relaying
+- [Starter Kit](https://docs.safe.global/sdk/starter-kit): Getting started with Safe development
+
+## Advanced Features
+
+- [Smart Account Guards](https://docs.safe.global/advanced/smart-account-guards): Using guards for transaction validation
+- [Smart Account Modules](https://docs.safe.global/advanced/smart-account-modules): Extending smart account functionality
+- [ERC-4337 Integration](https://docs.safe.global/advanced/erc-4337/4337-safe): Using Safe with ERC-4337 (Account Abstraction)
+- [Passkeys Support](https://docs.safe.global/advanced/passkeys/passkeys-safe): Implementing passkeys authentication with Safe
+
+## APIs & Infrastructure
+
+- [Transaction Service Overview](https://docs.safe.global/core-api/transaction-service-overview): Understanding the Safe Transaction Service
+- [API Overview](https://docs.safe.global/core-api/api-overview): Introduction to Safe APIs
+- [Safe Installation Overview](https://docs.safe.global/core-api/safe-installation-overview): Deploying Safe infrastructure
+
+## Optional
+
+- [SafeNet](https://docs.safe.global/safenet/introduction): Information about the SafeNet cross-chain protocol
+- [CLI Reference](https://docs.safe.global/advanced/cli-reference): Command line interface tools for Safe
+- [Supported Networks](https://docs.safe.global/advanced/smart-account-supported-networks): List of networks supported by Safe
+- [Resource Hub](https://docs.safe.global/resource-hub): Community resources and additional materials
