@@ -76,6 +76,7 @@ jobs:
         uses: mshick/add-pr-comment@v2
         with:
           message-id: praul
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           message: |
             ## Branch preview
             ✅ Deployed successfully in branch deployment:
