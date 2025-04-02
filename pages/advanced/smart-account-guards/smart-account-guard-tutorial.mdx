@@ -27,6 +27,10 @@ Before we dive into the code, let's understand what Guards do:
   - `checkAfterExecution`: Called after execution for post-transaction checks
 - Guards can block transactions by reverting if validation fails
 
+<Callout type="warning" emoji="⚠️">
+Important Notice: The smart contract code provided in this tutorial is intended solely for educational purposes and serves only as an illustrative example. This example code has not undergone any security audits or formal verification processes. Safe does not guarantee the reliability, security, or correctness of this example code. Before deploying any smart contract code in a production environment, developers must conduct a thorough security audit and ensure rigorous testing procedures have been performed.
+</Callout>
+
 <Callout type="warning">
 Only enable Guards from trusted and audited code. A malicious Guard could block all transactions and make your Safe unusable.
 </Callout>
