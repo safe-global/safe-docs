@@ -1,15 +1,20 @@
 #!/bin/bash
 
-set -ev
+set -e
 
-aws s3 sync ./out $BUCKET --delete
+# Create a temporary directory to handle renaming
+TEMP_DIR=$(mktemp -d)
 
-# Upload all HTML files again but w/o an extention so that URLs like /welcome open the right page
+# Copy all files including HTML to the temporary directory
+cp -r ./out/* $TEMP_DIR
 
-cd out
-
-for file in $(find . -name '*.html' | sed 's|^\./||'); do
-    aws s3 cp ${file%} $BUCKET/${file%.*} --content-type 'text/html' &
+# Rename HTML files by removing the '.html' extension
+find $TEMP_DIR -name '*.html' | while read file; do
+    mv "$file" "${file%.html}"
 done
 
-wait
+# Sync all files from the temporary directory to S3
+aws s3 sync $TEMP_DIR $BUCKET --delete --content-type 'text/html' --exact-timestamps
+
+# Remove the temporary directory
+rm -rf $TEMP_DIR

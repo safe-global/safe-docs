@@ -26,7 +26,6 @@ jobs:
             ## Branch preview
             ⏳ Deploying a preview site...
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]'
 
       - uses: actions/checkout@v3
 
@@ -43,6 +42,7 @@ jobs:
         run: pnpm build
         env:
           NEXT_PUBLIC_HOST_URL: 'https://docs.staging.5afe.dev'
+          NODE_OPTIONS: '--max-old-space-size=8000'
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
@@ -77,6 +77,7 @@ jobs:
         uses: mshick/add-pr-comment@v2
         with:
           message-id: praul
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           message: |
             ## Branch preview
             ✅ Deployed successfully in branch deployment:
