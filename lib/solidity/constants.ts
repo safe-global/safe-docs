@@ -28,6 +28,7 @@ export const sampleValues = {
   'struct SafeWebAuthnSharedSigner.Signer': 'Signer',
   'struct SocialRecoveryModule.RecoveryRequest': 'RecoveryRequest',
   'struct SocialRecoveryModule.SignatureData[]': '[SignatureData]',
+  'contract IProxyCreationCallback': 'IProxyCreationCallback',
   'P256.Verifiers': 'Verifiers',
   bytes: '"0x..."',
   'enum Enum.Operation': '0',
