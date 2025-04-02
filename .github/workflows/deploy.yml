@@ -26,7 +26,6 @@ jobs:
             ## Branch preview
             ⏳ Deploying a preview site...
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]'
 
       - uses: actions/checkout@v3
 

@@ -8,8 +8,4 @@ aws s3 sync ./out $BUCKET --delete
 
 cd out
 
-for file in $(find . -name '*.html' | sed 's|^\./||'); do
-    aws s3 cp ${file%} $BUCKET/${file%.*} --content-type 'text/html' &
-done
-
-wait
+find . -name '*.html' | sed 's|^\./||' | parallel -j 10 aws s3 cp {} $BUCKET/{/..} --content-type 'text/html'
