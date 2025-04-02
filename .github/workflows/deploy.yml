@@ -52,7 +52,6 @@ jobs:
         shell: bash
         run: pnpm build
         env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
           NEXT_PUBLIC_HOST_URL: 'https://docs.staging.5afe.dev'
           NODE_OPTIONS: '--max-old-space-size=8000'
 
