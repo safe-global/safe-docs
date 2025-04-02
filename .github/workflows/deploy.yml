@@ -42,6 +42,7 @@ jobs:
         run: pnpm build
         env:
           NEXT_PUBLIC_HOST_URL: 'https://docs.staging.5afe.dev'
+          NODE_OPTIONS: "--max-old-space-size=8000"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3

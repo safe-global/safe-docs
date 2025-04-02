@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ev
+set -e
 
 aws s3 sync ./out $BUCKET --delete
 
