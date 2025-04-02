@@ -39,7 +39,8 @@ Defined in [` StorageAccessible.sol`](https://github.com/safe-global/safe-smart-
     contract Example {
         function example() ... {
             (ISafe safe).simulateAndRevert(
-                0x...
+                0x...,
+                "0x..."
             );
         }
     }
@@ -61,7 +62,22 @@ Defined in [` StorageAccessible.sol`](https://github.com/safe-global/safe-smart-
 
   ```solidity focus=2
   (ISafe safe).simulateAndRevert(
-    0x...
+    0x...,
+    "0x..."
+  );
+  ```
+
+
+### `calldataPayload`
+
+  - **Type:** `bytes`
+
+  Calldata that should be sent to the target contract (encoded method name and arguments).
+
+  ```solidity focus=3
+  (ISafe safe).simulateAndRevert(
+    0x...,
+    "0x..."
   );
   ```
 

@@ -33,6 +33,8 @@ Defined in [` Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/
     contract Example {
         function example() ... {
             (ISafe safe).checkSignatures(
+                "0x...",
+                "0x...",
                 "0x..."
             );
         }
@@ -55,6 +57,38 @@ Defined in [` Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/
 
   ```solidity focus=2
   (ISafe safe).checkSignatures(
+    "0x...",
+    "0x...",
+    "0x..."
+  );
+  ```
+
+
+### `data`
+
+  - **Type:** `bytes`
+
+  That should be signed (this is passed to an external validator contract)
+
+  ```solidity focus=3
+  (ISafe safe).checkSignatures(
+    "0x...",
+    "0x...",
+    "0x..."
+  );
+  ```
+
+
+### `signatures`
+
+  - **Type:** `bytes`
+
+  Signature data that should be verified. Can be packed ECDSA signature (\{bytes32 r\}\{bytes32 s\}\{uint8 v\}), contract signature (EIP-1271) or approved hash.
+
+  ```solidity focus=4
+  (ISafe safe).checkSignatures(
+    "0x...",
+    "0x...",
     "0x..."
   );
   ```

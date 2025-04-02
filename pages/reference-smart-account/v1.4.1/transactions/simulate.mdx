@@ -40,6 +40,8 @@ Defined in [` SimulateTxAccessor.sol`](https://github.com/safe-global/safe-smart
         function example() ... {
             (ISafe safe).simulate(
                 0x...,
+                0,
+                "0x...",
                 0
             );
         }
@@ -59,6 +61,20 @@ Defined in [` SimulateTxAccessor.sol`](https://github.com/safe-global/safe-smart
   Gas used.
 
 
+### `success`
+
+  - **Type:** `bool`
+
+  Success boolean value.
+
+
+### `returnData`
+
+  - **Type:** `bytes`
+
+  Return data.
+
+
 
 
 ## Parameters
@@ -72,6 +88,40 @@ Defined in [` SimulateTxAccessor.sol`](https://github.com/safe-global/safe-smart
   ```solidity focus=2
   (ISafe safe).simulate(
     0x...,
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `value`
+
+  - **Type:** `uint256`
+
+  Native token value.
+
+  ```solidity focus=3
+  (ISafe safe).simulate(
+    0x...,
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `data`
+
+  - **Type:** `bytes`
+
+  Data payload.
+
+  ```solidity focus=4
+  (ISafe safe).simulate(
+    0x...,
+    0,
+    "0x...",
     0
   );
   ```
@@ -83,9 +133,11 @@ Defined in [` SimulateTxAccessor.sol`](https://github.com/safe-global/safe-smart
 
   Operation type \{Call, DelegateCall\}.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).simulate(
     0x...,
+    0,
+    "0x...",
     0
   );
   ```

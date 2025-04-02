@@ -15,47 +15,42 @@ const repoUrl = 'https://github.com/safe-global/safe-smart-account/'
 const repoDestination = '.temp/contracts'
 const mdDestination = 'pages/reference-smart-account'
 
-const generateSmartAccountReference = async (
+const generateSmartAccountReference = (
   version: string,
-  callback: () => Promise<void>,
+  callback: () => void,
   repoDestination: string,
   mdDestination: string
 ) => {
-  await shell.exec(
+  shell.exec(
     `cd ${repoDestination} && git checkout tags/${version}`,
     { async: true },
-    async () => {
+    () => {
       // Prepare repo & generate .md doc files using @solarity:
-      await setupSolarity({
+      setupSolarity({
         repoDestination,
-        callback: async () => {
-          await shell.exec(
+        callback: () => {
+          shell.exec(
             `cd ${repoDestination} && npx hardhat markup && mkdir -p ${mdDestination}`,
             {
               async: true
             },
-            async () => {
+            () => {
               // Generate final .mdx files
-              await generateMarkdownFromNatspec({
+              generateMarkdownFromNatspec({
                 repoDestination,
                 mdDestination: `${mdDestination}/${version}`,
                 repoUrl,
                 version,
-                callback: async () => {
-                  await generateOverviewPage(
-                    version,
-                    `${mdDestination}/${version}`
-                  )
+                callback: () => {
+                  generateOverviewPage(version, `${mdDestination}/${version}`)
                   generateMetaJsonVersions(
                     version,
                     `${mdDestination}/${version}`
                   )
-                  await shell.exec(
+                  shell.exec(
                     `rm -rf ${repoDestination}/build && rm -rf ${repoDestination}/node_modules && rm -rf ${repoDestination}/generated-markups && cd ${repoDestination} && git stash && git stash drop`,
                     { async: true },
-                    async () => {
-                      await callback()
-                    }
+                    callback
                   )
                 }
               })

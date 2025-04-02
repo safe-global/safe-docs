@@ -33,6 +33,7 @@ Defined in [` StorageAccessible.sol`](https://github.com/safe-global/safe-smart-
     contract Example {
         function example() ... {
             (ISafe safe).getStorageAt(
+                0,
                 0
             );
         }
@@ -64,6 +65,21 @@ Defined in [` StorageAccessible.sol`](https://github.com/safe-global/safe-smart-
 
   ```solidity focus=2
   (ISafe safe).getStorageAt(
+    0,
+    0
+  );
+  ```
+
+
+### `length`
+
+  - **Type:** `uint256`
+
+  - the number of words (32 bytes) of data to read
+
+  ```solidity focus=3
+  (ISafe safe).getStorageAt(
+    0,
     0
   );
   ```

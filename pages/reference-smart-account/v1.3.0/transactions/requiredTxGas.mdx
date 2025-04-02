@@ -37,6 +37,8 @@ Defined in [` GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account
         function example() ... {
             (ISafe safe).requiredTxGas(
                 0x...,
+                0,
+                "0x...",
                 0
             );
         }
@@ -69,6 +71,40 @@ Defined in [` GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account
   ```solidity focus=2
   (ISafe safe).requiredTxGas(
     0x...,
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `value`
+
+  - **Type:** `uint256`
+
+  Ether value of Safe transaction.
+
+  ```solidity focus=3
+  (ISafe safe).requiredTxGas(
+    0x...,
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `data`
+
+  - **Type:** `bytes`
+
+  Data payload of Safe transaction.
+
+  ```solidity focus=4
+  (ISafe safe).requiredTxGas(
+    0x...,
+    0,
+    "0x...",
     0
   );
   ```
@@ -80,9 +116,11 @@ Defined in [` GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account
 
   Operation type of Safe transaction.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).requiredTxGas(
     0x...,
+    0,
+    "0x...",
     0
   );
   ```

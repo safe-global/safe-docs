@@ -37,6 +37,8 @@ Defined in [` OwnerManager.sol`](https://github.com/safe-global/safe-smart-accou
     contract Example {
         function example() ... {
             (ISafe safe).swapOwner(
+                0x...,
+                0x...,
                 0x...
             );
         }
@@ -59,6 +61,38 @@ Defined in [` OwnerManager.sol`](https://github.com/safe-global/safe-smart-accou
 
   ```solidity focus=2
   (ISafe safe).swapOwner(
+    0x...,
+    0x...,
+    0x...
+  );
+  ```
+
+
+### `oldOwner`
+
+  - **Type:** `address`
+
+  Owner address to be replaced.
+
+  ```solidity focus=3
+  (ISafe safe).swapOwner(
+    0x...,
+    0x...,
+    0x...
+  );
+  ```
+
+
+### `newOwner`
+
+  - **Type:** `address`
+
+  New owner address.
+
+  ```solidity focus=4
+  (ISafe safe).swapOwner(
+    0x...,
+    0x...,
     0x...
   );
   ```

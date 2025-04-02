@@ -34,6 +34,8 @@ Defined in [` ModuleManager.sol`](https://github.com/safe-global/safe-smart-acco
         function example() ... {
             (ISafe safe).execTransactionFromModuleReturnData(
                 0x...,
+                0,
+                "0x...",
                 0
             );
         }
@@ -53,6 +55,13 @@ Defined in [` ModuleManager.sol`](https://github.com/safe-global/safe-smart-acco
   Boolean flag indicating if the call succeeded.
 
 
+### `returnData`
+
+  - **Type:** `bytes`
+
+  Data returned by the call.
+
+
 
 
 ## Parameters
@@ -66,6 +75,40 @@ Defined in [` ModuleManager.sol`](https://github.com/safe-global/safe-smart-acco
   ```solidity focus=2
   (ISafe safe).execTransactionFromModuleReturnData(
     0x...,
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `value`
+
+  - **Type:** `uint256`
+
+  Ether value of module transaction.
+
+  ```solidity focus=3
+  (ISafe safe).execTransactionFromModuleReturnData(
+    0x...,
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `data`
+
+  - **Type:** `bytes`
+
+  Data payload of module transaction.
+
+  ```solidity focus=4
+  (ISafe safe).execTransactionFromModuleReturnData(
+    0x...,
+    0,
+    "0x...",
     0
   );
   ```
@@ -77,9 +120,11 @@ Defined in [` ModuleManager.sol`](https://github.com/safe-global/safe-smart-acco
 
   Operation type of module transaction.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).execTransactionFromModuleReturnData(
     0x...,
+    0,
+    "0x...",
     0
   );
   ```

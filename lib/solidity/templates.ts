@@ -23,16 +23,17 @@ This reference lists all public functions and events of the [Safe Smart Account]
 }
 
 // Generate the overview page for each version number
-export const generateOverviewPageModule = async (
+export const generateOverviewPageModule = (
   version: string,
-  destination: string
-): Promise<void> => {
+  destination: string,
+  repoUrl: string
+): void => {
   const moduleName = version.split('/')[0]
   const _version = version.split('/')[1]
 
   const overviewPage = `# ${capitalize(moduleName)} Module \`${_version}\` - Reference
 
-This reference lists all public functions and events of the [Safe ${moduleName} Module](../advanced/smart-account-modules.mdx) contracts version \`${_version.slice(1)}\`, logically clustered.
+This reference lists all public functions and events of the [Safe ${moduleName} Module](${repoUrl}) contracts version \`${_version.slice(1)}\`, logically clustered.
 
 `
   shell.exec(`mkdir -p ${destination}`, { async: true }, async () => {
@@ -92,9 +93,9 @@ import OnlySafeTxCallout from '${isModule ? '../..' : '..'}/../../../components/
 import ReentrancyCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/IrreversibilityCallout.mdx'
 
-${isModule && version !== 'v1.4.1' ? `<LegacyCallout />` : ''}
+${!isModule && version !== 'v1.4.1' ? `<LegacyCallout />` : ''}
 
-# \`${functionName}\` ${functionSignature}
+# \`${functionName}\` ${functionSignature ?? ''}
 
 ${getDescrptionCallouts(functionDescription)}
 
@@ -139,7 +140,7 @@ ${functionReturnTypes
 
   - **Type:** \`${type}\`
 
-  ${description}
+  ${description.replaceAll('>', '\\>').replaceAll('<', '\\<')}
 
 `
   )
@@ -186,7 +187,7 @@ ${functionEvents.map(event => `<${event} />`).join('\n')}
 }
 
 // Recursively process all versions to ensure operations (cloning, installing deps, etc.) are done sequentially:
-export const processAllVersions = async ({
+export const processAllVersions = ({
   list,
   mdDestination,
   repoDestination,
@@ -199,21 +200,21 @@ export const processAllVersions = async ({
   versions: string[]
   generateFunction: (
     version: string,
-    callback: () => Promise<void>,
+    callback: () => void,
     repoDestination: string,
     mdDestination: string
-  ) => Promise<void>
-}): Promise<void> => {
+  ) => void
+}): void => {
   if (list.length === 0) {
     // Clean up temporary files
     shell.rm('-rf', repoDestination)
     return // End of processing
   }
-  await generateFunction(
+  generateFunction(
     list[0],
-    async () => {
-      await generateMetaJson(mdDestination, versions, async () => {
-        await processAllVersions({
+    () => {
+      generateMetaJson(mdDestination, versions, () => {
+        processAllVersions({
           list: list.slice(1, list.length),
           mdDestination,
           repoDestination,
@@ -235,24 +236,20 @@ export const runSolidityGenerationScript = (
   versions: string[],
   generateFunction: (
     version: string,
-    callback: () => Promise<void>,
+    callback: () => void,
     repoDestination: string,
     mdDestination: string
-  ) => Promise<void>
+  ) => void
 ): void => {
   // Prepare files
   shell.rm('-rf', mdDestination)
-  shell.exec(
-    `git clone ${repoUrl} ${repoDestination}`,
-    { async: true },
-    async () => {
-      await processAllVersions({
-        list: versions,
-        mdDestination,
-        repoDestination,
-        versions,
-        generateFunction
-      })
-    }
-  )
+  shell.exec(`git clone ${repoUrl} ${repoDestination}`, { async: true }, () => {
+    processAllVersions({
+      list: versions,
+      mdDestination,
+      repoDestination,
+      versions,
+      generateFunction
+    })
+  })
 }

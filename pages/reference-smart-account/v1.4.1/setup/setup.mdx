@@ -36,9 +36,14 @@ Defined in [` Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/
     contract Example {
         function example() ... {
             (ISafe safe).setup(
-                ["0x..."],
+                [0x...],
+                0,
+                0x...,
                 "0x...",
-                0
+                0x...,
+                0x...,
+                0,
+                0x...
             );
         }
     }
@@ -60,9 +65,54 @@ Defined in [` Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/
 
   ```solidity focus=2
   (ISafe safe).setup(
-    ["0x..."],
+    [0x...],
+    0,
+    0x...,
     "0x...",
-    0
+    0x...,
+    0x...,
+    0,
+    0x...
+  );
+  ```
+
+
+### `_threshold`
+
+  - **Type:** `uint256`
+
+  Number of required confirmations for a Safe transaction.
+
+  ```solidity focus=3
+  (ISafe safe).setup(
+    [0x...],
+    0,
+    0x...,
+    "0x...",
+    0x...,
+    0x...,
+    0,
+    0x...
+  );
+  ```
+
+
+### `to`
+
+  - **Type:** `address`
+
+  Contract address for optional delegate call.
+
+  ```solidity focus=4
+  (ISafe safe).setup(
+    [0x...],
+    0,
+    0x...,
+    "0x...",
+    0x...,
+    0x...,
+    0,
+    0x...
   );
   ```
 
@@ -73,11 +123,56 @@ Defined in [` Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/
 
   Data payload for optional delegate call.
 
-  ```solidity focus=3
+  ```solidity focus=5
   (ISafe safe).setup(
-    ["0x..."],
+    [0x...],
+    0,
+    0x...,
     "0x...",
-    0
+    0x...,
+    0x...,
+    0,
+    0x...
+  );
+  ```
+
+
+### `fallbackHandler`
+
+  - **Type:** `address`
+
+  Handler for fallback calls to this contract
+
+  ```solidity focus=6
+  (ISafe safe).setup(
+    [0x...],
+    0,
+    0x...,
+    "0x...",
+    0x...,
+    0x...,
+    0,
+    0x...
+  );
+  ```
+
+
+### `paymentToken`
+
+  - **Type:** `address`
+
+  Token that should be used for the payment (0 is ETH)
+
+  ```solidity focus=7
+  (ISafe safe).setup(
+    [0x...],
+    0,
+    0x...,
+    "0x...",
+    0x...,
+    0x...,
+    0,
+    0x...
   );
   ```
 
@@ -88,11 +183,36 @@ Defined in [` Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/
 
   Value that should be paid
 
-  ```solidity focus=4
+  ```solidity focus=8
   (ISafe safe).setup(
-    ["0x..."],
+    [0x...],
+    0,
+    0x...,
     "0x...",
-    0
+    0x...,
+    0x...,
+    0,
+    0x...
+  );
+  ```
+
+
+### `paymentReceiver`
+
+  - **Type:** `address payable`
+
+  Address that should receive the payment (or 0 if tx.origin)
+
+  ```solidity focus=9
+  (ISafe safe).setup(
+    [0x...],
+    0,
+    0x...,
+    "0x...",
+    0x...,
+    0x...,
+    0,
+    0x...
   );
   ```
 

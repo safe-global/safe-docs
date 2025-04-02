@@ -33,7 +33,8 @@ Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/
     contract Example {
         function example() ... {
             (ISafe safe).encodeMessageDataForSafe(
-                
+                ,
+                "0x..."
             );
         }
     }
@@ -64,7 +65,22 @@ Defined in [` CompatibilityFallbackHandler.sol`](https://github.com/safe-global/
 
   ```solidity focus=2
   (ISafe safe).encodeMessageDataForSafe(
-    
+    ,
+    "0x..."
+  );
+  ```
+
+
+### `message`
+
+  - **Type:** `bytes`
+
+  Message that should be encoded.
+
+  ```solidity focus=3
+  (ISafe safe).encodeMessageDataForSafe(
+    ,
+    "0x..."
   );
   ```
 
