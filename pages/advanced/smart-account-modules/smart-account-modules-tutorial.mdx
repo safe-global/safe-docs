@@ -16,13 +16,16 @@ You will build a `TokenWithdrawModule` that enables beneficiaries to withdraw ER
 
 ### Implementation Details
 
-The `TokenWithdrawModule` allows:
-- Safe owners to authorize token withdrawals via off-chain signatures
-- Beneficiaries to execute withdrawals themselves without requiring Safe owner transactions
+The module gives a third party an allowance via a signature for the token that can freely be used by that third party. In the module this third party is represented as the "beneficiary" in the EIP-712 struct (mentioned in the PERMIT_TYPEHASH). To use this allowance the third party / "beneficiary" calls the `tokenTransfer` method and specifies which token to use and who should receive it.
+The Safe owners grant the permission for token transfer to the third party by signing the EIP-712 struct without requiring Safe owners to execute any on-chain transaction.
 
 ### Limitations
 - Each beneficiary has a sequential nonce, requiring withdrawals to be processed in order
 - The module is bound to a specific token and Safe address at deployment
+
+<Callout type="warning" emoji="⚠️">
+Important Notice: The smart contract code provided in this tutorial is intended solely for educational purposes and serves only as an illustrative example. This example code has not undergone any security audits or formal verification processes. Safe does not guarantee the reliability, security, or correctness of this example code. Before deploying any smart contract code in a production environment, developers must conduct a thorough security audit and ensure rigorous testing procedures have been performed.
+</Callout>
 
 ## Project Setup
 
@@ -142,7 +145,7 @@ Declare the necessary state variables for the contract.
 ```solidity
 bytes32 public immutable PERMIT_TYPEHASH =
     keccak256(
-      "TokenWithdrawModule(uint256 amount,address _beneficiary,uint256 nonce,uint256 deadline)"
+      "TokenWithdrawModule(uint256 amount,address beneficiary,uint256 nonce,uint256 deadline)"
     );
 address public immutable safeAddress;
 address public immutable tokenAddress;
@@ -199,20 +202,20 @@ Add a function to handle token transfers from the Safe.
 
 ```solidity
 function tokenTransfer(
-    uint _amount,
-    address _beneficiary,
-    uint256 _deadline,
-    bytes memory _signatures
+    uint amount,
+    address receiver,
+    uint256 deadline,
+    bytes memory signatures
 ) public {
-    require(_deadline >= block.timestamp, "expired deadline");
+    require(deadline >= block.timestamp, "expired deadline");
 
     bytes32 signatureData = keccak256(
         abi.encode(
             PERMIT_TYPEHASH,
-            _amount,
+            amount,
             msg.sender,
             nonces[msg.sender]++,
-            _deadline
+            deadline
         )
     );
 
@@ -223,13 +226,13 @@ function tokenTransfer(
     Safe(payable(safeAddress)).checkSignatures(
         hash,
         abi.encodePacked(signatureData),
-        _signatures
+        signatures
     );
 
     bytes memory data = abi.encodeWithSignature(
         "transfer(address,uint256)",
-        _beneficiary,
-        _amount
+        receiver,
+        amount
     );
 
     // Calling `execTransactionFromModule` with the transaction data to execute the token transfer through the Safe account.
@@ -247,7 +250,7 @@ function tokenTransfer(
 
 Explanation:
 1. **Parameter Validation**:
-   - Ensure the `_deadline` is valid.
+   - Ensure the `deadline` is valid.
    - Construct `signatureData` with the provided details and `PERMIT_TYPEHASH`.
 2. **Hash Calculation**:
    - Compute the hash using the `EIP712` format to ensure signature consistency.
@@ -271,12 +274,13 @@ import "@safe-global/safe-contracts/contracts/Safe.sol";
 
 /**
  * @title TokenWithdrawModule
- * @dev Contract implementing the a module that transfers tokens from a Safe contract to the user having a valid signature.
+ * @dev This contract implements a Safe module that enables a user with a valid signature to
+ *      transfer ERC20 tokens from a Safe contract to a specified receiver.
  */
 contract TokenWithdrawModule {
     bytes32 public immutable PERMIT_TYPEHASH =
         keccak256(
-            "TokenWithdrawModule(uint256 amount,address _beneficiary,uint256 nonce,uint256 deadline)"
+            "TokenWithdrawModule(uint256 amount,address beneficiary,uint256 nonce,uint256 deadline)"
         );
     address public immutable safeAddress;
     address public immutable tokenAddress;
@@ -284,7 +288,6 @@ contract TokenWithdrawModule {
 
     /**
      * @dev Constructor function for the contract
-     *
      * @param _tokenAddress address of the ERC20 token contract
      * @param _safeAddress address of the Safe contract
      */
@@ -299,45 +302,48 @@ contract TokenWithdrawModule {
      * @return The EIP-712 domain separator.
      */
     function getDomainSeparator() private view returns (bytes32) {
-      return keccak256(
-          abi.encode(
-              keccak256(
-                  "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
-              ),
-              keccak256(bytes("TokenWithdrawModule")),
-              keccak256(bytes("1")),
-              block.chainid,
-              address(this)
-          )
-      );
+        return
+            keccak256(
+                abi.encode(
+                    keccak256(
+                        "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
+                    ),
+                    keccak256(bytes("TokenWithdrawModule")),
+                    keccak256(bytes("1")),
+                    block.chainid,
+                    address(this)
+                )
+            );
     }
 
     /**
-     * @dev Transfers a specified amount of tokens to a beneficiary.
-     *
-     * @param _amount amount of tokens to be transferred
-     * @param _beneficiary address of the beneficiary
-     * @param _deadline deadline for the validity of the signature
-     * @param _signatures signatures of the Safe owner(s)
+     * @dev Transfers the specified amount of tokens to a receiver address. The msg.sender must hold a valid signature.
+     *      The msg.sender address must be used as the `beneficiary` parameter in the EIP-712 structured data for
+     *      signature generation. However, msg.sender can specify a different `receiver` address to receive the tokens
+     *      when withdrawing the tokens.
+     * @param amount amount of tokens to be transferred
+     * @param receiver address to which the tokens will be transferred
+     * @param deadline deadline for the validity of the signature
+     * @param signatures signatures of the Safe owner(s)
      */
     function tokenTransfer(
-        uint _amount,
-        address _beneficiary,
-        uint256 _deadline,
-        bytes memory _signatures
+        uint amount,
+        address receiver,
+        uint256 deadline,
+        bytes memory signatures
     ) public {
-        require(_deadline >= block.timestamp, "expired deadline");
+        require(deadline >= block.timestamp, "expired deadline");
 
         bytes32 signatureData = keccak256(
             abi.encode(
                 PERMIT_TYPEHASH,
-                _amount,
+                amount,
                 msg.sender,
                 nonces[msg.sender]++,
-                _deadline
+                deadline
             )
         );
-        
+
         bytes32 hash = keccak256(
             abi.encodePacked("\x19\x01", getDomainSeparator(), signatureData)
         );
@@ -345,13 +351,13 @@ contract TokenWithdrawModule {
         Safe(payable(safeAddress)).checkSignatures(
             hash,
             abi.encodePacked(signatureData),
-            _signatures
+            signatures
         );
 
         bytes memory data = abi.encodeWithSignature(
             "transfer(address,uint256)",
-            _beneficiary,
-            _amount
+            receiver,
+            amount
         );
 
         require(
@@ -486,7 +492,7 @@ Create a new file named `TokenWithdrawModule.test.ts` and include the following 
 import { ethers } from "hardhat";
 import { expect } from "chai";
 import { Signer, TypedDataDomain, ZeroAddress } from "ethers";
-import { Safe, Safe__factory, TestToken, TokenWithdrawModule } from "../typechain-types";
+import { Safe, TestToken, TokenWithdrawModule } from "../typechain-types";
 import { execTransaction } from "./utils/utils";
 
 describe("TokenWithdrawModule Tests", function () {
@@ -644,7 +650,7 @@ Please note that:
     const types = {
       TokenWithdrawModule: [
         { name: "amount", type: "uint256" },
-        { name: "_beneficiary", type: "address" },
+        { name: "beneficiary", type: "address" },
         { name: "nonce", type: "uint256" },
         { name: "deadline", type: "uint256" },
       ],
@@ -653,7 +659,7 @@ Please note that:
     // ... and EIP-712 values ...
     const value = {
       amount: amount,
-      _beneficiary: await bob.getAddress(),
+      beneficiary: await bob.getAddress(),
       nonce: nonce,
       deadline: deadline,
     };
@@ -712,7 +718,6 @@ import { expect } from "chai";
 import { Signer, TypedDataDomain, ZeroAddress } from "ethers";
 import {
   Safe,
-  Safe__factory,
   TestToken,
   TokenWithdrawModule,
 } from "../typechain-types";
@@ -833,7 +838,7 @@ describe("TokenWithdrawModule Tests", function () {
     const types = {
       TokenWithdrawModule: [
         { name: "amount", type: "uint256" },
-        { name: "_beneficiary", type: "address" },
+        { name: "beneficiary", type: "address" },
         { name: "nonce", type: "uint256" },
         { name: "deadline", type: "uint256" },
       ],
@@ -842,7 +847,7 @@ describe("TokenWithdrawModule Tests", function () {
     // ... and EIP-712 values ...
     const value = {
       amount: amount,
-      _beneficiary: await bob.getAddress(),
+      beneficiary: await bob.getAddress(),
       nonce: nonce,
       deadline: deadline,
     };
