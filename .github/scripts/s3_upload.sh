@@ -6,31 +6,28 @@ aws s3 sync ./out $BUCKET --delete
 
 set -euo pipefail
 
-echo "🔍 Finding exported index.html pages..."
-
 cd out
 
-# Create a temp empty file
-TMPFILE=$(mktemp)
-trap 'rm -f "$TMPFILE"' EXIT
+MAX_CONCURRENCY=10
+JOBS=0
 
 find . -name index.html | while read -r index_file; do
-  dir_path=$(dirname "$index_file")       # e.g., ./welcome
-  clean_path="${dir_path#./}"             # strip leading ./
+  dir_path=$(dirname "$index_file")
+  clean_path="${dir_path#./}"
 
-  # Skip root index.html (homepage)
-  if [[ "$clean_path" == "." ]]; then
-    continue
+  [[ "$clean_path" == "." ]] && continue
+
+  aws s3 cp ${file%} $BUCKET/${file%.*} --content-type 'text/html'
+
+  JOBS=$((JOBS + 1))
+
+  # Control concurrency
+  if [[ "$JOBS" -ge "$MAX_CONCURRENCY" ]]; then
+    wait -n
+    JOBS=$((JOBS - 1))
   fi
-
-  redirect_key="${clean_path}"           # e.g., welcome
-  redirect_target="/$clean_path/"        # e.g., /welcome/
-
-  echo "↪️ Creating redirect object: /$redirect_key → $redirect_target"
-
-  aws s3 cp "$TMPFILE" "$BUCKET/$redirect_key" \
-    --website-redirect "$redirect_target" \
-    --content-type "text/html"
 done
+
+wait
 
 cd -
