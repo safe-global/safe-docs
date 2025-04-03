@@ -6,21 +6,32 @@ aws s3 sync ./out $BUCKET --delete
 
 set -euo pipefail
 
-# Extract bucket name and prefix
-BUCKET_NAME=$(echo "$BUCKET" | sed -E 's|^s3://([^/]+).*|\1|')
-PREFIX=$(echo "$BUCKET" | sed -E 's|^s3://[^/]+/?||')
+echo "🔍 Finding exported index.html pages..."
 
-echo "Cleaning up extensionless files in: s3://$BUCKET_NAME/$PREFIX"
+cd out
 
-# Get extensionless files under the prefix
-aws s3api list-objects-v2 \
-  --bucket "$BUCKET_NAME" \
-  --prefix "$PREFIX" \
-  --query "Contents[?contains(Key, '.') == \`false\`].Key" \
-  --output text |
-while read -r key; do
-  if [[ -n "$key" ]]; then
-    echo "Deleting legacy file: $key"
-    aws s3 rm "s3://$BUCKET_NAME/$key"
+# Find all index.html files
+find . -name index.html | while read -r index_file; do
+  dir_path=$(dirname "$index_file")       # e.g., ./welcome
+  clean_path="${dir_path#./}"             # strip leading ./
+
+  # Skip root index.html (homepage)
+  if [[ "$clean_path" == "." ]]; then
+    continue
   fi
+
+  # Build S3 key for redirect object (e.g., welcome)
+  redirect_key="${clean_path}"
+
+  # Build redirect target (e.g., /welcome/)
+  redirect_target="/$clean_path/"
+
+  echo "↪️ Creating redirect object for /$redirect_key → $redirect_target"
+
+  # Upload zero-byte object with redirect
+  aws s3 cp /dev/null "$BUCKET/$redirect_key" \
+    --website-redirect "$redirect_target" \
+    --content-type "text/html"
 done
+
+cd -
