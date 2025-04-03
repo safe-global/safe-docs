@@ -9,7 +9,6 @@
   },
   "smart-account-overview": "Overview",
   "smart-account-concepts": "Concepts",
-  "smart-account-deployment": "Deployment",
   "smart-account-modules": "Safe Modules",
   "smart-account-guards": "Safe Guards",
   "smart-account-fallback-handler": "Safe Fallback Handler",
@@ -24,7 +23,10 @@
   },
   "smart-account-audits": "Audits",
   "smart-account-bug-bounty": "Bug Bounty",
-  "smart-account-reference": "Reference",
+  "smart-account-reference": {
+    "title": "Reference",
+    "href": "/reference-smart-account/overview"
+  },
   "-- Features": {
     "type": "separator",
     "title": "Features"
