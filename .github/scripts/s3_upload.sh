@@ -10,7 +10,10 @@ echo "🔍 Finding exported index.html pages..."
 
 cd out
 
-# Find all index.html files
+# Create a temp empty file
+TMPFILE=$(mktemp)
+trap 'rm -f "$TMPFILE"' EXIT
+
 find . -name index.html | while read -r index_file; do
   dir_path=$(dirname "$index_file")       # e.g., ./welcome
   clean_path="${dir_path#./}"             # strip leading ./
@@ -20,16 +23,12 @@ find . -name index.html | while read -r index_file; do
     continue
   fi
 
-  # Build S3 key for redirect object (e.g., welcome)
-  redirect_key="${clean_path}"
+  redirect_key="${clean_path}"           # e.g., welcome
+  redirect_target="/$clean_path/"        # e.g., /welcome/
 
-  # Build redirect target (e.g., /welcome/)
-  redirect_target="/$clean_path/"
+  echo "↪️ Creating redirect object: /$redirect_key → $redirect_target"
 
-  echo "↪️ Creating redirect object for /$redirect_key → $redirect_target"
-
-  # Upload zero-byte object with redirect
-  aws s3 cp /dev/null "$BUCKET/$redirect_key" \
+  aws s3 cp "$TMPFILE" "$BUCKET/$redirect_key" \
     --website-redirect "$redirect_target" \
     --content-type "text/html"
 done
