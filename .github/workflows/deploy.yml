@@ -26,13 +26,30 @@ jobs:
             ## Branch preview
             ⏳ Deploying a preview site...
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]'
 
       - uses: actions/checkout@v3
 
       - uses: pnpm/action-setup@v4
         with:
           version: 9
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          # Generate a new cache whenever packages or source files change.
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+      
+      # Extract branch name
+      - name: Extract branch name
+        shell: bash
+        ## Allow only alphanumeric characters and convert to lower case,
+        run: echo "branch=$(echo $GITHUB_HEAD_REF | sed 's/[^a-z0-9]/_/ig' | sed 's/[A-Z]/\L&/g')" >> $GITHUB_OUTPUT
+        id: extract_branch
 
       - name: Install dependencies
         shell: bash
@@ -43,6 +60,7 @@ jobs:
         run: pnpm build
         env:
           NEXT_PUBLIC_HOST_URL: 'https://docs.staging.5afe.dev'
+          NODE_OPTIONS: '--max-old-space-size=8000'
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
@@ -57,13 +75,6 @@ jobs:
           BUCKET: s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/current
         run: bash ./.github/scripts/s3_upload.sh
 
-      # Extract branch name
-      - name: Extract branch name
-        shell: bash
-        ## Allow only alphanumeric characters and convert to lower case,
-        run: echo "branch=$(echo $GITHUB_HEAD_REF | sed 's/[^a-z0-9]/_/ig' | sed 's/[A-Z]/\L&/g')" >> $GITHUB_OUTPUT
-        id: extract_branch
-
       # Deploy to S3
       - name: Deploy PR branch
         if: github.event.number
@@ -77,6 +88,7 @@ jobs:
         uses: mshick/add-pr-comment@v2
         with:
           message-id: praul
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           message: |
             ## Branch preview
             ✅ Deployed successfully in branch deployment:
