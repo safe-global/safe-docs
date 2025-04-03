@@ -36,7 +36,9 @@ jobs:
           NEXT_PUBLIC_IS_PRODUCTION: true
           NEXT_PUBLIC_N8N_WEBHOOK_URL: ${{ secrets.NEXT_PUBLIC_N8N_WEBHOOK_URL }}
           NEXT_PUBLIC_HOST_URL: 'https://docs.safe.global'
+          NEXT_PUBLIC_BASE_PATH: docs/current
           NODE_OPTIONS: '--max-old-space-size=8000'
+
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
