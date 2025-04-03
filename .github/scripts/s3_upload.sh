@@ -4,30 +4,26 @@ set -ev
 
 aws s3 sync ./out $BUCKET --delete
 
-set -euo pipefail
-
 cd out
 
-MAX_CONCURRENCY=10
-JOBS=0
+function parallel_limit {
+    local max="$1"
+    while (( $(jobs -rp | wc -l) >= max )); do
+        sleep 0.1
+    done
+}
 
-find . -name index.html | while read -r index_file; do
-  dir_path=$(dirname "$index_file")
-  clean_path="${dir_path#./}"
+export BUCKET  
 
-  [[ "$clean_path" == "." ]] && continue
+MAX_JOBS=10
 
-  aws s3 cp ${file%} $BUCKET/${file%.*} --content-type 'text/html'
+find . -name '*.html' -print0 | while IFS= read -r -d '' file; do
+    filepath="${file#./}"
+    noext="${filepath%.html}"
+    
+    parallel_limit "$MAX_JOBS"
 
-  JOBS=$((JOBS + 1))
-
-  # Control concurrency
-  if [[ "$JOBS" -ge "$MAX_CONCURRENCY" ]]; then
-    wait -n
-    JOBS=$((JOBS - 1))
-  fi
+    aws s3 cp "$filepath" "$BUCKET/$noext" --content-type 'text/html' &
 done
 
 wait
-
-cd -
