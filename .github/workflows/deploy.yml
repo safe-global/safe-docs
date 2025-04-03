@@ -60,7 +60,7 @@ jobs:
         run: pnpm build
         env:
           NEXT_PUBLIC_HOST_URL: 'https://docs.staging.5afe.dev'
-          NEXT_PUBLIC_BASE_PATH: docs/${{ steps.extract_branch.outputs.branch }}
+          NEXT_PUBLIC_BASE_PATH: /docs/${{ steps.extract_branch.outputs.branch }}
           NODE_OPTIONS: '--max-old-space-size=8000'
 
       - name: Configure AWS credentials
