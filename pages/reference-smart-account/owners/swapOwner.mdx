@@ -1,0 +1,96 @@
+import { Tabs, Callout } from 'nextra/components'
+import AddedOwner from '../events/AddedOwner.mdx'
+import RemovedOwner from '../events/RemovedOwner.mdx'
+import OnlySafeTxCallout from '../../../components/callouts/OnlySafeTxCallout.mdx'
+
+# `swapOwner`
+
+Replaces the owner `oldOwner` in the Safe with `newOwner`.
+
+<OnlySafeTxCallout />
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function swapOwner(
+            address prevOwner,
+            address oldOwner,
+            address newOwner
+        ) external;
+    }
+
+    contract Example {
+        function example() … {
+            (ISafe safe).swapOwner(
+                0x...,
+                0x...,
+                0x...
+            );
+        }
+    }
+    ```
+
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `prevOwner`
+
+- **Type:** `address`
+
+Owner address that is pointing to the owner to be removed in the contract [linked list](https://github.com/safe-global/safe-smart-account/blob/7f79aaf05c33df71d9cb687f0bc8a73fa39d25d5/contracts/base/OwnerManager.sol#L19).
+
+<Callout type='info'>
+  A linked list is a data structure that allows efficient insertion and removal
+  of elements in a list. Each element in it will point to the next one. In Safe
+  contracts, the owners are stored in a linked list.
+</Callout>
+
+```solidity focus=2
+(ISafe safe).swapOwner(
+    0x...,
+    0x...,
+    0x...
+);
+```
+
+### `oldOwner`
+
+- **Type:** `address`
+
+Owner address to be replaced.
+
+```solidity focus=3
+(ISafe safe).swapOwner(
+    0x...,
+    0x...,
+    0x...
+);
+```
+
+### `newOwner`
+
+- **Type:** `address`
+
+New owner address.
+
+```solidity focus=4
+(ISafe safe).swapOwner(
+    0x...,
+    0x...,
+    0x...
+);
+```
+
+## Events
+
+<AddedOwner />
+<RemovedOwner />

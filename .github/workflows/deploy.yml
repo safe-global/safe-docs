@@ -43,6 +43,13 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+      
+      # Extract branch name
+      - name: Extract branch name
+        shell: bash
+        ## Allow only alphanumeric characters and convert to lower case,
+        run: echo "branch=$(echo $GITHUB_HEAD_REF | sed 's/[^a-z0-9]/_/ig' | sed 's/[A-Z]/\L&/g')" >> $GITHUB_OUTPUT
+        id: extract_branch
 
       - name: Install dependencies
         shell: bash
@@ -67,13 +74,6 @@ jobs:
         env:
           BUCKET: s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/current
         run: bash ./.github/scripts/s3_upload.sh
-
-      # Extract branch name
-      - name: Extract branch name
-        shell: bash
-        ## Allow only alphanumeric characters and convert to lower case,
-        run: echo "branch=$(echo $GITHUB_HEAD_REF | sed 's/[^a-z0-9]/_/ig' | sed 's/[A-Z]/\L&/g')" >> $GITHUB_OUTPUT
-        id: extract_branch
 
       # Deploy to S3
       - name: Deploy PR branch

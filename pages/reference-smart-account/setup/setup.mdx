@@ -1,0 +1,209 @@
+import { Tabs, Callout } from 'nextra/components'
+import SafeSetup from '../events/SafeSetup.mdx'
+
+# `setup`
+
+Sets an initial storage of the Safe contract.
+
+<Callout type='warning'>
+  This method can only be called once. If a proxy was created without setting
+  up, anyone can call setup and claim the proxy.
+</Callout>
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function setup(
+            address[] _owners,
+            uint256 _threshold,
+            address to,
+            bytes data,
+            address fallbackHandler,
+            address paymentToken,
+            uint256 payment,
+            address payable paymentReceiver
+        ) external;
+    }
+
+    contract Example {
+      function example() ... {
+          (ISafe safe).setup(
+            [0x..., 0x...],
+            1,
+            0x...,
+            "0x...",
+            0x...,
+            0x...,
+            0,
+            0x...
+          );
+      }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Parameters
+
+### `_owners`
+
+- **Type:** `address[]`
+
+List of Safe owners.
+
+```solidity focus=2
+(ISafe safe).setup(
+    [0x..., 0x...],
+    1,
+    0x...,
+    "0x...",
+    0x...,
+    0x...,
+    0,
+    0x...
+);
+```
+
+### `_threshold`
+
+- **Type:** `uint256`
+
+Number of required confirmations for a Safe transaction.
+
+```solidity focus=3
+(ISafe safe).setup(
+    [0x..., 0x...],
+    1,
+    0x...,
+    "0x...",
+    0x...,
+    0x...,
+    0,
+    0x...
+);
+```
+
+### `to`
+
+- **Type:** `address`
+
+Contract address used as the destination of an optional delegate call.
+
+```solidity focus=4
+(ISafe safe).setup(
+    [0x..., 0x...],
+    1,
+    0x...,
+    "0x...",
+    0x...,
+    0x...,
+    0,
+    0x...
+);
+```
+
+### `data`
+
+- **Type:** `bytes`
+
+Data payload for optional delegate call.
+
+```solidity focus=5
+(ISafe safe).setup(
+    [0x..., 0x...],
+    1,
+    0x...,
+    "0x...",
+    0x...,
+    0x...,
+    0,
+    0x...
+);
+```
+
+### `fallbackHandler`
+
+- **Type:** `address`
+
+Handler for fallback calls to this contract.
+
+```solidity focus=6
+(ISafe safe).setup(
+    [0x..., 0x...],
+    1,
+    0x...,
+    "0x...",
+    0x...,
+    0x...,
+    0,
+    0x...
+);
+```
+
+### `paymentToken`
+
+- **Type:** `address`
+
+Token contract address used for the payment of the Safe proxy contract deployment fees (`0` is the native token).
+
+```solidity focus=7
+(ISafe safe).setup(
+    [0x..., 0x...],
+    1,
+    0x...,
+    "0x...",
+    0x...,
+    0x...,
+    0,
+    0x...
+);
+```
+
+### `payment`
+
+- **Type:** `uint256`
+
+Amount of `paymentToken` to be paid for the Safe proxy contract deployment fees.
+
+```solidity focus=8
+(ISafe safe).setup(
+    [0x..., 0x...],
+    1,
+    0x...,
+    "0x...",
+    0x...,
+    0x...,
+    0,
+    0x...
+);
+```
+
+### `paymentReceiver`
+
+- **Type:** `address`
+
+Address that receives the payment for the Safe proxy contract deployment fees (or `0` if `tx.origin`).
+
+```solidity focus=9
+(ISafe safe).setup(
+    [0x..., 0x...],
+    1,
+    0x...,
+    "0x...",
+    0x...,
+    0x...,
+    0,
+    0x...
+);
+```
+
+## Events
+
+<SafeSetup />
