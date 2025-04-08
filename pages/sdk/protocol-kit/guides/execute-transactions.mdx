@@ -176,13 +176,13 @@ pnpm add @safe-global/api-kit \
     provider: RPC_URL,
     signer: OWNER_2_PRIVATE_KEY,
     safeAddress: SAFE_ADDRESS
-    })
+  })
 
-      const safeTxHash = transaction.transactionHash
-      const signature = await protocolKitOwner2.signHash(safeTxHash)
+  const safeTxHash = transaction.transactionHash
+  const signature = await protocolKitOwner2.signHash(safeTxHash)
 
-      // Confirm the Safe transaction
-      const signatureResponse = await apiKit.confirmTransaction(
+  // Confirm the Safe transaction
+  const signatureResponse = await apiKit.confirmTransaction(
     safeTxHash,
     signature.data
   )
