@@ -8,4 +8,4 @@ Resolves #
 
 ## Checklist
 
-- [ ] I've followed all `safe-docs` [pull requests rules](https://safe-global.notion.site/safe-docs-pr-rules)
+- [ ] I've followed all `safe-docs` [pull request rules](https://safe-global.notion.site/safe-docs-pr-rules)
