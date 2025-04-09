@@ -4,9 +4,11 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "generate-api-reference": "pnpm ts-node --project tsconfig.json .github/scripts/generateApiReference.ts",
-    "generate-code-examples": "pnpm ts-node --project tsconfig.json .github/scripts/generateCodeExamples.ts",
-    "generate-supported-networks": "pnpm ts-node --project tsconfig.json .github/scripts/generateSupportedNetworks.ts",
+    "generate-api-reference": "pnpm tsx --tsconfig tsconfig.json .github/scripts/generateApiReference.ts",
+    "generate-modules-reference": "pnpm tsx --tsconfig tsconfig.json .github/scripts/generateModulesReference.ts",
+    "generate-smart-account-reference": "pnpm tsx --tsconfig tsconfig.json .github/scripts/generateSmartAccountReference.ts",
+    "generate-code-examples": "pnpm tsx --tsconfig tsconfig.json .github/scripts/generateCodeExamples.ts",
+    "generate-supported-networks": "pnpm tsx --tsconfig tsconfig.json .github/scripts/generateSupportedNetworks.ts",
     "get-resources-og": "node .github/scripts/getResourcesOg.js",
     "validate-resources": "node .github/scripts/validateResources.js",
     "linkcheck": "find ./pages -name '*.md*' -print0 | xargs -0 -n1 pnpm markdown-link-check --quiet --progress --config linkchecker-config.json",
@@ -80,7 +82,7 @@
     "open-graph-scraper": "^6.9.0",
     "prettier": "^3.4.2",
     "serve": "^14.2.4",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.7.3",
     "yaml": "^2.7.0"
   },
