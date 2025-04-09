@@ -1,12 +1,12 @@
-import { Typography, Chip, Box } from '@mui/material'
+import { Box, Chip, Typography } from '@mui/material'
 import { sendGAEvent } from '@next/third-parties/google'
 
-import css from './styles.module.css'
-import { type KnowledgeResource } from './Resources'
 import YouTubeEmbed from '../YouTube'
+import { type KnowledgeResource } from './Resources'
+import css from './styles.module.css'
 
-import Podcast from '../../assets/svg/podcast.svg'
 import Blog from '../../assets/svg/blog-post.svg'
+import Podcast from '../../assets/svg/podcast.svg'
 
 export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
   const months = [
@@ -81,7 +81,7 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
               new Date(resource.date).getFullYear()}
           </Typography>
 
-          {resource.type === 'Blog Post' && (
+          {resource.description && (
             <>
               <Typography
                 variant='body2'
