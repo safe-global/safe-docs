@@ -99,7 +99,7 @@ ${!isModule && version !== 'v1.4.1' ? `<LegacyCallout />` : ''}
 
 ${getDescrptionCallouts(functionDescription)}
 
-Defined in [\`${contractName}.sol\`](${repoUrl}tree/${version}/${contractPath.replace(repoDestination, `${isModule ? 'modules/' + moduleName + '/' : ''}contracts`)}#L${findLinesInFile(contractPath.replace(repoDestination, repoDestination + '/contracts'), 'function ' + functionName)[0] ?? findLinesInFile(contractPath.replace(repoDestination, repoDestination + '/contracts'), functionName ?? '')[0]})\n
+Defined in [\`${contractName.trim()}.sol\`](${repoUrl}tree/${version}/${contractPath.replace(repoDestination, `${isModule ? 'modules/' + moduleName + '/' : ''}contracts`)}#L${findLinesInFile(contractPath.replace(repoDestination, repoDestination + '/contracts'), 'function ' + functionName)[0] ?? findLinesInFile(contractPath.replace(repoDestination, repoDestination + '/contracts'), functionName ?? '')[0]})\n
 
 ## Usage
 

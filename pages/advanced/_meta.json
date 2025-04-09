@@ -9,12 +9,12 @@
   },
   "smart-account-overview": "Overview",
   "smart-account-concepts": "Concepts",
+  "smart-account-deployment": "Deployment",
   "smart-account-modules": "Safe Modules",
   "smart-account-guards": "Safe Guards",
   "smart-account-fallback-handler": "Safe Fallback Handler",
   "smart-account-migration": "Migration",
   "smart-account-signatures": "Signatures",
-  "smart-account-multi-chain-deployment": "Multi-Chain Deployment",
   "smart-account-supported-networks": {
     "title": "Supported Networks",
     "theme": {
@@ -23,17 +23,14 @@
   },
   "smart-account-audits": "Audits",
   "smart-account-bug-bounty": "Bug Bounty",
-  "smart-account-reference": {
-    "title": "Reference",
-    "href": "/reference-smart-account/overview"
-  },
+  "smart-account-reference": "Reference",
   "-- Features": {
     "type": "separator",
     "title": "Features"
   },
   "erc-4337": "ERC-4337",
   "erc-7579": "ERC-7579",
-  "eip-7702" : "EIP-7702",
+  "eip-7702": "EIP-7702",
   "passkeys": "Passkeys",
   "-- Safe CLI": {
     "type": "separator",

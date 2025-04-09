@@ -6,6 +6,9 @@ export const modulesVersions = {
   recovery: ['v0.1.0']
 }
 export const ignoredFunctions = [
+  'createProxyWithNonce',
+  'createChainSpecificProxyWithNonce',
+  'createProxyWithCallback',
   'checkAfterExecution',
   'checkTransaction',
   'getModules',
