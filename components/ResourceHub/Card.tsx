@@ -81,17 +81,13 @@ export const ProjectCard = (resource: KnowledgeResource): JSX.Element => {
               new Date(resource.date).getFullYear()}
           </Typography>
 
-          {resource.description && (
-            <>
-              <Typography
-                variant='body2'
-                color='text.secondary'
-                className={css.description}
-              >
-                {resource.description}
-              </Typography>
-            </>
-          )}
+          <Typography
+            variant='body2'
+            color='text.secondary'
+            className={css.description}
+          >
+            {resource.description}
+          </Typography>
 
           <div className={css.categories}>
             <Chip
