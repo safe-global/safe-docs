@@ -1,0 +1,46 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `onERC1155BatchReceived` (0xbc197c81)
+
+
+
+
+
+
+Defined in [`DefaultCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/handler/DefaultCallbackHandler.sol#L25)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function onERC1155BatchReceived(address,address,uint256[] calldata,uint256[] calldata,bytes calldata) external pure override returns (bytes4)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).onERC1155BatchReceived();
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+
+
+

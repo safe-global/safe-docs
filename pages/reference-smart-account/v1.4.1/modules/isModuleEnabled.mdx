@@ -1,0 +1,57 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+
+
+# `isModuleEnabled` (0x2d9ad53d)
+
+
+
+Returns if an module is enabled
+
+
+
+
+Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/base/ModuleManager.sol#L131)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function isModuleEnabled(address module) public view returns (bool)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).isModuleEnabled();
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+
+
+  - **Type:** `bool`
+
+  True if the module is enabled
+
+
+
+
+
+
+

@@ -1,9 +1,0 @@
-# SafeProxy
-
-Users save deployment gas cost by deploying a `SafeProxy` contract instead of a deploying complete bytecode of Smart Account and associated contracts. The `SafeProxy` delegates all calls to a singleton contract, whose address is stored at `slot(0)` of the proxy contract. This means that the proxy contract itself is lightweight and inexpensive to deploy, while the actual logic is handled by the singleton contract.
-
-For more information on how the proxy is deployed and the factors that determine the address of the proxy, see the `SafeProxyFactory`.
-
-## Reference
-
-- [SafeProxy.sol](https://github.com/safe-global/safe-smart-account/blob/release/v1.4.1/contracts/proxies/SafeProxy.sol)

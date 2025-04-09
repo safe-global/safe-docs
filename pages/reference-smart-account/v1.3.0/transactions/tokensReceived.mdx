@@ -1,0 +1,46 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `tokensReceived` (0x0023de29)
+
+
+
+
+
+
+Defined in [`DefaultCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/handler/DefaultCallbackHandler.sol#L44)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function tokensReceived(address,address,address,uint256,bytes calldata,bytes calldata) external pure override
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).tokensReceived();
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+
+
+

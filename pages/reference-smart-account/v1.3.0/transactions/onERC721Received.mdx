@@ -1,0 +1,46 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+
+<LegacyCallout />
+
+# `onERC721Received` (0x150b7a02)
+
+
+
+
+
+
+Defined in [`DefaultCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/handler/DefaultCallbackHandler.sol#L35)
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function onERC721Received(address,address,uint256,bytes calldata) external pure override returns (bytes4)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).onERC721Received();
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+
+
+
