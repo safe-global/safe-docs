@@ -240,6 +240,23 @@ const addMethodContext = (json: any) => ({
   }, {})
 })
 
+const checkMissingPaths = (json: any) => {
+  const missingPaths: string[] = []
+  Object.entries(json.paths).map(([path, methods]) => {
+    if (!pathsMetadata[path]) {
+      Object.entries(methods as any).filter((method: any) => !method[1].deprecated).map((method: any) => {
+        const pathAndMethod = `${path} ${method[0].toUpperCase()}`
+        missingPaths.push(pathAndMethod)
+      })
+    }
+  })
+  if (missingPaths.length > 0) {
+    console.log(`The following API endpoints are not deprecated and not documented.`)
+    console.log(`Consider adding the paths to the /components/ApiReference/paths-metadata.json file if needed.`)
+    console.log(`\n - ${missingPaths.join('\n - ')}\n`)
+  }
+}
+
 const getApiJson = async (url: string, networkName: string) => {
   const response = await fetch(url + '/schema/')
   const yaml = await response.text()
@@ -468,6 +485,10 @@ ${categories.map(category => generateCategoryContent(swagger, networkName, categ
 }
 
 const main = async () => {
+  // Check not documented and not deprecated endpoints.
+  const sepoliaJsonFile = await getApiJson(txServiceNetworks[0].txServiceUrl, txServiceNetworks[0].txServiceUrl.replace('https://safe-transaction-', '').split('.')[0])
+  checkMissingPaths(sepoliaJsonFile)
+
   txServiceNetworks.forEach(
     async (network: { chainId: string; txServiceUrl: string }) => {
       const networkName = network.txServiceUrl
