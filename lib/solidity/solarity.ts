@@ -11,6 +11,7 @@ import {
   modulesCategories,
   smartAccountCategories
 } from './constants'
+import { sanitizeMdx } from '../mdx'
 
 // Setup Solarity to generate documentation from a given repository in solidity
 export const setupSolarity = ({
@@ -67,7 +68,7 @@ export const getParametersFromMdTable = (functionDoc: string): ParamType[] => {
     parameters.push({
       name,
       type,
-      description: description?.replaceAll('{', '\\{').replaceAll('}', '\\}')
+      description: sanitizeMdx(description)
     })
   }
   return parameters
@@ -131,7 +132,7 @@ export const getPublicFunctionsAndEvents = ({
             .replace('\n', '')
             .trim()
             .replace('\n)', '\n        )')
-          const functionDescription =
+          const functionDescription: string =
             natspecOverrides?.[
               repoUrl as 'https://github.com/safe-global/safe-smart-account/'
             ]?.[version as 'v1.4.1']?.[functionName as 'execTransaction'] ??
@@ -139,8 +140,6 @@ export const getPublicFunctionsAndEvents = ({
               ?.split('```')[2]
               ?.split('Parameters')[0]
               ?.split('Return values')[0]
-              .replaceAll('{', '\\{')
-              .replaceAll('}', '\\}')
           const functionParameters = getParametersFromMdTable(
             functionDoc?.split('Parameters:')[1]?.split('Return values')[0]
           )
@@ -159,7 +158,7 @@ export const getPublicFunctionsAndEvents = ({
           const safeDocMdxPage = getSafeDocsTemplate({
             functionName,
             functionSignature,
-            functionDescription,
+            functionDescription: sanitizeMdx(functionDescription),
             functionEvents,
             functionDefinition,
             functionParameters,
@@ -179,18 +178,13 @@ export const getPublicFunctionsAndEvents = ({
             contents: safeDocMdxPage
           }
         })
+      // Adds to the global list of public functions
+      publicFunctions.push(..._publicFunctions)
 
       const _publicEvents = titles
         .filter(t => t.startsWith('Events info'))
         .map(t => t.split('### '))
         .flat()
-        .map(eventDoc => {
-          const contentLines = eventDoc.split('\n')
-          return contentLines.join('\n')
-        })
-      // Adds to the global list of public functions
-      publicFunctions.push(..._publicFunctions)
-
       // Adds to the global list of public events
       if (_publicEvents.length > 0) {
         publicEvents.push(
@@ -256,7 +250,14 @@ export const generateMarkdownFromNatspec = ({
 
     // Save file
     shell.exec(`mkdir -p ${directory}`, { async: true }, async () => {
-      fs.appendFileSync(filePath, contents, 'utf8')
+      fs.appendFileSync(
+        filePath,
+        contents
+          .replaceAll('e.g.', 'for example')
+          .replaceAll('addressess', 'addresses')
+          .replaceAll('auto-start', 'autostart'),
+        'utf8'
+      )
     })
   })
 
@@ -267,11 +268,7 @@ export const generateMarkdownFromNatspec = ({
 
     // Save file
     shell.exec(`mkdir -p ${directory}`, { async: true }, async () => {
-      fs.writeFileSync(
-        filePath,
-        contents.replaceAll('{', '\\{').replaceAll('}', '\\}'),
-        'utf8'
-      )
+      fs.writeFileSync(filePath, sanitizeMdx(contents), 'utf8')
     })
   })
 
