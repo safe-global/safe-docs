@@ -74,7 +74,7 @@ Assuming that three signatures are required to confirm a transaction where one s
 
 We assume that the following addresses generate the following signatures:
 
-1. `0x3` (EOA address) -> `bde0b9f486b1960454e326375d0b1680243e031fd4fb3f070d9a3ef9871ccfd5` (r) + `7d1a653cffb6321f889169f08e548684e005f2b0c3a6c06fba4c4a68f5e00624` (s) + `1c` (v)
+1. `0x3` (EOA address) -> `bde0b9f486b1960454e326375d0b1680243e031fd4fb3f070d9a3ef9871ccfd5` (`r` value) + `7d1a653cffb6321f889169f08e548684e005f2b0c3a6c06fba4c4a68f5e00624` (`s` value) + `1c` (`v` value)
 2. `0x1` (EIP-1271 validator contract address) -> `0000000000000000000000000000000000000000000000000000000000000001` (address) + `00000000000000000000000000000000000000000000000000000000000000c3` (dynamic position) + `00` (signature type)
    * The contract takes the following `bytes` (dynamic part) for verification `00000000000000000000000000000000000000000000000000000000deadbeef`
 3. `0x2` (Validator address) -> `0000000000000000000000000000000000000000000000000000000000000002` (address) +`0000000000000000000000000000000000000000000000000000000000000000` (padding - not used) + `01` (signature type)
