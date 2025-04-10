@@ -5,6 +5,7 @@ import { dedupeReducer, findFunctionNameInFile, walkPath } from './utils'
 import { getSafeDocsTemplate } from './templates'
 import type { DocContent, ParamType } from './types'
 import { generateMetaJsonCategories } from './metaJsons'
+import natspecOverrides from './natspecOverrides.json'
 import {
   ignoredFunctions,
   modulesCategories,
@@ -130,14 +131,16 @@ export const getPublicFunctionsAndEvents = ({
             .replace('\n', '')
             .trim()
             .replace('\n)', '\n        )')
-
-          const functionDescription = functionDoc
-            ?.split('```')[2]
-            ?.split('Parameters')[0]
-            ?.split('Return values')[0]
-            .replaceAll('{', '\\{')
-            .replaceAll('}', '\\}')
-
+          const functionDescription =
+            natspecOverrides?.[
+              repoUrl as 'https://github.com/safe-global/safe-smart-account/'
+            ]?.[version as 'v1.4.1']?.[functionName as 'execTransaction'] ??
+            functionDoc
+              ?.split('```')[2]
+              ?.split('Parameters')[0]
+              ?.split('Return values')[0]
+              .replaceAll('{', '\\{')
+              .replaceAll('}', '\\}')
           const functionParameters = getParametersFromMdTable(
             functionDoc?.split('Parameters:')[1]?.split('Return values')[0]
           )
@@ -225,7 +228,6 @@ export const generateMarkdownFromNatspec = ({
   repoDestination: string
   mdDestination: string
   repoUrl: string
-  moduleName?: string
   version: string
   callback: () => void
 }): void => {
