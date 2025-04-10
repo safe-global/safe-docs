@@ -5,13 +5,19 @@ import { dedupeReducer, findFunctionNameInFile, walkPath } from './utils'
 import { getSafeDocsTemplate } from './templates'
 import type { DocContent, ParamType } from './types'
 import { generateMetaJsonCategories } from './metaJsons'
-import natspecOverrides from './natspecOverrides.json'
+import natSpecOverrides from './natSpecOverrides.json'
 import {
   ignoredFunctions,
   modulesCategories,
   smartAccountCategories
 } from './constants'
 import { sanitizeMdx } from '../mdx'
+
+export interface NatSpecOverride {
+  natSpec: string
+  returnTypes?: string[]
+  parameters?: string[]
+}
 
 // Setup Solarity to generate documentation from a given repository in solidity
 export const setupSolarity = ({
@@ -39,7 +45,10 @@ export const setupSolarity = ({
   )
 }
 
-export const getParametersFromMdTable = (functionDoc: string): ParamType[] => {
+export const getParametersFromMdTable = (
+  functionDoc: string,
+  overrides: NatSpecOverride
+): ParamType[] => {
   const functionParameterStrings =
     functionDoc
       ?.split('|')
@@ -64,7 +73,7 @@ export const getParametersFromMdTable = (functionDoc: string): ParamType[] => {
   for (let i = 0; i < names.length; i++) {
     const name = names[i]
     const type = types[i]
-    const description = descriptions[i]
+    const description = overrides.returnTypes?.[i] ?? descriptions[i]
     parameters.push({
       name,
       type,
@@ -124,6 +133,11 @@ export const getPublicFunctionsAndEvents = ({
         .map(functionDoc => {
           const contentLines = functionDoc?.split('\n')
           const functionName = contentLines[0]?.split(' ')[0]
+          const overrides: NatSpecOverride =
+            natSpecOverrides?.[
+              repoUrl as 'https://github.com/safe-global/safe-smart-account/'
+            ]?.[version as 'v1.4.1']?.[functionName as 'execTransaction']
+
           const functionSignature = contentLines[0]?.split(' ')[1]
           const functionDefinition = functionDoc
             ?.split('```solidity')[1]
@@ -133,19 +147,19 @@ export const getPublicFunctionsAndEvents = ({
             .trim()
             .replace('\n)', '\n        )')
           const functionDescription: string =
-            natspecOverrides?.[
-              repoUrl as 'https://github.com/safe-global/safe-smart-account/'
-            ]?.[version as 'v1.4.1']?.[functionName as 'execTransaction'] ??
+            overrides.natSpec ??
             functionDoc
               ?.split('```')[2]
               ?.split('Parameters')[0]
               ?.split('Return values')[0]
           const functionParameters = getParametersFromMdTable(
-            functionDoc?.split('Parameters:')[1]?.split('Return values')[0]
+            functionDoc?.split('Parameters:')[1]?.split('Return values')[0],
+            overrides
           )
 
           const functionReturnTypes = getParametersFromMdTable(
-            functionDoc?.split('Return values:')[1]
+            functionDoc?.split('Return values:')[1],
+            overrides
           )
 
           // Extract function events
