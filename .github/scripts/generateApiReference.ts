@@ -518,7 +518,7 @@ export const getStaticProps = async () => {
         .filter((file: string) => file.endsWith('.ts'))
       exampleFiles.forEach((file: string) => {
         const contents = fs.readFileSync(
-          `./components/ApiReference/examples/${file}`,
+          `./components/ApiReference/examples/sepolia/${file}`,
           'utf-8'
         )
         if (
