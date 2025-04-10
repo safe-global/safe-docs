@@ -16,7 +16,7 @@ Returns transaction hash to be signed by owners.
 
 
 
-Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/Safe.sol#L427)
+Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/Safe.sol#L427).
 
 
 ## Usage
@@ -27,7 +27,18 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function getTransactionHash(address to,uint256 value,bytes calldata data,Enum.Operation operation,uint256 safeTxGas,uint256 baseGas,uint256 gasPrice,address gasToken,address refundReceiver,uint256 _nonce) public view returns (bytes32)
+        function getTransactionHash(
+            address to,
+            uint256 value,
+            bytes calldata data,
+            Enum.Operation operation,
+            uint256 safeTxGas,
+            uint256 baseGas,
+            uint256 gasPrice,
+            address gasToken,
+            address refundReceiver,
+            uint256 _nonce
+        ) public view returns (bytes32)
     }
 
     contract Example {

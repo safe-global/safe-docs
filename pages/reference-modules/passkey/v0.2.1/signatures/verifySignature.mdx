@@ -25,7 +25,7 @@ is valid is important, and not its actual value.
 
 
 
-Defined in [`P256.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/libraries/P256.sol#L48)
+Defined in [`P256.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/libraries/P256.sol#L48).
 
 
 ## Usage
@@ -36,7 +36,7 @@ Defined in [`P256.sol`](https://github.com/safe-global/safe-modules/tree/passkey
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function verifySignature(IP256Verifier verifier,bytes32 message,uint256 r,uint256 s,uint256 x,uint256 y) internal view returns (bool success)
+        function verifySignature( IP256Verifier verifier, bytes32 message, uint256 r, uint256 s, uint256 x, uint256 y ) internal view returns (bool success)
     }
 
     contract Example {

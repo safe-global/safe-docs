@@ -17,7 +17,7 @@ malleability check.
 
 
 
-Defined in [`P256.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/libraries/P256.sol#L100)
+Defined in [`P256.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/libraries/P256.sol#L100).
 
 
 ## Usage
@@ -28,7 +28,7 @@ Defined in [`P256.sol`](https://github.com/safe-global/safe-modules/tree/passkey
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function verifySignatureAllowMalleability(IP256Verifier verifier,bytes32 message,uint256 r,uint256 s,uint256 x,uint256 y) internal view returns (bool success)
+        function verifySignatureAllowMalleability( IP256Verifier verifier, bytes32 message, uint256 r, uint256 s, uint256 x, uint256 y ) internal view returns (bool success)
     }
 
     contract Example {

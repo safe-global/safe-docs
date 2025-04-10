@@ -20,7 +20,7 @@ verifying the signature with it directly:
 
 
 
-Defined in [`SafeWebAuthnSignerFactory.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/SafeWebAuthnSignerFactory.sol#L64)
+Defined in [`SafeWebAuthnSignerFactory.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/SafeWebAuthnSignerFactory.sol#L64).
 
 
 ## Usage
@@ -31,7 +31,7 @@ Defined in [`SafeWebAuthnSignerFactory.sol`](https://github.com/safe-global/safe
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function isValidSignatureForSigner(bytes32 message,bytes calldata signature,uint256 x,uint256 y,P256.Verifiers verifiers) external view override returns (bytes4 magicValue)
+        function isValidSignatureForSigner( bytes32 message, bytes calldata signature, uint256 x, uint256 y, P256.Verifiers verifiers ) external view override returns (bytes4 magicValue)
     }
 
     contract Example {

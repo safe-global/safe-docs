@@ -14,7 +14,7 @@ import IrreversibilityCallout from '../../../../components/callouts/Irreversibil
 
 
 
-Defined in [`DefaultCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/handler/DefaultCallbackHandler.sol#L15)
+Defined in [`DefaultCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/handler/DefaultCallbackHandler.sol#L15).
 
 
 ## Usage
@@ -25,7 +25,13 @@ Defined in [`DefaultCallbackHandler.sol`](https://github.com/safe-global/safe-sm
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function onERC1155Received(address,address,uint256,uint256,bytes calldata) external pure override returns (bytes4)
+        function onERC1155Received(
+            address,
+            address,
+            uint256,
+            uint256,
+            bytes calldata
+        ) external pure override returns (bytes4)
     }
 
     contract Example {

@@ -16,7 +16,7 @@ Allows a Module to execute a Safe transaction without any further confirmations 
 
 
 
-Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/base/ModuleManager.sol#L80)
+Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/base/ModuleManager.sol#L80).
 
 
 ## Usage
@@ -27,7 +27,12 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function execTransactionFromModuleReturnData(address to,uint256 value,bytes memory data,Enum.Operation operation) public returns (bool success, bytes memory returnData)
+        function execTransactionFromModuleReturnData(
+            address to,
+            uint256 value,
+            bytes memory data,
+            Enum.Operation operation
+        ) public returns (bool success, bytes memory returnData)
     }
 
     contract Example {

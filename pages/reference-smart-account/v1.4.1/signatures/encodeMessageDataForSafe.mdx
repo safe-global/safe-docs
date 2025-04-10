@@ -16,7 +16,7 @@ Returns the pre-image of the message hash (see getMessageHashForSafe).
 
 
 
-Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/CompatibilityFallbackHandler.sol#L56)
+Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/CompatibilityFallbackHandler.sol#L56).
 
 
 ## Usage
@@ -27,7 +27,10 @@ Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/s
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function encodeMessageDataForSafe(Safe safe,bytes memory message) public view returns (bytes memory)
+        function encodeMessageDataForSafe(
+            Safe safe,
+            bytes memory message
+        ) public view returns (bytes memory)
     }
 
     contract Example {

@@ -19,7 +19,7 @@ Allows to add a new owner to the Safe and update the threshold at the same time.
 
 
 
-Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/base/OwnerManager.sol#L51)
+Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/base/OwnerManager.sol#L51).
 
 
 ## Usage
@@ -30,7 +30,10 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function addOwnerWithThreshold(address owner,uint256 _threshold) public authorized
+        function addOwnerWithThreshold(
+            address owner,
+            uint256 _threshold
+        ) public authorized
     }
 
     contract Example {

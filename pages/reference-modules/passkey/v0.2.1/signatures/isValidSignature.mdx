@@ -16,7 +16,7 @@ Validates the signature for a given data hash.
 
 
 
-Defined in [`SignatureValidator.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/base/SignatureValidator.sol#L18)
+Defined in [`SignatureValidator.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/base/SignatureValidator.sol#L18).
 
 
 ## Usage
@@ -27,7 +27,7 @@ Defined in [`SignatureValidator.sol`](https://github.com/safe-global/safe-module
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function isValidSignature(bytes32 message,bytes calldata signature) external view returns (bytes4 magicValue)
+        function isValidSignature( bytes32 message, bytes calldata signature ) external view returns (bytes4 magicValue)
     }
 
     contract Example {

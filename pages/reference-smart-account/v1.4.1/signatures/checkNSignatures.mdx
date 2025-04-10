@@ -18,7 +18,7 @@ Checks whether the signature provided is valid for the provided data and hash. R
 
 
 
-Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/Safe.sol#L274)
+Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/Safe.sol#L274).
 
 
 ## Usage
@@ -29,7 +29,12 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function checkNSignatures(bytes32 dataHash,bytes memory data,bytes memory signatures,uint256 requiredSignatures) public view
+        function checkNSignatures(
+            bytes32 dataHash,
+            bytes memory data,
+            bytes memory signatures,
+            uint256 requiredSignatures
+        ) public view
     }
 
     contract Example {

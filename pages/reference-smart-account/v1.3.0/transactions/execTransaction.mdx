@@ -18,7 +18,7 @@ Note: The fees are always transferred, even if the user transaction fails.
 
 
 
-Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/GnosisSafe.sol#L111)
+Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/GnosisSafe.sol#L111).
 
 
 ## Usage
@@ -29,7 +29,18 @@ Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function execTransaction(address to,uint256 value,bytes calldata data,Enum.Operation operation,uint256 safeTxGas,uint256 baseGas,uint256 gasPrice,address gasToken,address payable refundReceiver,bytes memory signatures) public payable virtual returns (bool success)
+        function execTransaction(
+            address to,
+            uint256 value,
+            bytes calldata data,
+            Enum.Operation operation,
+            uint256 safeTxGas,
+            uint256 baseGas,
+            uint256 gasPrice,
+            address gasToken,
+            address payable refundReceiver,
+            bytes memory signatures
+        ) public payable virtual returns (bool success)
     }
 
     contract Example {

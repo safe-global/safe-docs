@@ -20,7 +20,7 @@ Allows to swap/replace an owner from the Safe with another address.
 
 
 
-Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/base/OwnerManager.sol#L94)
+Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/base/OwnerManager.sol#L94).
 
 
 ## Usage
@@ -31,7 +31,11 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function swapOwner(address prevOwner,address oldOwner,address newOwner) public authorized
+        function swapOwner(
+            address prevOwner,
+            address oldOwner,
+            address newOwner
+        ) public authorized
     }
 
     contract Example {

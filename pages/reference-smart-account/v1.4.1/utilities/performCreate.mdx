@@ -16,7 +16,7 @@ Deploys a new contract using the create opcode.
 
 
 
-Defined in [`CreateCall.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/libraries/CreateCall.sol#L21)
+Defined in [`CreateCall.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/libraries/CreateCall.sol#L21).
 
 
 ## Usage
@@ -27,7 +27,10 @@ Defined in [`CreateCall.sol`](https://github.com/safe-global/safe-smart-account/
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function performCreate(uint256 value,bytes memory deploymentData) public returns (address newContract)
+        function performCreate(
+            uint256 value,
+            bytes memory deploymentData
+        ) public returns (address newContract)
     }
 
     contract Example {

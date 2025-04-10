@@ -22,7 +22,7 @@ Specifically, the `returndata` after a call to this method will be:
 
 
 
-Defined in [`StorageAccessible.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/common/StorageAccessible.sol#L40)
+Defined in [`StorageAccessible.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/common/StorageAccessible.sol#L40).
 
 
 ## Usage
@@ -33,7 +33,10 @@ Defined in [`StorageAccessible.sol`](https://github.com/safe-global/safe-smart-a
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function simulateAndRevert(address targetContract,bytes memory calldataPayload) external
+        function simulateAndRevert(
+            address targetContract,
+            bytes memory calldataPayload
+        ) external
     }
 
     contract Example {

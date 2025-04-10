@@ -18,7 +18,7 @@ Implementation of ISignatureValidator (see `interfaces/ISignatureValidator.sol`)
 
 
 
-Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/CompatibilityFallbackHandler.sol#L28)
+Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/CompatibilityFallbackHandler.sol#L28).
 
 
 ## Usage
@@ -29,7 +29,10 @@ Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/s
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function isValidSignature(bytes memory _data,bytes memory _signature) public view override returns (bytes4)
+        function isValidSignature(
+            bytes memory _data,
+            bytes memory _signature
+        ) public view override returns (bytes4)
     }
 
     contract Example {

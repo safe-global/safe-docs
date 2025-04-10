@@ -16,7 +16,7 @@ Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Toke
 
 
 
-Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/base/ModuleManager.sol#L104)
+Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/base/ModuleManager.sol#L104).
 
 
 ## Usage
@@ -27,7 +27,12 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function execTransactionFromModuleReturnData(address to,uint256 value,bytes memory data,Enum.Operation operation) public returns (bool success, bytes memory returnData)
+        function execTransactionFromModuleReturnData(
+            address to,
+            uint256 value,
+            bytes memory data,
+            Enum.Operation operation
+        ) public returns (bool success, bytes memory returnData)
     }
 
     contract Example {

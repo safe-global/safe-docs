@@ -14,7 +14,7 @@ import IrreversibilityCallout from '../../../../../components/callouts/Irreversi
 Generates the recovery hash that should be signed by the guardian to authorize a recovery
 
 
-Defined in [`SocialRecoveryModule.sol`](https://github.com/safe-global/safe-modules/tree/recovery/v0.1.0/modules/recovery/contracts/generated-markups/candide-contracts/contracts/modules/social_recovery/SocialRecoveryModule.sol#Lundefined)
+Defined in [`SocialRecoveryModule.sol`](https://github.com/safe-global/safe-modules/tree/recovery/v0.1.0/modules/recovery/contracts/generated-markups/candide-contracts/contracts/modules/social_recovery/SocialRecoveryModule.sol#Lundefined).
 
 
 ## Usage
@@ -25,7 +25,7 @@ Defined in [`SocialRecoveryModule.sol`](https://github.com/safe-global/safe-modu
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function getRecoveryHash(address _wallet,address[] calldata _newOwners,uint256 _newThreshold,uint256 _nonce) public view returns (bytes32)
+        function getRecoveryHash( address _wallet, address[] calldata _newOwners, uint256 _newThreshold, uint256 _nonce ) public view returns (bytes32)
     }
 
     contract Example {

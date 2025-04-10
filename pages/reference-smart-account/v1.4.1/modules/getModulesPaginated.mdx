@@ -18,7 +18,7 @@ If another page is present, next will be the last element of the returned array.
 
 
 
-Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/base/ModuleManager.sol#L144)
+Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/base/ModuleManager.sol#L144).
 
 
 ## Usage
@@ -29,7 +29,10 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function getModulesPaginated(address start,uint256 pageSize) external view returns (address[] memory array, address next)
+        function getModulesPaginated(
+            address start,
+            uint256 pageSize
+        ) external view returns (address[] memory array, address next)
     }
 
     contract Example {

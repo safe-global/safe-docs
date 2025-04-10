@@ -15,7 +15,7 @@ Handles ERC1155 Token callback.
 return Standardized onERC1155Received return value.
 
 
-Defined in [`TokenCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/TokenCallbackHandler.sol#L18)
+Defined in [`TokenCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/TokenCallbackHandler.sol#L18).
 
 
 ## Usage
@@ -26,7 +26,13 @@ Defined in [`TokenCallbackHandler.sol`](https://github.com/safe-global/safe-smar
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function onERC1155Received(address,address,uint256,uint256,bytes calldata) external pure override returns (bytes4)
+        function onERC1155Received(
+            address,
+            address,
+            uint256,
+            uint256,
+            bytes calldata
+        ) external pure override returns (bytes4)
     }
 
     contract Example {

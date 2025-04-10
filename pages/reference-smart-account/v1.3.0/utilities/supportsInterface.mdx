@@ -18,7 +18,7 @@ to learn more about how these ids are created.
 
 This function call must use less than 30 000 gas.
 
-Defined in [`DefaultCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/handler/DefaultCallbackHandler.sol#L55)
+Defined in [`DefaultCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/handler/DefaultCallbackHandler.sol#L55).
 
 
 ## Usage
@@ -29,7 +29,9 @@ Defined in [`DefaultCallbackHandler.sol`](https://github.com/safe-global/safe-sm
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function supportsInterface(bytes4 interfaceId) external view virtual override returns (bool)
+        function supportsInterface(
+            bytes4 interfaceId
+        ) external view virtual override returns (bool)
     }
 
     contract Example {

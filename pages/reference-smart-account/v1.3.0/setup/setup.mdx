@@ -16,7 +16,7 @@ Setup function sets initial storage of contract.
 
 
 
-Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/GnosisSafe.sol#L75)
+Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/GnosisSafe.sol#L75).
 
 
 ## Usage
@@ -27,7 +27,16 @@ Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function setup(address[] calldata _owners,uint256 _threshold,address to,bytes calldata data,address fallbackHandler,address paymentToken,uint256 payment,address payable paymentReceiver) external
+        function setup(
+            address[] calldata _owners,
+            uint256 _threshold,
+            address to,
+            bytes calldata data,
+            address fallbackHandler,
+            address paymentToken,
+            uint256 payment,
+            address payable paymentReceiver
+        ) external
     }
 
     contract Example {

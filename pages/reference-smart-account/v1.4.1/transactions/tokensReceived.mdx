@@ -15,7 +15,7 @@ Handles ERC777 Token callback.
 return nothing (not standardized)
 
 
-Defined in [`TokenCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/TokenCallbackHandler.sol#L48)
+Defined in [`TokenCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/TokenCallbackHandler.sol#L48).
 
 
 ## Usage
@@ -26,7 +26,14 @@ Defined in [`TokenCallbackHandler.sol`](https://github.com/safe-global/safe-smar
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function tokensReceived(address,address,address,uint256,bytes calldata,bytes calldata) external pure override
+        function tokensReceived(
+            address,
+            address,
+            address,
+            uint256,
+            bytes calldata,
+            bytes calldata
+        ) external pure override
     }
 
     contract Example {

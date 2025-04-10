@@ -16,7 +16,7 @@ Checks whether the signature provided is valid for the provided data, hash. Will
 
 
 
-Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/GnosisSafe.sol#L221)
+Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/GnosisSafe.sol#L221).
 
 
 ## Usage
@@ -27,7 +27,11 @@ Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function checkSignatures(bytes32 dataHash,bytes memory data,bytes memory signatures) public view
+        function checkSignatures(
+            bytes32 dataHash,
+            bytes memory data,
+            bytes memory signatures
+        ) public view
     }
 
     contract Example {

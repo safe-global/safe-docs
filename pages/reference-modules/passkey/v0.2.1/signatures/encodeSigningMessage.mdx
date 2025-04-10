@@ -21,7 +21,7 @@ credential creation.
 
 
 
-Defined in [`WebAuthn.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/libraries/WebAuthn.sol#L231)
+Defined in [`WebAuthn.sol`](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/contracts/libraries/WebAuthn.sol#L231).
 
 
 ## Usage
@@ -32,7 +32,7 @@ Defined in [`WebAuthn.sol`](https://github.com/safe-global/safe-modules/tree/pas
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function encodeSigningMessage(bytes32 challenge,bytes calldata authenticatorData,string calldata clientDataFields) internal view returns (bytes memory message)
+        function encodeSigningMessage( bytes32 challenge, bytes calldata authenticatorData, string calldata clientDataFields ) internal view returns (bytes memory message)
     }
 
     contract Example {

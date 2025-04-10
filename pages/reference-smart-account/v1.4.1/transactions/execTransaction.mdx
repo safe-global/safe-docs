@@ -24,7 +24,7 @@ It is the responsibility of the caller to perform such checks.
 
 
 
-Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/Safe.sol#L139)
+Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/Safe.sol#L139).
 
 
 ## Usage
@@ -35,7 +35,18 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function execTransaction(address to,uint256 value,bytes calldata data,Enum.Operation operation,uint256 safeTxGas,uint256 baseGas,uint256 gasPrice,address gasToken,address payable refundReceiver,bytes memory signatures) public payable virtual returns (bool success)
+        function execTransaction(
+            address to,
+            uint256 value,
+            bytes calldata data,
+            Enum.Operation operation,
+            uint256 safeTxGas,
+            uint256 baseGas,
+            uint256 gasPrice,
+            address gasToken,
+            address payable refundReceiver,
+            bytes memory signatures
+        ) public payable virtual returns (bool success)
     }
 
     contract Example {
