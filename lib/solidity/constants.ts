@@ -6,6 +6,7 @@ export const modulesVersions = {
   recovery: ['v0.1.0']
 }
 export const ignoredFunctions = [
+  'validateUserOp',
   'createProxyWithNonce',
   'createChainSpecificProxyWithNonce',
   'createProxyWithCallback',
@@ -104,12 +105,13 @@ export const smartAccountCategories = {
 
 export const modulesCategories = {
   '4337': {
-    setup: ['domainSeparator', 'enableModules', 'nonce', 'threshold'],
+    setup: ['nonce', 'threshold'],
     operations: [
+      'domainSeparator',
+      'enableModules',
       'executeUserOp',
       'executeUserOpWithErrorString',
-      'getOperationHash',
-      'validateUserOp'
+      'getOperationHash'
     ]
   },
   allowance: {

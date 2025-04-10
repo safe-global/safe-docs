@@ -126,8 +126,10 @@ export const getPublicFunctionsAndEvents = ({
           const functionDefinition = functionDoc
             ?.split('```solidity')[1]
             ?.split('```')[0]
-            .replaceAll('\n', '')
-            .replaceAll('    ', '')
+            .replaceAll('    ', '            ')
+            .replace('\n', '')
+            .trim()
+            .replace('\n)', '\n        )')
 
           const functionDescription = functionDoc
             ?.split('```')[2]
