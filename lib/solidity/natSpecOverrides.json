@@ -1,0 +1,71 @@
+{
+  "https://github.com/safe-global/safe-smart-account/": {
+    "v1.4.1": {
+      "domainSeparator": {
+        "natSpec": "Returns the domain separator for this contract, as defined in the [EIP-712 standard](https://docs.safe.global/home/glossary#eip-712)."
+      },
+      "setup": {
+        "natSpec": "Sets an initial storage of the Safe contract.\n\n<Callout type='warning'>\n\nThis method can only be called once. If a proxy was created without setting up, anyone can call setup and claim the proxy.\n</Callout>"
+      },
+      "getThreshold": {
+        "natSpec": "Returns the threshold of the Safe account."
+      },
+      "encodeTransactionData": {
+        "natSpec": "Encodes the transaction data for `execTransaction`."
+      },
+      "execTransaction": {
+        "natSpec": "Executes a Safe transaction to `to` with `value` (native currency) and pays `gasPrice * gasLimit` in `gasToken` to `refundReceiver`.\n\n<Callout type='warning'>\n\nThe fees are always transferred, even if the user transaction fails. This method doesn't perform any sanity check of the transaction, such as if the contract at `to` address has code or not. It is the responsibility of the caller to perform such checks.\n</Callout>",
+        "returnTypes": ["The domain separator hash."]
+      },
+      "tokensReceived": {
+        "natSpec": "Handles ERC777 Token callback. It returns nothing."
+      },
+      "enableModule": {
+        "natSpec": "Enables a new Safe Module in a Safe account.\n\n<OnlySafeTxCallout />"
+      },
+      "execTransactionFromModule": {
+        "natSpec": "Executes an `operation` (`0`: Call, `1`: DelegateCall) to `to` address with the value `value` (in native token)"
+      },
+      "execTransactionFromModuleReturnData": {
+        "natSpec": "Executes a transaction from an enabled Safe Module and returns the result data."
+      },
+      "getModulesPaginated": {
+        "natSpec": "Returns an array of modules. If all entries fit into a single page, the next pointer will be `0x1`. If another page is present, next will be the last element of the returned array."
+      },
+      "multisend": {
+        "natSpec": "Allows the batching of multiple transactions, and reverts all if one fails. This method is payable as `delegatecalls` keep the `msg.value` from the previous call. If the calling method (for example `execTransaction`) received native tokens, this would revert."
+      },
+      "onERC721Received": {
+        "natSpec": "Handles ERC721 token callback. Returns the standardized `onERC721Received` return value."
+      },
+      "onERC1155Received": {
+        "natSpec": "Handles ERC1155 token callback. Returns the standardized `onERC1155Received` return value."
+      },
+      "onERC1155BatchReceived": {
+        "natSpec": "Handles ERC1155 token batch callback. Returns the standardized `onERC1155BatchReceived` return value."
+      },
+      "simulate": {
+        "natSpec": "Simulates a Safe transaction and returns the used gas, success boolean and the return data. This has to be called via a `delegatecall`.\n\nIt returns the data as `abi.encode(uint256(etimate), bool(success), bytes(returnData))`."
+      },
+      "simulateAndRevert": {
+        "natSpec": "Performs a delegatecall on a targetContract in the context of self. Internally reverts execution to avoid side effects (making it static).\n\nThis method reverts with data equal to `abi.encode(bool(success), bytes(response))`."
+      },
+      "setGuard": {
+        "natSpec": "Set Transaction Guard guard that checks transactions before execution.\n\n<OnlySafeTxCallout />\n\n<ModuleCallout />"
+      },
+      "approveHash": {
+        "natSpec": "Marks hash `hashToApprove` as approved.\n\n<PreApprovedCallout />\n\n<IrreversibilityCallout />"
+      },
+      "checkSignatures": {
+        "natSpec": "Checks whether the signature provided is valid for the provided data and hash. Reverts otherwise.\n\n<ReentrancyCallout />"
+      }
+    }
+  },
+  "https://github.com/safe-global/safe-modules/": {
+    "4337/v0.3.0-1": {
+      "enableModules": {
+        "natSpec": "Enable the specified Safe Modules.\n\nThis call will only work if used from a Safe via `delegatecall`. It is intended to be used as part of the Safe `setup`, allowing Safes to be created with an initial set of enabled modules."
+      }
+    }
+  }
+}

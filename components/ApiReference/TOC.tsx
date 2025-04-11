@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid'
 import Link from '@mui/material/Link'
 import { useState } from 'react'
 
-import { useCurrentTocIndex } from '../../lib/mdx'
+import { useCurrentTocIndex } from '../Mdx'
 import { theme } from '../../styles/theme'
 import Method from './Method'
 

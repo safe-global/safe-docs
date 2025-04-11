@@ -1,0 +1,300 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../components/callouts/PreApprovedCallout.mdx'
+
+
+
+
+# `encodeTransactionData` (0xe86637db)
+
+Encodes the transaction data for `execTransaction`.
+
+Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/Safe.sol#L383).
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function encodeTransactionData(
+            address to,
+            uint256 value,
+            bytes calldata data,
+            Enum.Operation operation,
+            uint256 safeTxGas,
+            uint256 baseGas,
+            uint256 gasPrice,
+            address gasToken,
+            address refundReceiver,
+            uint256 _nonce
+        ) public view returns (bytes memory)
+    }
+
+    contract Example {
+        function example() ... {
+            (ISafe safe).encodeTransactionData(
+                0x...,
+                0,
+                "0x...",
+                0,
+                0,
+                0,
+                0,
+                0x...,
+                0x...,
+                0
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+
+
+  - **Type:** `bytes`
+
+  Transaction hash bytes.
+
+
+
+
+## Parameters
+
+### `to`
+
+  - **Type:** `address`
+
+  Destination address.
+
+  ```solidity focus=2
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `value`
+
+  - **Type:** `uint256`
+
+  Ether value.
+
+  ```solidity focus=3
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `data`
+
+  - **Type:** `bytes`
+
+  Data payload.
+
+  ```solidity focus=4
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `operation`
+
+  - **Type:** `enum Enum.Operation`
+
+  Operation type.
+
+  ```solidity focus=5
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `safeTxGas`
+
+  - **Type:** `uint256`
+
+  Gas that should be used for the safe transaction.
+
+  ```solidity focus=6
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `baseGas`
+
+  - **Type:** `uint256`
+
+  Gas costs for that are independent of the transaction execution(for example base transaction fee, signature check, payment of the refund)
+
+  ```solidity focus=7
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `gasPrice`
+
+  - **Type:** `uint256`
+
+  Maximum gas price that should be used for this transaction.
+
+  ```solidity focus=8
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `gasToken`
+
+  - **Type:** `address`
+
+  Token address (or 0 if ETH) that is used for the payment.
+
+  ```solidity focus=9
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `refundReceiver`
+
+  - **Type:** `address`
+
+  Address of receiver of gas payment (or 0 if tx.origin).
+
+  ```solidity focus=10
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+### `_nonce`
+
+  - **Type:** `uint256`
+
+  Transaction nonce.
+
+  ```solidity focus=11
+  (ISafe safe).encodeTransactionData(
+    0x...,
+    0,
+    "0x...",
+    0,
+    0,
+    0,
+    0,
+    0x...,
+    0x...,
+    0
+  );
+  ```
+
+
+
+
+
