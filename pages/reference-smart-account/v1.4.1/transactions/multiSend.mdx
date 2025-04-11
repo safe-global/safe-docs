@@ -4,6 +4,10 @@ import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 
 
@@ -12,7 +16,7 @@ import IrreversibilityCallout from '../../../../components/callouts/Irreversibil
 
 
 This method is payable as delegatecalls keep the msg.value from the previous call
-If the calling method (e.g. execTransaction) received ETH this would revert otherwise
+If the calling method (for example execTransaction) received ETH this would revert otherwise
 Sends multiple transactions and reverts all if one fails.
 
 

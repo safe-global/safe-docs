@@ -4,6 +4,10 @@ import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 
 
@@ -27,7 +31,11 @@ Defined in [`SocialRecoveryModule.sol`](https://github.com/safe-global/safe-modu
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function getRecoveryApprovals( address _wallet, address[] calldata _newOwners, uint256 _newThreshold ) public view returns (uint256 approvalCount)
+        function getRecoveryApprovals(
+            address _wallet,
+            address[] calldata _newOwners,
+            uint256 _newThreshold
+        ) public view returns (uint256 approvalCount)
     }
 
     contract Example {
@@ -77,7 +85,7 @@ Defined in [`SocialRecoveryModule.sol`](https://github.com/safe-global/safe-modu
 
   - **Type:** `address[]`
 
-  The new owners' addressess.
+  The new owners' addresses.
 
   ```solidity focus=3
   (ISafe safe).getRecoveryApprovals(

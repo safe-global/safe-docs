@@ -4,6 +4,10 @@ import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 
 
@@ -27,7 +31,10 @@ Defined in [`SignatureValidator.sol`](https://github.com/safe-global/safe-module
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function isValidSignature( bytes32 message, bytes calldata signature ) external view returns (bytes4 magicValue)
+        function isValidSignature(
+            bytes32 message,
+            bytes calldata signature
+        ) external view returns (bytes4 magicValue)
     }
 
     contract Example {

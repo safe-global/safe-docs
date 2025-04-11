@@ -4,6 +4,10 @@ import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 
 
@@ -28,7 +32,14 @@ Defined in [`P256.sol`](https://github.com/safe-global/safe-modules/tree/passkey
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function verifySignatureAllowMalleability( IP256Verifier verifier, bytes32 message, uint256 r, uint256 s, uint256 x, uint256 y ) internal view returns (bool success)
+        function verifySignatureAllowMalleability(
+            IP256Verifier verifier,
+            bytes32 message,
+            uint256 r,
+            uint256 s,
+            uint256 x,
+            uint256 y
+        ) internal view returns (bool success)
     }
 
     contract Example {

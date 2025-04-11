@@ -5,24 +5,21 @@ import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 
 
 # `execTransaction` (0x6a761202)
 
+Executes a Safe transaction to `to` with `value` (native currency) and pays `gasPrice * gasLimit` in `gasToken` to `refundReceiver`.
 
+<Callout type='warning'>
 
-Executes a `operation` \{0: Call, 1: DelegateCall\}\} transaction to `to` with `value` (Native Currency)
-and pays `gasPrice` * `gasLimit` in `gasToken` token to `refundReceiver`.
-
-The fees are always transferred, even if the user transaction fails.
-This method doesn't perform any sanity check of the transaction, such as:
-- if the contract at `to` address has code or not
-- if the `gasToken` is a contract or not
-It is the responsibility of the caller to perform such checks.
-
-
-
+The fees are always transferred, even if the user transaction fails. This method doesn't perform any sanity check of the transaction, such as if the contract at `to` address has code or not. It is the responsibility of the caller to perform such checks.
+</Callout>
 
 Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/Safe.sol#L139).
 
@@ -77,7 +74,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
 
   - **Type:** `bool`
 
-  Boolean indicating transaction's success.
+  The domain separator hash.
 
 
 
@@ -198,7 +195,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
 
   - **Type:** `uint256`
 
-  Gas costs that are independent of the transaction execution(e.g. base transaction fee, signature check, payment of the refund)
+  Gas costs that are independent of the transaction execution(for example base transaction fee, signature check, payment of the refund)
 
   ```solidity focus=7
   (ISafe safe).execTransaction(

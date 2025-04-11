@@ -4,6 +4,10 @@ import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 
 
@@ -32,7 +36,11 @@ Defined in [`WebAuthn.sol`](https://github.com/safe-global/safe-modules/tree/pas
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function encodeSigningMessage( bytes32 challenge, bytes calldata authenticatorData, string calldata clientDataFields ) internal view returns (bytes memory message)
+        function encodeSigningMessage(
+            bytes32 challenge,
+            bytes calldata authenticatorData,
+            string calldata clientDataFields
+        ) internal view returns (bytes memory message)
     }
 
     contract Example {

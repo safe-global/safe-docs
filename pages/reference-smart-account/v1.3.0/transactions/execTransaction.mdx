@@ -5,6 +5,10 @@ import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 <LegacyCallout />
 
@@ -183,7 +187,7 @@ Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/
 
   - **Type:** `uint256`
 
-  Gas costs that are independent of the transaction execution(e.g. base transaction fee, signature check, payment of the refund)
+  Gas costs that are independent of the transaction execution(for example base transaction fee, signature check, payment of the refund)
 
   ```solidity focus=7
   (ISafe safe).execTransaction(

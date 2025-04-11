@@ -4,6 +4,10 @@ import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 
 
@@ -25,7 +29,15 @@ Defined in [`AllowanceModule.sol`](https://github.com/safe-global/safe-modules/t
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function generateTransferHash( address safe, address token, address to, uint96 amount, address paymentToken, uint96 payment, uint16 nonce ) public view returns (bytes32)
+        function generateTransferHash(
+            address safe,
+            address token,
+            address to,
+            uint96 amount,
+            address paymentToken,
+            uint96 payment,
+            uint16 nonce
+        ) public view returns (bytes32)
     }
 
     contract Example {

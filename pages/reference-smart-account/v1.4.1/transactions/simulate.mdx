@@ -4,23 +4,18 @@ import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 
 
 # `simulate` (0x1c5fb211)
 
+Simulates a Safe transaction and returns the used gas, success boolean and the return data. This has to be called via a `delegatecall`.
 
-
-Simulates a Safe transaction and returns the used gas, success boolean and the return data.
-
-Executes the specified operation \{Call, DelegateCall\} and returns operation-specific data.
-Has to be called via delegatecall.
-This returns the data equal to `abi.encode(uint256(etimate), bool(success), bytes(returnData))`.
-Specifically, the returndata will be:
-`estimate:uint256 || success:bool || returnData.length:uint256 || returnData:bytes`.
-
-
-
+It returns the data as `abi.encode(uint256(etimate), bool(success), bytes(returnData))`.
 
 Defined in [`SimulateTxAccessor.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/accessors/SimulateTxAccessor.sol#L42).
 

@@ -4,6 +4,10 @@ import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 
 
@@ -27,7 +31,12 @@ Defined in [`ISafe.sol`](https://github.com/safe-global/safe-modules/tree/allowa
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function execTransactionFromModule( address to, uint256 value, bytes calldata data, Enum.Operation operation ) external returns (bool success)
+        function execTransactionFromModule(
+            address to,
+            uint256 value,
+            bytes calldata data,
+            Enum.Operation operation
+        ) external returns (bool success)
     }
 
     contract Example {

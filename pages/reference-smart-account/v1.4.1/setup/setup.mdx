@@ -4,20 +4,21 @@ import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 
 
 # `setup` (0xb63e800d)
 
-
-
 Sets an initial storage of the Safe contract.
 
-This method can only be called once.
-If a proxy was created without setting up, anyone can call setup and claim the proxy.
+<Callout type='warning'>
 
-
-
+This method can only be called once. If a proxy was created without setting up, anyone can call setup and claim the proxy.
+</Callout>
 
 Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/Safe.sol#L95).
 

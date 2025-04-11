@@ -4,6 +4,10 @@ import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 
 
@@ -27,7 +31,10 @@ Defined in [`IGuardianStorage.sol`](https://github.com/safe-global/safe-modules/
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function isGuardian( address _wallet, address _guardian ) external view returns (bool)
+        function isGuardian(
+            address _wallet,
+            address _guardian
+        ) external view returns (bool)
     }
 
     contract Example {

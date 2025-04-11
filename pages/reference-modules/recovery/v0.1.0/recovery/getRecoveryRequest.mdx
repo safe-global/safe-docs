@@ -4,6 +4,10 @@ import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 
 
@@ -27,7 +31,9 @@ Defined in [`SocialRecoveryModule.sol`](https://github.com/safe-global/safe-modu
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function getRecoveryRequest( address _wallet ) public view returns (SocialRecoveryModule.RecoveryRequest memory request)
+        function getRecoveryRequest(
+            address _wallet
+        ) public view returns (SocialRecoveryModule.RecoveryRequest memory request)
     }
 
     contract Example {

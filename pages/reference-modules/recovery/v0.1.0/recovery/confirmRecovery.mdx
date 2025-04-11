@@ -4,6 +4,10 @@ import LegacyCallout from '../../../../../components/callouts/LegacyCallout.mdx'
 import OnlySafeTxCallout from '../../../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '../../../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '../../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../../components/callouts/PreApprovedCallout.mdx'
+
 
 
 
@@ -29,7 +33,12 @@ Defined in [`SocialRecoveryModule.sol`](https://github.com/safe-global/safe-modu
   <Tabs.Tab>
     ```solidity
     interface ISafe {
-        function confirmRecovery( address _wallet, address[] calldata _newOwners, uint256 _newThreshold, bool _execute ) external
+        function confirmRecovery(
+            address _wallet,
+            address[] calldata _newOwners,
+            uint256 _newThreshold,
+            bool _execute
+        ) external
     }
 
     contract Example {
@@ -72,7 +81,7 @@ Defined in [`SocialRecoveryModule.sol`](https://github.com/safe-global/safe-modu
 
   - **Type:** `address[]`
 
-  The new owners' addressess.
+  The new owners' addresses.
 
   ```solidity focus=3
   (ISafe safe).confirmRecovery(
@@ -104,7 +113,7 @@ Defined in [`SocialRecoveryModule.sol`](https://github.com/safe-global/safe-modu
 
   - **Type:** `bool`
 
-  Whether to auto-start execution of recovery.
+  Whether to autostart execution of recovery.
 
   ```solidity focus=5
   (ISafe safe).confirmRecovery(
