@@ -1,4 +1,10 @@
-import { type ReactNode } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode
+} from 'react'
 import Link from 'next/link'
 import { type SxProps } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
@@ -16,6 +22,8 @@ import {
 
 import HashTag from '../assets/svg/hashtag.svg'
 import { slugify } from '../lib/mdx'
+import { type Heading } from './ApiReference/TOC'
+import { throttle } from 'lodash'
 
 export const MdxHeading: React.FC<{
   headingLevel: number
@@ -150,4 +158,67 @@ export const MDXComponents = {
   td: Td,
   pre: Pre,
   CopyToClipboard
+}
+
+export const useCurrentTocIndex: (
+  headings: Heading[],
+  navHeight: number
+) => string = (headings, navHeight) => {
+  const [currentIndex, setCurrentIndex] = useState('')
+  const delay = 166
+
+  const findActiveIndex = useCallback(() => {
+    let active
+    const _headings = [
+      ...headings,
+      ...headings.flatMap(heading => heading.children)
+    ]
+
+    for (let i = _headings.length - 1; i >= 0; i -= 1) {
+      const item = _headings[i]
+      const node = document.getElementById(item?.link?.slice(1) ?? '')
+
+      if (
+        node != null &&
+        node.offsetTop - navHeight <
+          document.documentElement.scrollTop + node.clientHeight
+      ) {
+        active = item
+        break
+      }
+    }
+    if (active != null) {
+      const nextHeading = _headings[_headings.indexOf(active) + 1]
+      const nextHeadingNode = document.getElementById(
+        nextHeading?.link.slice(1) ?? ''
+      )
+      const isNextHeadingInView =
+        nextHeadingNode != null &&
+        nextHeadingNode.offsetTop - navHeight <
+          document.documentElement.scrollTop + window.innerHeight
+      setCurrentIndex(
+        isNextHeadingInView ? (nextHeading?.link ?? '') : (active?.link ?? '')
+      )
+    } else setCurrentIndex(_headings[0]?.children?.[0]?.link ?? '')
+  }, [headings, navHeight])
+
+  const scrollListener = useMemo(
+    () => throttle(findActiveIndex, delay),
+    [findActiveIndex, delay]
+  )
+
+  useEffect(() => {
+    const shiftWindow: () => void = () => {
+      scrollBy(0, -navHeight)
+    }
+    if (window.location.hash != null) shiftWindow()
+    window.addEventListener('scroll', scrollListener)
+    window.addEventListener('hashchange', shiftWindow)
+    return () => {
+      window.removeEventListener('scroll', scrollListener)
+      window.removeEventListener('hashchange', shiftWindow)
+    }
+  }, [navHeight, scrollListener])
+
+  return currentIndex
 }

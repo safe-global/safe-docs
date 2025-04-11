@@ -2,7 +2,7 @@ import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import { useContext } from 'react'
 import { NetworkContext } from './Network'
-import { MdxHeading } from '../../lib/mdx'
+import { MdxHeading } from '../Mdx'
 
 const SampleRequestHeader: React.FC<{
   method: string

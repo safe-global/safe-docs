@@ -13,7 +13,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 
 import TOC, { type Heading } from './TOC'
-import { MDXComponents, useCurrentTocIndex } from '../../lib/mdx'
+import { MDXComponents, useCurrentTocIndex } from '../Mdx'
 import { NetworkProvider } from './Network'
 import css from './styles.module.css'
 
