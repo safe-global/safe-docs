@@ -55,6 +55,18 @@ const getDescrptionCallouts = (description: string): string =>
       "IMPORTANT: The approved hash stays approved forever. There's no revocation mechanism, so it behaves similarly to ECDSA signatures",
       '<IrreversibilityCallout />'
     )
+    .replace(
+      '⚠️ IMPORTANT: Since a guard has full power to block Safe transaction execution, a broken guard can cause a denial of service for the Safe. Make sure to carefully audit the guard code and design recovery mechanisms.',
+      '<ModuleCallout />'
+    )
+    .replace(
+      'Function is virtual to allow overriding for L2 singleton to emit an event for indexing.',
+      '<VirtualCallout />'
+    )
+    .replace(
+      'This can be used with a pre-approved hash transaction signature.',
+      '<PreApprovedCallout />'
+    )
 
 export const getSafeDocsTemplate = ({
   functionName,
@@ -92,6 +104,10 @@ import LegacyCallout from '${isModule ? '../..' : '..'}/../../../components/call
 import OnlySafeTxCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/OnlySafeTxCallout.mdx'
 import ReentrancyCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/ReentrancyCallout.mdx'
 import IrreversibilityCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '${isModule ? '../..' : '..'}/../../../components/callouts/PreApprovedCallout.mdx'
+
 
 ${!isModule && version !== 'v1.4.1' ? `<LegacyCallout />` : ''}
 

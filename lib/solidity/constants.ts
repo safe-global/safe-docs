@@ -6,11 +6,16 @@ export const modulesVersions = {
   recovery: ['v0.1.0']
 }
 export const ignoredFunctions = [
+  // Should we add a notice informing the user that these functions should be called on a different contract than Safe.sol, rather than ignoring them?
   'validateUserOp',
   'createProxyWithNonce',
   'createChainSpecificProxyWithNonce',
   'createProxyWithCallback',
   'checkAfterExecution',
+  'getChainId',
+  'performCreate',
+  'performCreate2',
+  'proxyCreationCode',
   'checkTransaction',
   'getModules',
   'masterCopy',
@@ -43,14 +48,7 @@ export const sampleValues = {
   'contract IP256Verifier': 'IP256Verifier'
 }
 export const smartAccountCategories = {
-  setup: [
-    'createChainSpecificProxyWithNonce',
-    'createProxyWithCallback',
-    'createProxyWithNonce',
-    'domainSeparator',
-    'getChainId',
-    'setup'
-  ],
+  setup: ['domainSeparator', 'setup'],
   owners: [
     'addOwnerWithThreshold',
     'changeThreshold',
@@ -94,13 +92,7 @@ export const smartAccountCategories = {
     'signMessage',
     'signedMessages'
   ],
-  utilities: [
-    'getStorageAt',
-    'performCreate',
-    'performCreate2',
-    'proxyCreationCode',
-    'supportsInterface'
-  ]
+  utilities: ['getStorageAt', 'supportsInterface']
 }
 
 export const modulesCategories = {

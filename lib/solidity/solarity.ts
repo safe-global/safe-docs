@@ -47,7 +47,7 @@ export const setupSolarity = ({
 
 export const getParametersFromMdTable = (
   functionDoc: string,
-  overrides: NatSpecOverride
+  overrides?: string[]
 ): ParamType[] => {
   const functionParameterStrings =
     functionDoc
@@ -73,7 +73,7 @@ export const getParametersFromMdTable = (
   for (let i = 0; i < names.length; i++) {
     const name = names[i]
     const type = types[i]
-    const description = overrides.returnTypes?.[i] ?? descriptions[i]
+    const description = overrides?.[i] ?? descriptions[i]
     parameters.push({
       name,
       type,
@@ -147,19 +147,19 @@ export const getPublicFunctionsAndEvents = ({
             .trim()
             .replace('\n)', '\n        )')
           const functionDescription: string =
-            overrides.natSpec ??
+            overrides?.natSpec ??
             functionDoc
               ?.split('```')[2]
               ?.split('Parameters')[0]
               ?.split('Return values')[0]
           const functionParameters = getParametersFromMdTable(
             functionDoc?.split('Parameters:')[1]?.split('Return values')[0],
-            overrides
+            overrides?.parameters
           )
 
           const functionReturnTypes = getParametersFromMdTable(
             functionDoc?.split('Return values:')[1],
-            overrides
+            overrides?.returnTypes
           )
 
           // Extract function events
