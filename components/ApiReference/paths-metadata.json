@@ -83,7 +83,7 @@
       "title": "List Safes that use a Specific Module"
     }
   },
-  "/api/v1/multisig-transactions/{safe_tx_hash}/": {
+  "/api/v2/multisig-transactions/{safe_tx_hash}/": {
     "get": {
       "title": "Get Multisig Transaction"
     },
@@ -132,7 +132,7 @@
       "title": "Get Safe Status"
     }
   },
-  "/api/v1/safes/{address}/all-transactions/": {
+  "/api/v2/safes/{address}/all-transactions/": {
     "get": {
       "title": "List Transactions"
     }
@@ -180,7 +180,7 @@
       "title": "List a Safe's Module Transactions"
     }
   },
-  "/api/v1/safes/{address}/multisig-transactions/": {
+  "/api/v2/safes/{address}/multisig-transactions/": {
     "get": {
       "title": "List a Safe's Multisig Transactions"
     },
