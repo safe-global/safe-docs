@@ -130,7 +130,7 @@ Defined in [\`${contractName.trim()}.sol\`](${repoUrl}tree/${version}/${contract
 
     contract Example {
         function example() ... {
-            (ISafe safe).${functionName}(${
+            ISafe(safe).${functionName}(${
               functionParameters.length === 0
                 ? ');'
                 : `

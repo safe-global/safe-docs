@@ -44,7 +44,7 @@ export const sampleValues = {
   bytes32: '"0x..."',
   bool: 'true',
   string: '"..."',
-  'contract ISafe': 'ISafe',
+  'contract ISafe': 'ISafe(Ox...)',
   'contract IP256Verifier': 'IP256Verifier'
 }
 export const smartAccountCategories = {
