@@ -6,7 +6,11 @@
 (?i)zkevm
 (?i)zksync
 (?i)wagmi
-[Aa][Pp][Ii]
+ABI|abi
+API|api
+DelegateCall|delegatecall
+DelegateCalls|delegatecalls
+LLM|llm
 [Aa]urora
 [Aa]rbitrum
 [Aa]ccessor
@@ -19,6 +23,7 @@
 [Bb]oolean
 [Bb]undler
 [Bb]undlers
+[Cc]alldata
 [Cc]hainlist
 [Cc]elo
 [Cc]omposable
@@ -44,9 +49,7 @@
 [Ll]inea
 [Ll]inea
 [Ll]ogics
-[Ll][Ll][Mm]
 [Mm]ainnet
-[Mm]astercopy
 [Mm]iddleware
 [Mm]onerium
 [Mm]ultichain
@@ -67,6 +70,7 @@
 [Qq]uickstarts
 [Rr]eact
 [Rr]eauthenticate
+[Rr]eentrancy
 [Rr]elayer
 [Rr]elayers
 [Ss]epolia
@@ -79,9 +83,9 @@
 [Xx]code 
 A1
 AA
-ABI
 ABIs
 API Kit
+APIs
 Acala
 Alfajores
 Andromeda
@@ -141,6 +145,7 @@ Etherscan
 Eurus
 Evmos
 Fantom
+Fas
 Fireblocks
 Foesenek
 Fraxtal
@@ -171,9 +176,12 @@ keystore
 LUKSO
 Lightlink
 Lisk
+LLMs
 Mandala
 Mantle
 Masa
+MasterCopy
+MasterCopies
 Meld
 Metadium
 Metamask
@@ -226,6 +234,7 @@ Safe Transaction Service
 Safenet
 Safe{Core} Account Abstraction SDK
 Safe{DAO}
+SDKs
 Sei
 SEPA
 Shibarium
@@ -277,18 +286,26 @@ Zilliqa
 Zircuit
 Zoltu
 Zora
+_data
+_dataHash
+_execute
+authorizer
+approvalCount
 address_full_match
 auditable
+automations
 auth_code
+bool
 bytestrings
-calldata
 checksummed
 createTransaction
 const
 deployer
+e.g.
 eth_getLogs
 eSpace
 execTransaction
+initializer
 ledgerblue
 ledgereth
 maxWidth
@@ -308,10 +325,13 @@ preimage
 refetch
 refetches
 refetching
+returndata
 rollups
 saltNonce
+sigAuthorizer
 stablecoin
 superset
+targetContract
 textWrap
 timelock
 timelocks
@@ -322,6 +342,8 @@ undefined
 undeployed
 unencrypted
 v1
+validUntil
+validAfter
 viem
 zkLink
 zKyoto

@@ -1,0 +1,151 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../components/callouts/PreApprovedCallout.mdx'
+
+
+
+
+# `simulate` (0x1c5fb211)
+
+Simulates a Safe transaction and returns the used gas, success boolean and the return data. This has to be called via a `delegatecall`.
+
+It returns the data as `abi.encode(uint256(etimate), bool(success), bytes(returnData))`.
+
+Defined in [`SimulateTxAccessor.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/accessors/SimulateTxAccessor.sol#L42).
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function simulate(
+            address to,
+            uint256 value,
+            bytes calldata data,
+            Enum.Operation operation
+        )
+            external
+            
+            returns (uint256 estimate, bool success, bytes memory returnData)
+    }
+
+    contract Example {
+        function example() ... {
+            ISafe(0x...).simulate(
+                0x...,
+                0,
+                "0x...",
+                0
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Returns
+
+### `estimate`
+
+  - **Type:** `uint256`
+
+  Gas used.
+
+
+### `success`
+
+  - **Type:** `bool`
+
+  Success boolean value.
+
+
+### `returnData`
+
+  - **Type:** `bytes`
+
+  Return data.
+
+
+
+
+## Parameters
+
+### `to`
+
+  - **Type:** `address`
+
+  Destination address .
+
+  ```solidity focus=2
+  ISafe(0x...).simulate(
+    0x...,
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `value`
+
+  - **Type:** `uint256`
+
+  Native token value.
+
+  ```solidity focus=3
+  ISafe(0x...).simulate(
+    0x...,
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `data`
+
+  - **Type:** `bytes`
+
+  Data payload.
+
+  ```solidity focus=4
+  ISafe(0x...).simulate(
+    0x...,
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+### `operation`
+
+  - **Type:** `enum Enum.Operation`
+
+  Operation type \{Call, DelegateCall\}.
+
+  ```solidity focus=5
+  ISafe(0x...).simulate(
+    0x...,
+    0,
+    "0x...",
+    0
+  );
+  ```
+
+
+
+
+

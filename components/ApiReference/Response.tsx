@@ -8,7 +8,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore'
 
 import Property from './Property'
 import Hr from '../Hr'
-import { MdxHeading } from '../../lib/mdx'
+import { MdxHeading } from '../Mdx'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Response: React.FC<{ response: any; index: number }> = ({

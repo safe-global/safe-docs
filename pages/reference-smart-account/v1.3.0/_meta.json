@@ -1,0 +1,24 @@
+{
+  "home": {
+    "title": "← Go Back",
+    "href": "/advanced/smart-account-overview"
+  },
+  "overview": "Overview",
+  "-- Safe Reference": {
+    "type": "separator",
+    "title": "Safe Reference"
+  },
+  "events": {
+    "title": "Events",
+    "type": "page",
+    "display": "hidden"
+  },
+  "setup": "Setup",
+  "owners": "Owners",
+  "transactions": "Transactions",
+  "modules": "Modules",
+  "guards": "Guards",
+  "fallbackHandler": "FallbackHandler",
+  "signatures": "Signatures",
+  "utilities": "Utilities"
+}

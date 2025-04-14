@@ -1,5 +1,5 @@
 import Property from './Property'
-import { MdxHeading } from '../../lib/mdx'
+import { MdxHeading } from '../Mdx'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Parameters: React.FC<{ parameters: any[] }> = ({ parameters }) => {

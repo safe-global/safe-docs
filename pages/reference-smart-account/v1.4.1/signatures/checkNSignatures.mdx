@@ -1,0 +1,130 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../components/callouts/PreApprovedCallout.mdx'
+
+
+
+
+# `checkNSignatures` (0x12fb68e0)
+
+
+
+Checks whether the signature provided is valid for the provided data and hash. Reverts otherwise.
+
+<ReentrancyCallout />
+
+
+
+
+Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/Safe.sol#L274).
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function checkNSignatures(
+            bytes32 dataHash,
+            bytes memory data,
+            bytes memory signatures,
+            uint256 requiredSignatures
+        ) public view
+    }
+
+    contract Example {
+        function example() ... {
+            ISafe(0x...).checkNSignatures(
+                "0x...",
+                "0x...",
+                "0x...",
+                0
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+## Parameters
+
+### `dataHash`
+
+  - **Type:** `bytes32`
+
+  Hash of the data (could be either a message hash or transaction hash)
+
+  ```solidity focus=2
+  ISafe(0x...).checkNSignatures(
+    "0x...",
+    "0x...",
+    "0x...",
+    0
+  );
+  ```
+
+
+### `data`
+
+  - **Type:** `bytes`
+
+  That should be signed (this is passed to an external validator contract)
+
+  ```solidity focus=3
+  ISafe(0x...).checkNSignatures(
+    "0x...",
+    "0x...",
+    "0x...",
+    0
+  );
+  ```
+
+
+### `signatures`
+
+  - **Type:** `bytes`
+
+  Signature data that should be verified. Can be packed ECDSA signature (\{bytes32 r\}\{bytes32 s\}\{uint8 v\}), contract signature (EIP-1271) or approved hash.
+
+  ```solidity focus=4
+  ISafe(0x...).checkNSignatures(
+    "0x...",
+    "0x...",
+    "0x...",
+    0
+  );
+  ```
+
+
+### `requiredSignatures`
+
+  - **Type:** `uint256`
+
+  Amount of required valid signatures.
+
+  ```solidity focus=5
+  ISafe(0x...).checkNSignatures(
+    "0x...",
+    "0x...",
+    "0x...",
+    0
+  );
+  ```
+
+
+
+
+

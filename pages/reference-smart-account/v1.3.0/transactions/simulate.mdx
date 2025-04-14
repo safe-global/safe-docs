@@ -1,0 +1,85 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../components/callouts/PreApprovedCallout.mdx'
+
+
+<LegacyCallout />
+
+# `simulate` (0xbd61951d)
+
+Simulates a Safe transaction and returns the used gas, success boolean and the return data. This has to be called via a `delegatecall`.
+
+It returns the data as `abi.encode(uint256(etimate), bool(success), bytes(returnData))`.
+
+Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/handler/CompatibilityFallbackHandler.sol#L87).
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function simulate(
+            address targetContract,
+            bytes calldata calldataPayload
+        ) external returns (bytes memory response)
+    }
+
+    contract Example {
+        function example() ... {
+            ISafe(0x...).simulate(
+                0x...,
+                "0x..."
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+## Parameters
+
+### `targetContract`
+
+  - **Type:** `address`
+
+  Address of the contract containing the code to execute.
+
+  ```solidity focus=2
+  ISafe(0x...).simulate(
+    0x...,
+    "0x..."
+  );
+  ```
+
+
+### `calldataPayload`
+
+  - **Type:** `bytes`
+
+  Calldata that should be sent to the target contract (encoded method name and arguments).
+
+  ```solidity focus=3
+  ISafe(0x...).simulate(
+    0x...,
+    "0x..."
+  );
+  ```
+
+
+
+
+

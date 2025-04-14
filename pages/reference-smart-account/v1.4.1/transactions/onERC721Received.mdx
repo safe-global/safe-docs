@@ -1,0 +1,52 @@
+import { Tabs, Callout } from 'nextra/components'
+
+import LegacyCallout from '../../../../components/callouts/LegacyCallout.mdx'
+import OnlySafeTxCallout from '../../../../components/callouts/OnlySafeTxCallout.mdx'
+import ReentrancyCallout from '../../../../components/callouts/ReentrancyCallout.mdx'
+import IrreversibilityCallout from '../../../../components/callouts/IrreversibilityCallout.mdx'
+import VirtualCallout from '../../../../components/callouts/VirtualCallout.mdx'
+import ModuleCallout from '../../../../components/callouts/ModuleCallout.mdx'
+import PreApprovedCallout from '../../../../components/callouts/PreApprovedCallout.mdx'
+
+
+
+
+# `onERC721Received` (0x150b7a02)
+
+Handles ERC721 token callback. Returns the standardized `onERC721Received` return value.
+
+Defined in [`TokenCallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.4.1/contracts/handler/TokenCallbackHandler.sol#L40).
+
+
+## Usage
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['example.sol']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ISafe {
+        function onERC721Received(
+            address,
+            address,
+            uint256,
+            bytes calldata
+        ) external pure  returns (bytes4)
+    }
+
+    contract Example {
+        function example() ... {
+            ISafe(0x...).onERC721Received();
+        }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+
+
+
+
+
