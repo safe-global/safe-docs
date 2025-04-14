@@ -51,13 +51,21 @@
         "natSpec": "Performs a delegatecall on a targetContract in the context of self. Internally reverts execution to avoid side effects (making it static).\n\nThis method reverts with data equal to `abi.encode(bool(success), bytes(response))`."
       },
       "setGuard": {
-        "natSpec": "Set Transaction Guard guard that checks transactions before execution.\n\n<OnlySafeTxCallout />\n\n<ModuleCallout />"
+        "natSpec": "Set Transaction Guard `guard` that checks transactions before execution.\n\n<OnlySafeTxCallout />\n\n<ModuleCallout />"
       },
       "approveHash": {
         "natSpec": "Marks hash `hashToApprove` as approved.\n\n<PreApprovedCallout />\n\n<IrreversibilityCallout />"
       },
       "checkSignatures": {
         "natSpec": "Checks whether the signature provided is valid for the provided data and hash. Reverts otherwise.\n\n<ReentrancyCallout />"
+      }
+    },
+    "v1.3.0": {
+      "simulate": {
+        "natSpec": "Simulates a Safe transaction and returns the used gas, success boolean and the return data. This has to be called via a `delegatecall`.\n\nIt returns the data as `abi.encode(uint256(etimate), bool(success), bytes(returnData))`."
+      },
+      "simulateAndRevert": {
+        "natSpec": "Performs a delegatecall on a targetContract in the context of self. Internally reverts execution to avoid side effects (making it static).\n\nThis method reverts with data equal to `abi.encode(bool(success), bytes(response))`."
       }
     }
   },

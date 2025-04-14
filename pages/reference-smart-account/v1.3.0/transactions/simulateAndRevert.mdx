@@ -13,18 +13,9 @@ import PreApprovedCallout from '../../../../components/callouts/PreApprovedCallo
 
 # `simulateAndRevert` (0xb4faba09)
 
-
-
-Performs a delegetecall on a targetContract in the context of self.
-Internally reverts execution to avoid side effects (making it static).
+Performs a delegatecall on a targetContract in the context of self. Internally reverts execution to avoid side effects (making it static).
 
 This method reverts with data equal to `abi.encode(bool(success), bytes(response))`.
-Specifically, the `returndata` after a call to this method will be:
-`success:bool || response.length:uint256 || response:bytes`.
-
-
-
-
 
 Defined in [`StorageAccessible.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/common/StorageAccessible.sol#L36).
 

@@ -269,7 +269,7 @@ export const generateMarkdownFromNatspec = ({
         contents
           .replaceAll('e.g.', 'for example')
           .replaceAll('addressess', 'addresses')
-          .replaceAll('auto-start', 'autostart'),
+          .replaceAll('auto-start', 'start automatic'),
         'utf8'
       )
     })

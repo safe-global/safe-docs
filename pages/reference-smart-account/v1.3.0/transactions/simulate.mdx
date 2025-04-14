@@ -13,13 +13,9 @@ import PreApprovedCallout from '../../../../components/callouts/PreApprovedCallo
 
 # `simulate` (0xbd61951d)
 
+Simulates a Safe transaction and returns the used gas, success boolean and the return data. This has to be called via a `delegatecall`.
 
-
-Performs a delegetecall on a targetContract in the context of self.
-Internally reverts execution to avoid side effects (making it static). Catches revert and returns encoded result as bytes.
-
-
-
+It returns the data as `abi.encode(uint256(etimate), bool(success), bytes(returnData))`.
 
 Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/safe-smart-account/tree/v1.3.0/contracts/handler/CompatibilityFallbackHandler.sol#L87).
 

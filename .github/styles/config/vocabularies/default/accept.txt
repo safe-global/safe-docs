@@ -6,8 +6,11 @@
 (?i)zkevm
 (?i)zksync
 (?i)wagmi
-[ABI|api]
-[API|api]
+ABI|abi
+API|api
+DelegateCall|delegatecall
+DelegateCalls|delegatecalls
+LLM|llm
 [Aa]urora
 [Aa]rbitrum
 [Aa]ccessor
@@ -46,9 +49,7 @@
 [Ll]inea
 [Ll]inea
 [Ll]ogics
-[Ll][Ll][Mm]
 [Mm]ainnet
-[Mm]astercopy
 [Mm]iddleware
 [Mm]onerium
 [Mm]ultichain
@@ -126,8 +127,6 @@ DAO
 DAOs
 Darwinia
 Degen
-[Dd]elegateCall
-[Dd]elegateCalls
 DODOchain
 Dogechain
 EIP
@@ -182,6 +181,7 @@ Mandala
 Mantle
 Masa
 MasterCopy
+MasterCopies
 Meld
 Metadium
 Metamask
@@ -310,7 +310,6 @@ initializer
 ledgerblue
 ledgereth
 maxWidth
-mastercopies
 mempool
 messageHash
 monorepo
