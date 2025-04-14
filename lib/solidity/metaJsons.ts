@@ -56,7 +56,10 @@ export const generateMetaJsonVersions = (
       }
     ],
     ['events', { title: 'Events', type: 'page', display: 'hidden' }],
-    ...categories.map(category => [category, capitalize(category)])
+    ...categories.map(category => [
+      category,
+      capitalize(category).replace('Fallbackhandler', 'FallbackHandler')
+    ])
   ])
   fs.writeFileSync(
     `${destination}/_meta.json`,

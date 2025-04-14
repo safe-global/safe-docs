@@ -73,11 +73,14 @@ export const getParametersFromMdTable = (
   for (let i = 0; i < names.length; i++) {
     const name = names[i]
     const type = types[i]
-    const description = overrides?.[i] ?? descriptions[i]
+    const description =
+      overrides?.[i] ??
+      overrides?.[name as keyof typeof overrides] ??
+      descriptions[i]
     parameters.push({
       name,
       type,
-      description: sanitizeMdx(description)
+      description: sanitizeMdx(description as string)
     })
   }
   return parameters

@@ -4,7 +4,7 @@ import { Steps } from 'nextra/components'
 # Safe Smart Account Migration
 
 As the Smart Account ecosystem and standards evolve, Safe Team releases new versions of the Singleton contract as and when required.
-The **SafeProxy** contract (aka. Safe Smart Account) stores the address of the Singleton contract at storage `slot(0)`.  The existing SafeProxy contracts can be migrated to the new Singleton contract, but the Safe Smart Account owners must take special steps.
+The **SafeProxy** contract (A.K.A. Safe Smart Account) stores the address of the Singleton contract at storage `slot(0)`.  The existing SafeProxy contracts can be migrated to the new Singleton contract, but the Safe Smart Account owners must take special steps.
 The guide below provides a step-by-step process for migrating the SafeProxy contract to the new Singleton contract using `delegatecall`.
 
 <Callout type="warning">

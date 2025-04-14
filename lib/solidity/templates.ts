@@ -130,7 +130,7 @@ Defined in [\`${contractName.trim()}.sol\`](${repoUrl}tree/${version}/${contract
 
     contract Example {
         function example() ... {
-            ISafe(safe).${functionName}(${
+            ISafe(0x...).${functionName}(${
               functionParameters.length === 0
                 ? ');'
                 : `
@@ -179,7 +179,7 @@ ${functionParameters
   ${description}
 
   \`\`\`solidity focus=${index + 2}
-  (ISafe safe).${functionName}(
+  ISafe(0x...).${functionName}(
     ${functionParameters.map(p => sampleValues[p.type as 'uint256']).join(',\n    ')}
   );
   \`\`\`

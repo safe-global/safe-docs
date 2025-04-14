@@ -10,8 +10,14 @@
       "getThreshold": {
         "natSpec": "Returns the threshold of the Safe account."
       },
+      "isOwner": {
+        "returnTypes": ["Whether `owner` is an owner of the Safe"]
+      },
       "encodeTransactionData": {
-        "natSpec": "Encodes the transaction data for `execTransaction`."
+        "natSpec": "Encodes the transaction data for `execTransaction`.",
+        "parameters": {
+          "baseGas": "Gas costs for that are independent of the transaction execution (for example base transaction fee, signature check, payment of the refund)."
+        }
       },
       "execTransaction": {
         "natSpec": "Executes a Safe transaction to `to` with `value` (native currency) and pays `gasPrice * gasLimit` in `gasToken` to `refundReceiver`.\n\n<Callout type='warning'>\n\nThe fees are always transferred, even if the user transaction fails. This method doesn't perform any sanity check of the transaction, such as if the contract at `to` address has code or not. It is the responsibility of the caller to perform such checks.\n</Callout>",
@@ -28,6 +34,12 @@
       },
       "execTransactionFromModuleReturnData": {
         "natSpec": "Executes a transaction from an enabled Safe Module and returns the result data."
+      },
+      "getTransactionHash": {
+        "natSpec": "Returns the transaction hash to be signed by owners.",
+        "parameters": {
+          "safeTxGas": "Gas that should be used for the safe transaction."
+        }
       },
       "getModulesPaginated": {
         "natSpec": "Returns an array of modules. If all entries fit into a single page, the next pointer will be `0x1`. If another page is present, next will be the last element of the returned array."
