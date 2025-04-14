@@ -36,7 +36,7 @@ Defined in [`TokenCallbackHandler.sol`](https://github.com/safe-global/safe-smar
 
     contract Example {
         function example() ... {
-            (ISafe safe).onERC721Received();
+            ISafe(0x...).onERC721Received();
         }
     }
     ```

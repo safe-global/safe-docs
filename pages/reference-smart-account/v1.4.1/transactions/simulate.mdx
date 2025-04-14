@@ -41,7 +41,7 @@ Defined in [`SimulateTxAccessor.sol`](https://github.com/safe-global/safe-smart-
 
     contract Example {
         function example() ... {
-            (ISafe safe).simulate(
+            ISafe(0x...).simulate(
                 0x...,
                 0,
                 "0x...",
@@ -89,7 +89,7 @@ Defined in [`SimulateTxAccessor.sol`](https://github.com/safe-global/safe-smart-
   Destination address .
 
   ```solidity focus=2
-  (ISafe safe).simulate(
+  ISafe(0x...).simulate(
     0x...,
     0,
     "0x...",
@@ -105,7 +105,7 @@ Defined in [`SimulateTxAccessor.sol`](https://github.com/safe-global/safe-smart-
   Native token value.
 
   ```solidity focus=3
-  (ISafe safe).simulate(
+  ISafe(0x...).simulate(
     0x...,
     0,
     "0x...",
@@ -121,7 +121,7 @@ Defined in [`SimulateTxAccessor.sol`](https://github.com/safe-global/safe-smart-
   Data payload.
 
   ```solidity focus=4
-  (ISafe safe).simulate(
+  ISafe(0x...).simulate(
     0x...,
     0,
     "0x...",
@@ -137,7 +137,7 @@ Defined in [`SimulateTxAccessor.sol`](https://github.com/safe-global/safe-smart-
   Operation type \{Call, DelegateCall\}.
 
   ```solidity focus=5
-  (ISafe safe).simulate(
+  ISafe(0x...).simulate(
     0x...,
     0,
     "0x...",

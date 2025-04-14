@@ -38,7 +38,7 @@ Defined in [`TokenCallbackHandler.sol`](https://github.com/safe-global/safe-smar
 
     contract Example {
         function example() ... {
-            (ISafe safe).supportsInterface(
+            ISafe(0x...).supportsInterface(
                 
             );
         }
@@ -69,7 +69,7 @@ Defined in [`TokenCallbackHandler.sol`](https://github.com/safe-global/safe-smar
   Id of the interface.
 
   ```solidity focus=2
-  (ISafe safe).supportsInterface(
+  ISafe(0x...).supportsInterface(
     
   );
   ```

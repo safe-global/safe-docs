@@ -38,7 +38,7 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
 
     contract Example {
         function example() ... {
-            (ISafe safe).disableModule(
+            ISafe(0x...).disableModule(
                 0x...,
                 0x...
             );
@@ -61,7 +61,7 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
   Previous module in the modules linked list.
 
   ```solidity focus=2
-  (ISafe safe).disableModule(
+  ISafe(0x...).disableModule(
     0x...,
     0x...
   );
@@ -75,7 +75,7 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
   Module to be removed.
 
   ```solidity focus=3
-  (ISafe safe).disableModule(
+  ISafe(0x...).disableModule(
     0x...,
     0x...
   );

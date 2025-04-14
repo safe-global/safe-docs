@@ -36,7 +36,7 @@ Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/s
 
     contract Example {
         function example() ... {
-            (ISafe safe).simulate(
+            ISafe(0x...).simulate(
                 0x...,
                 "0x..."
             );
@@ -59,7 +59,7 @@ Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/s
   Address of the contract containing the code to execute.
 
   ```solidity focus=2
-  (ISafe safe).simulate(
+  ISafe(0x...).simulate(
     0x...,
     "0x..."
   );
@@ -73,7 +73,7 @@ Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/s
   Calldata that should be sent to the target contract (encoded method name and arguments).
 
   ```solidity focus=3
-  (ISafe safe).simulate(
+  ISafe(0x...).simulate(
     0x...,
     "0x..."
   );

@@ -33,7 +33,7 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
 
     contract Example {
         function example() ... {
-            (ISafe safe).enableModule(
+            ISafe(0x...).enableModule(
                 0x...
             );
         }
@@ -55,7 +55,7 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
   Module to be whitelisted.
 
   ```solidity focus=2
-  (ISafe safe).enableModule(
+  ISafe(0x...).enableModule(
     0x...
   );
   ```

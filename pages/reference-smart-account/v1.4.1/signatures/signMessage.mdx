@@ -38,7 +38,7 @@ Defined in [`SignMessageLib.sol`](https://github.com/safe-global/safe-smart-acco
 
     contract Example {
         function example() ... {
-            (ISafe safe).signMessage(
+            ISafe(0x...).signMessage(
                 "0x..."
             );
         }
@@ -60,7 +60,7 @@ Defined in [`SignMessageLib.sol`](https://github.com/safe-global/safe-smart-acco
   Arbitrary length data that should be marked as signed on the behalf of address(this).
 
   ```solidity focus=2
-  (ISafe safe).signMessage(
+  ISafe(0x...).signMessage(
     "0x..."
   );
   ```

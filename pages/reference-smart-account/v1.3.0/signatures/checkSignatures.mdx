@@ -40,7 +40,7 @@ Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/
 
     contract Example {
         function example() ... {
-            (ISafe safe).checkSignatures(
+            ISafe(0x...).checkSignatures(
                 "0x...",
                 "0x...",
                 "0x..."
@@ -64,7 +64,7 @@ Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/
   Hash of the data (could be either a message hash or transaction hash)
 
   ```solidity focus=2
-  (ISafe safe).checkSignatures(
+  ISafe(0x...).checkSignatures(
     "0x...",
     "0x...",
     "0x..."
@@ -79,7 +79,7 @@ Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/
   That should be signed (this is passed to an external validator contract)
 
   ```solidity focus=3
-  (ISafe safe).checkSignatures(
+  ISafe(0x...).checkSignatures(
     "0x...",
     "0x...",
     "0x..."
@@ -94,7 +94,7 @@ Defined in [`GnosisSafe.sol`](https://github.com/safe-global/safe-smart-account/
   Signature data that should be verified. Can be ECDSA signature, contract signature (EIP-1271) or approved hash.
 
   ```solidity focus=4
-  (ISafe safe).checkSignatures(
+  ISafe(0x...).checkSignatures(
     "0x...",
     "0x...",
     "0x..."

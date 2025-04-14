@@ -39,7 +39,7 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
 
     contract Example {
         function example() ... {
-            (ISafe safe).changeThreshold(
+            ISafe(0x...).changeThreshold(
                 0
             );
         }
@@ -61,7 +61,7 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
   New threshold.
 
   ```solidity focus=2
-  (ISafe safe).changeThreshold(
+  ISafe(0x...).changeThreshold(
     0
   );
   ```

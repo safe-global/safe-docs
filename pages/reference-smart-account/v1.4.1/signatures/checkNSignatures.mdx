@@ -43,7 +43,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
 
     contract Example {
         function example() ... {
-            (ISafe safe).checkNSignatures(
+            ISafe(0x...).checkNSignatures(
                 "0x...",
                 "0x...",
                 "0x...",
@@ -68,7 +68,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Hash of the data (could be either a message hash or transaction hash)
 
   ```solidity focus=2
-  (ISafe safe).checkNSignatures(
+  ISafe(0x...).checkNSignatures(
     "0x...",
     "0x...",
     "0x...",
@@ -84,7 +84,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   That should be signed (this is passed to an external validator contract)
 
   ```solidity focus=3
-  (ISafe safe).checkNSignatures(
+  ISafe(0x...).checkNSignatures(
     "0x...",
     "0x...",
     "0x...",
@@ -100,7 +100,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Signature data that should be verified. Can be packed ECDSA signature (\{bytes32 r\}\{bytes32 s\}\{uint8 v\}), contract signature (EIP-1271) or approved hash.
 
   ```solidity focus=4
-  (ISafe safe).checkNSignatures(
+  ISafe(0x...).checkNSignatures(
     "0x...",
     "0x...",
     "0x...",
@@ -116,7 +116,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Amount of required valid signatures.
 
   ```solidity focus=5
-  (ISafe safe).checkNSignatures(
+  ISafe(0x...).checkNSignatures(
     "0x...",
     "0x...",
     "0x...",

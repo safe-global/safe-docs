@@ -33,7 +33,7 @@ Defined in [`SafeProxy.sol`](https://github.com/safe-global/safe-smart-account/t
 
     contract Example {
         function example() ... {
-            (ISafe safe).fallback();
+            ISafe(0x...).fallback();
         }
     }
     ```

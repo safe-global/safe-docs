@@ -39,7 +39,7 @@ Defined in [`StorageAccessible.sol`](https://github.com/safe-global/safe-smart-a
 
     contract Example {
         function example() ... {
-            (ISafe safe).getStorageAt(
+            ISafe(0x...).getStorageAt(
                 0,
                 0
             );
@@ -71,7 +71,7 @@ Defined in [`StorageAccessible.sol`](https://github.com/safe-global/safe-smart-a
   - the offset in the current contract's storage in words to start reading from
 
   ```solidity focus=2
-  (ISafe safe).getStorageAt(
+  ISafe(0x...).getStorageAt(
     0,
     0
   );
@@ -85,7 +85,7 @@ Defined in [`StorageAccessible.sol`](https://github.com/safe-global/safe-smart-a
   - the number of words (32 bytes) of data to read
 
   ```solidity focus=3
-  (ISafe safe).getStorageAt(
+  ISafe(0x...).getStorageAt(
     0,
     0
   );

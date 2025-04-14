@@ -37,7 +37,7 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
 
     contract Example {
         function example() ... {
-            (ISafe safe).execTransactionFromModule(
+            ISafe(0x...).execTransactionFromModule(
                 0x...,
                 0,
                 "0x...",
@@ -71,7 +71,7 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
   Destination address of module transaction.
 
   ```solidity focus=2
-  (ISafe safe).execTransactionFromModule(
+  ISafe(0x...).execTransactionFromModule(
     0x...,
     0,
     "0x...",
@@ -87,7 +87,7 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
   Ether value of module transaction.
 
   ```solidity focus=3
-  (ISafe safe).execTransactionFromModule(
+  ISafe(0x...).execTransactionFromModule(
     0x...,
     0,
     "0x...",
@@ -103,7 +103,7 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
   Data payload of module transaction.
 
   ```solidity focus=4
-  (ISafe safe).execTransactionFromModule(
+  ISafe(0x...).execTransactionFromModule(
     0x...,
     0,
     "0x...",
@@ -119,7 +119,7 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
   Operation type of module transaction.
 
   ```solidity focus=5
-  (ISafe safe).execTransactionFromModule(
+  ISafe(0x...).execTransactionFromModule(
     0x...,
     0,
     "0x...",

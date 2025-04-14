@@ -38,7 +38,7 @@ Defined in [`TokenCallbackHandler.sol`](https://github.com/safe-global/safe-smar
 
     contract Example {
         function example() ... {
-            (ISafe safe).tokensReceived();
+            ISafe(0x...).tokensReceived();
         }
     }
     ```

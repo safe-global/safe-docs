@@ -48,7 +48,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
 
     contract Example {
         function example() ... {
-            (ISafe safe).execTransaction(
+            ISafe(0x...).execTransaction(
                 0x...,
                 0,
                 "0x...",
@@ -88,7 +88,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Destination address of Safe transaction.
 
   ```solidity focus=2
-  (ISafe safe).execTransaction(
+  ISafe(0x...).execTransaction(
     0x...,
     0,
     "0x...",
@@ -110,7 +110,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Ether value of Safe transaction.
 
   ```solidity focus=3
-  (ISafe safe).execTransaction(
+  ISafe(0x...).execTransaction(
     0x...,
     0,
     "0x...",
@@ -132,7 +132,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Data payload of Safe transaction.
 
   ```solidity focus=4
-  (ISafe safe).execTransaction(
+  ISafe(0x...).execTransaction(
     0x...,
     0,
     "0x...",
@@ -154,7 +154,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Operation type of Safe transaction.
 
   ```solidity focus=5
-  (ISafe safe).execTransaction(
+  ISafe(0x...).execTransaction(
     0x...,
     0,
     "0x...",
@@ -176,7 +176,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Gas that should be used for the Safe transaction.
 
   ```solidity focus=6
-  (ISafe safe).execTransaction(
+  ISafe(0x...).execTransaction(
     0x...,
     0,
     "0x...",
@@ -198,7 +198,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Gas costs that are independent of the transaction execution(for example base transaction fee, signature check, payment of the refund)
 
   ```solidity focus=7
-  (ISafe safe).execTransaction(
+  ISafe(0x...).execTransaction(
     0x...,
     0,
     "0x...",
@@ -220,7 +220,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Gas price that should be used for the payment calculation.
 
   ```solidity focus=8
-  (ISafe safe).execTransaction(
+  ISafe(0x...).execTransaction(
     0x...,
     0,
     "0x...",
@@ -242,7 +242,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Token address (or 0 if ETH) that is used for the payment.
 
   ```solidity focus=9
-  (ISafe safe).execTransaction(
+  ISafe(0x...).execTransaction(
     0x...,
     0,
     "0x...",
@@ -264,7 +264,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Address of receiver of gas payment (or 0 if tx.origin).
 
   ```solidity focus=10
-  (ISafe safe).execTransaction(
+  ISafe(0x...).execTransaction(
     0x...,
     0,
     "0x...",
@@ -286,7 +286,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Signature data that should be verified. Can be packed ECDSA signature (\{bytes32 r\}\{bytes32 s\}\{uint8 v\}), contract signature (EIP-1271) or approved hash.
 
   ```solidity focus=11
-  (ISafe safe).execTransaction(
+  ISafe(0x...).execTransaction(
     0x...,
     0,
     "0x...",

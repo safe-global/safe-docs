@@ -36,7 +36,7 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
 
     contract Example {
         function example() ... {
-            (ISafe safe).isOwner();
+            ISafe(0x...).isOwner();
         }
     }
     ```
@@ -51,7 +51,7 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
 
   - **Type:** `bool`
 
-  Boolean if owner is an owner of the Safe.
+  Whether `owner` is an owner of the Safe
 
 
 

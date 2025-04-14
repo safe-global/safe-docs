@@ -42,7 +42,7 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
 
     contract Example {
         function example() ... {
-            (ISafe safe).removeOwner(
+            ISafe(0x...).removeOwner(
                 0x...,
                 0x...,
                 0
@@ -66,7 +66,7 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
   Owner that pointed to the owner to be removed in the linked list
 
   ```solidity focus=2
-  (ISafe safe).removeOwner(
+  ISafe(0x...).removeOwner(
     0x...,
     0x...,
     0
@@ -81,7 +81,7 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
   Owner address to be removed.
 
   ```solidity focus=3
-  (ISafe safe).removeOwner(
+  ISafe(0x...).removeOwner(
     0x...,
     0x...,
     0
@@ -96,7 +96,7 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
   New threshold.
 
   ```solidity focus=4
-  (ISafe safe).removeOwner(
+  ISafe(0x...).removeOwner(
     0x...,
     0x...,
     0

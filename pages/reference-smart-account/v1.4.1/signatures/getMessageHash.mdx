@@ -36,7 +36,7 @@ Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/s
 
     contract Example {
         function example() ... {
-            (ISafe safe).getMessageHash(
+            ISafe(0x...).getMessageHash(
                 "0x..."
             );
         }
@@ -67,7 +67,7 @@ Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/s
   Raw message bytes.
 
   ```solidity focus=2
-  (ISafe safe).getMessageHash(
+  ISafe(0x...).getMessageHash(
     "0x..."
   );
   ```

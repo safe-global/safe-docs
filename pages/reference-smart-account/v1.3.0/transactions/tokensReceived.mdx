@@ -41,7 +41,7 @@ Defined in [`DefaultCallbackHandler.sol`](https://github.com/safe-global/safe-sm
 
     contract Example {
         function example() ... {
-            (ISafe safe).tokensReceived();
+            ISafe(0x...).tokensReceived();
         }
     }
     ```

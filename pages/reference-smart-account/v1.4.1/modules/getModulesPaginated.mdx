@@ -34,7 +34,7 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
 
     contract Example {
         function example() ... {
-            (ISafe safe).getModulesPaginated(
+            ISafe(0x...).getModulesPaginated(
                 0x...,
                 0
             );
@@ -73,7 +73,7 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
   Start of the page. Has to be a module or start pointer (0x1 address)
 
   ```solidity focus=2
-  (ISafe safe).getModulesPaginated(
+  ISafe(0x...).getModulesPaginated(
     0x...,
     0
   );
@@ -87,7 +87,7 @@ Defined in [`ModuleManager.sol`](https://github.com/safe-global/safe-smart-accou
   Maximum number of modules that should be returned. Has to be > 0
 
   ```solidity focus=3
-  (ISafe safe).getModulesPaginated(
+  ISafe(0x...).getModulesPaginated(
     0x...,
     0
   );

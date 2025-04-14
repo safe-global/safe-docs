@@ -44,7 +44,7 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
 
     contract Example {
         function example() ... {
-            (ISafe safe).swapOwner(
+            ISafe(0x...).swapOwner(
                 0x...,
                 0x...,
                 0x...
@@ -68,7 +68,7 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
   Owner that pointed to the owner to be replaced in the linked list
 
   ```solidity focus=2
-  (ISafe safe).swapOwner(
+  ISafe(0x...).swapOwner(
     0x...,
     0x...,
     0x...
@@ -83,7 +83,7 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
   Owner address to be replaced.
 
   ```solidity focus=3
-  (ISafe safe).swapOwner(
+  ISafe(0x...).swapOwner(
     0x...,
     0x...,
     0x...
@@ -98,7 +98,7 @@ Defined in [`OwnerManager.sol`](https://github.com/safe-global/safe-smart-accoun
   New owner address.
 
   ```solidity focus=4
-  (ISafe safe).swapOwner(
+  ISafe(0x...).swapOwner(
     0x...,
     0x...,
     0x...

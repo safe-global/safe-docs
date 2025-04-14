@@ -43,7 +43,7 @@ Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/s
 
     contract Example {
         function example() ... {
-            (ISafe safe).isValidSignature(
+            ISafe(0x...).isValidSignature(
                 "0x...",
                 "0x..."
             );
@@ -75,7 +75,7 @@ Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/s
   Hash of the data signed on the behalf of address(msg.sender)
 
   ```solidity focus=2
-  (ISafe safe).isValidSignature(
+  ISafe(0x...).isValidSignature(
     "0x...",
     "0x..."
   );
@@ -89,7 +89,7 @@ Defined in [`CompatibilityFallbackHandler.sol`](https://github.com/safe-global/s
   Signature byte array associated with _dataHash
 
   ```solidity focus=3
-  (ISafe safe).isValidSignature(
+  ISafe(0x...).isValidSignature(
     "0x...",
     "0x..."
   );

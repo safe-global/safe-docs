@@ -35,7 +35,7 @@ Defined in [`GuardManager.sol`](https://github.com/safe-global/safe-smart-accoun
 
     contract Example {
         function example() ... {
-            (ISafe safe).setGuard(
+            ISafe(0x...).setGuard(
                 0x...
             );
         }
@@ -57,7 +57,7 @@ Defined in [`GuardManager.sol`](https://github.com/safe-global/safe-smart-accoun
   The address of the guard to be used or the 0 address to disable the guard
 
   ```solidity focus=2
-  (ISafe safe).setGuard(
+  ISafe(0x...).setGuard(
     0x...
   );
   ```

@@ -45,7 +45,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
 
     contract Example {
         function example() ... {
-            (ISafe safe).setup(
+            ISafe(0x...).setup(
                 [0x...],
                 0,
                 0x...,
@@ -74,7 +74,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   List of Safe owners.
 
   ```solidity focus=2
-  (ISafe safe).setup(
+  ISafe(0x...).setup(
     [0x...],
     0,
     0x...,
@@ -94,7 +94,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Number of required confirmations for a Safe transaction.
 
   ```solidity focus=3
-  (ISafe safe).setup(
+  ISafe(0x...).setup(
     [0x...],
     0,
     0x...,
@@ -114,7 +114,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Contract address for optional delegate call.
 
   ```solidity focus=4
-  (ISafe safe).setup(
+  ISafe(0x...).setup(
     [0x...],
     0,
     0x...,
@@ -134,7 +134,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Data payload for optional delegate call.
 
   ```solidity focus=5
-  (ISafe safe).setup(
+  ISafe(0x...).setup(
     [0x...],
     0,
     0x...,
@@ -154,7 +154,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Handler for fallback calls to this contract
 
   ```solidity focus=6
-  (ISafe safe).setup(
+  ISafe(0x...).setup(
     [0x...],
     0,
     0x...,
@@ -174,7 +174,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Token that should be used for the payment (0 is ETH)
 
   ```solidity focus=7
-  (ISafe safe).setup(
+  ISafe(0x...).setup(
     [0x...],
     0,
     0x...,
@@ -194,7 +194,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Value that should be paid
 
   ```solidity focus=8
-  (ISafe safe).setup(
+  ISafe(0x...).setup(
     [0x...],
     0,
     0x...,
@@ -214,7 +214,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Address that should receive the payment (or 0 if tx.origin)
 
   ```solidity focus=9
-  (ISafe safe).setup(
+  ISafe(0x...).setup(
     [0x...],
     0,
     0x...,

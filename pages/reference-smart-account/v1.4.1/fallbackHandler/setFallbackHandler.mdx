@@ -40,7 +40,7 @@ Defined in [`FallbackManager.sol`](https://github.com/safe-global/safe-smart-acc
 
     contract Example {
         function example() ... {
-            (ISafe safe).setFallbackHandler(
+            ISafe(0x...).setFallbackHandler(
                 0x...
             );
         }
@@ -62,7 +62,7 @@ Defined in [`FallbackManager.sol`](https://github.com/safe-global/safe-smart-acc
   contract to handle fallback calls.
 
   ```solidity focus=2
-  (ISafe safe).setFallbackHandler(
+  ISafe(0x...).setFallbackHandler(
     0x...
   );
   ```

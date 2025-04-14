@@ -40,7 +40,7 @@ Defined in [`DefaultCallbackHandler.sol`](https://github.com/safe-global/safe-sm
 
     contract Example {
         function example() ... {
-            (ISafe safe).onERC1155Received();
+            ISafe(0x...).onERC1155Received();
         }
     }
     ```

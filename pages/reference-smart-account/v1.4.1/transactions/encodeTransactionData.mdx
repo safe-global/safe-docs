@@ -42,7 +42,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
 
     contract Example {
         function example() ... {
-            (ISafe safe).encodeTransactionData(
+            ISafe(0x...).encodeTransactionData(
                 0x...,
                 0,
                 "0x...",
@@ -82,7 +82,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Destination address.
 
   ```solidity focus=2
-  (ISafe safe).encodeTransactionData(
+  ISafe(0x...).encodeTransactionData(
     0x...,
     0,
     "0x...",
@@ -104,7 +104,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Ether value.
 
   ```solidity focus=3
-  (ISafe safe).encodeTransactionData(
+  ISafe(0x...).encodeTransactionData(
     0x...,
     0,
     "0x...",
@@ -126,7 +126,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Data payload.
 
   ```solidity focus=4
-  (ISafe safe).encodeTransactionData(
+  ISafe(0x...).encodeTransactionData(
     0x...,
     0,
     "0x...",
@@ -148,7 +148,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Operation type.
 
   ```solidity focus=5
-  (ISafe safe).encodeTransactionData(
+  ISafe(0x...).encodeTransactionData(
     0x...,
     0,
     "0x...",
@@ -170,7 +170,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Gas that should be used for the safe transaction.
 
   ```solidity focus=6
-  (ISafe safe).encodeTransactionData(
+  ISafe(0x...).encodeTransactionData(
     0x...,
     0,
     "0x...",
@@ -189,10 +189,10 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
 
   - **Type:** `uint256`
 
-  Gas costs for that are independent of the transaction execution(for example base transaction fee, signature check, payment of the refund)
+  Gas costs for that are independent of the transaction execution (for example base transaction fee, signature check, payment of the refund).
 
   ```solidity focus=7
-  (ISafe safe).encodeTransactionData(
+  ISafe(0x...).encodeTransactionData(
     0x...,
     0,
     "0x...",
@@ -214,7 +214,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Maximum gas price that should be used for this transaction.
 
   ```solidity focus=8
-  (ISafe safe).encodeTransactionData(
+  ISafe(0x...).encodeTransactionData(
     0x...,
     0,
     "0x...",
@@ -236,7 +236,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Token address (or 0 if ETH) that is used for the payment.
 
   ```solidity focus=9
-  (ISafe safe).encodeTransactionData(
+  ISafe(0x...).encodeTransactionData(
     0x...,
     0,
     "0x...",
@@ -258,7 +258,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Address of receiver of gas payment (or 0 if tx.origin).
 
   ```solidity focus=10
-  (ISafe safe).encodeTransactionData(
+  ISafe(0x...).encodeTransactionData(
     0x...,
     0,
     "0x...",
@@ -280,7 +280,7 @@ Defined in [`Safe.sol`](https://github.com/safe-global/safe-smart-account/tree/v
   Transaction nonce.
 
   ```solidity focus=11
-  (ISafe safe).encodeTransactionData(
+  ISafe(0x...).encodeTransactionData(
     0x...,
     0,
     "0x...",
