@@ -149,6 +149,17 @@ export const getPublicFunctionsAndEvents = ({
             .replace('\n', '')
             .trim()
             .replace('\n)', '\n        )')
+            // Remove modifiers from the function definition:
+            .replaceAll('authorized', '')
+            .replaceAll('onlyDelegateCall', '')
+            .replaceAll('onlySupportedEntryPoint', '')
+            .replaceAll('onlyWhenModuleIsEnabled', '')
+            .replaceAll('whenRecovery(_wallet)', '')
+            // Remove unauthorized keywords in solidity interfaces:
+            .replaceAll('virtual', '')
+            .replaceAll('override', '')
+            .trim()
+
           const functionDescription: string =
             overrides?.natSpec ??
             functionDoc
