@@ -27,7 +27,7 @@ jobs:
             ⏳ Deploying a preview site...
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v4
         with:
