@@ -6,31 +6,31 @@ const communityResourcesPath =
 
 const validateResource = (resource, index, resources) => {
   if (resources.findIndex(r => r.url === resource.url) !== index) {
-    console.log(`Duplicate resource`)
+    console.log(`${resource.name}: Duplicate resource`)
     return false
   }
   if (!resource.name) {
-    console.log(`Resource name is missing`)
+    console.log(`${resource.name}: Resource name is missing`)
     return false
   }
   if (!resource.type) {
-    console.log(`Resource type is missing`)
+    console.log(`${resource.name}: Resource type is missing`)
     return false
   }
   if (!resource.date) {
-    console.log(`Resource date is missing`)
+    console.log(`${resource.name}: Resource date is missing`)
     return false
   }
   if (!resource.description) {
-    console.log(`Resource description is missing`)
+    console.log(`${resource.name}: Resource description is missing`)
     return false
   }
   if (resource.description.length > 200) {
-    console.log(`Resource description is too long`)
+    console.log(`${resource.name}: Resource description is too long`)
     return false
   }
   if (!resource.tags || !resource.tags.length) {
-    console.log(errorMessage + `Resource tags are missing`)
+    console.log(errorMessage + `${resource.name}: Resource tags are missing`)
     return false
   }
   if (
@@ -38,11 +38,11 @@ const validateResource = (resource, index, resources) => {
     (!resource.url.startsWith('https://www.youtube.com/watch?v=') ||
       resource.url.length !== 43)
   ) {
-    console.log(`Invalid YouTube URL`)
+    console.log(`${resource.name}: Invalid YouTube URL`)
     return false
   }
   if (!resource.lastChecked) {
-    console.log(`The last checked property is missing. If adding a new resource, please add today's date`)
+    console.log(`${resource.name}: The last checked property is missing. If adding a new resource, please add today's date`)
     return false
   }
   return true

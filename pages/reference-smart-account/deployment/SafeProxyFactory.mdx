@@ -1,3 +1,5 @@
+import { Callout } from 'nextra/components'
+
 # SafeProxyFactory
 
 The `SafeProxyFactory` contract is used to deploy `SafeProxy` contracts. The `SafeProxyFactory` contract provides various functions to deploy a `SafeProxy` contract which are given below.
@@ -20,6 +22,10 @@ function createChainSpecificProxyWithNonce(address _singleton, bytes memory init
 Deploys a chain-specific proxy with `_singleton` and `saltNonce`, ensuring it cannot be replayed on other networks. Emits `ProxyCreation` event on successful proxy creation.
 
 ### `createProxyWithCallback`
+
+<Callout type='error' emoji='🚨'>
+  The `createProxyWithCallback` method in the Safe proxy factory contract is deprecated. The callback execution is not guaranteed, and this method is no longer recommended for use. Developers should avoid relying on this functionality in production deployments.
+</Callout>
 
 ```solidity
 function createProxyWithCallback(address _singleton, bytes memory initializer, uint256 saltNonce, IProxyCreationCallback callback) public returns (SafeProxy proxy);

@@ -6,7 +6,7 @@ const pathsMetadata = require('../../components/ApiReference/paths-metadata.json
 const txServiceNetworks = require('../../components/ApiReference/tx-service-networks.json')
 
 const curlify = (req: any) =>
-  `curl -X ${req.method} https://safe-transaction-${req.networkName}.safe.global/api${
+  `curl -X ${req.method} https://safe-transaction-${req.networkName}.safe.global${
     req.url
   } \\
     -H "Accept: application/json" \\

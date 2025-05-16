@@ -28,6 +28,9 @@
       "pattern": "^https://dashboard.pimlico.io"
     },
     {
+      "pattern": "^https://fireblocks.com"
+    },
+    {
       "pattern": "^https://zengo.com"
     },
     {
@@ -39,5 +42,7 @@
       "pattern": "^#",
       "replacement": "./#"
     }
-  ]
+  ],
+  "retryOn429": true,
+  "fallbackRetryDelay": "30s"
 }
