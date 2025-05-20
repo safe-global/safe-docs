@@ -32,7 +32,6 @@ const indexOfDefaultNetwork = transactionServiceUrls.indexOf(
 
 export const NetworkContext = createContext<
   [string, Dispatch<SetStateAction<string>>]
-  // eslint-disable-next-line security/detect-object-injection
 >([transactionServiceUrls[indexOfDefaultNetwork], () => {}])
 
 export const NetworkProvider: React.FC<
@@ -113,7 +112,8 @@ const NetworkSwitcher: React.FC = () => {
                 width: ['calc(100% - 48px)', 'calc(100% - 48px)', 'auto']
               }}
             >
-              <strong style={{ color: 'white' }}>Base URL:</strong> {network}{' '}
+              <strong style={{ color: 'white' }}>Base URL:</strong>
+              {network}
             </Typography>
           </Link>
           <CopyToClipboard getValue={() => `${network}`} />
