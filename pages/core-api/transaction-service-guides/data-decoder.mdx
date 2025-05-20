@@ -62,8 +62,10 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```typescript
       // Initialize the API Kit
+      // How to get an Api key => http://docs.safe.global/sdk/api-kit/guides/how-to-use-api-keys
       const apiKit = new SafeApiKit({
-        chainId: 11155111n
+        chainId: 11155111n,
+        txServiceApiKey: 'YOU_API_KEY'
       })
 
       const data = "0x095ea7b3000000000000000000000000e6fc577e87f7c977c4393300417dcc592d90acf8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"

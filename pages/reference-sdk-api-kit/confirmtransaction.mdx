@@ -24,8 +24,10 @@ Adds a confirmation for a Safe transaction.
     ```typescript
     import SafeApiKit from '@safe-global/api-kit'
 
+    // How to get an Api key => http://docs.safe.global/sdk/api-kit/guides/how-to-use-api-keys
     export const apiKit = new SafeApiKit({
       chainId: 1n, // Mainnet
+      txServiceApiKey: 'YOU_API_KEY'
     })
     ```
   </Tabs.Tab>

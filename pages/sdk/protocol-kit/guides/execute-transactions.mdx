@@ -120,8 +120,10 @@ pnpm add @safe-global/api-kit \
   {/* <!-- vale off --> */}
 
   ```typescript
+  // How to get an Api key => http://docs.safe.global/sdk/api-kit/guides/how-to-use-api-keys
   const apiKit = new SafeApiKit({
-    chainId: 11155111n
+    chainId: 11155111n,
+    txServiceApiKey: 'YOU_API_KEY'
   })
   ```
 
