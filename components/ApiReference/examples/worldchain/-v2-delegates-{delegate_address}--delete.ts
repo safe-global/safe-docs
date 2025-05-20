@@ -2,7 +2,8 @@ import SafeApiKit from '@safe-global/api-kit'
 import { ethers } from 'ethers' // Ethers v6
 
 const apiKit = new SafeApiKit({
-  chainId: 480n
+  chainId: 480n,
+  txServiceApiKey: 'YOU_API_KEY'
 })
 
 const provider = new ethers.JsonRpcProvider(

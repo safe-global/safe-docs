@@ -1,7 +1,8 @@
 import SafeApiKit from '@safe-global/api-kit'
 
 const apiKit = new SafeApiKit({
-  chainId: 10200n
+  chainId: 10200n,
+  txServiceApiKey: 'YOU_API_KEY'
 })
 
 const transactions = await apiKit.getAllTransactions(

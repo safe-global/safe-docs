@@ -1,7 +1,8 @@
 import SafeApiKit from '@safe-global/api-kit'
 
 const apiKit = new SafeApiKit({
-  chainId: 59144n
+  chainId: 59144n,
+  txServiceApiKey: 'YOU_API_KEY'
 })
 
 const safes = await apiKit.getSafesByModule(
