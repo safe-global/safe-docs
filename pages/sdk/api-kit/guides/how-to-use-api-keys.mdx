@@ -1,0 +1,68 @@
+import { Tabs } from 'nextra/components'
+
+# How to use API Keys
+
+## Getting a Safe API Key
+
+{/* TODO: Set correct Dashboard domains to the prod ones */}
+
+To use Safe API services, you'll need an API key. Visit our [dashboard](https://developer.5afe.dev) to create an account and generate your API key.
+
+{/* TODO: Remove if we are not implementing these features */}
+
+## Restrict Access to Your API Keys
+
+You can limit how your API keys are used by modifying their permissions on the [API Keys page](https://developer.5afe.dev/api-keys). Restrictions can include:
+
+- IP addresses: Specify which IPs are allowed to make requests.
+- User agents: Limit access to specific browsers, SDK versions, or other user agents.
+- Origins: Define which domains are permitted to make requests.
+
+## Using Your API Key
+
+To use your API key, include it in the `Authorization` header of your requests. Here's several examples using different options:
+
+{ /* <!-- vale off --> */}
+
+<Tabs items={['cURL', 'JavaScript (Fetch)', 'SafeApiKit']}>
+  <Tabs.Tab>
+    ```bash
+      curl -X GET "https://api.safe.global/tx-service/1/api/v1/safes/0x5298a93734c3d979ef1f23f78ebb871879a21f22/multisig-transactions" \
+      -H "Authorization: YOUR_API_KEY"
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```javascript
+      fetch(
+        'https://api.safe.global/tx-service/1/api/v1/safes/0x5298a93734c3d979ef1f23f78ebb871879a21f22/multisig-transactions',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'YOUR_API_KEY'
+          }
+        }
+      )
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error))
+      ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```javascript
+      import SafeApiKit from '@safe-global/api-kit'
+
+      const apiKit = new SafeApiKit({
+        chainId: 1,
+        txServiceApiKey: 'YOUR_API_KEY'
+      })
+
+      const multisigTransactions = await apiKit.getMultisigTransactions(
+        '0x5298a93734c3d979ef1f23f78ebb871879a21f22'
+      )
+
+      console.log(multisigTransactions)
+      ```
+  </Tabs.Tab>
+</Tabs>
+
+{ /* <!-- vale on --> */}
