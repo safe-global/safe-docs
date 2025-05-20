@@ -32,6 +32,7 @@ const indexOfDefaultNetwork = transactionServiceUrls.indexOf(
 
 export const NetworkContext = createContext<
   [string, Dispatch<SetStateAction<string>>]
+  // eslint-disable-next-line security/detect-object-injection
 >([transactionServiceUrls[indexOfDefaultNetwork], () => {}])
 
 export const NetworkProvider: React.FC<
