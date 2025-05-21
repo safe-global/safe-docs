@@ -105,9 +105,10 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'POST' \
-      'https://safe-transaction-sepolia.safe.global/api/v1/safes/0xc62C5cbB964ffffffffff82f78A4d30713174b2E/multisig-transactions/' \
+      'https://api.safe.global/tx-service/11155111/api/v1/safes/0xc62C5cbB964ffffffffff82f78A4d30713174b2E/multisig-transactions/' \
       -H 'accept: application/json' \
       -H 'Content-Type: application/json' \
+      -H 'Authorization: YOUR_ACCESS_TOKEN' \
       -d '{
           "safe": "0xc62C5cbB964459F3C984682f78A4d3ffffffffff",
           "to": "0x795D6C88B4Ea3CCffffffffffCa8a11Bc0496228",
@@ -218,8 +219,9 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'GET' \
-      'https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0xe4ceea4ffffffffff0c9ce0af82780ffffffffffd3096836fff2528cb90d156/' \
+      'https://api.safe.global/tx-service/11155111/api/v1/multisig-transactions/0xe4ceea4ffffffffff0c9ce0af82780ffffffffffd3096836fff2528cb90d156/' \
       -H 'accept: application/json' \
+      -H 'Authorization: YOUR_ACCESS_TOKEN'
       ```
     </Tabs.Tab>
   </Tabs>
@@ -265,9 +267,10 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'POST' \
-      'https://safe-transaction-sepolia.safe.global/api/v1/multisig-transactions/0x56b2931ffffffffff303bbaadf3ba29b5c2baafdf1a5ffffffffff62674941b6/confirmations/' \
+      'https://api.safe.global/tx-service/11155111/api/v1/multisig-transactions/0x56b2931ffffffffff303bbaadf3ba29b5c2baafdf1a5ffffffffff62674941b6/confirmations/' \
       -H 'accept: application/json' \
       -H 'Content-Type: application/json' \
+      -H 'Authorization: YOUR_ACCESS_TOKEN' \
       -d '{
           "signature": "0x8c41aaa029db2942a1574c3ec9442b80764e953f21f994edb641d33ffffffffffa55ffffffffffefcaea5b3360bd4c789803fe289b2ad467fc9b3bedb479dad20"
       }'
@@ -324,8 +327,9 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'GET' \
-      'https://safe-transaction-sepolia.safe.global/api/v1/safes/0xc62C5cbB96ffffffffffff2f78A4d3071317ffff/multisig-transactions/?executed=true&limit=1' \
+      'https://api.safe.global/tx-service/11155111/api/v1/safes/0xc62C5cbB96ffffffffffff2f78A4d3071317ffff/multisig-transactions/?executed=true&limit=1' \
       -H 'accept: application/json' \
+      -H 'Authorization: YOUR_ACCESS_TOKEN'
       ```
     </Tabs.Tab>
   </Tabs>

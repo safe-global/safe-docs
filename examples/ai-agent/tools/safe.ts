@@ -10,7 +10,7 @@ export const getEthBalance = async ({ address, chainId }) => {
   }
 
   const fetchedEthBalance = await fetch(
-    `https://safe-transaction-mainnet.safe.global/api/v1/safes/${address}/balances/`,
+    `https://api.safe.global/tx-service/1/api/v1/safes/${address}/balances/`,
     {
       method: "GET",
       headers: {

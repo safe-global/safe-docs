@@ -94,10 +94,11 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'POST' \
-        'https://safe-transaction-sepolia.safe.global/api/v1/data-decoder/' \
+        'https://api.safe.global/tx-service/11155111/api/v1/data-decoder/' \
         -H 'accept: application/json' \
         -H 'Content-Type: application/json' \
         -H 'X-CSRFToken: Gx1aRa8kIJGIAfReLAWwr9Q6dHv22dFt7VprdipLryHcxpfhk9aV0UDAhNz8gGYz' \
+        -H 'Authorization: YOUR_ACCESS_TOKEN' \
         -d '{
             "data": "0x095ea7b3000000000000000000000000e6fc577e87f7c977c4393300417dcc592d90acf8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
         }'
