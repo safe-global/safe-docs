@@ -29,24 +29,22 @@ Important Notice: The smart contract code provided in this tutorial is intended 
 
 ## Project Setup
 
-Start a new project directory and initialize npm.
+Create a new project directory and initialize npm:
 
 ```bash
-mkdir safe-module-tutorial && cd safe-module-tutorial 
+mkdir safe-module-tutorial && cd safe-module-tutorial
+npm init -y
 ```
 
-```bash
-npm init
-```
 You can choose all default values.
 
-### Install dependencies
+### Configure Dependencies
 
 Add overrides in `package.json` so that there are no peer dependency related issues.
 
 ```json
 {
-  // ... 
+  // ... existing content ...
   "overrides": {
     "@safe-global/safe-contracts": {
       "ethers": "^6.13.5"
@@ -54,6 +52,8 @@ Add overrides in `package.json` so that there are no peer dependency related iss
   }
 }
 ```
+
+Install the required dependencies:
 
 ```bash
 npm add -D hardhat @safe-global/safe-contracts @openzeppelin/contracts hardhat-dependency-compiler
@@ -88,7 +88,7 @@ const config: HardhatUserConfig = {
   solidity: "0.8.28",
   networks: {
     hardhat: {
-      allowUnlimitedContractSize: true,
+      allowUnlimitedContractSize: true, // Required for Safe contracts
     },
   },
   dependencyCompiler: {
