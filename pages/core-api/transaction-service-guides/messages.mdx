@@ -98,7 +98,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       'https://api.safe.global/tx-service/11155111/api/v1/safes/0xc62C5cbB964459Fffffffffffffffffffff74b2E/messages/' \
       -H 'accept: application/json' \
       -H 'Content-Type: application/json' \
-      -H 'Authorization: YOUR_ACCESS_TOKEN' \
+      -H 'Authorization: Bearer YOUR_API_KEY' \
       -d '{
           "message": "A Safe Message",
           "signature": "0xc8bff3e71314f8b79f6e31ae38c5efba1194e61e8ba6f35742f73af41d95c2fa4118bdfa5df2effffffffffffffffffffe87af26ca7d71e8f008e3bcfc25f1d31c"
@@ -220,7 +220,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       curl -X 'GET' \
       'https://api.safe.global/tx-service/11155111/api/v1/messages/0xcf2e6b1e26e6930e14bebf120ffffffffffffffffffffb484a787137201ab0df/' \
       -H 'accept: application/json' \
-      -H 'Authorization: YOUR_ACCESS_TOKEN' \
+      -H 'Authorization: Bearer YOUR_API_KEY' \
       ```
     </Tabs.Tab>
 
@@ -266,7 +266,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       'https://api.safe.global/tx-service/11155111/api/v1/messages/0xcf2e6b1e26e6930e14bebf120ffffffffffffffffffffb484a787137201ab0df/signatures/' \
       -H 'accept: application/json' \
       -H 'Content-Type: application/json' \
-      -H 'Authorization: YOUR_ACCESS_TOKEN' \
+      -H 'Authorization: Bearer YOUR_API_KEY' \
       -d '{
           "signature": "0xc8bff3e71314f8b79f6e31ae38c5efba1194e61e8ba6f35742f73af4ffffffffffffffffffffe5f84088ba29f51c44ddee87af26ca7d71e8f008e3bcfc25f1d31c"
       }'

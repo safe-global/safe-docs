@@ -95,7 +95,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       curl -X 'GET' \
       'https://api.safe.global/tx-service/11155111/api/v2/delegates/?delegator=0xAA86E576c084aFFFFFFFFFFFF7967F10C467d318' \
       -H 'accept: application/json' \
-      -H 'Authorization: YOUR_ACCESS_TOKEN'
+      -H 'Authorization: Bearer YOUR_API_KEY'
       ```
     </Tabs.Tab>
   </Tabs>
@@ -152,7 +152,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       'https://api.safe.global/tx-service/11155111/api/v2/delegates/' \
       -H 'accept: application/json' \
       -H 'Content-Type: application/json' \
-      -H 'Authorization: YOUR_ACCESS_TOKEN' \
+      -H 'Authorization: Bearer YOUR_API_KEY' \
       -d '{
           "safe": "0xc62C5cbB964459F3C984682f78A4d3ffffffffff",
           "delegate": "0x634Ce7818a1Ca34d3D69FFFFFFFFFFFFFFFF0AC6",
@@ -202,7 +202,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       'https://api.safe.global/tx-service/11155111/api/v2/delegates/0x634Ce7818a1Ca34d3D69FFFFFFFFFFFFFFFF0AC6/' \
       -H 'accept: application/json' \
       -H 'Content-Type: application/json' \
-      -H 'Authorization: YOUR_ACCESS_TOKEN' \
+      -H 'Authorization: Bearer YOUR_API_KEY' \
       -d '{
           "safe": "0xc62C5cbB964459F3C984682f78A4d3ffffffffff",
           "delegator": "0xAA86E576c084aFFFFFFFFFFFF7967F10C467d318",
