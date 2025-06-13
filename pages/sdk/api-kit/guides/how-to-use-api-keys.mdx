@@ -25,18 +25,18 @@ To use your API key, include it in the `Authorization` header of your requests. 
 <Tabs items={['cURL', 'JavaScript (Fetch)', 'SafeApiKit']}>
   <Tabs.Tab>
     ```bash
-      curl -X GET "https://api.safe.global/tx-service/1/api/v1/safes/0x5298a93734c3d979ef1f23f78ebb871879a21f22/multisig-transactions" \
-      -H "Authorization: YOUR_API_KEY"
+      curl -X GET "https://api.safe.global/tx-service/1/api/v2/safes/0x5298a93734c3d979ef1f23f78ebb871879a21f22/multisig-transactions" \
+      -H "Authorization: Bearer YOUR_API_KEY"
     ```
   </Tabs.Tab>
   <Tabs.Tab>
     ```javascript
       fetch(
-        'https://api.safe.global/tx-service/1/api/v1/safes/0x5298a93734c3d979ef1f23f78ebb871879a21f22/multisig-transactions',
+        'https://api.safe.global/tx-service/1/api/v2/safes/0x5298a93734c3d979ef1f23f78ebb871879a21f22/multisig-transactions',
         {
           method: 'GET',
           headers: {
-            Authorization: 'YOUR_API_KEY'
+            Authorization: 'Bearer YOUR_API_KEY'
           }
         }
       )
