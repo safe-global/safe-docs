@@ -9,7 +9,7 @@ const protocolKit = await Safe.init({
 
 const apiKit = new SafeApiKit({
   chainId: 10n,
-  txServiceApiKey: 'YOU_API_KEY'
+  apiKey: 'YOU_API_KEY'
 })
 
 const messageHash =

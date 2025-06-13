@@ -278,7 +278,7 @@ import { SafeApiKit, SafeInfoResponse } from '@safe-global/api-kit'
 
 const safeService = new SafeApiKit({
   chainId: 11155111,
-  txServiceApiKey: 'YOUR_API_KEY'
+  apiKey: 'YOUR_API_KEY'
 })
 
 // Get Safe account information

@@ -2,7 +2,7 @@ import SafeApiKit from '@safe-global/api-kit'
 
 const apiKit = new SafeApiKit({
   chainId: 5000n,
-  txServiceApiKey: 'YOU_API_KEY'
+  apiKey: 'YOU_API_KEY'
 })
 
 const moduleTransactions = await apiKit.getModuleTransactions(

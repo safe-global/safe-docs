@@ -11,7 +11,7 @@ const protocolKit = await Safe.init({
 
 const apiKit = new SafeApiKit({
   chainId: 1313161554n,
-  txServiceApiKey: 'YOU_API_KEY'
+  apiKey: 'YOU_API_KEY'
 })
 
 const rawMessage = '1: string message'

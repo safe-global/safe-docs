@@ -2,7 +2,7 @@ import SafeApiKit from '@safe-global/api-kit'
 
 const apiKit = new SafeApiKit({
   chainId: 100n,
-  txServiceApiKey: 'YOU_API_KEY'
+  apiKey: 'YOU_API_KEY'
 })
 
 const delegates = await apiKit.getSafeDelegates({

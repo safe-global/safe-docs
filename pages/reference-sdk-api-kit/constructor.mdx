@@ -17,7 +17,7 @@ const txServiceUrl = 'https://...'
 const apiKit = new SafeApiKit({
   chainId,
   txServiceUrl, // Optional
-  txServiceApiKey: 'YOU_API_KEY' //  Mandatory if txServiceUrl is not specified
+  apiKey: 'YOU_API_KEY' //  Mandatory if txServiceUrl is not specified
 })
 ```
 
@@ -40,7 +40,7 @@ The chain ID.
 ```typescript focus=2
 const apiKit = new SafeApiKit({
   chainId: 1n,
-  txServiceApiKey: 'YOU_API_KEY'
+  apiKey: 'YOU_API_KEY'
 })
 ```
 
