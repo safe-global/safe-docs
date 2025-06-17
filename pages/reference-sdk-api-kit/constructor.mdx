@@ -13,7 +13,7 @@ const chainId = 1n
 
 const txServiceUrl = 'https://...'
 
-// How to get an Api key => http://docs.safe.global/sdk/api-kit/guides/how-to-use-api-keys
+// How to get an Api key => http://docs.safe.global/core-api/how-to-use-api-keys
 const apiKit = new SafeApiKit({
   chainId,
   txServiceUrl, // Optional
@@ -38,6 +38,19 @@ A new instance of the API Kit.
 The chain ID.
 
 ```typescript focus=2
+const apiKit = new SafeApiKit({
+  chainId: 1n,
+  apiKey: 'YOU_API_KEY'
+})
+```
+
+### `apiKey`
+
+- **Type:** `string`
+
+The API key. This parameter is mandatory when using default Safe provided services. It can be omitted if using a custom Tx Service. [Check how to get one](../core-api/how-to-use-api-keys).
+
+```typescript focus=3
 const apiKit = new SafeApiKit({
   chainId: 1n,
   apiKey: 'YOU_API_KEY'

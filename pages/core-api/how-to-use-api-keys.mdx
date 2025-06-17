@@ -4,21 +4,11 @@ import { Tabs } from 'nextra/components'
 
 ## Getting a Safe API Key
 
-To use Safe API services, you'll need an API key. Visit our [dashboard](https://developer.safe.global) to create an account and generate your API key.
-
-{/* TODO: Remove if we are not implementing these features */}
-
-## Restrict Access to Your API Keys
-
-You can limit how your API keys are used by modifying their permissions on the [API Keys page](https://developer.safe.global/api-keys). Restrictions can include:
-
-- IP addresses: Specify which IP addresses are allowed to make requests.
-- User agents: Limit access to specific browsers, SDK versions, or other user agents.
-- Origins: Define which domains are permitted to make requests.
+To use Safe API services, you'll need an API key. Visit the [Safe dashboard](https://developer.safe.global) to create an account and generate your API key.
 
 ## Using Your API Key
 
-To use your API key, include it in the `Authorization` header of your requests. Here's several examples using different options:
+Safe API services use JWT-based authentication. To use your API key, include it in the `Authorization` header of your requests. Here's several examples, where you need to replace `YOUR_API_KEY` with your actual API key:
 
 {/* <!-- vale off --> */}
 
