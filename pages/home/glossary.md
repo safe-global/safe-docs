@@ -61,7 +61,7 @@ See also:
 Gasless transactions (also known as meta-transactions) are Ethereum transactions that are executed by a third party called [relayer](#relayer) on behalf of a [smart account](#smart-account) to abstract the use of gas. Users must sign a message (instead of the transaction itself) with information about the transaction they want to execute. A relayer will create the Ethereum transaction, sign and execute it, and pay for the gas costs. The main benefit is that users can interact with the blockchain without holding the native token in their account.
 
 See also:
-- [Relay Kit documentation](../sdk/relay-kit) on docs.safe.global
+- [Relay Kit documentation](../sdk/relay-kit.mdx) on docs.safe.global
 
 ## Multi-signature
 
