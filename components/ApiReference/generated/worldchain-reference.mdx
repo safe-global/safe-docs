@@ -14,7 +14,7 @@ import Link from '@mui/material/Link'
 
 The Safe Transaction Service API Reference is a collection of endpoints that allow to keep track of Safe transactions.
 
-This service is available on [multiple networks](../../../core-api/transaction-service-supported-networks), at different endpoints.
+This service is available on [multiple networks](../../advanced/smart-account-supported-networks.mdx?service=Transaction+Service), at different endpoints.
 
 <NetworkSwitcher />
 
@@ -48,7 +48,7 @@ This service is available on [multiple networks](../../../core-api/transaction-s
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/contracts/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/contracts/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -123,7 +123,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/contracts
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -192,7 +192,7 @@ as in case of an ABI collision the Safe Transaction Service would know which ABI
 ```
             
 ```bash curl
-curl -X POST https://safe-transaction-worldchain.safe.global/api/api/v1/data-decoder/ \
+curl -X POST https://safe-transaction-worldchain.safe.global/api/v1/data-decoder/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -261,7 +261,7 @@ curl -X POST https://safe-transaction-worldchain.safe.global/api/api/v1/data-dec
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v2/delegates/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v2/delegates/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -353,7 +353,7 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
 ```
             
 ```bash curl
-curl -X POST https://safe-transaction-worldchain.safe.global/api/api/v2/delegates/ \
+curl -X POST https://safe-transaction-worldchain.safe.global/api/v2/delegates/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -404,7 +404,7 @@ either the `delegator` (owner) or the `delegate` itself. Check `POST /delegates/
 ```
             
 ```bash curl
-curl -X DELETE https://safe-transaction-worldchain.safe.global/api/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/ \
+curl -X DELETE https://safe-transaction-worldchain.safe.global/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
@@ -459,7 +459,7 @@ Empty Response
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/messages/0x3b3b57b3/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/messages/0x3b3b57b3/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -526,7 +526,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/messages/
 ```
             
 ```bash curl
-curl -X POST https://safe-transaction-worldchain.safe.global/api/api/v1/messages/0x3b3b57b3/signatures/ \
+curl -X POST https://safe-transaction-worldchain.safe.global/api/v1/messages/0x3b3b57b3/signatures/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
@@ -575,7 +575,7 @@ Empty Response
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -657,7 +657,7 @@ service needs to derive it itself.
 ```
             
 ```bash curl
-curl -X POST https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
+curl -X POST https://safe-transaction-worldchain.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
@@ -708,7 +708,7 @@ Empty Response
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/module-transaction/0x3b3b57b3 \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/module-transaction/0x3b3b57b3 \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -768,7 +768,7 @@ the given Safe transaction hash
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -828,7 +828,7 @@ does not support the use of delegates to make transactions trusted.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X POST https://safe-transaction-worldchain.safe.global/api/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
+curl -X POST https://safe-transaction-worldchain.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
@@ -876,7 +876,7 @@ Only 1000 newest transfers will be returned.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -944,7 +944,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xc
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -1012,7 +1012,7 @@ and those versions are not supported in L2 networks.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X POST https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/ \
+curl -X POST https://safe-transaction-worldchain.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
@@ -1060,7 +1060,7 @@ Only 1000 newest transfers will be returned.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -1124,7 +1124,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xc
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/transfer/3b3b57b3 \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/transfer/3b3b57b3 \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -1185,7 +1185,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/transfer/
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -1259,7 +1259,7 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X DELETE https://safe-transaction-worldchain.safe.global/api/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
+curl -X DELETE https://safe-transaction-worldchain.safe.global/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
@@ -1317,7 +1317,7 @@ but there will be 2 transactions in the list.
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -1362,7 +1362,7 @@ By default, only ``trusted`` multisig transactions are returned.
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -1407,7 +1407,7 @@ retrieves all the information related.
 ```
             
 ```bash curl
-curl -X POST https://safe-transaction-worldchain.safe.global/api/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
+curl -X POST https://safe-transaction-worldchain.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
@@ -1457,7 +1457,7 @@ curl -X POST https://safe-transaction-worldchain.safe.global/api/api/v2/safes/0x
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -1514,7 +1514,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/modules/0
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -1577,7 +1577,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/owners/0x
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -1656,7 +1656,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safe-oper
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -1715,7 +1715,7 @@ the use of delegates to make a transaction trusted.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X POST https://safe-transaction-worldchain.safe.global/api/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
+curl -X POST https://safe-transaction-worldchain.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
@@ -1760,7 +1760,7 @@ Empty Response
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -1846,7 +1846,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xc
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X POST https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
+curl -X POST https://safe-transaction-worldchain.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -d '{}' 
@@ -1891,7 +1891,7 @@ Empty Response
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/user-operations/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/user-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -1981,7 +1981,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xc
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -2070,7 +2070,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/user-oper
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -2132,7 +2132,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xc
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -2203,7 +2203,7 @@ deployment.
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -2305,7 +2305,7 @@ The maximum limit allowed is 200.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -2369,7 +2369,7 @@ The maximum limit allowed is 10.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/collectibles/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/collectibles/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -2442,7 +2442,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v2/safes/0xc
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/tokens/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/tokens/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -2507,7 +2507,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/tokens/ \
 ```
             
 ```bash curl
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -2560,7 +2560,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/tokens/0x
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/tokens/lists/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v1/tokens/lists/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
@@ -2606,7 +2606,7 @@ curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v1/tokens/li
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-worldchain.safe.global/api/api/v2/analytics/multisig-transactions/by-origin/ \
+curl -X GET https://safe-transaction-worldchain.safe.global/api/v2/analytics/multisig-transactions/by-origin/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
      
