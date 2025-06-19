@@ -1,14 +1,24 @@
 import { Tabs } from 'nextra/components'
 
-# How to use API Keys
+# 🔐 How to use API Keys
 
-## Getting a Safe API Key
+To enhance the security and reliability of your integrations, Safe is introducing **authenticated API access**. This ensures that only authorized applications and developers can interact with our services, protecting your data and the overall ecosystem.
 
-To use Safe API services, you'll need an API key. Visit the [Safe dashboard](https://developer.safe.global) to create an account and generate your API key.
+⚠️ **Important:** We plan to deprecate public (unauthenticated) endpoints in the near future. We strongly encourage you to transition to authenticated API access now to avoid disruptions to your integration.
 
-## Using Your API Key
+This guide walks you through generating an API key, making authenticated requests, and understanding rate limits, error handling, and best practices.
 
-Safe API services use JWT-based authentication. To use your API key, include it in the `Authorization` header of your requests. Here's several examples, where you need to replace `YOUR_API_KEY` with your actual API key:
+## 🔑 Getting a Safe API Key
+
+1. Visit the [Safe API Dashboard](https://developer.safe.global/).
+2. Create an account (if you haven’t already).
+3. Generate your API key in the **API Keys** section.
+
+*** The API Key is a JWT which is set to expire after 5 years.*
+
+## 🔗 Using Your API Key
+
+To authenticate your requests, include your API key in the Authorization header. Below there are different request examples. We use EIP3770 names for chains, so for example for Ethereum Mainnet (eth):
 
 {/* <!-- vale off --> */}
 
@@ -16,42 +26,67 @@ Safe API services use JWT-based authentication. To use your API key, include it 
   <Tabs.Tab>
     ```bash
       curl -X GET "https://api.safe.global/tx-service/eth/api/v2/safes/0x5298a93734c3d979ef1f23f78ebb871879a21f22/multisig-transactions" \
-      -H "Authorization: Bearer YOUR_API_KEY"
+      -H "Authorization: Bearer $YOUR_API_KEY"
     ```
   </Tabs.Tab>
   <Tabs.Tab>
     ```javascript
       fetch(
-        'https://api.safe.global/tx-service/eth/api/v2/safes/0x5298a93734c3d979ef1f23f78ebb871879a21f22/multisig-transactions',
+        "https://api.safe.global/tx-service/eth/api/v2/safes/0x5298a93734c3d979ef1f23f78ebb871879a21f22/multisig-transactions",
         {
-          method: 'GET',
+          method: "GET",
           headers: {
-            Authorization: 'Bearer YOUR_API_KEY'
-          }
+            Authorization: "Bearer $YOUR_API_KEY",
+          },
         }
       )
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error))
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.error("Error:", error));
       ```
   </Tabs.Tab>
   <Tabs.Tab>
+    💡 Available from @safe-global/api-kit@v4.0.0-alpha.0
+
     ```javascript
-      import SafeApiKit from '@safe-global/api-kit'
+      import SafeApiKit from "@safe-global/api-kit";
 
       const apiKit = new SafeApiKit({
-        chainId: 1n,
-        apiKey: 'YOUR_API_KEY'
-      })
+        chainId: 1,
+        apiKey: "YOUR_API_KEY",
+      });
 
       const multisigTransactions = await apiKit.getMultisigTransactions(
-        '0x5298a93734c3d979ef1f23f78ebb871879a21f22'
-      )
+        "0x5298a93734c3d979ef1f23f78ebb871879a21f22"
+      );
 
-      console.log(multisigTransactions)
+      console.log(multisigTransactions);
       ```
 
   </Tabs.Tab>
 </Tabs>
 
 {/* <!-- vale on --> */}
+
+## ⚖️ Rate Limits and Usage Tiers
+
+Safe APIs currently enforce rate limits of 5requests/sec  based on your tier. If you need higher rate limits, please reach out to us at support@safe.global for details on upgrading your tier and understanding usage quotas.
+
+## 🚨 Error Handling
+
+If your API key is invalid or exceeds its rate limit, the API will respond with standard HTTP error codes:
+
+- `401 Unauthorized`: Invalid or missing API key.
+- `429 Too Many Requests`: Rate limit exceeded.
+
+Please ensure your application gracefully handles these errors to prevent disruptions.
+
+## ✅ Best Practices
+
+- **Store keys securely**: Use environment variables or secure vaults rather than hardcoding them into your code.
+- **Rotate keys periodically**: Regularly rotate your API keys to minimize risk.
+- **Revoke compromised keys immediately**: Use the dashboard to revoke and regenerate keys as needed.
+
+## 💬 Need Help?
+
+If you have questions or run into issues, please contact our support team at support@safe.global.
