@@ -277,7 +277,7 @@ The API Kit allows developers to interact with the Safe Transaction Service:
 import { SafeApiKit, SafeInfoResponse } from '@safe-global/api-kit'
 
 const safeService = new SafeApiKit({
-  chainId: 11155111,
+  chainId: 11155111n,
   apiKey: 'YOUR_API_KEY'
 })
 
