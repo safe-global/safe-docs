@@ -55,7 +55,7 @@ npm init -y
 
 ### Configure Dependencies
 
-Add the following to your `package.json`:
+Add overrides in `package.json` so that there are no peer dependency related issues.
 
 ```json
 {
@@ -74,21 +74,19 @@ Install the required dependencies:
 npm add -D hardhat @safe-global/safe-contracts hardhat-dependency-compiler
 ```
 
-### Setup Hardhat project
-
-Initialize a TypeScript Hardhat project:
+### Initialize hardhat project
 
 ```bash
 npx hardhat init
 ```
+
+Select `Create a TypeScript project` and leave the default values for the rest of the prompts.
 
 Now, try compiling the contracts to ensure everything is set up correctly.
 
 ```bash
 npx hardhat compile
 ```
-
-Select `Create a TypeScript project` when prompted.
 
 When compiling Safe contracts with solidity 0.8.x the bytecode size exceeds the limit of 24KB. To overcome this, set `allowUnlimitedContractSize` to `true` in the hardhat config.
 In practise with production networks, use the officially deployed Safe contracts. Also, add `dependencyCompiler` to import `SafeProxyFactory` and `Safe` contracts.
