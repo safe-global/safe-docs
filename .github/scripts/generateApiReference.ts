@@ -258,7 +258,11 @@ const checkMissingPaths = (json: any) => {
 }
 
 const getApiJson = async (url: string, networkName: string) => {
-  const response = await fetch(url + '/schema/')
+  console.log(`Fetching schema for ${networkName} at ${url}...`)
+  const response = await fetch(url + '/schema/').catch(err => {console.error(`Error: for ${networkName} at ${url}`, err)})
+  if (!response){
+    return
+  }
   const yaml = await response.text()
   const json = YAML.parse(yaml)
   const withContext = addMethodContext(json)

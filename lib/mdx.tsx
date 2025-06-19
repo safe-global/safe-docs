@@ -24,7 +24,7 @@ import MuiLink from '@mui/material/Link'
 import { type Heading } from '../components/ApiReference/TOC'
 import pathsMetadata from '../components/ApiReference/paths-metadata.json'
 import HashTag from '../assets/svg/hashtag.svg'
-import type Swagger from '../components/ApiReference/mainnet-swagger.json'
+import type Swagger from '../components/ApiReference/schemas/mainnet-swagger.json'
 
 export const slugify: (text: string) => string = text =>
   text?.replace?.(/ /g, '-').replace(/\//g, '-')

@@ -1,0 +1,22 @@
+
+{/* <!-- vale off --> */}
+import ApiReference from '../../../components/ApiReference'
+import { renderToString } from 'react-dom/server'
+import { MDXComponents, getHeadingsFromHtml } from '../../../lib/mdx'
+import Mdx from '../../../components/ApiReference/generated/lens-reference.mdx'
+import swagger from '../../../components/ApiReference/schemas/lens-swagger.json'
+
+export const getStaticProps = async () => {
+  const renderedMdx = <Mdx components={MDXComponents} />
+  const contentString = renderToString(renderedMdx)
+  const headings = getHeadingsFromHtml(swagger, contentString)
+
+  return {
+    props: {
+      ssg: { headings }
+    }
+  }
+}
+
+<ApiReference networkName="lens"/>
+{/* <!-- vale on --> */}
