@@ -105,7 +105,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'POST' \
-      'https://api.safe.global/tx-service/11155111/api/v1/safes/0xc62C5cbB964ffffffffff82f78A4d30713174b2E/multisig-transactions/' \
+      'https://api.safe.global/tx-service/sep/api/v1/safes/0xc62C5cbB964ffffffffff82f78A4d30713174b2E/multisig-transactions/' \
       -H 'accept: application/json' \
       -H 'Content-Type: application/json' \
       -H 'Authorization: Bearer YOUR_API_KEY' \
@@ -219,7 +219,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'GET' \
-      'https://api.safe.global/tx-service/11155111/api/v1/multisig-transactions/0xe4ceea4ffffffffff0c9ce0af82780ffffffffffd3096836fff2528cb90d156/' \
+      'https://api.safe.global/tx-service/sep/api/v1/multisig-transactions/0xe4ceea4ffffffffff0c9ce0af82780ffffffffffd3096836fff2528cb90d156/' \
       -H 'accept: application/json' \
       -H 'Authorization: Bearer YOUR_API_KEY'
       ```
@@ -267,7 +267,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'POST' \
-      'https://api.safe.global/tx-service/11155111/api/v1/multisig-transactions/0x56b2931ffffffffff303bbaadf3ba29b5c2baafdf1a5ffffffffff62674941b6/confirmations/' \
+      'https://api.safe.global/tx-service/sep/api/v1/multisig-transactions/0x56b2931ffffffffff303bbaadf3ba29b5c2baafdf1a5ffffffffff62674941b6/confirmations/' \
       -H 'accept: application/json' \
       -H 'Content-Type: application/json' \
       -H 'Authorization: Bearer YOUR_API_KEY' \
@@ -327,7 +327,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'GET' \
-      'https://api.safe.global/tx-service/11155111/api/v1/safes/0xc62C5cbB96ffffffffffff2f78A4d3071317ffff/multisig-transactions/?executed=true&limit=1' \
+      'https://api.safe.global/tx-service/sep/api/v1/safes/0xc62C5cbB96ffffffffffff2f78A4d3071317ffff/multisig-transactions/?executed=true&limit=1' \
       -H 'accept: application/json' \
       -H 'Authorization: Bearer YOUR_API_KEY'
       ```
