@@ -52,7 +52,7 @@ const apiKit = new SafeApiKit({
 })
 ```
 
-## MasterCopy to Singleton
+## Mastercopy to Singleton
 
 To avoid confusion between terms used as synonyms, we aligned all our code to use the word `singleton`.
 

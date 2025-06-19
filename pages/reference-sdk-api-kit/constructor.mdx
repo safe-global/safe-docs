@@ -13,9 +13,11 @@ const chainId = 1n
 
 const txServiceUrl = 'https://...'
 
+// How to get an Api key => http://docs.safe.global/core-api/how-to-use-api-keys
 const apiKit = new SafeApiKit({
   chainId,
-  txServiceUrl // Optional
+  txServiceUrl, // Optional
+  apiKey: 'YOUR_API_KEY' //  Mandatory if txServiceUrl is not specified
 })
 ```
 
@@ -37,7 +39,21 @@ The chain ID.
 
 ```typescript focus=2
 const apiKit = new SafeApiKit({
-  chainId: 1n
+  chainId: 1n,
+  apiKey: 'YOUR_API_KEY'
+})
+```
+
+### `apiKey`
+
+- **Type:** `string`
+
+The API key. This parameter is mandatory when using default Safe provided services. It can be omitted if using a custom Transaction Service. [Check how to get one](../core-api/how-to-use-api-keys).
+
+```typescript focus=3
+const apiKit = new SafeApiKit({
+  chainId: 1n,
+  apiKey: 'YOUR_API_KEY'
 })
 ```
 

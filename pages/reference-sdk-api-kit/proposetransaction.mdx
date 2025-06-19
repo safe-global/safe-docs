@@ -41,8 +41,10 @@ Creates a new multi-signature transaction with its confirmations and stores it i
     ```typescript
     import SafeApiKit from '@safe-global/api-kit'
 
+    // How to get an Api key => http://docs.safe.global/core-api/how-to-use-api-keys
     export const apiKit = new SafeApiKit({
       chainId: 1n, // Mainnet
+      apiKey: 'YOUR_API_KEY'
     })
     ```
   </Tabs.Tab>

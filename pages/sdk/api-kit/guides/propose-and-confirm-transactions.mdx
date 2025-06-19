@@ -59,8 +59,10 @@ For more detailed information, see the [API Kit Reference](../../../reference-sd
   Firstly, you need to create an instance of the API Kit. In chains where the [Safe Transaction Service](../../../core-api/transaction-service-overview.mdx) is supported, it's enough to specify the `chainId` property.
 
   ```typescript
+  // How to get an Api key => http://docs.safe.global/core-api/how-to-use-api-keys
   const apiKit = new SafeApiKit({
-    chainId: 1n
+    chainId: 1n,
+    apiKey: 'YOUR_API_KEY'
   })
   ```
 

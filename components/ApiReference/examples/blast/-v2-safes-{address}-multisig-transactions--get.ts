@@ -1,7 +1,8 @@
 import SafeApiKit from '@safe-global/api-kit'
 
 const apiKit = new SafeApiKit({
-  chainId: 81457n
+  chainId: 81457n,
+  apiKey: 'YOUR_API_KEY'
 })
 
 const multisigTransactions = await apiKit.getMultisigTransactions(

@@ -1,7 +1,8 @@
 import SafeApiKit from '@safe-global/api-kit'
 
 const apiKit = new SafeApiKit({
-  chainId: 42220n
+  chainId: 42220n,
+  apiKey: 'YOUR_API_KEY'
 })
 
 const tokenList = await apiKit.getTokenList()

@@ -1,7 +1,8 @@
 import SafeApiKit from '@safe-global/api-kit'
 
 const apiKit = new SafeApiKit({
-  chainId: 43114n
+  chainId: 43114n,
+  apiKey: 'YOUR_API_KEY'
 })
 
 const safeTxHash = '0x897cab0528ffa8cbe10ee533e636d1a42b9e8d42f8dccb9af9006804d02d2027'

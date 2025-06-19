@@ -277,7 +277,8 @@ The API Kit allows developers to interact with the Safe Transaction Service:
 import { SafeApiKit, SafeInfoResponse } from '@safe-global/api-kit'
 
 const safeService = new SafeApiKit({
-  txServiceUrl: 'https://safe-transaction-sepolia.safe.global'
+  chainId: 11155111n,
+  apiKey: 'YOUR_API_KEY'
 })
 
 // Get Safe account information

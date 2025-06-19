@@ -112,7 +112,8 @@ const NetworkSwitcher: React.FC = () => {
                 width: ['calc(100% - 48px)', 'calc(100% - 48px)', 'auto']
               }}
             >
-              <strong style={{ color: 'white' }}>Base URL:</strong> {network}{' '}
+              <strong style={{ color: 'white' }}>Base URL:</strong>
+              {network}
             </Typography>
           </Link>
           <CopyToClipboard getValue={() => `${network}`} />

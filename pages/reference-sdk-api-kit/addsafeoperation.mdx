@@ -79,8 +79,10 @@ A Safe operation can be created by using the [createTransaction](../sdk/relay-ki
     import SafeApiKit from '@safe-global/api-kit'
     import Safe4337Pack from '@safe-global/relay-kit'
 
+    // How to get an Api key => http://docs.safe.global/core-api/how-to-use-api-keys
     export const apiKit = new SafeApiKit({
-      chainId: 1n // Mainnet
+      chainId: 1n, // Mainnet
+      apiKey: 'YOUR_API_KEY'
     })
 
     export const safe4337Pack = await Safe4337Pack.init({

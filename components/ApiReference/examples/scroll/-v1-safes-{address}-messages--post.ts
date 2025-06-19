@@ -10,7 +10,8 @@ const protocolKit = await Safe.init({
 })
 
 const apiKit = new SafeApiKit({
-  chainId: 534352n
+  chainId: 534352n,
+  apiKey: 'YOUR_API_KEY'
 })
 
 const rawMessage = '1: string message'

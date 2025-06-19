@@ -15,7 +15,7 @@ Returns a list of transactions for a given Safe account, with a different struct
     import { apiKit } from './setup.ts'
 
     const safeAddress = '0x...'
-    
+
     const config: AllTransactionsOptions = {
       executed: true, // Optional
       queued: true, // Optional
@@ -27,15 +27,19 @@ Returns a list of transactions for a given Safe account, with a different struct
       config // Optional
     )
     ```
+
   </Tabs.Tab>
   <Tabs.Tab>
     ```typescript
     import SafeApiKit from '@safe-global/api-kit'
 
+    // How to get an Api key => http://docs.safe.global/core-api/how-to-use-api-keys
     export const apiKit = new SafeApiKit({
       chainId: 1n, // Mainnet
+      apiKey: 'YOUR_API_KEY'
     })
     ```
+
   </Tabs.Tab>
 </Tabs>
 
@@ -56,9 +60,7 @@ The list of transactions.
 The Safe address.
 
 ```typescript focus=2
-const allTxs = await apiKit.getAllTransactions(
-  safeAddress
-)
+const allTxs = await apiKit.getAllTransactions(safeAddress)
 ```
 
 ### `config.executed` (Optional)
@@ -68,12 +70,9 @@ const allTxs = await apiKit.getAllTransactions(
 If true, only executed transactions are returned.
 
 ```typescript focus=4
-const allTxs = await apiKit.getAllTransactions(
-  safeAddress,
-  {
-    executed: true
-  }
-)
+const allTxs = await apiKit.getAllTransactions(safeAddress, {
+  executed: true
+})
 ```
 
 ### `config.queued` (Optional)
@@ -83,12 +82,9 @@ const allTxs = await apiKit.getAllTransactions(
 If true, transactions with nonce higher or equal than the current nonce are returned.
 
 ```typescript focus=4
-const allTxs = await apiKit.getAllTransactions(
-  safeAddress,
-  {
-    queued: true
-  }
-)
+const allTxs = await apiKit.getAllTransactions(safeAddress, {
+  queued: true
+})
 ```
 
 ### `config.trusted` (Optional)
@@ -98,10 +94,7 @@ const allTxs = await apiKit.getAllTransactions(
 If true, just trusted transactions are returned (indexed, added by a delegate or with at least one confirmation).
 
 ```typescript focus=4
-const allTxs = await apiKit.getAllTransactions(
-  safeAddress,
-  {
-    trusted: true
-  }
-)
+const allTxs = await apiKit.getAllTransactions(safeAddress, {
+  trusted: true
+})
 ```

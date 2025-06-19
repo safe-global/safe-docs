@@ -8,7 +8,8 @@ const protocolKit = await Safe.init({
 })
 
 const apiKit = new SafeApiKit({
-  chainId: 196n
+  chainId: 196n,
+  apiKey: 'YOUR_API_KEY'
 })
 
 const messageHash =

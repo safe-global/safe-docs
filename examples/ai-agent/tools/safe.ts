@@ -10,11 +10,13 @@ export const getEthBalance = async ({ address, chainId }) => {
   }
 
   const fetchedEthBalance = await fetch(
-    `https://safe-transaction-mainnet.safe.global/api/v1/safes/${address}/balances/`,
+    `https://api.safe.global/tx-service/eth/api/v1/safes/${address}/balances/`,
     {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        // How to get an Api key => http://docs.safe.global/core-api/how-to-use-api-keys
+        "Authorization": "Bearer YOUR_API_KEY",
       },
     }
   ).catch((error) => {

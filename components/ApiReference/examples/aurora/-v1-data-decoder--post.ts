@@ -1,7 +1,8 @@
 import SafeApiKit from '@safe-global/api-kit'
 
 const apiKit = new SafeApiKit({
-  chainId: 1313161554n
+  chainId: 1313161554n,
+  apiKey: 'YOUR_API_KEY'
 })
 
 const data = await apiKit.decodeData(

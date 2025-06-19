@@ -1,7 +1,8 @@
 import SafeApiKit from '@safe-global/api-kit'
 
 const apiKit = new SafeApiKit({
-  chainId: 324n
+  chainId: 324n,
+  apiKey: 'YOUR_API_KEY'
 })
 
 const messageHash =

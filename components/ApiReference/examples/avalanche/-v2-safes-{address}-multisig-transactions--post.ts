@@ -2,7 +2,8 @@ import SafeApiKit, { ProposeTransactionProps } from '@safe-global/api-kit'
 import { SafeTransactionData } from '@safe-global/types-kit'
 
 const apiKit = new SafeApiKit({
-  chainId: 43114n
+  chainId: 43114n,
+  apiKey: 'YOUR_API_KEY'
 })
 
 const safeTransactionData: SafeTransactionData = {

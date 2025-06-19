@@ -62,8 +62,10 @@ A simple example transaction to the zero address can be proposed like this:
 ```typescript
 import SafeApiKit from '@safe-global/api-kit'
 
+// How to get an Api key => http://docs.safe.global/core-api/how-to-use-api-keys
 const apiKit = new SafeApiKit({
-  chainId: 11155111n
+  chainId: 11155111n,
+  apiKey: 'YOUR_API_KEY'
 })
 
 const tx = await newSafe.createTransaction({

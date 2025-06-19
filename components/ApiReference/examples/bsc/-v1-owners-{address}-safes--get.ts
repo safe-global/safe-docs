@@ -1,7 +1,8 @@
 import SafeApiKit from '@safe-global/api-kit'
 
 const apiKit = new SafeApiKit({
-  chainId: 56n
+  chainId: 56n,
+  apiKey: 'YOUR_API_KEY'
 })
 
 const safes = await apiKit.getSafesByOwner(
