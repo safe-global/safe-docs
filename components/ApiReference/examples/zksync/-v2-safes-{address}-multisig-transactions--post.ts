@@ -3,7 +3,7 @@ import { SafeTransactionData } from '@safe-global/types-kit'
 
 const apiKit = new SafeApiKit({
   chainId: 324n,
-  apiKey: 'YOU_API_KEY'
+  apiKey: 'YOUR_API_KEY'
 })
 
 const safeTransactionData: SafeTransactionData = {

@@ -2,7 +2,7 @@ import SafeApiKit from '@safe-global/api-kit'
 
 const apiKit = new SafeApiKit({
   chainId: 137n,
-  apiKey: 'YOU_API_KEY'
+  apiKey: 'YOUR_API_KEY'
 })
 
 const transactions = await apiKit.getAllTransactions(

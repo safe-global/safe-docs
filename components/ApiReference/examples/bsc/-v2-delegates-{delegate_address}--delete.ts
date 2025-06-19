@@ -3,7 +3,7 @@ import { ethers } from 'ethers' // Ethers v6
 
 const apiKit = new SafeApiKit({
   chainId: 56n,
-  apiKey: 'YOU_API_KEY'
+  apiKey: 'YOUR_API_KEY'
 })
 
 const provider = new ethers.JsonRpcProvider(
