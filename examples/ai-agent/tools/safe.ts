@@ -15,6 +15,8 @@ export const getEthBalance = async ({ address, chainId }) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        // How to get an Api key => http://docs.safe.global/core-api/how-to-use-api-keys
+        "Authorization": "Bearer YOUR_API_KEY",
       },
     }
   ).catch((error) => {
