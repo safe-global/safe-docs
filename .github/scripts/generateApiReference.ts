@@ -476,7 +476,7 @@ import Link from '@mui/material/Link'
 
 The Safe Transaction Service API Reference is a collection of endpoints that allow to keep track of Safe transactions.
 
-This service is available on [multiple networks](../../../core-api/transaction-service-supported-networks), at different endpoints.
+This service is available on [multiple networks](../../advanced/smart-account-supported-networks.mdx?service=Transaction+Service), at different endpoints.
 
 <NetworkSwitcher />
 
