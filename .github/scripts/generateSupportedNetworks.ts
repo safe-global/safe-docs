@@ -166,43 +166,41 @@ const generateSupportedNetworks = async () => {
         smartAccounts.map(c => c.chainId).includes(n.chainId.toString())
       )
       .map(async n => {
-        // Test if the icon exists in the llamao icons, if not, use the cryptocurrency-icons repo
-        const llamaoIcon = `https://icons.llamao.fi/icons/chains/rsz_${n.icon}.png`
+        // Use our logos if running the service, else test if the icon exists in the llamao icons, if not, use the cryptocurrency-icons repo
+        const safeAssets = `https://safe-transaction-assets.safe.global/chains/${n.chainId}/chain_logo.png`
+        const llamaoIcon = `https://icons.llamao.fi/icons/chains/rsz_${n.icon}.jpg`
         const shortNameIcon = `https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/refs/heads/master/128/${shortNameToIconName(
           n.shortName
         )}.png`
 
-        const getRawGithubContent = async () =>
-          await fetch
-            .default(shortNameIcon)
-            .then(res => {
-              if (res.ok) return shortNameIcon
-              else throw new Error()
-            })
-            .catch(() => '/unknown-logo.png')
+        const fetchIcon = async (url: string) => {
+          try {
+            const res = await fetch.default(url)
+            if (res.ok) return url
+          } catch (e) {
+            // Ignore errors and fall back to the next option
+          }
+          return null;
+        }
 
         const iconUrl =
           n.icon == null
-            ? ((await getRawGithubContent()) as string)
-            : ((await fetch
-                .default(llamaoIcon)
-                .then(async res => {
-                  if (res.ok) return llamaoIcon
-                  else throw new Error()
-                })
-                .catch(async () => await getRawGithubContent())) as string)
+            ? (await fetchIcon(safeAssets)) || (await fetchIcon(shortNameIcon))
+            : (await fetchIcon(safeAssets)) || (await fetchIcon(llamaoIcon)) || (await fetchIcon(shortNameIcon))
         return {
           ...n,
           smartAccounts: smartAccounts.filter(
             c => c.chainId === n.chainId.toString()
           ),
           modules: modules.filter(c => c.chainId === n.chainId.toString()),
-          iconUrl
+          iconUrl: iconUrl ?? '/unknown-logo.png'
         }
       })
   )
 
+  console.log(`Writing file ${targetFilePath}...`)
   fs.writeFileSync(targetFilePath, JSON.stringify(networks, null, 2))
+  console.log(`Process completed.`)
 }
 
 generateSupportedNetworks()
