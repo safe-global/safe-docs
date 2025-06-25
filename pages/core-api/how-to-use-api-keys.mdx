@@ -1,24 +1,27 @@
-import { Tabs } from 'nextra/components'
+import { Tabs, Callout } from 'nextra/components'
 
-# 🔐 How to use API Keys
+# How to use API Keys
 
-To enhance the security and reliability of your integrations, Safe is introducing **authenticated API access**. This ensures that only authorized applications and developers can interact with our services, protecting your data and the overall ecosystem.
+To enhance the security and reliability of your integrations, Safe is introducing **authenticated API access**.
+Authenticated requests ensure that only authorized applications and developers can interact with our services, protecting your data and the overall ecosystem.
 
-⚠️ **Important:** We plan to deprecate public (unauthenticated) endpoints in the near future. We strongly encourage you to transition to authenticated API access now to avoid disruptions to your integration.
+<Callout type='warning' emoji='⚠️'>
+  Public (unauthenticated) API endpoints will soon be deprecated. To prevent any disruptions, we strongly recommend transitioning your integrations to authenticated API access as soon as possible.
+</Callout>
 
-This guide walks you through generating an API key, making authenticated requests, and understanding rate limits, error handling, and best practices.
+This guide explains how to generate an API key, use it for authenticated requests, and handle rate limits, errors, and security best practices.
 
-## 🔑 Getting a Safe API Key
+## Getting a Safe API Key
 
 1. Visit the [Safe API Dashboard](https://developer.safe.global/).
 2. Create an account (if you haven’t already).
 3. Generate your API key in the **API Keys** section.
 
-*** The API Key is a JWT which is set to expire after 5 years.*
+_The API Key is a JWT, which is set to expire after 5 years._
 
-## 🔗 Using Your API Key
+## Using Your API Key
 
-To authenticate your requests, include your API key in the Authorization header. Below there are different request examples. We use EIP3770 names for chains, so for example for Ethereum Mainnet (eth):
+To authenticate your requests, include your API key in the Authorization header. Below, there are different request examples. We use EIP3770 names for chains, so for example, for Ethereum Mainnet (eth):
 
 {/* <!-- vale off --> */}
 
@@ -46,7 +49,7 @@ To authenticate your requests, include your API key in the Authorization header.
       ```
   </Tabs.Tab>
   <Tabs.Tab>
-    💡 Available from @safe-global/api-kit@v4.0.0-alpha.0
+    ⚠️ Available from @safe-global/api-kit v4.0.0
 
     ```javascript
       import SafeApiKit from "@safe-global/api-kit";
@@ -68,25 +71,25 @@ To authenticate your requests, include your API key in the Authorization header.
 
 {/* <!-- vale on --> */}
 
-## ⚖️ Rate Limits and Usage Tiers
+## Rate Limits and Usage Tiers
 
-Safe APIs currently enforce rate limits of 5requests/sec  based on your tier. If you need higher rate limits, please reach out to us at support@safe.global for details on upgrading your tier and understanding usage quotas.
+The Safe API currently has a default rate limit of 5 requests per second. If you require a higher rate limit, please contact us at support@safe.global to discuss upgrading your tier and to understand usage quotas.
 
-## 🚨 Error Handling
+## Error Handling
 
-If your API key is invalid or exceeds its rate limit, the API will respond with standard HTTP error codes:
+If your API key is invalid or exceeds its rate limit, the API returns standard HTTP error codes:
 
 - `401 Unauthorized`: Invalid or missing API key.
 - `429 Too Many Requests`: Rate limit exceeded.
 
-Please ensure your application gracefully handles these errors to prevent disruptions.
+Make sure your application gracefully handles these errors to avoid disruptions.
 
-## ✅ Best Practices
+## Best Practices
 
-- **Store keys securely**: Use environment variables or secure vaults rather than hard code values into your code.
-- **Rotate keys periodically**: Regularly rotate your API keys to minimize risk.
-- **Revoke compromised keys immediately**: Use the dashboard to revoke and regenerate keys as needed.
+- **Store keys securely**: Use environment variables or secure vaults instead of hard-coding API keys in your application.
+- **Rotate keys periodically**: Periodically rotate your API keys to minimize potential security risks.
+- **Revoke compromised keys immediately**: If an API key is compromised, revoke it immediately via the dashboard and generate a new one.
 
-## 💬 Need Help?
+## Need Help?
 
-If you have questions or run into issues, please contact our support team at support@safe.global.
+If you have questions or encounter issues, please reach out to our support team at support@safe.global.
