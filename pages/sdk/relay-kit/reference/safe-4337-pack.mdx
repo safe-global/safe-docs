@@ -172,7 +172,7 @@ A promise that resolves to the `SafeOperation`.
 - You can set the `amountToApprove` in this method to approve the `paymasterTokenAddress` for transaction payments, similar to how `amountToApprove` works in the `init()` method.
 - We use a similar API to `protocol-kit` for developers transitioning to `Safe4337Pack`. This API helps with creating and executing transactions, bundling user operations and sending them to the bundler.
 - Use `validUntil` and `validAfter` to set the block timestamp range for the user operation's validity. The operation will be rejected if the block timestamp falls outside this range.
-- The `feeEstimator` calculates gas needs for the UserOperation. We default to Pimlico's `feeEstimator`, but you can use a different one by providing your own. The IFeeEstimator interface requires an object with specific methods.
+- The `feeEstimator` calculates gas needs for the UserOperation. We default to `PimlicoFeeEstimator`, but the `relay-kit` package also offers an alternative, `GenericFeeEstimator`, which does not depend on any specific bundler. You can also provide your own estimator. The IFeeEstimator interface requires an object with specific methods.
 - User operations support the usage of [custom nonce](https://docs.stackup.sh/docs/useroperation-nonce). You can use a custom nonce by leveraging the `createTransaction` method and passing the `customNonce` property as part of the `options` parameter. We exported an utility method `encodeNonce` in the `relay-kit` to make it easier to compose the nonce.
 
 ```typescript
