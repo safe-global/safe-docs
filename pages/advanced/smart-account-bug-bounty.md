@@ -42,7 +42,7 @@ The scope of the bug bounty also includes officially supported Safe modules:
 * MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
 * TokenCallbackHandler.sol (formerly DefaultCallbackHandler.sol), CompatibilityFallbackHandler.sol, ExtensibleFallbackHandler.sol
 
-You can find addresses for deployed instances of these contracts in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
+You can find addresses for deployed instances of these contracts [here](./smart-account-supported-networks.mdx?version=v1.5.0) or in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
 
 **Gnosis Safe core contracts (v1.1.1, v1.2.0, v1.3.0)**
 
@@ -53,7 +53,7 @@ You can find addresses for deployed instances of these contracts in the [Safe de
 * CreateAndAddModules.sol, MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
 * DefaultCallbackHandler.sol, CompatibilityFallbackHandler.sol
 
-You can find addresses for deployed instances of these contracts in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
+You can find addresses for deployed instances of these contracts [here](./smart-account-supported-networks.mdx?version=v1.3.0) in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
 
 **Safe Modules contracts**
 
@@ -78,7 +78,7 @@ You can find addresses for deployed instances of these contracts in the [Safe de
 
 ## Intended behavior
 
-Please refer to the [readme file](https://github.com/safe-global/safe-smart-account/blob/v1.5.0/README.md), the [release details](https://github.com/safe-global/safe-smart-account/releases) of the respective contract version on GitHub, the historical [changelog](https://github.com/safe-global/safe-smart-account/blob/v1.5.0/CHANGELOG.md), as well as our [developer docs](https://docs.safe.global) for an extensive overview of the intended behavior of the smart contracts.
+Please refer to the [README file](https://github.com/safe-global/safe-smart-account/blob/v1.5.0/README.md), the [release details](https://github.com/safe-global/safe-smart-account/releases) of the respective contract version on GitHub, the historical [CHANGELOG file](https://github.com/safe-global/safe-smart-account/blob/v1.5.0/CHANGELOG.md), as well as our [developer docs](https://docs.safe.global) for an extensive overview of the intended behavior of the smart contracts.
 
 For the modules, please refer to their corresponding READMEs:
 * [Allowance Module](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances/README.md).
