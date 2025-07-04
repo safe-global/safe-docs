@@ -83,7 +83,9 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       ethereum_client = EthereumClient(config.get("RPC_URL"))
       transaction_service_api = TransactionServiceApi(
           network=EthereumNetwork.SEPOLIA,
-          ethereum_client=ethereum_client)
+          ethereum_client=ethereum_client,
+          api_key="YOUR_API_KEY",  # You can also use an environment variable: SAFE_TRANSACTION_SERVICE_API_KEY
+      )
 
       # Get delegates from a Safe
       delegates_for_safe = transaction_service_api.get_delegates(

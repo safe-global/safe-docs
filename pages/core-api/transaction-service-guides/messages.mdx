@@ -167,7 +167,9 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       # Instantiate the Transaction Service API
       transaction_service_api = TransactionServiceApi(
           network=EthereumNetwork.SEPOLIA,
-          ethereum_client=ethereum_client)
+          ethereum_client=ethereum_client,
+          api_key="YOUR_API_KEY",  # You can also use an environment variable: SAFE_TRANSACTION_SERVICE_API_KEY
+      )
 
       # Send the message to the Transaction Service with the signature from Owner A
       transaction_service_api.post_message(
