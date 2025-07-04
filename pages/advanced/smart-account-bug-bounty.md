@@ -19,17 +19,17 @@ Many of the [Ethereum Foundation's bug bounty program rules](https://bounty.ethe
 
 The scope of the bug bounty program includes the core contracts related to the following releases of the Safe contracts:
 
-* v1.5.0 ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.5.0), [readme](https://github.com/safe-global/safe-smart-account/blob/v1.5.0/README.md))
-* _v1.4.1_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.4.1), [readme](https://github.com/safe-global/safe-smart-account/blob/v1.4.1/README.md))
-* _v1.3.0_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.3.0), [readme](https://github.com/safe-global/safe-smart-account/blob/v1.3.0/README.md))
-* _v1.2.0_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.2.0), [readme](https://github.com/safe-global/safe-smart-account/blob/v1.2.0/README.md))
-* _v1.1.1_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.1.1), [readme](https://github.com/safe-global/safe-smart-account/blob/v1.1.1/README.md))
+* v1.5.0 ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.5.0), [README](https://github.com/safe-global/safe-smart-account/blob/v1.5.0/README.md))
+* _v1.4.1_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.4.1), [README](https://github.com/safe-global/safe-smart-account/blob/v1.4.1/README.md))
+* _v1.3.0_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.3.0), [README](https://github.com/safe-global/safe-smart-account/blob/v1.3.0/README.md))
+* _v1.2.0_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.2.0), [README](https://github.com/safe-global/safe-smart-account/blob/v1.2.0/README.md))
+* _v1.1.1_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.1.1), [README](https://github.com/safe-global/safe-smart-account/blob/v1.1.1/README.md))
 
 The scope of the bug bounty also includes officially supported Safe modules:
-* [Allowance Module](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances)
-* [Safe 4337 Module](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337)
-* [Safe Passkey](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey)
-* [Social Recovery Module](https://github.com/safe-global/safe-modules/tree/recovery/v0.1.0/modules/recovery)
+* [Allowance Module v0.1.1](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances)
+* [Safe 4337 Module v0.3.0](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337)
+* [Safe Passkey v0.2.1](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey)
+* [Social Recovery Module v0.1.0](https://github.com/safe-global/safe-modules/tree/recovery/v0.1.0/modules/recovery)
 
 ### In scope
 
