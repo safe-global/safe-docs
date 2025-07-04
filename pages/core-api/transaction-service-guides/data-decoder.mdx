@@ -79,9 +79,10 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       # Instantiate the Transaction Service API
       ethereum_client = EthereumClient(config.get("RPC_URL"))
       transaction_service_api = TransactionServiceApi(
-            EthereumNetwork.SEPOLIA,
-            ethereum_client=ethereum_client
-        )
+          EthereumNetwork.SEPOLIA,
+          ethereum_client=ethereum_client,
+          api_key="YOUR_API_KEY",  # You can also use an environment variable: SAFE_TRANSACTION_SERVICE_API_KEY
+      )
 
       # Get decoded data
       data = HexStr("0x095ea7b3000000000000000000000000e6fc577e87f7c977c4393300417dcc592d90acf8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
