@@ -19,40 +19,41 @@ Many of the [Ethereum Foundation's bug bounty program rules](https://bounty.ethe
 
 The scope of the bug bounty program includes the core contracts related to the following releases of the Safe contracts:
 
-* v1.4.1 ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.4.1), [README](https://github.com/safe-global/safe-smart-account/blob/v1.4.1/README.md))
-* _v1.3.0_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.3.0), [README](https://github.com/safe-global/safe-smart-account/blob/v1.3.0/README.md))
-* _v1.2.0_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.2.0), [README](https://github.com/safe-global/safe-smart-account/blob/v1.2.0/README.md))
-* _v1.1.1_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.1.1), [README](https://github.com/safe-global/safe-smart-account/blob/v1.1.1/README.md))
+* v1.5.0 ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.5.0), [readme](https://github.com/safe-global/safe-smart-account/blob/v1.5.0/README.md))
+* _v1.4.1_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.4.1), [readme](https://github.com/safe-global/safe-smart-account/blob/v1.4.1/README.md))
+* _v1.3.0_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.3.0), [readme](https://github.com/safe-global/safe-smart-account/blob/v1.3.0/README.md))
+* _v1.2.0_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.2.0), [readme](https://github.com/safe-global/safe-smart-account/blob/v1.2.0/README.md))
+* _v1.1.1_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.1.1), [readme](https://github.com/safe-global/safe-smart-account/blob/v1.1.1/README.md))
 
-The scope of the bug bounty also includes officially supported Safe Modules:
-* _v0.1.0_ [Allowance Module](https://github.com/safe-global/safe-modules/tree/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances)
-* _v0.1.1_ [Allowance Module](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances)
-* _v0.3.0_ [Safe 4337 Module](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337)
-* _v0.2.1_ [Safe Passkey](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey)
+The scope of the bug bounty also includes officially supported Safe modules:
+* [Allowance Module](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances)
+* [Safe 4337 Module](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337)
+* [Safe Passkey](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey)
+* [Social Recovery Module](https://github.com/safe-global/safe-modules/tree/recovery/v0.1.0/modules/recovery)
 
 ### In scope
 
-**Safe core contracts (version 1.4.1)**
+**Safe core contracts (v1.4.1, v1.5.0)**
 
 * Safe.sol (formerly GnosisSafe.sol)
 * SafeL2.sol (formerly GnosisSafeL2.sol)
 * SafeProxyFactory.sol (formerly GnosisSafeProxyFactory.sol)
 * SafeProxy.sol (formerly GnosisSafeProxy.sol)
 * MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
-* TokenCallbackHandler.sol (formerly DefaultCallbackHandler.sol), CompatibilityFallbackHandler.sol, HandlerContext.sol
+* TokenCallbackHandler.sol (formerly DefaultCallbackHandler.sol), CompatibilityFallbackHandler.sol, ExtensibleFallbackHandler.sol
 
-You can find addresses for deployed instances of these contracts [here](./smart-account-supported-networks.mdx?version=v1.4.1) or in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
+You can find addresses for deployed instances of these contracts in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
 
-**Gnosis Safe core contracts (up to version 1.3.0)**
+**Gnosis Safe core contracts (v1.1.1, v1.2.0, v1.3.0)**
 
 * GnosisSafe.sol
 * GnosisSafeL2.sol
 * GnosisSafeProxyFactory.sol (formerly ProxyFactory.sol)
 * GnosisSafeProxy.sol (formerly Proxy.sol)
 * CreateAndAddModules.sol, MultiSend.sol, MultiSendCallOnly.sol, CreateCall.sol
-* DefaultCallbackHandler.sol, CompatibilityFallbackHandler.sol, HandlerContext.sol
+* DefaultCallbackHandler.sol, CompatibilityFallbackHandler.sol
 
-You can find addresses for deployed instances of these contracts [here](./smart-account-supported-networks.mdx?version=v1.3.0) in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
+You can find addresses for deployed instances of these contracts in the [Safe deployments](https://github.com/safe-global/safe-deployments) repository.
 
 **Safe Modules contracts**
 
@@ -77,12 +78,13 @@ You can find addresses for deployed instances of these contracts [here](./smart-
 
 ## Intended behavior
 
-Please refer to the [README file](https://github.com/safe-global/safe-smart-account/blob/v1.4.1/README.md) and the [release details](https://github.com/safe-global/safe-smart-account/releases) of the respective contract version on GitHub as well as our [developer docs](https://docs.safe.global) for an extensive overview of the intended behavior of the smart contracts.
+Please refer to the [readme file](https://github.com/safe-global/safe-smart-account/blob/v1.5.0/README.md), the [release details](https://github.com/safe-global/safe-smart-account/releases) of the respective contract version on GitHub, the historical [changelog](https://github.com/safe-global/safe-smart-account/blob/v1.5.0/CHANGELOG.md), as well as our [developer docs](https://docs.safe.global) for an extensive overview of the intended behavior of the smart contracts.
 
 For the modules, please refer to their corresponding READMEs:
 * [Allowance Module](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances/README.md).
 * [Safe 4337 Module](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337/README.md).
 * [Safe Passkey](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/README.md).
+* [Social Recovery Module](https://github.com/safe-global/safe-modules/blob/recovery/v0.1.0/modules/recovery/README.md).
 
 ## Compensation
 
@@ -103,7 +105,6 @@ A way to avoid transaction fees or an exploit that in some way compromises the e
 _Safe will pay all bounties in ETH._
 
 Please note that the submission's quality will factor into the level of compensation. A high-quality submission should include an explanation of how somebody can reproduce the bug.
-
 
 ## Submission Process
 
