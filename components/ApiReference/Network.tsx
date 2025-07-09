@@ -38,7 +38,12 @@ export const NetworkProvider: React.FC<
   PropsWithChildren<{ networkName: string }>
 > = ({ children, networkName }) => {
   const state = useState(
-    transactionServiceUrls.find(url => url.includes(networkName)) ?? ''
+    transactionServiceUrls.find(url => {
+      const urlNetworkName = url
+        .replace('https://safe-transaction-', '')
+        .replace('.safe.global', '')
+      return urlNetworkName === networkName
+    }) ?? ''
   )
   return (
     <NetworkContext.Provider value={state}>{children}</NetworkContext.Provider>
