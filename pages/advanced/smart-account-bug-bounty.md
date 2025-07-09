@@ -25,7 +25,7 @@ The scope of the bug bounty program includes the core contracts related to the f
 * _v1.2.0_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.2.0), [README](https://github.com/safe-global/safe-smart-account/blob/v1.2.0/README.md))
 * _v1.1.1_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.1.1), [README](https://github.com/safe-global/safe-smart-account/blob/v1.1.1/README.md))
 
-The scope of the bug bounty also includes officially supported Safe modules:
+The scope of the bug bounty also includes officially supported Safe Modules:
 * [Allowance Module v0.1.1](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances)
 * [Safe 4337 Module v0.3.0](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337)
 * [Safe Passkey v0.2.1](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey)
