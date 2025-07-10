@@ -2,6 +2,8 @@
 
 Participate in the Safe Bug Bounty program to find bugs and get rewards. Earn up to $1,000,000 for every bug you report. Please carefully read through the [submission process](#submission-process) section and get in touch via [bounty@safe.global](mailto:bounty@safe.global). You can also review the [bug bounties](./smart-account-bug-bounty/past-paid-bounties.md) we have paid in the past.
 
+> Note that this bug bounty program **only applies to smart contract related vulnerabilities and bugs**. For other kinds of submissions, please contact [wallet-reports@safe.global](mailto:wallet-reports@safe.global).
+
 ## Audits
 
 Smart contract security experts have carefully audited Safe's contracts. Please refer to the [security audits page](./smart-account-audits.md) for details.
