@@ -2,11 +2,11 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Safe Transaction Service",
-    "version": "5.24.1",
+    "version": "5.25.2",
     "description": "API to keep track of transactions sent via Safe smart contracts"
   },
   "paths": {
-    "/api/v1/about/": {
+    "/tx-service/avax/api/v1/about/": {
       "get": {
         "operationId": "about_retrieve",
         "description": "Returns information and configuration of the service",
@@ -27,12 +27,12 @@
             "description": "No response body"
           }
         },
-        "path": "/api/v1/about/",
+        "path": "/tx-service/avax/api/v1/about/",
         "title": "General Information",
         "additionalInfo": ""
       }
     },
-    "/api/v1/about/deployments/": {
+    "/tx-service/avax/api/v1/about/deployments/": {
       "get": {
         "operationId": "about_deployments_list",
         "description": "Returns a list of safe deployments by version",
@@ -84,12 +84,12 @@
             "description": "Provided version does not exist"
           }
         },
-        "path": "/api/v1/about/deployments/",
+        "path": "/tx-service/avax/api/v1/about/deployments/",
         "title": "List deployments",
         "additionalInfo": ""
       }
     },
-    "/api/v1/about/ethereum-rpc/": {
+    "/tx-service/avax/api/v1/about/ethereum-rpc/": {
       "get": {
         "operationId": "about_ethereum_rpc_retrieve",
         "description": "Get information about the Ethereum RPC node used by the service",
@@ -110,12 +110,12 @@
             "description": "No response body"
           }
         },
-        "path": "/api/v1/about/ethereum-rpc/",
+        "path": "/tx-service/avax/api/v1/about/ethereum-rpc/",
         "title": "Ethereum RPC",
         "additionalInfo": "This is an example of more detailed information about Ethereum RPC endpoint. This should support MDX."
       }
     },
-    "/api/v1/about/ethereum-tracing-rpc/": {
+    "/tx-service/avax/api/v1/about/ethereum-tracing-rpc/": {
       "get": {
         "operationId": "about_ethereum_tracing_rpc_retrieve",
         "description": "Get information about the Ethereum Tracing RPC node used by the service (if any configured)",
@@ -136,12 +136,12 @@
             "description": "No response body"
           }
         },
-        "path": "/api/v1/about/ethereum-tracing-rpc/",
+        "path": "/tx-service/avax/api/v1/about/ethereum-tracing-rpc/",
         "title": "Ethereum Tracing RPC",
         "additionalInfo": ""
       }
     },
-    "/api/v1/about/indexing/": {
+    "/tx-service/avax/api/v1/about/indexing/": {
       "get": {
         "operationId": "about_indexing_retrieve",
         "description": "Get current indexing status for ERC20/721 events",
@@ -169,12 +169,12 @@
             "description": ""
           }
         },
-        "path": "/api/v1/about/indexing/",
+        "path": "/tx-service/avax/api/v1/about/indexing/",
         "title": "Indexing",
         "additionalInfo": ""
       }
     },
-    "/api/v1/about/singletons/": {
+    "/tx-service/avax/api/v1/about/singletons/": {
       "get": {
         "operationId": "about_singletons_list",
         "description": "Returns a list of Master Copies configured in the service",
@@ -205,12 +205,12 @@
             "description": ""
           }
         },
-        "path": "/api/v1/about/singletons/",
+        "path": "/tx-service/avax/api/v1/about/singletons/",
         "title": "Singletons",
         "additionalInfo": ""
       }
     },
-    "/api/v1/contracts/": {
+    "/tx-service/avax/api/v1/contracts/": {
       "get": {
         "operationId": "contracts_list",
         "description": "Returns the list of known smart contracts with their ABI’s",
@@ -274,12 +274,12 @@
             "description": ""
           }
         },
-        "path": "/api/v1/contracts/",
+        "path": "/tx-service/avax/api/v1/contracts/",
         "title": "List Contracts",
         "additionalInfo": ""
       }
     },
-    "/api/v1/contracts/{address}/": {
+    "/tx-service/avax/api/v1/contracts/{address}/": {
       "get": {
         "operationId": "contracts_retrieve",
         "description": "Returns the relevant information of a known smart contract",
@@ -317,12 +317,12 @@
             "description": ""
           }
         },
-        "path": "/api/v1/contracts/{address}/",
+        "path": "/tx-service/avax/api/v1/contracts/{address}/",
         "title": "Get Specific Contract",
         "additionalInfo": ""
       }
     },
-    "/api/v1/data-decoder/": {
+    "/tx-service/avax/api/v1/data-decoder/": {
       "post": {
         "operationId": "data_decoder_create",
         "description": "Returns the decoded data using the Safe Transaction Service internal ABI information given\nthe transaction data as a `0x` prefixed hexadecimal string.\nIf the address of the receiving contract is provided, the decoded data will be more accurate,\nas in case of an ABI collision the Safe Transaction Service would know which ABI to use.",
@@ -373,12 +373,12 @@
             "description": "Invalid data"
           }
         },
-        "path": "/api/v1/data-decoder/",
+        "path": "/tx-service/avax/api/v1/data-decoder/",
         "title": "Get Decoded Data",
         "additionalInfo": ""
       }
     },
-    "/api/v1/delegates/": {
+    "/tx-service/avax/api/v1/delegates/": {
       "get": {
         "operationId": "delegates_list",
         "description": "Returns a list with all the delegates",
@@ -451,7 +451,7 @@
             "description": "Invalid data"
           }
         },
-        "path": "/api/v1/delegates/",
+        "path": "/tx-service/avax/api/v1/delegates/",
         "title": "List Delegates",
         "additionalInfo": ""
       },
@@ -489,12 +489,12 @@
             "description": "Malformed data"
           }
         },
-        "path": "/api/v1/delegates/",
+        "path": "/tx-service/avax/api/v1/delegates/",
         "title": "Create Delegate",
         "additionalInfo": ""
       }
     },
-    "/api/v1/delegates/{delegate_address}/": {
+    "/tx-service/avax/api/v1/delegates/{delegate_address}/": {
       "delete": {
         "operationId": "delegates_destroy",
         "description": "Delete every pair delegate/delegator found. Signature is built the same way as for adding a delegate,\nbut in this case the signer can be either the `delegator` (owner) or the `delegate` itself.\nCheck `POST /delegates/`",
@@ -542,12 +542,12 @@
             "description": "Invalid Ethereum address/Error processing data"
           }
         },
-        "path": "/api/v1/delegates/{delegate_address}/",
+        "path": "/tx-service/avax/api/v1/delegates/{delegate_address}/",
         "title": "Delete Delegate",
         "additionalInfo": ""
       }
     },
-    "/api/v1/messages/{message_hash}/": {
+    "/tx-service/avax/api/v1/messages/{message_hash}/": {
       "get": {
         "operationId": "messages_retrieve",
         "description": "Returns detailed information on a message associated with a given message hash",
@@ -585,15 +585,15 @@
             "description": ""
           }
         },
-        "path": "/api/v1/messages/{message_hash}/",
+        "path": "/tx-service/avax/api/v1/messages/{message_hash}/",
         "title": "Get Message",
         "additionalInfo": ""
       }
     },
-    "/api/v1/messages/{message_hash}/signatures/": {
+    "/tx-service/avax/api/v1/messages/{message_hash}/signatures/": {
       "post": {
         "operationId": "messages_signatures_create",
-        "description": "Adds the signature of a message given its message hash",
+        "description": "Adds the signature of a message given its message hash\n\nNote: Safe must be v1.4.1 for EIP-1271 signatures to work.",
         "parameters": [
           {
             "in": "path",
@@ -631,12 +631,12 @@
             "description": "Created"
           }
         },
-        "path": "/api/v1/messages/{message_hash}/signatures/",
+        "path": "/tx-service/avax/api/v1/messages/{message_hash}/signatures/",
         "title": "Sign Message",
         "additionalInfo": ""
       }
     },
-    "/api/v1/module-transaction/{module_transaction_id}": {
+    "/tx-service/avax/api/v1/module-transaction/{module_transaction_id}": {
       "get": {
         "operationId": "module_transaction_retrieve",
         "description": "Returns a transaction executed from a module given its associated module transaction ID",
@@ -687,12 +687,12 @@
             "description": "ModuleTransaction does not exist"
           }
         },
-        "path": "/api/v1/module-transaction/{module_transaction_id}",
+        "path": "/tx-service/avax/api/v1/module-transaction/{module_transaction_id}",
         "title": "Get Module Transaction",
         "additionalInfo": ""
       }
     },
-    "/api/v1/modules/{address}/safes/": {
+    "/tx-service/avax/api/v1/modules/{address}/safes/": {
       "get": {
         "operationId": "modules_safes_retrieve",
         "description": "Returns the list of Safes that have the provided module enabled",
@@ -740,12 +740,12 @@
             "description": "Module address checksum not valid"
           }
         },
-        "path": "/api/v1/modules/{address}/safes/",
+        "path": "/tx-service/avax/api/v1/modules/{address}/safes/",
         "title": "List Safes that use a Specific Module",
         "additionalInfo": ""
       }
     },
-    "/api/v1/multisig-transactions/{safe_tx_hash}/": {
+    "/tx-service/avax/api/v1/multisig-transactions/{safe_tx_hash}/": {
       "get": {
         "operationId": "multisig_transactions_retrieve",
         "description": "Returns a multi-signature transaction given its Safe transaction hash",
@@ -784,7 +784,7 @@
             "description": ""
           }
         },
-        "path": "/api/v1/multisig-transactions/{safe_tx_hash}/",
+        "path": "/tx-service/avax/api/v1/multisig-transactions/{safe_tx_hash}/",
         "title": "",
         "additionalInfo": ""
       },
@@ -825,12 +825,12 @@
             "description": "Transaction not found"
           }
         },
-        "path": "/api/v1/multisig-transactions/{safe_tx_hash}/",
+        "path": "/tx-service/avax/api/v1/multisig-transactions/{safe_tx_hash}/",
         "title": "",
         "additionalInfo": ""
       }
     },
-    "/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/": {
+    "/tx-service/avax/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/": {
       "get": {
         "operationId": "multisig_transactions_confirmations_list",
         "description": "Returns the list of confirmations for the multi-signature transaction associated with\nthe given Safe transaction hash",
@@ -889,7 +889,7 @@
             "description": "Invalid data"
           }
         },
-        "path": "/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
+        "path": "/tx-service/avax/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
         "title": "List Multisig Confirmations",
         "additionalInfo": ""
       },
@@ -939,12 +939,12 @@
             "description": "Error processing data"
           }
         },
-        "path": "/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
+        "path": "/tx-service/avax/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
         "title": "Confirm Multisig Transaction",
         "additionalInfo": ""
       }
     },
-    "/api/v1/owners/{address}/safes/": {
+    "/tx-service/avax/api/v1/owners/{address}/safes/": {
       "get": {
         "operationId": "owners_safes_retrieve",
         "description": "Returns the list of Safe accounts that have the given address as their owner",
@@ -992,12 +992,12 @@
             "description": "Owner address checksum not valid"
           }
         },
-        "path": "/api/v1/owners/{address}/safes/",
+        "path": "/tx-service/avax/api/v1/owners/{address}/safes/",
         "title": "List Safes from a Specific Owner",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safe-operations/{safe_operation_hash}/": {
+    "/tx-service/avax/api/v1/safe-operations/{safe_operation_hash}/": {
       "get": {
         "operationId": "safe_operations_retrieve",
         "description": "Returns a SafeOperation given its Safe operation hash",
@@ -1035,12 +1035,12 @@
             "description": ""
           }
         },
-        "path": "/api/v1/safe-operations/{safe_operation_hash}/",
+        "path": "/tx-service/avax/api/v1/safe-operations/{safe_operation_hash}/",
         "title": "Get Safe Operation",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safe-operations/{safe_operation_hash}/confirmations/": {
+    "/tx-service/avax/api/v1/safe-operations/{safe_operation_hash}/confirmations/": {
       "get": {
         "operationId": "safe_operations_confirmations_list",
         "description": "Get the list of confirmations for a multisig transaction",
@@ -1099,7 +1099,7 @@
             "description": "Invalid data"
           }
         },
-        "path": "/api/v1/safe-operations/{safe_operation_hash}/confirmations/",
+        "path": "/tx-service/avax/api/v1/safe-operations/{safe_operation_hash}/confirmations/",
         "title": "Get the list of confirmations for a multisig transaction",
         "additionalInfo": ""
       },
@@ -1149,12 +1149,12 @@
             "description": "Error processing data"
           }
         },
-        "path": "/api/v1/safe-operations/{safe_operation_hash}/confirmations/",
+        "path": "/tx-service/avax/api/v1/safe-operations/{safe_operation_hash}/confirmations/",
         "title": "Add a confirmation for a transaction",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safes/{address}/": {
+    "/tx-service/avax/api/v1/safes/{address}/": {
       "get": {
         "operationId": "safes_retrieve",
         "description": "Returns detailed information of a given Safe account",
@@ -1198,12 +1198,12 @@
             "description": "code = 1: Checksum address validation failed\ncode = 50: Cannot get Safe info"
           }
         },
-        "path": "/api/v1/safes/{address}/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/",
         "title": "Get Safe Status",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safes/{address}/all-transactions/": {
+    "/tx-service/avax/api/v1/safes/{address}/all-transactions/": {
       "get": {
         "operationId": "safes_all_transactions_list",
         "description": "Returns all the *executed* transactions for a given Safe address.\nThe list has different structures depending on the transaction type:\n- Multisig Transactions for a Safe. `tx_type=MULTISIG_TRANSACTION`.\n- Module Transactions for a Safe. `tx_type=MODULE_TRANSACTION`\n- Incoming Transfers of Ether/ERC20 Tokens/ERC721 Tokens. `tx_type=ETHEREUM_TRANSACTION`\nOrdering_fields: [\"timestamp\"] eg: `-timestamp` (default one) or `timestamp`\n\nNote: This endpoint has a bug that will be fixed in next versions of the endpoint. Pagination is done\nusing the `Transaction Hash`, and due to that the number of relevant transactions with the same\n`Transaction Hash` cannot be known beforehand. So if there are only 2 transactions\nwith the same `Transaction Hash`, `count` of the endpoint will be 1\nbut there will be 2 transactions in the list.",
@@ -1289,12 +1289,12 @@
             "description": "Checksum address validation failed"
           }
         },
-        "path": "/api/v1/safes/{address}/all-transactions/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/all-transactions/",
         "title": "",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safes/{address}/balances/": {
+    "/tx-service/avax/api/v1/safes/{address}/balances/": {
       "get": {
         "operationId": "safes_balances_retrieve",
         "description": "Get balance for Ether and ERC20 tokens of a given Safe account",
@@ -1359,12 +1359,12 @@
             "description": "Safe address checksum not valid"
           }
         },
-        "path": "/api/v1/safes/{address}/balances/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/balances/",
         "title": "List a Safe's Balances (Deprecated)",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safes/{address}/creation/": {
+    "/tx-service/avax/api/v1/safes/{address}/creation/": {
       "get": {
         "operationId": "safes_creation_retrieve",
         "description": "Returns detailed information on the Safe creation transaction of a given Safe.\n\nNote: When event indexing is being used and multiple Safes are deployed in the same transaction\nthe result might not be accurate due to the indexer not knowing which events belong to which Safe\ndeployment.",
@@ -1411,12 +1411,12 @@
             "description": "Problem connecting to Ethereum network"
           }
         },
-        "path": "/api/v1/safes/{address}/creation/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/creation/",
         "title": "Get Safe Creation Status",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safes/{address}/delegates/{delegate_address}/": {
+    "/tx-service/avax/api/v1/safes/{address}/delegates/{delegate_address}/": {
       "delete": {
         "operationId": "safes_delegates_destroy",
         "description": "Delete a delegate for a Safe. Signature is built the same way that for adding a delegate.\nCheck `POST /delegates/`",
@@ -1472,12 +1472,12 @@
             "description": "Invalid Ethereum address | Error processing data"
           }
         },
-        "path": "/api/v1/safes/{address}/delegates/{delegate_address}/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/delegates/{delegate_address}/",
         "title": "Remove Delegate from Safe",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safes/{address}/incoming-transfers/": {
+    "/tx-service/avax/api/v1/safes/{address}/incoming-transfers/": {
       "get": {
         "operationId": "safes_incoming_transfers_list",
         "description": "Returns incoming ether/tokens transfers for a Safe.\nOnly 1000 newest transfers will be returned.",
@@ -1666,12 +1666,12 @@
             "description": "Safe address checksum not valid"
           }
         },
-        "path": "/api/v1/safes/{address}/incoming-transfers/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/incoming-transfers/",
         "title": "List Incoming Transfers",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safes/{address}/messages/": {
+    "/tx-service/avax/api/v1/safes/{address}/messages/": {
       "get": {
         "operationId": "safes_messages_list",
         "description": "Returns the list of messages for a given Safe account",
@@ -1736,13 +1736,13 @@
             "description": ""
           }
         },
-        "path": "/api/v1/safes/{address}/messages/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/messages/",
         "title": "List Messages",
         "additionalInfo": ""
       },
       "post": {
         "operationId": "safes_messages_create",
-        "description": "Adds a new message for a given Safe account.\nMessage can be:\n- A ``string``, so ``EIP191`` will be used to get the hash.\n- An ``EIP712`` ``object``.\n\nHash will be calculated from the provided ``message``. Sending a raw ``hash`` will not be accepted,\nservice needs to derive it itself.",
+        "description": "Adds a new message for a given Safe account.\nMessage can be:\n- A ``string``, so ``EIP191`` will be used to get the hash.\n- An ``EIP712`` ``object``.\n\nHash will be calculated from the provided ``message``. Sending a raw ``hash`` will not be accepted,\nservice needs to derive it itself.\n\nNote: Safe must be v1.4.1 for EIP-1271 signatures to work.",
         "parameters": [
           {
             "in": "path",
@@ -1780,12 +1780,12 @@
             "description": "Created"
           }
         },
-        "path": "/api/v1/safes/{address}/messages/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/messages/",
         "title": "Create Signed Message",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safes/{address}/module-transactions/": {
+    "/tx-service/avax/api/v1/safes/{address}/module-transactions/": {
       "get": {
         "operationId": "safes_module_transactions_list",
         "description": "Returns all the transactions executed from modules given a Safe address",
@@ -1931,12 +1931,12 @@
             "description": "Checksum address validation failed"
           }
         },
-        "path": "/api/v1/safes/{address}/module-transactions/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/module-transactions/",
         "title": "List a Safe's Module Transactions",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safes/{address}/multisig-transactions/": {
+    "/tx-service/avax/api/v1/safes/{address}/multisig-transactions/": {
       "get": {
         "operationId": "safes_multisig_transactions_list",
         "description": "Returns all the multi-signature transactions for a given Safe address.\nBy default, only ``trusted`` multisig transactions are returned.",
@@ -2189,7 +2189,7 @@
             "description": "Invalid ethereum address"
           }
         },
-        "path": "/api/v1/safes/{address}/multisig-transactions/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/multisig-transactions/",
         "title": "",
         "additionalInfo": ""
       },
@@ -2247,12 +2247,12 @@
             "description": "Invalid ethereum address | User is not an owner | Invalid safeTxHash |Invalid signature | Nonce already executed | Sender is not an owner"
           }
         },
-        "path": "/api/v1/safes/{address}/multisig-transactions/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/multisig-transactions/",
         "title": "",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safes/{address}/multisig-transactions/estimations/": {
+    "/tx-service/avax/api/v1/safes/{address}/multisig-transactions/estimations/": {
       "post": {
         "operationId": "safes_multisig_transactions_estimations_create",
         "description": "Returns the estimated `safeTxGas` for a given Safe address and multi-signature transaction.\nEstimation is disabled for L2 networks, as this is only required for Safes with version < 1.3.0\nand those versions are not supported in L2 networks.",
@@ -2316,12 +2316,12 @@
             "description": "Tx not valid"
           }
         },
-        "path": "/api/v1/safes/{address}/multisig-transactions/estimations/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/multisig-transactions/estimations/",
         "title": "Estimate Gas Costs for a Multisig Transaction",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safes/{address}/safe-operations/": {
+    "/tx-service/avax/api/v1/safes/{address}/safe-operations/": {
       "get": {
         "operationId": "safes_safe_operations_list",
         "description": "Returns the list of SafeOperations for a given Safe account",
@@ -2546,7 +2546,7 @@
             "description": ""
           }
         },
-        "path": "/api/v1/safes/{address}/safe-operations/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/safe-operations/",
         "title": "List Safe Operations",
         "additionalInfo": ""
       },
@@ -2599,12 +2599,12 @@
             "description": ""
           }
         },
-        "path": "/api/v1/safes/{address}/safe-operations/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/safe-operations/",
         "title": "Create Safe Operation",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safes/{address}/transfers/": {
+    "/tx-service/avax/api/v1/safes/{address}/transfers/": {
       "get": {
         "operationId": "safes_transfers_list",
         "description": "Returns the list of token transfers for a given Safe address.\nOnly 1000 newest transfers will be returned.",
@@ -2793,12 +2793,12 @@
             "description": "Safe address checksum not valid"
           }
         },
-        "path": "/api/v1/safes/{address}/transfers/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/transfers/",
         "title": "List Transfers",
         "additionalInfo": ""
       }
     },
-    "/api/v1/safes/{address}/user-operations/": {
+    "/tx-service/avax/api/v1/safes/{address}/user-operations/": {
       "get": {
         "operationId": "safes_user_operations_list",
         "description": "Returns the list of UserOperations for a given Safe account",
@@ -2863,12 +2863,12 @@
             "description": ""
           }
         },
-        "path": "/api/v1/safes/{address}/user-operations/",
+        "path": "/tx-service/avax/api/v1/safes/{address}/user-operations/",
         "title": "List User Operations",
         "additionalInfo": ""
       }
     },
-    "/api/v1/tokens/": {
+    "/tx-service/avax/api/v1/tokens/": {
       "get": {
         "operationId": "tokens_list",
         "description": "Returns the list of tokens supported in the Safe Transaction Service",
@@ -2976,12 +2976,12 @@
             "description": ""
           }
         },
-        "path": "/api/v1/tokens/",
+        "path": "/tx-service/avax/api/v1/tokens/",
         "title": "List Tokens",
         "additionalInfo": ""
       }
     },
-    "/api/v1/tokens/{address}/": {
+    "/tx-service/avax/api/v1/tokens/{address}/": {
       "get": {
         "operationId": "tokens_retrieve",
         "description": "Returns detailed information on a given token supported in the Safe Transaction Service",
@@ -3029,12 +3029,12 @@
             "description": "Invalid ethereum address"
           }
         },
-        "path": "/api/v1/tokens/{address}/",
+        "path": "/tx-service/avax/api/v1/tokens/{address}/",
         "title": "Get a Specific Token's Information",
         "additionalInfo": ""
       }
     },
-    "/api/v1/tokens/lists/": {
+    "/tx-service/avax/api/v1/tokens/lists/": {
       "get": {
         "operationId": "tokens_lists_list",
         "description": "Returns the list of tokens supported in the Safe Transaction Service",
@@ -3082,12 +3082,12 @@
             "description": ""
           }
         },
-        "path": "/api/v1/tokens/lists/",
+        "path": "/tx-service/avax/api/v1/tokens/lists/",
         "title": "",
         "additionalInfo": ""
       }
     },
-    "/api/v1/transfer/{transfer_id}": {
+    "/tx-service/avax/api/v1/transfer/{transfer_id}": {
       "get": {
         "operationId": "transfer_retrieve",
         "description": "Returns a token transfer associated with the given transfer ID",
@@ -3131,12 +3131,12 @@
             "description": "Transfer does not exist"
           }
         },
-        "path": "/api/v1/transfer/{transfer_id}",
+        "path": "/tx-service/avax/api/v1/transfer/{transfer_id}",
         "title": "Get Transfer",
         "additionalInfo": ""
       }
     },
-    "/api/v1/user-operations/{user_operation_hash}/": {
+    "/tx-service/avax/api/v1/user-operations/{user_operation_hash}/": {
       "get": {
         "operationId": "user_operations_retrieve",
         "description": "Returns a UserOperation given its user operation hash",
@@ -3174,12 +3174,12 @@
             "description": ""
           }
         },
-        "path": "/api/v1/user-operations/{user_operation_hash}/",
+        "path": "/tx-service/avax/api/v1/user-operations/{user_operation_hash}/",
         "title": "Get User Operation",
         "additionalInfo": ""
       }
     },
-    "/api/v2/analytics/multisig-transactions/by-origin/": {
+    "/tx-service/avax/api/v2/analytics/multisig-transactions/by-origin/": {
       "get": {
         "operationId": "analytics_multisig_transactions_by_origin_retrieve",
         "tags": [
@@ -3195,12 +3195,12 @@
             "description": "No response body"
           }
         },
-        "path": "/api/v2/analytics/multisig-transactions/by-origin/",
+        "path": "/tx-service/avax/api/v2/analytics/multisig-transactions/by-origin/",
         "title": "",
         "additionalInfo": ""
       }
     },
-    "/api/v2/delegates/": {
+    "/tx-service/avax/api/v2/delegates/": {
       "get": {
         "operationId": "delegates_list_2",
         "description": "Returns a list with all the delegates",
@@ -3282,7 +3282,7 @@
             "description": "Invalid data"
           }
         },
-        "path": "/api/v2/delegates/",
+        "path": "/tx-service/avax/api/v2/delegates/",
         "title": "List Delegates",
         "additionalInfo": ""
       },
@@ -3319,12 +3319,12 @@
             "description": "Malformed data"
           }
         },
-        "path": "/api/v2/delegates/",
+        "path": "/tx-service/avax/api/v2/delegates/",
         "title": "Create Delegate",
         "additionalInfo": ""
       }
     },
-    "/api/v2/delegates/{delegate_address}/": {
+    "/tx-service/avax/api/v2/delegates/{delegate_address}/": {
       "delete": {
         "operationId": "delegates_destroy_2",
         "description": "Removes every delegate/delegator pair found associated with a given delegate address. The\nsignature is built the same way as for adding a delegate, but in this case the signer can be\neither the `delegator` (owner) or the `delegate` itself. Check `POST /delegates/` to learn more.",
@@ -3364,12 +3364,12 @@
             "description": "Invalid Ethereum address/Error processing data"
           }
         },
-        "path": "/api/v2/delegates/{delegate_address}/",
+        "path": "/tx-service/avax/api/v2/delegates/{delegate_address}/",
         "title": "Delete Delegate",
         "additionalInfo": ""
       }
     },
-    "/api/v2/multisig-transactions/{safe_tx_hash}/": {
+    "/tx-service/avax/api/v2/multisig-transactions/{safe_tx_hash}/": {
       "get": {
         "operationId": "multisig_transactions_retrieve_2",
         "description": "Returns a multi-signature transaction given its Safe transaction hash",
@@ -3407,7 +3407,7 @@
             "description": ""
           }
         },
-        "path": "/api/v2/multisig-transactions/{safe_tx_hash}/",
+        "path": "/tx-service/avax/api/v2/multisig-transactions/{safe_tx_hash}/",
         "title": "Get Multisig Transaction",
         "additionalInfo": ""
       },
@@ -3441,12 +3441,12 @@
             "description": "No response body"
           }
         },
-        "path": "/api/v2/multisig-transactions/{safe_tx_hash}/",
+        "path": "/tx-service/avax/api/v2/multisig-transactions/{safe_tx_hash}/",
         "title": "Delete Queued Multisig Transaction",
         "additionalInfo": ""
       }
     },
-    "/api/v2/safes/{address}/all-transactions/": {
+    "/tx-service/avax/api/v2/safes/{address}/all-transactions/": {
       "get": {
         "operationId": "safes_all_transactions_list_2",
         "description": "Returns all the *executed* transactions for a given Safe address.\nThe list has different structures depending on the transaction type:\n- Multisig Transactions for a Safe. `tx_type=MULTISIG_TRANSACTION`.\n- Module Transactions for a Safe. `tx_type=MODULE_TRANSACTION`\n- Incoming Transfers of Ether/ERC20 Tokens/ERC721 Tokens. `tx_type=ETHEREUM_TRANSACTION`\nOrdering_fields: [\"timestamp\"] eg: `-timestamp` (default one) or `timestamp`\n\nNote: This endpoint has a bug that will be fixed in next versions of the endpoint. Pagination is done\nusing the `Transaction Hash`, and due to that the number of relevant transactions with the same\n`Transaction Hash` cannot be known beforehand. So if there are only 2 transactions\nwith the same `Transaction Hash`, `count` of the endpoint will be 1\nbut there will be 2 transactions in the list.",
@@ -3511,12 +3511,12 @@
             "description": ""
           }
         },
-        "path": "/api/v2/safes/{address}/all-transactions/",
+        "path": "/tx-service/avax/api/v2/safes/{address}/all-transactions/",
         "title": "List Transactions",
         "additionalInfo": ""
       }
     },
-    "/api/v2/safes/{address}/balances/": {
+    "/tx-service/avax/api/v2/safes/{address}/balances/": {
       "get": {
         "operationId": "safes_balances_retrieve_2",
         "description": "Get paginated balances for Ether and ERC20 tokens.\nThe maximum limit allowed is 200.",
@@ -3601,12 +3601,12 @@
             "description": "Safe address checksum not valid"
           }
         },
-        "path": "/api/v2/safes/{address}/balances/",
+        "path": "/tx-service/avax/api/v2/safes/{address}/balances/",
         "title": "Get Safe Balances",
         "additionalInfo": ""
       }
     },
-    "/api/v2/safes/{address}/collectibles/": {
+    "/tx-service/avax/api/v2/safes/{address}/collectibles/": {
       "get": {
         "operationId": "safes_collectibles_retrieve",
         "description": "Get paginated collectibles (ERC721 tokens) and information about them of a given Safe account.\nThe maximum limit allowed is 10.",
@@ -3691,12 +3691,12 @@
             "description": "Safe address checksum not valid"
           }
         },
-        "path": "/api/v2/safes/{address}/collectibles/",
+        "path": "/tx-service/avax/api/v2/safes/{address}/collectibles/",
         "title": "List Collectibles",
         "additionalInfo": ""
       }
     },
-    "/api/v2/safes/{address}/multisig-transactions/": {
+    "/tx-service/avax/api/v2/safes/{address}/multisig-transactions/": {
       "get": {
         "operationId": "safes_multisig_transactions_list_2",
         "description": "Returns all the multi-signature transactions for a given Safe address.\nBy default, only ``trusted`` multisig transactions are returned.",
@@ -3948,7 +3948,7 @@
             "description": "Invalid ethereum address"
           }
         },
-        "path": "/api/v2/safes/{address}/multisig-transactions/",
+        "path": "/tx-service/avax/api/v2/safes/{address}/multisig-transactions/",
         "title": "List a Safe's Multisig Transactions",
         "additionalInfo": ""
       },
@@ -4005,7 +4005,7 @@
             "description": "Invalid ethereum address | User is not an owner | Invalid safeTxHash |Invalid signature | Nonce already executed | Sender is not an owner"
           }
         },
-        "path": "/api/v2/safes/{address}/multisig-transactions/",
+        "path": "/tx-service/avax/api/v2/safes/{address}/multisig-transactions/",
         "title": "Create Multisig Transaction",
         "additionalInfo": ""
       }

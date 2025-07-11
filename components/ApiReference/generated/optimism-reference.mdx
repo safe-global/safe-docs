@@ -40,58 +40,24 @@ This service is available on [multiple networks](../../advanced/smart-account-su
     <Feedback asPath={"/core-api/transaction-service-reference#List-Contracts"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/contracts/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/contracts/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/contracts/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/contracts/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/contracts/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/contracts/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "count": 16233,
-  "next": "https://safe-transaction-sepolia.safe.global/api/v1/contracts/?limit=2&offset=3",
-  "previous": null,
-  "results": [
-    {
-      "address": "0x0000000000000000000000000000000000000000",
-      "name": "MetaMultiSigWallet",
-      "displayName": "",
-      "logoUri": null,
-      "contractAbi": {
-        "abi": [],
-        "description": "MetaMultiSigWallet",
-        "relevance": 100
-      },
-      "trustedForDelegateCall": false
-    },
-    {
-      "address": "0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC",
-      "name": "Seaport",
-      "displayName": "",
-      "logoUri": null,
-      "contractAbi": {
-        "abi": [],
-        "description": "Seaport",
-        "relevance": 100
-      },
-      "trustedForDelegateCall": false
-    }
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -115,39 +81,24 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/contracts/ \
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Specific-Contract"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/contracts/{address}/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/contracts/{address}/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "address": "0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC",
-  "name": "Seaport",
-  "displayName": "",
-  "logoUri": null,
-  "contractAbi": {
-    "abi": [],
-    "description": "Seaport",
-    "relevance": 100
-  },
-  "trustedForDelegateCall": false
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -180,46 +131,24 @@ as in case of an ABI collision the Safe Transaction Service would know which ABI
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Decoded-Data"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/data-decoder/" method="post" />
+    <Path path="/tx-service/oeth/api/v1/data-decoder/" method="post" />
 
-    <SampleRequestHeader method="post" pathWithParams="/api/v1/data-decoder/" />
+    <SampleRequestHeader method="post" pathWithParams="/tx-service/oeth/api/v1/data-decoder/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v1-data-decoder--post.ts
-```
-            
-```bash curl
-curl -X POST https://safe-transaction-optimism.safe.global/api/v1/data-decoder/ \
+```bash 
+curl -X POST https://api.safe.global/tx-service/oeth/api/v1/data-decoder/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "method": "transfer",
-  "parameters": [
-    {
-      "name": "to",
-      "type": "address",
-      "value": "0x5298A93734C3D979eF1f23F78eBB871879A21F22"
-    },
-    {
-      "name": "value",
-      "type": "uint256",
-      "value": "10000000000000000000"
-    }
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -249,44 +178,24 @@ curl -X POST https://safe-transaction-optimism.safe.global/api/v1/data-decoder/ 
     <Feedback asPath={"/core-api/transaction-service-reference#List-Delegates"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/delegates/" method="get" />
+    <Path path="/tx-service/oeth/api/v2/delegates/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v2/delegates/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v2/delegates/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v2-delegates--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v2/delegates/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v2/delegates/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "count": 1,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "safe": "0x5298A93734C3D979eF1f23F78eBB871879A21F22",
-      "delegate": "0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739",
-      "delegator": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
-      "label": "Sample Delegator 2"
-    }
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -341,32 +250,24 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
     <Feedback asPath={"/core-api/transaction-service-reference#Create-Delegate"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/delegates/" method="post" />
+    <Path path="/tx-service/oeth/api/v2/delegates/" method="post" />
 
-    <SampleRequestHeader method="post" pathWithParams="/api/v2/delegates/" />
+    <SampleRequestHeader method="post" pathWithParams="/tx-service/oeth/api/v2/delegates/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v2-delegates--post.ts
-```
-            
-```bash curl
-curl -X POST https://safe-transaction-optimism.safe.global/api/v2/delegates/ \
+```bash 
+curl -X POST https://api.safe.global/tx-service/oeth/api/v2/delegates/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-Empty Response
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -392,32 +293,24 @@ either the `delegator` (owner) or the `delegate` itself. Check `POST /delegates/
     <Feedback asPath={"/core-api/transaction-service-reference#Delete-Delegate"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/delegates/{delegate_address}/" method="delete" />
+    <Path path="/tx-service/oeth/api/v2/delegates/{delegate_address}/" method="delete" />
 
-    <SampleRequestHeader method="delete" pathWithParams="/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/" />
+    <SampleRequestHeader method="delete" pathWithParams="/tx-service/oeth/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v2-delegates-{delegate_address}--delete.ts
-```
-            
-```bash curl
-curl -X DELETE https://safe-transaction-optimism.safe.global/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/ \
+```bash 
+curl -X DELETE https://api.safe.global/tx-service/oeth/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-Empty Response
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -447,50 +340,24 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Message"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/messages/{message_hash}/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/messages/{message_hash}/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/messages/0x3b3b57b3/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/messages/0x3b3b57b3/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v1-messages-{message_hash}--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/messages/0x3b3b57b3/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/messages/0x3b3b57b3/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "created": "2024-07-29T16:59:00.807652Z",
-  "modified": "2024-07-29T16:59:00.807652Z",
-  "safe": "0x5298A93734C3D979eF1f23F78eBB871879A21F22",
-  "messageHash": "0x950cfe6090e742b709ab5f662c10c8b4e06d403a2f8c4654d86af45d93fa3777",
-  "message": "string message",
-  "proposedBy": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
-  "safeAppId": null,
-  "confirmations": [
-    {
-      "created": "2024-07-29T16:59:00.843249Z",
-      "modified": "2024-07-29T16:59:00.843249Z",
-      "owner": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
-      "signature": "0x5f12f647a876c1966cfbb785d78add0e504cdd0b56b9e21ac93a566d883f80af0192226678ffbe04b35efd23265f1b516a0b0920c679b13d9a5290af0c4b87931f",
-      "signatureType": "ETH_SIGN"
-    }
-  ],
-  "preparedSignature": "0x5f12f647a876c1966cfbb785d78add0e504cdd0b56b9e21ac93a566d883f80af0192226678ffbe04b35efd23265f1b516a0b0920c679b13d9a5290af0c4b87931f"
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -507,6 +374,8 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/messages/0x3b3b
 
     Adds the signature of a message given its message hash
 
+Note: Safe must be v1.4.1 for EIP-1271 signatures to work.
+
     
 
     <Parameters parameters={[{"in":"path","name":"message_hash","schema":{"type":"string"},"required":true}]} />
@@ -514,32 +383,24 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/messages/0x3b3b
     <Feedback asPath={"/core-api/transaction-service-reference#Sign-Message"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/messages/{message_hash}/signatures/" method="post" />
+    <Path path="/tx-service/oeth/api/v1/messages/{message_hash}/signatures/" method="post" />
 
-    <SampleRequestHeader method="post" pathWithParams="/api/v1/messages/0x3b3b57b3/signatures/" />
+    <SampleRequestHeader method="post" pathWithParams="/tx-service/oeth/api/v1/messages/0x3b3b57b3/signatures/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v1-messages-{message_hash}-signatures--post.ts
-```
-            
-```bash curl
-curl -X POST https://safe-transaction-optimism.safe.global/api/v1/messages/0x3b3b57b3/signatures/ \
+```bash 
+curl -X POST https://api.safe.global/tx-service/oeth/api/v1/messages/0x3b3b57b3/signatures/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-Empty Response
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -563,57 +424,24 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#List-Messages"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/messages/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/safes/{address}/messages/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v1-safes-{address}-messages--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "count": 1,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "created": "2024-07-29T16:59:00.807652Z",
-      "modified": "2024-07-29T16:59:00.807652Z",
-      "safe": "0x5298A93734C3D979eF1f23F78eBB871879A21F22",
-      "messageHash": "0x950cfe6090e742b709ab5f662c10c8b4e06d403a2f8c4654d86af45d93fa3777",
-      "message": "string message",
-      "proposedBy": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
-      "safeAppId": null,
-      "confirmations": [
-        {
-          "created": "2024-07-29T16:59:00.843249Z",
-          "modified": "2024-07-29T16:59:00.843249Z",
-          "owner": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
-          "signature": "0x5f12f647a876c1966cfbb785d78add0e504cdd0b56b9e21ac93a566d883f80af0192226678ffbe04b35efd23265f1b516a0b0920c679b13d9a5290af0c4b87931f",
-          "signatureType": "ETH_SIGN"
-        }
-      ],
-      "preparedSignature": "0x5f12f647a876c1966cfbb785d78add0e504cdd0b56b9e21ac93a566d883f80af0192226678ffbe04b35efd23265f1b516a0b0920c679b13d9a5290af0c4b87931f"
-    }
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -638,6 +466,8 @@ Message can be:
 Hash will be calculated from the provided ``message``. Sending a raw ``hash`` will not be accepted,
 service needs to derive it itself.
 
+Note: Safe must be v1.4.1 for EIP-1271 signatures to work.
+
     
 
     <Parameters parameters={[{"in":"path","name":"address","schema":{"type":"string"},"required":true}]} />
@@ -645,32 +475,24 @@ service needs to derive it itself.
     <Feedback asPath={"/core-api/transaction-service-reference#Create-Signed-Message"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/messages/" method="post" />
+    <Path path="/tx-service/oeth/api/v1/safes/{address}/messages/" method="post" />
 
-    <SampleRequestHeader method="post" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/" />
+    <SampleRequestHeader method="post" pathWithParams="/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v1-safes-{address}-messages--post.ts
-```
-            
-```bash curl
-curl -X POST https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
+```bash 
+curl -X POST https://api.safe.global/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-Empty Response
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -700,42 +522,24 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Module-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/module-transaction/{module_transaction_id}" method="get" />
+    <Path path="/tx-service/oeth/api/v1/module-transaction/{module_transaction_id}" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/module-transaction/0x3b3b57b3" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/module-transaction/0x3b3b57b3" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/module-transaction/0x3b3b57b3 \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/module-transaction/0x3b3b57b3 \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "created": "2024-07-24T20:54:48Z",
-  "executionDate": "2024-07-24T20:54:48Z",
-  "blockNumber": 6369595,
-  "isSuccessful": true,
-  "transactionHash": "0x4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e",
-  "safe": "0x5298A93734C3D979eF1f23F78eBB871879A21F22",
-  "module": "0x9085149079b87E32178669097bc82D341CB65678",
-  "to": "0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d",
-  "value": "10000000000",
-  "data": "0x00",
-  "operation": 0,
-  "dataDecoded": null,
-  "moduleTransactionId": "i4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e0,0"
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -760,41 +564,24 @@ the given Safe transaction hash
     <Feedback asPath={"/core-api/transaction-service-reference#List-Multisig-Confirmations"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "count": 1,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "owner": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
-      "submissionDate": "2024-06-26T14:57:15.504003Z",
-      "transactionHash": null,
-      "signature": "0xec2c1cf656d997f92247ddf59f30ce718de990ec4f8d4670a37d3d3594862f0d49ad2c553daa2ff937c50d45e9ca6a815f826d29603f8c5c818cb698ddc2383a20",
-      "signatureType": "ETH_SIGN"
-    }
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -820,30 +607,24 @@ does not support the use of delegates to make transactions trusted.
     <Feedback asPath={"/core-api/transaction-service-reference#Confirm-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="post" />
+    <Path path="/tx-service/oeth/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="post" />
 
-    <SampleRequestHeader method="post" pathWithParams="/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/" />
+    <SampleRequestHeader method="post" pathWithParams="/tx-service/oeth/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X POST https://safe-transaction-optimism.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
+curl -X POST https://api.safe.global/tx-service/oeth/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "signature": "0xfc32b5fdfa8517b44bd45c5d1e09ed898325e109e6b889fbf1584c158dcbe71b2de4a1e8d43b5d396c1da03381cbc3f8358295192d19ded2c12dda90227308b720"
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -868,47 +649,24 @@ Only 1000 newest transfers will be returned.
     <Feedback asPath={"/core-api/transaction-service-reference#List-Incoming-Transfers"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/incoming-transfers/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/safes/{address}/incoming-transfers/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "count": 1,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "type": "ETHER_TRANSFER",
-      "executionDate": "2024-06-25T11:19:00Z",
-      "blockNumber": 6183150,
-      "transactionHash": "0x28fd99978fe7a05160f8da40311cb2e796f17d23f7a3eaea243d4a7f2f636924",
-      "to": "0x5298A93734C3D979eF1f23F78eBB871879A21F22",
-      "value": "10000000000000000",
-      "tokenId": null,
-      "tokenAddress": null,
-      "transferId": "i28fd99978fe7a05160f8da40311cb2e796f17d23f7a3eaea243d4a7f2f636924",
-      "tokenInfo": null,
-      "from": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2"
-    }
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -932,53 +690,24 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72a
     <Feedback asPath={"/core-api/transaction-service-reference#List-a-Safe's-Module-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/module-transactions/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/safes/{address}/module-transactions/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v1-safes-{address}-module-transactions--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "count": 1,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "created": "2024-07-24T20:54:48Z",
-      "executionDate": "2024-07-24T20:54:48Z",
-      "blockNumber": 6369595,
-      "isSuccessful": true,
-      "transactionHash": "0x4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e",
-      "safe": "0x5298A93734C3D979eF1f23F78eBB871879A21F22",
-      "module": "0x9085149079b87E32178669097bc82D341CB65678",
-      "to": "0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d",
-      "value": "10000000000",
-      "data": "0x00",
-      "operation": 0,
-      "dataDecoded": null,
-      "moduleTransactionId": "i4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e0,0"
-    }
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -1004,30 +733,24 @@ and those versions are not supported in L2 networks.
     <Feedback asPath={"/core-api/transaction-service-reference#Estimate-Gas-Costs-for-a-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/multisig-transactions/estimations/" method="post" />
+    <Path path="/tx-service/oeth/api/v1/safes/{address}/multisig-transactions/estimations/" method="post" />
 
-    <SampleRequestHeader method="post" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/" />
+    <SampleRequestHeader method="post" pathWithParams="/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X POST https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/ \
+curl -X POST https://api.safe.global/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "safeTxGas": "42806"
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -1052,47 +775,24 @@ Only 1000 newest transfers will be returned.
     <Feedback asPath={"/core-api/transaction-service-reference#List-Transfers"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/transfers/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/safes/{address}/transfers/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "count": 1,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "type": "ETHER_TRANSFER",
-      "executionDate": "2024-07-24T20:54:48Z",
-      "blockNumber": 6369595,
-      "transactionHash": "0x4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e",
-      "to": "0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d",
-      "value": "10000000000",
-      "tokenId": null,
-      "tokenAddress": null,
-      "transferId": "i4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e0,0,0",
-      "tokenInfo": null,
-      "from": "0x5298A93734C3D979eF1f23F78eBB871879A21F22"
-    }
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -1116,40 +816,24 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72a
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Transfer"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/transfer/{transfer_id}" method="get" />
+    <Path path="/tx-service/oeth/api/v1/transfer/{transfer_id}" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/transfer/3b3b57b3" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/transfer/3b3b57b3" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/transfer/3b3b57b3 \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/transfer/3b3b57b3 \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "type": "ETHER_TRANSFER",
-  "executionDate": "2024-07-24T20:54:48Z",
-  "blockNumber": 6369595,
-  "transactionHash": "0x4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e",
-  "to": "0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d",
-  "value": "10000000000",
-  "tokenId": null,
-  "tokenAddress": null,
-  "transferId": "i4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e0,0,0",
-  "tokenInfo": null,
-  "from": "0x5298A93734C3D979eF1f23F78eBB871879A21F22"
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -1173,21 +857,18 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/transfer/3b3b57
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/multisig-transactions/{safe_tx_hash}/" method="get" />
+    <Path path="/tx-service/oeth/api/v2/multisig-transactions/{safe_tx_hash}/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v2-multisig-transactions-{safe_tx_hash}--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
@@ -1251,17 +932,18 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
     <Feedback asPath={"/core-api/transaction-service-reference#Delete-Queued-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/multisig-transactions/{safe_tx_hash}/" method="delete" />
+    <Path path="/tx-service/oeth/api/v2/multisig-transactions/{safe_tx_hash}/" method="delete" />
 
-    <SampleRequestHeader method="delete" pathWithParams="/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/" />
+    <SampleRequestHeader method="delete" pathWithParams="/tx-service/oeth/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X DELETE https://safe-transaction-optimism.safe.global/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
+curl -X DELETE https://api.safe.global/tx-service/oeth/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
@@ -1305,21 +987,18 @@ but there will be 2 transactions in the list.
     <Feedback asPath={"/core-api/transaction-service-reference#List-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/safes/{address}/all-transactions/" method="get" />
+    <Path path="/tx-service/oeth/api/v2/safes/{address}/all-transactions/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v2-safes-{address}-all-transactions--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
@@ -1350,21 +1029,18 @@ By default, only ``trusted`` multisig transactions are returned.
     <Feedback asPath={"/core-api/transaction-service-reference#List-a-Safe's-Multisig-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/safes/{address}/multisig-transactions/" method="get" />
+    <Path path="/tx-service/oeth/api/v2/safes/{address}/multisig-transactions/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v2-safes-{address}-multisig-transactions--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
@@ -1395,21 +1071,18 @@ retrieves all the information related.
     <Feedback asPath={"/core-api/transaction-service-reference#Create-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/safes/{address}/multisig-transactions/" method="post" />
+    <Path path="/tx-service/oeth/api/v2/safes/{address}/multisig-transactions/" method="post" />
 
-    <SampleRequestHeader method="post" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/" />
+    <SampleRequestHeader method="post" pathWithParams="/tx-service/oeth/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v2-safes-{address}-multisig-transactions--post.ts
-```
-            
-```bash curl
-curl -X POST https://safe-transaction-optimism.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
+```bash 
+curl -X POST https://api.safe.global/tx-service/oeth/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
@@ -1445,34 +1118,24 @@ curl -X POST https://safe-transaction-optimism.safe.global/api/v2/safes/0xcd2E72
     <Feedback asPath={"/core-api/transaction-service-reference#List-Safes-that-use-a-Specific-Module"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/modules/{address}/safes/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/modules/{address}/safes/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v1-modules-{address}-safes--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "safes": ["0x5298A93734C3D979eF1f23F78eBB871879A21F22"]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -1502,44 +1165,24 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/modules/0xcd2E7
     <Feedback asPath={"/core-api/transaction-service-reference#List-Safes-from-a-Specific-Owner"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/owners/{address}/safes/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/owners/{address}/safes/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v1-owners-{address}-safes--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "safes": [
-    "0xd0540ECBB3010E5f8d780B62Af3aB936fB6C0c75",
-    "0x44eBdc9aCE42d6742a3df2813CB437834e6F05B0",
-    "0x25D641a9eE275CE94b64bE1227e610b77e776522",
-    "0xeFEe5E6394a02eE0ba61731Da014eE8aE8BcDe83",
-    "0xCfF743C4445eAd58105a793B34eB02125e830dB0",
-    "0x27000f745b020bD386D7712A4ca32AF7a2E3A7Fe",
-    "0xb53a6B6f67847cfF94fDb94B90345cB45a2c7301",
-    "0x1f01FC62f168099493705bDF7A05b539946832bc",
-    "0x5298A93734C3D979eF1f23F78eBB871879A21F22"
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -1569,62 +1212,24 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/owners/0xcd2E72
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Safe-Operation"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safe-operations/{safe_operation_hash}/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/safe-operations/{safe_operation_hash}/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "created": "2024-07-22T10:00:18.892702Z",
-  "modified": "2024-07-22T10:00:18.892702Z",
-  "safeOperationHash": "0xb59828b1d3b0363641e3bb4d72dd63565d1062a40c6d05469caa0218ce8e0445",
-  "validAfter": null,
-  "validUntil": null,
-  "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
-  "confirmations": [
-    {
-      "created": "2024-07-22T10:00:18.898708Z",
-      "modified": "2024-07-22T10:00:18.898708Z",
-      "owner": "0x608Cf2e3412c6BDA14E6D8A0a7D27c4240FeD6F1",
-      "signature": "0x000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f10000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000e053c4ce48756bae15e3454ad75ee8d4ba9764ea37ed561b216701c3630c0521774f94a8b7351780daa4a241792f52089af776e0898185318053201a92865b08d0000000000000000000000000000000000000000000000000000000000000002549960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d97631d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034226f726967696e223a22687474703a2f2f6c6f63616c686f73743a33303030222c2263726f73734f726967696e223a66616c736500000000000000000000001f",
-      "signatureType": "CONTRACT_SIGNATURE"
-    }
-  ],
-  "preparedSignature": "0x000000000000000000000000000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f10000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000e053c4ce48756bae15e3454ad75ee8d4ba9764ea37ed561b216701c3630c0521774f94a8b7351780daa4a241792f52089af776e0898185318053201a92865b08d0000000000000000000000000000000000000000000000000000000000000002549960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d97631d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034226f726967696e223a22687474703a2f2f6c6f63616c686f73743a33303030222c2263726f73734f726967696e223a66616c736500000000000000000000001f",
-  "userOperation": {
-    "ethereumTxHash": "0xfe7bc7fcab04ad689e1c5fcca7ad5345481fddc462880655a9a39b827da7b4ac",
-    "sender": "0x125eb8CcAC85EA322C3859648509823CA05aD7e5",
-    "userOperationHash": "0x3545a04aa1d10b74164af413253ab0881c86ebe219e166207b3175923202bbc7",
-    "nonce": 0,
-    "initCode": "0x4e1dcf7ad4e460cfd30791ccc4f9c8a4f820ec671688f0b900000000000000000000000029fcb43b46531bca003ddc8fcb67ffe91900c7620000000000000000000000000000000000000000000000000000000000000060ad27de2a410652abce96ea0fdfc30c2f0fd35952b78f554667111999a28ff3380000000000000000000000000000000000000000000000000000000000000344b63e800d0000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000100000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b5260000000000000000000000000000000000000000000000000000000000000140000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b40370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f100000000000000000000000000000000000000000000000000000000000001c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000172018ecd4ec46d4d2a6b64fe960b3d64e8b94b2234eb000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000648d0dc49f00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b403701608cf2e3412c6bda14e6d8a0a7d27c4240fed6f1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000640dd9692f4255f6101637c8b43bf63660ffba39cab522b053094b2a07535d7d848ce5efca9aae34aabaee7600328bb0fb5f6a6c5214c8db9303f824f52f2fca42f2b342ce000000000000000000000000ca89cba4813d5b40aec6e57a30d0eeb500d6531b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "callData": "0x7bb3742800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "callGasLimit": 198268,
-    "verificationGasLimit": 3867576,
-    "preVerificationGas": 110646,
-    "maxFeePerGas": 36776375378,
-    "maxPriorityFeePerGas": 199436407,
-    "paymaster": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d",
-    "paymasterData": "0x00000000000000000000000000000000000000000000000000000000669e2fe1000000000000000000000000000000000000000000000000000000000000000037a31ba85cc6a4753d5fb73e475ddf22c9ab9a9ce405fdff217c03bff161bc893e7658160bd3cabaefad55b2d5751713484b8b90ef54d85e356916b4fede3dc11b",
-    "signature": "0x000000000000000000000000000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f10000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000e053c4ce48756bae15e3454ad75ee8d4ba9764ea37ed561b216701c3630c0521774f94a8b7351780daa4a241792f52089af776e0898185318053201a92865b08d0000000000000000000000000000000000000000000000000000000000000002549960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d97631d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034226f726967696e223a22687474703a2f2f6c6f63616c686f73743a33303030222c2263726f73734f726967696e223a66616c736500000000000000000000001f",
-    "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789"
-  }
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -1648,41 +1253,24 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safe-operations
     <Feedback asPath={"/core-api/transaction-service-reference#Get-the-list-of-confirmations-for-a-multisig-transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safe-operations/{safe_operation_hash}/confirmations/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/safe-operations/{safe_operation_hash}/confirmations/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "count": 1,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "created": "2024-07-22T10:00:18.898708Z",
-      "modified": "2024-07-22T10:00:18.898708Z",
-      "owner": "0x608Cf2e3412c6BDA14E6D8A0a7D27c4240FeD6F1",
-      "signature": "0x000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f10000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000e053c4ce48756bae15e3454ad75ee8d4ba9764ea37ed561b216701c3630c0521774f94a8b7351780daa4a241792f52089af776e0898185318053201a92865b08d0000000000000000000000000000000000000000000000000000000000000002549960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d97631d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034226f726967696e223a22687474703a2f2f6c6f63616c686f73743a33303030222c2263726f73734f726967696e223a66616c736500000000000000000000001f",
-      "signatureType": "CONTRACT_SIGNATURE"
-    }
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -1707,28 +1295,24 @@ the use of delegates to make a transaction trusted.
     <Feedback asPath={"/core-api/transaction-service-reference#Add-a-confirmation-for-a-transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safe-operations/{safe_operation_hash}/confirmations/" method="post" />
+    <Path path="/tx-service/oeth/api/v1/safe-operations/{safe_operation_hash}/confirmations/" method="post" />
 
-    <SampleRequestHeader method="post" pathWithParams="/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/" />
+    <SampleRequestHeader method="post" pathWithParams="/tx-service/oeth/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X POST https://safe-transaction-optimism.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
+curl -X POST https://api.safe.global/tx-service/oeth/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-Empty Response
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -1752,69 +1336,24 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#List-Safe-Operations"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/safe-operations/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/safes/{address}/safe-operations/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "count": 1,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "created": "2024-07-22T10:00:18.892702Z",
-      "modified": "2024-07-22T10:00:18.892702Z",
-      "safeOperationHash": "0xb59828b1d3b0363641e3bb4d72dd63565d1062a40c6d05469caa0218ce8e0445",
-      "validAfter": null,
-      "validUntil": null,
-      "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
-      "confirmations": [
-        {
-          "created": "2024-07-22T10:00:18.898708Z",
-          "modified": "2024-07-22T10:00:18.898708Z",
-          "owner": "0x608Cf2e3412c6BDA14E6D8A0a7D27c4240FeD6F1",
-          "signature": "0x000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f10000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000e053c4ce48756bae15e3454ad75ee8d4ba9764ea37ed561b216701c3630c0521774f94a8b7351780daa4a241792f52089af776e0898185318053201a92865b08d0000000000000000000000000000000000000000000000000000000000000002549960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d97631d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034226f726967696e223a22687474703a2f2f6c6f63616c686f73743a33303030222c2263726f73734f726967696e223a66616c736500000000000000000000001f",
-          "signatureType": "CONTRACT_SIGNATURE"
-        }
-      ],
-      "preparedSignature": "0x000000000000000000000000000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f10000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000e053c4ce48756bae15e3454ad75ee8d4ba9764ea37ed561b216701c3630c0521774f94a8b7351780daa4a241792f52089af776e0898185318053201a92865b08d0000000000000000000000000000000000000000000000000000000000000002549960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d97631d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034226f726967696e223a22687474703a2f2f6c6f63616c686f73743a33303030222c2263726f73734f726967696e223a66616c736500000000000000000000001f",
-      "userOperation": {
-        "ethereumTxHash": "0xfe7bc7fcab04ad689e1c5fcca7ad5345481fddc462880655a9a39b827da7b4ac",
-        "sender": "0x125eb8CcAC85EA322C3859648509823CA05aD7e5",
-        "userOperationHash": "0x3545a04aa1d10b74164af413253ab0881c86ebe219e166207b3175923202bbc7",
-        "nonce": 0,
-        "initCode": "0x4e1dcf7ad4e460cfd30791ccc4f9c8a4f820ec671688f0b900000000000000000000000029fcb43b46531bca003ddc8fcb67ffe91900c7620000000000000000000000000000000000000000000000000000000000000060ad27de2a410652abce96ea0fdfc30c2f0fd35952b78f554667111999a28ff3380000000000000000000000000000000000000000000000000000000000000344b63e800d0000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000100000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b5260000000000000000000000000000000000000000000000000000000000000140000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b40370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f100000000000000000000000000000000000000000000000000000000000001c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000172018ecd4ec46d4d2a6b64fe960b3d64e8b94b2234eb000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000648d0dc49f00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b403701608cf2e3412c6bda14e6d8a0a7d27c4240fed6f1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000640dd9692f4255f6101637c8b43bf63660ffba39cab522b053094b2a07535d7d848ce5efca9aae34aabaee7600328bb0fb5f6a6c5214c8db9303f824f52f2fca42f2b342ce000000000000000000000000ca89cba4813d5b40aec6e57a30d0eeb500d6531b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-        "callData": "0x7bb3742800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-        "callGasLimit": 198268,
-        "verificationGasLimit": 3867576,
-        "preVerificationGas": 110646,
-        "maxFeePerGas": 36776375378,
-        "maxPriorityFeePerGas": 199436407,
-        "paymaster": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d",
-        "paymasterData": "0x00000000000000000000000000000000000000000000000000000000669e2fe1000000000000000000000000000000000000000000000000000000000000000037a31ba85cc6a4753d5fb73e475ddf22c9ab9a9ce405fdff217c03bff161bc893e7658160bd3cabaefad55b2d5751713484b8b90ef54d85e356916b4fede3dc11b",
-        "signature": "0x000000000000000000000000000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f10000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000e053c4ce48756bae15e3454ad75ee8d4ba9764ea37ed561b216701c3630c0521774f94a8b7351780daa4a241792f52089af776e0898185318053201a92865b08d0000000000000000000000000000000000000000000000000000000000000002549960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d97631d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034226f726967696e223a22687474703a2f2f6c6f63616c686f73743a33303030222c2263726f73734f726967696e223a66616c736500000000000000000000001f",
-        "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789"
-      }
-    }
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -1838,28 +1377,24 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72a
     <Feedback asPath={"/core-api/transaction-service-reference#Create-Safe-Operation"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/safe-operations/" method="post" />
+    <Path path="/tx-service/oeth/api/v1/safes/{address}/safe-operations/" method="post" />
 
-    <SampleRequestHeader method="post" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/" />
+    <SampleRequestHeader method="post" pathWithParams="/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X POST https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
+curl -X POST https://api.safe.global/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-Empty Response
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -1883,69 +1418,24 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#List-User-Operations"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/user-operations/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/safes/{address}/user-operations/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/user-operations/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/user-operations/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/user-operations/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/user-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "count": 1,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "ethereumTxHash": "0xfe7bc7fcab04ad689e1c5fcca7ad5345481fddc462880655a9a39b827da7b4ac",
-      "sender": "0x125eb8CcAC85EA322C3859648509823CA05aD7e5",
-      "userOperationHash": "0x3545a04aa1d10b74164af413253ab0881c86ebe219e166207b3175923202bbc7",
-      "nonce": 0,
-      "initCode": "0x4e1dcf7ad4e460cfd30791ccc4f9c8a4f820ec671688f0b900000000000000000000000029fcb43b46531bca003ddc8fcb67ffe91900c7620000000000000000000000000000000000000000000000000000000000000060ad27de2a410652abce96ea0fdfc30c2f0fd35952b78f554667111999a28ff3380000000000000000000000000000000000000000000000000000000000000344b63e800d0000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000100000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b5260000000000000000000000000000000000000000000000000000000000000140000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b40370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f100000000000000000000000000000000000000000000000000000000000001c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000172018ecd4ec46d4d2a6b64fe960b3d64e8b94b2234eb000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000648d0dc49f00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b403701608cf2e3412c6bda14e6d8a0a7d27c4240fed6f1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000640dd9692f4255f6101637c8b43bf63660ffba39cab522b053094b2a07535d7d848ce5efca9aae34aabaee7600328bb0fb5f6a6c5214c8db9303f824f52f2fca42f2b342ce000000000000000000000000ca89cba4813d5b40aec6e57a30d0eeb500d6531b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "callData": "0x7bb3742800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "callGasLimit": 198268,
-      "verificationGasLimit": 3867576,
-      "preVerificationGas": 110646,
-      "maxFeePerGas": 36776375378,
-      "maxPriorityFeePerGas": 199436407,
-      "paymaster": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d",
-      "paymasterData": "0x00000000000000000000000000000000000000000000000000000000669e2fe1000000000000000000000000000000000000000000000000000000000000000037a31ba85cc6a4753d5fb73e475ddf22c9ab9a9ce405fdff217c03bff161bc893e7658160bd3cabaefad55b2d5751713484b8b90ef54d85e356916b4fede3dc11b",
-      "signature": "0x000000000000000000000000000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f10000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000e053c4ce48756bae15e3454ad75ee8d4ba9764ea37ed561b216701c3630c0521774f94a8b7351780daa4a241792f52089af776e0898185318053201a92865b08d0000000000000000000000000000000000000000000000000000000000000002549960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d97631d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034226f726967696e223a22687474703a2f2f6c6f63616c686f73743a33303030222c2263726f73734f726967696e223a66616c736500000000000000000000001f",
-      "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
-      "safeOperation": {
-        "created": "2024-07-22T10:00:18.892702Z",
-        "modified": "2024-07-22T10:00:18.892702Z",
-        "safeOperationHash": "0xb59828b1d3b0363641e3bb4d72dd63565d1062a40c6d05469caa0218ce8e0445",
-        "validAfter": null,
-        "validUntil": null,
-        "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
-        "confirmations": [
-          {
-            "created": "2024-07-22T10:00:18.898708Z",
-            "modified": "2024-07-22T10:00:18.898708Z",
-            "owner": "0x608Cf2e3412c6BDA14E6D8A0a7D27c4240FeD6F1",
-            "signature": "0x000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f10000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000e053c4ce48756bae15e3454ad75ee8d4ba9764ea37ed561b216701c3630c0521774f94a8b7351780daa4a241792f52089af776e0898185318053201a92865b08d0000000000000000000000000000000000000000000000000000000000000002549960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d97631d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034226f726967696e223a22687474703a2f2f6c6f63616c686f73743a33303030222c2263726f73734f726967696e223a66616c736500000000000000000000001f",
-            "signatureType": "CONTRACT_SIGNATURE"
-          }
-        ],
-        "preparedSignature": "0x000000000000000000000000000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f10000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000e053c4ce48756bae15e3454ad75ee8d4ba9764ea37ed561b216701c3630c0521774f94a8b7351780daa4a241792f52089af776e0898185318053201a92865b08d0000000000000000000000000000000000000000000000000000000000000002549960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d97631d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034226f726967696e223a22687474703a2f2f6c6f63616c686f73743a33303030222c2263726f73734f726967696e223a66616c736500000000000000000000001f"
-      }
-    }
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -1969,66 +1459,24 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72a
     <Feedback asPath={"/core-api/transaction-service-reference#Get-User-Operation"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/user-operations/{user_operation_hash}/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/user-operations/{user_operation_hash}/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v1-user-operations-{user_operation_hash}--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "ethereumTxHash": "0xfe7bc7fcab04ad689e1c5fcca7ad5345481fddc462880655a9a39b827da7b4ac",
-  "sender": "0x125eb8CcAC85EA322C3859648509823CA05aD7e5",
-  "userOperationHash": "0x3545a04aa1d10b74164af413253ab0881c86ebe219e166207b3175923202bbc7",
-  "nonce": 0,
-  "initCode": "0x4e1dcf7ad4e460cfd30791ccc4f9c8a4f820ec671688f0b900000000000000000000000029fcb43b46531bca003ddc8fcb67ffe91900c7620000000000000000000000000000000000000000000000000000000000000060ad27de2a410652abce96ea0fdfc30c2f0fd35952b78f554667111999a28ff3380000000000000000000000000000000000000000000000000000000000000344b63e800d0000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000100000000000000000000000038869bf66a61cf6bdb996a6ae40d5853fd43b5260000000000000000000000000000000000000000000000000000000000000140000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b40370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f100000000000000000000000000000000000000000000000000000000000001c48d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000172018ecd4ec46d4d2a6b64fe960b3d64e8b94b2234eb000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000648d0dc49f00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001000000000000000000000000a581c4a4db7175302464ff3c06380bc3270b403701608cf2e3412c6bda14e6d8a0a7d27c4240fed6f1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000640dd9692f4255f6101637c8b43bf63660ffba39cab522b053094b2a07535d7d848ce5efca9aae34aabaee7600328bb0fb5f6a6c5214c8db9303f824f52f2fca42f2b342ce000000000000000000000000ca89cba4813d5b40aec6e57a30d0eeb500d6531b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-  "callData": "0x7bb3742800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-  "callGasLimit": 198268,
-  "verificationGasLimit": 3867576,
-  "preVerificationGas": 110646,
-  "maxFeePerGas": 36776375378,
-  "maxPriorityFeePerGas": 199436407,
-  "paymaster": "0xDFF7FA1077Bce740a6a212b3995990682c0Ba66d",
-  "paymasterData": "0x00000000000000000000000000000000000000000000000000000000669e2fe1000000000000000000000000000000000000000000000000000000000000000037a31ba85cc6a4753d5fb73e475ddf22c9ab9a9ce405fdff217c03bff161bc893e7658160bd3cabaefad55b2d5751713484b8b90ef54d85e356916b4fede3dc11b",
-  "signature": "0x000000000000000000000000000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f10000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000e053c4ce48756bae15e3454ad75ee8d4ba9764ea37ed561b216701c3630c0521774f94a8b7351780daa4a241792f52089af776e0898185318053201a92865b08d0000000000000000000000000000000000000000000000000000000000000002549960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d97631d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034226f726967696e223a22687474703a2f2f6c6f63616c686f73743a33303030222c2263726f73734f726967696e223a66616c736500000000000000000000001f",
-  "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
-  "safeOperation": {
-    "created": "2024-07-22T10:00:18.892702Z",
-    "modified": "2024-07-22T10:00:18.892702Z",
-    "safeOperationHash": "0xb59828b1d3b0363641e3bb4d72dd63565d1062a40c6d05469caa0218ce8e0445",
-    "validAfter": null,
-    "validUntil": null,
-    "moduleAddress": "0xa581c4A4DB7175302464fF3C06380BC3270b4037",
-    "confirmations": [
-      {
-        "created": "2024-07-22T10:00:18.898708Z",
-        "modified": "2024-07-22T10:00:18.898708Z",
-        "owner": "0x608Cf2e3412c6BDA14E6D8A0a7D27c4240FeD6F1",
-        "signature": "0x000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f10000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000e053c4ce48756bae15e3454ad75ee8d4ba9764ea37ed561b216701c3630c0521774f94a8b7351780daa4a241792f52089af776e0898185318053201a92865b08d0000000000000000000000000000000000000000000000000000000000000002549960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d97631d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034226f726967696e223a22687474703a2f2f6c6f63616c686f73743a33303030222c2263726f73734f726967696e223a66616c736500000000000000000000001f",
-        "signatureType": "CONTRACT_SIGNATURE"
-      }
-    ],
-    "preparedSignature": "0x000000000000000000000000000000000000000000000000608cf2e3412c6bda14e6d8a0a7d27c4240fed6f10000000000000000000000000000000000000000000000000000000000000041000000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000e053c4ce48756bae15e3454ad75ee8d4ba9764ea37ed561b216701c3630c0521774f94a8b7351780daa4a241792f52089af776e0898185318053201a92865b08d0000000000000000000000000000000000000000000000000000000000000002549960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d97631d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034226f726967696e223a22687474703a2f2f6c6f63616c686f73743a33303030222c2263726f73734f726967696e223a66616c736500000000000000000000001f"
-  }
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -2058,49 +1506,24 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/user-operations
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Safe-Status"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/safes/{address}/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v1-safes-{address}--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "address": "0x5298A93734C3D979eF1f23F78eBB871879A21F22",
-  "nonce": 6,
-  "threshold": 2,
-  "owners": [
-    "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
-    "0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d"
-  ],
-  "masterCopy": "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA",
-  "modules": [
-    "0x9085149079b87E32178669097bc82D341CB65678",
-    "0xFBbFe0716F25045975f193cccBDbE2a995840657",
-    "0xB4F5e59987549a2586976e8957962dBD54a26FD0"
-  ],
-  "fallbackHandler": "0x017062a1dE2FE6b99BE3d9d37841FeD19F573804",
-  "guard": "0x0000000000000000000000000000000000000000",
-  "version": "1.3.0+L2"
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -2124,46 +1547,24 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72a
     <Feedback asPath={"/core-api/transaction-service-reference#List-a-Safe's-Balances-(Deprecated)"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/balances/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/safes/{address}/balances/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-[
-  // Native coin (Sepolia ETH):
-  {
-    "tokenAddress": null,
-    "token": null,
-    "balance": "9899990000000000"
-  },
-  // ERC20 token:
-  {
-    "tokenAddress": "0x0D5b70467E61125b242E70831aEd15D7C12E3F0D",
-    "token": {
-      "name": "SampleToken",
-      "symbol": "ST",
-      "decimals": 18,
-      "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x0D5b70467E61125b242E70831aEd15D7C12E3F0D.png"
-    },
-    "balance": "10000000000000000000"
-  }
-]
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -2191,88 +1592,24 @@ deployment.
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Safe-Creation-Status"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/creation/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/safes/{address}/creation/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v1-safes-{address}-creation--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "created": "2024-06-25T11:18:48Z",
-  "creator": "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
-  "transactionHash": "0x6404e0298423c092cc1ce486f3f72172a1c0f2f28a9b29f69e605ea825360ac5",
-  "factoryAddress": "0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC",
-  "masterCopy": "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA",
-  "setupData": "0xb63e800d0000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000160000000000000000000000000017062a1de2fe6b99be3d9d37841fed19f5738040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000a6d3debaab2b8093e69109f23a75501f864f74e20000000000000000000000003a16e3090e32dded2250e862b9d5610bef13e93d0000000000000000000000000000000000000000000000000000000000000000",
-  "dataDecoded": {
-    "method": "setup",
-    "parameters": [
-      {
-        "name": "_owners",
-        "type": "address[]",
-        "value": [
-          "0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2",
-          "0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d"
-        ]
-      },
-      {
-        "name": "_threshold",
-        "type": "uint256",
-        "value": "2"
-      },
-      {
-        "name": "to",
-        "type": "address",
-        "value": "0x0000000000000000000000000000000000000000"
-      },
-      {
-        "name": "data",
-        "type": "bytes",
-        "value": "0x"
-      },
-      {
-        "name": "fallbackHandler",
-        "type": "address",
-        "value": "0x017062a1dE2FE6b99BE3d9d37841FeD19F573804"
-      },
-      {
-        "name": "paymentToken",
-        "type": "address",
-        "value": "0x0000000000000000000000000000000000000000"
-      },
-      {
-        "name": "payment",
-        "type": "uint256",
-        "value": "0"
-      },
-      {
-        "name": "paymentReceiver",
-        "type": "address",
-        "value": "0x0000000000000000000000000000000000000000"
-      }
-    ]
-  },
-  "userOperation": null
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -2297,46 +1634,24 @@ The maximum limit allowed is 200.
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Safe-Balances"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/safes/{address}/balances/" method="get" />
+    <Path path="/tx-service/oeth/api/v2/safes/{address}/balances/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-[
-  // Native coin (Sepolia ETH):
-  {
-    "tokenAddress": null,
-    "token": null,
-    "balance": "9899990000000000"
-  },
-  // ERC20 token:
-  {
-    "tokenAddress": "0x0D5b70467E61125b242E70831aEd15D7C12E3F0D",
-    "token": {
-      "name": "SampleToken",
-      "symbol": "ST",
-      "decimals": 18,
-      "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x0D5b70467E61125b242E70831aEd15D7C12E3F0D.png"
-    },
-    "balance": "10000000000000000000"
-  }
-]
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -2361,46 +1676,24 @@ The maximum limit allowed is 10.
     <Feedback asPath={"/core-api/transaction-service-reference#List-Collectibles"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/safes/{address}/collectibles/" method="get" />
+    <Path path="/tx-service/oeth/api/v2/safes/{address}/collectibles/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/collectibles/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/collectibles/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/collectibles/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/collectibles/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "count": 1,
-  "next": null,
-  "previous": null,
-  "results": [
-    {
-      "address": "0xa0D601bc48Bae6D64bB19d325f8A6618A4da9490",
-      "tokenName": "SampleNft",
-      "tokenSymbol": "SN",
-      "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0xa0D601bc48Bae6D64bB19d325f8A6618A4da9490.png",
-      "id": "1",
-      "uri": null,
-      "name": null,
-      "description": null,
-      "imageUri": null,
-      "metadata": {}
-    }
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -2430,48 +1723,24 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v2/safes/0xcd2E72a
     <Feedback asPath={"/core-api/transaction-service-reference#List-Tokens"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/tokens/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/tokens/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/tokens/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/tokens/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v1-tokens--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/tokens/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/tokens/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "count": 1846,
-  "next": "https://safe-transaction-sepolia.safe.global/api/v1/tokens/?limit=10&offset=10",
-  "previous": null,
-  "results": [
-    {
-      "type": "ERC20",
-      "address": "0x687e43D0aB3248bDfebFE3E8f9F1AB2B9FcE982d",
-      "name": "0x5555.com",
-      "symbol": "0x5555.com",
-      "decimals": 18,
-      "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x687e43D0aB3248bDfebFE3E8f9F1AB2B9FcE982d.png",
-      "trusted": false
-    }
-    // ...
-  ]
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -2495,40 +1764,24 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/tokens/ \
     <Feedback asPath={"/core-api/transaction-service-reference#Get-a-Specific-Token's-Information"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/tokens/{address}/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/tokens/{address}/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```js TypeScript
-// from ../examples/optimism/-v1-tokens-{address}--get.ts
-```
-            
-```bash curl
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
+```bash 
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "type": "ERC20",
-  "address": "0x687e43D0aB3248bDfebFE3E8f9F1AB2B9FcE982d",
-  "name": "0x5555.com",
-  "symbol": "0x5555.com",
-  "decimals": 18,
-  "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x687e43D0aB3248bDfebFE3E8f9F1AB2B9FcE982d.png",
-  "trusted": false
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -2536,7 +1789,7 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/tokens/0xcd2E72
   marginBottom: '112px'
 }} />
 
-### /api/v1/tokens/lists/ - GET
+### /tx-service/oeth/api/v1/tokens/lists/ - GET
 
 <Grid container justifyContent='space-between'>
   <Grid item xs={12} md={5.6}>
@@ -2549,20 +1802,21 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/tokens/0xcd2E72
 
     <Parameters parameters={[{"name":"limit","required":false,"in":"query","description":"Number of results to return per page.","schema":{"type":"integer"}},{"name":"offset","required":false,"in":"query","description":"The initial index from which to return the results.","schema":{"type":"integer"}}]} />
     <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedTokenListList","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"TokenList","type":"object","properties":{"url":{"type":"string","format":"uri","maxLength":200},"description":{"type":"string","maxLength":200}},"required":["description","url"]}}}}}},"description":""}]} />
-    <Feedback asPath={"/core-api/transaction-service-reference#-api-v1-tokens-lists----GET"} label='Did this API route run successfully?' small />
+    <Feedback asPath={"/core-api/transaction-service-reference#-tx-service-oeth-api-v1-tokens-lists----GET"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/tokens/lists/" method="get" />
+    <Path path="/tx-service/oeth/api/v1/tokens/lists/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/tokens/lists/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v1/tokens/lists/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v1/tokens/lists/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v1/tokens/lists/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>
@@ -2582,7 +1836,7 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/tokens/lists/ \
 
 <Grid my={6} />
 
-### /api/v2/analytics/multisig-transactions/by-origin/ - GET
+### /tx-service/oeth/api/v2/analytics/multisig-transactions/by-origin/ - GET
 
 <Grid container justifyContent='space-between'>
   <Grid item xs={12} md={5.6}>
@@ -2595,20 +1849,21 @@ curl -X GET https://safe-transaction-optimism.safe.global/api/v1/tokens/lists/ \
 
     <Parameters parameters={[]} />
     <Responses responses={[{"code":"200","schema":{},"description":"No response body"}]} />
-    <Feedback asPath={"/core-api/transaction-service-reference#-api-v2-analytics-multisig-transactions-by-origin----GET"} label='Did this API route run successfully?' small />
+    <Feedback asPath={"/core-api/transaction-service-reference#-tx-service-oeth-api-v2-analytics-multisig-transactions-by-origin----GET"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/analytics/multisig-transactions/by-origin/" method="get" />
+    <Path path="/tx-service/oeth/api/v2/analytics/multisig-transactions/by-origin/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v2/analytics/multisig-transactions/by-origin/" />
+    <SampleRequestHeader method="get" pathWithParams="/tx-service/oeth/api/v2/analytics/multisig-transactions/by-origin/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-optimism.safe.global/api/v2/analytics/multisig-transactions/by-origin/ \
+curl -X GET https://api.safe.global/tx-service/oeth/api/v2/analytics/multisig-transactions/by-origin/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer API_KEY" \
      
 ```
       </CH.Code>

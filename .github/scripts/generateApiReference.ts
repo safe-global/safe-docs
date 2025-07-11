@@ -6,11 +6,10 @@ const pathsMetadata = require('../../components/ApiReference/paths-metadata.json
 const txServiceNetworks = require('../../components/ApiReference/tx-service-networks.json')
 
 const curlify = (req: any) =>
-  `curl -X ${req.method} https://safe-transaction-${req.networkName}.safe.global${
-    req.url
-  } \\
+  `curl -X ${req.method} https://api.safe.global${req.url} \\
     -H "Accept: application/json" \\
     -H "content-type: application/json" \\
+    -H "Authorization: Bearer API_KEY" \\
     ${!req.body ? '' : `-d '${JSON.stringify(req.body, null, 2)}'`}`
 
 const sampleSafe = '0x5298A93734C3D979eF1f23F78eBB871879A21F22'
@@ -145,15 +144,21 @@ const generateSampleApiResponse = async (
   pathWithParams: string,
   method: string,
   requestBody: string,
-  networkName: string
+  network: { txServiceUrl: string; shortName: string; networkName: string }
 ) => {
   const fetch = await import('node-fetch')
 
   let response: any
-  const baseUrl = `https://safe-transaction-${networkName}.safe.global`
+  const baseUrl = network.txServiceUrl
   const url = baseUrl + pathWithParams
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization:
+      'Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzYWZlLWF1dGgtc2VydmljZSIsInN1YiI6ImU4MzZmYzU0NWZhMTQwOGViMWEwZTJmMjI1ZjA0MWIxXzE0NDFjNjdlNzdmYjQ0ZDJhMDE2YmRlZDNlMjM5OWJkIiwia2V5IjoiZTgzNmZjNTQ1ZmExNDA4ZWIxYTBlMmYyMjVmMDQxYjFfMTQ0MWM2N2U3N2ZiNDRkMmEwMTZiZGVkM2UyMzk5YmQiLCJhdWQiOlsic2FmZS1hdXRoLXNlcnZpY2UiXSwiZXhwIjoxOTA4NjA5MjU3LCJkYXRhIjp7fX0.tjQ7AzLpi3YIgoXVgfE2Nf54Qh4fYkzWdQk3kjg3_91IwhNuvv60d_GnWGjXzt09XBAu6OeXf7lZe1pR2e_zwg'
+  }
+
   if (method === 'get') {
-    response = await fetch.default(url).then(async res => {
+    response = await fetch.default(url, { headers }).then(async res => {
       if (res.status === 200) return await res?.json()
       else {
         console.error(
@@ -169,9 +174,7 @@ const generateSampleApiResponse = async (
     response = await fetch
       .default(url, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers,
         body: JSON.stringify(requestBody)
       })
       .then(async res => {
@@ -220,14 +223,19 @@ const resolveRefs = (swagger: any, obj: any) => {
 const addMethodContext = (json: any) => ({
   ...json,
   paths: Object.entries(json.paths).reduce((acc, [path, methods]) => {
+    // Strip the network prefix from the path to match paths-metadata.json format
+    // e.g., "/tx-service/sep/api/v1/contracts/" -> "/api/v1/contracts/"
+    const cleanPath = path.replace(/^\/tx-service\/[^/]+/, '')
+
     const newMethods = Object.entries(methods as any).reduce(
       (acc, [method, data]: [any, any]) => ({
         ...acc,
         [method]: {
           ...data,
           path,
-          title: pathsMetadata[path]?.[method]?.title ?? '',
-          additionalInfo: pathsMetadata[path]?.[method]?.additionalInfo ?? ''
+          title: pathsMetadata[cleanPath]?.[method]?.title ?? '',
+          additionalInfo:
+            pathsMetadata[cleanPath]?.[method]?.additionalInfo ?? ''
         }
       }),
       {}
@@ -243,31 +251,54 @@ const addMethodContext = (json: any) => ({
 const checkMissingPaths = (json: any) => {
   const missingPaths: string[] = []
   Object.entries(json.paths).map(([path, methods]) => {
-    if (!pathsMetadata[path]) {
-      Object.entries(methods as any).filter((method: any) => !method[1].deprecated).map((method: any) => {
-        const pathAndMethod = `${path} ${method[0].toUpperCase()}`
-        missingPaths.push(pathAndMethod)
-      })
+    // Strip the network prefix from the path to match paths-metadata.json format
+    const cleanPath = path.replace(/^\/tx-service\/[^/]+/, '')
+
+    if (!pathsMetadata[cleanPath]) {
+      Object.entries(methods as any)
+        .filter((method: any) => !method[1].deprecated)
+        .map((method: any) => {
+          const pathAndMethod = `${cleanPath} ${method[0].toUpperCase()}`
+          missingPaths.push(pathAndMethod)
+        })
     }
   })
   if (missingPaths.length > 0) {
-    console.log(`The following API endpoints are not deprecated and not documented.`)
-    console.log(`Consider adding the paths to the /components/ApiReference/paths-metadata.json file if needed.`)
+    console.log(
+      `The following API endpoints are not deprecated and not documented.`
+    )
+    console.log(
+      `Consider adding the paths to the /components/ApiReference/paths-metadata.json file if needed.`
+    )
     console.log(`\n - ${missingPaths.join('\n - ')}\n`)
   }
 }
 
-const getApiJson = async (url: string, networkName: string) => {
-  console.log(`Fetching schema for ${networkName} at ${url}...`)
-  const response = await fetch(url + '/schema/').catch(err => {console.error(`Error: for ${networkName} at ${url}`, err)})
-  if (!response){
+const getApiJson = async (
+  url: string,
+  network: { shortName: string; networkName: string }
+) => {
+  console.log(`Fetching schema for ${network.networkName} at ${url}...`)
+  const fetch = await import('node-fetch')
+  const response = await fetch
+    .default(url + '/schema/', {
+      headers: {
+        Authorization:
+          'Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzYWZlLWF1dGgtc2VydmljZSIsInN1YiI6ImU4MzZmYzU0NWZhMTQwOGViMWEwZTJmMjI1ZjA0MWIxXzE0NDFjNjdlNzdmYjQ0ZDJhMDE2YmRlZDNlMjM5OWJkIiwia2V5IjoiZTgzNmZjNTQ1ZmExNDA4ZWIxYTBlMmYyMjVmMDQxYjFfMTQ0MWM2N2U3N2ZiNDRkMmEwMTZiZGVkM2UyMzk5YmQiLCJhdWQiOlsic2FmZS1hdXRoLXNlcnZpY2UiXSwiZXhwIjoxOTA4NjA5MjU3LCJkYXRhIjp7fX0.tjQ7AzLpi3YIgoXVgfE2Nf54Qh4fYkzWdQk3kjg3_91IwhNuvv60d_GnWGjXzt09XBAu6OeXf7lZe1pR2e_zwg'
+      }
+    })
+    .catch(err => {
+      console.error(`Error: for ${network.networkName} at ${url}`, err)
+    })
+  console.log(response ? `Response received for ${network.networkName}` : '')
+  if (!response) {
     return
   }
   const yaml = await response.text()
   const json = YAML.parse(yaml)
   const withContext = addMethodContext(json)
   fs.writeFileSync(
-    `./components/ApiReference/schemas/${networkName}-swagger.json`,
+    `./components/ApiReference/schemas/${network.networkName}-swagger.json`,
     JSON.stringify(withContext, null, 2)
   )
   return withContext
@@ -275,7 +306,7 @@ const getApiJson = async (url: string, networkName: string) => {
 
 const generateMethodContent = (
   swagger: any,
-  networkName: string,
+  network: { txServiceUrl: string; shortName: string; networkName: string },
   path: string,
   method: string
 ) => {
@@ -304,8 +335,11 @@ const generateMethodContent = (
       path
     ) ?? path
 
+  // Strip the network prefix from the path to match paths-metadata.json format
+  const cleanPath = path.replace(/^\/tx-service\/[^/]+/, '')
+
   const title =
-    pathsMetadata[path]?.[method]?.title ??
+    pathsMetadata[cleanPath]?.[method]?.title ??
     path.replace(/{/g, '\\{').replace(/}/g, '\\}') +
       ' - ' +
       method.toUpperCase()
@@ -313,7 +347,7 @@ const generateMethodContent = (
     path
   )}-${method}`.replace('-api', '')
   const examplePath =
-    filePath.replace('examples', `examples/${networkName}`) + '.ts'
+    filePath.replace('examples', `examples/${network.networkName}`) + '.ts'
   const sampleResponsePath = filePath + '.json'
   const hasExample = fs.existsSync(examplePath)
   const hasResponse = fs.existsSync(sampleResponsePath)
@@ -341,7 +375,7 @@ const generateMethodContent = (
 
   // This is commented out, as we omit response generation for now.
   // It is planned to move this into a separate script.
-  // generateSampleApiResponse(path, pathWithParams + query, method, requestBody, networkName)
+  // generateSampleApiResponse(path, pathWithParams + query, method, requestBody, network)
 
   const codeBlockWithinDescription = _method.description?.match(
     /```[a-z]*\n[\s\S]*?\n```/
@@ -391,7 +425,7 @@ ${curlify({
   url: pathWithParams,
   method: method.toUpperCase(),
   body: requestBody,
-  networkName
+  baseUrl: network.txServiceUrl
 })} 
 \`\`\`
       </CH.Code>
@@ -415,15 +449,19 @@ ${sampleResponse}
 `
 }
 
-const generatePathContent = (swagger: any, networkName: string, path: string) =>
+const generatePathContent = (
+  swagger: any,
+  network: { txServiceUrl: string; shortName: string; networkName: string },
+  path: string
+) =>
   `${Object.keys(swagger.paths[path])
     .filter(method => method !== 'parameters')
-    .map(method => generateMethodContent(swagger, networkName, path, method))
+    .map(method => generateMethodContent(swagger, network, path, method))
     .join('\n')}`
 
 const generateCategoryContent = (
   swagger: any,
-  networkName: string,
+  network: { txServiceUrl: string; shortName: string; networkName: string },
   category: {
     title: string
     paths: string[]
@@ -434,7 +472,7 @@ const generateCategoryContent = (
 
 <Grid my={6} />
 
-${category.paths.map(path => generatePathContent(swagger, networkName, path)).join('\n')}`
+${category.paths.map(path => generatePathContent(swagger, network, path)).join('\n')}`
 
 const getCategories = (swagger: any) => {
   const allMethods: any = Object.entries(swagger.paths)
@@ -460,7 +498,10 @@ const getCategories = (swagger: any) => {
   }))
 }
 
-const generateMainContent = (swagger: any, networkName: string) => {
+const generateMainContent = (
+  swagger: any,
+  network: { txServiceUrl: string; shortName: string; networkName: string }
+) => {
   const categories = getCategories(swagger).filter(
     c => c.title !== 'about' && c.title !== 'notifications'
   )
@@ -484,34 +525,48 @@ This service is available on [multiple networks](../../advanced/smart-account-su
 
 <NetworkSwitcher />
 
-${categories.map(category => generateCategoryContent(swagger, networkName, category)).join('\n')}
+${categories.map(category => generateCategoryContent(swagger, network, category)).join('\n')}
 `
 }
 
 const main = async () => {
   // Check not documented and not deprecated endpoints.
-  const sepoliaJsonFile = await getApiJson(txServiceNetworks[0].txServiceUrl, txServiceNetworks[0].txServiceUrl.replace('https://safe-transaction-', '').split('.')[0])
-  checkMissingPaths(sepoliaJsonFile)
+  const sepoliaNetwork = txServiceNetworks.find(
+    (n: { shortName: string }) => n.shortName === 'sep'
+  )
+  if (sepoliaNetwork) {
+    const sepoliaJsonFile = await getApiJson(
+      sepoliaNetwork.txServiceUrl,
+      sepoliaNetwork
+    )
+    if (sepoliaJsonFile) {
+      checkMissingPaths(sepoliaJsonFile)
+    }
+  }
 
   txServiceNetworks.forEach(
-    async (network: { chainId: string; txServiceUrl: string }) => {
-      const networkName = network.txServiceUrl
-        .replace('https://safe-transaction-', '')
-        .split('.')[0]
+    async (network: {
+      chainId: string
+      shortName: string
+      networkName: string
+      txServiceUrl: string
+    }) => {
       // Download swagger schema and converts it from YAML to JSON.
-      const jsonFile = await getApiJson(network.txServiceUrl, networkName)
+      const jsonFile = await getApiJson(network.txServiceUrl, network)
+      if (!jsonFile) return
+
       const resolvedJson = resolveRefs(jsonFile, jsonFile)
 
       // Generate the page which will load the reference file, and parse it to generate the dynamic sidebar on the client side.
       fs.writeFileSync(
-        `./pages/core-api/transaction-service-reference/${networkName}.mdx`,
+        `./pages/core-api/transaction-service-reference/${network.networkName}.mdx`,
         `
 {/* <!-- vale off --> */}
 import ApiReference from '../../../components/ApiReference'
 import { renderToString } from 'react-dom/server'
 import { MDXComponents, getHeadingsFromHtml } from '../../../lib/mdx'
-import Mdx from '../../../components/ApiReference/generated/${networkName}-reference.mdx'
-import swagger from '../../../components/ApiReference/schemas/${networkName}-swagger.json'
+import Mdx from '../../../components/ApiReference/generated/${network.networkName}-reference.mdx'
+import swagger from '../../../components/ApiReference/schemas/${network.networkName}-swagger.json'
 
 export const getStaticProps = async () => {
   const renderedMdx = <Mdx components={MDXComponents} />
@@ -525,15 +580,15 @@ export const getStaticProps = async () => {
   }
 }
 
-<ApiReference networkName="${networkName}"/>
+<ApiReference networkName="${network.networkName}"/>
 {/* <!-- vale on --> */}
 `
       )
 
       // Generate the main reference file.
-      const mdxContent = generateMainContent(resolvedJson, networkName)
+      const mdxContent = generateMainContent(resolvedJson, network)
       fs.writeFileSync(
-        `./components/ApiReference/generated/${networkName}-reference.mdx`,
+        `./components/ApiReference/generated/${network.networkName}-reference.mdx`,
         mdxContent
       )
 
@@ -547,12 +602,16 @@ export const getStaticProps = async () => {
           'utf-8'
         )
         if (
-          !fs.existsSync(`./components/ApiReference/examples/${networkName}`)
+          !fs.existsSync(
+            `./components/ApiReference/examples/${network.networkName}`
+          )
         ) {
-          fs.mkdirSync(`./components/ApiReference/examples/${networkName}`)
+          fs.mkdirSync(
+            `./components/ApiReference/examples/${network.networkName}`
+          )
         }
         fs.writeFileSync(
-          `./components/ApiReference/examples/${networkName}/${file}`,
+          `./components/ApiReference/examples/${network.networkName}/${file}`,
           contents.replace('chainId: 11155111n', `chainId: ${network.chainId}n`)
         )
       })
