@@ -39,7 +39,7 @@ According to the [ERC-4337](#erc-4337), the EntryPoint is the singleton smart co
 
 See also:
 - [EntryPoint](https://eips.ethereum.org/EIPS/eip-4337#entrypoint-definition) on ethereum.org
-- [Bundlers](https://erc4337.io/docs/bundlers/introduction) on erc4337.io
+- [Bundlers](https://docs.erc4337.io/bundlers) on erc4337.io
 
 ## ERC-4337
 
