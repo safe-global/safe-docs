@@ -338,13 +338,20 @@ const generateMethodContent = (
   // Strip the network prefix from the path to match paths-metadata.json format
   const cleanPath = path.replace(/^\/tx-service\/[^/]+/, '')
 
+  const cleanPathWithParams =
+    pathParams?.reduce(
+      (acc, param) =>
+        acc.replace(param, getSampleValue(param.replace(/{|}/g, '')) as string),
+      cleanPath
+    ) ?? cleanPath
+
   const title =
     pathsMetadata[cleanPath]?.[method]?.title ??
     path.replace(/{/g, '\\{').replace(/}/g, '\\}') +
       ' - ' +
       method.toUpperCase()
   const filePath = `./components/ApiReference/examples/${slugify(
-    path
+    cleanPath
   )}-${method}`.replace('-api', '')
   const examplePath =
     filePath.replace('examples', `examples/${network.networkName}`) + '.ts'
@@ -407,7 +414,7 @@ const generateMethodContent = (
   <Grid item xs={12} md={5.6}>
     <Path path="${path}" method="${method}" />
 
-    <SampleRequestHeader method="${method}" pathWithParams="${pathWithParams}" />
+    <SampleRequestHeader method="${method}" pathWithParams="${cleanPathWithParams}" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
