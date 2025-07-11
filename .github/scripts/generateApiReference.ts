@@ -2,6 +2,9 @@ const fs = require('fs')
 const { capitalize } = require('lodash')
 const YAML = require('yaml')
 
+// Load environment variables from .env file
+require('dotenv').config({ path: '.env' })
+
 const pathsMetadata = require('../../components/ApiReference/paths-metadata.json')
 const txServiceNetworks = require('../../components/ApiReference/tx-service-networks.json')
 
@@ -9,7 +12,7 @@ const curlify = (req: any) =>
   `curl -X ${req.method} https://api.safe.global${req.url} \\
     -H "Accept: application/json" \\
     -H "content-type: application/json" \\
-    -H "Authorization: Bearer API_KEY" \\
+    -H "Authorization: Bearer YOUR_API_KEY" \\
     ${!req.body ? '' : `-d '${JSON.stringify(req.body, null, 2)}'`}`
 
 const sampleSafe = '0x5298A93734C3D979eF1f23F78eBB871879A21F22'
@@ -153,8 +156,7 @@ const generateSampleApiResponse = async (
   const url = baseUrl + pathWithParams
   const headers = {
     'Content-Type': 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzYWZlLWF1dGgtc2VydmljZSIsInN1YiI6ImU4MzZmYzU0NWZhMTQwOGViMWEwZTJmMjI1ZjA0MWIxXzE0NDFjNjdlNzdmYjQ0ZDJhMDE2YmRlZDNlMjM5OWJkIiwia2V5IjoiZTgzNmZjNTQ1ZmExNDA4ZWIxYTBlMmYyMjVmMDQxYjFfMTQ0MWM2N2U3N2ZiNDRkMmEwMTZiZGVkM2UyMzk5YmQiLCJhdWQiOlsic2FmZS1hdXRoLXNlcnZpY2UiXSwiZXhwIjoxOTA4NjA5MjU3LCJkYXRhIjp7fX0.tjQ7AzLpi3YIgoXVgfE2Nf54Qh4fYkzWdQk3kjg3_91IwhNuvv60d_GnWGjXzt09XBAu6OeXf7lZe1pR2e_zwg'
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`
   }
 
   if (method === 'get') {
@@ -283,8 +285,7 @@ const getApiJson = async (
   const response = await fetch
     .default(url + '/schema/', {
       headers: {
-        Authorization:
-          'Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzYWZlLWF1dGgtc2VydmljZSIsInN1YiI6ImU4MzZmYzU0NWZhMTQwOGViMWEwZTJmMjI1ZjA0MWIxXzE0NDFjNjdlNzdmYjQ0ZDJhMDE2YmRlZDNlMjM5OWJkIiwia2V5IjoiZTgzNmZjNTQ1ZmExNDA4ZWIxYTBlMmYyMjVmMDQxYjFfMTQ0MWM2N2U3N2ZiNDRkMmEwMTZiZGVkM2UyMzk5YmQiLCJhdWQiOlsic2FmZS1hdXRoLXNlcnZpY2UiXSwiZXhwIjoxOTA4NjA5MjU3LCJkYXRhIjp7fX0.tjQ7AzLpi3YIgoXVgfE2Nf54Qh4fYkzWdQk3kjg3_91IwhNuvv60d_GnWGjXzt09XBAu6OeXf7lZe1pR2e_zwg'
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`
       }
     })
     .catch(err => {
