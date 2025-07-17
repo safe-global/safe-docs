@@ -17,6 +17,7 @@ import { capitalize } from 'lodash'
 import { CopyToClipboard } from 'nextra/components'
 
 import txServiceNetworks from './tx-service-networks.json'
+import { getSwaggerUrl } from './utils'
 
 /**
  * Finds the default network for the NetworkContext.
@@ -108,7 +109,7 @@ const NetworkSwitcher: React.FC = () => {
         </Grid>
         <Grid sx={{ width: '100%' }} item mr={1}>
           <Link
-            href={network + '/schema'}
+            href={getSwaggerUrl(network) + '/schema'}
             target='_blank'
             rel='noopener noreferrer'
           >
