@@ -23,7 +23,7 @@ Bundlers are nodes that participate in the [ERC-4337](#erc-4337) standard who bu
 
 See also:
 - [Bundling](https://eips.ethereum.org/EIPS/eip-4337#bundling) process on ethereum.org
-- [Bundlers](https://erc4337.io/docs/bundlers/introduction) on erc4337.io
+- [Bundlers](https://docs.erc4337.io/bundlers) on erc4337.io
 
 ## EIP-1271
 
@@ -39,7 +39,7 @@ According to the [ERC-4337](#erc-4337), the EntryPoint is the singleton smart co
 
 See also:
 - [EntryPoint](https://eips.ethereum.org/EIPS/eip-4337#entrypoint-definition) on ethereum.org
-- [Bundlers](https://erc4337.io/docs/bundlers/introduction) on erc4337.io
+- [EntryPoint](https://docs.erc4337.io/smart-accounts/entrypoint-explainer) on erc4337.io
 
 ## ERC-4337
 
@@ -116,7 +116,7 @@ Paymasters are smart contracts that allow an account to pay for the gas fees of 
 
 See also:
 - [Paymasters](https://eips.ethereum.org/EIPS/eip-4337#extension-paymasters) on ethereum.org
-- [Paymasters](https://www.erc4337.io/docs/paymasters/introduction) on erc4337.io
+- [Paymasters](https://docs.erc4337.io/paymasters) on erc4337.io
 
 ## Relayer
 
@@ -201,7 +201,7 @@ See also:
 
 See also:
 - [UserOperations](https://eips.ethereum.org/EIPS/eip-4337#useroperation) on ethereum.org
-- [UserOperation mempool](https://www.erc4337.io/docs/understanding-ERC-4337/user-operation#useroperation-mempool) on erc4337.io
+- [UserOperation mempool](https://docs.erc4337.io/bundlers/userop-mempool-overview) on erc4337.io
 
 ## Wallet
 
