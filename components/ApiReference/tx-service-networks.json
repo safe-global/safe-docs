@@ -72,6 +72,12 @@
     "txServiceUrl": "https://api.safe.global/tx-service/zkevm"
   },
   {
+    "chainId": 3338,
+    "shortName": "peaq",
+    "networkName": "peaq",
+    "txServiceUrl": "https://api.safe.global/tx-service/peaq"
+  },
+  {
     "chainId": 5000,
     "shortName": "mantle",
     "networkName": "mantle",
@@ -132,6 +138,12 @@
     "txServiceUrl": "https://api.safe.global/tx-service/berachain"
   },
   {
+    "chainId": 81224,
+    "shortName": "codex",
+    "networkName": "codex",
+    "txServiceUrl": "https://api.safe.global/tx-service/codex"
+  },
+  {
     "chainId": 84532,
     "shortName": "basesep",
     "networkName": "base-sepolia",
@@ -142,6 +154,12 @@
     "shortName": "scr",
     "networkName": "scroll",
     "txServiceUrl": "https://api.safe.global/tx-service/scr"
+  },
+  {
+    "chainId": 747474,
+    "shortName": "katana",
+    "networkName": "katana",
+    "txServiceUrl": "https://api.safe.global/tx-service/katana"
   },
   {
     "chainId": 11155111,
