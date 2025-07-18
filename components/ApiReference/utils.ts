@@ -53,6 +53,12 @@ export const getSwaggerUrl = (network: string): string => {
       return 'https://safe-transaction-sepolia.safe.global'
     case 'https://api.safe.global/tx-service/aurora':
       return 'https://safe-transaction-aurora.safe.global'
+    case 'https://api.safe.global/tx-service/katana':
+      return 'https://safe-transaction-katana.safe.global'
+    case 'https://api.safe.global/tx-service/codex':
+      return 'https://safe-transaction-codex.safe.global'
+    case 'https://api.safe.global/tx-service/peaq':
+      return 'https://safe-transaction-peaq.safe.global'
     default:
       return network
   }
