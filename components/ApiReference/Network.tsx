@@ -17,33 +17,24 @@ import { capitalize } from 'lodash'
 import { CopyToClipboard } from 'nextra/components'
 
 import txServiceNetworks from './tx-service-networks.json'
-
-const transactionServiceUrls = txServiceNetworks.map(
-  ({ txServiceUrl }) => txServiceUrl
-)
+import { getSwaggerUrl } from './utils'
 
 /**
- * Finds the index of the default network for the NetworkContext.
+ * Finds the default network for the NetworkContext.
  * Currently, Sepolia is the default network.
  */
-const indexOfDefaultNetwork = transactionServiceUrls.indexOf(
-  'https://safe-transaction-sepolia.safe.global'
-)
+const defaultNetworkUrl = 'https://api.safe.global/tx-service/sep'
 
 export const NetworkContext = createContext<
   [string, Dispatch<SetStateAction<string>>]
->([transactionServiceUrls[indexOfDefaultNetwork], () => {}])
+>([defaultNetworkUrl, () => {}])
 
 export const NetworkProvider: React.FC<
   PropsWithChildren<{ networkName: string }>
 > = ({ children, networkName }) => {
   const state = useState(
-    transactionServiceUrls.find(url => {
-      const urlNetworkName = url
-        .replace('https://safe-transaction-', '')
-        .replace('.safe.global', '')
-      return urlNetworkName === networkName
-    }) ?? ''
+    txServiceNetworks.find(network => network.networkName === networkName)
+      ?.txServiceUrl ?? ''
   )
   return (
     <NetworkContext.Provider value={state}>{children}</NetworkContext.Provider>
@@ -79,25 +70,18 @@ const NetworkSwitcher: React.FC = () => {
             }
           }}
         >
-          {transactionServiceUrls.map(url => (
+          {txServiceNetworks.map(networkConfig => (
             <Link
               //  @ts-expect-error - value is not a valid prop for Link
-              value={url}
-              key={url}
+              value={networkConfig.txServiceUrl}
+              key={networkConfig.txServiceUrl}
               href={
                 '/core-api/transaction-service-reference/' +
-                url
-                  .replace('https://safe-transaction-', '')
-                  .replace('.safe.global', '')
+                networkConfig.networkName
               }
             >
               <MenuItem>
-                {capitalize(
-                  url
-                    .replace('https://safe-transaction-', '')
-                    .replace('.safe.global', '')
-                    .replace('-', ' ')
-                )}
+                {capitalize(networkConfig.networkName.replace('-', ' '))}
               </MenuItem>
             </Link>
           ))}
@@ -125,7 +109,7 @@ const NetworkSwitcher: React.FC = () => {
         </Grid>
         <Grid sx={{ width: '100%' }} item mr={1}>
           <Link
-            href={network + '/schema'}
+            href={getSwaggerUrl(network) + '/schema'}
             target='_blank'
             rel='noopener noreferrer'
           >

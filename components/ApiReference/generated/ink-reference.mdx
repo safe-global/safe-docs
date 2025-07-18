@@ -40,7 +40,7 @@ This service is available on [multiple networks](../../advanced/smart-account-su
     <Feedback asPath={"/core-api/transaction-service-reference#List-Contracts"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/contracts/" method="get" />
+    <Path path="/tx-service/ink/api/v1/contracts/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/contracts/" />
 
@@ -48,9 +48,10 @@ This service is available on [multiple networks](../../advanced/smart-account-su
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/contracts/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/contracts/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -115,7 +116,7 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/contracts/ \
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Specific-Contract"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/contracts/{address}/" method="get" />
+    <Path path="/tx-service/ink/api/v1/contracts/{address}/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
 
@@ -123,9 +124,10 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/contracts/ \
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -180,17 +182,22 @@ as in case of an ABI collision the Safe Transaction Service would know which ABI
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Decoded-Data"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/data-decoder/" method="post" />
+    <Path path="/tx-service/ink/api/v1/data-decoder/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v1/data-decoder/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X POST https://safe-transaction-ink.safe.global/api/v1/data-decoder/ \
+```js TypeScript
+// from ../examples/ink/-v1-data-decoder--post.ts
+```
+            
+```bash curl
+curl -X POST https://api.safe.global/tx-service/ink/api/v1/data-decoder/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -245,17 +252,22 @@ curl -X POST https://safe-transaction-ink.safe.global/api/v1/data-decoder/ \
     <Feedback asPath={"/core-api/transaction-service-reference#List-Delegates"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/delegates/" method="get" />
+    <Path path="/tx-service/ink/api/v2/delegates/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v2/delegates/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v2/delegates/ \
+```js TypeScript
+// from ../examples/ink/-v2-delegates--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v2/delegates/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -333,17 +345,22 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
     <Feedback asPath={"/core-api/transaction-service-reference#Create-Delegate"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/delegates/" method="post" />
+    <Path path="/tx-service/ink/api/v2/delegates/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v2/delegates/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X POST https://safe-transaction-ink.safe.global/api/v2/delegates/ \
+```js TypeScript
+// from ../examples/ink/-v2-delegates--post.ts
+```
+            
+```bash curl
+curl -X POST https://api.safe.global/tx-service/ink/api/v2/delegates/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -380,17 +397,22 @@ either the `delegator` (owner) or the `delegate` itself. Check `POST /delegates/
     <Feedback asPath={"/core-api/transaction-service-reference#Delete-Delegate"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/delegates/{delegate_address}/" method="delete" />
+    <Path path="/tx-service/ink/api/v2/delegates/{delegate_address}/" method="delete" />
 
     <SampleRequestHeader method="delete" pathWithParams="/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X DELETE https://safe-transaction-ink.safe.global/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/ \
+```js TypeScript
+// from ../examples/ink/-v2-delegates-{delegate_address}--delete.ts
+```
+            
+```bash curl
+curl -X DELETE https://api.safe.global/tx-service/ink/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
@@ -431,17 +453,22 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Message"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/messages/{message_hash}/" method="get" />
+    <Path path="/tx-service/ink/api/v1/messages/{message_hash}/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/messages/0x3b3b57b3/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/messages/0x3b3b57b3/ \
+```js TypeScript
+// from ../examples/ink/-v1-messages-{message_hash}--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/messages/0x3b3b57b3/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -487,6 +514,8 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/messages/0x3b3b57b3/
 
     Adds the signature of a message given its message hash
 
+Note: Safe must be v1.4.1 for EIP-1271 signatures to work.
+
     
 
     <Parameters parameters={[{"in":"path","name":"message_hash","schema":{"type":"string"},"required":true}]} />
@@ -494,17 +523,22 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/messages/0x3b3b57b3/
     <Feedback asPath={"/core-api/transaction-service-reference#Sign-Message"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/messages/{message_hash}/signatures/" method="post" />
+    <Path path="/tx-service/ink/api/v1/messages/{message_hash}/signatures/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v1/messages/0x3b3b57b3/signatures/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X POST https://safe-transaction-ink.safe.global/api/v1/messages/0x3b3b57b3/signatures/ \
+```js TypeScript
+// from ../examples/ink/-v1-messages-{message_hash}-signatures--post.ts
+```
+            
+```bash curl
+curl -X POST https://api.safe.global/tx-service/ink/api/v1/messages/0x3b3b57b3/signatures/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
@@ -539,17 +573,22 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#List-Messages"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/messages/" method="get" />
+    <Path path="/tx-service/ink/api/v1/safes/{address}/messages/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
+```js TypeScript
+// from ../examples/ink/-v1-safes-{address}-messages--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -610,6 +649,8 @@ Message can be:
 Hash will be calculated from the provided ``message``. Sending a raw ``hash`` will not be accepted,
 service needs to derive it itself.
 
+Note: Safe must be v1.4.1 for EIP-1271 signatures to work.
+
     
 
     <Parameters parameters={[{"in":"path","name":"address","schema":{"type":"string"},"required":true}]} />
@@ -617,17 +658,22 @@ service needs to derive it itself.
     <Feedback asPath={"/core-api/transaction-service-reference#Create-Signed-Message"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/messages/" method="post" />
+    <Path path="/tx-service/ink/api/v1/safes/{address}/messages/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X POST https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
+```js TypeScript
+// from ../examples/ink/-v1-safes-{address}-messages--post.ts
+```
+            
+```bash curl
+curl -X POST https://api.safe.global/tx-service/ink/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
@@ -668,7 +714,7 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Module-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/module-transaction/{module_transaction_id}" method="get" />
+    <Path path="/tx-service/ink/api/v1/module-transaction/{module_transaction_id}" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/module-transaction/0x3b3b57b3" />
 
@@ -676,9 +722,10 @@ Empty Response
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/module-transaction/0x3b3b57b3 \
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/module-transaction/0x3b3b57b3 \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -728,7 +775,7 @@ the given Safe transaction hash
     <Feedback asPath={"/core-api/transaction-service-reference#List-Multisig-Confirmations"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="get" />
+    <Path path="/tx-service/ink/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/" />
 
@@ -736,9 +783,10 @@ the given Safe transaction hash
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -788,7 +836,7 @@ does not support the use of delegates to make transactions trusted.
     <Feedback asPath={"/core-api/transaction-service-reference#Confirm-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="post" />
+    <Path path="/tx-service/ink/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/" />
 
@@ -796,9 +844,10 @@ does not support the use of delegates to make transactions trusted.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X POST https://safe-transaction-ink.safe.global/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
+curl -X POST https://api.safe.global/tx-service/ink/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
@@ -836,7 +885,7 @@ Only 1000 newest transfers will be returned.
     <Feedback asPath={"/core-api/transaction-service-reference#List-Incoming-Transfers"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/incoming-transfers/" method="get" />
+    <Path path="/tx-service/ink/api/v1/safes/{address}/incoming-transfers/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/" />
 
@@ -844,9 +893,10 @@ Only 1000 newest transfers will be returned.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -900,17 +950,22 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A
     <Feedback asPath={"/core-api/transaction-service-reference#List-a-Safe's-Module-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/module-transactions/" method="get" />
+    <Path path="/tx-service/ink/api/v1/safes/{address}/module-transactions/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/ \
+```js TypeScript
+// from ../examples/ink/-v1-safes-{address}-module-transactions--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -968,7 +1023,7 @@ and those versions are not supported in L2 networks.
     <Feedback asPath={"/core-api/transaction-service-reference#Estimate-Gas-Costs-for-a-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/multisig-transactions/estimations/" method="post" />
+    <Path path="/tx-service/ink/api/v1/safes/{address}/multisig-transactions/estimations/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/" />
 
@@ -976,9 +1031,10 @@ and those versions are not supported in L2 networks.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X POST https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/ \
+curl -X POST https://api.safe.global/tx-service/ink/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
@@ -1016,7 +1072,7 @@ Only 1000 newest transfers will be returned.
     <Feedback asPath={"/core-api/transaction-service-reference#List-Transfers"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/transfers/" method="get" />
+    <Path path="/tx-service/ink/api/v1/safes/{address}/transfers/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/" />
 
@@ -1024,9 +1080,10 @@ Only 1000 newest transfers will be returned.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -1080,7 +1137,7 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Transfer"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/transfer/{transfer_id}" method="get" />
+    <Path path="/tx-service/ink/api/v1/transfer/{transfer_id}" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/transfer/3b3b57b3" />
 
@@ -1088,9 +1145,10 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/transfer/3b3b57b3 \
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/transfer/3b3b57b3 \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -1137,17 +1195,22 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/transfer/3b3b57b3 \
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/multisig-transactions/{safe_tx_hash}/" method="get" />
+    <Path path="/tx-service/ink/api/v2/multisig-transactions/{safe_tx_hash}/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
+```js TypeScript
+// from ../examples/ink/-v2-multisig-transactions-{safe_tx_hash}--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -1211,7 +1274,7 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
     <Feedback asPath={"/core-api/transaction-service-reference#Delete-Queued-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/multisig-transactions/{safe_tx_hash}/" method="delete" />
+    <Path path="/tx-service/ink/api/v2/multisig-transactions/{safe_tx_hash}/" method="delete" />
 
     <SampleRequestHeader method="delete" pathWithParams="/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/" />
 
@@ -1219,9 +1282,10 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X DELETE https://safe-transaction-ink.safe.global/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
+curl -X DELETE https://api.safe.global/tx-service/ink/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
@@ -1265,17 +1329,22 @@ but there will be 2 transactions in the list.
     <Feedback asPath={"/core-api/transaction-service-reference#List-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/safes/{address}/all-transactions/" method="get" />
+    <Path path="/tx-service/ink/api/v2/safes/{address}/all-transactions/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/ \
+```js TypeScript
+// from ../examples/ink/-v2-safes-{address}-all-transactions--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -1306,17 +1375,22 @@ By default, only ``trusted`` multisig transactions are returned.
     <Feedback asPath={"/core-api/transaction-service-reference#List-a-Safe's-Multisig-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/safes/{address}/multisig-transactions/" method="get" />
+    <Path path="/tx-service/ink/api/v2/safes/{address}/multisig-transactions/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
+```js TypeScript
+// from ../examples/ink/-v2-safes-{address}-multisig-transactions--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -1347,17 +1421,22 @@ retrieves all the information related.
     <Feedback asPath={"/core-api/transaction-service-reference#Create-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/safes/{address}/multisig-transactions/" method="post" />
+    <Path path="/tx-service/ink/api/v2/safes/{address}/multisig-transactions/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X POST https://safe-transaction-ink.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
+```js TypeScript
+// from ../examples/ink/-v2-safes-{address}-multisig-transactions--post.ts
+```
+            
+```bash curl
+curl -X POST https://api.safe.global/tx-service/ink/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
@@ -1393,17 +1472,22 @@ curl -X POST https://safe-transaction-ink.safe.global/api/v2/safes/0xcd2E72aEBe2
     <Feedback asPath={"/core-api/transaction-service-reference#List-Safes-that-use-a-Specific-Module"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/modules/{address}/safes/" method="get" />
+    <Path path="/tx-service/ink/api/v1/modules/{address}/safes/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
+```js TypeScript
+// from ../examples/ink/-v1-modules-{address}-safes--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -1446,17 +1530,22 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/modules/0xcd2E72aEBe
     <Feedback asPath={"/core-api/transaction-service-reference#List-Safes-from-a-Specific-Owner"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/owners/{address}/safes/" method="get" />
+    <Path path="/tx-service/ink/api/v1/owners/{address}/safes/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
+```js TypeScript
+// from ../examples/ink/-v1-owners-{address}-safes--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -1509,7 +1598,7 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/owners/0xcd2E72aEBe2
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Safe-Operation"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safe-operations/{safe_operation_hash}/" method="get" />
+    <Path path="/tx-service/ink/api/v1/safe-operations/{safe_operation_hash}/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/" />
 
@@ -1517,9 +1606,10 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/owners/0xcd2E72aEBe2
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -1588,7 +1678,7 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/safe-operations/0x59
     <Feedback asPath={"/core-api/transaction-service-reference#Get-the-list-of-confirmations-for-a-multisig-transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safe-operations/{safe_operation_hash}/confirmations/" method="get" />
+    <Path path="/tx-service/ink/api/v1/safe-operations/{safe_operation_hash}/confirmations/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/" />
 
@@ -1596,9 +1686,10 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/safe-operations/0x59
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -1647,7 +1738,7 @@ the use of delegates to make a transaction trusted.
     <Feedback asPath={"/core-api/transaction-service-reference#Add-a-confirmation-for-a-transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safe-operations/{safe_operation_hash}/confirmations/" method="post" />
+    <Path path="/tx-service/ink/api/v1/safe-operations/{safe_operation_hash}/confirmations/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/" />
 
@@ -1655,9 +1746,10 @@ the use of delegates to make a transaction trusted.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X POST https://safe-transaction-ink.safe.global/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
+curl -X POST https://api.safe.global/tx-service/ink/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
@@ -1692,7 +1784,7 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#List-Safe-Operations"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/safe-operations/" method="get" />
+    <Path path="/tx-service/ink/api/v1/safes/{address}/safe-operations/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/" />
 
@@ -1700,9 +1792,10 @@ Empty Response
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -1778,7 +1871,7 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A
     <Feedback asPath={"/core-api/transaction-service-reference#Create-Safe-Operation"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/safe-operations/" method="post" />
+    <Path path="/tx-service/ink/api/v1/safes/{address}/safe-operations/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/" />
 
@@ -1786,9 +1879,10 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X POST https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
+curl -X POST https://api.safe.global/tx-service/ink/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
     -d '{}' 
 ```
       </CH.Code>
@@ -1823,7 +1917,7 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#List-User-Operations"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/user-operations/" method="get" />
+    <Path path="/tx-service/ink/api/v1/safes/{address}/user-operations/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/user-operations/" />
 
@@ -1831,9 +1925,10 @@ Empty Response
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/user-operations/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/user-operations/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -1909,17 +2004,22 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A
     <Feedback asPath={"/core-api/transaction-service-reference#Get-User-Operation"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/user-operations/{user_operation_hash}/" method="get" />
+    <Path path="/tx-service/ink/api/v1/user-operations/{user_operation_hash}/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/ \
+```js TypeScript
+// from ../examples/ink/-v1-user-operations-{user_operation_hash}--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -1994,17 +2094,22 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/user-operations/0xe6
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Safe-Status"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/" method="get" />
+    <Path path="/tx-service/ink/api/v1/safes/{address}/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
+```js TypeScript
+// from ../examples/ink/-v1-safes-{address}--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -2056,7 +2161,7 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A
     <Feedback asPath={"/core-api/transaction-service-reference#List-a-Safe's-Balances-(Deprecated)"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/balances/" method="get" />
+    <Path path="/tx-service/ink/api/v1/safes/{address}/balances/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/" />
 
@@ -2064,9 +2169,10 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -2123,17 +2229,22 @@ deployment.
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Safe-Creation-Status"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/safes/{address}/creation/" method="get" />
+    <Path path="/tx-service/ink/api/v1/safes/{address}/creation/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/ \
+```js TypeScript
+// from ../examples/ink/-v1-safes-{address}-creation--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -2225,7 +2336,7 @@ The maximum limit allowed is 200.
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Safe-Balances"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/safes/{address}/balances/" method="get" />
+    <Path path="/tx-service/ink/api/v2/safes/{address}/balances/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/" />
 
@@ -2233,9 +2344,10 @@ The maximum limit allowed is 200.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -2289,7 +2401,7 @@ The maximum limit allowed is 10.
     <Feedback asPath={"/core-api/transaction-service-reference#List-Collectibles"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/safes/{address}/collectibles/" method="get" />
+    <Path path="/tx-service/ink/api/v2/safes/{address}/collectibles/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/collectibles/" />
 
@@ -2297,9 +2409,10 @@ The maximum limit allowed is 10.
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/collectibles/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/collectibles/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -2358,17 +2471,22 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v2/safes/0xcd2E72aEBe2A
     <Feedback asPath={"/core-api/transaction-service-reference#List-Tokens"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/tokens/" method="get" />
+    <Path path="/tx-service/ink/api/v1/tokens/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/tokens/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/tokens/ \
+```js TypeScript
+// from ../examples/ink/-v1-tokens--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/tokens/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -2419,17 +2537,22 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/tokens/ \
     <Feedback asPath={"/core-api/transaction-service-reference#Get-a-Specific-Token's-Information"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/tokens/{address}/" method="get" />
+    <Path path="/tx-service/ink/api/v1/tokens/{address}/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
+```js TypeScript
+// from ../examples/ink/-v1-tokens-{address}--get.ts
+```
+            
+```bash curl
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -2456,7 +2579,7 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/tokens/0xcd2E72aEBe2
   marginBottom: '112px'
 }} />
 
-### /api/v1/tokens/lists/ - GET
+### /tx-service/ink/api/v1/tokens/lists/ - GET
 
 <Grid container justifyContent='space-between'>
   <Grid item xs={12} md={5.6}>
@@ -2469,10 +2592,10 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/tokens/0xcd2E72aEBe2
 
     <Parameters parameters={[{"name":"limit","required":false,"in":"query","description":"Number of results to return per page.","schema":{"type":"integer"}},{"name":"offset","required":false,"in":"query","description":"The initial index from which to return the results.","schema":{"type":"integer"}}]} />
     <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedTokenListList","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"TokenList","type":"object","properties":{"url":{"type":"string","format":"uri","maxLength":200},"description":{"type":"string","maxLength":200}},"required":["description","url"]}}}}}},"description":""}]} />
-    <Feedback asPath={"/core-api/transaction-service-reference#-api-v1-tokens-lists----GET"} label='Did this API route run successfully?' small />
+    <Feedback asPath={"/core-api/transaction-service-reference#-tx-service-ink-api-v1-tokens-lists----GET"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/tokens/lists/" method="get" />
+    <Path path="/tx-service/ink/api/v1/tokens/lists/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/tokens/lists/" />
 
@@ -2480,9 +2603,10 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/tokens/0xcd2E72aEBe2
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v1/tokens/lists/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v1/tokens/lists/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -2502,7 +2626,7 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/tokens/lists/ \
 
 <Grid my={6} />
 
-### /api/v2/analytics/multisig-transactions/by-origin/ - GET
+### /tx-service/ink/api/v2/analytics/multisig-transactions/by-origin/ - GET
 
 <Grid container justifyContent='space-between'>
   <Grid item xs={12} md={5.6}>
@@ -2515,10 +2639,10 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/tokens/lists/ \
 
     <Parameters parameters={[]} />
     <Responses responses={[{"code":"200","schema":{},"description":"No response body"}]} />
-    <Feedback asPath={"/core-api/transaction-service-reference#-api-v2-analytics-multisig-transactions-by-origin----GET"} label='Did this API route run successfully?' small />
+    <Feedback asPath={"/core-api/transaction-service-reference#-tx-service-ink-api-v2-analytics-multisig-transactions-by-origin----GET"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v2/analytics/multisig-transactions/by-origin/" method="get" />
+    <Path path="/tx-service/ink/api/v2/analytics/multisig-transactions/by-origin/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v2/analytics/multisig-transactions/by-origin/" />
 
@@ -2526,9 +2650,10 @@ curl -X GET https://safe-transaction-ink.safe.global/api/v1/tokens/lists/ \
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-transaction-ink.safe.global/api/v2/analytics/multisig-transactions/by-origin/ \
+curl -X GET https://api.safe.global/tx-service/ink/api/v2/analytics/multisig-transactions/by-origin/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>

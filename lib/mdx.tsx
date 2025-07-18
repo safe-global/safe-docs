@@ -44,8 +44,11 @@ export const getHeadingChildren = (
         method.tags?.[0]?.toLowerCase() === heading
     )
     .map(([methodName, method]) => {
+      // Strip the network prefix from the path to match paths-metadata.json format
+      const cleanPath = method.path.replace(/^\/tx-service\/[^/]+/, '')
+
       const title =
-        pathsMetadata?.[method.path as '/api/v1/about/ethereum-rpc/']?.[
+        pathsMetadata?.[cleanPath as '/api/v1/about/ethereum-rpc/']?.[
           methodName as 'get'
         ]?.title ?? method.path + ' - ' + methodName?.toUpperCase()
       return {

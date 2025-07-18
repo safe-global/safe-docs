@@ -31,10 +31,7 @@ export const apiServices = (
   {
     name: 'Transaction Service',
     link: `/core-api/transaction-service-reference/${
-      txServiceNetworks
-        .find(n => n.chainId.toString() === chainId)
-        ?.txServiceUrl?.split('-')[2]
-        .split('.')[0]
+      txServiceNetworks.find(n => n.chainId.toString() === chainId)?.networkName
     }`
   },
   {

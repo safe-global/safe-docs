@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid'
 import { useContext } from 'react'
 import { NetworkContext } from './Network'
 import { MdxHeading } from '../../lib/mdx'
+import { getSwaggerUrl } from './utils'
 
 const SampleRequestHeader: React.FC<{
   method: string
@@ -16,7 +17,7 @@ const SampleRequestHeader: React.FC<{
       <Button
         variant='text'
         size='small'
-        href={network}
+        href={getSwaggerUrl(network)}
         target='_blank'
         rel='noopener noreferrer'
         sx={{
