@@ -36,6 +36,19 @@
   "safe-installation-overview": "Overview",
   "safe-contracts-deployment": "Contracts Deployment",
   "safe-infrastructure-deployment": "Infrastructure Deployment",
+  "-- Safe Decoder Service": {
+    "type": "separator",
+    "title": "Safe Decoder Service"
+  },
+  "safe-decoder-service": {
+    "title": "Safe Decoder Service",
+    "href": "/core-api/safe-decoder-service",
+    "theme": {
+      "layout": "full",
+      "toc": false,
+      "sidebar": false
+    }
+  },
   "-- Safe Config Service": {
     "type": "separator",
     "title": "Safe Config Service"
