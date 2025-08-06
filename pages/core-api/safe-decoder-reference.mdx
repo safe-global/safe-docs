@@ -1,9 +1,9 @@
 {/* <!-- vale off --> */}
-import ApiReference from '../../../components/ApiReference'
+import ApiReference from '../../components/ApiReference'
 import { renderToString } from 'react-dom/server'
-import { MDXComponents, getHeadingsFromHtml } from '../../../lib/mdx'
-import Mdx from '../../../components/ApiReference/generated/safe-decoder-service-reference.mdx'
-import swagger from '../../../components/ApiReference/schemas/safe-decoder-service-swagger.json'
+import { MDXComponents, getHeadingsFromHtml } from '../../lib/mdx'
+import Mdx from '../../components/ApiReference/generated/safe-decoder-service-reference.mdx'
+import swagger from '../../components/ApiReference/schemas/safe-decoder-service-swagger.json'
 
 export const getStaticProps = async () => {
   const renderedMdx = <Mdx components={MDXComponents} />
