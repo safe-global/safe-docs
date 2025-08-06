@@ -1,0 +1,238 @@
+import Path from '../Path'
+import Hr from '../../Hr'
+import SampleRequestHeader from '../SampleRequestHeader'
+import Parameters from '../Parameter'
+import NetworkSwitcher from '../Network'
+import Responses from '../Response'
+import Feedback from '../../Feedback'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import NextLink from 'next/link'
+import Link from '@mui/material/Link'
+
+# Safe Decoder Service API Reference
+
+The Safe Decoder Service decodes transaction data and provides human-readable output for blockchain transactions within the Safe ecosystem.
+
+
+<Grid my={8} />
+
+## Contracts
+
+<Grid my={6} />
+
+### /api/v1/contracts - GET
+
+<Grid container justifyContent='space-between'>
+  <Grid item xs={12} md={5.7}>
+
+    List contracts
+
+    Returns a paginated list of contracts, optionally filtered by chain IDs and trusted delegate call flag.
+Args:
+    request:
+    pagination_params:
+    chain_ids:
+    trusted_for_delegate_call:
+
+Returns:
+
+    
+
+    <Parameters parameters={[{"name":"chain_ids","in":"query","required":false,"schema":{"anyOf":[{"type":"array","items":{"type":"integer"}},{"type":"null"}],"title":"Chain Ids"}},{"name":"trusted_for_delegate_call","in":"query","required":false,"schema":{"anyOf":[{"type":"boolean"},{"type":"null"}],"title":"Trusted For Delegate Call"}},{"name":"limit","in":"query","required":false,"schema":{"anyOf":[{"type":"integer","minimum":1},{"type":"null"}],"title":"Limit"}},{"name":"offset","in":"query","required":false,"schema":{"anyOf":[{"type":"integer","minimum":0},{"type":"null"}],"default":0,"title":"Offset"}}]} />
+    <Responses responses={[{"code":"200","schema":{},"description":"Paginated list of contracts","content":{"application/json":{"schema":{"refName":"PaginatedResponse_ContractsPublic_","properties":{"count":{"type":"integer","title":"Count"},"next":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Next"},"previous":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Previous"},"results":{"items":{"refName":"ContractsPublic","properties":{"address":{"type":"string","title":"Address"},"name":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Name"},"displayName":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Displayname"},"chainId":{"type":"integer","title":"Chainid"},"project":{"anyOf":[{"refName":"ProjectPublic","properties":{"description":{"type":"string","title":"Description"},"logoFile":{"type":"string","title":"Logofile"}},"type":"object","required":["description","logoFile"],"title":"ProjectPublic"},{"type":"null"}]},"abi":{"anyOf":[{"refName":"AbiPublic","properties":{"abiJson":{"anyOf":[{"items":{"additionalProperties":true,"type":"object"},"type":"array"},{"additionalProperties":true,"type":"object"},{"type":"null"}],"title":"Abijson"},"abiHash":{"anyOf":[{"type":"string","format":"binary"},{"type":"string"}],"title":"Abihash"},"modified":{"type":"string","format":"date-time","title":"Modified"}},"type":"object","required":["abiJson","abiHash","modified"],"title":"AbiPublic"},{"type":"null"}]},"modified":{"type":"string","format":"date-time","title":"Modified"},"trustedForDelegateCall":{"type":"boolean","title":"Trustedfordelegatecall"},"fetchRetries":{"type":"integer","title":"Fetchretries"},"logoUrl":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Logourl","readOnly":true}},"type":"object","required":["address","name","displayName","chainId","project","abi","modified","trustedForDelegateCall","fetchRetries","logoUrl"],"title":"ContractsPublic"},"type":"array","title":"Results"}},"type":"object","required":["count","next","previous","results"],"title":"PaginatedResponse[ContractsPublic]"}}}},{"code":"422","schema":{},"description":"Validation Error","content":{"application/json":{"schema":{"refName":"HTTPValidationError","properties":{"detail":{"items":{"refName":"ValidationError","properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}]} />
+    <Feedback asPath={"/core-api/transaction-service-reference#-api-v1-contracts---GET"} label='Did this API route run successfully?' small />
+  </Grid>
+  <Grid item xs={12} md={5.6}>
+    <Path path="/api/v1/contracts" method="get" />
+
+    <SampleRequestHeader method="get" pathWithParams="/api/v1/contracts" />
+
+    <CH.Section>
+      <CH.Code style={{boxShadow: 'none'}}>
+
+```bash 
+curl -X GET https://safe-decoder.safe.global/api/v1/contracts \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+     
+```
+      </CH.Code>
+    </CH.Section>
+
+    #### Sample Response
+    ```json
+    {
+    "count": 146,
+    "next": "http://safe-decoder.safe.global/api/v1/contracts?trusted_for_delegate_call=true&limit=1&offset=1",
+    "previous": null,
+    "results": [
+      {
+        "address": "0x0408EF011960d02349d50286D20531229BCef773",
+        "name": "MultiSendCallOnly",
+        "displayName": "Safe: MultiSendCallOnly 1.4.1",
+        "chainId": 232,
+        "project": null,
+        "abi": null,
+        "modified": "2025-08-06T11:00:00.482395Z",
+        "trustedForDelegateCall": true,
+        "fetchRetries": 90,
+        "logoUrl": "https://safe-transaction-assets.safe.global/contracts/logos/0x0408EF011960d02349d50286D20531229BCef773.png"
+      }
+    ]
+  }
+    ```
+  </Grid>
+</Grid>
+<Hr style={{ 
+  marginTop: '112px',
+  marginBottom: '112px'
+}} />
+
+### /api/v1/contracts/\{address\} - GET
+
+<Grid container justifyContent='space-between'>
+  <Grid item xs={12} md={5.6}>
+
+    List matching contracts
+
+    :param request:
+:param address: Contract address
+:param pagination_params:
+:param chain_ids: Only list contracts for the provided `chain_ids`
+:return: Contracts for all chains if found, empty response otherwise
+
+    
+
+    <Parameters parameters={[{"name":"address","in":"path","required":true,"schema":{"type":"string","title":"Address"}},{"name":"chain_ids","in":"query","required":false,"schema":{"anyOf":[{"type":"array","items":{"type":"integer"}},{"type":"null"}],"title":"Chain Ids"}},{"name":"limit","in":"query","required":false,"schema":{"anyOf":[{"type":"integer","minimum":1},{"type":"null"}],"title":"Limit"}},{"name":"offset","in":"query","required":false,"schema":{"anyOf":[{"type":"integer","minimum":0},{"type":"null"}],"default":0,"title":"Offset"}}]} />
+    <Responses responses={[{"code":"200","schema":{},"description":"Paginated list of contracts","content":{"application/json":{"schema":{"refName":"PaginatedResponse_ContractsPublic_","properties":{"count":{"type":"integer","title":"Count"},"next":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Next"},"previous":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Previous"},"results":{"items":{"refName":"ContractsPublic","properties":{"address":{"type":"string","title":"Address"},"name":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Name"},"displayName":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Displayname"},"chainId":{"type":"integer","title":"Chainid"},"project":{"anyOf":[{"refName":"ProjectPublic","properties":{"description":{"type":"string","title":"Description"},"logoFile":{"type":"string","title":"Logofile"}},"type":"object","required":["description","logoFile"],"title":"ProjectPublic"},{"type":"null"}]},"abi":{"anyOf":[{"refName":"AbiPublic","properties":{"abiJson":{"anyOf":[{"items":{"additionalProperties":true,"type":"object"},"type":"array"},{"additionalProperties":true,"type":"object"},{"type":"null"}],"title":"Abijson"},"abiHash":{"anyOf":[{"type":"string","format":"binary"},{"type":"string"}],"title":"Abihash"},"modified":{"type":"string","format":"date-time","title":"Modified"}},"type":"object","required":["abiJson","abiHash","modified"],"title":"AbiPublic"},{"type":"null"}]},"modified":{"type":"string","format":"date-time","title":"Modified"},"trustedForDelegateCall":{"type":"boolean","title":"Trustedfordelegatecall"},"fetchRetries":{"type":"integer","title":"Fetchretries"},"logoUrl":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Logourl","readOnly":true}},"type":"object","required":["address","name","displayName","chainId","project","abi","modified","trustedForDelegateCall","fetchRetries","logoUrl"],"title":"ContractsPublic"},"type":"array","title":"Results"}},"type":"object","required":["count","next","previous","results"],"title":"PaginatedResponse[ContractsPublic]"}}}},{"code":"422","schema":{},"description":"Validation Error","content":{"application/json":{"schema":{"refName":"HTTPValidationError","properties":{"detail":{"items":{"refName":"ValidationError","properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}]} />
+    <Feedback asPath={"/core-api/transaction-service-reference#-api-v1-contracts-\{address\}---GET"} label='Did this API route run successfully?' small />
+  </Grid>
+  <Grid item xs={12} md={5.6}>
+    <Path path="/api/v1/contracts/{address}" method="get" />
+
+    <SampleRequestHeader method="get" pathWithParams="/api/v1/contracts/0x0408EF011960d02349d50286D20531229BCef773" />
+
+    <CH.Section>
+      <CH.Code style={{boxShadow: 'none'}}>
+
+```bash 
+curl -X GET https://safe-decoder.safe.global/api/v1/contracts/0x0408EF011960d02349d50286D20531229BCef773 \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+     
+```
+      </CH.Code>
+    </CH.Section>
+    #### Sample Response
+    ```json
+    {
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "address": "0x0408EF011960d02349d50286D20531229BCef773",
+      "name": "MultiSendCallOnly",
+      "displayName": "Safe: MultiSendCallOnly 1.4.1",
+      "chainId": 232,
+      "project": null,
+      "abi": null,
+      "modified": "2025-08-06T11:00:00.482395Z",
+      "trustedForDelegateCall": true,
+      "fetchRetries": 90,
+      "logoUrl": "https://safe-transaction-assets.safe.global/contracts/logos/0x0408EF011960d02349d50286D20531229BCef773.png"
+    }
+  ]
+}
+    ```
+    
+  </Grid>
+</Grid>
+<Hr style={{ 
+  marginTop: '112px',
+  marginBottom: '112px'
+}} />
+
+<Grid my={8} />
+
+## Data decoder
+
+<Grid my={6} />
+
+### /api/v1/data-decoder - POST
+
+<Grid container justifyContent='space-between'>
+  <Grid item xs={12} md={5.6}>
+
+    Decode provided data
+
+    Decode provided data if there's a matching ABI on the database. Accuracy of the decoding
+can be:
+
+
+\- *FULL_MATCH*: Matched contract address and chain id.
+
+\- *PARTIAL_MATCH* Matched contract address, but not chain id.
+
+\- *ONLY_FUNCTION_MATCH*: Matched function from another contract.
+
+\- *NO_MATCH*: Selector cannot be decoded.
+
+    
+
+    <Parameters parameters={[]} />
+    <Responses responses={[{"code":"200","schema":{},"description":"Decoded data if it can be decoded","content":{"application/json":{"schema":{"refName":"DataDecodedPublic","properties":{"method":{"type":"string","title":"Method"},"parameters":{"items":{"refName":"ParameterDecodedPublic","properties":{"name":{"type":"string","title":"Name"},"type":{"type":"string","title":"Type"},"value":{"title":"Value"},"valueDecoded":{"anyOf":[{"items":{"refName":"MultisendDecodedPublic","properties":{"operation":{"type":"integer","title":"Operation"},"to":{"type":"string","title":"To"},"value":{"type":"string","title":"Value"},"data":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Data"},"dataDecoded":{"anyOf":[{"refName":"BaseDataDecodedPublic","properties":{"method":{"type":"string","title":"Method"},"parameters":{"items":{"refName":"ParameterDecodedPublic","type":"object","required":["name","type","value"],"title":"ParameterDecodedPublic"},"type":"array","title":"Parameters"}},"type":"object","required":["method","parameters"],"title":"BaseDataDecodedPublic"},{"type":"null"}]}},"type":"object","required":["operation","to","value"],"title":"MultisendDecodedPublic"},"type":"array"},{"refName":"BaseDataDecodedPublic","type":"object","title":"BaseDataDecodedPublic"},{"type":"null"}],"title":"Valuedecoded"}},"type":"object","title":"ParameterDecodedPublic"},"type":"array","title":"Parameters"},"accuracy":{"refName":"DecodingAccuracyEnum","type":"string","enum":["FULL_MATCH","PARTIAL_MATCH","ONLY_FUNCTION_MATCH","NO_MATCH"],"title":"DecodingAccuracyEnum"}},"type":"object","required":["method","parameters","accuracy"],"title":"DataDecodedPublic"}}}},{"code":"422","schema":{},"description":"Validation Error","content":{"application/json":{"schema":{"refName":"HTTPValidationError","properties":{"detail":{"items":{"refName":"ValidationError","properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"}}}}]} />
+    <Feedback asPath={"/core-api/transaction-service-reference#-api-v1-data-decoder---POST"} label='Did this API route run successfully?' small />
+  </Grid>
+  <Grid item xs={12} md={5.6}>
+    <Path path="/api/v1/data-decoder" method="post" />
+
+    <SampleRequestHeader method="post" pathWithParams="/api/v1/data-decoder" />
+
+    <CH.Section>
+      <CH.Code style={{boxShadow: 'none'}}>
+
+```bash 
+curl -X 'POST' \
+  'https://safe-decoder.safe.global/api/v1/data-decoder' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "data": "0xa9059cbb0000000000000000000000005afe3855358e112b5647b952709e6165e1c1eeee00000000000000000000000000000000000000000000001e1de1d2517bae38ac",
+  "to": "0x5aFE3855358E112B5647B952709E6165e1c1eEEe",
+  "chainId": 1
+}'
+```
+      </CH.Code>
+    </CH.Section>
+ #### Sample Response
+ ```json
+ {
+  "method": "transfer",
+  "parameters": [
+    {
+      "name": "to",
+      "type": "address",
+      "value": "0x5aFE3855358E112B5647B952709E6165e1c1eEEe",
+      "valueDecoded": null
+    },
+    {
+      "name": "amount",
+      "type": "uint256",
+      "value": "555555555555555555500",
+      "valueDecoded": null
+    }
+  ],
+  "accuracy": "FULL_MATCH"
+}
+ ```
+    
+  </Grid>
+</Grid>
+<Hr style={{ 
+  marginTop: '112px',
+  marginBottom: '112px'
+}} />
+

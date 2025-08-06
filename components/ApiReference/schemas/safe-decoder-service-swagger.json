@@ -1,0 +1,741 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Safe Decoder Service",
+    "description": "Safe Core{API} decoder service",
+    "version": "1.8.0"
+  },
+  "paths": {
+    "/api/v1/about": {
+      "get": {
+        "tags": [
+          "about"
+        ],
+        "summary": "About",
+        "operationId": "about_api_v1_about_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AboutPublic"
+                }
+              }
+            }
+          }
+        },
+        "path": "/api/v1/about",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/api/v1/contracts": {
+      "get": {
+        "tags": [
+          "contracts"
+        ],
+        "summary": "List contracts",
+        "description": "Returns a paginated list of contracts, optionally filtered by chain IDs and trusted delegate call flag.\nArgs:\n    request:\n    pagination_params:\n    chain_ids:\n    trusted_for_delegate_call:\n\nReturns:",
+        "operationId": "list_all_contracts_api_v1_contracts_get",
+        "parameters": [
+          {
+            "name": "chain_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Chain Ids"
+            }
+          },
+          {
+            "name": "trusted_for_delegate_call",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Trusted For Delegate Call"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of contracts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_ContractsPublic_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "path": "/api/v1/contracts",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/api/v1/contracts/{address}": {
+      "get": {
+        "tags": [
+          "contracts"
+        ],
+        "summary": "List matching contracts",
+        "description": ":param request:\n:param address: Contract address\n:param pagination_params:\n:param chain_ids: Only list contracts for the provided `chain_ids`\n:return: Contracts for all chains if found, empty response otherwise",
+        "operationId": "list_contracts_api_v1_contracts__address__get",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Address"
+            }
+          },
+          {
+            "name": "chain_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Chain Ids"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of contracts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_ContractsPublic_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "path": "/api/v1/contracts/{address}",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/api/v1/data-decoder": {
+      "post": {
+        "tags": [
+          "data decoder"
+        ],
+        "summary": "Decode provided data",
+        "description": "Decode provided data if there's a matching ABI on the database. Accuracy of the decoding\ncan be:\n\n- *FULL_MATCH*: Matched contract address and chain id.\n- *PARTIAL_MATCH* Matched contract address, but not chain id.\n- *ONLY_FUNCTION_MATCH*: Matched function from another contract.\n- *NO_MATCH*: Selector cannot be decoded.",
+        "operationId": "data_decoder_api_v1_data_decoder_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataDecoderInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Decoded data if it can be decoded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataDecodedPublic"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "path": "/api/v1/data-decoder",
+        "title": "",
+        "additionalInfo": ""
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AbiPublic": {
+        "properties": {
+          "abiJson": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Abijson"
+          },
+          "abiHash": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "binary"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Abihash"
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Modified"
+          }
+        },
+        "type": "object",
+        "required": [
+          "abiJson",
+          "abiHash",
+          "modified"
+        ],
+        "title": "AbiPublic"
+      },
+      "AboutPublic": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "version"
+        ],
+        "title": "AboutPublic"
+      },
+      "BaseDataDecodedPublic": {
+        "properties": {
+          "method": {
+            "type": "string",
+            "title": "Method"
+          },
+          "parameters": {
+            "items": {
+              "$ref": "#/components/schemas/ParameterDecodedPublic"
+            },
+            "type": "array",
+            "title": "Parameters"
+          }
+        },
+        "type": "object",
+        "required": [
+          "method",
+          "parameters"
+        ],
+        "title": "BaseDataDecodedPublic"
+      },
+      "ContractsPublic": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "displayName": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Displayname"
+          },
+          "chainId": {
+            "type": "integer",
+            "title": "Chainid"
+          },
+          "project": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ProjectPublic"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "abi": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AbiPublic"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Modified"
+          },
+          "trustedForDelegateCall": {
+            "type": "boolean",
+            "title": "Trustedfordelegatecall"
+          },
+          "fetchRetries": {
+            "type": "integer",
+            "title": "Fetchretries"
+          },
+          "logoUrl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Logourl",
+            "readOnly": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "address",
+          "name",
+          "displayName",
+          "chainId",
+          "project",
+          "abi",
+          "modified",
+          "trustedForDelegateCall",
+          "fetchRetries",
+          "logoUrl"
+        ],
+        "title": "ContractsPublic"
+      },
+      "DataDecodedPublic": {
+        "properties": {
+          "method": {
+            "type": "string",
+            "title": "Method"
+          },
+          "parameters": {
+            "items": {
+              "$ref": "#/components/schemas/ParameterDecodedPublic"
+            },
+            "type": "array",
+            "title": "Parameters"
+          },
+          "accuracy": {
+            "$ref": "#/components/schemas/DecodingAccuracyEnum"
+          }
+        },
+        "type": "object",
+        "required": [
+          "method",
+          "parameters",
+          "accuracy"
+        ],
+        "title": "DataDecodedPublic"
+      },
+      "DataDecoderInput": {
+        "properties": {
+          "data": {
+            "type": "string",
+            "pattern": "^0x[0-9a-fA-F]*$",
+            "title": "Data",
+            "description": "0x-prefixed hexadecimal string",
+            "examples": [
+              "0xa9059cbb0000000000000000000000005afe3855358e112b5647b952709e6165e1c1eeee00000000000000000000000000000000000000000000001e1de1d2517bae38ac"
+            ]
+          },
+          "to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^0x[0-9a-fA-F]{40}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "To",
+            "description": "Optional to address",
+            "examples": [
+              "0x5aFE3855358E112B5647B952709E6165e1c1eEEe"
+            ]
+          },
+          "chainId": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chainid",
+            "description": "Optional Chain ID as a positive integer",
+            "examples": [
+              1
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "DataDecoderInput"
+      },
+      "DecodingAccuracyEnum": {
+        "type": "string",
+        "enum": [
+          "FULL_MATCH",
+          "PARTIAL_MATCH",
+          "ONLY_FUNCTION_MATCH",
+          "NO_MATCH"
+        ],
+        "title": "DecodingAccuracyEnum"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "MultisendDecodedPublic": {
+        "properties": {
+          "operation": {
+            "type": "integer",
+            "title": "Operation"
+          },
+          "to": {
+            "type": "string",
+            "title": "To"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "dataDecoded": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BaseDataDecodedPublic"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "operation",
+          "to",
+          "value"
+        ],
+        "title": "MultisendDecodedPublic"
+      },
+      "PaginatedResponse_ContractsPublic_": {
+        "properties": {
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          },
+          "next": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next"
+          },
+          "previous": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/ContractsPublic"
+            },
+            "type": "array",
+            "title": "Results"
+          }
+        },
+        "type": "object",
+        "required": [
+          "count",
+          "next",
+          "previous",
+          "results"
+        ],
+        "title": "PaginatedResponse[ContractsPublic]"
+      },
+      "ParameterDecodedPublic": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "value": {
+            "title": "Value"
+          },
+          "valueDecoded": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/MultisendDecodedPublic"
+                },
+                "type": "array"
+              },
+              {
+                "$ref": "#/components/schemas/BaseDataDecodedPublic"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valuedecoded"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "type",
+          "value"
+        ],
+        "title": "ParameterDecodedPublic"
+      },
+      "ProjectPublic": {
+        "properties": {
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "logoFile": {
+            "type": "string",
+            "title": "Logofile"
+          }
+        },
+        "type": "object",
+        "required": [
+          "description",
+          "logoFile"
+        ],
+        "title": "ProjectPublic"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
