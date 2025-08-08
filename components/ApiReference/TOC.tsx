@@ -64,7 +64,14 @@ const TableOfContents: React.FC<{
           }}
         >
           <Link
-            href='/core-api/transaction-service-overview'
+            onClick={() => {
+              if (window.history.length > 1) {
+                window.history.back()
+              } else {
+                // Fallback when no history exists. Redirect to API main
+                window.location.href = '/core-api/api-overview'
+              }
+            }}
             color='grey.600'
             sx={{
               fontSize: '14px',
@@ -74,7 +81,8 @@ const TableOfContents: React.FC<{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              color: 'inherit'
+              color: 'inherit',
+              cursor: 'pointer'
             }}
           >
             ← Go to API
