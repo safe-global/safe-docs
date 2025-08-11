@@ -25,7 +25,7 @@
             }
           }
         },
-        "path": "/api/v1/about",
+        "path": "/api/v1/about/",
         "title": "",
         "additionalInfo": ""
       }
@@ -35,8 +35,8 @@
         "tags": [
           "contracts"
         ],
-        "summary": "List contracts",
-        "description": "Returns a paginated list of contracts, optionally filtered by chain IDs and trusted delegate call flag.\nArgs:\n    request:\n    pagination_params:\n    chain_ids:\n    trusted_for_delegate_call:\n\nReturns:",
+        "summary": "List all contracts",
+        "description": "Returns a **paginated** list of contracts, optionally filtered by `chain_ids` and the\n`trusted_for_delegate_call` flag.\n\n**Parameters:**\n- `chain_ids`: Filter contracts by specific chain IDs. Repeat the param to filter by multiple chains (e.g. `?chain_ids=1&chain_ids=137`).\n- `trusted_for_delegate_call`: Filter contracts by trusted delegate call flag.\n\n**Response:**\n- Paginated list of contracts matching the criteria.\n\n**Notes**\n- Pagination is controlled by `PaginationQueryParams` (`limit`, `offset`).\n- When `chain_ids` is provided, only contracts deployed on those chains are returned.",
         "operationId": "list_all_contracts_api_v1_contracts_get",
         "parameters": [
           {
@@ -55,8 +55,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Filter by chain IDs. Repeat to pass multiple values.",
               "title": "Chain Ids"
-            }
+            },
+            "description": "Filter by chain IDs. Repeat to pass multiple values."
           },
           {
             "name": "trusted_for_delegate_call",
@@ -71,8 +73,10 @@
                   "type": "null"
                 }
               ],
+              "description": "If true, only return contracts trusted for delegate calls. If false, only return those not trusted. Omit to return all.",
               "title": "Trusted For Delegate Call"
-            }
+            },
+            "description": "If true, only return contracts trusted for delegate calls. If false, only return those not trusted. Omit to return all."
           },
           {
             "name": "limit",
@@ -132,7 +136,7 @@
             }
           }
         },
-        "path": "/api/v1/contracts",
+        "path": "/api/v1/contracts/",
         "title": "",
         "additionalInfo": ""
       }
@@ -142,8 +146,8 @@
         "tags": [
           "contracts"
         ],
-        "summary": "List matching contracts",
-        "description": ":param request:\n:param address: Contract address\n:param pagination_params:\n:param chain_ids: Only list contracts for the provided `chain_ids`\n:return: Contracts for all chains if found, empty response otherwise",
+        "summary": "List contracts for a checksummed address",
+        "description": "Return a **paginated** list of contracts that match the provided **EIP-55 checksummed** address.\n\n**Parameters:**\n- `address`: Contract address in checksum format (required).\n- `chain_ids`: List of chain IDs to filter contracts (optional).\n\n**Returns:**\n- Paginated response containing contracts matching the address.",
         "operationId": "list_contracts_api_v1_contracts__address__get",
         "parameters": [
           {
@@ -152,8 +156,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "description": "EIP-55 checksummed contract address.",
               "title": "Address"
-            }
+            },
+            "description": "EIP-55 checksummed contract address."
           },
           {
             "name": "chain_ids",
@@ -171,8 +177,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Filter by chain IDs. Repeat to pass multiple values.",
               "title": "Chain Ids"
-            }
+            },
+            "description": "Filter by chain IDs. Repeat to pass multiple values."
           },
           {
             "name": "limit",
@@ -212,7 +220,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Paginated list of contracts",
+            "description": "Paginated list of contracts matching the provided address",
             "content": {
               "application/json": {
                 "schema": {
@@ -232,7 +240,7 @@
             }
           }
         },
-        "path": "/api/v1/contracts/{address}",
+        "path": "/api/v1/contracts/{address}/",
         "title": "",
         "additionalInfo": ""
       }
