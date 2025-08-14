@@ -23,8 +23,9 @@ export const navHeight = 94
 
 const TableOfContents: React.FC<{
   headings: Heading[]
+  networkName: string
   onClick?: () => void
-}> = ({ headings, onClick }) => {
+}> = ({ headings, networkName, onClick }) => {
   const currentIndex = useCurrentTocIndex(headings, navHeight)
 
   return (
@@ -64,14 +65,11 @@ const TableOfContents: React.FC<{
           }}
         >
           <Link
-            onClick={() => {
-              if (window.history.length > 1) {
-                window.history.back()
-              } else {
-                // Fallback when no history exists. Redirect to API main
-                window.location.href = '/core-api/api-overview'
-              }
-            }}
+            href={
+              networkName === 'safe-decoder-service'
+                ? '/core-api/safe-decoder-service-overview'
+                : '/core-api/transaction-service-overview'
+            }
             color='grey.600'
             sx={{
               fontSize: '14px',

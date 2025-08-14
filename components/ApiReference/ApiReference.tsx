@@ -45,7 +45,7 @@ const ApiReference: React.FC<{ networkName: string }> = ({ networkName }) => {
           minWidth='200px'
           sm={2.7}
         >
-          <TOC headings={headings} />
+          <TOC headings={headings} networkName={networkName} />
         </Grid>
         <Grid
           item
@@ -133,6 +133,7 @@ const ApiReference: React.FC<{ networkName: string }> = ({ networkName }) => {
         </AppBar>
         <TOC
           headings={headings}
+          networkName={networkName}
           onClick={() => {
             setIsFilterDrawerOpen(false)
           }}
