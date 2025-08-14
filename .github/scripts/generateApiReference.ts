@@ -483,9 +483,12 @@ const generateCategoryContent = (
 ${category.paths.map(path => generatePathContent(swagger, network, path)).join('\n')}`
 
 const getCategories = (swagger: any) => {
+  // Get all methods from all paths in the Swagger specification
   const allMethods: any = Object.entries(swagger.paths)
     .map(([k, v]: [any, any]) => Object.values(v))
     .flat()
+
+  // Extract unique category titles from all method tags
   const allCategories = Array.from(
     new Set(
       allMethods
@@ -494,6 +497,8 @@ const getCategories = (swagger: any) => {
         .filter(Boolean)
     )
   ) as string[]
+
+  // Create categories with their associated paths, filtering out deprecated methods
   return allCategories.map((title: string) => ({
     title,
     paths: allMethods
@@ -504,6 +509,8 @@ const getCategories = (swagger: any) => {
       .map((m: { path: string }) => m.path)
       .filter((path: string, i: number, arr: any[]) => arr.indexOf(path) === i)
   }))
+  // Filter out categories that have no non-deprecated methods (i.e., all methods in category are deprecated)
+  .filter(category => category.paths.length > 0)
 }
 
 const generateMainContent = (
