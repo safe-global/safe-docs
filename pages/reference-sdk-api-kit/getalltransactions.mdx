@@ -16,15 +16,14 @@ Returns a list of transactions for a given Safe account, with a different struct
 
     const safeAddress = '0x...'
 
-    const config: AllTransactionsOptions = {
-      executed: true, // Optional
-      queued: true, // Optional
-      trusted: true // Optional
+    const options: AllTransactionsOptions = {
+      limit: 10, // Optional: Maximum number of results to return per page
+      offset: 0  // Optional: Initial index from which to return the results
     }
 
     const allTxs = await apiKit.getAllTransactions(
       safeAddress,
-      config // Optional
+      options // Optional
     )
     ```
 
@@ -59,42 +58,30 @@ The list of transactions.
 
 The Safe address.
 
+```typescript
+const allTxs = await apiKit.getAllTransactions('0x...')
+```
+
+### `options.limit` (Optional)
+
+- **Type:** `number`
+
+Maximum number of results to return per page.
+
 ```typescript focus=2
-const allTxs = await apiKit.getAllTransactions(safeAddress)
-```
-
-### `config.executed` (Optional)
-
-- **Type:** `boolean`
-
-If true, only executed transactions are returned.
-
-```typescript focus=4
 const allTxs = await apiKit.getAllTransactions(safeAddress, {
-  executed: true
+  limit: 10
 })
 ```
 
-### `config.queued` (Optional)
+### `options.offset` (Optional)
 
-- **Type:** `boolean`
+- **Type:** `number`
 
-If true, transactions with nonce higher or equal than the current nonce are returned.
+Initial index from which to return the results.
 
-```typescript focus=4
+```typescript focus=2
 const allTxs = await apiKit.getAllTransactions(safeAddress, {
-  queued: true
-})
-```
-
-### `config.trusted` (Optional)
-
-- **Type:** `boolean`
-
-If true, just trusted transactions are returned (indexed, added by a delegate or with at least one confirmation).
-
-```typescript focus=4
-const allTxs = await apiKit.getAllTransactions(safeAddress, {
-  trusted: true
+  offset: 20
 })
 ```
