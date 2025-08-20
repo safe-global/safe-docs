@@ -20,218 +20,6 @@ This service is available on [multiple networks](../../advanced/smart-account-su
 
 <Grid my={8} />
 
-## Contracts
-
-<Grid my={6} />
-
-### List Contracts
-
-<Grid container justifyContent='space-between'>
-  <Grid item xs={12} md={5.6}>
-
-    
-
-    Returns the list of known smart contracts with their ABI’s
-
-    
-
-    <Parameters parameters={[{"in":"query","name":"trusted_for_delegate_call","schema":{"type":"boolean"}},{"name":"ordering","required":false,"in":"query","description":"Which field to use when ordering the results.","schema":{"type":"string"}},{"name":"limit","required":false,"in":"query","description":"Number of results to return per page.","schema":{"type":"integer"}},{"name":"offset","required":false,"in":"query","description":"The initial index from which to return the results.","schema":{"type":"integer"}}]} />
-    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedContractList","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"Contract","type":"object","properties":{"address":{"type":"string"},"name":{"type":"string"},"displayName":{"type":"string"},"logoUri":{"type":"string","format":"uri"},"contractAbi":{"refName":"ContractAbi","type":"object","properties":{"abi":{"type":"array","items":{"type":"object","additionalProperties":{}}},"description":{"type":"string"},"relevance":{"type":"integer"}},"required":["abi","description","relevance"]},"trustedForDelegateCall":{"type":"boolean"}},"required":["address","contractAbi","displayName","logoUri","name","trustedForDelegateCall"]}}}}}},"description":""}]} />
-    <Feedback asPath={"/core-api/transaction-service-reference#List-Contracts"} label='Did this API route run successfully?' small />
-  </Grid>
-  <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/aurora/api/v1/contracts/" method="get" />
-
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/contracts/" />
-
-    <CH.Section>
-      <CH.Code style={{boxShadow: 'none'}}>
-
-```bash 
-curl -X GET https://api.safe.global/tx-service/aurora/api/v1/contracts/ \
-    -H "Accept: application/json" \
-    -H "content-type: application/json" \
-    -H "Authorization: Bearer YOUR_API_KEY" \
-     
-```
-      </CH.Code>
-    </CH.Section>
-
-    #### Sample Response
-
-```json
-{
-  "count": 16233,
-  "next": "https://safe-transaction-sepolia.safe.global/api/v1/contracts/?limit=2&offset=3",
-  "previous": null,
-  "results": [
-    {
-      "address": "0x0000000000000000000000000000000000000000",
-      "name": "MetaMultiSigWallet",
-      "displayName": "",
-      "logoUri": null,
-      "contractAbi": {
-        "abi": [],
-        "description": "MetaMultiSigWallet",
-        "relevance": 100
-      },
-      "trustedForDelegateCall": false
-    },
-    {
-      "address": "0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC",
-      "name": "Seaport",
-      "displayName": "",
-      "logoUri": null,
-      "contractAbi": {
-        "abi": [],
-        "description": "Seaport",
-        "relevance": 100
-      },
-      "trustedForDelegateCall": false
-    }
-  ]
-}
-
-```
-  </Grid>
-</Grid>
-<Hr style={{ 
-  marginTop: '112px',
-  marginBottom: '112px'
-}} />
-
-### Get Specific Contract
-
-<Grid container justifyContent='space-between'>
-  <Grid item xs={12} md={5.6}>
-
-    
-
-    Returns the relevant information of a known smart contract
-
-    
-
-    <Parameters parameters={[{"in":"path","name":"address","schema":{"type":"string"},"required":true}]} />
-    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"Contract","type":"object","properties":{"address":{"type":"string"},"name":{"type":"string"},"displayName":{"type":"string"},"logoUri":{"type":"string","format":"uri"},"contractAbi":{"refName":"ContractAbi","type":"object","properties":{"abi":{"type":"array","items":{"type":"object","additionalProperties":{}}},"description":{"type":"string"},"relevance":{"type":"integer"}},"required":["abi","description","relevance"]},"trustedForDelegateCall":{"type":"boolean"}},"required":["address","contractAbi","displayName","logoUri","name","trustedForDelegateCall"]}}},"description":""}]} />
-    <Feedback asPath={"/core-api/transaction-service-reference#Get-Specific-Contract"} label='Did this API route run successfully?' small />
-  </Grid>
-  <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/aurora/api/v1/contracts/{address}/" method="get" />
-
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
-
-    <CH.Section>
-      <CH.Code style={{boxShadow: 'none'}}>
-
-```bash 
-curl -X GET https://api.safe.global/tx-service/aurora/api/v1/contracts/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/ \
-    -H "Accept: application/json" \
-    -H "content-type: application/json" \
-    -H "Authorization: Bearer YOUR_API_KEY" \
-     
-```
-      </CH.Code>
-    </CH.Section>
-
-    #### Sample Response
-
-```json
-{
-  "address": "0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC",
-  "name": "Seaport",
-  "displayName": "",
-  "logoUri": null,
-  "contractAbi": {
-    "abi": [],
-    "description": "Seaport",
-    "relevance": 100
-  },
-  "trustedForDelegateCall": false
-}
-
-```
-  </Grid>
-</Grid>
-<Hr style={{ 
-  marginTop: '112px',
-  marginBottom: '112px'
-}} />
-
-<Grid my={8} />
-
-## Data-decoder
-
-<Grid my={6} />
-
-### Get Decoded Data
-
-<Grid container justifyContent='space-between'>
-  <Grid item xs={12} md={5.6}>
-
-    
-
-    Returns the decoded data using the Safe Transaction Service internal ABI information given
-the transaction data as a `0x` prefixed hexadecimal string.
-If the address of the receiving contract is provided, the decoded data will be more accurate,
-as in case of an ABI collision the Safe Transaction Service would know which ABI to use.
-
-    
-
-    <Parameters parameters={[]} />
-    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"DataDecoder","type":"object","properties":{"data":{"type":"string"},"to":{"type":["string","null"]}},"required":["data"]}}},"description":"Decoded data"},{"code":"404","schema":{},"description":"Cannot find function selector to decode data"},{"code":"422","schema":{},"content":{"application/json":{"schema":{"refName":"CodeErrorResponse","type":"object","properties":{"code":{"type":"integer"},"message":{"type":"string"},"arguments":{"type":"array","items":{}}},"required":["arguments","code","message"]}}},"description":"Invalid data"}]} />
-    <Feedback asPath={"/core-api/transaction-service-reference#Get-Decoded-Data"} label='Did this API route run successfully?' small />
-  </Grid>
-  <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/aurora/api/v1/data-decoder/" method="post" />
-
-    <SampleRequestHeader method="post" pathWithParams="/api/v1/data-decoder/" />
-
-    <CH.Section>
-      <CH.Code style={{boxShadow: 'none'}}>
-
-```js TypeScript
-// from ../examples/aurora/-v1-data-decoder--post.ts
-```
-            
-```bash curl
-curl -X POST https://api.safe.global/tx-service/aurora/api/v1/data-decoder/ \
-    -H "Accept: application/json" \
-    -H "content-type: application/json" \
-    -H "Authorization: Bearer YOUR_API_KEY" \
-     
-```
-      </CH.Code>
-    </CH.Section>
-
-    #### Sample Response
-
-```json
-{
-  "method": "transfer",
-  "parameters": [
-    {
-      "name": "to",
-      "type": "address",
-      "value": "0x5298A93734C3D979eF1f23F78eBB871879A21F22"
-    },
-    {
-      "name": "value",
-      "type": "uint256",
-      "value": "10000000000000000000"
-    }
-  ]
-}
-
-```
-  </Grid>
-</Grid>
-<Hr style={{ 
-  marginTop: '112px',
-  marginBottom: '112px'
-}} />
-
-<Grid my={8} />
-
 ## Delegates
 
 <Grid my={6} />
@@ -710,7 +498,7 @@ Empty Response
     
 
     <Parameters parameters={[{"in":"path","name":"module_transaction_id","schema":{"type":"string"},"required":true}]} />
-    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"SafeModuleTransactionResponse","type":"object","properties":{"created":{"type":"string","format":"date-time","readOnly":true},"executionDate":{"type":"string","format":"date-time"},"blockNumber":{"type":"integer"},"isSuccessful":{"type":"boolean","readOnly":true},"transactionHash":{"type":"string"},"safe":{"type":"string"},"module":{"type":"string"},"to":{"type":"string"},"value":{"type":"string","format":"decimal","pattern":"^-?\\d{0,78}(?:\\.\\d{0,0})?$"},"data":{"type":["string","null"]},"operation":{"enum":[0,1,2],"type":"integer","description":"* `0` - CALL\n* `1` - DELEGATE_CALL\n* `2` - CREATE","x-spec-enum-id":"73baf6048b75e41c","minimum":0,"maximum":32767},"dataDecoded":{"type":"object","additionalProperties":{},"readOnly":true},"moduleTransactionId":{"type":"string","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`"}},"required":["blockNumber","created","data","dataDecoded","executionDate","isSuccessful","module","moduleTransactionId","operation","safe","to","transactionHash","value"]}}},"description":""},{"code":"400","schema":{},"content":{"application/json":{"schema":{"refName":"CodeErrorResponse","type":"object","properties":{"code":{"type":"integer"},"message":{"type":"string"},"arguments":{"type":"array","items":{}}},"required":["arguments","code","message"]}}},"description":"Invalid moduleTransactionId"},{"code":"404","schema":{},"description":"ModuleTransaction does not exist"}]} />
+    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"SafeModuleTransactionResponse","type":"object","properties":{"created":{"type":"string","format":"date-time","readOnly":true},"executionDate":{"type":"string","format":"date-time"},"blockNumber":{"type":"integer"},"isSuccessful":{"type":"boolean","readOnly":true},"transactionHash":{"type":"string"},"safe":{"type":"string"},"module":{"type":"string"},"to":{"type":"string"},"value":{"type":"string","format":"decimal","pattern":"^-?\\d{0,78}(?:\\.\\d{0,0})?$"},"data":{"type":["string","null"]},"operation":{"enum":[0,1,2],"type":"integer","description":"* `0` - CALL\n* `1` - DELEGATE_CALL\n* `2` - CREATE","x-spec-enum-id":"73baf6048b75e41c","minimum":0,"maximum":32767},"dataDecoded":{"type":"string","deprecated":true,"description":"This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.","readOnly":true},"moduleTransactionId":{"type":"string","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`"}},"required":["blockNumber","created","data","dataDecoded","executionDate","isSuccessful","module","moduleTransactionId","operation","safe","to","transactionHash","value"]}}},"description":""},{"code":"400","schema":{},"content":{"application/json":{"schema":{"refName":"CodeErrorResponse","type":"object","properties":{"code":{"type":"integer"},"message":{"type":"string"},"arguments":{"type":"array","items":{}}},"required":["arguments","code","message"]}}},"description":"Invalid moduleTransactionId"},{"code":"404","schema":{},"description":"ModuleTransaction does not exist"}]} />
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Module-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -946,7 +734,7 @@ curl -X GET https://api.safe.global/tx-service/aurora/api/v1/safes/0xcd2E72aEBe2
     
 
     <Parameters parameters={[{"in":"path","name":"address","schema":{"type":"string"},"required":true},{"in":"query","name":"safe","schema":{"type":"string"}},{"in":"query","name":"module","schema":{"type":"string"}},{"in":"query","name":"to","schema":{"type":"string"}},{"in":"query","name":"operation","schema":{"type":"integer","x-spec-enum-id":"73baf6048b75e41c","enum":[0,1,2]},"description":"* `0` - CALL\n* `1` - DELEGATE_CALL\n* `2` - CREATE"},{"in":"query","name":"failed","schema":{"type":"boolean"}},{"in":"query","name":"block_number","schema":{"type":"number"}},{"in":"query","name":"block_number__gt","schema":{"type":"number"}},{"in":"query","name":"block_number__lt","schema":{"type":"number"}},{"in":"query","name":"transaction_hash","schema":{"type":"string","format":"byte"}},{"name":"ordering","required":false,"in":"query","description":"Which field to use when ordering the results.","schema":{"type":"string"}},{"name":"limit","required":false,"in":"query","description":"Number of results to return per page.","schema":{"type":"integer"}},{"name":"offset","required":false,"in":"query","description":"The initial index from which to return the results.","schema":{"type":"integer"}}]} />
-    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedSafeModuleTransactionResponseList","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"SafeModuleTransactionResponse","type":"object","properties":{"created":{"type":"string","format":"date-time","readOnly":true},"executionDate":{"type":"string","format":"date-time"},"blockNumber":{"type":"integer"},"isSuccessful":{"type":"boolean","readOnly":true},"transactionHash":{"type":"string"},"safe":{"type":"string"},"module":{"type":"string"},"to":{"type":"string"},"value":{"type":"string","format":"decimal","pattern":"^-?\\d{0,78}(?:\\.\\d{0,0})?$"},"data":{"type":["string","null"]},"operation":{"enum":[0,1,2],"type":"integer","description":"* `0` - CALL\n* `1` - DELEGATE_CALL\n* `2` - CREATE","x-spec-enum-id":"73baf6048b75e41c","minimum":0,"maximum":32767},"dataDecoded":{"type":"object","additionalProperties":{},"readOnly":true},"moduleTransactionId":{"type":"string","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`"}},"required":["blockNumber","created","data","dataDecoded","executionDate","isSuccessful","module","moduleTransactionId","operation","safe","to","transactionHash","value"]}}}}}},"description":""},{"code":"422","schema":{},"content":{"application/json":{"schema":{"refName":"CodeErrorResponse","type":"object","properties":{"code":{"type":"integer"},"message":{"type":"string"},"arguments":{"type":"array","items":{}}},"required":["arguments","code","message"]}}},"description":"Checksum address validation failed"}]} />
+    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedSafeModuleTransactionResponseList","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"SafeModuleTransactionResponse","type":"object","properties":{"created":{"type":"string","format":"date-time","readOnly":true},"executionDate":{"type":"string","format":"date-time"},"blockNumber":{"type":"integer"},"isSuccessful":{"type":"boolean","readOnly":true},"transactionHash":{"type":"string"},"safe":{"type":"string"},"module":{"type":"string"},"to":{"type":"string"},"value":{"type":"string","format":"decimal","pattern":"^-?\\d{0,78}(?:\\.\\d{0,0})?$"},"data":{"type":["string","null"]},"operation":{"enum":[0,1,2],"type":"integer","description":"* `0` - CALL\n* `1` - DELEGATE_CALL\n* `2` - CREATE","x-spec-enum-id":"73baf6048b75e41c","minimum":0,"maximum":32767},"dataDecoded":{"type":"string","deprecated":true,"description":"This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.","readOnly":true},"moduleTransactionId":{"type":"string","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`"}},"required":["blockNumber","created","data","dataDecoded","executionDate","isSuccessful","module","moduleTransactionId","operation","safe","to","transactionHash","value"]}}}}}},"description":""},{"code":"422","schema":{},"content":{"application/json":{"schema":{"refName":"CodeErrorResponse","type":"object","properties":{"code":{"type":"integer"},"message":{"type":"string"},"arguments":{"type":"array","items":{}}},"required":["arguments","code","message"]}}},"description":"Checksum address validation failed"}]} />
     <Feedback asPath={"/core-api/transaction-service-reference#List-a-Safe's-Module-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -1191,7 +979,7 @@ curl -X GET https://api.safe.global/tx-service/aurora/api/v1/transfer/3b3b57b3 \
     
 
     <Parameters parameters={[{"in":"path","name":"safe_tx_hash","schema":{"type":"string"},"required":true}]} />
-    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"SafeMultisigTransactionResponseSerializerV2","type":"object","properties":{"safe":{"type":"string"},"to":{"type":"string"},"value":{"type":"string"},"data":{"type":["string","null"]},"operation":{"type":"integer","minimum":0},"gasToken":{"type":["string","null"]},"safeTxGas":{"type":"string"},"baseGas":{"type":"string"},"gasPrice":{"type":"string"},"refundReceiver":{"type":["string","null"]},"nonce":{"type":"string"},"executionDate":{"type":"string","format":"date-time"},"submissionDate":{"type":"string","format":"date-time"},"modified":{"type":"string","format":"date-time"},"blockNumber":{"type":["integer","null"],"readOnly":true},"transactionHash":{"type":"string"},"safeTxHash":{"type":"string"},"proposer":{"type":"string"},"proposedByDelegate":{"type":["string","null"]},"executor":{"type":["string","null"],"readOnly":true},"isExecuted":{"type":"boolean"},"isSuccessful":{"type":["boolean","null"],"readOnly":true},"ethGasPrice":{"type":["string","null"],"readOnly":true},"maxFeePerGas":{"type":["string","null"],"readOnly":true},"maxPriorityFeePerGas":{"type":["string","null"],"readOnly":true},"gasUsed":{"type":["integer","null"],"readOnly":true},"fee":{"type":["integer","null"],"readOnly":true},"origin":{"type":"string","readOnly":true},"dataDecoded":{"type":"object","additionalProperties":{},"readOnly":true},"confirmationsRequired":{"type":"integer"},"confirmations":{"type":"object","additionalProperties":{},"description":"Validate and check integrity of confirmations queryset\n\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n:raises InternalValidationError: If any inconsistency is detected","readOnly":true},"trusted":{"type":"boolean"},"signatures":{"type":["string","null"],"readOnly":true}},"required":["baseGas","blockNumber","confirmations","confirmationsRequired","dataDecoded","ethGasPrice","executionDate","executor","fee","gasPrice","gasUsed","isExecuted","isSuccessful","maxFeePerGas","maxPriorityFeePerGas","modified","nonce","operation","origin","proposedByDelegate","proposer","safe","safeTxGas","safeTxHash","signatures","submissionDate","to","transactionHash","trusted","value"]}}},"description":""}]} />
+    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"SafeMultisigTransactionResponseSerializerV2","type":"object","properties":{"safe":{"type":"string"},"to":{"type":"string"},"value":{"type":"string"},"data":{"type":["string","null"]},"operation":{"type":"integer","minimum":0},"gasToken":{"type":["string","null"]},"safeTxGas":{"type":"string"},"baseGas":{"type":"string"},"gasPrice":{"type":"string"},"refundReceiver":{"type":["string","null"]},"nonce":{"type":"string"},"executionDate":{"type":"string","format":"date-time"},"submissionDate":{"type":"string","format":"date-time"},"modified":{"type":"string","format":"date-time"},"blockNumber":{"type":["integer","null"],"readOnly":true},"transactionHash":{"type":"string"},"safeTxHash":{"type":"string"},"proposer":{"type":"string"},"proposedByDelegate":{"type":["string","null"]},"executor":{"type":["string","null"],"readOnly":true},"isExecuted":{"type":"boolean"},"isSuccessful":{"type":["boolean","null"],"readOnly":true},"ethGasPrice":{"type":["string","null"],"readOnly":true},"maxFeePerGas":{"type":["string","null"],"readOnly":true},"maxPriorityFeePerGas":{"type":["string","null"],"readOnly":true},"gasUsed":{"type":["integer","null"],"readOnly":true},"fee":{"type":["integer","null"],"readOnly":true},"origin":{"type":"string","readOnly":true},"dataDecoded":{"type":"string","deprecated":true,"description":"This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.","readOnly":true},"confirmationsRequired":{"type":"integer"},"confirmations":{"type":"object","additionalProperties":{},"description":"Validate and check integrity of confirmations queryset\n\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n:raises InternalValidationError: If any inconsistency is detected","readOnly":true},"trusted":{"type":"boolean"},"signatures":{"type":["string","null"],"readOnly":true}},"required":["baseGas","blockNumber","confirmations","confirmationsRequired","dataDecoded","ethGasPrice","executionDate","executor","fee","gasPrice","gasUsed","isExecuted","isSuccessful","maxFeePerGas","maxPriorityFeePerGas","modified","nonce","operation","origin","proposedByDelegate","proposer","safe","safeTxGas","safeTxHash","signatures","submissionDate","to","transactionHash","trusted","value"]}}},"description":""}]} />
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -1325,7 +1113,7 @@ but there will be 2 transactions in the list.
     
 
     <Parameters parameters={[{"in":"path","name":"address","schema":{"type":"string"},"required":true},{"name":"ordering","required":false,"in":"query","description":"Which field to use when ordering the results.","schema":{"type":"string"}},{"name":"limit","required":false,"in":"query","description":"Number of results to return per page.","schema":{"type":"integer"}},{"name":"offset","required":false,"in":"query","description":"The initial index from which to return the results.","schema":{"type":"integer"}}]} />
-    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedAllTransactionsSchemaSerializerV2List","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"AllTransactionsSchemaSerializerV2","type":"object","description":"Just for the purpose of documenting, don't use it","properties":{"txType1":{"refName":"SafeModuleTransactionWithTransfersResponse","type":"object","properties":{"created":{"type":"string","format":"date-time","readOnly":true},"executionDate":{"type":"string","format":"date-time"},"blockNumber":{"type":"integer"},"isSuccessful":{"type":"boolean","readOnly":true},"transactionHash":{"type":"string"},"safe":{"type":"string"},"module":{"type":"string"},"to":{"type":"string"},"value":{"type":"string","format":"decimal","pattern":"^-?\\d{0,78}(?:\\.\\d{0,0})?$"},"data":{"type":["string","null"]},"operation":{"enum":[0,1,2],"type":"integer","description":"* `0` - CALL\n* `1` - DELEGATE_CALL\n* `2` - CREATE","x-spec-enum-id":"73baf6048b75e41c","minimum":0,"maximum":32767},"dataDecoded":{"type":"object","additionalProperties":{},"readOnly":true},"moduleTransactionId":{"type":"string","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`"},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","type":"object","properties":{"type":{"type":"string","description":"Sometimes ERC20/721 `Transfer` events look the same, if token info is available better use that information\nto check\n\n:param obj:\n:return: `TransferType` as a string","readOnly":true},"executionDate":{"type":"string","format":"date-time"},"blockNumber":{"type":"integer"},"transactionHash":{"type":"string"},"to":{"type":"string"},"value":{"type":["string","null"]},"tokenId":{"type":["string","null"]},"tokenAddress":{"type":["string","null"]},"transferId":{"type":"string","readOnly":true,"description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`"},"tokenInfo":{"refName":"TokenInfoResponse","type":"object","properties":{"type":{"type":"string","readOnly":true},"address":{"type":"string"},"name":{"type":"string"},"symbol":{"type":"string"},"decimals":{"type":"integer"},"logoUri":{"type":"string","readOnly":true},"trusted":{"type":"boolean"}},"required":["address","decimals","logoUri","name","symbol","trusted","type"]},"from":{"type":"string"}},"required":["blockNumber","executionDate","from","to","tokenId","tokenInfo","transactionHash","transferId","type","value"]}},"txType":{"type":"string","readOnly":true}},"required":["blockNumber","created","data","dataDecoded","executionDate","isSuccessful","module","moduleTransactionId","operation","safe","to","transactionHash","transfers","txType","value"]},"txType2":{"refName":"SafeMultisigTransactionWithTransfersResponseSerializerV2","type":"object","properties":{"safe":{"type":"string"},"to":{"type":"string"},"value":{"type":"string"},"data":{"type":["string","null"]},"operation":{"type":"integer","minimum":0},"gasToken":{"type":["string","null"]},"safeTxGas":{"type":"string"},"baseGas":{"type":"string"},"gasPrice":{"type":"string"},"refundReceiver":{"type":["string","null"]},"nonce":{"type":"string"},"executionDate":{"type":"string","format":"date-time"},"submissionDate":{"type":"string","format":"date-time"},"modified":{"type":"string","format":"date-time"},"blockNumber":{"type":["integer","null"],"readOnly":true},"transactionHash":{"type":"string"},"safeTxHash":{"type":"string"},"proposer":{"type":"string"},"proposedByDelegate":{"type":["string","null"]},"executor":{"type":["string","null"],"readOnly":true},"isExecuted":{"type":"boolean"},"isSuccessful":{"type":["boolean","null"],"readOnly":true},"ethGasPrice":{"type":["string","null"],"readOnly":true},"maxFeePerGas":{"type":["string","null"],"readOnly":true},"maxPriorityFeePerGas":{"type":["string","null"],"readOnly":true},"gasUsed":{"type":["integer","null"],"readOnly":true},"fee":{"type":["integer","null"],"readOnly":true},"origin":{"type":"string","readOnly":true},"dataDecoded":{"type":"object","additionalProperties":{},"readOnly":true},"confirmationsRequired":{"type":"integer"},"confirmations":{"type":"object","additionalProperties":{},"description":"Validate and check integrity of confirmations queryset\n\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n:raises InternalValidationError: If any inconsistency is detected","readOnly":true},"trusted":{"type":"boolean"},"signatures":{"type":["string","null"],"readOnly":true},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","type":"object","properties":{"type":{"type":"string","description":"Sometimes ERC20/721 `Transfer` events look the same, if token info is available better use that information\nto check\n\n:param obj:\n:return: `TransferType` as a string","readOnly":true},"executionDate":{"type":"string","format":"date-time"},"blockNumber":{"type":"integer"},"transactionHash":{"type":"string"},"to":{"type":"string"},"value":{"type":["string","null"]},"tokenId":{"type":["string","null"]},"tokenAddress":{"type":["string","null"]},"transferId":{"type":"string","readOnly":true,"description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`"},"tokenInfo":{"refName":"TokenInfoResponse","type":"object","properties":{"type":{"type":"string","readOnly":true},"address":{"type":"string"},"name":{"type":"string"},"symbol":{"type":"string"},"decimals":{"type":"integer"},"logoUri":{"type":"string","readOnly":true},"trusted":{"type":"boolean"}},"required":["address","decimals","logoUri","name","symbol","trusted","type"]},"from":{"type":"string"}},"required":["blockNumber","executionDate","from","to","tokenId","tokenInfo","transactionHash","transferId","type","value"]}},"txType":{"type":"string","readOnly":true}},"required":["baseGas","blockNumber","confirmations","confirmationsRequired","dataDecoded","ethGasPrice","executionDate","executor","fee","gasPrice","gasUsed","isExecuted","isSuccessful","maxFeePerGas","maxPriorityFeePerGas","modified","nonce","operation","origin","proposedByDelegate","proposer","safe","safeTxGas","safeTxHash","signatures","submissionDate","to","transactionHash","transfers","trusted","txType","value"]},"txType3":{"refName":"EthereumTxWithTransfersResponse","type":"object","properties":{"executionDate":{"type":"string","format":"date-time"},"to":{"type":["string","null"]},"data":{"type":"string"},"txHash":{"type":"string"},"blockNumber":{"type":["integer","null"],"readOnly":true},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","type":"object","properties":{"type":{"type":"string","description":"Sometimes ERC20/721 `Transfer` events look the same, if token info is available better use that information\nto check\n\n:param obj:\n:return: `TransferType` as a string","readOnly":true},"executionDate":{"type":"string","format":"date-time"},"blockNumber":{"type":"integer"},"transactionHash":{"type":"string"},"to":{"type":"string"},"value":{"type":["string","null"]},"tokenId":{"type":["string","null"]},"tokenAddress":{"type":["string","null"]},"transferId":{"type":"string","readOnly":true,"description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`"},"tokenInfo":{"refName":"TokenInfoResponse","type":"object","properties":{"type":{"type":"string","readOnly":true},"address":{"type":"string"},"name":{"type":"string"},"symbol":{"type":"string"},"decimals":{"type":"integer"},"logoUri":{"type":"string","readOnly":true},"trusted":{"type":"boolean"}},"required":["address","decimals","logoUri","name","symbol","trusted","type"]},"from":{"type":"string"}},"required":["blockNumber","executionDate","from","to","tokenId","tokenInfo","transactionHash","transferId","type","value"]}},"txType":{"type":"string","readOnly":true},"from":{"type":"string"}},"required":["blockNumber","data","executionDate","from","to","transfers","txHash","txType"]}},"required":["txType1","txType2","txType3"]}}}}}},"description":""}]} />
+    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedAllTransactionsSchemaSerializerV2List","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"AllTransactionsSchemaSerializerV2","type":"object","description":"Just for the purpose of documenting, don't use it","properties":{"txType1":{"refName":"SafeModuleTransactionWithTransfersResponse","type":"object","properties":{"created":{"type":"string","format":"date-time","readOnly":true},"executionDate":{"type":"string","format":"date-time"},"blockNumber":{"type":"integer"},"isSuccessful":{"type":"boolean","readOnly":true},"transactionHash":{"type":"string"},"safe":{"type":"string"},"module":{"type":"string"},"to":{"type":"string"},"value":{"type":"string","format":"decimal","pattern":"^-?\\d{0,78}(?:\\.\\d{0,0})?$"},"data":{"type":["string","null"]},"operation":{"enum":[0,1,2],"type":"integer","description":"* `0` - CALL\n* `1` - DELEGATE_CALL\n* `2` - CREATE","x-spec-enum-id":"73baf6048b75e41c","minimum":0,"maximum":32767},"dataDecoded":{"type":"string","deprecated":true,"description":"This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.","readOnly":true},"moduleTransactionId":{"type":"string","description":"Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`"},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","type":"object","properties":{"type":{"type":"string","description":"Sometimes ERC20/721 `Transfer` events look the same, if token info is available better use that information\nto check\n\n:param obj:\n:return: `TransferType` as a string","readOnly":true},"executionDate":{"type":"string","format":"date-time"},"blockNumber":{"type":"integer"},"transactionHash":{"type":"string"},"to":{"type":"string"},"value":{"type":["string","null"]},"tokenId":{"type":["string","null"]},"tokenAddress":{"type":["string","null"]},"transferId":{"type":"string","readOnly":true,"description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`"},"tokenInfo":{"refName":"TokenInfoResponse","type":"object","properties":{"type":{"type":"string","readOnly":true},"address":{"type":"string"},"name":{"type":"string"},"symbol":{"type":"string"},"decimals":{"type":"integer"},"logoUri":{"type":"string","readOnly":true},"trusted":{"type":"boolean"}},"required":["address","decimals","logoUri","name","symbol","trusted","type"]},"from":{"type":"string"}},"required":["blockNumber","executionDate","from","to","tokenId","tokenInfo","transactionHash","transferId","type","value"]}},"txType":{"type":"string","readOnly":true}},"required":["blockNumber","created","data","dataDecoded","executionDate","isSuccessful","module","moduleTransactionId","operation","safe","to","transactionHash","transfers","txType","value"]},"txType2":{"refName":"SafeMultisigTransactionWithTransfersResponseSerializerV2","type":"object","properties":{"safe":{"type":"string"},"to":{"type":"string"},"value":{"type":"string"},"data":{"type":["string","null"]},"operation":{"type":"integer","minimum":0},"gasToken":{"type":["string","null"]},"safeTxGas":{"type":"string"},"baseGas":{"type":"string"},"gasPrice":{"type":"string"},"refundReceiver":{"type":["string","null"]},"nonce":{"type":"string"},"executionDate":{"type":"string","format":"date-time"},"submissionDate":{"type":"string","format":"date-time"},"modified":{"type":"string","format":"date-time"},"blockNumber":{"type":["integer","null"],"readOnly":true},"transactionHash":{"type":"string"},"safeTxHash":{"type":"string"},"proposer":{"type":"string"},"proposedByDelegate":{"type":["string","null"]},"executor":{"type":["string","null"],"readOnly":true},"isExecuted":{"type":"boolean"},"isSuccessful":{"type":["boolean","null"],"readOnly":true},"ethGasPrice":{"type":["string","null"],"readOnly":true},"maxFeePerGas":{"type":["string","null"],"readOnly":true},"maxPriorityFeePerGas":{"type":["string","null"],"readOnly":true},"gasUsed":{"type":["integer","null"],"readOnly":true},"fee":{"type":["integer","null"],"readOnly":true},"origin":{"type":"string","readOnly":true},"dataDecoded":{"type":"string","deprecated":true,"description":"This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.","readOnly":true},"confirmationsRequired":{"type":"integer"},"confirmations":{"type":"object","additionalProperties":{},"description":"Validate and check integrity of confirmations queryset\n\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n:raises InternalValidationError: If any inconsistency is detected","readOnly":true},"trusted":{"type":"boolean"},"signatures":{"type":["string","null"],"readOnly":true},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","type":"object","properties":{"type":{"type":"string","description":"Sometimes ERC20/721 `Transfer` events look the same, if token info is available better use that information\nto check\n\n:param obj:\n:return: `TransferType` as a string","readOnly":true},"executionDate":{"type":"string","format":"date-time"},"blockNumber":{"type":"integer"},"transactionHash":{"type":"string"},"to":{"type":"string"},"value":{"type":["string","null"]},"tokenId":{"type":["string","null"]},"tokenAddress":{"type":["string","null"]},"transferId":{"type":"string","readOnly":true,"description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`"},"tokenInfo":{"refName":"TokenInfoResponse","type":"object","properties":{"type":{"type":"string","readOnly":true},"address":{"type":"string"},"name":{"type":"string"},"symbol":{"type":"string"},"decimals":{"type":"integer"},"logoUri":{"type":"string","readOnly":true},"trusted":{"type":"boolean"}},"required":["address","decimals","logoUri","name","symbol","trusted","type"]},"from":{"type":"string"}},"required":["blockNumber","executionDate","from","to","tokenId","tokenInfo","transactionHash","transferId","type","value"]}},"txType":{"type":"string","readOnly":true}},"required":["baseGas","blockNumber","confirmations","confirmationsRequired","dataDecoded","ethGasPrice","executionDate","executor","fee","gasPrice","gasUsed","isExecuted","isSuccessful","maxFeePerGas","maxPriorityFeePerGas","modified","nonce","operation","origin","proposedByDelegate","proposer","safe","safeTxGas","safeTxHash","signatures","submissionDate","to","transactionHash","transfers","trusted","txType","value"]},"txType3":{"refName":"EthereumTxWithTransfersResponse","type":"object","properties":{"executionDate":{"type":"string","format":"date-time"},"to":{"type":["string","null"]},"data":{"type":"string"},"txHash":{"type":"string"},"blockNumber":{"type":["integer","null"],"readOnly":true},"transfers":{"type":"array","items":{"refName":"TransferWithTokenInfoResponse","type":"object","properties":{"type":{"type":"string","description":"Sometimes ERC20/721 `Transfer` events look the same, if token info is available better use that information\nto check\n\n:param obj:\n:return: `TransferType` as a string","readOnly":true},"executionDate":{"type":"string","format":"date-time"},"blockNumber":{"type":"integer"},"transactionHash":{"type":"string"},"to":{"type":"string"},"value":{"type":["string","null"]},"tokenId":{"type":["string","null"]},"tokenAddress":{"type":["string","null"]},"transferId":{"type":"string","readOnly":true,"description":"Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`"},"tokenInfo":{"refName":"TokenInfoResponse","type":"object","properties":{"type":{"type":"string","readOnly":true},"address":{"type":"string"},"name":{"type":"string"},"symbol":{"type":"string"},"decimals":{"type":"integer"},"logoUri":{"type":"string","readOnly":true},"trusted":{"type":"boolean"}},"required":["address","decimals","logoUri","name","symbol","trusted","type"]},"from":{"type":"string"}},"required":["blockNumber","executionDate","from","to","tokenId","tokenInfo","transactionHash","transferId","type","value"]}},"txType":{"type":"string","readOnly":true},"from":{"type":"string"}},"required":["blockNumber","data","executionDate","from","to","transfers","txHash","txType"]}},"required":["txType1","txType2","txType3"]}}}}}},"description":""}]} />
     <Feedback asPath={"/core-api/transaction-service-reference#List-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -1371,7 +1159,7 @@ By default, only ``trusted`` multisig transactions are returned.
     
 
     <Parameters parameters={[{"in":"path","name":"address","schema":{"type":"string"},"required":true},{"in":"query","name":"failed","schema":{"type":"boolean"}},{"in":"query","name":"modified__lt","schema":{"type":"string","format":"date-time"}},{"in":"query","name":"modified__gt","schema":{"type":"string","format":"date-time"}},{"in":"query","name":"modified__lte","schema":{"type":"string","format":"date-time"}},{"in":"query","name":"modified__gte","schema":{"type":"string","format":"date-time"}},{"in":"query","name":"nonce__lt","schema":{"type":"number"}},{"in":"query","name":"nonce__gt","schema":{"type":"number"}},{"in":"query","name":"nonce__lte","schema":{"type":"number"}},{"in":"query","name":"nonce__gte","schema":{"type":"number"}},{"in":"query","name":"nonce","schema":{"type":"number"}},{"in":"query","name":"safe_tx_hash","schema":{"type":"string","format":"byte"}},{"in":"query","name":"to","schema":{"type":"string"}},{"in":"query","name":"value__lt","schema":{"type":"number"}},{"in":"query","name":"value__gt","schema":{"type":"number"}},{"in":"query","name":"value","schema":{"type":"number"}},{"in":"query","name":"executed","schema":{"type":"boolean"}},{"in":"query","name":"has_confirmations","schema":{"type":"boolean"}},{"in":"query","name":"trusted","schema":{"type":"boolean"}},{"in":"query","name":"execution_date__gte","schema":{"type":"string","format":"date-time"}},{"in":"query","name":"execution_date__lte","schema":{"type":"string","format":"date-time"}},{"in":"query","name":"submission_date__gte","schema":{"type":"string","format":"date-time"}},{"in":"query","name":"submission_date__lte","schema":{"type":"string","format":"date-time"}},{"in":"query","name":"transaction_hash","schema":{"type":["string","null"],"format":"byte"}},{"name":"ordering","required":false,"in":"query","description":"Which field to use when ordering the results.","schema":{"type":"string"}},{"name":"limit","required":false,"in":"query","description":"Number of results to return per page.","schema":{"type":"integer"}},{"name":"offset","required":false,"in":"query","description":"The initial index from which to return the results.","schema":{"type":"integer"}}]} />
-    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedSafeMultisigTransactionResponseSerializerV2List","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"SafeMultisigTransactionResponseSerializerV2","type":"object","properties":{"safe":{"type":"string"},"to":{"type":"string"},"value":{"type":"string"},"data":{"type":["string","null"]},"operation":{"type":"integer","minimum":0},"gasToken":{"type":["string","null"]},"safeTxGas":{"type":"string"},"baseGas":{"type":"string"},"gasPrice":{"type":"string"},"refundReceiver":{"type":["string","null"]},"nonce":{"type":"string"},"executionDate":{"type":"string","format":"date-time"},"submissionDate":{"type":"string","format":"date-time"},"modified":{"type":"string","format":"date-time"},"blockNumber":{"type":["integer","null"],"readOnly":true},"transactionHash":{"type":"string"},"safeTxHash":{"type":"string"},"proposer":{"type":"string"},"proposedByDelegate":{"type":["string","null"]},"executor":{"type":["string","null"],"readOnly":true},"isExecuted":{"type":"boolean"},"isSuccessful":{"type":["boolean","null"],"readOnly":true},"ethGasPrice":{"type":["string","null"],"readOnly":true},"maxFeePerGas":{"type":["string","null"],"readOnly":true},"maxPriorityFeePerGas":{"type":["string","null"],"readOnly":true},"gasUsed":{"type":["integer","null"],"readOnly":true},"fee":{"type":["integer","null"],"readOnly":true},"origin":{"type":"string","readOnly":true},"dataDecoded":{"type":"object","additionalProperties":{},"readOnly":true},"confirmationsRequired":{"type":"integer"},"confirmations":{"type":"object","additionalProperties":{},"description":"Validate and check integrity of confirmations queryset\n\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n:raises InternalValidationError: If any inconsistency is detected","readOnly":true},"trusted":{"type":"boolean"},"signatures":{"type":["string","null"],"readOnly":true}},"required":["baseGas","blockNumber","confirmations","confirmationsRequired","dataDecoded","ethGasPrice","executionDate","executor","fee","gasPrice","gasUsed","isExecuted","isSuccessful","maxFeePerGas","maxPriorityFeePerGas","modified","nonce","operation","origin","proposedByDelegate","proposer","safe","safeTxGas","safeTxHash","signatures","submissionDate","to","transactionHash","trusted","value"]}}}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"},{"code":"422","schema":{},"content":{"application/json":{"schema":{"refName":"CodeErrorResponse","type":"object","properties":{"code":{"type":"integer"},"message":{"type":"string"},"arguments":{"type":"array","items":{}}},"required":["arguments","code","message"]}}},"description":"Invalid ethereum address"}]} />
+    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedSafeMultisigTransactionResponseSerializerV2List","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"SafeMultisigTransactionResponseSerializerV2","type":"object","properties":{"safe":{"type":"string"},"to":{"type":"string"},"value":{"type":"string"},"data":{"type":["string","null"]},"operation":{"type":"integer","minimum":0},"gasToken":{"type":["string","null"]},"safeTxGas":{"type":"string"},"baseGas":{"type":"string"},"gasPrice":{"type":"string"},"refundReceiver":{"type":["string","null"]},"nonce":{"type":"string"},"executionDate":{"type":"string","format":"date-time"},"submissionDate":{"type":"string","format":"date-time"},"modified":{"type":"string","format":"date-time"},"blockNumber":{"type":["integer","null"],"readOnly":true},"transactionHash":{"type":"string"},"safeTxHash":{"type":"string"},"proposer":{"type":"string"},"proposedByDelegate":{"type":["string","null"]},"executor":{"type":["string","null"],"readOnly":true},"isExecuted":{"type":"boolean"},"isSuccessful":{"type":["boolean","null"],"readOnly":true},"ethGasPrice":{"type":["string","null"],"readOnly":true},"maxFeePerGas":{"type":["string","null"],"readOnly":true},"maxPriorityFeePerGas":{"type":["string","null"],"readOnly":true},"gasUsed":{"type":["integer","null"],"readOnly":true},"fee":{"type":["integer","null"],"readOnly":true},"origin":{"type":"string","readOnly":true},"dataDecoded":{"type":"string","deprecated":true,"description":"This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.","readOnly":true},"confirmationsRequired":{"type":"integer"},"confirmations":{"type":"object","additionalProperties":{},"description":"Validate and check integrity of confirmations queryset\n\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n:raises InternalValidationError: If any inconsistency is detected","readOnly":true},"trusted":{"type":"boolean"},"signatures":{"type":["string","null"],"readOnly":true}},"required":["baseGas","blockNumber","confirmations","confirmationsRequired","dataDecoded","ethGasPrice","executionDate","executor","fee","gasPrice","gasUsed","isExecuted","isSuccessful","maxFeePerGas","maxPriorityFeePerGas","modified","nonce","operation","origin","proposedByDelegate","proposer","safe","safeTxGas","safeTxHash","signatures","submissionDate","to","transactionHash","trusted","value"]}}}}}},"description":""},{"code":"400","schema":{},"description":"Invalid data"},{"code":"422","schema":{},"content":{"application/json":{"schema":{"refName":"CodeErrorResponse","type":"object","properties":{"code":{"type":"integer"},"message":{"type":"string"},"arguments":{"type":"array","items":{}}},"required":["arguments","code","message"]}}},"description":"Invalid ethereum address"}]} />
     <Feedback asPath={"/core-api/transaction-service-reference#List-a-Safe's-Multisig-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -2319,6 +2107,48 @@ curl -X GET https://api.safe.global/tx-service/aurora/api/v1/safes/0xcd2E72aEBe2
   marginBottom: '112px'
 }} />
 
+### Get Transactions for CSV Export
+
+<Grid container justifyContent='space-between'>
+  <Grid item xs={12} md={5.6}>
+
+    
+
+    Get transactions optimized for CSV export with transfer information.
+The maximum limit allowed is 1000.
+
+    
+
+    <Parameters parameters={[{"in":"path","name":"address","schema":{"type":"string"},"required":true},{"in":"query","name":"execution_date__gte","schema":{"type":"string","format":"date-time"},"description":"Filter transactions executed after this date (ISO format)"},{"in":"query","name":"execution_date__lte","schema":{"type":"string","format":"date-time"},"description":"Filter transactions executed before this date (ISO format)"},{"in":"query","name":"limit","schema":{"type":"integer"},"description":"Maximum number of transactions to return (max 1000)"},{"in":"query","name":"offset","schema":{"type":"integer"},"description":"Number of transactions to skip"}]} />
+    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedSafeExportTransactionList","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"SafeExportTransaction","type":"object","description":"Serializer for the export endpoint that returns transaction data optimized for CSV export","properties":{"safe":{"type":"string"},"From":{"type":"string","title":" from"},"to":{"type":"string"},"amount":{"type":"string"},"assetType":{"type":"string"},"assetAddress":{"type":["string","null"]},"assetSymbol":{"type":["string","null"]},"assetDecimals":{"type":["integer","null"]},"proposerAddress":{"type":["string","null"]},"proposedAt":{"type":["string","null"],"format":"date-time"},"executorAddress":{"type":["string","null"]},"executedAt":{"type":["string","null"],"format":"date-time"},"note":{"type":["string","null"]},"transactionHash":{"type":"string"},"contractAddress":{"type":["string","null"]}},"required":["From","amount","assetAddress","assetDecimals","assetSymbol","assetType","contractAddress","executedAt","executorAddress","note","proposedAt","proposerAddress","safe","to","transactionHash"]}}}}}},"description":""},{"code":"404","schema":{},"description":"Safe not found"},{"code":"422","schema":{},"content":{"application/json":{"schema":{"refName":"CodeErrorResponse","type":"object","properties":{"code":{"type":"integer"},"message":{"type":"string"},"arguments":{"type":"array","items":{}}},"required":["arguments","code","message"]}}},"description":"Safe address checksum not valid"}]} />
+    <Feedback asPath={"/core-api/transaction-service-reference#Get-Transactions-for-CSV-Export"} label='Did this API route run successfully?' small />
+  </Grid>
+  <Grid item xs={12} md={5.6}>
+    <Path path="/tx-service/aurora/api/v1/safes/{address}/export/" method="get" />
+
+    <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/export/" />
+
+    <CH.Section>
+      <CH.Code style={{boxShadow: 'none'}}>
+
+```bash 
+curl -X GET https://api.safe.global/tx-service/aurora/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/export/ \
+    -H "Accept: application/json" \
+    -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+     
+```
+      </CH.Code>
+    </CH.Section>
+
+    
+  </Grid>
+</Grid>
+<Hr style={{ 
+  marginTop: '112px',
+  marginBottom: '112px'
+}} />
+
 ### Get Safe Balances
 
 <Grid container justifyContent='space-between'>
@@ -2579,7 +2409,7 @@ curl -X GET https://api.safe.global/tx-service/aurora/api/v1/tokens/0xcd2E72aEBe
   marginBottom: '112px'
 }} />
 
-### /tx-service/aurora/api/v1/tokens/lists/ - GET
+### List Token Data Sources
 
 <Grid container justifyContent='space-between'>
   <Grid item xs={12} md={5.6}>
@@ -2592,7 +2422,7 @@ curl -X GET https://api.safe.global/tx-service/aurora/api/v1/tokens/0xcd2E72aEBe
 
     <Parameters parameters={[{"name":"limit","required":false,"in":"query","description":"Number of results to return per page.","schema":{"type":"integer"}},{"name":"offset","required":false,"in":"query","description":"The initial index from which to return the results.","schema":{"type":"integer"}}]} />
     <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedTokenListList","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"TokenList","type":"object","properties":{"url":{"type":"string","format":"uri","maxLength":200},"description":{"type":"string","maxLength":200}},"required":["description","url"]}}}}}},"description":""}]} />
-    <Feedback asPath={"/core-api/transaction-service-reference#-tx-service-aurora-api-v1-tokens-lists----GET"} label='Did this API route run successfully?' small />
+    <Feedback asPath={"/core-api/transaction-service-reference#List-Token-Data-Sources"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
     <Path path="/tx-service/aurora/api/v1/tokens/lists/" method="get" />

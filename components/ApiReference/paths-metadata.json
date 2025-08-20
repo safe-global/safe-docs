@@ -234,6 +234,11 @@
       "title": "Get a Specific Token's Information"
     }
   },
+  "/api/v1/tokens/lists/": {
+    "get": {
+      "title": "List Token Data Sources"
+    }
+  },
   "/api/v1/transactions/{safe_tx_hash}/": {
     "get": {
       "title": "Get Transaction (Deprecated)"
@@ -268,6 +273,11 @@
   "/api/v2/safes/{address}/collectibles/": {
     "get": {
       "title": "List Collectibles"
+    }
+  },
+  "/api/v1/safes/{address}/export/": {
+    "get": {
+      "title": "Get Transactions for CSV Export"
     }
   }
 }

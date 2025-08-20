@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Safe Transaction Service",
-    "version": "5.25.2",
+    "version": "5.29.0",
     "description": "API to keep track of transactions sent via Safe smart contracts"
   },
   "paths": {
@@ -213,7 +213,7 @@
     "/tx-service/base/api/v1/contracts/": {
       "get": {
         "operationId": "contracts_list",
-        "description": "Returns the list of known smart contracts with their ABI’s",
+        "description": "Please migrate to the new [safe-decoder-service](https://docs.safe.global/core-api/safe-decoder-service-overview)",
         "parameters": [
           {
             "in": "query",
@@ -262,6 +262,7 @@
           },
           {}
         ],
+        "deprecated": true,
         "responses": {
           "200": {
             "content": {
@@ -282,7 +283,7 @@
     "/tx-service/base/api/v1/contracts/{address}/": {
       "get": {
         "operationId": "contracts_retrieve",
-        "description": "Returns the relevant information of a known smart contract",
+        "description": "Please migrate to the new [safe-decoder-service](https://docs.safe.global/core-api/safe-decoder-service-overview)",
         "parameters": [
           {
             "in": "path",
@@ -305,6 +306,7 @@
           },
           {}
         ],
+        "deprecated": true,
         "responses": {
           "200": {
             "content": {
@@ -325,7 +327,7 @@
     "/tx-service/base/api/v1/data-decoder/": {
       "post": {
         "operationId": "data_decoder_create",
-        "description": "Returns the decoded data using the Safe Transaction Service internal ABI information given\nthe transaction data as a `0x` prefixed hexadecimal string.\nIf the address of the receiving contract is provided, the decoded data will be more accurate,\nas in case of an ABI collision the Safe Transaction Service would know which ABI to use.",
+        "description": "Please migrate to the new [safe-decoder-service](https://docs.safe.global/core-api/safe-decoder-service-overview)",
         "tags": [
           "data-decoder"
         ],
@@ -348,6 +350,7 @@
           },
           {}
         ],
+        "deprecated": true,
         "responses": {
           "200": {
             "content": {
@@ -1474,6 +1477,96 @@
         },
         "path": "/tx-service/base/api/v1/safes/{address}/delegates/{delegate_address}/",
         "title": "Remove Delegate from Safe",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/base/api/v1/safes/{address}/export/": {
+      "get": {
+        "operationId": "safes_export_retrieve",
+        "description": "Get transactions optimized for CSV export with transfer information.\nThe maximum limit allowed is 1000.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "execution_date__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filter transactions executed after this date (ISO format)"
+          },
+          {
+            "in": "query",
+            "name": "execution_date__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filter transactions executed before this date (ISO format)"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Maximum number of transactions to return (max 1000)"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of transactions to skip"
+          }
+        ],
+        "tags": [
+          "safes"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeExportTransactionList"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "description": "Safe not found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Safe address checksum not valid"
+          }
+        },
+        "path": "/tx-service/base/api/v1/safes/{address}/export/",
+        "title": "Get Transactions for CSV Export",
         "additionalInfo": ""
       }
     },
@@ -3083,7 +3176,7 @@
           }
         },
         "path": "/tx-service/base/api/v1/tokens/lists/",
-        "title": "",
+        "title": "List Token Data Sources",
         "additionalInfo": ""
       }
     },
@@ -4548,6 +4641,37 @@
           }
         }
       },
+      "PaginatedSafeExportTransactionList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafeExportTransaction"
+            }
+          }
+        }
+      },
       "PaginatedSafeMessageResponseList": {
         "type": "object",
         "required": [
@@ -5084,6 +5208,104 @@
           "contractName"
         ]
       },
+      "SafeExportTransaction": {
+        "type": "object",
+        "description": "Serializer for the export endpoint that returns transaction data optimized for CSV export",
+        "properties": {
+          "safe": {
+            "type": "string"
+          },
+          "From": {
+            "type": "string",
+            "title": " from"
+          },
+          "to": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "string"
+          },
+          "assetType": {
+            "type": "string"
+          },
+          "assetAddress": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "assetSymbol": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "assetDecimals": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "proposerAddress": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "proposedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "executorAddress": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "executedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "transactionHash": {
+            "type": "string"
+          },
+          "contractAddress": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "From",
+          "amount",
+          "assetAddress",
+          "assetDecimals",
+          "assetSymbol",
+          "assetType",
+          "contractAddress",
+          "executedAt",
+          "executorAddress",
+          "note",
+          "proposedAt",
+          "proposerAddress",
+          "safe",
+          "to",
+          "transactionHash"
+        ]
+      },
       "SafeInfoResponse": {
         "type": "object",
         "properties": {
@@ -5285,8 +5507,9 @@
             "maximum": 32767
           },
           "dataDecoded": {
-            "type": "object",
-            "additionalProperties": {},
+            "type": "string",
+            "deprecated": true,
+            "description": "This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.",
             "readOnly": true
           },
           "moduleTransactionId": {
@@ -5365,8 +5588,9 @@
             "maximum": 32767
           },
           "dataDecoded": {
-            "type": "object",
-            "additionalProperties": {},
+            "type": "string",
+            "deprecated": true,
+            "description": "This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.",
             "readOnly": true
           },
           "moduleTransactionId": {
@@ -5705,8 +5929,9 @@
             "readOnly": true
           },
           "dataDecoded": {
-            "type": "object",
-            "additionalProperties": {},
+            "type": "string",
+            "deprecated": true,
+            "description": "This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.",
             "readOnly": true
           },
           "confirmationsRequired": {
@@ -5899,8 +6124,9 @@
             "readOnly": true
           },
           "dataDecoded": {
-            "type": "object",
-            "additionalProperties": {},
+            "type": "string",
+            "deprecated": true,
+            "description": "This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.",
             "readOnly": true
           },
           "confirmationsRequired": {
@@ -6096,8 +6322,9 @@
             "readOnly": true
           },
           "dataDecoded": {
-            "type": "object",
-            "additionalProperties": {},
+            "type": "string",
+            "deprecated": true,
+            "description": "This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.",
             "readOnly": true
           },
           "confirmationsRequired": {
@@ -6302,8 +6529,9 @@
             "readOnly": true
           },
           "dataDecoded": {
-            "type": "object",
-            "additionalProperties": {},
+            "type": "string",
+            "deprecated": true,
+            "description": "This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.",
             "readOnly": true
           },
           "confirmationsRequired": {
