@@ -43,9 +43,10 @@ Safe Decoder Service is a REST API that translates blockchain call‑data into h
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-decoder.safe.global/api/v1/contracts \
+curl -X GET https://api.safe.global/safe-decoder/api/v1/contracts \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -55,7 +56,7 @@ curl -X GET https://safe-decoder.safe.global/api/v1/contracts \
     ```json
     {
     "count": 146,
-    "next": "http://safe-decoder.safe.global/api/v1/contracts?trusted_for_delegate_call=true&limit=1&offset=1",
+    "next": "GET https://api.safe.global/safe-decoder/api/v1/contracts?trusted_for_delegate_call=true&limit=1&offset=1",
     "previous": null,
     "results": [
       {
@@ -102,9 +103,10 @@ curl -X GET https://safe-decoder.safe.global/api/v1/contracts \
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://safe-decoder.safe.global/api/v1/contracts/0x0408EF011960d02349d50286D20531229BCef773 \
+curl -X GET https://api.safe.global/safe-decoder/api/v1/contracts/0x0408EF011960d02349d50286D20531229BCef773 \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
      
 ```
       </CH.Code>
@@ -178,9 +180,10 @@ can be:
 
 ```bash 
 curl -X 'POST' \
-  'https://safe-decoder.safe.global/api/v1/data-decoder' \
+  'GET https://api.safe.global/safe-decoder/api/v1/data-decoder' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer YOUR_API_KEY" \
   -d '{
   "data": "0xa9059cbb0000000000000000000000005afe3855358e112b5647b952709e6165e1c1eeee00000000000000000000000000000000000000000000001e1de1d2517bae38ac",
   "to": "0x5aFE3855358E112B5647B952709E6165e1c1eEEe",
