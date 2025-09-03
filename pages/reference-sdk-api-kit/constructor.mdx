@@ -61,7 +61,7 @@ const apiKit = new SafeApiKit({
 
 - **Type:** `string`
 
-A custom Safe Transaction Service URL that is not supported by default.
+The URL of the Safe Transaction Service. This can be provided instead of `apiKey` to specify a custom Transaction Service endpoint, such as when running your own Safe Transaction Service instance.
 
 ```typescript focus=3
 const apiKit = new SafeApiKit({

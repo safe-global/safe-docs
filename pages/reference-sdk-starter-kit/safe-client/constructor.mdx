@@ -20,7 +20,9 @@ The `SafeClient` class provides a mechanism to extend its functionality via the 
     const safeClient = await createSafeClient({
       provider,
       signer,
-      safeAddress: '0x...'
+      safeAddress: '0x...',
+      apiKey: 'YOUR_API_KEY', // Necessary for Safe API interactions
+      txServiceUrl = 'https://...' // Optional. Use it if you run your own service
     })
     ```
 
@@ -36,8 +38,10 @@ The `SafeClient` class provides a mechanism to extend its functionality via the 
       safeOptions: {
         owners: ['0x...', '0x...', '0x...'],
         threshold: 2,
-        saltNonce: 123n
-      }
+        saltNonce: '123'
+      },
+      apiKey: 'YOUR_API_KEY', // Necessary for Safe API interactions
+      txServiceUrl = 'https://...' // Optional. Use it if you run your own service
     })
     ```
 
@@ -65,7 +69,8 @@ The provider connected to the blockchain.
 const safeClient = await createSafeClient({
   provider,
   signer,
-  safeAddress: '0x...'
+  safeAddress: '0x...',
+  apiKey: 'YOUR_API_KEY'
 })
 ```
 
@@ -82,7 +87,8 @@ The signer connected to the Safe as an owner.
 const safeClient = await createSafeClient({
   provider,
   signer,
-  safeAddress: '0x...'
+  safeAddress: '0x...',
+  apiKey: 'YOUR_API_KEY'
 })
 ```
 
@@ -96,7 +102,8 @@ The address of the connected Safe.
 const safeClient = await createSafeClient({
   provider,
   signer,
-  safeAddress: '0x...'
+  safeAddress: '0x...',
+  apiKey: 'YOUR_API_KEY'
 })
 ```
 
@@ -113,8 +120,9 @@ const safeClient = await createSafeClient({
   safeOptions: {
     owners: ['0x...', '0x...', '0x...'],
     threshold: 2,
-    saltNonce: 123n
-  }
+    saltNonce: '123'
+  },
+  apiKey: 'YOUR_API_KEY'
 })
 ```
 
@@ -131,8 +139,9 @@ const safeClient = await createSafeClient({
   safeOptions: {
     owners: ['0x...', '0x...', '0x...'],
     threshold: 2,
-    saltNonce: 123n
-  }
+    saltNonce: '123'
+  },
+  apiKey: 'YOUR_API_KEY'
 })
 ```
 
@@ -149,7 +158,38 @@ const safeClient = await createSafeClient({
   safeOptions: {
     owners: ['0x...', '0x...', '0x...'],
     threshold: 2,
-    saltNonce: 123n
+    saltNonce: '123'
   }
+  apiKey: 'YOUR_API_KEY'
+})
+```
+
+### `apiKey` (Optional)
+
+- **Type:** `string`
+
+The API key for the Safe Transaction Service. This parameter is mandatory when using default Safe provided services. It can be omitted if using a custom Transaction Service. [Check how to get one](/core-api/how-to-use-api-keys).
+
+```typescript focus=5
+const safeClient = await createSafeClient({
+  provider,
+  signer,
+  safeAddress: '0x...',
+  apiKey: 'YOUR_API_KEY'
+})
+```
+
+### `txServiceUrl` (Optional)
+
+- **Type:** `string`
+
+The URL of the Safe Transaction Service. This can be provided instead of `apiKey` to specify a custom Transaction Service endpoint, such as when running your own Safe Transaction Service instance.
+
+```typescript focus=5
+const safeClient = await createSafeClient({
+  provider,
+  signer,
+  safeAddress: '0x...',
+  txServiceUrl: 'https://...'
 })
 ```
