@@ -102,50 +102,54 @@ const getDeployedContractsFromGithubRepo = async (
   }deployments/`
   const repoDestination = module ? 'modules' : 'deployments'
 
-  shell.exec(`git clone ${deploymentRepoUrl} ${repoDestination}`)
+  try {
+    shell.exec(`git clone ${deploymentRepoUrl} ${repoDestination}`)
 
-  let paths = walkPath(repoDestination + '/src/assets').map(p =>
-    p.replace(repoDestination + '/src/assets/', '')
-  )
+    let paths = walkPath(repoDestination + '/src/assets').map(p =>
+      p.replace(repoDestination + '/src/assets/', '')
+    )
 
-  const contracts = paths
-    .map(p => {
-      const file = fs.readFileSync(repoDestination + `/src/assets/${p}`, 'utf8')
-      const json = JSON.parse(file)
+    const contracts = paths
+      .map(p => {
+        const file = fs.readFileSync(repoDestination + `/src/assets/${p}`, 'utf8')
+        const json = JSON.parse(file)
 
-      return Object.entries(json.networkAddresses).map(
-        ([chainId, addressName]) => {
-          const blockExplorerUrl =
-            allNetworks.find(n => n.chainId === parseInt(chainId))
-              ?.explorers?.[0]?.url ?? ''
-          return {
-            name: p.split('/')[module ? 2 : 1].split('.')[0],
-            version: p.split('/')[module ? 1 : 0],
-            address:
-              typeof addressName === 'string'
-                ? (json.deployments?.[addressName]?.address ??
-                  json.networkAddresses[chainId])
-                : undefined,
-            addresses:
-              typeof addressName === 'string'
-                ? undefined
-                : (addressName as Array<string>).map(a => [
-                    addressNameLabels[a as 'canonical'],
-                    json.deployments[a]?.address
-                  ]),
-            chainId,
-            chainName: allNetworks.find(n => n.chainId === parseInt(chainId))
-              ?.name,
-            blockExplorerUrl,
-            ...(module ? { moduleName: p.split('/')[0] } : {})
+        return Object.entries(json.networkAddresses).map(
+          ([chainId, addressName]) => {
+            const blockExplorerUrl =
+              allNetworks.find(n => n.chainId === parseInt(chainId))
+                ?.explorers?.[0]?.url ?? ''
+            return {
+              name: p.split('/')[module ? 2 : 1].split('.')[0],
+              version: p.split('/')[module ? 1 : 0],
+              address:
+                typeof addressName === 'string'
+                  ? (json.deployments?.[addressName]?.address ??
+                    json.networkAddresses[chainId])
+                  : undefined,
+              addresses:
+                typeof addressName === 'string'
+                  ? undefined
+                  : (addressName as Array<string>).map(a => [
+                      addressNameLabels[a as 'canonical'],
+                      json.deployments[a]?.address
+                    ]),
+              chainId,
+              chainName: allNetworks.find(n => n.chainId === parseInt(chainId))
+                ?.name,
+              blockExplorerUrl,
+              ...(module ? { moduleName: p.split('/')[0] } : {})
+            }
           }
-        }
-      )
-    })
-    .flat()
+        )
+      })
+      .flat()
 
-  shell.rm('-rf', repoDestination)
-  return contracts
+    shell.rm('-rf', repoDestination)
+    return contracts
+  } finally {
+    shell.rm('-rf', repoDestination)
+  }
 }
 
 const generateSupportedNetworks = async () => {
