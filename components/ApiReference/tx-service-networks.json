@@ -12,6 +12,12 @@
     "txServiceUrl": "https://api.safe.global/tx-service/oeth"
   },
   {
+    "chainId": 50,
+    "shortName": "xdc",
+    "networkName": "xdc",
+    "txServiceUrl": "https://api.safe.global/tx-service/xdc"
+  },
+  {
     "chainId": 56,
     "shortName": "bnb",
     "networkName": "bsc",
@@ -36,6 +42,12 @@
     "txServiceUrl": "https://api.safe.global/tx-service/pol"
   },
   {
+    "chainId": 143,
+    "shortName": "monad",
+    "networkName": "monad",
+    "txServiceUrl": "https://api.safe.global/tx-service/monad"
+  },
+  {
     "chainId": 146,
     "shortName": "sonic",
     "networkName": "sonic",
@@ -46,6 +58,12 @@
     "shortName": "okb",
     "networkName": "xlayer",
     "txServiceUrl": "https://api.safe.global/tx-service/okb"
+  },
+    {
+    "chainId": 204,
+    "shortName": "opbnb",
+    "networkName": "opbnb",
+    "txServiceUrl": "https://api.safe.global/tx-service/opbnb"
   },
   {
     "chainId": 232,
@@ -78,6 +96,12 @@
     "txServiceUrl": "https://api.safe.global/tx-service/peaq"
   },
   {
+    "chainId": 3637,
+    "shortName": "btc",
+    "networkName": "botanix",
+    "txServiceUrl": "https://api.safe.global/tx-service/btc"
+  },
+  {
     "chainId": 5000,
     "shortName": "mantle",
     "networkName": "mantle",
@@ -90,10 +114,22 @@
     "txServiceUrl": "https://api.safe.global/tx-service/base"
   },
   {
+    "chainId": 9745,
+    "shortName": "plasma",
+    "networkName": "plasma",
+    "txServiceUrl": "https://api.safe.global/tx-service/plasma"
+  },
+  {
     "chainId": 10200,
     "shortName": "chi",
     "networkName": "chiado",
     "txServiceUrl": "https://api.safe.global/tx-service/chi"
+  },
+  {
+    "chainId": 16661,
+    "shortName": "0g",
+    "networkName": "0G",
+    "txServiceUrl": "https://api.safe.global/tx-service/0g"
   },
   {
     "chainId": 42161,

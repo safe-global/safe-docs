@@ -1,0 +1,7145 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Safe Transaction Service",
+    "version": "5.33.1",
+    "description": "API to keep track of transactions sent via Safe smart contracts"
+  },
+  "paths": {
+    "/tx-service/plasma/api/v1/about/": {
+      "get": {
+        "operationId": "about_retrieve",
+        "description": "Returns information and configuration of the service",
+        "tags": [
+          "about"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "description": "No response body"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/about/",
+        "title": "General Information",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/about/deployments/": {
+      "get": {
+        "operationId": "about_deployments_list",
+        "description": "Returns a list of safe deployments by version",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "version",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by Safe version"
+          },
+          {
+            "in": "query",
+            "name": "contract",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by Safe contract name"
+          }
+        ],
+        "tags": [
+          "about"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SafeDeployment"
+                  }
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "description": "Provided version does not exist"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/about/deployments/",
+        "title": "List deployments",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/about/ethereum-rpc/": {
+      "get": {
+        "operationId": "about_ethereum_rpc_retrieve",
+        "description": "Get information about the Ethereum RPC node used by the service",
+        "tags": [
+          "about"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "description": "No response body"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/about/ethereum-rpc/",
+        "title": "Ethereum RPC",
+        "additionalInfo": "This is an example of more detailed information about Ethereum RPC endpoint. This should support MDX."
+      }
+    },
+    "/tx-service/plasma/api/v1/about/ethereum-tracing-rpc/": {
+      "get": {
+        "operationId": "about_ethereum_tracing_rpc_retrieve",
+        "description": "Get information about the Ethereum Tracing RPC node used by the service (if any configured)",
+        "tags": [
+          "about"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "description": "No response body"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/about/ethereum-tracing-rpc/",
+        "title": "Ethereum Tracing RPC",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/about/indexing/": {
+      "get": {
+        "operationId": "about_indexing_retrieve",
+        "description": "Get current indexing status for ERC20/721 events",
+        "tags": [
+          "about"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndexingStatus"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/about/indexing/",
+        "title": "Indexing",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/about/singletons/": {
+      "get": {
+        "operationId": "about_singletons_list",
+        "description": "Returns a list of Master Copies configured in the service",
+        "tags": [
+          "about"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MasterCopyResponse"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/about/singletons/",
+        "title": "Singletons",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/contracts/": {
+      "get": {
+        "operationId": "contracts_list",
+        "description": "Please migrate to the new [safe-decoder-service](https://docs.safe.global/core-api/safe-decoder-service-overview)",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "trusted_for_delegate_call",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "contracts"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "deprecated": true,
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedContractList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/contracts/",
+        "title": "List Contracts",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/contracts/{address}/": {
+      "get": {
+        "operationId": "contracts_retrieve",
+        "description": "Please migrate to the new [safe-decoder-service](https://docs.safe.global/core-api/safe-decoder-service-overview)",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "contracts"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "deprecated": true,
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contract"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/contracts/{address}/",
+        "title": "Get Specific Contract",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/data-decoder/": {
+      "post": {
+        "operationId": "data_decoder_create",
+        "description": "Please migrate to the new [safe-decoder-service](https://docs.safe.global/core-api/safe-decoder-service-overview)",
+        "tags": [
+          "data-decoder"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataDecoder"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "deprecated": true,
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataDecoder"
+                }
+              }
+            },
+            "description": "Decoded data"
+          },
+          "404": {
+            "description": "Cannot find function selector to decode data"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Invalid data"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/data-decoder/",
+        "title": "Get Decoded Data",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/delegates/": {
+      "get": {
+        "operationId": "delegates_list",
+        "description": "Returns a list with all the delegates",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "safe",
+            "schema": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "delegate",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "delegator",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "label",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "delegates"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "deprecated": true,
+        "responses": {
+          "400": {
+            "description": "Invalid data"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/delegates/",
+        "title": "List Delegates",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "delegates_create",
+        "description": "Adds a new Safe delegate with a custom label. Calls with same delegate but different label or\nsigner will update the label or delegator if a different one is provided\nFor the signature we are using TOTP with `T0=0` and `Tx=3600`. TOTP is calculated by taking the\nUnix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)\nTo generate the signature, this hash needs to be signed: keccak(checksummed address + str(int(current_epoch //\n3600)))\nAs an example, if the 0x132512f995866CcE1b0092384A6118EDaF4508Ff delegate is added and epoch=1586779140:\n     - `TOTP = epoch // 3600 = 1586779140 // 3600 = 440771`\n     - keccak(\"0x132512f995866CcE1b0092384A6118EDaF4508Ff440771\") would be the hash a Safe owner would\n     need to sign.`",
+        "tags": [
+          "delegates"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Delegate"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "deprecated": true,
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "400": {
+            "description": "Malformed data"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/delegates/",
+        "title": "Create Delegate",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/delegates/{delegate_address}/": {
+      "delete": {
+        "operationId": "delegates_destroy",
+        "description": "Delete every pair delegate/delegator found. Signature is built the same way as for adding a delegate,\nbut in this case the signer can be either the `delegator` (owner) or the `delegate` itself.\nCheck `POST /delegates/`",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "delegate_address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "delegates"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "deprecated": true,
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Malformed data"
+          },
+          "404": {
+            "description": "Delegate not found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Invalid Ethereum address/Error processing data"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/delegates/{delegate_address}/",
+        "title": "Delete Delegate",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/messages/{message_hash}/": {
+      "get": {
+        "operationId": "messages_retrieve",
+        "description": "Returns detailed information on a message associated with a given message hash",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "message_hash",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "messages"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SafeMessageResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/messages/{message_hash}/",
+        "title": "Get Message",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/messages/{message_hash}/signatures/": {
+      "post": {
+        "operationId": "messages_signatures_create",
+        "description": "Adds the signature of a message given its message hash\n\nNote: Safe must be v1.4.1 for EIP-1271 signatures to work.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "message_hash",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "messages"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SafeMessageSignature"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/messages/{message_hash}/signatures/",
+        "title": "Sign Message",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/module-transaction/{module_transaction_id}": {
+      "get": {
+        "operationId": "module_transaction_retrieve",
+        "description": "Returns a transaction executed from a module given its associated module transaction ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "module_transaction_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SafeModuleTransactionResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Invalid moduleTransactionId"
+          },
+          "404": {
+            "description": "ModuleTransaction does not exist"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/module-transaction/{module_transaction_id}",
+        "title": "Get Module Transaction",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/modules/{address}/safes/": {
+      "get": {
+        "operationId": "modules_safes_retrieve",
+        "description": "Returns the list of Safes that have the provided module enabled",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "modules"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModulesResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Module address checksum not valid"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/modules/{address}/safes/",
+        "title": "List Safes that use a Specific Module",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/multisig-transactions/{safe_tx_hash}/": {
+      "get": {
+        "operationId": "multisig_transactions_retrieve",
+        "description": "Returns a multi-signature transaction given its Safe transaction hash",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "safe_tx_hash",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "deprecated": true,
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SafeMultisigTransactionResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/multisig-transactions/{safe_tx_hash}/",
+        "title": "",
+        "additionalInfo": ""
+      },
+      "delete": {
+        "operationId": "multisig_transactions_destroy",
+        "description": "Removes the queued but not executed multi-signature transaction associated with the given Safe transaction hash.\nOnly the proposer or the delegate who proposed the transaction can delete it.\nIf the transaction was proposed by a delegate, it must still be a valid delegate for the transaction proposer.\nAn EOA is required to sign the following EIP-712 data:\n\n```python\n {\n    \"types\": {\n        \"EIP712Domain\": [\n            {\"name\": \"name\", \"type\": \"string\"},\n            {\"name\": \"version\", \"type\": \"string\"},\n            {\"name\": \"chainId\", \"type\": \"uint256\"},\n            {\"name\": \"verifyingContract\", \"type\": \"address\"},\n        ],\n        \"DeleteRequest\": [\n            {\"name\": \"safeTxHash\", \"type\": \"bytes32\"},\n            {\"name\": \"totp\", \"type\": \"uint256\"},\n        ],\n    },\n    \"primaryType\": \"DeleteRequest\",\n    \"domain\": {\n        \"name\": \"Safe Transaction Service\",\n        \"version\": \"1.0\",\n        \"chainId\": chain_id,\n        \"verifyingContract\": safe_address,\n    },\n    \"message\": {\n        \"safeTxHash\": safe_tx_hash,\n        \"totp\": totp,\n    },\n}\n```\n\n`totp` parameter is calculated with `T0=0` and `Tx=3600`. `totp` is calculated by taking the\nUnix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "safe_tx_hash",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "deprecated": true,
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Error processing data"
+          },
+          "404": {
+            "description": "Transaction not found"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/multisig-transactions/{safe_tx_hash}/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/": {
+      "get": {
+        "operationId": "multisig_transactions_confirmations_list",
+        "description": "Returns the list of confirmations for the multi-signature transaction associated with\nthe given Safe transaction hash",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "safe_tx_hash",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeMultisigConfirmationResponseList"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "description": "Invalid data"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
+        "title": "List Multisig Confirmations",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "multisig_transactions_confirmations_create",
+        "description": "Adds a new confirmation to the pending multi-signature transaction associated with the\ngiven Safe transaction hash. Multiple signatures can be submitted at once. This endpoint\ndoes not support the use of delegates to make transactions trusted.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "safe_tx_hash",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SafeMultisigConfirmation"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Malformed data"
+          },
+          "422": {
+            "description": "Error processing data"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
+        "title": "Confirm Multisig Transaction",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/owners/{address}/safes/": {
+      "get": {
+        "operationId": "owners_safes_retrieve",
+        "description": "Returns the list of Safe accounts that have the given address as their owner",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "owners"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OwnerResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Owner address checksum not valid"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/owners/{address}/safes/",
+        "title": "List Safes from a Specific Owner",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safe-operations/{safe_operation_hash}/": {
+      "get": {
+        "operationId": "safe_operations_retrieve",
+        "description": "Returns a SafeOperation given its Safe operation hash",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "safe_operation_hash",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "4337"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SafeOperationWithUserOperationResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safe-operations/{safe_operation_hash}/",
+        "title": "Get Safe Operation",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safe-operations/{safe_operation_hash}/confirmations/": {
+      "get": {
+        "operationId": "safe_operations_confirmations_list",
+        "description": "Get the list of confirmations for a multisig transaction",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "safe_operation_hash",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "4337"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeOperationConfirmationResponseList"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "description": "Invalid data"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safe-operations/{safe_operation_hash}/confirmations/",
+        "title": "Get the list of confirmations for a multisig transaction",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "safe_operations_confirmations_create",
+        "description": "Add a confirmation for a transaction. More than one signature can be used. This endpoint does not support\nthe use of delegates to make a transaction trusted.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "safe_operation_hash",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "4337"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SafeOperationConfirmation"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Malformed data"
+          },
+          "422": {
+            "description": "Error processing data"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safe-operations/{safe_operation_hash}/confirmations/",
+        "title": "Add a confirmation for a transaction",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/": {
+      "get": {
+        "operationId": "safes_retrieve",
+        "description": "Returns detailed information of a given Safe account",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "safes"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SafeInfoResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "description": "Safe not found"
+          },
+          "422": {
+            "description": "code = 1: Checksum address validation failed\ncode = 50: Cannot get Safe info"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/",
+        "title": "Get Safe Status",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/all-transactions/": {
+      "get": {
+        "operationId": "safes_all_transactions_list",
+        "description": "Returns all the *executed* transactions for a given Safe address.\nThe list has different structures depending on the transaction type:\n- Multisig Transactions for a Safe. `tx_type=MULTISIG_TRANSACTION`.\n- Module Transactions for a Safe. `tx_type=MODULE_TRANSACTION`\n- Incoming Transfers of Ether/ERC20 Tokens/ERC721 Tokens. `tx_type=ETHEREUM_TRANSACTION`\nOrdering_fields: [\"timestamp\"] eg: `-timestamp` (default one) or `timestamp`\n\nNote: This endpoint has a bug that will be fixed in next versions of the endpoint. Pagination is done\nusing the `Transaction Hash`, and due to that the number of relevant transactions with the same\n`Transaction Hash` cannot be known beforehand. So if there are only 2 transactions\nwith the same `Transaction Hash`, `count` of the endpoint will be 1\nbut there will be 2 transactions in the list.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "deprecated": true,
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAllTransactionsSchemaList"
+                }
+              }
+            },
+            "description": "A list with every element with the structure of one of these transactiontypes"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Ordering field is not valid"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Checksum address validation failed"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/all-transactions/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/balances/": {
+      "get": {
+        "operationId": "safes_balances_retrieve",
+        "description": "Get balance for Ether and ERC20 tokens of a given Safe account",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "trusted",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "If `True` just trusted tokens will be returned"
+          },
+          {
+            "in": "query",
+            "name": "exclude_spam",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "If `True` spam tokens will not be returned"
+          }
+        ],
+        "tags": [
+          "safes"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SafeBalanceResponse"
+                  }
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "description": "Safe not found"
+          },
+          "422": {
+            "description": "Safe address checksum not valid"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/balances/",
+        "title": "List a Safe's Balances (Deprecated)",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/creation/": {
+      "get": {
+        "operationId": "safes_creation_retrieve",
+        "description": "Returns detailed information on the Safe creation transaction of a given Safe.\n\nNote: When event indexing is being used and multiple Safes are deployed in the same transaction\nthe result might not be accurate due to the indexer not knowing which events belong to which Safe\ndeployment.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "safes"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SafeCreationInfoResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "description": "Safe creation not found"
+          },
+          "422": {
+            "description": "Owner address checksum not valid"
+          },
+          "503": {
+            "description": "Problem connecting to Ethereum network"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/creation/",
+        "title": "Get Safe Creation Status",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/delegates/{delegate_address}/": {
+      "delete": {
+        "operationId": "safes_delegates_destroy",
+        "description": "Delete a delegate for a Safe. Signature is built the same way that for adding a delegate.\nCheck `POST /delegates/`",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "delegate_address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "delegates"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "deprecated": true,
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Malformed data"
+          },
+          "404": {
+            "description": "Delegate not found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Invalid Ethereum address | Error processing data"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/delegates/{delegate_address}/",
+        "title": "Remove Delegate from Safe",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/export/": {
+      "get": {
+        "operationId": "safes_export_retrieve",
+        "description": "Get transactions optimized for CSV export with transfer information.\nThe maximum limit allowed is 1000.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "execution_date__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filter transactions executed after this date (ISO format)"
+          },
+          {
+            "in": "query",
+            "name": "execution_date__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filter transactions executed before this date (ISO format)"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Maximum number of transactions to return (max 1000)"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of transactions to skip"
+          }
+        ],
+        "tags": [
+          "safes"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeExportTransactionList"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "description": "Safe not found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Safe address checksum not valid"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/export/",
+        "title": "Get Transactions for CSV Export",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/incoming-transfers/": {
+      "get": {
+        "operationId": "safes_incoming_transfers_list",
+        "description": "Returns incoming ether/tokens transfers for a Safe.\nOnly 1000 newest transfers will be returned.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "_from",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "block_number",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "block_number__gt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "block_number__lt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__gt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__lt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "token_address",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transaction_hash",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value__gt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value__lt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "erc20",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "erc721",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ether",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedTransferWithTokenInfoResponseList"
+                }
+              }
+            },
+            "description": ""
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Safe address checksum not valid"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/incoming-transfers/",
+        "title": "List Incoming Transfers",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/messages/": {
+      "get": {
+        "operationId": "safes_messages_list",
+        "description": "Returns the list of messages for a given Safe account",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "messages"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeMessageResponseList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/messages/",
+        "title": "List Messages",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "safes_messages_create",
+        "description": "Adds a new message for a given Safe account.\nMessage can be:\n- A ``string``, so ``EIP191`` will be used to get the hash.\n- An ``EIP712`` ``object``.\n\nHash will be calculated from the provided ``message``. Sending a raw ``hash`` will not be accepted,\nservice needs to derive it itself.\n\nNote: Safe must be v1.4.1 for EIP-1271 signatures to work.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "messages"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SafeMessage"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/messages/",
+        "title": "Create Signed Message",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/module-transactions/": {
+      "get": {
+        "operationId": "safes_module_transactions_list",
+        "description": "Returns all the transactions executed from modules given a Safe address",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "safe",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "module",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "operation",
+            "schema": {
+              "type": "integer",
+              "x-spec-enum-id": "73baf6048b75e41c",
+              "enum": [
+                0,
+                1,
+                2
+              ]
+            },
+            "description": "* `0` - CALL\n* `1` - DELEGATE_CALL\n* `2` - CREATE"
+          },
+          {
+            "in": "query",
+            "name": "failed",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "block_number",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "block_number__gt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "block_number__lt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transaction_hash",
+            "schema": {
+              "type": "string",
+              "format": "byte"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeModuleTransactionResponseList"
+                }
+              }
+            },
+            "description": ""
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Checksum address validation failed"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/module-transactions/",
+        "title": "List a Safe's Module Transactions",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/multisig-transactions/": {
+      "get": {
+        "operationId": "safes_multisig_transactions_list",
+        "description": "Returns all the multi-signature transactions for a given Safe address.\nBy default, only ``trusted`` multisig transactions are returned.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "failed",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "modified__lt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "modified__gt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "modified__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "modified__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "nonce__lt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "nonce__gt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "nonce__lte",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "nonce__gte",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "nonce",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "safe_tx_hash",
+            "schema": {
+              "type": "string",
+              "format": "byte"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value__lt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value__gt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "executed",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "has_confirmations",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "trusted",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "submission_date__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "submission_date__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transaction_hash",
+            "schema": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "byte"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "deprecated": true,
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeMultisigTransactionResponseList"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Invalid ethereum address"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/multisig-transactions/",
+        "title": "",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "safes_multisig_transactions_create",
+        "description": "Creates a multi-signature transaction for a given Safe account with its confirmations and\nretrieves all the information related.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SafeMultisigTransaction"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "deprecated": true,
+        "responses": {
+          "201": {
+            "description": "Created or signature updated"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Invalid ethereum address | User is not an owner | Invalid safeTxHash |Invalid signature | Nonce already executed | Sender is not an owner"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/multisig-transactions/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/multisig-transactions/estimations/": {
+      "post": {
+        "operationId": "safes_multisig_transactions_estimations_create",
+        "description": "Returns the estimated `safeTxGas` for a given Safe address and multi-signature transaction.\nEstimation is disabled for L2 networks, as this is only required for Safes with version < 1.3.0\nand those versions are not supported in L2 networks.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SafeMultisigTransactionEstimate"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SafeMultisigTransactionEstimateResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "description": "Data not valid"
+          },
+          "404": {
+            "description": "Safe not found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Tx not valid"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/multisig-transactions/estimations/",
+        "title": "Estimate Gas Costs for a Multisig Transaction",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/safe-operations/": {
+      "get": {
+        "operationId": "safes_safe_operations_list",
+        "description": "Returns the list of SafeOperations for a given Safe account",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "modified__lt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "modified__gt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "modified__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "modified__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "valid_after__lt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "valid_after__gt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "valid_after__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "valid_after__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "valid_until__lt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "valid_until__gt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "valid_until__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "valid_until__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "module_address",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "executed",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "has_confirmations",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "submission_date__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "submission_date__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transaction_hash",
+            "schema": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "byte"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "4337"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeOperationWithUserOperationResponseList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/safe-operations/",
+        "title": "List Safe Operations",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "safes_safe_operations_create",
+        "description": "Adds a new SafeOperation for a given Safe account",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "4337"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SafeOperation"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {},
+                  "description": "Unspecified response body"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/safe-operations/",
+        "title": "Create Safe Operation",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/transfers/": {
+      "get": {
+        "operationId": "safes_transfers_list",
+        "description": "Returns the list of token transfers for a given Safe address.\nOnly 1000 newest transfers will be returned.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "_from",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "block_number",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "block_number__gt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "block_number__lt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__gt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__lt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "token_address",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transaction_hash",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value__gt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value__lt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "erc20",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "erc721",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ether",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedTransferWithTokenInfoResponseList"
+                }
+              }
+            },
+            "description": ""
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Safe address checksum not valid"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/transfers/",
+        "title": "List Transfers",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/safes/{address}/user-operations/": {
+      "get": {
+        "operationId": "safes_user_operations_list",
+        "description": "Returns the list of UserOperations for a given Safe account",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "4337"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedUserOperationWithSafeOperationResponseList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/safes/{address}/user-operations/",
+        "title": "List User Operations",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/tokens/": {
+      "get": {
+        "operationId": "tokens_list",
+        "description": "Returns the list of tokens supported in the Safe Transaction Service",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "symbol",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "decimals__lt",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "decimals__gt",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "decimals",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "A search term.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "tokens"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedTokenInfoResponseList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/tokens/",
+        "title": "List Tokens",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/tokens/{address}/": {
+      "get": {
+        "operationId": "tokens_retrieve",
+        "description": "Returns detailed information on a given token supported in the Safe Transaction Service",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "tokens"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenInfoResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Invalid ethereum address"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/tokens/{address}/",
+        "title": "Get a Specific Token's Information",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/tokens/lists/": {
+      "get": {
+        "operationId": "tokens_lists_list",
+        "description": "Returns the list of tokens supported in the Safe Transaction Service",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "tokens"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedTokenListList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/tokens/lists/",
+        "title": "List Token Data Sources",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/transfer/{transfer_id}": {
+      "get": {
+        "operationId": "transfer_retrieve",
+        "description": "Returns a token transfer associated with the given transfer ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "transfer_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransferWithTokenInfoResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "description": "Invalid transferId"
+          },
+          "404": {
+            "description": "Transfer does not exist"
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/transfer/{transfer_id}",
+        "title": "Get Transfer",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v1/user-operations/{user_operation_hash}/": {
+      "get": {
+        "operationId": "user_operations_retrieve",
+        "description": "Returns a UserOperation given its user operation hash",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_operation_hash",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "4337"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOperationWithSafeOperationResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v1/user-operations/{user_operation_hash}/",
+        "title": "Get User Operation",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v2/analytics/multisig-transactions/by-origin/": {
+      "get": {
+        "operationId": "analytics_multisig_transactions_by_origin_retrieve",
+        "tags": [
+          "analytics"
+        ],
+        "security": [
+          {
+            "tokenAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "No response body"
+          }
+        },
+        "path": "/tx-service/plasma/api/v2/analytics/multisig-transactions/by-origin/",
+        "title": "",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v2/delegates/": {
+      "get": {
+        "operationId": "delegates_list_2",
+        "description": "Returns a list with all the delegates",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "safe",
+            "schema": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "delegate",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "delegator",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "label",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "delegates"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeDelegateResponseList"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "description": "Invalid data"
+          }
+        },
+        "path": "/tx-service/plasma/api/v2/delegates/",
+        "title": "List Delegates",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "delegates_create_2",
+        "description": "Adds a new Safe delegate with a custom label. Calls with same delegate but different label or\nsigner will update the label or delegator if a different one is provided.\nTo generate the signature, the following EIP712 data hash needs to be signed:\n\n```python\n {\n    \"types\": {\n        \"EIP712Domain\": [\n            {\"name\": \"name\", \"type\": \"string\"},\n            {\"name\": \"version\", \"type\": \"string\"},\n            {\"name\": \"chainId\", \"type\": \"uint256\"},\n        ],\n        \"Delegate\": [\n            {\"name\": \"delegateAddress\", \"type\": \"address\"},\n            {\"name\": \"totp\", \"type\": \"uint256\"},\n        ],\n    },\n    \"primaryType\": \"Delegate\",\n    \"domain\": {\n        \"name\": \"Safe Transaction Service\",\n        \"version\": \"1.0\",\n        \"chainId\": chain_id,\n    },\n    \"message\": {\n        \"delegateAddress\": delegate_address,\n        \"totp\": totp,\n    },\n}\n```\n\nFor the signature we use `TOTP` with `T0=0` and `Tx=3600`. `TOTP` is calculated by taking the\nUnix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals).",
+        "tags": [
+          "delegates"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DelegateSerializerV2"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "400": {
+            "description": "Malformed data"
+          }
+        },
+        "path": "/tx-service/plasma/api/v2/delegates/",
+        "title": "Create Delegate",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v2/delegates/{delegate_address}/": {
+      "delete": {
+        "operationId": "delegates_destroy_2",
+        "description": "Removes every delegate/delegator pair found associated with a given delegate address. The\nsignature is built the same way as for adding a delegate, but in this case the signer can be\neither the `delegator` (owner) or the `delegate` itself. Check `POST /delegates/` to learn more.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "delegate_address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "delegates"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "Malformed data"
+          },
+          "404": {
+            "description": "Delegate not found"
+          },
+          "422": {
+            "description": "Invalid Ethereum address/Error processing data"
+          }
+        },
+        "path": "/tx-service/plasma/api/v2/delegates/{delegate_address}/",
+        "title": "Delete Delegate",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v2/multisig-transactions/{safe_tx_hash}/": {
+      "get": {
+        "operationId": "multisig_transactions_retrieve_2",
+        "description": "Returns a multi-signature transaction given its Safe transaction hash",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "safe_tx_hash",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SafeMultisigTransactionResponseSerializerV2"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v2/multisig-transactions/{safe_tx_hash}/",
+        "title": "Get Multisig Transaction",
+        "additionalInfo": ""
+      },
+      "delete": {
+        "operationId": "multisig_transactions_destroy_2",
+        "description": "Removes the queued but not executed multi-signature transaction associated with the given Safe transaction hash.\nOnly the proposer or the delegate who proposed the transaction can delete it.\nIf the transaction was proposed by a delegate, it must still be a valid delegate for the transaction proposer.\nAn EOA is required to sign the following EIP-712 data:\n\n```python\n {\n    \"types\": {\n        \"EIP712Domain\": [\n            {\"name\": \"name\", \"type\": \"string\"},\n            {\"name\": \"version\", \"type\": \"string\"},\n            {\"name\": \"chainId\", \"type\": \"uint256\"},\n            {\"name\": \"verifyingContract\", \"type\": \"address\"},\n        ],\n        \"DeleteRequest\": [\n            {\"name\": \"safeTxHash\", \"type\": \"bytes32\"},\n            {\"name\": \"totp\", \"type\": \"uint256\"},\n        ],\n    },\n    \"primaryType\": \"DeleteRequest\",\n    \"domain\": {\n        \"name\": \"Safe Transaction Service\",\n        \"version\": \"1.0\",\n        \"chainId\": chain_id,\n        \"verifyingContract\": safe_address,\n    },\n    \"message\": {\n        \"safeTxHash\": safe_tx_hash,\n        \"totp\": totp,\n    },\n}\n```\n\n`totp` parameter is calculated with `T0=0` and `Tx=3600`. `totp` is calculated by taking the\nUnix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no decimals)",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "safe_tx_hash",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "204": {
+            "description": "No response body"
+          }
+        },
+        "path": "/tx-service/plasma/api/v2/multisig-transactions/{safe_tx_hash}/",
+        "title": "Delete Queued Multisig Transaction",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v2/safes/{address}/all-transactions/": {
+      "get": {
+        "operationId": "safes_all_transactions_list_2",
+        "description": "Returns all the *executed* transactions for a given Safe address.\nThe list has different structures depending on the transaction type:\n- Multisig Transactions for a Safe. `tx_type=MULTISIG_TRANSACTION`.\n- Module Transactions for a Safe. `tx_type=MODULE_TRANSACTION`\n- Incoming Transfers of Ether/ERC20 Tokens/ERC721 Tokens. `tx_type=ETHEREUM_TRANSACTION`\nOrdering_fields: [\"timestamp\"] eg: `-timestamp` (default one) or `timestamp`\n\nNote: This endpoint has a bug that will be fixed in next versions of the endpoint. Pagination is done\nusing the `Transaction Hash`, and due to that the number of relevant transactions with the same\n`Transaction Hash` cannot be known beforehand. So if there are only 2 transactions\nwith the same `Transaction Hash`, `count` of the endpoint will be 1\nbut there will be 2 transactions in the list.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAllTransactionsSchemaSerializerV2List"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "path": "/tx-service/plasma/api/v2/safes/{address}/all-transactions/",
+        "title": "List Transactions",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v2/safes/{address}/balances/": {
+      "get": {
+        "operationId": "safes_balances_retrieve_2",
+        "description": "Get paginated balances for Ether and ERC20 tokens.\nThe maximum limit allowed is 200.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "trusted",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "If `True` just trusted tokens will be returned"
+          },
+          {
+            "in": "query",
+            "name": "exclude_spam",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "If `True` spam tokens will not be returned"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of results to return per page."
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The initial index from which to return the results."
+          }
+        ],
+        "tags": [
+          "safes"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeCollectibleResponseList"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "description": "Safe not found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Safe address checksum not valid"
+          }
+        },
+        "path": "/tx-service/plasma/api/v2/safes/{address}/balances/",
+        "title": "Get Safe Balances",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v2/safes/{address}/collectibles/": {
+      "get": {
+        "operationId": "safes_collectibles_retrieve",
+        "description": "Get paginated collectibles (ERC721 tokens) and information about them of a given Safe account.\nThe maximum limit allowed is 10.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "trusted",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "If `True` just trusted tokens will be returned"
+          },
+          {
+            "in": "query",
+            "name": "exclude_spam",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "If `True` spam tokens will not be returned"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of results to return per page."
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The initial index from which to return the results."
+          }
+        ],
+        "tags": [
+          "safes"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeCollectibleResponseList"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "description": "Safe not found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Safe address checksum not valid"
+          }
+        },
+        "path": "/tx-service/plasma/api/v2/safes/{address}/collectibles/",
+        "title": "List Collectibles",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/plasma/api/v2/safes/{address}/multisig-transactions/": {
+      "get": {
+        "operationId": "safes_multisig_transactions_list_2",
+        "description": "Returns all the multi-signature transactions for a given Safe address.\nBy default, only ``trusted`` multisig transactions are returned.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "failed",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "modified__lt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "modified__gt",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "modified__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "modified__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "nonce__lt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "nonce__gt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "nonce__lte",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "nonce__gte",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "nonce",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "safe_tx_hash",
+            "schema": {
+              "type": "string",
+              "format": "byte"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value__lt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value__gt",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "executed",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "has_confirmations",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "trusted",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "execution_date__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "submission_date__gte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "submission_date__lte",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transaction_hash",
+            "schema": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "byte"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeMultisigTransactionResponseSerializerV2List"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Invalid ethereum address"
+          }
+        },
+        "path": "/tx-service/plasma/api/v2/safes/{address}/multisig-transactions/",
+        "title": "List a Safe's Multisig Transactions",
+        "additionalInfo": ""
+      },
+      "post": {
+        "operationId": "safes_multisig_transactions_create_2",
+        "description": "Creates a multi-signature transaction for a given Safe account with its confirmations and\nretrieves all the information related.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "transactions"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SafeMultisigTransaction"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "201": {
+            "description": "Created or signature updated"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Invalid ethereum address | User is not an owner | Invalid safeTxHash |Invalid signature | Nonce already executed | Sender is not an owner"
+          }
+        },
+        "path": "/tx-service/plasma/api/v2/safes/{address}/multisig-transactions/",
+        "title": "Create Multisig Transaction",
+        "additionalInfo": ""
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AllTransactionsSchema": {
+        "type": "object",
+        "description": "Just for the purpose of documenting, don't use it",
+        "properties": {
+          "txType1": {
+            "$ref": "#/components/schemas/SafeModuleTransactionWithTransfersResponse"
+          },
+          "txType2": {
+            "$ref": "#/components/schemas/SafeMultisigTransactionWithTransfersResponse"
+          },
+          "txType3": {
+            "$ref": "#/components/schemas/EthereumTxWithTransfersResponse"
+          }
+        },
+        "required": [
+          "txType1",
+          "txType2",
+          "txType3"
+        ]
+      },
+      "AllTransactionsSchemaSerializerV2": {
+        "type": "object",
+        "description": "Just for the purpose of documenting, don't use it",
+        "properties": {
+          "txType1": {
+            "$ref": "#/components/schemas/SafeModuleTransactionWithTransfersResponse"
+          },
+          "txType2": {
+            "$ref": "#/components/schemas/SafeMultisigTransactionWithTransfersResponseSerializerV2"
+          },
+          "txType3": {
+            "$ref": "#/components/schemas/EthereumTxWithTransfersResponse"
+          }
+        },
+        "required": [
+          "txType1",
+          "txType2",
+          "txType3"
+        ]
+      },
+      "CodeErrorResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "arguments": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "arguments",
+          "code",
+          "message"
+        ]
+      },
+      "Contract": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "logoUri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "contractAbi": {
+            "$ref": "#/components/schemas/ContractAbi"
+          },
+          "trustedForDelegateCall": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "address",
+          "contractAbi",
+          "displayName",
+          "logoUri",
+          "name",
+          "trustedForDelegateCall"
+        ]
+      },
+      "ContractAbi": {
+        "type": "object",
+        "properties": {
+          "abi": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {}
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "relevance": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "abi",
+          "description",
+          "relevance"
+        ]
+      },
+      "DataDecoder": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string"
+          },
+          "to": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "Delegate": {
+        "type": "object",
+        "description": ".. deprecated:: 4.38.0\n   Deprecated in favour of DelegateSerializerV2",
+        "properties": {
+          "safe": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "delegate": {
+            "type": "string"
+          },
+          "delegator": {
+            "type": "string"
+          },
+          "signature": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 50
+          }
+        },
+        "required": [
+          "delegate",
+          "delegator",
+          "label",
+          "signature"
+        ]
+      },
+      "DelegateSerializerV2": {
+        "type": "object",
+        "description": "Mixin to validate delegate operations data",
+        "properties": {
+          "safe": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "delegate": {
+            "type": "string"
+          },
+          "delegator": {
+            "type": "string"
+          },
+          "signature": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 50
+          },
+          "expiryDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "delegate",
+          "delegator",
+          "label",
+          "signature"
+        ]
+      },
+      "Erc20Info": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "decimals": {
+            "type": "integer"
+          },
+          "logoUri": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "decimals",
+          "logoUri",
+          "name",
+          "symbol"
+        ]
+      },
+      "EthereumTxWithTransfersResponse": {
+        "type": "object",
+        "properties": {
+          "executionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "data": {
+            "type": "string"
+          },
+          "txHash": {
+            "type": "string"
+          },
+          "blockNumber": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "transfers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransferWithTokenInfoResponse"
+            }
+          },
+          "txType": {
+            "type": "string",
+            "readOnly": true
+          },
+          "from": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "blockNumber",
+          "data",
+          "executionDate",
+          "from",
+          "to",
+          "transfers",
+          "txHash",
+          "txType"
+        ]
+      },
+      "IndexingStatus": {
+        "type": "object",
+        "properties": {
+          "currentBlockNumber": {
+            "type": "integer"
+          },
+          "currentBlockTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "erc20BlockNumber": {
+            "type": "integer"
+          },
+          "erc20BlockTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "erc20Synced": {
+            "type": "boolean"
+          },
+          "masterCopiesBlockNumber": {
+            "type": "integer"
+          },
+          "masterCopiesBlockTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "masterCopiesSynced": {
+            "type": "boolean"
+          },
+          "synced": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "currentBlockNumber",
+          "currentBlockTimestamp",
+          "erc20BlockNumber",
+          "erc20BlockTimestamp",
+          "erc20Synced",
+          "masterCopiesBlockNumber",
+          "masterCopiesBlockTimestamp",
+          "masterCopiesSynced",
+          "synced"
+        ]
+      },
+      "MasterCopyResponse": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "deployer": {
+            "type": "string"
+          },
+          "deployedBlockNumber": {
+            "type": "integer"
+          },
+          "lastIndexedBlockNumber": {
+            "type": "integer"
+          },
+          "l2": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "address",
+          "deployedBlockNumber",
+          "deployer",
+          "l2",
+          "lastIndexedBlockNumber",
+          "version"
+        ]
+      },
+      "ModulesResponse": {
+        "type": "object",
+        "properties": {
+          "safes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "safes"
+        ]
+      },
+      "OwnerResponse": {
+        "type": "object",
+        "properties": {
+          "safes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "safes"
+        ]
+      },
+      "PaginatedAllTransactionsSchemaList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AllTransactionsSchema"
+            }
+          }
+        }
+      },
+      "PaginatedAllTransactionsSchemaSerializerV2List": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AllTransactionsSchemaSerializerV2"
+            }
+          }
+        }
+      },
+      "PaginatedContractList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Contract"
+            }
+          }
+        }
+      },
+      "PaginatedSafeCollectibleResponseList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafeCollectibleResponse"
+            }
+          }
+        }
+      },
+      "PaginatedSafeDelegateResponseList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafeDelegateResponse"
+            }
+          }
+        }
+      },
+      "PaginatedSafeExportTransactionList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafeExportTransaction"
+            }
+          }
+        }
+      },
+      "PaginatedSafeMessageResponseList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafeMessageResponse"
+            }
+          }
+        }
+      },
+      "PaginatedSafeModuleTransactionResponseList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafeModuleTransactionResponse"
+            }
+          }
+        }
+      },
+      "PaginatedSafeMultisigConfirmationResponseList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafeMultisigConfirmationResponse"
+            }
+          }
+        }
+      },
+      "PaginatedSafeMultisigTransactionResponseList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafeMultisigTransactionResponse"
+            }
+          }
+        }
+      },
+      "PaginatedSafeMultisigTransactionResponseSerializerV2List": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafeMultisigTransactionResponseSerializerV2"
+            }
+          }
+        }
+      },
+      "PaginatedSafeOperationConfirmationResponseList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafeOperationConfirmationResponse"
+            }
+          }
+        }
+      },
+      "PaginatedSafeOperationWithUserOperationResponseList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafeOperationWithUserOperationResponse"
+            }
+          }
+        }
+      },
+      "PaginatedTokenInfoResponseList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TokenInfoResponse"
+            }
+          }
+        }
+      },
+      "PaginatedTokenListList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TokenList"
+            }
+          }
+        }
+      },
+      "PaginatedTransferWithTokenInfoResponseList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransferWithTokenInfoResponse"
+            }
+          }
+        }
+      },
+      "PaginatedUserOperationWithSafeOperationResponseList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserOperationWithSafeOperationResponse"
+            }
+          }
+        }
+      },
+      "SafeBalanceResponse": {
+        "type": "object",
+        "properties": {
+          "tokenAddress": {
+            "type": "string"
+          },
+          "token": {
+            "$ref": "#/components/schemas/Erc20Info"
+          },
+          "balance": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "balance",
+          "token",
+          "tokenAddress"
+        ]
+      },
+      "SafeCollectibleResponse": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "tokenName": {
+            "type": "string"
+          },
+          "tokenSymbol": {
+            "type": "string"
+          },
+          "logoUri": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "imageUri": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": {}
+          }
+        },
+        "required": [
+          "address",
+          "description",
+          "id",
+          "imageUri",
+          "logoUri",
+          "metadata",
+          "name",
+          "tokenName",
+          "tokenSymbol",
+          "uri"
+        ]
+      },
+      "SafeCreationInfoResponse": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "creator": {
+            "type": "string"
+          },
+          "transactionHash": {
+            "type": "string"
+          },
+          "factoryAddress": {
+            "type": "string"
+          },
+          "masterCopy": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "setupData": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "saltNonce": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dataDecoded": {
+            "type": "object",
+            "additionalProperties": {},
+            "readOnly": true
+          },
+          "userOperation": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/UserOperationWithSafeOperationResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "created",
+          "creator",
+          "dataDecoded",
+          "factoryAddress",
+          "masterCopy",
+          "saltNonce",
+          "setupData",
+          "transactionHash",
+          "userOperation"
+        ]
+      },
+      "SafeDelegateResponse": {
+        "type": "object",
+        "properties": {
+          "safe": {
+            "type": "string"
+          },
+          "delegate": {
+            "type": "string"
+          },
+          "delegator": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 50
+          },
+          "expiryDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "delegate",
+          "delegator",
+          "expiryDate",
+          "label",
+          "safe"
+        ]
+      },
+      "SafeDeployment": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "maxLength": 10
+          },
+          "contracts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafeDeploymentContract"
+            }
+          }
+        },
+        "required": [
+          "contracts",
+          "version"
+        ]
+      },
+      "SafeDeploymentContract": {
+        "type": "object",
+        "properties": {
+          "contractName": {
+            "type": "string"
+          },
+          "address": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "address",
+          "contractName"
+        ]
+      },
+      "SafeExportTransaction": {
+        "type": "object",
+        "description": "Serializer for the export endpoint that returns transaction data optimized for CSV export",
+        "properties": {
+          "safe": {
+            "type": "string"
+          },
+          "From": {
+            "type": "string",
+            "title": " from"
+          },
+          "to": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "string"
+          },
+          "assetType": {
+            "type": "string"
+          },
+          "assetAddress": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "assetSymbol": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "assetDecimals": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "proposerAddress": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "proposedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "executorAddress": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "executedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "transactionHash": {
+            "type": "string"
+          },
+          "contractAddress": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nonce": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "From",
+          "amount",
+          "assetAddress",
+          "assetDecimals",
+          "assetSymbol",
+          "assetType",
+          "contractAddress",
+          "executedAt",
+          "executorAddress",
+          "nonce",
+          "note",
+          "proposedAt",
+          "proposerAddress",
+          "safe",
+          "to",
+          "transactionHash"
+        ]
+      },
+      "SafeInfoResponse": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "nonce": {
+            "type": "string"
+          },
+          "threshold": {
+            "type": "integer"
+          },
+          "owners": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "masterCopy": {
+            "type": "string"
+          },
+          "modules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fallbackHandler": {
+            "type": "string"
+          },
+          "guard": {
+            "type": "string"
+          },
+          "version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "address",
+          "fallbackHandler",
+          "guard",
+          "masterCopy",
+          "modules",
+          "nonce",
+          "owners",
+          "threshold",
+          "version"
+        ]
+      },
+      "SafeMessage": {
+        "type": "object",
+        "properties": {
+          "message": {},
+          "safeAppId": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "signature": {
+            "type": "string"
+          },
+          "origin": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "message",
+          "signature"
+        ]
+      },
+      "SafeMessageResponse": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "safe": {
+            "type": "string"
+          },
+          "messageHash": {
+            "type": "string"
+          },
+          "message": {},
+          "proposedBy": {
+            "type": "string"
+          },
+          "safeAppId": {
+            "type": "integer"
+          },
+          "confirmations": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Filters confirmations queryset\n\n:param obj: SafeMessage instance\n:return: Serialized queryset",
+            "readOnly": true
+          },
+          "preparedSignature": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Prepared signature sorted\n\n:param obj: SafeMessage instance\n:return: Serialized queryset",
+            "readOnly": true
+          },
+          "origin": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "confirmations",
+          "created",
+          "message",
+          "messageHash",
+          "modified",
+          "origin",
+          "preparedSignature",
+          "proposedBy",
+          "safe",
+          "safeAppId"
+        ]
+      },
+      "SafeMessageSignature": {
+        "type": "object",
+        "properties": {
+          "signature": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "signature"
+        ]
+      },
+      "SafeModuleTransactionResponse": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "executionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "blockNumber": {
+            "type": "integer"
+          },
+          "isSuccessful": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "transactionHash": {
+            "type": "string"
+          },
+          "safe": {
+            "type": "string"
+          },
+          "module": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string",
+            "format": "decimal",
+            "pattern": "^-?\\d{0,78}(?:\\.\\d{0,0})?$"
+          },
+          "data": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "operation": {
+            "enum": [
+              0,
+              1,
+              2
+            ],
+            "type": "integer",
+            "description": "* `0` - CALL\n* `1` - DELEGATE_CALL\n* `2` - CREATE",
+            "x-spec-enum-id": "73baf6048b75e41c",
+            "minimum": 0,
+            "maximum": 32767
+          },
+          "dataDecoded": {
+            "type": "string",
+            "deprecated": true,
+            "description": "This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.",
+            "readOnly": true
+          },
+          "moduleTransactionId": {
+            "type": "string",
+            "description": "Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`"
+          }
+        },
+        "required": [
+          "blockNumber",
+          "created",
+          "data",
+          "dataDecoded",
+          "executionDate",
+          "isSuccessful",
+          "module",
+          "moduleTransactionId",
+          "operation",
+          "safe",
+          "to",
+          "transactionHash",
+          "value"
+        ]
+      },
+      "SafeModuleTransactionWithTransfersResponse": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "executionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "blockNumber": {
+            "type": "integer"
+          },
+          "isSuccessful": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "transactionHash": {
+            "type": "string"
+          },
+          "safe": {
+            "type": "string"
+          },
+          "module": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string",
+            "format": "decimal",
+            "pattern": "^-?\\d{0,78}(?:\\.\\d{0,0})?$"
+          },
+          "data": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "operation": {
+            "enum": [
+              0,
+              1,
+              2
+            ],
+            "type": "integer",
+            "description": "* `0` - CALL\n* `1` - DELEGATE_CALL\n* `2` - CREATE",
+            "x-spec-enum-id": "73baf6048b75e41c",
+            "minimum": 0,
+            "maximum": 32767
+          },
+          "dataDecoded": {
+            "type": "string",
+            "deprecated": true,
+            "description": "This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.",
+            "readOnly": true
+          },
+          "moduleTransactionId": {
+            "type": "string",
+            "description": "Internally calculated parameter to uniquely identify a moduleTransaction \n`ModuleTransactionId = i+tx_hash+trace_address`"
+          },
+          "transfers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransferWithTokenInfoResponse"
+            }
+          },
+          "txType": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "blockNumber",
+          "created",
+          "data",
+          "dataDecoded",
+          "executionDate",
+          "isSuccessful",
+          "module",
+          "moduleTransactionId",
+          "operation",
+          "safe",
+          "to",
+          "transactionHash",
+          "transfers",
+          "txType",
+          "value"
+        ]
+      },
+      "SafeMultisigConfirmation": {
+        "type": "object",
+        "properties": {
+          "signature": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "signature"
+        ]
+      },
+      "SafeMultisigConfirmationResponse": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string"
+          },
+          "submissionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "transactionHash": {
+            "type": "string",
+            "readOnly": true
+          },
+          "signature": {
+            "type": "string"
+          },
+          "signatureType": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "owner",
+          "signature",
+          "signatureType",
+          "submissionDate",
+          "transactionHash"
+        ]
+      },
+      "SafeMultisigTransaction": {
+        "type": "object",
+        "properties": {
+          "safe": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "data": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "operation": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "gasToken": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "safeTxGas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "baseGas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "gasPrice": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "refundReceiver": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nonce": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "contractTransactionHash": {
+            "type": "string"
+          },
+          "sender": {
+            "type": "string"
+          },
+          "signature": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "origin": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "baseGas",
+          "contractTransactionHash",
+          "gasPrice",
+          "nonce",
+          "operation",
+          "safe",
+          "safeTxGas",
+          "sender",
+          "to",
+          "value"
+        ]
+      },
+      "SafeMultisigTransactionEstimate": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "data": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "operation": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "operation",
+          "to",
+          "value"
+        ]
+      },
+      "SafeMultisigTransactionEstimateResponse": {
+        "type": "object",
+        "properties": {
+          "safeTxGas": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "safeTxGas"
+        ]
+      },
+      "SafeMultisigTransactionResponse": {
+        "type": "object",
+        "properties": {
+          "safe": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "data": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "operation": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "gasToken": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "safeTxGas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "baseGas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "gasPrice": {
+            "type": "string"
+          },
+          "refundReceiver": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nonce": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "executionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "submissionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "blockNumber": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "transactionHash": {
+            "type": "string"
+          },
+          "safeTxHash": {
+            "type": "string"
+          },
+          "proposer": {
+            "type": "string"
+          },
+          "proposedByDelegate": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "executor": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "isExecuted": {
+            "type": "boolean"
+          },
+          "isSuccessful": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "ethGasPrice": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "maxFeePerGas": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "maxPriorityFeePerGas": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "gasUsed": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "fee": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "origin": {
+            "type": "string",
+            "readOnly": true
+          },
+          "dataDecoded": {
+            "type": "string",
+            "deprecated": true,
+            "description": "This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.",
+            "readOnly": true
+          },
+          "confirmationsRequired": {
+            "type": "integer"
+          },
+          "confirmations": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Validate and check integrity of confirmations queryset\n\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n:raises InternalValidationError: If any inconsistency is detected",
+            "readOnly": true
+          },
+          "trusted": {
+            "type": "boolean"
+          },
+          "signatures": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          }
+        },
+        "required": [
+          "baseGas",
+          "blockNumber",
+          "confirmations",
+          "confirmationsRequired",
+          "dataDecoded",
+          "ethGasPrice",
+          "executionDate",
+          "executor",
+          "fee",
+          "gasPrice",
+          "gasUsed",
+          "isExecuted",
+          "isSuccessful",
+          "maxFeePerGas",
+          "maxPriorityFeePerGas",
+          "modified",
+          "nonce",
+          "operation",
+          "origin",
+          "proposedByDelegate",
+          "proposer",
+          "safe",
+          "safeTxGas",
+          "safeTxHash",
+          "signatures",
+          "submissionDate",
+          "to",
+          "transactionHash",
+          "trusted",
+          "value"
+        ]
+      },
+      "SafeMultisigTransactionResponseSerializerV2": {
+        "type": "object",
+        "properties": {
+          "safe": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "data": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "operation": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "gasToken": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "safeTxGas": {
+            "type": "string"
+          },
+          "baseGas": {
+            "type": "string"
+          },
+          "gasPrice": {
+            "type": "string"
+          },
+          "refundReceiver": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nonce": {
+            "type": "string"
+          },
+          "executionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "submissionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "blockNumber": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "transactionHash": {
+            "type": "string"
+          },
+          "safeTxHash": {
+            "type": "string"
+          },
+          "proposer": {
+            "type": "string"
+          },
+          "proposedByDelegate": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "executor": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "isExecuted": {
+            "type": "boolean"
+          },
+          "isSuccessful": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "ethGasPrice": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "maxFeePerGas": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "maxPriorityFeePerGas": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "gasUsed": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "fee": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "origin": {
+            "type": "string",
+            "readOnly": true
+          },
+          "dataDecoded": {
+            "type": "string",
+            "deprecated": true,
+            "description": "This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.",
+            "readOnly": true
+          },
+          "confirmationsRequired": {
+            "type": "integer"
+          },
+          "confirmations": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Validate and check integrity of confirmations queryset\n\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n:raises InternalValidationError: If any inconsistency is detected",
+            "readOnly": true
+          },
+          "trusted": {
+            "type": "boolean"
+          },
+          "signatures": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          }
+        },
+        "required": [
+          "baseGas",
+          "blockNumber",
+          "confirmations",
+          "confirmationsRequired",
+          "dataDecoded",
+          "ethGasPrice",
+          "executionDate",
+          "executor",
+          "fee",
+          "gasPrice",
+          "gasUsed",
+          "isExecuted",
+          "isSuccessful",
+          "maxFeePerGas",
+          "maxPriorityFeePerGas",
+          "modified",
+          "nonce",
+          "operation",
+          "origin",
+          "proposedByDelegate",
+          "proposer",
+          "safe",
+          "safeTxGas",
+          "safeTxHash",
+          "signatures",
+          "submissionDate",
+          "to",
+          "transactionHash",
+          "trusted",
+          "value"
+        ]
+      },
+      "SafeMultisigTransactionWithTransfersResponse": {
+        "type": "object",
+        "properties": {
+          "safe": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "data": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "operation": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "gasToken": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "safeTxGas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "baseGas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "gasPrice": {
+            "type": "string"
+          },
+          "refundReceiver": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nonce": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "executionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "submissionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "blockNumber": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "transactionHash": {
+            "type": "string"
+          },
+          "safeTxHash": {
+            "type": "string"
+          },
+          "proposer": {
+            "type": "string"
+          },
+          "proposedByDelegate": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "executor": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "isExecuted": {
+            "type": "boolean"
+          },
+          "isSuccessful": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "ethGasPrice": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "maxFeePerGas": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "maxPriorityFeePerGas": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "gasUsed": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "fee": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "origin": {
+            "type": "string",
+            "readOnly": true
+          },
+          "dataDecoded": {
+            "type": "string",
+            "deprecated": true,
+            "description": "This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.",
+            "readOnly": true
+          },
+          "confirmationsRequired": {
+            "type": "integer"
+          },
+          "confirmations": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Validate and check integrity of confirmations queryset\n\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n:raises InternalValidationError: If any inconsistency is detected",
+            "readOnly": true
+          },
+          "trusted": {
+            "type": "boolean"
+          },
+          "signatures": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "transfers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransferWithTokenInfoResponse"
+            }
+          },
+          "txType": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "baseGas",
+          "blockNumber",
+          "confirmations",
+          "confirmationsRequired",
+          "dataDecoded",
+          "ethGasPrice",
+          "executionDate",
+          "executor",
+          "fee",
+          "gasPrice",
+          "gasUsed",
+          "isExecuted",
+          "isSuccessful",
+          "maxFeePerGas",
+          "maxPriorityFeePerGas",
+          "modified",
+          "nonce",
+          "operation",
+          "origin",
+          "proposedByDelegate",
+          "proposer",
+          "safe",
+          "safeTxGas",
+          "safeTxHash",
+          "signatures",
+          "submissionDate",
+          "to",
+          "transactionHash",
+          "transfers",
+          "trusted",
+          "txType",
+          "value"
+        ]
+      },
+      "SafeMultisigTransactionWithTransfersResponseSerializerV2": {
+        "type": "object",
+        "properties": {
+          "safe": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "data": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "operation": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "gasToken": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "safeTxGas": {
+            "type": "string"
+          },
+          "baseGas": {
+            "type": "string"
+          },
+          "gasPrice": {
+            "type": "string"
+          },
+          "refundReceiver": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nonce": {
+            "type": "string"
+          },
+          "executionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "submissionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "blockNumber": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "transactionHash": {
+            "type": "string"
+          },
+          "safeTxHash": {
+            "type": "string"
+          },
+          "proposer": {
+            "type": "string"
+          },
+          "proposedByDelegate": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "executor": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "isExecuted": {
+            "type": "boolean"
+          },
+          "isSuccessful": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "ethGasPrice": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "maxFeePerGas": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "maxPriorityFeePerGas": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "gasUsed": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "fee": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "origin": {
+            "type": "string",
+            "readOnly": true
+          },
+          "dataDecoded": {
+            "type": "string",
+            "deprecated": true,
+            "description": "This field is deprecated and will be removed in future versions. Refer to decoder service [documentation](https://docs.safe.global/core-api/safe-decoder-service-reference#Data-decoder) for decoding guidance.",
+            "readOnly": true
+          },
+          "confirmationsRequired": {
+            "type": "integer"
+          },
+          "confirmations": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Validate and check integrity of confirmations queryset\n\n:param obj: MultisigConfirmation instance\n:return: Serialized queryset\n:raises InternalValidationError: If any inconsistency is detected",
+            "readOnly": true
+          },
+          "trusted": {
+            "type": "boolean"
+          },
+          "signatures": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "transfers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransferWithTokenInfoResponse"
+            }
+          },
+          "txType": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "baseGas",
+          "blockNumber",
+          "confirmations",
+          "confirmationsRequired",
+          "dataDecoded",
+          "ethGasPrice",
+          "executionDate",
+          "executor",
+          "fee",
+          "gasPrice",
+          "gasUsed",
+          "isExecuted",
+          "isSuccessful",
+          "maxFeePerGas",
+          "maxPriorityFeePerGas",
+          "modified",
+          "nonce",
+          "operation",
+          "origin",
+          "proposedByDelegate",
+          "proposer",
+          "safe",
+          "safeTxGas",
+          "safeTxHash",
+          "signatures",
+          "submissionDate",
+          "to",
+          "transactionHash",
+          "transfers",
+          "trusted",
+          "txType",
+          "value"
+        ]
+      },
+      "SafeOperation": {
+        "type": "object",
+        "description": "Mixin class to validate SafeOperation signatures. `_get_owners` can be overridden to define\nthe valid owners to sign",
+        "properties": {
+          "nonce": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "initCode": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "callData": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "callGasLimit": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "verificationGasLimit": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "preVerificationGas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "maxFeePerGas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "maxPriorityFeePerGas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "paymasterAndData": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "signature": {
+            "type": "string"
+          },
+          "entryPoint": {
+            "type": "string"
+          },
+          "validAfter": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "validUntil": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "moduleAddress": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "callData",
+          "callGasLimit",
+          "entryPoint",
+          "initCode",
+          "maxFeePerGas",
+          "maxPriorityFeePerGas",
+          "moduleAddress",
+          "nonce",
+          "paymasterAndData",
+          "preVerificationGas",
+          "signature",
+          "validAfter",
+          "validUntil",
+          "verificationGasLimit"
+        ]
+      },
+      "SafeOperationConfirmation": {
+        "type": "object",
+        "description": "Validate new confirmations for an existing `SafeOperation`",
+        "properties": {
+          "signature": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "signature"
+        ]
+      },
+      "SafeOperationConfirmationResponse": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "signature": {
+            "type": "string"
+          },
+          "signatureType": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "created",
+          "modified",
+          "owner",
+          "signature",
+          "signatureType"
+        ]
+      },
+      "SafeOperationResponse": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "safeOperationHash": {
+            "type": "string"
+          },
+          "validAfter": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "validUntil": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "moduleAddress": {
+            "type": "string"
+          },
+          "confirmations": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Filters confirmations queryset\n\n:param obj: SafeOperation instance\n:return: Serialized queryset",
+            "readOnly": true
+          },
+          "preparedSignature": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "confirmations",
+          "created",
+          "modified",
+          "moduleAddress",
+          "preparedSignature",
+          "safeOperationHash",
+          "validAfter",
+          "validUntil"
+        ]
+      },
+      "SafeOperationWithUserOperationResponse": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "safeOperationHash": {
+            "type": "string"
+          },
+          "validAfter": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "validUntil": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "moduleAddress": {
+            "type": "string"
+          },
+          "confirmations": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Filters confirmations queryset\n\n:param obj: SafeOperation instance\n:return: Serialized queryset",
+            "readOnly": true
+          },
+          "preparedSignature": {
+            "type": "string",
+            "readOnly": true
+          },
+          "userOperation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserOperationResponse"
+              }
+            ],
+            "readOnly": true
+          }
+        },
+        "required": [
+          "confirmations",
+          "created",
+          "modified",
+          "moduleAddress",
+          "preparedSignature",
+          "safeOperationHash",
+          "userOperation",
+          "validAfter",
+          "validUntil"
+        ]
+      },
+      "TokenInfoResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "readOnly": true
+          },
+          "address": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "decimals": {
+            "type": "integer"
+          },
+          "logoUri": {
+            "type": "string",
+            "readOnly": true
+          },
+          "trusted": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "address",
+          "decimals",
+          "logoUri",
+          "name",
+          "symbol",
+          "trusted",
+          "type"
+        ]
+      },
+      "TokenList": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "description",
+          "url"
+        ]
+      },
+      "TransferWithTokenInfoResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Sometimes ERC20/721 `Transfer` events look the same, if token info is available better use that information\nto check\n\n:param obj:\n:return: `TransferType` as a string",
+            "readOnly": true
+          },
+          "executionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "blockNumber": {
+            "type": "integer"
+          },
+          "transactionHash": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "value": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tokenId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tokenAddress": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "transferId": {
+            "type": "string",
+            "readOnly": true,
+            "description": "Internally calculated parameter to uniquely identify a transfer \nToken transfers are calculated as `transferId = e+tx_hash+log_index` \nEther transfers are calculated as `transferId = i+tx_hash+trace_address`"
+          },
+          "tokenInfo": {
+            "$ref": "#/components/schemas/TokenInfoResponse"
+          },
+          "from": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "blockNumber",
+          "executionDate",
+          "from",
+          "to",
+          "tokenId",
+          "tokenInfo",
+          "transactionHash",
+          "transferId",
+          "type",
+          "value"
+        ]
+      },
+      "UserOperationResponse": {
+        "type": "object",
+        "properties": {
+          "ethereumTxHash": {
+            "type": "string"
+          },
+          "sender": {
+            "type": "string"
+          },
+          "userOperationHash": {
+            "type": "string"
+          },
+          "nonce": {
+            "type": "string"
+          },
+          "initCode": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "callData": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "callGasLimit": {
+            "type": "string"
+          },
+          "verificationGasLimit": {
+            "type": "string"
+          },
+          "preVerificationGas": {
+            "type": "string"
+          },
+          "maxFeePerGas": {
+            "type": "string"
+          },
+          "maxPriorityFeePerGas": {
+            "type": "string"
+          },
+          "paymaster": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "paymasterData": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "signature": {
+            "type": "string"
+          },
+          "entryPoint": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "callData",
+          "callGasLimit",
+          "entryPoint",
+          "ethereumTxHash",
+          "initCode",
+          "maxFeePerGas",
+          "maxPriorityFeePerGas",
+          "nonce",
+          "paymaster",
+          "paymasterData",
+          "preVerificationGas",
+          "sender",
+          "signature",
+          "userOperationHash",
+          "verificationGasLimit"
+        ]
+      },
+      "UserOperationWithSafeOperationResponse": {
+        "type": "object",
+        "properties": {
+          "ethereumTxHash": {
+            "type": "string"
+          },
+          "sender": {
+            "type": "string"
+          },
+          "userOperationHash": {
+            "type": "string"
+          },
+          "nonce": {
+            "type": "string"
+          },
+          "initCode": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "callData": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "callGasLimit": {
+            "type": "string"
+          },
+          "verificationGasLimit": {
+            "type": "string"
+          },
+          "preVerificationGas": {
+            "type": "string"
+          },
+          "maxFeePerGas": {
+            "type": "string"
+          },
+          "maxPriorityFeePerGas": {
+            "type": "string"
+          },
+          "paymaster": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "paymasterData": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "signature": {
+            "type": "string"
+          },
+          "entryPoint": {
+            "type": "string"
+          },
+          "safeOperation": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SafeOperationResponse"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "readOnly": true
+          }
+        },
+        "required": [
+          "callData",
+          "callGasLimit",
+          "entryPoint",
+          "ethereumTxHash",
+          "initCode",
+          "maxFeePerGas",
+          "maxPriorityFeePerGas",
+          "nonce",
+          "paymaster",
+          "paymasterData",
+          "preVerificationGas",
+          "safeOperation",
+          "sender",
+          "signature",
+          "userOperationHash",
+          "verificationGasLimit"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "sessionid"
+      },
+      "tokenAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "Token-based authentication with required prefix \"Token\""
+      }
+    }
+  }
+}
