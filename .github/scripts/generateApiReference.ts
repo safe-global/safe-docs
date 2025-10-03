@@ -514,7 +514,7 @@ const generateMainContent = (
   network: { txServiceUrl: string; shortName: string; networkName: string }
 ) => {
   const categories = getCategories(swagger).filter(
-    c => c.title !== 'about' && c.title !== 'notifications'
+    c => c.title !== 'about' && c.title !== 'notifications' && c.title !== 'analytics'
   )
   return `import Path from '../Path'
 import Hr from '../../Hr'
