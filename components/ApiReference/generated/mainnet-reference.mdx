@@ -40,7 +40,7 @@ This service is available on [multiple networks](../../advanced/smart-account-su
     <Feedback asPath={"/core-api/transaction-service-reference#List-Delegates"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v2/delegates/" method="get" />
+    <Path path="/api/v2/delegates/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v2/delegates/" />
 
@@ -133,7 +133,7 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
     <Feedback asPath={"/core-api/transaction-service-reference#Create-Delegate"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v2/delegates/" method="post" />
+    <Path path="/api/v2/delegates/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v2/delegates/" />
 
@@ -185,7 +185,7 @@ either the `delegator` (owner) or the `delegate` itself. Check `POST /delegates/
     <Feedback asPath={"/core-api/transaction-service-reference#Delete-Delegate"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v2/delegates/{delegate_address}/" method="delete" />
+    <Path path="/api/v2/delegates/{delegate_address}/" method="delete" />
 
     <SampleRequestHeader method="delete" pathWithParams="/api/v2/delegates/0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739/" />
 
@@ -241,7 +241,7 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Message"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/messages/{message_hash}/" method="get" />
+    <Path path="/api/v1/messages/{message_hash}/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/messages/0x3b3b57b3/" />
 
@@ -311,7 +311,7 @@ Note: Safe must be v1.4.1 for EIP-1271 signatures to work.
     <Feedback asPath={"/core-api/transaction-service-reference#Sign-Message"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/messages/{message_hash}/signatures/" method="post" />
+    <Path path="/api/v1/messages/{message_hash}/signatures/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v1/messages/0x3b3b57b3/signatures/" />
 
@@ -361,7 +361,7 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#List-Messages"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safes/{address}/messages/" method="get" />
+    <Path path="/api/v1/safes/{address}/messages/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/" />
 
@@ -446,7 +446,7 @@ Note: Safe must be v1.4.1 for EIP-1271 signatures to work.
     <Feedback asPath={"/core-api/transaction-service-reference#Create-Signed-Message"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safes/{address}/messages/" method="post" />
+    <Path path="/api/v1/safes/{address}/messages/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/messages/" />
 
@@ -502,7 +502,7 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Module-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/module-transaction/{module_transaction_id}" method="get" />
+    <Path path="/api/v1/module-transaction/{module_transaction_id}" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/module-transaction/0x3b3b57b3" />
 
@@ -563,7 +563,7 @@ the given Safe transaction hash
     <Feedback asPath={"/core-api/transaction-service-reference#List-Multisig-Confirmations"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="get" />
+    <Path path="/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/" />
 
@@ -624,7 +624,7 @@ does not support the use of delegates to make transactions trusted.
     <Feedback asPath={"/core-api/transaction-service-reference#Confirm-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="post" />
+    <Path path="/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v1/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/confirmations/" />
 
@@ -673,7 +673,7 @@ Only 1000 newest transfers will be returned.
     <Feedback asPath={"/core-api/transaction-service-reference#List-Incoming-Transfers"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safes/{address}/incoming-transfers/" method="get" />
+    <Path path="/api/v1/safes/{address}/incoming-transfers/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/incoming-transfers/" />
 
@@ -738,7 +738,7 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v1/safes/0xcd2E72aEBe2A20
     <Feedback asPath={"/core-api/transaction-service-reference#List-a-Safe's-Module-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safes/{address}/module-transactions/" method="get" />
+    <Path path="/api/v1/safes/{address}/module-transactions/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/module-transactions/" />
 
@@ -811,7 +811,7 @@ and those versions are not supported in L2 networks.
     <Feedback asPath={"/core-api/transaction-service-reference#Estimate-Gas-Costs-for-a-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safes/{address}/multisig-transactions/estimations/" method="post" />
+    <Path path="/api/v1/safes/{address}/multisig-transactions/estimations/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/estimations/" />
 
@@ -860,7 +860,7 @@ Only 1000 newest transfers will be returned.
     <Feedback asPath={"/core-api/transaction-service-reference#List-Transfers"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safes/{address}/transfers/" method="get" />
+    <Path path="/api/v1/safes/{address}/transfers/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/transfers/" />
 
@@ -925,7 +925,7 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v1/safes/0xcd2E72aEBe2A20
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Transfer"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/transfer/{transfer_id}" method="get" />
+    <Path path="/api/v1/transfer/{transfer_id}" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/transfer/3b3b57b3" />
 
@@ -983,7 +983,7 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v1/transfer/3b3b57b3 \
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v2/multisig-transactions/{safe_tx_hash}/" method="get" />
+    <Path path="/api/v2/multisig-transactions/{safe_tx_hash}/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/" />
 
@@ -1062,7 +1062,7 @@ Unix UTC epoch time (no milliseconds) and dividing by 3600 (natural division, no
     <Feedback asPath={"/core-api/transaction-service-reference#Delete-Queued-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v2/multisig-transactions/{safe_tx_hash}/" method="delete" />
+    <Path path="/api/v2/multisig-transactions/{safe_tx_hash}/" method="delete" />
 
     <SampleRequestHeader method="delete" pathWithParams="/api/v2/multisig-transactions/0xa059b4571d8e6cf551eea796f9d86a414083bdc3d5d5be88486589a7b6214be2/" />
 
@@ -1117,7 +1117,7 @@ but there will be 2 transactions in the list.
     <Feedback asPath={"/core-api/transaction-service-reference#List-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v2/safes/{address}/all-transactions/" method="get" />
+    <Path path="/api/v2/safes/{address}/all-transactions/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/all-transactions/" />
 
@@ -1163,7 +1163,7 @@ By default, only ``trusted`` multisig transactions are returned.
     <Feedback asPath={"/core-api/transaction-service-reference#List-a-Safe's-Multisig-Transactions"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v2/safes/{address}/multisig-transactions/" method="get" />
+    <Path path="/api/v2/safes/{address}/multisig-transactions/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/" />
 
@@ -1209,7 +1209,7 @@ retrieves all the information related.
     <Feedback asPath={"/core-api/transaction-service-reference#Create-Multisig-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v2/safes/{address}/multisig-transactions/" method="post" />
+    <Path path="/api/v2/safes/{address}/multisig-transactions/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/multisig-transactions/" />
 
@@ -1260,7 +1260,7 @@ curl -X POST https://api.safe.global/tx-service/eth/api/v2/safes/0xcd2E72aEBe2A2
     <Feedback asPath={"/core-api/transaction-service-reference#List-Safes-that-use-a-Specific-Module"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/modules/{address}/safes/" method="get" />
+    <Path path="/api/v1/modules/{address}/safes/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/modules/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/" />
 
@@ -1318,7 +1318,7 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v1/modules/0xcd2E72aEBe2A
     <Feedback asPath={"/core-api/transaction-service-reference#List-Safes-from-a-Specific-Owner"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/owners/{address}/safes/" method="get" />
+    <Path path="/api/v1/owners/{address}/safes/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/owners/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safes/" />
 
@@ -1386,7 +1386,7 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v1/owners/0xcd2E72aEBe2A2
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Safe-Operation"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safe-operations/{safe_operation_hash}/" method="get" />
+    <Path path="/api/v1/safe-operations/{safe_operation_hash}/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/" />
 
@@ -1466,7 +1466,7 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v1/safe-operations/0x597b
     <Feedback asPath={"/core-api/transaction-service-reference#Get-the-list-of-confirmations-for-a-multisig-transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safe-operations/{safe_operation_hash}/confirmations/" method="get" />
+    <Path path="/api/v1/safe-operations/{safe_operation_hash}/confirmations/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/" />
 
@@ -1526,7 +1526,7 @@ the use of delegates to make a transaction trusted.
     <Feedback asPath={"/core-api/transaction-service-reference#Add-a-confirmation-for-a-transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safe-operations/{safe_operation_hash}/confirmations/" method="post" />
+    <Path path="/api/v1/safe-operations/{safe_operation_hash}/confirmations/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v1/safe-operations/0x597ba36c626a32a4fcc9f23a4b25605ee30b46584918d6b6442387161dc3c51b/confirmations/" />
 
@@ -1572,7 +1572,7 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#List-Safe-Operations"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safes/{address}/safe-operations/" method="get" />
+    <Path path="/api/v1/safes/{address}/safe-operations/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/" />
 
@@ -1659,7 +1659,7 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v1/safes/0xcd2E72aEBe2A20
     <Feedback asPath={"/core-api/transaction-service-reference#Create-Safe-Operation"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safes/{address}/safe-operations/" method="post" />
+    <Path path="/api/v1/safes/{address}/safe-operations/" method="post" />
 
     <SampleRequestHeader method="post" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/safe-operations/" />
 
@@ -1705,7 +1705,7 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#List-User-Operations"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safes/{address}/user-operations/" method="get" />
+    <Path path="/api/v1/safes/{address}/user-operations/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/user-operations/" />
 
@@ -1792,7 +1792,7 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v1/safes/0xcd2E72aEBe2A20
     <Feedback asPath={"/core-api/transaction-service-reference#Get-User-Operation"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/user-operations/{user_operation_hash}/" method="get" />
+    <Path path="/api/v1/user-operations/{user_operation_hash}/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/user-operations/0xe6dac94a3cdbab8d807dfbe79ec378713403ff60cb1a1fff09696813d2705b8e/" />
 
@@ -1882,7 +1882,7 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v1/user-operations/0xe6da
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Safe-Status"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safes/{address}/" method="get" />
+    <Path path="/api/v1/safes/{address}/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
 
@@ -1949,7 +1949,7 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v1/safes/0xcd2E72aEBe2A20
     <Feedback asPath={"/core-api/transaction-service-reference#List-a-Safe's-Balances-(Deprecated)"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safes/{address}/balances/" method="get" />
+    <Path path="/api/v1/safes/{address}/balances/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/" />
 
@@ -2017,7 +2017,7 @@ deployment.
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Safe-Creation-Status"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safes/{address}/creation/" method="get" />
+    <Path path="/api/v1/safes/{address}/creation/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/creation/" />
 
@@ -2120,11 +2120,11 @@ The maximum limit allowed is 1000.
     
 
     <Parameters parameters={[{"in":"path","name":"address","schema":{"type":"string"},"required":true},{"in":"query","name":"execution_date__gte","schema":{"type":"string","format":"date-time"},"description":"Filter transactions executed after this date (ISO format)"},{"in":"query","name":"execution_date__lte","schema":{"type":"string","format":"date-time"},"description":"Filter transactions executed before this date (ISO format)"},{"in":"query","name":"limit","schema":{"type":"integer"},"description":"Maximum number of transactions to return (max 1000)"},{"in":"query","name":"offset","schema":{"type":"integer"},"description":"Number of transactions to skip"}]} />
-    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedSafeExportTransactionList","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"SafeExportTransaction","type":"object","description":"Serializer for the export endpoint that returns transaction data optimized for CSV export","properties":{"safe":{"type":"string"},"From":{"type":"string","title":" from"},"to":{"type":"string"},"amount":{"type":"string"},"assetType":{"type":"string"},"assetAddress":{"type":["string","null"]},"assetSymbol":{"type":["string","null"]},"assetDecimals":{"type":["integer","null"]},"proposerAddress":{"type":["string","null"]},"proposedAt":{"type":["string","null"],"format":"date-time"},"executorAddress":{"type":["string","null"]},"executedAt":{"type":["string","null"],"format":"date-time"},"note":{"type":["string","null"]},"transactionHash":{"type":"string"},"contractAddress":{"type":["string","null"]}},"required":["From","amount","assetAddress","assetDecimals","assetSymbol","assetType","contractAddress","executedAt","executorAddress","note","proposedAt","proposerAddress","safe","to","transactionHash"]}}}}}},"description":""},{"code":"404","schema":{},"description":"Safe not found"},{"code":"422","schema":{},"content":{"application/json":{"schema":{"refName":"CodeErrorResponse","type":"object","properties":{"code":{"type":"integer"},"message":{"type":"string"},"arguments":{"type":"array","items":{}}},"required":["arguments","code","message"]}}},"description":"Safe address checksum not valid"}]} />
+    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedSafeExportTransactionList","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"SafeExportTransaction","type":"object","description":"Serializer for the export endpoint that returns transaction data optimized for CSV export","properties":{"safe":{"type":"string"},"From":{"type":"string","title":" from"},"to":{"type":"string"},"amount":{"type":"string"},"assetType":{"type":"string"},"assetAddress":{"type":["string","null"]},"assetSymbol":{"type":["string","null"]},"assetDecimals":{"type":["integer","null"]},"proposerAddress":{"type":["string","null"]},"proposedAt":{"type":["string","null"],"format":"date-time"},"executorAddress":{"type":["string","null"]},"executedAt":{"type":["string","null"],"format":"date-time"},"note":{"type":["string","null"]},"transactionHash":{"type":"string"},"contractAddress":{"type":["string","null"]},"nonce":{"type":["string","null"]}},"required":["From","amount","assetAddress","assetDecimals","assetSymbol","assetType","contractAddress","executedAt","executorAddress","nonce","note","proposedAt","proposerAddress","safe","to","transactionHash"]}}}}}},"description":""},{"code":"404","schema":{},"description":"Safe not found"},{"code":"422","schema":{},"content":{"application/json":{"schema":{"refName":"CodeErrorResponse","type":"object","properties":{"code":{"type":"integer"},"message":{"type":"string"},"arguments":{"type":"array","items":{}}},"required":["arguments","code","message"]}}},"description":"Safe address checksum not valid"}]} />
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Transactions-for-CSV-Export"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/safes/{address}/export/" method="get" />
+    <Path path="/api/v1/safes/{address}/export/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/export/" />
 
@@ -2166,7 +2166,7 @@ The maximum limit allowed is 200.
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Safe-Balances"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v2/safes/{address}/balances/" method="get" />
+    <Path path="/api/v2/safes/{address}/balances/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/balances/" />
 
@@ -2231,7 +2231,7 @@ The maximum limit allowed is 10.
     <Feedback asPath={"/core-api/transaction-service-reference#List-Collectibles"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v2/safes/{address}/collectibles/" method="get" />
+    <Path path="/api/v2/safes/{address}/collectibles/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v2/safes/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/collectibles/" />
 
@@ -2301,7 +2301,7 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v2/safes/0xcd2E72aEBe2A20
     <Feedback asPath={"/core-api/transaction-service-reference#List-Tokens"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/tokens/" method="get" />
+    <Path path="/api/v1/tokens/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/tokens/" />
 
@@ -2367,7 +2367,7 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v1/tokens/ \
     <Feedback asPath={"/core-api/transaction-service-reference#Get-a-Specific-Token's-Information"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/tokens/{address}/" method="get" />
+    <Path path="/api/v1/tokens/{address}/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/tokens/0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75/" />
 
@@ -2425,7 +2425,7 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v1/tokens/0xcd2E72aEBe2A2
     <Feedback asPath={"/core-api/transaction-service-reference#List-Token-Data-Sources"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v1/tokens/lists/" method="get" />
+    <Path path="/api/v1/tokens/lists/" method="get" />
 
     <SampleRequestHeader method="get" pathWithParams="/api/v1/tokens/lists/" />
 
@@ -2434,53 +2434,6 @@ curl -X GET https://api.safe.global/tx-service/eth/api/v1/tokens/0xcd2E72aEBe2A2
 
 ```bash 
 curl -X GET https://api.safe.global/tx-service/eth/api/v1/tokens/lists/ \
-    -H "Accept: application/json" \
-    -H "content-type: application/json" \
-    -H "Authorization: Bearer YOUR_API_KEY" \
-     
-```
-      </CH.Code>
-    </CH.Section>
-
-    
-  </Grid>
-</Grid>
-<Hr style={{ 
-  marginTop: '112px',
-  marginBottom: '112px'
-}} />
-
-<Grid my={8} />
-
-## Analytics
-
-<Grid my={6} />
-
-### /tx-service/eth/api/v2/analytics/multisig-transactions/by-origin/ - GET
-
-<Grid container justifyContent='space-between'>
-  <Grid item xs={12} md={5.6}>
-
-    
-
-    undefined
-
-    
-
-    <Parameters parameters={[]} />
-    <Responses responses={[{"code":"200","schema":{},"description":"No response body"}]} />
-    <Feedback asPath={"/core-api/transaction-service-reference#-tx-service-eth-api-v2-analytics-multisig-transactions-by-origin----GET"} label='Did this API route run successfully?' small />
-  </Grid>
-  <Grid item xs={12} md={5.6}>
-    <Path path="/tx-service/eth/api/v2/analytics/multisig-transactions/by-origin/" method="get" />
-
-    <SampleRequestHeader method="get" pathWithParams="/api/v2/analytics/multisig-transactions/by-origin/" />
-
-    <CH.Section>
-      <CH.Code style={{boxShadow: 'none'}}>
-
-```bash 
-curl -X GET https://api.safe.global/tx-service/eth/api/v2/analytics/multisig-transactions/by-origin/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -H "Authorization: Bearer YOUR_API_KEY" \

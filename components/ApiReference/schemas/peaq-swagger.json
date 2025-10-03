@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Safe Transaction Service",
-    "version": "5.29.0",
+    "version": "5.33.1",
     "description": "API to keep track of transactions sent via Safe smart contracts"
   },
   "paths": {
@@ -5286,6 +5286,12 @@
               "string",
               "null"
             ]
+          },
+          "nonce": {
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "required": [
@@ -5298,6 +5304,7 @@
           "contractAddress",
           "executedAt",
           "executorAddress",
+          "nonce",
           "note",
           "proposedAt",
           "proposerAddress",
