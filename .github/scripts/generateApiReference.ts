@@ -9,7 +9,7 @@ const pathsMetadata = require('../../components/ApiReference/paths-metadata.json
 const txServiceNetworks = require('../../components/ApiReference/tx-service-networks.json')
 
 const curlify = (req: any) =>
-  `curl -X ${req.method} https://api.safe.global${req.url} \\
+  `curl -X ${req.method} ${req.baseUrl}${req.url} \\
     -H "Accept: application/json" \\
     -H "content-type: application/json" \\
     -H "Authorization: Bearer YOUR_API_KEY" \\
@@ -328,17 +328,13 @@ const generateMethodContent = (
       ...data
     })
   )
-  const pathParams = path.match(/{[^}]*}/g)
-  const pathWithParams =
-    pathParams?.reduce(
-      (acc, param) =>
-        acc.replace(param, getSampleValue(param.replace(/{|}/g, '')) as string),
-      path
-    ) ?? path
 
   // Strip the network prefix from the path to match paths-metadata.json format
   const cleanPath = path.replace(/^\/tx-service\/[^/]+/, '')
 
+  const pathParams = cleanPath.match(/{[^}]*}/g)
+
+  // Clean path with params replaced (for display)
   const cleanPathWithParams =
     pathParams?.reduce(
       (acc, param) =>
@@ -383,7 +379,7 @@ const generateMethodContent = (
 
   // This is commented out, as we omit response generation for now.
   // It is planned to move this into a separate script.
-  // generateSampleApiResponse(path, pathWithParams + query, method, requestBody, network)
+  // generateSampleApiResponse(path, cleanPathWithParams + query, method, requestBody, network)
 
   const codeBlockWithinDescription = _method.description?.match(
     /```[a-z]*\n[\s\S]*?\n```/
@@ -413,7 +409,7 @@ const generateMethodContent = (
     )}"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="${path}" method="${method}" />
+    <Path path="${cleanPath}" method="${method}" />
 
     <SampleRequestHeader method="${method}" pathWithParams="${cleanPathWithParams}" />
 
@@ -430,7 +426,7 @@ ${
 }
 \`\`\`bash ${hasExample && example !== 'export {}\n' ? 'curl' : ''}
 ${curlify({
-  url: pathWithParams,
+  url: cleanPathWithParams,
   method: method.toUpperCase(),
   body: requestBody,
   baseUrl: network.txServiceUrl
