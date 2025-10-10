@@ -43,7 +43,7 @@ Safe Decoder Service is a REST API that translates blockchain call‑data into h
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://api.safe.global/safe-decoder/api/v1/contracts \
+curl -X GET https://api.safe.global/decoder/api/v1/contracts \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -H "Authorization: Bearer YOUR_API_KEY" \
@@ -56,7 +56,7 @@ curl -X GET https://api.safe.global/safe-decoder/api/v1/contracts \
     ```json
     {
     "count": 146,
-    "next": "GET https://api.safe.global/safe-decoder/api/v1/contracts?trusted_for_delegate_call=true&limit=1&offset=1",
+    "next": "GET https://api.safe.global/decoder/api/v1/contracts?trusted_for_delegate_call=true&limit=1&offset=1",
     "previous": null,
     "results": [
       {
@@ -103,7 +103,7 @@ curl -X GET https://api.safe.global/safe-decoder/api/v1/contracts \
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://api.safe.global/safe-decoder/api/v1/contracts/0x0408EF011960d02349d50286D20531229BCef773 \
+curl -X GET https://api.safe.global/decoder/api/v1/contracts/0x0408EF011960d02349d50286D20531229BCef773 \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -H "Authorization: Bearer YOUR_API_KEY" \
