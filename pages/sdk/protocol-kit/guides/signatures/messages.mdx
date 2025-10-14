@@ -337,12 +337,21 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
   })
   ```
 
-  We need to calculate the `messageHash`, encode the call to the `signMessage` function in the `SignMessageLib` contract and create the transaction that will store the message hash in that contract.
+  ##### Normalize message hashing for SignMessageLib
+
+  When storing the message hash on-chain, pre-hash the payload and pass the encoded digest to `signMessage`. This mirrors the encoding used by the protocol handler and keeps `SignMessageLib` signatures compatible with `isValidSignature`.
 
   ```typescript
-  const messageHash = hashSafeMessage(MESSAGE)
-  const txData = signMessageLibContract.encode('signMessage', [messageHash])
+  import { AbiCoder, keccak256, toUtf8Bytes } from 'ethers'
 
+  const messageBytes = toUtf8Bytes(STRING_MESSAGE)
+  const encodedMessageForLib = AbiCoder.defaultAbiCoder().encode(
+    ['bytes32'],
+    [keccak256(messageBytes)]
+  )
+
+  const messageHash = hashSafeMessage(STRING_MESSAGE)
+  const txData = signMessageLibContract.encode('signMessage', [encodedMessageForLib])
   const safeTransactionData: SafeTransactionDataPartial = {
     to: signMessageLibContract.address,
     value: '0',
@@ -353,6 +362,12 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
   const signMessageTx = await protocolKit.createTransaction({
     transactions: [safeTransactionData]
   })
+  ```
+    For EIP-712 typed data, compute the struct hash (for example, using `ethers.TypedDataEncoder.hash`) and provide that digest to the ABI encoder instead of `toUtf8Bytes`.
+
+  ```solidity
+  bytes memory encodedMessage = abi.encode(keccak256(message));
+  signMessageLib.signMessage(encodedMessage);
   ```
 
   Once the transaction object is instantiated, the owners must sign and execute it.
@@ -392,5 +407,13 @@ Using the Protocol Kit, this guide explains how to generate and sign messages fr
     encodedSignatures
   )
   ```
+  <Callout type='warning' emoji='⚠️'>
+    When combining on-chain signatures from <code>SignMessageLib</code> with <code>protocolKit.isValidSignature</code>, be aware that each path hashes message payloads differently. Passing the raw message bytes to <code>SignMessageLib</code> can result in <code>GS026</code> "Hash not approved" validation failures. To create hashes accepted by both flows, wrap the message with <code>abi.encode(keccak256(message))</code> before signing, as shown above.
+  </Callout>
+
+  ### Troubleshooting signature validation
+
+  - **GS026: Hash not approved** — Ensure the payload sent to `SignMessageLib.signMessage` matches the digest you validate. Re-encode the message with `abi.encode(keccak256(message))`, then confirm `hashSafeMessage` or `getSafeMessageHash` returns the same value passed into `isValidSignature`.
+  - **"Hash not approved" (Transaction Service)** — Confirm the Safe Transaction Service stores the exact hash returned by `getSafeMessageHash`. If hashes differ, re-propose the message using the normalized encoding and resubmit the signatures before calling `isValidSignature`.
 
 </Steps>
