@@ -38,6 +38,11 @@ const NetworkModal: React.FC<{
     .map(m => m.moduleName?.split('-').map(capitalize).join(' '))
     .filter((v, i, a) => a.indexOf(v) === i)
 
+  // Compute hasBlockExplorer once with safety check for empty explorers array
+  const hasBlockExplorer =
+    (network?.explorers?.length ?? 0) > 0 &&
+    curatedBlockExplorers.includes(network?.explorers?.[0]?.url ?? '')
+
   return (
     <>
       <Card
@@ -164,9 +169,7 @@ const NetworkModal: React.FC<{
                     <ContractAddress
                       key={contract.name + idx}
                       contract={contract}
-                      hasBlockExplorer={curatedBlockExplorers.includes(
-                        network?.explorers?.[0].url
-                      )}
+                      hasBlockExplorer={hasBlockExplorer}
                       network={network}
                     />
                   ))}
@@ -212,19 +215,14 @@ const NetworkModal: React.FC<{
                           m.moduleName?.split('-').map(capitalize).join(' ') ===
                             type && m.version === version
                       )
-                      .map(contract => {
-                        const hasBlockExplorer = curatedBlockExplorers.includes(
-                          network?.explorers?.[0].url
-                        )
-                        return (
-                          <ContractAddress
-                            key={contract.name + idx}
-                            contract={contract}
-                            hasBlockExplorer={hasBlockExplorer}
-                            network={network}
-                          />
-                        )
-                      })}
+                      .map(contract => (
+                        <ContractAddress
+                          key={contract.name + idx}
+                          contract={contract}
+                          hasBlockExplorer={hasBlockExplorer}
+                          network={network}
+                        />
+                      ))}
                   </div>
                 ))}
               </AccordionDetails>
