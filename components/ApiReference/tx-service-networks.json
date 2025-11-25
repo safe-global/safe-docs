@@ -84,6 +84,18 @@
     "txServiceUrl": "https://api.safe.global/tx-service/wc"
   },
   {
+    "chainId": 988,
+    "shortName": "stable",
+    "networkName": "stable",
+    "txServiceUrl": "https://api.safe.global/tx-service/stable"
+  },
+  {
+    "chainId": 999,
+    "shortName": "hyper_evm",
+    "networkName": "hyper-evm",
+    "txServiceUrl": "https://api.safe.global/tx-service/hyper"
+  },
+  {
     "chainId": 1101,
     "shortName": "zkevm",
     "networkName": "zkevm",
@@ -118,6 +130,12 @@
     "shortName": "plasma",
     "networkName": "plasma",
     "txServiceUrl": "https://api.safe.global/tx-service/plasma"
+  },
+  {
+    "chainId": 10143,
+    "shortName": "monad-testnet",
+    "networkName": "monad-testnet",
+    "txServiceUrl": "https://api.safe.global/tx-service/monad-testnet"
   },
   {
     "chainId": 10200,
@@ -166,6 +184,12 @@
     "shortName": "linea",
     "networkName": "linea",
     "txServiceUrl": "https://api.safe.global/tx-service/linea"
+  },
+  {
+    "chainId": 80069,
+    "shortName": "bep",
+    "networkName": "bepolia",
+    "txServiceUrl": "https://api.safe.global/tx-service/bep"
   },
   {
     "chainId": 80094,

@@ -540,6 +540,9 @@ ${categories.map(category => generateCategoryContent(swagger, network, category)
 `
 }
 
+// Helper function to sleep/delay execution
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
 const main = async () => {
   // Check not documented and not deprecated endpoints.
   const sepoliaNetwork = txServiceNetworks.find(
@@ -555,23 +558,25 @@ const main = async () => {
     }
   }
 
-  txServiceNetworks.forEach(
-    async (network: {
-      chainId: string
-      shortName: string
-      networkName: string
-      txServiceUrl: string
-    }) => {
-      // Download swagger schema and converts it from YAML to JSON.
-      const jsonFile = await getApiJson(network.txServiceUrl, network)
-      if (!jsonFile) return
+  // Process networks sequentially with rate limiting (2 RPS = 500ms delay)
+  for (let i = 0; i < txServiceNetworks.length; i++) {
+    const network = txServiceNetworks[i]
 
-      const resolvedJson = resolveRefs(jsonFile, jsonFile)
+    console.log(`Processing ${network.networkName} (${i + 1}/${txServiceNetworks.length})...`)
 
-      // Generate the page which will load the reference file, and parse it to generate the dynamic sidebar on the client side.
-      fs.writeFileSync(
-        `./pages/core-api/transaction-service-reference/${network.networkName}.mdx`,
-        `
+    // Download swagger schema and converts it from YAML to JSON.
+    const jsonFile = await getApiJson(network.txServiceUrl, network)
+    if (!jsonFile) {
+      console.log(`Skipping ${network.networkName} due to missing API response`)
+      continue
+    }
+
+    const resolvedJson = resolveRefs(jsonFile, jsonFile)
+
+    // Generate the page which will load the reference file, and parse it to generate the dynamic sidebar on the client side.
+    fs.writeFileSync(
+      `./pages/core-api/transaction-service-reference/${network.networkName}.mdx`,
+      `
 {/* <!-- vale off --> */}
 import ApiReference from '../../../components/ApiReference'
 import { renderToString } from 'react-dom/server'
@@ -594,40 +599,46 @@ export const getStaticProps = async () => {
 <ApiReference networkName="${network.networkName}"/>
 {/* <!-- vale on --> */}
 `
-      )
+    )
 
-      // Generate the main reference file.
-      const mdxContent = generateMainContent(resolvedJson, network)
+    // Generate the main reference file.
+    const mdxContent = generateMainContent(resolvedJson, network)
+    fs.writeFileSync(
+      `./components/ApiReference/generated/${network.networkName}-reference.mdx`,
+      mdxContent
+    )
+
+    // Replace Sepolia chainId in the example files.
+    const exampleFiles = fs
+      .readdirSync('./components/ApiReference/examples/sepolia')
+      .filter((file: string) => file.endsWith('.ts'))
+    exampleFiles.forEach((file: string) => {
+      const contents = fs.readFileSync(
+        `./components/ApiReference/examples/sepolia/${file}`,
+        'utf-8'
+      )
+      if (
+        !fs.existsSync(
+          `./components/ApiReference/examples/${network.networkName}`
+        )
+      ) {
+        fs.mkdirSync(
+          `./components/ApiReference/examples/${network.networkName}`
+        )
+      }
       fs.writeFileSync(
-        `./components/ApiReference/generated/${network.networkName}-reference.mdx`,
-        mdxContent
+        `./components/ApiReference/examples/${network.networkName}/${file}`,
+        contents.replace('chainId: 11155111n', `chainId: ${network.chainId}n`)
       )
+    })
 
-      // Replace Sepolia chainId in the example files.
-      const exampleFiles = fs
-        .readdirSync('./components/ApiReference/examples/sepolia')
-        .filter((file: string) => file.endsWith('.ts'))
-      exampleFiles.forEach((file: string) => {
-        const contents = fs.readFileSync(
-          `./components/ApiReference/examples/sepolia/${file}`,
-          'utf-8'
-        )
-        if (
-          !fs.existsSync(
-            `./components/ApiReference/examples/${network.networkName}`
-          )
-        ) {
-          fs.mkdirSync(
-            `./components/ApiReference/examples/${network.networkName}`
-          )
-        }
-        fs.writeFileSync(
-          `./components/ApiReference/examples/${network.networkName}/${file}`,
-          contents.replace('chainId: 11155111n', `chainId: ${network.chainId}n`)
-        )
-      })
+    // Add delay between requests to respect rate limit (2 RPS = 500ms minimum delay)
+    // Using 600ms to have some safety margin
+    if (i < txServiceNetworks.length - 1) {
+      console.log('Waiting 600ms before next request...')
+      await sleep(600)
     }
-  )
+  }
 }
 
 main()
