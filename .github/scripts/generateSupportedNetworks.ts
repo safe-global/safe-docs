@@ -10,6 +10,7 @@ interface Network {
   chainId: number
   shortName: string
   icon?: string
+  chainSlug?: string
   explorers: Array<{ url: string }>
 }
 
@@ -28,15 +29,6 @@ const walkPath = (dir: string) => {
   })
 
   return results
-}
-
-// Reduce function to deduplicate an array
-const deduplicate = (acc: any, curr: any) => {
-  if (acc.includes(curr)) {
-    return acc
-  }
-
-  return [...acc, curr]
 }
 
 const shortNameToIconName = (shortName: string): string | null => {
@@ -150,6 +142,74 @@ const addressNameLabels = {
   zkSync: 'zkSync contracts'
 }
 
+// Helper function to fetch icon from Llamao using chainSlug or icon property
+const tryLlamaoIcon = async (network: Network): Promise<string | null> => {
+  // Try with chainSlug first
+  if (network.chainSlug != null) {
+    const llamaoIconFromSlug = `https://icons.llamao.fi/icons/chains/rsz_${network.chainSlug}.jpg`
+    const response = await fetchWithRetry(llamaoIconFromSlug, 2, 500)
+    if (response) return llamaoIconFromSlug
+  }
+  
+  // Try with icon property as fallback
+  if (network.icon != null) {
+    const llamaoIconFromIcon = `https://icons.llamao.fi/icons/chains/rsz_${network.icon}.jpg`
+    const response = await fetchWithRetry(llamaoIconFromIcon, 2, 500)
+    if (response) return llamaoIconFromIcon
+  }
+  
+  return null
+}
+
+// Helper function to fetch icon from shortName mapping
+const tryShortNameIcon = async (network: Network): Promise<string | null> => {
+  const shortNameIcon = `https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/refs/heads/master/128/${shortNameToIconName(
+    network.shortName
+  )}.png`
+  const response = await fetchWithRetry(shortNameIcon, 2, 500)
+  return response ? shortNameIcon : null
+}
+
+// Helper function to attach icon URL to a network
+const fetchIconForNetwork = async (
+  network: Network,
+  includeSafeAssets: boolean = false
+): Promise<string> => {
+  let iconUrl: string | null = null
+
+  // Try safeAssets first if applicable (tx-service networks only)
+  if (includeSafeAssets) {
+    const safeAssets = `https://safe-transaction-assets.safe.global/chains/${network.chainId}/chain_logo.png`
+    const safeAssetsResponse = await fetchWithRetry(safeAssets)
+    iconUrl = safeAssetsResponse ? safeAssets : null
+  }
+
+  // Try Llamao icons (chainSlug or icon property)
+  if (!iconUrl) {
+    iconUrl = await tryLlamaoIcon(network)
+  }
+
+  // Try shortName icon mapping as final fallback
+  if (!iconUrl) {
+    iconUrl = await tryShortNameIcon(network)
+  }
+
+  return iconUrl ?? '/unknown-logo.png'
+}
+
+// Helper function to enrich network with contracts and icon
+const enrichNetwork = (
+  network: Network,
+  smartAccounts: any[],
+  modules: any[],
+  iconUrl: string
+) => ({
+  ...network,
+  smartAccounts: smartAccounts.filter(c => c.chainId === network.chainId.toString()),
+  modules: modules.filter(c => c.chainId === network.chainId.toString()),
+  iconUrl
+})
+
 const getDeployedContractsFromGithubRepo = async (
   allNetworks: Network[],
   module: boolean | undefined = false
@@ -250,41 +310,12 @@ const generateSupportedNetworks = async () => {
     const n = txServiceNetworksList[i]
     console.log(`[${i + 1}/${txServiceNetworksList.length}] Processing ${n.name} (chainId: ${n.chainId})`)
 
-    const safeAssets = `https://safe-transaction-assets.safe.global/chains/${n.chainId}/chain_logo.png`
-    const llamaoIcon = `https://icons.llamao.fi/icons/chains/rsz_${n.icon}.jpg`
-    const shortNameIcon = `https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/refs/heads/master/128/${shortNameToIconName(
-      n.shortName
-    )}.png`
-
-    // Try safeAssets first with retry logic
     console.log(`  Trying safeAssets...`)
-    const safeAssetsResponse = await fetchWithRetry(safeAssets)
-    let iconUrl = safeAssetsResponse ? safeAssets : null
+    const iconUrl = await fetchIconForNetwork(n, true)
+    const enrichedNetwork = enrichNetwork(n, smartAccounts, modules, iconUrl)
+    txServiceNetworksWithIcons.push(enrichedNetwork)
 
-    // If safeAssets failed, try fallback icons
-    if (!iconUrl) {
-      console.log(`  safeAssets failed, trying fallbacks...`)
-      if (n.icon != null) {
-        const llamaoResponse = await fetchWithRetry(llamaoIcon, 2, 500)
-        iconUrl = llamaoResponse ? llamaoIcon : null
-      }
-
-      if (!iconUrl) {
-        const shortNameResponse = await fetchWithRetry(shortNameIcon, 2, 500)
-        iconUrl = shortNameResponse ? shortNameIcon : null
-      }
-    }
-
-    txServiceNetworksWithIcons.push({
-      ...n,
-      smartAccounts: smartAccounts.filter(
-        c => c.chainId === n.chainId.toString()
-      ),
-      modules: modules.filter(c => c.chainId === n.chainId.toString()),
-      iconUrl: iconUrl ?? '/unknown-logo.png'
-    })
-
-    console.log(`  ✓ Icon: ${iconUrl ? 'found' : 'using fallback'}`)
+    console.log(`  ✓ Icon: ${iconUrl !== '/unknown-logo.png' ? 'found' : 'using fallback'}`)
 
     // Add delay between requests to respect rate limit (4 RPS = 250ms)
     if (i < txServiceNetworksList.length - 1) {
@@ -304,33 +335,8 @@ const generateSupportedNetworks = async () => {
 
     const batchResults = await Promise.all(
       batch.map(async n => {
-        const llamaoIcon = `https://icons.llamao.fi/icons/chains/rsz_${n.icon}.jpg`
-        const shortNameIcon = `https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/refs/heads/master/128/${shortNameToIconName(
-          n.shortName
-        )}.png`
-
-        let iconUrl = null
-
-        // Try llamaoIcon if icon property exists
-        if (n.icon != null) {
-          const llamaoResponse = await fetchWithRetry(llamaoIcon, 2, 500)
-          iconUrl = llamaoResponse ? llamaoIcon : null
-        }
-
-        // If llamaoIcon failed, try shortNameIcon
-        if (!iconUrl) {
-          const shortNameResponse = await fetchWithRetry(shortNameIcon, 2, 500)
-          iconUrl = shortNameResponse ? shortNameIcon : null
-        }
-
-        return {
-          ...n,
-          smartAccounts: smartAccounts.filter(
-            c => c.chainId === n.chainId.toString()
-          ),
-          modules: modules.filter(c => c.chainId === n.chainId.toString()),
-          iconUrl: iconUrl ?? '/unknown-logo.png'
-        }
+        const iconUrl = await fetchIconForNetwork(n, false)
+        return enrichNetwork(n, smartAccounts, modules, iconUrl)
       })
     )
     
