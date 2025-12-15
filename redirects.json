@@ -858,5 +858,10 @@
     "source": "/advanced/passkeys/supported-networks",
     "destination": "/advanced/smart-account-supported-networks?module=Safe+Passkey+Module",
     "permanent": true
+  },
+  {
+    "source": "/safenet/:path*",
+    "destination": "https://github.com/safe-fndn/safenet",
+    "permanent": true
   }
 ]
