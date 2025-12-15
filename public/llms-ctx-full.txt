@@ -449,33 +449,6 @@ const safeTransaction = await safeSdk.createTransaction({ safeTransactionData })
 const signedSafeTransaction = await safeSdk.signTransactionWithPasskey(safeTransaction, passkeySigner)
 ```
 
-## SafeNet
-
-SafeNet is a cross-chain protocol that allows users to use Safe accounts across multiple chains securely.
-
-### Introduction to SafeNet
-
-SafeNet is a protocol built on top of Safe Smart Accounts that enables cross-chain transactions. It allows users to transfer assets between different blockchain networks without having to manage multiple accounts or trust centralized bridges.
-
-### SafeNet Architecture
-
-The SafeNet architecture consists of several components:
-
-1. **Home Safe**: The primary Safe account that initiates cross-chain transactions
-2. **Entry Point**: The smart contract that receives transaction requests
-3. **Guarantee Engine**: Provides validation for cross-chain transactions
-4. **Settlement Engine**: Finalizes cross-chain transactions
-
-### SafeNet Transaction Flow
-
-A typical SafeNet transaction follows these steps:
-
-1. User initiates a transaction from their Home Safe
-2. Transaction is validated by the Guarantee Engine
-3. Validators attest to the transaction's validity
-4. Transaction is executed on the target chain
-5. Settlement is completed, finalizing the transaction
-
 ## CLI Reference
 
 The Safe CLI provides a command-line interface for interacting with Safe accounts:
