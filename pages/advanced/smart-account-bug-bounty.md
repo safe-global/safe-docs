@@ -104,7 +104,7 @@ An identified attack where it's possible to steal funds because of unexpected be
 
 A way to avoid transaction fees or an exploit that in some way compromises the experience of other Safe users.
 
-_Safe will pay all bounties in ETH._
+_Safe will pay all bounties in [USDC on Ethereum Mainnet](https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48)._
 
 Please note that the submission's quality will factor into the level of compensation. A high-quality submission should include an explanation of how somebody can reproduce the bug.
 
@@ -112,7 +112,7 @@ Please note that the submission's quality will factor into the level of compensa
 
 Please email your submissions to [bounty@safe.global](mailto:bounty@safe.global).
 
-Remember to include your ETH address so that you may be rewarded. If more than one address is specified, Safe will use only one at the discretion of the bounty program administrators. Anonymous submissions are welcome, too.
+Remember to include your Ethereum Mainnet address so that you may be rewarded. If more than one address is specified, Safe will use only one at the discretion of the bounty program administrators. Anonymous submissions are welcome, too.
 
 Please consult our [privacy policy](https://safe.global/privacy) for further details on how we handle submissions.
 
