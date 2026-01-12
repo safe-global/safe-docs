@@ -25,7 +25,7 @@ We need to instantiate all the signers based on the Safe owner accounts.
 
 ```typescript
 // https://chainlist.org/?search=sepolia&testnets=true
-const RPC_URL = 'https://eth-sepolia.public.blastapi.io'
+const RPC_URL = 'https://ethereum-sepolia-rpc.publicnode.com'
 
 // Initialize signers
 const OWNER_1_PRIVATE_KEY = // ...

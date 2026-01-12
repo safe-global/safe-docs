@@ -7,7 +7,7 @@ const apiKit = new SafeApiKit({
 })
 
 const provider = new ethers.JsonRpcProvider(
-  'https://eth-sepolia.public.blastapi.io'
+  'https://ethereum-sepolia-rpc.publicnode.com'
 )
 
 const signer = new ethers.Wallet(
