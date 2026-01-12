@@ -28,7 +28,6 @@ The scope of the bug bounty program includes the core contracts related to the f
 * _v1.1.1_ ([Release details](https://github.com/safe-global/safe-smart-account/releases/tag/v1.1.1), [README](https://github.com/safe-global/safe-smart-account/blob/v1.1.1/README.md))
 
 The scope of the bug bounty also includes officially supported Safe Modules:
-* [Allowance Module v0.1.1](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances)
 * [Safe 4337 Module v0.3.0](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337)
 * [Safe Passkey v0.2.1](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey)
 * [Social Recovery Module v0.1.0](https://github.com/safe-global/safe-modules/tree/recovery/v0.1.0/modules/recovery)
@@ -59,7 +58,6 @@ You can find addresses for deployed instances of these contracts [here](./smart-
 
 **Safe Modules contracts**
 
-* AllowanceModule.sol
 * Safe4337Module.sol
 * SafeWebAuthnSignerFactory.sol, SafeWebAuthnSignerProxy.sol, SafeWebAuthnSignerSingleton.sol, SafeWebAuthnSharedSigner.sol, WebAuthn.sol, P256.sol
 
@@ -83,7 +81,6 @@ You can find addresses for deployed instances of these contracts [here](./smart-
 Please refer to the [README file](https://github.com/safe-global/safe-smart-account/blob/v1.5.0/README.md), the [release details](https://github.com/safe-global/safe-smart-account/releases) of the respective contract version on GitHub, the historical [CHANGELOG file](https://github.com/safe-global/safe-smart-account/blob/v1.5.0/CHANGELOG.md), as well as our [developer docs](https://docs.safe.global) for an extensive overview of the intended behavior of the smart contracts.
 
 For the modules, please refer to their corresponding READMEs:
-* [Allowance Module](https://github.com/safe-global/safe-modules/tree/allowance/v0.1.1/modules/allowances/README.md).
 * [Safe 4337 Module](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337/README.md).
 * [Safe Passkey](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey/README.md).
 * [Social Recovery Module](https://github.com/safe-global/safe-modules/blob/recovery/v0.1.0/modules/recovery/README.md).
