@@ -43,38 +43,35 @@ See [Pricing & Plans](./api-pricing) for full plan details.
 
 ## Enforcement behavior
 
-Quota enforcement follows a progressive approach designed to give you time to respond before hard limits take effect.
+### Quota headers
 
-### 1. Warning — 80–90% of monthly quota
+Every API response includes HTTP headers that indicate your current quota status:
 
-When your account reaches 80–90% of its monthly API unit quota:
+- **Quota limit**: Your total monthly API unit allowance.
+- **Remaining requests**: How many API units you have left in the current billing cycle.
+- **Reset timer**: Seconds remaining until your quota resets.
 
-- A warning notification is sent to the account owner (email and dashboard).
-- API access continues at full RPS.
-- No degradation occurs at this stage.
+These headers allow your application to monitor usage programmatically and take action before hitting limits.
 
-### 2. Soft cap — 100% of monthly quota
+### When your monthly quota is reached
 
-When your account reaches 100% of its monthly quota:
+When your account reaches 100% of its monthly API unit quota, all subsequent requests are blocked with an **HTTP 429 Too Many Requests** response and a message indicating "Monthly quota exceeded."
 
-- Your effective RPS is **reduced** (throttled).
-- Requests continue to be served, but at a lower rate.
-- You are notified that you have reached your quota.
+Requests remain blocked until:
 
-### 3. Hard cap — after grace period
-
-If usage continues beyond the soft cap grace period:
-
-- Requests exceeding the limit receive an **HTTP 429 Too Many Requests** response.
-- The response includes a `Retry-After` header indicating when to retry.
-- Your integration should implement exponential backoff or circuit-breaker logic.
+- Your billing cycle resets, or
+- You upgrade your plan via the [developer dashboard](https://developer.safe.global).
 
 Example 429 response:
 ```json
 {
-  "detail": "Request was throttled. Expected available in 30 seconds."
+  "detail": "Monthly quota exceeded."
 }
 ```
+
+<Callout type="info">
+  **No dashboard usage monitoring in v1.** Quota information is available via response headers on every API request. A web-based usage dashboard is planned for a future release.
+</Callout>
 
 ## Account-level enforcement
 
