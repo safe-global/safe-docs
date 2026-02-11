@@ -1,0 +1,94 @@
+import { Callout } from 'nextra/components'
+
+# Pricing & Plans
+
+Safe Infrastructure offers tiered plans designed to scale with your project — from early prototyping to production-grade deployments.
+
+## API unit definition
+
+All plans measure usage in **API units**. One API unit equals:
+
+- **1 HTTP request** to any Safe Infrastructure API endpoint, OR
+- **1 webhook delivery** sent to your configured endpoint
+
+Both request types consume from the same monthly quota.
+
+## Plans
+
+### Builder (Free)
+
+For developers exploring Safe Infrastructure, building prototypes, or running low-traffic integrations.
+
+| | |
+|---|---|
+| **Price** | Free |
+| **Rate limit** | Shared RPS pool |
+| **Monthly quota** | Community-tier (fair-use) |
+| **Webhooks** | Not included |
+| **Support** | Community (forum, GitHub) |
+
+### Growth — €199/month
+
+For production applications that need reliable throughput, webhook access, and predictable quotas.
+
+| | |
+|---|---|
+| **Price** | €199 per month |
+| **Rate limit** | Dedicated RPS allocation |
+| **Monthly quota** | Included monthly API unit quota |
+| **Webhooks** | Included |
+| **Support** | Email support |
+
+### Scale — from €499/month
+
+For high-volume applications and enterprises that require custom limits, dedicated support, and SLA guarantees.
+
+| | |
+|---|---|
+| **Price** | Starting from €499 per month |
+| **Rate limit** | Custom RPS allocation |
+| **Monthly quota** | Custom API unit quota |
+| **Webhooks** | Included (higher subscription limits) |
+| **Support** | Priority support |
+
+## Compare plans
+
+| Feature | Builder | Growth | Scale |
+|---|---|---|---|
+| **Price** | Free | €199/mo | From €499/mo |
+| **RPS** | Shared | Dedicated | Custom |
+| **Monthly API units** | Community tier | Included quota | Custom quota |
+| **Webhooks** | — | ✓ | ✓ |
+| **Support** | Community | Email | Priority |
+| **SLA** | — | — | Available |
+
+## Important policies
+
+<Callout type="info">
+  **No pay-as-you-go billing (v1):** There is no overage billing in the initial release. When you reach your monthly quota, enforcement policies apply. See [Quotas & Limits](./api-authentication) for details.
+</Callout>
+
+<Callout type="info">
+  **No automatic upgrades:** Your plan will not be automatically upgraded. If you need a higher tier, upgrade manually via the developer dashboard.
+</Callout>
+
+## Getting started
+
+1. Visit the [developer dashboard ↗](https://developer.safe.global).
+2. Create an account and generate an API key.
+3. Start building on the **Builder** plan at no cost.
+4. Upgrade to **Growth** or **Scale** when your project is ready for production.
+
+## FAQ
+
+**Can I switch plans at any time?**
+
+Yes. You can upgrade or downgrade your plan at any time from the [developer dashboard](https://developer.safe.global).
+
+**What happens if I exceed my quota?**
+
+See [Quotas & Limits](./api-authentication) for the full enforcement policy. In short: you receive warnings at 80–90% usage, a soft cap reduces your RPS at 100%, and a hard cap (HTTP 429) applies after a grace period.
+
+**Is there a free trial of Growth or Scale?**
+
+Contact the Safe team at [support@safe.global](mailto:support@safe.global) to discuss trial options.
