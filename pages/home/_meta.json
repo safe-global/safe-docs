@@ -4,19 +4,11 @@
     "title": "Getting Started"
   },
   "what-is-safe": "What is Safe?",
-  "safe-core": "Safe{Core}",
+  "safe-core": "Safe Infrastructure",
   "tutorials": {
     "title": "Tutorials",
     "href": "/resource-hub?source=Safe+Team&tag=Tutorial"
   },
-  "-- AI": {
-    "type": "separator",
-    "title": "AI"
-  },
-  "ai-overview": "Overview",
-  "ai-agent-setup": "Setup an AI agent",
-  "ai-agent-quickstarts": "Quickstart Guides",
-  "ai-agent-actions": "Action Guides",
   "-- Help": {
     "type": "separator",
     "title": "Help"
@@ -25,5 +17,21 @@
   "support": {
     "title": "Support",
     "href": "/support"
+  },
+  "ai-overview": {
+    "title": "AI Overview",
+    "display": "hidden"
+  },
+  "ai-agent-setup": {
+    "title": "Setup an AI agent",
+    "display": "hidden"
+  },
+  "ai-agent-quickstarts": {
+    "title": "Quickstart Guides",
+    "display": "hidden"
+  },
+  "ai-agent-actions": {
+    "title": "Action Guides",
+    "display": "hidden"
   }
 }
