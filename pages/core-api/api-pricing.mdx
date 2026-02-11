@@ -19,11 +19,12 @@ Both request types consume from the same monthly quota.
 
 For developers exploring Safe Infrastructure, building prototypes, or running low-traffic integrations.
 
-| | |
+| Dimension | Limit |
 |---|---|
 | **Price** | Free |
-| **Rate limit** | Shared RPS pool |
-| **Monthly quota** | Community-tier (fair-use) |
+| **Authentication** | Required |
+| **Sustained RPS** | 5 |
+| **Monthly quota** | ~50,000 API units |
 | **Webhooks** | Not included |
 | **Support** | Community (forum, GitHub) |
 
@@ -31,35 +32,39 @@ For developers exploring Safe Infrastructure, building prototypes, or running lo
 
 For production applications that need reliable throughput, webhook access, and predictable quotas.
 
-| | |
+| Dimension | Limit |
 |---|---|
 | **Price** | €199 per month |
-| **Rate limit** | Dedicated RPS allocation |
-| **Monthly quota** | Included monthly API unit quota |
-| **Webhooks** | Included |
+| **Authentication** | Required |
+| **Sustained RPS** | 15 |
+| **Monthly quota** | ~1,000,000 API units |
+| **Webhooks** | ✓ (up to 2 subscriptions) |
 | **Support** | Email support |
 
 ### Scale — from €499/month
 
 For high-volume applications and enterprises that require custom limits, dedicated support, and SLA guarantees.
 
-| | |
+| Dimension | Entry limit |
 |---|---|
 | **Price** | Starting from €499 per month |
-| **Rate limit** | Custom RPS allocation |
-| **Monthly quota** | Custom API unit quota |
-| **Webhooks** | Included (higher subscription limits) |
-| **Support** | Priority support |
+| **Authentication** | Required |
+| **Sustained RPS** | 50+ |
+| **Monthly quota** | ~2,000,000+ API units |
+| **Webhooks** | ✓ (10+ subscriptions) |
+| **Support** | Dedicated support |
+
+Custom pricing applies once you exceed the published entry limits or require sustained 100+ RPS, higher quotas, SLA-backed uptime guarantees, webhook delivery guarantees, or dedicated infrastructure.
 
 ## Compare plans
 
 | Feature | Builder | Growth | Scale |
 |---|---|---|---|
 | **Price** | Free | €199/mo | From €499/mo |
-| **RPS** | Shared | Dedicated | Custom |
-| **Monthly API units** | Community tier | Included quota | Custom quota |
-| **Webhooks** | — | ✓ | ✓ |
-| **Support** | Community | Email | Priority |
+| **Sustained RPS** | 5 | 15 | 50+ |
+| **Monthly API units** | ~50k | ~1M | ~2M+ |
+| **Webhooks** | — | ✓ (2) | ✓ (10+) |
+| **Support** | Community | Email | Dedicated |
 | **SLA** | — | — | Available |
 
 ## Important policies
@@ -69,7 +74,7 @@ For high-volume applications and enterprises that require custom limits, dedicat
 </Callout>
 
 <Callout type="info">
-  **No automatic upgrades:** Your plan will not be automatically upgraded. If you need a higher tier, upgrade manually via the developer dashboard.
+  **No automatic upgrades:** Your plan will not be automatically upgraded. Users must explicitly upgrade their plan to increase quotas or service levels.
 </Callout>
 
 ## Getting started
@@ -88,6 +93,10 @@ Yes. You can upgrade or downgrade your plan at any time from the [developer dash
 **What happens if I exceed my quota?**
 
 See [Quotas & Limits](./api-authentication) for the full enforcement policy. In short: you receive warnings at 80–90% usage, a soft cap reduces your RPS at 100%, and a hard cap (HTTP 429) applies after a grace period.
+
+**Can I use the API without authentication?**
+
+Unauthenticated access is available for exploration only, with significantly lower limits (2 RPS, ~5,000 monthly units). Any meaningful production usage requires authentication.
 
 **Is there a free trial of Growth or Scale?**
 
