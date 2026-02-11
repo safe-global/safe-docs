@@ -3,18 +3,30 @@
     "title": "← Go Home",
     "href": "/"
   },
-  "-- Safe{Core} Infrastructure": {
+  "-- Safe Infrastructure": {
     "type": "separator",
-    "title": "Safe{Core} Infrastructure"
+    "title": "Safe Infrastructure"
   },
   "api-overview": "Overview",
-  "api-safe-transaction-service": "Running the Safe Transaction Service",
+  "-- API": {
+    "type": "separator",
+    "title": "API"
+  },
+  "how-to-use-api-keys": "API Keys & Authentication",
+  "api-pricing": "Pricing & Plans",
+  "api-authentication": "Quotas & Limits",
+  "-- Webhooks": {
+    "type": "separator",
+    "title": "Webhooks"
+  },
+  "webhooks-overview": "Overview",
+  "webhooks-setup": "Setup & Configuration",
+  "webhooks-events": "Event Types",
   "-- Safe Transaction Service": {
     "type": "separator",
     "title": "Safe Transaction Service"
   },
   "transaction-service-overview": "Overview",
-  "how-to-use-api-keys": "How to use API keys",
   "transaction-service-supported-networks": {
     "title": "Supported Networks",
     "href": "/advanced/smart-account-supported-networks?service=Transaction+Service"
@@ -29,6 +41,11 @@
       "sidebar": false
     }
   },
+  "-- Self-Hosting": {
+    "type": "separator",
+    "title": "Self-Hosting"
+  },
+  "api-safe-transaction-service": "Running the Safe Transaction Service",
   "-- Safe Installation": {
     "type": "separator",
     "title": "Safe Installation"
