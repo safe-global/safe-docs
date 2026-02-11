@@ -1,6 +1,6 @@
 const MetaTags: React.FC<{ path: string }> = ({ path }) => {
   const description =
-    'Safe{Core} is an open-source and modular account abstraction stack. Learn about its features and how to use it.'
+    'Safe Infrastructure is an open-source and modular account abstraction stack. Learn about its features and how to use it.'
 
   let ogImagePath = 'og_image.png'
   switch (path) {

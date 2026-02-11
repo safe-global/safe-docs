@@ -62,7 +62,7 @@ interface FooterLink {
 
 const safeItems: FooterLink[] = [
   {
-    label: 'Safe{Core}',
+    label: 'Safe Infrastructure',
     href: CORE_LINK,
     target: '_blank',
     rel: 'noreferrer'
