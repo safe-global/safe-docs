@@ -2,7 +2,7 @@
 
 ## Safe Smart Account
 
-The Safe Ecosystem Foundation has a bug bounty program for smart contracts related to the [Safe Smart Account](https://github.com/safe-fndn/safe-smart-account). The details of the bug bounty can be found on the (Safe Foundation website)[https://docs.safefoundation.org/security/bug-bounty].
+The Safe Ecosystem Foundation has a bug bounty program for smart contracts related to the [Safe Smart Account](https://github.com/safe-fndn/safe-smart-account). The details of the bug bounty can be found on the [Safe Foundation website](https://docs.safefoundation.org/security/bug-bounty).
 
 ## Safe{Wallet}
 
