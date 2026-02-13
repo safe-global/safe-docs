@@ -89,7 +89,6 @@ Enforcement is applied at the **account level**, not per API key. This means:
 
 When you receive an HTTP 429 response:
 
-1. **Read the `Retry-After` header** to determine when to retry.
 2. **Implement exponential back-off**—wait progressively longer between retries.
 3. **Queue non-urgent requests**—batch or defer requests that are not time-sensitive.
 4. **Monitor your usage** via the [developer dashboard](https://developer.safe.global).
