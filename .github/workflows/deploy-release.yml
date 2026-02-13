@@ -23,6 +23,8 @@ on:
 jobs:
   create-release:
     if: github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
     uses: safe-global/github-reusable-workflows/.github/workflows/create-release.yaml@v2.1.0
     with:
       tag_version: ${{ inputs.tag_version }}
