@@ -32,7 +32,7 @@ jobs:
       allowed_users: ${{ vars.RELEASE_USERS }}
 
   deploy:
-    if: always() && (needs.create-release.result == 'success' || needs.create-release.result == 'skipped')
+    if: "!cancelled() && (needs.create-release.result == 'success' || needs.create-release.result == 'skipped')"
     needs: create-release
     runs-on: ubuntu-latest
     permissions: write-all
