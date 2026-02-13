@@ -63,6 +63,16 @@ jobs:
           NEXT_PUBLIC_HOST_URL: 'https://docs.safe.global'
           NODE_OPTIONS: '--max-old-space-size=8000'
 
+      - name: Resolve release tag
+        id: tag
+        run: |
+          TAG="${{ needs.create-release.outputs.tag || github.event.release.tag_name }}"
+          if [ -z "$TAG" ]; then
+            echo "::error::Release tag is empty. Aborting to prevent destructive S3 sync."
+            exit 1
+          fi
+          echo "value=$TAG" >> "$GITHUB_OUTPUT"
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -72,7 +82,7 @@ jobs:
       # Deploy the main branch to production environment
       - name: Deploy to the production S3
         env:
-          BUCKET: s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/releases/${{ needs.create-release.outputs.tag || github.event.release.tag_name }}
+          BUCKET: s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/releases/${{ steps.tag.outputs.value }}
         run: bash ./.github/scripts/s3_upload.sh
 
       # Script to prepare production deployments
@@ -80,4 +90,4 @@ jobs:
         env:
           PROD_DEPLOYMENT_HOOK_TOKEN: ${{ secrets.PROD_DEPLOYMENT_HOOK_TOKEN }}
           PROD_DEPLOYMENT_HOOK_URL: ${{ secrets.PROD_DEPLOYMENT_HOOK_URL }}
-          VERSION_TAG: ${{ needs.create-release.outputs.tag || github.event.release.tag_name }}
+          VERSION_TAG: ${{ steps.tag.outputs.value }}
