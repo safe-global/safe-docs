@@ -65,13 +65,14 @@ jobs:
 
       - name: Resolve release tag
         id: tag
+        env:
+          RELEASE_TAG: ${{ needs.create-release.outputs.tag || github.event.release.tag_name }}
         run: |
-          TAG="${{ needs.create-release.outputs.tag || github.event.release.tag_name }}"
-          if [ -z "$TAG" ]; then
+          if [ -z "$RELEASE_TAG" ]; then
             echo "::error::Release tag is empty. Aborting to prevent destructive S3 sync."
             exit 1
           fi
-          echo "value=$TAG" >> "$GITHUB_OUTPUT"
+          echo "value=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
