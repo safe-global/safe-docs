@@ -23,7 +23,7 @@ on:
 jobs:
   create-release:
     if: github.event_name == 'workflow_dispatch'
-    uses: safe-global/github-reusable-workflows/.github/workflows/create-release.yaml@main
+    uses: safe-global/github-reusable-workflows/.github/workflows/create-release.yaml@v2.1.0
     with:
       tag_version: ${{ inputs.tag_version }}
       bump_type: ${{ inputs.bump_type }}
