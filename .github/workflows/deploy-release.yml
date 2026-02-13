@@ -4,11 +4,38 @@ on:
   release:
     types: [published]
 
+  workflow_dispatch:
+    inputs:
+      tag_version:
+        description: "Tag version (e.g., v4.38.0). Leave empty to auto-generate next patch."
+        required: false
+        default: ""
+      bump_type:
+        description: "Version bump type (when auto-generating)"
+        required: false
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
 jobs:
+  create-release:
+    if: github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
+    uses: safe-global/github-reusable-workflows/.github/workflows/create-release.yaml@v2.1.0
+    with:
+      tag_version: ${{ inputs.tag_version }}
+      bump_type: ${{ inputs.bump_type }}
+      allowed_users: ${{ vars.RELEASE_USERS }}
+
   deploy:
+    if: "!cancelled() && (needs.create-release.result == 'success' || needs.create-release.result == 'skipped')"
+    needs: create-release
     runs-on: ubuntu-latest
     permissions: write-all
-
     name: Deploy release
 
     steps:
@@ -36,6 +63,16 @@ jobs:
           NEXT_PUBLIC_HOST_URL: 'https://docs.safe.global'
           NODE_OPTIONS: '--max-old-space-size=8000'
 
+      - name: Resolve release tag
+        id: tag
+        env:
+          RELEASE_TAG: ${{ needs.create-release.outputs.tag || github.event.release.tag_name }}
+        run: |
+          if [ -z "$RELEASE_TAG" ]; then
+            echo "::error::Release tag is empty. Aborting to prevent destructive S3 sync."
+            exit 1
+          fi
+          echo "value=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
@@ -46,7 +83,7 @@ jobs:
       # Deploy the main branch to production environment
       - name: Deploy to the production S3
         env:
-          BUCKET: s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/releases/${{ github.event.release.tag_name }}
+          BUCKET: s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/releases/${{ steps.tag.outputs.value }}
         run: bash ./.github/scripts/s3_upload.sh
 
       # Script to prepare production deployments
@@ -54,4 +91,4 @@ jobs:
         env:
           PROD_DEPLOYMENT_HOOK_TOKEN: ${{ secrets.PROD_DEPLOYMENT_HOOK_TOKEN }}
           PROD_DEPLOYMENT_HOOK_URL: ${{ secrets.PROD_DEPLOYMENT_HOOK_URL }}
-          VERSION_TAG: ${{ github.event.release.tag_name }}
+          VERSION_TAG: ${{ steps.tag.outputs.value }}
