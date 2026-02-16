@@ -76,11 +76,12 @@ You can filter webhook subscriptions by:
 
 - **Chain ID**: Only receive events for specific networks (e.g., Ethereum mainnet, Polygon).
 - **Event type**: Subscribe to specific event types only.
+- **Address**: Filter events for specific Ethereum addresses.
 
 ## Security recommendations
 
 - **Use HTTPS**: Webhook endpoints must use HTTPS to protect event payloads in transit.
-- **Configure HTTP Basic Auth**: Add authentication to your endpoint to verify that requests originate from Safe Infrastructure.
+- **Configure an Authorization header**: Add authentication to your endpoint to verify that requests originate from Safe Infrastructure.
 - **Validate payloads**: Check that the event payload structure matches the expected schema before processing.
 
 ## Subscription limits

@@ -15,7 +15,7 @@ curl -X GET "https://api.safe.global/tx-service/eth/api/v2/safes/0x..." \
 Generate your API key at the [developer dashboard ↗](https://developer.safe.global). For step-by-step instructions, see [API Keys & Authentication](./how-to-use-api-keys).
 
 <Callout type="info">
-  Unauthenticated access is available for exploration only, with lower limits (2 RPS, ~5,000 monthly units). Authenticated requests receive significantly higher rate limits and quotas.
+  Unauthenticated access is available for exploration only, with lower limits (2 RPS, ~5,000 monthly requests). Authenticated requests receive significantly higher rate limits and quotas.
 </Callout>
 
 ### Why authenticate?
@@ -28,16 +28,16 @@ Generate your API key at the [developer dashboard ↗](https://developer.safe.gl
 
 All usage is measured in **API units**:
 
-> **1 API unit = 1 HTTP request OR 1 webhook delivery**
+> **1 API unit = 1 HTTP request**
 
 ## Per-plan limits
 
-| Plan | Sustained RPS | Monthly quota |
+| Plan | Sustained RPS | Monthly requests |
 |---|---|---|
-| Unauthenticated | 2 | ~5,000 API units |
-| Builder (Free) | 5 | ~50,000 API units |
-| Growth (€199/mo) | 15 | ~1,000,000 API units |
-| Scale (from €499/mo) | 50+ | ~2,000,000+ API units |
+| Unauthenticated | 2 | ~5,000 API requests |
+| Builder (Free) | 5 | ~50,000 API requests |
+| Growth (€199/mo) | 15 | ~1,000,000 API requests |
+| Scale (from €499/mo) | 50+ | ~3,000,000+ API requests |
 
 See [Pricing & Plans](./api-pricing) for full plan details.
 
@@ -45,11 +45,18 @@ See [Pricing & Plans](./api-pricing) for full plan details.
 
 ### Quota headers
 
-Every API response includes HTTP headers that indicate your current quota status:
+### Quota headers
 
-- **Quota limit**: Your total monthly API unit allowance.
-- **Remaining requests**: How many API units you have left in the current billing cycle.
-- **Reset timer**: Seconds remaining until your quota resets.
+Every API response includes headers that indicate your current quota status:
+```
+X-RateLimit-Limit | 50000
+X-RateLimit-Remaining | 49994
+X-RateLimit-Reset | 2591751 (seconds to reset)
+```
+
+- **X-RateLimit-Limit**: Your total monthly request allowance.
+- **X-RateLimit-Remaining**: How many requests you have left in the current billing cycle.
+- **X-RateLimit-Reset**: Seconds remaining until your quota resets.
 
 These headers allow your application to monitor usage programmatically and take action before hitting limits.
 
@@ -69,9 +76,7 @@ Example 429 response:
 }
 ```
 
-<Callout type="info">
-  **No dashboard usage monitoring in v1.** Quota information is available via response headers on every API request. A web-based usage dashboard is planned for a future release.
-</Callout>
+
 
 ## Account-level enforcement
 
@@ -89,35 +94,13 @@ Enforcement is applied at the **account level**, not per API key. This means:
 
 When you receive an HTTP 429 response:
 
-2. **Implement exponential back-off**—wait progressively longer between retries.
-3. **Queue non-urgent requests**—batch or defer requests that are not time-sensitive.
-4. **Monitor your usage** via the [developer dashboard](https://developer.safe.global).
 
-### Example: Handling 429 responses
-```typescript
-async function fetchWithRetry(
-  url: string,
-  options: RequestInit,
-  maxRetries = 3
-) {
-  for (let attempt = 0; attempt < maxRetries; attempt++) {
-    const response = await fetch(url, options);
+1. **Wait and retry** with exponential back-off.
+2. **Upgrade your plan** if you consistently hit limits.
+3. **Monitor your usage** via the `X-RateLimit-Remaining` response header.
+>>>>>>> 50308a4 (fix: address PR review feedback — quotas, headers, webhooks, terminology)
 
-    if (response.status === 429) {
-      const retryAfter = parseInt(
-        response.headers.get('Retry-After') || '30',
-        10
-      );
-      const backoff = retryAfter * 1000 * Math.pow(2, attempt);
-      await new Promise(resolve => setTimeout(resolve, backoff));
-      continue;
-    }
 
-    return response;
-  }
-
-  throw new Error('Max retries exceeded');
-}
 ```
 
 ## Security best practices

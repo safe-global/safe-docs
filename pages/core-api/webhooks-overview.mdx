@@ -65,13 +65,12 @@ If your endpoint does not respond with a `2xx` status code, Safe Infrastructure 
 
 ## Security
 
-We recommend configuring **HTTP Basic Auth** on your webhook endpoint so that only authenticated requests from Safe Infrastructure are accepted. This prevents malicious actors from posting fake events to your service.
+We recommend configuring an **Authorization header** on your webhook endpoint so that only authenticated requests from Safe Infrastructure are accepted. You can set this up in the developer dashboard when creating your webhook. This prevents malicious actors from posting fake events to your service.
 
 ## Important notes
 
 - Webhook payloads are intentionally minimal. They serve as **signals** to notify your application that something changed. Use the [API](./transaction-service-overview) to fetch full details after receiving an event.
-- Safe Infrastructure does **not** send notifications for blockchain reorgs. Always verify event data against the API.
-
+- Safe Infrastructure sends notifications for blockchain reorgs. Always verify event data against the API to ensure consistency.
 ## Next steps
 
 - [Setup & Configuration](./webhooks-setup) — Configure your webhook endpoints.
