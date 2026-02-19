@@ -2,12 +2,12 @@ import { Callout } from 'nextra/components'
 
 # Webhooks Overview
 
-Webhooks allow you to receive real-time HTTP notifications when events occur on Safe Smart Accounts. Instead of polling the API for changes, your application receives push notifications as events happen — enabling efficient, event-driven architectures.
+Webhooks allow you to receive real-time HTTP notifications when events occur on Safe Smart Accounts. Instead of polling the API for changes, your application receives push notifications as events happen, enabling efficient, event-driven architectures.
 
 ## How webhooks work
 
 1. **Subscribe**: Configure a webhook endpoint URL in the [developer dashboard ↗](https://developer.safe.global).
-2. **Receive**: When a relevant event occurs (e.g., a transaction is proposed, confirmed, or executed), Safe Infrastructure sends an HTTP POST request to your endpoint with event details in the JSON body.
+2. **Receive**: When a relevant event occurs (for example, a transaction is proposed, confirmed, or executed), Safe Infrastructure sends an HTTP POST request to your endpoint with event details in the JSON body.
 3. **Process**: Your server processes the event and responds with a `200 OK` status to acknowledge receipt.
 
 ## Availability
@@ -55,7 +55,7 @@ For full payload schemas, see [Event Types](./webhooks-events).
 
 If your endpoint does not respond with a `2xx` status code, Safe Infrastructure retries the delivery:
 
-- Retries use **exponential backoff**.
+- Retries use **exponential back-off**.
 - Deliveries are retried a limited number of times before being marked as failed.
 - Each retry attempt counts as an additional API unit.
 
@@ -73,6 +73,6 @@ We recommend configuring an **Authorization header** on your webhook endpoint so
 - Safe Infrastructure sends notifications for blockchain reorgs. Always verify event data against the API to ensure consistency.
 ## Next steps
 
-- [Setup & Configuration](./webhooks-setup) — Configure your webhook endpoints.
-- [Event Types](./webhooks-events) — Detailed payload schemas for each event type.
-- [Quotas & Limits](./api-authentication) — Understand how webhook deliveries affect your quota.
+- [Setup & Configuration](./webhooks-setup): Configure your webhook endpoints.
+- [Event Types](./webhooks-events): Detailed payload schemas for each event type.
+- [Quotas & Limits](./api-authentication): Understand how webhook deliveries affect your quota.
