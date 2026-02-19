@@ -49,8 +49,6 @@ Plan your quota accordingly if you expect high volumes of webhook events.
 | `MESSAGE_CONFIRMATION` | A confirmation was added to an off-chain message. |
 | `SAFE_CREATED` | A new Safe was created. |
 
-For full payload schemas, see [Event Types](./webhooks-events).
-
 ## Retry semantics
 
 If your endpoint does not respond with a `2xx` status code, Safe Infrastructure retries the delivery:
@@ -74,5 +72,4 @@ We recommend configuring an **Authorization header** on your webhook endpoint so
 ## Next steps
 
 - [Setup & Configuration](./webhooks-setup): Configure your webhook endpoints.
-- [Event Types](./webhooks-events): Detailed payload schemas for each event type.
 - [Quotas & Limits](./api-authentication): Understand how webhook deliveries affect your quota.
