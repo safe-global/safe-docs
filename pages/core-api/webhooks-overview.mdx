@@ -1,0 +1,75 @@
+import { Callout } from 'nextra/components'
+
+# Webhooks Overview
+
+Webhooks allow you to receive real-time HTTP notifications when events occur on Safe Smart Accounts. Instead of polling the API for changes, your application receives push notifications as events happen, enabling efficient, event-driven architectures.
+
+## How webhooks work
+
+1. **Subscribe**: Configure a webhook endpoint URL in the [developer dashboard ↗](https://developer.safe.global).
+2. **Receive**: When a relevant event occurs (for example, a transaction is proposed, confirmed, or executed), Safe Infrastructure sends an HTTP POST request to your endpoint with event details in the JSON body.
+3. **Process**: Your server processes the event and responds with a `200 OK` status to acknowledge receipt.
+
+## Availability
+
+<Callout type="info">
+  Webhooks are available starting from the **Growth** plan (€199/month). They are not available on the free Builder plan.
+</Callout>
+
+| Plan | Webhooks | Subscription limits |
+|---|---|---|
+| Builder (Free) | Not available | — |
+| Growth (€199/mo) | ✓ | 2 |
+| Scale (€499/mo) | ✓ | 10 |
+
+See [Pricing & Plans](./api-pricing) for the full plan comparison.
+
+## Webhook deliveries count as API units
+
+Each webhook delivery counts as **1 API unit**, the same as an HTTP request. This means webhook deliveries consume from your monthly API unit quota alongside regular API calls.
+
+> **1 API unit = 1 HTTP request OR 1 webhook delivery**
+
+Plan your quota accordingly if you expect high volumes of webhook events.
+
+## Supported event types
+
+| Event type | Description |
+|---|---|
+| `NEW_CONFIRMATION` | A new signature was added to a pending transaction. |
+| `EXECUTED_MULTISIG_TRANSACTION` | A multisig transaction was executed on-chain. |
+| `PENDING_MULTISIG_TRANSACTION` | A new multisig transaction was proposed. |
+| `DELETED_MULTISIG_TRANSACTION` | A pending multisig transaction was deleted. |
+| `INCOMING_TOKEN` | An ERC-20 token transfer was received. |
+| `INCOMING_ETHER` | A native token (ETH) transfer was received. |
+| `OUTGOING_TOKEN` | An ERC-20 token transfer was sent. |
+| `OUTGOING_ETHER` | A native token (ETH) transfer was sent. |
+| `MODULE_TRANSACTION` | A transaction was executed via a module. |
+| `MESSAGE_CREATED` | A new off-chain message was created. |
+| `MESSAGE_CONFIRMATION` | A confirmation was added to an off-chain message. |
+| `SAFE_CREATED` | A new Safe was created. |
+
+## Retry semantics
+
+If your endpoint does not respond with a `2xx` status code, Safe Infrastructure retries the delivery:
+
+- Retries use **exponential back-off**.
+- Deliveries are retried a limited number of times before being marked as failed.
+- Each retry attempt counts as an additional API unit.
+
+<Callout type="warning">
+  Ensure your webhook endpoint responds quickly (within a few seconds) and returns `200 OK` to acknowledge receipt. Process events asynchronously to avoid timeouts.
+</Callout>
+
+## Security
+
+We recommend configuring an **Authorization header** on your webhook endpoint so that only authenticated requests from Safe Infrastructure are accepted. You can set this up in the developer dashboard when creating your webhook. This prevents malicious actors from posting fake events to your service.
+
+## Important notes
+
+- Webhook payloads are intentionally minimal. They serve as **signals** to notify your application that something changed. Use the [API](./transaction-service-overview) to fetch full details after receiving an event.
+- Safe Infrastructure sends notifications for blockchain reorgs. Always verify event data against the API to ensure consistency.
+## Next steps
+
+- [Setup & Configuration](./webhooks-setup): Configure your webhook endpoints.
+- [Quotas & Limits](./api-authentication): Understand how webhook deliveries affect your quota.

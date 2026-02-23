@@ -1,0 +1,91 @@
+import { Callout } from 'nextra/components'
+
+# Pricing & Plans
+
+Safe Infrastructure offers tiered plans designed to scale with your project—from early prototyping to production-grade deployments.
+
+## API requests definition
+
+All plans measure usage in **API requests**. One API requests equals:
+
+- **1 HTTP request** to any Safe Infrastructure API endpoint 
+
+
+## Plans
+
+### Builder (Free)
+
+For developers exploring Safe Infrastructure, building prototypes, or running low-traffic integrations.
+
+| Dimension | Limit |
+|---|---|
+| **Price** | Free |
+| **Authentication** | Required |
+| **Sustained RPS** | 5 |
+| **Monthly requests** | 50,000 API requests |
+| **Webhooks** | Not included |
+| **Support** | Not included |
+
+### Growth (€199/month)
+
+For production applications that need reliable throughput, webhook access, and predictable quotas.
+
+| Dimension | Limit |
+|---|---|
+| **Price** | €199 per month |
+| **Authentication** | Required |
+| **Sustained RPS** | 15 |
+| **Monthly requests** | 1,000,000 API requests |
+| **Webhooks** | 2 subscriptions |
+| **Support** | Included |
+
+### Scale (€499/month)
+
+For high-volume applications and enterprises that require custom limits, dedicated support, and SLA guarantees.
+
+| Dimension | Entry limit |
+|---|---|
+| **Price** | Starting from €499 per month |
+| **Authentication** | Required |
+| **Sustained RPS** | 50 |
+| **Monthly requests** | 3,000,000 API requests |
+| **Webhooks** | 10 subscriptions |
+| **Support** | Dedicated |
+
+Custom pricing applies once you exceed the published entry limits or require sustained 100+ RPS, higher quotas, SLA-backed uptime guarantees, webhook delivery guarantees, or dedicated infrastructure.
+
+## Compare plans
+
+| Feature | Builder | Growth | Scale |
+|---|---|---|---|
+| **Price** | Free | €199/mo | €499/mo |
+| **Sustained RPS** | 5 | 15 | 50 |
+| **Monthly API requests** | 50k | 1M | 3M |
+| **Webhooks** | — | 2 | 10 |
+| **Support** | Not included | Chat | Dedicated |
+| **SLA** | — | — | Available |
+
+## Getting started
+
+1. Visit the [developer dashboard ↗](https://developer.safe.global).
+2. Create an account and generate an API key.
+3. Start building on the **Builder** plan at no cost.
+4. Upgrade to **Growth** or **Scale** when your project is ready for production.
+
+## FAQ
+
+**What if I need a higher plan?**
+
+Contact the Safe team at [support@safe.global](mailto:support@safe.global) to discuss custom plans and pricing.
+
+**What happens if I exceed my quota?**
+
+When you reach your monthly quota, subsequent requests are blocked with an HTTP 429 response. You can monitor your remaining quota via response headers on every API call. See [Quotas & Limits](./api-authentication) for details.
+
+**Can I use the API without authentication?**
+
+Unauthenticated access is available for exploration only, with significantly lower limits (2 RPS, 5,000 monthly requests). Any meaningful production usage requires authentication.
+
+**Is there a free trial of Growth or Scale?**
+
+Contact the Safe team at [support@safe.global](mailto:support@safe.global) to discuss trial options.

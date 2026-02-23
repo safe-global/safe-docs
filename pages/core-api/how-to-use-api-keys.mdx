@@ -2,19 +2,19 @@ import { Tabs, Callout } from 'nextra/components'
 
 # How to use API Keys
 
-To enhance the security and reliability of your integrations, Safe is introducing **authenticated API access**.
+To enhance the security and reliability of your integrations, Safe Infrastructure uses **authenticated API access**.
 Authenticated requests ensure that only authorized applications and developers can interact with our services, protecting your data and the overall ecosystem.
 
-<Callout type='warning' emoji='⚠️'>
-  Public (unauthenticated) API endpoints will soon be deprecated. To prevent any disruptions, we strongly recommend transitioning your integrations to authenticated API access as soon as possible.
+<Callout type='info'>
+  Authenticated requests receive higher rate limits and dedicated quotas. See [Pricing & Plans](./api-pricing) for details on what each plan includes.
 </Callout>
 
 This guide explains how to generate an API key, use it for authenticated requests, and handle rate limits, errors, and security best practices.
 
 ## Getting a Safe API Key
 
-1. Visit the [Safe API Dashboard](https://developer.safe.global/).
-2. Create an account (if you haven’t already).
+1. Visit the [developer dashboard](https://developer.safe.global/).
+2. Create an account (if you haven't already).
 3. Generate your API key in the **API Keys** section.
 
 _The API Key is a JWT, which is set to expire after 5 years._
@@ -46,11 +46,10 @@ To authenticate your requests, include your API key in the Authorization header.
         .then((response) => response.json())
         .then((data) => console.log(data))
         .catch((error) => console.error("Error:", error));
-      ```
+    ```
   </Tabs.Tab>
   <Tabs.Tab>
     ⚠️ Available from @safe-global/api-kit v4.0.0
-
     ```javascript
       import SafeApiKit from "@safe-global/api-kit";
 
@@ -64,8 +63,7 @@ To authenticate your requests, include your API key in the Authorization header.
       );
 
       console.log(multisigTransactions);
-      ```
-
+    ```
   </Tabs.Tab>
 </Tabs>
 
@@ -73,14 +71,23 @@ To authenticate your requests, include your API key in the Authorization header.
 
 ## Rate Limits and Usage Tiers
 
-The Safe API currently has a default rate limit of 5 requests per second. If you require a higher rate limit, please contact us at support@safe.global to discuss upgrading your tier and to understand usage quotas.
+Rate limits and monthly quotas depend on your plan:
+
+| Plan | Sustained RPS | Monthly quota |
+|---|---|---|
+| Unauthenticated | 2 | 5,000 API units |
+| Builder (Free) | 5 | 50,000 API units |
+| Growth (€199/mo) | 15 | 1,000,000 API units |
+| Scale (€499/mo) | 50 | 3,000,000 API units |
+
+For full details on enforcement behavior when limits are reached, see [Quotas & Limits](./api-authentication).
 
 ## Error Handling
 
 If your API key is invalid or exceeds its rate limit, the API returns standard HTTP error codes:
 
 - `401 Unauthorized`: Invalid or missing API key.
-- `429 Too Many Requests`: Rate limit exceeded.
+- `429 Too Many Requests`: Rate limit or quota exceeded. See [Quotas & Limits](./api-authentication) for how to handle this.
 
 Make sure your application gracefully handles these errors to avoid disruptions.
 

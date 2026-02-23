@@ -1,0 +1,100 @@
+import { Callout } from 'nextra/components'
+
+# Setup & Configuration
+
+This page explains how to configure webhook endpoints to receive real-time event notifications from Safe Infrastructure.
+
+<Callout type="info">
+  Webhooks require a **Growth** or **Scale** plan. See [Pricing & Plans](./api-pricing) for details.
+</Callout>
+
+## Prerequisites
+
+Before setting up webhooks, you need:
+
+1. A Safe Infrastructure account on the Growth or Scale plan.
+2. An API key from the [developer dashboard ↗](https://developer.safe.global).
+3. A publicly accessible HTTPS endpoint that can receive POST requests.
+
+## Configuring a webhook endpoint
+
+### Via the developer dashboard
+
+1. Log in to the [developer dashboard](https://developer.safe.global).
+2. Navigate to **Webhooks**.
+3. Click **Add Endpoint**.
+4. Enter your endpoint URL (must be HTTPS).
+5. Select the event types you want to subscribe to.
+6. Optionally, filter by chain ID or Safe address.
+7. Save your configuration.
+
+### Endpoint requirements
+
+Your webhook endpoint must:
+
+- Accept `POST` requests with `Content-Type: application/json`.
+- Respond with a `2xx` HTTP status code within a reasonable timeout (recommended: under 5 seconds).
+- Be publicly reachable over HTTPS.
+
+## Example: Minimal webhook receiver (Node.js)
+```javascript
+import express from 'express';
+
+const app = express();
+app.use(express.json());
+
+app.post('/webhooks/safe', (req, res) => {
+  const event = req.body;
+
+  console.log(`Received event: ${event.type} for Safe ${event.address}`);
+
+  // Process the event asynchronously
+  processEvent(event).catch(console.error);
+
+  // Acknowledge receipt immediately
+  res.status(200).send('OK');
+});
+
+async function processEvent(event) {
+  switch (event.type) {
+    case 'EXECUTED_MULTISIG_TRANSACTION':
+      // Handle executed transaction
+      break;
+    case 'INCOMING_ETHER':
+      // Handle incoming ETH
+      break;
+    // ... handle other event types
+  }
+}
+
+app.listen(3000, () => console.log('Webhook receiver listening on port 3000'));
+```
+
+## Filtering
+
+You can filter webhook subscriptions by:
+
+- **Chain ID**: Only receive events for specific networks (for example, Ethereum mainnet, Polygon).
+- **Event type**: Subscribe to specific event types only.
+- **Address**: Filter events for specific Ethereum addresses.
+
+## Security recommendations
+
+- **Use HTTPS**: Webhook endpoints must use HTTPS to protect event payloads in transit.
+- **Configure an Authorization header**: Add authentication to your endpoint to verify that requests originate from Safe Infrastructure.
+- **Validate payloads**: Check that the event payload structure matches the expected schema before processing.
+
+## Subscription limits
+
+The number of webhook subscriptions you can configure depends on your plan:
+
+| Plan | Subscription limit |
+|---|---|
+| Growth | Standard |
+| Scale | Higher (custom) |
+
+Contact [support@safe.global](mailto:support@safe.global) if you need additional subscriptions beyond your plan's limit.
+
+## Next steps
+
+- [Webhooks Overview](./webhooks-overview): How webhooks work and retry semantics.
