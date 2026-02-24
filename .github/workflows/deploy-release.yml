@@ -1,4 +1,4 @@
-name: Release
+name: Create Release
 
 on:
   release:
@@ -25,7 +25,7 @@ jobs:
     if: github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
-    uses: safe-global/github-reusable-workflows/.github/workflows/create-release.yaml@v2.1.0
+    uses: safe-global/github-reusable-workflows/.github/workflows/create-release.yaml@v2.2.0
     with:
       tag_version: ${{ inputs.tag_version }}
       bump_type: ${{ inputs.bump_type }}
