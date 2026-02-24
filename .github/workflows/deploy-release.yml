@@ -4,32 +4,128 @@ on:
   release:
     types: [published]
 
-  # workflow_dispatch:
-  #   inputs:
-  #     tag_version:
-  #       description: "Tag version (e.g., v4.38.0). Leave empty to auto-generate next patch."
-  #       required: false
-  #       default: ""
-  #     bump_type:
-  #       description: "Version bump type (when auto-generating)"
-  #       required: false
-  #       default: "patch"
-  #       type: choice
-  #       options:
-  #         - patch
-  #         - minor
-  #         - major
+  workflow_dispatch:
+    inputs:
+      tag_version:
+        description: "Tag version (e.g., v4.38.0). Leave empty to auto-generate next patch."
+        required: false
+        default: ""
+      bump_type:
+        description: "Version bump type (when auto-generating)"
+        required: false
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
 
 jobs:
-  # create-release:
-  #   if: github.event_name == 'workflow_dispatch'
-  #   permissions:
-  #     contents: write
-  #   uses: safe-global/github-reusable-workflows/.github/workflows/create-release.yaml@v2.2.0
-  #   with:
-  #     tag_version: ${{ inputs.tag_version }}
-  #     bump_type: ${{ inputs.bump_type }}
-  #     allowed_users: ${{ vars.RELEASE_USERS }}
+  create-release:
+    if: github.event_name == 'workflow_dispatch'
+    name: Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
+
+    steps:
+      - name: Check authorization
+        if: vars.RELEASE_USERS != ''
+        run: |
+          ALLOWED="${{ vars.RELEASE_USERS }}"
+          ACTOR="${{ github.actor }}"
+
+          IFS=',' read -ra USERS <<< "$ALLOWED"
+          for user in "${USERS[@]}"; do
+            user=$(echo "$user" | xargs)
+            if [ "$user" = "$ACTOR" ]; then
+              echo "$ACTOR is authorized to create releases."
+              exit 0
+            fi
+          done
+
+          echo "::error::$ACTOR is not authorized to create releases. Allowed users: $ALLOWED"
+          exit 1
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine tag version
+        id: version
+        run: |
+          PREFIX="v"
+
+          if [ -n "${{ inputs.tag_version }}" ]; then
+            TAG="${{ inputs.tag_version }}"
+            echo "Using provided tag: $TAG"
+          else
+            LATEST_TAG=$(git tag --list "${PREFIX}*" --sort=-v:refname | head -n 1)
+
+            if [ -z "$LATEST_TAG" ]; then
+              echo "::error::No existing tags found with prefix '${PREFIX}'. Please provide a tag_version manually."
+              exit 1
+            fi
+
+            echo "Latest tag: $LATEST_TAG"
+
+            VERSION="${LATEST_TAG#$PREFIX}"
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+
+            case "${{ inputs.bump_type }}" in
+              major)
+                MAJOR=$((MAJOR + 1))
+                MINOR=0
+                PATCH=0
+                ;;
+              minor)
+                MINOR=$((MINOR + 1))
+                PATCH=0
+                ;;
+              patch)
+                PATCH=$((PATCH + 1))
+                ;;
+              *)
+                echo "::error::Invalid bump_type '${{ inputs.bump_type }}'. Must be major, minor, or patch."
+                exit 1
+                ;;
+            esac
+
+            TAG="${PREFIX}${MAJOR}.${MINOR}.${PATCH}"
+            echo "Auto-generated tag: $TAG"
+          fi
+
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "::error::Tag '$TAG' already exists. Please provide a different version."
+            exit 1
+          fi
+
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        id: create
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ steps.version.outputs.tag }}"
+          FLAGS=(--title "$TAG" --target "${{ github.sha }}" --generate-notes)
+
+          RELEASE_URL=$(gh release create "$TAG" "${FLAGS[@]}" 2>&1)
+
+          echo "release_url=$RELEASE_URL" >> "$GITHUB_OUTPUT"
+          echo "Release created: $RELEASE_URL"
+
+      - name: Summary
+        run: |
+          echo "## Release Created" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Item | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|------|-------|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Tag | \`${{ steps.version.outputs.tag }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Target commit | \`${{ github.sha }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Release | ${{ steps.create.outputs.release_url }} |" >> "$GITHUB_STEP_SUMMARY"
 
   deploy:
     if: "!cancelled() && (needs.create-release.result == 'success' || needs.create-release.result == 'skipped')"
