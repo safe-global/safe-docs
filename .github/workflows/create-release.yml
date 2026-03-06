@@ -27,10 +27,10 @@ jobs:
     steps:
       - name: Check authorization
         if: vars.RELEASE_USERS != ''
+        env:
+          ALLOWED: ${{ vars.RELEASE_USERS }}
+          ACTOR: ${{ github.actor }}
         run: |
-          ALLOWED="${{ vars.RELEASE_USERS }}"
-          ACTOR="${{ github.actor }}"
-
           IFS=',' read -ra USERS <<< "$ALLOWED"
           for user in "${USERS[@]}"; do
             user=$(echo "$user" | xargs)
@@ -57,11 +57,14 @@ jobs:
 
       - name: Determine tag version
         id: version
+        env:
+          INPUT_TAG_VERSION: ${{ inputs.tag_version }}
+          INPUT_BUMP_TYPE: ${{ inputs.bump_type }}
         run: |
           PREFIX="v"
 
-          if [ -n "${{ inputs.tag_version }}" ]; then
-            TAG="${{ inputs.tag_version }}"
+          if [ -n "$INPUT_TAG_VERSION" ]; then
+            TAG="$INPUT_TAG_VERSION"
             echo "Using provided tag: $TAG"
           else
             LATEST_TAG=$(git tag --list "${PREFIX}*" --sort=-v:refname | head -n 1)
@@ -76,7 +79,7 @@ jobs:
             VERSION="${LATEST_TAG#$PREFIX}"
             IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
 
-            case "${{ inputs.bump_type }}" in
+            case "$INPUT_BUMP_TYPE" in
               major)
                 MAJOR=$((MAJOR + 1))
                 MINOR=0
@@ -90,7 +93,7 @@ jobs:
                 PATCH=$((PATCH + 1))
                 ;;
               *)
-                echo "::error::Invalid bump_type '${{ inputs.bump_type }}'. Must be major, minor, or patch."
+                echo "::error::Invalid bump_type '$INPUT_BUMP_TYPE'. Must be major, minor, or patch."
                 exit 1
                 ;;
             esac
@@ -110,9 +113,10 @@ jobs:
         id: create
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+          TARGET_SHA: ${{ github.sha }}
         run: |
-          TAG="${{ steps.version.outputs.tag }}"
-          FLAGS=(--title "$TAG" --target "${{ github.sha }}" --generate-notes)
+          FLAGS=(--title "$TAG" --target "$TARGET_SHA" --generate-notes)
 
           RELEASE_URL=$(gh release create "$TAG" "${FLAGS[@]}" 2>&1)
 
@@ -120,11 +124,15 @@ jobs:
           echo "Release created: $RELEASE_URL"
 
       - name: Summary
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+          TARGET_SHA: ${{ github.sha }}
+          RELEASE_URL: ${{ steps.create.outputs.release_url }}
         run: |
           echo "## Release Created" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "| Item | Value |" >> "$GITHUB_STEP_SUMMARY"
           echo "|------|-------|" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Tag | \`${{ steps.version.outputs.tag }}\` |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Target commit | \`${{ github.sha }}\` |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Release | ${{ steps.create.outputs.release_url }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Tag | \`$TAG\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Target commit | \`$TARGET_SHA\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Release | $RELEASE_URL |" >> "$GITHUB_STEP_SUMMARY"
