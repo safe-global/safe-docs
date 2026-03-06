@@ -48,10 +48,6 @@ jobs:
           echo "::error::$ACTOR is not authorized to create releases. Allowed users: $ALLOWED"
           exit 1
 
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
       - name: Generate GitHub App token
         id: app-token
         uses: actions/create-github-app-token@v1
@@ -59,6 +55,11 @@ jobs:
           app-id: ${{ secrets.MODULE_ACCESS_APP_ID }}
           private-key: ${{ secrets.MODULE_ACCESS_PRIVATE_KEY }}
           owner: safe-global
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Determine tag version
         id: version
