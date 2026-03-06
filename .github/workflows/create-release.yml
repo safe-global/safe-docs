@@ -16,6 +16,11 @@ on:
         description: 'Exact tag version (overrides bump_type, e.g. v1.2.3)'
         required: false
         type: string
+      bump_package_json:
+        description: 'Update version in package.json'
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   create-release:
@@ -109,24 +114,39 @@ jobs:
 
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
+      - name: Bump package.json version
+        if: inputs.bump_package_json
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          VERSION="${TAG#v}"
+          npm version "$VERSION" --no-git-tag-version
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json
+          git commit -m "Set release version to $TAG"
+          git push
+
       - name: Create GitHub Release
         id: create
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           TAG: ${{ steps.version.outputs.tag }}
-          TARGET_SHA: ${{ github.sha }}
         run: |
+          TARGET_SHA=$(git rev-parse HEAD)
           FLAGS=(--title "$TAG" --target "$TARGET_SHA" --generate-notes)
 
           RELEASE_URL=$(gh release create "$TAG" "${FLAGS[@]}")
 
           echo "release_url=$RELEASE_URL" >> "$GITHUB_OUTPUT"
+          echo "target_sha=$TARGET_SHA" >> "$GITHUB_OUTPUT"
           echo "Release created: $RELEASE_URL"
 
       - name: Summary
         env:
           TAG: ${{ steps.version.outputs.tag }}
-          TARGET_SHA: ${{ github.sha }}
+          TARGET_SHA: ${{ steps.create.outputs.target_sha }}
           RELEASE_URL: ${{ steps.create.outputs.release_url }}
         run: |
           echo "## Release Created" >> "$GITHUB_STEP_SUMMARY"
