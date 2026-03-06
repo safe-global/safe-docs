@@ -1,0 +1,138 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: 'Version bump type'
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+        default: patch
+      tag_version:
+        description: 'Exact tag version (overrides bump_type, e.g. v1.2.3)'
+        required: false
+        type: string
+
+jobs:
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check authorization
+        if: vars.RELEASE_USERS != ''
+        env:
+          ALLOWED: ${{ vars.RELEASE_USERS }}
+          ACTOR: ${{ github.actor }}
+        run: |
+          IFS=',' read -ra USERS <<< "$ALLOWED"
+          for user in "${USERS[@]}"; do
+            user=$(echo "$user" | xargs)
+            if [ "$user" = "$ACTOR" ]; then
+              echo "$ACTOR is authorized to create releases."
+              exit 0
+            fi
+          done
+
+          echo "::error::$ACTOR is not authorized to create releases. Allowed users: $ALLOWED"
+          exit 1
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.MODULE_ACCESS_APP_ID }}
+          private-key: ${{ secrets.MODULE_ACCESS_PRIVATE_KEY }}
+          owner: safe-global
+
+      - name: Determine tag version
+        id: version
+        env:
+          INPUT_TAG_VERSION: ${{ inputs.tag_version }}
+          INPUT_BUMP_TYPE: ${{ inputs.bump_type }}
+        run: |
+          PREFIX="v"
+
+          if [ -n "$INPUT_TAG_VERSION" ]; then
+            TAG="$INPUT_TAG_VERSION"
+            echo "Using provided tag: $TAG"
+          else
+            LATEST_TAG=$(git tag --list "${PREFIX}*" --sort=-v:refname | head -n 1)
+
+            if [ -z "$LATEST_TAG" ]; then
+              echo "::error::No existing tags found with prefix '${PREFIX}'. Please provide a tag_version manually."
+              exit 1
+            fi
+
+            echo "Latest tag: $LATEST_TAG"
+
+            VERSION="${LATEST_TAG#$PREFIX}"
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+
+            case "$INPUT_BUMP_TYPE" in
+              major)
+                MAJOR=$((MAJOR + 1))
+                MINOR=0
+                PATCH=0
+                ;;
+              minor)
+                MINOR=$((MINOR + 1))
+                PATCH=0
+                ;;
+              patch)
+                PATCH=$((PATCH + 1))
+                ;;
+              *)
+                echo "::error::Invalid bump_type '$INPUT_BUMP_TYPE'. Must be major, minor, or patch."
+                exit 1
+                ;;
+            esac
+
+            TAG="${PREFIX}${MAJOR}.${MINOR}.${PATCH}"
+            echo "Auto-generated tag: $TAG"
+          fi
+
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "::error::Tag '$TAG' already exists. Please provide a different version."
+            exit 1
+          fi
+
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        id: create
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+          TARGET_SHA: ${{ github.sha }}
+        run: |
+          FLAGS=(--title "$TAG" --target "$TARGET_SHA" --generate-notes)
+
+          RELEASE_URL=$(gh release create "$TAG" "${FLAGS[@]}")
+
+          echo "release_url=$RELEASE_URL" >> "$GITHUB_OUTPUT"
+          echo "Release created: $RELEASE_URL"
+
+      - name: Summary
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+          TARGET_SHA: ${{ github.sha }}
+          RELEASE_URL: ${{ steps.create.outputs.release_url }}
+        run: |
+          echo "## Release Created" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Item | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|------|-------|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Tag | \`$TAG\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Target commit | \`$TARGET_SHA\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Release | $RELEASE_URL |" >> "$GITHUB_STEP_SUMMARY"
