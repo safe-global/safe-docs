@@ -118,7 +118,7 @@ jobs:
         run: |
           FLAGS=(--title "$TAG" --target "$TARGET_SHA" --generate-notes)
 
-          RELEASE_URL=$(gh release create "$TAG" "${FLAGS[@]}" 2>&1)
+          RELEASE_URL=$(gh release create "$TAG" "${FLAGS[@]}")
 
           echo "release_url=$RELEASE_URL" >> "$GITHUB_OUTPUT"
           echo "Release created: $RELEASE_URL"
