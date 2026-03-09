@@ -273,4 +273,3 @@ The zkSync EraVM-specific logic in `predictSafeAddress` has been deprecated for 
 | `encodeTransactionData` moved     | Use `CompatibilityFallbackHandler` for v1.5.0    | `protocol-kit`, `types-kit` |
 | Legacy `isValidSignature` removed | Use `bytes32` overload only for v1.5.0           | `protocol-kit`              |
 | `SafeVersion` type extended       | Add `'1.5.0'` case to exhaustive switches        | `types-kit`                 |
-| ERC-4337 not yet supported        | Do not use `SafeOperation` with v1.5.0           | `sdk-starter-kit`           |
