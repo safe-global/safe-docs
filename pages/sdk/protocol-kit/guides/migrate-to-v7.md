@@ -133,8 +133,8 @@ The `CompatibilityFallbackHandler` in Safe v1.5.0 no longer exposes the legacy `
 
 The SDK called both overloads in parallel during signature validation:
 
-- `isValidSignature(bytes32, bytes)` — EIP-1271 standard
-- `isValidSignature(bytes, bytes)` — Legacy overload
+- `isValidSignature(bytes32, bytes)`: EIP-1271 standard
+- `isValidSignature(bytes, bytes)`: Legacy overload
 
 **After (v1.5.0):**
 
@@ -154,7 +154,7 @@ const result = await safeContract.isValidSignature(messageBytes, signature)
 // where messageBytes is raw bytes
 ```
 
-> **Note:** The SDK handles this internally. If you rely on the SDK's `isValidSignature` method in the `Safe` class, no changes are needed — the SDK now conditionally skips the legacy call for v1.5.0+.
+> **Note:** The SDK handles this internally. If you rely on the SDK's `isValidSignature` method in the `Safe` class, no changes are needed, the SDK now conditionally skips the legacy call for v1.5.0+.
 
 ### 4. `SafeVersion` type extended with `'1.5.0'`
 
