@@ -38,6 +38,8 @@ const protocolKit = await Safe.init({
 })
 ```
 
+> ⚠️ **Warning:** Predicted Safe addresses will differ if you were relying on the previous default. Make sure to pin the version explicitly in production environments.
+
 **How to migrate:**
 
 If your application depends on deploying Safe v1.3.0 contracts, explicitly set the version:
