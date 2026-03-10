@@ -1,13 +1,25 @@
 import { useRouter } from 'next/router'
 // import localFont from 'next/font/local'
 import type { DocsThemeConfig } from 'nextra-theme-docs'
-
 import type { PropsWithChildren } from 'react'
-import SafeLogo from './assets/svg/safe-logo-white.svg'
+import SafeLogoWhite from './assets/svg/safe-logo-white.svg'
+import SafeLogoBlack from './assets/svg/safe-logo.svg'
 import Feedback from './components/Feedback'
 import Footer from './components/Footer'
+import ThemeToggle from './components/ThemeToggle'
 
 // const citerne = localFont({ src: './public/fonts/Citerne-Light.woff' })
+
+const Logo: React.FC = () => (
+  <>
+    <span className='logo-light'>
+      <SafeLogoBlack />
+    </span>
+    <span className='logo-dark'>
+      <SafeLogoWhite />
+    </span>
+  </>
+)
 
 const Main: React.FC<PropsWithChildren> = ({ children }) => {
   const { asPath } = useRouter()
@@ -22,11 +34,14 @@ const Main: React.FC<PropsWithChildren> = ({ children }) => {
 
 const config: DocsThemeConfig = {
   darkMode: false,
-  nextThemes: {
-    forcedTheme: 'dark'
-  },
+  logoLink: false,
   primaryHue: 150,
-  logo: <SafeLogo />,
+  logo: (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <Logo />
+      <ThemeToggle />
+    </div>
+  ),
   project: {
     link: 'https://github.com/safe-global'
   },

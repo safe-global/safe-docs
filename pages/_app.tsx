@@ -1,14 +1,14 @@
 import type { EmotionCache } from '@emotion/react'
 import { CacheProvider } from '@emotion/react'
 import { CssBaseline } from '@mui/material'
-import type { CssVarsThemeOptions } from '@mui/material/styles'
 import {
   Experimental_CssVarsProvider as CssVarsProvider,
-  experimental_extendTheme as extendMuiTheme
+  useColorScheme
 } from '@mui/material/styles'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { useEffect } from 'react'
 
 import MetaTags from '../components/MetaTags'
 import { CookieBanner } from '../components/CookieBanner'
@@ -21,8 +21,30 @@ import { theme } from '../styles/theme'
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
-// Extended theme for CssVarsProvider
-const cssVarsTheme = extendMuiTheme(theme as CssVarsThemeOptions)
+// Syncs Nextra's next-themes html.dark class → MUI CssVarsProvider mode
+const ThemeSyncer: React.FC = () => {
+  const { setMode } = useColorScheme()
+
+  useEffect(() => {
+    const sync = (): void => {
+      setMode(document.documentElement.classList.contains('dark') ? 'dark' : 'light')
+    }
+
+    sync()
+
+    const observer = new MutationObserver(sync)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [setMode])
+
+  return null
+}
 
 const App = ({
   Component,
@@ -37,7 +59,8 @@ const App = ({
       <MetaTags path={router.asPath} />
     </Head>
     <CacheProvider value={emotionCache}>
-      <CssVarsProvider theme={cssVarsTheme}>
+      <CssVarsProvider theme={theme} defaultMode='dark'>
+        <ThemeSyncer />
         <CookieBannerContextProvider>
           <CssBaseline />
           {process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true' && (

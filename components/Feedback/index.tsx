@@ -38,10 +38,8 @@ const ReportIssue: React.FC<{
       }}
       size={small ? 'small' : undefined}
       sx={{
-        color: 'rgba(249,250,251,.7)',
-        backgroundColor: small
-          ? ({ palette }) => palette.grey[900]
-          : 'transparent'
+        color: 'text.primary',
+        backgroundColor: small ? 'background.paper' : 'transparent'
       }}
     >
       Report issue
@@ -115,7 +113,7 @@ const Feedback: React.FC<{
         p: small ? 1 : 3,
         mt: 3,
         borderRadius: '8px',
-        border: label != null ? 'none' : '1px solid rgba(249,250,251,.1)'
+        border: label != null ? 'none' : '1px solid rgba(128,128,128,.15)'
       }}
     >
       {submitted ? (
@@ -126,7 +124,7 @@ const Feedback: React.FC<{
           alignItems='center'
         >
           <Check width='32px' />
-          <Typography variant='h5' fontWeight='700' color='white' mt={2} mb={1}>
+          <Typography variant='h5' fontWeight='700' color='text.primary' mt={2} mb={1}>
             Thank you for your feedback!
           </Typography>
         </Grid>
@@ -144,7 +142,7 @@ const Feedback: React.FC<{
                     multiline
                     rows={4}
                     sx={{
-                      backgroundColor: 'rgba(249,250,251,.1)',
+                      backgroundColor: 'rgba(128,128,128,.1)',
                       p: 1
                     }}
                     onChange={e => {
@@ -162,7 +160,7 @@ const Feedback: React.FC<{
                     multiline
                     rows={4}
                     sx={{
-                      backgroundColor: 'rgba(249,250,251,.1)',
+                      backgroundColor: 'rgba(128,128,128,.1)',
                       p: 1
                     }}
                     onChange={e => {
@@ -259,8 +257,8 @@ const Feedback: React.FC<{
                   </Typography>
                   <Button
                     sx={{
-                      color: 'white',
-                      backgroundColor: ({ palette }) => palette.grey[900],
+                      color: 'text.primary',
+                      backgroundColor: 'background.paper',
                       mr: 0.5,
                       minWidth: '48px'
                     }}
@@ -282,8 +280,8 @@ const Feedback: React.FC<{
 
                   <Button
                     sx={{
-                      color: 'white',
-                      backgroundColor: ({ palette }) => palette.grey[900],
+                      color: 'text.primary',
+                      backgroundColor: 'background.paper',
                       mr: 0.5,
                       minWidth: '48px'
                     }}
@@ -307,7 +305,7 @@ const Feedback: React.FC<{
                 </Grid>
               ) : (
                 <>
-                  <Typography textAlign='center' fontWeight='700' color='white'>
+                  <Typography textAlign='center' fontWeight='700' color='text.primary'>
                     Was this page helpful?
                   </Typography>
                   <Grid item justifyContent='space-around' mt={1}>
@@ -395,7 +393,7 @@ const TextArea: React.FC<{
       sx: { fontSize: '15px' }
     }}
     sx={{
-      backgroundColor: 'rgba(249,250,251,.1)',
+      backgroundColor: 'rgba(128,128,128,.1)',
       p: 1,
       borderRadius: '4px'
     }}

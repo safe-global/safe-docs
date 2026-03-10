@@ -58,7 +58,7 @@ const TableOfContents: React.FC<{
             backgroundColor: 'transparent',
             '&:hover': {
               color: 'text.primary',
-              backgroundColor: 'rgba(224, 255, 240, 0.05)'
+              backgroundColor: 'rgba(128, 128, 128, 0.08)'
             },
             transition: '0.2s',
             display: ['none', 'block']
@@ -176,13 +176,11 @@ const TocMenuItem: React.FC<{
               width: '100%',
               color: currentIndex === child.link ? 'primary.main' : 'grey.500',
               backgroundColor:
-                currentIndex === child.link
-                  ? theme.palette.background.light
-                  : 'transparent',
+                currentIndex === child.link ? 'background.light' : 'transparent',
               '&:hover': {
                 color:
                   currentIndex === child.link ? 'primary.main' : 'text.primary',
-                backgroundColor: 'rgba(224, 255, 240, 0.05)'
+                backgroundColor: 'rgba(128, 128, 128, 0.08)'
               },
               transition: '0.2s'
             }}

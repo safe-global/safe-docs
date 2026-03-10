@@ -1,7 +1,7 @@
-import { createTheme } from '@mui/material/styles'
+import { experimental_extendTheme as extendTheme } from '@mui/material/styles'
 import type { Shadows } from '@mui/material/styles'
 
-import { palette } from './palette'
+import { palette, lightPalette } from './palette'
 
 declare module '@mui/material/styles' {
   // Custom color palettes
@@ -21,6 +21,7 @@ declare module '@mui/material/styles' {
   interface TypeBackground {
     main: string
     light: string
+    dark: string
   }
 
   // Custom color properties
@@ -32,13 +33,11 @@ declare module '@mui/material/styles' {
   }
 }
 
-// declare module '@mui/material/Button' {
-//   interface ButtonPropsColorOverrides {
-//     background: true
-//   }
-// }
-
-export const theme = createTheme({
+export const theme = extendTheme({
+  colorSchemes: {
+    dark: { palette },
+    light: { palette: lightPalette }
+  },
   breakpoints: {
     values: {
       xs: 0,
@@ -47,10 +46,6 @@ export const theme = createTheme({
       lg: 1200,
       xl: 1630
     }
-  },
-  palette: {
-    mode: 'dark',
-    ...palette
   },
   spacing: 8,
   shape: {

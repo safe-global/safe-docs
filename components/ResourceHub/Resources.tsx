@@ -343,8 +343,6 @@ export const Resources: React.FC = () => {
             placeholder='Search by name, description, or tag'
             InputProps={{
               style: {
-                color: 'white',
-                backgroundColor: 'rgba(28, 28, 28, 1)',
                 borderRadius: '8px',
                 border: 'none'
               },
@@ -363,7 +361,15 @@ export const Resources: React.FC = () => {
                 ) : undefined
             }}
             value={searchQuery}
-            sx={{ border: 'none', width: ['80%', '500px'], mt: [2, 0] }}
+            sx={{
+              border: 'none',
+              width: ['80%', '500px'],
+              mt: [2, 0],
+              '& .MuiOutlinedInput-root': {
+                backgroundColor: 'background.paper',
+                color: 'text.primary'
+              }
+            }}
             onChange={e => {
               if (e.target.value.length === 0) onResetSearch()
               else setSelectedFilter([e.target.value], 'search')
