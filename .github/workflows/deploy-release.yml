@@ -42,15 +42,28 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # Deploy the main branch to production environment
-      - name: Deploy to the production S3
+      - name: Deploy to the staging S3
         env:
           BUCKET: s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/releases/${{ github.event.release.tag_name }}
         run: bash ./.github/scripts/s3_upload.sh
 
-      # Script to prepare production deployments
-      - run: bash ./.github/scripts/prepare_production_deployment.sh
+      - name: Deploy to the production S3
         env:
-          PROD_DEPLOYMENT_HOOK_TOKEN: ${{ secrets.PROD_DEPLOYMENT_HOOK_TOKEN }}
-          PROD_DEPLOYMENT_HOOK_URL: ${{ secrets.PROD_DEPLOYMENT_HOOK_URL }}
-          VERSION_TAG: ${{ github.event.release.tag_name }}
+          BUCKET: s3://${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}
+        run: bash ./.github/scripts/s3_upload.sh
+
+      - name: Invalidate CloudFront cache
+        run: |
+          INVALIDATION_ID=$(aws cloudfront create-invalidation \
+            --distribution-id "${{ secrets.AWS_PRODUCTION_CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/*" \
+            --query 'Invalidation.Id' \
+            --output text)
+
+          echo "Waiting for invalidation $INVALIDATION_ID to complete..."
+
+          aws cloudfront wait invalidation-completed \
+            --distribution-id "${{ secrets.AWS_PRODUCTION_CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --id "$INVALIDATION_ID"
+
+          echo "CloudFront invalidation completed."
