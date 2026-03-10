@@ -1,5 +1,5 @@
 import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import css from './ThemeToggle.module.css'
 
 const SunIcon = (): JSX.Element => (
@@ -51,6 +51,7 @@ const ThemeToggle: React.FC = () => {
   // Separate visual state so the thumb animates immediately on click,
   // before next-themes fires its transition-suppression script.
   const [visualDark, setVisualDark] = useState(false)
+  const pendingTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -66,9 +67,13 @@ const ThemeToggle: React.FC = () => {
     const next = !visualDark
     // Update visual position immediately → CSS transition fires right away
     setVisualDark(next)
+    // Cancel any in-flight timer from a previous click before scheduling a new
+    // one — prevents rapid clicks from desynchronising visual and actual theme.
+    if (pendingTimer.current !== null) clearTimeout(pendingTimer.current)
     // Delay the actual theme switch until after the animation completes,
     // so next-themes' "* { transition: none }" doesn't cancel our animation
-    setTimeout(() => {
+    pendingTimer.current = setTimeout(() => {
+      pendingTimer.current = null
       setTheme(next ? 'dark' : 'light')
     }, TRANSITION_MS)
   }

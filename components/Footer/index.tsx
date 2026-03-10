@@ -1,5 +1,4 @@
 import { Badge, ButtonBase, Divider, Grid, Typography } from '@mui/material'
-import { useColorScheme } from '@mui/material/styles'
 import Link from 'next/link'
 import type { ComponentType, SyntheticEvent } from 'react'
 import DiscordIcon from '../../assets/svg/discord-icon.svg'
@@ -330,14 +329,16 @@ const createFooterButton = (
   )
 }
 
-const FooterLogo: React.FC = () => {
-  const { mode } = useColorScheme()
-  return mode === 'light' ? (
-    <LogoBlack className={css.logo} />
-  ) : (
-    <LogoWhite className={css.logo} />
-  )
-}
+const FooterLogo: React.FC = () => (
+  <>
+    <span className='logo-light'>
+      <LogoBlack className={css.logo} />
+    </span>
+    <span className='logo-dark'>
+      <LogoWhite className={css.logo} />
+    </span>
+  </>
+)
 
 const Footer: React.FC = () => {
   const openPositions = useOpenPositions()
