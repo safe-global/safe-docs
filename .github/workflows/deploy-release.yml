@@ -47,6 +47,12 @@ jobs:
           BUCKET: s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/releases/${{ github.event.release.tag_name }}
         run: bash ./.github/scripts/s3_upload.sh
 
+      - name: Configure production AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.AWS_PRODUCTION_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
       - name: Deploy to the production S3
         env:
           BUCKET: s3://${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}
