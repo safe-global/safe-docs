@@ -53,7 +53,7 @@ export const theme = extendTheme({
   },
   shadows: [
     'none',
-    `0 0 2px ${palette.primary.light}`,
+    '0 0 2px var(--mui-palette-primary-light)',
     ...Array(23).fill('none')
   ] as Shadows,
   typography: {
@@ -118,7 +118,7 @@ export const theme = extendTheme({
       letterSpacing: '0.1em',
       fontWeight: 500,
       textTransform: 'uppercase',
-      color: palette.primary.light
+      color: 'var(--mui-palette-primary-light)'
     },
     overline: {
       fontSize: '11px',
@@ -154,7 +154,7 @@ export const theme = extendTheme({
           borderColor: 'inherit'
         },
         root: {
-          color: palette.border.main
+          color: 'var(--mui-palette-border-main)'
         }
       }
     },
