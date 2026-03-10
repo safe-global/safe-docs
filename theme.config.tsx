@@ -36,12 +36,10 @@ const config: DocsThemeConfig = {
   darkMode: false,
   logoLink: false,
   primaryHue: 150,
-  logo: (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-      <Logo />
-      <ThemeToggle />
-    </div>
-  ),
+  logo: <Logo />,
+  navbar: {
+    extraContent: <ThemeToggle />
+  },
   project: {
     link: 'https://github.com/safe-global'
   },
