@@ -27,7 +27,9 @@ const ThemeSyncer: React.FC = () => {
 
   useEffect(() => {
     const sync = (): void => {
-      setMode(document.documentElement.classList.contains('dark') ? 'dark' : 'light')
+      setMode(
+        document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+      )
     }
 
     sync()

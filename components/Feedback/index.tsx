@@ -124,7 +124,13 @@ const Feedback: React.FC<{
           alignItems='center'
         >
           <Check width='32px' />
-          <Typography variant='h5' fontWeight='700' color='text.primary' mt={2} mb={1}>
+          <Typography
+            variant='h5'
+            fontWeight='700'
+            color='text.primary'
+            mt={2}
+            mb={1}
+          >
             Thank you for your feedback!
           </Typography>
         </Grid>
@@ -305,7 +311,11 @@ const Feedback: React.FC<{
                 </Grid>
               ) : (
                 <>
-                  <Typography textAlign='center' fontWeight='700' color='text.primary'>
+                  <Typography
+                    textAlign='center'
+                    fontWeight='700'
+                    color='text.primary'
+                  >
                     Was this page helpful?
                   </Typography>
                   <Grid item justifyContent='space-around' mt={1}>

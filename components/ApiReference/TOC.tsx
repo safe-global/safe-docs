@@ -7,7 +7,6 @@ import Link from '@mui/material/Link'
 import { useState } from 'react'
 
 import { useCurrentTocIndex } from '../../lib/mdx'
-import { theme } from '../../styles/theme'
 import Method from './Method'
 
 export interface Heading {
@@ -176,7 +175,9 @@ const TocMenuItem: React.FC<{
               width: '100%',
               color: currentIndex === child.link ? 'primary.main' : 'grey.500',
               backgroundColor:
-                currentIndex === child.link ? 'background.light' : 'transparent',
+                currentIndex === child.link
+                  ? 'background.light'
+                  : 'transparent',
               '&:hover': {
                 color:
                   currentIndex === child.link ? 'primary.main' : 'text.primary',
