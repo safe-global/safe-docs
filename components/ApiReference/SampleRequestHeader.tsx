@@ -24,8 +24,8 @@ const SampleRequestHeader: React.FC<{
           sx={{
             mt: 1,
             height: '36px',
-            color: 'rgba(249,250,251,.7)',
-            backgroundColor: ({ palette }) => palette.grey[900]
+            color: 'text.primary',
+            backgroundColor: 'background.paper'
           }}
         >
           Try it on Swagger

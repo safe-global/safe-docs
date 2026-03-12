@@ -30,7 +30,6 @@ import { theme } from '../../styles/theme'
 import { useNetworksSearch } from './useNetworksSearch'
 import { SidebarAccordion } from './SidebarAccordion'
 import { apiServices, deprecatedNetworks } from './utils'
-import { palette } from '../../styles/palette'
 import deployments from './networks.json'
 import txServiceNetworks from '../ApiReference/tx-service-networks.json'
 import css from './styles.module.css'
@@ -279,7 +278,7 @@ const SupportedNetworks: React.FC = () => {
           endIcon={<AddIcon sx={{ mr: [1.5, 1] }} />}
           sx={{
             alignItems: 'space-between',
-            border: ['none', `solid 1px ${palette.text.dark}`],
+            border: ['none', `solid 1px ${theme.vars.palette.text.dark}`],
             color: 'white',
             mb: 2
           }}
@@ -383,8 +382,6 @@ const SupportedNetworks: React.FC = () => {
               placeholder='Search by network name, chain ID, or contract address'
               InputProps={{
                 style: {
-                  color: 'white',
-                  backgroundColor: 'rgba(28, 28, 28, 1)',
                   borderRadius: '8px',
                   border: 'none'
                 },
@@ -403,7 +400,15 @@ const SupportedNetworks: React.FC = () => {
                   ) : undefined
               }}
               value={searchQuery}
-              sx={{ border: 'none', width: ['80%', '500px'], mt: [2, 0] }}
+              sx={{
+                border: 'none',
+                width: ['80%', '500px'],
+                mt: [2, 0],
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'background.paper',
+                  color: 'text.primary'
+                }
+              }}
               onChange={e => {
                 if (e.target.value.length === 0) onResetSearch()
                 else setSelectedFilter([e.target.value], 'search')

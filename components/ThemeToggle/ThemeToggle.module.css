@@ -1,0 +1,69 @@
+.toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 52px;
+  height: 28px;
+  border-radius: 14px;
+  padding: 0;
+  cursor: pointer;
+  border: 1px solid transparent;
+  flex-shrink: 0;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+.light {
+  background-color: #e0e0e0;
+  border-color: #c4c4c4;
+}
+
+.dark {
+  background-color: #303033;
+  border-color: #636669;
+}
+
+.iconSun {
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  color: #636669;
+  transition: opacity 0.25s;
+}
+
+.iconMoon {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  color: #a1a3a7;
+  transition: opacity 0.25s;
+}
+
+.thumb {
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  pointer-events: none;
+}
+
+.thumbLight {
+  transform: translateX(0) translateY(-50%);
+}
+
+.thumbDark {
+  transform: translateX(24px) translateY(-50%);
+}
