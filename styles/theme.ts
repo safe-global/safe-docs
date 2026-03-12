@@ -24,6 +24,10 @@ declare module '@mui/material/styles' {
     dark: string
   }
 
+  interface TypeText {
+    dark: string
+  }
+
   // Custom color properties
   interface PaletteColor {
     background?: string
@@ -33,11 +37,15 @@ declare module '@mui/material/styles' {
   }
 }
 
+const colorSchemes = {
+  dark: { palette },
+  light: { palette: lightPalette }
+}
+
+const { vars } = extendTheme({ colorSchemes })
+
 export const theme = extendTheme({
-  colorSchemes: {
-    dark: { palette },
-    light: { palette: lightPalette }
-  },
+  colorSchemes,
   breakpoints: {
     values: {
       xs: 0,
@@ -53,7 +61,7 @@ export const theme = extendTheme({
   },
   shadows: [
     'none',
-    '0 0 2px var(--mui-palette-primary-light)',
+    `0 0 2px ${vars.palette.primary.light}`,
     ...Array(23).fill('none')
   ] as Shadows,
   typography: {
@@ -118,7 +126,7 @@ export const theme = extendTheme({
       letterSpacing: '0.1em',
       fontWeight: 500,
       textTransform: 'uppercase',
-      color: 'var(--mui-palette-primary-light)'
+      color: vars.palette.primary.light
     },
     overline: {
       fontSize: '11px',
@@ -154,7 +162,7 @@ export const theme = extendTheme({
           borderColor: 'inherit'
         },
         root: {
-          color: 'var(--mui-palette-border-main)'
+          color: vars.palette.border.main
         }
       }
     },
