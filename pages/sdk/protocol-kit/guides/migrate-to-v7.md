@@ -203,7 +203,7 @@ switch (version) {
 }
 ```
 
-### 4. Passkey Verifier Changes
+### 5. Passkey Verifier Changes
 
 The `FCLP256Verifier` contract used as the default P256 signature verifier for passkey signers has been deprecated. This release removes the silent default and migrates to `DaimoP256Verifier` as the new recommended verifier.
 
