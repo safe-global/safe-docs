@@ -203,6 +203,170 @@ switch (version) {
 }
 ```
 
+### 4. Passkey Verifier Changes
+
+The `FCLP256Verifier` contract used as the default P256 signature verifier for passkey signers has been deprecated. This release removes the silent default and migrates to `DaimoP256Verifier` as the new recommended verifier.
+
+As part of this change, the passkey API has been cleaned up to make the verifier address **explicit and required** at setup time. This prevents a class of bugs where existing passkeys could silently resolve to a wrong signer address if the default ever changed.
+
+#### `PasskeyArgType` now requires `verifierAddress`
+
+The optional `customVerifierAddress?: string` field has been replaced by a required `verifierAddress: string`.
+
+```ts
+// ❌ Before
+const passkey: PasskeyArgType = {
+  rawId: '...',
+  coordinates: { x: '...', y: '...' },
+  customVerifierAddress: '0x...' // optional, SDK filled in a default if omitted
+}
+
+// ✅ After
+const passkey: PasskeyArgType = {
+  rawId: '...',
+  coordinates: { x: '...', y: '...' },
+  verifierAddress: '0x...' // required, no default
+}
+```
+
+#### New type `ExtractedPasskeyData`
+
+A new type has been introduced to represent the raw output of credential extraction, just `rawId` and `coordinates`. `PasskeyArgType` now extends this type.
+
+```ts
+// ExtractedPasskeyData — what you get from a WebAuthn credential alone
+type ExtractedPasskeyData = {
+  rawId: string
+  coordinates: PasskeyCoordinates
+}
+
+// PasskeyArgType — what you need to use the passkey as a Safe signer
+type PasskeyArgType = ExtractedPasskeyData & {
+  verifierAddress: string
+  getFn?: GetPasskeyCredentialFn
+}
+```
+
+#### `Safe.createPasskeySigner()` return type changed
+
+This method now returns `ExtractedPasskeyData` instead of `PasskeyArgType`. You must combine the result with a `verifierAddress` before passing it to `Safe.init()`.
+
+```ts
+// ❌ Before — result was directly usable as a signer
+const signer = await Safe.createPasskeySigner(credential)
+// signer was PasskeyArgType (verifier defaulted silently)
+
+// ✅ After — must add verifierAddress explicitly
+const extracted = await Safe.createPasskeySigner(credential)
+const signer: PasskeyArgType = {
+  ...extracted,
+  verifierAddress: getP256VerifierAddress(chainId)
+}
+```
+
+#### `getDefaultFCLP256VerifierAddress()` removed
+
+This internal function has been replaced by the new public export `getP256VerifierAddress(chainId)`, which returns the `DaimoP256Verifier` address for a given chain.
+
+```ts
+// ❌ Before (internal, not recommended for direct use)
+import { getDefaultFCLP256VerifierAddress } from '@safe-global/protocol-kit'
+const address = getDefaultFCLP256VerifierAddress(chainId)
+
+// ✅ After
+import { getP256VerifierAddress } from '@safe-global/protocol-kit'
+const address = getP256VerifierAddress(chainId)
+```
+
+#### `chainId` parameter removed from `createPasskeyClient` and `isSharedSigner`
+
+Both functions no longer accept a `chainId` argument, as it was only used internally to resolve the default verifier.
+
+```ts
+// ❌ Before
+await createPasskeyClient(
+  passkey,
+  contract,
+  provider,
+  safeAddress,
+  owners,
+  chainId
+)
+
+// ✅ After
+await createPasskeyClient(passkey, contract, provider, safeAddress, owners)
+```
+
+#### Full Migration Example
+
+**Setting up a new passkey signer**
+
+```ts
+import Safe, {
+  getP256VerifierAddress,
+  type PasskeyArgType
+} from '@safe-global/protocol-kit'
+
+// 1. Create a WebAuthn credential (for example, via navigator.credentials.create)
+const credential = await navigator.credentials.create({ publicKey: { ... } })
+
+// 2. Extract the passkey data from the credential
+const extracted = await Safe.createPasskeySigner(credential)
+
+// 3. Get the recommended verifier address for your chain
+const verifierAddress = getP256VerifierAddress(chainId)
+
+// 4. Build the full PasskeyArgType
+const passkeySigner: PasskeyArgType = {
+  ...extracted,
+  verifierAddress
+}
+
+// 5. Use it to initialize a Safe
+const safeSdk = await Safe.init({
+  provider,
+  signer: passkeySigner,
+  safeAddress: '0x...'
+})
+```
+
+**Using a custom verifier**
+
+If your deployment uses a custom P256 verifier (for example, for testing or a non-standard chain), pass its address directly:
+
+```ts
+const passkeySigner: PasskeyArgType = {
+  ...extracted,
+  verifierAddress: '0xYourCustomVerifierAddress'
+}
+```
+
+**Reconnecting an existing passkey (stored credentials)**
+
+If you store passkey data and reload it across sessions, make sure to persist and restore `verifierAddress`:
+
+```ts
+// When saving
+localStorage.setItem(
+  'passkey',
+  JSON.stringify({
+    rawId: passkeySigner.rawId,
+    coordinates: passkeySigner.coordinates,
+    verifierAddress: passkeySigner.verifierAddress // ← persist this!
+  })
+)
+
+// When loading
+const stored = JSON.parse(localStorage.getItem('passkey'))
+const passkeySigner: PasskeyArgType = {
+  rawId: stored.rawId,
+  coordinates: stored.coordinates,
+  verifierAddress: stored.verifierAddress // ← restore it
+}
+```
+
+> ⚠️ **Important:** The `verifierAddress` is baked into the Safe's on-chain state at passkey setup time. Always restore the **original** verifier address that was used when the passkey owner was added to the Safe. Using a different address will cause the signer resolution to fail silently.
+
 ## New Features (non-breaking)
 
 ### ExtensibleFallbackHandler contract
@@ -267,9 +431,17 @@ The zkSync EraVM-specific logic in `predictSafeAddress` has been deprecated for 
 
 ## Quick Reference
 
-| Change                            | Action Required                                  | Packages                    |
-| --------------------------------- | ------------------------------------------------ | --------------------------- |
-| Default version → `1.4.1`         | Pin `safeVersion` explicitly if you need `1.3.0` | `protocol-kit`              |
-| `encodeTransactionData` moved     | Use `CompatibilityFallbackHandler` for v1.5.0    | `protocol-kit`, `types-kit` |
-| Legacy `isValidSignature` removed | Use `bytes32` overload only for v1.5.0           | `protocol-kit`              |
-| `SafeVersion` type extended       | Add `'1.5.0'` case to exhaustive switches        | `types-kit`                 |
+| Change                                           | Action Required                                               | Packages                    |
+| ------------------------------------------------ | ------------------------------------------------------------- | --------------------------- |
+| Default version → `1.4.1`                        | Pin `safeVersion` explicitly if you need `1.3.0`              | `protocol-kit`              |
+| `encodeTransactionData` moved                    | Use `CompatibilityFallbackHandler` for v1.5.0                 | `protocol-kit`, `types-kit` |
+| Legacy `isValidSignature` removed                | Use `bytes32` overload only for v1.5.0                        | `protocol-kit`              |
+| `SafeVersion` type extended                      | Add `'1.5.0'` case to exhaustive switches                     | `types-kit`                 |
+| `PasskeyArgType.customVerifierAddress` removed   | Use `verifierAddress` (required) instead                      | `protocol-kit`              |
+| `PasskeyArgType.verifierAddress` added           | Provide `verifierAddress` when constructing passkey arguments | `protocol-kit`              |
+| `ExtractedPasskeyData` type added                | Use new type `{ rawId, coordinates }` where applicable        | `protocol-kit`              |
+| `Safe.createPasskeySigner()` return type changed | Expect `ExtractedPasskeyData` instead of `PasskeyArgType`     | `protocol-kit`              |
+| `getDefaultFCLP256VerifierAddress()` removed     | Use `getP256VerifierAddress(chainId)` instead                 | `protocol-kit`              |
+| `getP256VerifierAddress(chainId)` added          | New public export to resolve the P256 verifier address        | `protocol-kit`              |
+| `createPasskeyClient` signature changed          | Remove `chainId` argument from call sites                     | `protocol-kit`              |
+| `isSharedSigner` signature changed               | Remove `chainId` argument from call sites                     | `protocol-kit`              |
