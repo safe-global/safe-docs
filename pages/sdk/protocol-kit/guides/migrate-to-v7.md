@@ -282,7 +282,7 @@ const address = getP256VerifierAddress(chainId)
 
 Both functions no longer accept a `chainId` argument, as it was only used internally to resolve the default verifier.
 
-We changed the default verifier from `FCLP256Verifier` to `DaimoP256Verifier`. If you were relying on the old default, you must now explicitly provide the new verifier address when constructing your passkey signer. You can use [@safe-global/safe-deployments](https://github.com/safe-global/safe-modules-deployments/pull/108/changes#diff-dcf19ff829e90ecf875d228aff39f63b7df0c3cc1ddfe46f8862e6e819b3f485L32) v2 to resolve the correct address for your chain, or hardcode it if you prefer.
+We changed the default verifier from `FCLP256Verifier` to `DaimoP256Verifier`. If you were relying on the old default, you must now explicitly provide the new verifier address when constructing your passkey signer. You can use [@safe-global/safe-deployments](https://github.com/safe-global/safe-modules-deployments/pull/108/changes#diff-dcf19ff829e90ecf875d228aff39f63b7df0c3cc1ddfe46f8862e6e819b3f485L32) v2 to resolve the correct address for your chain, or hard-code it if you prefer.
 
 ```ts
 // ❌ Before
