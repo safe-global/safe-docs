@@ -8,7 +8,7 @@ const SampleRequestHeader: React.FC<{
   method: string
   pathWithParams: string
   disableSwagger: boolean
-}> = ({ method, pathWithParams, disableSwagger }) => {
+}> = ({ method: _method, pathWithParams: _pathWithParams, disableSwagger }) => {
   const [network] = useContext(NetworkContext)
 
   return (

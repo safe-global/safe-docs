@@ -3,7 +3,6 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:security/recommended-legacy',
-    'standard-with-typescript',
     'next/core-web-vitals',
     'plugin:prettier/recommended'
   ],
@@ -19,6 +18,10 @@ module.exports = {
     '**/examples/**'
   ],
   rules: {
+    '@typescript-eslint/no-unused-vars': ['error', {
+      varsIgnorePattern: '^_',
+      argsIgnorePattern: '^_'
+    }],
     '@typescript-eslint/key-spacing': 0,
     'multiline-ternary': 0,
     'no-console': ['error', { allow: ['info', 'warn', 'error'] }],

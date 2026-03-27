@@ -34,7 +34,7 @@ export const getHeadingChildren = (
   heading: string
 ): Heading[] => {
   const allMethods = Object.entries(swagger.paths)
-    .map(([k, v]) => Object.entries(v))
+    .map(([_k, v]) => Object.entries(v))
     .flat()
 
   return allMethods
@@ -221,7 +221,7 @@ export const CustomParagraph: React.FC<{
 }> = ({ children, isLi }) => (
   <span>
     {isLi !== true && <br />}
-    {Array.isArray(children) ? children?.map((child, i) => child) : children}
+    {children}
     {isLi !== true && <br />}
   </span>
 )
