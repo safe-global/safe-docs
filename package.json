@@ -15,8 +15,7 @@
     "test": "env-cmd cypress run --headless",
     "typecheck": "tsc --noEmit --incremental false",
     "prepush": "pnpm lint && pnpm typecheck && pnpm validate-resources",
-    "prepare": "husky",
-    "release": "env-cmd release-it --no-npm --only-version"
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -47,7 +46,6 @@
     "node-fetch": "^3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "release-it": "^17.10.0",
     "shelljs": "^0.8.5",
     "swr": "^2.3.0"
   },
@@ -60,11 +58,11 @@
     "@types/shelljs": "^0.8.15",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
-    "cypress": "^13.16.1",
+    "cypress": "^13.17.0",
     "env-cmd": "^10.1.0",
     "eslint": "8.57.1",
     "eslint-config-next": "^14.2.30",
-    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-prettier": "^9.1.2",
     "eslint-config-standard": "^17.1.0",
     "eslint-config-standard-jsx": "^11.0.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
@@ -76,18 +74,13 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-security": "^3.0.1",
     "husky": "^9.1.7",
-    "markdown-link-check": "^3.13.7",
+    "markdown-link-check": "^3.14.2",
     "open-graph-scraper": "^6.9.0",
     "prettier": "^3.4.2",
     "serve": "^14.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3",
     "yaml": "^2.7.0"
-  },
-  "release-it": {
-    "github": {
-      "release": true
-    }
   },
   "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be"
 }
