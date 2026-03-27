@@ -4,6 +4,10 @@ on:
   release:
     types: [published]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,11 +16,6 @@ jobs:
     name: Deploy release
 
     steps:
-      - name: Cancel previous runs
-        uses: styfle/cancel-workflow-action@0.8.0
-        with:
-          access_token: ${{ github.token }}
-
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v4
