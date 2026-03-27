@@ -11,7 +11,9 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: read
+      id-token: write
 
     name: Deploy release
 

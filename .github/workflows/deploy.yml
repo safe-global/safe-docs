@@ -10,7 +10,10 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
 
     name: Deploy to staging
 
