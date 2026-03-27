@@ -40,7 +40,7 @@
     "cuid": "^3.0.0",
     "dotenv": "^17.2.0",
     "fuse.js": "^7.0.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "next": "^14.2.35",
     "nextra": "2.13.4",
     "nextra-theme-docs": "2.13.4",
@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.2.35",
-    "@types/lodash": "^4.17.17",
+    "@types/lodash": "^4.17.24",
     "@types/node": "20.14.11",
     "@types/react": "18.3.12",
     "@types/react-dom": "^18.3.7",
@@ -89,5 +89,5 @@
       "release": true
     }
   },
-  "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977"
+  "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be"
 }
