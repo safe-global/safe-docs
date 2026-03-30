@@ -20,7 +20,7 @@ class Storage {
     let saved: string | null = null
     try {
       saved = this.storage?.getItem(fullKey) ?? null
-    } catch (err) {
+    } catch {
       console.error('Failed to read from local/session storage')
     }
 
@@ -28,7 +28,7 @@ class Storage {
 
     try {
       return JSON.parse(saved) as T
-    } catch (err) {
+    } catch {
       console.error('Failed to read from local/session storage')
     }
     return null
@@ -42,7 +42,7 @@ class Storage {
       } else {
         this.storage?.setItem(fullKey, JSON.stringify(item))
       }
-    } catch (err) {
+    } catch {
       console.error('Failed to write to local/session storage')
     }
   }
@@ -51,7 +51,7 @@ class Storage {
     const fullKey = this.getPrefixedKey(key)
     try {
       this.storage?.removeItem(fullKey)
-    } catch (err) {
+    } catch {
       console.error('Failed to remove from local/session storage')
     }
   }

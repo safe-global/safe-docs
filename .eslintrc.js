@@ -22,7 +22,6 @@ module.exports = {
       varsIgnorePattern: '^_',
       argsIgnorePattern: '^_'
     }],
-    '@typescript-eslint/key-spacing': 0,
     'multiline-ternary': 0,
     'no-console': ['error', { allow: ['info', 'warn', 'error'] }],
     'max-len': [

@@ -51,8 +51,8 @@
     "@types/node": "^22.19.15",
     "@types/react": "18.3.12",
     "@types/react-dom": "^18.3.7",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
     "cypress": "^13.17.0",
     "dotenv": "^17.2.0",
     "env-cmd": "^10.1.0",
@@ -69,7 +69,7 @@
     "prettier": "^3.4.2",
     "serve": "^14.2.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.3",
+    "typescript": "^5.9.3",
     "yaml": "^2.7.0"
   },
   "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be"
