@@ -95,11 +95,9 @@ const generateCodeExamples = async ({
   destination,
   files
 }: Repo) => {
-  const fetch = await import('node-fetch')
   files.forEach(async filePath => {
     const url = `https://raw.githubusercontent.com/${organization}/${repo}/${branch}${filePath}?token=$(date +%s)`
-    await fetch
-      .default(url)
+    await fetch(url)
       .then(async res => {
         if (!res.ok) throw new Error(res.statusText)
         const text = await res.text()

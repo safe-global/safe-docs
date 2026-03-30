@@ -1,9 +1,9 @@
 // This script generates the supported networks page from the safe-deployments repo.
 // It clones the repo, reads the JSON files, and generates the markdown files as well as a _meta.json file for nextra.
 
-const shell = require('shelljs')
 const fs = require('fs')
 const path = require('path')
+const { execSync } = require('child_process')
 
 interface Network {
   name: string
@@ -88,8 +88,7 @@ const fetchWithTimeout = async (url: string, timeoutMs: number = 10000) => {
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
 
   try {
-    const fetch = await import('node-fetch')
-    const response = await fetch.default(url, { signal: controller.signal as any })
+    const response = await fetch(url, { signal: controller.signal as any })
     clearTimeout(timeoutId)
     return response
   } catch (e) {
@@ -220,7 +219,7 @@ const getDeployedContractsFromGithubRepo = async (
   const repoDestination = module ? 'modules' : 'deployments'
 
   try {
-    shell.exec(`git clone ${deploymentRepoUrl} ${repoDestination}`)
+    execSync(`git clone ${deploymentRepoUrl} ${repoDestination}`)
 
     let paths = walkPath(repoDestination + '/src/assets').map(p =>
       p.replace(repoDestination + '/src/assets/', '')
@@ -262,17 +261,15 @@ const getDeployedContractsFromGithubRepo = async (
       })
       .flat()
 
-    shell.rm('-rf', repoDestination)
+    fs.rmSync(repoDestination, { recursive: true, force: true })
     return contracts
   } finally {
-    shell.rm('-rf', repoDestination)
+    fs.rmSync(repoDestination, { recursive: true, force: true })
   }
 }
 
 const generateSupportedNetworks = async () => {
-  shell.rm('-rf', targetFilePath)
-
-  const fetch = await import('node-fetch')
+  fs.rmSync(targetFilePath, { recursive: true, force: true })
 
   // Load tx-service networks to identify chains with safeAssets icons
   console.log('Loading tx-service networks...')
@@ -284,8 +281,7 @@ const generateSupportedNetworks = async () => {
   // hosted at https://chainid.network/chains.json
   // Alternative source from https://github.com/DefiLlama/chainlist
   // hosted at https://chainlist.org/rpcs.json
-  const allNetworks = await fetch
-    .default('https://chainlist.org/rpcs.json')
+  const allNetworks = await fetch('https://chainlist.org/rpcs.json')
     .then(res => res.json() as Promise<Network[]>)
 
   const smartAccounts = await getDeployedContractsFromGithubRepo(allNetworks)

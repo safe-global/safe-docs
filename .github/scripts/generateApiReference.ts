@@ -149,8 +149,6 @@ const generateSampleApiResponse = async (
   requestBody: string,
   network: { txServiceUrl: string; shortName: string; networkName: string }
 ) => {
-  const fetch = await import('node-fetch')
-
   let response: any
   const baseUrl = network.txServiceUrl
   const url = baseUrl + pathWithParams
@@ -160,7 +158,7 @@ const generateSampleApiResponse = async (
   }
 
   if (method === 'get') {
-    response = await fetch.default(url, { headers }).then(async res => {
+    response = await fetch(url, { headers }).then(async res => {
       if (res.status === 200) return await res?.json()
       else {
         console.error(
@@ -173,13 +171,11 @@ const generateSampleApiResponse = async (
       }
     })
   } else if (method === 'post') {
-    response = await fetch
-      .default(url, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(requestBody)
-      })
-      .then(async res => {
+    response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(requestBody)
+    }).then(async res => {
         if (res.status === 200) return await res?.json()
         else {
           console.error(
@@ -281,14 +277,11 @@ const getApiJson = async (
   network: { shortName: string; networkName: string }
 ) => {
   console.log(`Fetching schema for ${network.networkName} at ${url}...`)
-  const fetch = await import('node-fetch')
-  const response = await fetch
-    .default(url + '/schema/', {
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`
-      }
-    })
-    .catch(err => {
+  const response = await fetch(url + '/schema/', {
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`
+    }
+  }).catch(err => {
       console.error(`Error: for ${network.networkName} at ${url}`, err)
     })
   console.log(response ? `Response received for ${network.networkName}` : '')

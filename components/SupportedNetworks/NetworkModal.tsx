@@ -28,7 +28,7 @@ const NetworkModal: React.FC<{
   versions: string[]
 }> = ({ versions }) => {
   const { query, push } = useRouter()
-  const { expand, ...rest } = query
+  const { expand: _expand, ...rest } = query
 
   const network = networks.find(
     network => network?.chainId === parseInt(query.expand as string)

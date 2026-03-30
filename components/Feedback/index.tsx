@@ -9,7 +9,6 @@ import {
   Typography
 } from '@mui/material'
 import { sendGAEvent } from '@next/third-parties/google'
-import cuid from 'cuid'
 import NextLink from 'next/link'
 import { useContext, useEffect, useState } from 'react'
 
@@ -75,7 +74,7 @@ const Feedback: React.FC<{
   if (asPath === '/support' || asPath === '/resource-hub') return null
 
   const handleSubmit = async (): Promise<void> => {
-    const feedbackId = cuid()
+    const feedbackId = crypto.randomUUID()
     setLoading(true)
     sendGAEvent('event', 'feedback_comments', {
       positive: isPositive === true ? 1 : 0,

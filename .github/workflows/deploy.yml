@@ -3,19 +3,21 @@ name: Deploy to staging
 on:
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
 
     name: Deploy to staging
 
     steps:
-      - name: Cancel previous runs
-        uses: styfle/cancel-workflow-action@0.8.0
-        with:
-          access_token: ${{ github.token }}
-
       # Post a PR comment before deploying
       - name: Post a comment while building
         if: github.event.number
