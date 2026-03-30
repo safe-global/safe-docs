@@ -1,9 +1,9 @@
 // This script generates the supported networks page from the safe-deployments repo.
 // It clones the repo, reads the JSON files, and generates the markdown files as well as a _meta.json file for nextra.
 
-const shell = require('shelljs')
 const fs = require('fs')
 const path = require('path')
+const { execSync } = require('child_process')
 
 interface Network {
   name: string
@@ -220,7 +220,7 @@ const getDeployedContractsFromGithubRepo = async (
   const repoDestination = module ? 'modules' : 'deployments'
 
   try {
-    shell.exec(`git clone ${deploymentRepoUrl} ${repoDestination}`)
+    execSync(`git clone ${deploymentRepoUrl} ${repoDestination}`)
 
     let paths = walkPath(repoDestination + '/src/assets').map(p =>
       p.replace(repoDestination + '/src/assets/', '')
@@ -262,15 +262,15 @@ const getDeployedContractsFromGithubRepo = async (
       })
       .flat()
 
-    shell.rm('-rf', repoDestination)
+    fs.rmSync(repoDestination, { recursive: true, force: true })
     return contracts
   } finally {
-    shell.rm('-rf', repoDestination)
+    fs.rmSync(repoDestination, { recursive: true, force: true })
   }
 }
 
 const generateSupportedNetworks = async () => {
-  shell.rm('-rf', targetFilePath)
+  fs.rmSync(targetFilePath, { recursive: true, force: true })
 
   const fetch = await import('node-fetch')
 
