@@ -88,8 +88,7 @@ const fetchWithTimeout = async (url: string, timeoutMs: number = 10000) => {
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
 
   try {
-    const fetch = await import('node-fetch')
-    const response = await fetch.default(url, { signal: controller.signal as any })
+    const response = await fetch(url, { signal: controller.signal as any })
     clearTimeout(timeoutId)
     return response
   } catch (e) {
@@ -272,8 +271,6 @@ const getDeployedContractsFromGithubRepo = async (
 const generateSupportedNetworks = async () => {
   fs.rmSync(targetFilePath, { recursive: true, force: true })
 
-  const fetch = await import('node-fetch')
-
   // Load tx-service networks to identify chains with safeAssets icons
   console.log('Loading tx-service networks...')
   const txServiceNetworks = JSON.parse(fs.readFileSync(txServiceNetworksPath, 'utf8'))
@@ -284,8 +281,7 @@ const generateSupportedNetworks = async () => {
   // hosted at https://chainid.network/chains.json
   // Alternative source from https://github.com/DefiLlama/chainlist
   // hosted at https://chainlist.org/rpcs.json
-  const allNetworks = await fetch
-    .default('https://chainlist.org/rpcs.json')
+  const allNetworks = await fetch('https://chainlist.org/rpcs.json')
     .then(res => res.json() as Promise<Network[]>)
 
   const smartAccounts = await getDeployedContractsFromGithubRepo(allNetworks)
