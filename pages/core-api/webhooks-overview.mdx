@@ -24,13 +24,13 @@ Webhooks allow you to receive real-time HTTP notifications when events occur on 
 
 See [Pricing & Plans](./api-pricing) for the full plan comparison.
 
-## Webhook deliveries count as API units
+## Webhook deliveries do not count as API units
 
-Each webhook delivery counts as **1 API unit**, the same as an HTTP request. This means webhook deliveries consume from your monthly API unit quota alongside regular API calls.
+Webhook deliveries are not counted toward your monthly API unit quota. Only HTTP requests you make to the API consume API units.
 
-> **1 API unit = 1 HTTP request OR 1 webhook delivery**
+> **1 API unit = 1 HTTP request. Webhook deliveries are excluded.**
 
-Plan your quota accordingly if you expect high volumes of webhook events.
+Consider using webhooks to reduce your API usage if you're currently polling for updates.
 
 ## Supported event types
 
