@@ -13,16 +13,8 @@ Webhooks allow you to receive real-time HTTP notifications when events occur on 
 ## Availability
 
 <Callout type="info">
-  Webhooks are available starting from the **Growth** plan (€199/month). They are not available on the free Builder plan.
+  Webhooks are a paid feature. Visit [Safe API plans ↗](https://safe.global/api) to find the right plan for your use case.
 </Callout>
-
-| Plan | Webhooks | Subscription limits |
-|---|---|---|
-| Builder (Free) | Not available | — |
-| Growth (€199/mo) | ✓ | 2 |
-| Scale (€499/mo) | ✓ | 10 |
-
-See [Safe API plans ↗](https://safe.global/api) for the full comparison.
 
 ## Webhook deliveries do not count as API units
 
@@ -59,7 +51,6 @@ If your endpoint does not respond with a `2xx` status code, Safe Infrastructure 
 
 - Retries use **exponential back-off**.
 - Deliveries are retried a limited number of times before being marked as failed.
-- Each retry attempt counts as an additional API unit.
 
 <Callout type="warning">
   Ensure your webhook endpoint responds quickly (within a few seconds) and returns `200 OK` to acknowledge receipt. Process events asynchronously to avoid timeouts.
