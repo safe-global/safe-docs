@@ -2,14 +2,9 @@ import { Tabs, Callout } from 'nextra/components'
 
 # How to use API Keys
 
-To enhance the security and reliability of your integrations, Safe Infrastructure uses **authenticated API access**.
-Authenticated requests ensure that only authorized applications and developers can interact with our services, protecting your data and the overall ecosystem.
+Safe Infrastructure APIs are accessible without authentication for exploration, and with an API key for production use. Authenticated requests receive significantly higher rate limits, dedicated quotas, and prioritized reliability.
 
-<Callout type='info'>
-  Authenticated requests receive higher rate limits and dedicated quotas. See [Pricing & Plans](./api-pricing) for details on what each plan includes.
-</Callout>
-
-This guide explains how to generate an API key, use it for authenticated requests, and handle rate limits, errors, and security best practices.
+This guide explains how to generate an API key and use it in your requests.
 
 ## Getting a Safe API Key
 
@@ -17,7 +12,7 @@ This guide explains how to generate an API key, use it for authenticated request
 2. Create an account (if you haven't already).
 3. Generate your API key in the **API Keys** section.
 
-_The API Key is a JWT, which is set to expire after 5 years._
+_The API Key is a JWT. You can configure the expiration period and revoke it at any time via the dashboard._
 
 ## Using Your API Key
 
@@ -69,22 +64,19 @@ To authenticate your requests, include your API key in the Authorization header.
 
 {/* <!-- vale on --> */}
 
-## Rate Limits and Usage Tiers
+## Plans & Pricing
 
-Rate limits and monthly quotas depend on your plan:
+For available plans and current pricing, visit [Safe API plans ↗](https://safe.global/api). To subscribe, log in to the [developer dashboard ↗](https://developer.safe.global/api-subscriptions).
 
-| Plan | Sustained RPS | Monthly quota |
-|---|---|---|
-| Unauthenticated | 2 | 5,000 API units |
-| Builder (Free) | 5 | 50,000 API units |
-| Growth (€199/mo) | 15 | 1,000,000 API units |
-| Scale (€499/mo) | 50 | 3,000,000 API units |
+<Callout type="info">
+  Unauthenticated access is available for exploration only: **2 RPS** and **5,000 monthly requests**. Any meaningful production usage requires authentication.
+</Callout>
 
-For full details on enforcement behavior when limits are reached, see [Quotas & Limits](./api-authentication).
+One **API unit** equals **1 HTTP request** to any Safe Infrastructure endpoint. For full details on enforcement behavior when limits are reached, see [Quotas & Limits](./api-authentication).
 
 ## Error Handling
 
-If your API key is invalid or exceeds its rate limit, the API returns standard HTTP error codes:
+If your API key is invalid or your account hits a limit, the API returns standard HTTP error codes:
 
 - `401 Unauthorized`: Invalid or missing API key.
 - `429 Too Many Requests`: Rate limit or quota exceeded. See [Quotas & Limits](./api-authentication) for how to handle this.
@@ -97,6 +89,18 @@ Make sure your application gracefully handles these errors to avoid disruptions.
 - **Rotate keys periodically**: Periodically rotate your API keys to minimize potential security risks.
 - **Revoke compromised keys immediately**: If an API key is compromised, revoke it immediately via the dashboard and generate a new one.
 
-## Need Help?
+## FAQs
 
-If you have questions or encounter issues, please reach out to our support team at support@safe.global.
+**What if I need a higher plan?**
+
+Contact the Safe team at [support@safe.global](mailto:support@safe.global) to discuss custom plans and pricing.
+
+**What happens if I exceed my quota?**
+
+When you reach your monthly quota, subsequent requests are blocked with an HTTP 429 response. You can monitor your remaining quota via response headers on every API call. See [Quotas & Limits](./api-authentication) for details.
+
+**Can I use the API without authentication?**
+
+Unauthenticated access is available for exploration only, with significantly lower limits (2 RPS, 5,000 monthly requests). Any meaningful production usage requires authentication.
+
+Didn't find your answer? Reach out at [support@safe.global](mailto:support@safe.global).
