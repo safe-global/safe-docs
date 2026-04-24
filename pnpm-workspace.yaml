@@ -1,2 +1,3 @@
-settings:
-  minimumReleaseAge: '10080' # 7 days in minutes
+minimumReleaseAge: 10080 # 7 days in minutes
+onlyBuiltDependencies: []
+blockExoticSubdeps: true
