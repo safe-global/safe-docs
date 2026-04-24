@@ -1,0 +1,62 @@
+version: 2
+
+updates:
+  # Keep GitHub Actions up to date (maintains SHA pins + version comments)
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    open-pull-requests-limit: 10
+
+  # Keep npm/pnpm dependencies up to date
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    open-pull-requests-limit: 10
+    # Align with pnpm-workspace.yaml minimumReleaseAge (10080 minutes = 7 days)
+    cooldown:
+      default-days: 7
+    groups:
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@types/react'
+          - '@types/react-dom'
+        update-types:
+          - 'minor'
+          - 'patch'
+      mui:
+        patterns:
+          - '@mui/*'
+          - '@emotion/*'
+        update-types:
+          - 'minor'
+          - 'patch'
+      next:
+        patterns:
+          - 'next'
+          - '@next/*'
+          - 'eslint-config-next'
+        update-types:
+          - 'minor'
+          - 'patch'
+      eslint:
+        patterns:
+          - 'eslint'
+          - 'eslint-*'
+          - '@typescript-eslint/*'
+        update-types:
+          - 'minor'
+          - 'patch'
+      typescript-toolchain:
+        patterns:
+          - 'typescript'
+          - 'ts-node'
+          - '@types/*'
+        update-types:
+          - 'minor'
+          - 'patch'

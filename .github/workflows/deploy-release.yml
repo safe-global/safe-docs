@@ -18,9 +18,9 @@ jobs:
     name: Deploy release
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320  # v5.0.0
 
       - name: Install dependencies
         shell: bash
@@ -38,7 +38,7 @@ jobs:
           NODE_OPTIONS: '--max-old-space-size=8000'
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v3
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1
         with:
           role-to-assume: ${{ secrets.AWS_ROLE }}
           aws-region: ${{ secrets.AWS_REGION }}
@@ -49,7 +49,7 @@ jobs:
         run: bash ./.github/scripts/s3_upload.sh
 
       - name: Configure production AWS credentials
-        uses: aws-actions/configure-aws-credentials@v3
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1
         with:
           role-to-assume: ${{ secrets.AWS_PRODUCTION_ROLE }}
           aws-region: ${{ secrets.AWS_REGION }}
