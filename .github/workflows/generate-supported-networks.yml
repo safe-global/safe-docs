@@ -24,4 +24,26 @@ jobs:
         run: pnpm generate-supported-networks
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@4e1beaa7521e8b457b572c090b25bd3db56bf1c5  # v5.0.3
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes detected, skipping PR creation"
+            exit 0
+          fi
+
+          BRANCH="auto/update-supported-networks"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add .
+          git commit -m "chore: update supported networks"
+          git push origin "$BRANCH" --force
+
+          gh pr create \
+            --title "chore: update supported networks" \
+            --body "Automated weekly update of supported networks." \
+            --base main \
+            --head "$BRANCH" \
+          2>/dev/null || echo "PR already exists for branch $BRANCH, branch updated."
