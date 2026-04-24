@@ -21,13 +21,20 @@ jobs:
       # Post a PR comment before deploying
       - name: Post a comment while building
         if: github.event.number
-        uses: mshick/add-pr-comment@b8f338c590a895d50bcbfa6c5859251edc8952fc  # v2.8.2
-        with:
-          message-id: praul
-          message: |
-            ## Branch preview
-            ⏳ Deploying a preview site...
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          MARKER="<!-- deploy-preview-praul -->"
+          BODY="${MARKER}
+          ## Branch preview
+          ⏳ Deploying a preview site..."
+          COMMENT_ID=$(gh api "repos/${{ github.repository }}/issues/${{ github.event.number }}/comments" \
+            --paginate --jq ".[] | select(.body | contains(\"$MARKER\")) | .id" | head -1)
+          if [ -n "$COMMENT_ID" ]; then
+            gh api "repos/${{ github.repository }}/issues/comments/$COMMENT_ID" -X PATCH -f body="$BODY"
+          else
+            gh api "repos/${{ github.repository }}/issues/${{ github.event.number }}/comments" -f body="$BODY"
+          fi
 
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
@@ -86,17 +93,28 @@ jobs:
         run: bash ./.github/scripts/s3_upload.sh
 
       # Comment with the deployment link
-      - name: Post an epic deployment link in the PR
+      - name: Post a deployment link in the PR
         if: always() && github.event.number
-        uses: mshick/add-pr-comment@b8f338c590a895d50bcbfa6c5859251edc8952fc  # v2.8.2
-        with:
-          message-id: praul
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          message: |
-            ## Branch preview
-            ✅ Deployed successfully in branch deployment:
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          MARKER="<!-- deploy-preview-praul -->"
+          if [ "${{ job.status }}" = "success" ]; then
+            BODY="${MARKER}
+          ## Branch preview
+          ✅  Deploy successful!
 
-            https://${{ steps.extract_branch.outputs.branch }}--docs.review.5afe.dev
-          message-failure: |
-            ## Branch preview
-            ❌ Deploy failed!
+          **Website:**
+          https://${{ steps.extract_branch.outputs.branch }}--docs.review.5afe.dev"
+          else
+            BODY="${MARKER}
+          ## Branch preview
+          ❌  Deploy failed!"
+          fi
+          COMMENT_ID=$(gh api "repos/${{ github.repository }}/issues/${{ github.event.number }}/comments" \
+            --paginate --jq ".[] | select(.body | contains(\"$MARKER\")) | .id" | head -1)
+          if [ -n "$COMMENT_ID" ]; then
+            gh api "repos/${{ github.repository }}/issues/comments/$COMMENT_ID" -X PATCH -f body="$BODY"
+          else
+            gh api "repos/${{ github.repository }}/issues/${{ github.event.number }}/comments" -f body="$BODY"
+          fi
