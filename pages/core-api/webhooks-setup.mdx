@@ -5,14 +5,14 @@ import { Callout } from 'nextra/components'
 This page explains how to configure webhook endpoints to receive real-time event notifications from Safe Infrastructure.
 
 <Callout type="info">
-  Webhooks require a **Growth** or **Scale** plan. See [Pricing & Plans](./api-pricing) for details.
+  Webhooks are a paid feature. Visit [Safe API plans ↗](https://safe.global/api) for details.
 </Callout>
 
 ## Prerequisites
 
 Before setting up webhooks, you need:
 
-1. A Safe Infrastructure account on the Growth or Scale plan.
+1. A Safe Infrastructure account on a paid plan.
 2. An API key from the [developer dashboard ↗](https://developer.safe.global).
 3. A publicly accessible HTTPS endpoint that can receive POST requests.
 
@@ -75,7 +75,7 @@ app.listen(3000, () => console.log('Webhook receiver listening on port 3000'));
 You can filter webhook subscriptions by:
 
 - **Chain ID**: Only receive events for specific networks (for example, Ethereum mainnet, Polygon).
-- **Event type**: Subscribe to specific event types only.
+- **Event type**: Subscribe to specific event types only. See [Supported event types](./webhooks-overview#supported-event-types) for the full list.
 - **Address**: Filter events for specific Ethereum addresses.
 
 ## Security recommendations
@@ -86,14 +86,7 @@ You can filter webhook subscriptions by:
 
 ## Subscription limits
 
-The number of webhook subscriptions you can configure depends on your plan:
-
-| Plan | Subscription limit |
-|---|---|
-| Growth | Standard |
-| Scale | Higher (custom) |
-
-Contact [support@safe.global](mailto:support@safe.global) if you need additional subscriptions beyond your plan's limit.
+The number of webhook subscriptions you can configure depends on your plan. Contact [support@safe.global](mailto:support@safe.global) if you need additional subscriptions beyond your plan's limit.
 
 ## Next steps
 

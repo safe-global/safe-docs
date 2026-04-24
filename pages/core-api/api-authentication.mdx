@@ -4,42 +4,11 @@ import { Callout } from 'nextra/components'
 
 This page explains how rate limiting and quota enforcement work for the Safe Infrastructure API.
 
-## Authentication
-
-All sustained API usage requires authentication. Include your API key in the `Authorization` header:
-```bash
-curl -X GET "https://api.safe.global/tx-service/eth/api/v2/safes/0x..." \
-  -H "Authorization: Bearer YOUR_API_KEY"
-```
-
-Generate your API key at the [developer dashboard ↗](https://developer.safe.global). For step-by-step instructions, see [API Keys & Authentication](./how-to-use-api-keys).
-
-<Callout type="info">
-  Unauthenticated access is available for exploration only, with lower limits (2 RPS, 5,000 monthly requests). Authenticated requests receive significantly higher rate limits and quotas.
-</Callout>
-
-### Why authenticate?
-
-- **Higher rate limits**: Authenticated requests receive significantly higher RPS allocations than unauthenticated requests.
-- **Quota tracking**: Your usage is tracked per account, enabling clear visibility into consumption.
-- **Reliability**: Authenticated traffic is prioritized and protected from noisy-neighbor effects.
+For authentication setup instructions and usage examples, see [API Keys & Authentication](./how-to-use-api-keys).
 
 ## API unit definition
 
-All usage is measured in **API units**:
-
-> **1 API unit = 1 HTTP request**
-
-## Per-plan limits
-
-| Plan | Sustained RPS | Monthly requests |
-|---|---|---|
-| Unauthenticated | 2 | 5,000 API requests |
-| Builder (Free) | 5 | 50,000 API requests |
-| Growth (€199/mo) | 15 | 1,000,000 API requests |
-| Scale (€499/mo) | 50 | 3,000,000 API requests |
-
-See [Pricing & Plans](./api-pricing) for full plan details.
+One **API unit** equals **1 HTTP request** to any Safe Infrastructure endpoint.
 
 ## Enforcement behavior
 
@@ -74,15 +43,12 @@ Example 429 response:
 }
 ```
 
-
-
 ## Account-level enforcement
 
 Enforcement is applied at the **account level**, not per API key. This means:
 
-- All API keys under a single account share the same quota and RPS allocation.
+- All API keys under an account share the same quota and RPS allocation.
 - Creating multiple API keys does not increase your limits.
-- Usage from all keys is aggregated for enforcement purposes.
 
 <Callout type="warning">
   **Anti-circumvention:** Creating multiple accounts to circumvent rate limits or quotas violates the Safe Infrastructure terms of service. Accounts engaging in this behavior may be suspended.
@@ -92,15 +58,6 @@ Enforcement is applied at the **account level**, not per API key. This means:
 
 When you receive an HTTP 429 response:
 
-
 1. **Wait and retry** with exponential back-off.
 2. **Upgrade your plan** if you consistently hit limits.
 3. **Monitor your usage** via the `X-RateLimit-Remaining` response header.
-
-
-## Security best practices
-
-- **Store keys securely**: Use environment variables or a secret manager. Never hard-code API keys.
-- **Rotate keys periodically**: Generate new keys on a regular schedule and revoke old ones.
-- **Revoke compromised keys immediately**: If a key is leaked, revoke it in the dashboard and generate a new one.
-- **Use separate keys per environment**: Maintain different keys for development, staging, and production.
