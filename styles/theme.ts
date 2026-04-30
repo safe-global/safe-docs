@@ -1,7 +1,7 @@
-import { createTheme } from '@mui/material/styles'
+import { experimental_extendTheme as extendTheme } from '@mui/material/styles'
 import type { Shadows } from '@mui/material/styles'
 
-import { palette } from './palette'
+import { palette, lightPalette } from './palette'
 
 declare module '@mui/material/styles' {
   // Custom color palettes
@@ -21,6 +21,11 @@ declare module '@mui/material/styles' {
   interface TypeBackground {
     main: string
     light: string
+    dark: string
+  }
+
+  interface TypeText {
+    dark: string
   }
 
   // Custom color properties
@@ -32,13 +37,15 @@ declare module '@mui/material/styles' {
   }
 }
 
-// declare module '@mui/material/Button' {
-//   interface ButtonPropsColorOverrides {
-//     background: true
-//   }
-// }
+const colorSchemes = {
+  dark: { palette },
+  light: { palette: lightPalette }
+}
 
-export const theme = createTheme({
+const { vars } = extendTheme({ colorSchemes })
+
+export const theme = extendTheme({
+  colorSchemes,
   breakpoints: {
     values: {
       xs: 0,
@@ -48,17 +55,13 @@ export const theme = createTheme({
       xl: 1630
     }
   },
-  palette: {
-    mode: 'dark',
-    ...palette
-  },
   spacing: 8,
   shape: {
     borderRadius: 6
   },
   shadows: [
     'none',
-    `0 0 2px ${palette.primary.light}`,
+    `0 0 2px ${vars.palette.primary.light}`,
     ...Array(23).fill('none')
   ] as Shadows,
   typography: {
@@ -123,7 +126,7 @@ export const theme = createTheme({
       letterSpacing: '0.1em',
       fontWeight: 500,
       textTransform: 'uppercase',
-      color: palette.primary.light
+      color: vars.palette.primary.light
     },
     overline: {
       fontSize: '11px',
@@ -159,7 +162,7 @@ export const theme = createTheme({
           borderColor: 'inherit'
         },
         root: {
-          color: palette.border.main
+          color: vars.palette.border.main
         }
       }
     },

@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import { theme } from '../../styles/theme'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
-import { theme } from '../../styles/theme'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import Accordion from '@mui/material/Accordion'
 import { AccordionSummary } from '@mui/material'
@@ -36,7 +36,7 @@ const Property: React.FC<{ property: any; required?: boolean }> = ({
       sx={{
         border: 'none',
         background: 'transparent',
-        color: theme.palette.grey[400],
+        color: theme.vars.palette.grey[400],
         boxShadow: 'none',
         '&.Mui-expanded': {
           border: 'none'
@@ -54,7 +54,7 @@ const Property: React.FC<{ property: any; required?: boolean }> = ({
           container
           pl={2}
           my={1}
-          sx={{ color: ({ palette }) => palette.grey[400] }}
+          sx={{ color: theme.vars.palette.grey[400] }}
         >
           <Grid
             container
@@ -72,7 +72,7 @@ const Property: React.FC<{ property: any; required?: boolean }> = ({
                 {' - '}
                 <code
                   style={{
-                    color: theme.palette.error.main,
+                    color: theme.vars.palette.error.main,
                     fontSize: '10px',
                     display: 'inline-block',
                     marginLeft: '5px'
