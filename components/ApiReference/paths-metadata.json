@@ -78,7 +78,7 @@
       "title": "Get Module Transaction"
     }
   },
-  "/api/v1/modules/{address}/safes/": {
+  "/api/v2/modules/{address}/safes/": {
     "get": {
       "title": "List Safes that use a Specific Module"
     }
@@ -114,7 +114,7 @@
       "title": "Remove a Safe from a Device"
     }
   },
-  "/api/v1/owners/{address}/safes/": {
+  "/api/v2/owners/{address}/safes/": {
     "get": {
       "title": "List Safes from a Specific Owner"
     }

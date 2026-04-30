@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Safe Transaction Service",
-    "version": "5.38.0",
+    "version": "6.3.0",
     "description": "API to keep track of transactions sent via Safe smart contracts"
   },
   "paths": {
@@ -721,6 +721,7 @@
           },
           {}
         ],
+        "deprecated": true,
         "responses": {
           "200": {
             "content": {
@@ -744,7 +745,7 @@
           }
         },
         "path": "/tx-service/basesep/api/v1/modules/{address}/safes/",
-        "title": "List Safes that use a Specific Module",
+        "title": "",
         "additionalInfo": ""
       }
     },
@@ -973,6 +974,7 @@
           },
           {}
         ],
+        "deprecated": true,
         "responses": {
           "200": {
             "content": {
@@ -996,7 +998,7 @@
           }
         },
         "path": "/tx-service/basesep/api/v1/owners/{address}/safes/",
-        "title": "List Safes from a Specific Owner",
+        "title": "",
         "additionalInfo": ""
       }
     },
@@ -3462,6 +3464,77 @@
         "additionalInfo": ""
       }
     },
+    "/tx-service/basesep/api/v2/modules/{address}/safes/": {
+      "get": {
+        "operationId": "modules_safes_list",
+        "description": "Returns a paginated list of Safe accounts that have the provided module enabled.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "modules"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeLastStatusList"
+                }
+              }
+            },
+            "description": "Paginated list of Safe accounts that have the provided module enabled"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Module address checksum not valid"
+          }
+        },
+        "path": "/tx-service/basesep/api/v2/modules/{address}/safes/",
+        "title": "List Safes that use a Specific Module",
+        "additionalInfo": ""
+      }
+    },
     "/tx-service/basesep/api/v2/multisig-transactions/{safe_tx_hash}/": {
       "get": {
         "operationId": "multisig_transactions_retrieve_2",
@@ -3536,6 +3609,77 @@
         },
         "path": "/tx-service/basesep/api/v2/multisig-transactions/{safe_tx_hash}/",
         "title": "Delete Queued Multisig Transaction",
+        "additionalInfo": ""
+      }
+    },
+    "/tx-service/basesep/api/v2/owners/{address}/safes/": {
+      "get": {
+        "operationId": "owners_safes_list",
+        "description": "Returns a paginated list of Safe accounts that have the given address as their owner.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "owners"
+        ],
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "tokenAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedSafeLastStatusList"
+                }
+              }
+            },
+            "description": "Paginated list of Safe accounts that have the given address as their owner"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeErrorResponse"
+                }
+              }
+            },
+            "description": "Owner address checksum not valid"
+          }
+        },
+        "path": "/tx-service/basesep/api/v2/owners/{address}/safes/",
+        "title": "List Safes from a Specific Owner",
         "additionalInfo": ""
       }
     },
@@ -4672,6 +4816,37 @@
           }
         }
       },
+      "PaginatedSafeLastStatusList": {
+        "type": "object",
+        "required": [
+          "count",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 123
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=400&limit=100"
+          },
+          "previous": {
+            "type": "string",
+            "nullable": true,
+            "format": "uri",
+            "example": "http://api.example.org/accounts/?offset=200&limit=100"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SafeLastStatus"
+            }
+          }
+        }
+      },
       "PaginatedSafeMessageResponseList": {
         "type": "object",
         "required": [
@@ -5346,6 +5521,9 @@
           "guard": {
             "type": "string"
           },
+          "moduleGuard": {
+            "type": "string"
+          },
           "version": {
             "type": [
               "string",
@@ -5358,11 +5536,67 @@
           "fallbackHandler",
           "guard",
           "masterCopy",
+          "moduleGuard",
           "modules",
           "nonce",
           "owners",
           "threshold",
           "version"
+        ]
+      },
+      "SafeLastStatus": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "owners": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "threshold": {
+            "type": "integer"
+          },
+          "nonce": {
+            "type": "integer"
+          },
+          "masterCopy": {
+            "type": "string"
+          },
+          "fallbackHandler": {
+            "type": "string"
+          },
+          "guard": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "moduleGuard": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "enabledModules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "address",
+          "enabledModules",
+          "fallbackHandler",
+          "guard",
+          "masterCopy",
+          "moduleGuard",
+          "nonce",
+          "owners",
+          "threshold"
         ]
       },
       "SafeMessage": {
@@ -5926,7 +6160,14 @@
           },
           "fee": {
             "type": [
-              "integer",
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "payment": {
+            "type": [
+              "string",
               "null"
             ],
             "readOnly": true
@@ -5981,6 +6222,7 @@
           "nonce",
           "operation",
           "origin",
+          "payment",
           "proposedByDelegate",
           "proposer",
           "safe",
@@ -6121,7 +6363,14 @@
           },
           "fee": {
             "type": [
-              "integer",
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "payment": {
+            "type": [
+              "string",
               "null"
             ],
             "readOnly": true
@@ -6176,6 +6425,7 @@
           "nonce",
           "operation",
           "origin",
+          "payment",
           "proposedByDelegate",
           "proposer",
           "safe",
@@ -6319,7 +6569,14 @@
           },
           "fee": {
             "type": [
-              "integer",
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "payment": {
+            "type": [
+              "string",
               "null"
             ],
             "readOnly": true
@@ -6384,6 +6641,7 @@
           "nonce",
           "operation",
           "origin",
+          "payment",
           "proposedByDelegate",
           "proposer",
           "safe",
@@ -6526,7 +6784,14 @@
           },
           "fee": {
             "type": [
-              "integer",
+              "string",
+              "null"
+            ],
+            "readOnly": true
+          },
+          "payment": {
+            "type": [
+              "string",
               "null"
             ],
             "readOnly": true
@@ -6591,6 +6856,7 @@
           "nonce",
           "operation",
           "origin",
+          "payment",
           "proposedByDelegate",
           "proposer",
           "safe",
