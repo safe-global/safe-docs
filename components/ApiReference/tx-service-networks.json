@@ -102,6 +102,12 @@
     "txServiceUrl": "https://api.safe.global/tx-service/zkevm"
   },
   {
+    "chainId": 1672,
+    "shortName": "pharos",
+    "networkName": "pharos",
+    "txServiceUrl": "https://api.safe.global/tx-service/pharos"
+  },
+  {
     "chainId": 3338,
     "shortName": "peaq",
     "networkName": "peaq",
@@ -114,10 +120,28 @@
     "txServiceUrl": "https://api.safe.global/tx-service/btc"
   },
   {
+    "chainId": 4217,
+    "shortName": "tempo",
+    "networkName": "tempo",
+    "txServiceUrl": "https://api.safe.global/tx-service/tempo"
+  },
+  {
+    "chainId": 4326,
+    "shortName": "megaeth",
+    "networkName": "megaeth",
+    "txServiceUrl": "https://api.safe.global/tx-service/mega"
+  },
+  {
     "chainId": 5000,
     "shortName": "mantle",
     "networkName": "mantle",
     "txServiceUrl": "https://api.safe.global/tx-service/mantle"
+  },
+  {
+    "chainId": 5003,
+    "shortName": "mnt-sep",
+    "networkName": "mantle-sepolia",
+    "txServiceUrl": "https://api.safe.global/tx-service/mnt-sep"
   },
   {
     "chainId": 8453,
@@ -150,6 +174,12 @@
     "txServiceUrl": "https://api.safe.global/tx-service/0g"
   },
   {
+    "chainId": 25363,
+    "shortName": "fluent",
+    "networkName": "fluent",
+    "txServiceUrl": "https://api.safe.global/tx-service/fluent"
+  },
+  {
     "chainId": 42161,
     "shortName": "arb1",
     "networkName": "arbitrum",
@@ -162,6 +192,12 @@
     "txServiceUrl": "https://api.safe.global/tx-service/celo"
   },
   {
+    "chainId": 42431,
+    "shortName": "tempo-moderato",
+    "networkName": "tempo-moderato",
+    "txServiceUrl": "https://api.safe.global/tx-service/tempo-moderato"
+  },
+  {
     "chainId": 43111,
     "shortName": "hemi",
     "networkName": "hemi",
@@ -172,6 +208,12 @@
     "shortName": "avax",
     "networkName": "avalanche",
     "txServiceUrl": "https://api.safe.global/tx-service/avax"
+  },
+  {
+    "chainId": 46630,
+    "shortName": "robinhood-testnet",
+    "networkName": "robinhood-testnet",
+    "txServiceUrl": "https://api.safe.global/tx-service/robinhood-testnet"
   },
   {
     "chainId": 57073,
@@ -210,6 +252,12 @@
     "txServiceUrl": "https://api.safe.global/tx-service/basesep"
   },
   {
+    "chainId": 102030,
+    "shortName": "ctc",
+    "networkName": "creditcoin",
+    "txServiceUrl": "https://api.safe.global/tx-service/ctc"
+  },
+  {
     "chainId": 534352,
     "shortName": "scr",
     "networkName": "scroll",
@@ -220,6 +268,18 @@
     "shortName": "katana",
     "networkName": "katana",
     "txServiceUrl": "https://api.safe.global/tx-service/katana"
+  },
+  {
+    "chainId": 5042002,
+    "shortName": "arc-testnet",
+    "networkName": "arc-testnet",
+    "txServiceUrl": "https://api.safe.global/tx-service/arc-testnet"
+  },
+  {
+    "chainId": 11142220,
+    "shortName": "celo-sep",
+    "networkName": "celo-sepolia",
+    "txServiceUrl": "https://api.safe.global/tx-service/celo-sep"
   },
   {
     "chainId": 11155111,
