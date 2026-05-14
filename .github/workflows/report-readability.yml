@@ -6,12 +6,15 @@ jobs:
     report-readability:
         name: Report readability
         runs-on: ubuntu-latest
+        permissions:
+          contents: read
+          pull-requests: write
         steps:
             - name: Checkout repo with history
-              uses: actions/checkout@v4
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
               with:
                   fetch-depth: 0
-            - uses: Rebilly/lexi@v2
+            - uses: Rebilly/lexi@5a517542b048ca8cb46e43f27736fed84dfb0e84  # v2.3.6
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   glob: '**/*.{md,mdx}'

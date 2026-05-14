@@ -1,4 +1,5 @@
 name: Style check
+
 on: pull_request
 
 jobs:
@@ -9,12 +10,12 @@ jobs:
       checks: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
           fetch-depth: 0
 
       - name: Vale Linter
-        uses: vale-cli/vale-action@v2.1.1
+        uses: vale-cli/vale-action@d89dee975228ae261d22c15adcd03578634d429c  # v2.1.1
         with:
           vale_flags: "--glob=pages/**/*.{md,mdx} --minAlertLevel=error"
           fail_on_error: true
