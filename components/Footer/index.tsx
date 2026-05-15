@@ -1,4 +1,4 @@
-import { Badge, ButtonBase, Divider, Grid, Typography } from '@mui/material'
+import { ButtonBase, Divider, Grid, Typography } from '@mui/material'
 import Link from 'next/link'
 import type { ComponentType, SyntheticEvent } from 'react'
 import DiscordIcon from '../../assets/svg/discord-icon.svg'
@@ -9,10 +9,6 @@ import XIcon from '../../assets/svg/x-icon.svg'
 import YoutubeIcon from '../../assets/svg/youtube-icon.svg'
 import css from './Footer.module.css'
 import { useCookieBannerContext } from '../CookieBanner/CookieBannerContext'
-import {
-  type OpenPositionsResponse,
-  useOpenPositions
-} from './useOpenPositions'
 
 const SAFE_LINK = 'https://safe.global'
 
@@ -198,8 +194,7 @@ const subFooterItems: FooterLink[] = [
 const LinksColumn: React.FC<{
   title: string
   items: FooterLink[]
-  positions?: OpenPositionsResponse
-}> = ({ title, items, positions }) => (
+}> = ({ title, items }) => (
   <Grid item sm={6} md={1.5}>
     <Typography
       className={css.listTitle}
@@ -212,21 +207,7 @@ const LinksColumn: React.FC<{
       {items.map(item => (
         <li className={css.listItem} key={item.href}>
           <Link href={item.href} target={item.target} rel={item.rel}>
-            <Badge
-              badgeContent={
-                item.href === CAREERS_LINK ? positions?.data?.length : undefined
-              }
-              color='primary'
-              className={css.badge}
-              slotProps={{
-                badge: {
-                  // @ts-expect-error - disable badge in search results
-                  'data-nosnippet': true
-                }
-              }}
-            >
-              {item.label}
-            </Badge>
+            {item.label}
           </Link>
         </li>
       ))}
@@ -329,7 +310,6 @@ const createFooterButton = (
 }
 
 const Footer: React.FC = () => {
-  const openPositions = useOpenPositions()
   return (
     <Grid mt={10} mx={4} sx={{ width: '100%' }}>
       <Grid
@@ -345,11 +325,7 @@ const Footer: React.FC = () => {
         <LinksColumn title='Developers' items={safeItems} />
         <LinksColumn title='Ecosystem' items={ecosystemItems} />
         <LinksColumn title='Community' items={communityItems} />
-        <LinksColumn
-          title='Resources'
-          items={resourcesItems}
-          positions={openPositions}
-        />
+        <LinksColumn title='Resources' items={resourcesItems} />
         <Socials />
       </Grid>
       <Divider sx={{ mt: 5, mb: { xs: 3, md: 0 } }} />
