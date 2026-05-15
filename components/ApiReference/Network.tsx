@@ -6,6 +6,7 @@ import {
   type PropsWithChildren,
   useContext
 } from 'react'
+import { theme } from '../../styles/theme'
 import Link from 'next/link'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
@@ -60,7 +61,7 @@ const NetworkSwitcher: React.FC = () => {
             mr: 1,
             width: ['100%', '100%', 'auto'],
             color: 'white',
-            border: ({ palette }) => `1px solid ${palette.grey[700]}`
+            border: `1px solid ${theme.vars.palette.grey[700]}`
           }}
           inputProps={{
             sx: {

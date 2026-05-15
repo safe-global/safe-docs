@@ -24,7 +24,7 @@ body .listTitle {
 
 .listItem:hover a,
 .subListItem:hover a {
-  color: white;
+  color: var(--mui-palette-text-primary);
 }
 
 .subList {
