@@ -1,0 +1,203 @@
+
+
+import { Tabs, Steps, Callout } from 'nextra/components'
+
+# Openfort Signer
+
+In this guide, you will learn how to create an [Openfort](https://openfort.io) signer that can be added as a Safe owner and used to initialize any of the kits from the Safe\{Core\} SDK.
+
+Check out the [Safe Signers demo app](https://github.com/5afe/safe-signers) on GitHub to follow along this guide with the completed code.
+
+## Prerequisites
+
+- [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+- An [Openfort account](https://dashboard.openfort.io) with a publishable key and Shield publishable key.
+
+## Install dependencies
+
+{/* <!-- vale off --> */}
+
+<Tabs items={['npm', 'yarn', 'pnpm']}>
+  <Tabs.Tab>
+    ```bash
+    npm install @openfort/react @tanstack/react-query wagmi viem
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    yarn add @openfort/react @tanstack/react-query wagmi viem
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    pnpm add @openfort/react @tanstack/react-query wagmi viem
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+{/* <!-- vale on --> */}
+
+## Steps
+
+<Steps>
+
+  ### Imports
+
+  Here are the necessary imports for this guide.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  import { OpenfortProvider, OpenfortButton, useUser, useWallets, useOpenfort, AccountTypeEnum, AuthProvider, getDefaultConfig } from '@openfort/react'
+  import { WagmiProvider, createConfig } from 'wagmi'
+  import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+  import { createWalletClient, custom } from 'viem'
+  import { sepolia } from 'viem/chains'
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Get the API Keys
+
+  Create a new project in the [dashboard](https://dashboard.openfort.io) and get its publishable key.
+
+  You will also need to get your Shield publishable key from the [Shield configuration](https://www.openfort.io/docs/products/embedded-wallet/react#shield-configuration).
+
+  Once you have them, you need to initialize the following variables:
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const OPENFORT_PUBLISHABLE_KEY = // ...
+  const SHIELD_PUBLISHABLE_KEY = // ...
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Configure wagmi and React Query
+
+  Openfort requires wagmi and React Query to be configured. Set up the wagmi configuration and create a query client:
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const wagmiConfig = createConfig(
+    getDefaultConfig({
+      appName: 'Safe Signers Demo',
+      chains: [sepolia],
+      ssr: true
+    })
+  )
+
+  const queryClient = new QueryClient()
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Initialize Openfort
+
+  Openfort works with React hooks. This means you can wrap your app with the `OpenfortProvider`, `WagmiProvider`, and `QueryClientProvider` to have access to several React hooks like `useUser()` or `useWallets()` that will provide all the functionality.
+
+  `OpenfortProvider` receives a `publishableKey`, `walletConfig` with the Shield configuration, and `uiConfig` with authentication options. Check [Openfort React SDK documentation](https://www.openfort.io/docs/products/embedded-wallet/react) to learn more about all the different configuration options.
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  <WagmiProvider config={wagmiConfig}>
+    <QueryClientProvider client={queryClient}>
+      <OpenfortProvider
+        publishableKey={OPENFORT_PUBLISHABLE_KEY}
+        walletConfig={{
+          shieldPublishableKey: SHIELD_PUBLISHABLE_KEY,
+          accountType: AccountTypeEnum.EOA
+        }}
+        uiConfig={{
+          authProviders: [
+            AuthProvider.EMAIL,
+            AuthProvider.GOOGLE,
+            AuthProvider.GUEST
+          ]
+        }}
+      >
+        <App />
+      </OpenfortProvider>
+    </QueryClientProvider>
+  </WagmiProvider>
+  ```
+
+  {/* <!-- vale on --> */}
+
+  In this guide you will use the following variables and methods from the Openfort React hooks:
+  
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  const { isAuthenticated } = useUser()
+  const { wallets } = useWallets()
+  const { client } = useOpenfort()
+  ```
+
+  {/* <!-- vale on --> */}
+
+  ### Login
+
+  Openfort provides a pre-built UI component that handles authentication. Simply add the `<OpenfortButton />` component to your app:
+
+  {/* <!-- vale off --> */}
+
+  ```typescript
+  <OpenfortButton />
+  ```
+
+  {/* <!-- vale on --> */}
+
+  This button provides a user-friendly interface for logging in using the authentication methods configured in your `OpenfortProvider` (email, Google, guest, etc.). The authentication state will be automatically managed by Openfort's React hooks.
+
+  ### Get the provider and signer
+
+  Once the user is logged in, you can get the `provider` and `signer`, which is the externally-owned account of the user that was derived from its credentials.
+  
+  To do that there is a `useEffect()` that is executed when the `isAuthenticated` and `wallets` variables have their values updated. Once `isAuthenticated` is `true` and `wallets` has a length greater than zero, you have access to the user's connected signer.
+
+  {/* <!-- vale off --> */}
+
+  You can instantiate the provider using `viem` and get the signer address like so:
+
+  ```typescript
+  useEffect(() => {
+    const init = async () => {
+      if (isAuthenticated && wallets.length > 0) {
+        const ethereumProvider = await client.embeddedWallet.getEthereumProvider()
+
+        const provider = createWalletClient({
+          chain: sepolia,
+          transport: custom(ethereumProvider)
+        })
+  
+        const signer = wallets[0].address
+      }
+    }
+    init()
+  }, [isAuthenticated, wallets])
+  ```
+
+  {/* <!-- vale on --> */}
+  
+  With the `provider` and `signer` you are ready to instantiate any of the kits from the Safe\{Core\} SDK and set up or use this signer as a Safe owner.
+
+  ### Logout
+
+  The `<OpenfortButton />` component automatically handles logout functionality. When the user is authenticated, the button will display logout options.
+
+</Steps>
+
+## Recap and further reading
+
+After following this guide, you are able to create a Safe signer using Openfort and get the `provider` and `signer` required to initialize the kits from the Safe\{Core\} SDK.
+
+Learn more about Openfort by checking the following resources:
+
+- [Openfort website](https://openfort.io)
+- [Openfort documentation](https://www.openfort.io/docs)
+- [Openfort embedded wallet quickstart](https://www.openfort.io/docs/products/embedded-wallet/react)
+
