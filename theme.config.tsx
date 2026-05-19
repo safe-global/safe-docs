@@ -47,12 +47,7 @@ const config: DocsThemeConfig = {
   head: <link rel='icon' type='image/png' sizes='32x32' href='/favicon.png' />,
   useNextSeoProps: () => {
     const { asPath } = useRouter()
-    const titleTemplate =
-      (asPath === '/'
-        ? ''
-        : asPath === '/build-the-new-internet'
-          ? 'Build the New Internet - '
-          : '%s – ') + 'Safe Docs'
+    const titleTemplate = (asPath === '/' ? '' : '%s – ') + 'Safe Docs'
     return {
       titleTemplate
     }
