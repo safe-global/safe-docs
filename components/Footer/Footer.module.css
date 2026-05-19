@@ -58,12 +58,6 @@ body .listTitle {
   height: auto;
 }
 
-.badge :global .MuiBadge-badge {
-  font-size: 14px;
-  top: 4px;
-  right: -12px;
-}
-
 @media (min-width: 600px) {
   .subList {
     gap: 32px;
