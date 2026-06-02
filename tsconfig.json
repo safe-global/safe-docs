@@ -19,7 +19,7 @@
     "incremental": true,
     "sourceMap": true,
     "outDir": "dist",
-    "types": ["cypress", "node"]
+    "types": ["node"]
   },
   "include": [
     "next-env.d.ts",
