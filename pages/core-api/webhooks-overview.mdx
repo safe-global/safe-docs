@@ -47,14 +47,27 @@ Consider using webhooks to reduce your API usage if you're currently polling for
 
 ## Retry semantics
 
-If your endpoint does not respond with a `2xx` status code, Safe Infrastructure retries the delivery:
+If your endpoint doesn't respond with a `2xx` status code within the request timeout, Safe Infrastructure retries delivery:
 
-- Retries use **exponential back-off**.
-- Deliveries are retried a limited number of times before being marked as failed.
+- **Timeout**: 5 seconds per request.
+- **Retries**: Up to 2 retries on transient network errors and `5xx` responses.
+- **Back-off**: Exponential, starting at 200 ms with a 2× factor (200 ms, then 400 ms).
+
+`4xx` responses are not retried. Return a `4xx` if you want to drop the delivery permanently, for example if the endpoint has been intentionally removed.
 
 <Callout type="warning">
-  Ensure your webhook endpoint responds quickly (within a few seconds) and returns `200 OK` to acknowledge receipt. Process events asynchronously to avoid timeouts.
+  Ensure your endpoint responds within 5 seconds and returns `200 OK`. Process events asynchronously to avoid timing out.
 </Callout>
+
+## Idempotency
+
+Every webhook delivery carries an `X-Delivery-Id` header, a stable UUID that stays the same across retries of the same event. Use it to deduplicate events on your side:
+
+```
+X-Delivery-Id: 9f06d5ca-3b22-46b3-a85e-4fc5878126ab
+```
+
+If you receive two requests with the same `X-Delivery-Id`, treat them as the same event. This guarantees you process each event exactly once, even if the network is flaky and a delivery gets retried.
 
 ## Security
 
