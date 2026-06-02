@@ -12,7 +12,7 @@
     "linkcheck": "pnpm ts-node --project tsconfig.json .github/scripts/checkLinksFormat.ts && find ./pages -name '*.md*' -print0 | xargs -0 -n1 pnpm markdown-link-check --progress --config linkchecker-config.json",
     "lint": "eslint . && vale pages/ --minAlertLevel=error",
     "start": "serve out",
-    "test": "env-cmd cypress run --headless",
+    "test": "node --env-file-if-exists=.env --test tests/redirections.test.ts",
     "typecheck": "tsc --noEmit --incremental false",
     "prepush": "pnpm lint && pnpm typecheck && pnpm validate-resources",
     "prepare": "husky"
@@ -52,9 +52,7 @@
     "@types/react-dom": "^18.3.7",
     "@typescript-eslint/eslint-plugin": "^8.59.2",
     "@typescript-eslint/parser": "^8.59.2",
-    "cypress": "^13.17.0",
     "dotenv": "^17.2.0",
-    "env-cmd": "^10.1.0",
     "eslint": "8.57.1",
     "eslint-config-next": "^14.2.35",
     "eslint-config-prettier": "^9.1.2",
