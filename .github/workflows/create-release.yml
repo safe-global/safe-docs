@@ -16,11 +16,6 @@ on:
         description: 'Exact tag version (overrides bump_type, e.g. v1.2.3)'
         required: false
         type: string
-      bump_package_json:
-        description: 'Update version in package.json'
-        required: false
-        type: boolean
-        default: true
 
 jobs:
   create-release:
@@ -114,20 +109,6 @@ jobs:
           fi
 
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-
-      - name: Bump package.json version
-        if: inputs.bump_package_json
-        env:
-          TAG: ${{ steps.version.outputs.tag }}
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: |
-          VERSION="${TAG#v}"
-          npm version "$VERSION" --no-git-tag-version
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add package.json
-          git commit -m "Set release version to $TAG"
-          git push
 
       - name: Create GitHub Release
         id: create
