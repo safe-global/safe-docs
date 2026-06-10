@@ -154,7 +154,7 @@ A Safe Guard is a smart contract that adds restrictions on top of the n-out-of-m
 
 See also:
 - [Safe Guards documentation](../advanced/smart-account-guards.mdx) on docs.safe.global
-- [Zodiac Guards](https://zodiac.wiki/index.php%3Ftitle=Introduction:_Zodiac_Protocol.html#Guards) on zodiac.wiki
+- [Zodiac Guards](https://github.com/gnosisguild/zodiac#guards) on github.com
 - [Get the enabled Safe Guard](../reference-sdk-protocol-kit/safe-guards/getguard.mdx) and [enable a Safe Guard](../reference-sdk-protocol-kit/safe-guards/createenableguardtx.mdx) with the Safe{Core} SDK on docs.safe.global
 
 ## Safe Module
@@ -164,7 +164,7 @@ A Safe Module is a smart contract that adds functionality to Safe while separati
 See also:
 - [Safe Modules documentation](../advanced/smart-account-modules.mdx) on docs.safe.global
 - [Safe Modules repository](https://github.com/safe-global/safe-modules) on github.com
-- [Zodiac Modules](https://zodiac.wiki/index.php%3Ftitle=Introduction:_Zodiac_Protocol.html#Modules) on zodiac.wiki
+- [Zodiac Modules](https://github.com/gnosisguild/zodiac#modules) on github.com
 - [Get the enabled Safe Modules](../reference-sdk-protocol-kit/safe-modules/getmodules.mdx) and [enable a Safe Module](../reference-sdk-protocol-kit/safe-modules/createenablemoduletx.mdx) with the Safe\{Core\} SDK on docs.safe.global
 
 ## Smart Account
