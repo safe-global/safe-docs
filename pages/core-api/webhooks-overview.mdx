@@ -45,6 +45,8 @@ Consider using webhooks to reduce your API usage if you're currently polling for
 | `UPDATED_DELEGATE` | An existing delegate was updated. |
 | `DELETED_DELEGATE` | A delegate was removed. |
 
+For the exact JSON structure of each event, see [Events supported ↗](https://github.com/safe-global/safe-events-service#events-supported) in the Safe Events Service repository.
+
 ## Retry semantics
 
 If your endpoint doesn't respond with a `2xx` status code within the request timeout, Safe Infrastructure retries delivery:
@@ -77,6 +79,8 @@ We recommend configuring an **Authorization header** on your webhook endpoint so
 
 - Webhook payloads are intentionally minimal. They serve as **signals** to notify your application that something changed. Use the [API](./transaction-service-overview) to fetch full details after receiving an event.
 - Safe Infrastructure sends notifications for blockchain reorgs. Always verify event data against the API to ensure consistency.
+- Treat the payload schema as **forward-compatible**. We may add new fields to existing events at any time, so your endpoint should ignore unknown fields rather than reject them. Avoid strict validation that fails on extra properties.
+
 ## Next steps
 
 - [Setup & Configuration](./webhooks-setup): Configure your webhook endpoints.
