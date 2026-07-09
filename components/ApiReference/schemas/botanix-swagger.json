@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Safe Transaction Service",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "description": "API to keep track of transactions sent via Safe smart contracts"
   },
   "paths": {
@@ -639,7 +639,7 @@
         "additionalInfo": ""
       }
     },
-    "/tx-service/btc/api/v1/module-transaction/{module_transaction_id}": {
+    "/tx-service/btc/api/v1/module-transaction/{module_transaction_id}/": {
       "get": {
         "operationId": "module_transaction_retrieve",
         "description": "Returns a transaction executed from a module given its associated module transaction ID",
@@ -690,7 +690,7 @@
             "description": "ModuleTransaction does not exist"
           }
         },
-        "path": "/tx-service/btc/api/v1/module-transaction/{module_transaction_id}",
+        "path": "/tx-service/btc/api/v1/module-transaction/{module_transaction_id}/",
         "title": "Get Module Transaction",
         "additionalInfo": ""
       }
@@ -3182,7 +3182,7 @@
         "additionalInfo": ""
       }
     },
-    "/tx-service/btc/api/v1/transfer/{transfer_id}": {
+    "/tx-service/btc/api/v1/transfer/{transfer_id}/": {
       "get": {
         "operationId": "transfer_retrieve",
         "description": "Returns a token transfer associated with the given transfer ID",
@@ -3226,7 +3226,7 @@
             "description": "Transfer does not exist"
           }
         },
-        "path": "/tx-service/btc/api/v1/transfer/{transfer_id}",
+        "path": "/tx-service/btc/api/v1/transfer/{transfer_id}/",
         "title": "Get Transfer",
         "additionalInfo": ""
       }
@@ -5467,6 +5467,30 @@
               "string",
               "null"
             ]
+          },
+          "gasToken": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "payment": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "gasTokenSymbol": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "gasTokenDecimals": {
+            "type": [
+              "integer",
+              "null"
+            ]
           }
         },
         "required": [
@@ -5479,8 +5503,12 @@
           "contractAddress",
           "executedAt",
           "executorAddress",
+          "gasToken",
+          "gasTokenDecimals",
+          "gasTokenSymbol",
           "nonce",
           "note",
+          "payment",
           "proposedAt",
           "proposerAddress",
           "safe",
@@ -5661,7 +5689,15 @@
               "string",
               "null"
             ],
-            "description": "Prepared signature sorted\n\n:param obj: SafeMessage instance\n:return: Serialized queryset",
+            "description": "Prepared signature sorted by owner.\n\nNote: this is a raw concatenation of per-owner confirmations and is only directly\nusable when every confirmation is an EOA signature. For messages with ``CONTRACT_SIGNATURE``\nconfirmations (nested EIP-1271) use ``preparedSignatureEip1271`` instead.\n\n:param obj: SafeMessage instance\n:return: Serialized queryset",
+            "readOnly": true
+          },
+          "preparedSignatureEip1271": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Single EIP-1271 signature ready to be consumed as a ``SafeSignature`` whose owner is\n``obj.safe`` (e.g. for ``/api/v2/delegates/`` when the delegator is a Safe). Handles\nboth EOA-only and ``CONTRACT_SIGNATURE`` confirmations, including nested ones.\n\n:param obj: SafeMessage instance\n:return: Hex-encoded signature, or ``None`` if there are no parseable confirmations yet",
             "readOnly": true
           },
           "origin": {
@@ -5677,6 +5713,7 @@
           "modified",
           "origin",
           "preparedSignature",
+          "preparedSignatureEip1271",
           "proposedBy",
           "safe",
           "safeAppId"

@@ -73,7 +73,7 @@
       "title": "Sign Message"
     }
   },
-  "/api/v1/module-transaction/{module_transaction_id}": {
+  "/api/v1/module-transaction/{module_transaction_id}/": {
     "get": {
       "title": "Get Module Transaction"
     }
@@ -247,7 +247,7 @@
       "title": "Delete Queued Transaction (Deprecated)"
     }
   },
-  "/api/v1/transfer/{transfer_id}": {
+  "/api/v1/transfer/{transfer_id}/": {
     "get": {
       "title": "Get Transfer"
     }
