@@ -121,8 +121,8 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
       yaml:
-        specifier: ^2.7.0
-        version: 2.7.0
+        specifier: ^2.9.0
+        version: 2.9.0
 
 packages:
 
@@ -4669,9 +4669,9 @@ packages:
     resolution: {integrity: sha512-vIYeF1u3CjlhAFekPPAk2h/Kv4T3mAkMox5OymRiJQB0spDP10LHvt+K7G9Ny6NuuMAb25/6n1qyUjAcGNf/AA==}
     engines: {node: '>= 6'}
 
-  yaml@2.7.0:
-    resolution: {integrity: sha512-+hSoy/QHluxmC9kCIJyL/uyFmLmc+e5CFR5Wa+bpIhIj85LVb9ZH2nVnqrHoSvKogwODv0ClqZkmiSSaIH5LTA==}
-    engines: {node: '>= 14'}
+  yaml@2.9.0:
+    resolution: {integrity: sha512-2AvhNX3mb8zd6Zy7INTtSpl1F15HW6Wnqj0srWlkKLcpYl/gMIMJiyuGq2KeI2YFxUPjdlB+3Lc10seMLtL4cA==}
+    engines: {node: '>= 14.6'}
     hasBin: true
 
   yn@3.1.1:
@@ -10439,7 +10439,7 @@ snapshots:
 
   yaml@1.10.3: {}
 
-  yaml@2.7.0: {}
+  yaml@2.9.0: {}
 
   yn@3.1.1: {}
 
