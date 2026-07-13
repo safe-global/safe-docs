@@ -84,6 +84,12 @@
     "txServiceUrl": "https://api.safe.global/tx-service/wc"
   },
   {
+    "chainId": 677,
+    "shortName": "bot",
+    "networkName": "bot-chain",
+    "txServiceUrl": "https://api.safe.global/tx-service/bot"
+  },
+  {
     "chainId": 988,
     "shortName": "stable",
     "networkName": "stable",
@@ -94,6 +100,12 @@
     "shortName": "hyper_evm",
     "networkName": "hyper-evm",
     "txServiceUrl": "https://api.safe.global/tx-service/hyper"
+  },
+  {
+    "chainId": 1001,
+    "shortName": "kairos",
+    "networkName": "kairos",
+    "txServiceUrl": "https://api.safe.global/tx-service/kairos"
   },
   {
     "chainId": 1101,
@@ -132,6 +144,12 @@
     "txServiceUrl": "https://api.safe.global/tx-service/mega"
   },
   {
+    "chainId": 4663,
+    "shortName": "robinhood",
+    "networkName": "robinhood",
+    "txServiceUrl": "https://api.safe.global/tx-service/robinhood"
+  },
+  {
     "chainId": 5000,
     "shortName": "mantle",
     "networkName": "mantle",
@@ -142,6 +160,18 @@
     "shortName": "mnt-sep",
     "networkName": "mantle-sepolia",
     "txServiceUrl": "https://api.safe.global/tx-service/mnt-sep"
+  },
+  {
+    "chainId": 5042,
+    "shortName": "arc",
+    "networkName": "arc",
+    "txServiceUrl": "https://api.safe.global/tx-service/arc"
+  },
+  {
+    "chainId": 8217,
+    "shortName": "kaia",
+    "networkName": "kaia",
+    "txServiceUrl": "https://api.safe.global/tx-service/kaia"
   },
   {
     "chainId": 8453,

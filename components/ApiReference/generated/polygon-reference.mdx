@@ -237,7 +237,7 @@ Empty Response
     
 
     <Parameters parameters={[{"in":"path","name":"message_hash","schema":{"type":"string"},"required":true}]} />
-    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"SafeMessageResponse","type":"object","properties":{"created":{"type":"string","format":"date-time"},"modified":{"type":"string","format":"date-time"},"safe":{"type":"string"},"messageHash":{"type":"string"},"message":{},"proposedBy":{"type":"string"},"safeAppId":{"type":"integer"},"confirmations":{"type":"object","additionalProperties":{},"description":"Filters confirmations queryset\n\n:param obj: SafeMessage instance\n:return: Serialized queryset","readOnly":true},"preparedSignature":{"type":["string","null"],"description":"Prepared signature sorted\n\n:param obj: SafeMessage instance\n:return: Serialized queryset","readOnly":true},"origin":{"type":"string","readOnly":true}},"required":["confirmations","created","message","messageHash","modified","origin","preparedSignature","proposedBy","safe","safeAppId"]}}},"description":""}]} />
+    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"SafeMessageResponse","type":"object","properties":{"created":{"type":"string","format":"date-time"},"modified":{"type":"string","format":"date-time"},"safe":{"type":"string"},"messageHash":{"type":"string"},"message":{},"proposedBy":{"type":"string"},"safeAppId":{"type":"integer"},"confirmations":{"type":"object","additionalProperties":{},"description":"Filters confirmations queryset\n\n:param obj: SafeMessage instance\n:return: Serialized queryset","readOnly":true},"preparedSignature":{"type":["string","null"],"description":"Prepared signature sorted by owner.\n\nNote: this is a raw concatenation of per-owner confirmations and is only directly\nusable when every confirmation is an EOA signature. For messages with ``CONTRACT_SIGNATURE``\nconfirmations (nested EIP-1271) use ``preparedSignatureEip1271`` instead.\n\n:param obj: SafeMessage instance\n:return: Serialized queryset","readOnly":true},"preparedSignatureEip1271":{"type":["string","null"],"description":"Single EIP-1271 signature ready to be consumed as a ``SafeSignature`` whose owner is\n``obj.safe`` (e.g. for ``/api/v2/delegates/`` when the delegator is a Safe). Handles\nboth EOA-only and ``CONTRACT_SIGNATURE`` confirmations, including nested ones.\n\n:param obj: SafeMessage instance\n:return: Hex-encoded signature, or ``None`` if there are no parseable confirmations yet","readOnly":true},"origin":{"type":"string","readOnly":true}},"required":["confirmations","created","message","messageHash","modified","origin","preparedSignature","preparedSignatureEip1271","proposedBy","safe","safeAppId"]}}},"description":""}]} />
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Message"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -357,7 +357,7 @@ Empty Response
     
 
     <Parameters parameters={[{"in":"path","name":"address","schema":{"type":"string"},"required":true},{"name":"ordering","required":false,"in":"query","description":"Which field to use when ordering the results.","schema":{"type":"string"}},{"name":"limit","required":false,"in":"query","description":"Number of results to return per page.","schema":{"type":"integer"}},{"name":"offset","required":false,"in":"query","description":"The initial index from which to return the results.","schema":{"type":"integer"}}]} />
-    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedSafeMessageResponseList","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"SafeMessageResponse","type":"object","properties":{"created":{"type":"string","format":"date-time"},"modified":{"type":"string","format":"date-time"},"safe":{"type":"string"},"messageHash":{"type":"string"},"message":{},"proposedBy":{"type":"string"},"safeAppId":{"type":"integer"},"confirmations":{"type":"object","additionalProperties":{},"description":"Filters confirmations queryset\n\n:param obj: SafeMessage instance\n:return: Serialized queryset","readOnly":true},"preparedSignature":{"type":["string","null"],"description":"Prepared signature sorted\n\n:param obj: SafeMessage instance\n:return: Serialized queryset","readOnly":true},"origin":{"type":"string","readOnly":true}},"required":["confirmations","created","message","messageHash","modified","origin","preparedSignature","proposedBy","safe","safeAppId"]}}}}}},"description":""}]} />
+    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedSafeMessageResponseList","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"SafeMessageResponse","type":"object","properties":{"created":{"type":"string","format":"date-time"},"modified":{"type":"string","format":"date-time"},"safe":{"type":"string"},"messageHash":{"type":"string"},"message":{},"proposedBy":{"type":"string"},"safeAppId":{"type":"integer"},"confirmations":{"type":"object","additionalProperties":{},"description":"Filters confirmations queryset\n\n:param obj: SafeMessage instance\n:return: Serialized queryset","readOnly":true},"preparedSignature":{"type":["string","null"],"description":"Prepared signature sorted by owner.\n\nNote: this is a raw concatenation of per-owner confirmations and is only directly\nusable when every confirmation is an EOA signature. For messages with ``CONTRACT_SIGNATURE``\nconfirmations (nested EIP-1271) use ``preparedSignatureEip1271`` instead.\n\n:param obj: SafeMessage instance\n:return: Serialized queryset","readOnly":true},"preparedSignatureEip1271":{"type":["string","null"],"description":"Single EIP-1271 signature ready to be consumed as a ``SafeSignature`` whose owner is\n``obj.safe`` (e.g. for ``/api/v2/delegates/`` when the delegator is a Safe). Handles\nboth EOA-only and ``CONTRACT_SIGNATURE`` confirmations, including nested ones.\n\n:param obj: SafeMessage instance\n:return: Hex-encoded signature, or ``None`` if there are no parseable confirmations yet","readOnly":true},"origin":{"type":"string","readOnly":true}},"required":["confirmations","created","message","messageHash","modified","origin","preparedSignature","preparedSignatureEip1271","proposedBy","safe","safeAppId"]}}}}}},"description":""}]} />
     <Feedback asPath={"/core-api/transaction-service-reference#List-Messages"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
@@ -502,15 +502,15 @@ Empty Response
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Module-Transaction"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/module-transaction/{module_transaction_id}" method="get" />
+    <Path path="/api/v1/module-transaction/{module_transaction_id}/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/module-transaction/0x3b3b57b3" />
+    <SampleRequestHeader method="get" pathWithParams="/api/v1/module-transaction/0x3b3b57b3/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://api.safe.global/tx-service/pol/api/v1/module-transaction/0x3b3b57b3 \
+curl -X GET https://api.safe.global/tx-service/pol/api/v1/module-transaction/0x3b3b57b3/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -H "Authorization: Bearer YOUR_API_KEY" \
@@ -519,26 +519,7 @@ curl -X GET https://api.safe.global/tx-service/pol/api/v1/module-transaction/0x3
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "created": "2024-07-24T20:54:48Z",
-  "executionDate": "2024-07-24T20:54:48Z",
-  "blockNumber": 6369595,
-  "isSuccessful": true,
-  "transactionHash": "0x4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e",
-  "safe": "0x5298A93734C3D979eF1f23F78eBB871879A21F22",
-  "module": "0x9085149079b87E32178669097bc82D341CB65678",
-  "to": "0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d",
-  "value": "10000000000",
-  "data": "0x00",
-  "operation": 0,
-  "dataDecoded": null,
-  "moduleTransactionId": "i4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e0,0"
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -925,15 +906,15 @@ curl -X GET https://api.safe.global/tx-service/pol/api/v1/safes/0xcd2E72aEBe2A20
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Transfer"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
-    <Path path="/api/v1/transfer/{transfer_id}" method="get" />
+    <Path path="/api/v1/transfer/{transfer_id}/" method="get" />
 
-    <SampleRequestHeader method="get" pathWithParams="/api/v1/transfer/3b3b57b3" />
+    <SampleRequestHeader method="get" pathWithParams="/api/v1/transfer/3b3b57b3/" />
 
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
 ```bash 
-curl -X GET https://api.safe.global/tx-service/pol/api/v1/transfer/3b3b57b3 \
+curl -X GET https://api.safe.global/tx-service/pol/api/v1/transfer/3b3b57b3/ \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
     -H "Authorization: Bearer YOUR_API_KEY" \
@@ -942,24 +923,7 @@ curl -X GET https://api.safe.global/tx-service/pol/api/v1/transfer/3b3b57b3 \
       </CH.Code>
     </CH.Section>
 
-    #### Sample Response
-
-```json
-{
-  "type": "ETHER_TRANSFER",
-  "executionDate": "2024-07-24T20:54:48Z",
-  "blockNumber": 6369595,
-  "transactionHash": "0x4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e",
-  "to": "0x3A16E3090e32DDeD2250E862B9d5610BEF13e93d",
-  "value": "10000000000",
-  "tokenId": null,
-  "tokenAddress": null,
-  "transferId": "i4c8bc3a9f32eed6b4cb8225d6884e9c7006d6740b0a6896cee7b254aa037920e0,0,0",
-  "tokenInfo": null,
-  "from": "0x5298A93734C3D979eF1f23F78eBB871879A21F22"
-}
-
-```
+    
   </Grid>
 </Grid>
 <Hr style={{ 
@@ -2088,7 +2052,7 @@ The maximum limit allowed is 1000.
     
 
     <Parameters parameters={[{"in":"path","name":"address","schema":{"type":"string"},"required":true},{"in":"query","name":"execution_date__gte","schema":{"type":"string","format":"date-time"},"description":"Filter transactions executed after this date (ISO format)"},{"in":"query","name":"execution_date__lte","schema":{"type":"string","format":"date-time"},"description":"Filter transactions executed before this date (ISO format)"},{"in":"query","name":"limit","schema":{"type":"integer"},"description":"Maximum number of transactions to return (max 1000)"},{"in":"query","name":"offset","schema":{"type":"integer"},"description":"Number of transactions to skip"}]} />
-    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedSafeExportTransactionList","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"SafeExportTransaction","type":"object","description":"Serializer for the export endpoint that returns transaction data optimized for CSV export","properties":{"safe":{"type":"string"},"From":{"type":"string","title":" from"},"to":{"type":"string"},"amount":{"type":"string"},"assetType":{"type":"string"},"assetAddress":{"type":["string","null"]},"assetSymbol":{"type":["string","null"]},"assetDecimals":{"type":["integer","null"]},"proposerAddress":{"type":["string","null"]},"proposedAt":{"type":["string","null"],"format":"date-time"},"executorAddress":{"type":["string","null"]},"executedAt":{"type":["string","null"],"format":"date-time"},"note":{"type":["string","null"]},"transactionHash":{"type":"string"},"contractAddress":{"type":["string","null"]},"nonce":{"type":["string","null"]}},"required":["From","amount","assetAddress","assetDecimals","assetSymbol","assetType","contractAddress","executedAt","executorAddress","nonce","note","proposedAt","proposerAddress","safe","to","transactionHash"]}}}}}},"description":""},{"code":"404","schema":{},"description":"Safe not found"},{"code":"422","schema":{},"content":{"application/json":{"schema":{"refName":"CodeErrorResponse","type":"object","properties":{"code":{"type":"integer"},"message":{"type":"string"},"arguments":{"type":"array","items":{}}},"required":["arguments","code","message"]}}},"description":"Safe address checksum not valid"}]} />
+    <Responses responses={[{"code":"200","schema":{},"content":{"application/json":{"schema":{"refName":"PaginatedSafeExportTransactionList","type":"object","required":["count","results"],"properties":{"count":{"type":"integer","example":123},"next":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=400&limit=100"},"previous":{"type":"string","nullable":true,"format":"uri","example":"http://api.example.org/accounts/?offset=200&limit=100"},"results":{"type":"array","items":{"refName":"SafeExportTransaction","type":"object","description":"Serializer for the export endpoint that returns transaction data optimized for CSV export","properties":{"safe":{"type":"string"},"From":{"type":"string","title":" from"},"to":{"type":"string"},"amount":{"type":"string"},"assetType":{"type":"string"},"assetAddress":{"type":["string","null"]},"assetSymbol":{"type":["string","null"]},"assetDecimals":{"type":["integer","null"]},"proposerAddress":{"type":["string","null"]},"proposedAt":{"type":["string","null"],"format":"date-time"},"executorAddress":{"type":["string","null"]},"executedAt":{"type":["string","null"],"format":"date-time"},"note":{"type":["string","null"]},"transactionHash":{"type":"string"},"contractAddress":{"type":["string","null"]},"nonce":{"type":["string","null"]},"gasToken":{"type":["string","null"]},"payment":{"type":["string","null"]},"gasTokenSymbol":{"type":["string","null"]},"gasTokenDecimals":{"type":["integer","null"]}},"required":["From","amount","assetAddress","assetDecimals","assetSymbol","assetType","contractAddress","executedAt","executorAddress","gasToken","gasTokenDecimals","gasTokenSymbol","nonce","note","payment","proposedAt","proposerAddress","safe","to","transactionHash"]}}}}}},"description":""},{"code":"404","schema":{},"description":"Safe not found"},{"code":"422","schema":{},"content":{"application/json":{"schema":{"refName":"CodeErrorResponse","type":"object","properties":{"code":{"type":"integer"},"message":{"type":"string"},"arguments":{"type":"array","items":{}}},"required":["arguments","code","message"]}}},"description":"Safe address checksum not valid"}]} />
     <Feedback asPath={"/core-api/transaction-service-reference#Get-Transactions-for-CSV-Export"} label='Did this API route run successfully?' small />
   </Grid>
   <Grid item xs={12} md={5.6}>
