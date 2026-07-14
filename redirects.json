@@ -823,5 +823,10 @@
     "source": "/safenet/:path*",
     "destination": "https://github.com/safe-fndn/safenet",
     "permanent": true
+  },
+  {
+    "source": "/core-api/transaction-service-reference/zkevm",
+    "destination": "/core-api/transaction-service-reference/mainnet",
+    "permanent": true
   }
 ]

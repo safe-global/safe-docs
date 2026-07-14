@@ -10,6 +10,9 @@ export const deprecatedNetworks = [
   280, // zkSync Goerli
   420, // Optimistic Goerli
   599, // Metis Goerli
+  1101, // Polygon zkEVM
+  1442, // Polygon zkEVM Testnet
+  2442, // Polygon zkEVM Cardona Testnet
   59140, // Linea Goerli
   80001, // Polygon Mumbai
   84531, // Base goerli
