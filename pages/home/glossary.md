@@ -123,7 +123,7 @@ See also:
 A relayer is a third-party service acting as an intermediary between users' accounts and [blockchain networks](#network). It executes transactions on behalf of users and covers the associated execution costs, which may or may not be claimed.
 
 See also:
-- [What's Relaying?](https://docs.gelato.network/developer-services/relay/what-is-relaying) on docs.gelato.network
+- [What's Relaying?](https://docs.gelato.cloud/developer-services/relay/what-is-relaying) on docs.gelato.cloud
 
 ## Safe{DAO}
 

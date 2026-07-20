@@ -1,30 +1,28 @@
-import { Steps } from 'nextra/components'
+import { Steps, Callout } from 'nextra/components'
 
 # Integration with Gelato
 
-The [Gelato relay](https://docs.gelato.network/developer-services/relay) allows developers to execute gasless transactions.
+The [Gelato Turbo Relayer](https://docs.gelato.cloud/gasless-with-relay/gelato-turbo-relayer/overview) allows developers to execute gasless transactions.
 
 ## Prerequisites
 
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm).
 2. Have a Safe account configured with threshold equal to 1, where only one signature is needed to execute transactions.
-3. To use Gelato 1Balance an [API key](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance) is required.
+3. A Gelato [API key](https://docs.gelato.cloud/developer-services/relay/payment-and-fees/1balance) is **required**. Only sponsored transactions via Gelato 1Balance are supported.
 
 ## Install dependencies
 
 ```bash
-yarn add ethers @safe-global/relay-kit @safe-global/protocol-kit @safe-global/types-kit
+yarn add @safe-global/relay-kit @safe-global/protocol-kit @safe-global/types-kit
 ```
 
-## Relay Kit options
+## Sponsored transactions with Gelato 1Balance
 
-Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs.gelato.network/developer-services/relay). The Gelato relay can be used in two ways:
-1. [Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance)
-2. [Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee)
+Currently, the Relay Kit is only compatible with the [Gelato relay](https://docs.gelato.cloud/developer-services/relay). All transactions are **sponsored** via [Gelato 1Balance](https://docs.gelato.cloud/developer-services/relay/payment-and-fees/1balance), which allows you to execute transactions using a prepaid deposit. This can be used to sponsor transactions to other Safes or even to use a deposit on Polygon to pay the fees for a wallet on another chain.
 
-## Gelato 1Balance
-
-[Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/1balance) allows you to execute transactions using a prepaid deposit. This can be used to sponsor transactions to other Safes or even to use a deposit on Polygon to pay the fees for a wallet on another chain.
+<Callout type="warning">
+  Gelato SyncFee (`callWithSyncFee`) is **no longer supported**. Only sponsored transactions via Gelato 1Balance are available. If you need to collect fees from end-users, implement token collection in your own contract logic and use sponsored relay.
+</Callout>
 
 For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on BNB Chain using the Polygon USDC you have deposited into your Gelato 1Balance account.
 
@@ -33,9 +31,9 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
   ### Setup
 
   1. Start with a [1/1 Safe on BNB Chain](https://app.safe.global/transactions/history?safe=bnb:0x6651FD6Abe0843f7B6CB9047b89655cc7Aa78221).
-  2. [Deposit Polygon USDC into Gelato 1Balance](https://docs.gelato.network/developer-services/relay/payment-and-fees/.1balance#how-can-i-use-1balance) ([transaction 0xa5f38](https://polygonscan.com/tx/0xa5f388c2d6e0d1bb32e940fccddf8eab182ad191644936665a54bf4bb1bac555)).
+  2. [Deposit Polygon USDC into Gelato 1Balance](https://docs.gelato.cloud/developer-services/relay/payment-and-fees/.1balance#how-can-i-use-1balance) ([transaction 0xa5f38](https://polygonscan.com/tx/0xa5f388c2d6e0d1bb32e940fccddf8eab182ad191644936665a54bf4bb1bac555)).
   3. The Safe owner [0x6Dbd26Bca846BDa60A90890cfeF8fB47E7d0f22c](https://bscscan.com/address/0x6Dbd26Bca846BDa60A90890cfeF8fB47E7d0f22c) signs a transaction to send 0.0005 BNB and submits it to Gelato relay.
-  4. [Track the relay request](https://docs.gelato.network/developer-services/relay/quick-start/tracking-your-relay-request) of [Gelato Task ID 0x1bf7](https://relay.gelato.digital/tasks/status/0x1bf7664a1e176472f604bb3840d3d2a5bf56f98b60307961c3f8cee099f1eeb8).
+  4. [Track the relay request](https://docs.gelato.cloud/developer-services/relay/quick-start/tracking-your-relay-request) of [Gelato Task ID 0x1bf7](https://relay.gelato.digital/tasks/status/0x1bf7664a1e176472f604bb3840d3d2a5bf56f98b60307961c3f8cee099f1eeb8).
   5. [Transaction 0x814d3](https://bscscan.com/tx/0x814d385c0ec036be65663b5fbfb0d8d4e0d35af395d4d96b13f2cafaf43138f9) is executed on the blockchain.
 
   ### Use a Safe as the Relay
@@ -45,12 +43,12 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
   ### Imports
 
   ```typescript
-  import { ethers } from 'ethers'
   import { GelatoRelayPack } from '@safe-global/relay-kit'
   import Safe from '@safe-global/protocol-kit'
   import {
     MetaTransactionData,
-    MetaTransactionOptions
+    OperationType,
+    SafeTransaction
   } from '@safe-global/types-kit'
   ```
 
@@ -62,11 +60,12 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
   // https://chainlist.org
   const RPC_URL = 'https://endpoints.omniatech.io/v1/bsc/mainnet/public'
   const OWNER_PRIVATE_KEY = process.env.OWNER_PRIVATE_KEY
+  const GELATO_API_KEY = process.env.GELATO_RELAY_API_KEY
   const safeAddress = '0x...' // Safe from which the transaction will be sent
 
   // Any address can be used for destination. In this example, we use vitalik.eth
   const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-  const withdrawAmount = ethers.parseUnits('0.005', 'ether').toString()
+  const withdrawAmount = '5000000000000000' // 0.005 BNB in wei
   ```
 
   ### Create a transaction
@@ -76,12 +75,9 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
   const transactions: MetaTransactionData[] = [{
     to: destinationAddress,
     data: '0x',
-    value: withdrawAmount
+    value: withdrawAmount,
+    operation: OperationType.Call
   }]
-
-  const options: MetaTransactionOptions = {
-    isSponsored: true
-  }
   ```
 
   ### Instantiate the Protocol Kit and Relay Kit
@@ -94,7 +90,7 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
   })
 
   const relayKit = new GelatoRelayPack({
-    apiKey: process.env.GELATO_RELAY_API_KEY!,
+    apiKey: GELATO_API_KEY,
     protocolKit
   })
   ```
@@ -103,97 +99,66 @@ For the 1Balance quickstart tutorial, you will use the Gelato relayer to pay for
 
   ```typescript
   const safeTransaction = await relayKit.createTransaction({
-    transactions,
-    options
-  })
+    transactions
+  }) as SafeTransaction
 
   const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
   ```
 
   ### Send the transaction to the relay
 
+  `executeTransaction` returns the Gelato task ID as a string directly.
+
   ```typescript
-  const response = await relayKit.executeTransaction({
-    executable: signedSafeTransaction,
-    options
+  const taskId = await relayKit.executeTransaction({
+    executable: signedSafeTransaction
   })
 
-  console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`)
+  console.log(`Relay Transaction Task ID: ${taskId}`)
   ```
 
-</Steps>
+  ### Check the transaction status
 
-## Gelato SyncFee
-
-[Gelato SyncFee](https://docs.gelato.network/developer-services/relay/quick-start/callwithsyncfee) allows you to execute a transaction and pay the gas fees directly with funds in your Safe, even if you don't have ETH or the native blockchain token.
-
-For the SyncFee quickstart tutorial, you will use the Gelato relayer to pay for the gas fees on the BNB Chain using the BNB you hold in your Safe. No need to have funds on your signer.
-
-<Steps>
-
-  ### Imports
+  You can use `getTaskStatus()` to check the status of the relayed transaction. It returns a `GelatoTaskStatus` object with a numeric `status` code and an optional `receipt` containing the `transactionHash`.
 
   ```typescript
-  import { ethers } from 'ethers'
-  import { GelatoRelayPack } from '@safe-global/relay-kit'
-  import Safe from '@safe-global/protocol-kit'
-  import { MetaTransactionData } from '@safe-global/types-kit'
+  const status = await relayKit.getTaskStatus(taskId)
+
+  if (status.status === 200 || status.status === 210) {
+    console.log(`Transaction hash: ${status.receipt?.transactionHash}`)
+  }
   ```
 
-  ### Initialize the transaction settings
+  The possible status codes are:
 
-  Modify the variables to customize to match your desired transaction settings.
+  | Code | Meaning |
+  |------|---------|
+  | 100 | Pending |
+  | 110 | Submitted |
+  | 200 | Success |
+  | 210 | Finalized |
+  | 400 | Rejected |
+  | 500 | Reverted |
 
-  ```typescript
-  // https://chainlist.org
-  const RPC_URL = 'https://endpoints.omniatech.io/v1/bsc/mainnet/public'
-  const OWNER_PRIVATE_KEY = process.env.OWNER_PRIVATE_KEY
-  const safeAddress = '0x...' // Safe from which the transaction will be sent
-
-  // Any address can be used for destination. In this example, we use vitalik.eth
-  const destinationAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-  const withdrawAmount = ethers.parseUnits('0.005', 'ether').toString()
-  ```
-
-  ### Create a transaction
+  Alternatively, you can poll the Gelato RPC directly for fine-grained control:
 
   ```typescript
-  // Create a transactions array with one transaction object
-  const transactions: MetaTransactionData[] = [{
-    to: destinationAddress,
-    data: '0x',
-    value: withdrawAmount
-  }]
-  ```
-
-  ### Instantiate the Protocol Kit and Relay Kit
-
-  ```typescript
-  const protocolKit = await Safe.init({
-    provider: RPC_URL,
-    signer: OWNER_PRIVATE_KEY,
-    safeAddress
+  const statusResponse = await fetch('https://api.gelato.cloud/rpc', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-Key': GELATO_API_KEY
+    },
+    body: JSON.stringify({
+      id: 1,
+      jsonrpc: '2.0',
+      method: 'relayer_getStatus',
+      params: { id: taskId, logs: false }
+    })
   })
 
-  const relayKit = new GelatoRelayPack({ protocolKit })
-  ```
-
-  ### Prepare the transaction
-
-  ```typescript
-  const safeTransaction = await relayKit.createTransaction({ transactions })
-
-  const signedSafeTransaction = await protocolKit.signTransaction(safeTransaction)
-  ```
-
-  ### Send the transaction to the relay
-
-  ```typescript
-  const response = await relayKit.executeTransaction({
-    executable: signedSafeTransaction  
-  })
-
-  console.log(`Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`)
+  const data = await statusResponse.json()
+  const statusCode = data.result?.status
   ```
 
 </Steps>
