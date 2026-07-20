@@ -68,12 +68,12 @@ const ApiReference: React.FC<{ networkName: string }> = ({ networkName }) => {
                 bottom: 60,
                 right: 17,
                 zIndex: 1000,
-                backgroundColor: 'background.dark',
+                backgroundColor: 'background.paper',
                 border: 'none',
                 color: 'text.primary',
                 display: ['block', 'none'],
                 '&:hover': {
-                  backgroundColor: 'background.dark'
+                  backgroundColor: 'background.paper'
                 }
               }}
               onClick={() => {
@@ -99,10 +99,10 @@ const ApiReference: React.FC<{ networkName: string }> = ({ networkName }) => {
                 opacity: currentIndex !== '' ? 1 : 0,
                 transition: 'opacity 0.3s',
                 border: 'none',
-                backgroundColor: 'background.dark',
+                backgroundColor: 'background.paper',
                 color: 'text.primary',
                 '&:hover': {
-                  backgroundColor: 'background.dark'
+                  backgroundColor: 'background.paper'
                 }
               }}
               onClick={() => {
