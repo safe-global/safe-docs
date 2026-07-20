@@ -11,7 +11,7 @@ jobs:
           pull-requests: write
         steps:
             - name: Checkout repo with history
-              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+              uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
               with:
                   fetch-depth: 0
             - uses: Rebilly/lexi@5a517542b048ca8cb46e43f27736fed84dfb0e84  # v2.3.6
