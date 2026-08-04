@@ -13,6 +13,7 @@ export const deprecatedNetworks = [
   1101, // Polygon zkEVM
   1442, // Polygon zkEVM Testnet
   2442, // Polygon zkEVM Cardona Testnet
+  3637, // Botanix
   59140, // Linea Goerli
   80001, // Polygon Mumbai
   84531, // Base goerli
