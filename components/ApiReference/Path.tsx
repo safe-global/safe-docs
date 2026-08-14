@@ -12,7 +12,8 @@ const Path: React.FC<{ path: string; method: string }> = ({ path, method }) => {
     <Grid
       container
       sx={{
-        border: ({ palette }) => `1px solid ${palette.grey[800]}`,
+        border: '1px solid',
+        borderColor: 'border.light',
         borderRadius: '8px',
         mb: 2,
         fontSize: '14px',

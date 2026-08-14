@@ -1,4 +1,5 @@
 import React from 'react'
+import { theme } from '../../styles/theme'
 import Img from 'next/image'
 import {
   Typography,
@@ -81,7 +82,7 @@ const NetworkModal: React.FC<{
         <Typography
           textAlign='center'
           sx={{
-            color: '#636669',
+            color: theme.vars.palette.text.secondary,
             fontWeight: 600,
             fontSize: '14px',
             mt: 2

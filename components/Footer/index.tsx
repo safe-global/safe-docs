@@ -4,7 +4,8 @@ import type { ComponentType, SyntheticEvent } from 'react'
 import DiscordIcon from '../../assets/svg/discord-icon.svg'
 import DiscourseIcon from '../../assets/svg/discourse-icon.svg'
 import GithubIcon from '../../assets/svg/github-icon.svg'
-import Logo from '../../assets/svg/safe-logo-white.svg'
+import LogoWhite from '../../assets/svg/safe-logo-white.svg'
+import LogoBlack from '../../assets/svg/safe-logo.svg'
 import XIcon from '../../assets/svg/x-icon.svg'
 import YoutubeIcon from '../../assets/svg/youtube-icon.svg'
 import css from './Footer.module.css'
@@ -309,6 +310,17 @@ const createFooterButton = (
   )
 }
 
+const FooterLogo: React.FC = () => (
+  <>
+    <span className='logo-light'>
+      <LogoBlack className={css.logo} />
+    </span>
+    <span className='logo-dark'>
+      <LogoWhite className={css.logo} />
+    </span>
+  </>
+)
+
 const Footer: React.FC = () => {
   return (
     <Grid mt={10} mx={4} sx={{ width: '100%' }}>
@@ -319,7 +331,7 @@ const Footer: React.FC = () => {
       >
         <Grid item xs={12} md={2} mb={{ xs: 4, md: 0 }}>
           <Link href={SAFE_LINK} target='_blank' rel='noreferrer'>
-            <Logo className={css.logo} />
+            <FooterLogo />
           </Link>
         </Grid>
         <LinksColumn title='Developers' items={safeItems} />

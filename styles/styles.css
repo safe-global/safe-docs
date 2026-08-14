@@ -2,8 +2,17 @@ html {
   scroll-padding-top: 110px !important;
 }
 
-html.dark.dark body {
+/* Logo theme switching — driven by the .dark class next-themes sets on <html>
+   This avoids the SSR hydration mismatch that caused the white-on-light flash */
+.logo-dark  { display: none; }
+.dark .logo-light { display: none; }
+.dark .logo-dark  { display: block; }
+
+body {
   font-family: 'DM Sans', sans-serif;
+}
+
+html.dark body {
   background-color: #121312;
 }
 
@@ -36,7 +45,7 @@ h2 {
   top: 2rem;
 }
 
-#__next > div > footer {
+html.dark #__next > div > footer {
   background-color: #121312;
 }
 
@@ -74,8 +83,11 @@ h2 {
 /* CopyButton */
 button[title='Copy code']:not(#\9) {
   margin-top: 2px;
-  background-color: #212121;
   border: none;
+}
+
+html.dark button[title='Copy code']:not(#\9) {
+  background-color: #212121;
 }
 
 /* CodeBlocks */

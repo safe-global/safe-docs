@@ -33,7 +33,7 @@ import { ProjectCard } from './Card'
 import companyResources from './company-resources.json'
 import communityResources from './community-resources.json'
 import css from './styles.module.css'
-import { palette } from '../../styles/palette'
+import { theme } from '../../styles/theme'
 
 export const uploadResourceUrl =
   'https://github.com/safe-global/safe-docs/issues/new?assignees=&labels=resource-hub&projects=&template=resource-hub-submission.yml&title=%5BResource+Hub%5D+'
@@ -276,7 +276,7 @@ export const Resources: React.FC = () => {
           endIcon={<AddIcon sx={{ mr: [1.5, 1] }} />}
           sx={{
             alignItems: 'space-between',
-            border: ['none', `solid 1px ${palette.text.dark}`],
+            border: ['none', `solid 1px ${theme.vars.palette.text.dark}`],
             color: 'white',
             mb: 2
           }}
@@ -343,8 +343,6 @@ export const Resources: React.FC = () => {
             placeholder='Search by name, description, or tag'
             InputProps={{
               style: {
-                color: 'white',
-                backgroundColor: 'rgba(28, 28, 28, 1)',
                 borderRadius: '8px',
                 border: 'none'
               },
@@ -363,7 +361,15 @@ export const Resources: React.FC = () => {
                 ) : undefined
             }}
             value={searchQuery}
-            sx={{ border: 'none', width: ['80%', '500px'], mt: [2, 0] }}
+            sx={{
+              border: 'none',
+              width: ['80%', '500px'],
+              mt: [2, 0],
+              '& .MuiOutlinedInput-root': {
+                backgroundColor: 'background.paper',
+                color: 'text.primary'
+              }
+            }}
             onChange={e => {
               if (e.target.value.length === 0) onResetSearch()
               else setSelectedFilter([e.target.value], 'search')
