@@ -83,6 +83,12 @@ button[title='Copy code']:not(#\9) {
   box-shadow: none;
 }
 
+/* Mermaid diagrams (mermaid >= 10.9.6 ignores the plugin's themeCSS) */
+.nextra-content svg[role~='graphics-document'] {
+  display: block;
+  margin: 1.5rem auto 0;
+}
+
 li > ul.nx-mt-6 {
   margin-top: 0;
   margin-bottom: 16px;
