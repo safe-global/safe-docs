@@ -16,6 +16,7 @@ export const deprecatedNetworks = [
   3637, // Botanix
   59140, // Linea Goerli
   80001, // Polygon Mumbai
+  81224, // Codex
   84531, // Base goerli
   421611, // Arbitrum Rinkeby
   421613 // Arbitrum Goerli
