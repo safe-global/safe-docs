@@ -1,9 +1,14 @@
 import { Grid } from '@mui/material'
+import { Callout } from 'nextra/components'
 import CustomCard from '../../components/CustomCard'
 
 # Relay Kit
 
 The Relay Kit enables transaction relaying with Safe, and allows users to pay for the transaction fees from their Safe account using the blockchain native token, ERC-20 tokens, or to get their transactions sponsored.
+
+<Callout type="warning">
+  Relaying transactions through Gelato isn't supported from September 1, 2026. Use the [ERC-4337 Safe accounts guide](./relay-kit/guides/4337-safe-sdk.mdx) instead. See the [Gelato Relay guide](./relay-kit/guides/gelato-relay.mdx) for migration details.
+</Callout>
 
 <Grid item mt={3}>
   <CustomCard
@@ -15,7 +20,7 @@ The Relay Kit enables transaction relaying with Safe, and allows users to pay fo
 
 The following guides show how to use the Relay Kit and integrate it into your project by using one of the packs:
 - [Integrate ERC-4337 Safe accounts](./relay-kit/guides/4337-safe-sdk.mdx)
-- [Integrate Gelato Relay](./relay-kit/guides/gelato-relay.mdx)
+- [Integrate Gelato Relay](./relay-kit/guides/gelato-relay.mdx) (deprecated)
 
 ## Resources
 

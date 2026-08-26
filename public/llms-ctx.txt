@@ -290,26 +290,38 @@ const pendingTxs = await safeService.getPendingTransactions('0x...')
 
 ### Relay Kit Example
 
-The Relay Kit enables gas-free transactions:
+The Relay Kit enables gas-free transactions through ERC-4337. Relaying through
+Gelato and the `GelatoRelayPack` are deprecated and unsupported from September
+1, 2026 — use the `Safe4337Pack` instead.
 
 ```typescript
-import { GelatoRelayPack } from '@safe-global/relay-kit'
+import { Safe4337Pack } from '@safe-global/relay-kit'
 
-// Create a relay pack
-const relayPack = new GelatoRelayPack('your-gelato-api-key')
+// Create the pack, optionally with a paymaster to sponsor the fees
+const safe4337Pack = await Safe4337Pack.init({
+  provider: RPC_URL,
+  signer: SIGNER_PRIVATE_KEY,
+  bundlerUrl: BUNDLER_URL,
+  options: {
+    safeAddress: '0x...'
+  },
+  paymasterOptions: {
+    isSponsored: true,
+    paymasterUrl: PAYMASTER_URL,
+    paymasterAddress: '0x...'
+  }
+})
 
-// Create a transaction
-const safeTransactionData = {
-  to: '0x...',
-  value: '0',
-  data: '0x...'
-}
+// Create a user operation from one or more transactions
+const safeOperation = await safe4337Pack.createTransaction({
+  transactions: [{ to: '0x...', value: '0', data: '0x...' }]
+})
 
-// Relay the transaction (user doesn't pay gas)
-const response = await relayPack.relayTransaction({
-  target: safeAddress,
-  encodedTransaction: encodedTx,
-  chainId: 11155111
+// Sign it and submit it to the bundler (user doesn't pay gas)
+const signedSafeOperation = await safe4337Pack.signSafeOperation(safeOperation)
+
+const userOperationHash = await safe4337Pack.executeTransaction({
+  executable: signedSafeOperation
 })
 ```
 
