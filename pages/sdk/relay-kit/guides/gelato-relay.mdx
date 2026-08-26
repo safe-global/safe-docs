@@ -5,13 +5,14 @@ import { Callout } from 'nextra/components'
 <Callout type="error" emoji="⚠️">
   **Relaying transactions through Gelato is no longer supported.**
 
-  From **September 1, 2026**, transactions can't be relayed through Gelato using
-  the Relay Kit. This affects the `GelatoRelayPack`, including both the Gelato
-  1Balance and the Gelato SyncFee flows.
+From **September 1, 2026**, transactions can't be relayed through Gelato using
+the Relay Kit. This affects the `GelatoRelayPack`, including both the Gelato
+1Balance and the Gelato SyncFee flows.
 
-  If your integration relies on the `GelatoRelayPack`, migrate to the
-  [ERC-4337 Safe SDK guide](./4337-safe-sdk.mdx), which uses the `Safe4337Pack`
-  to sponsor transactions or pay fees in ERC-20 tokens through a paymaster.
+If your integration relies on the `GelatoRelayPack`, migrate to the
+[ERC-4337 Safe SDK guide](./4337-safe-sdk.mdx), which uses the `Safe4337Pack`
+to sponsor transactions or pay fees in ERC-20 tokens through a paymaster.
+
 </Callout>
 
 ## What changed
@@ -31,14 +32,31 @@ this page have been removed so they aren't copied into new integrations.
 The [`Safe4337Pack`](./4337-safe-sdk.mdx) covers the same use cases through the
 ERC-4337 standard:
 
-| Previous Gelato flow | ERC-4337 equivalent |
-| --- | --- |
-| 1Balance (sponsored transactions) | A verifying paymaster configured with `paymasterOptions` |
-| SyncFee (pay fees from the Safe balance) | An ERC-20 paymaster configured with `paymasterOptions` |
+| Previous Gelato flow                     | ERC-4337 equivalent                                      |
+| ---------------------------------------- | -------------------------------------------------------- |
+| 1Balance (sponsored transactions)        | A verifying paymaster configured with `paymasterOptions` |
+| SyncFee (pay fees from the Safe balance) | An ERC-20 paymaster configured with `paymasterOptions`   |
 
 See the [ERC-4337 Safe SDK guide](./4337-safe-sdk.mdx) for a complete example,
 and the [`Safe4337Pack` reference](../reference/safe-4337-pack.mdx) for the full
 API.
+
+### Differences
+
+The ERC-4337 flow covers the same use cases, but is not a drop-in substitute. 
+Before you start rewriting note these differences:
+
+- **No cross-chain sponsoring:** With the Gelato flow you could sponsor 
+  cross-chain, using a deposit on one chain sponsoring a transaction on 
+  another. This feature is not available on the ERC-4337 flow. You have 
+  to fund the paymaster per chain.
+- **Chain Availability:** The ERC-4337 module is deployed on a different 
+  chainset than the previous flow. On chains where it is not deployed, 
+  `init()` will throw. The 
+  [official module deployments](https://github.com/safe-global/safe-modules-deployments/tree/main/src/assets/safe-4337-module) 
+  lists the chains where it is deplyoed.
+- **Safe ≥ v1.4.1:** The ERC-4337 flow is supported from Safe v1.4.1 
+  onwards.
 
 ## Resources
 
