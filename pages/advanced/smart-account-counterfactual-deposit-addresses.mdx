@@ -1,0 +1,56 @@
+import { Callout } from 'nextra/components'
+
+# Counterfactual Safe Addresses as Deposit Addresses
+
+A Safe account address can be computed before the account is deployed on chain. This is possible because Safe accounts are deployed through the [`SafeProxyFactory`](../reference-smart-account/deployment/SafeProxyFactory.mdx) using the `CREATE2` opcode, so the address is fully determined by the deployment inputs. An address computed this way, before any code exists at it, is called a counterfactual address.
+
+Because the address exists as a value before the account exists as a contract, it is common to hand it out as a deposit address: funds are sent to it first, and the account is deployed later, either on the first transaction or on demand. This page describes the properties you need to rely on when you use a counterfactual address that way, and the failure mode to avoid.
+
+## How the address is derived
+
+The `SafeProxyFactory.createProxyWithNonce` function computes the salt and the `CREATE2` init code as follows (see [`SafeProxyFactory.sol`](https://github.com/safe-global/safe-smart-account/blob/main/contracts/proxies/SafeProxyFactory.sol)):
+
+- The salt is `keccak256(abi.encodePacked(keccak256(initializer), saltNonce))`.
+- The `CREATE2` init code is the proxy creation code concatenated with the singleton address, that is `abi.encodePacked(type(SafeProxy).creationCode, uint256(uint160(_singleton)))`.
+
+The resulting address therefore depends on the factory address, the singleton address, the proxy creation code, the `initializer` payload, and the `saltNonce`. The [Permissionless.js detailed guide](./erc-4337/guides/permissionless-detailed.mdx) shows a concrete `getAccountAddress` implementation that reproduces this derivation off chain.
+
+## The address is a commitment to the setup
+
+The `initializer` is hashed into the salt, so it is bound to the address. An operator who derives an address for a given `initializer` cannot later deploy a different setup to that same address: any change to the `initializer` produces a different `keccak256(initializer)`, a different salt, and therefore a different address. The address is a commitment to one exact setup, including the owners, threshold, fallback handler, and any modules or setup calls the `initializer` encodes.
+
+## Deployment is permissionless and confers no control
+
+The `initializer` is not secret. It is a public payload, and `createProxyWithNonce` is a public function that anyone can call. This means anyone who knows the `initializer`, the singleton, and the `saltNonce` can deploy the account at the derived address, and there is no benefit to being the one who does. Deploying the proxy runs the committed `initializer`; it does not make the deployer an owner and grants no control over the account. Whoever deploys a funded counterfactual address gains nothing beyond triggering the deployment that was already committed to.
+
+## Correctness must hold before funding, not before signing
+
+With an ordinary transaction, an owner reviews and signs the transaction before it executes, so there is a review step between intent and effect. A counterfactual deposit address has no such step. Nobody signs or approves the deployment; whatever the committed `initializer` says is what runs when the account is deployed. The consequence is that the setup must be correct at the moment you derive the address and start funding it, because that is the last point at which a mistake can still be avoided. There is no later checkpoint at which an owner can catch and reject a bad setup.
+
+## A stale derivation strands funds; it is not a retry
+
+<Callout type='warning'>
+  If you fund a counterfactual address whose committed setup cannot be deployed on the target chain, the funds are stranded. There is no alternative setup that maps to the same address, so the deployment cannot be retried with corrected inputs.
+</Callout>
+
+The address commits to the whole deployment context, not only to the proxy creation code. It commits to the singleton and to every contract the `initializer` references, which can include the fallback handler, module libraries, a `MultiSend` contract, and any `delegatecall` targets used by setup calls. All of these have to be deployed on the chain where you deploy the account:
+
+- `createProxyWithNonce` calls `deployProxy`, which requires the singleton to already be a deployed contract (`require(isContract(_singleton), "Singleton contract not deployed")`), and the NatSpec for these functions states that the singleton must be deployed at the time of execution.
+- If the singleton or any contract referenced by the `initializer` is not deployed on the target chain, the committed `initializer` reverts when the factory calls into the new proxy, so the account cannot be deployed at that address.
+
+Because the address is derived from `keccak256(initializer)`, no other `initializer`, and therefore no corrected setup, maps back to the same address. You cannot fix the inputs and deploy the intended account at the address you already funded. The corrected inputs produce a different address, and the original address keeps its funds with no deployable account behind it.
+
+The proxy creation code is one of the derivation inputs, and the way you source it matters for the same reason. The [Permissionless.js detailed guide](./erc-4337/guides/permissionless-detailed.mdx) reads the creation code live from the factory by calling its `proxyCreationCode()` function, so the creation code used in the off chain derivation matches the factory it will be deployed through. If instead you derive an address from a hardcoded or reconstructed creation code that does not match the factory on the target chain, the derived address will not be the address the factory actually produces, which is another way to strand funds. Sourcing the creation code live from the factory you will deploy through avoids that mismatch, but it does not remove the need for the singleton and every contract the `initializer` references to be deployed on the target chain.
+
+## Checklist before funding a counterfactual address
+
+- Derive the address using the same factory, singleton, proxy creation code, `initializer`, and `saltNonce` you will deploy with.
+- Prefer reading the proxy creation code live from the factory, as shown in the [Permissionless.js detailed guide](./erc-4337/guides/permissionless-detailed.mdx), rather than hardcoding it.
+- Confirm the singleton and every contract the `initializer` references (fallback handler, module libraries, `MultiSend`, and any `delegatecall` targets) are deployed on the target chain.
+- Verify the `initializer` encodes the exact setup you intend, because it cannot be changed for the derived address once you fund it.
+
+## Related pages
+
+- [`SafeProxyFactory` reference](../reference-smart-account/deployment/SafeProxyFactory.mdx)
+- [Permissionless.js detailed guide](./erc-4337/guides/permissionless-detailed.mdx)
+- [Deploying Safe Account on Multiple Chains](./smart-account-multi-chain-deployment.mdx)
