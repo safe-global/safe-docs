@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0
 
       - name: Vale Linter
-        uses: vale-cli/vale-action@d89dee975228ae261d22c15adcd03578634d429c  # v2.1.1
+        uses: vale-cli/vale-action@518a9136acc6e6668ce7c00d367051e0941e87ff  # v3.0.0
         with:
           vale_flags: "--glob=pages/**/*.{md,mdx} --minAlertLevel=error"
           fail_on_error: true
