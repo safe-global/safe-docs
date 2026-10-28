@@ -6,58 +6,120 @@ This page explains how rate limiting and quota enforcement work for the Safe Inf
 
 For authentication setup instructions and usage examples, see [API Keys & Authentication](./how-to-use-api-keys).
 
-## API unit definition
+## Plans and limits
 
 One **API unit** equals **1 HTTP request** to any Safe Infrastructure endpoint.
 
-## Enforcement behavior
+| Plan | Price | Monthly quota | Requests per second |
+| --- | --- | --- | --- |
+| Unauthenticated | – | 5,000 | 2 |
+| Builder | Free | 50,000 | 5 |
+| Growth | €199 / month | 1,000,000 | 15 |
+| Scale | From €499 / month | 3,000,000 | 50 |
 
-### Quota headers
+See [Safe API plans](https://safe.global/api#plans) for the full comparison. To subscribe or upgrade, log in to the [developer dashboard](https://developer.safe.global/api-subscriptions).
 
-Every API response includes headers that indicate your current quota status:
+## Response headers
+
+Every authenticated response carries these headers:
+
+| Header | Meaning |
+| --- | --- |
+| `X-RateLimit-Limit` | Monthly quota of your plan. |
+| `X-RateLimit-Remaining` | Requests left in the current window. |
+| `X-RateLimit-Reset` | Seconds until the window resets. Not a timestamp. |
+| `X-Consumer-Id` | Your account identifier. |
+| `X-Consumer-RPS` | Requests per second allowed for your account. |
+| `X-RateLimit-Plan` | Your plan: `builder`, `growth` or `scale`. |
+| `X-RateLimit-Warning` | Present from 80% of the quota used: `<N>% of monthly quota used. Plans: https://safe.global/api#plans`. |
+
+Unauthenticated responses carry none of the plan headers.
+
+Example response:
+
 ```
-X-RateLimit-Limit | 50000
-X-RateLimit-Remaining | 49994
-X-RateLimit-Reset | 2591751 (seconds to reset)
+HTTP/1.1 200 OK
+X-RateLimit-Limit: 50000
+X-RateLimit-Remaining: 9500
+X-RateLimit-Reset: 1209600
+X-Consumer-Id: 1a2b3c4d
+X-Consumer-RPS: 5
+X-RateLimit-Plan: builder
+X-RateLimit-Warning: 81% of monthly quota used. Plans: https://safe.global/api#plans
 ```
 
-- **X-RateLimit-Limit**: Your total monthly request allowance.
-- **X-RateLimit-Remaining**: How many requests you have left in the current billing cycle.
-- **X-RateLimit-Reset**: Seconds remaining until your quota resets.
+{/* TODO: replace with a response copied from staging once PLA-2208 is deployed. */}
 
-These headers allow your application to monitor usage programmatically and take action before hitting limits.
+## Quota window
 
-### When your monthly quota is reached
+The monthly quota is a **30-day window** that starts at your account's first request, not a calendar month or billing date. Changing your plan starts a new window.
 
-When your account reaches 100% of its monthly API unit quota, all subsequent requests are blocked with an **HTTP 429 Too Many Requests** response and a message indicating "Monthly quota exceeded."
+Enforcement is applied at the **account level**, not per API key:
 
-Requests remain blocked until:
-
-- Your billing cycle resets, or
-- You upgrade your plan via the [developer dashboard](https://developer.safe.global).
-
-Example 429 response:
-```json
-{
-  "detail": "Monthly quota exceeded."
-}
-```
-
-## Account-level enforcement
-
-Enforcement is applied at the **account level**, not per API key. This means:
-
-- All API keys under an account share the same quota and RPS allocation.
+- All API keys under an account share the same quota and requests-per-second allowance.
 - Creating multiple API keys does not increase your limits.
 
 <Callout type="warning">
   **Anti-circumvention:** Creating multiple accounts to circumvent rate limits or quotas violates the Safe Infrastructure terms of service. Accounts engaging in this behavior may be suspended.
 </Callout>
 
-## Handling rate limit errors
+## 429 responses
 
-When you receive an HTTP 429 response:
+When a limit is reached, the API returns **HTTP 429 Too Many Requests**. The body is always `{"error_msg": "..."}`. This field name is kept for existing clients.
 
-1. **Wait and retry** with exponential back-off.
-2. **Upgrade your plan** if you consistently hit limits.
-3. **Monitor your usage** via the `X-RateLimit-Remaining` response header.
+### Monthly quota reached
+
+Returned once the account has used its monthly quota. The message names your plan, the reset date and how to upgrade.
+
+Builder:
+
+```json
+{
+  "error_msg": "The monthly quota of 50000 requests on the Builder plan is used. It resets on 15 Nov 2026. Upgrade to the Growth plan at https://developer.safe.global/api-subscriptions, or please book a call on <booking-link>."
+}
+```
+
+Growth:
+
+```json
+{
+  "error_msg": "The monthly quota of 1000000 requests on the Growth plan is used. It resets on 15 Nov 2026. Upgrade to the Scale plan at https://developer.safe.global/api-subscriptions, or please book a call on <booking-link>."
+}
+```
+
+Scale:
+
+```json
+{
+  "error_msg": "The monthly quota of 3000000 requests on the Scale plan is used. It resets on 15 Nov 2026. For a higher limit, please book a call on <booking-link>."
+}
+```
+
+### Per-second limit reached
+
+Returned when the account sends more requests per second than its plan allows. The quota is not affected.
+
+```json
+{
+  "error_msg": "This account is limited to 5 requests per second on the Builder plan. Retry after 1 second."
+}
+```
+
+### Without an API key
+
+Returned when an unauthenticated request exceeds the unauthenticated limits.
+
+```json
+{
+  "error_msg": "Requests without an API key have a lower limit. Create a free Builder account for 50,000 requests per month and usage reporting: https://developer.safe.global/"
+}
+```
+
+{/* TODO: replace the examples above with responses copied from staging once PLA-2209 is deployed. */}
+
+## Handling 429 responses
+
+- **Rejected requests still count** against your quota. Retrying in a tight loop only burns it faster.
+- **Monthly quota 429:** stop sending requests until `X-RateLimit-Reset` seconds have passed, or [upgrade your plan](https://developer.safe.global/api-subscriptions).
+- **Per-second 429:** retry after one second.
+- **Before you hit 429:** watch `X-RateLimit-Warning`. It appears from 80% of your quota, which leaves time to upgrade without an outage.
