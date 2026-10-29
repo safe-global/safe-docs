@@ -1,0 +1,63 @@
+import { Grid } from '@mui/material'
+import SafeCore from '../assets/svg/code.svg'
+import SafeCoreSDK from '../assets/svg/ic-sdk.svg'
+import SafeCoreAPI from '../assets/svg/ic-api.svg'
+import SmartAccount from '../assets/svg/ic-smart-account.svg'
+import CustomCard from '../components/CustomCard'
+
+# Safe Docs
+
+Safe is an open-source and modular smart account stack for the secure management of digital assets. These docs cover the Safe\{Core\} tooling and infrastructure for integrating Safe Smart Accounts into your application.
+
+<Grid
+  container
+  spacing={2}
+  display='flex'
+  alignContent='flex-start'
+  mt={3}
+>
+  <Grid item xs={12} md={6}>
+    <CustomCard
+      title={'Get started'}
+      description={'What Safe is, how its stack fits together and the key concepts.'}
+      url={'/home/what-is-safe'}
+      icon={<SafeCore />}
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={6}>
+    <CustomCard
+      title={'SDK'}
+      description={'TypeScript kits for creating Safe accounts, building transactions and calling Safe APIs.'}
+      url={'/sdk/overview'}
+      icon={<SafeCoreSDK />}
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={6}>
+    <CustomCard
+      title={'API'}
+      description={'The Safe Transaction Service API: read Safe state, propose transactions and collect confirmations.'}
+      url={'/core-api/api-overview'}
+      icon={<SafeCoreAPI />}
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={6}>
+    <CustomCard
+      title={'Contracts'}
+      description={'Safe Smart Account architecture, modules, guards and supported networks.'}
+      url={'/advanced/smart-account-overview'}
+      icon={<SmartAccount />}
+      newTab={false}
+    />
+  </Grid>
+</Grid>
+
+## For AI agents and tools
+
+Machine-readable entry points to these docs and the API:
+
+- [OpenAPI spec](https://api.safe.global/tx-service/eth/schema/): Public OpenAPI 3.1 description of the Safe Transaction Service API for Ethereum. Every supported chain serves its own at `https://api.safe.global/tx-service/{chain}/schema/`.
+- [`llms.txt`](https://docs.safe.global/llms.txt): Index of these docs for language models.
+- [`llms-full.txt`](https://docs.safe.global/llms-full.txt): The documentation corpus in one file.

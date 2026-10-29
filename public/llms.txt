@@ -4,6 +4,18 @@
 
 Safe brings digital ownership of accounts to everyone by building universal and open contract standards for the custody of digital assets, data, and identity. The documentation covers the Safe{Core} tooling and infrastructure for developers to integrate Safe Smart Accounts into their applications.
 
+The full documentation corpus in one file is at [llms-full.txt](https://docs.safe.global/llms-full.txt).
+
+## Safe Transaction Service API
+
+The API never executes transactions. The flow is propose, confirm, execute: a delegate or owner proposes a transaction, owners add confirmations, and an owner executes it onchain, for example in Safe{Wallet}. There is no execute endpoint.
+
+- [OpenAPI spec (Ethereum)](https://api.safe.global/tx-service/eth/schema/): Public OpenAPI 3.1 description of the API, no API key needed. Every supported chain serves its own spec at `https://api.safe.global/tx-service/{chain}/schema/`, where `{chain}` is the chain's EIP-3770 short name, for example `eth`, `base`, `gno` or `sep`.
+- [API Keys & Authentication](https://docs.safe.global/core-api/how-to-use-api-keys): Send `Authorization: Bearer <API key>` with every request.
+- [Quotas & Limits](https://docs.safe.global/core-api/api-authentication): Plans, rate-limit headers and how to handle 429 responses.
+- [Transactions guide](https://docs.safe.global/core-api/transaction-service-guides/transactions): Propose with `POST /api/v2/safes/{address}/multisig-transactions/`, confirm with `POST /api/v1/multisig-transactions/{safe_tx_hash}/confirmations/`.
+- [Delegates guide](https://docs.safe.global/core-api/transaction-service-guides/delegates): Let an owner authorize another address, such as an agent, to propose transactions with `POST /api/v2/delegates/`.
+
 ## Core Concepts
 
 - [What is Safe](https://docs.safe.global/home/what-is-safe): Overview of the Safe protocol and smart account features
