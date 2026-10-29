@@ -3,6 +3,7 @@
   "description": "Safe docs",
   "scripts": {
     "build": "next build",
+    "check-build": "pnpm ts-node --project tsconfig.json .github/scripts/checkBuildOutput.ts",
     "dev": "next dev",
     "generate-api-reference": "pnpm ts-node --project tsconfig.json .github/scripts/generateApiReference.ts",
     "generate-code-examples": "pnpm ts-node --project tsconfig.json .github/scripts/generateCodeExamples.ts",
