@@ -1,9 +1,16 @@
 /* eslint-disable security/detect-non-literal-fs-filename -- writes only to a temporary copy */
-import { test } from 'node:test'
+import { test, type TestContext } from 'node:test'
 import assert from 'node:assert/strict'
 import { execFile, spawnSync } from 'node:child_process'
 import { once } from 'node:events'
-import { cpSync, mkdtempSync, rmSync, unlinkSync, writeFileSync } from 'node:fs'
+import {
+  cpSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  unlinkSync,
+  writeFileSync
+} from 'node:fs'
 import { createServer } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import { tmpdir } from 'node:os'
@@ -40,7 +47,7 @@ const addPage = (page: string, hrefs: string[]) => (site: string) =>
 test('passes on a site whose links and artifacts are all valid', () => {
   const { status, output } = check()
   assert.equal(status, 0, output)
-  assert.match(output, /Checked 8 internal links on 3 pages and 4 artifacts/)
+  assert.match(output, /Checked 8 internal links on 3 pages and 7 artifacts/)
 })
 
 test('fails on broken internal links and names each page and href', () => {
@@ -163,13 +170,43 @@ test('fails when the home page does not link an artifact', () => {
   )
 })
 
-test('--deployed fails on a wrong status or content type', async t => {
-  const responses = new Map<string, [number, string]>([
-    ['/llms.txt', [200, 'text/plain; charset=utf-8']],
-    ['/llms-ctx.txt', [404, 'text/plain']],
-    ['/llms-ctx-full.txt', [200, 'text/plain']],
-    ['/llms-full.txt', [200, 'text/html']]
-  ])
+test('fails on a site URL in an agent file that resolves to no page or file', () => {
+  const { status, output } = check(site => {
+    const llms = path.join(site, 'llms.txt')
+    writeFileSync(
+      llms,
+      readFileSync(llms, 'utf8') +
+        '- [Install](https://docs.safe.global/guide/install?step=1#top)\n' +
+        '- [Old page](https://docs.safe.global/old-page)\n' +
+        '- [Guide](https://docs.safe.global/guide/)\n' +
+        '- [Other site](https://docs.safe.global.example.com/missing)\n' +
+        'See https://docs.safe.global/guide/install.\n' +
+        '**https://docs.safe.global/guide**\n'
+    )
+    writeFileSync(path.join(site, 'a&b c.html'), '<!DOCTYPE html>\n')
+    writeFileSync(
+      path.join(site, 'sitemap.xml'),
+      '<urlset>\n' +
+        '  <url><loc>https://docs.staging.example/a&amp;b%20c</loc></url>\n' +
+        '  <url><loc>https://docs.staging.example/gone</loc></url>\n' +
+        '</urlset>\n'
+    )
+  })
+  assert.equal(status, 1, output)
+  assert.match(output, /\nllms\.txt → https:\/\/docs\.safe\.global\/old-page\n/)
+  assert.match(output, /\nllms\.txt → https:\/\/docs\.safe\.global\/guide\/\n/)
+  assert.match(
+    output,
+    /\nsitemap\.xml → https:\/\/docs\.staging\.example\/gone\n/
+  )
+  assert.match(output, /\n3 failures/)
+})
+
+// Serves each artifact path with a status and a content type, then runs --deployed on the server.
+async function checkServed(
+  t: TestContext,
+  responses: Map<string, [number, string]>
+) {
   const server = createServer((request, response) => {
     const [status, type] = responses.get(request.url ?? '') ?? [
       404,
@@ -190,15 +227,54 @@ test('--deployed fails on a wrong status or content type', async t => {
       output: stdout + stderr
     })
   )
-  const { status, output } = await result.promise
+  return result.promise
+}
+
+test('--deployed fails on a wrong status, content type or charset', async t => {
+  const { status, output } = await checkServed(
+    t,
+    new Map([
+      ['/llms.txt', [200, 'text/plain; charset=utf-8']],
+      ['/llms-ctx.txt', [404, 'text/plain']],
+      ['/llms-ctx-full.txt', [200, 'text/plain']],
+      ['/llms-full.txt', [200, 'text/html']],
+      ['/robots.txt', [200, 'text/plain; charset=utf-8']],
+      ['/sitemap.xml', [200, 'application/xml']],
+      ['/home/what-is-safe.md', [200, 'text/markdown']]
+    ])
+  )
   assert.equal(status, 1, output)
-  assert.match(
-    output,
-    /llms-ctx\.txt: expected 200 text\/plain, got 404 text\/plain\n/
+  const expected = 'expected 200 text/plain; charset=utf-8, got'
+  for (const failure of [
+    `llms-ctx.txt: ${expected} 404 text/plain\n`,
+    `llms-ctx-full.txt: ${expected} 200 text/plain\n`,
+    `llms-full.txt: ${expected} 200 text/html\n`,
+    'home/what-is-safe.md: expected 200 text/markdown; charset=utf-8, got 200 text/markdown\n'
+  ]) {
+    assert.ok(output.includes(failure), output)
+  }
+  assert.match(output, /\n4 failures/)
+})
+
+test('--deployed compares the media type and the charset, not the raw header', async t => {
+  const { status, output } = await checkServed(
+    t,
+    new Map([
+      ['/llms.txt', [200, 'text/plain;charset=utf-8']],
+      ['/llms-ctx.txt', [200, 'Text/Plain; Charset="UTF-8"']],
+      ['/llms-ctx-full.txt', [200, 'text/plain ; charset=utf-8']],
+      ['/llms-full.txt', [200, 'text/plain; charset=utf-88']],
+      ['/robots.txt', [200, 'text/plain; charset=utf-8']],
+      ['/sitemap.xml', [200, 'application/xml-dtd']],
+      ['/home/what-is-safe.md', [200, 'text/markdown; charset=utf-8']]
+    ])
   )
-  assert.match(
-    output,
-    /llms-full\.txt: expected 200 text\/plain, got 200 text\/html\n/
-  )
+  assert.equal(status, 1, output)
+  for (const failure of [
+    'llms-full.txt: expected 200 text/plain; charset=utf-8, got 200 text/plain; charset=utf-88\n',
+    'sitemap.xml: expected 200 application/xml, got 200 application/xml-dtd\n'
+  ]) {
+    assert.ok(output.includes(failure), output)
+  }
   assert.match(output, /\n2 failures/)
 })
