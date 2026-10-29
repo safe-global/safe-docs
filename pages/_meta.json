@@ -1,4 +1,16 @@
 {
+  "index": {
+    "title": "Safe Docs",
+    "type": "page",
+    "display": "hidden",
+    "theme": {
+      "layout": "full",
+      "breadcrumb": false,
+      "toc": false,
+      "timestamp": false,
+      "pagination": false
+    }
+  },
   "home": {
     "title": "Home",
     "type": "page"
