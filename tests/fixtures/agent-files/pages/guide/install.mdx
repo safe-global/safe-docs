@@ -1,0 +1,3 @@
+# Install
+
+Run the installer.

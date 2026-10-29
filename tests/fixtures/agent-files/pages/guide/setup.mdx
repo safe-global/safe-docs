@@ -1,0 +1,25 @@
+{/* <!-- vale off --> */}
+import Snippet from '../../components/snippet.mdx'
+import data from '../../components/data.json'
+
+export const getStaticProps = async () => {
+  const count = data.length
+
+  return {
+    props: { count }
+  }
+}
+
+# Setup
+
+Install the SDK:
+
+```ts
+import { createClient } from 'sdk'
+
+export const client = createClient()
+```
+
+<Snippet />
+
+Setup is done.
