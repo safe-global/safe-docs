@@ -68,7 +68,7 @@ yarn add @safe-global/relay-kit
     <Tabs.Tab>
       When deploying a new Safe account, we need to pass the configuration of the Safe in the `options` property. In this case, we are configuring a Safe account that will have our signer as the only owner.
 
-      Optionally, you can [track your ERC-4337 Safe transactions on-chain](../../onchain-tracking.mdx) by using the `onchainAnalytics` property.
+      Optionally, you can [track your ERC-4337 Safe transactions on-chain](/sdk/onchain-tracking.mdx) by using the `onchainAnalytics` property.
 
       By default `Safe4337Pack` is using  version `0.2.0` of the Safe 4337 Module that is only compatible with Entrypoint v0.6. If you need to use v0.7 then add the `safeModulesVersion` property to the options object with the '0.3.0' value.
 
@@ -90,7 +90,7 @@ yarn add @safe-global/relay-kit
     <Tabs.Tab>
       When connecting an existing Safe account, we need to pass the `safeAddress` in the `options` property.
       
-      Optionally, you can [track your ERC-4337 Safe transactions on-chain](../../onchain-tracking.mdx) by using the `onchainAnalytics` property.
+      Optionally, you can [track your ERC-4337 Safe transactions on-chain](/sdk/onchain-tracking.mdx) by using the `onchainAnalytics` property.
 
       ```typescript
       const safe4337Pack = await Safe4337Pack.init({
