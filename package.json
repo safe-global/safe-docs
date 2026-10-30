@@ -2,8 +2,10 @@
   "version": "4.41.0",
   "description": "Safe docs",
   "scripts": {
-    "build": "next build",
+    "build": "next build && pnpm generate-agent-files",
+    "check-build": "pnpm ts-node --project tsconfig.json .github/scripts/checkBuildOutput.ts",
     "dev": "next dev",
+    "generate-agent-files": "pnpm ts-node --project tsconfig.json .github/scripts/generateAgentFiles.ts",
     "generate-api-reference": "pnpm ts-node --project tsconfig.json .github/scripts/generateApiReference.ts",
     "generate-code-examples": "pnpm ts-node --project tsconfig.json .github/scripts/generateCodeExamples.ts",
     "generate-supported-networks": "pnpm ts-node --project tsconfig.json .github/scripts/generateSupportedNetworks.ts",

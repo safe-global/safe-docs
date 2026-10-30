@@ -6,6 +6,13 @@ aws s3 sync ./out $BUCKET --delete
 
 cd out
 
+aws s3 cp . "$BUCKET" --recursive --exclude '*' --include '*.txt' \
+    --content-type 'text/plain; charset=utf-8'
+aws s3 cp . "$BUCKET" --recursive --exclude '*' --include '*.md' \
+    --content-type 'text/markdown; charset=utf-8'
+aws s3 cp . "$BUCKET" --recursive --exclude '*' --include '*.xml' \
+    --content-type 'application/xml'
+
 function parallel_limit {
     local max="$1"
     while (( $(jobs -rp | wc -l) >= max )); do

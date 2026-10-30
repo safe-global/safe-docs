@@ -20,7 +20,7 @@ jobs:
     steps:
       # Post a PR comment before deploying
       - name: Post a comment while building
-        if: github.event.number
+        if: github.event.number && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -72,7 +72,12 @@ jobs:
           NEXT_PUBLIC_HOST_URL: 'https://docs.staging.5afe.dev'
           NODE_OPTIONS: '--max-old-space-size=8000'
 
+      - name: Check the build output
+        shell: bash
+        run: pnpm check-build
+
       - name: Configure AWS credentials
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
         uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1
         with:
           role-to-assume: ${{ secrets.AWS_ROLE }}
@@ -80,21 +85,21 @@ jobs:
 
       # Deploy the main branch to staging
       - name: Deploy to the staging S3
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         env:
           BUCKET: s3://${{ secrets.AWS_STAGING_BUCKET_NAME }}/current
         run: bash ./.github/scripts/s3_upload.sh
 
       # Deploy to S3
       - name: Deploy PR branch
-        if: github.event.number
+        if: github.event.number && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         env:
           BUCKET: s3://${{ secrets.AWS_REVIEW_BUCKET_NAME }}/docs/${{ steps.extract_branch.outputs.branch }}
         run: bash ./.github/scripts/s3_upload.sh
 
       # Comment with the deployment link
       - name: Post a deployment link in the PR
-        if: always() && github.event.number
+        if: always() && github.event.number && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
