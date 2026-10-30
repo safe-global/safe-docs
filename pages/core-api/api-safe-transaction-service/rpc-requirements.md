@@ -53,3 +53,7 @@ For RPC providers, we expect communication on every update and configuration cha
 - **Number of** **batch requests** allowed in the same HTTP request.
 - **Block range** that can be queried in queries like **eth_getLogs** or **trace_filter**.
 - **Results limit for endpoints** (for example, some providers implement a limit to the number of queries like **eth_getLogs**). The indexer expects failures and not capped results.
+
+## Comparing providers against these expectations
+
+Independent third-party measurements of public RPC providers on the chains the Transaction Service supports (Ethereum, Arbitrum, Base, Optimism, Polygon, BNB, Avalanche, Linea, Scroll, Mantle and more) are published continuously at [OpenChainBench](https://openchainbench.com/benchmarks/rpc-capabilities). Latency (p50/p95/p99), reliability classification (HTTP errors vs JSON-RPC error responses), and stale-block detection are probed every minute from three regions under a CC BY 4.0 license, with the harness open sourced on GitHub. OpenChainBench has no affiliation with any RPC provider, so operators evaluating providers against the expectations above can use it as a neutral reference point.
