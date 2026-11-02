@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports -- ts-node runs the scripts as CommonJS */
-/* eslint-disable security/detect-non-literal-fs-filename -- reads pages/ and writes out/ */
 const fs: typeof import('fs') = require('fs')
 const path: typeof import('path') = require('path')
 
@@ -8,6 +6,35 @@ const FENCE = /^\s*(`{3,}|~{3,})(.*)$/
 const ESM = /^(?:import|export)\s/
 const MDX_IMPORT = /^import\s+(\w+)\s+from\s+['"]([^'"]+\.mdx?)['"]/gm
 const EMBED = /^<(\w+)\s*\/>\s*$/
+const API_REFERENCE = /^<ApiReference\s+networkName="([^"]+)"\s*\/>\s*$/
+// An API URL in a generated API reference → the OpenAPI spec under that URL and its service.
+const API_SPECS = [
+  {
+    api: /https:\/\/api\.safe\.global\/tx-service\/[\w-]+\//,
+    spec: 'schema/',
+    service: 'Safe Transaction Service',
+    notes: ['The spec URL answers YAML; add ?format=json for JSON.\n']
+  },
+  {
+    api: /https:\/\/api\.safe\.global\/decoder\//,
+    spec: 'openapi.json',
+    service: 'Safe Decoder Service',
+    notes: []
+  }
+]
+const HEADING = /^# /
+const HTML_HEAD = /<head[\s>][\s\S]*?<\/head>/
+const HTML_TITLE = /<title>([\s\S]*?)<\/title>/
+const REACT_SEPARATOR = /<!-- -->/g
+const HTML_ENTITY = /&(amp|lt|gt|quot|#39);/g
+const HTML_CHARS = new Map([
+  ['amp', '&'],
+  ['lt', '<'],
+  ['gt', '>'],
+  ['quot', '"'],
+  ['#39', "'"]
+])
+const TITLE_SUFFIX = / – Safe Docs$/
 const XML_ENTITIES = new Map([
   ['&', '&amp;'],
   ['<', '&lt;'],
@@ -54,8 +81,6 @@ const readSource = (file: string): string =>
 
 // MDX reads a line that starts with import or export as JavaScript, up to the first blank
 // line where the code is complete.
-// ponytail: "complete" means balanced brackets. A bracket in a string or a comment, or a blank
-// line in a template literal, breaks it; brackets that never balance stop the build.
 function splitMdx(file: string): { esm: string[]; lines: Line[] } {
   const unbalanced = `${file}: an import or export block has unbalanced brackets`
   const esm: string[] = []
@@ -88,8 +113,82 @@ const markdownOf = (file: string): string =>
     .join('\n')
     .trim()
 
-// Inlines one level of the .mdx files that the page imports and embeds as `<Name />`.
-function toMarkdown(file: string): string {
+// The _meta.json of a pages directory, or {} when the directory has none.
+function readMeta(dir: string): Record<string, unknown> {
+  const meta = path.join(dir, '_meta.json')
+  return isFile(meta) ? JSON.parse(fs.readFileSync(meta, 'utf8')) : {}
+}
+
+// The title of a page in the _meta.json of its directory, if it has one.
+function sidebarTitle(file: string): string | undefined {
+  const name = path.basename(file).replace(/\.mdx?$/, '')
+  const entry = readMeta(path.dirname(file))[name]
+  if (typeof entry === 'string') return entry
+  const title = (entry as { title?: unknown } | null | undefined)?.title
+  return typeof title === 'string' ? title : undefined
+}
+
+// The <title> in the <head> of the built page as text, without the site suffix.
+function htmlTitle(html: string): string | undefined {
+  const head = fs.readFileSync(html, 'utf8').match(HTML_HEAD)?.[0] ?? ''
+  const title = head
+    .match(HTML_TITLE)?.[1]
+    .replace(REACT_SEPARATOR, '')
+    .replace(HTML_ENTITY, (entity, name) => HTML_CHARS.get(name) ?? entity)
+    .replace(TITLE_SUFFIX, '')
+    .trim()
+  return title || undefined
+}
+
+// The title of a page: its HTML title, else its _meta.json title, else the network name.
+const pageTitle = (file: string, network: string, html: string): string =>
+  htmlTitle(html) ??
+  sidebarTitle(file) ??
+  network
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+
+// The OpenAPI spec of the API URL that comes first in the generated reference, of the URLs
+// that match one of the API_SPECS patterns.
+function apiSpec(file: string, reference: string) {
+  if (!isFile(reference)) throw new Error(`${file}: ${reference} not found`)
+  const text = fs.readFileSync(reference, 'utf8')
+  const first = API_SPECS.flatMap(entry => {
+    const match = entry.api.exec(text)
+    return match
+      ? [{ ...entry, url: match[0] + entry.spec, at: match.index }]
+      : []
+  }).sort((a, b) => a.at - b.at)[0]
+  if (!first)
+    throw new Error(
+      `${file}: ${reference} names no API URL for an OpenAPI spec`
+    )
+  return first
+}
+
+// The text that replaces an <ApiReference networkName="…"/> line: the service and a link to
+// its OpenAPI spec, because the component renders the reference from that spec.
+function apiReferenceStub(
+  file: string,
+  network: string,
+  generatedDir: string
+): string {
+  const reference = path.join(generatedDir, `${network}-reference.mdx`)
+  const { url, service, notes } = apiSpec(file, reference)
+  return [
+    `This page is the ${service} API reference.\n`,
+    'The full reference of this API is its OpenAPI spec:',
+    `${url}\n`,
+    ...notes,
+    'The spec needs no API key.'
+  ].join('\n')
+}
+
+// The Markdown copy of a page. It inlines one level of the .mdx files that the page embeds as
+// `<Name />`, and replaces each <ApiReference networkName="…"/> line with a link to its
+// OpenAPI spec. Such a page without a "# " heading gets its title first.
+function toMarkdown(file: string, generatedDir: string, html: string): string {
   const { esm, lines } = splitMdx(file)
   const embeds = new Map(
     [...esm.join('\n').matchAll(MDX_IMPORT)].map(([, name, target]) => [
@@ -97,14 +196,24 @@ function toMarkdown(file: string): string {
       path.resolve(path.dirname(file), target)
     ])
   )
+  const networks: string[] = []
   const markdown = lines.map(({ text, fenced }) => {
-    const target = fenced ? undefined : embeds.get(text.match(EMBED)?.[1] ?? '')
+    if (fenced) return text
+    const network = text.match(API_REFERENCE)?.[1]
+    if (network) {
+      networks.push(network)
+      return `\n${apiReferenceStub(file, network, generatedDir)}\n`
+    }
+    const target = embeds.get(text.match(EMBED)?.[1] ?? '')
     if (!target) return text
     if (!isFile(target))
       throw new Error(`${file}: embedded ${target} not found`)
     return markdownOf(target)
   })
-  return markdown.join('\n').trim() + '\n'
+  const page = markdown.join('\n').trim() + '\n'
+  const titled = lines.some(({ text, fenced }) => !fenced && HEADING.test(text))
+  if (networks.length === 0 || titled) return page
+  return `# ${pageTitle(file, networks[0], html)}\n\n${page}`
 }
 
 function sourceFor(pagesDir: string, route: string): string | undefined {
@@ -116,10 +225,7 @@ function sourceFor(pagesDir: string, route: string): string | undefined {
 
 // Page sources in sidebar order: the _meta.json keys first, then the other entries by name.
 function orderedSources(dir: string): string[] {
-  const meta = path.join(dir, '_meta.json')
-  const listed = isFile(meta)
-    ? Object.keys(JSON.parse(fs.readFileSync(meta, 'utf8')))
-    : []
+  const listed = Object.keys(readMeta(dir))
   const entries = fs.readdirSync(dir).map(name => name.replace(/\.mdx?$/, ''))
   return [...new Set([...listed, ...entries.sort()])].flatMap(name => {
     const stem = path.join(dir, name)
@@ -148,6 +254,11 @@ function writeSitemap(outDir: string, urls: string[]): void {
   fs.writeFileSync(path.join(outDir, 'sitemap.xml'), sitemap)
 }
 
+function writeRobots(outDir: string, host: string): void {
+  const robots = `User-agent: *\nAllow: /\n\nSitemap: ${host}/sitemap.xml\n`
+  fs.writeFileSync(path.join(outDir, 'robots.txt'), robots)
+}
+
 function writeCorpus(outDir: string, host: string, pages: Page[]): string {
   const corpus = [
     '# Safe Documentation\n',
@@ -170,12 +281,18 @@ function main(pagesDir: string, outDir: string): void {
   const urlFor = (route: string) =>
     route === 'index' ? `${host}/` : `${host}/${encodeURI(route)}`
   writeSitemap(outDir, routes.map(urlFor))
+  writeRobots(outDir, host)
+  const generatedDir = path.resolve(
+    pagesDir,
+    '../components/ApiReference/generated'
+  )
 
   const pages = new Map<string, Page>()
   for (const route of routes) {
     const source = sourceFor(pagesDir, route)
     if (!source) continue
-    const markdown = toMarkdown(source)
+    const html = path.join(outDir, `${route}.html`)
+    const markdown = toMarkdown(source, generatedDir, html)
     fs.writeFileSync(path.join(outDir, `${route}.md`), markdown)
     pages.set(source, { url: urlFor(route), markdown })
   }
@@ -184,7 +301,7 @@ function main(pagesDir: string, outDir: string): void {
   )
   const corpus = writeCorpus(outDir, host, ordered)
   console.info(
-    `Wrote sitemap.xml (${routes.length} routes), ${pages.size} .md pages and ` +
+    `Wrote sitemap.xml (${routes.length} routes), robots.txt, ${pages.size} .md pages and ` +
       `llms-full.txt (${ordered.length} pages, ${Buffer.byteLength(corpus)} bytes)`
   )
 }
