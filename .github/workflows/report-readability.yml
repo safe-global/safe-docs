@@ -5,6 +5,8 @@ on: pull_request
 jobs:
     report-readability:
         name: Report readability
+        # A fork PR gets a read-only token, so lexi cannot post its report comment.
+        if: github.event.pull_request.head.repo.full_name == github.repository
         runs-on: ubuntu-latest
         permissions:
           contents: read
