@@ -45,7 +45,13 @@ function resolves(outDir: string, pathname: string): boolean {
 
 // Path of an href on this site, or undefined when the href points elsewhere.
 function internalPath(href: string, page: string): string | undefined {
-  if (NOT_INTERNAL.test(href) && !href.startsWith(SITE)) return undefined
+  if (NOT_INTERNAL.test(href)) {
+    try {
+      if (new URL(href).origin !== SITE) return undefined
+    } catch {
+      return undefined
+    }
+  }
   const url = new URL(href, `${BASE_URL}/${page.replace(/\.html$/, '')}`)
   const onSite = url.origin === BASE_URL || url.origin === SITE
   if (!onSite || url.pathname.startsWith('/_next/')) return undefined
