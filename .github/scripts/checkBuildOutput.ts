@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports -- ts-node runs the scripts as CommonJS */
-/* eslint-disable security/detect-non-literal-fs-filename -- reads only the build output */
 const fs: typeof import('fs') = require('fs')
 const path: typeof import('path') = require('path')
 
@@ -25,6 +23,8 @@ const HREF = /\shref=(?:"([^"]*)"|'([^']*)')/g
 const NOT_INTERNAL = /^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i
 const HTML_DOCUMENT = /^\s*<(?:!doctype html|html[\s>])/i
 const BASE_URL = 'http://build.invalid'
+// The specs set DEPLOYED_FETCH_TIMEOUT_MS to test a server that never answers.
+const FETCH_TIMEOUT_MS = Number(process.env.DEPLOYED_FETCH_TIMEOUT_MS) || 30_000
 
 const isFile = (file: string): boolean =>
   fs.statSync(file, { throwIfNoEntry: false })?.isFile() ?? false
@@ -98,10 +98,75 @@ function checkArtifacts(outDir: string): string[] {
   )
 }
 
-async function checkDeployed(site: string): Promise<string[]> {
+// One failure line for a request that threw, with the innermost cause, for example
+// "connect ECONNREFUSED 127.0.0.1:80" or "The operation was aborted due to timeout".
+function requestFailure(url: string, error: unknown): string {
+  const cause =
+    error instanceof Error && error.cause !== undefined ? error.cause : error
+  if (!(cause instanceof Error))
+    return `${url}: request failed: ${String(cause)}`
+  const code = 'code' in cause ? cause.code : undefined
+  return `${url}: request failed: ${cause.message || String(code ?? cause.name)}`
+}
+
+// Fetches a deployed URL with a timeout. A request that throws gives its failure line.
+async function fetchDeployed(
+  url: string,
+  headers: Record<string, string> = {}
+): Promise<Response | string> {
+  try {
+    return await fetch(url, {
+      headers,
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)
+    })
+  } catch (error) {
+    return requestFailure(url, error)
+  }
+}
+
+// Why a spec body is not JSON with an `openapi` field that is a 3.x version, if it is not.
+function openApiFailure(body: string): string | undefined {
+  let spec: unknown
+  try {
+    spec = JSON.parse(body)
+  } catch {
+    return 'body is not JSON'
+  }
+  const version = (spec as { openapi?: unknown } | null)?.openapi
+  if (version === undefined) return 'no openapi field'
+  if (typeof version === 'string' && version.startsWith('3.')) return undefined
+  return `openapi ${JSON.stringify(version)} is not 3.x`
+}
+
+// The OpenAPI spec must answer 200 with JSON whose `openapi` field is a 3.x version.
+// Without `Accept: application/json`, the transaction service sends the spec as YAML.
+async function checkOpenApiSpec(url: string): Promise<string[]> {
+  const response = await fetchDeployed(url, { accept: 'application/json' })
+  if (typeof response === 'string') return [response]
+  const result = `${response.status} ${response.headers.get('content-type') ?? ''}`
+  console.info(`${url}: ${result}`)
+  if (response.status !== 200) return [`${url}: expected 200, got ${result}`]
+  let body: string
+  try {
+    body = await response.text()
+  } catch (error) {
+    return [requestFailure(url, error)]
+  }
+  const failure = openApiFailure(body)
+  return failure ? [`${url}: ${failure}`] : []
+}
+
+async function checkDeployed(
+  site: string,
+  openApiSpec: string
+): Promise<string[]> {
   const failures: string[] = []
   for (const [name, type] of ARTIFACTS) {
-    const response = await fetch(`${site}/${name}`)
+    const response = await fetchDeployed(`${site}/${name}`)
+    if (typeof response === 'string') {
+      failures.push(response)
+      continue
+    }
     const contentType = response.headers.get('content-type') ?? ''
     const result = `${response.status} ${contentType}`
     console.info(`${site}/${name}: ${result}`)
@@ -109,7 +174,7 @@ async function checkDeployed(site: string): Promise<string[]> {
       failures.push(`${name}: expected 200 ${type}, got ${result}`)
     }
   }
-  return failures
+  return failures.concat(await checkOpenApiSpec(openApiSpec))
 }
 
 function checkBuild(outDir: string): string[] {
@@ -123,10 +188,14 @@ function checkBuild(outDir: string): string[] {
   return failures.concat(checkArtifacts(outDir))
 }
 
+// Usage: checkBuildOutput.ts [outDir] | --deployed [site] [openApiSpecUrl]
 async function main(args: string[]): Promise<void> {
   const failures =
     args[0] === '--deployed'
-      ? await checkDeployed((args[1] ?? SITE).replace(/\/+$/, ''))
+      ? await checkDeployed(
+          (args[1] ?? SITE).replace(/\/+$/, ''),
+          args[2] ?? OPENAPI_SPEC
+        )
       : checkBuild(args[0] ?? 'out')
   if (failures.length === 0) return
   failures.forEach(failure => console.error(failure))
