@@ -29,9 +29,6 @@ const HTML_DOCUMENT = /^\s*<(?:!doctype html|html[\s>])/i
 const BASE_URL = 'http://build.invalid'
 // The specs set DEPLOYED_FETCH_TIMEOUT_MS to test a server that never answers.
 const FETCH_TIMEOUT_MS = Number(process.env.DEPLOYED_FETCH_TIMEOUT_MS) || 30_000
-// ponytail: a site URL in a text file ends at whitespace, a quote, a bracket or a backtick,
-// so a route with one of these characters fails the check. No route has one. As in GFM
-// autolinks, punctuation at the end is not part of the URL.
 const SITE_URL = /https:\/\/docs\.safe\.global(?![\w.:-])[^\s"'`<>()[\]]*/g
 const TRAILING_PUNCTUATION = /[.,;:!?*_~|]+$/
 const LOC = /<loc>([^<]*)<\/loc>/g

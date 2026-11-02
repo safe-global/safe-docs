@@ -4,6 +4,7 @@ import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
 import {
   cpSync,
+  mkdirSync,
   mkdtempSync,
   readdirSync,
   readFileSync,
@@ -68,6 +69,33 @@ const addPage =
 
 const fixtureSource = (page: string) =>
   readFileSync(path.join(fixture, 'pages', page), 'utf8')
+
+const apiReferencePage = (network: string) =>
+  "import ApiReference from '../components/ApiReference'\n\n" +
+  '{/* <!-- vale off --> */}\n' +
+  `<ApiReference networkName="${network}"/>\n` +
+  '{/* <!-- vale on --> */}\n'
+
+// Writes the generated API reference of a network, which names the API URLs.
+const addReference = (network: string, text: string) => (dir: string) => {
+  const generatedDir = path.join(dir, 'components/ApiReference/generated')
+  mkdirSync(generatedDir, { recursive: true })
+  writeFileSync(path.join(generatedDir, `${network}-reference.mdx`), text)
+}
+
+const YAML_NOTE = 'The spec URL answers YAML; add ?format=json for JSON.\n\n'
+const TX_SERVICE = 'Safe Transaction Service'
+const MAINNET_SPEC = 'https://api.safe.global/tx-service/eth/schema/'
+
+// The text that replaces an <ApiReference networkName="…"/> line.
+const specText = (service: string, spec: string, note = '') =>
+  `This page is the ${service} API reference.\n\n` +
+  `The full reference of this API is its OpenAPI spec:\n${spec}\n\n${note}` +
+  'The spec needs no API key.'
+
+// The Markdown copy of an apiReferencePage, which has no heading.
+const specPage = (title: string, text: string) =>
+  `# ${title}\n\n{/* <!-- vale off --> */}\n\n${text}\n\n{/* <!-- vale on --> */}\n`
 
 test('writes llms-full.txt in _meta.json order, unlisted pages last by name', () => {
   const host = 'https://docs.example.test'
@@ -231,4 +259,157 @@ test('writes a .md sibling per page and none for 404', () => {
     '# Install\n\nRun the installer.\n'
   )
   assert.equal(files.get('404.md'), undefined)
+})
+
+test('writes an OpenAPI spec stub for a transaction service reference page', () => {
+  const fenced =
+    '# Sample\n\n```mdx\n<ApiReference networkName="mainnet"/>\n```\n'
+  const files = generated({
+    change: dir => {
+      addPage('arc-testnet', apiReferencePage('arc-testnet'))(dir)
+      addReference(
+        'arc-testnet',
+        'curl https://api.safe.global/tx-service/arc-testnet/api/v1/safes/\n' +
+          'curl https://api.safe.global/tx-service/eth/api/v1/about/\n'
+      )(dir)
+      addPage('fenced', fenced)(dir)
+    }
+  })
+  const spec = 'https://api.safe.global/tx-service/arc-testnet/schema/'
+  const stub = specPage('Arc Testnet', specText(TX_SERVICE, spec, YAML_NOTE))
+  assert.equal(files.get('arc-testnet.md'), stub)
+  const section = `\nSource: https://docs.safe.global/arc-testnet\n\n${stub}`
+  assert.ok(files.get('llms-full.txt')?.includes(section))
+  assert.equal(files.get('fenced.md'), fenced)
+})
+
+test('takes the spec of the API URL that comes first in the reference', () => {
+  const decoder = 'curl https://api.safe.global/decoder/api/v1/contracts\n'
+  const tx = 'curl https://api.safe.global/tx-service/eth/api/v1/about/\n'
+  const files = generated({
+    change: dir => {
+      addPage('decoder-first', apiReferencePage('decoder-first'))(dir)
+      addReference('decoder-first', decoder + tx)(dir)
+      addPage('tx-first', apiReferencePage('tx-first'))(dir)
+      addReference('tx-first', tx + decoder)(dir)
+    }
+  })
+  const decoderSpec = 'https://api.safe.global/decoder/openapi.json'
+  assert.equal(
+    files.get('decoder-first.md'),
+    specPage('Decoder First', specText('Safe Decoder Service', decoderSpec))
+  )
+  assert.equal(
+    files.get('tx-first.md'),
+    specPage('Tx First', specText(TX_SERVICE, MAINNET_SPEC, YAML_NOTE))
+  )
+})
+
+test('replaces only the ApiReference lines and keeps the rest of the page', () => {
+  const prose =
+    '# Prose\n\nRead this first.\n\n<ApiReference networkName="mainnet"/>\n\nThen this.\n'
+  const twice =
+    'Two networks.\n\n```sh\n# not a heading\n```\n' +
+    '<ApiReference networkName="mainnet"/>\n' +
+    '<ApiReference networkName="safe-decoder-service"/>\n'
+  const files = generated({
+    change: dir => {
+      addPage('prose', prose)(dir)
+      addPage('twice', twice)(dir)
+      addReference('mainnet', 'https://api.safe.global/tx-service/eth/\n')(dir)
+      addReference(
+        'safe-decoder-service',
+        'https://api.safe.global/decoder/api/v1/contracts\n'
+      )(dir)
+    }
+  })
+  const tx = specText(TX_SERVICE, MAINNET_SPEC, YAML_NOTE)
+  const decoder = specText(
+    'Safe Decoder Service',
+    'https://api.safe.global/decoder/openapi.json'
+  )
+  assert.equal(
+    files.get('prose.md'),
+    `# Prose\n\nRead this first.\n\n\n${tx}\n\n\nThen this.\n`
+  )
+  assert.equal(
+    files.get('twice.md'),
+    '# Mainnet\n\nTwo networks.\n\n```sh\n# not a heading\n```\n\n' +
+      `${tx}\n\n\n${decoder}\n`
+  )
+})
+
+test('takes the stub title from the built page, then _meta.json, then the network', () => {
+  const pages = new Map([
+    [
+      'decoder',
+      '<html><head><title>Safe Decoder Service Reference – Safe Docs</title></head>' +
+        '<body><svg><title>GitHub</title></svg></body></html>'
+    ],
+    [
+      'coded',
+      '<head><title>A &amp; B<!-- --> &lt;C&gt; &quot;D&quot; &#39;E&#39; – Safe Docs' +
+        '</title></head>'
+    ],
+    ['about', '<head><title></title></head>'],
+    ['listed', '<head></head><body><svg><title>GitHub</title></svg></body>']
+  ])
+  const files = generated({
+    change: dir => {
+      const meta = path.join(dir, 'pages/_meta.json')
+      const entries = JSON.parse(readFileSync(meta, 'utf8'))
+      const titles = {
+        decoder: { title: 'Reference' },
+        listed: { title: 'Listed Reference' }
+      }
+      writeFileSync(meta, JSON.stringify({ ...entries, ...titles }))
+      for (const [page, html] of pages) {
+        addPage(page, apiReferencePage('mainnet'))(dir)
+        writeFileSync(path.join(dir, `built/${page}.html`), html)
+      }
+      addReference('mainnet', 'https://api.safe.global/tx-service/eth/\n')(dir)
+    }
+  })
+  const tx = specText(TX_SERVICE, MAINNET_SPEC, YAML_NOTE)
+  for (const [page, title] of [
+    ['decoder', 'Safe Decoder Service Reference'],
+    ['coded', `A & B <C> "D" 'E'`],
+    ['about', 'About'],
+    ['listed', 'Listed Reference']
+  ]) {
+    assert.equal(files.get(`${page}.md`), specPage(title, tx), page)
+  }
+})
+
+test('stops with the page path when no OpenAPI spec URL can be derived', () => {
+  const reference = 'components/ApiReference/generated/gone-reference.mdx'
+  for (const [change, reason] of [
+    [
+      addReference('gone', 'See https://docs.safe.global.\n'),
+      'names no API URL for an OpenAPI spec'
+    ],
+    [() => undefined, 'not found']
+  ] as const) {
+    const { status, output } = generate({
+      change: dir => {
+        addPage('gone', apiReferencePage('gone'))(dir)
+        change(dir)
+      }
+    })
+    assert.equal(status, 1, output)
+    const line = output
+      .split('\n')
+      .find(text => text.includes('/pages/gone.mdx: '))
+    assert.ok(line?.endsWith(`/${reference} ${reason}`), output)
+  }
+})
+
+test('writes robots.txt with the sitemap URL on the host', () => {
+  const robots = generated({ host: 'https://docs.staging.example/' }).get(
+    'robots.txt'
+  )
+  assert.equal(
+    robots,
+    'User-agent: *\nAllow: /\n\nSitemap: https://docs.staging.example/sitemap.xml\n'
+  )
 })
