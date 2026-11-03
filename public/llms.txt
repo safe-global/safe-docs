@@ -30,6 +30,7 @@ The API never executes transactions. The flow is propose, confirm, execute: a de
 - [Basic Agent Setup](https://docs.safe.global/home/ai-agent-quickstarts/basic-agent-setup): Quickstart guide for setting up a simple AI agent
 - [Agent with Spending Limit](https://docs.safe.global/home/ai-agent-quickstarts/agent-with-spending-limit): Creating an AI agent with controlled spending capabilities
 - [Human Approval Workflow](https://docs.safe.global/home/ai-agent-quickstarts/human-approval): Implementing human-in-the-loop approval for AI agent transactions
+- [Agent skills index](https://docs.safe.global/.well-known/agent-skills/index.json): Discovery index of the Safe agent skills, with a download URL and digest for each
 
 ## Developer Tools
 

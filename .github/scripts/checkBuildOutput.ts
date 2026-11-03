@@ -12,10 +12,18 @@ const ARTIFACTS = new Map([
   ['llms-full.txt', TEXT],
   ['robots.txt', TEXT],
   ['sitemap.xml', 'application/xml'],
-  ['home/what-is-safe.md', 'text/markdown; charset=utf-8']
+  ['home/what-is-safe.md', 'text/markdown; charset=utf-8'],
+  ['.well-known/agent-skills/index.json', 'application/json']
 ])
 const REQUIRED_TEXT = new Map([
-  ['llms.txt', [OPENAPI_SPEC, `${SITE}/llms-full.txt`]]
+  [
+    'llms.txt',
+    [
+      OPENAPI_SPEC,
+      `${SITE}/llms-full.txt`,
+      `${SITE}/.well-known/agent-skills/index.json`
+    ]
+  ]
 ])
 const HOME_PAGE_LINKS = [
   OPENAPI_SPEC,

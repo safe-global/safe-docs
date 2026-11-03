@@ -47,7 +47,7 @@ const addPage = (page: string, hrefs: string[]) => (site: string) =>
 test('passes on a site whose links and artifacts are all valid', () => {
   const { status, output } = check()
   assert.equal(status, 0, output)
-  assert.match(output, /Checked 8 internal links on 3 pages and 7 artifacts/)
+  assert.match(output, /Checked 8 internal links on 3 pages and 8 artifacts/)
 })
 
 test('fails on broken internal links and names each page and href', () => {
@@ -218,7 +218,8 @@ const VALID_ARTIFACTS = new Map<string, Served>([
   ['/llms-full.txt', [200, TEXT]],
   ['/robots.txt', [200, TEXT]],
   ['/sitemap.xml', [200, 'application/xml']],
-  ['/home/what-is-safe.md', [200, 'text/markdown; charset=utf-8']]
+  ['/home/what-is-safe.md', [200, 'text/markdown; charset=utf-8']],
+  ['/.well-known/agent-skills/index.json', [200, 'application/json']]
 ])
 
 // Answers each path with its status, content type and body. Like the transaction service, the
@@ -281,6 +282,7 @@ test('--deployed fails on a wrong status, content type or charset', async t => {
       ['/robots.txt', [200, 'text/plain; charset=utf-8']],
       ['/sitemap.xml', [200, 'application/xml']],
       ['/home/what-is-safe.md', [200, 'text/markdown']],
+      ['/.well-known/agent-skills/index.json', [200, 'application/json']],
       ['/schema/', SPEC]
     ])
   )
@@ -308,6 +310,10 @@ test('--deployed compares the media type and the charset, not the raw header', a
       ['/robots.txt', [200, 'text/plain; charset=utf-8']],
       ['/sitemap.xml', [200, 'application/xml-dtd']],
       ['/home/what-is-safe.md', [200, 'text/markdown; charset=utf-8']],
+      [
+        '/.well-known/agent-skills/index.json',
+        [200, 'application/json; charset=utf-8']
+      ],
       ['/schema/', SPEC]
     ])
   )
