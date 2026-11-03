@@ -12,7 +12,7 @@ More information is available in the Guides section of this documentation.
 
 ## If I add my chain to [safe-eth-py](https://github.com/safe-global/safe-eth-py/blob/main/safe_eth/safe/addresses.py) will you support it?
 
-No, for a chain to be supported, we need to set up a dedicated infra for that network and have a [proper RPC](https://docs.safe.global/safe-core-api/rpc-requirements).
+No, for a chain to be supported, we need to set up a dedicated infra for that network and have a [proper RPC](https://docs.safe.global/core-api/api-safe-transaction-service/rpc-requirements).
 
 ## How do you handle reorgs?
 
