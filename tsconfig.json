@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable", "ES2021.String"],
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable",
+      "ES2021.String"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -12,14 +17,16 @@
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
     "incremental": true,
     "sourceMap": true,
     "outDir": "dist",
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
   "include": [
     "next-env.d.ts",
@@ -28,5 +35,8 @@
     "eslint.config.mjs",
     "**/scripts/**/*"
   ],
-  "exclude": ["node_modules", "**/examples/**"]
+  "exclude": [
+    "node_modules",
+    "**/examples/**"
+  ]
 }
