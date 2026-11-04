@@ -49,8 +49,7 @@ export default defineConfig([
           ignoreUrls: true
         }
       ],
-      // React Compiler rules added by eslint-plugin-react-hooks 7; off to keep
-      // this migration rule-neutral, enabling them is a follow-up ticket
+      // React Compiler rules from react-hooks 7, off until a follow-up ticket
       'react-hooks/config': 'off',
       'react-hooks/error-boundaries': 'off',
       'react-hooks/gating': 'off',
