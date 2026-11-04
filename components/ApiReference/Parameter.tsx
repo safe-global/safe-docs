@@ -25,7 +25,6 @@ const Parameters: React.FC<{ parameters: any[] }> = ({ parameters }) => {
         <MdxHeading headingLevel={4}>Request Body</MdxHeading>
       )}
       {body.map(parameter =>
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         Object.entries(parameter.schema.properties ?? {})
           ?.map(([key, value]) => ({ name: key, value }))
           ?.map?.(_p => (
