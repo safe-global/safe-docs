@@ -7,6 +7,11 @@ This repository hosts [Safe](https://safe.global) documentation.
 
 The documentation is built with [Nextra](https://nextra.site) and is live at [docs.safe.global](https://docs.safe.global).
 
+## Prerequisites
+
+- [Node.js](https://nodejs.org) in the version set in the `.nvmrc` file. Run `nvm use`, or use any version manager that reads `.nvmrc`.
+- [pnpm](https://pnpm.io) in the version set in the `packageManager` field of the `package.json` file. Run `corepack enable` to get it.
+
 ## Installation
 
 Install the dependencies using [pnpm](https://pnpm.io):
