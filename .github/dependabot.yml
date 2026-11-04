@@ -19,6 +19,11 @@ updates:
     # Align with pnpm-workspace.yaml minimumReleaseAge (10080 minutes = 7 days)
     cooldown:
       default-days: 7
+    ignore:
+      # @types/node follows the Node major pinned in .nvmrc
+      - dependency-name: '@types/node'
+        update-types:
+          - 'version-update:semver-major'
     groups:
       react:
         patterns:
