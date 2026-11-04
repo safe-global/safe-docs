@@ -24,7 +24,7 @@ const API_SPECS = [
 ]
 const HEADING = /^# /
 const HTML_HEAD = /<head[\s>][\s\S]*?<\/head>/
-const HTML_TITLE = /<title>([\s\S]*?)<\/title>/
+const HTML_TITLE = /<title(?:\s[^>]*)?>([\s\S]*?)<\/title>/
 const REACT_SEPARATOR = /<!-- -->/g
 const HTML_ENTITY = /&(amp|lt|gt|quot|#39);/g
 const HTML_CHARS = new Map([
