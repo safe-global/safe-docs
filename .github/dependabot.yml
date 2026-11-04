@@ -53,6 +53,7 @@ updates:
         patterns:
           - 'eslint'
           - 'eslint-*'
+          - 'typescript-eslint'
           - '@typescript-eslint/*'
         update-types:
           - 'minor'

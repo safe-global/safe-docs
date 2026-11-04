@@ -22,7 +22,6 @@ const Response: React.FC<{ response: any; index: number }> = ({
     type === undefined
       ? []
       : Object.entries(
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           (type === 'object'
             ? content?.schema?.properties
             : content?.schema?.items) ?? {}
