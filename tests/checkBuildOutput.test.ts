@@ -14,6 +14,7 @@ import {
 import { createServer, type RequestListener } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import { tmpdir } from 'node:os'
+import { createHash } from 'node:crypto'
 import path from 'node:path'
 import redirects from '../redirects.json' with { type: 'json' }
 
@@ -205,6 +206,7 @@ test('fails on a site URL in an agent file that resolves to no page or file', ()
 type Served = [status: number, type: string, body?: string]
 
 const TEXT = 'text/plain; charset=utf-8'
+const NO_SKILLS = '{"skills":[]}'
 const SPEC: Served = [200, 'application/json', '{"openapi":"3.1.0"}']
 const YAML_SPEC: Served = [
   200,
@@ -219,7 +221,7 @@ const VALID_ARTIFACTS = new Map<string, Served>([
   ['/robots.txt', [200, TEXT]],
   ['/sitemap.xml', [200, 'application/xml']],
   ['/home/what-is-safe.md', [200, 'text/markdown; charset=utf-8']],
-  ['/.well-known/agent-skills/index.json', [200, 'application/json']]
+  ['/.well-known/agent-skills/index.json', [200, 'application/json', NO_SKILLS]]
 ])
 
 // Answers each path with its status, content type and body. Like the transaction service, the
@@ -282,7 +284,10 @@ test('--deployed fails on a wrong status, content type or charset', async t => {
       ['/robots.txt', [200, 'text/plain; charset=utf-8']],
       ['/sitemap.xml', [200, 'application/xml']],
       ['/home/what-is-safe.md', [200, 'text/markdown']],
-      ['/.well-known/agent-skills/index.json', [200, 'application/json']],
+      [
+        '/.well-known/agent-skills/index.json',
+        [200, 'application/json', NO_SKILLS]
+      ],
       ['/schema/', SPEC]
     ])
   )
@@ -312,7 +317,7 @@ test('--deployed compares the media type and the charset, not the raw header', a
       ['/home/what-is-safe.md', [200, 'text/markdown; charset=utf-8']],
       [
         '/.well-known/agent-skills/index.json',
-        [200, 'application/json; charset=utf-8']
+        [200, 'application/json; charset=utf-8', NO_SKILLS]
       ],
       ['/schema/', SPEC]
     ])
@@ -321,6 +326,32 @@ test('--deployed compares the media type and the charset, not the raw header', a
   for (const failure of [
     'llms-full.txt: expected 200 text/plain; charset=utf-8, got 200 text/plain; charset=utf-88\n',
     'sitemap.xml: expected 200 application/xml, got 200 application/xml-dtd\n'
+  ]) {
+    assert.ok(output.includes(failure), output)
+  }
+  assert.match(output, /\n2 failures/)
+})
+
+test('--deployed downloads every skill in the index and checks its digest', async t => {
+  const sha256 = (body: string) =>
+    `sha256:${createHash('sha256').update(body).digest('hex')}`
+  const responses = new Map(VALID_ARTIFACTS)
+  const site = await serve(t, respond(responses))
+  const skill = (name: string, digest: string) =>
+    `{"name":"${name}","url":"${site}/${name}.tar.gz","digest":"${digest}"}`
+  responses.set('/schema/', SPEC)
+  responses.set('/good.tar.gz', [200, 'application/gzip', 'good bytes'])
+  responses.set('/changed.tar.gz', [200, 'application/gzip', 'other bytes'])
+  responses.set('/.well-known/agent-skills/index.json', [
+    200,
+    'application/json',
+    `{"skills":[${skill('good', sha256('good bytes'))},${skill('changed', sha256('good bytes'))},${skill('missing', sha256(''))}]}`
+  ])
+  const { status, output } = await runDeployed(site, `${site}/schema/`)
+  assert.equal(status, 1, output)
+  for (const failure of [
+    `changed: expected ${sha256('good bytes')}, got ${sha256('other bytes')}\n`,
+    `missing: ${site}/missing.tar.gz expected 200, got 404\n`
   ]) {
     assert.ok(output.includes(failure), output)
   }

@@ -1,9 +1,11 @@
 const fs: typeof import('fs') = require('fs')
 const path: typeof import('path') = require('path')
+const crypto: typeof import('crypto') = require('crypto')
 
 const SITE = 'https://docs.safe.global'
 const OPENAPI_SPEC = 'https://api.safe.global/tx-service/eth/schema/'
 const TEXT = 'text/plain; charset=utf-8'
+const SKILLS_INDEX = '.well-known/agent-skills/index.json'
 // File in the build output → content type it must have when deployed.
 const ARTIFACTS = new Map([
   ['llms.txt', TEXT],
@@ -13,16 +15,12 @@ const ARTIFACTS = new Map([
   ['robots.txt', TEXT],
   ['sitemap.xml', 'application/xml'],
   ['home/what-is-safe.md', 'text/markdown; charset=utf-8'],
-  ['.well-known/agent-skills/index.json', 'application/json']
+  [SKILLS_INDEX, 'application/json']
 ])
 const REQUIRED_TEXT = new Map([
   [
     'llms.txt',
-    [
-      OPENAPI_SPEC,
-      `${SITE}/llms-full.txt`,
-      `${SITE}/.well-known/agent-skills/index.json`
-    ]
+    [OPENAPI_SPEC, `${SITE}/llms-full.txt`, `${SITE}/${SKILLS_INDEX}`]
   ]
 ])
 const HOME_PAGE_LINKS = [
@@ -227,6 +225,42 @@ async function checkOpenApiSpec(url: string): Promise<string[]> {
   return failure ? [`${url}: ${failure}`] : []
 }
 
+// Every skill in the index must download from its `url` with the SHA-256 the index promises.
+async function checkSkillDigests(indexUrl: string): Promise<string[]> {
+  const response = await fetchDeployed(indexUrl)
+  if (typeof response === 'string') return [response]
+  let skills: Array<{ name: string; url: string; digest: string }>
+  try {
+    skills = JSON.parse(await response.text()).skills
+  } catch {
+    return [`${indexUrl}: body is not JSON`]
+  }
+  if (!Array.isArray(skills)) return [`${indexUrl}: no skills array`]
+  const failures: string[] = []
+  for (const { name, url, digest } of skills) {
+    const archive = await fetchDeployed(url)
+    if (typeof archive === 'string') {
+      failures.push(archive)
+      continue
+    }
+    let bytes: Buffer
+    try {
+      bytes = Buffer.from(await archive.arrayBuffer())
+    } catch (error) {
+      failures.push(requestFailure(url, error))
+      continue
+    }
+    const actual = `sha256:${crypto.createHash('sha256').update(bytes).digest('hex')}`
+    console.info(`${url}: ${archive.status} ${actual}`)
+    if (archive.status !== 200) {
+      failures.push(`${name}: ${url} expected 200, got ${archive.status}`)
+    } else if (actual !== digest) {
+      failures.push(`${name}: expected ${digest}, got ${actual}`)
+    }
+  }
+  return failures
+}
+
 async function checkDeployed(
   site: string,
   openApiSpec: string
@@ -245,7 +279,10 @@ async function checkDeployed(
       failures.push(`${name}: expected 200 ${type}, got ${result}`)
     }
   }
-  return failures.concat(await checkOpenApiSpec(openApiSpec))
+  return failures.concat(
+    await checkOpenApiSpec(openApiSpec),
+    await checkSkillDigests(`${site}/${SKILLS_INDEX}`)
+  )
 }
 
 function checkBuild(outDir: string): string[] {
