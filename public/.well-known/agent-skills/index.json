@@ -7,28 +7,28 @@
       "type": "archive",
       "description": "Read a Safe from the Safe Transaction Service (owners, threshold, nonce, version, native and token balances, executed history, the pending queue, and the Safes of an owner). Use it before any proposal and to answer questions about a Safe. Read only.",
       "url": "https://github.com/safe-global/safe-agent-skills/releases/download/v1.0.0/read-safe-state.tar.gz",
-      "digest": "sha256:b526b511c49d59a8c5fcf30be445b18f61395ecee612911f04e46d7e8087ca89"
+      "digest": "sha256:2b778202ba824b8ac16ba87ddfc18d121b774420b921da646da8fafe1f702c46"
     },
     {
       "name": "decode-and-explain",
       "type": "archive",
       "description": "Decode Safe transaction calldata into a method and parameters with the Safe Decoder Service, explain its effect in plain words, and estimate safeTxGas. Use it before a proposal and for any queued transaction. Read only; says \"unknown\" when calldata cannot be decoded.",
       "url": "https://github.com/safe-global/safe-agent-skills/releases/download/v1.0.0/decode-and-explain.tar.gz",
-      "digest": "sha256:a222bc3babaff91ec7411138c9b0669380d15348b27a44718673298ea30fc87c"
+      "digest": "sha256:c546fe4023d5b920565eded0f5017511b7767e4800423f08b4c2618f8ab23987"
     },
     {
       "name": "register-delegate",
       "type": "archive",
       "description": "Register a local delegate key for one Safe, so that an agent can propose transactions to that Safe. An owner signs once; the registration expires after 7 days by default, and renewal needs the owner again. The delegate can only propose; it cannot confirm, execute or change the Safe.",
       "url": "https://github.com/safe-global/safe-agent-skills/releases/download/v1.0.0/register-delegate.tar.gz",
-      "digest": "sha256:492e22e1a209740bb4b4ea4d3b031f3d7e36379eb56efdd96f18055ba1ddabb4"
+      "digest": "sha256:0c1be52ff7de88745d012a7a2bb426baa4c8fd422462087d47440d86f904af52"
     },
     {
       "name": "propose-transaction",
       "type": "archive",
       "description": "Propose a Safe transaction as a registered delegate. The proposal appears in the Safe{Wallet} queue with a one-line note; owners confirm and execute it there. Proposal only; the agent cannot sign as an owner, confirm, execute or broadcast.",
       "url": "https://github.com/safe-global/safe-agent-skills/releases/download/v1.0.0/propose-transaction.tar.gz",
-      "digest": "sha256:a2d26f8c6e64a24400b6cfe8c06a420077f9197d77370d6a5638c36e4a49074f"
+      "digest": "sha256:f8a0d16493a68607c1c087db4020cc2bc27cdf8fe5f2f503643f3facbe1a819e"
     }
   ]
 }
