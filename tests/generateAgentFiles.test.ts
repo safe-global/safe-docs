@@ -352,6 +352,11 @@ test('takes the stub title from the built page, then _meta.json, then the networ
         '</title></head>'
     ],
     ['about', '<head><title></title></head>'],
+    [
+      'nexthead',
+      '<head><meta charSet="utf-8" data-next-head=""/>' +
+        '<title data-next-head="">Next<!-- --> Head – Safe Docs</title></head>'
+    ],
     ['listed', '<head></head><body><svg><title>GitHub</title></svg></body>']
   ])
   const files = generated({
@@ -375,6 +380,7 @@ test('takes the stub title from the built page, then _meta.json, then the networ
     ['decoder', 'Safe Decoder Service Reference'],
     ['coded', `A & B <C> "D" 'E'`],
     ['about', 'About'],
+    ['nexthead', 'Next Head'],
     ['listed', 'Listed Reference']
   ]) {
     assert.equal(files.get(`${page}.md`), specPage(title, tx), page)

@@ -21,6 +21,8 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
+  // Stops next dev from writing an AGENTS.md into the repo on every run
+  agentRules: false,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
