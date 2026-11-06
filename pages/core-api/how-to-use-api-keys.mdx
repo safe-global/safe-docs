@@ -68,14 +68,14 @@ To authenticate your requests, include your API key in the Authorization header.
 
 For available plans and current pricing, visit [Safe API plans ↗](https://safe.global/api). To subscribe, log in to the [developer dashboard ↗](https://developer.safe.global/api-subscriptions).
 
-One **API unit** equals **1 HTTP request** to any Safe Infrastructure endpoint. For full details on enforcement behavior when limits are reached, see [Quotas & Limits](./api-authentication).
+One **API unit** equals **1 HTTP request** to any Safe Infrastructure endpoint. For full details on enforcement behavior when limits are reached, see [Quotas & Limits](./api-authentication.mdx).
 
 ## Error Handling
 
 If your API key is invalid or your account hits a limit, the API returns standard HTTP error codes:
 
 - `401 Unauthorized`: Invalid or missing API key.
-- `429 Too Many Requests`: Rate limit or quota exceeded. See [Quotas & Limits](./api-authentication) for how to handle this.
+- `429 Too Many Requests`: Rate limit or quota exceeded. See [Quotas & Limits](./api-authentication.mdx) for how to handle this.
 
 Make sure your application gracefully handles these errors to avoid disruptions.
 
@@ -94,7 +94,7 @@ Contact the Safe team at [support@safe.global](mailto:support@safe.global) to di
 
 **What happens if I exceed my quota?**
 
-When you reach your monthly quota, subsequent requests are blocked with an HTTP 429 response. You can monitor your remaining quota via response headers on every API call. See [Quotas & Limits](./api-authentication) for details.
+When you reach your monthly quota, subsequent requests are blocked with an HTTP 429 response. You can monitor your remaining quota via response headers on every API call. See [Quotas & Limits](./api-authentication.mdx) for details.
 
 **Can I use the API without authentication?**
 

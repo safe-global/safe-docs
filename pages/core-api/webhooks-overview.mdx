@@ -77,11 +77,11 @@ We recommend configuring an **Authorization header** on your webhook endpoint so
 
 ## Important notes
 
-- Webhook payloads are intentionally minimal. They serve as **signals** to notify your application that something changed. Use the [API](./transaction-service-overview) to fetch full details after receiving an event.
+- Webhook payloads are intentionally minimal. They serve as **signals** to notify your application that something changed. Use the [API](./transaction-service-overview.mdx) to fetch full details after receiving an event.
 - Safe Infrastructure sends notifications for blockchain reorgs. Always verify event data against the API to ensure consistency.
 - Treat the payload schema as **forward-compatible**. We may add new fields to existing events at any time, so your endpoint should ignore unknown fields rather than reject them. Avoid strict validation that fails on extra properties.
 
 ## Next steps
 
-- [Setup & Configuration](./webhooks-setup): Configure your webhook endpoints.
-- [Quotas & Limits](./api-authentication): Understand how webhook deliveries affect your quota.
+- [Setup & Configuration](./webhooks-setup.mdx): Configure your webhook endpoints.
+- [Quotas & Limits](./api-authentication.mdx): Understand how webhook deliveries affect your quota.
