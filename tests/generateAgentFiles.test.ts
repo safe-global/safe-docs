@@ -272,17 +272,16 @@ test('drops MDX comments in both brace forms, inline and over several lines', ()
   )
 })
 
-test('keeps MDX comments inside code fences and in .md pages', () => {
+test('keeps MDX comments inside code fences', () => {
   const fenced = '# Fenced\n\n```mdx\n{/* kept */}\n```\n'
-  const plain = '# Plain\n\n{/* kept */}\n'
-  const files = generated({
-    change: dir => {
-      addPage('fenced', fenced)(dir)
-      addPage('plain', plain, '.md')(dir)
-    }
-  })
+  const files = generated({ change: addPage('fenced', fenced) })
   assert.equal(files.get('fenced.md'), fenced)
-  assert.equal(files.get('plain.md'), plain)
+})
+
+test('strips the comment from a .md page too', () => {
+  const plain = '# Plain\n\n{/* <!-- vale off --> */}\nText.\n'
+  const files = generated({ change: addPage('plain', plain, '.md') })
+  assert.equal(files.get('plain.md'), '# Plain\n\nText.\n')
 })
 
 test('drops MDX comments in an embedded .mdx file', () => {

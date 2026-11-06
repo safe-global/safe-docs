@@ -142,7 +142,7 @@ function stripMdxComments(file: string, lines: Line[]): Line[] {
 }
 
 // MDX reads a line that starts with import or export as JavaScript, up to the first blank
-// line where the code is complete. Only .mdx files have MDX comments to drop.
+// line where the code is complete. Nextra drops {/* … */} comments from .md pages as well.
 function splitMdx(file: string): { esm: string[]; lines: Line[] } {
   const unbalanced = `${file}: an import or export block has unbalanced brackets`
   const esm: string[] = []
@@ -166,10 +166,7 @@ function splitMdx(file: string): { esm: string[]; lines: Line[] } {
     inEsm = text.trim() !== '' || depth > 0
   }
   if (depth > 0) throw new Error(unbalanced)
-  return {
-    esm,
-    lines: file.endsWith('.mdx') ? stripMdxComments(file, lines) : lines
-  }
+  return { esm, lines: stripMdxComments(file, lines) }
 }
 
 const markdownOf = (file: string): string =>
