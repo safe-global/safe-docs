@@ -1,3 +1,13 @@
+// The path of a page's Markdown copy: no query or hash, no trailing slash, `/` → `/index.md`
+const markdownPath = (asPath: string): string => {
+  const pathname = asPath.split(/[?#]/)[0]
+  const trimmed =
+    pathname.length > 1 && pathname.endsWith('/')
+      ? pathname.slice(0, -1)
+      : pathname
+  return `${trimmed === '/' ? '/index' : trimmed}.md`
+}
+
 const MetaTags: React.FC<{ path: string }> = ({ path }) => {
   const description =
     'Safe Infrastructure is an open-source and modular smart account stack. Learn about its features and how to use it.'
@@ -20,6 +30,11 @@ const MetaTags: React.FC<{ path: string }> = ({ path }) => {
             ? 'index, follow'
             : 'noindex, nofollow'
         }
+      />
+      <link
+        rel='alternate'
+        type='text/markdown'
+        href={`${process.env.NEXT_PUBLIC_HOST_URL}${markdownPath(path)}`}
       />
       <meta name='description' content={description} />
       <meta property='og:site_name' content='Safe Docs' />

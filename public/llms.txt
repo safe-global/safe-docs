@@ -6,6 +6,8 @@ Safe brings digital ownership of accounts to everyone by building universal and 
 
 The full documentation corpus in one file is at [llms-full.txt](https://docs.safe.global/llms-full.txt).
 
+Every page is also available as Markdown at the page URL plus `.md`, for example https://docs.safe.global/core-api/api-authentication.md; the HTML page links it as `<link rel="alternate" type="text/markdown">`.
+
 ## Safe Transaction Service API
 
 The API never executes transactions. The flow is propose, confirm, execute: a delegate or owner proposes a transaction, owners add confirmations, and an owner executes it onchain, for example in Safe{Wallet}. There is no execute endpoint.
