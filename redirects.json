@@ -828,5 +828,10 @@
     "source": "/core-api/transaction-service-reference/zkevm",
     "destination": "/core-api/transaction-service-reference/mainnet",
     "permanent": true
+  },
+  {
+    "source": "/core-api/api-pricing",
+    "destination": "https://safe.global/api",
+    "permanent": true
   }
 ]
