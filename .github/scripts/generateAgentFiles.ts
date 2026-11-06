@@ -5,6 +5,8 @@ const PRODUCTION_HOST = 'https://docs.safe.global'
 const SOURCE_EXTENSIONS = ['.mdx', '.md']
 const FENCE = /^\s*(`{3,}|~{3,})(.*)$/
 const ESM = /^(?:import|export)\s/
+const COMMENT_OPEN = /\{\s*\/\*/
+const COMMENT_CLOSE = /\*\/\s*\}/
 const MDX_IMPORT = /^import\s+(\w+)\s+from\s+['"]([^'"]+\.mdx?)['"]/gm
 const EMBED = /^<(\w+)\s*\/>\s*$/
 const API_REFERENCE = /^<ApiReference\s+networkName="([^"]+)"\s*\/>\s*$/
@@ -80,8 +82,41 @@ const readSource = (file: string): string =>
     .replace(/^\uFEFF/, '')
     .replace(/\r\n?/g, '\n')
 
+// The lines without their {/* … */} comments outside code fences. A comment may span lines; a
+// line that only held comments is dropped, and the text around an inline comment keeps one space.
+function stripMdxComments(file: string, lines: Line[]): Line[] {
+  const stripped: Line[] = []
+  let inComment = false
+  for (const line of lines) {
+    if (line.fenced && !inComment) {
+      stripped.push(line)
+      continue
+    }
+    let rest = line.text
+    let text = ''
+    let removed = inComment
+    while (rest !== '') {
+      const marker = (inComment ? COMMENT_CLOSE : COMMENT_OPEN).exec(rest)
+      const end = marker ? marker.index : rest.length
+      if (!inComment) {
+        const joined = removed && (text === '' || /\s$/.test(text))
+        text += joined ? rest.slice(0, end).trimStart() : rest.slice(0, end)
+      }
+      if (!marker) break
+      rest = rest.slice(end + marker[0].length)
+      inComment = !inComment
+      removed = true
+    }
+    if (!removed) stripped.push(line)
+    else if (text.trim() !== '')
+      stripped.push({ ...line, text: text.trimEnd() })
+  }
+  if (inComment) throw new Error(`${file}: an MDX comment is not closed`)
+  return stripped
+}
+
 // MDX reads a line that starts with import or export as JavaScript, up to the first blank
-// line where the code is complete.
+// line where the code is complete. Only .mdx files have MDX comments to drop.
 function splitMdx(file: string): { esm: string[]; lines: Line[] } {
   const unbalanced = `${file}: an import or export block has unbalanced brackets`
   const esm: string[] = []
@@ -105,7 +140,10 @@ function splitMdx(file: string): { esm: string[]; lines: Line[] } {
     inEsm = text.trim() !== '' || depth > 0
   }
   if (depth > 0) throw new Error(unbalanced)
-  return { esm, lines }
+  return {
+    esm,
+    lines: file.endsWith('.mdx') ? stripMdxComments(file, lines) : lines
+  }
 }
 
 const markdownOf = (file: string): string =>
@@ -276,9 +314,10 @@ function writeCorpus(outDir: string, host: string, pages: Page[]): string {
 }
 
 function main(pagesDir: string, outDir: string): void {
-  const host = (
-    process.env.NEXT_PUBLIC_HOST_URL || PRODUCTION_HOST
-  ).replace(/\/+$/, '')
+  const host = (process.env.NEXT_PUBLIC_HOST_URL || PRODUCTION_HOST).replace(
+    /\/+$/,
+    ''
+  )
   const routes = (fs.readdirSync(outDir, { recursive: true }) as string[])
     .filter(file => file.endsWith('.html') && file !== '404.html')
     .map(file => file.replace(/\.html$/, ''))

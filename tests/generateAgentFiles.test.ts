@@ -94,8 +94,7 @@ const specText = (service: string, spec: string, note = '') =>
   'The spec needs no API key.'
 
 // The Markdown copy of an apiReferencePage, which has no heading.
-const specPage = (title: string, text: string) =>
-  `# ${title}\n\n{/* <!-- vale off --> */}\n\n${text}\n\n{/* <!-- vale on --> */}\n`
+const specPage = (title: string, text: string) => `# ${title}\n\n${text}\n`
 
 test('writes llms-full.txt in _meta.json order, unlisted pages last by name', () => {
   const host = 'https://docs.example.test'
@@ -208,6 +207,55 @@ test('names the page when an embedded file is missing', () => {
     output,
     /pages\/missing\.mdx: embedded \S*\/pages\/gone\.mdx not found/
   )
+})
+
+test('drops MDX comments in both brace forms, inline and over several lines', () => {
+  const source =
+    '{/* <!-- vale off --> */}\n# Comments\n{ /* <!-- vale on --> */ }\n\n' +
+    'A {/* x */} B and C{ /* y */}D.\n\n' +
+    'Before {/* a comment\nover three\nlines */} after.\n\n' +
+    '  {/* only */}  {/* comments */}\n' +
+    'End.\n'
+  const files = generated({ change: addPage('comments', source) })
+  assert.equal(
+    files.get('comments.md'),
+    '# Comments\n\nA B and CD.\n\nBefore\nafter.\n\nEnd.\n'
+  )
+})
+
+test('keeps MDX comments inside code fences and in .md pages', () => {
+  const fenced = '# Fenced\n\n```mdx\n{/* kept */}\n```\n'
+  const plain = '# Plain\n\n{/* kept */}\n'
+  const files = generated({
+    change: dir => {
+      addPage('fenced', fenced)(dir)
+      addPage('plain', plain, '.md')(dir)
+    }
+  })
+  assert.equal(files.get('fenced.md'), fenced)
+  assert.equal(files.get('plain.md'), plain)
+})
+
+test('drops MDX comments in an embedded .mdx file', () => {
+  const page =
+    "import Commented from '../components/commented.mdx'\n\n# Embed\n\n<Commented />\n"
+  const files = generated({
+    change: dir => {
+      writeFileSync(
+        path.join(dir, 'components/commented.mdx'),
+        '{/* hidden */}\nShown text.\n'
+      )
+      addPage('embed', page)(dir)
+    }
+  })
+  assert.equal(files.get('embed.md'), '# Embed\n\nShown text.\n')
+})
+
+test('stops with the page path when an MDX comment is not closed', () => {
+  const source = '# Open comment\n\n{/* never closed\n\nText.\n'
+  const { status, output } = generate({ change: addPage('unclosed', source) })
+  assert.equal(status, 1, output)
+  assert.match(output, /pages\/unclosed\.mdx: an MDX comment is not closed/)
 })
 
 test('writes a sitemap of the built routes on the host, without 404', () => {
