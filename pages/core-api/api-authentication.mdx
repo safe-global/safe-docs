@@ -14,19 +14,19 @@ See [Safe API plans](https://safe.global/api#plans) for the limits of each plan.
 
 ## Response headers
 
-Every authenticated response carries these headers:
+Every response carries `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset`. Authenticated responses add `X-Consumer-Id` and `X-Consumer-RPS`. `X-RateLimit-Plan` is present only on API keys that are linked to a plan, and `X-RateLimit-Warning` only from 80% of the quota.
 
-| Header | Meaning |
-| --- | --- |
-| `X-RateLimit-Limit` | Monthly quota of your plan. |
-| `X-RateLimit-Remaining` | Requests left in the current window. |
-| `X-RateLimit-Reset` | Seconds until the window resets. Not a timestamp. |
-| `X-Consumer-Id` | Your account identifier. |
-| `X-Consumer-RPS` | Requests per second allowed for your account. |
-| `X-RateLimit-Plan` | Your plan: `builder`, `growth` or `scale`. |
-| `X-RateLimit-Warning` | Present from 80% of the quota used: `<N>% of monthly quota used. Plans: https://safe.global/api#plans`. |
+| Header | Present | Meaning |
+| --- | --- | --- |
+| `X-RateLimit-Limit` | Always | Monthly quota of your plan. |
+| `X-RateLimit-Remaining` | Always | Requests left in the current window. |
+| `X-RateLimit-Reset` | Always | Seconds until the window resets. Not a timestamp. |
+| `X-Consumer-Id` | Authenticated requests | Your account identifier. |
+| `X-Consumer-RPS` | Authenticated requests | Requests per second allowed for your account. |
+| `X-RateLimit-Plan` | API keys linked to a plan | Your plan: `builder`, `growth` or `scale`. |
+| `X-RateLimit-Warning` | From 80% of the quota | `<N>% of monthly quota used. Plans: https://safe.global/api#plans`. |
 
-Unauthenticated responses carry none of the plan headers.
+Unauthenticated responses carry only the three `X-RateLimit-*` headers, with the unauthenticated limit.
 
 Example response:
 
@@ -90,7 +90,7 @@ Scale:
 
 ### Per-second limit reached
 
-Returned when the account sends more requests per second than its plan allows. The quota is not affected.
+Returned when the account sends more requests per second than its plan allows.
 
 ```json
 {
@@ -100,13 +100,15 @@ Returned when the account sends more requests per second than its plan allows. T
 
 ### Without an API key
 
-Returned when an unauthenticated request exceeds the unauthenticated limits.
+Returned when an unauthenticated request exceeds the unauthenticated limits. The per-second message is:
 
 ```json
 {
-  "error_msg": "Requests without an API key have a lower limit. Create a free Builder account for 50,000 requests per month and usage reporting: https://developer.safe.global/"
+  "error_msg": "Too many requests per second"
 }
 ```
+
+The monthly limit returns its own message.
 
 {/* TODO: replace the examples above with responses copied from staging once PLA-2209 is deployed. */}
 
