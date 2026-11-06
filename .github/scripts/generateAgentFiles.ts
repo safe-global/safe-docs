@@ -1,6 +1,7 @@
 const fs: typeof import('fs') = require('fs')
 const path: typeof import('path') = require('path')
 
+const PRODUCTION_HOST = 'https://docs.safe.global'
 const SOURCE_EXTENSIONS = ['.mdx', '.md']
 const FENCE = /^\s*(`{3,}|~{3,})(.*)$/
 const ESM = /^(?:import|export)\s/
@@ -254,8 +255,12 @@ function writeSitemap(outDir: string, urls: string[]): void {
   fs.writeFileSync(path.join(outDir, 'sitemap.xml'), sitemap)
 }
 
+// Previews and staging are built with another host and must not be indexed.
 function writeRobots(outDir: string, host: string): void {
-  const robots = `User-agent: *\nAllow: /\n\nSitemap: ${host}/sitemap.xml\n`
+  const robots =
+    host === PRODUCTION_HOST
+      ? `User-agent: *\nAllow: /\n\nSitemap: ${host}/sitemap.xml\n`
+      : 'User-agent: *\nDisallow: /\n'
   fs.writeFileSync(path.join(outDir, 'robots.txt'), robots)
 }
 
@@ -272,7 +277,7 @@ function writeCorpus(outDir: string, host: string, pages: Page[]): string {
 
 function main(pagesDir: string, outDir: string): void {
   const host = (
-    process.env.NEXT_PUBLIC_HOST_URL || 'https://docs.safe.global'
+    process.env.NEXT_PUBLIC_HOST_URL || PRODUCTION_HOST
   ).replace(/\/+$/, '')
   const routes = (fs.readdirSync(outDir, { recursive: true }) as string[])
     .filter(file => file.endsWith('.html') && file !== '404.html')

@@ -410,12 +410,19 @@ test('stops with the page path when no OpenAPI spec URL can be derived', () => {
   }
 })
 
-test('writes robots.txt with the sitemap URL on the host', () => {
+test('writes robots.txt that allows crawling and names the sitemap on production', () => {
+  const robots =
+    'User-agent: *\nAllow: /\n\nSitemap: https://docs.safe.global/sitemap.xml\n'
+  assert.equal(generated().get('robots.txt'), robots)
+  assert.equal(
+    generated({ host: 'https://docs.safe.global/' }).get('robots.txt'),
+    robots
+  )
+})
+
+test('writes robots.txt that disallows crawling on any other host', () => {
   const robots = generated({ host: 'https://docs.staging.example/' }).get(
     'robots.txt'
   )
-  assert.equal(
-    robots,
-    'User-agent: *\nAllow: /\n\nSitemap: https://docs.staging.example/sitemap.xml\n'
-  )
+  assert.equal(robots, 'User-agent: *\nDisallow: /\n')
 })
