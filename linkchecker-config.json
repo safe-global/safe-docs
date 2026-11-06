@@ -43,6 +43,10 @@
       "replacement": "./#"
     },
     {
+      "pattern": "^/(?=[^#?]+\\.(png|jpe?g|svg|gif|ico|txt|xml|json|webp)$)",
+      "replacement": "{{BASEURL}}/public/"
+    },
+    {
       "pattern": "^/",
       "replacement": "{{BASEURL}}/pages/"
     }
