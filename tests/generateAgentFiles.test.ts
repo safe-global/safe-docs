@@ -507,6 +507,77 @@ test('stops with the page path when no OpenAPI spec URL can be derived', () => {
   }
 })
 
+const componentPage = (component: string) =>
+  `import ${component} from '../components/${component}'\n\n<${component} />\n`
+
+test('writes the supported networks table for a SupportedNetworks page', () => {
+  const files = generated({
+    change: dir => {
+      const meta = path.join(dir, 'pages/_meta.json')
+      const entries = JSON.parse(readFileSync(meta, 'utf8'))
+      const networks = {
+        title: 'Smart Account Networks',
+        theme: { layout: 'raw' }
+      }
+      writeFileSync(meta, JSON.stringify({ ...entries, networks }))
+      addPage('networks', componentPage('SupportedNetworks'))(dir)
+    }
+  })
+  assert.equal(
+    files.get('networks.md'),
+    '# Smart Account Networks\n\n' +
+      'Safe Smart Account contracts are deployed on these networks. The interactive list ' +
+      'with contract addresses is on the HTML page.\n\n' +
+      '| Network | Chain ID | Short name | Safe versions | Transaction Service API |\n' +
+      '| --- | --- | --- | --- | --- |\n' +
+      '| Arbitrum \\| One | 42161 | arb1 | v1.10.0, v1.9.0 | — |\n' +
+      '| Ethereum Mainnet | 1 | eth | v1.4.1, v1.3.0 | https://api.safe.global/tx-service/eth |\n' +
+      '| Sepolia | 11155111 | sep | v1.4.1 | — |\n'
+  )
+})
+
+test('writes the resource lists for a ResourceHub page', () => {
+  const files = generated({
+    change: addPage('hub', componentPage('ResourceHub'))
+  })
+  assert.equal(
+    files.get('hub.md'),
+    '# Resource Hub\n\n## Safe team resources\n\n' +
+      '- [Newer team post](https://example.com/newer) (Blog Post, 2024-05-02): A newer post.\n' +
+      '- [Older [team\\] talk](https://example.com/older) (Video, 2023-01-10): ' +
+      'An older talk by the team.\n\n' +
+      '## Community resources\n\n' +
+      '- [Community podcast](https://example.com/podcast) (Podcast, 2023-11-20): A podcast.\n' +
+      '- [Community guide](https://example.com/guide) (Blog Post, 2022-03-01): A guide.\n'
+  )
+})
+
+test('keeps the line of a component that has no markdown copy', () => {
+  const source =
+    "import Other from '../components/Other'\n\n# Other\n\n<Other />\n"
+  const files = generated({ change: addPage('other', source) })
+  assert.equal(files.get('other.md'), '# Other\n\n<Other />\n')
+})
+
+test('stops with the page path when a component data file is missing', () => {
+  const { status, output } = generate({
+    change: dir => {
+      rmSync(path.join(dir, 'components/ResourceHub/community-resources.json'))
+      addPage('hub', componentPage('ResourceHub'))(dir)
+    }
+  })
+  assert.equal(status, 1, output)
+  const line = output
+    .split('\n')
+    .find(text => text.includes('/pages/hub.mdx: '))
+  assert.ok(
+    line?.endsWith(
+      '/components/ResourceHub/community-resources.json not found'
+    ),
+    output
+  )
+})
+
 test('writes robots.txt that allows crawling and names the sitemap on production', () => {
   const robots =
     'User-agent: *\nAllow: /\n\nSitemap: https://docs.safe.global/sitemap.xml\n'

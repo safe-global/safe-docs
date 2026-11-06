@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Ethereum Mainnet",
+    "chainId": 1,
+    "shortName": "eth",
+    "isTestnet": false,
+    "smartAccounts": [
+      { "name": "safe", "version": "v1.3.0" },
+      { "name": "safe", "version": "v1.4.1" },
+      { "name": "proxy_factory", "version": "v1.3.0" }
+    ]
+  },
+  {
+    "name": "Sepolia",
+    "chainId": 11155111,
+    "shortName": "sep",
+    "isTestnet": true,
+    "smartAccounts": [{ "name": "safe", "version": "v1.4.1" }]
+  },
+  {
+    "name": "Goerli",
+    "chainId": 5,
+    "shortName": "gor",
+    "isTestnet": true,
+    "smartAccounts": [{ "name": "safe", "version": "v1.3.0" }]
+  },
+  {
+    "name": "Arbitrum | One",
+    "chainId": 42161,
+    "shortName": "arb1",
+    "isTestnet": false,
+    "smartAccounts": [
+      { "name": "safe", "version": "v1.9.0" },
+      { "name": "safe", "version": "v1.10.0" }
+    ]
+  }
+]
