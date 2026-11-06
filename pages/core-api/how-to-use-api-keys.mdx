@@ -1,4 +1,4 @@
-import { Tabs, Callout } from 'nextra/components'
+import { Tabs } from 'nextra/components'
 
 # How to use API Keys
 
@@ -68,10 +68,6 @@ To authenticate your requests, include your API key in the Authorization header.
 
 For available plans and current pricing, visit [Safe API plans ↗](https://safe.global/api). To subscribe, log in to the [developer dashboard ↗](https://developer.safe.global/api-subscriptions).
 
-<Callout type="info">
-  Unauthenticated access is available for exploration only: **2 RPS** and **5,000 monthly requests**. Any meaningful production usage requires authentication.
-</Callout>
-
 One **API unit** equals **1 HTTP request** to any Safe Infrastructure endpoint. For full details on enforcement behavior when limits are reached, see [Quotas & Limits](./api-authentication).
 
 ## Error Handling
@@ -102,6 +98,6 @@ When you reach your monthly quota, subsequent requests are blocked with an HTTP 
 
 **Can I use the API without authentication?**
 
-Unauthenticated access is available for exploration only, with significantly lower limits (2 RPS, 5,000 monthly requests). Any meaningful production usage requires authentication.
+Unauthenticated access is available for exploration only, with significantly lower limits. Any meaningful production usage requires authentication.
 
 Didn't find your answer? Reach out at [support@safe.global](mailto:support@safe.global).
