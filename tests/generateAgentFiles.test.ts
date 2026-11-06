@@ -76,6 +76,9 @@ const apiReferencePage = (network: string) =>
   `<ApiReference networkName="${network}"/>\n` +
   '{/* <!-- vale on --> */}\n'
 
+const componentPage = (component: string) =>
+  `import ${component} from '../components/${component}'\n\n<${component} />\n`
+
 // Writes the generated API reference of a network, which names the API URLs.
 const addReference = (network: string, text: string) => (dir: string) => {
   const generatedDir = path.join(dir, 'components/ApiReference/generated')
@@ -278,7 +281,7 @@ test('keeps MDX comments inside code fences', () => {
   assert.equal(files.get('fenced.md'), fenced)
 })
 
-test('strips the comment from a .md page too', () => {
+test('drops MDX comments from a .md page as well', () => {
   const plain = '# Plain\n\n{/* <!-- vale off --> */}\nText.\n'
   const files = generated({ change: addPage('plain', plain, '.md') })
   assert.equal(files.get('plain.md'), '# Plain\n\nText.\n')
@@ -506,18 +509,12 @@ test('stops with the page path when no OpenAPI spec URL can be derived', () => {
   }
 })
 
-const componentPage = (component: string) =>
-  `import ${component} from '../components/${component}'\n\n<${component} />\n`
-
 test('writes the supported networks table for a SupportedNetworks page', () => {
   const files = generated({
     change: dir => {
       const meta = path.join(dir, 'pages/_meta.json')
       const entries = JSON.parse(readFileSync(meta, 'utf8'))
-      const networks = {
-        title: 'Smart Account Networks',
-        theme: { layout: 'raw' }
-      }
+      const networks = { title: 'Smart Account Networks' }
       writeFileSync(meta, JSON.stringify({ ...entries, networks }))
       addPage('networks', componentPage('SupportedNetworks'))(dir)
     }

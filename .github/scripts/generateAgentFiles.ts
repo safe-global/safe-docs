@@ -68,8 +68,6 @@ interface Network {
 
 interface TxServiceNetwork {
   chainId: number
-  shortName: string
-  networkName: string
   txServiceUrl: string
 }
 
@@ -79,7 +77,6 @@ interface Resource {
   type: string
   date: string
   description: string
-  tags: string[]
 }
 
 const isFile = (file: string): boolean =>
@@ -109,7 +106,8 @@ const readSource = (file: string): string =>
     .replace(/\r\n?/g, '\n')
 
 // The lines without their {/* … */} comments outside code fences. A comment may span lines; a
-// line that only held comments is dropped, and the text around an inline comment keeps one space.
+// line that only held comments is dropped, and text after a comment loses its leading spaces
+// when nothing or a space comes before it.
 function stripMdxComments(file: string, lines: Line[]): Line[] {
   const stripped: Line[] = []
   let inComment = false
@@ -125,8 +123,8 @@ function stripMdxComments(file: string, lines: Line[]): Line[] {
       const marker = (inComment ? COMMENT_CLOSE : COMMENT_OPEN).exec(rest)
       const end = marker ? marker.index : rest.length
       if (!inComment) {
-        const joined = removed && (text === '' || /\s$/.test(text))
-        text += joined ? rest.slice(0, end).trimStart() : rest.slice(0, end)
+        const segment = rest.slice(0, end)
+        text += removed && !/\S$/.test(text) ? segment.trimStart() : segment
       }
       if (!marker) break
       rest = rest.slice(end + marker[0].length)
@@ -223,7 +221,7 @@ function readData<T>(file: string, data: string): T {
   return JSON.parse(fs.readFileSync(data, 'utf8')) as T
 }
 
-// The text of a Markdown table cell.
+// Text escaped for a Markdown table cell.
 const tableCell = (text: string): string => text.replace(/\|/g, '\\|')
 
 // The Markdown that replaces <SupportedNetworks />: a table of the networks with a Safe Smart
@@ -278,11 +276,10 @@ function supportedNetworksMarkdown(
 // newest first.
 function resourceHubMarkdown(file: string, componentsDir: string): string {
   const section = (title: string, data: string): string => {
-    const resources = readData<Resource[]>(
+    const items = readData<Resource[]>(
       file,
       path.join(componentsDir, 'ResourceHub', data)
     )
-    const items = [...resources]
       .sort((a, b) => b.date.localeCompare(a.date))
       .map(resource => {
         const name = resource.name.replace(/]/g, '\\]')
