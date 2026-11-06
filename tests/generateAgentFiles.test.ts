@@ -121,6 +121,55 @@ test('writes llms-full.txt in _meta.json order, unlisted pages last by name', ()
   )
 })
 
+test('starts llms-full.txt with a header that names the host', () => {
+  const corpus = generated().get('llms-full.txt') ?? ''
+  assert.ok(
+    corpus.startsWith(
+      '# Safe Documentation\n\nThis file contains every page listed in the sidebar of ' +
+        'https://docs.safe.global, in sidebar order.\n' +
+        'A `Source:` line gives the URL of each page.\n\n'
+    ),
+    corpus
+  )
+})
+
+test('leaves pages hidden in a nested _meta.json out of sitemap.xml and llms-full.txt', () => {
+  const files = generated({
+    change: dir => {
+      const editMeta = (file: string, entries: Record<string, unknown>) => {
+        const meta = path.join(dir, 'pages', file)
+        const current = JSON.parse(readFileSync(meta, 'utf8'))
+        writeFileSync(meta, JSON.stringify({ ...current, ...entries }))
+      }
+      editMeta('_meta.json', {
+        about: { title: 'About', type: 'page', display: 'hidden' }
+      })
+      editMeta('guide/_meta.json', {
+        install: { display: 'hidden' },
+        secret: { type: 'page', display: 'hidden' }
+      })
+      mkdirSync(path.join(dir, 'pages/guide/secret'))
+      mkdirSync(path.join(dir, 'built/guide/secret'))
+      addPage('guide/secret/page', '# Secret\n\nA hidden page.\n')(dir)
+    }
+  })
+  const sitemap = files.get('sitemap.xml') ?? ''
+  const corpus = files.get('llms-full.txt') ?? ''
+  for (const route of ['guide/install', 'guide/secret/page']) {
+    const url = `https://docs.safe.global/${route}`
+    assert.ok(!sitemap.includes(`<loc>${url}</loc>`), route)
+    assert.ok(!corpus.includes(`Source: ${url}\n`), route)
+    assert.ok(files.has(`${route}.md`), route)
+  }
+  assert.equal(
+    files.get('guide/secret/page.md'),
+    '# Secret\n\nA hidden page.\n'
+  )
+  const about = 'https://docs.safe.global/about'
+  assert.ok(sitemap.includes(`<loc>${about}</loc>`))
+  assert.ok(corpus.includes(`Source: ${about}\n`))
+})
+
 test('copies a .md page source and lists it in llms-full.txt', () => {
   const files = generated()
   assert.equal(files.get('notes.md'), fixtureSource('notes.md'))

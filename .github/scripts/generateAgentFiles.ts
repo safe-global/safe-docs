@@ -262,17 +262,25 @@ function sourceFor(pagesDir: string, route: string): string | undefined {
     .find(isFile)
 }
 
+// Whether a _meta.json entry hides its page from the sidebar.
+const isHidden = (entry: unknown): boolean =>
+  (entry as { display?: unknown } | null | undefined)?.display === 'hidden'
+
 // Page sources in sidebar order: the _meta.json keys first, then the other entries by name.
-function orderedSources(dir: string): string[] {
-  const listed = Object.keys(readMeta(dir))
+// A hidden entry in the root _meta.json is a navbar tab whose pages stay public; a hidden
+// entry in a nested _meta.json leaves out its page and its folder.
+function orderedSources(dir: string, nested = false): string[] {
+  const meta = readMeta(dir)
+  const listed = Object.keys(meta)
   const entries = fs.readdirSync(dir).map(name => name.replace(/\.mdx?$/, ''))
   return [...new Set([...listed, ...entries.sort()])].flatMap(name => {
+    if (nested && isHidden(meta[name])) return []
     const stem = path.join(dir, name)
     const pages = SOURCE_EXTENSIONS.map(ext => stem + ext).filter(isFile)
     const isDirectory = fs
       .statSync(stem, { throwIfNoEntry: false })
       ?.isDirectory()
-    return isDirectory ? [...pages, ...orderedSources(stem)] : pages
+    return isDirectory ? [...pages, ...orderedSources(stem, true)] : pages
   })
 }
 
@@ -305,7 +313,7 @@ function writeRobots(outDir: string, host: string): void {
 function writeCorpus(outDir: string, host: string, pages: Page[]): string {
   const corpus = [
     '# Safe Documentation\n',
-    `This file contains every documentation page of ${host} in sidebar order.`,
+    `This file contains every page listed in the sidebar of ${host}, in sidebar order.`,
     'A `Source:` line gives the URL of each page.\n',
     ...pages.map(page => `Source: ${page.url}\n\n${page.markdown}`)
   ].join('\n')
@@ -324,7 +332,15 @@ function main(pagesDir: string, outDir: string): void {
     .sort()
   const urlFor = (route: string) =>
     route === 'index' ? `${host}/` : `${host}/${encodeURI(route)}`
-  writeSitemap(outDir, routes.map(urlFor))
+  const sources = new Map(
+    routes.map(route => [route, sourceFor(pagesDir, route)])
+  )
+  const listed = new Set(orderedSources(pagesDir))
+  const indexed = routes.filter(route => {
+    const source = sources.get(route)
+    return !source || listed.has(source)
+  })
+  writeSitemap(outDir, indexed.map(urlFor))
   writeRobots(outDir, host)
   const generatedDir = path.resolve(
     pagesDir,
@@ -332,20 +348,17 @@ function main(pagesDir: string, outDir: string): void {
   )
 
   const pages = new Map<string, Page>()
-  for (const route of routes) {
-    const source = sourceFor(pagesDir, route)
+  for (const [route, source] of sources) {
     if (!source) continue
     const html = path.join(outDir, `${route}.html`)
     const markdown = toMarkdown(source, generatedDir, html)
     fs.writeFileSync(path.join(outDir, `${route}.md`), markdown)
     pages.set(source, { url: urlFor(route), markdown })
   }
-  const ordered = orderedSources(pagesDir).flatMap(
-    source => pages.get(source) ?? []
-  )
+  const ordered = [...listed].flatMap(source => pages.get(source) ?? [])
   const corpus = writeCorpus(outDir, host, ordered)
   console.info(
-    `Wrote sitemap.xml (${routes.length} routes), robots.txt, ${pages.size} .md pages and ` +
+    `Wrote sitemap.xml (${indexed.length} routes), robots.txt, ${pages.size} .md pages and ` +
       `llms-full.txt (${ordered.length} pages, ${Buffer.byteLength(corpus)} bytes)`
   )
 }
