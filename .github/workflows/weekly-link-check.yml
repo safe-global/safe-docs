@@ -22,6 +22,7 @@ jobs:
         config-file: 'linkchecker-config.json'
         base-branch: 'main'
     - uses: tcort/github-action-markdown-link-check@e7c7a18363c842693fadde5d41a3bd3573a7a225  # v1.1.2
+      if: ${{ !cancelled() }}
       with:
         file-extension: '.md'
         use-quiet-mode: 'yes'
