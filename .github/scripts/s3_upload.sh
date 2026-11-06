@@ -2,16 +2,16 @@
 
 set -ev
 
-aws s3 sync ./out $BUCKET --delete
+aws s3 sync ./out $BUCKET --delete --exclude '*.txt' --exclude '*.md'
 
 cd out
 
-aws s3 cp . "$BUCKET" --recursive --exclude '*' --include '*.txt' \
+# The filtered syncs exist only to add charset=utf-8; sync already picks text/plain and
+# text/markdown from the extension. The main sync excludes these files so nothing uploads twice.
+aws s3 sync . "$BUCKET" --delete --exclude '*' --include '*.txt' \
     --content-type 'text/plain; charset=utf-8'
-aws s3 cp . "$BUCKET" --recursive --exclude '*' --include '*.md' \
+aws s3 sync . "$BUCKET" --delete --exclude '*' --include '*.md' \
     --content-type 'text/markdown; charset=utf-8'
-aws s3 cp . "$BUCKET" --recursive --exclude '*' --include '*.xml' \
-    --content-type 'application/xml'
 
 function parallel_limit {
     local max="$1"

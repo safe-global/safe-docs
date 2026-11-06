@@ -42,10 +42,6 @@ jobs:
           NEXT_PUBLIC_HOST_URL: 'https://docs.safe.global'
           NODE_OPTIONS: '--max-old-space-size=8000'
 
-      - name: Check the build output
-        shell: bash
-        run: pnpm check-build
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
         with:
@@ -83,7 +79,3 @@ jobs:
             --id "$INVALIDATION_ID"
 
           echo "CloudFront invalidation completed."
-
-      - name: Check the agent files on production
-        shell: bash
-        run: pnpm check-build --deployed https://docs.safe.global

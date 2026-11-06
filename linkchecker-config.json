@@ -1,6 +1,9 @@
 {
   "ignorePatterns": [
     {
+      "pattern": "^\\{"
+    },
+    {
       "pattern": "^https://x.com"
     },
     {
@@ -38,6 +41,14 @@
     {
       "pattern": "^#",
       "replacement": "./#"
+    },
+    {
+      "pattern": "^/(?=[^#?]+\\.(png|jpe?g|svg|gif|ico|txt|xml|json|webp)$)",
+      "replacement": "{{BASEURL}}/public/"
+    },
+    {
+      "pattern": "^/",
+      "replacement": "{{BASEURL}}/pages/"
     }
   ],
   "retryOn429": true,
