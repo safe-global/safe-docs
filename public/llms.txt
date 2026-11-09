@@ -10,7 +10,7 @@ The full documentation corpus in one file is at [llms-full.txt](https://docs.saf
 
 The API never executes transactions. The flow is propose, confirm, execute: a delegate or owner proposes a transaction, owners add confirmations, and an owner executes it onchain, for example in Safe{Wallet}. There is no execute endpoint.
 
-- [OpenAPI spec (Ethereum)](https://api.safe.global/tx-service/eth/schema/): Public OpenAPI 3.1 description of the API, no API key needed. Every supported chain serves its own spec at `https://api.safe.global/tx-service/{chain}/schema/`, where `{chain}` is the chain's EIP-3770 short name, for example `eth`, `base`, `gno` or `sep`.
+- [OpenAPI spec (Ethereum)](https://api.safe.global/tx-service/eth/schema/): Public OpenAPI 3.1 description of the API, no API key needed. Every supported chain serves its own spec at `https://api.safe.global/tx-service/{chain}/schema/`, where `{chain}` is the chain's EIP-3770 short name, for example `eth`, `base`, `gno` or `sep`. Requests go to `https://api.safe.global/tx-service/{chain}/api/...`, for example `https://api.safe.global/tx-service/eth/api/v2/safes/{address}/multisig-transactions/`.
 - [API Keys & Authentication](https://docs.safe.global/core-api/how-to-use-api-keys): Send `Authorization: Bearer <API key>` with every request.
 - [Quotas & Limits](https://docs.safe.global/core-api/api-authentication): Plans, rate-limit headers and how to handle 429 responses.
 - [Transactions guide](https://docs.safe.global/core-api/transaction-service-guides/transactions): Propose with `POST /api/v2/safes/{address}/multisig-transactions/`, confirm with `POST /api/v1/multisig-transactions/{safe_tx_hash}/confirmations/`.
@@ -22,14 +22,6 @@ The API never executes transactions. The flow is propose, confirm, execute: a de
 - [Safe Core](https://docs.safe.global/home/safe-core): Introduction to the Safe Core SDK and services
 - [Smart Account Overview](https://docs.safe.global/advanced/smart-account-overview): Technical details about Safe's smart account architecture
 - [Glossary](https://docs.safe.global/home/glossary): Definitions of key terms and concepts
-
-## AI Agent Integration
-
-- [AI Overview](https://docs.safe.global/home/ai-overview): Introduction to AI agents powered by Safe Smart Accounts
-- [AI Agent Setup](https://docs.safe.global/home/ai-agent-setup): Guide to creating an AI agent that can interact with a Safe
-- [Basic Agent Setup](https://docs.safe.global/home/ai-agent-quickstarts/basic-agent-setup): Quickstart guide for setting up a simple AI agent
-- [Agent with Spending Limit](https://docs.safe.global/home/ai-agent-quickstarts/agent-with-spending-limit): Creating an AI agent with controlled spending capabilities
-- [Human Approval Workflow](https://docs.safe.global/home/ai-agent-quickstarts/human-approval): Implementing human-in-the-loop approval for AI agent transactions
 
 ## Developer Tools
 

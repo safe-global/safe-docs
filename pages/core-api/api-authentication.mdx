@@ -4,7 +4,7 @@ import { Callout } from 'nextra/components'
 
 This page explains how rate limiting and quota enforcement work for the Safe Infrastructure API.
 
-For authentication setup instructions and usage examples, see [API Keys & Authentication](./how-to-use-api-keys).
+For authentication setup instructions and usage examples, see [API Keys & Authentication](./how-to-use-api-keys.mdx).
 
 ## Plans and limits
 
@@ -14,19 +14,17 @@ See [Safe API plans](https://safe.global/api#plans) for the limits of each plan.
 
 ## Response headers
 
-Every authenticated response carries these headers:
+The API returns these headers. The **Present** column says when each one is sent.
 
-| Header | Meaning |
-| --- | --- |
-| `X-RateLimit-Limit` | Monthly quota of your plan. |
-| `X-RateLimit-Remaining` | Requests left in the current window. |
-| `X-RateLimit-Reset` | Seconds until the window resets. Not a timestamp. |
-| `X-Consumer-Id` | Your account identifier. |
-| `X-Consumer-RPS` | Requests per second allowed for your account. |
-| `X-RateLimit-Plan` | Your plan: `builder`, `growth` or `scale`. |
-| `X-RateLimit-Warning` | Present from 80% of the quota used: `<N>% of monthly quota used. Plans: https://safe.global/api#plans`. |
-
-Unauthenticated responses carry none of the plan headers.
+| Header | Present | Meaning |
+| --- | --- | --- |
+| `X-RateLimit-Limit` | Always | Monthly quota of your plan, or the unauthenticated quota without an API key. |
+| `X-RateLimit-Remaining` | Always | Requests left in the current window. |
+| `X-RateLimit-Reset` | Always | Seconds until the window resets. Not a timestamp. |
+| `X-Consumer-Id` | With an API key | Your account identifier. |
+| `X-Consumer-RPS` | With an API key | Requests per second allowed for your account. |
+| `X-RateLimit-Plan` | With an API key | Your plan: `builder`, `growth` or `scale`. |
+| `X-RateLimit-Warning` | From 80% of the quota | `<N>% of monthly quota used. Plans: https://safe.global/api#plans`. |
 
 Example response:
 
@@ -90,7 +88,7 @@ Scale:
 
 ### Per-second limit reached
 
-Returned when the account sends more requests per second than its plan allows. The quota is not affected.
+Returned when the account sends more requests per second than its plan allows.
 
 ```json
 {
@@ -102,9 +100,19 @@ Returned when the account sends more requests per second than its plan allows. T
 
 Returned when an unauthenticated request exceeds the unauthenticated limits.
 
+Per second:
+
 ```json
 {
-  "error_msg": "Requests without an API key have a lower limit. Create a free Builder account for 50,000 requests per month and usage reporting: https://developer.safe.global/"
+  "error_msg": "Too many requests per second"
+}
+```
+
+Monthly quota:
+
+```json
+{
+  "error_msg": "Too many requests in time window"
 }
 ```
 

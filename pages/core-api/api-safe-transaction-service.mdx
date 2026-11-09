@@ -69,7 +69,7 @@ The Safe Transaction Service can collect off-chain transaction signatures, allow
 
 The following endpoints let us propose a transaction and collect every confirmation (off-chain signatures):
 
-- `POST /v1/safes/{address}/multisig-transactions/`: Creates a new transaction and requires at least one signature.
+- `POST /v2/safes/{address}/multisig-transactions/`: Creates a new transaction and requires at least one signature.
 - `POST /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Adds a new confirmation and needs the `safe_tx_hash`.
 - `GET /v1/multisig-transactions/{safe_tx_hash}/`: Returns all the multi-signature transaction information.
 - `GET /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Returns the list of all confirmations to a multi-signature transaction.
@@ -93,7 +93,7 @@ sequenceDiagram
     SafeTransactionService->>Firebase: sendEvent SAFE_CREATED
     end
     A-->A: create and sign transaction
-    A->>+SafeTransactionService: proposeTransaction POST /v1/safes/0x5Afe/multisig-transactions/
+    A->>+SafeTransactionService: proposeTransaction POST /v2/safes/0x5Afe/multisig-transactions/
     SafeTransactionService-->>-A: Http(201) {Created}
     SafeTransactionService->>RabbitMQ: sendEvent PENDING_MULTISIG_TRANSACTION
     SafeTransactionService->>RabbitMQ: sendEvent CONFIRMATION_REQUEST
