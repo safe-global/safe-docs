@@ -98,7 +98,9 @@ Returned when the account sends more requests per second than its plan allows.
 
 ### Without an API key
 
-Returned when an unauthenticated request exceeds the unauthenticated limits. The per-second message is:
+Returned when an unauthenticated request exceeds the unauthenticated limits.
+
+Per second:
 
 ```json
 {
@@ -106,7 +108,13 @@ Returned when an unauthenticated request exceeds the unauthenticated limits. The
 }
 ```
 
-The monthly limit returns its own message.
+Monthly quota:
+
+```json
+{
+  "error_msg": "Too many requests in time window"
+}
+```
 
 {/* TODO: replace the examples above with responses copied from staging once PLA-2209 is deployed. */}
 
