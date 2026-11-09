@@ -14,19 +14,17 @@ See [Safe API plans](https://safe.global/api#plans) for the limits of each plan.
 
 ## Response headers
 
-Every response carries `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset`. Authenticated responses add `X-Consumer-Id` and `X-Consumer-RPS`. `X-RateLimit-Plan` is present only on API keys that are linked to a plan, and `X-RateLimit-Warning` only from 80% of the quota.
+The API returns these headers. The **Present** column says when each one is sent.
 
 | Header | Present | Meaning |
 | --- | --- | --- |
-| `X-RateLimit-Limit` | Always | Monthly quota of your plan. |
+| `X-RateLimit-Limit` | Always | Monthly quota of your plan, or the unauthenticated quota without an API key. |
 | `X-RateLimit-Remaining` | Always | Requests left in the current window. |
 | `X-RateLimit-Reset` | Always | Seconds until the window resets. Not a timestamp. |
-| `X-Consumer-Id` | Authenticated requests | Your account identifier. |
-| `X-Consumer-RPS` | Authenticated requests | Requests per second allowed for your account. |
-| `X-RateLimit-Plan` | API keys linked to a plan | Your plan: `builder`, `growth` or `scale`. |
+| `X-Consumer-Id` | With an API key | Your account identifier. |
+| `X-Consumer-RPS` | With an API key | Requests per second allowed for your account. |
+| `X-RateLimit-Plan` | With an API key linked to a plan | Your plan: `builder`, `growth` or `scale`. |
 | `X-RateLimit-Warning` | From 80% of the quota | `<N>% of monthly quota used. Plans: https://safe.global/api#plans`. |
-
-Unauthenticated responses carry only the three `X-RateLimit-*` headers, with the unauthenticated limit.
 
 Example response:
 
