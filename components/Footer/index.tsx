@@ -2,7 +2,6 @@ import { ButtonBase, Divider, Grid, Typography } from '@mui/material'
 import Link from 'next/link'
 import type { ComponentType, SyntheticEvent } from 'react'
 import DiscordIcon from '../../assets/svg/discord-icon.svg'
-import DiscourseIcon from '../../assets/svg/discourse-icon.svg'
 import GithubIcon from '../../assets/svg/github-icon.svg'
 import Logo from '../../assets/svg/safe-logo-white.svg'
 import XIcon from '../../assets/svg/x-icon.svg'
@@ -13,38 +12,34 @@ import { useCookieBannerContext } from '../CookieBanner/CookieBannerContext'
 const SAFE_LINK = 'https://safe.global'
 
 // Safe
-const CORE_LINK = 'https://safe.global/core'
+const API_LINK = 'https://safe.global/api'
 
-// Ecosystem
-const EXPLORE_LINK = 'https://safe.global/ecosystem'
-const GRANTS_LINK = 'https://safe.global/grants'
+// Pricing
+const API_PRICING_LINK = 'https://safe.global/api#plans'
+const SAFE_PRO_PRICING_LINK = 'https://safe.global/pricing'
 
-// Community
-const GOVERNANCE_LINK = 'https://safe.global/governance' // Do not use: https://governance.safe.global
-const SAFECON_LINK = 'https://conf.safe.global'
-const SAFEPASS_LINK = 'https://safe.global/pass'
-const TOKEN_LINK = 'https://safe.global/token'
+// Company
+const ABOUT_LINK = 'https://safe.global/about'
+const CAREERS_LINK = 'https://safe-labs.jobs.personio.com/'
 
 // Resources
+const BLOG_LINK = 'https://safe.global/blog'
 const HELP_LINK = 'https://help.safe.global'
-const PRESS_LINK = 'https://safe.global/press'
-const CAREERS_LINK = 'https://safe.global/careers'
 const BRAND_LINK =
   'https://safe-global.notion.site/Safe-Media-Kit-35ce7ffc829c4bedbbf828464a1b7c00'
+const STATUS_LINK = 'https://status.safe.global'
 
 // Sub-Footer
-const TERMS_LINK = 'https://safe.global/terms'
+const LEGAL_LINK = 'https://safe.global/legal'
 const PRIVACY_LINK = 'https://safe.global/privacy'
 const LICENSES_LINK = 'https://app.safe.global/licenses'
-const COOKIE_LINK = 'https://safe.global/cookie'
+const COOKIE_LINK = 'https://app.safe.global/cookie'
 const COOKIE_PREFERENCES_LINK = '#cookies'
 const IMPRINT_LINK = 'https://safe.global/imprint'
-const TRADEMARK_LINK = 'https://safe.global/trademark'
-const DISCLAIMER_LINK = 'https://safe.global/disclaimer'
+const TRADEMARK_LINK = 'https://safefoundation.org/trademark'
 
 // Socials
-const X_LINK = 'https://x.com/safe'
-const FORUM_LINK = 'https://forum.safe.global'
+const X_LINK = 'https://x.com/SafeLabs_'
 const DISCORD_LINK = 'https://chat.safe.global'
 const YOUTUBE_LINK = 'https://www.youtube.com/@safeglobal'
 const GITHUB_LINK = 'https://github.com/safe-global'
@@ -59,7 +54,7 @@ interface FooterLink {
 const safeItems: FooterLink[] = [
   {
     label: 'Safe Infrastructure',
-    href: CORE_LINK,
+    href: API_LINK,
     target: '_blank',
     rel: 'noreferrer'
   },
@@ -71,58 +66,25 @@ const safeItems: FooterLink[] = [
   }
 ]
 
-const ecosystemItems: FooterLink[] = [
+const pricingItems: FooterLink[] = [
   {
-    label: 'Explore',
-    href: EXPLORE_LINK,
+    label: 'API Pricing',
+    href: API_PRICING_LINK,
     target: '_blank',
     rel: 'noreferrer'
   },
   {
-    label: 'Grants',
-    href: GRANTS_LINK,
+    label: 'Safe Pro Pricing',
+    href: SAFE_PRO_PRICING_LINK,
     target: '_blank',
     rel: 'noreferrer'
   }
 ]
 
-const communityItems: FooterLink[] = [
+const companyItems: FooterLink[] = [
   {
-    label: 'Governance',
-    href: GOVERNANCE_LINK,
-    target: '_blank',
-    rel: 'noreferrer'
-  },
-  {
-    label: 'Token',
-    href: TOKEN_LINK,
-    target: '_blank',
-    rel: 'noreferrer'
-  },
-  {
-    label: 'Safe{Pass}',
-    href: SAFEPASS_LINK,
-    target: '_blank',
-    rel: 'noreferrer'
-  },
-  {
-    label: 'Safe{Con}',
-    href: SAFECON_LINK,
-    target: '_blank',
-    rel: 'noreferrer'
-  }
-]
-
-const resourcesItems: FooterLink[] = [
-  {
-    label: 'Help Center',
-    href: HELP_LINK,
-    target: '_blank',
-    rel: 'noreferrer'
-  },
-  {
-    label: 'Press Room',
-    href: PRESS_LINK,
+    label: 'About',
+    href: ABOUT_LINK,
     target: '_blank',
     rel: 'noreferrer'
   },
@@ -131,10 +93,31 @@ const resourcesItems: FooterLink[] = [
     href: CAREERS_LINK,
     target: '_blank',
     rel: 'noreferrer'
+  }
+]
+
+const resourcesItems: FooterLink[] = [
+  {
+    label: 'Blog',
+    href: BLOG_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
+  },
+  {
+    label: 'Help Center',
+    href: HELP_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
   },
   {
     label: 'Brand Kit',
     href: BRAND_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
+  },
+  {
+    label: 'Status',
+    href: STATUS_LINK,
     target: '_blank',
     rel: 'noreferrer'
   }
@@ -142,8 +125,14 @@ const resourcesItems: FooterLink[] = [
 
 const subFooterItems: FooterLink[] = [
   {
-    label: 'Terms',
-    href: TERMS_LINK,
+    label: 'Imprint',
+    href: IMPRINT_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
+  },
+  {
+    label: 'Legal',
+    href: LEGAL_LINK,
     target: '_blank',
     rel: 'noreferrer'
   },
@@ -172,20 +161,8 @@ const subFooterItems: FooterLink[] = [
     rel: 'noreferrer'
   },
   {
-    label: 'Imprint',
-    href: IMPRINT_LINK,
-    target: '_blank',
-    rel: 'noreferrer'
-  },
-  {
     label: 'Trademark',
     href: TRADEMARK_LINK,
-    target: '_blank',
-    rel: 'noreferrer'
-  },
-  {
-    label: 'Disclaimer',
-    href: DISCLAIMER_LINK,
     target: '_blank',
     rel: 'noreferrer'
   }
@@ -227,11 +204,6 @@ const Socials: React.FC = () => (
       </Typography>
       <div className={css.socials}>
         {createFooterButton('X page', X_LINK, XIcon as React.FC)}
-        {createFooterButton(
-          'Discourse forum',
-          FORUM_LINK,
-          DiscourseIcon as React.FC
-        )}
         {createFooterButton(
           'Discord server',
           DISCORD_LINK,
@@ -285,7 +257,7 @@ const SubFooter: React.FC = () => {
       </Grid>
       <Grid item>
         <Typography color='primary.light' variant='body2' fontSize='16px'>
-          ©2023-{new Date().getFullYear()} Safe Ecosystem Foundation
+          ©2023-{new Date().getFullYear()} Safe Labs GmbH
         </Typography>
       </Grid>
     </Grid>
@@ -323,8 +295,8 @@ const Footer: React.FC = () => {
           </Link>
         </Grid>
         <LinksColumn title='Developers' items={safeItems} />
-        <LinksColumn title='Ecosystem' items={ecosystemItems} />
-        <LinksColumn title='Community' items={communityItems} />
+        <LinksColumn title='Pricing' items={pricingItems} />
+        <LinksColumn title='Company' items={companyItems} />
         <LinksColumn title='Resources' items={resourcesItems} />
         <Socials />
       </Grid>

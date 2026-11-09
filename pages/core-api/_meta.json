@@ -39,6 +39,19 @@
       "sidebar": false
     }
   },
+  "-- Safe Decoder Service": {
+    "type": "separator",
+    "title": "Safe Decoder Service"
+  },
+  "safe-decoder-service-overview": "Overview",
+  "safe-decoder-service-reference": {
+    "title": "Reference",
+    "theme": {
+      "layout": "full",
+      "toc": false,
+      "sidebar": false
+    }
+  },
   "-- Self-Hosting": {
     "type": "separator",
     "title": "Self-Hosting"
@@ -58,19 +71,6 @@
   "config-service-reference": {
     "title": "Configuration",
     "href": "/config-service-configuration/overview",
-    "theme": {
-      "layout": "full",
-      "toc": false,
-      "sidebar": false
-    }
-  },
-  "-- Safe Decoder Service": {
-    "type": "separator",
-    "title": "Safe Decoder Service"
-  },
-  "safe-decoder-service-overview": "Overview",
-  "safe-decoder-service-reference": {
-    "title": "Reference",
     "theme": {
       "layout": "full",
       "toc": false,
