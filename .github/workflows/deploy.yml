@@ -2,10 +2,13 @@ name: Deploy to staging
 
 on:
   pull_request:
+  push:
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  # Let a staging deploy finish; a cancelled sync leaves HTML pointing at deleted chunks
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   deploy:
@@ -69,7 +72,8 @@ jobs:
         shell: bash
         run: pnpm build
         env:
-          NEXT_PUBLIC_HOST_URL: 'https://docs.staging.5afe.dev'
+          # Inlined at build time into canonical URLs, sitemap.xml, robots.txt and llms-full.txt, so it must be the host this build is served from
+          NEXT_PUBLIC_HOST_URL: ${{ github.event_name == 'push' && 'https://docs.staging.5afe.dev' || format('https://{0}--docs.review.5afe.dev', steps.extract_branch.outputs.branch) }}
           NODE_OPTIONS: '--max-old-space-size=8000'
 
       - name: Configure AWS credentials
