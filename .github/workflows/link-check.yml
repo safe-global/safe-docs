@@ -14,6 +14,16 @@ jobs:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
     - uses: tcort/github-action-markdown-link-check@e7c7a18363c842693fadde5d41a3bd3573a7a225  # v1.1.2
       with:
+        file-extension: '.mdx'
+        use-quiet-mode: 'yes'
+        use-verbose-mode: 'yes'
+        folder-path: './'
+        base-branch: 'main'
+        config-file: 'linkchecker-config.json'
+    - uses: tcort/github-action-markdown-link-check@e7c7a18363c842693fadde5d41a3bd3573a7a225  # v1.1.2
+      if: ${{ !cancelled() }}
+      with:
+        file-extension: '.md'
         use-quiet-mode: 'yes'
         use-verbose-mode: 'yes'
         folder-path: './'

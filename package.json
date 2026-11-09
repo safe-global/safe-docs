@@ -3,7 +3,6 @@
   "description": "Safe docs",
   "scripts": {
     "build": "next build --webpack && pnpm generate-agent-files",
-    "check-build": "pnpm ts-node --project tsconfig.json .github/scripts/checkBuildOutput.ts",
     "dev": "next dev --webpack",
     "generate-agent-files": "pnpm ts-node --project tsconfig.json .github/scripts/generateAgentFiles.ts",
     "generate-api-reference": "pnpm ts-node --project tsconfig.json .github/scripts/generateApiReference.ts",
