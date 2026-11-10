@@ -281,10 +281,10 @@ test('keeps MDX comments inside code fences', () => {
   assert.equal(files.get('fenced.md'), fenced)
 })
 
-test('drops MDX comments from a .md page as well', () => {
-  const plain = '# Plain\n\n{/* <!-- vale off --> */}\nText.\n'
+test('keeps MDX comment syntax in a .md page as text, as Nextra shows it', () => {
+  const plain = '# Plain\n\n{/* <!-- vale off --> */}\nText {/* not closed\n'
   const files = generated({ change: addPage('plain', plain, '.md') })
-  assert.equal(files.get('plain.md'), '# Plain\n\nText.\n')
+  assert.equal(files.get('plain.md'), plain)
 })
 
 test('drops MDX comments in an embedded .mdx file', () => {
