@@ -454,12 +454,11 @@ function writeSitemap(outDir: string, urls: string[]): void {
   fs.writeFileSync(path.join(outDir, 'sitemap.xml'), sitemap)
 }
 
-// Previews and staging are built with another host and must not be indexed.
-function writeRobots(outDir: string, host: string): void {
-  const robots =
-    host === PRODUCTION_HOST
-      ? `User-agent: *\nAllow: /\n\nSitemap: ${host}/sitemap.xml\n`
-      : 'User-agent: *\nDisallow: /\n'
+// Only a build for the production host may be indexed.
+function writeRobots(outDir: string, host: string, indexable: boolean): void {
+  const robots = indexable
+    ? `User-agent: *\nAllow: /\n\nSitemap: ${host}/sitemap.xml\n`
+    : 'User-agent: *\nDisallow: /\n'
   fs.writeFileSync(path.join(outDir, 'robots.txt'), robots)
 }
 
@@ -474,11 +473,29 @@ function writeCorpus(outDir: string, host: string, pages: Page[]): string {
   return corpus
 }
 
-function main(pagesDir: string, outDir: string): void {
-  const host = (process.env.NEXT_PUBLIC_HOST_URL || PRODUCTION_HOST).replace(
+// The host this build is served from, and whether search engines may index it. Without
+// NEXT_PUBLIC_HOST_URL a CI build stops; a local build writes production URLs but a
+// robots.txt that disallows crawling. CI counts as set unless it is empty, false or 0.
+function buildHost(): { host: string; indexable: boolean } {
+  const configured = (process.env.NEXT_PUBLIC_HOST_URL ?? '').replace(
     /\/+$/,
     ''
   )
+  if (configured)
+    return { host: configured, indexable: configured === PRODUCTION_HOST }
+  const ci = process.env.CI
+  if (ci && !/^(false|0)$/i.test(ci))
+    throw new Error(
+      'NEXT_PUBLIC_HOST_URL is not set: set it to the host this build is served from'
+    )
+  console.warn(
+    `NEXT_PUBLIC_HOST_URL is not set: writing ${PRODUCTION_HOST} URLs and a robots.txt that disallows crawling`
+  )
+  return { host: PRODUCTION_HOST, indexable: false }
+}
+
+function main(pagesDir: string, outDir: string): void {
+  const { host, indexable } = buildHost()
   const routes = (fs.readdirSync(outDir, { recursive: true }) as string[])
     .filter(file => file.endsWith('.html') && file !== '404.html')
     .map(file => file.replace(/\.html$/, ''))
@@ -494,7 +511,7 @@ function main(pagesDir: string, outDir: string): void {
     return !source || listed.has(source)
   })
   writeSitemap(outDir, indexed.map(urlFor))
-  writeRobots(outDir, host)
+  writeRobots(outDir, host, indexable)
   const componentsDir = path.resolve(pagesDir, '../components')
   const generatedDir = path.join(componentsDir, 'ApiReference/generated')
 

@@ -23,18 +23,24 @@ const fixture = path.join(import.meta.dirname, 'fixtures/agent-files')
 
 interface Options {
   host?: string
+  ci?: boolean | string
   change?: (dir: string) => void
 }
 
 // Runs the generator on a copy of the fixture after `change` edits the copy, and reads every
 // file it wrote.
-function generate({ host, change }: Options = {}) {
+function generate({ host, ci = false, change }: Options = {}) {
   const dir = mkdtempSync(path.join(tmpdir(), 'agent-files-'))
   try {
     cpSync(fixture, dir, { recursive: true })
     change?.(dir)
-    const env = { ...process.env, NEXT_PUBLIC_HOST_URL: host }
+    const env: NodeJS.ProcessEnv = {
+      ...process.env,
+      NEXT_PUBLIC_HOST_URL: host
+    }
     if (host === undefined) delete env.NEXT_PUBLIC_HOST_URL
+    if (ci) env.CI = ci === true ? 'true' : ci
+    else delete env.CI
     const built = path.join(dir, 'built')
     const args = [script, path.join(dir, 'pages'), built]
     const result = spawnSync(process.execPath, args, { encoding: 'utf8', env })
@@ -635,10 +641,13 @@ test('stops with the page path when a component data file is missing', () => {
   )
 })
 
-test('writes robots.txt that allows crawling and names the sitemap on production', () => {
+test('writes robots.txt that allows crawling and names the sitemap only for the production host', () => {
   const robots =
     'User-agent: *\nAllow: /\n\nSitemap: https://docs.safe.global/sitemap.xml\n'
-  assert.equal(generated().get('robots.txt'), robots)
+  assert.equal(
+    generated({ host: 'https://docs.safe.global' }).get('robots.txt'),
+    robots
+  )
   assert.equal(
     generated({ host: 'https://docs.safe.global/' }).get('robots.txt'),
     robots
@@ -650,4 +659,24 @@ test('writes robots.txt that disallows crawling on any other host', () => {
     'robots.txt'
   )
   assert.equal(robots, 'User-agent: *\nDisallow: /\n')
+})
+
+test('disallows crawling and warns when NEXT_PUBLIC_HOST_URL is not set', () => {
+  const { status, output, files } = generate()
+  assert.equal(status, 0, output)
+  assert.equal(files.get('robots.txt'), 'User-agent: *\nDisallow: /\n')
+  assert.match(output, /NEXT_PUBLIC_HOST_URL is not set/)
+})
+
+test('stops in CI when NEXT_PUBLIC_HOST_URL is not set', () => {
+  const { status, output } = generate({ ci: true })
+  assert.equal(status, 1, output)
+  assert.match(output, /NEXT_PUBLIC_HOST_URL is not set/)
+  const production = generate({ ci: true, host: 'https://docs.safe.global' })
+  assert.equal(production.status, 0, production.output)
+  for (const value of ['false', '0']) {
+    const local = generate({ ci: value })
+    assert.equal(local.status, 0, local.output)
+    assert.equal(local.files.get('robots.txt'), 'User-agent: *\nDisallow: /\n')
+  }
 })
