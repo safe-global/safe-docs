@@ -7,6 +7,7 @@ const FENCE = /^\s*(`{3,}|~{3,})(.*)$/
 const ESM = /^(?:import|export)\s/
 const COMMENT_OPEN = /\{\s*\/\*/
 const COMMENT_CLOSE = /\*\/\s*\}/
+const CODE_SPAN = /(?<!`)(`+)(?!`)[\s\S]*?(?<!`)\1(?!`)/g
 const MDX_IMPORT = /^import\s+(\w+)\s+from\s+['"]([^'"]+\.mdx?)['"]/gm
 const COMPONENT_IMPORT =
   /^import\s+(\w+)\s+from\s+['"]([^'"]*\/components\/(\w+))['"]/gm
@@ -105,9 +106,15 @@ const readSource = (file: string): string =>
     .replace(/^\uFEFF/, '')
     .replace(/\r\n?/g, '\n')
 
+// The text with each inline code span on it blanked out, at the same length.
+const outsideCode = (text: string): string =>
+  text.replace(CODE_SPAN, span => ' '.repeat(span.length))
+
 // The lines without their {/* … */} comments outside code fences. A comment may span lines; a
 // line that only held comments is dropped, and text after a comment loses its leading spaces
-// when nothing or a space comes before it.
+// when nothing or a space comes before it. An opener inside an inline code span is text; a
+// code span is recognised only within one line, and an escaped backtick still counts as a
+// delimiter.
 function stripMdxComments(file: string, lines: Line[]): Line[] {
   const stripped: Line[] = []
   let inComment = false
@@ -120,7 +127,9 @@ function stripMdxComments(file: string, lines: Line[]): Line[] {
     let text = ''
     let removed = inComment
     while (rest !== '') {
-      const marker = (inComment ? COMMENT_CLOSE : COMMENT_OPEN).exec(rest)
+      const marker = inComment
+        ? COMMENT_CLOSE.exec(rest)
+        : COMMENT_OPEN.exec(outsideCode(rest))
       const end = marker ? marker.index : rest.length
       if (!inComment) {
         const segment = rest.slice(0, end)

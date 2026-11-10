@@ -281,6 +281,17 @@ test('keeps MDX comments inside code fences', () => {
   assert.equal(files.get('fenced.md'), fenced)
 })
 
+test('keeps MDX comment syntax inside inline code', () => {
+  const kept =
+    'Add `{/* vale off */}` here. MDX comments start with `{/*` and end with `*/}`.'
+  const source = `# Code\n\n${kept} A {/* x */} B\n\nUse \`\`{/* \`x\` */}\`\` too.\n`
+  const files = generated({ change: addPage('code', source) })
+  assert.equal(
+    files.get('code.md'),
+    `# Code\n\n${kept} A B\n\nUse \`\`{/* \`x\` */}\`\` too.\n`
+  )
+})
+
 test('keeps MDX comment syntax in a .md page as text, as Nextra shows it', () => {
   const plain = '# Plain\n\n{/* <!-- vale off --> */}\nText {/* not closed\n'
   const files = generated({ change: addPage('plain', plain, '.md') })
