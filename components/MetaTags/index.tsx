@@ -8,6 +8,12 @@ const markdownPath = (asPath: string): string => {
   return `${trimmed === '/' ? '/index' : trimmed}.md`
 }
 
+// The host the site is served from. A local build without NEXT_PUBLIC_HOST_URL uses the
+// production host, as .github/scripts/generateAgentFiles.ts does; a CI build without it fails there.
+const HOST = (
+  process.env.NEXT_PUBLIC_HOST_URL || 'https://docs.safe.global'
+).replace(/\/+$/, '')
+
 const MetaTags: React.FC<{ path: string }> = ({ path }) => {
   const description =
     'Safe Infrastructure is an open-source and modular smart account stack. Learn about its features and how to use it.'
@@ -19,7 +25,7 @@ const MetaTags: React.FC<{ path: string }> = ({ path }) => {
       break
   }
 
-  const image = `${process.env.NEXT_PUBLIC_HOST_URL}/${ogImagePath}`
+  const image = `${HOST}/${ogImagePath}`
 
   return (
     <>
@@ -34,14 +40,11 @@ const MetaTags: React.FC<{ path: string }> = ({ path }) => {
       <link
         rel='alternate'
         type='text/markdown'
-        href={`${process.env.NEXT_PUBLIC_HOST_URL}${markdownPath(path)}`}
+        href={`${HOST}${markdownPath(path)}`}
       />
       <meta name='description' content={description} />
       <meta property='og:site_name' content='Safe Docs' />
-      <meta
-        property='og:url'
-        content={`${process.env.NEXT_PUBLIC_HOST_URL}${path}`}
-      />
+      <meta property='og:url' content={`${HOST}${path}`} />
       <meta property='og:description' content={description} />
       <meta property='og:image' content={image} />
       <meta property='og:type' content='website' />
