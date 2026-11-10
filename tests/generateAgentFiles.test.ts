@@ -23,18 +23,24 @@ const fixture = path.join(import.meta.dirname, 'fixtures/agent-files')
 
 interface Options {
   host?: string
+  ci?: boolean | string
   change?: (dir: string) => void
 }
 
 // Runs the generator on a copy of the fixture after `change` edits the copy, and reads every
 // file it wrote.
-function generate({ host, change }: Options = {}) {
+function generate({ host, ci = false, change }: Options = {}) {
   const dir = mkdtempSync(path.join(tmpdir(), 'agent-files-'))
   try {
     cpSync(fixture, dir, { recursive: true })
     change?.(dir)
-    const env = { ...process.env, NEXT_PUBLIC_HOST_URL: host }
+    const env: NodeJS.ProcessEnv = {
+      ...process.env,
+      NEXT_PUBLIC_HOST_URL: host
+    }
     if (host === undefined) delete env.NEXT_PUBLIC_HOST_URL
+    if (ci) env.CI = ci === true ? 'true' : ci
+    else delete env.CI
     const built = path.join(dir, 'built')
     const args = [script, path.join(dir, 'pages'), built]
     const result = spawnSync(process.execPath, args, { encoding: 'utf8', env })
@@ -76,6 +82,9 @@ const apiReferencePage = (network: string) =>
   `<ApiReference networkName="${network}"/>\n` +
   '{/* <!-- vale on --> */}\n'
 
+const componentPage = (component: string) =>
+  `import ${component} from '../components/${component}'\n\n<${component} />\n`
+
 // Writes the generated API reference of a network, which names the API URLs.
 const addReference = (network: string, text: string) => (dir: string) => {
   const generatedDir = path.join(dir, 'components/ApiReference/generated')
@@ -94,8 +103,7 @@ const specText = (service: string, spec: string, note = '') =>
   'The spec needs no API key.'
 
 // The Markdown copy of an apiReferencePage, which has no heading.
-const specPage = (title: string, text: string) =>
-  `# ${title}\n\n{/* <!-- vale off --> */}\n\n${text}\n\n{/* <!-- vale on --> */}\n`
+const specPage = (title: string, text: string) => `# ${title}\n\n${text}\n`
 
 test('writes llms-full.txt in _meta.json order, unlisted pages last by name', () => {
   const host = 'https://docs.example.test'
@@ -120,6 +128,55 @@ test('writes llms-full.txt in _meta.json order, unlisted pages last by name', ()
     corpus,
     /Source: https:\/\/docs\.example\.test\/about\n\n# About\n/
   )
+})
+
+test('starts llms-full.txt with a header that names the host', () => {
+  const corpus = generated().get('llms-full.txt') ?? ''
+  assert.ok(
+    corpus.startsWith(
+      '# Safe Documentation\n\nThis file contains every page listed in the sidebar of ' +
+        'https://docs.safe.global, in sidebar order.\n' +
+        'A `Source:` line gives the URL of each page.\n\n'
+    ),
+    corpus
+  )
+})
+
+test('leaves pages hidden in a nested _meta.json out of sitemap.xml and llms-full.txt', () => {
+  const files = generated({
+    change: dir => {
+      const editMeta = (file: string, entries: Record<string, unknown>) => {
+        const meta = path.join(dir, 'pages', file)
+        const current = JSON.parse(readFileSync(meta, 'utf8'))
+        writeFileSync(meta, JSON.stringify({ ...current, ...entries }))
+      }
+      editMeta('_meta.json', {
+        about: { title: 'About', type: 'page', display: 'hidden' }
+      })
+      editMeta('guide/_meta.json', {
+        install: { display: 'hidden' },
+        secret: { type: 'page', display: 'hidden' }
+      })
+      mkdirSync(path.join(dir, 'pages/guide/secret'))
+      mkdirSync(path.join(dir, 'built/guide/secret'))
+      addPage('guide/secret/page', '# Secret\n\nA hidden page.\n')(dir)
+    }
+  })
+  const sitemap = files.get('sitemap.xml') ?? ''
+  const corpus = files.get('llms-full.txt') ?? ''
+  for (const route of ['guide/install', 'guide/secret/page']) {
+    const url = `https://docs.safe.global/${route}`
+    assert.ok(!sitemap.includes(`<loc>${url}</loc>`), route)
+    assert.ok(!corpus.includes(`Source: ${url}\n`), route)
+    assert.ok(files.has(`${route}.md`), route)
+  }
+  assert.equal(
+    files.get('guide/secret/page.md'),
+    '# Secret\n\nA hidden page.\n'
+  )
+  const about = 'https://docs.safe.global/about'
+  assert.ok(sitemap.includes(`<loc>${about}</loc>`))
+  assert.ok(corpus.includes(`Source: ${about}\n`))
 })
 
 test('copies a .md page source and lists it in llms-full.txt', () => {
@@ -208,6 +265,65 @@ test('names the page when an embedded file is missing', () => {
     output,
     /pages\/missing\.mdx: embedded \S*\/pages\/gone\.mdx not found/
   )
+})
+
+test('drops MDX comments in both brace forms, inline and over several lines', () => {
+  const source =
+    '{/* <!-- vale off --> */}\n# Comments\n{ /* <!-- vale on --> */ }\n\n' +
+    'A {/* x */} B and C{ /* y */}D.\n\n' +
+    'Before {/* a comment\nover three\nlines */} after.\n\n' +
+    '  {/* only */}  {/* comments */}\n' +
+    'End.\n'
+  const files = generated({ change: addPage('comments', source) })
+  assert.equal(
+    files.get('comments.md'),
+    '# Comments\n\nA B and CD.\n\nBefore\nafter.\n\nEnd.\n'
+  )
+})
+
+test('keeps MDX comments inside code fences', () => {
+  const fenced = '# Fenced\n\n```mdx\n{/* kept */}\n```\n'
+  const files = generated({ change: addPage('fenced', fenced) })
+  assert.equal(files.get('fenced.md'), fenced)
+})
+
+test('keeps MDX comment syntax inside inline code', () => {
+  const kept =
+    'Add `{/* vale off */}` here. MDX comments start with `{/*` and end with `*/}`.'
+  const source = `# Code\n\n${kept} A {/* x */} B\n\nUse \`\`{/* \`x\` */}\`\` too.\n`
+  const files = generated({ change: addPage('code', source) })
+  assert.equal(
+    files.get('code.md'),
+    `# Code\n\n${kept} A B\n\nUse \`\`{/* \`x\` */}\`\` too.\n`
+  )
+})
+
+test('keeps MDX comment syntax in a .md page as text, as Nextra shows it', () => {
+  const plain = '# Plain\n\n{/* <!-- vale off --> */}\nText {/* not closed\n'
+  const files = generated({ change: addPage('plain', plain, '.md') })
+  assert.equal(files.get('plain.md'), plain)
+})
+
+test('drops MDX comments in an embedded .mdx file', () => {
+  const page =
+    "import Commented from '../components/commented.mdx'\n\n# Embed\n\n<Commented />\n"
+  const files = generated({
+    change: dir => {
+      writeFileSync(
+        path.join(dir, 'components/commented.mdx'),
+        '{/* hidden */}\nShown text.\n'
+      )
+      addPage('embed', page)(dir)
+    }
+  })
+  assert.equal(files.get('embed.md'), '# Embed\n\nShown text.\n')
+})
+
+test('stops with the page path when an MDX comment is not closed', () => {
+  const source = '# Open comment\n\n{/* never closed\n\nText.\n'
+  const { status, output } = generate({ change: addPage('unclosed', source) })
+  assert.equal(status, 1, output)
+  assert.match(output, /pages\/unclosed\.mdx: an MDX comment is not closed/)
 })
 
 test('writes a sitemap of the built routes on the host, without 404', () => {
@@ -410,12 +526,157 @@ test('stops with the page path when no OpenAPI spec URL can be derived', () => {
   }
 })
 
-test('writes robots.txt with the sitemap URL on the host', () => {
+test('writes the supported networks table for a SupportedNetworks page', () => {
+  const files = generated({
+    change: dir => {
+      const meta = path.join(dir, 'pages/_meta.json')
+      const entries = JSON.parse(readFileSync(meta, 'utf8'))
+      const networks = { title: 'Smart Account Networks' }
+      writeFileSync(meta, JSON.stringify({ ...entries, networks }))
+      addPage('networks', componentPage('SupportedNetworks'))(dir)
+    }
+  })
+  assert.equal(
+    files.get('networks.md'),
+    '# Smart Account Networks\n\n' +
+      'Safe Smart Account contracts are deployed on these networks. The interactive list ' +
+      'with contract addresses is on the HTML page.\n\n' +
+      '| Network | Chain ID | Short name | Safe versions | Transaction Service API |\n' +
+      '| --- | --- | --- | --- | --- |\n' +
+      '| Arbitrum \\| One | 42161 | arb1 | v1.10.0, v1.9.0 | — |\n' +
+      '| Ethereum Mainnet | 1 | eth | v1.4.1, v1.3.0 | https://api.safe.global/tx-service/eth |\n' +
+      '| Sepolia | 11155111 | sep | v1.4.1 | — |\n'
+  )
+})
+
+test('escapes the network name and short name in the networks table', () => {
+  const network = {
+    name: 'a\\|b [x](https://e.x) <b>`c`\nd',
+    chainId: 999,
+    shortName: 's|t',
+    isTestnet: false,
+    smartAccounts: [{ name: 'safe', version: 'v1.4.1' }]
+  }
+  const files = generated({
+    change: dir => {
+      writeFileSync(
+        path.join(dir, 'components/SupportedNetworks/networks.json'),
+        JSON.stringify([network])
+      )
+      addPage('networks', componentPage('SupportedNetworks'))(dir)
+    }
+  })
+  const rows = (files.get('networks.md') ?? '')
+    .split('\n')
+    .filter(line => line.startsWith('| ') && !/^\| (Network|---) /.test(line))
+  assert.deepEqual(rows, [
+    '| a\\\\\\|b \\[x\\](https://e.x) \\<b\\>\\`c\\` d | 999 | s\\|t | v1.4.1 | — |'
+  ])
+})
+
+test('writes the resource lists for a ResourceHub page', () => {
+  const files = generated({
+    change: addPage('hub', componentPage('ResourceHub'))
+  })
+  assert.equal(
+    files.get('hub.md'),
+    '# Resource Hub\n\n## Safe team resources\n\n' +
+      '- [Newer team post](<https://example.com/newer>) (Blog Post, 2024-05-02): A newer post.\n' +
+      '- [Older \\[team\\] talk](<https://example.com/older>) (Video, 2023-01-10): ' +
+      'An older talk by the team.\n\n' +
+      '## Community resources\n\n' +
+      '- [Community podcast](<https://example.com/podcast>) (Podcast, 2023-11-20): A podcast.\n' +
+      '- [Community guide](<https://example.com/guide>) (Blog Post, 2022-03-01): A guide.\n'
+  )
+})
+
+test('escapes resource names and link targets in the resource lists', () => {
+  const odd = {
+    name: 'Odd [one\\',
+    url: 'https://example.com/a b)c>d\\',
+    type: 'Blog Post',
+    date: '2024-01-01',
+    description: 'Odd.'
+  }
+  const files = generated({
+    change: dir => {
+      writeFileSync(
+        path.join(dir, 'components/ResourceHub/community-resources.json'),
+        JSON.stringify([odd])
+      )
+      addPage('hub', componentPage('ResourceHub'))(dir)
+    }
+  })
+  assert.ok(
+    (files.get('hub.md') ?? '').includes(
+      '\n- [Odd \\[one\\\\](<https://example.com/a%20b)c%3Ed%5C>) (Blog Post, 2024-01-01): Odd.\n'
+    ),
+    files.get('hub.md')
+  )
+})
+
+test('keeps the line of a component that has no markdown copy', () => {
+  const source =
+    "import Other from '../components/Other'\n\n# Other\n\n<Other />\n"
+  const files = generated({ change: addPage('other', source) })
+  assert.equal(files.get('other.md'), '# Other\n\n<Other />\n')
+})
+
+test('stops with the page path when a component data file is missing', () => {
+  const { status, output } = generate({
+    change: dir => {
+      rmSync(path.join(dir, 'components/ResourceHub/community-resources.json'))
+      addPage('hub', componentPage('ResourceHub'))(dir)
+    }
+  })
+  assert.equal(status, 1, output)
+  const line = output
+    .split('\n')
+    .find(text => text.includes('/pages/hub.mdx: '))
+  assert.ok(
+    line?.endsWith(
+      '/components/ResourceHub/community-resources.json not found'
+    ),
+    output
+  )
+})
+
+test('writes robots.txt that allows crawling and names the sitemap only for the production host', () => {
+  const robots =
+    'User-agent: *\nAllow: /\n\nSitemap: https://docs.safe.global/sitemap.xml\n'
+  assert.equal(
+    generated({ host: 'https://docs.safe.global' }).get('robots.txt'),
+    robots
+  )
+  assert.equal(
+    generated({ host: 'https://docs.safe.global/' }).get('robots.txt'),
+    robots
+  )
+})
+
+test('writes robots.txt that disallows crawling on any other host', () => {
   const robots = generated({ host: 'https://docs.staging.example/' }).get(
     'robots.txt'
   )
-  assert.equal(
-    robots,
-    'User-agent: *\nAllow: /\n\nSitemap: https://docs.staging.example/sitemap.xml\n'
-  )
+  assert.equal(robots, 'User-agent: *\nDisallow: /\n')
+})
+
+test('disallows crawling and warns when NEXT_PUBLIC_HOST_URL is not set', () => {
+  const { status, output, files } = generate()
+  assert.equal(status, 0, output)
+  assert.equal(files.get('robots.txt'), 'User-agent: *\nDisallow: /\n')
+  assert.match(output, /NEXT_PUBLIC_HOST_URL is not set/)
+})
+
+test('stops in CI when NEXT_PUBLIC_HOST_URL is not set', () => {
+  const { status, output } = generate({ ci: true })
+  assert.equal(status, 1, output)
+  assert.match(output, /NEXT_PUBLIC_HOST_URL is not set/)
+  const production = generate({ ci: true, host: 'https://docs.safe.global' })
+  assert.equal(production.status, 0, production.output)
+  for (const value of ['false', '0']) {
+    const local = generate({ ci: value })
+    assert.equal(local.status, 0, local.output)
+    assert.equal(local.files.get('robots.txt'), 'User-agent: *\nDisallow: /\n')
+  }
 })

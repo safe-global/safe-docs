@@ -1,26 +1,7 @@
 import txServiceNetworks from '../ApiReference/tx-service-networks.json'
+import deprecated from './deprecated-networks.json'
 
-export const deprecatedNetworks = [
-  3, // Ropsten
-  4, // Rinkeby
-  5, // Goerli
-  28, // Boba Rinkeby
-  42, // Kovan
-  69, // Optimistic Kovan
-  280, // zkSync Goerli
-  420, // Optimistic Goerli
-  599, // Metis Goerli
-  1101, // Polygon zkEVM
-  1442, // Polygon zkEVM Testnet
-  2442, // Polygon zkEVM Cardona Testnet
-  3637, // Botanix
-  59140, // Linea Goerli
-  80001, // Polygon Mumbai
-  81224, // Codex
-  84531, // Base goerli
-  421611, // Arbitrum Rinkeby
-  421613 // Arbitrum Goerli
-]
+export const deprecatedNetworks = deprecated.map(network => network.chainId)
 
 export const apiServices = (
   chainId: string

@@ -1,10 +1,16 @@
 const fs: typeof import('fs') = require('fs')
 const path: typeof import('path') = require('path')
 
+const PRODUCTION_HOST = 'https://docs.safe.global'
 const SOURCE_EXTENSIONS = ['.mdx', '.md']
 const FENCE = /^\s*(`{3,}|~{3,})(.*)$/
 const ESM = /^(?:import|export)\s/
+const COMMENT_OPEN = /\{\s*\/\*/
+const COMMENT_CLOSE = /\*\/\s*\}/
+const CODE_SPAN = /(?<!`)(`+)(?!`)[\s\S]*?(?<!`)\1(?!`)/g
 const MDX_IMPORT = /^import\s+(\w+)\s+from\s+['"]([^'"]+\.mdx?)['"]/gm
+const COMPONENT_IMPORT =
+  /^import\s+(\w+)\s+from\s+['"]([^'"]*\/components\/(\w+))['"]/gm
 const EMBED = /^<(\w+)\s*\/>\s*$/
 const API_REFERENCE = /^<ApiReference\s+networkName="([^"]+)"\s*\/>\s*$/
 // An API URL in a generated API reference → the OpenAPI spec under that URL and its service.
@@ -53,6 +59,27 @@ interface Line {
   fenced: boolean
 }
 
+interface Network {
+  name: string
+  chainId: number
+  shortName: string
+  isTestnet: boolean
+  smartAccounts: Array<{ version: string }>
+}
+
+interface TxServiceNetwork {
+  chainId: number
+  txServiceUrl: string
+}
+
+interface Resource {
+  name: string
+  url: string
+  type: string
+  date: string
+  description: string
+}
+
 const isFile = (file: string): boolean =>
   fs.statSync(file, { throwIfNoEntry: false })?.isFile() ?? false
 
@@ -79,8 +106,50 @@ const readSource = (file: string): string =>
     .replace(/^\uFEFF/, '')
     .replace(/\r\n?/g, '\n')
 
+// The text with each inline code span on it blanked out, at the same length.
+const outsideCode = (text: string): string =>
+  text.replace(CODE_SPAN, span => ' '.repeat(span.length))
+
+// The lines without their {/* … */} comments outside code fences. A comment may span lines; a
+// line that only held comments is dropped, and text after a comment loses its leading spaces
+// when nothing or a space comes before it. An opener inside an inline code span is text; a
+// code span is recognised only within one line, and an escaped backtick still counts as a
+// delimiter.
+function stripMdxComments(file: string, lines: Line[]): Line[] {
+  const stripped: Line[] = []
+  let inComment = false
+  for (const line of lines) {
+    if (line.fenced && !inComment) {
+      stripped.push(line)
+      continue
+    }
+    let rest = line.text
+    let text = ''
+    let removed = inComment
+    while (rest !== '') {
+      const marker = inComment
+        ? COMMENT_CLOSE.exec(rest)
+        : COMMENT_OPEN.exec(outsideCode(rest))
+      const end = marker ? marker.index : rest.length
+      if (!inComment) {
+        const segment = rest.slice(0, end)
+        text += removed && !/\S$/.test(text) ? segment.trimStart() : segment
+      }
+      if (!marker) break
+      rest = rest.slice(end + marker[0].length)
+      inComment = !inComment
+      removed = true
+    }
+    if (!removed) stripped.push(line)
+    else if (text.trim() !== '')
+      stripped.push({ ...line, text: text.trimEnd() })
+  }
+  if (inComment) throw new Error(`${file}: an MDX comment is not closed`)
+  return stripped
+}
+
 // MDX reads a line that starts with import or export as JavaScript, up to the first blank
-// line where the code is complete.
+// line where the code is complete. Only .mdx files have MDX comments to drop.
 function splitMdx(file: string): { esm: string[]; lines: Line[] } {
   const unbalanced = `${file}: an import or export block has unbalanced brackets`
   const esm: string[] = []
@@ -104,7 +173,10 @@ function splitMdx(file: string): { esm: string[]; lines: Line[] } {
     inEsm = text.trim() !== '' || depth > 0
   }
   if (depth > 0) throw new Error(unbalanced)
-  return { esm, lines }
+  return {
+    esm,
+    lines: file.endsWith('.mdx') ? stripMdxComments(file, lines) : lines
+  }
 }
 
 const markdownOf = (file: string): string =>
@@ -140,14 +212,116 @@ function htmlTitle(html: string): string | undefined {
   return title || undefined
 }
 
-// The title of a page: its HTML title, else its _meta.json title, else the network name.
-const pageTitle = (file: string, network: string, html: string): string =>
-  htmlTitle(html) ??
-  sidebarTitle(file) ??
+// The title of a page: its HTML title, else its _meta.json title, else the fallback.
+const pageTitle = (file: string, fallback: string, html: string): string =>
+  htmlTitle(html) ?? sidebarTitle(file) ?? fallback
+
+// A network name such as arc-testnet as a title: Arc Testnet.
+const networkTitle = (network: string): string =>
   network
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ')
+
+// A component name such as SupportedNetworks as a title: Supported Networks.
+const componentTitle = (component: string): string =>
+  component.replace(/(?<=[a-z0-9])(?=[A-Z])/g, ' ')
+
+// The parsed JSON data file that a component page renders.
+function readData<T>(file: string, data: string): T {
+  if (!isFile(data)) throw new Error(`${file}: ${data} not found`)
+  return JSON.parse(fs.readFileSync(data, 'utf8')) as T
+}
+
+// Text as one Markdown table cell: on one line, with table and inline syntax escaped.
+const tableCell = (text: string): string =>
+  text
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/[\\`[\]<>|]/g, '\\$&')
+
+// The Markdown that replaces <SupportedNetworks />: a table of the networks with a Safe Smart
+// Account deployment, mainnets first, without the deprecated ones.
+function supportedNetworksMarkdown(
+  file: string,
+  componentsDir: string
+): string {
+  const networks = readData<Network[]>(
+    file,
+    path.join(componentsDir, 'SupportedNetworks/networks.json')
+  )
+  const deprecated = new Set(
+    readData<Array<{ chainId: number }>>(
+      file,
+      path.join(componentsDir, 'SupportedNetworks/deprecated-networks.json')
+    ).map(network => network.chainId)
+  )
+  const txServices = new Map(
+    readData<TxServiceNetwork[]>(
+      file,
+      path.join(componentsDir, 'ApiReference/tx-service-networks.json')
+    ).map(network => [network.chainId, network.txServiceUrl])
+  )
+  const rows = networks
+    .filter(
+      network =>
+        !deprecated.has(network.chainId) && network.smartAccounts.length > 0
+    )
+    .sort(
+      (a, b) =>
+        Number(a.isTestnet) - Number(b.isTestnet) ||
+        a.name.localeCompare(b.name)
+    )
+    .map(network => {
+      const versions = [
+        ...new Set(network.smartAccounts.map(account => account.version))
+      ].sort((a, b) => b.localeCompare(a, undefined, { numeric: true }))
+      const txService = txServices.get(network.chainId) ?? '—'
+      return `| ${tableCell(network.name)} | ${network.chainId} | ${tableCell(network.shortName)} | ${versions.join(', ')} | ${txService} |`
+    })
+  return [
+    'Safe Smart Account contracts are deployed on these networks. The interactive list with ' +
+      'contract addresses is on the HTML page.\n',
+    '| Network | Chain ID | Short name | Safe versions | Transaction Service API |',
+    '| --- | --- | --- | --- | --- |',
+    ...rows
+  ].join('\n')
+}
+
+// The Markdown that replaces <ResourceHub />: the Safe team and community resources, each
+// newest first.
+function resourceHubMarkdown(file: string, componentsDir: string): string {
+  const section = (title: string, data: string): string => {
+    const items = readData<Resource[]>(
+      file,
+      path.join(componentsDir, 'ResourceHub', data)
+    )
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .map(resource => {
+        const name = resource.name.replace(/[\\[\]]/g, '\\$&')
+        // <…> lets the link target hold spaces and parentheses; whitespace, < > and \ cannot
+        // appear there, so they are percent-encoded.
+        const url = resource.url.replace(/[\s<>\\]/g, encodeURIComponent)
+        const description = resource.description.replace(/\s+/g, ' ').trim()
+        return `- [${name}](<${url}>) (${resource.type}, ${resource.date}): ${description}`
+      })
+    return [`## ${title}\n`, ...items].join('\n')
+  }
+  return [
+    section('Safe team resources', 'company-resources.json'),
+    section('Community resources', 'community-resources.json')
+  ].join('\n\n')
+}
+
+// A component that a page imports from components/ → the Markdown that replaces its
+// `<Name />` line, because the component renders the page from data files.
+const COMPONENT_PAGES: Record<
+  string,
+  (file: string, componentsDir: string) => string
+> = {
+  SupportedNetworks: supportedNetworksMarkdown,
+  ResourceHub: resourceHubMarkdown
+}
 
 // The OpenAPI spec of the API URL that comes first in the generated reference, of the URLs
 // that match one of the API_SPECS patterns.
@@ -186,25 +360,43 @@ function apiReferenceStub(
 }
 
 // The Markdown copy of a page. It inlines one level of the .mdx files that the page embeds as
-// `<Name />`, and replaces each <ApiReference networkName="…"/> line with a link to its
-// OpenAPI spec. Such a page without a "# " heading gets its title first.
-function toMarkdown(file: string, generatedDir: string, html: string): string {
+// `<Name />`, replaces each <ApiReference networkName="…"/> line with a link to its OpenAPI
+// spec, and each `<Name />` of a component in COMPONENT_PAGES with its Markdown. Such a page
+// without a "# " heading gets its title first.
+function toMarkdown(
+  file: string,
+  componentsDir: string,
+  generatedDir: string,
+  html: string
+): string {
   const { esm, lines } = splitMdx(file)
+  const imports = esm.join('\n')
   const embeds = new Map(
-    [...esm.join('\n').matchAll(MDX_IMPORT)].map(([, name, target]) => [
+    [...imports.matchAll(MDX_IMPORT)].map(([, name, target]) => [
       name,
       path.resolve(path.dirname(file), target)
     ])
   )
-  const networks: string[] = []
+  const components = new Map(
+    [...imports.matchAll(COMPONENT_IMPORT)]
+      .filter(([, , , component]) => Object.hasOwn(COMPONENT_PAGES, component))
+      .map(([, name, , component]) => [name, component])
+  )
+  const titles: string[] = []
   const markdown = lines.map(({ text, fenced }) => {
     if (fenced) return text
     const network = text.match(API_REFERENCE)?.[1]
     if (network) {
-      networks.push(network)
+      titles.push(networkTitle(network))
       return `\n${apiReferenceStub(file, network, generatedDir)}\n`
     }
-    const target = embeds.get(text.match(EMBED)?.[1] ?? '')
+    const name = text.match(EMBED)?.[1] ?? ''
+    const component = components.get(name)
+    if (component) {
+      titles.push(componentTitle(component))
+      return `\n${COMPONENT_PAGES[component](file, componentsDir)}\n`
+    }
+    const target = embeds.get(name)
     if (!target) return text
     if (!isFile(target))
       throw new Error(`${file}: embedded ${target} not found`)
@@ -212,8 +404,8 @@ function toMarkdown(file: string, generatedDir: string, html: string): string {
   })
   const page = markdown.join('\n').trim() + '\n'
   const titled = lines.some(({ text, fenced }) => !fenced && HEADING.test(text))
-  if (networks.length === 0 || titled) return page
-  return `# ${pageTitle(file, networks[0], html)}\n\n${page}`
+  if (titles.length === 0 || titled) return page
+  return `# ${pageTitle(file, titles[0], html)}\n\n${page}`
 }
 
 function sourceFor(pagesDir: string, route: string): string | undefined {
@@ -223,17 +415,25 @@ function sourceFor(pagesDir: string, route: string): string | undefined {
     .find(isFile)
 }
 
+// Whether a _meta.json entry hides its page from the sidebar.
+const isHidden = (entry: unknown): boolean =>
+  (entry as { display?: unknown } | null | undefined)?.display === 'hidden'
+
 // Page sources in sidebar order: the _meta.json keys first, then the other entries by name.
-function orderedSources(dir: string): string[] {
-  const listed = Object.keys(readMeta(dir))
+// A hidden entry in the root _meta.json is a navbar tab whose pages stay public; a hidden
+// entry in a nested _meta.json leaves out its page and its folder.
+function orderedSources(dir: string, nested = false): string[] {
+  const meta = readMeta(dir)
+  const listed = Object.keys(meta)
   const entries = fs.readdirSync(dir).map(name => name.replace(/\.mdx?$/, ''))
   return [...new Set([...listed, ...entries.sort()])].flatMap(name => {
+    if (nested && isHidden(meta[name])) return []
     const stem = path.join(dir, name)
     const pages = SOURCE_EXTENSIONS.map(ext => stem + ext).filter(isFile)
     const isDirectory = fs
       .statSync(stem, { throwIfNoEntry: false })
       ?.isDirectory()
-    return isDirectory ? [...pages, ...orderedSources(stem)] : pages
+    return isDirectory ? [...pages, ...orderedSources(stem, true)] : pages
   })
 }
 
@@ -254,15 +454,18 @@ function writeSitemap(outDir: string, urls: string[]): void {
   fs.writeFileSync(path.join(outDir, 'sitemap.xml'), sitemap)
 }
 
-function writeRobots(outDir: string, host: string): void {
-  const robots = `User-agent: *\nAllow: /\n\nSitemap: ${host}/sitemap.xml\n`
+// Only a build for the production host may be indexed.
+function writeRobots(outDir: string, host: string, indexable: boolean): void {
+  const robots = indexable
+    ? `User-agent: *\nAllow: /\n\nSitemap: ${host}/sitemap.xml\n`
+    : 'User-agent: *\nDisallow: /\n'
   fs.writeFileSync(path.join(outDir, 'robots.txt'), robots)
 }
 
 function writeCorpus(outDir: string, host: string, pages: Page[]): string {
   const corpus = [
     '# Safe Documentation\n',
-    `This file contains every documentation page of ${host} in sidebar order.`,
+    `This file contains every page listed in the sidebar of ${host}, in sidebar order.`,
     'A `Source:` line gives the URL of each page.\n',
     ...pages.map(page => `Source: ${page.url}\n\n${page.markdown}`)
   ].join('\n')
@@ -270,38 +473,60 @@ function writeCorpus(outDir: string, host: string, pages: Page[]): string {
   return corpus
 }
 
+// The host this build is served from, and whether search engines may index it. Without
+// NEXT_PUBLIC_HOST_URL a CI build stops; a local build writes production URLs but a
+// robots.txt that disallows crawling. CI counts as set unless it is empty, false or 0.
+function buildHost(): { host: string; indexable: boolean } {
+  const configured = (process.env.NEXT_PUBLIC_HOST_URL ?? '').replace(
+    /\/+$/,
+    ''
+  )
+  if (configured)
+    return { host: configured, indexable: configured === PRODUCTION_HOST }
+  const ci = process.env.CI
+  if (ci && !/^(false|0)$/i.test(ci))
+    throw new Error(
+      'NEXT_PUBLIC_HOST_URL is not set: set it to the host this build is served from'
+    )
+  console.warn(
+    `NEXT_PUBLIC_HOST_URL is not set: writing ${PRODUCTION_HOST} URLs and a robots.txt that disallows crawling`
+  )
+  return { host: PRODUCTION_HOST, indexable: false }
+}
+
 function main(pagesDir: string, outDir: string): void {
-  const host = (
-    process.env.NEXT_PUBLIC_HOST_URL || 'https://docs.safe.global'
-  ).replace(/\/+$/, '')
+  const { host, indexable } = buildHost()
   const routes = (fs.readdirSync(outDir, { recursive: true }) as string[])
     .filter(file => file.endsWith('.html') && file !== '404.html')
     .map(file => file.replace(/\.html$/, ''))
     .sort()
   const urlFor = (route: string) =>
     route === 'index' ? `${host}/` : `${host}/${encodeURI(route)}`
-  writeSitemap(outDir, routes.map(urlFor))
-  writeRobots(outDir, host)
-  const generatedDir = path.resolve(
-    pagesDir,
-    '../components/ApiReference/generated'
+  const sources = new Map(
+    routes.map(route => [route, sourceFor(pagesDir, route)])
   )
+  const listed = new Set(orderedSources(pagesDir))
+  const indexed = routes.filter(route => {
+    const source = sources.get(route)
+    return !source || listed.has(source)
+  })
+  writeSitemap(outDir, indexed.map(urlFor))
+  writeRobots(outDir, host, indexable)
+  const componentsDir = path.resolve(pagesDir, '../components')
+  const generatedDir = path.join(componentsDir, 'ApiReference/generated')
 
   const pages = new Map<string, Page>()
-  for (const route of routes) {
-    const source = sourceFor(pagesDir, route)
+  for (const [route, source] of sources) {
     if (!source) continue
     const html = path.join(outDir, `${route}.html`)
-    const markdown = toMarkdown(source, generatedDir, html)
+    const markdown = toMarkdown(source, componentsDir, generatedDir, html)
     fs.writeFileSync(path.join(outDir, `${route}.md`), markdown)
     pages.set(source, { url: urlFor(route), markdown })
   }
-  const ordered = orderedSources(pagesDir).flatMap(
-    source => pages.get(source) ?? []
-  )
+  const ordered = [...listed].flatMap(source => pages.get(source) ?? [])
   const corpus = writeCorpus(outDir, host, ordered)
   console.info(
-    `Wrote sitemap.xml (${routes.length} routes), robots.txt, ${pages.size} .md pages and ` +
+    `Wrote sitemap.xml (${indexed.length} routes), robots.txt, ${pages.size} .md pages and ` +
       `llms-full.txt (${ordered.length} pages, ${Buffer.byteLength(corpus)} bytes)`
   )
 }
