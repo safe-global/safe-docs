@@ -575,12 +575,37 @@ test('writes the resource lists for a ResourceHub page', () => {
   assert.equal(
     files.get('hub.md'),
     '# Resource Hub\n\n## Safe team resources\n\n' +
-      '- [Newer team post](https://example.com/newer) (Blog Post, 2024-05-02): A newer post.\n' +
-      '- [Older [team\\] talk](https://example.com/older) (Video, 2023-01-10): ' +
+      '- [Newer team post](<https://example.com/newer>) (Blog Post, 2024-05-02): A newer post.\n' +
+      '- [Older \\[team\\] talk](<https://example.com/older>) (Video, 2023-01-10): ' +
       'An older talk by the team.\n\n' +
       '## Community resources\n\n' +
-      '- [Community podcast](https://example.com/podcast) (Podcast, 2023-11-20): A podcast.\n' +
-      '- [Community guide](https://example.com/guide) (Blog Post, 2022-03-01): A guide.\n'
+      '- [Community podcast](<https://example.com/podcast>) (Podcast, 2023-11-20): A podcast.\n' +
+      '- [Community guide](<https://example.com/guide>) (Blog Post, 2022-03-01): A guide.\n'
+  )
+})
+
+test('escapes resource names and link targets in the resource lists', () => {
+  const odd = {
+    name: 'Odd [one\\',
+    url: 'https://example.com/a b)c>d\\',
+    type: 'Blog Post',
+    date: '2024-01-01',
+    description: 'Odd.'
+  }
+  const files = generated({
+    change: dir => {
+      writeFileSync(
+        path.join(dir, 'components/ResourceHub/community-resources.json'),
+        JSON.stringify([odd])
+      )
+      addPage('hub', componentPage('ResourceHub'))(dir)
+    }
+  })
+  assert.ok(
+    (files.get('hub.md') ?? '').includes(
+      '\n- [Odd \\[one\\\\](<https://example.com/a%20b)c%3Ed%5C>) (Blog Post, 2024-01-01): Odd.\n'
+    ),
+    files.get('hub.md')
   )
 })
 

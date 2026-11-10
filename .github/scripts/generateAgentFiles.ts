@@ -298,9 +298,12 @@ function resourceHubMarkdown(file: string, componentsDir: string): string {
     )
       .sort((a, b) => b.date.localeCompare(a.date))
       .map(resource => {
-        const name = resource.name.replace(/]/g, '\\]')
+        const name = resource.name.replace(/[\\[\]]/g, '\\$&')
+        // <…> lets the link target hold spaces and parentheses; whitespace, < > and \ cannot
+        // appear there, so they are percent-encoded.
+        const url = resource.url.replace(/[\s<>\\]/g, encodeURIComponent)
         const description = resource.description.replace(/\s+/g, ' ').trim()
-        return `- [${name}](${resource.url}) (${resource.type}, ${resource.date}): ${description}`
+        return `- [${name}](<${url}>) (${resource.type}, ${resource.date}): ${description}`
       })
     return [`## ${title}\n`, ...items].join('\n')
   }
