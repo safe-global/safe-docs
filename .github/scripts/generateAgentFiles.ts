@@ -233,8 +233,12 @@ function readData<T>(file: string, data: string): T {
   return JSON.parse(fs.readFileSync(data, 'utf8')) as T
 }
 
-// Text escaped for a Markdown table cell.
-const tableCell = (text: string): string => text.replace(/\|/g, '\\|')
+// Text as one Markdown table cell: on one line, with table and inline syntax escaped.
+const tableCell = (text: string): string =>
+  text
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/[\\`[\]<>|]/g, '\\$&')
 
 // The Markdown that replaces <SupportedNetworks />: a table of the networks with a Safe Smart
 // Account deployment, mainnets first, without the deprecated ones.
@@ -273,7 +277,7 @@ function supportedNetworksMarkdown(
         ...new Set(network.smartAccounts.map(account => account.version))
       ].sort((a, b) => b.localeCompare(a, undefined, { numeric: true }))
       const txService = txServices.get(network.chainId) ?? '—'
-      return `| ${tableCell(network.name)} | ${network.chainId} | ${network.shortName} | ${versions.join(', ')} | ${txService} |`
+      return `| ${tableCell(network.name)} | ${network.chainId} | ${tableCell(network.shortName)} | ${versions.join(', ')} | ${txService} |`
     })
   return [
     'Safe Smart Account contracts are deployed on these networks. The interactive list with ' +

@@ -543,6 +543,31 @@ test('writes the supported networks table for a SupportedNetworks page', () => {
   )
 })
 
+test('escapes the network name and short name in the networks table', () => {
+  const network = {
+    name: 'a\\|b [x](https://e.x) <b>`c`\nd',
+    chainId: 999,
+    shortName: 's|t',
+    isTestnet: false,
+    smartAccounts: [{ name: 'safe', version: 'v1.4.1' }]
+  }
+  const files = generated({
+    change: dir => {
+      writeFileSync(
+        path.join(dir, 'components/SupportedNetworks/networks.json'),
+        JSON.stringify([network])
+      )
+      addPage('networks', componentPage('SupportedNetworks'))(dir)
+    }
+  })
+  const rows = (files.get('networks.md') ?? '')
+    .split('\n')
+    .filter(line => line.startsWith('| ') && !/^\| (Network|---) /.test(line))
+  assert.deepEqual(rows, [
+    '| a\\\\\\|b \\[x\\](https://e.x) \\<b\\>\\`c\\` d | 999 | s\\|t | v1.4.1 | — |'
+  ])
+})
+
 test('writes the resource lists for a ResourceHub page', () => {
   const files = generated({
     change: addPage('hub', componentPage('ResourceHub'))
