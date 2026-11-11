@@ -1,6 +1,6 @@
 const stripQueryAndHash = (asPath: string): string => asPath.split(/[?#]/)[0]
 
-// The path of a page's Markdown copy: no query or hash, no trailing slash. `/` has none.
+// The path of a page's Markdown copy: no query or hash, no trailing slash. `/` has no copy.
 const markdownPath = (asPath: string): string => {
   const pathname = stripQueryAndHash(asPath)
   const trimmed =
