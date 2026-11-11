@@ -28,6 +28,7 @@ const HELP_LINK = 'https://help.safe.global'
 const BRAND_LINK =
   'https://safe-global.notion.site/Safe-Media-Kit-35ce7ffc829c4bedbbf828464a1b7c00'
 const STATUS_LINK = 'https://status.safe.global'
+const LLMS_TXT_LINK = '/llms.txt'
 
 // Sub-Footer
 const LEGAL_LINK = 'https://safe.global/legal'
@@ -118,6 +119,12 @@ const resourcesItems: FooterLink[] = [
   {
     label: 'Status',
     href: STATUS_LINK,
+    target: '_blank',
+    rel: 'noreferrer'
+  },
+  {
+    label: 'llms.txt',
+    href: LLMS_TXT_LINK,
     target: '_blank',
     rel: 'noreferrer'
   }
