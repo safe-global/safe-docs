@@ -1,5 +1,10 @@
 [
   {
+    "source": "/",
+    "destination": "/home",
+    "permanent": true
+  },
+  {
     "source": "/getting-started",
     "destination": "/home",
     "permanent": true
