@@ -1,0 +1,77 @@
+import { Callout } from 'nextra/components'
+import { Grid } from '@mui/material'
+import SafeCoreSDK from '../../assets/svg/ic-sdk.svg'
+import SafeCoreAPI from '../../assets/svg/ic-api.svg'
+import SmartAccount from '../../assets/svg/ic-smart-account.svg'
+import Guides from '../../assets/svg/guides.svg'
+import CustomCard from '../../components/CustomCard'
+
+# Safe Docs
+
+Safe is an open-source and modular smart account stack for the secure management of digital assets. These docs cover the Safe\{Core\} tooling and infrastructure for integrating Safe Smart Accounts into your application.
+
+<Callout type='info' emoji='ℹ️'>
+  This documentation site is solely focused on [Safe Infrastructure](/home/safe-core.mdx). Visit our [Help Center](https://help.safe.global) to learn more about Safe Wallet.
+</Callout>
+
+## Why smart accounts
+
+[Externally-owned accounts](/home/glossary.md#externally-owned-account) (EOAs) are controlled by a single private key, so one lost or leaked seed phrase means lost funds, and they can't enforce rules on how they're used. A smart account is a contract: ownership, signing thresholds, spending limits and recovery are programmable. Safe provides the audited contracts and the tooling to build wallets and applications on top of them.
+
+## Explore the docs
+
+<Grid
+  container
+  spacing={2}
+  display='flex'
+  alignContent='flex-start'
+  mt={3}
+>
+  <Grid item xs={12} md={6}>
+    <CustomCard
+      title={'SDK'}
+      description={'TypeScript kits for creating Safe accounts, building transactions and calling Safe APIs.'}
+      url={'/sdk/overview'}
+      icon={<SafeCoreSDK />}
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={6}>
+    <CustomCard
+      title={'API'}
+      description={'The Safe Transaction Service API: read Safe state, propose transactions and collect confirmations.'}
+      url={'/core-api/api-overview'}
+      icon={<SafeCoreAPI />}
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={6}>
+    <CustomCard
+      title={'Contracts'}
+      description={'Safe Smart Account architecture, modules, guards and supported networks.'}
+      url={'/advanced/smart-account-overview'}
+      icon={<SmartAccount />}
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={6}>
+    <CustomCard
+      title={'AI agents'}
+      description={'Give an agent a Safe account, with spending limits and human approval.'}
+      url={'/home/ai-overview'}
+      icon={<Guides />}
+      newTab={false}
+    />
+  </Grid>
+</Grid>
+
+New to Safe? Start with the [Safe Infrastructure overview](/home/safe-core.mdx) or the [glossary](/home/glossary.md).
+
+## For AI agents and tools
+
+Machine-readable entry points to these docs and the API:
+
+- [OpenAPI spec](https://api.safe.global/tx-service/eth/schema/): Public OpenAPI 3.1 description of the Safe Transaction Service API for Ethereum. Every supported chain serves its own at `https://api.safe.global/tx-service/{chain}/schema/`.
+- [`llms.txt`](https://docs.safe.global/llms.txt): Index of these docs for language models.
+- [`llms-full.txt`](https://docs.safe.global/llms-full.txt): The documentation corpus in one file.
+- Every page is also available as Markdown: append `.md` to its URL, for example [`/home.md`](https://docs.safe.global/home.md).
