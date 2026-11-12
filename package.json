@@ -8,6 +8,7 @@
     "generate-api-reference": "pnpm ts-node --project tsconfig.json .github/scripts/generateApiReference.ts",
     "generate-code-examples": "pnpm ts-node --project tsconfig.json .github/scripts/generateCodeExamples.ts",
     "generate-supported-networks": "pnpm ts-node --project tsconfig.json .github/scripts/generateSupportedNetworks.ts",
+    "generate-tx-service-networks": "pnpm ts-node --project tsconfig.json .github/scripts/generateTxServiceNetworks.ts",
     "get-resources-og": "node .github/scripts/getResourcesOg.js",
     "validate-resources": "node .github/scripts/validateResources.js",
     "linkcheck": "pnpm ts-node --project tsconfig.json .github/scripts/checkLinksFormat.ts && find ./pages -name '*.md*' -print0 | xargs -0 -n1 pnpm markdown-link-check --progress --config linkchecker-config.json",
