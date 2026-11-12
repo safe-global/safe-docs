@@ -6,6 +6,11 @@ const CONFIG_SERVICE_URL =
 // generateApiReference.ts builds the shared API reference from this network.
 const REQUIRED_SHORT_NAME = 'sep'
 const SAFE_NAME = /^[\w-]+$/
+// generate-api-reference sends the API key to txServiceUrl, so only Safe's own host is accepted.
+const TX_SERVICE_HOST = 'api.safe.global'
+const TX_SERVICE_PATH = /^\/tx-service\/([\w-]+)\/?$/
+const PAGE_SIZE = 100
+const MAX_PAGES = 50
 
 interface TxServiceNetwork {
   chainId: number
@@ -15,7 +20,7 @@ interface TxServiceNetwork {
 }
 
 interface ConfigChain {
-  chainId: string
+  chainId: string | number
   chainName: string
   shortName: string
   transactionService?: string | null
@@ -46,21 +51,62 @@ const generatedPaths = (networkName: string): string[] => [
   `components/ApiReference/examples/${networkName}`
 ]
 
+function parseChainId(value: string | number): number {
+  const chainId = /^\d+$/.test(String(value)) ? Number(value) : NaN
+  if (!Number.isSafeInteger(chainId) || chainId <= 0)
+    throw new Error(`Invalid chainId ${JSON.stringify(value)}`)
+  return chainId
+}
+
+function parseUrl(value: string): URL | null {
+  try {
+    return new URL(value)
+  } catch {
+    return null
+  }
+}
+
+function parseTxServiceUrl(chainId: number, value: string): string {
+  const url = parseUrl(value)
+  const path = url?.pathname.match(TX_SERVICE_PATH)
+  if (
+    !url ||
+    !path ||
+    url.protocol !== 'https:' ||
+    url.hostname !== TX_SERVICE_HOST ||
+    url.username ||
+    url.password ||
+    url.port ||
+    url.search ||
+    url.hash
+  )
+    throw new Error(
+      `Chain ${chainId} has an invalid transactionService ${JSON.stringify(value)}`
+    )
+  return `https://${TX_SERVICE_HOST}/tx-service/${path[1]}`
+}
+
 function sync(existing: TxServiceNetwork[], chains: ConfigChain[]): Sync {
   if (chains.length === 0)
     throw new Error('The Config Service returned no chains')
-  const missing = chains.filter(chain => !chain.transactionService)
-  if (missing.length > 0)
-    throw new Error(
-      `No transactionService for chain ${missing.map(c => c.chainId).join(', ')}`
-    )
+  const seen = new Set<number>()
+  const validated = chains.map(chain => {
+    const chainId = parseChainId(chain.chainId)
+    if (seen.has(chainId))
+      throw new Error(
+        `The Config Service returned chain ${chainId} twice (a paging problem)`
+      )
+    seen.add(chainId)
+    if (!chain.transactionService)
+      throw new Error(`No transactionService for chain ${chainId}`)
+    const txServiceUrl = parseTxServiceUrl(chainId, chain.transactionService)
+    return { chain, chainId, txServiceUrl }
+  })
 
   const byChainId = new Map(existing.map(n => [n.chainId, n]))
   const takenNames = new Set(existing.map(n => n.networkName))
   const result: Sync = { networks: [], added: [], removed: [], changed: [] }
-  for (const chain of chains) {
-    const chainId = Number(chain.chainId)
-    const txServiceUrl = (chain.transactionService ?? '').replace(/\/+$/, '')
+  for (const { chain, chainId, txServiceUrl } of validated) {
     const current = byChainId.get(chainId)
     if (current) {
       const network = { ...current, txServiceUrl }
@@ -105,19 +151,24 @@ function sync(existing: TxServiceNetwork[], chains: ConfigChain[]): Sync {
   return result
 }
 
+// Pages by offset on the configured URL; the server's `next` URL is never requested.
 async function fetchChains(): Promise<ConfigChain[]> {
+  const base = `${CONFIG_SERVICE_URL.replace(/\/+$/, '')}/api/v1/chains/`
   const chains: ConfigChain[] = []
-  let url: string | null =
-    `${CONFIG_SERVICE_URL.replace(/\/+$/, '')}/api/v1/chains/?limit=100`
-  while (url) {
-    const response = await fetch(url)
+  for (let pages = 0; pages < MAX_PAGES; pages++) {
+    const url = `${base}?limit=${PAGE_SIZE}&offset=${chains.length}`
+    const response = await fetch(url, { redirect: 'error' })
     if (response.status !== 200)
       throw new Error(`GET ${url} answered ${response.status}`)
     const page = (await response.json()) as ChainPage
     chains.push(...page.results)
-    url = page.next
+    if (page.next === null) return chains
+    if (page.results.length === 0)
+      throw new Error(`GET ${url} returned no chains but claims more`)
   }
-  return chains
+  throw new Error(
+    `The Config Service still had more chains after ${MAX_PAGES} pages`
+  )
 }
 
 function summarize({ added, removed, changed }: Sync, dryRun: boolean): string {

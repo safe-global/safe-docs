@@ -110,31 +110,36 @@ const readNetworks = (dir: string): Network[] =>
 interface ChainList {
   status?: number
   pages: Chain[][]
+  // Replaces the `next` URL whenever more pages exist.
+  next?: string
+  // Answers every request with a non-null `next`.
+  endless?: boolean
 }
 
-// Serves `pages` as the paginated chain list, runs the script in `dir` against it and
-// returns its exit code, output and the URLs it requested.
+// Serves `pages` by offset as the paginated chain list, runs the script in `dir` against
+// it and returns its exit code, output and the URLs it requested.
 async function run(
   dir: string,
-  { status = 200, pages }: ChainList,
+  { status = 200, pages, next: nextUrl, endless = false }: ChainList,
   args: string[] = []
 ) {
   const requests: string[] = []
+  const offsets = pages.map((_, i) => pages.slice(0, i).flat().length)
   const server = createServer((request, response) => {
     requests.push(request.url ?? '')
     const url = new URL(request.url ?? '', base)
-    const index = Number(url.searchParams.get('page') ?? 0)
-    const next =
-      index + 1 < pages.length
-        ? `${base}/api/v1/chains/?limit=100&page=${index + 1}`
-        : null
+    const index = offsets.indexOf(Number(url.searchParams.get('offset')))
+    const more = endless || (index !== -1 && index + 1 < pages.length)
+    const next = more
+      ? (nextUrl ?? `${base}/api/v1/chains/?cursor=${index + 1}`)
+      : null
     response.writeHead(status, { 'Content-Type': 'application/json' })
     response.end(
       JSON.stringify({
         count: 0,
         next,
         previous: null,
-        results: pages.at(index) ?? []
+        results: index === -1 ? [] : pages[index]
       })
     )
   })
@@ -175,20 +180,18 @@ test('refreshes txServiceUrl, keeps the names and strips the trailing slash', ()
         'ethereum',
         'https://api.safe.global/tx-service/eth/'
       ),
-      chain(100, 'Gnosis', 'gno', 'https://gnosis.example/tx-service//'),
+      chain(100, 'Gnosis', 'gno', 'https://api.safe.global/tx-service/gnosis/'),
       ...liveChains.slice(2)
     ]
     const { code, output, requests } = await run(dir, { pages: [chains] })
     assert.equal(code, 0, output)
-    assert.equal(requests[0], '/api/v1/chains/?limit=100')
+    assert.deepEqual(requests, ['/api/v1/chains/?limit=100&offset=0'])
     const networks = readNetworks(dir)
     assert.deepEqual(networks[0], fixtureNetworks[0])
-    assert.deepEqual(networks[1], {
-      ...fixtureNetworks[1],
-      txServiceUrl: 'https://gnosis.example/tx-service'
-    })
+    const txServiceUrl = 'https://api.safe.global/tx-service/gnosis'
+    assert.deepEqual(networks[1], { ...fixtureNetworks[1], txServiceUrl })
     const previous = 'https://api.safe.global/tx-service/gno'
-    const line = `100 gnosis-chain: ${previous} -> https://gnosis.example/tx-service`
+    const line = `100 gnosis-chain: ${previous} -> ${txServiceUrl}`
     assert.ok(output.includes(line), output)
     assert.doesNotMatch(output, /Added|Removed/)
   }))
@@ -233,24 +236,41 @@ test('drops a removed chain and deletes only its generated files', () =>
         assert.equal(after.get(file), content, file)
   }))
 
-test('follows next across pages', () =>
-  withTree(async dir => {
-    const chains = [...liveChains, chain(42, 'Foo', 'foo')]
-    const pages = [chains.slice(0, 2), chains.slice(2, 4), chains.slice(4)]
-    const { code, output, requests } = await run(dir, { pages })
-    assert.equal(code, 0, output)
-    assert.equal(requests.length, 3)
-    assert.deepEqual(
-      readNetworks(dir).map(n => n.chainId),
-      [1, 42, 100, 137, 11155111]
-    )
-  }))
+test('pages by offset on the configured URL and never requests next', async () => {
+  const elsewhere: string[] = []
+  const other = createServer((request, response) => {
+    elsewhere.push(request.url ?? '')
+    response.end()
+  })
+  await new Promise<void>(resolve => other.listen(0, '127.0.0.1', resolve))
+  const { port } = other.address() as AddressInfo
+  try {
+    await withTree(async dir => {
+      const chains = [...liveChains, chain(42, 'Foo', 'foo')]
+      const pages = [chains.slice(0, 2), chains.slice(2, 4), chains.slice(4)]
+      const next = `http://127.0.0.1:${port}/api/v1/chains/?offset=2`
+      const { code, output, requests } = await run(dir, { pages, next })
+      assert.equal(code, 0, output)
+      assert.deepEqual(
+        requests,
+        [0, 2, 4].map(offset => `/api/v1/chains/?limit=100&offset=${offset}`)
+      )
+      assert.deepEqual(elsewhere, [])
+      assert.deepEqual(
+        readNetworks(dir).map(n => n.chainId),
+        [1, 42, 100, 137, 11155111]
+      )
+    })
+  } finally {
+    other.close()
+  }
+})
 
 test('--dry-run prints the summary and changes nothing', () =>
   withTree(async dir => {
     const before = snapshot(dir)
     const chains = [
-      chain(1, 'Ethereum', 'eth', 'https://eth.example/'),
+      chain(1, 'Ethereum', 'eth', 'https://api.safe.global/tx-service/mainnet'),
       chain(42, 'Foo', 'foo'),
       ...liveChains.slice(1, 2),
       ...liveChains.slice(3)
@@ -262,7 +282,10 @@ test('--dry-run prints the summary and changes nothing', () =>
       output,
       /would delete components\/ApiReference\/examples\/polygon/
     )
-    assert.match(output, /1 mainnet: .* -> https:\/\/eth\.example/)
+    assert.match(
+      output,
+      /1 mainnet: .* -> https:\/\/api\.safe\.global\/tx-service\/mainnet\n/
+    )
     assert.match(output, /Dry run/)
     assert.deepEqual(snapshot(dir), before)
   }))
@@ -274,6 +297,51 @@ const aborts: Array<[string, ChainList, RegExp]> = [
     'a chain without transactionService',
     { pages: [[...liveChains, chain(42, 'Foo', 'foo', null)]] },
     /No transactionService for chain 42/
+  ],
+  ...[
+    'http://api.safe.global/tx-service/foo',
+    'https://api.safe.global.example.com/tx-service/foo',
+    'https://evil.example/tx-service/foo',
+    'https://user:pass@api.safe.global/tx-service/foo',
+    'https://api.safe.global:8443/tx-service/foo',
+    'https://api.safe.global/tx-service/foo?x=1',
+    'https://api.safe.global/tx-service/foo#x',
+    'https://api.safe.global/tx-service/foo/extra',
+    'https://api.safe.global/tx-service/fo`o',
+    'not a url'
+  ].map((url): [string, ChainList, RegExp] => [
+    `transactionService ${url}`,
+    { pages: [[...liveChains, chain(42, 'Foo', 'foo', url)]] },
+    /Chain 42 has an invalid transactionService/
+  ]),
+  [
+    'an invalid existing chain transactionService',
+    {
+      pages: [
+        [
+          chain(1, 'Ethereum', 'eth', 'https://eth.example/'),
+          ...liveChains.slice(1)
+        ]
+      ]
+    },
+    /Chain 1 has an invalid transactionService "https:\/\/eth\.example\/"/
+  ],
+  [
+    'a non-numeric chainId',
+    {
+      pages: [[...liveChains, { ...chain(42, 'Foo', 'foo'), chainId: '4x2' }]]
+    },
+    /Invalid chainId "4x2"/
+  ],
+  [
+    'a chainId returned twice across pages',
+    { pages: [liveChains.slice(0, 2), liveChains.slice(1)] },
+    /returned chain 100 twice \(a paging problem\)/
+  ],
+  [
+    'an empty page that claims more results',
+    { pages: [liveChains], endless: true },
+    /returned no chains but claims more/
   ],
   [
     'a slug that collides with an existing networkName',
