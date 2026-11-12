@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Safe Transaction Service",
-    "version": "6.8.0",
+    "version": "6.14.0",
     "description": "API to keep track of transactions sent via Safe smart contracts"
   },
   "paths": {
@@ -12,15 +12,6 @@
         "description": "Returns information and configuration of the service",
         "tags": [
           "about"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "responses": {
           "200": {
@@ -57,15 +48,6 @@
         "tags": [
           "about"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -96,15 +78,6 @@
         "tags": [
           "about"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "description": "No response body"
@@ -122,15 +95,6 @@
         "tags": [
           "about"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "description": "No response body"
@@ -147,15 +111,6 @@
         "description": "Get current indexing status for ERC20/721 events",
         "tags": [
           "about"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "responses": {
           "200": {
@@ -180,15 +135,6 @@
         "description": "Returns a list of Master Copies configured in the service",
         "tags": [
           "about"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "responses": {
           "200": {
@@ -253,15 +199,6 @@
         "tags": [
           "contracts"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "deprecated": true,
         "responses": {
           "200": {
@@ -296,15 +233,6 @@
         ],
         "tags": [
           "contracts"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "deprecated": true,
         "responses": {
@@ -341,15 +269,6 @@
           },
           "required": true
         },
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "deprecated": true,
         "responses": {
           "200": {
@@ -439,15 +358,6 @@
         "tags": [
           "delegates"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "deprecated": true,
         "responses": {
           "400": {
@@ -474,15 +384,6 @@
           },
           "required": true
         },
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "deprecated": true,
         "responses": {
           "202": {
@@ -513,15 +414,6 @@
         ],
         "tags": [
           "delegates"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "deprecated": true,
         "responses": {
@@ -567,15 +459,6 @@
         "tags": [
           "messages"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -620,15 +503,6 @@
           },
           "required": true
         },
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -655,15 +529,6 @@
         ],
         "tags": [
           "transactions"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "responses": {
           "200": {
@@ -712,15 +577,6 @@
         "tags": [
           "modules"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "deprecated": true,
         "responses": {
           "200": {
@@ -766,15 +622,6 @@
         "tags": [
           "transactions"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "deprecated": true,
         "responses": {
           "200": {
@@ -807,15 +654,6 @@
         ],
         "tags": [
           "transactions"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "deprecated": true,
         "responses": {
@@ -869,15 +707,6 @@
         "tags": [
           "transactions"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -923,15 +752,6 @@
           },
           "required": true
         },
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -964,15 +784,6 @@
         ],
         "tags": [
           "owners"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "deprecated": true,
         "responses": {
@@ -1018,15 +829,6 @@
         ],
         "tags": [
           "4337"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "responses": {
           "200": {
@@ -1080,15 +882,6 @@
         "tags": [
           "4337"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -1134,15 +927,6 @@
           },
           "required": true
         },
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -1176,15 +960,6 @@
         "tags": [
           "safes"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -1201,6 +976,9 @@
           },
           "422": {
             "description": "code = 1: Checksum address validation failed\ncode = 50: Cannot get Safe info"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/",
@@ -1252,15 +1030,6 @@
         "tags": [
           "transactions"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "deprecated": true,
         "responses": {
           "200": {
@@ -1292,6 +1061,9 @@
               }
             },
             "description": "Checksum address validation failed"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/all-transactions/",
@@ -1334,15 +1106,6 @@
         "tags": [
           "safes"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -1362,6 +1125,9 @@
           },
           "422": {
             "description": "Safe address checksum not valid"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/balances/",
@@ -1386,15 +1152,6 @@
         "tags": [
           "safes"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -1411,6 +1168,9 @@
           },
           "422": {
             "description": "Owner address checksum not valid"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           },
           "503": {
             "description": "Problem connecting to Ethereum network"
@@ -1446,15 +1206,6 @@
         "tags": [
           "delegates"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "deprecated": true,
         "responses": {
           "204": {
@@ -1475,6 +1226,9 @@
               }
             },
             "description": "Invalid Ethereum address | Error processing data"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/delegates/{delegate_address}/",
@@ -1533,15 +1287,6 @@
         "tags": [
           "safes"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -1565,6 +1310,9 @@
               }
             },
             "description": "Safe address checksum not valid"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/export/",
@@ -1730,15 +1478,6 @@
         "tags": [
           "transactions"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -1759,6 +1498,9 @@
               }
             },
             "description": "Safe address checksum not valid"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/incoming-transfers/",
@@ -1810,15 +1552,6 @@
         "tags": [
           "messages"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -1829,6 +1562,9 @@
               }
             },
             "description": ""
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/messages/",
@@ -1861,18 +1597,12 @@
           },
           "required": true
         },
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/messages/",
@@ -1995,15 +1725,6 @@
         "tags": [
           "transactions"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -2024,6 +1745,9 @@
               }
             },
             "description": "Checksum address validation failed"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/module-transactions/",
@@ -2249,15 +1973,6 @@
         "tags": [
           "transactions"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "deprecated": true,
         "responses": {
           "200": {
@@ -2282,6 +1997,9 @@
               }
             },
             "description": "Invalid ethereum address"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/multisig-transactions/",
@@ -2314,15 +2032,6 @@
           },
           "required": true
         },
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "deprecated": true,
         "responses": {
           "201": {
@@ -2340,6 +2049,9 @@
               }
             },
             "description": "Invalid ethereum address | User is not an owner | Invalid safeTxHash |Invalid signature | Nonce already executed | Sender is not an owner"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/multisig-transactions/",
@@ -2374,15 +2086,6 @@
           },
           "required": true
         },
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -2409,6 +2112,9 @@
               }
             },
             "description": "Tx not valid"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/multisig-transactions/estimations/",
@@ -2620,15 +2326,6 @@
         "tags": [
           "4337"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -2639,6 +2336,9 @@
               }
             },
             "description": ""
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/safe-operations/",
@@ -2671,15 +2371,6 @@
           },
           "required": true
         },
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "201": {
             "content": {
@@ -2692,6 +2383,9 @@
               }
             },
             "description": ""
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/safe-operations/",
@@ -2857,15 +2551,6 @@
         "tags": [
           "transactions"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -2886,6 +2571,9 @@
               }
             },
             "description": "Safe address checksum not valid"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/transfers/",
@@ -2937,15 +2625,6 @@
         "tags": [
           "4337"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -2956,6 +2635,9 @@
               }
             },
             "description": ""
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v1/safes/{address}/user-operations/",
@@ -3050,15 +2732,6 @@
         "tags": [
           "tokens"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -3092,15 +2765,6 @@
         ],
         "tags": [
           "tokens"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "responses": {
           "200": {
@@ -3156,15 +2820,6 @@
         "tags": [
           "tokens"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -3198,15 +2853,6 @@
         ],
         "tags": [
           "transactions"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "responses": {
           "200": {
@@ -3248,15 +2894,6 @@
         "tags": [
           "4337"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -3271,27 +2908,6 @@
         },
         "path": "/tx-service/aurora/api/v1/user-operations/{user_operation_hash}/",
         "title": "Get User Operation",
-        "additionalInfo": ""
-      }
-    },
-    "/tx-service/aurora/api/v2/analytics/multisig-transactions/by-origin/": {
-      "get": {
-        "operationId": "analytics_multisig_transactions_by_origin_retrieve",
-        "tags": [
-          "analytics"
-        ],
-        "security": [
-          {
-            "tokenAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "No response body"
-          }
-        },
-        "path": "/tx-service/aurora/api/v2/analytics/multisig-transactions/by-origin/",
-        "title": "",
         "additionalInfo": ""
       }
     },
@@ -3353,15 +2969,6 @@
         "tags": [
           "delegates"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -3397,15 +3004,6 @@
           },
           "required": true
         },
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "202": {
             "description": "Accepted"
@@ -3435,15 +3033,6 @@
         ],
         "tags": [
           "delegates"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "responses": {
           "204": {
@@ -3499,15 +3088,6 @@
         "tags": [
           "modules"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -3552,15 +3132,6 @@
         "tags": [
           "transactions"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -3592,15 +3163,6 @@
         ],
         "tags": [
           "transactions"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "responses": {
           "204": {
@@ -3646,15 +3208,6 @@
         ],
         "tags": [
           "owners"
-        ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
         ],
         "responses": {
           "200": {
@@ -3727,15 +3280,6 @@
         "tags": [
           "transactions"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -3746,6 +3290,9 @@
               }
             },
             "description": ""
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v2/safes/{address}/all-transactions/",
@@ -3804,15 +3351,6 @@
         "tags": [
           "safes"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -3836,6 +3374,9 @@
               }
             },
             "description": "Safe address checksum not valid"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v2/safes/{address}/balances/",
@@ -3894,15 +3435,6 @@
         "tags": [
           "safes"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -3926,6 +3458,9 @@
               }
             },
             "description": "Safe address checksum not valid"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v2/safes/{address}/collectibles/",
@@ -4151,15 +3686,6 @@
         "tags": [
           "transactions"
         ],
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "200": {
             "content": {
@@ -4183,6 +3709,9 @@
               }
             },
             "description": "Invalid ethereum address"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v2/safes/{address}/multisig-transactions/",
@@ -4215,15 +3744,6 @@
           },
           "required": true
         },
-        "security": [
-          {
-            "cookieAuth": []
-          },
-          {
-            "tokenAuth": []
-          },
-          {}
-        ],
         "responses": {
           "201": {
             "description": "Created or signature updated"
@@ -4240,6 +3760,9 @@
               }
             },
             "description": "Invalid ethereum address | User is not an owner | Invalid safeTxHash |Invalid signature | Nonce already executed | Sender is not an owner"
+          },
+          "451": {
+            "description": "Safe is unavailable for legal reasons (banned)"
           }
         },
         "path": "/tx-service/aurora/api/v2/safes/{address}/multisig-transactions/",
@@ -7432,17 +6955,17 @@
       }
     },
     "securitySchemes": {
-      "cookieAuth": {
-        "type": "apiKey",
-        "in": "cookie",
-        "name": "sessionid"
-      },
-      "tokenAuth": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "Authorization",
-        "description": "Token-based authentication with required prefix \"Token\""
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "The Safe API key, sent as `Authorization: Bearer <key>`."
       }
     }
-  }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    },
+    {}
+  ]
 }
