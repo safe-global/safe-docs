@@ -139,8 +139,8 @@
   },
   {
     "chainId": 4221,
-    "shortName": "bradbury",
-    "networkName": "genlayer-bradbury-testnet",
+    "shortName": "genlayer-testnet",
+    "networkName": "genlayer-testnet",
     "txServiceUrl": "https://api.safe.global/tx-service/bradbury"
   },
   {
@@ -224,7 +224,7 @@
   {
     "chainId": 36900,
     "shortName": "adi",
-    "networkName": "adi-network",
+    "networkName": "adi",
     "txServiceUrl": "https://api.safe.global/tx-service/adi"
   },
   {
@@ -334,12 +334,6 @@
     "shortName": "sep",
     "networkName": "sepolia",
     "txServiceUrl": "https://api.safe.global/tx-service/sep"
-  },
-  {
-    "chainId": 42424242,
-    "shortName": "getherium-testnet",
-    "networkName": "getherium-testnet",
-    "txServiceUrl": "https://api.safe.global/tx-service/getherium-testnet"
   },
   {
     "chainId": 1313161554,
