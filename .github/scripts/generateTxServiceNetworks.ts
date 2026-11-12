@@ -33,13 +33,13 @@ interface Sync {
   changed: Array<{ network: TxServiceNetwork; previousUrl: string }>
 }
 
-const slug = (name: string) =>
+const slug = (name: string): string =>
   name
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
 
-const generatedPaths = (networkName: string) => [
+const generatedPaths = (networkName: string): string[] => [
   `pages/core-api/transaction-service-reference/${networkName}.mdx`,
   `components/ApiReference/generated/${networkName}-reference.mdx`,
   `components/ApiReference/schemas/${networkName}-swagger.json`,

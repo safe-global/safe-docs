@@ -44,7 +44,11 @@ const fixtureNetworks: Network[] = [
   network(11155111, 'sep', 'sepolia')
 ]
 
-function network(chainId: number, shortName: string, networkName: string) {
+function network(
+  chainId: number,
+  shortName: string,
+  networkName: string
+): Network {
   const txServiceUrl = `https://api.safe.global/tx-service/${shortName}`
   return { chainId, shortName, networkName, txServiceUrl }
 }
@@ -67,7 +71,7 @@ const liveChains = [
   chain(11155111, 'Sepolia', 'sep')
 ]
 
-const generatedPaths = (name: string) => [
+const generatedPaths = (name: string): string[] => [
   `pages/core-api/transaction-service-reference/${name}.mdx`,
   `components/ApiReference/generated/${name}-reference.mdx`,
   `components/ApiReference/schemas/${name}-swagger.json`,
@@ -103,7 +107,7 @@ function snapshot(dir: string): Map<string, string> {
 const readNetworks = (dir: string): Network[] =>
   JSON.parse(readFileSync(path.join(dir, NETWORKS_FILE), 'utf8'))
 
-interface Response {
+interface ChainList {
   status?: number
   pages: Chain[][]
 }
@@ -112,7 +116,7 @@ interface Response {
 // returns its exit code, output and the URLs it requested.
 async function run(
   dir: string,
-  { status = 200, pages }: Response,
+  { status = 200, pages }: ChainList,
   args: string[] = []
 ) {
   const requests: string[] = []
@@ -263,7 +267,7 @@ test('--dry-run prints the summary and changes nothing', () =>
     assert.deepEqual(snapshot(dir), before)
   }))
 
-const aborts: Array<[string, Response, RegExp]> = [
+const aborts: Array<[string, ChainList, RegExp]> = [
   ['a non-200 response', { status: 500, pages: [liveChains] }, /answered 500/],
   ['an empty chain list', { pages: [[]] }, /no chains/],
   [
