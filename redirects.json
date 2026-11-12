@@ -1,17 +1,27 @@
 [
   {
+    "source": "/",
+    "destination": "/home",
+    "permanent": true
+  },
+  {
     "source": "/getting-started",
-    "destination": "/home/what-is-safe",
+    "destination": "/home",
     "permanent": true
   },
   {
     "source": "/getting-started/readme",
-    "destination": "/home/what-is-safe",
+    "destination": "/home",
     "permanent": true
   },
   {
     "source": "/what-is-safe",
-    "destination": "/home/what-is-safe",
+    "destination": "/home",
+    "permanent": true
+  },
+  {
+    "source": "/home/what-is-safe",
+    "destination": "/home",
     "permanent": true
   },
   {

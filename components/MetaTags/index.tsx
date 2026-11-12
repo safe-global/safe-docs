@@ -1,16 +1,18 @@
-// The path of a page's Markdown copy: no query or hash, no trailing slash, `/` → `/index.md`
+const stripQueryAndHash = (asPath: string): string => asPath.split(/[?#]/)[0]
+
+// The path of a page's Markdown copy: no query or hash, no trailing slash. `/` has no copy.
 const markdownPath = (asPath: string): string => {
-  const pathname = asPath.split(/[?#]/)[0]
+  const pathname = stripQueryAndHash(asPath)
   const trimmed =
     pathname.length > 1 && pathname.endsWith('/')
       ? pathname.slice(0, -1)
       : pathname
-  return `${trimmed === '/' ? '/index' : trimmed}.md`
+  return `${trimmed}.md`
 }
 
 // The host the site is served from. A local build without NEXT_PUBLIC_HOST_URL uses the
 // production host, as .github/scripts/generateAgentFiles.ts does; a CI build without it fails there.
-const HOST = (
+export const HOST = (
   process.env.NEXT_PUBLIC_HOST_URL || 'https://docs.safe.global'
 ).replace(/\/+$/, '')
 
@@ -37,18 +39,19 @@ const MetaTags: React.FC<{ path: string }> = ({ path }) => {
             : 'noindex, nofollow'
         }
       />
-      <link
-        rel='alternate'
-        type='text/markdown'
-        href={`${HOST}${markdownPath(path)}`}
-      />
+      {stripQueryAndHash(path) !== '/' && (
+        <link
+          rel='alternate'
+          type='text/markdown'
+          href={`${HOST}${markdownPath(path)}`}
+        />
+      )}
       <meta name='description' content={description} />
       <meta property='og:site_name' content='Safe Docs' />
       <meta property='og:url' content={`${HOST}${path}`} />
       <meta property='og:description' content={description} />
       <meta property='og:image' content={image} />
       <meta property='og:type' content='website' />
-      {path === '/' && <meta property='og:title' content='Safe Docs' />}
       <meta name='twitter:card' content='summary_large_image' />
       <meta name='twitter:description' content={description} />
       <meta name='twitter:image' content={image} />
