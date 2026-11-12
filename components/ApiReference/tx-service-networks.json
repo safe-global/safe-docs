@@ -59,7 +59,7 @@
     "networkName": "xlayer",
     "txServiceUrl": "https://api.safe.global/tx-service/okb"
   },
-    {
+  {
     "chainId": 204,
     "shortName": "opbnb",
     "networkName": "opbnb",
@@ -108,6 +108,24 @@
     "txServiceUrl": "https://api.safe.global/tx-service/pharos"
   },
   {
+    "chainId": 1874,
+    "shortName": "wch-sepolia",
+    "networkName": "whitechain-sepolia",
+    "txServiceUrl": "https://api.safe.global/tx-service/wch-sepolia"
+  },
+  {
+    "chainId": 1875,
+    "shortName": "wch",
+    "networkName": "whitechain",
+    "txServiceUrl": "https://api.safe.global/tx-service/wch"
+  },
+  {
+    "chainId": 2818,
+    "shortName": "morph",
+    "networkName": "morph",
+    "txServiceUrl": "https://api.safe.global/tx-service/morph"
+  },
+  {
     "chainId": 3338,
     "shortName": "peaq",
     "networkName": "peaq",
@@ -118,6 +136,12 @@
     "shortName": "tempo",
     "networkName": "tempo",
     "txServiceUrl": "https://api.safe.global/tx-service/tempo"
+  },
+  {
+    "chainId": 4221,
+    "shortName": "bradbury",
+    "networkName": "genlayer-bradbury-testnet",
+    "txServiceUrl": "https://api.safe.global/tx-service/bradbury"
   },
   {
     "chainId": 4326,
@@ -186,10 +210,22 @@
     "txServiceUrl": "https://api.safe.global/tx-service/0g"
   },
   {
+    "chainId": 20994,
+    "shortName": "fluent-testnet",
+    "networkName": "fluent-testnet",
+    "txServiceUrl": "https://api.safe.global/tx-service/fluent-testnet"
+  },
+  {
     "chainId": 25363,
     "shortName": "fluent",
     "networkName": "fluent",
     "txServiceUrl": "https://api.safe.global/tx-service/fluent"
+  },
+  {
+    "chainId": 36900,
+    "shortName": "adi",
+    "networkName": "adi-network",
+    "txServiceUrl": "https://api.safe.global/tx-service/adi"
   },
   {
     "chainId": 42161,
@@ -276,6 +312,12 @@
     "txServiceUrl": "https://api.safe.global/tx-service/katana"
   },
   {
+    "chainId": 936485,
+    "shortName": "zenith-testnet",
+    "networkName": "zenith-testnet",
+    "txServiceUrl": "https://api.safe.global/tx-service/zenith-testnet"
+  },
+  {
     "chainId": 5042002,
     "shortName": "arc-testnet",
     "networkName": "arc-testnet",
@@ -292,6 +334,12 @@
     "shortName": "sep",
     "networkName": "sepolia",
     "txServiceUrl": "https://api.safe.global/tx-service/sep"
+  },
+  {
+    "chainId": 42424242,
+    "shortName": "getherium-testnet",
+    "networkName": "getherium-testnet",
+    "txServiceUrl": "https://api.safe.global/tx-service/getherium-testnet"
   },
   {
     "chainId": 1313161554,
