@@ -11,6 +11,11 @@ const TX_SERVICE_HOST = 'api.safe.global'
 const TX_SERVICE_PATH = /^\/tx-service\/([\w-]+)\/?$/
 const PAGE_SIZE = 100
 const MAX_PAGES = 50
+// Chains the Config Service lists that the docs do not publish yet; delete an entry to
+// publish it on the next sync. An excluded chain still in NETWORKS_FILE is removed.
+const EXCLUDED_CHAIN_IDS = new Set([
+  42424242 // Getherium Testnet
+])
 
 interface TxServiceNetwork {
   chainId: number
@@ -36,6 +41,7 @@ interface Sync {
   added: Array<{ network: TxServiceNetwork; chainName: string }>
   removed: TxServiceNetwork[]
   changed: Array<{ network: TxServiceNetwork; previousUrl: string }>
+  skipped: Array<{ chainId: number; chainName: string }>
 }
 
 const slug = (name: string): string =>
@@ -90,22 +96,36 @@ function sync(existing: TxServiceNetwork[], chains: ConfigChain[]): Sync {
   if (chains.length === 0)
     throw new Error('The Config Service returned no chains')
   const seen = new Set<number>()
-  const validated = chains.map(chain => {
+  const parsed = chains.map(chain => {
     const chainId = parseChainId(chain.chainId)
     if (seen.has(chainId))
       throw new Error(
         `The Config Service returned chain ${chainId} twice (a paging problem)`
       )
     seen.add(chainId)
-    if (!chain.transactionService)
-      throw new Error(`No transactionService for chain ${chainId}`)
-    const txServiceUrl = parseTxServiceUrl(chainId, chain.transactionService)
-    return { chain, chainId, txServiceUrl }
+    return { chain, chainId }
   })
+  const skipped = parsed
+    .filter(({ chainId }) => EXCLUDED_CHAIN_IDS.has(chainId))
+    .map(({ chain, chainId }) => ({ chainId, chainName: chain.chainName }))
+  const validated = parsed
+    .filter(({ chainId }) => !EXCLUDED_CHAIN_IDS.has(chainId))
+    .map(({ chain, chainId }) => {
+      if (!chain.transactionService)
+        throw new Error(`No transactionService for chain ${chainId}`)
+      const txServiceUrl = parseTxServiceUrl(chainId, chain.transactionService)
+      return { chain, chainId, txServiceUrl }
+    })
 
   const byChainId = new Map(existing.map(n => [n.chainId, n]))
   const takenNames = new Set(existing.map(n => n.networkName))
-  const result: Sync = { networks: [], added: [], removed: [], changed: [] }
+  const result: Sync = {
+    networks: [],
+    added: [],
+    removed: [],
+    changed: [],
+    skipped
+  }
   for (const { chain, chainId, txServiceUrl } of validated) {
     const current = byChainId.get(chainId)
     if (current) {
@@ -148,6 +168,7 @@ function sync(existing: TxServiceNetwork[], chains: ConfigChain[]): Sync {
 
   result.networks.sort((a, b) => a.chainId - b.chainId)
   result.added.sort((a, b) => a.network.chainId - b.network.chainId)
+  result.skipped.sort((a, b) => a.chainId - b.chainId)
   return result
 }
 
@@ -171,7 +192,10 @@ async function fetchChains(): Promise<ConfigChain[]> {
   )
 }
 
-function summarize({ added, removed, changed }: Sync, dryRun: boolean): string {
+function summarize(
+  { added, removed, changed, skipped }: Sync,
+  dryRun: boolean
+): string {
   const lines: string[] = []
   if (added.length > 0) {
     lines.push(`Added ${added.length} chain(s):`)
@@ -200,6 +224,11 @@ function summarize({ added, removed, changed }: Sync, dryRun: boolean): string {
       )
   }
   if (lines.length === 0) lines.push('Already up to date.')
+  if (skipped.length > 0) {
+    lines.push(`Skipped ${skipped.length} excluded chain(s):`)
+    for (const { chainId, chainName } of skipped)
+      lines.push(`  ${chainId} ${chainName}`)
+  }
   if (dryRun) lines.push('Dry run: nothing written or deleted.')
   return lines.join('\n')
 }

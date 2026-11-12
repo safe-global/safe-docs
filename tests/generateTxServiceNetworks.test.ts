@@ -374,6 +374,40 @@ for (const [name, response, message] of aborts)
       assert.deepEqual(snapshot(dir), before)
     }))
 
+// Listed in EXCLUDED_CHAIN_IDS in the script.
+const excluded = (transactionService?: string | null): Chain =>
+  chain(42424242, 'Getherium Testnet', 'gth', transactionService)
+
+test('skips an excluded chain and reports it', () =>
+  withTree(async dir => {
+    const before = snapshot(dir)
+    const { code, output } = await run(dir, {
+      pages: [[...liveChains, excluded()]]
+    })
+    assert.equal(code, 0, output)
+    assert.deepEqual(snapshot(dir), before)
+    assert.match(output, /Already up to date\./)
+    assert.ok(
+      output.includes(
+        'Skipped 1 excluded chain(s):\n  42424242 Getherium Testnet\n'
+      ),
+      output
+    )
+    assert.doesNotMatch(output, /Added/)
+  }))
+
+test('does not validate the transactionService of an excluded chain', () =>
+  withTree(async dir => {
+    const before = snapshot(dir)
+    for (const transactionService of [null, 'https://evil.example/']) {
+      const pages = [[...liveChains, excluded(transactionService)]]
+      const { code, output } = await run(dir, { pages })
+      assert.equal(code, 0, output)
+      assert.match(output, /42424242 Getherium Testnet/)
+    }
+    assert.deepEqual(snapshot(dir), before)
+  }))
+
 test('a second run is a no-op', () =>
   withTree(async dir => {
     const pages = [[...liveChains.slice(1), chain(42, 'Foo', 'foo')]]
