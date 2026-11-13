@@ -63,16 +63,6 @@
       "title": "Delete Delegate"
     }
   },
-  "/api/v1/messages/{message_hash}/": {
-    "get": {
-      "title": "Get Message"
-    }
-  },
-  "/api/v1/messages/{message_hash}/signatures/": {
-    "post": {
-      "title": "Sign Message"
-    }
-  },
   "/api/v1/module-transaction/{module_transaction_id}/": {
     "get": {
       "title": "Get Module Transaction"
@@ -81,22 +71,6 @@
   "/api/v2/modules/{address}/safes/": {
     "get": {
       "title": "List Safes that use a Specific Module"
-    }
-  },
-  "/api/v2/multisig-transactions/{safe_tx_hash}/": {
-    "get": {
-      "title": "Get Multisig Transaction"
-    },
-    "delete": {
-      "title": "Delete Queued Multisig Transaction"
-    }
-  },
-  "/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/": {
-    "get": {
-      "title": "List Multisig Confirmations"
-    },
-    "post": {
-      "title": "Confirm Multisig Transaction"
     }
   },
   "/api/v1/notifications/devices/": {
@@ -167,25 +141,9 @@
       "title": "List Incoming Transfers"
     }
   },
-  "/api/v1/safes/{address}/messages/": {
-    "get": {
-      "title": "List Messages"
-    },
-    "post": {
-      "title": "Create Signed Message"
-    }
-  },
   "/api/v1/safes/{address}/module-transactions/": {
     "get": {
       "title": "List a Safe's Module Transactions"
-    }
-  },
-  "/api/v2/safes/{address}/multisig-transactions/": {
-    "get": {
-      "title": "List a Safe's Multisig Transactions"
-    },
-    "post": {
-      "title": "Create Multisig Transaction"
     }
   },
   "/api/v1/safes/{address}/multisig-transactions/estimations/": {
@@ -255,19 +213,6 @@
   "/api/v1/user-operations/{user_operation_hash}/": {
     "get": {
       "title": "Get User Operation"
-    }
-  },
-  "/api/v2/delegates/": {
-    "get": {
-      "title": "List Delegates"
-    },
-    "post": {
-      "title": "Create Delegate"
-    }
-  },
-  "/api/v2/delegates/{delegate_address}/": {
-    "delete": {
-      "title": "Delete Delegate"
     }
   },
   "/api/v2/safes/{address}/collectibles/": {
