@@ -23,7 +23,7 @@ Owners use the Safe Queue Service to propose a transaction, collect the signatur
 Send an API key with every request, in the `Authorization` header as a bearer token. To get a key, see [How to use API keys](./how-to-use-api-keys.mdx).
 
 ```bash
-curl "https://api.safe.global/queue/api/v1/safes/0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE/multisig-transactions?chainId=1" \
+curl "https://api.safe.global/queue/api/v1/safes/0x5298A93734C3D979eF1f23F78eBB871879A21F22/multisig-transactions?chainId=11155111" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -38,8 +38,9 @@ The API key identifies your app. The signatures in the request decide who can wr
 | Propose a transaction | A Safe owner, a delegate of an owner, or an owner of a Safe that owns this Safe |
 | Confirm a transaction or a message | Safe owners |
 | Propose a message | A Safe owner, or an owner of a Safe that owns this Safe. Delegates can't propose messages. |
-| Delete a pending transaction | The owner, delegate or owner of an owner Safe that proposed it |
-| Add, edit or delete a delegate | The delegator |
+| Delete a pending transaction | The owner, delegate, or owner of an owner Safe that proposed it |
+| Add or edit a delegate | The delegator |
+| Delete a delegate | The delegator or the delegate |
 
 When a delegate proposes a transaction, send the delegate's signature alone. Owners add their confirmations afterward.
 
@@ -49,7 +50,7 @@ Delegate changes and transaction deletions use [EIP-712](https://eips.ethereum.o
 - The message contains a time-based one-time password (TOTP): the Unix time in seconds divided by 3600, rounded down. It changes every hour.
 - The service accepts the TOTP of the current hour and of the previous hour.
 
-Delegate signatures made for the Safe Transaction Service aren't valid in the Safe Queue Service. The delegate typed data adds a `safe` field to the domain and an `action` field to the message, with the value `add`, `edit` or `delete`. The domain `chainId` is `0` for a delegate that's valid on all chains, and `safe` is the zero address for a delegate that's valid for all Safes.
+Delegate signatures made for the Safe Transaction Service aren't valid in the Safe Queue Service. The delegate typed data adds a `safe` field to the domain and an `action` field to the message, with the value `add`, `edit`, or `delete`. The domain `chainId` is `0` for a delegate that's valid on all chains, and `safe` is the zero address for a delegate that's valid for all Safes.
 
 ## Chain handling
 
@@ -63,9 +64,9 @@ The chain is never part of the path. Each endpoint takes it in a different way. 
 | `GET /multisig-transactions` | Each `safes` value has the format `address[:chainId...]`, for example `0xABC...:1:137`. Repeat `safes` for each Safe, up to 100 values. A Safe without chain IDs returns results from all its chains. |
 | `GET /multisig-transactions/queue` | Same `safes` format, but every Safe needs at least one chain ID. Without one, the request fails with 422. |
 | `GET /multisig-transactions/{safe_tx_hash}`, `GET /multisig-transactions/batch`, `GET /messages/{message_hash}` | No chain. The hash identifies the transaction or message. |
-| `GET /delegates` | `chainId` is an optional filter. It only narrows a query by `safe`, `delegator` or `delegate` and can't be used on its own. |
+| `GET /delegates` | `chainId` is an optional filter. It only narrows a query by `safe`, `delegator`, or `delegate` and can't be used on its own. It's an exact match, so it doesn't return delegates that are valid on all chains. |
 
-The supported chains come from the Safe Config Service. No endpoint lists them. Write requests and `/multisig-transactions/queue` requests return 503 when the service can't get the Safe information from the chain.
+The supported chains come from the Safe Config Service. No endpoint lists them. On a chain that the service doesn't support, write requests and `/multisig-transactions/queue` return 503 because the Safe information is unavailable.
 
 ## Migrate from the Safe Transaction Service
 
@@ -97,7 +98,7 @@ The Safe Transaction Service runs one instance per chain, under `https://api.saf
 
 ### Responses
 
-In a transaction, `chainId`, `nonce`, `value`, `safeTxGas`, `baseGas` and `gasPrice` are strings. These fields change name:
+In a transaction, `chainId`, `nonce`, `value`, `safeTxGas`, `baseGas`, and `gasPrice` are strings. These fields change name:
 
 | Safe Transaction Service | Safe Queue Service |
 | --- | --- |
@@ -105,11 +106,11 @@ In a transaction, `chainId`, `nonce`, `value`, `safeTxGas`, `baseGas` and `gasPr
 | `isSuccessful` | `failed`, with the opposite meaning |
 | `submissionDate` | `created` and `modified` |
 
-The transaction has no `dataDecoded`, `isExecuted`, `executionDate`, `blockNumber`, `confirmationsRequired` or `trusted` field. To filter by execution state, use the `executed` query parameter of the list endpoints.
+The transaction has no `dataDecoded`, `isExecuted`, `executionDate`, `blockNumber`, `confirmationsRequired`, or `trusted` field. To filter by execution state, use the `executed` query parameter of the list endpoints.
 
 New transaction fields:
 
-- `proposedVia`: how the proposal was signed, one of `OWNER`, `DELEGATE`, `NESTED_OWNER` or `UNKNOWN`.
+- `proposedVia`: how the proposal was signed, one of `OWNER`, `DELEGATE`, `NESTED_OWNER`, or `UNKNOWN`.
 - `proposedBy`: the address that signed the proposal, when it differs from `proposer`.
 - `originName` and `originUrl`: the name and URL of the app that sent the proposal.
 - `notes`: free text sent with the proposal.
@@ -135,4 +136,4 @@ To decode the `data` of a transaction, use the [Safe Decoder Service](./safe-dec
 
 ## What stays in the Safe Transaction Service
 
-The Safe Transaction Service keeps serving the data it indexes from the chain: the history of all executed transactions, including incoming transfers and module transactions, balances, Safe information, ERC-4337 Safe operations and gas estimations. The Safe Queue Service only returns multisig transactions, executed or not. See the [Safe Transaction Service overview](./transaction-service-overview.mdx).
+The Safe Transaction Service keeps serving the data it indexes from the chain: the history of all executed transactions, including incoming transfers and module transactions, balances, Safe information, ERC-4337 Safe operations, and gas estimations. The Safe Queue Service only returns multisig transactions, executed or not. See the [Safe Transaction Service overview](./transaction-service-overview.mdx).

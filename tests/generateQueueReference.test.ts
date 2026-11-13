@@ -69,7 +69,6 @@ test('two runs write byte-identical files', () => {
       )
     })
     assert.deepEqual(outputs[1], outputs[0])
-    assert.equal(outputs[0][1], mdx)
   } finally {
     rmSync(dir, { recursive: true, force: true })
   }

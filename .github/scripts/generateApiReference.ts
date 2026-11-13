@@ -8,7 +8,10 @@ require('dotenv').config({ path: '.env' })
 const pathsMetadata = require('../../components/ApiReference/paths-metadata.json')
 const txServiceNetworks = require('../../components/ApiReference/tx-service-networks.json')
 // Operations served by the Safe Queue Service are not documented here.
-const removedOperations: { path: string; methods: string[] }[] = require('../../components/ApiReference/tx-service-removed-operations.json')
+const removedOperations: {
+  path: string
+  methods: string[]
+}[] = require('../../components/ApiReference/tx-service-removed-operations.json')
 
 const curlify = (req: any) =>
   `curl -X ${req.method} ${req.baseUrl}${req.url} \\

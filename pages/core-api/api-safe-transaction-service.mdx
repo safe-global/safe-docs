@@ -67,7 +67,7 @@ The [Safe Queue Service](./safe-queue-service-overview.mdx) collects off-chain t
 
 ### Endpoints
 
-The following Safe Queue Service endpoints let us propose a transaction and collect every confirmation (off-chain signatures):
+The following Safe Queue Service endpoints let you propose a transaction and collect every confirmation (off-chain signatures):
 
 - `POST /api/v1/multisig-transactions`: Creates a new transaction for the Safe and chain given in the body and requires at least one signature.
 - `POST /api/v1/multisig-transactions/{safe_tx_hash}/signatures`: Adds one or more confirmations and needs the `safe_tx_hash`.
@@ -127,7 +127,7 @@ The message can be a string (EIP-191 is used to get the hash) or an object EIP-7
 
 ### Endpoints
 
-The following Safe Queue Service endpoints let us create a message and collect its signatures:
+The following Safe Queue Service endpoints let you create a message and collect its signatures:
 
 - `GET /api/v1/safes/{address}/messages`: Returns the messages created for the given Safe address, with an optional `chainId` filter.
 - `POST /api/v1/safes/{address}/messages`: Creates a message for the chain given in the body with at least one signature.

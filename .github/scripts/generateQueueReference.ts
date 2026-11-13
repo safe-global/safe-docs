@@ -368,7 +368,10 @@ function toMdx(description: string): string {
 
 // The components after the description start at column 0: indented, they would continue a list
 // that ends the description.
-function methodContent(spec: Spec, { path, method, operation }: Endpoint) {
+function methodContent(
+  spec: Spec,
+  { path, method, operation }: Endpoint
+): string {
   const schemas = spec.components?.schemas ?? {}
   const title = operation.title ?? ''
   const parameters = (operation.parameters ?? []).map(p =>
