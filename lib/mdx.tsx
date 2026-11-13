@@ -50,7 +50,10 @@ export const getHeadingChildren = (
       const title =
         pathsMetadata?.[cleanPath as '/api/v1/about/ethereum-rpc/']?.[
           methodName as 'get'
-        ]?.title ?? method.path + ' - ' + methodName?.toUpperCase()
+        ]?.title ??
+        (method.title !== '' && method.title !== undefined
+          ? method.title
+          : method.path + ' - ' + methodName?.toUpperCase())
       return {
         text: title,
         link: `#${slugify(title)}`,

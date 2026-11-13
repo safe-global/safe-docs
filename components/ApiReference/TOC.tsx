@@ -21,6 +21,11 @@ export const tocWidthMd = 230
 export const tocWidthSm = 200
 export const navHeight = 94
 
+const overviewPages = new Map([
+  ['safe-decoder-service', '/core-api/safe-decoder-service-overview'],
+  ['safe-queue-service', '/core-api/safe-queue-service-overview']
+])
+
 const TableOfContents: React.FC<{
   headings: Heading[]
   networkName: string
@@ -66,9 +71,8 @@ const TableOfContents: React.FC<{
         >
           <Link
             href={
-              networkName === 'safe-decoder-service'
-                ? '/core-api/safe-decoder-service-overview'
-                : '/core-api/transaction-service-overview'
+              overviewPages.get(networkName) ??
+              '/core-api/transaction-service-overview'
             }
             color='grey.600'
             sx={{

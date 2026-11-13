@@ -421,6 +421,23 @@ test('takes the spec of the API URL that comes first in the reference', () => {
   )
 })
 
+test('writes an OpenAPI spec stub for the queue service reference page', () => {
+  const files = generated({
+    change: dir => {
+      addPage('queue', apiReferencePage('safe-queue-service'))(dir)
+      addReference(
+        'safe-queue-service',
+        'curl https://api.safe.global/queue/api/v1/delegates\n'
+      )(dir)
+    }
+  })
+  const spec = 'https://api.safe.global/queue/openapi.json'
+  assert.equal(
+    files.get('queue.md'),
+    specPage('Safe Queue Service', specText('Safe Queue Service', spec))
+  )
+})
+
 test('replaces only the ApiReference lines and keeps the rest of the page', () => {
   const prose =
     '# Prose\n\nRead this first.\n\n<ApiReference networkName="mainnet"/>\n\nThen this.\n'
