@@ -4,7 +4,9 @@ import Reference from '../../assets/svg/reference.svg'
 
 # Safe Transaction Service API
 
-The Safe Transaction Service offers a REST API to track transactions sent via the Safe Smart Account. It also provides endpoints to send transactions, allow off-chain collecting of signatures, or informing the owners about a pending transaction to be sent to the blockchain.
+The Safe Transaction Service offers a REST API to track transactions sent via the Safe Smart Account. It indexes executed transactions, on-chain confirmations, configuration changes, and token transfers, and serves this on-chain data for each supported chain.
+
+The [Safe Queue Service](./safe-queue-service-overview.mdx) handles transaction proposals, off-chain signatures, messages, and delegates, with a single service for all supported chains.
 
 Additionally, the Safe\{Core\} SDK provides the [API Kit](../sdk/api-kit.mdx), a TypeScript client for the Safe Transaction Service API.
 

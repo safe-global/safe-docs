@@ -5,8 +5,8 @@ The Safe Transaction Service tracks transactions sent via Safe contracts. It ind
 ## Key Features
 
 - [Blockchain indexing](#blockchain-indexing): Executed transactions, configuration changes, ERC-20/721 transfers, and on-chain confirmations are automatically indexed from the blockchain.
-- [Off-chain transaction signatures](#off-chain-transaction-signatures): Transactions can be sent to the service, enabling off-chain signature collection. This feature helps inform owners about pending transactions awaiting confirmation for execution.
-- [Off-chain messages](#off-chain-messages): The service can collect off-chain signatures to confirm messages following [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271).
+- [Off-chain transaction signatures](#off-chain-transaction-signatures): The Safe Queue Service collects transaction proposals and their off-chain signatures, while the Safe Transaction Service indexes on-chain confirmations and executions.
+- [Off-chain messages](#off-chain-messages): The Safe Queue Service collects off-chain signatures to confirm messages following [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271).
 - [Transaction decoding](#transaction-decoder): The service keeps getting source and ABIs from contracts that interact with Safe to decode these interactions.
 
 ## Technology stack overview
@@ -63,16 +63,16 @@ Every block is marked as `not confirmed` during indexing unless it has some dept
 
 ## Off-chain transaction signatures
 
-The Safe Transaction Service can collect off-chain transaction signatures, allowing the owners to share their signatures to reach the required threshold before executing a transaction and spending less gas than on-chain approvals.
+The [Safe Queue Service](./safe-queue-service-overview.mdx) collects off-chain transaction signatures for every chain, allowing the owners to share their signatures to reach the required threshold before executing a transaction and spending less gas than on-chain approvals. The Safe Transaction Service keeps indexing the on-chain side of this flow: on-chain confirmations and the executed transaction.
 
 ### Endpoints
 
-The following endpoints let us propose a transaction and collect every confirmation (off-chain signatures):
+The following Safe Queue Service endpoints let us propose a transaction and collect every confirmation (off-chain signatures):
 
-- `POST /v2/safes/{address}/multisig-transactions/`: Creates a new transaction and requires at least one signature.
-- `POST /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Adds a new confirmation and needs the `safe_tx_hash`.
-- `GET /v1/multisig-transactions/{safe_tx_hash}/`: Returns all the multi-signature transaction information.
-- `GET /v1/multisig-transactions/{safe_tx_hash}/confirmations/`: Returns the list of all confirmations to a multi-signature transaction.
+- `POST /api/v1/multisig-transactions`: Creates a new transaction for the Safe and chain given in the body and requires at least one signature.
+- `POST /api/v1/multisig-transactions/{safe_tx_hash}/signatures`: Adds one or more confirmations and needs the `safe_tx_hash`.
+- `GET /api/v1/multisig-transactions/{safe_tx_hash}`: Returns all the multi-signature transaction information, including its confirmations.
+- `GET /api/v1/multisig-transactions/queue?safes={address}:{chainId}`: Returns the pending transactions that the owners can still execute.
 
 The following sequence diagram shows a use case for a Safe shared by Alice and Bob where at least one confirmation for each one is required:
 
@@ -80,6 +80,7 @@ The following sequence diagram shows a use case for a Safe shared by Alice and B
 sequenceDiagram
     participant A as Alice
     participant B as Bob
+    participant SafeQueueService
     participant Blockchain
     rect rgba(255,255,255,.1)
     Note over A,B: Process of creating a new Safe 
@@ -93,21 +94,15 @@ sequenceDiagram
     SafeTransactionService->>Firebase: sendEvent SAFE_CREATED
     end
     A-->A: create and sign transaction
-    A->>+SafeTransactionService: proposeTransaction POST /v2/safes/0x5Afe/multisig-transactions/
-    SafeTransactionService-->>-A: Http(201) {Created}
-    SafeTransactionService->>RabbitMQ: sendEvent PENDING_MULTISIG_TRANSACTION
-    SafeTransactionService->>RabbitMQ: sendEvent CONFIRMATION_REQUEST
-    SafeTransactionService->>Firebase: sendEvent PENDING_MULTISIG_TRANSACTION
-    SafeTransactionService->>Firebase: sendEvent CONFIRMATION_REQUEST
-    B->>+SafeTransactionService: GET /v1/safes/0x5Afe/multisig-transactions/?executed=false
-    SafeTransactionService-->>-B: Http(200) {..."safeTxHash":"0x5afe0001"}
+    A->>+SafeQueueService: proposeTransaction POST /api/v1/multisig-transactions
+    SafeQueueService-->>-A: Http(201) {..."safeTxHash":"0x5afe0001"}
+    B->>+SafeQueueService: GET /api/v1/multisig-transactions/queue?safes=0x5Afe:1
+    SafeQueueService-->>-B: Http(200) {..."safeTxHash":"0x5afe0001"}
     B-->B: sign transaction
-    B->>+SafeTransactionService: confirmTransaction POST /v1/multisig-transactions/0x5afe0001/confirmations/
-    SafeTransactionService-->>-B: Http(201) {Created}
-    SafeTransactionService->>RabbitMQ: sendEvent NEW_CONFIRMATION
-    SafeTransactionService->>Firebase: sendEvent NEW_CONFIRMATION
-    A->>+SafeTransactionService: GET /v1/multisig-transactions/0x5afe0001/
-    SafeTransactionService-->>-A: Http(200) {..."safeTxHash":"0x5afe0001"}
+    B->>+SafeQueueService: confirmTransaction POST /api/v1/multisig-transactions/0x5afe0001/signatures
+    SafeQueueService-->>-B: Http(201) [{..."owner":"0xBob"}]
+    A->>+SafeQueueService: GET /api/v1/multisig-transactions/0x5afe0001
+    SafeQueueService-->>-A: Http(200) {..."safeTxHash":"0x5afe0001"}
     A->>+Blockchain: Safe.execTransaction(to = 0x0.., value = 1, signatures = 0x0AliceBob, ..)
     Blockchain-->>-A: Success
     SafeTransactionService->>+Blockchain: picks the transaction (scheduled task)
@@ -123,19 +118,21 @@ sequenceDiagram
 `keccak256(0x19 || 0x1 || domainSeparator || safeTxHashStruct)`  
 where `safeTxHashStruct` is the `hashStruct` of a Safe transaction.
 
-Follow our [guides](../core-api/transaction-service-guides/transactions.mdx) to learn how to create and execute Safe transactions using the Safe Transaction Service.
+Follow our [guides](../core-api/transaction-service-guides/transactions.mdx) to learn how to create and execute Safe transactions using the Safe Queue Service.
 
 ## Off-chain messages 
 
-The Safe Transaction Service can collect the necessary off-chain signatures to confirm a message using [EIP-1271](https://ethereum.org/pt/developers/tutorials/eip-1271-smart-contract-signatures/#example-eip-1271-implementation-safe).    
+The [Safe Queue Service](./safe-queue-service-overview.mdx) collects the necessary off-chain signatures to confirm a message using [EIP-1271](https://ethereum.org/pt/developers/tutorials/eip-1271-smart-contract-signatures/#example-eip-1271-implementation-safe).    
 The message can be a string (EIP-191 is used to get the hash) or an object EIP-712.
 
 ### Endpoints
 
-- `GET /v1/safes/{address}/messages/`: Returns the messages created for the given Safe address.
-- `POST /v1/safes/{address}/messages/`: Creates a message with at least one signature.
-- `GET /v1/messages/{message_hash}/`: Returns a message for a given message hash.
-- `POST /v1/messages/{message_hash}/signatures/`: Adds another signature to the message with the given message hash.
+The following Safe Queue Service endpoints let us create a message and collect its signatures:
+
+- `GET /api/v1/safes/{address}/messages`: Returns the messages created for the given Safe address, with an optional `chainId` filter.
+- `POST /api/v1/safes/{address}/messages`: Creates a message for the chain given in the body with at least one signature.
+- `GET /api/v1/messages/{message_hash}`: Returns a message for a given message hash.
+- `POST /api/v1/messages/{message_hash}/signatures`: Adds one or more signatures to the message with the given message hash.
 
 The following sequence diagram shows a use case for a Safe shared by Alice and Bob where at least one signature for each one is required to confirm a message fully:
 
@@ -144,14 +141,14 @@ sequenceDiagram
     participant A as Alice
     participant B as Bob
     A-->A: Prepare message and sign message_hash
-    A->>+SafeTransactionService: createMessage POST /v1/safes/0x5Afe/messages/
-    SafeTransactionService-->>-A: Http(201) {Created}
+    A->>+SafeQueueService: createMessage POST /api/v1/safes/0x5Afe/messages
+    SafeQueueService-->>-A: Http(201) {Created}
     B-->B: Sign message_hash
-    B->>+SafeTransactionService: addConfirmation POST /v1/messages/{message_hash}/signatures/
-    SafeTransactionService-->>-B: Http(200) 
+    B->>+SafeQueueService: addConfirmation POST /api/v1/messages/{message_hash}/signatures
+    SafeQueueService-->>-B: Http(201) 
 ```
 
-Follow our [guides](../core-api/transaction-service-guides/messages.mdx) to learn how to create and sign messages using the Safe Transaction Service.
+Follow our [guides](../core-api/transaction-service-guides/messages.mdx) to learn how to create and sign messages using the Safe Queue Service.
 
 ## Transaction decoder
 

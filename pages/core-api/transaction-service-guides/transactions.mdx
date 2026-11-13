@@ -6,6 +6,8 @@ This guide shows how to interact with the Safe Transaction Service API to create
 
 The different steps are implemented using [Curl](https://github.com/curl/curl) requests, the [Safe\{Core\} SDK](https://github.com/safe-global/safe-core-sdk) TypeScript library and the [safe-eth-py](https://github.com/safe-global/safe-eth-py) Python library.
 
+The [Safe Queue Service](../safe-queue-service-overview.mdx) serves the endpoints to propose transactions and collect their signatures for every chain, so the Curl requests in this guide call it and pass the chain ID in the request.
+
 ## Prerequisites
 
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm) when using the Safe\{Core\} SDK.
@@ -105,15 +107,16 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'POST' \
-      'https://api.safe.global/tx-service/sep/api/v2/safes/0xc62C5cbB964ffffffffff82f78A4d30713174b2E/multisig-transactions/' \
+      'https://api.safe.global/queue/api/v1/multisig-transactions' \
       -H 'accept: application/json' \
       -H 'Content-Type: application/json' \
       -H 'Authorization: Bearer YOUR_API_KEY' \
       -d '{
+          "chainId": 11155111,
           "safe": "0xc62C5cbB964459F3C984682f78A4d3ffffffffff",
           "to": "0x795D6C88B4Ea3CCffffffffffCa8a11Bc0496228",
           "value": 2000000000000000,
-          "data": null,
+          "data": "0x",
           "operation": 0,
           "gasToken": "0x0000000000000000000000000000000000000000",
           "safeTxGas": 0,
@@ -121,9 +124,9 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
           "gasPrice": 0,
           "refundReceiver": "0x0000000000000000000000000000000000000000",
           "nonce": 15,
-          "contractTransactionHash": "0x56b2931d1053b6afffffffffff3ba29b5c2baafdf1a588850da72a62674941b6",
-          "sender": "0xAA86E576c084aCFa56fc4D0E17967ffffffffff8",
-          "signature": "0x6a2b57023af16241511619ea95f7cd03d00aa6b79d1ca80e21a0b89cd2c38ffffffffff9b738ffbd680c4d717b9b0c9eae568f3edebc40a0c004700bffffffffff"
+          "signatures": [
+              "0x6a2b57023af16241511619ea95f7cd03d00aa6b79d1ca80e21a0b89cd2c38ffffffffff9b738ffbd680c4d717b9b0c9eae568f3edebc40a0c004700bffffffffff"
+          ]
       }'
       ```
     </Tabs.Tab>
@@ -150,7 +153,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       ```
     </Tabs.Tab>
     <Tabs.Tab>
-      We skip this step because the transaction we created in the Transaction Service using Curl already has the signature of the transaction creator. Check the [Create a Safe transaction](#create-a-safe-transaction) step.
+      We skip this step because the transaction we created in the Safe Queue Service using Curl already has the signature of the transaction creator. Check the [Create a Safe transaction](#create-a-safe-transaction) step.
     </Tabs.Tab>
   </Tabs>
 
@@ -194,7 +197,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       ```
     </Tabs.Tab>
     <Tabs.Tab>
-      We skip this step because the transaction we created using Curl is already in the Transaction Service. Check the [Create a Safe transaction](#create-a-safe-transaction) step.
+      We skip this step because the transaction we created using Curl is already in the Safe Queue Service. Check the [Create a Safe transaction](#create-a-safe-transaction) step.
     </Tabs.Tab>
   </Tabs>
 
@@ -221,7 +224,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'GET' \
-      'https://api.safe.global/tx-service/sep/api/v1/multisig-transactions/0xe4ceea4ffffffffff0c9ce0af82780ffffffffffd3096836fff2528cb90d156/' \
+      'https://api.safe.global/queue/api/v1/multisig-transactions/0x56b2931ffffffffff303bbaadf3ba29b5c2baafdf1a5ffffffffff62674941b6' \
       -H 'accept: application/json' \
       -H 'Authorization: Bearer YOUR_API_KEY'
       ```
@@ -269,12 +272,14 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'POST' \
-      'https://api.safe.global/tx-service/sep/api/v1/multisig-transactions/0x56b2931ffffffffff303bbaadf3ba29b5c2baafdf1a5ffffffffff62674941b6/confirmations/' \
+      'https://api.safe.global/queue/api/v1/multisig-transactions/0x56b2931ffffffffff303bbaadf3ba29b5c2baafdf1a5ffffffffff62674941b6/signatures' \
       -H 'accept: application/json' \
       -H 'Content-Type: application/json' \
       -H 'Authorization: Bearer YOUR_API_KEY' \
       -d '{
-          "signature": "0x8c41aaa029db2942a1574c3ec9442b80764e953f21f994edb641d33ffffffffffa55ffffffffffefcaea5b3360bd4c789803fe289b2ad467fc9b3bedb479dad20"
+          "signatures": [
+              "0x8c41aaa029db2942a1574c3ec9442b80764e953f21f994edb641d33ffffffffffa55ffffffffffefcaea5b3360bd4c789803fe289b2ad467fc9b3bedb479dad20"
+          ]
       }'
       ```
     </Tabs.Tab>
@@ -329,7 +334,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'GET' \
-      'https://api.safe.global/tx-service/sep/api/v1/safes/0xc62C5cbB96ffffffffffff2f78A4d3071317ffff/multisig-transactions/?executed=true&limit=1' \
+      'https://api.safe.global/queue/api/v1/safes/0xc62C5cbB964459F3C984682f78A4d3ffffffffff/multisig-transactions?chainId=11155111&executed=true&limit=1' \
       -H 'accept: application/json' \
       -H 'Authorization: Bearer YOUR_API_KEY'
       ```

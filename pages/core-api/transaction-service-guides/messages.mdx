@@ -6,6 +6,8 @@ This guide shows how to interact with the Safe Transaction Service API to create
 
 The different steps are implemented using [Curl](https://github.com/curl/curl) requests, the [Safe\{Core\} SDK](https://github.com/safe-global/safe-core-sdk) TypeScript library and the [safe-eth-py](https://github.com/safe-global/safe-eth-py) Python library.
 
+The [Safe Queue Service](../safe-queue-service-overview.mdx) serves the endpoints to create messages and collect their signatures for every chain, so the Curl requests in this guide call it and pass the chain ID in the request.
+
 ## Prerequisites
 
 1. [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm) when using the Safe\{Core\} SDK.
@@ -95,13 +97,16 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'POST' \
-      'https://api.safe.global/tx-service/sep/api/v1/safes/0xc62C5cbB964459Fffffffffffffffffffff74b2E/messages/' \
+      'https://api.safe.global/queue/api/v1/safes/0xc62C5cbB964459Fffffffffffffffffffff74b2E/messages' \
       -H 'accept: application/json' \
       -H 'Content-Type: application/json' \
       -H 'Authorization: Bearer YOUR_API_KEY' \
       -d '{
+          "chainId": 11155111,
           "message": "A Safe Message",
-          "signature": "0xc8bff3e71314f8b79f6e31ae38c5efba1194e61e8ba6f35742f73af41d95c2fa4118bdfa5df2effffffffffffffffffffe87af26ca7d71e8f008e3bcfc25f1d31c"
+          "signatures": [
+              "0xc8bff3e71314f8b79f6e31ae38c5efba1194e61e8ba6f35742f73af41d95c2fa4118bdfa5df2effffffffffffffffffffe87af26ca7d71e8f008e3bcfc25f1d31c"
+          ]
       }'
       ```
     </Tabs.Tab>
@@ -132,7 +137,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       ```
     </Tabs.Tab>
     <Tabs.Tab>
-      We skip this step because the message we created in the Transaction Service using Curl already has the signature of the message creator. Check the [Create a Safe message](#create-a-safe-message) step.
+      We skip this step because the message we created in the Safe Queue Service using Curl already has the signature of the message creator. Check the [Create a Safe message](#create-a-safe-message) step.
     </Tabs.Tab>
 
   </Tabs>
@@ -179,7 +184,7 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
       ```
     </Tabs.Tab>
     <Tabs.Tab>
-      We skip this step because the message we created using Curl is already in the Transaction Service. Check the [Create a Safe message](#create-a-safe-message) step.
+      We skip this step because the message we created using Curl is already in the Safe Queue Service. Check the [Create a Safe message](#create-a-safe-message) step.
     </Tabs.Tab>
 
   </Tabs>
@@ -220,9 +225,9 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'GET' \
-      'https://api.safe.global/tx-service/sep/api/v1/messages/0xcf2e6b1e26e6930e14bebf120ffffffffffffffffffffb484a787137201ab0df/' \
+      'https://api.safe.global/queue/api/v1/messages/0xcf2e6b1e26e6930e14bebf120ffffffffffffffffffffb484a787137201ab0df' \
       -H 'accept: application/json' \
-      -H 'Authorization: Bearer YOUR_API_KEY' \
+      -H 'Authorization: Bearer YOUR_API_KEY'
       ```
     </Tabs.Tab>
 
@@ -265,12 +270,14 @@ The different steps are implemented using [Curl](https://github.com/curl/curl) r
     <Tabs.Tab>
       ```bash
       curl -X 'POST' \
-      'https://api.safe.global/tx-service/sep/api/v1/messages/0xcf2e6b1e26e6930e14bebf120ffffffffffffffffffffb484a787137201ab0df/signatures/' \
+      'https://api.safe.global/queue/api/v1/messages/0xcf2e6b1e26e6930e14bebf120ffffffffffffffffffffb484a787137201ab0df/signatures' \
       -H 'accept: application/json' \
       -H 'Content-Type: application/json' \
       -H 'Authorization: Bearer YOUR_API_KEY' \
       -d '{
-          "signature": "0xc8bff3e71314f8b79f6e31ae38c5efba1194e61e8ba6f35742f73af4ffffffffffffffffffffe5f84088ba29f51c44ddee87af26ca7d71e8f008e3bcfc25f1d31c"
+          "signatures": [
+              "0xc8bff3e71314f8b79f6e31ae38c5efba1194e61e8ba6f35742f73af4ffffffffffffffffffffe5f84088ba29f51c44ddee87af26ca7d71e8f008e3bcfc25f1d31c"
+          ]
       }'
       ```
     </Tabs.Tab>
