@@ -2,7 +2,14 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
-import { cpSync, mkdtempSync, readFileSync, rmSync } from 'node:fs'
+import {
+  cpSync,
+  existsSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync
+} from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 
@@ -12,6 +19,7 @@ const SCHEMA_FILE =
   'components/ApiReference/schemas/safe-queue-service-swagger.json'
 const MDX_FILE =
   'components/ApiReference/generated/safe-queue-service-reference.mdx'
+const EXAMPLES_DIR = 'components/ApiReference/examples/safe-queue-service'
 const BASE_URL = 'https://api.safe.global/queue'
 const METHODS = ['get', 'post', 'put', 'patch', 'delete']
 
@@ -34,6 +42,9 @@ const operations = Object.entries(schema.paths).flatMap(([route, methods]) =>
 const rendered = operations.filter(
   ({ operation }) => operation.tags[0] !== 'About'
 )
+const examples = [
+  ...mdx.matchAll(/^\/\/ from \.\.\/examples\/safe-queue-service\/(\S+)$/gm)
+].map(([, file]) => file)
 const curls = [...mdx.matchAll(/^curl -X (\w+) ("?)(\S+?)\2(?: \\)?$/gm)].map(
   ([, method, , url]) => ({ method, url })
 )
@@ -59,8 +70,8 @@ test('the committed schema and reference are up to date', () => {
 test('two runs write byte-identical files', () => {
   const dir = mkdtempSync(path.join(tmpdir(), 'queue-reference-'))
   try {
-    for (const file of [SCHEMA_FILE, MDX_FILE])
-      cpSync(path.join(root, file), path.join(dir, file))
+    for (const file of [SCHEMA_FILE, MDX_FILE, EXAMPLES_DIR])
+      cpSync(path.join(root, file), path.join(dir, file), { recursive: true })
     const outputs = [1, 2].map(() => {
       const result = run(dir)
       assert.equal(result.status, 0, result.stdout + result.stderr)
@@ -128,4 +139,41 @@ test('curl samples call the queue service with an API key and clean URLs', () =>
   }
   for (const line of mdx.match(/^curl .*\?.*$/gm) ?? [])
     assert.match(line, / "https:\/\/[^"]+"(?: \\)?$/, line)
+})
+
+test('every referenced TypeScript example exists', () => {
+  assert.ok(examples.length > 0)
+  assert.equal(new Set(examples).size, examples.length)
+  for (const file of examples)
+    assert.ok(existsSync(path.join(root, EXAMPLES_DIR, file)), file)
+})
+
+test('every TypeScript example is referenced', () => {
+  const files = readdirSync(path.join(root, EXAMPLES_DIR))
+  assert.deepEqual(files.sort(), [...examples].sort())
+})
+
+test('a TypeScript tab always comes right before a labelled curl tab', () => {
+  const blocks = [
+    ...mdx.matchAll(
+      /<CH\.Code style=\{\{boxShadow: 'none'\}\}>\n([\s\S]*?)<\/CH\.Code>/g
+    )
+  ].map(([, block]) => block)
+  assert.equal(blocks.length, rendered.length)
+  for (const block of blocks) {
+    const fences = [...block.matchAll(/^```(.*)$/gm)]
+      .map(([, info]) => info)
+      .filter(info => info !== '')
+    assert.ok(
+      (fences.length === 1 && fences[0] === 'bash') ||
+        (fences.length === 2 &&
+          fences[0] === 'js TypeScript' &&
+          fences[1] === 'bash curl'),
+      fences.join(', ')
+    )
+  }
+  assert.equal(
+    blocks.filter(block => block.includes('```js TypeScript')).length,
+    examples.length
+  )
 })

@@ -112,7 +112,11 @@ in a single request.
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash
+```js TypeScript
+// from ../examples/safe-queue-service/-v1-multisig-transactions-post.ts
+```
+
+```bash curl
 curl -X POST https://api.safe.global/queue/api/v1/multisig-transactions \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -459,7 +463,11 @@ transaction parameters, used as the unique identifier for the proposal.
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash
+```js TypeScript
+// from ../examples/safe-queue-service/-v1-multisig-transactions-{safe_tx_hash}-get.ts
+```
+
+```bash curl
 curl -X GET https://api.safe.global/queue/api/v1/multisig-transactions/0x31d71577e5c75ba78e44426aa714bd7915a53ca5a4e6cc41ab5f300b747b420e \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -628,7 +636,11 @@ Same results as `GET /multisig-transactions` with a single `safes` value.
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash
+```js TypeScript
+// from ../examples/safe-queue-service/-v1-safes-{safe}-multisig-transactions-get.ts
+```
+
+```bash curl
 curl -X GET "https://api.safe.global/queue/api/v1/safes/0x5298A93734C3D979eF1f23F78eBB871879A21F22/multisig-transactions?chainId=11155111" \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -819,7 +831,11 @@ Safe on `chainId`.
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash
+```js TypeScript
+// from ../examples/safe-queue-service/-v1-safes-{safe}-messages-post.ts
+```
+
+```bash curl
 curl -X POST https://api.safe.global/queue/api/v1/safes/0x5298A93734C3D979eF1f23F78eBB871879A21F22/messages \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -889,7 +905,11 @@ List the messages of a Safe, newest first.
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash
+```js TypeScript
+// from ../examples/safe-queue-service/-v1-safes-{safe}-messages-get.ts
+```
+
+```bash curl
 curl -X GET "https://api.safe.global/queue/api/v1/safes/0x5298A93734C3D979eF1f23F78eBB871879A21F22/messages?chainId=11155111" \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -959,7 +979,11 @@ Retrieve a Safe message with its confirmations.
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash
+```js TypeScript
+// from ../examples/safe-queue-service/-v1-messages-{message_hash}-get.ts
+```
+
+```bash curl
 curl -X GET https://api.safe.global/queue/api/v1/messages/0x950cfe6090e742b709ab5f662c10c8b4e06d403a2f8c4654d86af45d93fa3777 \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -1025,7 +1049,11 @@ by this request.
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash
+```js TypeScript
+// from ../examples/safe-queue-service/-v1-messages-{message_hash}-signatures-post.ts
+```
+
+```bash curl
 curl -X POST https://api.safe.global/queue/api/v1/messages/0x950cfe6090e742b709ab5f662c10c8b4e06d403a2f8c4654d86af45d93fa3777/signatures \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -1174,7 +1202,11 @@ Replace the values with:
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash
+```js TypeScript
+// from ../examples/safe-queue-service/-v1-delegates-post.ts
+```
+
+```bash curl
 curl -X POST https://api.safe.global/queue/api/v1/delegates \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -1372,7 +1404,11 @@ totp = floor(current_unix_timestamp / 3600)
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash
+```js TypeScript
+// from ../examples/safe-queue-service/-v1-delegates-delete.ts
+```
+
+```bash curl
 curl -X DELETE https://api.safe.global/queue/api/v1/delegates \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
@@ -1446,7 +1482,11 @@ GET /api/v1/delegates?delegator=0xOwner...&limit=50&offset=100
     <CH.Section>
       <CH.Code style={{boxShadow: 'none'}}>
 
-```bash
+```js TypeScript
+// from ../examples/safe-queue-service/-v1-delegates-get.ts
+```
+
+```bash curl
 curl -X GET "https://api.safe.global/queue/api/v1/delegates?chainId=11155111&safe=0x5298A93734C3D979eF1f23F78eBB871879A21F22" \
     -H "Accept: application/json" \
     -H "content-type: application/json" \
