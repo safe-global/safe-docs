@@ -332,9 +332,11 @@ The [Safe Queue Service](../safe-queue-service-overview.mdx) serves the endpoint
       ```
     </Tabs.Tab>
     <Tabs.Tab>
+      The Safe Transaction Service serves the execution details of a transaction, such as its execution date and block number, so this request calls it instead of the Safe Queue Service.
+
       ```bash
       curl -X 'GET' \
-      'https://api.safe.global/queue/api/v1/safes/0xc62C5cbB964459F3C984682f78A4d3ffffffffff/multisig-transactions?chainId=11155111&executed=true&limit=1' \
+      'https://api.safe.global/tx-service/sep/api/v2/safes/0xc62C5cbB964459F3C984682f78A4d3ffffffffff/multisig-transactions/?executed=true&limit=1' \
       -H 'accept: application/json' \
       -H 'Authorization: Bearer YOUR_API_KEY'
       ```

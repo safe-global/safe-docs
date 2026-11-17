@@ -95,9 +95,11 @@ The [Safe Queue Service](../safe-queue-service-overview.mdx) serves the delegate
       ```
     </Tabs.Tab>
     <Tabs.Tab>
+      The `chainId` filter is an exact match: it doesn't return delegates that are valid on all chains, so this request leaves it out and returns the delegates of every chain. Check the `chainId` of each result, which is `null` for a delegate that's valid on all chains.
+
       ```bash
       curl -X 'GET' \
-      'https://api.safe.global/queue/api/v1/delegates?delegator=0xAA86E576c084aFFFFFFFFFFFF7967F10C467d318&chainId=11155111' \
+      'https://api.safe.global/queue/api/v1/delegates?delegator=0xAA86E576c084aFFFFFFFFFFFF7967F10C467d318' \
       -H 'accept: application/json' \
       -H 'Authorization: Bearer YOUR_API_KEY'
       ```
