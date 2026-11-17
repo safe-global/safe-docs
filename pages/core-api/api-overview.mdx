@@ -36,7 +36,7 @@ The Safe Infrastructure consists of the following services:
 
 ## Architecture
 
-Safe\{Wallet\} uses these services to offer functionality to end customers via the web and mobile applications. The [Safe Client Gateway](https://github.com/safe-global/safe-client-gateway-nest) acts as a facade between the end customer and the Safe Infrastructure services and the [Safe Config Service](https://github.com/safe-global/safe-config-service) stores all supported networks and chain-specific variables.
+Safe\{Wallet\} uses these services to offer functionality to end customers via the web and mobile applications. The [Safe Client Gateway](https://github.com/safe-global/safe-client-gateway) acts as a facade between the end customer and the Safe Infrastructure services and the [Safe Config Service](https://github.com/safe-global/safe-config-service) stores all supported networks and chain-specific variables.
 
 Safe's production setup consists of several instances of the Transaction Service orchestrated by the Config Service, which are later consumed by the Safe Client Gateway. The Events Service notifies the Safe Client Gateway when new events are indexed, helping to improve the user experience.
 
