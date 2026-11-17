@@ -6,7 +6,7 @@ This guide shows how to interact with the Safe Transaction Service API to create
 
 The different steps are implemented using [Curl](https://github.com/curl/curl) requests, the [Safe\{Core\} SDK](https://github.com/safe-global/safe-core-sdk) TypeScript library and the [safe-eth-py](https://github.com/safe-global/safe-eth-py) Python library.
 
-The [Safe Queue Service](../safe-queue-service-overview.mdx) serves the endpoints to create messages and collect their signatures for every chain, so the Curl requests in this guide call it and pass the chain ID in the request.
+The [Safe Queue Service](../safe-queue-service-overview.mdx) serves the endpoints to create messages and collect their signatures for every chain, so the Curl requests in this guide call it and pass the chain ID in the request. If your integration still calls the Safe Transaction Service for these endpoints, see the [migration guide](../safe-queue-service-migration.mdx).
 
 ## Prerequisites
 

@@ -1,0 +1,73 @@
+# Migrate from the Safe Transaction Service to the Safe Queue Service
+
+The [Safe Queue Service](./safe-queue-service-overview.mdx) replaces the off-chain queue endpoints of the Safe Transaction Service: transaction proposals, signatures, messages, and delegates. This page lists what changes for an integration that calls those endpoints.
+
+## Endpoint mapping
+
+The Safe Transaction Service runs one instance per chain, under `https://api.safe.global/tx-service/{chain}`. The Safe Queue Service has a single base URL for all chains, `https://api.safe.global/queue`. The following table maps the replaced endpoints:
+
+| Safe Transaction Service | Safe Queue Service |
+| --- | --- |
+| `GET /api/v2/delegates/` | `GET /api/v1/delegates` |
+| `POST /api/v2/delegates/` | `POST /api/v1/delegates` |
+| `DELETE /api/v2/delegates/{delegate_address}/` | `DELETE /api/v1/delegates`, with the delegate in the JSON body |
+| `GET /api/v2/safes/{address}/multisig-transactions/` | `GET /api/v1/safes/{safe}/multisig-transactions` |
+| `POST /api/v2/safes/{address}/multisig-transactions/` | `POST /api/v1/multisig-transactions`, with `safe` and `chainId` in the body |
+| `GET /api/v2/multisig-transactions/{safe_tx_hash}/` | `GET /api/v1/multisig-transactions/{safe_tx_hash}` |
+| `DELETE /api/v2/multisig-transactions/{safe_tx_hash}/` | `DELETE /api/v1/multisig-transactions/{safe_tx_hash}` |
+| `GET /api/v1/multisig-transactions/{safe_tx_hash}/confirmations/` | No equivalent. The confirmations are part of the transaction. |
+| `POST /api/v1/multisig-transactions/{safe_tx_hash}/confirmations/` | `POST /api/v1/multisig-transactions/{safe_tx_hash}/signatures` |
+| `GET /api/v1/safes/{address}/messages/` | `GET /api/v1/safes/{safe}/messages` |
+| `POST /api/v1/safes/{address}/messages/` | `POST /api/v1/safes/{safe}/messages` |
+| `GET /api/v1/messages/{message_hash}/` | `GET /api/v1/messages/{message_hash}` |
+| `POST /api/v1/messages/{message_hash}/signatures/` | `POST /api/v1/messages/{message_hash}/signatures` |
+
+## Request changes
+
+- A transaction proposal sends its signatures in `signatures`, an array of 1 through 50 signatures. It has no `contractTransactionHash` and no `sender` field.
+- The service computes the `safeTxHash` itself and returns the full transaction with status 201.
+- Confirmations go to `POST /api/v1/multisig-transactions/{safe_tx_hash}/signatures` as an array in `signatures`. You can send the signatures of several owners in one request.
+- `DELETE /api/v1/multisig-transactions/{safe_tx_hash}` and `DELETE /api/v1/delegates` take a JSON body with the signature.
+- Delegates have no expiry date.
+
+## Response changes
+
+In a transaction, `chainId`, `nonce`, `value`, `safeTxGas`, `baseGas`, and `gasPrice` are strings. These fields change name:
+
+| Safe Transaction Service | Safe Queue Service |
+| --- | --- |
+| `transactionHash` | `txHash` |
+| `isSuccessful` | `failed`, with the opposite meaning |
+| `submissionDate` | `created` and `modified` |
+
+The transaction has no `dataDecoded`, `isExecuted`, `executionDate`, `blockNumber`, `confirmationsRequired`, or `trusted` field. To filter by execution state, use the `executed` query parameter of the list endpoints.
+
+New transaction fields:
+
+- `proposedVia`: how the proposal was signed, one of `OWNER`, `DELEGATE`, `NESTED_OWNER`, or `UNKNOWN`.
+- `proposedBy`: the address that signed the proposal, when it differs from `proposer`.
+- `originName` and `originUrl`: the name and URL of the app that sent the proposal.
+- `notes`: free text sent with the proposal.
+- `executor`: the account that sent the execution transaction, such as a relayer or a bundler.
+
+Messages add `preparedSignatureEip1271` and have no `safeAppId`.
+
+To decode the `data` of a transaction, use the [Safe Decoder Service](./safe-decoder-service-overview.mdx).
+
+## New endpoints
+
+- `PATCH /api/v1/delegates` updates the label of a delegate.
+- `GET /api/v1/multisig-transactions` lists the transactions of several Safes on several chains in one request.
+- `GET /api/v1/multisig-transactions/queue` lists the pending transactions that can still be executed.
+- `GET /api/v1/multisig-transactions/batch` gets up to 100 transactions by their `safeTxHash`.
+- A transaction proposal can carry a `nestedTransaction`: a transaction of a Safe that this Safe owns, proposed together with the call that approves or executes it.
+
+## Errors and pagination
+
+- Validation errors return 422. The Safe Transaction Service returns 400.
+- Duplicates return 409, for example a transaction or message hash that already exists.
+- Lists take `limit` and `offset`. `limit` defaults to 50 and accepts up to 100.
+
+## What stays in the Safe Transaction Service
+
+The Safe Transaction Service keeps serving the data it indexes from the chain: the history of all executed transactions, including incoming transfers and module transactions, balances, Safe information, ERC-4337 Safe operations, and gas estimations. The Safe Queue Service only returns multisig transactions, executed or not. See the [Safe Transaction Service overview](./transaction-service-overview.mdx).
