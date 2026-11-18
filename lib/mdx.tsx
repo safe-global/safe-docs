@@ -73,6 +73,9 @@ export const getHeadingsFromHtml = (
       headings?.map(heading => {
         const headingText = heading
           .replace(/<[^>]*>/g, '')
+          // Removing tags can join the pieces of a new one, such as
+          // `<scr<b>ipt>`, so drop any angle bracket that is left.
+          .replace(/[<>]/g, '')
           .replace(/&nbsp;/g, ' ')
           .split('.')[0]
           .trim()
