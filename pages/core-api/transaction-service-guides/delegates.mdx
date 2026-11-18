@@ -202,7 +202,7 @@ The [Safe Queue Service](../safe-queue-service-overview.mdx) serves the delegate
       ```
     </Tabs.Tab>
     <Tabs.Tab>
-      The delegator signs the same EIP-712 typed data as in the previous step, with `action` set to `delete`, as described in the "Delete Delegates" endpoint of the [Safe Queue Service reference](../safe-queue-service-reference.mdx). The domain's `chainId` and `safe` select the delegations to delete.
+      The delegator signs the same EIP-712 typed data as in the previous step, with `action` set to `delete`, as described in the "Delete Delegates" endpoint of the [Safe Queue Service reference](../safe-queue-service-reference.mdx). On `DELETE`, `chainId` and `safe` work as filters: a `null` or missing value matches the delegations of every chain or of every Safe.
 
       ```bash
       curl -X 'DELETE' \
