@@ -91,20 +91,17 @@ sequenceDiagram
     Blockchain-->>-SafeTransactionService: transaction information
     SafeTransactionService-->SafeTransactionService: save transaction data (block, block hash, transaction hash, gas used...)
     SafeTransactionService->>RabbitMQ: sendEvent SAFE_CREATED
-    SafeTransactionService->>Firebase: sendEvent SAFE_CREATED
     end
     A-->A: create and sign transaction
     A->>+SafeQueueService: proposeTransaction POST /api/v1/multisig-transactions
     SafeQueueService-->>-A: Http(201) {..."safeTxHash":"0x5afe0001"}
     SafeQueueService->>RabbitMQ: sendEvent PENDING_MULTISIG_TRANSACTION
-    SafeQueueService->>Firebase: sendEvent PENDING_MULTISIG_TRANSACTION
     B->>+SafeQueueService: GET /api/v1/multisig-transactions/queue?safes=0x5Afe:1
     SafeQueueService-->>-B: Http(200) {..."safeTxHash":"0x5afe0001"}
     B-->B: sign transaction
     B->>+SafeQueueService: confirmTransaction POST /api/v1/multisig-transactions/0x5afe0001/signatures
     SafeQueueService-->>-B: Http(201) [{..."owner":"0xBob"}]
     SafeQueueService->>RabbitMQ: sendEvent NEW_CONFIRMATION
-    SafeQueueService->>Firebase: sendEvent NEW_CONFIRMATION
     A->>+SafeQueueService: GET /api/v1/multisig-transactions/0x5afe0001
     SafeQueueService-->>-A: Http(200) {..."safeTxHash":"0x5afe0001"}
     A->>+Blockchain: Safe.execTransaction(to = 0x0.., value = 1, signatures = 0x0AliceBob, ..)
@@ -113,7 +110,6 @@ sequenceDiagram
     Blockchain-->>-SafeTransactionService: transaction information
     SafeTransactionService-->SafeTransactionService: save transaction data (block, block hash, transaction hash, gas used...)
     SafeTransactionService->>RabbitMQ: sendEvent EXECUTED_MULTISIG_TRANSACTION
-    SafeTransactionService->>Firebase: sendEvent EXECUTED_MULTISIG_TRANSACTION
 ```
 
 **What's the `safe_tx_hash`?**
@@ -133,8 +129,8 @@ The message can be a string (EIP-191 is used to get the hash) or an object EIP-7
 
 The following Safe Queue Service endpoints let you create a message and collect its signatures:
 
-- `GET /api/v1/safes/{address}/messages`: Returns the messages created for the given Safe address, with an optional `chainId` filter.
-- `POST /api/v1/safes/{address}/messages`: Creates a message for the chain given in the body with at least one signature.
+- `GET /api/v1/safes/{safe}/messages`: Returns the messages created for the given Safe address, with an optional `chainId` filter.
+- `POST /api/v1/safes/{safe}/messages`: Creates a message for the chain given in the body with at least one signature.
 - `GET /api/v1/messages/{message_hash}`: Returns a message for a given message hash.
 - `POST /api/v1/messages/{message_hash}/signatures`: Adds one or more signatures to the message with the given message hash.
 
