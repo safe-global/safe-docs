@@ -228,7 +228,7 @@ The delegator signs EIP-712 typed data. Compared with the Safe Transaction Servi
 
 - `action` is `add` for `POST`, `edit` for `PATCH`, and `delete` for `DELETE`.
 - The domain `chainId` and `safe` must match the `chainId` and `safe` of the body. A `null` `chainId` in the body is `0` in the domain, and a `null` `safe` is the zero address. The Safe Transaction Service also accepted a domain without `chainId`. The Safe Queue Service doesn't.
-- `POST` and `PATCH` accept only the delegator's signature. `DELETE` accepts the delegator's or the delegate's.
+- `POST` and `PATCH` accept only the signature of the delegator. `DELETE` accepts the signature of the delegator or of the delegate.
 - A Safe can be a delegator with an EIP-1271 signature. The owners of the Safe sign a Safe message whose content is this typed data, and the request sends the `preparedSignatureEip1271` of that message when it has enough confirmations. The `totp` must still be valid when the request is sent.
 - An EIP-1271 signature needs a `chainId`. It isn't accepted for a delegation that's valid on all chains.
 
