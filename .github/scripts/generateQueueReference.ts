@@ -24,11 +24,12 @@ const BODY_SAMPLE_SKIPPED = new Set(['nestedTransaction'])
 // Optional query parameters the samples set, so that list requests return data.
 const QUERY_SAMPLED = new Set(['chainId', 'safe'])
 
-// A Sepolia Safe with transactions, a message and a delegate in the service.
-const SAMPLE_SAFE = '0x5298A93734C3D979eF1f23F78eBB871879A21F22'
-const SAMPLE_SAFE_2 = '0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75'
-const SAMPLE_OWNER = '0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2'
-const SAMPLE_DELEGATE = '0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739'
+// A Sepolia Safe with transactions, a message and a delegate in the service. Addresses are
+// lowercase because the API returns them in lowercase.
+const SAMPLE_SAFE = '0x5298a93734c3d979ef1f23f78ebb871879a21f22'
+const SAMPLE_SAFE_2 = '0xcd2e72aebe2a203b84f46deec948e6465db51c75'
+const SAMPLE_OWNER = '0xa6d3debaab2b8093e69109f23a75501f864f74e2'
+const SAMPLE_DELEGATE = '0xe8a11b18da0c02ce6304347d8e0da66c50def739'
 const SAMPLE_SAFE_TX_HASHES = [
   '0x31d71577e5c75ba78e44426aa714bd7915a53ca5a4e6cc41ab5f300b747b420e',
   '0xfcbdc693bdf81f90c7aa39423380328e958f157748b10442aad4b013889e9ed6'
