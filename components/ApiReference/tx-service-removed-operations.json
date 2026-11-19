@@ -1,0 +1,19 @@
+[
+  { "path": "/api/v2/delegates/", "methods": ["get", "post"] },
+  { "path": "/api/v2/delegates/{delegate_address}/", "methods": ["delete"] },
+  {
+    "path": "/api/v2/safes/{address}/multisig-transactions/",
+    "methods": ["get", "post"]
+  },
+  {
+    "path": "/api/v2/multisig-transactions/{safe_tx_hash}/",
+    "methods": ["get", "delete"]
+  },
+  {
+    "path": "/api/v1/multisig-transactions/{safe_tx_hash}/confirmations/",
+    "methods": ["get", "post"]
+  },
+  { "path": "/api/v1/safes/{address}/messages/", "methods": ["get", "post"] },
+  { "path": "/api/v1/messages/{message_hash}/", "methods": ["get"] },
+  { "path": "/api/v1/messages/{message_hash}/signatures/", "methods": ["post"] }
+]

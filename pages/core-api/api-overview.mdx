@@ -26,6 +26,15 @@ The Safe Infrastructure consists of the following services:
   </Grid>
   <Grid item xs={12} md={6}>
     <CustomCard
+      title={'Safe Queue Service'}
+      description={'The Safe Queue Service stores transaction proposals with their off-chain signatures, Safe messages, and delegates. A single instance serves every supported chain, and the chain is never part of the path.'}
+      url={'./safe-queue-service-overview'}
+      icon={<SafeCoreAPI />}
+      newTab={false}
+    />
+  </Grid>
+  <Grid item xs={12} md={6}>
+    <CustomCard
       title={'Safe Events Service'}
       description={'The Events Service handles Safe indexing events and delivers them as HTTP webhooks, connection to the events queue processed by the Transaction Service. The service\'s database stores the configuration of webhook destinations.'}
       url={'https://github.com/safe-global/safe-events-service'}
@@ -57,7 +66,7 @@ sequenceDiagram
     end
     box rgba(255,255,255,.1) Safe Infrastructure
     participant Tx Service
-    
+    participant Queue Service
     participant Events Service
     end
     External Request->>+Client Gateway: GET /v1/chains/1/safes/...
@@ -68,8 +77,8 @@ sequenceDiagram
     Client Gateway->>+External Request: 200 OK /v1/chains/1/safes/...
 
     External Request->>+Client Gateway: POST /v1/chains/1/safes/0x000.../multisig-transactions
-    Client Gateway->>+Tx Service: POST /api/v1/safes/0x000.../multisig-transactions
-    Tx Service->>+Client Gateway: 201 CREATED /api/v1/safes/0x000.../multisig-transactions
+    Client Gateway->>+Queue Service: POST /api/v1/multisig-transactions
+    Queue Service->>+Client Gateway: 201 CREATED /api/v1/multisig-transactions
     Client Gateway->>+External Request: 201 CREATED /v1/chains/1/safes/0x000.../multisig-transactions
     Events Service->>+Client Gateway: POST /v1/hooks/events
     Client Gateway->>+Events Service: 204 NO CONTENT /v1/hooks/events

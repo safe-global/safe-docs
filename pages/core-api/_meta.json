@@ -52,6 +52,20 @@
       "sidebar": false
     }
   },
+  "-- Safe Queue Service": {
+    "type": "separator",
+    "title": "Safe Queue Service"
+  },
+  "safe-queue-service-overview": "Overview",
+  "safe-queue-service-migration": "Migration guide",
+  "safe-queue-service-reference": {
+    "title": "Reference",
+    "theme": {
+      "layout": "full",
+      "toc": false,
+      "sidebar": false
+    }
+  },
   "-- Self-Hosting": {
     "type": "separator",
     "title": "Self-Hosting"

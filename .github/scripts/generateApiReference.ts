@@ -7,6 +7,11 @@ require('dotenv').config({ path: '.env' })
 
 const pathsMetadata = require('../../components/ApiReference/paths-metadata.json')
 const txServiceNetworks = require('../../components/ApiReference/tx-service-networks.json')
+// Operations served by the Safe Queue Service are not documented here.
+const removedOperations: {
+  path: string
+  methods: string[]
+}[] = require('../../components/ApiReference/tx-service-removed-operations.json')
 
 const curlify = (req: any) =>
   `curl -X ${req.method} ${req.baseUrl}${req.url} \\
@@ -272,6 +277,31 @@ const checkMissingPaths = (json: any) => {
   }
 }
 
+const removeOperations = (json: {
+  paths: Record<string, Record<string, object>>
+}) => ({
+  ...json,
+  paths: Object.fromEntries(
+    Object.entries(json.paths)
+      .map(([path, methods]): [string, Record<string, object>] => {
+        const removedMethods =
+          removedOperations.find(
+            operation =>
+              operation.path === path.replace(/^\/tx-service\/[^/]+/, '')
+          )?.methods ?? []
+        return [
+          path,
+          Object.fromEntries(
+            Object.entries(methods).filter(
+              ([method]) => !removedMethods.includes(method)
+            )
+          )
+        ]
+      })
+      .filter(([, methods]) => Object.keys(methods).length > 0)
+  )
+})
+
 const getApiJson = async (
   url: string,
   network: { shortName: string; networkName: string }
@@ -290,7 +320,7 @@ const getApiJson = async (
   }
   const yaml = await response.text()
   const json = YAML.parse(yaml)
-  const withContext = addMethodContext(json)
+  const withContext = addMethodContext(removeOperations(json))
   fs.writeFileSync(
     `./components/ApiReference/schemas/${network.networkName}-swagger.json`,
     JSON.stringify(withContext, null, 2)
@@ -526,6 +556,8 @@ import Link from '@mui/material/Link'
 The Safe Transaction Service API Reference is a collection of endpoints that allow to keep track of Safe transactions.
 
 This service is available on [multiple networks](../../advanced/smart-account-supported-networks.mdx?service=Transaction+Service), at different endpoints.
+
+The [Safe Queue Service](/core-api/safe-queue-service-reference.mdx) serves transaction proposals, confirmations, messages and delegates.
 
 <NetworkSwitcher />
 

@@ -40,6 +40,7 @@ Consider using webhooks to reduce your API usage if you're currently polling for
 | `MESSAGE_CREATED` | A new off-chain message was created. |
 | `MESSAGE_CONFIRMATION` | A confirmation was added to an off-chain message. |
 | `SAFE_CREATED` | A new Safe was created. |
+| `SAFE_CONFIG_UPDATED` | The owners, threshold, modules, guards, fallback handler, or singleton of a Safe changed. |
 | `REORG_DETECTED` | A blockchain reorganization was detected. |
 | `NEW_DELEGATE` | A new delegate was added. |
 | `UPDATED_DELEGATE` | An existing delegate was updated. |
@@ -77,8 +78,11 @@ We recommend configuring an **Authorization header** on your webhook endpoint so
 
 ## Important notes
 
-- Webhook payloads are intentionally minimal. They serve as **signals** to notify your application that something changed. Use the [API](./transaction-service-overview.mdx) to fetch full details after receiving an event.
+- Webhook payloads are intentionally minimal. They serve as **signals** to notify your application that something changed. Use the API to fetch full details after receiving an event: the [Safe Queue Service](./safe-queue-service-overview.mdx) for transaction proposals, confirmations, messages, and delegates, and the [Safe Transaction Service](./transaction-service-overview.mdx) for on-chain data.
 - Safe Infrastructure sends notifications for blockchain reorgs. Always verify event data against the API to ensure consistency.
+- `SAFE_CONFIG_UPDATED` is sent once per change, not once per transaction. For example, a `swapOwner` call sends two events, one with `REMOVED_OWNER` and one with `ADDED_OWNER`. The threshold is only reported when its value changes.
+- In a `SAFE_CONFIG_UPDATED` event, `change` says what happened, and `data` holds the value that the change refers to: the owner or module that was added or removed, or the new threshold, guard, module guard, fallback handler, or singleton. `change` is one of `ADDED_OWNER`, `REMOVED_OWNER`, `CHANGED_THRESHOLD`, `ENABLED_MODULE`, `DISABLED_MODULE`, `CHANGED_GUARD`, `CHANGED_MODULE_GUARD`, `CHANGED_FALLBACK_HANDLER`, or `CHANGED_MASTER_COPY`.
+- In a `SAFE_CONFIG_UPDATED` event, `status` is the configuration of the Safe right after the Safe call that made the change, not its current state. Two changes made by the same call, such as the two events of a `swapOwner`, can carry the same `status`. Events can arrive out of order, so read the current state of the Safe from the [Safe Transaction Service](./transaction-service-overview.mdx).
 - Treat the payload schema as **forward-compatible**. We may add new fields to existing events at any time, so your endpoint should ignore unknown fields rather than reject them. Avoid strict validation that fails on extra properties.
 
 ## Next steps

@@ -50,7 +50,10 @@ export const getHeadingChildren = (
       const title =
         pathsMetadata?.[cleanPath as '/api/v1/about/ethereum-rpc/']?.[
           methodName as 'get'
-        ]?.title ?? method.path + ' - ' + methodName?.toUpperCase()
+        ]?.title ??
+        (method.title !== '' && method.title !== undefined
+          ? method.title
+          : method.path + ' - ' + methodName?.toUpperCase())
       return {
         text: title,
         link: `#${slugify(title)}`,
@@ -70,6 +73,9 @@ export const getHeadingsFromHtml = (
       headings?.map(heading => {
         const headingText = heading
           .replace(/<[^>]*>/g, '')
+          // Removing tags can join the pieces of a new one, such as
+          // `<scr<b>ipt>`, so drop any angle bracket that is left.
+          .replace(/[<>]/g, '')
           .replace(/&nbsp;/g, ' ')
           .split('.')[0]
           .trim()

@@ -10,13 +10,23 @@ Every page is also available as Markdown at the page URL plus `.md`, for example
 
 ## Safe Transaction Service API
 
-The API never executes transactions. The flow is propose, confirm, execute: a delegate or owner proposes a transaction, owners add confirmations, and an owner executes it onchain, for example in Safe{Wallet}. There is no execute endpoint.
+The Safe Transaction Service indexes onchain data for each chain: the history of all executed transactions, including incoming transfers and module transactions, balances, Safe information and ERC-4337 Safe operations. Transaction proposals, signatures, messages and delegates are in the Safe Queue Service API.
 
-- [OpenAPI spec (Ethereum)](https://api.safe.global/tx-service/eth/schema/): Public OpenAPI 3.1 description of the API, no API key needed. Every supported chain serves its own spec at `https://api.safe.global/tx-service/{chain}/schema/`, where `{chain}` is the chain's EIP-3770 short name, for example `eth`, `base`, `gno` or `sep`. Requests go to `https://api.safe.global/tx-service/{chain}/api/...`, for example `https://api.safe.global/tx-service/eth/api/v2/safes/{address}/multisig-transactions/`.
+- [OpenAPI spec (Ethereum)](https://api.safe.global/tx-service/eth/schema/): Public OpenAPI 3.1 description of the API, no API key needed. Every supported chain serves its own spec at `https://api.safe.global/tx-service/{chain}/schema/`, where `{chain}` is the chain's EIP-3770 short name, for example `eth`, `base`, `gno` or `sep`. Requests go to `https://api.safe.global/tx-service/{chain}/api/...`, for example `https://api.safe.global/tx-service/eth/api/v1/safes/{address}/`.
 - [API Keys & Authentication](https://docs.safe.global/core-api/how-to-use-api-keys): Send `Authorization: Bearer <API key>` with every request.
 - [Quotas & Limits](https://docs.safe.global/core-api/api-authentication): Plans, rate-limit headers and how to handle 429 responses.
-- [Transactions guide](https://docs.safe.global/core-api/transaction-service-guides/transactions): Propose with `POST /api/v2/safes/{address}/multisig-transactions/`, confirm with `POST /api/v1/multisig-transactions/{safe_tx_hash}/confirmations/`.
-- [Delegates guide](https://docs.safe.global/core-api/transaction-service-guides/delegates): Let an owner authorize another address, such as an agent, to propose transactions with `POST /api/v2/delegates/`.
+
+## Safe Queue Service API
+
+The API never executes transactions. The flow is propose, confirm, execute: a delegate or owner proposes a transaction, owners add confirmations, and an owner executes it onchain, for example in Safe{Wallet}. There is no execute endpoint.
+
+- [Safe Queue Service Overview](https://docs.safe.global/core-api/safe-queue-service-overview): One service for all supported chains that stores transaction proposals and their signatures, messages and delegates. The base URL is `https://api.safe.global/queue`. The chain is never part of the URL: send `chainId` in the request body or query. Send `Authorization: Bearer <API key>` with every request.
+- [Safe Queue Service Migration Guide](https://docs.safe.global/core-api/safe-queue-service-migration): How the Safe Transaction Service queue endpoints map to the Safe Queue Service, with the request, response and error changes.
+- [Safe Queue Service Reference](https://docs.safe.global/core-api/safe-queue-service-reference): Every endpoint with a curl example and a sample response.
+- [OpenAPI spec](https://api.safe.global/queue/openapi.json): OpenAPI 3.1 description of the API. Each endpoint path carries its own version, for example `https://api.safe.global/queue/api/v1/multisig-transactions`.
+- [Transactions guide](https://docs.safe.global/core-api/transaction-service-guides/transactions): Propose with `POST /api/v1/multisig-transactions` and `safe`, `chainId` and `signatures` in the body, confirm with `POST /api/v1/multisig-transactions/{safe_tx_hash}/signatures`.
+- [Messages guide](https://docs.safe.global/core-api/transaction-service-guides/messages): Create a message with `POST /api/v1/safes/{safe}/messages`, add signatures with `POST /api/v1/messages/{message_hash}/signatures`.
+- [Delegates guide](https://docs.safe.global/core-api/transaction-service-guides/delegates): Let an owner authorize another address, such as an agent, to propose transactions with `POST /api/v1/delegates`.
 
 ## Core Concepts
 
@@ -43,6 +53,7 @@ The API never executes transactions. The flow is propose, confirm, execute: a de
 ## APIs & Infrastructure
 
 - [Transaction Service Overview](https://docs.safe.global/core-api/transaction-service-overview): Understanding the Safe Transaction Service
+- [Safe Queue Service Overview](https://docs.safe.global/core-api/safe-queue-service-overview): Proposing transactions, collecting signatures, messages and delegates on every chain with one service
 - [API Overview](https://docs.safe.global/core-api/api-overview): Introduction to Safe APIs
 - [Safe Installation Overview](https://docs.safe.global/core-api/safe-installation-overview): Deploying Safe infrastructure
 

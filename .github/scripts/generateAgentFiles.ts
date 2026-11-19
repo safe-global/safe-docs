@@ -26,6 +26,12 @@ const API_SPECS = [
     spec: 'openapi.json',
     service: 'Safe Decoder Service',
     notes: []
+  },
+  {
+    api: /https:\/\/api\.safe\.global\/queue\//,
+    spec: 'openapi.json',
+    service: 'Safe Queue Service',
+    notes: []
   }
 ]
 const HEADING = /^# /
