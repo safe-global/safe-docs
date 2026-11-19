@@ -159,7 +159,7 @@
           "Delegates"
         ],
         "summary": "Delete Delegates",
-        "description": "Delete delegate authorization(s).\n\nRevoke delegate permissions by deleting the authorization. Like creation,\ndeletion requires a valid signature from the delegator (Safe owner).\n\n## Deletion Scope\n\n- **Single delegate**: Specify the exact delegate address and chainId/safe\n- **All delegates for a chain**: Use `0x0000000000000000000000000000000000000000`\n  as delegate address, specify chainId\n- **All delegates across all chains**: Use `0x0000000000000000000000000000000000000000`\n  as delegate and omit chainId (or set to null)\n- **All delegates for a Safe**: Specify safe address, omit delegate filter\n\n## Required Signature\n\nThe delegator must sign an EIP-712 typed message:\n- `delegateAddress`: Address to revoke (or ADDRESS_ZERO for all)\n- `totp`: Current TOTP value (calculated same as creation)\n- `action`: The string `\"delete\"`\n\nThe domain's `chainId` and `safe` specify the scope to delete from.\n\nThis prevents unauthorized deletion of delegate permissions.\n\n## EIP-712 Typed Data Structure\n\nThe delegator must sign the following EIP-712 typed data:\n\n```json\n{\n  \"types\": {\n    \"EIP712Domain\": [\n      { \"name\": \"name\", \"type\": \"string\" },\n      { \"name\": \"version\", \"type\": \"string\" },\n      { \"name\": \"chainId\", \"type\": \"uint256\" },\n      { \"name\": \"safe\", \"type\": \"address\" }\n    ],\n    \"Delegate\": [\n      { \"name\": \"delegateAddress\", \"type\": \"address\" },\n      { \"name\": \"totp\", \"type\": \"uint256\" },\n      { \"name\": \"action\", \"type\": \"string\" }\n    ]\n  },\n  \"primaryType\": \"Delegate\",\n  \"domain\": {\n    \"name\": \"Safe Queue Service\",\n    \"version\": \"1.0\",\n    \"chainId\": 1,\n    \"safe\": \"0x0000000000000000000000000000000000000000\"\n  },\n  \"message\": {\n    \"delegateAddress\": \"0x1234567890123456789012345678901234567890\",\n    \"totp\": 473352,\n    \"action\": \"delete\"\n  }\n}\n```\n\n**TOTP Calculation:** Use the same formula as creation:\n```\ntotp = floor(current_unix_timestamp / 3600)\n```\n\n## Deletion Examples\n\n**Delete specific delegate on chain 1, all Safes:**\n- `domain.chainId`: `1`\n- `domain.safe`: `0x0000000000000000000000000000000000000000`\n- `message.delegateAddress`: `0x1234567890123456789012345678901234567890`\n\n**Delete specific delegate on chain 1, specific Safe:**\n- `domain.chainId`: `1`\n- `domain.safe`: `0x5afe00000000000000000000000000000000005afe`\n- `message.delegateAddress`: `0x1234567890123456789012345678901234567890`\n\n**Delete all delegates for this owner on chain 1, all Safes:**\n- `domain.chainId`: `1`\n- `domain.safe`: `0x0000000000000000000000000000000000000000`\n- `message.delegateAddress`: `0x0000000000000000000000000000000000000000`\n\n**Delete all delegates across all chains and all Safes:**\n- `domain.chainId`: `0`\n- `domain.safe`: `0x0000000000000000000000000000000000000000`\n- `message.delegateAddress`: `0x0000000000000000000000000000000000000000`",
+        "description": "Delete delegate authorization(s).\n\nRevoke delegate permissions by deleting the authorization. Like creation,\ndeletion requires a valid signature from the delegator (Safe owner).\n\n## Deletion Scope\n\n- **Single delegate**: Specify the exact delegate address and chainId/safe\n- **All delegates for a chain**: Use `0x0000000000000000000000000000000000000000`\n  as delegate address, specify chainId\n- **All delegates across all chains**: Use `0x0000000000000000000000000000000000000000`\n  as delegate and omit chainId (or set to null)\n- **All delegates for a Safe**: Specify safe address, omit delegate filter\n\n## Required Signature\n\nThe delegator must sign an EIP-712 typed message:\n- `delegateAddress`: Address to revoke (or ADDRESS_ZERO for all)\n- `totp`: Current TOTP value (calculated same as creation)\n- `action`: The string `\"delete\"`\n\nThe domain's `chainId` and `safe` specify the scope to delete from.\n\nThis prevents unauthorized deletion of delegate permissions.\n\n## EIP-712 Typed Data Structure\n\nThe delegator must sign the following EIP-712 typed data:\n\n```json\n{\n  \"types\": {\n    \"EIP712Domain\": [\n      { \"name\": \"name\", \"type\": \"string\" },\n      { \"name\": \"version\", \"type\": \"string\" },\n      { \"name\": \"chainId\", \"type\": \"uint256\" },\n      { \"name\": \"safe\", \"type\": \"address\" }\n    ],\n    \"Delegate\": [\n      { \"name\": \"delegateAddress\", \"type\": \"address\" },\n      { \"name\": \"totp\", \"type\": \"uint256\" },\n      { \"name\": \"action\", \"type\": \"string\" }\n    ]\n  },\n  \"primaryType\": \"Delegate\",\n  \"domain\": {\n    \"name\": \"Safe Queue Service\",\n    \"version\": \"1.0\",\n    \"chainId\": 1,\n    \"safe\": \"0x0000000000000000000000000000000000000000\"\n  },\n  \"message\": {\n    \"delegateAddress\": \"0x1234567890123456789012345678901234567890\",\n    \"totp\": 473352,\n    \"action\": \"delete\"\n  }\n}\n```\n\n**TOTP Calculation:** Use the same formula as creation:\n```\ntotp = floor(current_unix_timestamp / 3600)\n```\n\n## Deletion Examples\n\n**Delete specific delegate on chain 1, all Safes:**\n- `domain.chainId`: `1`\n- `domain.safe`: `0x0000000000000000000000000000000000000000`\n- `message.delegateAddress`: `0x1234567890123456789012345678901234567890`\n\n**Delete specific delegate on chain 1, specific Safe:**\n- `domain.chainId`: `1`\n- `domain.safe`: `0x5afe000000000000000000000000000000005afe`\n- `message.delegateAddress`: `0x1234567890123456789012345678901234567890`\n\n**Delete all delegates for this owner on chain 1, all Safes:**\n- `domain.chainId`: `1`\n- `domain.safe`: `0x0000000000000000000000000000000000000000`\n- `message.delegateAddress`: `0x0000000000000000000000000000000000000000`\n\n**Delete all delegates across all chains and all Safes:**\n- `domain.chainId`: `0`\n- `domain.safe`: `0x0000000000000000000000000000000000000000`\n- `message.delegateAddress`: `0x0000000000000000000000000000000000000000`",
         "operationId": "delete_delegates_api_v1_delegates_delete",
         "requestBody": {
           "required": true,
@@ -247,7 +247,7 @@
                   "type": "string",
                   "pattern": "^0x[0-9a-fA-F]{40}$",
                   "examples": [
-                    "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                    "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                   ]
                 },
                 {
@@ -269,7 +269,7 @@
                   "type": "string",
                   "pattern": "^0x[0-9a-fA-F]{40}$",
                   "examples": [
-                    "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                    "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                   ]
                 },
                 {
@@ -291,7 +291,7 @@
                   "type": "string",
                   "pattern": "^0x[0-9a-fA-F]{40}$",
                   "examples": [
-                    "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                    "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                   ]
                 },
                 {
@@ -1441,7 +1441,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegator",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "signature": {
@@ -1471,7 +1471,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -1485,7 +1485,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegate",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "label": {
@@ -1517,7 +1517,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegator",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "signature": {
@@ -1547,7 +1547,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -1561,7 +1561,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegate",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           }
         },
@@ -1591,7 +1591,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegate",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "delegator": {
@@ -1599,7 +1599,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegator",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "chainId": {
@@ -1620,7 +1620,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -1659,7 +1659,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegator",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "signature": {
@@ -1689,7 +1689,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -1703,7 +1703,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegate",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "label": {
@@ -1822,7 +1822,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Owner",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "signature": {
@@ -1874,7 +1874,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Owner",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "signature": {
@@ -1924,7 +1924,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -1982,7 +1982,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -1997,7 +1997,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -2055,7 +2055,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Safe",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "signatures": {
@@ -2138,7 +2138,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Safe",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "nonce": {
@@ -2152,7 +2152,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -2172,7 +2172,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -2188,7 +2188,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -2242,7 +2242,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -2257,7 +2257,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -2331,7 +2331,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -2390,7 +2390,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -2448,7 +2448,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -2463,7 +2463,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
@@ -2702,7 +2702,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Owner",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "signature": {
@@ -2829,7 +2829,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Safe",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "message": {
@@ -2841,7 +2841,7 @@
             "title": "Proposer",
             "description": "Address credited with the proposal: the signer for `OWNER`, the owner Safe for `NESTED_OWNER`.",
             "examples": [
-              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
             ]
           },
           "proposedVia": {
@@ -2854,7 +2854,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
+                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
                 ]
               },
               {
