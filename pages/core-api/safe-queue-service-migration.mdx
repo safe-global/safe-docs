@@ -273,9 +273,9 @@ In a transaction, `chainId`, `nonce`, `value`, `safeTxGas`, `baseGas`, and `gasP
 | `origin` | `originName`, `originUrl`, and `notes` |
 | `proposedByDelegate` | `proposedBy`, when `proposedVia` is `DELEGATE` |
 | `confirmations[].submissionDate` | `confirmations[].created`, plus `confirmations[].modified`. Confirmations have no `transactionHash`. |
-| `to`, `gasToken`, and `refundReceiver`, with the zero address when they aren't set | `to`, `gasToken`, and `refundReceiver`, with `null` when they aren't set |
+| `to`, `gasToken`, and `refundReceiver`, with the zero address when they aren't set | `to`, `gasToken`, and `refundReceiver`, with `null` when they aren't set or are the zero address. A proposal that sent the zero address gets `null` back. |
 
-`to`, `gasToken`, and `refundReceiver` can be `null`. If your client validates responses with a strict address schema, it rejects the whole page. Use the zero address in their place when you compute the `safeTxHash`.
+`to`, `gasToken`, and `refundReceiver` can be `null`. If your client validates responses with a strict address schema, it rejects the whole page. If your client compares these fields with the zero address, also check for `null`. Use the zero address in their place when you compute the `safeTxHash`.
 
 `proposer` is `null` when `proposedVia` is `UNKNOWN`.
 
@@ -394,7 +394,7 @@ These mistakes return no error, so they're easy to miss:
 - **Custom origin keys.** Proposals copied from the Safe Transaction Service keep only the name, the URL, and the note of the `origin`. Other keys are lost.
 - **Delegates without `chainId`.** A `POST` creates a delegation that's valid on every chain, and a `DELETE` removes the delegate on every chain.
 - **Exact chain match for delegates.** `GET /api/v1/delegates?delegator=0x...&chainId=N` doesn't return the delegates that are valid on all chains. See the [overview](./safe-queue-service-overview.mdx#chain-handling).
-- **`null` addresses in responses.** `to`, `gasToken`, and `refundReceiver` can be `null`. A strict address schema rejects the whole page.
+- **`null` addresses in responses.** `to`, `gasToken`, and `refundReceiver` are `null` when they aren't set or are the zero address, also when the proposal sent the zero address. A strict address schema rejects the whole page, and a comparison with the zero address fails.
 - **Lowercase addresses.** Addresses in responses are lowercase. A case-sensitive comparison with a checksum address fails without an error, and the Safe Transaction Service rejects a lowercase address.
 - **Page size.** The default page has 50 results, not 100.
 - **Signature responses.** The signature endpoints return the new confirmations, not the transaction or message.
