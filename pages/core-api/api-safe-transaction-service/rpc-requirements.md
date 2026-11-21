@@ -11,6 +11,12 @@ To run the Transaction Service in **tracing mode**, you will need a tracing-comp
   - A Transaction Service configured **with a tracing** node can index L2 and non-L2 versions of the Safe contracts.
   - A Transaction Service configured **without a tracing** node can only index L2 versions of the Safe contracts. Indexing mode shouldn't be changed after initializing the service, as the database could become corrupted, so if a tracing node wasn't set up, it shouldn't be added later. The opposite is also problematic.
 
+## Hosted tracing-capable RPC
+
+If you prefer not to operate your own tracing node, the Transaction Service can index from hosted RPC providers that expose the Parity trace namespace (`trace_filter`, `trace_block`, `trace_transaction`). For example:
+
+- [SwiftNodes](https://swiftnodes.io/ethereum-rpc) — Ethereum archive nodes (Erigon) with `trace_filter`, `trace_block`, and `trace_transaction` enabled plus batch request support, on flat-rate pricing so indexer query volume is not metered per request.
+
 ## What RPC methods are used?
 
 For indexing, basic RPC methods are required, and the service uses _batching_ to query the RPC:
