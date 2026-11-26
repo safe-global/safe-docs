@@ -393,7 +393,7 @@ These mistakes return no error, so they're easy to miss:
 
 - **Unknown query parameters.** A snake case or misspelled name is ignored. `nonce_order=desc` on `/queue` falls back to `asc`, so a query for the highest nonce returns the lowest one.
 - **Safe Transaction Service filters.** `modified__gt`, `nonce__gte`, and the other list filters are ignored. The request returns the full list.
-- **`nonce` on the multi-Safe lists.** `GET /api/v1/multisig-transactions` and `GET /api/v1/multisig-transactions/queue` ignore `nonce` and return transactions of every nonce. Only `GET /api/v1/safes/{safe}/multisig-transactions` filters by it.
+- **`nonce` on the multi-Safe lists.** `GET /api/v1/multisig-transactions` and `GET /api/v1/multisig-transactions/queue` ignore `nonce`. The first returns transactions of every nonce, and the second every pending nonce from the current nonce of the Safe. Only `GET /api/v1/safes/{safe}/multisig-transactions` filters by it.
 - **`chainId` on `GET /api/v1/multisig-transactions`.** It's ignored, and the list covers every chain. Put the chain IDs inside `safes`.
 - **Leftover body fields.** A leftover `origin`, `sender`, `contractTransactionHash`, or `expiryDate` is dropped. Check that `originName` and `originUrl` are set.
 - **Custom origin keys.** Proposals copied from the Safe Transaction Service keep only the name, the URL, and the note of the `origin`. Other keys are lost.

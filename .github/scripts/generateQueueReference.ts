@@ -22,7 +22,7 @@ const HIDDEN_TAGS = ['About']
 // Left out of the request body sample: proposing a nested transaction is an advanced case.
 const BODY_SAMPLE_SKIPPED = new Set(['nestedTransaction'])
 // Optional query parameters the samples set, so that list requests return data.
-const QUERY_SAMPLED = new Set(['chainId', 'safe'])
+const QUERY_SAMPLED = new Set(['chainId'])
 // The delegate filters `chainId` and `safe` are exact matches, so they would hide the delegations
 // valid on all chains or for all Safes.
 const QUERY_SAMPLED_BY_PATH: Record<string, Set<string>> = {
