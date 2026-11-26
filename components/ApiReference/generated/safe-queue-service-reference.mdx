@@ -30,7 +30,8 @@ owner of a Safe that owns this Safe.
 1. **Safe Owner**: Any owner can propose with their signature
 2. **Delegate**: An authorized delegate can propose on behalf of an owner
 3. **Nested Safe Owner**: An EOA that owns a Safe owning this Safe, directly
-   or through other Safes (up to `NESTED_OWNER_MAX_DEPTH` levels)
+   or through other Safes, up to the levels set in the `NESTED_OWNER_MAX_DEPTH`
+   configuration parameter (4 by default)
 
 **Proposal Scenarios**
 
@@ -540,8 +541,9 @@ the transaction.
 - **Proposer**: Can delete their own transaction if it is an EOA
 - **Delegate**: Can delete if they proposed it and remain authorized for the proposer
 - **Nested Safe Owner**: Can delete if they proposed it (`proposedBy`) and are
-  still an owner of the Safe, directly or through other Safes (up to
-  `NESTED_OWNER_MAX_DEPTH` levels)
+  still an owner of the Safe, directly or through other Safes, up to the
+  levels set in the `NESTED_OWNER_MAX_DEPTH` configuration parameter (4 by
+  default)
 
 **Signature Requirements**
 
@@ -581,10 +583,12 @@ message limits how long a signature can be replayed.
 
 **TOTP Calculation**
 
-Calculate the TOTP value using: `floor((current_unix_time - 0) / 3600)`
+Calculate the TOTP value using: `floor((current_unix_time - T0) / Tx)`
 
-- **T0**: 0 (epoch start)
-- **Tx**: 3600 seconds (1 hour intervals)
+- **T0**: the `DELEGATE_TOTP_T0` configuration parameter (0, the epoch
+  start, by default)
+- **Tx**: the `DELEGATE_TOTP_INTERVAL_SECONDS` configuration parameter
+  (3600 seconds, 1 hour, by default)
 - The service accepts both current and previous TOTP intervals for clock drift tolerance
 
 <Parameters parameters={[{"name":"safe_tx_hash","in":"path","required":true,"schema":{"type":"string","title":"Safe transaction hash","description":"0x + 64 hexadecimal chars","examples":["0x3fa3d5f3ff6cd3a86d3b0be8a40e3fa7c8c1f38f7a5a5e4f4b9f6d1c2e3a4b5c"],"pattern":"^0x[0-9a-fA-F]{64}$"},"description":"0x + 64 hexadecimal chars"},{"in":"body","name":"body","required":true,"schema":{"refName":"MultisigTransactionDelete","properties":{"signature":{"type":"string","pattern":"^0x([0-9a-fA-F]{2})*$","title":"Signature","description":"EIP-712 `DeleteRequest` signature of the proposer, the delegate or the nested owner that proposed the transaction.","examples":["0xdeadbeef"]}},"type":"object","required":["signature"],"title":"MultisigTransactionDelete"}}]} />
@@ -821,7 +825,8 @@ Safe on `chainId`.
 - **Safe Owner**: every signature is stored as a confirmation, and the
   first signer becomes the proposer
 - **Nested Safe Owner**: an EOA that owns a Safe owning this Safe, directly
-  or through other Safes (up to `NESTED_OWNER_MAX_DEPTH` levels),
+  or through other Safes, up to the levels set in the `NESTED_OWNER_MAX_DEPTH`
+  configuration parameter (4 by default),
   with exactly one `EOA` or `ETH_SIGN` signature. The owner Safe becomes the
   proposer and the signer is reported in `proposedBy`. The signature is
   not stored as a confirmation
@@ -1133,18 +1138,20 @@ The domain encodes the scope: `chainId = 0` means all chains,
 
 **TOTP Calculation**
 
-TOTP (Time-based One-Time Password) is calculated using 1-hour intervals:
+TOTP (Time-based One-Time Password) is calculated as:
 
 ```
-totp = floor((current_unix_timestamp - 0) / 3600)
+totp = floor((current_unix_timestamp - T0) / time_step)
 ```
 
 **Parameters:**
 - `current_unix_timestamp`: Current time in seconds since Unix epoch
-- Time step: 3600 seconds (1 hour)
-- T0 (epoch): 0 (Unix epoch start)
+- `time_step`: the `DELEGATE_TOTP_INTERVAL_SECONDS` configuration parameter
+  (3600 seconds, 1 hour, by default)
+- `T0`: the `DELEGATE_TOTP_T0` configuration parameter (0, the Unix epoch
+  start, by default)
 
-**Example calculation:**
+**Example calculation** with the default values:
 
 Unix timestamp: 1704067200 (2024-01-01 00:00:00 UTC)
 ```
@@ -1381,8 +1388,12 @@ The delegator or the delegate must sign the following EIP-712 typed data:
 
 **TOTP Calculation:** Use the same formula as creation:
 ```
-totp = floor(current_unix_timestamp / 3600)
+totp = floor((current_unix_timestamp - T0) / time_step)
 ```
+
+`time_step` is the `DELEGATE_TOTP_INTERVAL_SECONDS` configuration parameter
+(3600 by default) and `T0` the `DELEGATE_TOTP_T0` configuration parameter
+(0 by default).
 
 **Deletion Examples**
 
