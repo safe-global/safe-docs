@@ -36,7 +36,7 @@ The Safe Infrastructure consists of the following services:
   <Grid item xs={12} md={6}>
     <CustomCard
       title={'Safe Events Service'}
-      description={'The Events Service handles Safe indexing events and delivers them as HTTP webhooks, connection to the events queue processed by the Transaction Service. The service\'s database stores the configuration of webhook destinations.'}
+      description={'The Events Service handles Safe indexing events and delivers them as HTTP webhooks. It reads the events of the Safe Transaction Service and the Safe Queue Service. The service\'s database stores the configuration of webhook destinations.'}
       url={'https://github.com/safe-global/safe-events-service'}
       icon={<SafeCoreSDK />}
       />

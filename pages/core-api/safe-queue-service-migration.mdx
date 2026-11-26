@@ -102,14 +102,15 @@ After, `POST https://api.safe.global/queue/api/v1/multisig-transactions`:
 }
 ```
 
-- `signatures` is required and takes 1 through 50 entries. Unsigned proposals are rejected. If you proposed transactions only to get their decoded data for a preview, use the [Safe Decoder Service](./safe-decoder-service-overview.mdx) instead.
+- `signatures` is required and takes 1 through 50 entries, each up to 2048 bytes. An entry can hold several concatenated signatures. The total number of signatures can't be more than the number of owners of the Safe, or the request returns 422. Unsigned proposals are rejected. If you proposed transactions only to get their decoded data for a preview, use the [Safe Decoder Service](./safe-decoder-service-overview.mdx) instead.
 - The service computes the `safeTxHash` itself and returns the full transaction with status 201. The request has no field for a hash computed by the client. If your client computes a different hash, the signature doesn't match an owner, and the request returns 422. The error message doesn't say that the hash is different.
-- The first signature decides who the proposer is. It can come from a Safe owner, a delegate of an owner, or an owner of a Safe that owns this Safe, directly or through other owner Safes, up to four levels. With a large tree of owner Safes, the service can stop before it finds the signer, and the request returns 422.
+- The first signature decides who the proposer is. It can come from a Safe owner, a delegate of an owner, or an owner of a Safe that owns this Safe, directly or through other owner Safes, up to four levels. With a large tree of owner Safes, the service can stop before it finds the signer, and the request returns 422. If the service can't read part of the tree and doesn't find the signer, the request returns 503.
 - If the first signature is from an owner, every signature in the request must be from a different owner. All of them are stored as confirmations.
 - A delegate, or an owner of an owner Safe, sends exactly one signature. It isn't stored as a confirmation. Owners add their confirmations afterward. An owner of an owner Safe signs with an `EOA` or `ETH_SIGN` signature.
 - The returned transaction can have confirmations that the request didn't send. The service also looks for owners that already approved the hash on-chain with `approveHash`, and stores a confirmation for each one that it finds. This check is best effort and can miss an approval. To make sure an on-chain approval counts, send it as an approved-hash signature in `signatures`.
 - `origin`, a JSON string, is replaced by `originName` (up to 100 characters) and `originUrl` (up to 200 characters). Free text goes in `notes` (up to 200 characters). Other keys that you stored in the `origin` JSON aren't kept.
 - A `nonce` lower than the current nonce of the Safe returns 422.
+- `data` can have up to 128 KiB. A larger value returns 422.
 - A Safe that the service can't find on that chain returns 422, not 404.
 - A valid proposal whose `safeTxHash` is already stored returns 409. This check runs after the others, so a repeated proposal whose nonce is now lower than the nonce of the Safe returns 422. On the Safe Transaction Service, posting the proposal again with a new signature added a confirmation. On the Safe Queue Service, add signatures with `POST /api/v1/multisig-transactions/{safe_tx_hash}/signatures`.
 
@@ -118,7 +119,7 @@ A proposal can also carry a `nestedTransaction`: a transaction of a Safe that th
 ### Signatures
 
 - Add confirmations with `POST /api/v1/multisig-transactions/{safe_tx_hash}/signatures` and a body `{"signatures": [...]}`. The Safe Transaction Service took a single `{"signature"}`.
-- `signatures` takes up to 50 entries, each from a different owner that hasn't confirmed yet. Only owners can confirm. Delegates can't.
+- `signatures` takes up to 50 entries, each up to 2048 bytes. Each signature must come from a different owner that hasn't confirmed yet, and the total can't be more than the number of owners of the Safe, or the request returns 422. Only owners can confirm. Delegates can't.
 - The request is all or nothing. If one signature is from an owner that already confirmed, the whole request returns 409 and no signature is stored. The same owner twice in one request returns 422.
 - An executed transaction takes no more confirmations and returns 422.
 - Messages work the same way, with `POST /api/v1/messages/{message_hash}/signatures`. A message has no executed state, so it always accepts the signature of an owner that hasn't signed yet.
@@ -161,23 +162,25 @@ The signature is an EIP-712 signature of a `DeleteRequest`. Only `EOA` and `ETH_
 
 These signers can delete a pending transaction:
 
-- The proposer. For a proposal made by a delegate, the proposer is the delegating owner.
+- The proposer, if it's an EOA. For a proposal made by a delegate, the proposer is the delegating owner. For a proposal made by an owner of an owner Safe, the proposer is the owner Safe, so it can't delete.
 - The delegate that proposed it, while it's still a delegate of the proposer.
-- The account that signed the proposal as an owner of an owner Safe, while it still owns this Safe, directly or through any owner Safe.
+- The account that signed the proposal as an owner of an owner Safe, while it still owns this Safe, directly or through other owner Safes, up to four levels.
 
 Other results:
 
-- A hash that doesn't exist returns 404.
+- A hash that doesn't exist, or a transaction that is executed or deleted during the request, returns 404.
 - An executed transaction, or a legacy transaction with no proposer data, can't be deleted and returns 422.
 - A signer that isn't in the list, or a `totp` outside the accepted hours, returns 422.
+- For a proposal made by an owner of an owner Safe, the request returns 503 if the service can't read part of the tree of owner Safes and doesn't find the signer.
 
 ### Messages
 
 - Create a message with `POST /api/v1/safes/{safe}/messages` and a body with `chainId`, `message` (a string or an EIP-712 object), `signatures`, and optionally `originName` and `originUrl`.
-- `signatures` takes 1 through 50 entries. The Safe Transaction Service took a single `signature`.
+- `signatures` takes 1 through 50 entries, with the same limits as for transaction proposals. The Safe Transaction Service took a single `signature`.
+- `message` can have up to 64 KiB, measured as compact JSON. A larger value returns 422.
 - The body has no `safeAppId` and no `origin`, and messages have no `notes`.
 - A Safe owner, or an owner of a Safe that owns this Safe, can create a message. Delegates can't, and a delegate signature returns 422.
-- An owner of an owner Safe sends exactly one `EOA` or `ETH_SIGN` signature. It isn't stored as a confirmation, so the message starts with no confirmations.
+- An owner of an owner Safe sends exactly one `EOA` or `ETH_SIGN` signature. It isn't stored as a confirmation, so the message starts with no confirmations. If the service can't read part of the tree of owner Safes and doesn't find the signer, the request returns 503.
 
 ### Delegates
 
@@ -248,7 +251,8 @@ If you migrate gradually, for example per chain or per environment, pick the typ
 
 - The `ordering` parameter is replaced by `nonceOrder`, which accepts only `asc` or `desc`. The default is `asc` on `GET /api/v1/multisig-transactions/queue` and `desc` on `GET /api/v1/multisig-transactions` and `GET /api/v1/safes/{safe}/multisig-transactions`.
 - You can't sort by creation date or by modification date. To sort by last activity, get every page and sort on `modified` in your client.
-- The list filters of the Safe Transaction Service are gone, and the service ignores them without an error. Examples are `nonce`, `nonce__gte`, `modified__gt`, `to`, `value`, `trusted`, `has_confirmations`, `execution_date__gte`, and `submission_date__gte`. The only filters are `executed`, the chain, and the pagination. To find the proposals at a given nonce, get every page and filter in your client.
+- Most list filters of the Safe Transaction Service are gone, and the service ignores them without an error. Examples are `nonce__gte`, `modified__gt`, `to`, `value`, `trusted`, `has_confirmations`, `execution_date__gte`, and `submission_date__gte`. The only filters are `executed`, the chain, `nonce`, and the pagination.
+- `nonce` matches one exact nonce, and only on `GET /api/v1/safes/{safe}/multisig-transactions`. Without `chainId`, it matches that nonce on every chain of the Safe. `GET /api/v1/multisig-transactions` and `GET /api/v1/multisig-transactions/queue` ignore it. To find the proposals at a given nonce on those endpoints, or in a range of nonces, get every page and filter in your client.
 - `GET /api/v1/multisig-transactions/queue` returns only transactions that aren't executed and whose nonce is equal to or higher than the current nonce of the Safe. You don't need to read the nonce of the Safe first.
 - Every Safe in the `safes` of `GET /api/v1/multisig-transactions/queue` needs at least one chain ID, for example `safes=0xA:1:137&safes=0xB:10`. Without one, the request returns 422.
 - `GET /api/v1/multisig-transactions/queue` is all or nothing. If the service can't find one Safe on one of its chains, the whole request returns 422. List only the chains where each Safe is deployed.
@@ -279,7 +283,7 @@ In a transaction, `chainId`, `nonce`, `value`, `safeTxGas`, `baseGas`, and `gasP
 
 `proposer` is `null` when `proposedVia` is `UNKNOWN`.
 
-Addresses in responses are lowercase, for example `0x849d52316331967b6ff1198e5e32a0eb168d039d`. The Safe Transaction Service returned them in EIP-55 checksum format. Compare addresses without case, or convert them to checksum format first. The Safe Transaction Service rejects addresses that aren't in checksum format, so convert an address before you send it there.
+Addresses in responses are in EIP-55 checksum format, like in the Safe Transaction Service, for example `0x849D52316331967b6fF1198e5E32A0eB168D039d`. Requests accept addresses in any case.
 
 These fields are gone. Get them elsewhere:
 
@@ -298,6 +302,7 @@ New transaction fields:
 - `proposedBy`: the address that signed the proposal, when it differs from `proposer`. For `DELEGATE`, `proposer` is the delegating owner and `proposedBy` the delegate. For `NESTED_OWNER`, `proposer` is the owner Safe and `proposedBy` the signer.
 - `originName` and `originUrl`: the name and URL of the app that sent the proposal.
 - `notes`: free text sent with the proposal.
+- `executor`: the account that sent the execution transaction, like a relayer or a bundler, not the direct caller of the Safe. It's `null` while the transaction is pending, and can be `null` for an executed transaction whose executor isn't stored yet.
 
 In messages:
 
@@ -321,7 +326,7 @@ The signature endpoints of transactions and messages return 201 and an array wit
 
 The service changes stored data on its own in two cases:
 
-- When an owner is removed from a Safe, the service deletes the confirmations of that owner from the pending transactions and from the messages of the Safe. It also deletes the delegates of that owner that are scoped to exactly that Safe and chain.
+- When an owner is removed from a Safe, the service deletes the confirmations of that owner from the pending transactions whose nonce is equal to or higher than the current nonce of the Safe, and from the messages of the Safe. It also deletes the delegates of that owner that are scoped to exactly that Safe and chain.
 - After a chain reorganization, an executed transaction can go back to pending. Its `txHash`, `failed`, and `executor` are `null` again.
 
 The Safe Queue Service doesn't send events for these changes. The Safe Transaction Service sends `DELETED_DELEGATE` for the deleted delegates and `REORG_DETECTED` for the reorganization. No event announces the deleted confirmations. If you keep a copy of the queue from webhooks, get the pending transactions and messages of the Safe again a few seconds after an `EXECUTED_MULTISIG_TRANSACTION` or `MODULE_TRANSACTION` event of that Safe.
@@ -351,7 +356,6 @@ The events of the Safe Queue Service differ in these points:
 - `PENDING_MULTISIG_TRANSACTION`, `DELETED_MULTISIG_TRANSACTION`, `MESSAGE_CREATED`, and `MESSAGE_CONFIRMATION` have no `timestamp` field.
 - In delegate events, `chainId` is `"0"` for a delegate that's valid on all chains, `expiryDateSeconds` is always `null`, and `label` is an empty string when the delegate has no label and in every `DELETED_DELEGATE` event.
 - A webhook that filters by chain doesn't receive the events of a delegate that's valid on all chains.
-- Webhook events use checksum addresses, but API responses use lowercase addresses. Compare them without case.
 
 After an event about a proposal, a confirmation, a message, or a delegate, get the details from the Safe Queue Service.
 
@@ -360,7 +364,7 @@ After an event about a proposal, a confirmation, a message, or a delegate, get t
 - `PATCH /api/v1/delegates` updates the label of a delegate.
 - `GET /api/v1/multisig-transactions` lists the transactions of several Safes on several chains in one request.
 - `GET /api/v1/multisig-transactions/queue` lists the pending transactions that can still be executed.
-- `safes` takes up to 100 values on both endpoints. More values return 422.
+- `safes` takes up to 100 values on both endpoints, and up to 500 Safe and chain ID pairs in total. A Safe without chain IDs counts as one pair. More return 422.
 - `GET /api/v1/multisig-transactions/batch` gets up to 100 transactions by their `safeTxHash`. Repeat `safeTxHash` for each hash. More than 100 hashes return 422.
 - The response of `GET /api/v1/multisig-transactions/batch` is a plain array in no particular order, without `count`, `next`, or `previous`. Hashes that don't match a transaction are left out instead of returning an error. Match the results by `safeTxHash`.
 - A request with 100 hashes gets close to the common 8 KB limit for a request line, so send fewer hashes per request if a proxy on your path is stricter.
@@ -371,7 +375,7 @@ After an event about a proposal, a confirmation, a message, or a delegate, get t
 - The Safe Transaction Service returned 400 for signature and authorization failures in confirmations, messages, delegates, and transaction deletions. Its proposal endpoint already returned 422. The Safe Queue Service returns 422 for all of them.
 - 422 responses have two body shapes:
   - `{"detail": [{"loc": ..., "msg": ..., "type": ...}]}`, a list, for most missing or malformed fields and parameters.
-  - `{"detail": "..."}`, a string, for every other rejection, such as an invalid signature, a signer that isn't allowed, a Safe that isn't found, too many `safes` values, or a `GET /api/v1/delegates` request without `safe`, `delegator`, or `delegate`.
+  - `{"detail": "..."}`, a string, for every other rejection, such as an invalid signature, a signer that isn't allowed, a Safe that isn't found, too many `safes` values, or a `GET /api/v1/delegates` request without `safe`, `delegator`, or `delegate`, or with the zero address in one of them.
 - Duplicates return 409: a transaction or message hash that already exists, an owner that already confirmed, or a delegate that already exists for the same delegator, chain, and Safe. The Safe Transaction Service accepted a repeated transaction confirmation, and returned 400 for a duplicate message.
 - Lists take `limit` and `offset` and return the same `count`, `next`, `previous`, and `results` envelope. `limit` defaults to 50 and accepts up to 100. The Safe Transaction Service defaulted to 100. A value above 100, `limit=0`, or a negative `offset` returns 422, so check these values in your client.
 - The endpoints that read the Safe return 503 when the service can't get the information of the chain or of the Safe. That happens on a chain that the service doesn't support, and when that information is temporarily unavailable. The status alone doesn't tell the two cases apart.
@@ -389,13 +393,13 @@ These mistakes return no error, so they're easy to miss:
 
 - **Unknown query parameters.** A snake case or misspelled name is ignored. `nonce_order=desc` on `/queue` falls back to `asc`, so a query for the highest nonce returns the lowest one.
 - **Safe Transaction Service filters.** `modified__gt`, `nonce__gte`, and the other list filters are ignored. The request returns the full list.
+- **`nonce` on the multi-Safe lists.** `GET /api/v1/multisig-transactions` and `GET /api/v1/multisig-transactions/queue` ignore `nonce` and return transactions of every nonce. Only `GET /api/v1/safes/{safe}/multisig-transactions` filters by it.
 - **`chainId` on `GET /api/v1/multisig-transactions`.** It's ignored, and the list covers every chain. Put the chain IDs inside `safes`.
 - **Leftover body fields.** A leftover `origin`, `sender`, `contractTransactionHash`, or `expiryDate` is dropped. Check that `originName` and `originUrl` are set.
 - **Custom origin keys.** Proposals copied from the Safe Transaction Service keep only the name, the URL, and the note of the `origin`. Other keys are lost.
 - **Delegates without `chainId`.** A `POST` creates a delegation that's valid on every chain, and a `DELETE` removes the delegate on every chain.
 - **Exact chain match for delegates.** `GET /api/v1/delegates?delegator=0x...&chainId=N` doesn't return the delegates that are valid on all chains. See the [overview](./safe-queue-service-overview.mdx#chain-handling).
 - **`null` addresses in responses.** `to`, `gasToken`, and `refundReceiver` are `null` when they aren't set or are the zero address, also when the proposal sent the zero address. A strict address schema rejects the whole page, and a comparison with the zero address fails.
-- **Lowercase addresses.** Addresses in responses are lowercase. A case-sensitive comparison with a checksum address fails without an error, and the Safe Transaction Service rejects a lowercase address.
 - **Page size.** The default page has 50 results, not 100.
 - **Signature responses.** The signature endpoints return the new confirmations, not the transaction or message.
 - **`/batch` results.** They come in no particular order, and unknown hashes are left out.
@@ -411,7 +415,7 @@ These mistakes return no error, so they're easy to miss:
 7. Deletion: sign with the domain name `Safe Queue Service` and an `EOA` or `ETH_SIGN` signature.
 8. Messages: send `chainId` and `signatures`, replace `origin` with `originName` and `originUrl`, remove `safeAppId`, and filter lists by chain.
 9. Delegates: sign the new typed data with the `safe` domain field and the `action` field, send `chainId` to keep a delegation on one chain, move the delegate from the URL to the `DELETE` body, scope list queries by `safe`, `delegator`, or `delegate`, rename with `PATCH`, and drop the expiry date.
-10. Response parsing: accept `null` in `to`, `gasToken`, and `refundReceiver`, decimal strings for numbers, `created` instead of `submissionDate`, `txHash` and `failed`, new values of `proposedVia`, and lowercase addresses. Get `confirmationsRequired` from the Safe threshold and `dataDecoded` from the Safe Decoder Service.
+10. Response parsing: accept `null` in `to`, `gasToken`, and `refundReceiver`, decimal strings for numbers, `created` instead of `submissionDate`, `txHash` and `failed`, and new values of `proposedVia`. Get `confirmationsRequired` from the Safe threshold and `dataDecoded` from the Safe Decoder Service.
 11. Pending queue: replace `executed=false&nonce__gte=…` with `GET /api/v1/multisig-transactions/queue`, list only the chains where each Safe is deployed, and sort by `modified` in your client if you need it.
 12. Errors: expect 422 instead of 400 for signature and authorization failures, handle both shapes of `detail`, expect 409 for duplicates, and treat 503 as possibly temporary.
 13. Webhooks: accept events without `timestamp`, and get the details of proposals, confirmations, messages, and delegates from the Safe Queue Service.
