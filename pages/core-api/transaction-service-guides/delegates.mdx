@@ -6,7 +6,7 @@ This guide shows how to interact with the Safe Transaction Service API to manage
 
 The different steps are implemented using [Curl](https://github.com/curl/curl) requests, the [Safe\{Core\} SDK](https://github.com/safe-global/safe-core-sdk) TypeScript library and the [safe-eth-py](https://github.com/safe-global/safe-eth-py) Python library.
 
-The [Safe Queue Service](../safe-queue-service-overview.mdx) serves the delegate endpoints for every chain, so the Curl requests in this guide call it and pass the chain ID in the request. If your integration still calls the Safe Transaction Service for these endpoints, see the [migration guide](../safe-queue-service-migration.mdx).
+The [Safe Queue Service](../safe-queue-service-overview.mdx) serves the delegate endpoints for every chain, so the Curl requests in this guide call it. The requests that add and delete a delegate pass the chain ID in the body. If your integration still calls the Safe Transaction Service for these endpoints, see the [migration guide](../safe-queue-service-migration.mdx).
 
 ## Prerequisites
 
@@ -59,7 +59,7 @@ The [Safe Queue Service](../safe-queue-service-overview.mdx) serves the delegate
 
   {/* <!-- vale on --> */}
 
-  ### Get the delegates from a Safe
+  ### Get the delegates
 
   {/* <!-- vale off --> */}
 
@@ -202,7 +202,7 @@ The [Safe Queue Service](../safe-queue-service-overview.mdx) serves the delegate
       ```
     </Tabs.Tab>
     <Tabs.Tab>
-      The delegator signs the same EIP-712 typed data as in the previous step, with `action` set to `delete`, as described in the "Delete Delegates" endpoint of the [Safe Queue Service reference](../safe-queue-service-reference.mdx). On `DELETE`, `chainId` and `safe` work as filters: a `null` or missing value matches the delegations of every chain or of every Safe.
+      The delegator or the delegate signs the same EIP-712 typed data as in the previous step, with `action` set to `delete`, as described in the "Delete Delegates" endpoint of the [Safe Queue Service reference](../safe-queue-service-reference.mdx). On `DELETE`, `chainId` and `safe` work as filters: a `null` or missing value matches the delegations of every chain or of every Safe.
 
       ```bash
       curl -X 'DELETE' \

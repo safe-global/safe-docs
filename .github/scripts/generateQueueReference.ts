@@ -22,14 +22,18 @@ const HIDDEN_TAGS = ['About']
 // Left out of the request body sample: proposing a nested transaction is an advanced case.
 const BODY_SAMPLE_SKIPPED = new Set(['nestedTransaction'])
 // Optional query parameters the samples set, so that list requests return data.
-const QUERY_SAMPLED = new Set(['chainId', 'safe'])
+const QUERY_SAMPLED = new Set(['chainId'])
+// The delegate filters `chainId` and `safe` are exact matches, so they would hide the delegations
+// valid on all chains or for all Safes.
+const QUERY_SAMPLED_BY_PATH: Record<string, Set<string>> = {
+  '/api/v1/delegates': new Set(['delegator'])
+}
 
-// A Sepolia Safe with transactions, a message and a delegate in the service. Addresses are
-// lowercase because the API returns them in lowercase.
-const SAMPLE_SAFE = '0x5298a93734c3d979ef1f23f78ebb871879a21f22'
-const SAMPLE_SAFE_2 = '0xcd2e72aebe2a203b84f46deec948e6465db51c75'
-const SAMPLE_OWNER = '0xa6d3debaab2b8093e69109f23a75501f864f74e2'
-const SAMPLE_DELEGATE = '0xe8a11b18da0c02ce6304347d8e0da66c50def739'
+// A Sepolia Safe with transactions, a message and a delegate in the service.
+const SAMPLE_SAFE = '0x5298A93734C3D979eF1f23F78eBB871879A21F22'
+const SAMPLE_SAFE_2 = '0xcd2E72aEBe2A203b84f46DEEC948E6465dB51c75'
+const SAMPLE_OWNER = '0xa6d3DEBAAB2B8093e69109f23A75501F864F74e2'
+const SAMPLE_DELEGATE = '0xe8A11B18DA0C02ce6304347D8E0DA66C50dEf739'
 const SAMPLE_SAFE_TX_HASHES = [
   '0x31d71577e5c75ba78e44426aa714bd7915a53ca5a4e6cc41ab5f300b747b420e',
   '0xfcbdc693bdf81f90c7aa39423380328e958f157748b10442aad4b013889e9ed6'
@@ -293,10 +297,11 @@ function resolveParameter(
 const jsonSchema = (content?: Content): Schema | undefined =>
   content?.['application/json']?.schema
 
-function queryString(parameters: Parameter[]): string {
+function queryString(path: string, parameters: Parameter[]): string {
+  const sampledNames = QUERY_SAMPLED_BY_PATH[path] ?? QUERY_SAMPLED
   const pairs = parameters
     .filter(p => p.in === 'query')
-    .filter(p => p.required === true || QUERY_SAMPLED.has(p.name))
+    .filter(p => p.required === true || sampledNames.has(p.name))
     .flatMap(p =>
       [sample(p.schema ?? {}, p.name)].flat().map(value => `${p.name}=${value}`)
     )
@@ -416,7 +421,7 @@ function methodContent(
 ${JSON.stringify(sample(successSchema), null, 2)}
 \`\`\``
   const resolvedPath = pathWithParams(path, parameters)
-  const url = BASE_URL + resolvedPath + queryString(parameters)
+  const url = BASE_URL + resolvedPath + queryString(path, parameters)
   const bodySample =
     body === undefined ? undefined : sample(body, undefined, true)
   const example = `${EXAMPLES_DIR}/${slugify(path).replace('-api', '')}-${method}.ts`

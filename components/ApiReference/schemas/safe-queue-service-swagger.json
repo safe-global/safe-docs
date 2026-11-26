@@ -3,7 +3,7 @@
   "info": {
     "title": "Safe Queue Service",
     "description": "Service for handling offchain Safe Multisig Transactions",
-    "version": "0.10.1"
+    "version": "0.12.0"
   },
   "paths": {
     "/api/v1/about": {
@@ -35,7 +35,7 @@
           "Delegates"
         ],
         "summary": "Create Delegate",
-        "description": "Create a new delegate authorization.\n\nDelegates allow a Safe owner to authorize another address to propose transactions\non their behalf. This is useful for granting limited proposal rights without\ngiving full ownership access.\n\n## How Delegation Works\n\n1. A Safe **owner** (delegator) authorizes a **delegate** address\n2. The delegate can propose transactions to the Safe\n3. The transaction appears as proposed by the delegator (owner)\n4. The delegate cannot sign transaction confirmations - only owners can\n5. Delegation scope is controlled by `chainId` and `safe`:\n   - Omit `chainId` (or set to `null`) → valid on **all chains**\n   - Omit `safe` (or set to `null`) → valid for **all Safes**\n\n## Required Signature\n\nThe delegator must sign an EIP-712 typed message containing:\n- `delegateAddress`: Address being authorized\n- `totp`: Time-based one-time password (current TOTP value)\n- `action`: The string `\"add\"`\n\nThe domain encodes the scope: `chainId = 0` means all chains,\n`safe = 0x000...000` (zero address) means all Safes.\n\n## TOTP Calculation\n\nTOTP (Time-based One-Time Password) is calculated using 1-hour intervals:\n\n```\ntotp = floor((current_unix_timestamp - 0) / 3600)\n```\n\n**Parameters:**\n- `current_unix_timestamp`: Current time in seconds since Unix epoch\n- Time step: 3600 seconds (1 hour)\n- T0 (epoch): 0 (Unix epoch start)\n\n**Example calculation:**\n\nUnix timestamp: 1704067200 (2024-01-01 00:00:00 UTC)\n```\ntotp = floor(1704067200 / 3600) = 473352\n```\n\n**Tolerance window:** The service accepts both the current TOTP value and the\nprevious interval's value to handle clock drift between client and server.\n\n## EIP-712 Typed Data Structure\n\nThe delegator must sign the following EIP-712 typed data:\n\n```json\n{\n  \"types\": {\n    \"EIP712Domain\": [\n      { \"name\": \"name\", \"type\": \"string\" },\n      { \"name\": \"version\", \"type\": \"string\" },\n      { \"name\": \"chainId\", \"type\": \"uint256\" },\n      { \"name\": \"safe\", \"type\": \"address\" }\n    ],\n    \"Delegate\": [\n      { \"name\": \"delegateAddress\", \"type\": \"address\" },\n      { \"name\": \"totp\", \"type\": \"uint256\" },\n      { \"name\": \"action\", \"type\": \"string\" }\n    ]\n  },\n  \"primaryType\": \"Delegate\",\n  \"domain\": {\n    \"name\": \"Safe Queue Service\",\n    \"version\": \"1.0\",\n    \"chainId\": 1,\n    \"safe\": \"0x0000000000000000000000000000000000000000\"\n  },\n  \"message\": {\n    \"delegateAddress\": \"0x1234567890123456789012345678901234567890\",\n    \"totp\": 473352,\n    \"action\": \"add\"\n  }\n}\n```\n\nReplace the values with:\n- `domain.chainId`: The chain ID to scope to, or **`0`** for all chains\n  (maps from `null`/omitted `chainId` in the request body)\n- `domain.safe`: The Safe address to scope to, or **`0x000...000`** (zero address)\n  for all Safes (maps from `null`/omitted `safe` in the request body)\n- `message.delegateAddress`: The address you want to authorize\n- `message.totp`: Current TOTP value calculated using the formula above\n- `message.action`: Must be `\"add\"` for this endpoint",
+        "description": "Create a new delegate authorization.\n\nDelegates allow a Safe owner to authorize another address to propose transactions\non their behalf. This is useful for granting limited proposal rights without\ngiving full ownership access.\n\n## How Delegation Works\n\n1. A Safe **owner** (delegator) authorizes a **delegate** address\n2. The delegate can propose transactions to the Safe\n3. The transaction appears as proposed by the delegator (owner)\n4. The delegate cannot sign transaction confirmations - only owners can\n5. Delegation scope is controlled by `chainId` and `safe`:\n   - Omit `chainId` (or set to `null`) → valid on **all chains**\n   - Omit `safe` (or set to `null`) → valid for **all Safes**\n\n## Required Signature\n\nThe delegator must sign an EIP-712 typed message containing:\n- `delegateAddress`: Address being authorized\n- `totp`: Time-based one-time password (current TOTP value)\n- `action`: The string `\"add\"`\n\nThe domain encodes the scope: `chainId = 0` means all chains,\n`safe = 0x000...000` (zero address) means all Safes.\n\n## TOTP Calculation\n\nTOTP (Time-based One-Time Password) is calculated as:\n\n```\ntotp = floor((current_unix_timestamp - T0) / time_step)\n```\n\n**Parameters:**\n- `current_unix_timestamp`: Current time in seconds since Unix epoch\n- `time_step`: the `DELEGATE_TOTP_INTERVAL_SECONDS` configuration parameter\n  (3600 seconds, 1 hour, by default)\n- `T0`: the `DELEGATE_TOTP_T0` configuration parameter (0, the Unix epoch\n  start, by default)\n\n**Example calculation** with the default values:\n\nUnix timestamp: 1704067200 (2024-01-01 00:00:00 UTC)\n```\ntotp = floor(1704067200 / 3600) = 473352\n```\n\n**Tolerance window:** The service accepts both the current TOTP value and the\nprevious interval's value to handle clock drift between client and server.\n\n## EIP-712 Typed Data Structure\n\nThe delegator must sign the following EIP-712 typed data:\n\n```json\n{\n  \"types\": {\n    \"EIP712Domain\": [\n      { \"name\": \"name\", \"type\": \"string\" },\n      { \"name\": \"version\", \"type\": \"string\" },\n      { \"name\": \"chainId\", \"type\": \"uint256\" },\n      { \"name\": \"safe\", \"type\": \"address\" }\n    ],\n    \"Delegate\": [\n      { \"name\": \"delegateAddress\", \"type\": \"address\" },\n      { \"name\": \"totp\", \"type\": \"uint256\" },\n      { \"name\": \"action\", \"type\": \"string\" }\n    ]\n  },\n  \"primaryType\": \"Delegate\",\n  \"domain\": {\n    \"name\": \"Safe Queue Service\",\n    \"version\": \"1.0\",\n    \"chainId\": 1,\n    \"safe\": \"0x0000000000000000000000000000000000000000\"\n  },\n  \"message\": {\n    \"delegateAddress\": \"0x1234567890123456789012345678901234567890\",\n    \"totp\": 473352,\n    \"action\": \"add\"\n  }\n}\n```\n\nReplace the values with:\n- `domain.chainId`: The chain ID to scope to, or **`0`** for all chains\n  (maps from `null`/omitted `chainId` in the request body)\n- `domain.safe`: The Safe address to scope to, or **`0x000...000`** (zero address)\n  for all Safes (maps from `null`/omitted `safe` in the request body)\n- `message.delegateAddress`: The address you want to authorize\n- `message.totp`: Current TOTP value calculated using the formula above\n- `message.action`: Must be `\"add\"` for this endpoint",
         "operationId": "create_delegate_api_v1_delegates_post",
         "requestBody": {
           "required": true,
@@ -159,7 +159,7 @@
           "Delegates"
         ],
         "summary": "Delete Delegates",
-        "description": "Delete delegate authorization(s).\n\nRevoke delegate permissions by deleting the authorization. Like creation,\ndeletion requires a valid signature from the delegator (Safe owner).\n\n## Deletion Scope\n\n- **Single delegate**: Specify the exact delegate address and chainId/safe\n- **All delegates for a chain**: Use `0x0000000000000000000000000000000000000000`\n  as delegate address, specify chainId\n- **All delegates across all chains**: Use `0x0000000000000000000000000000000000000000`\n  as delegate and omit chainId (or set to null)\n- **All delegates for a Safe**: Specify safe address, omit delegate filter\n\n## Required Signature\n\nThe delegator must sign an EIP-712 typed message:\n- `delegateAddress`: Address to revoke (or ADDRESS_ZERO for all)\n- `totp`: Current TOTP value (calculated same as creation)\n- `action`: The string `\"delete\"`\n\nThe domain's `chainId` and `safe` specify the scope to delete from.\n\nThis prevents unauthorized deletion of delegate permissions.\n\n## EIP-712 Typed Data Structure\n\nThe delegator must sign the following EIP-712 typed data:\n\n```json\n{\n  \"types\": {\n    \"EIP712Domain\": [\n      { \"name\": \"name\", \"type\": \"string\" },\n      { \"name\": \"version\", \"type\": \"string\" },\n      { \"name\": \"chainId\", \"type\": \"uint256\" },\n      { \"name\": \"safe\", \"type\": \"address\" }\n    ],\n    \"Delegate\": [\n      { \"name\": \"delegateAddress\", \"type\": \"address\" },\n      { \"name\": \"totp\", \"type\": \"uint256\" },\n      { \"name\": \"action\", \"type\": \"string\" }\n    ]\n  },\n  \"primaryType\": \"Delegate\",\n  \"domain\": {\n    \"name\": \"Safe Queue Service\",\n    \"version\": \"1.0\",\n    \"chainId\": 1,\n    \"safe\": \"0x0000000000000000000000000000000000000000\"\n  },\n  \"message\": {\n    \"delegateAddress\": \"0x1234567890123456789012345678901234567890\",\n    \"totp\": 473352,\n    \"action\": \"delete\"\n  }\n}\n```\n\n**TOTP Calculation:** Use the same formula as creation:\n```\ntotp = floor(current_unix_timestamp / 3600)\n```\n\n## Deletion Examples\n\n**Delete specific delegate on chain 1, all Safes:**\n- `domain.chainId`: `1`\n- `domain.safe`: `0x0000000000000000000000000000000000000000`\n- `message.delegateAddress`: `0x1234567890123456789012345678901234567890`\n\n**Delete specific delegate on chain 1, specific Safe:**\n- `domain.chainId`: `1`\n- `domain.safe`: `0x5afe000000000000000000000000000000005afe`\n- `message.delegateAddress`: `0x1234567890123456789012345678901234567890`\n\n**Delete all delegates for this owner on chain 1, all Safes:**\n- `domain.chainId`: `1`\n- `domain.safe`: `0x0000000000000000000000000000000000000000`\n- `message.delegateAddress`: `0x0000000000000000000000000000000000000000`\n\n**Delete all delegates across all chains and all Safes:**\n- `domain.chainId`: `0`\n- `domain.safe`: `0x0000000000000000000000000000000000000000`\n- `message.delegateAddress`: `0x0000000000000000000000000000000000000000`",
+        "description": "Delete delegate authorization(s).\n\nRevoke delegate permissions by deleting the authorization. Deletion requires\na valid signature from the delegator (Safe owner) or from the delegate itself.\nBoth sign the same EIP-712 message below.\n\n## Deletion Scope\n\nAn omitted (or `0` / zero address) `chainId` or `safe` matches every chain or\nSafe, including delegations scoped to one of them. A given `chainId` or `safe`\nmatches only delegations scoped to exactly that value, not the ones valid for\nall chains or all Safes.\n\n- **Single delegate**: Specify the exact delegate address and chainId/safe\n- **All delegates for a chain**: Use `0x0000000000000000000000000000000000000000`\n  as delegate address, specify chainId\n- **All delegates across all chains**: Use `0x0000000000000000000000000000000000000000`\n  as delegate and omit chainId (or set to null)\n- **All delegates for a Safe**: Specify the safe address and use\n  `0x0000000000000000000000000000000000000000` as delegate address\n\n## Required Signature\n\nThe delegator or the delegate must sign an EIP-712 typed message:\n- `delegateAddress`: Address to revoke (or ADDRESS_ZERO for all)\n- `totp`: Current TOTP value (calculated same as creation)\n- `action`: The string `\"delete\"`\n\nThe domain's `chainId` and `safe` specify the scope to delete from.\n\nThis prevents unauthorized deletion of delegate permissions.\n\n## EIP-712 Typed Data Structure\n\nThe delegator or the delegate must sign the following EIP-712 typed data:\n\n```json\n{\n  \"types\": {\n    \"EIP712Domain\": [\n      { \"name\": \"name\", \"type\": \"string\" },\n      { \"name\": \"version\", \"type\": \"string\" },\n      { \"name\": \"chainId\", \"type\": \"uint256\" },\n      { \"name\": \"safe\", \"type\": \"address\" }\n    ],\n    \"Delegate\": [\n      { \"name\": \"delegateAddress\", \"type\": \"address\" },\n      { \"name\": \"totp\", \"type\": \"uint256\" },\n      { \"name\": \"action\", \"type\": \"string\" }\n    ]\n  },\n  \"primaryType\": \"Delegate\",\n  \"domain\": {\n    \"name\": \"Safe Queue Service\",\n    \"version\": \"1.0\",\n    \"chainId\": 1,\n    \"safe\": \"0x0000000000000000000000000000000000000000\"\n  },\n  \"message\": {\n    \"delegateAddress\": \"0x1234567890123456789012345678901234567890\",\n    \"totp\": 473352,\n    \"action\": \"delete\"\n  }\n}\n```\n\n**TOTP Calculation:** Use the same formula as creation:\n```\ntotp = floor((current_unix_timestamp - T0) / time_step)\n```\n\n`time_step` is the `DELEGATE_TOTP_INTERVAL_SECONDS` configuration parameter\n(3600 by default) and `T0` the `DELEGATE_TOTP_T0` configuration parameter\n(0 by default).\n\n## Deletion Examples\n\n**Delete specific delegate on chain 1, all Safes:**\n- `domain.chainId`: `1`\n- `domain.safe`: `0x0000000000000000000000000000000000000000`\n- `message.delegateAddress`: `0x1234567890123456789012345678901234567890`\n\n**Delete specific delegate on chain 1, specific Safe:**\n- `domain.chainId`: `1`\n- `domain.safe`: `0x5afe000000000000000000000000000000005afe`\n- `message.delegateAddress`: `0x1234567890123456789012345678901234567890`\n\n**Delete all delegates for this owner on chain 1, all Safes:**\n- `domain.chainId`: `1`\n- `domain.safe`: `0x0000000000000000000000000000000000000000`\n- `message.delegateAddress`: `0x0000000000000000000000000000000000000000`\n\n**Delete all delegates across all chains and all Safes:**\n- `domain.chainId`: `0`\n- `domain.safe`: `0x0000000000000000000000000000000000000000`\n- `message.delegateAddress`: `0x0000000000000000000000000000000000000000`",
         "operationId": "delete_delegates_api_v1_delegates_delete",
         "requestBody": {
           "required": true,
@@ -214,7 +214,7 @@
           "Delegates"
         ],
         "summary": "List Delegates",
-        "description": "List delegate authorizations for a known address.\n\nRetrieve delegate authorizations scoped to a Safe, a delegator or a delegate,\noptionally narrowed by chain ID and label. Supports pagination.\n\nAt least one of `safe`, `delegator` or `delegate` is required, and the zero\naddress is rejected in all three. `chainId` and `label` only narrow an already\nscoped query and cannot be used on their own, so the full delegate set is not\nreachable through this endpoint.\n\nA `safe` filter matches delegates scoped to exactly that Safe. Delegations\nvalid for all Safes are not returned by it; reach them through `delegator`\nor `delegate`.\n\n## Examples\n\n```\n# Get all delegates for a specific Safe owner\nGET /api/v1/delegates?delegator=0xOwner...\n\n# Get delegates scoped to a specific Safe\nGET /api/v1/delegates?safe=0xSafe...\n\n# Check if specific address is a delegate\nGET /api/v1/delegates?delegate=0xDelegate...\n\n# Narrow an owner's delegates to one chain and label\nGET /api/v1/delegates?delegator=0xOwner...&chainId=1&label=Mobile\n\n# Paginate through results\nGET /api/v1/delegates?delegator=0xOwner...&limit=50&offset=100\n```",
+        "description": "List delegate authorizations for a known address.\n\nRetrieve delegate authorizations scoped to a Safe, a delegator or a delegate,\noptionally narrowed by chain ID and label. Supports pagination.\n\nAt least one of `safe`, `delegator` or `delegate` is required, and the zero\naddress is rejected in all three. `chainId` and `label` only narrow an already\nscoped query and cannot be used on their own, so the full delegate set is not\nreachable through this endpoint.\n\nA `safe` filter matches delegates scoped to exactly that Safe. Delegations\nvalid for all Safes are not returned by it; reach them through `delegator`\nor `delegate`.\n\nA `chainId` filter matches delegates scoped to exactly that chain. Delegations\nvalid for all chains are not returned by it, and `chainId=0` applies no filter.\n\n## Examples\n\n```\n# Get all delegates for a specific Safe owner\nGET /api/v1/delegates?delegator=0xOwner...\n\n# Get delegates scoped to a specific Safe\nGET /api/v1/delegates?safe=0xSafe...\n\n# Check if specific address is a delegate\nGET /api/v1/delegates?delegate=0xDelegate...\n\n# Narrow an owner's delegates to one chain and label\nGET /api/v1/delegates?delegator=0xOwner...&chainId=1&label=Mobile\n\n# Paginate through results\nGET /api/v1/delegates?delegator=0xOwner...&limit=50&offset=100\n```",
         "operationId": "list_delegates_api_v1_delegates_get",
         "parameters": [
           {
@@ -247,7 +247,7 @@
                   "type": "string",
                   "pattern": "^0x[0-9a-fA-F]{40}$",
                   "examples": [
-                    "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                    "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                   ]
                 },
                 {
@@ -269,7 +269,7 @@
                   "type": "string",
                   "pattern": "^0x[0-9a-fA-F]{40}$",
                   "examples": [
-                    "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                    "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                   ]
                 },
                 {
@@ -291,7 +291,7 @@
                   "type": "string",
                   "pattern": "^0x[0-9a-fA-F]{40}$",
                   "examples": [
-                    "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                    "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                   ]
                 },
                 {
@@ -382,7 +382,7 @@
           "Multisig transactions"
         ],
         "summary": "Create Multisig Transaction",
-        "description": "Propose a new transaction for a Safe multisig. The first signature determines\nthe proposer and can come from a Safe owner, an authorized delegate or an\nowner of a Safe that owns this Safe.\n\n## Who Can Propose?\n\n1. **Safe Owner**: Any owner can propose with their signature\n2. **Delegate**: An authorized delegate can propose on behalf of an owner\n3. **Nested Safe Owner**: An EOA that owns a Safe owning this Safe\n\n## Proposal Scenarios\n\n### Owner Proposal (Standard)\n- First owner becomes the proposer\n- All the signatures are stored as confirmations\n\n### Delegate Proposal\n- First signature is from a delegate (not an owner)\n- Delegate must be pre-authorized for this Safe and chain\n- The delegating owner becomes the proposer\n- Delegate signature is NOT stored as confirmation (only owners can confirm)\n- **Important**: When using a delegate, only provide the delegate's signature.\n  Do not include owner signatures - they must be added separately via\n  the confirmations endpoint\n\n### Nested Safe Owner Proposal\n- For Safes whose owners are other Safes, where no owner can sign yet: the\n  EIP-1271 signature or `approveHash` of an owner Safe can only be built once\n  its own owners have signed, and they have nothing to sign until the proposal exists\n- First signature is a plain EOA signature (`EOA` or `ETH_SIGN`) from an\n  owner of an owner Safe. The ownership chain is verified on-chain\n- The **owner Safe** becomes the proposer, since the signer is not an owner\n  of this Safe; the signing EOA is reported in `proposedBy`, with\n  `proposedVia` set to `NESTED_OWNER`\n- The signature only authenticates the proposal and is NOT stored as a\n  confirmation, so provide exactly one signature\n- Confirmations then come from the owner Safes, either through the\n  confirmations endpoint with an EIP-1271 signature, or on-chain by\n  executing `approveHash`, which reaches the service through the indexer\n\n### Nested Transaction\n- An owner Safe acts on a transaction of the Safe it owns by executing\n  `approveHash(safeTxHash)` on it, or `execTransaction(...)` to approve and\n  run it at once. `nestedTransaction` proposes that transaction together\n  with the call acting on it, so its owners sign once\n- This transaction must be a zero-value CALL to the nested Safe whose `data`\n  is either call, signed by an owner of this Safe, and this Safe must own\n  the nested Safe. It is stored as a regular owner proposal with its\n  confirmations\n- `approveHash` names the nested hash. `execTransaction` spells out the\n  transaction instead: its arguments plus the `nonce` declared in\n  `nestedTransaction` must produce the nested hash. The `signatures`\n  argument is not inspected, and it must already cover the threshold of the\n  nested Safe, so this call serves the last step of the collection\n- `nestedTransaction` takes no `safe`, `chainId` or `signatures`: the Safe\n  is `to`, the chain is `chainId`, and the calldata authenticates it. It is\n  stored like a nested owner proposal: this Safe as `proposer`, the signer\n  in `proposedBy`, no confirmations\n- Both are stored together or not at all. When the nested transaction\n  already exists, only the proposal is stored\n- It rides on the first submission of the proposal only. Once that one is\n  stored, sending it again with a `nestedTransaction` returns 409 for the\n  duplicate hash and stores nothing\n\n## Transaction Hash\n\nThe transaction hash (`safeTxHash`) is computed using EIP-712 and includes\nall transaction parameters. This hash is what owners sign to confirm execution.\n\n## Signatures Format\n\nSignatures must be valid Safe signatures:\n- **EOA signature**: Standard ECDSA signature (65 bytes)\n- **Contract signature**: EIP-1271 compliant contract signature\n- **Approved hash**: Pre-approved hash signature\n\nMultiple signatures can be provided for owner proposals to collect confirmations\nin a single request.",
+        "description": "Propose a new transaction for a Safe multisig. The first signature determines\nthe proposer and can come from a Safe owner, an authorized delegate or an\nowner of a Safe that owns this Safe.\n\n## Who Can Propose?\n\n1. **Safe Owner**: Any owner can propose with their signature\n2. **Delegate**: An authorized delegate can propose on behalf of an owner\n3. **Nested Safe Owner**: An EOA that owns a Safe owning this Safe, directly\n   or through other Safes, up to the levels set in the `NESTED_OWNER_MAX_DEPTH`\n   configuration parameter (4 by default)\n\n## Proposal Scenarios\n\n### Owner Proposal (Standard)\n- First owner becomes the proposer\n- All the signatures are stored as confirmations\n\n### Delegate Proposal\n- First signature is from a delegate (not an owner)\n- Delegate must be pre-authorized for this Safe and chain\n- The delegating owner becomes the proposer\n- Delegate signature is NOT stored as confirmation (only owners can confirm)\n- **Important**: When using a delegate, only provide the delegate's signature.\n  Do not include owner signatures - they must be added separately via\n  the confirmations endpoint\n\n### Nested Safe Owner Proposal\n- For Safes whose owners are other Safes, where no owner can sign yet: the\n  EIP-1271 signature or `approveHash` of an owner Safe can only be built once\n  its own owners have signed, and they have nothing to sign until the proposal exists\n- First signature is a plain EOA signature (`EOA` or `ETH_SIGN`) from an\n  owner of an owner Safe, directly or through other Safes. The ownership\n  chain is verified on-chain\n- The **owner Safe** becomes the proposer, since the signer is not an owner\n  of this Safe; the signing EOA is reported in `proposedBy`, with\n  `proposedVia` set to `NESTED_OWNER`\n- The signature only authenticates the proposal and is NOT stored as a\n  confirmation, so provide exactly one signature\n- Confirmations then come from the owner Safes, either through the\n  confirmations endpoint with an EIP-1271 signature, or on-chain by\n  executing `approveHash`, which reaches the service through the indexer\n\n### Nested Transaction\n- An owner Safe acts on a transaction of the Safe it owns by executing\n  `approveHash(safeTxHash)` on it, or `execTransaction(...)` to approve and\n  run it at once. `nestedTransaction` proposes that transaction together\n  with the call acting on it, so its owners sign once\n- This transaction must be a zero-value CALL to the nested Safe whose `data`\n  is either call, signed by an owner of this Safe, and this Safe must own\n  the nested Safe. It is stored as a regular owner proposal with its\n  confirmations\n- `approveHash` names the nested hash. `execTransaction` spells out the\n  transaction instead: its arguments plus the `nonce` declared in\n  `nestedTransaction` must produce the nested hash. The `signatures`\n  argument is not inspected, and it must already cover the threshold of the\n  nested Safe, so this call serves the last step of the collection\n- `nestedTransaction` takes no `safe`, `chainId` or `signatures`: the Safe\n  is `to`, the chain is `chainId`, and the calldata authenticates it. It is\n  stored like a nested owner proposal: this Safe as `proposer`, the signer\n  in `proposedBy`, no confirmations\n- Both are stored together or not at all. When the nested transaction\n  already exists, only the proposal is stored\n- It rides on the first submission of the proposal only. Once that one is\n  stored, sending it again with a `nestedTransaction` returns 409 for the\n  duplicate hash and stores nothing\n\n## Transaction Hash\n\nThe transaction hash (`safeTxHash`) is computed using EIP-712 and includes\nall transaction parameters. This hash is what owners sign to confirm execution.\n\n## Signatures Format\n\nSignatures must be valid Safe signatures:\n- **EOA signature**: Standard ECDSA signature (65 bytes)\n- **Contract signature**: EIP-1271 compliant contract signature\n- **Approved hash**: Pre-approved hash signature\n\nMultiple signatures can be provided for owner proposals to collect confirmations\nin a single request.",
         "operationId": "create_multisig_transaction_api_v1_multisig_transactions_post",
         "requestBody": {
           "required": true,
@@ -416,7 +416,7 @@
             }
           },
           "422": {
-            "description": "Invalid transaction or signatures, nonce already used, or Safe not found on the chain",
+            "description": "Invalid transaction or signatures, nonce already used, Safe not found on the chain, or unsupported Safe version",
             "content": {
               "application/json": {
                 "schema": {
@@ -426,7 +426,7 @@
             }
           },
           "503": {
-            "description": "Safe information is unavailable",
+            "description": "Safe information is unavailable, or `chainId` is not supported",
             "content": {
               "application/json": {
                 "schema": {
@@ -456,10 +456,10 @@
               "items": {
                 "type": "string"
               },
-              "description": "Safe addresses with optional per-safe chain IDs. Format: address[:chainId[:chainId...]]. Repeat parameter for multiple safes.",
+              "description": "Safe addresses with optional per-safe chain IDs. Format: address[:chainId[:chainId...]]. Repeat parameter for multiple safes. Up to 100 values and, once repeats are merged, up to 500 Safe and chain ID pairs. A Safe without chain IDs counts as one pair.",
               "title": "Safes"
             },
-            "description": "Safe addresses with optional per-safe chain IDs. Format: address[:chainId[:chainId...]]. Repeat parameter for multiple safes."
+            "description": "Safe addresses with optional per-safe chain IDs. Format: address[:chainId[:chainId...]]. Repeat parameter for multiple safes. Up to 100 values and, once repeats are merged, up to 500 Safe and chain ID pairs. A Safe without chain IDs counts as one pair."
           },
           {
             "name": "executed",
@@ -567,10 +567,10 @@
               "items": {
                 "type": "string"
               },
-              "description": "Safe addresses with per-safe chain IDs (required). Format: address:chainId[:chainId...]. Repeat parameter for multiple safes.",
+              "description": "Safe addresses with per-safe chain IDs (required). Format: address:chainId[:chainId...]. Repeat parameter for multiple safes. Up to 100 values and, once repeats are merged, up to 500 Safe and chain ID pairs. A Safe without chain IDs counts as one pair.",
               "title": "Safes"
             },
-            "description": "Safe addresses with per-safe chain IDs (required). Format: address:chainId[:chainId...]. Repeat parameter for multiple safes."
+            "description": "Safe addresses with per-safe chain IDs (required). Format: address:chainId[:chainId...]. Repeat parameter for multiple safes. Up to 100 values and, once repeats are merged, up to 500 Safe and chain ID pairs. A Safe without chain IDs counts as one pair."
           },
           {
             "name": "nonceOrder",
@@ -628,7 +628,7 @@
             }
           },
           "422": {
-            "description": "Invalid `safes`, a Safe without chain IDs, or a Safe not found on the chain",
+            "description": "Invalid `safes`, a Safe without chain IDs, a Safe not found on the chain, or unsupported Safe version",
             "content": {
               "application/json": {
                 "schema": {
@@ -638,7 +638,7 @@
             }
           },
           "503": {
-            "description": "Safe information is unavailable",
+            "description": "Safe information is unavailable, or `chainId` is not supported",
             "content": {
               "application/json": {
                 "schema": {
@@ -775,7 +775,7 @@
           "Multisig transactions"
         ],
         "summary": "Delete Multisig Transaction",
-        "description": "Delete a pending multisig transaction proposal.\n\nRemove a queued (not yet executed) multisig transaction. Only the original\nproposer, the delegate or the nested Safe owner that proposed it can delete\nthe transaction.\n\n## Authorization\n\n- **Proposer**: Can always delete their own transaction\n- **Delegate**: Can delete if they proposed it and remain authorized for the proposer\n- **Nested Safe Owner**: Can delete if they proposed it and still own the Safe\n  recorded as proposer\n\n## Signature Requirements\n\nRequires an EIP-712 signature from an EOA (Externally Owned Account) to prevent\nreplay attacks. Supported signature types: EOA (ECDSA) and ETH_SIGN.\n\n### EIP-712 Typed Data Structure\n\n```json\n{\n  \"types\": {\n    \"EIP712Domain\": [\n      {\"name\": \"name\", \"type\": \"string\"},\n      {\"name\": \"version\", \"type\": \"string\"},\n      {\"name\": \"chainId\", \"type\": \"uint256\"},\n      {\"name\": \"verifyingContract\", \"type\": \"address\"}\n    ],\n    \"DeleteRequest\": [\n      {\"name\": \"safeTxHash\", \"type\": \"bytes32\"},\n      {\"name\": \"totp\", \"type\": \"uint256\"}\n    ]\n  },\n  \"primaryType\": \"DeleteRequest\",\n  \"domain\": {\n    \"name\": \"Safe Queue Service\",\n    \"version\": \"1.0\",\n    \"chainId\": \"<chain_id_of_safe>\",\n    \"verifyingContract\": \"<safe_address>\"\n  },\n  \"message\": {\n    \"safeTxHash\": \"<safe_tx_hash>\",\n    \"totp\": \"<calculated_totp_value>\"\n  }\n}\n```\n\n### TOTP Calculation\n\nCalculate the TOTP value using: `floor((current_unix_time - 0) / 3600)`\n\n- **T0**: 0 (epoch start)\n- **Tx**: 3600 seconds (1 hour intervals)\n- The service accepts both current and previous TOTP intervals for clock drift tolerance",
+        "description": "Delete a pending multisig transaction proposal.\n\nRemove a queued (not yet executed) multisig transaction. Only the original\nproposer, the delegate or the nested Safe owner that proposed it can delete\nthe transaction.\n\n## Authorization\n\n- **Proposer**: Can delete their own transaction if it is an EOA\n- **Delegate**: Can delete if they proposed it and remain authorized for the proposer\n- **Nested Safe Owner**: Can delete if they proposed it (`proposedBy`) and are\n  still an owner of the Safe, directly or through other Safes, up to the\n  levels set in the `NESTED_OWNER_MAX_DEPTH` configuration parameter (4 by\n  default)\n\n## Signature Requirements\n\nRequires an EIP-712 signature from an EOA (Externally Owned Account).\nSupported signature types: EOA (ECDSA) and ETH_SIGN. The `totp` in the\nmessage limits how long a signature can be replayed.\n\n### EIP-712 Typed Data Structure\n\n```json\n{\n  \"types\": {\n    \"EIP712Domain\": [\n      {\"name\": \"name\", \"type\": \"string\"},\n      {\"name\": \"version\", \"type\": \"string\"},\n      {\"name\": \"chainId\", \"type\": \"uint256\"},\n      {\"name\": \"verifyingContract\", \"type\": \"address\"}\n    ],\n    \"DeleteRequest\": [\n      {\"name\": \"safeTxHash\", \"type\": \"bytes32\"},\n      {\"name\": \"totp\", \"type\": \"uint256\"}\n    ]\n  },\n  \"primaryType\": \"DeleteRequest\",\n  \"domain\": {\n    \"name\": \"Safe Queue Service\",\n    \"version\": \"1.0\",\n    \"chainId\": \"<chain_id_of_safe>\",\n    \"verifyingContract\": \"<safe_address>\"\n  },\n  \"message\": {\n    \"safeTxHash\": \"<safe_tx_hash>\",\n    \"totp\": \"<calculated_totp_value>\"\n  }\n}\n```\n\n### TOTP Calculation\n\nCalculate the TOTP value using: `floor((current_unix_time - T0) / Tx)`\n\n- **T0**: the `DELEGATE_TOTP_T0` configuration parameter (0, the epoch\n  start, by default)\n- **Tx**: the `DELEGATE_TOTP_INTERVAL_SECONDS` configuration parameter\n  (3600 seconds, 1 hour, by default)\n- The service accepts both current and previous TOTP intervals for clock drift tolerance",
         "operationId": "delete_multisig_transaction_api_v1_multisig_transactions__safe_tx_hash__delete",
         "parameters": [
           {
@@ -819,7 +819,7 @@
             }
           },
           "422": {
-            "description": "Transaction already executed, transaction without proposer, or a signature that does not authorize the delete",
+            "description": "Transaction already executed, transaction without proposer, a signature that does not authorize the delete, Safe not found on the chain, or unsupported Safe version",
             "content": {
               "application/json": {
                 "schema": {
@@ -849,7 +849,7 @@
           "Multisig transactions"
         ],
         "summary": "List Multisig Transactions For Safe",
-        "description": "List the multisig transactions of one Safe.\n\nSame results as `GET /multisig-transactions` with a single `safes` value.",
+        "description": "List the multisig transactions of one Safe.\n\nSame results as `GET /multisig-transactions` with a single `safes` value,\nplus a `nonce` filter that only this endpoint has. Without `chainId`,\n`nonce` matches that nonce on every chain of the Safe.",
         "operationId": "list_multisig_transactions_for_safe_api_v1_safes__safe__multisig_transactions_get",
         "parameters": [
           {
@@ -905,6 +905,26 @@
               "title": "Executed"
             },
             "description": "Execution-state filter. true=executed, false=not executed, omitted=all"
+          },
+          {
+            "name": "nonce",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 1.157920892373162e+77,
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Optional exact nonce filter",
+              "title": "Nonce"
+            },
+            "description": "Optional exact nonce filter"
           },
           {
             "name": "nonceOrder",
@@ -1047,7 +1067,7 @@
             }
           },
           "422": {
-            "description": "Transaction already executed, invalid signatures, signers that are not owners, or duplicated owners",
+            "description": "Transaction already executed, invalid signatures, signers that are not owners, duplicated owners, Safe not found on the chain, or unsupported Safe version",
             "content": {
               "application/json": {
                 "schema": {
@@ -1077,7 +1097,7 @@
           "Messages"
         ],
         "summary": "Create Safe Message",
-        "description": "Propose a new off-chain message for a Safe.\n\n`message` is a string, signed as an EIP-191 message, or an EIP-712 typed\ndata object. Its `messageHash` is the EIP-712 `SafeMessage` hash of the\nSafe on `chainId`.\n\n## Who Can Propose?\n\n- **Safe Owner**: every signature is stored as a confirmation, and the\n  first signer becomes the proposer\n- **Nested Safe Owner**: an EOA that owns a Safe owning this Safe, with\n  exactly one `EOA` or `ETH_SIGN` signature. The owner Safe becomes the\n  proposer and the signer is reported in `proposedBy`. The signature is\n  not stored as a confirmation",
+        "description": "Propose a new off-chain message for a Safe.\n\n`message` is a string, signed as an EIP-191 message, or an EIP-712 typed\ndata object. Its `messageHash` is the EIP-712 `SafeMessage` hash of the\nSafe on `chainId`.\n\n## Who Can Propose?\n\n- **Safe Owner**: every signature is stored as a confirmation, and the\n  first signer becomes the proposer\n- **Nested Safe Owner**: an EOA that owns a Safe owning this Safe, directly\n  or through other Safes, up to the levels set in the `NESTED_OWNER_MAX_DEPTH`\n  configuration parameter (4 by default),\n  with exactly one `EOA` or `ETH_SIGN` signature. The owner Safe becomes the\n  proposer and the signer is reported in `proposedBy`. The signature is\n  not stored as a confirmation",
         "operationId": "create_safe_message_api_v1_safes__safe__messages_post",
         "parameters": [
           {
@@ -1129,7 +1149,7 @@
             }
           },
           "422": {
-            "description": "Invalid message or signatures, or Safe not found on the chain",
+            "description": "Invalid message or signatures, Safe not found on the chain, or unsupported Safe version",
             "content": {
               "application/json": {
                 "schema": {
@@ -1139,7 +1159,7 @@
             }
           },
           "503": {
-            "description": "Safe information is unavailable",
+            "description": "Safe information is unavailable, or `chainId` is not supported",
             "content": {
               "application/json": {
                 "schema": {
@@ -1382,7 +1402,7 @@
             }
           },
           "422": {
-            "description": "Invalid signatures, signers that are not owners, or duplicated owners",
+            "description": "Invalid signatures, signers that are not owners, duplicated owners, Safe not found on the chain, or unsupported Safe version",
             "content": {
               "application/json": {
                 "schema": {
@@ -1441,7 +1461,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegator",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "signature": {
@@ -1471,7 +1491,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -1485,7 +1505,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegate",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "label": {
@@ -1517,7 +1537,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegator",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "signature": {
@@ -1547,7 +1567,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -1561,7 +1581,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegate",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           }
         },
@@ -1591,7 +1611,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegate",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "delegator": {
@@ -1599,7 +1619,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegator",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "chainId": {
@@ -1620,7 +1640,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -1647,7 +1667,9 @@
           "modified",
           "delegate",
           "delegator",
-          "chainId"
+          "chainId",
+          "safe",
+          "label"
         ],
         "title": "DelegateResponse",
         "description": "Schema for delegate response.\n\nAttributes:\n    delegate: Authorized delegate address\n    delegator: Safe owner who granted authorization\n    chain_id: Chain ID where delegation is valid (None = all chains)\n    safe: Safe address this delegation is scoped to (None = all Safes)\n    label: Human-readable label for the delegate\n    created: Timestamp when authorization was created\n    modified: Timestamp when authorization was last updated"
@@ -1659,7 +1681,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegator",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "signature": {
@@ -1689,7 +1711,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -1703,7 +1725,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Delegate",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "label": {
@@ -1822,7 +1844,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Owner",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "signature": {
@@ -1874,7 +1896,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Owner",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "signature": {
@@ -1912,6 +1934,49 @@
       },
       "MultisigTransactionCreate": {
         "properties": {
+          "declared": {
+            "anyOf": [
+              {
+                "properties": {
+                  "channel": {
+                    "type": "string",
+                    "enum": [
+                      "NATIVE_TRANSFER",
+                      "NATIVE_BATCH",
+                      "SAFE_APP",
+                      "WALLET_CONNECT",
+                      "WIDGET",
+                      "DIRECT",
+                      "CLI",
+                      "MCP",
+                      "UNKNOWN"
+                    ],
+                    "description": "Channel the client proposed through. `DIRECT` is a transaction the caller built itself, with no wallet flow, `CLI` a command-line tool and `MCP` an AI agent through an MCP server. An unknown value is stored as `UNKNOWN`."
+                  },
+                  "appName": {
+                    "type": "string",
+                    "description": "Name of the app. With `DIRECT`, the name of the integration that built the transaction. Truncated to 256 characters."
+                  },
+                  "appUrl": {
+                    "type": "string",
+                    "description": "URL of the app. Truncated to 2048 characters."
+                  },
+                  "appId": {
+                    "type": "integer",
+                    "maximum": 9223372036854776000,
+                    "minimum": 1,
+                    "description": "Config Service id of a Safe App."
+                  }
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Declared",
+            "description": "Channel and app the client proposed through. Not verified. Invalid values are dropped, never rejected."
+          },
           "nonce": {
             "type": "integer",
             "maximum": 1.157920892373162e+77,
@@ -1924,7 +1989,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -1982,7 +2047,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -1997,7 +2062,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -2055,7 +2120,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Safe",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "signatures": {
@@ -2138,7 +2203,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Safe",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "nonce": {
@@ -2152,7 +2217,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -2172,7 +2237,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -2188,7 +2253,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -2242,7 +2307,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -2257,7 +2322,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -2331,7 +2396,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -2339,7 +2404,7 @@
               }
             ],
             "title": "Executor",
-            "description": "Sender of the execution transaction, like a relayer or a 4337 bundler, not the immediate caller of the Safe. `null` while the transaction is pending."
+            "description": "Sender of the execution transaction, like a relayer or a 4337 bundler, not the immediate caller of the Safe. `null` while the transaction is pending, and for executed transactions whose executor is not stored yet."
           },
           "created": {
             "type": "string",
@@ -2365,14 +2430,27 @@
           "chainId",
           "safe",
           "nonce",
+          "proposer",
           "proposedVia",
+          "proposedBy",
+          "to",
           "value",
+          "data",
           "operation",
           "safeTxGas",
           "baseGas",
           "gasPrice",
+          "gasToken",
+          "refundReceiver",
+          "failed",
+          "notes",
+          "originName",
+          "originUrl",
+          "txHash",
+          "executor",
           "created",
-          "modified"
+          "modified",
+          "confirmations"
         ],
         "title": "MultisigTransactionResponse"
       },
@@ -2390,7 +2468,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -2448,7 +2526,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -2463,7 +2541,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -2702,7 +2780,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Owner",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "signature": {
@@ -2740,6 +2818,49 @@
       },
       "SafeMessageCreate": {
         "properties": {
+          "declared": {
+            "anyOf": [
+              {
+                "properties": {
+                  "channel": {
+                    "type": "string",
+                    "enum": [
+                      "NATIVE_TRANSFER",
+                      "NATIVE_BATCH",
+                      "SAFE_APP",
+                      "WALLET_CONNECT",
+                      "WIDGET",
+                      "DIRECT",
+                      "CLI",
+                      "MCP",
+                      "UNKNOWN"
+                    ],
+                    "description": "Channel the client proposed through. `DIRECT` is a transaction the caller built itself, with no wallet flow, `CLI` a command-line tool and `MCP` an AI agent through an MCP server. An unknown value is stored as `UNKNOWN`."
+                  },
+                  "appName": {
+                    "type": "string",
+                    "description": "Name of the app. With `DIRECT`, the name of the integration that built the transaction. Truncated to 256 characters."
+                  },
+                  "appUrl": {
+                    "type": "string",
+                    "description": "URL of the app. Truncated to 2048 characters."
+                  },
+                  "appId": {
+                    "type": "integer",
+                    "maximum": 9223372036854776000,
+                    "minimum": 1,
+                    "description": "Config Service id of a Safe App."
+                  }
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Declared",
+            "description": "Channel and app the client proposed through. Not verified. Invalid values are dropped, never rejected."
+          },
           "chainId": {
             "type": "integer",
             "maximum": 1.157920892373162e+77,
@@ -2829,7 +2950,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "title": "Safe",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "message": {
@@ -2841,7 +2962,7 @@
             "title": "Proposer",
             "description": "Address credited with the proposal: the signer for `OWNER`, the owner Safe for `NESTED_OWNER`.",
             "examples": [
-              "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+              "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
             ]
           },
           "proposedVia": {
@@ -2854,7 +2975,7 @@
                 "type": "string",
                 "pattern": "^0x[0-9a-fA-F]{40}$",
                 "examples": [
-                  "0x670b24610df99b1685aeac0dfd5307b92e0c54fe"
+                  "0x670b24610dF99B1685AeAc0Dfd5307b92e0c54fE"
                 ]
               },
               {
@@ -2943,7 +3064,12 @@
           "message",
           "proposer",
           "proposedVia",
+          "proposedBy",
           "confirmations",
+          "preparedSignature",
+          "preparedSignatureEip1271",
+          "originName",
+          "originUrl",
           "created",
           "modified"
         ],
