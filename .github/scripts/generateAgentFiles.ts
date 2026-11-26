@@ -13,6 +13,37 @@ const COMPONENT_IMPORT =
   /^import\s+(\w+)\s+from\s+['"]([^'"]*\/components\/(\w+))['"]/gm
 const EMBED = /^<(\w+)\s*\/>\s*$/
 const API_REFERENCE = /^<ApiReference\s+networkName="([^"]+)"\s*\/>\s*$/
+const LAYOUT_TAG = /^(\s*)<(\/?)([A-Z][\w.]*)/
+const STRING_LITERAL = /(['"`])((?:\\.|(?!\1)[^\\])*)\1/g
+const STRING_PROP = /(\w+)=\{?\s*(['"`])((?:\\.|(?!\2)[^\\])*)\2/g
+const TAB_ITEMS = /\bitems=\{\s*\[([^\]]*)\]/
+const BRACES: Record<string, number> = { '{': 1, '}': -1 }
+// Layout components whose tags a copy drops, keeping their content.
+const LAYOUT_WRAPPERS = [
+  'Cards',
+  'CH.Code',
+  'CH.Section',
+  'Container',
+  'Grid',
+  'Steps',
+  'Tabs'
+]
+const LAYOUT_COMPONENTS = [
+  ...LAYOUT_WRAPPERS,
+  'Callout',
+  'Card',
+  'CustomCard',
+  'RemovedContentCallout',
+  'Tabs.Tab'
+]
+// Nextra Callout types as GitHub alert types.
+const CALLOUT_ALERTS: Record<string, string> = {
+  default: 'NOTE',
+  info: 'NOTE',
+  important: 'IMPORTANT',
+  warning: 'WARNING',
+  error: 'CAUTION'
+}
 // An API URL in a generated API reference → the OpenAPI spec under that URL and its service.
 const API_SPECS = [
   {
@@ -63,6 +94,33 @@ interface Page {
 interface Line {
   text: string
   fenced: boolean
+}
+
+interface Tag {
+  name: string
+  closing: boolean
+  selfClosing: boolean
+  props: string
+  indent: number
+  end: number
+}
+
+// An open layout component: the column of its content in the copy, and the indent that its
+// content loses, taken from its first content line.
+interface Wrapper {
+  name: string
+  column: number
+  dedent?: number
+  quote: boolean
+  drop: boolean
+  tabs: string[]
+}
+
+interface Layout {
+  file: string
+  out: Line[]
+  stack: Wrapper[]
+  gap: boolean
 }
 
 interface Network {
@@ -154,8 +212,221 @@ function stripMdxComments(file: string, lines: Line[]): Line[] {
   return stripped
 }
 
+const indentOf = (text: string): number => text.length - text.trimStart().length
+
+const isBlank = (line: Line | undefined): boolean =>
+  line === undefined || (!line.fenced && line.text.trim() === '')
+
+// The column of the `>` that ends a JSX tag in `text`, or -1. A `>` inside a string or inside
+// braces does not end it; `depth` carries the brace depth from line to line.
+function tagClose(depth: { value: number }, text: string): number {
+  const masked = text.replace(STRING_LITERAL, literal =>
+    ' '.repeat(literal.length)
+  )
+  for (let column = 0; column < masked.length; column++) {
+    depth.value += BRACES[masked[column]] ?? 0
+    if (masked[column] === '>' && depth.value === 0) return column
+  }
+  return -1
+}
+
+// The open tag that starts in `tag.end` at column `from`, if nothing follows its `>`.
+function readOpenTag(
+  file: string,
+  lines: Line[],
+  tag: Tag,
+  from: number
+): Tag | undefined {
+  const depth = { value: 0 }
+  let props = ''
+  for (let end = tag.end; end < lines.length; end++) {
+    const text = end === tag.end ? lines[end].text.slice(from) : lines[end].text
+    const close = tagClose(depth, text)
+    if (close < 0) {
+      props += `${text}\n`
+      continue
+    }
+    if (text.slice(close + 1).trim() !== '') return undefined
+    props += text.slice(0, close)
+    return { ...tag, props, selfClosing: props.trimEnd().endsWith('/'), end }
+  }
+  throw new Error(`${file}: the <${tag.name}> tag is not closed`)
+}
+
+// The layout component tag that starts on lines[start], if it fills its lines: a close tag
+// alone on its line, or an open tag with nothing after its `>`.
+function readTag(file: string, lines: Line[], start: number): Tag | undefined {
+  const match = LAYOUT_TAG.exec(lines[start].text)
+  if (!match || !LAYOUT_COMPONENTS.includes(match[3])) return undefined
+  const [opening, indent, slash, name] = match
+  const tag = {
+    name,
+    closing: slash === '/',
+    selfClosing: false,
+    props: '',
+    indent: indent.length,
+    end: start
+  }
+  if (!tag.closing) return readOpenTag(file, lines, tag, opening.length)
+  return lines[start].text.trim() === `</${name}>` ? tag : undefined
+}
+
+const unescapeString = (value: string): string => value.replace(/\\(.)/g, '$1')
+
+// The string props of a tag: name="…", name='…' and name={'…'}. The first one of a name wins,
+// so a prop of a component inside another prop does not replace it.
+function stringProps(props: string): Record<string, string> {
+  const values: Record<string, string> = {}
+  for (const [, name, , value] of props.matchAll(STRING_PROP))
+    values[name] ??= unescapeString(value)
+  return values
+}
+
+const tabItems = (tag: Tag): string[] =>
+  [...(TAB_ITEMS.exec(tag.props)?.[1] ?? '').matchAll(STRING_LITERAL)].map(
+    ([, , value]) => unescapeString(value)
+  )
+
+// The column that a line indented by `indent` takes in the copy: the content of a component
+// moves to the column of its tag and keeps its indent relative to its first line.
+function contentColumn(stack: Wrapper[], indent: number): number {
+  const parent = stack.at(-1)
+  if (!parent) return indent
+  parent.dedent ??= Math.max(0, indent - parent.column)
+  return Math.max(0, indent - parent.dedent)
+}
+
+// The text inside a blockquote that starts at `column`.
+function quote(text: string, column: number): string {
+  if (text.trim() === '') return `${' '.repeat(column)}>`
+  const at = Math.min(column, indentOf(text))
+  return `${text.slice(0, at)}> ${text.slice(at)}`
+}
+
+// The text inside the blockquote of each Callout around it.
+const quoted = (stack: Wrapper[], text: string): string =>
+  stack.reduceRight(
+    (line, wrapper) => (wrapper.quote ? quote(line, wrapper.column) : line),
+    text
+  )
+
+// Adds a line to the copy. A removed tag or dropped line leaves at most one blank line: `gap`
+// marks a removal since the last line that was added.
+function pushLine(layout: Layout, line: Line, generated: boolean): void {
+  const blank = isBlank(line)
+  if (blank && isBlank(layout.out.at(-1)) && (generated || layout.gap)) return
+  layout.out.push(line)
+  layout.gap = blank && generated
+}
+
+const dropped = (layout: Layout): boolean =>
+  layout.stack.some(wrapper => wrapper.drop)
+
+// Adds a source line: as written outside the layout components, else moved to its column and
+// quoted by each Callout around it. Inside a dropped component it is left out.
+function emit(layout: Layout, line: Line): void {
+  if (layout.stack.length === 0) return pushLine(layout, line, false)
+  if (dropped(layout)) {
+    layout.gap = true
+    return
+  }
+  const indent = indentOf(line.text)
+  const text =
+    line.text.trim() === ''
+      ? ''
+      : line.text.slice(indent - contentColumn(layout.stack, indent))
+  pushLine(layout, { ...line, text: quoted(layout.stack, text) }, false)
+}
+
+// Adds a line that stands for a tag at `column`, quoted by each Callout around it.
+function emitTagLine(layout: Layout, column: number, text: string): void {
+  if (dropped(layout)) return
+  const line = text === '' ? '' : ' '.repeat(column) + text
+  pushLine(layout, { text: quoted(layout.stack, line), fenced: false }, true)
+}
+
+// A card as a list item: its title, linked to its target if it has one, then its description.
+function cardItem(
+  file: string,
+  tag: Tag,
+  props: Record<string, string>,
+  link: string
+): string {
+  const { title, description } = props
+  if (!title) throw new Error(`${file}: a <${tag.name}> has no title`)
+  const name = props[link] ? `[${title}](${props[link]})` : `**${title}**`
+  return `- ${name}${description ? `: ${description}` : ''}`
+}
+
+// The label of the next tab of the <Tabs> around a <Tabs.Tab>.
+function tabLabel(file: string, parent: Wrapper | undefined): string {
+  const label = parent?.name === 'Tabs' ? parent.tabs.shift() : undefined
+  if (label === undefined)
+    throw new Error(`${file}: a <Tabs.Tab> has no item in its <Tabs>`)
+  return label
+}
+
+// The lines that stand for an open tag in the copy.
+function tagLines(file: string, tag: Tag, parent?: Wrapper): string[] {
+  const props = stringProps(tag.props)
+  switch (tag.name) {
+    case 'Callout':
+      return ['', `> [!${CALLOUT_ALERTS[props.type ?? 'default'] ?? 'NOTE'}]`]
+    case 'Tabs.Tab':
+      return ['', `**${tabLabel(file, parent)}**`, '']
+    case 'Card':
+      return [cardItem(file, tag, props, 'href')]
+    case 'CustomCard':
+      return [cardItem(file, tag, props, 'url')]
+    default:
+      return ['']
+  }
+}
+
+function openTag(layout: Layout, tag: Tag): void {
+  const parent = layout.stack.at(-1)
+  const column = contentColumn(layout.stack, tag.indent)
+  for (const text of tagLines(layout.file, tag, parent))
+    emitTagLine(layout, column, text)
+  if (tag.selfClosing) return
+  layout.stack.push({
+    name: tag.name,
+    column,
+    quote: tag.name === 'Callout',
+    drop: tag.name === 'RemovedContentCallout',
+    tabs: tabItems(tag)
+  })
+}
+
+function closeTag(layout: Layout, tag: Tag): void {
+  const wrapper = layout.stack.pop()
+  if (wrapper?.name !== tag.name)
+    throw new Error(`${layout.file}: </${tag.name}> closes no <${tag.name}>`)
+  emitTagLine(layout, wrapper.column, '')
+}
+
+// The lines of an .mdx file with its layout components unwrapped: wrappers such as Grid, Steps
+// and Tabs lose their tags, each tab gets its label, a Callout becomes a GitHub alert, a card
+// becomes a list item, and RemovedContentCallout, which the page hides, goes with its content.
+// Only a tag that fills its lines counts; any other JSX stays as written.
+function unwrapLayout(file: string, lines: Line[]): Line[] {
+  const layout: Layout = { file, out: [], stack: [], gap: false }
+  for (let index = 0; index < lines.length; index++) {
+    const tag = lines[index].fenced ? undefined : readTag(file, lines, index)
+    if (!tag) emit(layout, lines[index])
+    else layout.gap = true
+    if (tag?.closing) closeTag(layout, tag)
+    else if (tag) openTag(layout, tag)
+    index = tag?.end ?? index
+  }
+  const open = layout.stack.at(-1)
+  if (open) throw new Error(`${file}: <${open.name}> is not closed`)
+  return layout.out
+}
+
 // MDX reads a line that starts with import or export as JavaScript, up to the first blank
-// line where the code is complete. Only .mdx files have MDX comments to drop.
+// line where the code is complete. Only .mdx files have MDX comments to drop and layout
+// components to unwrap.
 function splitMdx(file: string): { esm: string[]; lines: Line[] } {
   const unbalanced = `${file}: an import or export block has unbalanced brackets`
   const esm: string[] = []
@@ -181,7 +452,9 @@ function splitMdx(file: string): { esm: string[]; lines: Line[] } {
   if (depth > 0) throw new Error(unbalanced)
   return {
     esm,
-    lines: file.endsWith('.mdx') ? stripMdxComments(file, lines) : lines
+    lines: file.endsWith('.mdx')
+      ? unwrapLayout(file, stripMdxComments(file, lines))
+      : lines
   }
 }
 

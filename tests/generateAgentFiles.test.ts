@@ -326,6 +326,201 @@ test('stops with the page path when an MDX comment is not closed', () => {
   assert.match(output, /pages\/unclosed\.mdx: an MDX comment is not closed/)
 })
 
+const lines = (...text: string[]) => text.join('\n') + '\n'
+
+test('labels each tab and moves tab content to the column of its <Tabs>', () => {
+  const source = lines(
+    '# Install',
+    '',
+    '1. Add the kit:',
+    '',
+    "   <Tabs items={['npm', 'yarn']}>",
+    '     <Tabs.Tab>',
+    '       ```bash',
+    '       npm install kit',
+    '         --save',
+    '       ```',
+    '     </Tabs.Tab>',
+    '     <Tabs.Tab>',
+    '       ```bash',
+    '       yarn add kit',
+    '       ```',
+    '     </Tabs.Tab>',
+    '   </Tabs>',
+    '',
+    'Done.'
+  )
+  const files = generated({ change: addPage('install', source) })
+  assert.equal(
+    files.get('install.md'),
+    lines(
+      '# Install',
+      '',
+      '1. Add the kit:',
+      '',
+      '   **npm**',
+      '',
+      '   ```bash',
+      '   npm install kit',
+      '     --save',
+      '   ```',
+      '',
+      '   **yarn**',
+      '',
+      '   ```bash',
+      '   yarn add kit',
+      '   ```',
+      '',
+      'Done.'
+    )
+  )
+})
+
+test('turns a Callout into a GitHub alert and drops the Steps tags', () => {
+  const source = lines(
+    '# Warn',
+    '',
+    '<Steps>',
+    '### Deploy',
+    '',
+    '<Callout type="warning" emoji="⚠️">',
+    '  Check the address.',
+    '',
+    '  ```bash',
+    '  cast code 0x1',
+    '  ```',
+    '</Callout>',
+    '',
+    '<Callout>',
+    '  Plain note.',
+    '</Callout>',
+    '</Steps>'
+  )
+  const files = generated({ change: addPage('warn', source) })
+  assert.equal(
+    files.get('warn.md'),
+    lines(
+      '# Warn',
+      '',
+      '### Deploy',
+      '',
+      '> [!WARNING]',
+      '> Check the address.',
+      '>',
+      '> ```bash',
+      '> cast code 0x1',
+      '> ```',
+      '',
+      '> [!NOTE]',
+      '> Plain note.'
+    )
+  )
+})
+
+test('turns cards into list items and drops the Grid and Cards tags', () => {
+  const source = lines(
+    '# Start',
+    '',
+    '<Grid',
+    '  container',
+    '  spacing={2}',
+    '>',
+    '  <Grid item xs={12} md={6}>',
+    '    <CustomCard',
+    "      title={'SDK'}",
+    "      description={'Build with the kits.'}",
+    "      url={'/sdk/overview'}",
+    '      image={<Guides width={70} stroke="#12FF80" />}',
+    '      newTab={false}',
+    '    />',
+    '  </Grid>',
+    '  <Grid item xs={12} md={6}>',
+    `    <CustomCard title={'Flexible'} description={"Pay in any token, it's your call."} url="" />`,
+    '  </Grid>',
+    '</Grid>',
+    '',
+    '<Cards>',
+    '  <Card icon={<Install />} title="Install" href="./install"/>',
+    '</Cards>'
+  )
+  const files = generated({ change: addPage('start', source) })
+  assert.equal(
+    files.get('start.md'),
+    lines(
+      '# Start',
+      '',
+      '- [SDK](/sdk/overview): Build with the kits.',
+      '',
+      "- **Flexible**: Pay in any token, it's your call.",
+      '',
+      '- [Install](./install)'
+    )
+  )
+})
+
+test('drops RemovedContentCallout with its content and keeps other JSX as written', () => {
+  const kept = lines(
+    '```mdx',
+    '<Callout type="info">',
+    '  Sample',
+    '</Callout>',
+    '```',
+    '',
+    '<Callout type="info">Inline text</Callout>'
+  )
+  const source = lines(
+    '# Kept',
+    '',
+    '<RemovedContentCallout>',
+    '  This class was removed.',
+    '</RemovedContentCallout>',
+    ''
+  )
+  const files = generated({
+    change: dir => {
+      addPage('kept', source + kept)(dir)
+      addPage('plain', `# Plain\n\n${kept}`, '.md')(dir)
+    }
+  })
+  assert.equal(files.get('kept.md'), `# Kept\n\n${kept}`)
+  assert.equal(files.get('plain.md'), `# Plain\n\n${kept}`)
+})
+
+test('unwraps a Callout in an embedded .mdx file', () => {
+  const page =
+    "import Note from '../components/note.mdx'\n\n# Embeds\n\n<Note />\n"
+  const files = generated({
+    change: dir => {
+      writeFileSync(
+        path.join(dir, 'components/note.mdx'),
+        '<Callout type="error">\n  Stop.\n</Callout>\n'
+      )
+      addPage('embeds', page)(dir)
+    }
+  })
+  assert.equal(files.get('embeds.md'), '# Embeds\n\n> [!CAUTION]\n> Stop.\n')
+})
+
+test('stops with the page path when layout tags do not match', () => {
+  for (const [route, source, message] of [
+    [
+      'open',
+      "<Tabs items={['a']}>\n<Tabs.Tab>\nA\n",
+      '<Tabs.Tab> is not closed'
+    ],
+    [
+      'extra',
+      "<Tabs items={['a']}>\n<Tabs.Tab>\n</Tabs.Tab>\n<Tabs.Tab>\n",
+      'a <Tabs.Tab> has no item in its <Tabs>'
+    ],
+    ['stray', '# Stray\n\n</Steps>\n', '</Steps> closes no <Steps>']
+  ]) {
+    const { status, output } = generate({ change: addPage(route, source) })
+    assert.equal(status, 1, output)
+    assert.ok(output.includes(`pages/${route}.mdx: ${message}`), output)
+  }
+})
+
 test('writes a sitemap of the built routes on the host, without 404', () => {
   const host = 'https://docs.example.test'
   const sitemap = generated({ host: `${host}/` }).get('sitemap.xml') ?? ''
