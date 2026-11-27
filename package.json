@@ -1,5 +1,5 @@
 {
-  "version": "4.43.1",
+  "version": "4.43.2",
   "description": "Safe docs",
   "scripts": {
     "build": "next build --webpack && pnpm generate-agent-files",
