@@ -38,6 +38,7 @@ pnpm add @safe-global/protocol-kit viem
     SafeAccountConfig,
     SafeDeploymentConfig
   } from '@safe-global/protocol-kit'
+  import { waitForTransactionReceipt } from 'viem/actions'
   import { sepolia } from 'viem/chains'
   ```
 
@@ -118,16 +119,17 @@ pnpm add @safe-global/protocol-kit viem
   ```typescript
   const client = await protocolKit.getSafeProvider().getExternalSigner()
 
-  const transactionHash = await client.sendTransaction({
+  const transactionHash = await client!.sendTransaction({
     to: deploymentTransaction.to,
     value: BigInt(deploymentTransaction.value),
     data: deploymentTransaction.data as `0x${string}`,
     chain: sepolia
   })
 
-  const transactionReceipt = await client.waitForTransactionReceipt({
-    hash: transactionHash
-  })
+  const transactionReceipt = await waitForTransactionReceipt(
+    client!,
+    { hash: transactionHash }
+  )
   ```
 
   {/* <!-- vale on --> */}
